@@ -517,6 +517,7 @@ load_common_sync(NewModule, ParseGoal, Sections, ErrorMsg, Options) :-
 % Verifier issues that are errors (the rest are warnings).
 error_issue_type(missing_template).
 error_issue_type(judged_with_rules).
+error_issue_type(builtin_template).
 error_issue_type(service_undeclared).
 % a view that names what the program does not have (le_views.pl)
 error_issue_type(view_unknown_sentence).

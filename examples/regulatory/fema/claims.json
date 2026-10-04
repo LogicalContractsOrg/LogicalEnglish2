@@ -1,0 +1,98 @@
+{
+  "claims": [
+    {"claimRef": "SYN-01-C1", "policyRef": "SYN-01", "dateOfLoss": "2025-10-14",
+     "floodFacts": "Coastal storm surge; general inundation of >2 acres and many neighboring properties. 14 inches of water on first floor.",
+     "damage": {"building": {"repairCostLikeKind": 48200, "repairsCompleted": true}},
+     "scenarioTested": "Straightforward building loss, replacement-cost settlement"},
+
+    {"claimRef": "SYN-01-C2", "policyRef": "SYN-01", "dateOfLoss": "2025-10-14",
+     "floodFacts": "Same event as C1 (alternate universe: treat independently).",
+     "damage": {"building": {"repairCostLikeKind": 30000, "repairsCompleted": true},
+                "contents": {"acvOfDamagedItems": 12500, "items": "sofa, beds, electronics on first floor"}},
+     "scenarioTested": "Building + contents in one loss; separate deductibles"},
+
+    {"claimRef": "SYN-01-C3", "policyRef": "SYN-01", "dateOfLoss": "2026-03-02",
+     "floodFacts": "Minor tidal flooding, qualifying flood (two adjacent properties inundated).",
+     "damage": {"building": {"repairCostLikeKind": 1400, "repairsCompleted": true}},
+     "scenarioTested": "Loss below deductible"},
+
+    {"claimRef": "SYN-01-C4", "policyRef": "SYN-01", "dateOfLoss": "2025-10-14",
+     "floodFacts": "Severe surge; dwelling substantially destroyed.",
+     "damage": {"building": {"repairCostLikeKind": 310000, "repairsCompleted": true}},
+     "scenarioTested": "Repair cost exceeds Coverage A limit"},
+
+    {"claimRef": "SYN-01-C5", "policyRef": "SYN-01", "dateOfLoss": "2025-10-14",
+     "floodFacts": "Qualifying flood, first-floor contents damaged.",
+     "damage": {"contents": {"items": [
+        {"description": "jewelry collection", "acv": 9000, "category": "jewelry"},
+        {"description": "sofa", "acv": 3000, "category": "ordinary contents"}]}},
+     "scenarioTested": "Special limits: $2,500 cap on jewelry class (III.B.8)"},
+
+    {"claimRef": "SYN-01-C6", "policyRef": "SYN-01", "dateOfLoss": "2026-01-20",
+     "floodFacts": "Municipal sewer main blockage caused sewage backup into the dwelling. Weather dry; NO general condition of flooding in the area.",
+     "damage": {"building": {"repairCostLikeKind": 18000}},
+     "scenarioTested": "Sewer backup exclusion when flood is not the proximate cause"},
+
+    {"claimRef": "SYN-01-C7", "policyRef": "SYN-01", "dateOfLoss": "2025-10-14",
+     "floodFacts": "Qualifying flood. Repair cost equals 60% of the building's market value; community enforces substantial-damage ordinance and requires elevation. Elevation contract cost: 42,000. Building repair cost: 148,000 (repairs completed).",
+     "damage": {"building": {"repairCostLikeKind": 148000, "repairsCompleted": true},
+                "icc": {"complianceActivity": "elevation", "actualCost": 42000, "substantialDamageDeclared": true, "communityInRegularProgram": true}},
+     "scenarioTested": "Coverage D (ICC) cap and no-deductible rule, combined with building claim"},
+
+    {"claimRef": "SYN-01-C8", "policyRef": "SYN-01", "dateOfLoss": "2025-10-13",
+     "floodFacts": "Mandatory evacuation order issued ahead of surge; insured bought sandbags, sand, pump and plastic sheeting for 1,350 in receipts. General flooding subsequently occurred nearby; building itself was not damaged.",
+     "damage": {"lossAvoidance": {"expenses": 1350}},
+     "scenarioTested": "Loss avoidance measures sublimit, deductible not applied"},
+
+    {"claimRef": "SYN-02-C1", "policyRef": "SYN-02", "dateOfLoss": "2025-09-30",
+     "floodFacts": "Qualifying riverine/tidal flood.",
+     "damage": {"building": {"repairCostLikeKind": 62000, "physicalDepreciation": 11000}},
+     "scenarioTested": "ACV settlement for non-principal residence"},
+
+    {"claimRef": "SYN-02-C2", "policyRef": "SYN-02", "dateOfLoss": "2025-09-30",
+     "floodFacts": "Same qualifying flood.",
+     "damage": {"contents": {"acvOfDamagedItems": 14000, "items": "tenant's furniture and possessions", "ownedByNamedInsured": false}},
+     "scenarioTested": "No Coverage B purchased; tenant property not insured under landlord policy"},
+
+    {"claimRef": "SYN-02-C3", "policyRef": "SYN-02", "dateOfLoss": "2026-02-11",
+     "floodFacts": "Nor'easter: wind tore roof shingles; wind-driven rain entered through the roof. No inundation of normally dry land occurred anywhere in the area.",
+     "damage": {"building": {"repairCostLikeKind": 26000}},
+     "scenarioTested": "Wind and rain damage without a flood - excluded causes"},
+
+    {"claimRef": "SYN-02-C4", "policyRef": "SYN-02", "dateOfLoss": "2025-09-30",
+     "floodFacts": "Same qualifying flood as C1 (treat independently).",
+     "damage": {"building": {"coveredDwellingDamageAcv": 9000},
+                "notInsuredProperty": {"fence": 4000, "driveway": 6500, "poolEquipment": 3200}},
+     "scenarioTested": "Property Not Insured carve-outs (fence, driveway/exterior surfaces, pool equipment) alongside a small covered dwelling loss"},
+
+    {"claimRef": "SYN-03-C1", "policyRef": "SYN-03", "dateOfLoss": "2025-11-08",
+     "floodFacts": "Qualifying coastal flood.",
+     "damage": {"building": {"repairCostLikeKind": 40000, "acvOfDamagedPart": 32000, "repairsCompleted": true}},
+     "scenarioTested": "Underinsured dwelling: greater of ACV vs proportional settlement (VII.R.4.a)"},
+
+    {"claimRef": "SYN-03-C2", "policyRef": "SYN-03", "dateOfLoss": "2025-11-08",
+     "floodFacts": "Same qualifying flood; basement fully inundated. Basement was finished (taped/painted drywall, carpet, furniture).",
+     "damage": {"basement": {
+        "finishedDrywallCarpetFurniture": 22000,
+        "furnaceAcv": 4500, "waterHeaterAcv": 1200,
+        "washerDryerAcv": 1800, "freezerAndFoodAcv": 900}},
+     "scenarioTested": "Basement coverage limitations: building items (III.A.8) vs contents items (III.B.5) vs not-covered finishes"},
+
+    {"claimRef": "SYN-03-C3", "policyRef": "SYN-03", "dateOfLoss": "2025-11-08",
+     "floodFacts": "Same qualifying flood; only the detached garage (used for storage, not residential/business/farming) was damaged.",
+     "damage": {"detachedGarage": {"acvDamage": 15000}},
+     "scenarioTested": "Detached garage 10% sublimit (III.A.3) with ACV settlement (VII.R.4.d)"},
+
+    {"claimRef": "SYN-03-C4", "policyRef": "SYN-03", "dateOfLoss": "2025-11-08",
+     "floodFacts": "Same qualifying flood, first-floor contents.",
+     "damage": {"contents": {"items": [
+        {"description": "antique cabinet", "collectorValue": 8000, "functionalValue": 1500, "category": "antique"},
+        {"description": "ordinary furniture", "acv": 2500, "category": "ordinary contents"}]}},
+     "scenarioTested": "Antiques paid at functional value only (III.B.9)"},
+
+    {"claimRef": "SYN-03-C5", "policyRef": "SYN-03", "dateOfLoss": "2026-04-19",
+     "floodFacts": "Blocked storm drain ponded rainwater on the insured's own half-acre lot only; no neighboring property and less than two acres inundated.",
+     "damage": {"building": {"repairCostLikeKind": 7500}},
+     "scenarioTested": "Event fails the policy definition of flood (II.B.1)"}
+  ]
+}

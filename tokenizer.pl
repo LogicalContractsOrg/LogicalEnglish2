@@ -100,6 +100,19 @@ tokens_to_string([T|Ts],String) :-
     tokens_to_string_([T|Ts],Start,Strings),
     atomic_list_concat(Strings,String).
 
+%!  leading_zeros_width(+N, +Begin, +End, -Width) is semidet.
+%
+%   The number N was written in the span Begin-End with leading zeros (`01`,
+%   `007`): Width is the number of digits written. A span that is as long as
+%   N written with thousands separators (`1,000`) is not.
+leading_zeros_width(N, Begin, End, Width) :-
+    integer(N), N >= 0, integer(Begin), integer(End),
+    Width is End - Begin,
+    format(atom(A), '~d', [N]),
+    atom_length(A, L),
+    Width > L,
+    Width =\= L + (L - 1) // 3.
+
 % tokens_to_string_(Tokens,EndPositionOfPrevious,Strings)
 tokens_to_string_([],_,[]).
 tokens_to_string_([T|Tokens],LastEnd,[S|Strings]) :-
@@ -117,6 +130,11 @@ tokens_to_string_([T|Tokens],LastEnd,[S|Strings]) :-
                 Advance_ = Advance
             ; arg(1,T,X) -> 
                 ( X = date(Y,M,D) -> format(string(S_), "~w-~|~`0t~w~2+-~|~`0t~w~2+", [Y,M,D])
+                  % a number written with leading zeros keeps them: the `01`
+                  % of the claim reference SYN-01-C1 (see le_grammar's
+                  % name_part_word/2)
+                ; leading_zeros_width(X, Begin, NewEnd, Len)
+                  -> format(string(S_), '~|~`0t~d~*+', [X, Len])
                 ; (atom(X); string(X); number(X)) -> S_=X
                 ; term_string(X, S_)
                 ),

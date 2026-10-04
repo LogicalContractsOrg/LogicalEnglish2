@@ -12,7 +12,11 @@ Produce, as markdown:
    anchor).
 4. The parameter/limit machinery (which generic rules apply the schedule's
    limit facts).
-5. Which case facts the scenarios will need, per case.
+5. The sections: which rules go in `section applicability is:`,
+   `section question is:` and `section remedy is:` (or why the wording has
+   another shape), and the clause each operative rule will cite.
+6. Which case facts the scenarios will need, per case, and how the view
+   groups them for the person who decides cases (see the house style).
 
 Stay within the vocabulary; if a skeleton needs a template that is missing,
 list it explicitly under "Additional templates required".

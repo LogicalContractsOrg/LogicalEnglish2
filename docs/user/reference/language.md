@@ -481,6 +481,13 @@ An aggregate works out one value from a whole set of answers.
           a person pays I
       and N > 12.
   ```
+- **Name the thing first.** In `the capped amount for a claim component is an
+  amount P if P is the max of each V such that the payable benefit for the
+  claim component is V`, no condition before the aggregate says which claim
+  component, so the aggregate takes every component's benefits together, and
+  the rule answers once, for no component in particular. Name it first:
+  `if a claim has the claim component and P is the max of each V such that
+  ...`. The verifier warns of the first form (`unbound_aggregate_variable`).
 - **Answers and explanations** read an aggregate back as a sentence, with the
   value found and the conditions: `15 is the sum of each I such that a person
   pays I`. Where the thing counted or added up is named by a noun, the sentence

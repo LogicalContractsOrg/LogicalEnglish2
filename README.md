@@ -16,7 +16,10 @@ translations of their published examples, with the sources, the tests and a
 ledger of what was and was not carried over, are in
 [`examples/migration/`](./examples/migration/README.md); the translators
 themselves are the [Logical English Translators](https://logicalcontracts.com/logical-english-extensions/),
-a licensed product of [Logical Contracts](https://logicalcontracts.com).
+a licensed product of [Logical Contracts](https://logicalcontracts.com). The
+same licence gives the LE Contract Assistant, which writes the first draft of a
+program from a contract, its schedules and its cases
+([the assistants](docs/user/guide/assistants.md#the-contract-assistant)).
 
 ---
 
@@ -49,7 +52,7 @@ The LE 2.0 environment provides a powerful, web-based IDE for developing and tes
 
 ### Environment Variables
 You can configure the deployment using the following environment variables:
-- `NO_RESTRICTIONS`: Set to `true` to lift every licence restriction: the example trees (`restricted_paths.pl`), the translators of other systems and the InsurLE extensions (`le_entitlements.pl`). For a development machine.
+- `NO_RESTRICTIONS`: Set to `true` to lift every licence restriction: the example trees (`restricted_paths.pl`), the translators of other systems, the LE Contract Assistant and the InsurLE extensions (`le_entitlements.pl`). For a development machine.
 - `LPS_PLUS_DIR`: Where the private lpsPlus repository is — the sign-in, the licences table and the translators of other systems (`le_plus.pl`). By default `../lpsPlus`, then `/lpsPlus`, then `vendor/lpsplus` (what `vendor_lpsplus.sh` copies for the image, and what the Dockerfile names). `none` behaves as if there were no lpsPlus: every visitor is anonymous.
 - `LC_AUTH_SECRET`, `LC_AUTH_COOKIE_DOMAIN`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`: the sign-in shared with the LPS server (Google, GitHub, or a password account we created). Set as fly.io secrets; lpsPlus `accounts/README.md` says how to obtain each one. What each licence adds: [Signing in, and what a licence adds](./docs/user/guide/accounts.md).
 - `ALLOWED_LE_EXPORTS`: Comma-separated directories whose examples the `/source/` endpoint may serve (fly.toml sets `examples/moreExamples`).

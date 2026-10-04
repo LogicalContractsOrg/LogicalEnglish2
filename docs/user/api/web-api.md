@@ -1025,12 +1025,19 @@ has been tested. The work happens in a job that runs on its own
 Because those files stay on disk, the server can still report a job's state and
 hand over its result after the server has been restarted.
 
+The five `contract_…` operations belong to the Logical English Translators
+licence (the capability `contract_assistant`; [signing in](../guide/accounts.md)).
+A request whose sign-in does not hold it gets
+`{ "error": "<why, and how to obtain it>", "unlicensed": true }`. A server
+started with `NO_RESTRICTIONS=true` answers everybody.
+
 **Request**
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `mode` | string | `"contract"` (the choice made when the request says nothing: materials in, a whole program out), `"scenario"` or `"query"` (one new block for a program that exists already), or `"residue"` |
-| `wording` | upload | the contract wording; a request in `contract` mode must carry it |
+| `wording` | upload | the contract wording; a request in `contract` mode must carry it, or `wording_url` |
+| `wording_url` | string | instead of `wording`: the web address of the wording (a PDF, a web page, a Word or text file). The server fetches it, converts it, and the program cites it as the place the wording is published |
 | `schedule`, `cases` | upload or list of uploads | optional, in `contract` mode |
 | `existing_code` | string | optional: LE that the program must take in |
 | `program` | string | in `scenario` and `query` modes: the program the new block is for; when the request gives none, `existing_code` is used |
@@ -1038,6 +1045,7 @@ hand over its result after the server has been restarted.
 | `name` | string | optional: the name of the new block |
 | `instructions` | string | optional: anything else to tell the assistant, in free text |
 | `model`, `judge_model` | string | `"claude-sonnet"` unless set; the judge uses the same model as the work itself unless it is given its own |
+| `branch_models` | list of strings | optional, in `contract` mode: the models that draft and repair the competing drafts ("branches"), in turn (`["gpt-5.6-sol", "Qwen/Qwen3.8-2.4T-A95B"]`: branches 1 and 3 by the first, branch 2 by the second). The tests rank them all together |
 | `api_keys` | object | optional |
 | `target` | string | optional |
 | `budget` | object | `{preset, k?, w?, repairs?, minutes?}`, where `preset` is `"draft"`, `"standard"` or `"thorough"`; `draft` unless set |
@@ -1059,7 +1067,7 @@ wanted, which is the `next_seq` of the previous reply.
 
 ```json
 { "status": "running|interrupted|finished|error", "stage": 3, "stage_label": "...",
-  "branches": [ { "branch": 1, ... } ], "log": [ "...", ... ], "next_seq": 42,
+  "branches": [ { "branch": 1, "model": "<when branch_models is set>", ... } ], "log": [ "...", ... ], "next_seq": 42,
   "config": { "mode": "contract", "model": "...", ... }, "elapsed": 120.5,
   "error": "<when status is error>" }
 ```

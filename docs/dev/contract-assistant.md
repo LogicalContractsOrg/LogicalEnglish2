@@ -1,9 +1,11 @@
 # The LE Contract Assistant
 
-*Kind: design, as built · Audience: developers · Status: current (2026-09-16)*
+*Kind: design, as built · Audience: developers · Status: current (2026-10-04)*
 
 The Contract Assistant turns documents into tested Logical English without a
-human in the loop. It is part of LE2 core: the module
+human in the loop. Its code is in this repository, but its use belongs to the
+**Logical English Translators** licence: the capability `contract_assistant`
+(§8, *Licence*). The module
 `le_contract_assistant.pl`, the prompts in `llm/contract_prompts/`, the web
 app in `web_extras/contract_assistant/` and the offline tests in
 `testing/test_contract_assistant.pl`. It was moved here from the InsurLE2
@@ -249,9 +251,23 @@ model, the job drops the parameter for the rest of the run.
 ### Stage 0: ingest and segment
 
 Uploads are stored under `<jobdir>/sources/` and converted to text: `.docx`
-through `pandoc` (else macOS `textutil`), `.pdf` through `pdftotext`; `.md`
-and `.txt` as they are. A missing converter fails with a message naming it.
-The wording is segmented into sections (`segment_markdown/2`).
+through `pandoc` (else macOS `textutil`); `.pdf` through PyMuPDF4LLM (when
+`python3` has it: markdown headings, columns in reading order), else
+`pdftotext` without `-layout`, else `markitdown`; a web page through `pandoc`,
+else `markitdown`, else SWI-Prolog's own HTML parser; `.md` and `.txt` as they
+are. Reading order matters: a converter that keeps the page's layout
+interleaves the two columns of a policy line by line, and then no sentence
+survives whole to be quoted. A missing converter fails with a message naming
+it. The wording may also arrive as a web address (`wording_url`): it is
+fetched with `curl` (government firewalls, fema.gov's among them, refuse
+SWI-Prolog's own client), else `http_open/3`, at most 40 MB, named after the
+address, and converted like an upload. The wording is segmented into sections
+(`segment_markdown/2`).
+
+- **The document.** The materials begin with a `## DOCUMENT` block
+  (`document_block/2`): the name of the wording's text file, and its web
+  address when it has one. The program cites both (§6, *Citations, sections
+  and the view*).
 
 - **Target slice.** A long wording is narrowed by a target: a section title
   (that section, its subsections and the general terms, matched against
@@ -293,6 +309,31 @@ data, with limit facts carrying their basis and applied by generic rules;
 dates computed, not asserted; each rule commented with its clause.
 
 *Gate*: a non-empty merged vocabulary; W sketches.
+
+### Citations, sections and the view
+
+The house style asks every program for three things beyond its rules
+(`llm/contract_prompts/house_style.md`):
+
+- **Citations.** The wording is a document (`the policy is published at
+  "<address>".`, `the text of the policy is at "<file>".`, language.md §17.1),
+  and every operative rule is labelled with its provenance and a verbatim
+  quotation (`rule … with provenance the policy at article III.B.8, confer
+  "…":`, §15.5). Every program is verified with the job's `sources/` folder as
+  its folder (`verify_base/1`, bound per thread by `ca_bind_job/1`, contract
+  mode only), so each quotation is checked against the wording's text. A
+  quotation the text does not hold is a `quote_not_found` warning whose fix
+  quotes the closest sentence of the document (le_verifier
+  `closest_passage/3`); the polish rounds, which never see the wording, are
+  shown that fix (`fix_worth_showing/1`).
+- **Sections.** `section applicability is:`, `section question is:`,
+  `section remedy is:` where the wording has that shape (§17.4), so that a
+  failed query reports where it stopped.
+- **A view** (§17.10) shaped by the domain: a claims desk for an insurance
+  policy, a default desk for a loan or a derivative, an interview for an
+  eligibility rule, an obligations desk for a service contract. The view is
+  verified like the rest, so a sentence naming a template or query the program
+  lacks is an error the repair rounds fix.
 
 ### Stages 2–4: drafting (per branch)
 
@@ -336,10 +377,23 @@ flowchart TD
   has at most `max_rewrite_errors` (5) errors, a full-program reply is kept
   only if it verifies strictly better.
 - **Best iteration.** The loop keeps the best-ranked version and works from
-  it; the next prompt says why the worse attempt was dropped.
+  it; the next prompt says why the worse attempt was dropped. A repair request
+  that fails for good (after the retry ladder) is sent once more with its
+  feedback cut to the first items (`repair_call/7`): a provider's content
+  filter once refused a flood policy's repair prompt, and that single refusal
+  ended a branch's repairs. A test that stops with a run-time error is listed
+  in the feedback with its message, and a draft without a scenario for each
+  supplied development case gets a `supplied_case_missing` error per case
+  (`supplied_case_issues/2`: a draft that had replaced the claims with its own
+  scenarios once won the ranking).
 - **Feedback.** Verifier issues are ranked and capped for each round
   (`le_issue_feedback.pl`, at most twelve issues); parse errors, test failures
-  and unexpected unknowns get different feedback.
+  and unexpected unknowns get different feedback. A failed test with no answer
+  at all carries, for the first three such tests of a round, the engine's
+  why-not (`le_why_not.pl`, `why_no_answers/5`): the conditions the closest
+  attempts did not meet, each *not stated by the scenario* or *not met*, with
+  the line of the rule that asks for it. Without it, a FEMA draft whose every
+  payment query was empty stayed at 3 of 13 tests through ten rounds.
 - **Prune and dedup** (`prune_pass`, `dedup_pass`): deterministic removal of
   rules no query reaches, dead statements and duplicate declarations; a pruned
   program is kept only if it verifies no worse.
@@ -447,11 +501,40 @@ sketched):
 
 | Operation | Request | Response |
 |---|---|---|
-| `contract_start` | `mode`, uploads, `target`, `existing_code`, `instructions`, `model`, `judge_model` (default: the model), `api_keys`, `budget` (`preset`, `k`, `w`, `repairs`, `minutes`), `features`, `max_tokens`, `reasoning` (`default` or `minimal`); for fragment modes `program`, `text`, `name` | `{job}` |
+| `contract_start` | `mode`, uploads or `wording_url`, `target`, `existing_code`, `instructions`, `model`, `judge_model` (default: the model), `branch_models`, `api_keys`, `budget` (`preset`, `k`, `w`, `repairs`, `minutes`), `features`, `max_tokens`, `reasoning` (`default` or `minimal`); for fragment modes `program`, `text`, `name` | `{job}` |
 | `contract_status` | `job`, `since` (log sequence) | `status`, `stage`, `stage_label`, `branches` (per-branch errors, warnings, tests), `log` lines since `since`, `next_seq`, `config`, `elapsed`, `error` |
 | `contract_result` | `job` | `le`, `filename`, `mode`, `winner`, `scores`, `final_score`, `ledger`, `interrogation`, `paraphrase`, `existing_code` (`exercise` for fragments) |
 | `contract_interrupt` | `job` | `{ok}` |
 | `contract_cost_estimate` | as `contract_start`, plus `input_chars` | the estimate, or `priced: false` |
+
+### Models per branch
+
+`branch_models` (the web app's *Branches also drafted by*) gives the branches
+their models in turn (`branch_config/4`): the tournament of §4.2 then also
+chooses between models, by the same tests. Vocabulary, sketches,
+interrogation and the ledger stay with the job's model and judge. A branch
+whose model is not the job's calibrates its own completion limit
+(`branch_max_tokens/4`) and keeps its own auto-tunings, under the key
+`JobID/Model` (`tune_key/3`), so one provider's refusal of a parameter is not
+imposed on another. The blind scenarios of the held-out cases are written
+by the job's own model for every branch (`job_level_config/2`): written by
+each branch's model, they let an open-weight draft that paid no claim right
+pass its own easy scenarios and win. The cost estimate prices every call at
+the job's model.
+
+### Licence
+
+The five operations answer only a request whose capabilities include
+`contract_assistant` (`le_api.pl`, `contract_assistant_refusal/1`, the message
+`contract_assistant_unlicensed` of `i18n/messages.csv`), and the web app's
+pages are served only to such a visitor (`classic_web_api.pl`,
+`handle_contract_assistant_page/1`; anybody else gets a page naming the
+licence, with a sign-in link). The licence is lpsPlus's (`accounts/
+lc_accounts.pl`: `with_extensions`, "Logical English Translators", now
+`[converters, extended_examples, contract_assistant]`). On the command line,
+in the tests and with `NO_RESTRICTIONS=true`, everything is allowed
+(`le_entitlements.pl`). The migration translators start residue jobs directly
+(`start_contract_job/3`), under their own capability `converters`.
 
 ### The web app: `web_extras/contract_assistant/`
 
@@ -459,7 +542,8 @@ Plain HTML and JavaScript, no build step, served at
 `/web_extras/contract_assistant/index.html`. No other page links to it.
 
 1. **Setup.** "Your recent runs" (kept in this browser's `localStorage`); the
-   mode; for `contract`, upload zones for wording (required), schedule and
+   mode; for `contract`, upload zones for wording (required: a file or its web
+   address), schedule and
    cases (several files each) and the target; for the other modes, the
    program, the text and a block name (plus, for scenarios, whether to write
    expected answers); existing LE code; model and judge model, with key fields
@@ -489,7 +573,9 @@ Plain HTML and JavaScript, no build step, served at
 
 ### Testing
 
-`testing/test_contract_assistant.pl` has 145 offline tests in five suites:
+`testing/test_contract_assistant_citations.pl` covers the document block, the
+verification against the wording, `branch_models`, the HTML conversion and the
+licence. `testing/test_contract_assistant.pl` has 145 offline tests in five suites:
 `contract_assistant_units` (segmentation, targets, code extraction,
 SEARCH/REPLACE, JSON record merging, scoring), `contract_assistant_pipeline`
 (whole runs with the LLM stubbed by `ca_llm_hook/1` and `sync(true)`),

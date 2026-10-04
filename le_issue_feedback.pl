@@ -85,6 +85,7 @@ modelling_warning("suspicious_is").
 modelling_warning("suspicious_is_a").
 modelling_warning("unmarked_meta_template").
 modelling_warning("single_variable_fact").
+modelling_warning("unbound_aggregate_variable").
 
 %!  count_modelling_warnings(+Issues, -Count) is det.
 %

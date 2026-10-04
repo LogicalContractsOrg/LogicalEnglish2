@@ -1386,6 +1386,11 @@ hook_schedules(Purpose, Messages, Reply) :-
     ),
     (   Purpose = holdout(_, _)
     ->  fence("scenario held out case 101 is:\n    carol is healthy.\n    who expects answers [\"carol is happy\"].\n", Reply)
+    ;   Purpose = draft(_)
+    ->  % a scenario named after each supplied claim (supplied_case_issues/2)
+        good_program(P0),
+        string_concat(P0, "\nscenario C1 is:\n    bob is healthy.\n\nscenario C2 is:\n    carol is healthy.\n\nscenario C3 is:\n    dave is healthy.\n", P),
+        fence(P, Reply)
     ;   hook_good(Purpose, Messages, Reply)
     ).
 

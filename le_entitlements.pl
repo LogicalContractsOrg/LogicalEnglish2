@@ -3,9 +3,12 @@
     Two parts of an installation are licensed rather than free, and neither
     lives in this repository:
 
-      - `converters` and `extended_examples` — the translators of other
-        systems (lpsPlus's `migration/le_importers.pl`) and the private example
-        trees, sold together as the licence "with extensions";
+      - `converters`, `contract_assistant` and `extended_examples` — the
+        translators of other systems (lpsPlus's `migration/le_importers.pl`),
+        the LE Contract Assistant (this repository's le_contract_assistant.pl,
+        gated in le_api.pl and classic_web_api.pl) and the private example
+        trees, sold together as the licence "Logical English Translators"
+        (`with_extensions` in the licences table);
       - `le_extensions` — InsurLE2's `le_extensions.pl`, the extra grammar
         (`which` clauses, `unless` bodies, grouped and numbered bodies, ...),
         sold as the licence "InsurLE".

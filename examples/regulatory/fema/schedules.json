@@ -1,0 +1,65 @@
+{
+  "policyWording": {
+    "form": "NFIP Standard Flood Insurance Policy - Dwelling Form",
+    "edition": "October 2021 (FEMA form F-122)",
+    "codifiedAt": "44 CFR Part 61, Appendix A(1)",
+    "pdf": "https://www.fema.gov/sites/default/files/documents/fema_F-122-Dwelling-SFIP_2021.pdf",
+    "authoritativeText": "https://www.ecfr.gov/current/title-44/chapter-I/subchapter-B/part-61/appendix-Appendix%20A(1)%20to%20Part%2061"
+  },
+  "schedules": [
+    {
+      "policyRef": "SYN-01",
+      "modeledOn": "POL-01 (real record in ../policies_12.csv)",
+      "namedInsured": "Test Insured One",
+      "describedLocation": {"city": "Howard Beach, Queens, NY", "zip": "11414", "floodZone": "AE"},
+      "occupancy": "single-family dwelling",
+      "principalResidence": true,
+      "policyTerm": {"effective": "2025-08-08", "termination": "2026-08-08"},
+      "coverageA_buildingLimit": 250000,
+      "coverageB_contentsLimit": 53000,
+      "buildingDeductible": 2000,
+      "buildingDeductibleCode": "2",
+      "contentsDeductible": 2000,
+      "contentsDeductibleCode": "2",
+      "fullReplacementCostOfDwelling": 290000,
+      "annualPremium": 884,
+      "notes": "Coverage A (250,000) >= 80% of RCV (232,000) AND equals NFIP maximum, so Replacement Cost Loss Settlement applies to the dwelling (VII.R.1.a, R.2). Contents always settle at ACV (VII.R.4.e)."
+    },
+    {
+      "policyRef": "SYN-02",
+      "modeledOn": "POL-07 (deductible code 5)",
+      "namedInsured": "Test Insured Two (landlord)",
+      "describedLocation": {"city": "Arverne, Queens, NY", "zip": "11692", "floodZone": "AE"},
+      "occupancy": "single-family dwelling, tenant-occupied rental",
+      "principalResidence": false,
+      "policyTerm": {"effective": "2025-07-15", "termination": "2026-07-15"},
+      "coverageA_buildingLimit": 250000,
+      "coverageB_contentsLimit": 0,
+      "buildingDeductible": 5000,
+      "buildingDeductibleCode": "5",
+      "contentsDeductible": null,
+      "contentsDeductibleCode": null,
+      "fullReplacementCostOfDwelling": 305000,
+      "annualPremium": 3282,
+      "notes": "Not the insured's principal residence, so Actual Cash Value Loss Settlement applies to the dwelling (VII.R.4.i). No Coverage B purchased."
+    },
+    {
+      "policyRef": "SYN-03",
+      "modeledOn": "POL-10 (reduced building limit)",
+      "namedInsured": "Test Insured Three",
+      "describedLocation": {"city": "Broad Channel, Queens, NY", "zip": "11693", "floodZone": "AE"},
+      "occupancy": "single-family dwelling with basement and detached storage garage",
+      "principalResidence": true,
+      "policyTerm": {"effective": "2025-08-13", "termination": "2026-08-13"},
+      "coverageA_buildingLimit": 120000,
+      "coverageB_contentsLimit": 30000,
+      "buildingDeductible": 1000,
+      "buildingDeductibleCode": "1",
+      "contentsDeductible": 1000,
+      "contentsDeductibleCode": "1",
+      "fullReplacementCostOfDwelling": 200000,
+      "annualPremium": 1134,
+      "notes": "Underinsured: Coverage A (120,000) < 80% of RCV (160,000) AND < NFIP max (250,000), so ACV/proportional settlement applies per VII.R.4.a. Proportion factor = 120,000 / 160,000 = 0.75."
+    }
+  ]
+}
