@@ -9540,7 +9540,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Onde pesquisar: os nomes dos programas, os seus modelos (as secções de declarações), o texto completo, ou os três",
     "Open": "Abrir",
     "Type a few words to search the examples.": "Escreva algumas palavras para pesquisar os exemplos.",
-    "The search failed.": "A pesquisa falhou."
+    "The search failed.": "A pesquisa falhou.",
+    "Waiting for the editor...": "À espera do editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Nenhum editor respondeu. Abra o grafo do programa a partir do editor: Diversos > Ver grafo do programa.",
+    "Loading the program...": "A carregar o programa...",
+    "The server no longer has the program loaded. Loading it again...": "O servidor já não tem o programa carregado. A carregá-lo de novo...",
+    "The server could not build the graph: ": "O servidor não conseguiu construir o grafo: ",
+    "unexpected reply": "resposta inesperada",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "O programa não tem nada para mostrar: nem modelos, nem regras, nem factos, nem cenários, nem consultas.",
+    "Could not reach the server to build the graph.": "Não foi possível contactar o servidor para construir o grafo.",
+    "The program could not be loaded: ": "Não foi possível carregar o programa: "
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -10170,7 +10179,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Dónde buscar: los nombres de los programas, sus plantillas (las secciones de declaraciones), el texto completo, o los tres",
     "Open": "Abrir",
     "Type a few words to search the examples.": "Escriba unas palabras para buscar en los ejemplos.",
-    "The search failed.": "La búsqueda falló."
+    "The search failed.": "La búsqueda falló.",
+    "Waiting for the editor...": "Esperando al editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Ningún editor respondió. Abra el grafo del programa desde el editor: Varios > Ver grafo del programa.",
+    "Loading the program...": "Cargando el programa...",
+    "The server no longer has the program loaded. Loading it again...": "El servidor ya no tiene el programa cargado. Cargándolo de nuevo...",
+    "The server could not build the graph: ": "El servidor no pudo construir el grafo: ",
+    "unexpected reply": "respuesta inesperada",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "El programa no tiene nada que mostrar: ni plantillas, ni reglas, ni hechos, ni escenarios, ni consultas.",
+    "Could not reach the server to build the graph.": "No se pudo contactar con el servidor para construir el grafo.",
+    "The program could not be loaded: ": "No se pudo cargar el programa: "
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -10800,7 +10818,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Où chercher : les noms des programmes, leurs modèles (les sections de déclarations), le texte entier, ou les trois",
     "Open": "Ouvrir",
     "Type a few words to search the examples.": "Tapez quelques mots pour chercher dans les exemples.",
-    "The search failed.": "La recherche a échoué."
+    "The search failed.": "La recherche a échoué.",
+    "Waiting for the editor...": "En attente de l'éditeur...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Aucun éditeur n'a répondu. Ouvrez le graphe du programme depuis l'éditeur : Divers > Voir le graphe du programme.",
+    "Loading the program...": "Chargement du programme...",
+    "The server no longer has the program loaded. Loading it again...": "Le serveur n'a plus le programme chargé. Nouveau chargement...",
+    "The server could not build the graph: ": "Le serveur n'a pas pu construire le graphe : ",
+    "unexpected reply": "réponse inattendue",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Le programme n'a rien à montrer : ni modèles, ni règles, ni faits, ni scénarios, ni requêtes.",
+    "Could not reach the server to build the graph.": "Impossible de joindre le serveur pour construire le graphe.",
+    "The program could not be loaded: ": "Le programme n'a pas pu être chargé : "
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11430,7 +11457,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Dove cercare: i nomi dei programmi, i loro modelli (le sezioni di dichiarazioni), il testo intero, o tutti e tre",
     "Open": "Apri",
     "Type a few words to search the examples.": "Digita alcune parole per cercare negli esempi.",
-    "The search failed.": "La ricerca non è riuscita."
+    "The search failed.": "La ricerca non è riuscita.",
+    "Waiting for the editor...": "In attesa dell'editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Nessun editor ha risposto. Apra il grafo del programma dall'editor: Varie > Visualizza grafo del programma.",
+    "Loading the program...": "Caricamento del programma...",
+    "The server no longer has the program loaded. Loading it again...": "Il server non ha più il programma caricato. Nuovo caricamento...",
+    "The server could not build the graph: ": "Il server non è riuscito a costruire il grafo: ",
+    "unexpected reply": "risposta inattesa",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Il programma non ha nulla da mostrare: né modelli, né regole, né fatti, né scenari, né interrogazioni.",
+    "Could not reach the server to build the graph.": "Impossibile raggiungere il server per costruire il grafo.",
+    "The program could not be loaded: ": "Non è stato possibile caricare il programma: "
   }
 } as const;
 

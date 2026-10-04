@@ -35,6 +35,26 @@ let sessionModule: string | null = null;
 let rawGraphData: { nodes: any[], edges: any[] } | null = null;
 const graphChannel = new BroadcastChannel('le-graph-sync');
 
+// A message over the graph area when there is nothing to draw: the editor has
+// not loaded the program, the server no longer has it, or the graph could not
+// be built. Without it the window just stayed blank, with nothing to go on.
+const graphStatus = document.getElementById('graph-status')!;
+function showStatus(message: string) {
+    graphStatus.textContent = message;
+    graphStatus.style.display = 'flex';
+}
+function hideStatus() {
+    graphStatus.style.display = 'none';
+}
+// Ask the editor to load the program on the server (again, when the server
+// lost the session); it answers module-loaded, and the graph refreshes.
+function requestLoad(expired: boolean) {
+    showStatus(expired
+        ? t('The server no longer has the program loaded. Loading it again...')
+        : t('Loading the program...'));
+    graphChannel.postMessage({ type: 'request-load', data: { expired } });
+}
+
 // --- View preferences, persisted in LocalStorage -------------------------------
 // Layout algorithm, direction, and the selected layers (node/edge type
 // checkboxes) survive across graph windows, so the view opens the way the user
@@ -323,7 +343,7 @@ cy.on('mouseout', 'node, edge', () => {
 });
 
 async function refreshGraph() {
-    if (!sessionModule) return;
+    if (!sessionModule) { requestLoad(false); return; }
 
     try {
         const response = await fetch('/leapi', {
@@ -336,34 +356,49 @@ async function refreshGraph() {
             })
         });
         const data = await response.json();
-        if (data.nodes && data.edges) {
-            rawGraphData = data;
-            
-            // Update scenario select
-            const scenarios = data.nodes.filter((n: any) => n.data.type === 'scenario');
-            const currentVal = scenarioSelect.value;
-            scenarioSelect.innerHTML = '<option value="">None</option>';
-            scenarios.forEach((s: any) => {
-                const opt = document.createElement('option');
-                opt.value = s.data.id;
-                opt.textContent = s.data.label;
-                scenarioSelect.appendChild(opt);
-            });
-            scenarioSelect.value = currentVal;
-
-            cy.elements().remove();
-            cy.add(data.nodes);
-            cy.add(data.edges);
-
-            // One deterministic sequence: filter to the selected layers, then lay
-            // out the visible elements once. (A second, deferred layout used to
-            // race the initial one, so the view sometimes settled on a layout
-            // computed from a stale visible set — "fewer layers than selected".)
-            applyFilters();
-            runLayout();
+        if (data.session_expired) {
+            // The server no longer has the session (reclaimed when idle, or
+            // the server restarted since the editor loaded the program).
+            requestLoad(true);
+            return;
         }
+        if (data.error || !data.nodes || !data.edges) {
+            console.error('The server could not build the graph:', data);
+            showStatus(t('The server could not build the graph: ') + (data.error || t('unexpected reply')));
+            return;
+        }
+        rawGraphData = data;
+        if (data.nodes.length === 0) {
+            showStatus(t('The program has nothing to show: no templates, rules, facts, scenarios or queries.'));
+        } else {
+            hideStatus();
+        }
+        
+        // Update scenario select
+        const scenarios = data.nodes.filter((n: any) => n.data.type === 'scenario');
+        const currentVal = scenarioSelect.value;
+        scenarioSelect.innerHTML = '<option value="">None</option>';
+        scenarios.forEach((s: any) => {
+            const opt = document.createElement('option');
+            opt.value = s.data.id;
+            opt.textContent = s.data.label;
+            scenarioSelect.appendChild(opt);
+        });
+        scenarioSelect.value = currentVal;
+
+        cy.elements().remove();
+        cy.add(data.nodes);
+        cy.add(data.edges);
+
+        // One deterministic sequence: filter to the selected layers, then lay
+        // out the visible elements once. (A second, deferred layout used to
+        // race the initial one, so the view sometimes settled on a layout
+        // computed from a stale visible set — "fewer layers than selected".)
+        applyFilters();
+        runLayout();
     } catch (err) {
         console.error('Failed to refresh graph', err);
+        showStatus(t('Could not reach the server to build the graph.'));
     }
 }
 
@@ -487,10 +522,14 @@ function runLayout() {
     }
 }
 
+// Whether an editor tab has answered request-state yet.
+let stateReceived = false;
+
 graphChannel.onmessage = (event) => {
     const { type, data } = event.data;
     switch (type) {
         case 'init-state':
+            stateReceived = true;
             sessionModule = data.sessionModule;
             cy.style(getThemeStyles(data.theme));
             if (data.filename) {
@@ -512,7 +551,12 @@ graphChannel.onmessage = (event) => {
                         }
                     }
                 });
+            } else {
+                requestLoad(false);
             }
+            break;
+        case 'load-failed':
+            showStatus(t('The program could not be loaded: ') + (data.error || ''));
             break;
         case 'theme-change':
             cy.style(getThemeStyles(data.theme));
@@ -631,8 +675,14 @@ try {
     }
 } catch { /* localStorage unavailable */ }
 
-// Request initial state
+// Request initial state. Only an editor tab can answer: say so when none does.
+showStatus(t('Waiting for the editor...'));
 graphChannel.postMessage({ type: 'request-state' });
+setTimeout(() => {
+    if (!stateReceived) {
+        showStatus(t('No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.'));
+    }
+}, 4000);
 
 
 // UI chrome i18n: translate this page's static chrome and carry the UI
