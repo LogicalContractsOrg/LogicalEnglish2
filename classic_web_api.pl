@@ -44,7 +44,6 @@
 :- use_module(le_scasp).
 :- use_module(le_lps).
 :- use_module(le_assistant).
-:- use_module(le_contract_assistant).
 :- use_module(dap_server).
 :- use_module(llm/llm_client, [llm_list_models/1]).
 :- use_module(llm/llm_prices, [llm_prices_start/0]).
@@ -135,7 +134,9 @@ visitor(Email, Caps) :-
 :- http_handler('/editor/', http_reply_from_files('editor', [headers([cache_control('no-cache')])]), [prefix]).
 :- http_handler('/web_extras/', http_reply_from_files('web_extras', [headers([cache_control('no-cache')])]), [prefix]).
 % The Contract Assistant belongs to the Logical English Translators licence
-% (capability `contract_assistant`): its page is served to those who hold it.
+% (capability `contract_assistant`) and lives in the private lpsPlus
+% repository (contract_assistant/web/): its page is served, from there, to
+% those who hold the licence.
 :- http_handler('/web_extras/contract_assistant/', handle_contract_assistant_page, [prefix]).
 :- http_handler('/editor', http_redirect(moved, '/editor/index.html'), []).
 
@@ -536,13 +537,23 @@ handle_login(Request) :-
 
 %!  handle_contract_assistant_page(+Request) is det.
 %
-%   The Contract Assistant's web app, for a visitor whose licence includes
-%   it; for anybody else, a page that says which licence it belongs to and
-%   offers to sign in. The operations it calls are checked as well
+%   The Contract Assistant's web app (lpsPlus contract_assistant/web/), for a
+%   visitor whose licence includes it; for anybody else, a page that says
+%   which licence it belongs to and offers to sign in; and where this server
+%   has no lpsPlus with it, a page that says so. The operations it calls are checked as well
 %   (le_api.pl, contract_assistant_refusal/1).
 handle_contract_assistant_page(Request) :-
-    (   entitled(contract_assistant)
-    ->  http_reply_from_files('web_extras/contract_assistant', [headers([cache_control('no-cache')])], Request)
+    (   \+ contract_assistant_installed
+    ->  set_cookie_language(Request),
+        uit('LE Contract Assistant', Title),
+        uit('The LE Contract Assistant is not installed on this server.', None),
+        uit('It is part of the Logical English Translators, a licensed product of Logical Contracts.', Part),
+        reply_html_page([title(Title), script([src('/telemetry.js')], [])],
+                        [h1(Title), p(None), p(Part), p(a(href('/'), 'Logical English'))])
+    ;   entitled(contract_assistant),
+        le_plus_file('contract_assistant/web/index.html', Index)
+    ->  file_directory_name(Index, WebDir),
+        http_reply_from_files(WebDir, [headers([cache_control('no-cache')])], Request)
     ;   set_cookie_language(Request),
         uit('LE Contract Assistant', Title),
         uit('The LE Contract Assistant is part of the Logical English Translators licence.', Part),

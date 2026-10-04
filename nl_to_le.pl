@@ -907,7 +907,7 @@ kind_rules(query, Rules) :-
 %   The mistakes that make a fragment verify with a warning instead of failing
 %   outright — the ones a user is least likely to notice. They are the short,
 %   fragment-sized cousins of the Contract Assistant's house style
-%   (llm/contract_prompts/house_style.md); each corresponds to a verifier warning the
+%   (lpsPlus contract_assistant/prompts/house_style.md); each corresponds to a verifier warning the
 %   refinement loop would otherwise spend a round (and an LLM call) discovering.
 pitfalls(facts, Text) :-
     Text = "Traps that make a fact mean something other than the sentence did:\n\

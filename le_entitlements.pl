@@ -5,7 +5,7 @@
 
       - `converters`, `contract_assistant` and `extended_examples` — the
         translators of other systems (lpsPlus's `migration/le_importers.pl`),
-        the LE Contract Assistant (this repository's le_contract_assistant.pl,
+        the LE Contract Assistant (lpsPlus's contract_assistant/, loaded and
         gated in le_api.pl and classic_web_api.pl) and the private example
         trees, sold together as the licence "Logical English Translators"
         (`with_extensions` in the licences table);

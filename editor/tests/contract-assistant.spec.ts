@@ -30,6 +30,19 @@ async function startFailingJob(request: any): Promise<string> {
     return data.job;
 }
 
+// The Contract Assistant lives in the private lpsPlus repository: on an
+// installation without it, the operations answer `not_installed` and these
+// tests do not apply.
+async function installed(request: any): Promise<boolean> {
+    const data = await (await request.post('/leapi', {
+        data: { token: TOKEN, operation: 'contract_status', job: 'caj_none' } })).json();
+    return !data.not_installed;
+}
+
+test.beforeEach(async ({ request }) => {
+    test.skip(!(await installed(request)), 'the Contract Assistant (lpsPlus) is not installed here');
+});
+
 test.describe('Contract Assistant licence', () => {
     test('an anonymous visitor is refused, and told which licence', async ({ page, request }) => {
         const data = await (await request.post('/leapi', {

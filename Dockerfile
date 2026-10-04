@@ -20,7 +20,8 @@ FROM swipl:latest
 # pack's build step below (its Makefile drives SWI-Prolog itself — it compiles a
 # scasp CLI/qlf, no C toolchain — but pack_install fails outright if make is
 # absent). poppler-utils is pdftotext, with which the Contract Assistant reads a
-# wording that comes as a PDF (le_contract_assistant.pl, ensure_text_file/5).
+# wording that comes as a PDF (lpsPlus contract_assistant/le_contract_assistant.pl,
+# ensure_text_file/5, vendored by vendor_lpsplus.sh).
 RUN apt-get update && apt-get install -y curl git gnupg make poppler-utils && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
