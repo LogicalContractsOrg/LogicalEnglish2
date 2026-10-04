@@ -1019,8 +1019,10 @@ answers `{ "result": "error", "error": "Job not found" }`.
 
 The Contract Assistant turns the materials it is given into an LE program that
 has been tested. The work happens in a job that runs on its own
-(`le_contract_assistant.pl`; the pages the user sees are at
-`/web_extras/contract_assistant/`). The server keeps a job's files in
+(the module `le_contract_assistant.pl` of the licensed Logical English
+Translators; the pages the user sees are at `/web_extras/contract_assistant/`).
+A server without it answers every `contract_…` operation with
+`{ "error": "<it is not installed here>", "not_installed": true }`. The server keeps a job's files in
 `contract_jobs/<job>/`, or in the folder named by `$LE_CONTRACT_JOBS_DIR`.
 Because those files stay on disk, the server can still report a job's state and
 hand over its result after the server has been restarted.

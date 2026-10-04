@@ -30,7 +30,8 @@
     query_time_limit/2,         % +RequestDict, -Seconds
     folder_blurb/2,             % +Dir, -HtmlBlurb   (the landing page's, too)
     library_copy/2,             % +Dir, -Base        (llm/mcp.pl asks for this)
-    api_user/2                  % -Email, -Roles
+    api_user/2,                 % -Email, -Roles
+    contract_assistant_installed/0
     ]).
 
 :- use_module(library(assoc)).
@@ -51,7 +52,16 @@
 :- use_module(le_scasp).
 :- use_module(le_lps).
 :- use_module(le_assistant).
-:- use_module(le_contract_assistant).
+:- use_module(le_plus).
+%  The LE Contract Assistant is part of the licensed Logical English
+%  Translators, and lives in the private lpsPlus repository
+%  (contract_assistant/le_contract_assistant.pl). It is loaded where this
+%  installation has an lpsPlus checkout with it (le_plus.pl); without one, its
+%  operations answer that it is not installed.
+:- (   le_plus_file('contract_assistant/le_contract_assistant.pl', CAFile)
+   ->  use_module(CAFile, [])
+   ;   true
+   ).
 :- use_module(llm/llm_client, [llm_list_models/1]).
 :- use_module(nl_to_le, [english_to_le/8]).
 :- use_module(restricted_paths).
@@ -169,7 +179,7 @@ handle_operation(Dict, Response) :-
         ; contract_operation(Op, Handler) ->
             (   contract_assistant_refusal(Refusal)
             ->  Response = Refusal
-            ;   call(Handler, Dict, Response)
+            ;   call(le_contract_assistant:Handler, Dict, Response)
             )
         ; Op == "list_models" -> handle_list_models(Dict, Response)
         ; Op == "nl_to_le" -> handle_nl_to_le(Dict, Response)
@@ -193,10 +203,20 @@ contract_operation("contract_cost_estimate", handle_contract_estimate).
 %!  contract_assistant_refusal(-Refusal) is semidet.
 %
 %   The reply to a request that may not use the Contract Assistant, saying
-%   why; fails when the request may.
+%   why: it is not installed here, or the request's licence does not include
+%   it. Fails when the request may.
+contract_assistant_refusal(_{error: Msg, not_installed: true}) :-
+    \+ contract_assistant_installed, !,
+    le_i18n:le_msg(contract_assistant_not_installed, [], Msg).
 contract_assistant_refusal(_{error: Msg, unlicensed: true}) :-
     \+ le_entitlements:entitled(contract_assistant),
     le_i18n:le_msg(contract_assistant_unlicensed, [], Msg).
+
+%!  contract_assistant_installed is semidet.
+%
+%   This installation has the Contract Assistant (an lpsPlus checkout with it).
+contract_assistant_installed :-
+    current_predicate(le_contract_assistant:handle_contract_start/2).
 
 handle_graph(Dict, Response) :-
     get_dict(sessionModule, Dict, SMStr),

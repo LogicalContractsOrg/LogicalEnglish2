@@ -132,7 +132,7 @@ sent as assembled.
 **One reference for every assistant.** The language reference,
 `docs/user/reference/language.md`, is what every assistant that writes Logical
 English reads: this one (step 3), the Contract Assistant
-(`le_contract_assistant.pl`, `le_syntax_summary/1`), the MCP server (the
+(lpsPlus `contract_assistant/le_contract_assistant.pl`, `le_syntax_summary/1`), the MCP server (the
 resource `le://docs/syntax`, `llm/mcp.pl`), and, since 3 October 2026, the LPS2
 assistant when its document is a Logical English one (LPS2
 `src/edges/lps_assistant.pl`, `le_reference/1`, which reads the file from the
