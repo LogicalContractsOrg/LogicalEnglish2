@@ -2260,6 +2260,14 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             (window as any).selectRange(data.start, data.end, data);
         } else if (type === 'request-state') {
             sendStateToGraph();
+        } else if (type === 'request-load') {
+            // The graph window needs the program on the server: load it
+            // (again, when the server lost the session), and it refreshes on
+            // module-loaded; or tell it why the load failed.
+            if (data && data.expired) isLoaded = false;
+            loadModule().then(ok => {
+                if (!ok) graphChannel.postMessage({ type: 'load-failed', data: { error: lastLoadError } });
+            });
         }
     };
 

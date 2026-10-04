@@ -10,6 +10,7 @@ test.describe('Help menu', () => {
         { text: 'Using this editor (manual)', href: '/docs/user/guide/editor' },
         { text: 'Logical English in other languages', href: '/docs/user/guide/languages' },
         { text: 'Signing in and licences', href: '/docs/user/guide/accounts' },
+        { text: 'Privacy notice', href: '/docs/user/privacy' },
         { text: 'Logical English syntax (reference)', href: '/docs/user/reference/language' },
         { text: 'Other systems: import and export', href: '/docs/user/integrations/index' },
         { text: 'Search the documentation…', href: '/docs/search' },
