@@ -79,6 +79,8 @@ check_issue(KB, _, Issue) :- facts_rules_ratio(KB, Issue).
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), failed_test(KB, Issue).
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), tests_not_run(KB, Issue).
 check_issue(KB, _, Issue) :- redefined_system_template(KB, Issue).
+check_issue(KB, _, Issue) :- builtin_template(KB, Issue).
+check_issue(KB, _, Issue) :- unbound_aggregate_variable(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
@@ -290,8 +292,46 @@ quote_not_found(KB, Issue) :-
     memberchk(Doc-(Address-Norm), Texts),
     \+ le_provenance:quote_in_normalized(Quote, Norm),
     le_i18n:le_msg(quote_not_found_desc, [quote-Quote, document-Doc, where-What], Description),
-    le_i18n:le_msg(quote_not_found_fix, [address-Address], Fix),
+    le_i18n:le_msg(quote_not_found_fix, [address-Address], Fix0),
+    (   closest_passage(Quote, Norm, Passage)
+    ->  le_i18n:le_msg(quote_not_found_closest, [passage-Passage], Closest),
+        atomic_list_concat([Fix0, ' ', Closest], Fix)
+    ;   Fix = Fix0
+    ),
     Issue = issue(quote_not_found, Description, Fix, Start, End).
+
+%   The sentence of the document that shares the most words with a quotation
+%   the document does not hold: usually the passage the writer meant, copied
+%   with a word changed. Offered in the fix, so that whoever repairs the
+%   quotation (a person, or the Contract Assistant's repair rounds, which do
+%   not see the document) can copy the real one. Only when three fifths of
+%   the quotation's longer words (three at least) are in it.
+closest_passage(Quote, norm(T, _), Passage) :-
+    passage_words(Quote, QWs),
+    length(QWs, NQ), NQ > 0,
+    split_string(T, ".;:", " ", Sentences0),
+    exclude(==(""), Sentences0, Sentences),
+    findall(Score-S,
+            ( member(S, Sentences),
+              string_length(S, Len), Len >= 12,
+              passage_words(S, SWs),
+              ord_intersection(QWs, SWs, Shared),
+              length(Shared, Score) ),
+            Scored),
+    max_member(Best-S0, Scored),
+    Best >= 3, Best * 5 >= NQ * 3,
+    (   string_length(S0, L), L > 300
+    ->  sub_string(S0, 0, 300, _, S1), string_concat(S1, "…", Passage)
+    ;   Passage = S0
+    ).
+
+passage_words(Text, Words) :-
+    string_lower(Text, Lower),
+    split_string(Lower, " \t\n,()\"'“”‘’", " \t\n,()\"'“”‘’", Ws0),
+    include(content_word, Ws0, Ws),
+    sort(Ws, Words).
+
+content_word(W) :- string_length(W, N), N > 3.
 
 quoted_citation(KB, Doc, Quote, Start, End, What) :-
     current_predicate(KB:le_fact_provenance/4),
@@ -1349,6 +1389,76 @@ tests_not_run(KB, issue(tests_not_run, Description, Fix, 0, 0)) :-
     current_prolog_flag(le_verify_tests_seconds, Budget),
     le_i18n:le_msg(tests_not_run_desc, [count-N, total-Total, seconds-Budget], Description),
     le_i18n:le_msg(tests_not_run_fix, [], Fix).
+
+% --- An aggregate over a thing the rule has not yet named ---
+% "the capped amount for a claim component is an amount P if P is the max of
+% each V such that the payable benefit for the claim component is V": nothing
+% before the aggregate says WHICH claim component, so the aggregate ranges
+% over all of them, and the rule answers once, for no component in
+% particular, with the maximum over the whole claim. Readers expect one
+% answer per component. A condition before the aggregate that names the
+% thing (`a claim has the claim component`) gives them that.
+unbound_aggregate_variable(KB, issue(unbound_aggregate_variable, Description, Fix, Start, End)) :-
+    current_predicate(KB:F/A),
+    functor(Head, F, A),
+    le_kbs:kb_own_predicate(KB, Head),
+    clause(KB:Head, Body, Ref),
+    body_conjuncts(Body, Conjs),
+    append(Before, [Agg|_], Conjs),
+    aggregate_literal(Agg, Each, Goal, Result),
+    term_variables(Head, HVs),
+    term_variables(Goal, GVs),
+    term_variables([Each, Result], Own),
+    term_variables(Before, Bound),
+    member(V, HVs),
+    memberchk_eq(V, GVs),
+    \+ memberchk_eq(V, Own),
+    \+ memberchk_eq(V, Bound),
+    !,
+    ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true ; Start = 0, End = 0 ),
+    le_i18n:le_msg(unbound_aggregate_variable_desc, [], Description),
+    le_i18n:le_msg(unbound_aggregate_variable_fix, [], Fix).
+
+body_conjuncts(le_at(G, _, _), Cs) :- !, body_conjuncts(G, Cs).
+body_conjuncts(and(A, B), Cs) :- !, body_conjuncts(A, As), body_conjuncts(B, Bs), append(As, Bs, Cs).
+body_conjuncts((A, B), Cs) :- !, body_conjuncts(A, As), body_conjuncts(B, Bs), append(As, Bs, Cs).
+body_conjuncts(G, [G]).
+
+aggregate_literal(le_at(G, _, _), E, Goal, R) :- !, aggregate_literal(G, E, Goal, R).
+aggregate_literal(G, Each, Goal, Result) :-
+    compound(G), G =.. [Op, Each, Goal, Result],
+    memberchk(Op, [sum, count, average, min, max, list]).
+
+memberchk_eq(X, [Y|Ys]) :- ( X == Y -> true ; memberchk_eq(X, Ys) ).
+
+% --- A template that is one of Prolog's own predicates ---
+% A template whose only fixed word is `is` (`*the amount of insurance under
+% another policy* is *an amount*`) becomes the predicate is/2, which is
+% Prolog's arithmetic: every sentence "X is ..." of the program, the date
+% comparisons included (`D is after or equal to S`), is then read as an
+% instance of it and dies at run time ("... is not a function"). The same
+% holds of any template named like a predicate the system defines.
+builtin_template(KB, issue(builtin_template, Description, Fix, Start, End)) :-
+    current_predicate(KB:le_dict/1),
+    clause(KB:le_dict(Dict), true, Ref),
+    arg(1, Dict, [F|Args]),
+    atom(F),
+    length(Args, N),
+    prolog_reserved_functor(F, N),
+    \+ le_system_template_functor(F, N),
+    arg(3, Dict, WV),
+    ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true ; Start = 0, End = 0 ),
+    canonical_string(WV, TemplateStr),
+    le_i18n:le_msg(builtin_template_desc, [template-TemplateStr], Description),
+    le_i18n:le_msg(builtin_template_fix, [], Fix).
+
+%   The names a template must not take: Prolog's arithmetic, comparison and
+%   control, which the rules already use under these names.
+prolog_reserved_functor(F, 2) :- memberchk(F, [is, =, \=, ==, \==, <, >, =<, >=, =:=, =\=, @<, @>, @=<, @>=, ',', ;, ->, =..]).
+prolog_reserved_functor(F, 1) :- memberchk(F, [not, call, \+]).
+
+le_system_template_functor(F, N) :-
+    le_system_template(dict([F|As], _, _)), length(As, N), !.
 
 % --- 7. Redefined system template ---
 redefined_system_template(KB, issue(redefined_system_template, Description, Fix, Start, End)) :-

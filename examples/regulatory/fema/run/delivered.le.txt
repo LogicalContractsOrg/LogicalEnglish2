@@ -1,0 +1,2241 @@
+% Computable twin of the National Flood Insurance Program Dwelling Form.
+% It decides whether each claim component is covered, whether the claim is
+% covered, the amount payable for each component, and the total claim payment.
+%
+% Known simplifications:
+% - Article I.C and VII.G claim-presentation conditions are treated as met when
+%   the claim arises under an in-force, non-void policy. The supplied cases do
+%   not state premium-payment, notice, proof-of-loss, inventory, or cooperation
+%   evidence.
+% - Article I.F–G duplicate-policy and RCBAP coordination is represented only
+%   by the exclusion for property already paid under an RCBAP; allocation
+%   between multiple policies is not calculated.
+% - Coverage A additions, construction, anchoring, detached-garage sublimits,
+%   and the closed basement-property list are not valued separately.
+% - Coverage B tenant improvements, condominium interior surfaces, flotation,
+%   antiques, and the closed basement-property list are not valued separately.
+% - Coverage C debris removal, property removed to safety, and condominium loss
+%   assessments are not quantified.
+% - Coverage D is modeled for substantial-damage eligibility, eligible
+%   activities, its fixed limit, no deductible, and the supplied exclusions.
+%   Repetitive-loss history, freeboard, variance, completion-deadline extensions,
+%   and detailed community certifications are not calculated.
+% - Pair-and-set elections, other-insurance contribution, salvage, appraisal,
+%   continuous lake flooding, mortgagee allocation, and payment timing are not
+%   quantified.
+% - Policy reformation for insufficient premium or rating information,
+%   renewal, cancellation, non-renewal, liberalization, litigation,
+%   subrogation, and governing-law provisions are administrative and do not
+%   alter the supplied coverage and quantum decisions.
+% - Replacement-cost holdback is represented by requiring completed repairs in
+%   the supplied replacement-cost cases; the $1,000 and five-percent threshold
+%   is not separately calculated.
+% - The supplied expected outcomes apply the deductible before the final policy
+%   limit cap, including the expected $250,000 result in SYN-01-C4.
+% - The special-loss-settlement formula for manufactured homes and travel
+%   trailers is not modeled because no supplied case uses it.
+
+the target language is: prolog.
+
+the templates are:
+
+% DECISION SURFACE
+
+*a claim* is covered under the Dwelling Form section.
+*a claim component* is covered under *a cover*.
+*a claim* is excluded from the Dwelling Form section.
+*a claim component* is excluded from *a cover*.
+we will pay *an amount* for *a claim*.
+we will pay *an amount* in respect of *a claim component*.
+
+% CLAIM, POLICY, AND SCHEDULE DATA
+
+*a claim* arises under *a policy*; undefined.
+*a claim* concerns *a loss*; undefined.
+*a claim* has *a claim component*; undefined.
+*a claim component* belongs to *a claim*.
+the schedule particulars are recorded for *a policy*.
+*a claim component* seeks coverage under *a cover*; undefined.
+*a claim component* concerns *a property*; undefined.
+*a claim component* concerns *a dwelling*; undefined.
+*a claim component* concerns *a loss avoidance measure*; undefined.
+*a claim component* concerns *a compliance activity*; undefined.
+*a claim component* claims *an amount*; undefined.
+*a policy* has building coverage.
+*a policy* has personal property coverage.
+the schedule for *a policy* states a limit of *an amount*, *a basis*, for *a cover*.
+the schedule for *a policy* states a deductible of *an amount* for *a cover*.
+the schedule for *a policy* states a deductible code of *a code* for *a cover*.
+the schedule for *a policy* states a period beginning on *a date* and ending on *a second date*.
+the schedule for *a policy* names *an insured*; undefined.
+the schedule for *a policy* states *a location* as the described location; undefined.
+the schedule for *a policy* states *a flood zone* for the described location; undefined.
+the schedule for *a policy* states *an occupancy* for the dwelling; undefined.
+the schedule for *a policy* states that *a dwelling* is a principal residence; undefined.
+the schedule for *a policy* states a full replacement cost of *an amount* for *a dwelling*; undefined.
+the schedule for *a policy* states an annual premium of *an amount*; undefined.
+the maximum amount of insurance available under the NFIP for *a cover* is *an amount*.
+the special limit for *a property category* is *an amount* per loss.
+the increased cost of compliance limit is *an amount*.
+the loss avoidance measures limit is *an amount*.
+
+% LOSS, PROPERTY, AND APPLICABILITY
+
+*a loss* occurs on *a date*; undefined.
+*a loss* occurs at *a location*; undefined.
+*a loss* occurs during the period of insurance under *a policy*.
+*a policy* is in force for *a loss*.
+*a property* is insured property under *a cover*.
+*a claim* qualifies for the Dwelling Form coverage.
+*a claim component* qualifies for *a cover*.
+*a property* is building property; undefined.
+*a property* is personal property; undefined.
+*a property* is inside *a building*; undefined.
+*a building* is a dwelling.
+*a building* is a single-family dwelling.
+*a building* is a two-family dwelling; undefined.
+*a building* is a three-family dwelling; undefined.
+*a building* is a four-family dwelling; undefined.
+*a building* is a manufactured home; undefined.
+*a building* is a post-FIRM building.
+*an area* is a basement.
+
+% OWNERSHIP AND PERSONAL PROPERTY
+
+*a person* owns *a property*; undefined.
+*a person* is a tenant; undefined.
+*a person* owns *a condominium unit*; undefined.
+*a property* is owned by the named insured; undefined.
+*a property* is owned by a household family member; undefined.
+*a property* floated out during *a flood*; undefined.
+
+% FLOOD, CAUSATION, AND PHYSICAL LOSS
+
+*a loss* involves a general and temporary inundation; undefined.
+the inundation for *a loss* affects at least two acres of normally dry land; undefined.
+the inundation for *a loss* affects at least two properties; undefined.
+the insured property is one of the properties affected by the inundation for *a loss*; undefined.
+the inundation for *a loss* results from overflow of inland or tidal waters; undefined.
+the inundation for *a loss* results from unusual and rapid accumulation or runoff of surface waters; undefined.
+the inundation for *a loss* results from mudflow; undefined.
+*a loss* involves collapse or subsidence of land along the shore of a lake or similar body of water; undefined.
+the collapse or subsidence for *a loss* results from erosion or undermining caused by waves or currents exceeding anticipated cyclical levels; undefined.
+*a loss* is caused by a flood.
+*a loss* is direct physical loss by or from flood.
+*a property* has physical changes from *a loss*; undefined.
+the cause of *a loss* is *a cause*; undefined.
+the proximate cause of *a loss* is *a cause*; undefined.
+*a flood* exists in the area of *a loss*; undefined.
+*a flood* existed before coverage became effective; undefined.
+*a flood* existed on or before the application date; undefined.
+*a flood* is a continuation of an earlier flood; undefined.
+*a policy* became effective at a loan closing; undefined.
+
+% PROPERTY NOT INSURED LEAVES
+
+*a property* is personal property outside a building; undefined.
+*a property* is located entirely in on or over water or seaward of mean high tide; undefined.
+the construction or substantial improvement date of *a property* is *a date*; undefined.
+*a property* is an open structure; undefined.
+*a property* is a boathouse; undefined.
+*a property* is a recreational vehicle other than an insured travel trailer; undefined.
+*a property* is a self-propelled vehicle or machine; undefined.
+*a property* is used mainly to service the described location; undefined.
+*a property* is designed and used to assist handicapped persons; undefined.
+*a property* is land landscaping a growing crop or an animal; undefined.
+*a property* is money bullion a financial instrument or valuable paper; undefined.
+*a property* is an underground structure or underground equipment; undefined.
+*a property* is an exterior walk walkway deck driveway patio or similar surface; undefined.
+*a property* is outside the perimeter exterior walls of the insured building; undefined.
+*a property* is a container or related equipment; undefined.
+more than forty-nine percent of the actual cash value of *a building* is below ground; undefined.
+the lowest level of *a building* is at or above base flood elevation; undefined.
+*a building* uses earth as insulation in conjunction with energy efficient building techniques; undefined.
+*a property* is a fence retaining wall seawall bulkhead wharf pier bridge or dock; undefined.
+*a property* is aircraft watercraft or related furnishings or equipment; undefined.
+*a property* is a hot tub spa swimming pool or related equipment; undefined.
+*a property* is ineligible under the Coastal Barrier Resources Act; undefined.
+*a property* is owned in common with condominium unit owners; undefined.
+
+% EXCLUDED ECONOMIC LOSS AND EXCLUDED CAUSES
+
+*a claim component* is for loss of revenue or profits; undefined.
+*a claim component* is for loss of access; undefined.
+*a claim component* is for loss of use; undefined.
+*a claim component* is for interruption of business or production; undefined.
+*a claim component* is for additional living expenses; undefined.
+*a claim component* is for ordinance or law compliance outside Coverage D; undefined.
+*a claim component* is for another economic loss; undefined.
+% These findings are supplied case data rather than assumable judgments.
+% Otherwise an unstated excluded cause can be assumed and incorrectly establish
+% an exclusion.
+*a loss* is caused directly by earth movement; undefined.
+*a loss* is caused directly or indirectly by pressure or weight of ice; undefined.
+*a loss* is caused directly or indirectly by freezing or thawing; undefined.
+*a loss* is caused directly or indirectly by rain snow sleet hail or water spray; undefined.
+*a loss* is caused directly or indirectly by water moisture mildew or mold; undefined.
+the water moisture mildew or mold condition is substantially confined to the dwelling; undefined.
+the water moisture mildew or mold condition is within the insured's control; undefined.
+*a loss* is caused by sewer or drain backup; undefined.
+*a loss* is caused by discharge or overflow from a sump or related equipment; undefined.
+*a loss* is caused by seepage or leakage through insured property; undefined.
+*a loss* is caused by pressure or weight of water; undefined.
+*a loss* is caused by power heating or cooling failure; undefined.
+the equipment failure resulted from direct physical loss by or from flood at the described location; undefined.
+*a loss* is caused by theft fire explosion wind or windstorm; undefined.
+*an insured* deliberately caused *a loss* by flood; undefined.
+*an insured* conspired to deliberately cause *a loss* by flood; undefined.
+an alteration significantly increased the flood risk of *a property*; undefined.
+*a property* is on land leased from the Federal Government; undefined.
+the federal lease holds the Federal Government harmless under federal flood insurance; undefined.
+*a loss* arises from or is incident to flooding of federal land by the Federal Government; undefined.
+*a claim component* is for testing or monitoring pollutants; undefined.
+pollutant testing or monitoring is required by law or ordinance; undefined.
+
+% COVER-SPECIFIC RESTRICTIONS
+
+*a property* is a detached garage; undefined.
+*a detached garage* is used or held for residential business or farming purposes; undefined.
+construction alteration or repair work on *a building* is in progress; undefined.
+*a building* has at least two rigid exterior walls and a fully secured roof; undefined.
+
+% LOSS SETTLEMENT, DEDUCTIBLES, AND LIMITS
+
+the repair cost with materials of like kind and quality for *a claim component* is *an amount*; undefined.
+the amount actually spent to repair or replace *a claim component* is *an amount*; undefined.
+the actual cash value of *a claim component* is *an amount*; judged.
+the physical depreciation of *a claim component* is *an amount*; judged.
+repairs for *a claim component* are completed; undefined.
+the repair cost percentage for *a building* at the time of *a loss* is *a number*; undefined.
+replacement cost loss settlement applies to *a claim component*.
+actual cash value loss settlement applies to *a claim component*.
+proportional loss settlement applies to *a claim component*.
+the proportional settlement factor for *a dwelling* is *a number*.
+the proportional repair amount for *a claim component* is *an amount*.
+the calculated actual cash value for *a claim component* is *an amount*.
+the settlement amount before deductible for *a claim component* is *an amount*.
+the applicable deductible for *a claim component* is *an amount*.
+no deductible applies to *a claim component*.
+the amount after deductible for *a claim component* is *an amount*.
+the applicable limit for *a claim component* is *an amount*.
+the capped amount for *a claim component* is *an amount*.
+the payable amount counted once for *a claim component* is *an amount*.
+the total payable amount for *a claim* is *an amount*.
+
+% PERSONAL PROPERTY SPECIAL LIMITS
+
+*a claim component* includes *a damaged item*; undefined.
+*a damaged item* has an actual cash value of *an amount*; undefined.
+*a damaged item* is classified in *a property category*; undefined.
+the category subtotal for *a property category* in *a claim component* is *an amount*.
+the special-limit-adjusted subtotal for *a property category* in *a claim component* is *an amount*.
+the contents subtotal for *a claim component* is *an amount*.
+
+% LOSS AVOIDANCE AND INCREASED COST OF COMPLIANCE
+
+*a claim component* qualifies for loss avoidance coverage.
+*a person* incurred *an amount* of expenses for *a loss avoidance measure*; undefined.
+*a loss avoidance measure* consists of sandbags sand temporary levee fill pumps plastic sheeting or lumber; undefined.
+damage to insured property by or from flood is imminent; judged.
+the threat of flood damage is apparent to a person of common prudence; judged.
+general and temporary flooding occurs near the described location; undefined.
+*a legally authorized official* issued an evacuation or civil order; undefined.
+the evacuation or civil order calls for measures to preserve life and property from flood; undefined.
+*a claim component* qualifies for Coverage D.
+*a compliance activity* is elevation floodproofing relocation or demolition; undefined.
+*a building* is a repetitive loss building.
+*a building* has substantial flood damage.
+*a community* participates in the Regular Program; undefined.
+*a community* enforces a substantial damage provision against *a building*; undefined.
+*a compliance activity* is required by enforcement of a current floodplain management law or ordinance; undefined.
+the actual cost of *a compliance activity* is *an amount*; undefined.
+*a compliance cost* arises in a community participating in the Emergency Program; undefined.
+*a compliance cost* concerns pollutants; undefined.
+*a compliance cost* is loss in value due to an ordinance or law; undefined.
+*a compliance cost* is loss of residual value of an undamaged demolished portion; undefined.
+*a compliance cost* is an unrelated code upgrade; undefined.
+*a compliance activity* concerns additions or improvements made after the loss; undefined.
+*a compliance requirement* applied before *a loss*; undefined.
+*a rebuilding activity* fails the NFIP minimum requirements; undefined.
+*a variance* permits rebuilding below base flood elevation for the current loss; undefined.
+*a compliance activity* concerns a garage or carport; undefined.
+*a building* is insured under an NFIP Group Flood Insurance Policy; undefined.
+*a compliance cost* is a condominium association assessment against an individual unit owner for a commonly owned building; undefined.
+
+% POLICY CONDITIONS, VOIDING, AND OTHER INSURANCE
+
+the conditions of the policy are met for *a claim*.
+% These adverse findings must be stated in the case; they are not assumable.
+*an insured or agent* concealed or misrepresented a material fact or circumstance; undefined.
+*an insured or agent* engaged in fraudulent conduct; undefined.
+*an insured or agent* made false statements; undefined.
+*a policy* is void.
+*a hazard* was increased by means within the insured's control or knowledge; undefined.
+*a loss* occurred while *a hazard* was increased; undefined.
+*a property* has already been paid under an RCBAP; undefined.
+
+the contract states that:
+
+the policy is published at "https://www.fema.gov/sites/default/files/documents/fema_F-122-Dwelling-SFIP_2021.pdf".
+the text of the policy is at "wording-fema_f-122-dwelling-sfip_2021.md".
+
+section applicability is:
+
+% Article II.C.11 — policy period
+rule insurance_period with provenance the policy at article II.C.11,
+    confer "The Declarations Page also describes the term of the policy":
+a loss occurs during the period of insurance under a policy
+    if the loss occurs on a date D
+    and the schedule for the policy states a period beginning on a date B and ending on a date E
+    and D is after or equal to B
+    and D is before or equal to E.
+
+% Article II.C.11 — policy in force
+rule policy_in_force with provenance the policy at article II.C.11,
+    confer "The Declarations Page also describes the term of the policy":
+a policy is in force for a loss
+    if the loss occurs during the period of insurance under the policy
+    and it is not the case that
+        the policy is void.
+
+% Article III — purchased building coverage
+rule building_cover_purchased with provenance the policy at article III.A,
+    confer "Coverage A—Building Property":
+a policy has building coverage
+    if the schedule for the policy states a limit of an amount L, a basis, for Coverage A
+    and L > 0.
+
+% Article III.B.1 — purchased personal-property coverage
+rule contents_cover_purchased with provenance the policy at article III.B.1,
+    confer "If you have purchased personal property coverage":
+a policy has personal property coverage
+    if the schedule for the policy states a limit of an amount L, a basis, for Coverage B
+    and L > 0.
+
+% Article II.B.1 — inundation over two acres
+rule flood_two_acres with provenance the policy at article II.B.1,
+    confer "A general and temporary condition of partial or complete inundation":
+a loss is caused by a flood
+    if the loss involves a general and temporary inundation
+    and the inundation for the loss affects at least two acres of normally dry land
+    and the inundation for the loss results from overflow of inland or tidal waters.
+
+% Article II.B.1 — inundation of two properties
+rule flood_two_properties with provenance the policy at article II.B.1,
+    confer "two or more properties (one of which is your property)":
+a loss is caused by a flood
+    if the loss involves a general and temporary inundation
+    and the inundation for the loss affects at least two properties
+    and the insured property is one of the properties affected by the inundation for the loss
+    and the inundation for the loss results from overflow of inland or tidal waters.
+
+% Article II.B.1.b — surface-water runoff
+rule flood_surface_water with provenance the policy at article II.B.1.b,
+    confer "Unusual and rapid accumulation or runoff of surface waters from any source":
+a loss is caused by a flood
+    if the loss involves a general and temporary inundation
+    and the inundation for the loss affects at least two properties
+    and the insured property is one of the properties affected by the inundation for the loss
+    and the inundation for the loss results from unusual and rapid accumulation or runoff of surface waters.
+
+% Article II.B.1.c — mudflow
+rule flood_mudflow with provenance the policy at article II.B.1.c,
+    confer "Mudflow.":
+a loss is caused by a flood
+    if the loss involves a general and temporary inundation
+    and the inundation for the loss affects at least two properties
+    and the insured property is one of the properties affected by the inundation for the loss
+    and the inundation for the loss results from mudflow.
+
+% Article II.B.2 — erosion and subsidence
+rule flood_erosion with provenance the policy at article II.B.2,
+    confer "Collapse or subsidence of land along the shore of a lake or similar body of water":
+a loss is caused by a flood
+    if the loss involves collapse or subsidence of land along the shore of a lake or similar body of water
+    and the collapse or subsidence for the loss results from erosion or undermining caused by waves or currents exceeding anticipated cyclical levels.
+
+% Article II.C.14 — direct physical loss
+rule direct_physical_loss with provenance the policy at article II.C.14,
+    confer "There must be evidence of physical changes to the property.":
+a loss is direct physical loss by or from flood
+    if the loss is caused by a flood
+    and a property has physical changes from the loss.
+
+% Article III.A — Coverage A qualification
+rule coverage_a_qualification with provenance the policy at article III.A,
+    confer "We insure against direct physical loss by or from flood to":
+a claim component qualifies for Coverage A
+    if the claim component belongs to a claim
+    and the claim concerns a loss
+    and the claim arises under a policy
+    and the policy has building coverage
+    and the claim component concerns a property
+    and the property is building property
+    and the property has physical changes from the loss
+    and the loss is direct physical loss by or from flood.
+
+% Article III.B.1 — Coverage B qualification for named-insured property
+rule coverage_b_named_insured with provenance the policy at article III.B.1,
+    confer "The property is owned by you or your household family members":
+a claim component qualifies for Coverage B
+    if the claim component belongs to a claim
+    and the claim concerns a loss
+    and the claim arises under a policy
+    and the policy has personal property coverage
+    and the claim component concerns a property
+    and the property is personal property
+    and the property is inside a building
+    and the property is owned by the named insured
+    and the property has physical changes from the loss
+    and the loss is direct physical loss by or from flood.
+
+% Article III.B.1 — Coverage B qualification for household property
+rule coverage_b_household_member with provenance the policy at article III.B.1,
+    confer "your household family members":
+a claim component qualifies for Coverage B
+    if the claim component belongs to a claim
+    and the claim concerns a loss
+    and the claim arises under a policy
+    and the policy has personal property coverage
+    and the claim component concerns a property
+    and the property is personal property
+    and the property is inside a building
+    and the property is owned by a household family member
+    and the property has physical changes from the loss
+    and the loss is direct physical loss by or from flood.
+
+% Article III.B.1 — Coverage B qualification for property owned by a named-insured tenant
+rule coverage_b_named_tenant with provenance the policy at article III.B.1,
+    confer "The property is owned by you or your household family members":
+a claim component qualifies for Coverage B
+    if the claim component belongs to a claim
+    and the claim concerns a loss
+    and the claim arises under a policy
+    and the policy has personal property coverage
+    and the claim component concerns a property
+    and the property is personal property
+    and the property is inside a building
+    and the schedule for the policy names a person
+    and the person owns the property
+    and the person is a tenant
+    and the property has physical changes from the loss
+    and the loss is direct physical loss by or from flood.
+
+% Article III.B.1 — Coverage B qualification for a condominium unit owned by a named-insured tenant
+rule coverage_b_tenant_condominium_unit with provenance the policy at article III.B.1,
+    confer "The property is owned by you or your household family members":
+a claim component qualifies for Coverage B
+    if the claim component belongs to a claim
+    and the claim concerns a loss
+    and the claim arises under a policy
+    and the policy has personal property coverage
+    and the claim component concerns a condominium unit
+    and the schedule for the policy names a person
+    and the person owns the condominium unit
+    and the person is a tenant
+    and the condominium unit has physical changes from the loss
+    and the loss is direct physical loss by or from flood.
+
+% Article III.C.2.a — loss-avoidance qualification through nearby flooding
+rule loss_avoidance_nearby_flooding with provenance the policy at article III.C.2.a,
+    confer "A general and temporary condition of flooding":
+a claim component qualifies for loss avoidance coverage
+    if the claim component concerns a loss avoidance measure
+    and the loss avoidance measure consists of sandbags sand temporary levee fill pumps plastic sheeting or lumber
+    and a person incurred an amount of expenses for the loss avoidance measure
+    and damage to insured property by or from flood is imminent
+    and the threat of flood damage is apparent to a person of common prudence
+    and general and temporary flooding occurs near the described location.
+
+% Article III.C.2.a — loss-avoidance qualification through civil order
+rule loss_avoidance_civil_order with provenance the policy at article III.C.2.a,
+    confer "A legally authorized official must issue an evacuation order or other civil order":
+a claim component qualifies for loss avoidance coverage
+    if the claim component concerns a loss avoidance measure
+    and the loss avoidance measure consists of sandbags sand temporary levee fill pumps plastic sheeting or lumber
+    and a person incurred an amount of expenses for the loss avoidance measure
+    and damage to insured property by or from flood is imminent
+    and the threat of flood damage is apparent to a person of common prudence
+    and a legally authorized official issued an evacuation or civil order
+    and the evacuation or civil order calls for measures to preserve life and property from flood.
+
+% Article III.C.2 — loss-avoidance cover
+rule loss_avoidance_qualification with provenance the policy at article III.C.2,
+    confer "Loss Avoidance Measures":
+a claim component qualifies for loss avoidance
+    if the claim component qualifies for loss avoidance coverage.
+
+% Article III.D.3.a.2 — substantial damage
+rule substantial_damage_percentage with provenance the policy at article III.D.3.a.2,
+    confer "the cost to repair equals or exceeds 50 percent of the market value of the building":
+a building has substantial flood damage
+    if the repair cost percentage for the building at the time of a loss is a number P
+    and P >= 50.
+
+% Article III.D.3 — Coverage D qualification
+rule coverage_d_qualification with provenance the policy at article III.D.3,
+    confer "A building insured under Coverage A— Building Property sustaining a loss caused by a flood":
+a claim component qualifies for Coverage D
+    if the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim concerns a loss
+    and the policy has building coverage
+    and the loss is caused by a flood
+    and the claim component concerns a compliance activity
+    and the compliance activity is elevation floodproofing relocation or demolition
+    and the compliance activity is required by enforcement of a current floodplain management law or ordinance
+    and a building has substantial flood damage
+    and a community enforces a substantial damage provision against the building
+    and the community participates in the Regular Program
+    and the actual cost of the compliance activity is an amount.
+
+% Article II.C.11 — declarations particulars used in policy administration
+rule declarations_particulars with provenance the policy at article II.C.11,
+    confer "The Declarations Page also describes the term of the policy":
+the schedule particulars are recorded for a policy
+    if the schedule for the policy states a flood zone for the described location
+    and the schedule for the policy states an occupancy for the dwelling
+    and the schedule for the policy states an annual premium of an amount
+    and the schedule for the policy states a deductible code of a code for a cover.
+
+% Article I.A and I.C — claim qualification
+rule claim_qualification with provenance the policy at article I.C,
+    confer "We will pay you for direct physical loss by or from flood to your insured property":
+a claim qualifies for the Dwelling Form coverage
+    if the claim arises under a policy
+    and the schedule particulars are recorded for the policy
+    and the claim concerns a loss
+    and the policy is in force for the loss
+    and the loss occurs at a location
+    and the schedule for the policy states the location as the described location
+    and the claim has a claim component
+    and the claim component seeks coverage under a cover
+    and the claim component qualifies for the cover.
+
+% Article VIII.A.1 — void policy for misrepresentation
+rule void_for_misrepresentation with provenance the policy at article VIII.A.1,
+    confer "this policy is void and has no legal force and effect":
+a policy is void
+    if the schedule for the policy names an insured or agent
+    and the insured or agent concealed or misrepresented a material fact or circumstance.
+
+% Article VIII.A.1 — void policy for fraud
+rule void_for_fraud with provenance the policy at article VIII.A.1,
+    confer "Engaged in fraudulent conduct":
+a policy is void
+    if the schedule for the policy names an insured or agent
+    and the insured or agent engaged in fraudulent conduct.
+
+% Article VIII.A.1 — void policy for false statements
+rule void_for_false_statements with provenance the policy at article VIII.A.1,
+    confer "Made false statements.":
+a policy is void
+    if the schedule for the policy names an insured or agent
+    and the insured or agent made false statements.
+
+section question is:
+
+% Article I.C — claim decision
+rule claim_covered with provenance the policy at article I.C,
+    confer "We will pay you for direct physical loss by or from flood to your insured property if you":
+a claim is covered under the Dwelling Form section
+    if the claim qualifies for the Dwelling Form coverage
+    and it is not the case that
+        the claim is excluded from the Dwelling Form section
+    and the conditions of the policy are met for the claim.
+
+% Article I.C — component decision
+rule component_covered with provenance the policy at article I.C,
+    confer "We will pay you for direct physical loss by or from flood to your insured property":
+a claim component is covered under a cover
+    if the claim component seeks coverage under the cover
+    and the claim component qualifies for the cover
+    and it is not the case that
+        the claim component is excluded from the cover
+    and the claim component belongs to a claim
+    and the claim is covered under the Dwelling Form section.
+
+% Article I.C.1–3 — operational conditions
+rule policy_conditions with provenance the policy at article I.C,
+    confer "Comply with all terms and conditions of this policy":
+the conditions of the policy are met for a claim
+    if the claim arises under a policy
+    and it is not the case that
+        the policy is void.
+
+% Article VIII.A — void-policy exclusion
+rule exclusion_void_policy with provenance the policy at article VIII.A.1,
+    confer "this policy is void and has no legal force and effect":
+a claim is excluded from the Dwelling Form section
+    if the claim arises under a policy
+    and the policy is void.
+
+% Article VII.F — increased hazard
+rule exclusion_increased_hazard with provenance the policy at article VII.F,
+    confer "We are not liable for loss that occurs while there is a hazard that is increased":
+a claim is excluded from the Dwelling Form section
+    if the claim concerns a loss
+    and the loss occurred while a hazard was increased
+    and the hazard was increased by means within the insured's control or knowledge.
+
+% Article V.B — flood in progress at loan closing
+rule exclusion_flood_in_progress_closing with provenance the policy at article V.B,
+    confer "a continuation of a flood that existed prior to coverage becoming effective":
+a claim is excluded from the Dwelling Form section
+    if the claim arises under a policy
+    and the claim concerns a loss
+    and the policy became effective at a loan closing
+    and a flood existed before coverage became effective
+    and the flood is a continuation of an earlier flood.
+
+% Article V.B — other flood in progress
+rule exclusion_flood_in_progress_application with provenance the policy at article V.B,
+    confer "a continuation of a flood that existed on or before the day you submitted the application":
+a claim is excluded from the Dwelling Form section
+    if the claim concerns a loss
+    and a flood existed on or before the application date
+    and the flood is a continuation of an earlier flood.
+
+% Article IV.1 — personal property outside a building
+rule property_exclusion_outside_building with provenance the policy at article IV.1,
+    confer "Personal property not inside a building.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is personal property outside a building.
+
+% Article IV.2 — property over water
+rule property_exclusion_over_water with provenance the policy at article IV.2,
+    confer "located entirely in, on, or over water or seaward of mean high tide":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is located entirely in on or over water or seaward of mean high tide
+    and the construction or substantial improvement date of the property is a date D
+    and D is after 1982-09-30.
+
+% Article IV.3 — open structure
+rule property_exclusion_open_structure with provenance the policy at article IV.3,
+    confer "Open structures":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is an open structure.
+
+% Article IV.3 — boathouse
+rule property_exclusion_boathouse with provenance the policy at article IV.3,
+    confer "a building used as a boathouse":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is a boathouse.
+
+% Article IV.4 — recreational vehicle
+rule property_exclusion_recreational_vehicle with provenance the policy at article IV.4,
+    confer "Recreational vehicles other than travel trailers":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is a recreational vehicle other than an insured travel trailer.
+
+% Article IV.5 — self-propelled vehicle
+rule property_exclusion_self_propelled_vehicle with provenance the policy at article IV.5,
+    confer "Self-propelled vehicles or machines":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is a self-propelled vehicle or machine
+    and it is not the case that
+        the property is used mainly to service the described location
+    and it is not the case that
+        the property is designed and used to assist handicapped persons.
+
+% Article IV.6 — land and animals
+rule property_exclusion_land with provenance the policy at article IV.6,
+    confer "Land, land values, lawns, trees, shrubs, plants, growing crops, or animals.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is land landscaping a growing crop or an animal.
+
+% Article IV.7 — money and valuable papers
+rule property_exclusion_money with provenance the policy at article IV.7,
+    confer "money, scrip, stored value cards, postage stamps, securities, bullion, manuscripts, or other valuable papers.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is money bullion a financial instrument or valuable paper.
+
+% Article IV.8 — underground structures
+rule property_exclusion_underground with provenance the policy at article IV.8,
+    confer "Underground structures":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is an underground structure or underground equipment.
+
+% Article IV.9 — exterior surfaces
+rule property_exclusion_exterior_surface with provenance the policy at article IV.9,
+    confer "walks, walkways, decks, driveways, patios and other surfaces":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is an exterior walk walkway deck driveway patio or similar surface
+    and the property is outside the perimeter exterior walls of the insured building.
+
+% Article IV.10 — containers
+rule property_exclusion_container with provenance the policy at article IV.10,
+    confer "Containers, including related equipment":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is a container or related equipment.
+
+% Article IV.11 — substantially below-ground building
+rule property_exclusion_below_ground with provenance the policy at article IV.11,
+    confer "more than 49 percent of the actual cash value of the building is below ground":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a building
+    and more than forty-nine percent of the actual cash value of the building is below ground
+    and it is not the case that
+        the lowest level of the building is at or above base flood elevation
+    and it is not the case that
+        the building uses earth as insulation in conjunction with energy efficient building techniques.
+
+% Article IV.12 — fences and similar structures
+rule property_exclusion_fence with provenance the policy at article IV.12,
+    confer "Fences, retaining walls, seawalls, bulkheads, wharves, piers, bridges, and docks.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is a fence retaining wall seawall bulkhead wharf pier bridge or dock.
+
+% Article IV.13 — aircraft and watercraft
+rule property_exclusion_aircraft_watercraft with provenance the policy at article IV.13,
+    confer "Aircraft or watercraft, or their furnishings and equipment.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is aircraft watercraft or related furnishings or equipment.
+
+% Article IV.14 — pool and spa equipment
+rule property_exclusion_pool with provenance the policy at article IV.14,
+    confer "swimming pools, and their equipment":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is a hot tub spa swimming pool or related equipment.
+
+% Article IV.15 — Coastal Barrier Resources legislation
+rule property_exclusion_coastal_barrier with provenance the policy at article IV.15,
+    confer "Property not eligible for flood insurance pursuant to the provisions of the Coastal Barrier Resources Act":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is ineligible under the Coastal Barrier Resources Act.
+
+% Article IV.16 — condominium common property
+rule property_exclusion_common_condominium_property with provenance the policy at article IV.16,
+    confer "Personal property you own in common with other unit owners":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is owned in common with condominium unit owners.
+
+% Article V.A.1 — revenue or profits
+rule economic_exclusion_revenue with provenance the policy at article V.A.1,
+    confer "Loss of revenue or profits":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for loss of revenue or profits.
+
+% Article V.A.2 — access
+rule economic_exclusion_access with provenance the policy at article V.A.2,
+    confer "Loss of access to the insured property or described location":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for loss of access.
+
+% Article V.A.3 — use
+rule economic_exclusion_use with provenance the policy at article V.A.3,
+    confer "Loss of use of the insured property or described location":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for loss of use.
+
+% Article V.A.4 — business interruption
+rule economic_exclusion_business_interruption with provenance the policy at article V.A.4,
+    confer "Loss from interruption of business or production":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for interruption of business or production.
+
+% Article V.A.5 — additional living expenses
+rule economic_exclusion_living_expenses with provenance the policy at article V.A.5,
+    confer "Any additional living expenses":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for additional living expenses.
+
+% Article V.A.6 — ordinance and law outside Coverage D
+rule economic_exclusion_ordinance with provenance the policy at article V.A.6,
+    confer "The cost of complying with any ordinance or law":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for ordinance or law compliance outside Coverage D.
+
+% Article V.A.7 — other economic loss
+rule economic_exclusion_other with provenance the policy at article V.A.7,
+    confer "Any other economic loss you suffer.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for another economic loss.
+
+% Article V.C — earth movement
+rule cause_exclusion_earth_movement with provenance the policy at article V.C,
+    confer "We do not insure for loss to property caused directly by earth movement even if the earth movement is caused by flood.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused directly by earth movement
+    and it is not the case that
+        the loss is caused by a flood.
+
+% Article V.D.1 — ice
+rule cause_exclusion_ice with provenance the policy at article V.D.1,
+    confer "The pressure or weight of ice":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused directly or indirectly by pressure or weight of ice.
+
+% Article V.D.2 — freezing
+rule cause_exclusion_freezing with provenance the policy at article V.D.2,
+    confer "Freezing or thawing":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused directly or indirectly by freezing or thawing.
+
+% Article V.D.3 — rain and water spray
+rule cause_exclusion_rain with provenance the policy at article V.D.3,
+    confer "Rain, snow, sleet, hail, or water spray":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused directly or indirectly by rain snow sleet hail or water spray.
+
+% Article V.D.4.a — confined moisture
+rule cause_exclusion_confined_moisture with provenance the policy at article V.D.4.a,
+    confer "Substantially confined to the dwelling":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused directly or indirectly by water moisture mildew or mold
+    and the water moisture mildew or mold condition is substantially confined to the dwelling.
+
+% Article V.D.4.b — controlled moisture
+rule cause_exclusion_controlled_moisture with provenance the policy at article V.D.4.b,
+    confer "That is within your control":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused directly or indirectly by water moisture mildew or mold
+    and the water moisture mildew or mold condition is within the insured's control.
+
+% Article V.D.5.a — sewer backup
+rule cause_exclusion_sewer_backup with provenance the policy at article V.D.5.a,
+    confer "Backs up through sewers or drains":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused by sewer or drain backup
+    and it is not the case that
+        a flood exists in the area of the loss
+    and it is not the case that
+        the proximate cause of the loss is flood.
+
+% Article V.D.5.b — sump overflow
+rule cause_exclusion_sump with provenance the policy at article V.D.5.b,
+    confer "Discharges or overflows from a sump, sump pump, or related equipment":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused by discharge or overflow from a sump or related equipment
+    and it is not the case that
+        a flood exists in the area of the loss
+    and it is not the case that
+        the proximate cause of the loss is flood.
+
+% Article V.D.5.c — seepage
+rule cause_exclusion_seepage with provenance the policy at article V.D.5.c,
+    confer "Seeps or leaks on or through the insured property":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused by seepage or leakage through insured property
+    and it is not the case that
+        a flood exists in the area of the loss
+    and it is not the case that
+        the proximate cause of the loss is flood.
+
+% Article V.D.6 — water pressure
+rule cause_exclusion_water_pressure with provenance the policy at article V.D.6,
+    confer "The pressure or weight of water unless there is a flood in the area":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused by pressure or weight of water
+    and it is not the case that
+        a flood exists in the area of the loss
+    and it is not the case that
+        the proximate cause of the loss is flood.
+
+% Article V.D.7 — utility failure
+rule cause_exclusion_utility_failure with provenance the policy at article V.D.7,
+    confer "Power, heating, or cooling failure":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused by power heating or cooling failure
+    and it is not the case that
+        the equipment failure resulted from direct physical loss by or from flood at the described location.
+
+% Article V.D.8 — wind and other causes
+rule cause_exclusion_wind with provenance the policy at article V.D.8,
+    confer "Theft, fire, explosion, wind, or windstorm":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss is caused by theft fire explosion wind or windstorm.
+
+% Article V.D.9 — deliberate act
+rule cause_exclusion_deliberate_act with provenance the policy at article V.D.9,
+    confer "deliberately cause loss by flood":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and an insured deliberately caused the loss by flood.
+
+% Article V.D.9 — conspiracy
+rule cause_exclusion_conspiracy with provenance the policy at article V.D.9,
+    confer "conspire to do to deliberately cause loss by flood":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and an insured conspired to deliberately cause the loss by flood.
+
+% Article V.D.10 — alteration
+rule cause_exclusion_alteration with provenance the policy at article V.D.10,
+    confer "Alteration of the insured property that significantly increases the risk of flooding.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and an alteration significantly increased the flood risk of the property.
+
+% Article V.E — federal lease
+rule cause_exclusion_federal_lease with provenance the policy at article V.E,
+    confer "the lease expressly holds the Federal Government harmless":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property is on land leased from the Federal Government
+    and the claim component belongs to a claim
+    and the claim concerns a loss
+    and the loss arises from or is incident to flooding of federal land by the Federal Government
+    and the federal lease holds the Federal Government harmless under federal flood insurance.
+
+% Article V.F — pollutant monitoring
+rule cause_exclusion_pollutant_monitoring with provenance the policy at article V.F,
+    confer "We do not pay for the testing for or monitoring of pollutants unless required by law or ordinance.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component is for testing or monitoring pollutants
+    and it is not the case that
+        pollutant testing or monitoring is required by law or ordinance.
+
+% Article III.A.3 — detached garage use
+rule coverage_a_exclusion_detached_garage_use with provenance the policy at article III.A.3,
+    confer "We do not cover any detached garage used or held for use for residential (i.e., dwelling), business, or farming purposes.":
+a claim component is excluded from Coverage A
+    if the claim component concerns a property
+    and the property is a detached garage
+    and the property is used or held for residential business or farming purposes.
+
+% Article III.B.3 — flotation
+rule coverage_b_exclusion_flotation with provenance the policy at article III.B.3,
+    confer "there is no coverage for such property.":
+a claim component is excluded from Coverage B
+    if the claim component concerns a property
+    and the property floated out during a flood.
+
+% Article I.G — RCBAP duplicate damage
+rule coverage_exclusion_rcbap_duplicate with provenance the policy at article I.G,
+    confer "Items of damage paid for under an RCBAP cannot also be claimed under the Dwelling Form policy.":
+a claim component is excluded from a cover
+    if the claim component seeks coverage under the cover
+    and the claim component concerns a property
+    and the property has already been paid under an RCBAP.
+
+% Article III.D.5.a — Emergency Program
+rule coverage_d_exclusion_emergency_program with provenance the policy at article III.D.5.a,
+    confer "communities participating in the Emergency Program.":
+a claim component is excluded from Coverage D
+    if the claim component claims a compliance cost
+    and the compliance cost arises in a community participating in the Emergency Program.
+
+% Article III.D.5.b — pollutants
+rule coverage_d_exclusion_pollutants with provenance the policy at article III.D.5.b,
+    confer "assess the effects of pollutants.":
+a claim component is excluded from Coverage D
+    if the claim component claims a compliance cost
+    and the compliance cost concerns pollutants.
+
+% Article III.D.5.c — loss in value
+rule coverage_d_exclusion_loss_in_value with provenance the policy at article III.D.5.c,
+    confer "The loss in value to any insured building":
+a claim component is excluded from Coverage D
+    if the claim component claims a compliance cost
+    and the compliance cost is loss in value due to an ordinance or law.
+
+% Article III.D.5.d — residual value
+rule coverage_d_exclusion_residual_value with provenance the policy at article III.D.5.d,
+    confer "The loss in residual value of the undamaged portion of a building":
+a claim component is excluded from Coverage D
+    if the claim component claims a compliance cost
+    and the compliance cost is loss of residual value of an undamaged demolished portion.
+
+% Article III.D.5.f — unrelated code upgrades
+rule coverage_d_exclusion_code_upgrade with provenance the policy at article III.D.5.f,
+    confer "Any code upgrade requirements":
+a claim component is excluded from Coverage D
+    if the claim component claims a compliance cost
+    and the compliance cost is an unrelated code upgrade.
+
+% Article III.D.5.g — post-loss additions
+rule coverage_d_exclusion_post_loss_additions with provenance the policy at article III.D.5.g,
+    confer "additions or improvements made after the loss occurred":
+a claim component is excluded from Coverage D
+    if the claim component concerns a compliance activity
+    and the compliance activity concerns additions or improvements made after the loss.
+
+% Article III.D.5.h — prior requirement
+rule coverage_d_exclusion_prior_requirement with provenance the policy at article III.D.5.h,
+    confer "you were required to comply with before the current loss.":
+a claim component is excluded from Coverage D
+    if the claim component belongs to a claim
+    and the claim concerns a loss
+    and a compliance requirement applied before the loss.
+
+% Article III.D.5.i — NFIP minimum requirements
+rule coverage_d_exclusion_minimum_requirements with provenance the policy at article III.D.5.i,
+    confer "standards that do not meet the NFIP’s minimum requirements.":
+a claim component is excluded from Coverage D
+    if a rebuilding activity fails the NFIP minimum requirements.
+
+% Article III.D.5.i — below-elevation variance
+rule coverage_d_exclusion_variance with provenance the policy at article III.D.5.i,
+    confer "a variance in connection with the current flood loss":
+a claim component is excluded from Coverage D
+    if a variance permits rebuilding below base flood elevation for the current loss.
+
+% Article III.D.5.j — garage or carport
+rule coverage_d_exclusion_garage with provenance the policy at article III.D.5.j,
+    confer "Increased Cost of Compliance for a garage or carport.":
+a claim component is excluded from Coverage D
+    if the claim component concerns a compliance activity
+    and the compliance activity concerns a garage or carport.
+
+% Article III.D.5.k — group policy
+rule coverage_d_exclusion_group_policy with provenance the policy at article III.D.5.k,
+    confer "Any building insured under an NFIP Group Flood Insurance Policy.":
+a claim component is excluded from Coverage D
+    if the claim component concerns a building
+    and the building is insured under an NFIP Group Flood Insurance Policy.
+
+% Article III.D.5.l — condominium assessment
+rule coverage_d_exclusion_condominium_assessment with provenance the policy at article III.D.5.l,
+    confer "commonly owned buildings":
+a claim component is excluded from Coverage D
+    if the claim component claims a compliance cost
+    and the compliance cost is a condominium association assessment against an individual unit owner for a commonly owned building.
+
+section remedy is:
+
+% Article VII.R.1.a — replacement-cost selection by 80-percent test
+rule replacement_cost_eighty_percent with provenance the policy at article VII.R.1.a,
+    confer "Replacement Cost Loss Settlement":
+replacement cost loss settlement applies to a claim component
+    if the claim component seeks coverage under Coverage A
+    and the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim component concerns a dwelling
+    and the schedule for the policy states that the dwelling is a principal residence
+    and the schedule for the policy states a limit of an amount L, a basis, for Coverage A
+    and the schedule for the policy states a full replacement cost of an amount R for the dwelling
+    and E = R * 0.8
+    and L >= E.
+
+% Article VII.R.1.a — replacement-cost selection by NFIP maximum
+rule replacement_cost_maximum with provenance the policy at article VII.R.1.a,
+    confer "or is the maximum amount of insurance available under the NFIP.":
+replacement cost loss settlement applies to a claim component
+    if the claim component seeks coverage under Coverage A
+    and the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim component concerns a dwelling
+    and the schedule for the policy states that the dwelling is a principal residence
+    and the schedule for the policy states a limit of an amount L, a basis, for Coverage A
+    and the maximum amount of insurance available under the NFIP for Coverage A is an amount M
+    and L >= M.
+
+% Article VII.R.4.i — non-principal-residence ACV
+rule acv_non_principal_residence with provenance the policy at article VII.R.4.i,
+    confer "A dwelling that is not your principal residence.":
+actual cash value loss settlement applies to a claim component
+    if the claim component seeks coverage under Coverage A
+    and the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim component concerns a dwelling
+    and it is not the case that
+        the schedule for the policy states that the dwelling is a principal residence.
+
+% Article VII.R.4.a — underinsured dwelling
+rule proportional_underinsurance with provenance the policy at article VII.R.4.a,
+    confer "less than 80 percent of its full replacement cost immediately before the loss":
+proportional loss settlement applies to a claim component
+    if the claim component seeks coverage under Coverage A
+    and the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim component concerns a dwelling
+    and the schedule for the policy states a limit of an amount L, a basis, for Coverage A
+    and the schedule for the policy states a full replacement cost of an amount R for the dwelling
+    and E = R * 0.8
+    and the maximum amount of insurance available under the NFIP for Coverage A is an amount M
+    and L < E
+    and L < M.
+
+% Article VII.R.4.e — personal-property ACV
+rule acv_personal_property with provenance the policy at article VII.R.4.e,
+    confer "Personal property.":
+actual cash value loss settlement applies to a claim component
+    if the claim component seeks coverage under Coverage B.
+
+% Article VII.R.2.a — replacement-cost amount
+rule replacement_cost_amount with provenance the policy at article VII.R.2.a,
+    confer "but not more than the least of the following amounts":
+the settlement amount before deductible for a claim component is an amount P
+    if replacement cost loss settlement applies to the claim component
+    and the repair cost with materials of like kind and quality for the claim component is an amount R
+    and the amount actually spent to repair or replace the claim component is an amount A
+    and repairs for the claim component are completed
+    and the minimum of R and A is P.
+
+% Article II.C.2 — calculated ACV
+rule calculated_acv with provenance the policy at article II.C.2,
+    confer "The cost to replace an insured item of property at the time of loss, less the value of its physical depreciation.":
+the calculated actual cash value for a claim component is an amount V
+    if the repair cost with materials of like kind and quality for the claim component is an amount R
+    and the physical depreciation of the claim component is an amount D
+    and V = R - D.
+
+% Article VII.R.4 — direct ACV amount
+rule direct_acv_amount with provenance the policy at article VII.R.4,
+    confer "Actual Cash Value Loss Settlement":
+the settlement amount before deductible for a claim component is an amount A
+    if actual cash value loss settlement applies to the claim component
+    and the actual cash value of the claim component is the amount A.
+
+% Article VII.R.4 — calculated ACV amount
+rule calculated_acv_amount with provenance the policy at article VII.R.4,
+    confer "Actual Cash Value Loss Settlement":
+the settlement amount before deductible for a claim component is an amount A
+    if actual cash value loss settlement applies to the claim component
+    and the calculated actual cash value for the claim component is the amount A.
+
+% Article VII.R.4.a — proportional factor
+rule proportional_factor with provenance the policy at article VII.R.4.a,
+    confer "the proportion is determined by dividing the actual amount of insurance on the dwelling":
+the proportional settlement factor for a dwelling is a number F
+    if a claim component concerns the dwelling
+    and proportional loss settlement applies to the claim component
+    and the claim component belongs to a claim
+    and the claim arises under a policy
+    and the schedule for the policy states a limit of an amount L, a basis, for Coverage A
+    and the schedule for the policy states a full replacement cost of an amount R for the dwelling
+    and E = R * 0.8
+    and the maximum amount of insurance available under the NFIP for Coverage A is an amount M
+    and the minimum of E and M is D
+    and F = L / D.
+
+% Article VII.R.4.a — proportional repair amount
+rule proportional_repair_amount with provenance the policy at article VII.R.4.a,
+    confer "A proportion of the cost to repair or replace the damaged part of the dwelling":
+the proportional repair amount for a claim component is an amount P
+    if proportional loss settlement applies to the claim component
+    and the claim component concerns a dwelling
+    and the proportional settlement factor for the dwelling is a number F
+    and the repair cost with materials of like kind and quality for the claim component is an amount R
+    and P = F * R.
+
+% Article VII.R.4.a — greater of ACV and proportional amount
+rule underinsured_settlement_amount with provenance the policy at article VII.R.4.a,
+    confer "we will pay the greater of the following amounts":
+the settlement amount before deductible for a claim component is an amount G
+    if proportional loss settlement applies to the claim component
+    and the actual cash value of the claim component is an amount A
+    and the proportional repair amount for the claim component is an amount P
+    and the maximum of A and P is G.
+
+% Article III.B.8 — category subtotal
+rule contents_category_subtotal with provenance the policy at article III.B.8,
+    confer "one or more of the following kinds of personal property":
+the category subtotal for a property category in a claim component is an amount S
+    if the claim component includes a damaged item
+    and the damaged item is classified in the property category
+    and S is the sum of each amount A such that
+        the claim component includes a damaged item I
+        and the damaged item I is classified in the property category
+        and the damaged item I has an actual cash value of the amount A.
+
+% Article III.B.8 — capped special category
+rule special_category_cap with provenance the policy at article III.B.8,
+    confer "We will pay no more than $2,500 for any one loss":
+the special-limit-adjusted subtotal for a property category in a claim component is an amount P
+    if the category subtotal for the property category in the claim component is an amount S
+    and the special limit for the property category is an amount L per loss
+    and the minimum of S and L is P.
+
+% Article III.B.8 — uncapped ordinary category
+rule ordinary_category_subtotal with provenance the policy at article III.B.8,
+    confer "Special Limits.":
+the special-limit-adjusted subtotal for a property category in a claim component is an amount S
+    if the category subtotal for the property category in the claim component is the amount S
+    and it is not the case that
+        the special limit for the property category is an amount per loss.
+
+% Article VII.R.4.e — contents aggregation
+rule contents_aggregation with provenance the policy at article VII.R.4.e,
+    confer "Personal property.":
+the contents subtotal for a claim component is an amount T
+    if the claim component seeks coverage under Coverage B
+    and T is the sum of each amount A such that
+        the special-limit-adjusted subtotal for a property category in the claim component is the amount A.
+
+% Article VII.R.4.e — itemized contents settlement
+rule itemized_contents_amount with provenance the policy at article VII.R.4.e,
+    confer "Personal property.":
+the settlement amount before deductible for a claim component is an amount T
+    if actual cash value loss settlement applies to the claim component
+    and the contents subtotal for the claim component is the amount T
+    and T > 0.
+
+% Article III.C.2.a.1 — loss-avoidance amount
+rule loss_avoidance_amount with provenance the policy at article III.C.2.a.1,
+    confer "We will pay up to $1,000":
+the settlement amount before deductible for a claim component is an amount A
+    if the claim component qualifies for loss avoidance coverage
+    and the claim component claims the amount A.
+
+% Article III.D.4 — Coverage D amount
+rule coverage_d_amount with provenance the policy at article III.D.4,
+    confer "our payment for the loss under this Coverage D will be for the increased cost to elevate, floodproof, relocate, or demolish":
+the settlement amount before deductible for a claim component is an amount A
+    if the claim component qualifies for Coverage D
+    and the claim component concerns a compliance activity
+    and the actual cost of the compliance activity is the amount A.
+
+% Article VI.B — scheduled deductible
+rule scheduled_deductible with provenance the policy at article VI.B,
+    confer "separate deductibles apply to the building and personal property":
+the applicable deductible for a claim component is an amount D
+    if the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim component seeks coverage under a cover
+    and the schedule for the policy states a deductible of the amount D for the cover.
+
+% Article VI.C.1 — no deductible for loss avoidance
+rule no_deductible_loss_avoidance with provenance the policy at article VI.C.1,
+    confer "Loss Avoidance Measures":
+no deductible applies to a claim component
+    if the claim component seeks coverage under loss avoidance.
+
+% Article VI.C.3 — no deductible for Coverage D
+rule no_deductible_coverage_d with provenance the policy at article VI.C.3,
+    confer "Increased Cost of Compliance.":
+no deductible applies to a claim component
+    if the claim component seeks coverage under Coverage D.
+
+% Article VI.A — scheduled deductible arithmetic
+rule amount_after_deductible with provenance the policy at article VI.A,
+    confer "we will pay only that part of the loss that exceeds your deductible amount":
+the amount after deductible for a claim component is an amount P
+    if the settlement amount before deductible for the claim component is an amount S
+    and the applicable deductible for the claim component is an amount D
+    and R = S - D
+    and the maximum of R and 0 is P.
+
+% Article VI.C — unchanged amount where no deductible applies
+rule amount_without_deductible with provenance the policy at article VI.C,
+    confer "The deductible does NOT apply to":
+the amount after deductible for a claim component is an amount S
+    if the settlement amount before deductible for the claim component is the amount S
+    and no deductible applies to the claim component.
+
+% Declarations Page — generic scheduled limit
+rule scheduled_component_limit with provenance the policy at article II.C.11,
+    confer "limits of coverage":
+the applicable limit for a claim component is an amount L
+    if the claim component belongs to a claim
+    and the claim arises under a policy
+    and the claim component seeks coverage under a cover
+    and the schedule for the policy states a limit of the amount L, a basis, for the cover.
+
+% Article III.C.2.a.1 — loss-avoidance fixed limit
+rule loss_avoidance_limit with provenance the policy at article III.C.2.a.1,
+    confer "We will pay up to $1,000":
+the applicable limit for a claim component is an amount L
+    if the claim component seeks coverage under loss avoidance
+    and the loss avoidance measures limit is the amount L.
+
+% Article III.D.2 — Coverage D fixed limit
+rule coverage_d_limit with provenance the policy at article III.D.2,
+    confer "We will pay you up to $30,000":
+the applicable limit for a claim component is an amount L
+    if the claim component seeks coverage under Coverage D
+    and the increased cost of compliance limit is the amount L.
+
+% Article VI.A — final component cap
+rule capped_component_amount with provenance the policy at article VI.A,
+    confer "subject to the limit of liability that applies.":
+the capped amount for a claim component is an amount P
+    if the amount after deductible for the claim component is an amount A
+    and the applicable limit for the claim component is an amount L
+    and the minimum of A and L is P.
+
+% Article VI.A — positive or zero payment for covered component
+rule component_payment with provenance the policy at article VI.A,
+    confer "we will pay only that part of the loss that exceeds your deductible amount":
+we will pay an amount P in respect of a claim component
+    if the claim component seeks coverage under a cover
+    and the claim component is covered under the cover
+    and the capped amount for the claim component is the amount P.
+
+% Article III.D.2–4 — Coverage D payment has no deductible and is capped at its fixed limit
+rule coverage_d_component_payment with provenance the policy at article III.D.2,
+    confer "We will pay you up to $30,000":
+we will pay an amount P in respect of a claim component
+    if the claim component seeks coverage under Coverage D
+    and the claim component qualifies for Coverage D
+    and it is not the case that
+        the claim component is excluded from Coverage D
+    and the claim component belongs to a claim
+    and the claim is covered under the Dwelling Form section
+    and the settlement amount before deductible for the claim component is an amount A
+    and the increased cost of compliance limit is an amount L
+    and the minimum of A and L is P.
+
+% Article I.C — zero for a component that does not qualify
+rule zero_for_nonqualifying_component with provenance the policy at article I.C,
+    confer "We will pay you for direct physical loss by or from flood to your insured property":
+we will pay 0 in respect of a claim component
+    if the claim component seeks coverage under a cover
+    and it is not the case that
+        the claim component qualifies for the cover.
+
+% Articles IV and V — zero for excluded component
+rule zero_for_excluded_component with provenance the policy at article IV,
+    confer "We do not insure any of the following":
+we will pay 0 in respect of a claim component
+    if the claim component seeks coverage under a cover
+    and the claim component is excluded from the cover.
+
+% Article VII.J — one amount per component despite alternative proofs of coverage
+rule component_amount_counted_once with provenance the policy at article VII.J,
+    confer "Loss will be payable":
+the payable amount counted once for a claim component is an amount P
+    if the claim component belongs to a claim
+    and P is the max of each amount A such that
+        we will pay the amount A in respect of the claim component.
+
+% Article VII.J — total payment
+rule claim_payment_total with provenance the policy at article VII.J,
+    confer "Loss will be payable":
+we will pay an amount T for a claim
+    if the claim arises under a policy
+    and T is the sum of each amount A such that
+        the claim has a claim component C
+        and the payable amount counted once for the claim component C is the amount A.
+
+% Article VII.J — companion total
+rule total_payable_amount with provenance the policy at article VII.J,
+    confer "Loss will be payable":
+the total payable amount for a claim is an amount T
+    if we will pay the amount T for the claim.
+
+the annexes to the contract are:
+
+% Claim/component inverse link.
+a claim component belongs to a claim
+    if the claim has the claim component.
+
+% Article II.C.6 — single-family buildings are dwellings.
+rule single_family_dwelling_helper with provenance the policy at article II.C.6,
+    confer "A building designed for use as a residence for no more than four families":
+a building is a dwelling
+    if the building is a single-family dwelling.
+
+% Article II.C.6 — two-family buildings are dwellings.
+rule two_family_dwelling_helper with provenance the policy at article II.C.6,
+    confer "A building designed for use as a residence for no more than four families":
+a building is a dwelling
+    if the building is a two-family dwelling.
+
+% Article II.C.6 — three-family buildings are dwellings.
+rule three_family_dwelling_helper with provenance the policy at article II.C.6,
+    confer "A building designed for use as a residence for no more than four families":
+a building is a dwelling
+    if the building is a three-family dwelling.
+
+% Article II.C.6 — four-family buildings are dwellings.
+rule four_family_dwelling_helper with provenance the policy at article II.C.6,
+    confer "A building designed for use as a residence for no more than four families":
+a building is a dwelling
+    if the building is a four-family dwelling.
+
+% Article III.A.5 — a building under construction must have rigid walls and a secured roof.
+rule construction_building_insured_property with provenance the policy at article III.A.5,
+    confer "at least two rigid exterior walls and a fully secured roof":
+a building is insured property under Coverage A
+    if construction alteration or repair work on the building is in progress
+    and the building has at least two rigid exterior walls and a fully secured roof.
+
+% Nationwide legal parameters shared by all supplied cases.
+the maximum amount of insurance available under the NFIP for Coverage A is 250000.
+the increased cost of compliance limit is 30000.
+the loss avoidance measures limit is 1000.
+the special limit for jewelry is 2500 per loss.
+the special limit for artwork is 2500 per loss.
+the special limit for rare books is 2500 per loss.
+the special limit for fur is 2500 per loss.
+the special limit for business property is 2500 per loss.
+
+scenario SYN-01-C1 is, as stated in claim file SYN-01-C1:
+
+    claim SYN-01-C1 arises under policy SYN-01.
+    claim SYN-01-C1 concerns loss SYN-01-C1.
+    claim SYN-01-C1 has component SYN-01-C1-building.
+    component SYN-01-C1-building seeks coverage under Coverage A.
+    component SYN-01-C1-building concerns dwelling SYN-01.
+    component SYN-01-C1-building concerns dwelling property SYN-01.
+    dwelling SYN-01 is a single-family dwelling.
+    dwelling property SYN-01 is building property.
+    dwelling property SYN-01 has physical changes from loss SYN-01-C1.
+    loss SYN-01-C1 occurs on 2025-10-14.
+    loss SYN-01-C1 occurs at Howard Beach Queens NY.
+    loss SYN-01-C1 involves a general and temporary inundation.
+    the inundation for loss SYN-01-C1 affects at least two acres of normally dry land.
+    the inundation for loss SYN-01-C1 affects at least two properties.
+    the insured property is one of the properties affected by the inundation for loss SYN-01-C1.
+    the inundation for loss SYN-01-C1 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-01-C1-building is 48200.
+    the amount actually spent to repair or replace component SYN-01-C1-building is 48200.
+    repairs for component SYN-01-C1-building are completed.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 46200 for claim SYN-01-C1"].
+    total_payable expects answers ["the total payable amount for claim SYN-01-C1 is 46200"].
+    dwelling_classification expects answers ["dwelling SYN-01 is a dwelling"].
+    construction_insured_property expects answers [].
+    manufactured_home_status expects answers [].
+    post_firm_status expects answers [].
+    repetitive_loss_status expects answers [].
+
+scenario SYN-01-C2 is, as stated in claim file SYN-01-C2:
+
+    claim SYN-01-C2 arises under policy SYN-01.
+    claim SYN-01-C2 concerns loss SYN-01-C2.
+    claim SYN-01-C2 has component SYN-01-C2-building.
+    claim SYN-01-C2 has component SYN-01-C2-contents.
+    component SYN-01-C2-building seeks coverage under Coverage A.
+    component SYN-01-C2-building concerns dwelling SYN-01.
+    component SYN-01-C2-building concerns dwelling property SYN-01.
+    dwelling property SYN-01 is building property.
+    dwelling property SYN-01 has physical changes from loss SYN-01-C2.
+    component SYN-01-C2-contents seeks coverage under Coverage B.
+    component SYN-01-C2-contents concerns contents property SYN-01-C2.
+    contents property SYN-01-C2 is personal property.
+    contents property SYN-01-C2 is inside dwelling SYN-01.
+    contents property SYN-01-C2 is owned by the named insured.
+    contents property SYN-01-C2 has physical changes from loss SYN-01-C2.
+    loss SYN-01-C2 occurs on 2025-10-14.
+    loss SYN-01-C2 occurs at Howard Beach Queens NY.
+    loss SYN-01-C2 involves a general and temporary inundation.
+    the inundation for loss SYN-01-C2 affects at least two acres of normally dry land.
+    the inundation for loss SYN-01-C2 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-01-C2-building is 30000.
+    the amount actually spent to repair or replace component SYN-01-C2-building is 30000.
+    repairs for component SYN-01-C2-building are completed.
+    the actual cash value of component SYN-01-C2-contents is 12500,
+        according to claim file SYN-01-C2.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 38500 for claim SYN-01-C2"].
+
+scenario SYN-01-C3 is, as stated in claim file SYN-01-C3:
+
+    claim SYN-01-C3 arises under policy SYN-01.
+    claim SYN-01-C3 concerns loss SYN-01-C3.
+    claim SYN-01-C3 has component SYN-01-C3-building.
+    component SYN-01-C3-building seeks coverage under Coverage A.
+    component SYN-01-C3-building concerns dwelling SYN-01.
+    component SYN-01-C3-building concerns dwelling property SYN-01.
+    dwelling property SYN-01 is building property.
+    dwelling property SYN-01 has physical changes from loss SYN-01-C3.
+    loss SYN-01-C3 occurs on 2026-03-02.
+    loss SYN-01-C3 occurs at Howard Beach Queens NY.
+    loss SYN-01-C3 involves a general and temporary inundation.
+    the inundation for loss SYN-01-C3 affects at least two properties.
+    the insured property is one of the properties affected by the inundation for loss SYN-01-C3.
+    the inundation for loss SYN-01-C3 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-01-C3-building is 1400.
+    the amount actually spent to repair or replace component SYN-01-C3-building is 1400.
+    repairs for component SYN-01-C3-building are completed.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 0 for claim SYN-01-C3"].
+
+scenario SYN-01-C4 is, as stated in claim file SYN-01-C4:
+
+    claim SYN-01-C4 arises under policy SYN-01.
+    claim SYN-01-C4 concerns loss SYN-01-C4.
+    claim SYN-01-C4 has component SYN-01-C4-building.
+    component SYN-01-C4-building seeks coverage under Coverage A.
+    component SYN-01-C4-building concerns dwelling SYN-01.
+    component SYN-01-C4-building concerns dwelling property SYN-01.
+    dwelling property SYN-01 is building property.
+    dwelling property SYN-01 has physical changes from loss SYN-01-C4.
+    loss SYN-01-C4 occurs on 2025-10-14.
+    loss SYN-01-C4 occurs at Howard Beach Queens NY.
+    loss SYN-01-C4 involves a general and temporary inundation.
+    the inundation for loss SYN-01-C4 affects at least two acres of normally dry land.
+    the inundation for loss SYN-01-C4 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-01-C4-building is 310000.
+    the amount actually spent to repair or replace component SYN-01-C4-building is 310000.
+    repairs for component SYN-01-C4-building are completed.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 250000 for claim SYN-01-C4"].
+
+scenario SYN-01-C5 is, as stated in claim file SYN-01-C5:
+
+    claim SYN-01-C5 arises under policy SYN-01.
+    claim SYN-01-C5 concerns loss SYN-01-C5.
+    claim SYN-01-C5 has component SYN-01-C5-contents.
+    component SYN-01-C5-contents seeks coverage under Coverage B.
+    component SYN-01-C5-contents concerns contents property SYN-01-C5.
+    contents property SYN-01-C5 is personal property.
+    contents property SYN-01-C5 is inside dwelling SYN-01.
+    contents property SYN-01-C5 is owned by the named insured.
+    contents property SYN-01-C5 has physical changes from loss SYN-01-C5.
+    component SYN-01-C5-contents includes jewelry collection.
+    component SYN-01-C5-contents includes sofa.
+    jewelry collection has an actual cash value of 9000.
+    jewelry collection is classified in jewelry.
+    sofa has an actual cash value of 3000.
+    sofa is classified in ordinary contents.
+    loss SYN-01-C5 occurs on 2025-10-14.
+    loss SYN-01-C5 occurs at Howard Beach Queens NY.
+    loss SYN-01-C5 involves a general and temporary inundation.
+    the inundation for loss SYN-01-C5 affects at least two acres of normally dry land.
+    the inundation for loss SYN-01-C5 results from overflow of inland or tidal waters.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 3500 for claim SYN-01-C5"].
+
+scenario SYN-01-C6 is, as stated in claim file SYN-01-C6:
+
+    claim SYN-01-C6 arises under policy SYN-01.
+    claim SYN-01-C6 concerns loss SYN-01-C6.
+    claim SYN-01-C6 has component SYN-01-C6-building.
+    component SYN-01-C6-building seeks coverage under Coverage A.
+    component SYN-01-C6-building concerns dwelling SYN-01.
+    component SYN-01-C6-building concerns dwelling property SYN-01.
+    dwelling property SYN-01 is building property.
+    dwelling property SYN-01 has physical changes from loss SYN-01-C6.
+    loss SYN-01-C6 occurs on 2026-01-20.
+    loss SYN-01-C6 occurs at Howard Beach Queens NY.
+    loss SYN-01-C6 is caused by sewer or drain backup,
+        according to claim file SYN-01-C6.
+    the cause of loss SYN-01-C6 is municipal sewer blockage,
+        according to claim file SYN-01-C6.
+    the repair cost with materials of like kind and quality for component SYN-01-C6-building is 18000.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 0 for claim SYN-01-C6"].
+
+scenario SYN-01-C7 is, as stated in claim file SYN-01-C7:
+
+    claim SYN-01-C7 arises under policy SYN-01.
+    claim SYN-01-C7 concerns loss SYN-01-C7.
+    claim SYN-01-C7 has component SYN-01-C7-building.
+    claim SYN-01-C7 has component SYN-01-C7-icc.
+    component SYN-01-C7-building seeks coverage under Coverage A.
+    component SYN-01-C7-building concerns dwelling SYN-01.
+    component SYN-01-C7-building concerns dwelling property SYN-01.
+    dwelling property SYN-01 is building property.
+    dwelling property SYN-01 has physical changes from loss SYN-01-C7.
+    component SYN-01-C7-icc seeks coverage under Coverage D.
+    component SYN-01-C7-icc concerns elevation activity SYN-01-C7.
+    elevation activity SYN-01-C7 is elevation floodproofing relocation or demolition.
+    elevation activity SYN-01-C7 is required by enforcement of a current floodplain management law or ordinance.
+    the actual cost of elevation activity SYN-01-C7 is 42000.
+    the repair cost percentage for dwelling SYN-01 at the time of loss SYN-01-C7 is 60.
+    community SYN-01 participates in the Regular Program.
+    community SYN-01 enforces a substantial damage provision against dwelling SYN-01.
+    loss SYN-01-C7 occurs on 2025-10-14.
+    loss SYN-01-C7 occurs at Howard Beach Queens NY.
+    loss SYN-01-C7 involves a general and temporary inundation.
+    the inundation for loss SYN-01-C7 affects at least two acres of normally dry land.
+    the inundation for loss SYN-01-C7 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-01-C7-building is 148000.
+    the amount actually spent to repair or replace component SYN-01-C7-building is 148000.
+    repairs for component SYN-01-C7-building are completed.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 176000 for claim SYN-01-C7"].
+
+scenario SYN-01-C8 is, as stated in claim file SYN-01-C8:
+
+    claim SYN-01-C8 arises under policy SYN-01.
+    claim SYN-01-C8 concerns loss SYN-01-C8.
+    claim SYN-01-C8 has component SYN-01-C8-loss-avoidance.
+    component SYN-01-C8-loss-avoidance seeks coverage under loss avoidance.
+    component SYN-01-C8-loss-avoidance concerns protective measures SYN-01-C8.
+    component SYN-01-C8-loss-avoidance claims 1350.
+    protective measures SYN-01-C8 consists of sandbags sand temporary levee fill pumps plastic sheeting or lumber.
+    Test Insured One incurred 1350 of expenses for protective measures SYN-01-C8.
+    damage to insured property by or from flood is imminent,
+        according to claim file SYN-01-C8.
+    the threat of flood damage is apparent to a person of common prudence,
+        according to claim file SYN-01-C8.
+    general and temporary flooding occurs near the described location.
+    official SYN-01-C8 issued an evacuation or civil order.
+    the evacuation or civil order calls for measures to preserve life and property from flood.
+    loss SYN-01-C8 occurs on 2025-10-13.
+    loss SYN-01-C8 occurs at Howard Beach Queens NY.
+
+    the schedule for policy SYN-01 states a period beginning on 2025-08-08 and ending on 2026-08-08.
+    the schedule for policy SYN-01 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-01 states a limit of 53000, per claim, for Coverage B.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage A.
+    the schedule for policy SYN-01 states a deductible of 2000 for Coverage B.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage A.
+    the schedule for policy SYN-01 states a deductible code of 2 for Coverage B.
+    the schedule for policy SYN-01 names Test Insured One.
+    the schedule for policy SYN-01 states Howard Beach Queens NY as the described location.
+    the schedule for policy SYN-01 states AE for the described location.
+    the schedule for policy SYN-01 states single-family dwelling for the dwelling.
+    the schedule for policy SYN-01 states that dwelling SYN-01 is a principal residence.
+    the schedule for policy SYN-01 states a full replacement cost of 290000 for dwelling SYN-01.
+    the schedule for policy SYN-01 states an annual premium of 884.
+
+    payment expects answers ["we will pay 1000 for claim SYN-01-C8"].
+
+scenario SYN-02-C1 is, as stated in claim file SYN-02-C1:
+
+    claim SYN-02-C1 arises under policy SYN-02.
+    claim SYN-02-C1 concerns loss SYN-02-C1.
+    claim SYN-02-C1 has component SYN-02-C1-building.
+    component SYN-02-C1-building seeks coverage under Coverage A.
+    component SYN-02-C1-building concerns dwelling SYN-02.
+    component SYN-02-C1-building concerns dwelling property SYN-02.
+    dwelling property SYN-02 is building property.
+    dwelling property SYN-02 has physical changes from loss SYN-02-C1.
+    loss SYN-02-C1 occurs on 2025-09-30.
+    loss SYN-02-C1 occurs at Arverne Queens NY.
+    loss SYN-02-C1 involves a general and temporary inundation.
+    the inundation for loss SYN-02-C1 affects at least two acres of normally dry land.
+    the inundation for loss SYN-02-C1 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-02-C1-building is 62000.
+    the physical depreciation of component SYN-02-C1-building is 11000,
+        according to claim file SYN-02-C1.
+
+    the schedule for policy SYN-02 states a period beginning on 2025-07-15 and ending on 2026-07-15.
+    the schedule for policy SYN-02 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-02 states a limit of 0, per claim, for Coverage B.
+    the schedule for policy SYN-02 states a deductible of 5000 for Coverage A.
+    the schedule for policy SYN-02 states a deductible code of 5 for Coverage A.
+    the schedule for policy SYN-02 names Test Insured Two landlord.
+    the schedule for policy SYN-02 states Arverne Queens NY as the described location.
+    the schedule for policy SYN-02 states AE for the described location.
+    the schedule for policy SYN-02 states single-family dwelling tenant-occupied rental for the dwelling.
+    the schedule for policy SYN-02 states a full replacement cost of 305000 for dwelling SYN-02.
+    the schedule for policy SYN-02 states an annual premium of 3282.
+
+    payment expects answers ["we will pay 46000 for claim SYN-02-C1"].
+
+scenario SYN-02-C2 is, as stated in claim file SYN-02-C2:
+
+    claim SYN-02-C2 arises under policy SYN-02.
+    claim SYN-02-C2 concerns loss SYN-02-C2.
+    claim SYN-02-C2 has component SYN-02-C2-contents.
+    component SYN-02-C2-contents seeks coverage under Coverage B.
+    component SYN-02-C2-contents concerns tenant contents SYN-02-C2.
+    tenant contents SYN-02-C2 is personal property.
+    tenant contents SYN-02-C2 is inside dwelling SYN-02.
+    tenant SYN-02-C2 owns tenant contents SYN-02-C2.
+    tenant SYN-02-C2 is a tenant.
+    tenant contents SYN-02-C2 has physical changes from loss SYN-02-C2.
+    the actual cash value of component SYN-02-C2-contents is 14000,
+        according to claim file SYN-02-C2.
+    loss SYN-02-C2 occurs on 2025-09-30.
+    loss SYN-02-C2 occurs at Arverne Queens NY.
+    loss SYN-02-C2 involves a general and temporary inundation.
+    the inundation for loss SYN-02-C2 affects at least two acres of normally dry land.
+    the inundation for loss SYN-02-C2 results from overflow of inland or tidal waters.
+
+    the schedule for policy SYN-02 states a period beginning on 2025-07-15 and ending on 2026-07-15.
+    the schedule for policy SYN-02 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-02 states a limit of 0, per claim, for Coverage B.
+    the schedule for policy SYN-02 states a deductible of 5000 for Coverage A.
+    the schedule for policy SYN-02 states a deductible code of 5 for Coverage A.
+    the schedule for policy SYN-02 names Test Insured Two landlord.
+    the schedule for policy SYN-02 states Arverne Queens NY as the described location.
+    the schedule for policy SYN-02 states AE for the described location.
+    the schedule for policy SYN-02 states single-family dwelling tenant-occupied rental for the dwelling.
+    the schedule for policy SYN-02 states a full replacement cost of 305000 for dwelling SYN-02.
+    the schedule for policy SYN-02 states an annual premium of 3282.
+
+    payment expects answers ["we will pay 0 for claim SYN-02-C2"].
+
+scenario SYN-02-C3 is, as stated in claim file SYN-02-C3:
+
+    claim SYN-02-C3 arises under policy SYN-02.
+    claim SYN-02-C3 concerns loss SYN-02-C3.
+    claim SYN-02-C3 has component SYN-02-C3-building.
+    component SYN-02-C3-building seeks coverage under Coverage A.
+    component SYN-02-C3-building concerns dwelling SYN-02.
+    component SYN-02-C3-building concerns dwelling property SYN-02.
+    dwelling property SYN-02 is building property.
+    dwelling property SYN-02 has physical changes from loss SYN-02-C3.
+    loss SYN-02-C3 occurs on 2026-02-11.
+    loss SYN-02-C3 occurs at Arverne Queens NY.
+    loss SYN-02-C3 is caused by theft fire explosion wind or windstorm,
+        according to claim file SYN-02-C3.
+    loss SYN-02-C3 is caused directly or indirectly by rain snow sleet hail or water spray,
+        according to claim file SYN-02-C3.
+    the repair cost with materials of like kind and quality for component SYN-02-C3-building is 26000.
+
+    the schedule for policy SYN-02 states a period beginning on 2025-07-15 and ending on 2026-07-15.
+    the schedule for policy SYN-02 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-02 states a limit of 0, per claim, for Coverage B.
+    the schedule for policy SYN-02 states a deductible of 5000 for Coverage A.
+    the schedule for policy SYN-02 states a deductible code of 5 for Coverage A.
+    the schedule for policy SYN-02 names Test Insured Two landlord.
+    the schedule for policy SYN-02 states Arverne Queens NY as the described location.
+    the schedule for policy SYN-02 states AE for the described location.
+    the schedule for policy SYN-02 states single-family dwelling tenant-occupied rental for the dwelling.
+    the schedule for policy SYN-02 states a full replacement cost of 305000 for dwelling SYN-02.
+    the schedule for policy SYN-02 states an annual premium of 3282.
+
+    payment expects answers ["we will pay 0 for claim SYN-02-C3"].
+
+scenario SYN-02-C4 is, as stated in claim file SYN-02-C4:
+
+    claim SYN-02-C4 arises under policy SYN-02.
+    claim SYN-02-C4 concerns loss SYN-02-C4.
+    claim SYN-02-C4 has component SYN-02-C4-dwelling.
+    claim SYN-02-C4 has component SYN-02-C4-driveway.
+    claim SYN-02-C4 has component SYN-02-C4-fence.
+    claim SYN-02-C4 has component SYN-02-C4-pool.
+    component SYN-02-C4-dwelling seeks coverage under Coverage A.
+    component SYN-02-C4-dwelling concerns dwelling SYN-02.
+    component SYN-02-C4-dwelling concerns dwelling property SYN-02.
+    dwelling property SYN-02 is building property.
+    dwelling property SYN-02 has physical changes from loss SYN-02-C4.
+    the actual cash value of component SYN-02-C4-dwelling is 9000,
+        according to claim file SYN-02-C4.
+    component SYN-02-C4-driveway seeks coverage under Coverage A.
+    component SYN-02-C4-driveway concerns driveway SYN-02-C4.
+    driveway SYN-02-C4 is building property.
+    driveway SYN-02-C4 has physical changes from loss SYN-02-C4.
+    driveway SYN-02-C4 is an exterior walk walkway deck driveway patio or similar surface.
+    driveway SYN-02-C4 is outside the perimeter exterior walls of the insured building.
+    component SYN-02-C4-driveway claims 6500.
+    component SYN-02-C4-fence seeks coverage under Coverage A.
+    component SYN-02-C4-fence concerns fence SYN-02-C4.
+    fence SYN-02-C4 is building property.
+    fence SYN-02-C4 has physical changes from loss SYN-02-C4.
+    fence SYN-02-C4 is a fence retaining wall seawall bulkhead wharf pier bridge or dock.
+    component SYN-02-C4-fence claims 4000.
+    component SYN-02-C4-pool seeks coverage under Coverage A.
+    component SYN-02-C4-pool concerns pool equipment SYN-02-C4.
+    pool equipment SYN-02-C4 is building property.
+    pool equipment SYN-02-C4 has physical changes from loss SYN-02-C4.
+    pool equipment SYN-02-C4 is a hot tub spa swimming pool or related equipment.
+    component SYN-02-C4-pool claims 3200.
+    loss SYN-02-C4 occurs on 2025-09-30.
+    loss SYN-02-C4 occurs at Arverne Queens NY.
+    loss SYN-02-C4 involves a general and temporary inundation.
+    the inundation for loss SYN-02-C4 affects at least two acres of normally dry land.
+    the inundation for loss SYN-02-C4 results from overflow of inland or tidal waters.
+
+    the schedule for policy SYN-02 states a period beginning on 2025-07-15 and ending on 2026-07-15.
+    the schedule for policy SYN-02 states a limit of 250000, per claim, for Coverage A.
+    the schedule for policy SYN-02 states a limit of 0, per claim, for Coverage B.
+    the schedule for policy SYN-02 states a deductible of 5000 for Coverage A.
+    the schedule for policy SYN-02 states a deductible code of 5 for Coverage A.
+    the schedule for policy SYN-02 names Test Insured Two landlord.
+    the schedule for policy SYN-02 states Arverne Queens NY as the described location.
+    the schedule for policy SYN-02 states AE for the described location.
+    the schedule for policy SYN-02 states single-family dwelling tenant-occupied rental for the dwelling.
+    the schedule for policy SYN-02 states a full replacement cost of 305000 for dwelling SYN-02.
+    the schedule for policy SYN-02 states an annual premium of 3282.
+
+    payment expects answers ["we will pay 4000 for claim SYN-02-C4"].
+
+scenario SYN-03-C1 is, as stated in claim file SYN-03-C1:
+
+    claim SYN-03-C1 arises under policy SYN-03.
+    claim SYN-03-C1 concerns loss SYN-03-C1.
+    claim SYN-03-C1 has component SYN-03-C1-building.
+    component SYN-03-C1-building seeks coverage under Coverage A.
+    component SYN-03-C1-building concerns dwelling SYN-03.
+    component SYN-03-C1-building concerns dwelling property SYN-03.
+    dwelling property SYN-03 is building property.
+    dwelling property SYN-03 has physical changes from loss SYN-03-C1.
+    loss SYN-03-C1 occurs on 2025-11-08.
+    loss SYN-03-C1 occurs at Broad Channel Queens NY.
+    loss SYN-03-C1 involves a general and temporary inundation.
+    the inundation for loss SYN-03-C1 affects at least two acres of normally dry land.
+    the inundation for loss SYN-03-C1 results from overflow of inland or tidal waters.
+    the repair cost with materials of like kind and quality for component SYN-03-C1-building is 40000.
+    the actual cash value of component SYN-03-C1-building is 32000,
+        according to claim file SYN-03-C1.
+    repairs for component SYN-03-C1-building are completed.
+
+    the schedule for policy SYN-03 states a period beginning on 2025-08-13 and ending on 2026-08-13.
+    the schedule for policy SYN-03 states a limit of 120000, per claim, for Coverage A.
+    the schedule for policy SYN-03 states a limit of 30000, per claim, for Coverage B.
+    the schedule for policy SYN-03 states a deductible of 1000 for Coverage A.
+    the schedule for policy SYN-03 states a deductible of 1000 for Coverage B.
+    the schedule for policy SYN-03 states a deductible code of 1 for Coverage A.
+    the schedule for policy SYN-03 states a deductible code of 1 for Coverage B.
+    the schedule for policy SYN-03 names Test Insured Three.
+    the schedule for policy SYN-03 states Broad Channel Queens NY as the described location.
+    the schedule for policy SYN-03 states AE for the described location.
+    the schedule for policy SYN-03 states single-family dwelling with basement and detached storage garage for the dwelling.
+    the schedule for policy SYN-03 states that dwelling SYN-03 is a principal residence.
+    the schedule for policy SYN-03 states a full replacement cost of 200000 for dwelling SYN-03.
+    the schedule for policy SYN-03 states an annual premium of 1134.
+
+    payment expects answers ["we will pay 31000 for claim SYN-03-C1"].
+
+query payment is:
+    we will pay which amount for which claim.
+
+query component_payment is:
+    we will pay which amount in respect of which claim component.
+
+query total_payable is:
+    the total payable amount for which claim is which amount.
+
+query claim_coverage is:
+    which claim is covered under the Dwelling Form section.
+
+query component_coverage is:
+    which claim component is covered under which cover.
+
+query recorded_cause is:
+    the cause of which loss is which cause.
+
+query basement_area is:
+    which area is a basement.
+
+query dwelling_classification is:
+    which building is a dwelling.
+
+query construction_insured_property is:
+    which property is insured property under which cover.
+
+% These status queries expose declared policy classifications that no supplied
+% case invokes because of the stated manufactured-home, post-FIRM, and
+% repetitive-loss simplifications.
+query manufactured_home_status is:
+    which building is a manufactured home.
+
+query post_firm_status is:
+    which building is a post-FIRM building.
+
+query repetitive_loss_status is:
+    which building is a repetitive loss building.
+
+the view claims desk is:
+
+    the title is "National Flood Insurance Program — Dwelling Form claims desk".
+    the case is a scenario, with the documents it is stated in.
+
+    the facts about "the policy" are
+        a claim arises under a policy,
+        the schedule for a policy names an insured,
+        the schedule for a policy states a location as the described location,
+        the schedule for a policy states a flood zone for the described location,
+        the schedule for a policy states an occupancy for the dwelling,
+        the schedule for a policy states that a dwelling is a principal residence,
+        the schedule for a policy states a full replacement cost of an amount for a dwelling,
+        the schedule for a policy states an annual premium of an amount.
+
+    the facts about "the loss" are
+        a claim concerns a loss,
+        a loss occurs on a date,
+        a loss occurs at a location,
+        a loss involves a general and temporary inundation,
+        the inundation for a loss affects at least two acres of normally dry land,
+        the inundation for a loss affects at least two properties,
+        the insured property is one of the properties affected by the inundation for a loss,
+        the inundation for a loss results from overflow of inland or tidal waters,
+        a flood exists in the area of a loss,
+        the cause of a loss is a cause,
+        the proximate cause of a loss is a cause,
+        a loss is caused by sewer or drain backup,
+        a loss is caused directly or indirectly by rain snow sleet hail or water spray,
+        a loss is caused by theft fire explosion wind or windstorm.
+
+    the facts about "the damage and expenses" are
+        a claim has a claim component,
+        a claim component seeks coverage under a cover,
+        a claim component concerns a property,
+        a claim component concerns a dwelling,
+        a claim component claims an amount,
+        the repair cost with materials of like kind and quality for a claim component is an amount,
+        the amount actually spent to repair or replace a claim component is an amount,
+        repairs for a claim component are completed,
+        a claim component includes a damaged item,
+        a damaged item has an actual cash value of an amount,
+        a damaged item is classified in a property category,
+        the actual cost of a compliance activity is an amount.
+
+    the judgments are
+        the actual cash value of a claim component is an amount,
+        the physical depreciation of a claim component is an amount,
+        damage to insured property by or from flood is imminent,
+        the threat of flood damage is apparent to a person of common prudence.
+
+    the result is the answer to query payment, headed by the amount, in dollars.
+    the result shows its citations.
+    the result shows its reasons.
+    the result shows the stage it reaches.
+    the result can be flipped.
+    the flip keeps a claim arises under a policy, a loss occurs on a date.
+    the cases are listed with their results.
+
+
+% ── Held-out case scenarios (blind evaluation) ──
+
+scenario case 101 is, as stated in claim file SYN-03-C2:
+
+    claim 101 arises under policy 101.
+    claim 101 concerns loss 101.
+    claim 101 has component 101-building.
+    claim 101 has component 101-contents.
+
+    component 101-building seeks coverage under Coverage A.
+    component 101-building concerns dwelling 101.
+    component 101-building concerns dwelling property 101.
+    component 101-building claims 5700.
+    dwelling property 101 is building property.
+    dwelling property 101 has physical changes from loss 101.
+    component 101-building includes furnace 101.
+    component 101-building includes water heater 101.
+    furnace 101 has an actual cash value of 4500.
+    water heater 101 has an actual cash value of 1200.
+
+    component 101-contents seeks coverage under Coverage B.
+    component 101-contents concerns basement contents 101.
+    component 101-contents claims 2700.
+    basement contents 101 is personal property.
+    basement contents 101 is inside dwelling 101.
+    basement contents 101 is owned by the named insured.
+    basement contents 101 has physical changes from loss 101.
+    component 101-contents includes washer dryer 101.
+    component 101-contents includes freezer and food 101.
+    washer dryer 101 has an actual cash value of 1800.
+    washer dryer 101 is classified in ordinary contents.
+    freezer and food 101 has an actual cash value of 900.
+    freezer and food 101 is classified in ordinary contents.
+
+    loss 101 occurs on 2025-11-08.
+    loss 101 occurs at Broad Channel Queens NY 11693.
+    loss 101 involves a general and temporary inundation.
+    the inundation for loss 101 affects at least two acres of normally dry land.
+    the inundation for loss 101 results from overflow of inland or tidal waters.
+
+    the schedule for policy 101 states a period beginning on 2025-08-13 and ending on 2026-08-13.
+    the schedule for policy 101 states a limit of 120000, per claim, for Coverage A.
+    the schedule for policy 101 states a limit of 30000, per claim, for Coverage B.
+    the schedule for policy 101 states a deductible of 1000 for Coverage A.
+    the schedule for policy 101 states a deductible of 1000 for Coverage B.
+    the schedule for policy 101 states a deductible code of 1 for Coverage A.
+    the schedule for policy 101 states a deductible code of 1 for Coverage B.
+    the schedule for policy 101 names Test Insured Three case 101.
+    the schedule for policy 101 states Broad Channel Queens NY 11693 as the described location.
+    the schedule for policy 101 states AE for the described location.
+    the schedule for policy 101 states single-family dwelling with basement and detached storage garage for the dwelling.
+    the schedule for policy 101 states that dwelling 101 is a principal residence.
+    the schedule for policy 101 states a full replacement cost of 200000 for dwelling 101.
+    the schedule for policy 101 states an annual premium of 1134.
+
+    payment expects answers ["we will pay 6400 for claim 101"].
+    component_payment expects answers ["we will pay 4700 in respect of component 101-building", "we will pay 1700 in respect of component 101-contents"].
+    total_payable expects answers ["the total payable amount for claim 101 is 6400"].
+    claim_coverage expects answers ["claim 101 is covered under the Dwelling Form section"].
+    component_coverage expects answers ["component 101-building is covered under Coverage A", "component 101-contents is covered under Coverage B"].
+
+
+scenario SYN-03-C3 is, as stated in claim file SYN-03-C3:
+
+    claim SYN-03-C3 arises under policy SYN-03.
+    claim SYN-03-C3 concerns loss SYN-03-C3.
+    claim SYN-03-C3 has component SYN-03-C3-garage.
+    component SYN-03-C3-garage seeks coverage under Coverage A.
+    component SYN-03-C3-garage concerns detached garage SYN-03-C3.
+    component SYN-03-C3-garage claims 15000.
+    detached garage SYN-03-C3 is a detached garage.
+    detached garage SYN-03-C3 is building property.
+    detached garage SYN-03-C3 has physical changes from loss SYN-03-C3.
+
+    loss SYN-03-C3 occurs on 2025-11-08.
+    loss SYN-03-C3 occurs at Broad Channel Queens NY.
+    loss SYN-03-C3 involves a general and temporary inundation.
+    the inundation for loss SYN-03-C3 affects at least two acres of normally dry land.
+    the inundation for loss SYN-03-C3 results from overflow of inland or tidal waters.
+
+    the schedule for policy SYN-03 states a period beginning on 2025-08-13 and ending on 2026-08-13.
+    the schedule for policy SYN-03 states a limit of 120000, per claim, for Coverage A.
+    the schedule for policy SYN-03 states a limit of 30000, per claim, for Coverage B.
+    the schedule for policy SYN-03 states a deductible of 1000 for Coverage A.
+    the schedule for policy SYN-03 states a deductible of 1000 for Coverage B.
+    the schedule for policy SYN-03 states a deductible code of 1 for Coverage A.
+    the schedule for policy SYN-03 states a deductible code of 1 for Coverage B.
+    the schedule for policy SYN-03 names Test Insured Three.
+    the schedule for policy SYN-03 states Broad Channel Queens NY as the described location.
+    the schedule for policy SYN-03 states AE for the described location.
+    the schedule for policy SYN-03 states single-family dwelling with basement and detached storage garage for the dwelling.
+    the schedule for policy SYN-03 states that dwelling SYN-03 is a principal residence.
+    the schedule for policy SYN-03 states a full replacement cost of 200000 for dwelling SYN-03.
+    the schedule for policy SYN-03 states an annual premium of 1134.
+
+    payment expects answers ["we will pay 11000 for claim SYN-03-C3"].
+    component_payment expects answers ["we will pay 11000 in respect of component SYN-03-C3-garage"].
+    total_payable expects answers ["the total payable amount for claim SYN-03-C3 is 11000"].
+    claim_coverage expects answers ["claim SYN-03-C3 is covered under the Dwelling Form section"].
+    component_coverage expects answers ["component SYN-03-C3-garage is covered under Coverage A"].
+    recorded_cause expects answers [].
+    basement_area expects answers [].
+    dwelling_classification expects answers [].
+    construction_insured_property expects answers [].
+    manufactured_home_status expects answers [].
+    post_firm_status expects answers [].
+    repetitive_loss_status expects answers [].
+
+
+scenario SYN-03-C4 is, as stated in claim file SYN-03-C4:
+
+    claim SYN-03-C4 arises under policy SYN-03.
+    claim SYN-03-C4 concerns loss SYN-03-C4.
+    claim SYN-03-C4 has component SYN-03-C4-contents.
+    component SYN-03-C4-contents seeks coverage under Coverage B.
+    component SYN-03-C4-contents concerns contents property SYN-03-C4.
+    contents property SYN-03-C4 is personal property.
+    contents property SYN-03-C4 is inside dwelling SYN-03.
+    contents property SYN-03-C4 is owned by the named insured.
+    contents property SYN-03-C4 has physical changes from loss SYN-03-C4.
+    component SYN-03-C4-contents includes antique cabinet SYN-03-C4.
+    component SYN-03-C4-contents includes ordinary furniture SYN-03-C4.
+    antique cabinet SYN-03-C4 has an actual cash value of 1500.
+    antique cabinet SYN-03-C4 is classified in antique.
+    ordinary furniture SYN-03-C4 has an actual cash value of 2500.
+    ordinary furniture SYN-03-C4 is classified in ordinary contents.
+    loss SYN-03-C4 occurs on 2025-11-08.
+    loss SYN-03-C4 occurs at Broad Channel Queens NY.
+    loss SYN-03-C4 involves a general and temporary inundation.
+    the inundation for loss SYN-03-C4 affects at least two acres of normally dry land.
+    the inundation for loss SYN-03-C4 results from overflow of inland or tidal waters.
+
+    the schedule for policy SYN-03 states a period beginning on 2025-08-13 and ending on 2026-08-13.
+    the schedule for policy SYN-03 states a limit of 120000, per claim, for Coverage A.
+    the schedule for policy SYN-03 states a limit of 30000, per claim, for Coverage B.
+    the schedule for policy SYN-03 states a deductible of 1000 for Coverage A.
+    the schedule for policy SYN-03 states a deductible of 1000 for Coverage B.
+    the schedule for policy SYN-03 states a deductible code of 1 for Coverage A.
+    the schedule for policy SYN-03 states a deductible code of 1 for Coverage B.
+    the schedule for policy SYN-03 names Test Insured Three.
+    the schedule for policy SYN-03 states Broad Channel Queens NY as the described location.
+    the schedule for policy SYN-03 states AE for the described location.
+    the schedule for policy SYN-03 states single-family dwelling with basement and detached storage garage for the dwelling.
+    the schedule for policy SYN-03 states that dwelling SYN-03 is a principal residence.
+    the schedule for policy SYN-03 states a full replacement cost of 200000 for dwelling SYN-03.
+    the schedule for policy SYN-03 states an annual premium of 1134.
+
+    payment expects answers ["we will pay 3000 for claim SYN-03-C4"].
+    component_payment expects answers ["we will pay 3000 in respect of component SYN-03-C4-contents"].
+    total_payable expects answers ["the total payable amount for claim SYN-03-C4 is 3000"].
+    claim_coverage expects answers ["claim SYN-03-C4 is covered under the Dwelling Form section"].
+    component_coverage expects answers ["component SYN-03-C4-contents is covered under Coverage B"].
+
+
+scenario held out case 104 is:
+
+    claim 104 arises under policy 104.
+    claim 104 concerns loss 104.
+    claim 104 has component 104-building.
+    component 104-building seeks coverage under Coverage A.
+    component 104-building concerns dwelling 104.
+    component 104-building concerns dwelling property 104.
+    dwelling property 104 is building property.
+    dwelling property 104 has physical changes from loss 104.
+    loss 104 occurs on 2026-04-19.
+    loss 104 occurs at Broad Channel Queens NY.
+    loss 104 involves a general and temporary inundation.
+    it is not the case that the inundation for loss 104 affects at least two acres of normally dry land.
+    it is not the case that the inundation for loss 104 affects at least two properties.
+    the insured property is one of the properties affected by the inundation for loss 104.
+    the cause of loss 104 is blocked storm drain.
+    the repair cost with materials of like kind and quality for component 104-building is 7500.
+
+    the schedule for policy 104 states a period beginning on 2025-08-13 and ending on 2026-08-13.
+    the schedule for policy 104 states a limit of 120000, per claim, for Coverage A.
+    the schedule for policy 104 states a limit of 30000, per claim, for Coverage B.
+    the schedule for policy 104 states a deductible of 1000 for Coverage A.
+    the schedule for policy 104 states a deductible of 1000 for Coverage B.
+    the schedule for policy 104 states a deductible code of 1 for Coverage A.
+    the schedule for policy 104 states a deductible code of 1 for Coverage B.
+    the schedule for policy 104 names Test Insured Three.
+    the schedule for policy 104 states Broad Channel Queens NY as the described location.
+    the schedule for policy 104 states AE for the described location.
+    the schedule for policy 104 states single-family dwelling with basement and detached storage garage for the dwelling.
+    the schedule for policy 104 states that dwelling 104 is a principal residence.
+    the schedule for policy 104 states a full replacement cost of 200000 for dwelling 104.
+    the schedule for policy 104 states an annual premium of 1134.
+
+    payment expects answers ["we will pay 0 for claim 104"].
+    component_payment expects answers ["we will pay 0 in respect of component 104-building"].
+    total_payable expects answers ["the total payable amount for claim 104 is 0"].
+    claim_coverage expects answers [].
+    component_coverage expects answers [].
+    recorded_cause expects answers ["the cause of loss 104 is blocked storm drain"].
+

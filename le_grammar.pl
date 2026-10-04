@@ -801,8 +801,19 @@ query_name_tokens([T|Ts]) -->
 query_name_tokens([]) --> [].
 
 reconstruct_name(Parts, Name) :-
-    maplist(extract_simple_word, Parts, Words),
+    maplist(name_part_word, Parts, Words),
     reconstruct_name_acc(Words, Name).
+
+%   A number inside a name keeps the digits it was written with: the
+%   tokenizer reads the `01` of `SYN-01-C1` as the number 1, and a claim
+%   reference written with a leading zero (the usual style of claim, policy
+%   and case numbers) came out as `SYN-1-C1`, which no expected answer naming
+%   `SYN-01-C1` could match.
+name_part_word(number(N, loc(S, E)), W) :-
+    tokenizer:leading_zeros_width(N, S, E, Len), !,
+    format(atom(W), '~|~`0t~d~*+', [N, Len]).
+name_part_word(Part, Word) :-
+    extract_simple_word(Part, Word).
 
 reconstruct_name_acc([], '') :- !.
 reconstruct_name_acc([W], W) :- !.
@@ -2063,7 +2074,8 @@ extract_id(Words, Name) :-
 extract_var_name(Words, Name) :-
     extract_var_name_extension(Words, Name), !.
 extract_var_name(Words, Name) :-
-    (   Words = [Art | Rest], Rest \== [], is_article(Art) ->
+    (   Words = [Art | Rest], Rest \== [], is_article(Art),
+        \+ capital_id_not_article(Art, Rest) ->
             length(Rest, L), L =< 5,
             extract_id(Rest, Name)
         ; Words = [W1 | Rest], Rest \== [], le_i18n:class_member(each, W1) ->
@@ -2075,6 +2087,16 @@ extract_var_name(Words, Name) :-
         ; Words = [W], wh_pronoun(W) -> capitalize_atom(W, Name)
         ; Words = [W], is_id(W) -> Name = W
     ).
+
+%   A capital `A` (or another one-letter article written in capitals) is the
+%   variable A, not the article, when what follows it is not a word: in
+%   `P = A - 2000` the phrase `A - 2000` is an expression on the variable A.
+%   Read as the article, it named a fresh variable "- 2000", and the rule
+%   computed nothing (a Contract Assistant draft paid the deductible instead of
+%   the loss less the deductible).
+capital_id_not_article(Art, [Next|_]) :-
+    is_id(Art),
+    \+ ( atom(Next), atom_codes(Next, [C|_]), code_type(C, alpha) ).
 
 % A standalone interrogative pronoun usable as a variable ("who", "what",
 % "when", "where" in English); its capitalised surface becomes the variable

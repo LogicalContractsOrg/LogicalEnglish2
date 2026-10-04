@@ -1,6 +1,6 @@
 # Logical English Load-Time Warnings
 
-*Kind: guide · Audience: users · Status: current (2026-09-01)*
+*Kind: guide · Audience: users · Status: current (2026-10-04)*
 
 These warnings apply only to programs the system can already read: programs
 whose sentences are correctly written
@@ -29,6 +29,27 @@ A template is declared, but appears nowhere else: in no rule's conclusion, in no
 
 The answers the query actually gives differ from the answers the scenario says to expect (`<query> expects answers [...] and unknowns [...]`), or from those in an old `.le.tests` file beside the program, where an example still has one.  
 **Fix:** check the logic of your rules or the facts in the scenario.
+
+## Template '...' has no word of its own besides "is" (an error)
+
+Every word of the template's sentence is inside asterisks except *is*, as in
+`*the amount of other insurance* is *an amount*`. Inside the system, such a
+template would take the place of the one the system uses for arithmetic, so
+that every sentence of the program written "... is ...", including a
+comparison of dates such as `D is after or equal to S`, would be read as an
+instance of the template, and each answer that needs it stops with an error.
+**Fix:** write the fixed words outside the asterisks:
+`the amount of other insurance under *a policy* is *an amount*`.
+
+## An aggregate speaks of something no condition before it names
+
+A rule's conclusion names something (`the capped amount for a claim
+component is ...`), and an aggregate in the rule (`the max of each V such that
+the payable benefit for the claim component is V`) speaks of it, but no
+condition before the aggregate says which one. The aggregate then takes all of
+them together, and the rule answers once, for none in particular.
+**Fix:** name it in a condition before the aggregate, such as `a claim has the
+claim component`.
 
 ## Rule without variables: ...
 

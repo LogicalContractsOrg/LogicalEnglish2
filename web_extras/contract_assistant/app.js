@@ -144,7 +144,16 @@ function applyMode() {
 function refreshStartButton() {
     $('btn-start').disabled = isFragmentMode()
         ? !(fragmentProgram() && (fragmentText() || !textRequired()))
-        : !$('file-wording').files.length;
+        : !($('file-wording').files.length || wordingUrl());
+}
+
+function wordingUrl() { return ($('wording-url').value || '').trim(); }
+
+// The models of the branches: none (every branch uses the main model), or
+// the main model and the second one in turn.
+function branchModels() {
+    const second = $('branch-model').value;
+    return second && second !== $('model').value ? [$('model').value, second] : [];
 }
 
 function fragmentProgram() { return ($('fragment-program').value || '').trim(); }
@@ -180,6 +189,7 @@ function wireUploads() {
         scheduleEstimate();
     };
     $('file-wording').addEventListener('change', () => nameFor($('file-wording'), $('name-wording'), 'no file selected'));
+    $('wording-url').addEventListener('input', () => { refreshStartButton(); scheduleEstimate(); });
     $('file-schedule').addEventListener('change', () => nameFor($('file-schedule'), $('name-schedule'), 'no files selected'));
     $('file-cases').addEventListener('change', () => nameFor($('file-cases'), $('name-cases'), 'no files selected'));
 }
@@ -218,7 +228,7 @@ async function runEstimate() {
     const box = $('cost'), value = $('cost-value');
     const chars = inputChars();
     const ready = isFragmentMode() ? (fragmentProgram() && (fragmentText() || !textRequired()))
-                                   : ($('file-wording').files.length || chars);
+                                   : ($('file-wording').files.length || wordingUrl() || chars);
     if (!ready) {
         box.classList.add('unknown');
         value.textContent = MODE_TEXT[currentMode()].empty;
@@ -267,8 +277,9 @@ async function loadModels() {
         serverKeys = data.server_keys || [];
         modelProviders = {};
         for (const m of models) modelProviders[m.short] = m.provider;
-        for (const sel of [$('model'), $('judge-model')]) {
-            sel.innerHTML = '';
+        $('branch-model').innerHTML = '<option value="">no other model — every branch uses the main one</option>';
+        for (const sel of [$('model'), $('judge-model'), $('branch-model')]) {
+            if (sel.id !== 'branch-model') sel.innerHTML = '';
             for (const m of models) {
                 const opt = document.createElement('option');
                 opt.value = m.short;
@@ -288,7 +299,7 @@ async function loadModels() {
 // The providers this run will actually call: the main model's and the judge's.
 function selectedProviders() {
     const ps = [];
-    for (const id of ['model', 'judge-model']) {
+    for (const id of ['model', 'judge-model', 'branch-model']) {
         const p = modelProviders[$(id).value];
         if (p && PROVIDERS[p] && !ps.includes(p)) ps.push(p);
     }
@@ -411,7 +422,11 @@ async function start() {
             if (fragmentText()) payload.text = fragmentText();
             if (fragmentName()) payload.name = fragmentName();
         } else {
-            payload.wording = await fileToUpload($('file-wording').files[0]);
+            if ($('file-wording').files.length)
+                payload.wording = await fileToUpload($('file-wording').files[0]);
+            else
+                payload.wording_url = wordingUrl();
+            if (branchModels().length) payload.branch_models = branchModels();
             payload.target = $('target').value.trim();
             payload.existing_code = existingCode();
             // Schedule and cases both take a list (the server also accepts a
@@ -469,7 +484,7 @@ function rememberJob(job) {
         wording: currentMode() === 'residue' ? 'migration residue'
             : isFragmentMode()
             ? `one ${currentMode()}`
-            : (wording ? wording.name : '')
+            : (wording ? wording.name : wordingUrl())
     };
     saveRecentJobs([entry].concat(jobs.filter(j => j.job !== job)));
 }
@@ -663,7 +678,7 @@ function renderBranches(branches) {
     for (const b of branches) {
         const card = document.createElement('div');
         card.className = 'branch';
-        card.innerHTML = `<b>Branch ${b.branch}</b> <span class="state">${b.state || ''}</span><br>` +
+        card.innerHTML = `<b>Branch ${b.branch}</b>${b.model ? ` <small class="model">${esc(b.model)}</small>` : ''} <span class="state">${b.state || ''}</span><br>` +
             (b.summary ? `<small>${b.summary}${b.iteration !== undefined ? ` (iteration ${b.iteration})` : ''}</small>` : '');
         div.appendChild(card);
     }
@@ -843,7 +858,8 @@ function wireEstimate() {
                  'feat-polish', 'feat-expectations'];
     for (const id of ids) $(id).addEventListener('change', scheduleEstimate);
     // Changing a model can change which provider's key is needed.
-    for (const id of ['model', 'judge-model']) $(id).addEventListener('change', renderKeys);
+    for (const id of ['model', 'judge-model', 'branch-model']) $(id).addEventListener('change', renderKeys);
+    $('branch-model').addEventListener('change', scheduleEstimate);
     for (const radio of document.querySelectorAll('input[name=preset]'))
         radio.addEventListener('change', scheduleEstimate);
 }

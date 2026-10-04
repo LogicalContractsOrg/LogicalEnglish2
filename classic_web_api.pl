@@ -134,6 +134,9 @@ visitor(Email, Caps) :-
 % page lacked).
 :- http_handler('/editor/', http_reply_from_files('editor', [headers([cache_control('no-cache')])]), [prefix]).
 :- http_handler('/web_extras/', http_reply_from_files('web_extras', [headers([cache_control('no-cache')])]), [prefix]).
+% The Contract Assistant belongs to the Logical English Translators licence
+% (capability `contract_assistant`): its page is served to those who hold it.
+:- http_handler('/web_extras/contract_assistant/', handle_contract_assistant_page, [prefix]).
 :- http_handler('/editor', http_redirect(moved, '/editor/index.html'), []).
 
 %!  start_api_server is det.
@@ -529,6 +532,30 @@ handle_login(Request) :-
         uit('Signing in is not available on this server.', NoAccounts),
         reply_html_page([title(LoginTxt), script([src('/telemetry.js')], [])],
                         [h1(LoginTxt), p(NoAccounts), p(a(href('/'), 'Logical English'))])
+    ).
+
+%!  handle_contract_assistant_page(+Request) is det.
+%
+%   The Contract Assistant's web app, for a visitor whose licence includes
+%   it; for anybody else, a page that says which licence it belongs to and
+%   offers to sign in. The operations it calls are checked as well
+%   (le_api.pl, contract_assistant_refusal/1).
+handle_contract_assistant_page(Request) :-
+    (   entitled(contract_assistant)
+    ->  http_reply_from_files('web_extras/contract_assistant', [headers([cache_control('no-cache')])], Request)
+    ;   set_cookie_language(Request),
+        uit('LE Contract Assistant', Title),
+        uit('The LE Contract Assistant is part of the Logical English Translators licence.', Part),
+        uit('It writes the first draft of a Logical English program from a contract, its schedules and its cases.', What),
+        uit('Sign in with an account that holds the licence', SignIn),
+        uit('Write to support@logicalcontracts.com to ask for one.', Ask),
+        memberchk(path(Path), Request),
+        uri_encoded(query_value, Path, Ret),
+        format(atom(Href), '/login?return=~w', [Ret]),
+        reply_html_page([title(Title), script([src('/telemetry.js')], [])],
+                        [h1(Title), p(Part), p(What),
+                         p(a(href(Href), SignIn)), p(Ask),
+                         p(a(href('/'), 'Logical English'))])
     ).
 
 handle_logout(Request) :-

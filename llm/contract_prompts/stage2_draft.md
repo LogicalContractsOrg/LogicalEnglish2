@@ -7,8 +7,13 @@ The program must contain, in order:
 1. a header comment: what the twin decides, and a "Known simplifications" list;
 2. `the target language is: prolog.`
 3. `the templates are:` — the vocabulary (with epistemic markers);
-4. `the contract states that:` — decision rules and exception rules,
-   each rule preceded by a `%` comment citing its clause;
+4. `the contract states that:` — first the document statements (`the policy
+   is published at ...`, `the text of the policy is at ...`, from the
+   DOCUMENT section below), then the decision rules and exception rules,
+   grouped by `section applicability is:` / `section question is:` /
+   `section remedy is:` markers, each operative rule labelled
+   `rule <name> with provenance <document> at <locator>, confer "<verbatim
+   quotation>":` (see Citations in the house style);
 5. `the annexes to the contract are:` — derived notions, date/geography
    helpers, limit machinery;
 6. the schedule as facts (from the SCHEDULE material) — but only the
@@ -22,7 +27,9 @@ The program must contain, in order:
 8. the queries (`query <name> is:` sections) used by the expectations —
    queries use plain `which` variables (`we will pay which amount for which
    claim.`), NEVER asterisks; asterisks appear only inside
-   `the templates are:`.
+   `the templates are:`;
+9. one view (`the view <name> is:`) shaped for the contract's domain — a
+   claims desk for an insurance policy (see the house style).
 
 For expected-answer strings, render numbers without thousands separators
 (write `expects answers ["we will pay 18500 for claim one"]`).
@@ -38,6 +45,7 @@ named — silence there reads as an oversight.
 
 Output exactly one fenced code block containing the full program and nothing
 else.
+{{document}}
 {{existing}}
 {{scenarios}}
 {{instructions}}

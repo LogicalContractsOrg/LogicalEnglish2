@@ -166,11 +166,11 @@ handle_operation(Dict, Response) :-
             )
         ; Op == "assistant_status" -> handle_assistant_status(Dict, Response)
         ; Op == "assistant_interrupt" -> handle_assistant_interrupt(Dict, Response)
-        ; Op == "contract_start" -> handle_contract_start(Dict, Response)
-        ; Op == "contract_status" -> handle_contract_status(Dict, Response)
-        ; Op == "contract_result" -> handle_contract_result(Dict, Response)
-        ; Op == "contract_interrupt" -> handle_contract_interrupt(Dict, Response)
-        ; Op == "contract_cost_estimate" -> handle_contract_estimate(Dict, Response)
+        ; contract_operation(Op, Handler) ->
+            (   contract_assistant_refusal(Refusal)
+            ->  Response = Refusal
+            ;   call(Handler, Dict, Response)
+            )
         ; Op == "list_models" -> handle_list_models(Dict, Response)
         ; Op == "nl_to_le" -> handle_nl_to_le(Dict, Response)
         ; Op == "importForeign" -> handle_import_foreign(Dict, Response)
@@ -181,6 +181,22 @@ handle_operation(Dict, Response) :-
         ; Op == "graph" -> handle_graph(Dict, Response)
         ; Response = _{error: "Unknown operation"}
     ).
+
+%   The Contract Assistant's operations. They belong to the Logical English
+%   Translators licence (capability `contract_assistant`, le_entitlements.pl).
+contract_operation("contract_start", handle_contract_start).
+contract_operation("contract_status", handle_contract_status).
+contract_operation("contract_result", handle_contract_result).
+contract_operation("contract_interrupt", handle_contract_interrupt).
+contract_operation("contract_cost_estimate", handle_contract_estimate).
+
+%!  contract_assistant_refusal(-Refusal) is semidet.
+%
+%   The reply to a request that may not use the Contract Assistant, saying
+%   why; fails when the request may.
+contract_assistant_refusal(_{error: Msg, unlicensed: true}) :-
+    \+ le_entitlements:entitled(contract_assistant),
+    le_i18n:le_msg(contract_assistant_unlicensed, [], Msg).
 
 handle_graph(Dict, Response) :-
     get_dict(sessionModule, Dict, SMStr),

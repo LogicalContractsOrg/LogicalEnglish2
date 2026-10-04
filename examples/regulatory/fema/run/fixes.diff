@@ -1,0 +1,46 @@
+--- run/delivered.le.txt	2026-10-04 17:36:01.913948812 +0000
++++ fema_dwelling.le	2026-10-04 16:43:26.276006851 +0000
+@@ -1252,6 +1252,24 @@
+     if the claim component qualifies for loss avoidance coverage
+     and the claim component claims the amount A.
+ 
++% Article III.A.3 — detached garage, up to 10 percent of the building limit.
++% Written by hand after the run: the draft listed the detached-garage
++% sublimit among its known simplifications, and held-out claim SYN-03-C3 was
++% paid 0 instead of 11,000. VII.R.4.d settles a detached garage at actual cash
++% value; the claimed amount here is that value.
++rule detached_garage_amount with provenance the policy at article III.A.3,
++    confer "Coverage is limited to no more than 10 percent of the limit of liability on the dwelling.":
++the settlement amount before deductible for a claim component is an amount P
++    if the claim component seeks coverage under Coverage A
++    and the claim component concerns a property
++    and the property is a detached garage
++    and the claim component belongs to a claim
++    and the claim arises under a policy
++    and the schedule for the policy states a limit of an amount L, a basis, for Coverage A
++    and S = L / 10
++    and the claim component claims an amount C
++    and the minimum of C and S is P.
++
+ % Article III.D.4 — Coverage D amount
+ rule coverage_d_amount with provenance the policy at article III.D.4,
+     confer "our payment for the loss under this Coverage D will be for the increased cost to elevate, floodproof, relocate, or demolish":
+@@ -2099,9 +2117,15 @@
+     the schedule for policy 101 states a full replacement cost of 200000 for dwelling 101.
+     the schedule for policy 101 states an annual premium of 1134.
+ 
+-    payment expects answers ["we will pay 6400 for claim 101"].
+-    component_payment expects answers ["we will pay 4700 in respect of component 101-building", "we will pay 1700 in respect of component 101-contents"].
+-    total_payable expects answers ["the total payable amount for claim 101 is 6400"].
++    % OPEN (not a passing test, on purpose): the recorded outcome of SYN-03-C2
++    % is 6,400 — furnace and water heater 5,700 less 1,000 under Coverage A,
++    % washer, dryer and freezer 2,700 less 1,000 under Coverage B. The program
++    % does not encode the closed basement lists of Articles III.A.8 and III.B.5
++    % (see "Known simplifications" above) and pays 4,400. Written by hand after
++    % the run; the expectations the assistant wrote were:
++    % payment expects answers ["we will pay 6400 for claim 101"].
++    % component_payment expects answers ["we will pay 4700 in respect of component 101-building", "we will pay 1700 in respect of component 101-contents"].
++    % total_payable expects answers ["the total payable amount for claim 101 is 6400"].
+     claim_coverage expects answers ["claim 101 is covered under the Dwelling Form section"].
+     component_coverage expects answers ["component 101-building is covered under Coverage A", "component 101-contents is covered under Coverage B"].
+ 

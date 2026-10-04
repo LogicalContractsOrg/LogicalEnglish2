@@ -8,9 +8,9 @@ vocabulary samples for the same contract (separated by `===== NEXT SAMPLE
   in phrasing.
 - Templates appearing in a minority are kept ONLY if you can quote a contract
   sentence that requires them; otherwise drop them.
-- Epistemic class markers (`; undefined`, `; assumable`, none) are decided by
-  majority vote per kept template; exceptions/exclusion leaves are never
-  assumable.
+- Epistemic class markers (`; undefined`, `; judged`, none; an older sample
+  may write `; assumable` for a judgment) are decided by majority vote per
+  kept template; exceptions/exclusion leaves are never assumable or judged.
 - Keep the decision-surface templates first.
 
 Output format: one fenced code block, template lines and `%` comments only,

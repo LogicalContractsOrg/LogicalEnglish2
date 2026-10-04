@@ -4,7 +4,7 @@ write rules yet.
 Read the contract wording, schedule and cases below, then output the LE
 templates the twin will need, one per line, grouped under comment headings.
 For each template append its epistemic class marker where applicable
-(`; undefined` for case data, `; assumable` for expert judgment; plain for
+(`; undefined` for case data, `; judged` for expert judgment; plain for
 schedule data and derived notions), and after it a `%` comment quoting (a
 fragment of) the contract sentence that justifies it.
 

@@ -103,6 +103,10 @@
 :- use_module(library(base64)).
 :- use_module(library(process)).
 :- use_module(library(uuid)).
+:- use_module(library(http/http_open)).   % a wording given by its web address
+:- use_module(library(uri)).
+:- use_module(library(sgml)).
+:- ( catch(use_module(library(http/http_ssl_plugin)), _, true) -> true ; true ).
 :- use_module(le_kbs).
 :- use_module(le_verifier).
 :- use_module(le_writer, []).   % writer_word/2: the words of a residue header
@@ -121,6 +125,8 @@
 :- dynamic ca_result/2.      % JobID, ResultDict
 :- dynamic ca_ended/2.       % JobID, EndTime (job reached a terminal state)
 :- dynamic ca_tune/2.        % JobID, Tuning (e.g. reasoning_minimal) — set on the fly
+:- thread_local ca_thread_job/1.   % the job this thread works for (verify_base/1)
+:- dynamic ca_branch_model/3.      % JobID, Branch, Model — when branch_models is set
 :- dynamic ca_llm_hook/1.    % Closure for tests: call(Closure, Purpose, Messages, Reply)
 :- dynamic ca_raw_hook/1.    % Closure for tests: call(Closure, Model, Messages, Opts, Reply)
 
@@ -143,7 +149,9 @@ handle_contract_status(Dict, Response) :-
     (   ca_status(JobID, Status0)
     ->  status_string(Status0, StatusStr, ErrorMsg),
         ( ca_stage(JobID, StageIdx, StageLabel) -> true ; StageIdx = 0, StageLabel = "starting" ),
-        findall(B, (ca_branch(JobID, I, Info), B = Info.put(branch, I)), Branches0),
+        findall(B, ( ca_branch(JobID, I, Info), B0 = Info.put(branch, I),
+                     ( ca_branch_model(JobID, I, BM) -> B = B0.put(model, BM) ; B = B0 ) ),
+                Branches0),
         sort(branch, @=<, Branches0, Branches),
         findall(L, (ca_log(JobID, S, L), S >= Since), LogLines),
         ( ca_logseq(JobID, Next) -> true ; Next = 0 ),
@@ -398,6 +406,8 @@ normalise_config(Mode, Dict, WordingFile, ScheduleFiles, CaseFiles, TextFile, Co
     ; Model = "claude-sonnet" ),
     ( get_dict(judge_model, Dict, JM0), JM0 \== "", JM0 \== null -> JudgeModel = JM0
     ; JudgeModel = Model ),
+    branch_models(Dict, BranchModels),
+    ( wording_url(Dict, WordingURL) -> true ; WordingURL = none ),
     ( get_dict(api_keys, Dict, Keys0), is_dict(Keys0) -> Keys = Keys0 ; Keys = _{} ),
     ( get_dict(target, Dict, Target0), Target0 \== "", Target0 \== null -> Target = Target0
     ; Target = none ),
@@ -423,12 +433,14 @@ normalise_config(Mode, Dict, WordingFile, ScheduleFiles, CaseFiles, TextFile, Co
                residue_batch: ResidueBatch, fold: Fold,
                fragment_name: FragmentName,
                model: Model, judge_model: JudgeModel, api_keys: Keys,
+               branch_models: BranchModels,
                target: Target, k: K, w: W, repairs: Repairs,
                minutes: Minutes, started: Now, reasoning: Reasoning,
                deadline: Deadline, features: Features, existing: Existing,
                instructions: Instructions,
                max_tokens: MaxTokens, mt_mode: MTMode, max_tokens_cap: MaxTokens,
-               wording: WordingFile, schedule: ScheduleFiles, cases: CaseFiles}.
+               wording: WordingFile, wording_url: WordingURL,
+               schedule: ScheduleFiles, cases: CaseFiles}.
 
 %!  fragment_program(+Mode, +RequestDict, +Existing, -Program) is det.
 %
@@ -552,6 +564,21 @@ normalise_feature(S, A) :- ( string(S) ; atom(S) ), !, atom_string(A, S).
 normalise_feature(V, V).
 
 % --------------------------------- Uploads -----------------------------------
+%!  branch_models(+RequestDict, -Models:list(string)) is det.
+%
+%   The request's `branch_models`: a list of model names (or one string with
+%   names separated by commas), empty when absent.
+branch_models(Dict, Models) :-
+    (   get_dict(branch_models, Dict, BM0), BM0 \== null
+    ->  (   is_list(BM0) -> Ms0 = BM0
+        ;   ( string(BM0) ; atom(BM0) ) -> split_string(BM0, ",", " ", Ms0)
+        ;   Ms0 = []
+        ),
+        findall(M, ( member(M0, Ms0), ( string(M0) ; atom(M0) ),
+                     normalize_space(string(M), M0), M \== "" ), Models)
+    ;   Models = []
+    ).
+
 % Uploads arrive inside the /leapi JSON: {name: "...", text: "..."} for text
 % files or {name: "...", data: "<base64>"} for binary (Word, PDF). Each is
 % stored under <jobdir>/sources/ and converted to a text/markdown twin.
@@ -561,12 +588,100 @@ normalise_feature(V, V).
 save_uploads(Dict, Dir, WordingFile, ScheduleFiles, CaseFiles) :-
     atomic_list_concat([Dir, '/sources'], SrcDir),
     make_directory_path(SrcDir),
-    ( get_dict(wording, Dict, WD), is_dict(WD)
+    (   get_dict(wording, Dict, WD), is_dict(WD)
     ->  save_one_upload(WD, SrcDir, wording, WordingFile)
-    ;   throw(error(contract_assistant_error("A contract wording upload is required"), _))
+    ;   wording_url(Dict, URL)
+    ->  fetch_wording(URL, SrcDir, WordingFile)
+    ;   throw(error(contract_assistant_error("A contract wording is required: a file, or its web address"), _))
     ),
     save_upload_list(schedule, Dict, SrcDir, ScheduleFiles),
     save_upload_list(cases, Dict, SrcDir, CaseFiles).
+
+%!  wording_url(+RequestDict, -URL:atom) is semidet.
+%
+%   The request's `wording_url`, when it is a web address.
+wording_url(Dict, URL) :-
+    get_dict(wording_url, Dict, U0), ( string(U0) ; atom(U0) ),
+    normalize_space(atom(URL), U0),
+    (   sub_atom(URL, 0, _, _, 'https://') ; sub_atom(URL, 0, _, _, 'http://') ).
+
+%!  fetch_wording(+URL, +SrcDir, -TextFile) is det.
+%
+%   The wording, from its web address: fetched into `sources/` under the
+%   name the address gives it (`wording-<name>.<ext>`), then converted to
+%   text like an upload. The extension comes from the address, or else from
+%   the type the server declares; a PDF, a web page, a Word document and
+%   plain or markdown text are understood. At most 40 MB.
+fetch_wording(URL, SrcDir, TextFile) :-
+    catch(fetch_url_to_file(URL, SrcDir, RawFile, Ext), E,
+          ( message_to_codes_safe(E, Msg),
+            format(string(M), "Could not fetch the wording from ~w: ~s", [URL, Msg]),
+            throw(error(contract_assistant_error(M), _)) )),
+    ensure_text_file(RawFile, Ext, SrcDir, wording, TextFile).
+
+fetch_url_to_file(URL, SrcDir, RawFile, Ext) :-
+    uri_components(URL, uri_components(_, _, Path, _, _)),
+    ( var(Path) -> Path = '' ; true ),
+    file_base_name(Path, Base0),
+    file_name_extension(Stem0, Ext0, Base0),
+    downcase_atom(Ext0, ExtU),
+    ( Stem0 == '' -> Stem1 = document ; Stem1 = Stem0 ),
+    uri_encoded(path, Stem2, Stem1),             % %20 and friends, decoded
+    safe_stem(Stem2, Stem),
+    atomic_list_concat([SrcDir, '/wording-', Stem, '.download'], Tmp),
+    download(URL, Tmp, CT),
+    size_file(Tmp, Size),
+    (   Size >= 41943040
+    ->  throw(error(contract_assistant_error("The document at that address is larger than 40 MB"), _))
+    ;   true
+    ),
+    (   memberchk(ExtU, [pdf, md, markdown, txt, text, html, htm, docx, doc])
+    ->  Ext = ExtU
+    ;   content_type_ext(CT, Ext)
+    ->  true
+    ;   Ext = txt
+    ),
+    atomic_list_concat([SrcDir, '/wording-', Stem, '.', Ext], RawFile),
+    rename_file(Tmp, RawFile).
+
+%   curl first: the firewalls in front of government sites (fema.gov among
+%   them) let curl through and refuse SWI-Prolog's own client, whatever it
+%   calls itself. Then http_open/3, where there is no curl.
+download(URL, File, CT) :-
+    (   catch(( process_create(path(curl),
+                               ['-fsSL', '--max-time', '120', '--max-filesize', '41943040',
+                                '-o', File, '-w', '%{content_type}', URL],
+                               [stdout(pipe(Out)), stderr(null), process(PID)]),
+                read_string(Out, _, CT0), close(Out),
+                process_wait(PID, exit(0)) ), _, fail),
+        exists_file(File)
+    ->  atom_string(CT, CT0)
+    ;   setup_call_cleanup(
+            http_open(URL, In, [header(content_type, CT), timeout(120)]),
+            setup_call_cleanup(
+                open(File, write, Out, [type(binary)]),
+                ( set_stream(In, type(binary)), copy_stream_data(In, Out, 41943040) ),
+                close(Out)),
+            close(In))
+    ).
+
+content_type_ext(CT, Ext) :-
+    atom(CT),
+    downcase_atom(CT, C),
+    (   sub_atom(C, _, _, _, 'application/pdf') -> Ext = pdf
+    ;   sub_atom(C, _, _, _, 'text/html') -> Ext = html
+    ;   sub_atom(C, _, _, _, 'wordprocessingml') -> Ext = docx
+    ;   sub_atom(C, _, _, _, 'text/markdown') -> Ext = md
+    ;   sub_atom(C, _, _, _, 'text/') -> Ext = txt
+    ).
+
+message_to_codes_safe(E, Codes) :-
+    (   E = error(contract_assistant_error(M), _)
+    ->  format(codes(Codes), "~w", [M])
+    ;   catch(message_to_codes(E, _, Codes0), _, fail)
+    ->  Codes = Codes0
+    ;   format(codes(Codes), "~q", [E])
+    ).
 
 %!  save_fragment_uploads(+RequestDict, +SrcDir0, -WordingFile, -TextFile) is det.
 %
@@ -672,13 +787,64 @@ ensure_text_file(RawFile, docx, SrcDir, Tag, TextFile) :- !,
     ).
 ensure_text_file(RawFile, doc, SrcDir, Tag, TextFile) :- !,
     ensure_text_file(RawFile, docx, SrcDir, Tag, TextFile).
-ensure_text_file(RawFile, pdf, SrcDir, Tag, TextFile) :- !,
-    atomic_list_concat([SrcDir, '/', Tag, '.converted.txt'], TextFile),
-    (   run_converter(path(pdftotext), ['-layout', RawFile, TextFile])
+%   A PDF is read in reading order: wordings are often set in two columns,
+%   and a converter that keeps the page's layout (`pdftotext -layout`,
+%   markitdown) interleaves the columns line by line, so that no sentence of
+%   the text survives whole for a rule to quote. PyMuPDF4LLM, when Python has
+%   it, also turns the headings into markdown headings, which the segmenter
+%   reads; then plain `pdftotext`, which follows the columns.
+ensure_text_file(RawFile, pdf, _SrcDir, _Tag, TextFile) :- !,
+    file_name_extension(Base, _, RawFile),
+    atomic_list_concat([Base, '.md'], MdFile),
+    atomic_list_concat([Base, '.txt'], TxtFile),
+    (   run_converter(path(python3),
+                      ['-c', 'import sys, pymupdf4llm; open(sys.argv[2], "w", encoding="utf-8").write(pymupdf4llm.to_markdown(sys.argv[1]))',
+                       RawFile, MdFile]),
+        exists_file(MdFile)
+    ->  TextFile = MdFile
+    ;   run_converter(path(pdftotext), ['-enc', 'UTF-8', RawFile, TxtFile])
+    ->  TextFile = TxtFile
+    ;   run_converter(path(markitdown), [RawFile, '-o', MdFile]),
+        exists_file(MdFile)
+    ->  TextFile = MdFile
+    ;   throw(error(contract_assistant_error("Cannot convert .pdf: install pdftotext (poppler-utils) or the Python package pymupdf4llm"), _))
+    ).
+ensure_text_file(RawFile, Ext, SrcDir, Tag, TextFile) :-
+    memberchk(Ext, [html, htm]), !,
+    atomic_list_concat([SrcDir, '/', Tag, '.converted.md'], TextFile),
+    (   run_converter(path(pandoc), ['-f', 'html', '-t', 'gfm', RawFile, '-o', TextFile])
     ->  true
-    ;   throw(error(contract_assistant_error("Cannot convert .pdf: install pdftotext (poppler)"), _))
+    ;   run_converter(path(markitdown), [RawFile, '-o', TextFile])
+    ->  true
+    ;   html_to_text_file(RawFile, TextFile)
     ).
 ensure_text_file(RawFile, _, _, _, RawFile).   % unknown extension: hope it is text
+
+%   Without a converter: the text of the page, a line per block element.
+html_to_text_file(HtmlFile, TextFile) :-
+    load_html(HtmlFile, DOM, [syntax_errors(quiet)]),
+    once(phrase(html_blocks(DOM), Codes0)),
+    atom_codes(A, Codes0),
+    split_string(A, "\n", " \t\r", Lines0),
+    exclude(==(""), Lines0, Lines),
+    atomic_list_concat(Lines, "\n\n", Text),
+    write_text_file(TextFile, Text).
+
+html_blocks([]) --> [].
+html_blocks([E|Es]) --> html_block(E), html_blocks(Es).
+
+html_block(element(T, _, _)) --> { memberchk(T, [script, style, head, nav, noscript]) }, !.
+html_block(element(T, _, C)) -->
+    !,
+    { ( memberchk(T, [p, div, li, tr, br, h1, h2, h3, h4, h5, h6, section, article, td, dt, dd, blockquote, pre])
+      -> NL = "\n" ; NL = "" ) },
+    { string_codes(NL, NLC) },
+    NLC, html_blocks(C), NLC.
+html_block(Text) --> { atom(Text), atom_codes(Text, Cs0), maplist(space_for_newline, Cs0, Cs) }, Cs, " ".
+html_block(_) --> [].
+
+space_for_newline(0'\n, 0' ) :- !.
+space_for_newline(C, C).
 
 run_converter(Exe, Args) :-
     catch(
@@ -692,6 +858,7 @@ run_converter(Exe, Args) :-
 %
 %   Runs the whole pipeline, updating status/log/branch dynamics as it goes.
 run_contract_pipeline(JobID) :-
+    ca_bind_job(JobID),
     catch(
         (   % A pipeline that FAILS (rather than throwing) used to kill the
             % thread with the job still marked `running` — the UI then polled a
@@ -769,9 +936,13 @@ pipeline_stages(JobID) :-
     % how many cases the drafting stages may write scenarios for — the repair
     % prompt needs it too, so it lives in the config rather than in the loop
     length(DevCases, NDevCases),
-    Config = Config0.put(n_dev_cases, NDevCases),
+    case_identifiers(Config0.cases, CaseIds),
+    length(DevIds0, NDevCases),
+    ( append(DevIds0, _, CaseIds) -> exclude(==(none), DevIds0, DevIds) ; DevIds = [] ),
+    Config = Config0.put(_{n_dev_cases: NDevCases, dev_case_ids: DevIds}),
     retractall(ca_config(JobID, _)), assertz(ca_config(JobID, Config)),
-    materials_block(WordingSlice, ScheduleText, DevCases, Materials),
+    document_block(Config, Document),
+    materials_block(Document, WordingSlice, ScheduleText, DevCases, Materials),
     length(Sections, NSections), length(CaseTexts, NCases), length(HeldCases, NHeld),
     length(ScheduleFiles, NSched),
     ca_emit(JobID, "Materials assembled (~w sections, ~w schedule file(s), ~w cases, ~w held out)"-
@@ -3322,7 +3493,9 @@ architecture_angles([
 %   concurrent_maplist, so anything that escapes one of them takes down the
 %   whole pipeline and every OTHER branch's finished program with it. The user's
 %   own interrupt is not an error and still propagates.
-run_branch(JobID, Config, Ctx, Idx-Sketch, Out) :-
+run_branch(JobID, Config0, Ctx, Idx-Sketch, Out) :-
+    ca_bind_job(JobID),
+    branch_config(JobID, Config0, Idx, Config),
     catch(
         run_branch_(JobID, Config, Ctx, Idx-Sketch, Out),
         BErr0,
@@ -3334,6 +3507,54 @@ run_branch(JobID, Config, Ctx, Idx-Sketch, Out) :-
             ca_set_branch(JobID, Idx, _{state: "failed", summary: BErrS}),
             Out = failed(Idx)
         )).
+
+%!  branch_config(+JobID, +Config0, +Idx, -Config) is det.
+%
+%   The configuration branch Idx works with. With `branch_models` (a list of
+%   models, say one from OpenAI and one with open weights), the branches are
+%   drafted and repaired by those models in turn, and the tournament ranks
+%   them by the same tests: the job's choice of model becomes one more thing
+%   the ranking decides. Vocabulary, sketches, interrogation and ledger stay
+%   with the job's own model and judge. A branch model gets its own
+%   completion-limit calibration and its own auto-tunings (tune_key/3).
+branch_config(JobID, Config0, Idx, Config) :-
+    (   Models = Config0.get(branch_models, []),
+        Models \== []
+    ->  length(Models, N),
+        I is (Idx - 1) mod N,
+        nth0(I, Models, Model),
+        retractall(ca_branch_model(JobID, Idx, _)),
+        assertz(ca_branch_model(JobID, Idx, Model)),
+        ca_emit(JobID, "Branch ~w: drafted and repaired by ~w"-[Idx, Model]),
+        (   Model == Config0.model
+        ->  Config = Config0
+        ;   Config1 = Config0.put(_{model: Model, branch_model: Model, job_config: Config0}),
+            branch_max_tokens(JobID, Idx, Config1, Config)
+        )
+    ;   Config = Config0
+    ).
+
+%!  job_level_config(+BranchConfig, -Config) is det.
+%
+%   The job's own configuration, for the calls that must be the same for
+%   every branch (the blind scenarios of the held-out cases).
+job_level_config(Config, JobConfig) :-
+    (   JC = Config.get(job_config, none), JC \== none
+    ->  JobConfig = JC
+    ;   JobConfig = Config
+    ).
+
+branch_max_tokens(JobID, Idx, Config0, Config) :-
+    (   Config0.mt_mode == auto,
+        \+ ca_llm_hook(_),
+        resolve_model(draft(Idx), Config0, Model, Key),
+        catch(( member(Candidate, [65536, 32768, 16384, 8192]),
+                probe_max_tokens(Model, Key, Candidate, Accepted),
+                Accepted =:= Candidate ), _, fail)
+    ->  ca_emit(JobID, "Branch ~w: completion-token limit for ~w set to ~w"-[Idx, Model, Accepted]),
+        Config = Config0.put(_{max_tokens: Accepted, max_tokens_cap: Accepted})
+    ;   Config = Config0
+    ).
 
 run_branch_(JobID, Config, Ctx, Idx-Sketch, branch(Idx, Final, Score)) :-
     ca_set_branch(JobID, Idx, _{state: "drafting"}),
@@ -3370,7 +3591,11 @@ run_branch_(JobID, Config, Ctx, Idx-Sketch, branch(Idx, Final, Score)) :-
     % The branch has a program by now. Nothing that follows may take it away:
     % the held-out evaluation is a measurement, and a provider that dies during
     % it leaves the program exactly as good as it was.
-    catch(holdout_extend(JobID, Config, Ctx, Idx, Repaired, Score0, Final, Score),
+    % The blind scenarios are written by the JOB's model for every branch: a
+    % branch whose own model wrote them once passed its own easy ones and won
+    % the ranking with a program that paid no claim right.
+    job_level_config(Config, HConfig),
+    catch(holdout_extend(JobID, HConfig, Ctx, Idx, Repaired, Score0, Final, Score),
           error(contract_assistant_error(HErr), _),
           ( friendly_error(HErr, HErrS),
             ca_emit(JobID, "Branch ~w: held-out evaluation abandoned (~w); keeping the repaired program"-[Idx, HErrS]),
@@ -3591,14 +3816,9 @@ repair_loop(JobID, Config, Idx, Text, Iter, Best0, Streak0, Note, Final, Score) 
         existing_block(Config, Existing),
         instructions_block(Config, Instructions),
         scenarios_block(Config, Config.get(n_dev_cases, 0), Scenarios),
-        catch(
-            ( stage_llm(JobID, Config, repair(Idx, Iter), 'stage5_repair',
-                        [existing-Existing, instructions-Instructions,
-                         scenarios-Scenarios, program-WorkText, feedback-Feedback],
-                        [temperature(0)], Reply),
-              Next = reply(Reply) ),
-            error(contract_assistant_error(_), _),
-            Next = failed),
+        Slots = [existing-Existing, instructions-Instructions, scenarios-Scenarios,
+                 program-WorkText],
+        repair_call(JobID, Config, Idx, Iter, Slots, Feedback, Next),
         (   Next = reply(R)
         ->  safe_apply_repair_reply(Config, Policy, R, WorkText, Text1, How),
             ca_emit(JobID, "Branch ~w repair ~w: ~w"-[Idx, Iter, How]),
@@ -3610,6 +3830,38 @@ repair_loop(JobID, Config, Idx, Text, Iter, Best0, Streak0, Note, Final, Score) 
             best_result(Best, Final, Score)
         )
     ).
+
+%!  repair_call(+JobID, +Config, +Idx, +Iter, +Slots, +Feedback, -Next) is det.
+%
+%   One repair request: reply(Reply), or `failed`. A request that fails for
+%   good (the retry ladder of llm_outcome/9 is behind stage_llm/7) is tried
+%   once more with the feedback cut to its first items: a provider's content
+%   filter once refused a repair prompt of a flood-insurance program as
+%   "potentially violating our usage policy", and that one refusal ended the
+%   branch's repairs at 16 of 26 tests with most of its budget unspent.
+repair_call(JobID, Config, Idx, Iter, Slots, Feedback, Next) :-
+    (   repair_request(JobID, Config, Idx, Iter, Slots, Feedback, Reply)
+    ->  Next = reply(Reply)
+    ;   \+ deadline_exceeded(Config),
+        short_feedback(Feedback, Short),
+        ca_emit(JobID, "Branch ~w: repair call failed; trying once more with a shorter feedback"-[Idx]),
+        repair_request(JobID, Config, Idx, Iter, Slots, Short, Reply)
+    ->  Next = reply(Reply)
+    ;   Next = failed
+    ).
+
+repair_request(JobID, Config, Idx, Iter, Slots, Feedback, Reply) :-
+    append(Slots, [feedback-Feedback], AllSlots),
+    catch(stage_llm(JobID, Config, repair(Idx, Iter), 'stage5_repair', AllSlots,
+                    [temperature(0)], Reply),
+          error(contract_assistant_error(_), _),
+          fail).
+
+short_feedback(Feedback, Short) :-
+    split_string(Feedback, "\n", "", Lines),
+    first_n(12, Lines, Kept),
+    atomic_list_concat(Kept, "\n", Short0),
+    string_concat(Short0, "\n(The rest of the feedback is left out of this request; fix the items above.)", Short).
 
 %!  refusal_note(+How, +V, -Note) is det.
 %
@@ -4200,9 +4452,22 @@ polishable_warnings(V, Count, Lines) :-
     findall(L, ( member(I, V.issues),
                  get_dict(severity, I, "warning"),
                  get_dict(type, I, Type), Type \== "failed_test",
-                 format(string(L), "- [~w] ~w", [Type, I.message]) ),
+                 (   fix_worth_showing(Type),
+                     get_dict(fix, I, Fix), Fix \== "", Fix \== null
+                 ->  format(string(L), "- [~w] ~w\n    fix: ~w", [Type, I.message, Fix])
+                 ;   format(string(L), "- [~w] ~w", [Type, I.message])
+                 ) ),
             Lines),
     length(Lines, Count).
+
+%   Warnings whose fix carries what the model cannot know: the passage the
+%   wording really has (the polish rounds do not see the wording), the value
+%   the rules read, what a view may name.
+fix_worth_showing(Type) :-
+    (   memberchk(Type, ["quote_not_found", "unread_value", "mistyped_value"])
+    ->  true
+    ;   sub_string(Type, 0, _, _, "view_")
+    ).
 
 %!  format_warning_feedback(+V, -Feedback) is det.
 %
@@ -4673,6 +4938,11 @@ technicalities(JobID, Config, WIdx, DeliveredSummary, Interrogation, Paraphrase,
     Min is El // 60, Sec is El mod 60,
     format(string(Elapsed), "~w:~|~`0t~w~2+", [Min, Sec]),
     ( Config.judge_model == Config.model -> Judge = "same" ; Judge = Config.judge_model ),
+    (   BMs = Config.get(branch_models, []), BMs \== []
+    ->  atomic_list_concat(BMs, ", ", BMsA),
+        format(string(ModelLine), "~w (branches: ~w, in turn)", [Config.model, BMsA])
+    ;   ModelLine = Config.model
+    ),
     ( Config.mt_mode == auto -> MTNote = " (auto-calibrated)" ; MTNote = " (user-set)" ),
     ( F.diff_repairs == true -> RepairStyle = diff ; RepairStyle = "full-file" ),
     (   Config.get(instructions, none) == none
@@ -4685,23 +4955,27 @@ technicalities(JobID, Config, WIdx, DeliveredSummary, Interrogation, Paraphrase,
             ( ca_branch(JobID, BIdx, Info), integer(BIdx),
               ( BIdx =:= WIdx -> Mark = " \u2190 winner" ; Mark = "" ),
               ( get_dict(summary, Info, BSum) -> true ; BSum = Info.get(state, "?") ),
-              format(string(BLine), "  - branch ~w: ~w~w", [BIdx, BSum, Mark]) ),
+              ( ca_branch_model(JobID, BIdx, BM) -> format(string(BWho), " (~w)", [BM]) ; BWho = "" ),
+              format(string(BLine), "  - branch ~w~w: ~w~w", [BIdx, BWho, BSum, Mark]) ),
             BLines0),
     msort(BLines0, BLines),
     atomic_list_concat(BLines, "\n", BranchBlock),
     findall(TLine,
-            ( ca_tune(JobID, Tune),
+            ( (   ca_tune(JobID, Tune), TWho = ""
+              ;   ca_tune(JobID/TM, Tune), format(string(TWho), " (~w)", [TM])
+              ),
               (   Tune == reasoning_minimal
-              ->  TLine = "  - minimal reasoning enabled after a truncated call"
+              ->  TLine0 = "  - minimal reasoning enabled after a truncated call"
               ;   Tune == no_temperature
-              ->  TLine = "  - temperature dropped: the provider rejects it for this model (samples varied by the model's own sampling instead)"
+              ->  TLine0 = "  - temperature dropped: the provider rejects it for this model (samples varied by the model's own sampling instead)"
               ;   Tune = max_tokens(N)
-              ->  format(string(TLine), "  - completion limit raised to ~w after truncation", [N])
+              ->  format(string(TLine0), "  - completion limit raised to ~w after truncation", [N])
               ;   Tune = reasoning_effort(L)
-              ->  format(string(TLine), "  - reasoning effort pinned to ~w: the provider rejected the level we asked for", [L])
+              ->  format(string(TLine0), "  - reasoning effort pinned to ~w: the provider rejected the level we asked for", [L])
               ;   Tune == no_reasoning
-              ->  TLine = "  - reasoning parameter dropped: the provider named no level it would accept"
-              ) ),
+              ->  TLine0 = "  - reasoning parameter dropped: the provider named no level it would accept"
+              ),
+              string_concat(TLine0, TWho, TLine) ),
             TLines),
     ( TLines == [] -> TuneBlock = "  - none" ; atomic_list_concat(TLines, "\n", TuneBlock) ),
     (   get_dict(enabled, Interrogation, true)
@@ -4725,7 +4999,7 @@ technicalities(JobID, Config, WIdx, DeliveredSummary, Interrogation, Paraphrase,
     ),
     format(string(Text),
 "\n\n---\n\n## Technicalities\n\n- Generated: ~w (job ~w)\n- Model: ~w \u00b7 judge: ~w\n- Search: K=~w vocabulary samples \u00b7 W=~w branches \u00b7 repair patience ~w \u00b7 probes ~w \u00b7 holdout ~w\n- Options: ~w repairs \u00b7 reasoning ~w \u00b7 clause-wise ~w \u00b7 paraphrase ~w \u00b7 warning clean-up rounds ~w\n- Scenarios: ~w\n- Additional instructions: ~w\n- Completion limit: ~w tokens/call~w \u00b7 budget ~w min \u00b7 elapsed ~w\n- LLM cost: ~w\n- Target section: ~w\n- Existing LE code: ~w\n- Branches:\n~w\n- Auto-tuning during the run:\n~w\n- Interrogation: ~w \u00b7 Paraphrase: ~w\n- Delivered program: ~w\n",
-           [Date, JobID, Config.model, Judge,
+           [Date, JobID, ModelLine, Judge,
             Config.k, Config.w, Config.repairs, F.probes, F.holdout,
             RepairStyle, Config.reasoning, F.clausewise, F.paraphrase, F.get(polish, 0),
             ScenLine, InstrLine,
@@ -4805,6 +5079,33 @@ ledger_call(JobID, Config, WordingSlice, WinnerText, Ledger) :-
 
 % ============================ Verification & scoring ==========================
 
+%!  ca_bind_job(+JobID) is det.
+%
+%   This thread works for JobID. Each branch runs in a thread of its own
+%   (concurrent_maplist/3), so each one binds itself.
+ca_bind_job(JobID) :-
+    retractall(ca_thread_job(_)),
+    assertz(ca_thread_job(JobID)).
+
+%!  verify_base(-Base) is det.
+%
+%   Where the program being verified finds the files it names: the job's
+%   `sources/` folder, which holds the wording's text. A program that says
+%   `the text of the policy is at "wording-policy.md"` then has its quotations
+%   checked against the wording (`quote_not_found`), and the repair rounds are
+%   told the closest real passage. Outside a whole-contract job, the working
+%   directory, as before.
+verify_base(Base) :-
+    (   ca_thread_job(JobID),
+        ca_config(JobID, Config),
+        Config.get(mode, contract) == contract,     % fragment and residue programs
+        job_dir(JobID, Dir),                        % include files from where they live
+        atomic_list_concat([Dir, '/sources'], Src),
+        exists_directory(Src)
+    ->  absolute_file_name(Src, Base, [file_type(directory)])
+    ;   Base = (-)
+    ).
+
 %!  verify_le_text(+Text, -V:dict) is det.
 %
 %   Loads the program, collects verifier issues and runs the embedded
@@ -4822,7 +5123,8 @@ verify_le_text(Text, V) :-
           )).
 
 verify_le_text_(Text, V) :-
-    le_kbs:load_text(Text, KB),
+    verify_base(Base),
+    le_kbs:load_text(Text, Base, KB),
     % Keep the verifier's FIX and the source RANGE. Both used to be dropped, so
     % a repair round was told "Missing template for '...'" and nothing else — no
     % line, no offending text, no remedy — and then asked for a SEARCH block
@@ -4844,7 +5146,8 @@ verify_le_text_(Text, V) :-
     % win its branch.
     unmatched_sentences(KB, all, Unmatched),
     maplist(unmatched_issue(Starts, SrcLines), Unmatched, UnmatchedIssues),
-    append(UnmatchedIssues, Issues0, Issues),
+    supplied_case_issues(Text, CaseIssues),
+    append([CaseIssues, UnmatchedIssues, Issues0], Issues),
     partition_severity(Issues, NErrors, NWarnings),
     (   current_predicate(KB:le_expected/4)
     ->  findall(test(Q, S, A, U), KB:le_expected(Q, S, A, U), Tests)
@@ -4853,7 +5156,8 @@ verify_le_text_(Text, V) :-
     maplist(safe_run_test(KB), Tests, TestResults),
     partition(is_pass, TestResults, Passes, Fails),
     length(Passes, NPassed), length(Fails, NFailed),
-    maplist(test_detail, TestResults, Details),
+    maplist(test_detail, TestResults, Details0),
+    why_no_answers(KB, Starts, TestResults, Details0, Details),
     (   \+ kb_has_substance(KB)
     ->  E1 is NErrors + 1,
         EmptyIssue = _{severity: "error", type: "empty_program",
@@ -5072,7 +5376,17 @@ feedback_items(V, Items) :-
     findall(item(2, test(Q), L),
             ( member(T, V.test_details), T.status == "fail",
               get_dict(query, T, Q), test_line(T, L) ),
-            Tests),
+            Tests0),
+    % A test that STOPS with a run-time error (an expression the engine
+    % cannot evaluate, a type error) used to be counted as failed and listed
+    % nowhere: a branch spent eight rounds at "0 errors, 0 warnings, 0/26
+    % tests" being told there was nothing to fix.
+    findall(item(2, test_error, L),
+            ( member(T, V.test_details), T.status == "error",
+              get_dict(message, T, M0), truncated(M0, 500, M),
+              format(string(L), "- A test STOPPED with a run-time error (fix the rule it names; an expression the engine cannot evaluate usually means a condition was read as arithmetic):~n    ~w", [M]) ),
+            Errs),
+    append(Errs, Tests0, Tests),
     % A failing test is reported BOTH as a `failed_test` warning and in
     % test_details; the dedicated line above carries the same content in a
     % readable shape, so the warning copy is dropped (polishable_warnings/3
@@ -5109,7 +5423,72 @@ modelling_warnings(V, Count) :- count_modelling_warnings(V.issues, Count).
 test_line(T, Line) :-
     format(string(L0), "- FAILED test: query '~w' in scenario '~w'~n    expected: ~w~n    actual:   ~w",
            [T.query, T.scenario, T.expected, T.actual]),
-    truncated(L0, 600, Line).
+    truncated(L0, 600, L1),
+    (   get_dict(why_not, T, Why), Why \== ""
+    ->  format(string(Line), "~w~n    why the expected answer is not reached (the conditions the closest attempts did not meet):~n~w", [L1, Why])
+    ;   Line = L1
+    ).
+
+%!  why_no_answers(+KB, +LineStarts, +Results, +Details0, -Details) is det.
+%
+%   A failed test is hard to repair from its expectation alone: "expected
+%   46200, actual nothing" (or "actual 0") says nothing of where the rules
+%   stopped. For the first few tests with an expected answer that is missing,
+%   the engine's own
+%   why-not (le_why_not.pl) names the conditions the closest attempts did not
+%   meet, each with the line of the rule that asks for it, and the detail
+%   carries them (`why_not`) into the repair feedback (test_line/2). A twin
+%   whose every payment query came back empty sat at 3 of 13 tests through ten
+%   repair rounds without them.
+why_no_answers(KB, Starts, Results, Details0, Details) :-
+    why_no_answers(KB, Starts, Results, Details0, 3, Details).
+
+why_no_answers(_, _, [], [], _, []) :- !.
+why_no_answers(KB, Starts, [R|Rs], [D0|Ds0], Budget, [D|Ds]) :-
+    (   Budget > 0,
+        ( R = fail(Q, S, Expected, Actual, _, _) ; R = fail(Q, S, Expected, Actual) ),
+        is_list(Expected), is_list(Actual),
+        missing_answers(Expected, Actual, Missing),
+        Missing \== [],
+        why_not_text(KB, Starts, Q, S, Missing, Why)
+    ->  D = D0.put(why_not, Why),
+        Budget1 is Budget - 1
+    ;   D = D0, Budget1 = Budget
+    ),
+    why_no_answers(KB, Starts, Rs, Ds0, Budget1, Ds).
+
+%   The expected answers the actual ones do not include.
+missing_answers(Expected, Actual, Missing) :-
+    maplist(answer_norm, Actual, ActualN),
+    findall(E, ( member(E, Expected), answer_norm(E, EN), \+ memberchk(EN, ActualN) ), Missing).
+
+why_not_text(KB, Starts, Q, S, Expected, Text) :-
+    (   Expected = [E0|_], expected_text(E0, E), answer_goal(KB, E, G)
+    ->  Why0 = G
+    ;   Why0 = Q
+    ),
+    catch(( le_kbs:createSession(KB, SM),
+            le_kbs:setScenarion(SM, S),
+            dynamic(SM:detailed_failures/0), assertz(SM:detailed_failures),
+            call_with_time_limit(10, le_kbs:query_explain(SM, Why0, _, _, Why)),
+            le_why_not:unmet_json(SM, KB, Why, Unmet) ), _, fail),
+    Unmet \== [],
+    findall(L, ( member(U, Unmet), unmet_line(Starts, U, L) ), Ls0),
+    first_n(6, Ls0, Ls),
+    atomic_list_concat(Ls, "\n", Text).
+
+unmet_line(Starts, U, Line) :-
+    ( U.kind == not_stated -> K = "not stated by the scenario" ; K = "not met" ),
+    (   get_dict(ruleStart, U, RS), integer(RS), offset_line(Starts, RS, N)
+    ->  format(string(Where), " (asked by the rule at line ~w)", [N])
+    ;   Where = " (no rule concludes it)"
+    ),
+    format(string(Line0), "      - ~w: ~w~w", [K, U.literal, Where]),
+    truncated(Line0, 300, Line).
+
+offset_line(Starts, Offset, Line) :-
+    findall(I, ( nth1(I, Starts, St), St =< Offset ), Is),
+    last(Is, Line).
 
 % The caps this pipeline hands to le_issue_feedback:select_feedback/4, which
 % also writes the closing "what was left out" line.
@@ -5143,6 +5522,27 @@ stage_llm(JobID, Config, Purpose, Style, PromptName, Slots, Options, Reply) :-
         llm_try(JobID, Config, Purpose, Model, Messages, Opts, 1, Reply)
     ).
 
+%!  job_tune(+JobID, +Config, ?Tuning) is nondet.
+%!  add_job_tune(+JobID, +Config, +Tuning) is det.
+%
+%   The auto-tunings learned during the run (ca_tune/2) belong to a model: a
+%   branch drafted by another model than the job's (`branch_models`) keeps
+%   its own, under JobID/Model, so that one provider's refusal of a parameter
+%   or one model's completion limit is not imposed on the other.
+job_tune(JobID, Config, Tuning) :-
+    tune_key(JobID, Config, Key),
+    ca_tune(Key, Tuning).
+
+add_job_tune(JobID, Config, Tuning) :-
+    tune_key(JobID, Config, Key),
+    assertz(ca_tune(Key, Tuning)).
+
+tune_key(JobID, Config, Key) :-
+    (   BM = Config.get(branch_model, none), BM \== none
+    ->  atom_string(BMA, BM), Key = JobID/BMA
+    ;   Key = JobID
+    ).
+
 %!  stage_options(+JobID, +Config, +Key, +Options, -Opts) is det.
 %
 %   The stage's own options (temperature...) plus the job-wide ones, honouring
@@ -5150,21 +5550,21 @@ stage_llm(JobID, Config, Purpose, Style, PromptName, Slots, Options, Reply) :-
 %   minimal reasoning, and a temperature the provider refuses to hear about
 %   (see the temperature clause of llm_outcome/9).
 stage_options(JobID, Config, Purpose, Key, Options, Opts) :-
-    (   ca_tune(JobID, max_tokens(MT))     % learned during the run: it wins
+    (   job_tune(JobID, Config, max_tokens(MT))     % learned during the run: it wins
     ->  true
     ;   purpose_max_tokens(Purpose, Config, MT)
     ),
     call_timeout(Config, T),
     Base = [api_key(Key), max_tokens(MT), timeout(T)],
-    (   ca_tune(JobID, no_reasoning)          % the provider refused the parameter
+    (   job_tune(JobID, Config, no_reasoning)          % the provider refused the parameter
     ->  Extra = Base
-    ;   ca_tune(JobID, reasoning_effort(L))   % ... or refused the level we asked for
+    ;   job_tune(JobID, Config, reasoning_effort(L))   % ... or refused the level we asked for
     ->  Extra = [reasoning_effort(L)|Base]
-    ;   ( Config.reasoning == minimal ; ca_tune(JobID, reasoning_minimal) )
+    ;   ( Config.reasoning == minimal ; job_tune(JobID, Config, reasoning_minimal) )
     ->  Extra = [reasoning(minimal)|Base]
     ;   Extra = Base
     ),
-    ( ca_tune(JobID, no_temperature) -> drop_temperature(Options, Options1) ; Options1 = Options ),
+    ( job_tune(JobID, Config, no_temperature) -> drop_temperature(Options, Options1) ; Options1 = Options ),
     append(Options1, Extra, Opts).
 
 drop_temperature(Opts0, Opts) :-
@@ -5336,9 +5736,9 @@ llm_outcome(err(E), JobID, Config, Purpose, Model, Messages, Opts, Attempt, Repl
     \+ deadline_exceeded(Config),
     !,
     ca_emit(JobID, "LLM call (~w): the provider rejects the temperature parameter for ~w; retrying without it"-[Purpose, Model]),
-    (   ca_tune(JobID, no_temperature)
+    (   job_tune(JobID, Config, no_temperature)
     ->  true
-    ;   assertz(ca_tune(JobID, no_temperature)),
+    ;   add_job_tune(JobID, Config, no_temperature),
         ca_emit(JobID, "Auto-tuning: temperature dropped for the rest of the job — the samples that varied by temperature now vary by the model's own sampling"-[])
     ),
     ca_check_alive(JobID),
@@ -5364,9 +5764,9 @@ llm_outcome(err(E), JobID, Config, Purpose, Model, Messages, Opts, Attempt, Repl
         Note = "no reasoning parameter at all"
     ),
     ca_emit(JobID, "LLM call (~w): ~w rejects the reasoning level we asked for; retrying with ~w"-[Purpose, Model, Note]),
-    (   ca_tune(JobID, Tune)
+    (   job_tune(JobID, Config, Tune)
     ->  true
-    ;   assertz(ca_tune(JobID, Tune)),
+    ;   add_job_tune(JobID, Config, Tune),
         ca_emit(JobID, "Auto-tuning: the rest of the job uses ~w"-[Note])
     ),
     ca_check_alive(JobID),
@@ -5377,15 +5777,15 @@ llm_outcome(err(E), JobID, Config, Purpose, Model, Messages, Opts, Attempt, Repl
 % thought does the job fail.
 llm_outcome(err(error(llm_truncated(_), _)), JobID, Config, Purpose, Model, Messages, Opts, Attempt, Reply) :-
     \+ asks_for_less_reasoning(Opts),
-    \+ ca_tune(JobID, no_reasoning),      % this provider has already refused it
+    \+ job_tune(JobID, Config, no_reasoning),      % this provider has already refused it
     \+ deadline_exceeded(Config),
     !,
     ca_emit(JobID, "LLM call (~w) was truncated mid-reasoning; retrying with minimal reasoning"-[Purpose]),
     % ... and remember: from now on EVERY call of this job starts with minimal
     % reasoning, instead of paying for one doomed full-reasoning attempt each.
-    (   ca_tune(JobID, reasoning_minimal)
+    (   job_tune(JobID, Config, reasoning_minimal)
     ->  true
-    ;   assertz(ca_tune(JobID, reasoning_minimal)),
+    ;   add_job_tune(JobID, Config, reasoning_minimal),
         ca_emit(JobID, "Auto-tuning: all subsequent calls use minimal reasoning"-[])
     ),
     ca_check_alive(JobID),
@@ -5399,8 +5799,8 @@ llm_outcome(err(error(llm_truncated(_), _)), JobID, Config, Purpose, Model, Mess
     \+ deadline_exceeded(Config),
     !,
     ca_emit(JobID, "LLM call (~w) still truncated; raising the completion limit to ~w (provider cap) for the rest of the job"-[Purpose, Cap]),
-    (   ca_tune(JobID, max_tokens(_)) -> true
-    ;   assertz(ca_tune(JobID, max_tokens(Cap)))
+    (   job_tune(JobID, Config, max_tokens(_)) -> true
+    ;   add_job_tune(JobID, Config, max_tokens(Cap))
     ),
     ca_check_alive(JobID),
     llm_try(JobID, Config, Purpose, Model, Messages, [max_tokens(Cap)|Opts1], Attempt, Reply).
@@ -5417,13 +5817,13 @@ llm_outcome(err(error(llm_truncated(_), _)), JobID, _Config, Purpose, Model, _Me
 llm_outcome(err(E), JobID, Config, Purpose, Model, Messages, Opts, Attempt, Reply) :-
     silent_provider_error(E),
     \+ asks_for_less_reasoning(Opts),
-    \+ ca_tune(JobID, no_reasoning),
+    \+ job_tune(JobID, Config, no_reasoning),
     \+ deadline_exceeded(Config),
     !,
     ca_emit(JobID, "LLM call (~w): ~w went silent for the whole timeout; retrying with minimal reasoning"-[Purpose, Model]),
-    (   ca_tune(JobID, reasoning_minimal)
+    (   job_tune(JobID, Config, reasoning_minimal)
     ->  true
-    ;   assertz(ca_tune(JobID, reasoning_minimal)),
+    ;   add_job_tune(JobID, Config, reasoning_minimal),
         ca_emit(JobID, "Auto-tuning: all subsequent calls use minimal reasoning"-[])
     ),
     ca_check_alive(JobID),
@@ -5439,8 +5839,8 @@ llm_outcome(err(E), JobID, Config, Purpose, Model, Messages, Opts, Attempt, Repl
     \+ deadline_exceeded(Config),
     !,
     ca_emit(JobID, "LLM call (~w): still silent; cutting the completion budget from ~w to ~w tokens for the rest of the job"-[Purpose, Cur, Small]),
-    (   ca_tune(JobID, max_tokens(_)) -> true
-    ;   assertz(ca_tune(JobID, max_tokens(Small)))
+    (   job_tune(JobID, Config, max_tokens(_)) -> true
+    ;   add_job_tune(JobID, Config, max_tokens(Small))
     ),
     ca_check_alive(JobID),
     refresh_timeout(Config, [max_tokens(Small)|Opts1], Opts2),
@@ -6046,6 +6446,53 @@ case_texts(CaseFiles, ScheduleFiles, CaseTexts) :-
     append(SchedLists, Schedules),
     findall(T, ( member(R, Records), case_record_text(R, Schedules, T) ), CaseTexts).
 
+%!  case_identifiers(+CaseFiles, -Ids) is det.
+%
+%   The identifier of each case, in the order of case_texts/3: the value of
+%   the first identifier-like field (link_keys/3) of its record, or `none`
+%   for a case that is not a JSON record. The drafts must have a scenario for
+%   each development case (supplied_case_issues/2).
+case_identifiers(CaseFiles, Ids) :-
+    findall(Rs, ( member(F, CaseFiles), file_records(F, Rs) ), RecordLists),
+    append(RecordLists, Records0),
+    merge_case_records(Records0, Records),
+    findall(Id, ( member(R, Records), record_identifier(R, Records0, Id) ), Ids).
+
+record_identifier(merged(Sources, D), Records0, Id) :-
+    last(Sources, First),                 % the file the case came from first
+    link_keys(First, Records0, Keys),
+    (   member(K, Keys), id_like_key(K), get_dict(K, D, V0)
+    ->  format(string(Id), "~w", [V0])
+    ;   Id = none
+    ), !.
+record_identifier(_, _, none).
+
+%!  supplied_case_issues(+Text, -Issues) is det.
+%
+%   Whole-contract jobs only: an ERROR for each development case with an
+%   identifier that no scenario of the program is named after. A draft once
+%   replaced the thirteen claims it was given with thirteen scenarios of its
+%   own invention, each passing, and won the ranking over a draft that decided
+%   the real claims: the tests the user supplied are the point of the run, so
+%   a program without them must not look clean.
+supplied_case_issues(Text, Issues) :-
+    (   ca_thread_job(JobID),
+        ca_config(JobID, Config),
+        Config.get(mode, contract) == contract,
+        Ids = Config.get(dev_case_ids, []),
+        Ids \== []
+    ->  split_string(Text, "\n", "", Lines),
+        findall(H, ( member(L0, Lines), normalize_space(string(L), L0),
+                     string_lower(L, H), sub_string(H, 0, _, _, "scenario ") ), Headers),
+        findall(_{severity: "error", type: "supplied_case_missing", message: Msg},
+                ( member(Id, Ids),
+                  string_lower(Id, IdL),
+                  \+ ( member(H, Headers), sub_string(H, _, _, _, IdL) ),
+                  format(string(Msg), "The supplied case ~w has no scenario. Write `scenario ~w is:` with the facts of that case and its recorded outcome as the expectation. Never replace a supplied case with a scenario of your own: the supplied cases are the tests the program must pass.", [Id, Id]) ),
+                Issues)
+    ;   Issues = []
+    ).
+
 %!  file_records(+File, -Records) is det.
 %
 %   The records of one uploaded file: `rec(Source, Dict)` per element of its
@@ -6163,14 +6610,36 @@ json_pretty(Dict, Text) :-
     with_output_to(string(Text), json_write_dict(current_output, Dict, [width(76)])).
 
 materials_block(Wording, Schedule, CaseTexts, Materials) :-
+    materials_block("", Wording, Schedule, CaseTexts, Materials).
+
+materials_block(Document, Wording, Schedule, CaseTexts, Materials) :-
     findall(CB, ( nth1(I, CaseTexts, CT),
                   format(string(CB), "### CASE ~w\n\n~w", [I, CT]) ), CBs),
     atomic_list_concat(CBs, "\n\n", CasesBlock),
     ( Schedule == "" -> SB = "(no schedule provided)" ; SB = Schedule ),
     ( CBs == [] -> CaB = "(no cases provided)" ; CaB = CasesBlock ),
     format(string(Materials),
-           "## CONTRACT WORDING\n\n~w\n\n## SCHEDULE\n\n~w\n\n## CASES\n\n~w",
-           [Wording, SB, CaB]).
+           "~w## CONTRACT WORDING\n\n~w\n\n## SCHEDULE\n\n~w\n\n## CASES\n\n~w",
+           [Document, Wording, SB, CaB]).
+
+%!  document_block(+Config, -Block) is det.
+%
+%   What the program needs to cite the wording (house style, "Citations"):
+%   the name of the file that holds its text, beside the program while it is
+%   verified, so that its quotations are checked; and its web address, when
+%   the wording came from one.
+document_block(Config, Block) :-
+    (   atom(Config.get(wording, none)), Config.wording \== none
+    ->  file_base_name(Config.wording, TextName),
+        (   URL = Config.get(wording_url, none), URL \== none
+        ->  format(string(UrlLine), "- It is published at: `~w`\n", [URL])
+        ;   UrlLine = "- It has no web address: write no `is published at` statement.\n"
+        ),
+        format(string(Block),
+               "## DOCUMENT\n\n- The text of the wording below is the file `~w`: write `the text of <document> is at \"~w\".` and quote from it verbatim.\n~w\n",
+               [TextName, TextName, UrlLine])
+    ;   Block = ""
+    ).
 
 % =============================== Small helpers ================================
 
