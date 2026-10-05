@@ -26,6 +26,14 @@ use.
 
 If /lps2 exists, it contains the Logic Production Systems repository, which depends on ours.
 
+## Videos
+A request to "build a standard video for X" (a feature or an example of this
+system) follows `/lpsPlus/docs/sales/videos/STANDARD_VIDEO.md`: a Playwright
+script that drives the editor, an opening slide and a concluding slide with
+the Logical Contracts logo, calm narration without hype spoken by ElevenLabs
+voice `0HN93OO0QQQR6Vh2gSAe` (key in `.credentials`), about four minutes,
+built into an `.mp4` with `ffmpeg` by `vlib.cjs` in that folder.
+
 ## Build, Lint, and Test
 In what follows, SWIPL refers to the `./myswipl.sh` wrapper at the repo root. It
 selects the SWI-Prolog interpreter to use: the `$SWIPL` env var if set, otherwise
