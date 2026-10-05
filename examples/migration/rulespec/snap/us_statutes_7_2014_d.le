@@ -1,0 +1,140 @@
+% 7 U.S.C. 2014(d)
+% RuleSpec module us:statutes/7/2014/d (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the irregular income quarter cap is *an amount*.
+    the irregular income excluded from snap income of *a household* is *an amount*.
+    the student child income age limit is *a number*.
+    the student child earned income excluded from snap income of *a person* is *an amount*.
+    the income of *a household* received too infrequently or irregularly to be reasonably anticipated; scenario element.
+    the irregular income amount in certification period of *a household* is *an amount*; scenario element.
+    *a person* is child member of household; scenario element.
+    *a person* is elementary or secondary school student; scenario element.
+    the person age of *a person* is *a number*; scenario element.
+    the child earned income amount of *a person* is *an amount*; scenario element.
+
+the knowledge base us_statutes_7_2014_d includes:
+
+
+% 7 U.S.C. 2014(d) — us:statutes/7/2014/d
+the text of "7 USC 2014(d)(2)" is at "sources/us/statutes/7/2014/d.yaml".
+
+the text of "7 USC 2014(d)(7)" is at "sources/us/statutes/7/2014/d.yaml".
+
+the irregular income quarter cap is 30 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule irregular_income_excluded_from_snap_income with provenance "7 USC 2014(d)(2)":
+the irregular income excluded from snap income of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the income of the household received too infrequently or irregularly to be reasonably anticipated
+        and the irregular income amount in certification period of the household is an amount M
+        and the irregular income quarter cap is an amount K
+        and the minimum of M and K is N
+        otherwise the household is a household
+        and N = 0.
+
+the student child income age limit is 17 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_child_earned_income_excluded_from_snap_income with provenance "7 USC 2014(d)(7)":
+the student child earned income excluded from snap income of a person is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is child member of household
+        and the person is elementary or secondary school student
+        and the person age of the person is a number M
+        and the student child income age limit is a number K
+        and M <= K
+        and the child earned income amount of the person is N
+        otherwise the person is a person
+        and N = 0.
+
+scenario irregular_income_exclusion_caps_at_quarter_limit is, as stated in "sources/us/statutes/7/2014/d.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the income of household_1 received too infrequently or irregularly to be reasonably anticipated.
+    the irregular income amount in certification period of household_1 is 45.
+    q_irregular_income_excluded_from_snap_income expects answers ["the irregular income excluded from snap income of household_1 is 30"].
+    q_irregular_income_quarter_cap expects answers ["the irregular income quarter cap is 30"].
+
+scenario irregular_income_not_excluded_without_irregularity_condition is, as stated in "sources/us/statutes/7/2014/d.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the irregular income amount in certification period of household_1 is 20.
+    q_irregular_income_excluded_from_snap_income expects answers ["the irregular income excluded from snap income of household_1 is 0"].
+
+scenario student_child_earned_income_excluded_at_age_limit is, as stated in "sources/us/statutes/7/2014/d.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the child earned income amount of person_1 is 240.
+    the person age of person_1 is 17.
+    person_1 is child member of household.
+    person_1 is elementary or secondary school student.
+    q_student_child_earned_income_excluded_from_snap_income expects answers ["the student child earned income excluded from snap income of person_1 is 240"].
+    q_student_child_income_age_limit expects answers ["the student child income age limit is 17"].
+
+scenario student_child_earned_income_not_excluded_over_age_limit is, as stated in "sources/us/statutes/7/2014/d.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the child earned income amount of person_1 is 240.
+    the person age of person_1 is 18.
+    person_1 is child member of household.
+    person_1 is elementary or secondary school student.
+    q_student_child_earned_income_excluded_from_snap_income expects answers ["the student child earned income excluded from snap income of person_1 is 0"].
+
+scenario student_income_not_excluded_if_not_household_child is, as stated in "sources/us/statutes/7/2014/d.test.yaml" at case 5:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the child earned income amount of person_1 is 200.
+    the person age of person_1 is 16.
+    person_1 is elementary or secondary school student.
+    q_student_child_earned_income_excluded_from_snap_income expects answers ["the student child earned income excluded from snap income of person_1 is 0"].
+
+scenario student_income_not_excluded_if_not_student is, as stated in "sources/us/statutes/7/2014/d.test.yaml" at case 6:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the child earned income amount of person_1 is 200.
+    the person age of person_1 is 16.
+    person_1 is child member of household.
+    q_student_child_earned_income_excluded_from_snap_income expects answers ["the student child earned income excluded from snap income of person_1 is 0"].
+
+query q_irregular_income_excluded_from_snap_income is:
+    the irregular income excluded from snap income of which household is which amount.
+
+query q_irregular_income_excluded_from_snap_income is:
+    the irregular income excluded from snap income of which household is which amount.
+
+query q_irregular_income_quarter_cap is:
+    the irregular income quarter cap is which amount.
+
+query q_student_child_earned_income_excluded_from_snap_income is:
+    the student child earned income excluded from snap income of which person is which amount.
+
+query q_student_child_earned_income_excluded_from_snap_income is:
+    the student child earned income excluded from snap income of which person is which amount.
+
+query q_student_child_earned_income_excluded_from_snap_income is:
+    the student child earned income excluded from snap income of which person is which amount.
+
+query q_student_child_earned_income_excluded_from_snap_income is:
+    the student child earned income excluded from snap income of which person is which amount.
+
+query q_student_child_income_age_limit is:
+    the student child income age limit is which number.
+

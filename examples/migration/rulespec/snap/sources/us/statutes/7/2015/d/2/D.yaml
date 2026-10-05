@@ -1,0 +1,27 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2015
+  summary: |-
+    (2) A person who otherwise would be required to comply with the requirements of paragraph (1) of this subsection shall be exempt from such requirements if he or she is ... (D) a regular participant in a drug addiction or alcoholic treatment and rehabilitation program;
+rules:
+  - name: treatment_and_rehabilitation_program_participation_exemption_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(d)(2)(D)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_otherwise_required_to_comply_with_paragraph_1_requirements
+          and person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program

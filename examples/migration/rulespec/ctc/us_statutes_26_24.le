@@ -1,0 +1,604 @@
+% 26 U.S.C. 24
+% RuleSpec module us:statutes/26/24 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 1 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    *a person* is a dependent of *a tax unit*; scenario element.
+    the ctc child amount under subsection h is *an amount*.
+    the ctc joint phase out threshold under subsection h is *an amount*.
+    the ctc other phase out threshold under subsection h is *an amount*.
+    the ctc other dependent amount under subsection h is *an amount*.
+    the ctc refundable per child cap under subsection h is *an amount*.
+    the ctc refundable phase in threshold under subsection h is *an amount*.
+    *a person* is ctc child ssn requirement satisfied under subsection h.
+    *a person* is ctc child credit disallowed by ssn requirement under subsection h.
+    *a person* is ctc qualifying child under subsection h.
+    *a person* is ctc other dependent under subsection h.
+    the ctc qualifying children under subsection h of *a tax unit* is *a number*.
+    the ctc other dependents under subsection h of *a tax unit* is *a number*.
+    the ctc phase out threshold under subsection h of *a tax unit* is *an amount*.
+    the ctc maximum before phase out under subsection h of *a tax unit* is *an amount*.
+    the ctc refundable maximum under subsection h of *a tax unit* is *an amount*.
+    *a person* is a ctc qualifying child of *a tax unit*; scenario element.
+    the ctc child amount base is *an amount*.
+    the ctc phaseout reduction per increment is *an amount*.
+    the ctc phaseout increment is *an amount*.
+    the ctc joint threshold base is *an amount*.
+    the ctc unmarried threshold base is *an amount*.
+    the ctc separate threshold base is *an amount*.
+    the ctc child age ceiling exclusive is *a number*.
+    the ctc full taxable year months is *a number*.
+    the ctc fraud disallowance years is *a number*.
+    the ctc reckless disallowance years is *a number*.
+    the ctc modified adjusted gross income of *a tax unit* is *an amount*.
+    *a person* is ctc qualifying child.
+    *a person* is ctc child identification requirement satisfied.
+    the ctc qualifying children count of *a tax unit* is *a number*.
+    *a tax unit* is ctc taxpayer identification requirement satisfied.
+    *a tax unit* is ctc full taxable year requirement satisfied.
+    *a tax unit* is ctc prior claim restriction satisfied.
+    the ctc phaseout threshold base of *a tax unit* is *an amount*.
+    the ctc phaseout threshold of *a tax unit* is *an amount*.
+    the ctc maximum before phaseout of *a tax unit* is *an amount*.
+    the ctc phaseout amount of *a tax unit* is *an amount*.
+    the ctc before advance payments of *a tax unit* is *an amount*.
+    the ctc after advance payments of *a tax unit* is *an amount*.
+    *a person* is taxpayer or spouse ssn included on return; scenario element.
+    *a person* is qualifying child ssn included on return; scenario element.
+    the taxpayer or spouse ssn of *a person* is valid for subsection h; scenario element.
+    the qualifying child ssn of *a person* is valid for subsection h; scenario element.
+    the ctc child of *a person* satisfies subsection c; scenario element.
+    the ctc person of *a person* satisfies dependency rules; scenario element.
+    *a person* is noncitizen exception to other dependent credit under subsection h; scenario element.
+    the filing status of *a tax unit* is *a code*; scenario element.
+    the adjusted gross income of *a tax unit* is *an amount*; scenario element.
+    the ctc foreign earned income exclusion adjustment of *a tax unit* is *an amount*; scenario element.
+    the ctc possession income exclusion adjustment of *a tax unit* is *an amount*; scenario element.
+    the ctc puerto rico income exclusion adjustment of *a tax unit* is *an amount*; scenario element.
+    the ctc child of *a person* satisfies dependency rules; scenario element.
+    the age of *a person* is *a number*; scenario element.
+    *a person* is ctc child deduction allowed; scenario element.
+    the certain noncitizen exception of *a person* applies; scenario element.
+    *a person* is qualifying child name included on return; scenario element.
+    *a person* is qualifying child tin included on return; scenario element.
+    *a person* is qualifying child tin issued on or before return due date; scenario element.
+    *a person* is ctc child missing identification; scenario element.
+    *a tax unit* is taxpayer identification number issued after return due date; scenario element.
+    the taxable year months of *a tax unit* is *a number*; scenario element.
+    *a tax unit* is taxable year closed by reason of taxpayer death; scenario element.
+    the ctc fraud disallowance period of *a tax unit* applies; scenario element.
+    the ctc reckless or intentional disregard disallowance period of *a tax unit* applies; scenario element.
+    *a tax unit* is prior deficiency denial without required eligibility information; scenario element.
+    the ctc phaseout joint threshold of *a tax unit* applies; scenario element.
+    the ctc phaseout separate threshold of *a tax unit* applies; scenario element.
+    *a tax unit* is ctc subsection h special rules apply; scenario element.
+    the ctc advance payments received of *a tax unit* is *an amount*; scenario element.
+
+the knowledge base us_statutes_26_24 includes:
+
+
+% 26 U.S.C. 24(h) — us:statutes/26/24/h
+the text of "26 USC 24(h)(2)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(3)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(4)(A)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(5)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(6)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(7)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(4)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(2), 24(h)(7)" is at "sources/us/statutes/26/24/h.yaml".
+
+the text of "26 USC 24(h)(2), 24(h)(4)" is at "sources/us/statutes/26/24/h.yaml".
+
+the ctc child amount under subsection h is 2200 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc joint phase out threshold under subsection h is 400000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc other phase out threshold under subsection h is 200000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc other dependent amount under subsection h is 500 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc refundable per child cap under subsection h is 1400 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc refundable phase in threshold under subsection h is 2500 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+rule ctc_child_ssn_requirement_satisfied_under_subsection_h with provenance "26 USC 24(h)(7)":
+a person is ctc child ssn requirement satisfied under subsection h if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the person is taxpayer or spouse ssn included on return
+        and the person is qualifying child ssn included on return
+        and the taxpayer or spouse ssn of the person is valid for subsection h
+        and the qualifying child ssn of the person is valid for subsection h.
+
+rule ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h with provenance "26 USC 24(h)(7)":
+a person is ctc child credit disallowed by ssn requirement under subsection h if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc child of the person satisfies subsection c
+        and it is not the case that the person is ctc child ssn requirement satisfied under subsection h.
+
+rule ctc_qualifying_child_under_subsection_h with provenance "26 USC 24(h)(7)":
+a person is ctc qualifying child under subsection h if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc child of the person satisfies subsection c
+        and the person is ctc child ssn requirement satisfied under subsection h.
+
+rule ctc_other_dependent_under_subsection_h_1 with provenance "26 USC 24(h)(4)":
+a person is ctc other dependent under subsection h if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc person of the person satisfies dependency rules
+        and it is not the case that the ctc child of the person satisfies subsection c
+        and it is not the case that the person is noncitizen exception to other dependent credit under subsection h.
+
+rule ctc_other_dependent_under_subsection_h_2 with provenance "26 USC 24(h)(4)":
+a person is ctc other dependent under subsection h if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the person is ctc child credit disallowed by ssn requirement under subsection h.
+
+rule ctc_qualifying_children_under_subsection_h with provenance "26 USC 24(h)(2), 24(h)(7)":
+the ctc qualifying children under subsection h of a tax unit is a number N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is a tax_unit
+        and N is the count of each P such that
+            a person P is a dependent of the tax unit
+            and P is ctc qualifying child under subsection h.
+
+rule ctc_other_dependents_under_subsection_h with provenance "26 USC 24(h)(4)":
+the ctc other dependents under subsection h of a tax unit is a number N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is a tax_unit
+        and N is the count of each P such that
+            a person P is a dependent of the tax unit
+            and P is ctc other dependent under subsection h.
+
+rule ctc_phase_out_threshold_under_subsection_h with provenance "26 USC 24(h)(3)":
+the ctc phase out threshold under subsection h of a tax unit is an amount if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the filing status of the tax unit is a code C
+        and C = 1
+        and the ctc joint phase out threshold under subsection h is the amount
+        otherwise the tax unit is a tax_unit
+        and the ctc other phase out threshold under subsection h is the amount.
+
+rule ctc_maximum_before_phase_out_under_subsection_h with provenance "26 USC 24(h)(2), 24(h)(4)":
+the ctc maximum before phase out under subsection h of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc qualifying children under subsection h of the tax unit is a number M
+        and the ctc child amount under subsection h is an amount K
+        and the ctc other dependents under subsection h of the tax unit is a number P
+        and the ctc other dependent amount under subsection h is an amount Q
+        and N = M * K + P * Q.
+
+rule ctc_refundable_maximum_under_subsection_h with provenance "26 USC 24(h)(5)":
+the ctc refundable maximum under subsection h of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc qualifying children under subsection h of the tax unit is a number M
+        and the ctc refundable per child cap under subsection h is an amount K
+        and N = M * K.
+
+
+% 26 U.S.C. 24 — us:statutes/26/24
+the text of "26 USC 24(a)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(b)(1)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(b)(2)(A)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(b)(2)(B)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(b)(2)(C)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(c)(1)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(f)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(g)(1)(B)(i)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(g)(1)(B)(ii)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(c)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(e)(1)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(a), (c), (e)(1)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(e)(2)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(g)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(b)(2)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(b)(2), 24(h)(3)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(a), 24(h)(2), 24(h)(4)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(a), 24(b), 24(e), 24(f), 24(g), 24(h)" is at "sources/us/statutes/26/24.yaml".
+
+the text of "26 USC 24(j)(1)" is at "sources/us/statutes/26/24.yaml".
+
+the ctc child amount base is 1000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc phaseout reduction per increment is 50 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc phaseout increment is 1000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc joint threshold base is 110000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc unmarried threshold base is 75000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc separate threshold base is 55000 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc child age ceiling exclusive is 17 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc full taxable year months is 12 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc fraud disallowance years is 10 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+the ctc reckless disallowance years is 2 if
+    the calculation date is a date D
+    and 2018-01-01 <= D.
+
+rule ctc_modified_adjusted_gross_income with provenance "26 USC 24(b)(1)":
+the ctc modified adjusted gross income of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the adjusted gross income of the tax unit is an amount M
+        and the ctc foreign earned income exclusion adjustment of the tax unit is an amount K
+        and the ctc possession income exclusion adjustment of the tax unit is an amount P
+        and the ctc puerto rico income exclusion adjustment of the tax unit is an amount Q
+        and N = M + K + P + Q.
+
+rule ctc_qualifying_child with provenance "26 USC 24(c)":
+a person is ctc qualifying child if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc child of the person satisfies dependency rules
+        and the age of the person is a number N
+        and the ctc child age ceiling exclusive is a number M
+        and N < M
+        and the person is ctc child deduction allowed
+        and it is not the case that the certain noncitizen exception of the person applies.
+
+rule ctc_child_identification_requirement_satisfied with provenance "26 USC 24(e)(1)":
+a person is ctc child identification requirement satisfied if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the person is qualifying child name included on return
+        and the person is qualifying child tin included on return
+        and the person is qualifying child tin issued on or before return due date.
+
+rule ctc_qualifying_children_count with provenance "26 USC 24(a), (c), (e)(1)":
+the ctc qualifying children count of a tax unit is a number N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is a tax_unit
+        and a number M is the count of each P such that
+            a person P is a ctc qualifying child of the tax unit
+            and P is ctc qualifying child
+        and a number Q is the count of each K such that
+            a person K is a ctc qualifying child of the tax unit
+            and K is ctc child missing identification
+        and N = M - Q.
+
+rule ctc_taxpayer_identification_requirement_satisfied with provenance "26 USC 24(e)(2)":
+a tax unit is ctc taxpayer identification requirement satisfied if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is a tax_unit
+        and it is not the case that the tax unit is taxpayer identification number issued after return due date.
+
+rule ctc_full_taxable_year_requirement_satisfied_1 with provenance "26 USC 24(f)":
+a tax unit is ctc full taxable year requirement satisfied if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the taxable year months of the tax unit is a number N
+        and the ctc full taxable year months is a number M
+        and N >= M.
+
+rule ctc_full_taxable_year_requirement_satisfied_2 with provenance "26 USC 24(f)":
+a tax unit is ctc full taxable year requirement satisfied if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is taxable year closed by reason of taxpayer death.
+
+rule ctc_prior_claim_restriction_satisfied with provenance "26 USC 24(g)":
+a tax unit is ctc prior claim restriction satisfied if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is a tax_unit
+        and it is not the case that the ctc fraud disallowance period of the tax unit applies
+        and it is not the case that the ctc reckless or intentional disregard disallowance period of the tax unit applies
+        and it is not the case that the tax unit is prior deficiency denial without required eligibility information.
+
+rule ctc_phaseout_threshold_base with provenance "26 USC 24(b)(2)":
+the ctc phaseout threshold base of a tax unit is an amount if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc phaseout joint threshold of the tax unit applies
+        and the ctc joint threshold base is the amount
+        otherwise the ctc phaseout separate threshold of the tax unit applies
+        and the ctc separate threshold base is the amount
+        otherwise the tax unit is a tax_unit
+        and the ctc unmarried threshold base is the amount.
+
+rule ctc_phaseout_threshold with provenance "26 USC 24(b)(2), 24(h)(3)":
+the ctc phaseout threshold of a tax unit is an amount if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is ctc subsection h special rules apply
+        and the ctc phase out threshold under subsection h of the tax unit is the amount
+        otherwise the ctc phaseout threshold base of the tax unit is the amount.
+
+rule ctc_maximum_before_phaseout with provenance "26 USC 24(a), 24(h)(2), 24(h)(4)":
+the ctc maximum before phaseout of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is ctc subsection h special rules apply
+        and the ctc maximum before phase out under subsection h of the tax unit is N
+        otherwise the ctc qualifying children count of the tax unit is a number M
+        and the ctc child amount base is an amount K
+        and N = M * K.
+
+rule ctc_phaseout_amount with provenance "26 USC 24(b)(1)":
+the ctc phaseout amount of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc phaseout reduction per increment is an amount M
+    and the ctc modified adjusted gross income of the tax unit is an amount K
+    and the ctc phaseout threshold of the tax unit is an amount P
+    and the ctc phaseout increment is an amount Q
+    and a number R = K - P
+    and the maximum of 0 and R is a number S
+    and N = M * ceiling(S / Q).
+
+rule ctc_before_advance_payments with provenance "26 USC 24(a), 24(b), 24(e), 24(f), 24(g), 24(h)":
+the ctc before advance payments of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the tax unit is ctc taxpayer identification requirement satisfied
+        and the tax unit is ctc full taxable year requirement satisfied
+        and the tax unit is ctc prior claim restriction satisfied
+        and the ctc maximum before phaseout of the tax unit is an amount M
+        and the ctc phaseout amount of the tax unit is an amount K
+        and a number P = M - K
+        and the maximum of 0 and P is N
+        otherwise the tax unit is a tax_unit
+        and N = 0.
+
+rule ctc_after_advance_payments with provenance "26 USC 24(j)(1)":
+the ctc after advance payments of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2018-01-01 <= D
+    and the ctc before advance payments of the tax unit is an amount M
+    and the ctc advance payments received of the tax unit is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+scenario qualifying_child_person_positive_and_identification is, as stated in "sources/us/statutes/26/24.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2018-01-01.
+    the age of person_1 is 16.
+    person_1 is ctc child deduction allowed.
+    the ctc child of person_1 satisfies dependency rules.
+    person_1 is qualifying child name included on return.
+    person_1 is qualifying child tin included on return.
+    person_1 is qualifying child tin issued on or before return due date.
+    q_ctc_child_age_ceiling_exclusive expects answers ["the ctc child age ceiling exclusive is 17"].
+    q_ctc_child_identification_requirement_satisfied expects answers ["person_1 is ctc child identification requirement satisfied"].
+    q_ctc_qualifying_child expects answers ["person_1 is ctc qualifying child"].
+
+scenario qualifying_child_noncitizen_exception_not_holds is, as stated in "sources/us/statutes/26/24.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2018-01-01.
+    the age of person_1 is 16.
+    the certain noncitizen exception of person_1 applies.
+    person_1 is ctc child deduction allowed.
+    the ctc child of person_1 satisfies dependency rules.
+    person_1 is qualifying child name included on return.
+    person_1 is qualifying child tin included on return.
+    person_1 is qualifying child tin issued on or before return due date.
+    q_ctc_child_identification_requirement_satisfied expects answers ["person_1 is ctc child identification requirement satisfied"].
+    q_ctc_qualifying_child expects answers [].
+
+scenario post_2017_joint_credit_composes_subsection_h_and_phaseout is, as stated in "sources/us/statutes/26/24.test.yaml" at case 3:
+    tax_unit_1 is a tax_unit.
+    the calculation date is 2018-01-01.
+    the adjusted gross income of tax_unit_1 is 401000.
+    the ctc advance payments received of tax_unit_1 is 100.
+    the ctc foreign earned income exclusion adjustment of tax_unit_1 is 0.
+    the ctc phaseout joint threshold of tax_unit_1 applies.
+    the ctc possession income exclusion adjustment of tax_unit_1 is 0.
+    the ctc puerto rico income exclusion adjustment of tax_unit_1 is 0.
+    tax_unit_1 is ctc subsection h special rules apply.
+    the taxable year months of tax_unit_1 is 12.
+    person_1 is a person.
+    person_1 is a ctc qualifying child of tax_unit_1.
+    the age of person_1 is 16.
+    person_1 is ctc child deduction allowed.
+    the ctc child of person_1 satisfies dependency rules.
+    the filing status of tax_unit_1 is 1.
+    person_1 is a dependent of tax_unit_1.
+    the ctc child of person_1 satisfies subsection c.
+    the ctc person of person_1 satisfies dependency rules.
+    person_1 is qualifying child ssn included on return.
+    the qualifying child ssn of person_1 is valid for subsection h.
+    person_1 is taxpayer or spouse ssn included on return.
+    the taxpayer or spouse ssn of person_1 is valid for subsection h.
+    q_ctc_after_advance_payments expects answers ["the ctc after advance payments of tax_unit_1 is 2050"].
+    q_ctc_before_advance_payments expects answers ["the ctc before advance payments of tax_unit_1 is 2150"].
+    q_ctc_child_amount_base expects answers ["the ctc child amount base is 1000"].
+    q_ctc_fraud_disallowance_years expects answers ["the ctc fraud disallowance years is 10"].
+    q_ctc_full_taxable_year_months expects answers ["the ctc full taxable year months is 12"].
+    q_ctc_full_taxable_year_requirement_satisfied expects answers ["tax_unit_1 is ctc full taxable year requirement satisfied"].
+    q_ctc_joint_threshold_base expects answers ["the ctc joint threshold base is 110000"].
+    q_ctc_maximum_before_phaseout expects answers ["the ctc maximum before phaseout of tax_unit_1 is 2200"].
+    q_ctc_modified_adjusted_gross_income expects answers ["the ctc modified adjusted gross income of tax_unit_1 is 401000"].
+    q_ctc_phaseout_amount expects answers ["the ctc phaseout amount of tax_unit_1 is 50"].
+    q_ctc_phaseout_increment expects answers ["the ctc phaseout increment is 1000"].
+    q_ctc_phaseout_reduction_per_increment expects answers ["the ctc phaseout reduction per increment is 50"].
+    q_ctc_phaseout_threshold expects answers ["the ctc phaseout threshold of tax_unit_1 is 400000"].
+    q_ctc_phaseout_threshold_base expects answers ["the ctc phaseout threshold base of tax_unit_1 is 110000"].
+    q_ctc_prior_claim_restriction_satisfied expects answers ["tax_unit_1 is ctc prior claim restriction satisfied"].
+    q_ctc_qualifying_children_count expects answers ["the ctc qualifying children count of tax_unit_1 is 1"].
+    q_ctc_reckless_disallowance_years expects answers ["the ctc reckless disallowance years is 2"].
+    q_ctc_separate_threshold_base expects answers ["the ctc separate threshold base is 55000"].
+    q_ctc_taxpayer_identification_requirement_satisfied expects answers ["tax_unit_1 is ctc taxpayer identification requirement satisfied"].
+    q_ctc_unmarried_threshold_base expects answers ["the ctc unmarried threshold base is 75000"].
+
+scenario taxpayer_tin_after_due_date_disallows_credit is, as stated in "sources/us/statutes/26/24.test.yaml" at case 4:
+    tax_unit_1 is a tax_unit.
+    the calculation date is 2018-01-01.
+    the adjusted gross income of tax_unit_1 is 0.
+    the age of tax_unit_1 is 0.
+    the ctc advance payments received of tax_unit_1 is 0.
+    the ctc foreign earned income exclusion adjustment of tax_unit_1 is 0.
+    the ctc possession income exclusion adjustment of tax_unit_1 is 0.
+    the ctc puerto rico income exclusion adjustment of tax_unit_1 is 0.
+    tax_unit_1 is ctc subsection h special rules apply.
+    the taxable year months of tax_unit_1 is 12.
+    tax_unit_1 is taxpayer identification number issued after return due date.
+    the filing status of tax_unit_1 is 0.
+    q_ctc_after_advance_payments expects answers ["the ctc after advance payments of tax_unit_1 is 0"].
+    q_ctc_before_advance_payments expects answers ["the ctc before advance payments of tax_unit_1 is 0"].
+    q_ctc_taxpayer_identification_requirement_satisfied expects answers [].
+
+query q_ctc_after_advance_payments is:
+    the ctc after advance payments of which tax unit is which amount.
+
+query q_ctc_after_advance_payments is:
+    the ctc after advance payments of which tax unit is which amount.
+
+query q_ctc_before_advance_payments is:
+    the ctc before advance payments of which tax unit is which amount.
+
+query q_ctc_before_advance_payments is:
+    the ctc before advance payments of which tax unit is which amount.
+
+query q_ctc_child_age_ceiling_exclusive is:
+    the ctc child age ceiling exclusive is which number.
+
+query q_ctc_child_amount_base is:
+    the ctc child amount base is which amount.
+
+query q_ctc_child_identification_requirement_satisfied is:
+    which person is ctc child identification requirement satisfied.
+
+query q_ctc_child_identification_requirement_satisfied is:
+    which person is ctc child identification requirement satisfied.
+
+query q_ctc_fraud_disallowance_years is:
+    the ctc fraud disallowance years is which number.
+
+query q_ctc_full_taxable_year_months is:
+    the ctc full taxable year months is which number.
+
+query q_ctc_full_taxable_year_requirement_satisfied is:
+    which tax unit is ctc full taxable year requirement satisfied.
+
+query q_ctc_joint_threshold_base is:
+    the ctc joint threshold base is which amount.
+
+query q_ctc_maximum_before_phaseout is:
+    the ctc maximum before phaseout of which tax unit is which amount.
+
+query q_ctc_modified_adjusted_gross_income is:
+    the ctc modified adjusted gross income of which tax unit is which amount.
+
+query q_ctc_phaseout_amount is:
+    the ctc phaseout amount of which tax unit is which amount.
+
+query q_ctc_phaseout_increment is:
+    the ctc phaseout increment is which amount.
+
+query q_ctc_phaseout_reduction_per_increment is:
+    the ctc phaseout reduction per increment is which amount.
+
+query q_ctc_phaseout_threshold is:
+    the ctc phaseout threshold of which tax unit is which amount.
+
+query q_ctc_phaseout_threshold_base is:
+    the ctc phaseout threshold base of which tax unit is which amount.
+
+query q_ctc_prior_claim_restriction_satisfied is:
+    which tax unit is ctc prior claim restriction satisfied.
+
+query q_ctc_qualifying_child is:
+    which person is ctc qualifying child.
+
+query q_ctc_qualifying_child is:
+    which person is ctc qualifying child.
+
+query q_ctc_qualifying_children_count is:
+    the ctc qualifying children count of which tax unit is which number.
+
+query q_ctc_reckless_disallowance_years is:
+    the ctc reckless disallowance years is which number.
+
+query q_ctc_separate_threshold_base is:
+    the ctc separate threshold base is which amount.
+
+query q_ctc_taxpayer_identification_requirement_satisfied is:
+    which tax unit is ctc taxpayer identification requirement satisfied.
+
+query q_ctc_taxpayer_identification_requirement_satisfied is:
+    which tax unit is ctc taxpayer identification requirement satisfied.
+
+query q_ctc_unmarried_threshold_base is:
+    the ctc unmarried threshold base is which amount.
+

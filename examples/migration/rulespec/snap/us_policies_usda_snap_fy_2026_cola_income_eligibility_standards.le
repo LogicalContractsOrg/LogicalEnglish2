@@ -1,0 +1,231 @@
+% us:policies/usda/snap/fy-2026-cola/income-eligibility-standards
+% RuleSpec module us:policies/usda/snap/fy-2026-cola/income-eligibility-standards (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the snap net income limit 100 percent fpl 48 states dc table for *a household size* is *an amount*.
+    the snap net income limit 100 percent fpl 48 states dc additional member is *an amount*.
+    the snap net income limit 100 percent fpl 48 states dc of *a household* is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc table for *a household size* is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc additional member is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc of *a household* is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc table for *a household size* is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc additional member is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc of *a household* is *an amount*.
+    the household size of *a household* is *a number*; scenario element.
+
+the knowledge base us_policies_usda_snap_fy_2026_cola_income_eligibility_standards includes:
+
+
+% us:policies/usda/snap/fy-2026-cola/income-eligibility-standards
+the text of "USDA SNAP FY 2026 income eligibility standards" is at "sources/us/policies/usda/snap/fy-2026-cola/income-eligibility-standards.yaml".
+
+the snap net income limit 100 percent fpl 48 states dc table for 1 is 1305 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 2 is 1763 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 3 is 2221 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 4 is 2680 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 5 is 3138 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 6 is 3596 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 7 is 4055 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc table for 8 is 4513 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap net income limit 100 percent fpl 48 states dc additional member is 459 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_net_income_limit_100_percent_fpl_48_states_dc with provenance "USDA SNAP FY 2026 income eligibility standards":
+the snap net income limit 100 percent fpl 48 states dc of a household is an amount N if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap net income limit 100 percent fpl 48 states dc table for P is an amount Q
+    and the snap net income limit 100 percent fpl 48 states dc additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 1 is 1696 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 2 is 2292 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 3 is 2888 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 4 is 3483 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 5 is 4079 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 6 is 4675 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 7 is 5271 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 8 is 5867 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 130 percent fpl 48 states dc additional member is 596 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_gross_income_limit_130_percent_fpl_48_states_dc with provenance "USDA SNAP FY 2026 income eligibility standards":
+the snap gross income limit 130 percent fpl 48 states dc of a household is an amount N if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 130 percent fpl 48 states dc table for P is an amount Q
+    and the snap gross income limit 130 percent fpl 48 states dc additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 1 is 2152 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 2 is 2909 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 3 is 3665 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 4 is 4421 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 5 is 5177 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 6 is 5934 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 7 is 6690 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 8 is 7446 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap gross income limit 165 percent fpl 48 states dc additional member is 757 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_gross_income_limit_165_percent_fpl_48_states_dc with provenance "USDA SNAP FY 2026 income eligibility standards":
+the snap gross income limit 165 percent fpl 48 states dc of a household is an amount N if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 165 percent fpl 48 states dc table for P is an amount Q
+    and the snap gross income limit 165 percent fpl 48 states dc additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+scenario income_standards_for_one_person_household is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/income-eligibility-standards.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 1.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 1696"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 2152"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 1305"].
+
+scenario income_standards_for_eight_person_household is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/income-eligibility-standards.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 8.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 5867"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 7446"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 4513"].
+
+scenario income_standards_add_each_additional_person is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/income-eligibility-standards.test.yaml" at case 3:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 9.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 6463"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 8203"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 4972"].
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+

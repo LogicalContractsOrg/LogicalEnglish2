@@ -1,0 +1,42 @@
+format: rulespec/v1
+module:
+  summary: |-
+    7 USC 2014(e)(6)(A) provides that the excess shelter deduction compares
+    shelter costs to 50 percent of monthly household income after all other
+    applicable deductions have been allowed. This module models the
+    pre-shelter net income base and final SNAP net income after the excess
+    shelter deduction.
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+imports:
+  - us:statutes/7/2014/e/2
+rules:
+  - name: snap_net_income_pre_shelter
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(e)(6)(A)
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          max(
+              0,
+              snap_monthly_household_income
+              - snap_standard_deduction
+              - snap_earned_income_deduction
+              - dependent_care_deduction
+              - child_support_deduction
+              - medical_deduction
+          )
+  - name: snap_net_income
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(d) and (e)
+    versions:
+      - effective_from: '2008-10-01'
+        formula: max(0, snap_net_income_pre_shelter - snap_excess_shelter_deduction)

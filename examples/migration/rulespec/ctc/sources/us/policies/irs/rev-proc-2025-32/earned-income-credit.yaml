@@ -1,0 +1,130 @@
+format: rulespec/v1
+module:
+  summary: |-
+    IRS Revenue Procedure 2025-32 publishes the tax year 2026
+    inflation-adjusted earned income credit amounts under IRC section 32(b).
+    The annual dollar table lives here; statutory rates and eligibility
+    mechanics remain in 26 USC 32.
+  source_verification:
+    corpus_citation_paths:
+      - us/guidance/irs/rev-proc-2025-32/page-14
+      - us/guidance/irs/rev-proc-2025-32/page-15
+    values:
+      eitc_earned_income_amounts:
+        0: 8680
+        1: 13020
+        2: 18290
+        3: 18290
+      eitc_maximum_credit_amounts:
+        0: 664
+        1: 4427
+        2: 7316
+        3: 8231
+      eitc_threshold_phaseout_amounts_joint:
+        0: 18140
+        1: 31160
+        2: 31160
+        3: 31160
+      eitc_completed_phaseout_amounts_joint:
+        0: 26820
+        1: 58863
+        2: 65899
+        3: 70244
+      eitc_threshold_phaseout_amounts_other:
+        0: 10860
+        1: 23890
+        2: 23890
+        3: 23890
+      eitc_completed_phaseout_amounts_other:
+        0: 19540
+        1: 51593
+        2: 58629
+        3: 62974
+      eitc_maximum_investment_income: 12200
+rules:
+  - name: eitc_earned_income_amounts
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: qualifying_child_count
+    source: Rev. Proc. 2025-32 section 3.06(1)
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 8680
+          1: 13020
+          2: 18290
+          3: 18290
+  - name: eitc_maximum_credit_amounts
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: qualifying_child_count
+    source: Rev. Proc. 2025-32 section 3.06(1)
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 664
+          1: 4427
+          2: 7316
+          3: 8231
+  - name: eitc_threshold_phaseout_amounts_joint
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: qualifying_child_count
+    source: Rev. Proc. 2025-32 section 3.06(1)
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 18140
+          1: 31160
+          2: 31160
+          3: 31160
+  - name: eitc_completed_phaseout_amounts_joint
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: qualifying_child_count
+    source: Rev. Proc. 2025-32 section 3.06(1)
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 26820
+          1: 58863
+          2: 65899
+          3: 70244
+  - name: eitc_threshold_phaseout_amounts_other
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: qualifying_child_count
+    source: Rev. Proc. 2025-32 section 3.06(1)
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 10860
+          1: 23890
+          2: 23890
+          3: 23890
+  - name: eitc_completed_phaseout_amounts_other
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: qualifying_child_count
+    source: Rev. Proc. 2025-32 section 3.06(1)
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 19540
+          1: 51593
+          2: 58629
+          3: 62974
+  - name: eitc_maximum_investment_income
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: Rev. Proc. 2025-32 section 3.06(2)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: '12200'

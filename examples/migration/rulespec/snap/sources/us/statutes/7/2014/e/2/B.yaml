@@ -1,0 +1,30 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+  summary: |-
+    Except as provided in subparagraph (C), a household with earned income shall be allowed a deduction of 20 percent of all earned income.
+  deferred_outputs:
+    - output: us:statutes/7/2014/e/2/B#snap_earned_income_deduction
+      reason: Subparagraph (B) makes the deduction amount subject to the same-section exception in subparagraph (C), but no copied RuleSpec source for 7 USC 2014(e)(2)(C) is available in this workspace to compute the adjusted earned-income base faithfully.
+      source_values:
+        - us:statutes/7/2014/e/2/B#snap_earned_income_deduction_rate
+rules:
+  - name: snap_earned_income_deduction_rate
+    kind: parameter
+    dtype: Rate
+    source: 7 USC 2014(e)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "20 percent of all earned income"
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          0.20

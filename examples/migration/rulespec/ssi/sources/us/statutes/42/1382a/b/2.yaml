@@ -1,0 +1,151 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382a/b/2
+  summary: |-
+    Excludes from income "(A) the first $240 per year (or proportionately smaller amounts for shorter periods) of income ... other than income which is paid on the basis of ... need" and "(B) monthly (or other periodic) payments" under certain pre-July 1, 1973 State age/residency programs where, on or before September 30, 1985, the individual first becomes eligible and satisfies the twenty-five-year residency requirement.
+rules:
+  - name: annual_general_income_exclusion_limit
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382a(b)(2)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "the first $240 per year"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "$240 per year"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          240
+
+  - name: default_state_age_payment_age
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382a(b)(2)(B)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "attainment of age 65 or any other age set by the State"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          65
+
+  - name: state_age_payment_residency_year_requirement
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382a(b)(2)(B)(iii)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "twenty-five-year residency requirement"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          25
+
+  - name: annual_general_income_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(2)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "the first $240 per year ... of income ... other than income which is paid on the basis of ... need"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/2#annual_general_income_exclusion_limit
+              output: annual_general_income_exclusion_limit
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          min(max(0, annual_income_not_paid_on_basis_of_need), annual_general_income_exclusion_limit)
+
+  - name: state_age_residency_payment_excluded
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382a(b)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "monthly (or other periodic) payments received by any individual"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "under a program established prior to July 1, 1973"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "or any program established prior to such date but subsequently amended so as to conform"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "payments are made by the State of which the individual ... is a resident"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "eligibility ... is not based on need and is based solely on attainment of age 65 or any other age set by the State and residency"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/2
+              excerpt: "on or before September 30, 1985"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/2#state_age_payment_residency_year_requirement
+              output: state_age_payment_residency_year_requirement
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          payment_is_monthly_or_other_periodic
+          and payment_received_by_individual
+          and (
+            program_established_prior_to_july_first_nineteen_seventy_three
+            or program_established_prior_to_july_first_nineteen_seventy_three_and_subsequently_amended_to_conform_to_state_or_federal_constitutional_standards
+          )
+          and payment_made_by_state_of_which_receiving_individual_is_resident
+          and payment_program_eligibility_not_based_on_need
+          and payment_program_eligibility_based_solely_on_required_age_and_state_residency
+          and individual_first_became_eligible_individual_or_eligible_spouse_on_or_before_september_thirtieth_nineteen_eighty_five
+          and individual_residency_years_under_program_as_in_effect_prior_to_january_first_nineteen_eighty_three >= state_age_payment_residency_year_requirement

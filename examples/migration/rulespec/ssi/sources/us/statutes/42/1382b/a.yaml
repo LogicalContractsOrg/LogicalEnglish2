@@ -1,0 +1,177 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382b/a
+  summary: |-
+    In determining the resources of an individual and eligible spouse, the provision excludes listed categories including the home, certain household goods/personal effects/automobile value, burial spaces, self-support property, approved self-support plan resources, Alaska Native corporation stock during a 20-year inalienability period, specified assistance or payments for 9-month periods, certain accounts and gifts, qualifying education amounts, qualifying State veteran annuities, and rare-disease clinical-trial compensation excluded from income. It also provides that an insurance policy is counted only to the extent of cash surrender value, except that if total face value of all life insurance policies on any person is $1,500 or less, no policy value is counted.
+rules:
+  - name: alaska_native_stock_inalienability_exclusion_period_years
+    kind: parameter
+    dtype: Count
+    source: 42 U.S.C. 1382b(a)(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "during the period of twenty years in which such stock is inalienable"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          20
+  - name: assistance_resource_exclusion_period_months
+    kind: parameter
+    dtype: Count
+    source: 42 U.S.C. 1382b(a)(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "for the 9-month period beginning on the date such funds are received"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          9
+  - name: prior_underpayment_resource_exclusion_period_months
+    kind: parameter
+    dtype: Count
+    source: 42 U.S.C. 1382b(a)(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "limited to the first 9 months following the month in which such amount is received"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          9
+  - name: post_receipt_resource_exclusion_period_months
+    kind: parameter
+    dtype: Count
+    source: 42 U.S.C. 1382b(a)(9), (10), (11), (14), and (15)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "for the 9-month period beginning after the month in which received"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          9
+  - name: qualifying_gift_child_age_ceiling_years
+    kind: parameter
+    dtype: Count
+    source: 42 U.S.C. 1382b(a)(13)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "an individual who has not attained 18 years of age"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          18
+  - name: annual_cash_gift_resource_exclusion_cap
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 U.S.C. 1382b(a)(13)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "does not exceed $2,000"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          2000
+  - name: life_insurance_face_value_disregard_threshold
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 U.S.C. 1382b(a), final sentence
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+              excerpt: "if the total face value of all life insurance policies on any person is $1,500 or less"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          1500
+  - name: life_insurance_policy_counted_resource_value
+    kind: derived
+    entity: Asset
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 U.S.C. 1382b(a), final sentence
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382b/a#life_insurance_face_value_disregard_threshold
+              output: life_insurance_face_value_disregard_threshold
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if total_face_value_of_all_life_insurance_policies_on_same_person <= life_insurance_face_value_disregard_threshold: 0 else: cash_surrender_value
+  - name: qualifying_cash_gift_excluded_resource_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 U.S.C. 1382b(a)(13)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382b/a
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382b/a#qualifying_gift_child_age_ceiling_years
+              output: qualifying_gift_child_age_ceiling_years
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382b/a#annual_cash_gift_resource_exclusion_cap
+              output: annual_cash_gift_resource_exclusion_cap
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_age_years < qualifying_gift_child_age_ceiling_years and individual_has_life_threatening_condition and gift_from_organization_described_in_section_501_c_3_exempt_under_section_501_a and gift_is_cash: min(cash_gift_amount, annual_cash_gift_resource_exclusion_cap) else: 0

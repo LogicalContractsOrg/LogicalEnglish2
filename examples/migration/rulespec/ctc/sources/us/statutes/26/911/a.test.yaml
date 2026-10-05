@@ -1,0 +1,64 @@
+- name: qualified_individual_elects_both_exclusions
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/911/a#input.individual_is_qualified_individual: true
+    us:statutes/26/911/a#input.election_made_for_foreign_earned_income: true
+    us:statutes/26/911/a#input.election_made_for_housing_cost_amount: true
+    us:statutes/26/911/a#input.foreign_earned_income_of_individual: 100000
+    us:statutes/26/911/a#input.housing_cost_amount_of_individual: 20000
+  output:
+    us:statutes/26/911/a#foreign_earned_income_excluded_from_gross_income: 100000
+    us:statutes/26/911/a#housing_cost_amount_excluded_from_gross_income: 20000
+    us:statutes/26/911/a#section_911_amount_excluded_from_gross_income: 120000
+    us:statutes/26/911/a#section_911_amount_exempt_from_taxation: 120000
+- name: separate_election_only_for_foreign_earned_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/911/a#input.individual_is_qualified_individual: true
+    us:statutes/26/911/a#input.election_made_for_foreign_earned_income: true
+    us:statutes/26/911/a#input.election_made_for_housing_cost_amount: false
+    us:statutes/26/911/a#input.foreign_earned_income_of_individual: 80000
+    us:statutes/26/911/a#input.housing_cost_amount_of_individual: 15000
+  output:
+    us:statutes/26/911/a#foreign_earned_income_excluded_from_gross_income: 80000
+    us:statutes/26/911/a#housing_cost_amount_excluded_from_gross_income: 0
+    us:statutes/26/911/a#section_911_amount_excluded_from_gross_income: 80000
+    us:statutes/26/911/a#section_911_amount_exempt_from_taxation: 80000
+- name: separate_election_only_for_housing_cost_amount
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/911/a#input.individual_is_qualified_individual: true
+    us:statutes/26/911/a#input.election_made_for_foreign_earned_income: false
+    us:statutes/26/911/a#input.election_made_for_housing_cost_amount: true
+    us:statutes/26/911/a#input.foreign_earned_income_of_individual: 90000
+    us:statutes/26/911/a#input.housing_cost_amount_of_individual: 18000
+  output:
+    us:statutes/26/911/a#foreign_earned_income_excluded_from_gross_income: 0
+    us:statutes/26/911/a#housing_cost_amount_excluded_from_gross_income: 18000
+    us:statutes/26/911/a#section_911_amount_excluded_from_gross_income: 18000
+    us:statutes/26/911/a#section_911_amount_exempt_from_taxation: 18000
+- name: individual_not_qualified_no_section_911_exclusion
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/911/a#input.individual_is_qualified_individual: false
+    us:statutes/26/911/a#input.election_made_for_foreign_earned_income: true
+    us:statutes/26/911/a#input.election_made_for_housing_cost_amount: true
+    us:statutes/26/911/a#input.foreign_earned_income_of_individual: 100000
+    us:statutes/26/911/a#input.housing_cost_amount_of_individual: 20000
+  output:
+    us:statutes/26/911/a#foreign_earned_income_excluded_from_gross_income: 0
+    us:statutes/26/911/a#housing_cost_amount_excluded_from_gross_income: 0
+    us:statutes/26/911/a#section_911_amount_excluded_from_gross_income: 0
+    us:statutes/26/911/a#section_911_amount_exempt_from_taxation: 0

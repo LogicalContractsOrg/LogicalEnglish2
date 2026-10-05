@@ -1,0 +1,55 @@
+- name: household_resource_limit_with_elderly_member_and_annual_adjustment
+  period: 2026-10
+  input:
+    us:statutes/7/2014/g#input.household_includes_elderly_or_disabled_member: true
+    us:statutes/7/2014/g#input.prior_unrounded_household_resource_limit_amount: 3000
+    us:statutes/7/2014/g#input.consumer_price_index_change_for_12_month_period_ending_preceding_june: 0.1
+  output:
+    us:statutes/7/2014/g#snap_household_resource_limit_base_amount: 2000
+    us:statutes/7/2014/g#snap_household_resource_limit_base_amount_with_elderly_or_disabled_member: 3000
+    us:statutes/7/2014/g#allowable_financial_resources_rounding_increment: 250
+    us:statutes/7/2014/g#statutory_household_resource_limit_base_amount: 3000
+    us:statutes/7/2014/g#next_annual_household_resource_limit_amount: 3250
+- name: licensed_vehicle_default_countable_amount
+  period: 2026-10
+  input:
+    us:statutes/7/2014/g#input.asset_is_licensed_vehicle: true
+    us:statutes/7/2014/g#input.asset_is_used_for_household_transportation_or_to_obtain_or_continue_employment: true
+    us:statutes/7/2014/g#input.vehicle_used_to_produce_earned_income: false
+    us:statutes/7/2014/g#input.vehicle_necessary_for_transport_of_physically_disabled_household_member: false
+    us:statutes/7/2014/g#input.vehicle_depended_on_to_carry_household_fuel_or_water: false
+    us:statutes/7/2014/g#input.vehicle_provides_household_primary_source_of_fuel_or_water: false
+    us:statutes/7/2014/g#input.state_vehicle_allowance_standards_apply_in_lieu_of_default_vehicle_rule: false
+    us:statutes/7/2014/g#input.asset_fair_market_value: 5000
+  output:
+    us:statutes/7/2014/g#licensed_vehicle_resource_fair_market_value_threshold: 4650
+    us:statutes/7/2014/g#vehicle_excluded_from_financial_resources_under_vehicle_exceptions: not_holds
+    us:statutes/7/2014/g#licensed_vehicle_countable_resource_amount_under_default_rule: 350
+- name: licensed_vehicle_state_alternative_displaces_default_rule
+  period: 2026-10
+  input:
+    us:statutes/7/2014/g#input.asset_is_licensed_vehicle: true
+    us:statutes/7/2014/g#input.asset_is_used_for_household_transportation_or_to_obtain_or_continue_employment: true
+    us:statutes/7/2014/g#input.vehicle_used_to_produce_earned_income: false
+    us:statutes/7/2014/g#input.vehicle_necessary_for_transport_of_physically_disabled_household_member: false
+    us:statutes/7/2014/g#input.vehicle_depended_on_to_carry_household_fuel_or_water: false
+    us:statutes/7/2014/g#input.vehicle_provides_household_primary_source_of_fuel_or_water: false
+    us:statutes/7/2014/g#input.state_vehicle_allowance_standards_apply_in_lieu_of_default_vehicle_rule: true
+    us:statutes/7/2014/g#input.asset_fair_market_value: 5000
+  output:
+    us:statutes/7/2014/g#vehicle_excluded_from_financial_resources_under_vehicle_exceptions: not_holds
+    us:statutes/7/2014/g#licensed_vehicle_countable_resource_amount_under_default_rule: 0
+- name: licensed_vehicle_earned_income_use_exclusion
+  period: 2026-10
+  input:
+    us:statutes/7/2014/g#input.asset_is_licensed_vehicle: true
+    us:statutes/7/2014/g#input.asset_is_used_for_household_transportation_or_to_obtain_or_continue_employment: true
+    us:statutes/7/2014/g#input.vehicle_used_to_produce_earned_income: true
+    us:statutes/7/2014/g#input.vehicle_necessary_for_transport_of_physically_disabled_household_member: false
+    us:statutes/7/2014/g#input.vehicle_depended_on_to_carry_household_fuel_or_water: false
+    us:statutes/7/2014/g#input.vehicle_provides_household_primary_source_of_fuel_or_water: false
+    us:statutes/7/2014/g#input.state_vehicle_allowance_standards_apply_in_lieu_of_default_vehicle_rule: false
+    us:statutes/7/2014/g#input.asset_fair_market_value: 5000
+  output:
+    us:statutes/7/2014/g#vehicle_excluded_from_financial_resources_under_vehicle_exceptions: holds
+    us:statutes/7/2014/g#licensed_vehicle_countable_resource_amount_under_default_rule: 0

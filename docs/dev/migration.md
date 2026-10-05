@@ -28,6 +28,8 @@ program.le with RESIDUE blocks ──Contract Assistant, mode residue──▶ r
 | The migration ledger, source tests as scenarios, fidelity | `le_migration.pl` | E14 |
 | Residue mode: a fixed skeleton, only the residue translated by the LLM | lpsPlus `contract_assistant/le_contract_assistant.pl` (mode `residue`), prompts `contract_assistant/prompts/residue_*.md` | Phase 0 item 4 |
 | Dates, periods and lock times | `lib/temporal.le` + `lib/temporal.pl` | E3 |
+| Rounding at a number of decimals: half up, half even, down, up, to a step | `lib/rounding.le` + `lib/rounding.pl` | N8 |
+| Dated versions of a rule: the calculation date | a convention, §6 below | N9 |
 | Obligations, permissions, prohibitions, violations (the deontic pattern library) and `*a sentence* is the case` | `lib/deontic.le`, `reasoner.pl` (`le_holds/1`) | N4 |
 | Integer division `//` and remainder `mod` | `le_grammar.pl` | E4 |
 | `either`/`any of` with nested `all of`; negation in numbered items | `le_extensions.pl` (InsurLE) | D1, D2 |
@@ -470,6 +472,39 @@ lpsPlus `contract_assistant/testing/test_residue_mode.pl`.
   parsing hooks were not loaded; `le_kbs` loads them, and `verify/1` also
   prints the LPS emitter's own diagnostics. Propositional LPS templates are no
   longer reported as unused.
+
+## 6. Dated versions: the calculation date (N9)
+
+A source that versions its rules by date (RuleSpec's `versions` with
+`effective_from`/`effective_to`, OpenFisca's `formula_YYYY_MM_DD`,
+RegelRecht's `valid_from`, RegelSpraak's `geldig vanaf … t/m …`) is written
+with no construct of its own. The twin declares
+
+    the calculation date is *a date*; undefined.
+
+each scenario states it (the first day of the source test's period), and
+each version is a rule of its own whose conditions start with the date's
+range:
+
+    the X of a household is an amount if
+        the calculation date is a date D
+        and 2025-10-01 is before or equal to D
+        and D is before 2026-10-01
+        and ...
+
+A version open at its end is guarded by its start only; a rule with a
+single version open at its end that started long before any case (RuleSpec:
+before 2000) carries no guard at all. The way back reads
+the guards as the versions (lpsPlus `migration/rulespec/rulespec_export.pl`).
+A law version that is a program of its own (RegelRecht) includes the
+versions it reads.
+
+**Numbers in answers.** A twin computes in floating point what its source
+computed in exact decimals. An answer shows a float whose shortest digits
+need more than 15 significant ones with 15 (`115.95`, not
+`115.94999999999999`; `le_kbs:number_locale_atom/2`), and a test compares
+the numbers of an answer as numbers (`30` is `30.0`; `normalize_string/2`).
+When a rule itself must round, `lib/rounding` rounds exactly.
 
 ## The disclaimer every twin carries
 

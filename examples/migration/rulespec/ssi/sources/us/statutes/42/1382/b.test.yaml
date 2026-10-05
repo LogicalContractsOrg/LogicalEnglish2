@@ -1,0 +1,63 @@
+- name: base_rates_apply_when_section_1382f_amounts_are_lower
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/b#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 200
+    us:statutes/42/1382/b#input.individual_and_spouse_income_not_excluded_pursuant_to_section_1382a_b: 300
+    us:statutes/42/1382f/a#input.section_1382_b_1_dollar_amount_in_effect_for_month: 1740
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 1740
+    us:statutes/42/1382f/a#input.section_1382_b_2_dollar_amount_in_effect_for_month: 2616
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 2616
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+  output:
+    us:statutes/42/1382/b#annual_benefit_without_eligible_spouse: 1552
+    us:statutes/42/1382/b#annual_benefit_with_eligible_spouse: 2328
+- name: section_1382f_amounts_apply_when_greater_than_statutory_base_rates
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/b#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 100
+    us:statutes/42/1382/b#input.individual_and_spouse_income_not_excluded_pursuant_to_section_1382a_b: 200
+    us:statutes/42/1382f/a#input.section_1382_b_1_dollar_amount_in_effect_for_month: 1800
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 1800
+    us:statutes/42/1382f/a#input.section_1382_b_2_dollar_amount_in_effect_for_month: 2700
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 2700
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+  output:
+    us:statutes/42/1382/b#annual_benefit_without_eligible_spouse: 1700
+    us:statutes/42/1382/b#annual_benefit_with_eligible_spouse: 2500
+- name: income_reduction_cannot_make_payable_benefit_negative
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/b#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 3000
+    us:statutes/42/1382/b#input.individual_and_spouse_income_not_excluded_pursuant_to_section_1382a_b: 4000
+    us:statutes/42/1382f/a#input.section_1382_b_1_dollar_amount_in_effect_for_month: 1800
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 1800
+    us:statutes/42/1382f/a#input.section_1382_b_2_dollar_amount_in_effect_for_month: 2700
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 2700
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+  output:
+    us:statutes/42/1382/b#annual_benefit_without_eligible_spouse: 0
+    us:statutes/42/1382/b#annual_benefit_with_eligible_spouse: 0

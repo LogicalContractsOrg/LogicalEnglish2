@@ -1,0 +1,110 @@
+{
+  "counts": {"approximated":0,"encoded":8,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/7/2015/d/2/B#dependent_child_age_exemption_threshold_years",
+      "in_program":"rs_dependent_child_age_exemption_threshold_years",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2015/d/2/B#dependent_child_age_exemption_threshold_years",
+      "in_program":"rs_dependent_child_age_exemption_threshold_years",
+      "kind":"parameter",
+      "mapping":"rule, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies",
+      "in_program":"rs_care_responsibility_exemption_applies",
+      "kind":"derived",
+      "mapping":"derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies",
+      "in_program":"rs_care_responsibility_exemption_applies",
+      "kind":"derived",
+      "mapping":"rule, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "in_program":"rs_person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child",
+      "in_program":"rs_person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input dependent_child_age_years",
+      "in_program":"rs_dependent_child_age_years",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person",
+      "in_program":"rs_person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":4,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_care_responsibility_exemption_applies",
+	"result":"pass",
+	"scenario":"dependent_child_under_age_six_care_responsibility_exempts_person"
+      },
+      {
+	"detail":"",
+	"query":"q_care_responsibility_exemption_applies",
+	"result":"pass",
+	"scenario":"incapacitated_person_care_responsibility_exempts_person"
+      },
+      {
+	"detail":"",
+	"query":"q_care_responsibility_exemption_applies",
+	"result":"pass",
+	"scenario":"dependent_child_age_six_or_older_and_no_incapacitated_person_no_exemption"
+      },
+      {
+	"detail":"",
+	"query":"q_care_responsibility_exemption_applies",
+	"result":"pass",
+	"scenario":"person_not_otherwise_required_has_no_exemption_under_this_branch"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/7/2015/d/2/B.yaml" ],
+    "date":"2026-10-05",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_7_2015_d_2_b",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}

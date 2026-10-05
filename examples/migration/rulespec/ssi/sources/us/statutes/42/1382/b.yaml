@@ -1,0 +1,121 @@
+format: rulespec/v1
+imports:
+  - us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_1
+  - us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_2
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382/b
+  summary: |-
+    Benefit for an individual without an eligible spouse is payable at "$1,752 (or, if greater, the amount determined under section 1382f)" reduced by the individual's non-excluded income; with an eligible spouse, "$2,628 (or, if greater, the amount determined under section 1382f)" reduced by the non-excluded income of the individual and spouse.
+rules:
+  - name: statutory_base_annual_rate_without_eligible_spouse
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/b
+              excerpt: "rate of $1,752"
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/b
+              excerpt: "for the calendar year 1974 and any calendar year thereafter"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          1752
+
+  - name: statutory_base_annual_rate_with_eligible_spouse
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/b
+              excerpt: "rate of $2,628"
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/b
+              excerpt: "for the calendar year 1974 and any calendar year thereafter"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          2628
+
+  - name: annual_benefit_without_eligible_spouse
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/b
+              excerpt: "reduced by the amount of income, not excluded pursuant to section 1382a(b)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/b#statutory_base_annual_rate_without_eligible_spouse
+              output: statutory_base_annual_rate_without_eligible_spouse
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_1
+              output: amount_determined_under_section_1382f_for_section_1382_b_1
+              hash: sha256:502268310fe317b035772003201f91a2006fab334630e90ead5b2cc591433048
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          max(0, max(statutory_base_annual_rate_without_eligible_spouse, amount_determined_under_section_1382f_for_section_1382_b_1) - individual_income_not_excluded_pursuant_to_section_1382a_b)
+
+  - name: annual_benefit_with_eligible_spouse
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/b
+              excerpt: "reduced by the amount of income, not excluded pursuant to section 1382a(b), of such individual and spouse"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/b#statutory_base_annual_rate_with_eligible_spouse
+              output: statutory_base_annual_rate_with_eligible_spouse
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_2
+              output: amount_determined_under_section_1382f_for_section_1382_b_2
+              hash: sha256:502268310fe317b035772003201f91a2006fab334630e90ead5b2cc591433048
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          max(0, max(statutory_base_annual_rate_with_eligible_spouse, amount_determined_under_section_1382f_for_section_1382_b_2) - individual_and_spouse_income_not_excluded_pursuant_to_section_1382a_b)

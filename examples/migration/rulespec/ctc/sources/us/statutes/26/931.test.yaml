@@ -1,0 +1,69 @@
+- name: guam_is_specified_possession
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/931#input.possession_is_guam: true
+    us:statutes/26/931#input.possession_is_american_samoa: false
+    us:statutes/26/931#input.possession_is_northern_mariana_islands: false
+  output:
+    us:statutes/26/931#possession_is_specified_possession: holds
+- name: bona_fide_resident_excludes_possession_source_and_business_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/931#input.bona_fide_resident_of_specified_possession_during_entire_taxable_year: true
+    us:statutes/26/931#input.income_derived_from_sources_within_specified_possessions: 50000
+    us:statutes/26/931#input.income_effectively_connected_with_trade_or_business_within_specified_possessions: 20000
+    us:statutes/26/931#input.amounts_paid_for_services_as_employee_of_united_states_or_agency: 0
+  output:
+    us:statutes/26/931#amount_excluded_from_gross_income_under_section_931: 70000
+- name: united_states_employee_services_amounts_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/931#input.bona_fide_resident_of_specified_possession_during_entire_taxable_year: true
+    us:statutes/26/931#input.income_derived_from_sources_within_specified_possessions: 50000
+    us:statutes/26/931#input.income_effectively_connected_with_trade_or_business_within_specified_possessions: 20000
+    us:statutes/26/931#input.amounts_paid_for_services_as_employee_of_united_states_or_agency: 15000
+  output:
+    us:statutes/26/931#amount_excluded_from_gross_income_under_section_931: 55000
+- name: allocable_deductions_and_credits_disallowed_to_extent_allocable
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/931#input.deductions_other_than_section_151_before_section_931_denial: 10000
+    us:statutes/26/931#input.deductions_properly_allocable_or_chargeable_to_amounts_excluded_under_section_931: 3000
+    us:statutes/26/931#input.credits_before_section_931_denial: 2000
+    us:statutes/26/931#input.credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_931: 800
+  output:
+    us:statutes/26/931#section_931_disallowed_deductions_excluding_section_151: 3000
+    us:statutes/26/931#deductions_other_than_section_151_allowed_after_section_931: 7000
+    us:statutes/26/931#section_931_disallowed_credits: 800
+    us:statutes/26/931#credits_allowed_after_section_931: 1200
+- name: auto_zero_amount_excluded_from_gross_income_under_section_931
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/931#input.amounts_paid_for_services_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/931#input.bona_fide_resident_of_specified_possession_during_entire_taxable_year: false
+    us:statutes/26/931#input.credits_before_section_931_denial: 0
+    us:statutes/26/931#input.credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_931: false
+    us:statutes/26/931#input.deductions_other_than_section_151_before_section_931_denial: 0
+    us:statutes/26/931#input.deductions_properly_allocable_or_chargeable_to_amounts_excluded_under_section_931: false
+    us:statutes/26/931#input.income_derived_from_sources_within_specified_possessions: 0
+    us:statutes/26/931#input.income_effectively_connected_with_trade_or_business_within_specified_possessions: 0
+    us:statutes/26/931#input.possession_is_american_samoa: false
+    us:statutes/26/931#input.possession_is_guam: false
+    us:statutes/26/931#input.possession_is_northern_mariana_islands: false
+  output:
+    us:statutes/26/931#amount_excluded_from_gross_income_under_section_931: 0

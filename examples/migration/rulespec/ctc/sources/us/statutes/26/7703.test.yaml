@@ -1,0 +1,113 @@
+- name: child_rule_holds_when_parent_release_rule_preserves_entitlement
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/7703#input.person_is_child_within_federal_tax_child_definition: true
+    us:statutes/26/7703#input.taxpayer_household_is_child_principal_place_of_abode: true
+    us:statutes/26/7703#input.child_principal_abode_fraction_of_taxable_year: 0.6
+    us:statutes/26/7703#input.would_be_entitled_to_child_deduction_but_for_parent_release_rule: true
+    us:statutes/26/151#input.tin_included_on_return_claiming_exemption: false
+    us:statutes/26/151#input.is_taxpayer: false
+    us:statutes/26/151#input.is_spouse_of_taxpayer: false
+    us:statutes/26/151#input.filing_status: 0
+    us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+    us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+  output:
+    us:statutes/26/7703#living_apart_child_has_required_abode_and_deduction: holds
+- name: child_rule_holds_when_parent_release_rule_preserves_entitlement_scalar_outputs
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/7703#input.person_is_child_within_federal_tax_child_definition: true
+    us:statutes/26/7703#input.taxpayer_household_is_child_principal_place_of_abode: true
+    us:statutes/26/7703#input.child_principal_abode_fraction_of_taxable_year: 0.6
+    us:statutes/26/7703#input.would_be_entitled_to_child_deduction_but_for_parent_release_rule: true
+    us:statutes/26/151#input.tin_included_on_return_claiming_exemption: false
+    us:statutes/26/151#input.is_taxpayer: false
+    us:statutes/26/151#input.is_spouse_of_taxpayer: false
+    us:statutes/26/151#input.filing_status: 0
+    us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+    us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+  output:
+    us:statutes/26/7703#child_principal_abode_fraction_threshold: 0.5
+    us:statutes/26/7703#household_cost_fraction_threshold: 0.5
+    us:statutes/26/7703#spouse_absence_period_months: 6
+- name: spouse_death_determination_time_treats_taxpayer_as_married
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/7703#input.spouse_dies_during_taxable_year: true
+    us:statutes/26/7703#input.taxpayer_married_at_time_of_spouse_death: true
+    us:statutes/26/7703#input.taxpayer_married_at_close_of_taxable_year: false
+    us:statutes/26/7703#input.legally_separated_under_decree_of_divorce_or_separate_maintenance: false
+    us:statutes/26/7703#input.taxpayer_files_separate_return: false
+    us:statutes/26/7703#input.taxpayer_maintains_household_as_home: false
+    us:statutes/26/7703#input.taxpayer_household_cost_fraction_furnished: 0
+    us:statutes/26/7703#input.spouse_not_member_of_household_final_month_count: 0
+    us:statutes/26/7703#relation.living_apart_child_of_tax_unit: []
+    us:statutes/26/7703#input.child_principal_abode_fraction_of_taxable_year: 0
+    us:statutes/26/7703#input.person_is_child_within_federal_tax_child_definition: false
+    us:statutes/26/7703#input.taxpayer_household_is_child_principal_place_of_abode: false
+    us:statutes/26/7703#input.would_be_entitled_to_child_deduction_but_for_parent_release_rule: false
+  output:
+    us:statutes/26/7703#taxpayer_married_under_general_rule: holds
+    us:statutes/26/7703#taxpayer_not_considered_married_when_living_apart: not_holds
+    us:statutes/26/7703#taxpayer_considered_married_after_living_apart_rule: holds
+- name: legal_separation_prevents_married_status
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/7703#input.spouse_dies_during_taxable_year: true
+    us:statutes/26/7703#input.taxpayer_married_at_time_of_spouse_death: true
+    us:statutes/26/7703#input.taxpayer_married_at_close_of_taxable_year: false
+    us:statutes/26/7703#input.legally_separated_under_decree_of_divorce_or_separate_maintenance: true
+    us:statutes/26/7703#input.taxpayer_files_separate_return: false
+    us:statutes/26/7703#input.taxpayer_maintains_household_as_home: false
+    us:statutes/26/7703#input.taxpayer_household_cost_fraction_furnished: 0
+    us:statutes/26/7703#input.spouse_not_member_of_household_final_month_count: 0
+    us:statutes/26/7703#relation.living_apart_child_of_tax_unit: []
+    us:statutes/26/7703#input.child_principal_abode_fraction_of_taxable_year: 0
+    us:statutes/26/7703#input.person_is_child_within_federal_tax_child_definition: false
+    us:statutes/26/7703#input.taxpayer_household_is_child_principal_place_of_abode: false
+    us:statutes/26/7703#input.would_be_entitled_to_child_deduction_but_for_parent_release_rule: false
+  output:
+    us:statutes/26/7703#taxpayer_married_under_general_rule: not_holds
+    us:statutes/26/7703#taxpayer_not_considered_married_when_living_apart: not_holds
+    us:statutes/26/7703#taxpayer_considered_married_after_living_apart_rule: not_holds
+- name: married_separate_taxpayer_living_apart_not_considered_married
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/7703#input.spouse_dies_during_taxable_year: false
+    us:statutes/26/7703#input.taxpayer_married_at_time_of_spouse_death: false
+    us:statutes/26/7703#input.taxpayer_married_at_close_of_taxable_year: true
+    us:statutes/26/7703#input.legally_separated_under_decree_of_divorce_or_separate_maintenance: false
+    us:statutes/26/7703#input.taxpayer_files_separate_return: true
+    us:statutes/26/7703#input.taxpayer_maintains_household_as_home: true
+    us:statutes/26/7703#input.taxpayer_household_cost_fraction_furnished: 0.6
+    us:statutes/26/7703#input.spouse_not_member_of_household_final_month_count: 6
+    us:statutes/26/7703#relation.living_apart_child_of_tax_unit:
+    - us:statutes/26/7703#input.person_is_child_within_federal_tax_child_definition: true
+      us:statutes/26/7703#input.taxpayer_household_is_child_principal_place_of_abode: true
+      us:statutes/26/7703#input.child_principal_abode_fraction_of_taxable_year: 0.6
+      us:statutes/26/7703#input.would_be_entitled_to_child_deduction_but_for_parent_release_rule: true
+      us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+      us:statutes/26/151#input.is_taxpayer: false
+      us:statutes/26/151#input.is_spouse_of_taxpayer: false
+      us:statutes/26/151#input.filing_status: 0
+      us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+      us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+  output:
+    us:statutes/26/7703#taxpayer_married_under_general_rule: holds
+    us:statutes/26/7703#taxpayer_not_considered_married_when_living_apart: holds
+    us:statutes/26/7703#taxpayer_considered_married_after_living_apart_rule: not_holds

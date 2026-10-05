@@ -1,0 +1,28 @@
+- name: pre_shelter_net_income_subtracts_applicable_non_shelter_deductions
+  period: 2026-01
+  input:
+    us:statutes/7/2014/e/6/A#input.snap_monthly_household_income: 1000
+    us:policies/usda/snap/fy-2026-cola/deductions#snap_standard_deduction: 209
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 1000
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+    us:statutes/7/2014/e/6/A#input.dependent_care_deduction: 0
+    us:statutes/7/2014/e/6/A#input.child_support_deduction: 0
+    us:statutes/7/2014/e/6/A#input.medical_deduction: 0
+    us:statutes/7/2014/e/6/A#input.snap_excess_shelter_deduction: 204.5
+  output:
+    us:statutes/7/2014/e/6/A#snap_net_income_pre_shelter: 591
+    us:statutes/7/2014/e/6/A#snap_net_income: 386.5
+- name: deductions_cannot_reduce_snap_net_income_below_zero
+  period: 2026-01
+  input:
+    us:statutes/7/2014/e/6/A#input.snap_monthly_household_income: 100
+    us:policies/usda/snap/fy-2026-cola/deductions#snap_standard_deduction: 209
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 0
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+    us:statutes/7/2014/e/6/A#input.dependent_care_deduction: 0
+    us:statutes/7/2014/e/6/A#input.child_support_deduction: 0
+    us:statutes/7/2014/e/6/A#input.medical_deduction: 0
+    us:statutes/7/2014/e/6/A#input.snap_excess_shelter_deduction: 50
+  output:
+    us:statutes/7/2014/e/6/A#snap_net_income_pre_shelter: 0
+    us:statutes/7/2014/e/6/A#snap_net_income: 0

@@ -1,0 +1,133 @@
+% 42 U.S.C. 1382(a)(3)
+% RuleSpec module us:statutes/42/1382/a/3 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the resource limit amount for paragraph 1 B i and paragraph 2 B is *an amount*.
+    the resource limit amount for paragraph 1 B ii is *an amount*.
+    the couple or living with spouse resource limit of *a person* is *an amount*.
+    the individual no spouse resource limit of *a person* is *an amount*.
+
+the knowledge base us_statutes_42_1382_a_3 includes:
+
+
+% 42 U.S.C. 1382(a)(3) — us:statutes/42/1382/a/3
+the text of "42 USC 1382(a)(3)(A)" is at "sources/us/statutes/42/1382/a/3.yaml".
+
+the text of "42 USC 1382(a)(3)(B)" is at "sources/us/statutes/42/1382/a/3.yaml".
+
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2250 if
+    the calculation date is a date D
+    and 1974-01-01 <= D
+    and D < 1985-01-01.
+
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2400 if
+    the calculation date is a date D
+    and 1985-01-01 <= D
+    and D < 1986-01-01.
+
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2550 if
+    the calculation date is a date D
+    and 1986-01-01 <= D
+    and D < 1987-01-01.
+
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2700 if
+    the calculation date is a date D
+    and 1987-01-01 <= D
+    and D < 1988-01-01.
+
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2850 if
+    the calculation date is a date D
+    and 1988-01-01 <= D
+    and D < 1989-01-01.
+
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 3000 if
+    the calculation date is a date D
+    and 1989-01-01 <= D.
+
+the resource limit amount for paragraph 1 B ii is 1500 if
+    the calculation date is a date D
+    and 1974-01-01 <= D
+    and D < 1985-01-01.
+
+the resource limit amount for paragraph 1 B ii is 1600 if
+    the calculation date is a date D
+    and 1985-01-01 <= D
+    and D < 1986-01-01.
+
+the resource limit amount for paragraph 1 B ii is 1700 if
+    the calculation date is a date D
+    and 1986-01-01 <= D
+    and D < 1987-01-01.
+
+the resource limit amount for paragraph 1 B ii is 1800 if
+    the calculation date is a date D
+    and 1987-01-01 <= D
+    and D < 1988-01-01.
+
+the resource limit amount for paragraph 1 B ii is 1900 if
+    the calculation date is a date D
+    and 1988-01-01 <= D
+    and D < 1989-01-01.
+
+the resource limit amount for paragraph 1 B ii is 2000 if
+    the calculation date is a date D
+    and 1989-01-01 <= D.
+
+rule couple_or_living_with_spouse_resource_limit with provenance "42 USC 1382(a)(3)(A)":
+the couple or living with spouse resource limit of a person is an amount if
+    the person is a person
+    and the resource limit amount for paragraph 1 B i and paragraph 2 B is the amount.
+
+rule individual_no_spouse_resource_limit with provenance "42 USC 1382(a)(3)(B)":
+the individual no spouse resource limit of a person is an amount if
+    the person is a person
+    and the resource limit amount for paragraph 1 B ii is the amount.
+
+scenario resource_limits_prior_to_january_1985 is, as stated in "sources/us/statutes/42/1382/a/3.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 1984-12-01.
+    q_couple_or_living_with_spouse_resource_limit expects answers ["the couple or living with spouse resource limit of person_1 is 2250"].
+    q_individual_no_spouse_resource_limit expects answers ["the individual no spouse resource limit of person_1 is 1500"].
+
+scenario resource_limits_on_january_1985 is, as stated in "sources/us/statutes/42/1382/a/3.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 1985-01-01.
+    q_couple_or_living_with_spouse_resource_limit expects answers ["the couple or living with spouse resource limit of person_1 is 2400"].
+    q_individual_no_spouse_resource_limit expects answers ["the individual no spouse resource limit of person_1 is 1600"].
+
+scenario resource_limits_on_january_1989 is, as stated in "sources/us/statutes/42/1382/a/3.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 1989-01-01.
+    q_couple_or_living_with_spouse_resource_limit expects answers ["the couple or living with spouse resource limit of person_1 is 3000"].
+    q_individual_no_spouse_resource_limit expects answers ["the individual no spouse resource limit of person_1 is 2000"].
+
+query q_couple_or_living_with_spouse_resource_limit is:
+    the couple or living with spouse resource limit of which person is which amount.
+
+query q_couple_or_living_with_spouse_resource_limit is:
+    the couple or living with spouse resource limit of which person is which amount.
+
+query q_couple_or_living_with_spouse_resource_limit is:
+    the couple or living with spouse resource limit of which person is which amount.
+
+query q_individual_no_spouse_resource_limit is:
+    the individual no spouse resource limit of which person is which amount.
+
+query q_individual_no_spouse_resource_limit is:
+    the individual no spouse resource limit of which person is which amount.
+
+query q_individual_no_spouse_resource_limit is:
+    the individual no spouse resource limit of which person is which amount.
+

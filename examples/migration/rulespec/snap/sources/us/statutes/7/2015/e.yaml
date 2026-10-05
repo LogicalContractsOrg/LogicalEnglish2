@@ -1,0 +1,300 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2015
+  summary: |-
+    (e) Students No individual who is a member of a household otherwise eligible to participate in the supplemental nutrition assistance program under this section shall be eligible to participate in the supplemental nutrition assistance program as a member of that or any other household if the individual is enrolled at least half-time in an institution of higher education, unless the individual— (1) is under age 18 or is age 50 or older; (2) is not physically or mentally fit; (3) is assigned to or placed in an institution of higher education through or in compliance with the requirements of— (A) a program under title I of the Workforce Innovation and Opportunity Act [ 29 U.S.C. 3111 et seq.]; (B) an employment and training program under this section, subject to the condition that the course or program of study— (i) is part of a program of career and technical education (as defined in section 2302 of title 20 ) that may be completed in not more than 4 years at an institution of higher education (as defined in section 1002 of title 20 ); or (ii) is limited to remedial courses, basic adult education, literacy, or English as a second language; (C) a program under section 2296 of title 19 ; or (D) another program for the purpose of employment and training operated by a State or local government, as determined to be appropriate by the Secretary; (4) is employed a minimum of 20 hours per week or participating in a State or federally financed work study program during the regular school year; (5) is— (A) a parent with responsibility for the care of a dependent child under age 6; or (B) a parent with responsibility for the care of a dependent child above the age of 5 and under the age of 12 for whom adequate child care is not available to enable the individual to attend class and satisfy the requirements of paragraph (4); (6) is receiving benefits under a State program funded under part A of title IV of the Social Security Act ( 42 U.S.C. 601 et seq.); (7) is so enrolled as a result of participation in the work incentive program under title IV of the Social Security Act [ 42 U.S.C. 601 et seq.] or its successor programs; or (8) is enrolled full-time in an institution of higher education, as determined by the institution, and is a single parent with responsibility for the care of a dependent child under age 12.
+rules:
+  - name: student_under_age_exception_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          18
+  - name: student_older_age_exception_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          50
+  - name: snap_employment_and_training_career_technical_program_max_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(3)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          4
+  - name: student_minimum_employment_hours_per_week
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          20
+  - name: student_parent_young_child_age_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(5)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          6
+  - name: student_parent_older_child_lower_age_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(5)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          5
+  - name: student_parent_older_child_upper_age_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(5)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          12
+  - name: student_single_parent_child_age_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(e)(8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          12
+  - name: student_age_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_age_years < student_under_age_exception_threshold_years
+          or person_age_years >= student_older_age_exception_threshold_years
+  - name: snap_employment_and_training_course_condition_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          (
+            program_of_study_is_part_of_career_and_technical_education
+            and program_of_study_may_be_completed_in_years <= snap_employment_and_training_career_technical_program_max_years
+            and program_of_study_is_at_institution_of_higher_education
+          )
+          or program_of_study_limited_to_remedial_courses_basic_adult_education_literacy_or_english_as_second_language
+  - name: student_assignment_or_placement_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_wioa_title_i_program
+          or (
+            person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_snap_employment_and_training_program
+            and snap_employment_and_training_course_condition_applies
+          )
+          or person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_trade_adjustment_assistance_program_under_19_usc_2296
+          or (
+            person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_other_state_or_local_government_employment_and_training_program
+            and secretary_determined_other_state_or_local_government_employment_and_training_program_appropriate
+          )
+  - name: student_work_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          employed_hours_per_week >= student_minimum_employment_hours_per_week
+          or person_participates_in_state_or_federally_financed_work_study_program_during_regular_school_year
+  - name: student_parent_child_care_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(5)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_is_parent_with_responsibility_for_care_of_dependent_child
+          and (
+            dependent_child_age_years < student_parent_young_child_age_threshold_years
+            or (
+              dependent_child_age_years > student_parent_older_child_lower_age_threshold_years
+              and dependent_child_age_years < student_parent_older_child_upper_age_threshold_years
+              and adequate_child_care_not_available_to_enable_individual_to_attend_class_and_satisfy_paragraph_4
+            )
+          )
+  - name: student_single_parent_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_is_enrolled_full_time_in_institution_of_higher_education_as_determined_by_institution
+          and person_is_single_parent_with_responsibility_for_care_of_dependent_child
+          and dependent_child_age_years < student_single_parent_child_age_threshold_years
+  - name: student_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)(1)-(8)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          student_age_exception_applies
+          or person_is_not_physically_or_mentally_fit
+          or student_assignment_or_placement_exception_applies
+          or student_work_exception_applies
+          or student_parent_child_care_exception_applies
+          or person_receiving_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act
+          or person_enrolled_as_result_of_participation_in_work_incentive_program_under_title_iv_social_security_act_or_successor
+          or student_single_parent_exception_applies
+  - name: student_ineligible_for_snap_participation
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_is_member_of_household_otherwise_eligible_to_participate_under_this_section
+          and person_is_enrolled_at_least_half_time_in_institution_of_higher_education
+          and not student_exception_applies

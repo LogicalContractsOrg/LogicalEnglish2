@@ -1,0 +1,62 @@
+- name: annual_general_income_exclusion_capped_at_240
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382a/b/2#input.annual_income_not_paid_on_basis_of_need: 300
+  output:
+    us:statutes/42/1382a/b/2#annual_general_income_excluded: 240
+- name: annual_general_income_exclusion_uses_lower_non_need_income
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382a/b/2#input.annual_income_not_paid_on_basis_of_need: 180
+  output:
+    us:statutes/42/1382a/b/2#annual_general_income_excluded: 180
+- name: qualifying_state_age_residency_payment_is_excluded
+  period: 2024-01
+  input:
+    us:statutes/42/1382a/b/2#input.payment_is_monthly_or_other_periodic: true
+    us:statutes/42/1382a/b/2#input.payment_received_by_individual: true
+    us:statutes/42/1382a/b/2#input.program_established_prior_to_july_first_nineteen_seventy_three: true
+    ? us:statutes/42/1382a/b/2#input.program_established_prior_to_july_first_nineteen_seventy_three_and_subsequently_amended_to_conform_to_state_or_federal_constitutional_standards
+    : false
+    us:statutes/42/1382a/b/2#input.payment_made_by_state_of_which_receiving_individual_is_resident: true
+    us:statutes/42/1382a/b/2#input.payment_program_eligibility_not_based_on_need: true
+    us:statutes/42/1382a/b/2#input.payment_program_eligibility_based_solely_on_required_age_and_state_residency: true
+    ? us:statutes/42/1382a/b/2#input.individual_first_became_eligible_individual_or_eligible_spouse_on_or_before_september_thirtieth_nineteen_eighty_five
+    : true
+    ? us:statutes/42/1382a/b/2#input.individual_residency_years_under_program_as_in_effect_prior_to_january_first_nineteen_eighty_three
+    : 25
+  output:
+    us:statutes/42/1382a/b/2#state_age_residency_payment_excluded: holds
+- name: state_age_residency_payment_not_excluded_when_need_based
+  period: 2024-01
+  input:
+    us:statutes/42/1382a/b/2#input.payment_is_monthly_or_other_periodic: true
+    us:statutes/42/1382a/b/2#input.payment_received_by_individual: true
+    us:statutes/42/1382a/b/2#input.program_established_prior_to_july_first_nineteen_seventy_three: true
+    ? us:statutes/42/1382a/b/2#input.program_established_prior_to_july_first_nineteen_seventy_three_and_subsequently_amended_to_conform_to_state_or_federal_constitutional_standards
+    : false
+    us:statutes/42/1382a/b/2#input.payment_made_by_state_of_which_receiving_individual_is_resident: true
+    us:statutes/42/1382a/b/2#input.payment_program_eligibility_not_based_on_need: false
+    us:statutes/42/1382a/b/2#input.payment_program_eligibility_based_solely_on_required_age_and_state_residency: true
+    ? us:statutes/42/1382a/b/2#input.individual_first_became_eligible_individual_or_eligible_spouse_on_or_before_september_thirtieth_nineteen_eighty_five
+    : true
+    ? us:statutes/42/1382a/b/2#input.individual_residency_years_under_program_as_in_effect_prior_to_january_first_nineteen_eighty_three
+    : 25
+  output:
+    us:statutes/42/1382a/b/2#state_age_residency_payment_excluded: not_holds
+- name: oracle_parameter_annual_general_income_exclusion_limit
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    us:statutes/42/1382a/b/2#annual_general_income_exclusion_limit: 240

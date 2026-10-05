@@ -1,0 +1,53 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2015
+  summary: |-
+    (2) A person who otherwise would be required to comply with the requirements of paragraph (1) of this subsection shall be exempt from such requirements if he or she is ... (B) a parent or other member of a household with responsibility for the care of a dependent child under age six or of an incapacitated person;
+rules:
+  - name: dependent_child_age_exemption_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 7 U.S.C. 2015(d)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          6
+
+  - name: care_responsibility_exemption_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2015(d)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2015
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2015
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          person_otherwise_required_to_comply_with_paragraph_1_requirements
+          and (
+              (
+                  person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child
+                  and dependent_child_age_years < dependent_child_age_exemption_threshold_years
+              )
+              or person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person
+          )

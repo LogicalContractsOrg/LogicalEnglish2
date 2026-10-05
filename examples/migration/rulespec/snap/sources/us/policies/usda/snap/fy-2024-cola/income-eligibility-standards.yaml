@@ -1,0 +1,942 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+    source_sha256: a3bbb6b3c5a09419403486d40f2836bcdcea5fff3ef042cd87195d0c953000cb
+  summary: 'SNAP monthly income eligibility standards for October 1, 2023, to
+
+    September 30, 2024, list net limits at 100 percent of poverty, gross
+
+    limits at 130 percent, and separate-household elderly/disabled gross
+
+    limits at 165 percent for the 48 States, DC, Guam, Virgin Islands,
+
+    Alaska, and Hawaii.'
+rules:
+- name: contiguous_states_count
+  kind: parameter
+  dtype: Count
+  visibility: private
+  source: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '48'
+- name: snap_net_income_limit_100_percent_fpl_48_states_dc_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+          table:
+            header: Net Monthly Income Eligibility Standards (100 Percent of Poverty
+              Level)
+            row_key: household_size
+            column_key: 48_states_dc_guam_virgin_islands
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 1215
+      2: 1644
+      3: 2072
+      4: 2500
+      5: 2929
+      6: 3357
+      7: 3785
+      8: 4214
+- name: snap_net_income_limit_100_percent_fpl_48_states_dc_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    each additional person, 48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '429'
+- name: snap_net_income_limit_100_percent_fpl_alaska_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+          table:
+            header: Net Monthly Income Eligibility Standards (100 Percent of Poverty
+              Level)
+            row_key: household_size
+            column_key: Alaska
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 1518
+      2: 2054
+      3: 2590
+      4: 3125
+      5: 3661
+      6: 4197
+      7: 4733
+      8: 5269
+- name: snap_net_income_limit_100_percent_fpl_alaska_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    each additional person, Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '536'
+- name: snap_net_income_limit_100_percent_fpl_hawaii_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+          table:
+            header: Net Monthly Income Eligibility Standards (100 Percent of Poverty
+              Level)
+            row_key: household_size
+            column_key: Hawaii
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 1398
+      2: 1890
+      3: 2383
+      4: 2875
+      5: 3368
+      6: 3860
+      7: 4353
+      8: 4845
+- name: snap_net_income_limit_100_percent_fpl_hawaii_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    each additional person, Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '493'
+- name: snap_gross_income_limit_130_percent_fpl_48_states_dc_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+          table:
+            header: Gross Monthly Income Eligibility Standards (130 Percent of Poverty
+              Level)
+            row_key: household_size
+            column_key: 48_states_dc_guam_virgin_islands
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 1580
+      2: 2137
+      3: 2694
+      4: 3250
+      5: 3807
+      6: 4364
+      7: 4921
+      8: 5478
+- name: snap_gross_income_limit_130_percent_fpl_48_states_dc_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    each additional person, 48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '557'
+- name: snap_gross_income_limit_130_percent_fpl_alaska_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+          table:
+            header: Gross Monthly Income Eligibility Standards (130 Percent of Poverty
+              Level)
+            row_key: household_size
+            column_key: Alaska
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 1973
+      2: 2670
+      3: 3366
+      4: 4063
+      5: 4760
+      6: 5456
+      7: 6153
+      8: 6849
+- name: snap_gross_income_limit_130_percent_fpl_alaska_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    each additional person, Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '697'
+- name: snap_gross_income_limit_130_percent_fpl_hawaii_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+          table:
+            header: Gross Monthly Income Eligibility Standards (130 Percent of Poverty
+              Level)
+            row_key: household_size
+            column_key: Hawaii
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 1817
+      2: 2457
+      3: 3098
+      4: 3738
+      5: 4378
+      6: 5018
+      7: 5659
+      8: 6299
+- name: snap_gross_income_limit_130_percent_fpl_hawaii_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    each additional person, Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '641'
+- name: snap_gross_income_limit_165_percent_fpl_48_states_dc_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC,
+    Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+          table:
+            header: Gross Monthly Income Eligibility Standards for Households Where
+              Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)
+            row_key: household_size
+            column_key: 48_states_dc_guam_virgin_islands
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 2005
+      2: 2712
+      3: 3419
+      4: 4125
+      5: 4832
+      6: 5539
+      7: 6246
+      8: 6952
+- name: snap_gross_income_limit_165_percent_fpl_48_states_dc_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), each additional
+    person, 48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '707'
+- name: snap_gross_income_limit_165_percent_fpl_alaska_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+          table:
+            header: Gross Monthly Income Eligibility Standards for Households Where
+              Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)
+            row_key: household_size
+            column_key: Alaska
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 2504
+      2: 3388
+      3: 4273
+      4: 5157
+      5: 6041
+      6: 6925
+      7: 7809
+      8: 8693
+- name: snap_gross_income_limit_165_percent_fpl_alaska_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), each additional
+    person, Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '885'
+- name: snap_gross_income_limit_165_percent_fpl_hawaii_table
+  kind: parameter
+  dtype: Money
+  unit: USD
+  indexed_by: household_size
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+          table:
+            header: Gross Monthly Income Eligibility Standards for Households Where
+              Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)
+            row_key: household_size
+            column_key: Hawaii
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    values:
+      1: 2306
+      2: 3119
+      3: 3932
+      4: 4744
+      5: 5557
+      6: 6369
+      7: 7182
+      8: 7995
+- name: snap_gross_income_limit_165_percent_fpl_hawaii_additional_member
+  kind: parameter
+  dtype: Money
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), each additional
+    person, Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+      - path: versions[0].effective_to
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: OCTOBER 1, 2023, TO SEPTEMBER 30, 2024
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '813'
+- name: net_income_poverty_level_ratio
+  kind: parameter
+  dtype: Rate
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Net Monthly Income Eligibility Standards (100 Percent of Poverty
+            Level)
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '1'
+- name: gross_income_poverty_level_ratio
+  kind: parameter
+  dtype: Rate
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Gross Monthly Income Eligibility Standards (130 Percent of Poverty
+            Level)
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '1.3'
+- name: elderly_disabled_separate_household_gross_income_poverty_level_ratio
+  kind: parameter
+  dtype: Rate
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Gross Monthly Income Eligibility Standards for Households Where
+            Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: '1.65'
+- name: snap_net_income_limit_100_percent_fpl_48_states_dc
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_net_income_limit_100_percent_fpl_48_states_dc_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_net_income_limit_100_percent_fpl_48_states_dc_additional_member)'
+- name: snap_net_income_limit_100_percent_fpl_alaska
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_net_income_limit_100_percent_fpl_alaska_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_net_income_limit_100_percent_fpl_alaska_additional_member)'
+- name: snap_net_income_limit_100_percent_fpl_hawaii
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Net Monthly Income Eligibility Standards (100 Percent of Poverty Level),
+    Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,215 $1,518 $1,398 2 $1,644 $2,054 $1,890 3 $2,072 $2,590 $2,383 4
+            $2,500 $3,125 $2,875 5 $2,929 $3,661 $3,368 6 $3,357 $4,197 $3,860 7 $3,785
+            $4,733 $4,353 8 $4,214 $5,269 $4,845 Each additional person $429 $536
+            $493
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_net_income_limit_100_percent_fpl_hawaii_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_net_income_limit_100_percent_fpl_hawaii_additional_member)'
+- name: snap_gross_income_limit_130_percent_fpl_48_states_dc
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    48 States, DC, Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_gross_income_limit_130_percent_fpl_48_states_dc_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_gross_income_limit_130_percent_fpl_48_states_dc_additional_member)'
+- name: snap_gross_income_limit_130_percent_fpl_alaska
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_gross_income_limit_130_percent_fpl_alaska_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_gross_income_limit_130_percent_fpl_alaska_additional_member)'
+- name: snap_gross_income_limit_130_percent_fpl_hawaii
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level),
+    Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $1,580 $1,973 $1,817 2 $2,137 $2,670 $2,457 3 $2,694 $3,366 $3,098 4
+            $3,250 $4,063 $3,738 5 $3,807 $4,760 $4,378 6 $4,364 $5,456 $5,018 7 $4,921
+            $6,153 $5,659 8 $5,478 $6,849 $6,299 Each additional person $557 $697
+            $641
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_gross_income_limit_130_percent_fpl_hawaii_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_gross_income_limit_130_percent_fpl_hawaii_additional_member)'
+- name: snap_gross_income_limit_165_percent_fpl_48_states_dc
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC,
+    Guam, Virgin Islands column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_gross_income_limit_165_percent_fpl_48_states_dc_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_gross_income_limit_165_percent_fpl_48_states_dc_additional_member)'
+- name: snap_gross_income_limit_165_percent_fpl_alaska
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_gross_income_limit_165_percent_fpl_alaska_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_gross_income_limit_165_percent_fpl_alaska_additional_member)'
+- name: snap_gross_income_limit_165_percent_fpl_hawaii
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: Gross Monthly Income Eligibility Standards for Households Where Elderly
+    Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-2
+          excerpt: Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii
+            1 $2,005 $2,504 $2,306 2 $2,712 $3,388 $3,119 3 $3,419 $4,273 $3,932 4
+            $4,125 $5,157 $4,744 5 $4,832 $6,041 $5,557 6 $5,539 $6,925 $6,369 7 $6,246
+            $7,809 $7,182 8 $6952 $8,693 $7,995 Each additional person $707 $885 $813
+  versions:
+  - effective_from: '2023-10-01'
+    effective_to: '2024-09-30'
+    formula: 'snap_gross_income_limit_165_percent_fpl_hawaii_table[max(min(household_size,
+      8), 1)]
+
+      + (max(household_size - 8, 0) * snap_gross_income_limit_165_percent_fpl_hawaii_additional_member)'
+inputs:
+- name: household_size
+  entity: Household
+  dtype: Count
+  period: Month

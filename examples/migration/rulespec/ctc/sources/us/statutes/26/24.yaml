@@ -1,0 +1,532 @@
+format: rulespec/v1
+imports:
+  - us:statutes/26/24/h#ctc_maximum_before_phase_out_under_subsection_h
+  - us:statutes/26/24/h#ctc_phase_out_threshold_under_subsection_h
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/24
+  deferred_outputs:
+    - output: us:statutes/26/24/d#refundable_child_tax_credit
+      blocked_by:
+        - us:statutes/26/24/d#refundable_child_tax_credit_child_fragment
+      reason: >-
+        Subsection (d) governs the refundable portion of the child tax credit
+        and is encoded in the dedicated `statutes/26/24/d.yaml` child fragment.
+        This parent module computes the nonrefundable child credit and advance
+        payment reduction, so the refundable subsection is intentionally split
+        out from the parent artifact.
+    - output: us:statutes/26/24/h#post_2017_child_tax_credit_special_rules
+      blocked_by:
+        - us:statutes/26/24/h#post_2017_child_tax_credit_child_fragment
+      reason: >-
+        Subsection (h) supplies special post-2017 credit amounts, thresholds,
+        dependent-credit rules, identification requirements, and inflation
+        adjustments. Those rules are encoded in the dedicated
+        `statutes/26/24/h.yaml` child fragment and imported by this parent.
+    - output: us:statutes/26/24/k#child_tax_credit_possession_payment_administration
+      blocked_by:
+        - us:statutes/26/24#possession_credit_payment_and_coordination_context
+      reason: >-
+        Subsection (k) governs payments to U.S. possessions and coordination
+        with possession tax systems. This parent module computes the taxpayer
+        child tax credit; possession payment administration is deferred.
+  summary: |-
+    26 USC 24 allows a credit against tax for each qualifying child of the taxpayer for which the taxpayer is allowed a deduction under section 151, in an amount equal to $1,000, reduced (but not below zero) by $50 for each $1,000 (or fraction thereof) by which modified adjusted gross income exceeds the threshold amount. Modified adjusted gross income means adjusted gross income increased by amounts excluded under sections 911, 931, or 933. The threshold amount is $110,000 for a joint return, $75,000 for an unmarried individual, and $55,000 for a married individual filing separately. A qualifying child is a qualifying child under section 152(c) who has not attained age 17, excluding certain noncitizens. No credit is allowed without required child and taxpayer identifying numbers, for short taxable years except death-year closings, during fraud/reckless disallowance periods, or after certain deficiency denials unless required eligibility information is provided. For taxable years beginning after December 31, 2017, subsection (h) substitutes special amounts and thresholds, including $2,200 per qualifying child, $500 for certain other dependents, $400,000 joint and $200,000 other phaseout thresholds, and SSN rules. The credit is reduced by advance payments under section 7527A, and excess advance payments increase tax subject to a safe harbor. Inflation adjustments apply to specified subsection (h) dollar amounts.
+rules:
+  - name: ctc_qualifying_child_of_tax_unit
+    kind: data_relation
+    data_relation:
+      predicate: ctc_qualifying_child_of_tax_unit
+      arity: 2
+      arguments:
+        - TaxUnit
+        - Person
+
+  - name: ctc_child_amount_base
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: an amount equal to $1,000
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          1000
+
+  - name: ctc_phaseout_reduction_per_increment
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: reduced (but not below zero) by $50
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          50
+
+  - name: ctc_phaseout_increment
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: for each $1,000 (or fraction thereof)
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          1000
+
+  - name: ctc_joint_threshold_base
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(b)(2)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: $110,000 in the case of a joint return
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          110000
+
+  - name: ctc_unmarried_threshold_base
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(b)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: $75,000 in the case of an individual who is not married
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          75000
+
+  - name: ctc_separate_threshold_base
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(b)(2)(C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: $55,000 in the case of a married individual filing a separate return
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          55000
+
+  - name: ctc_child_age_ceiling_exclusive
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 24(c)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: who has not attained age 17
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          17
+
+  - name: ctc_full_taxable_year_months
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 24(f)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: a period of less than 12 months
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          12
+
+  - name: ctc_fraud_disallowance_years
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 24(g)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: the period of 10 taxable years
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          10
+
+  - name: ctc_reckless_disallowance_years
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 24(g)(1)(B)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: the period of 2 taxable years
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          2
+
+  - name: ctc_modified_adjusted_gross_income
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: modified adjusted gross income means adjusted gross income increased by any amount excluded from gross income under section 911, 931, or 933
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          adjusted_gross_income
+          + ctc_foreign_earned_income_exclusion_adjustment
+          + ctc_possession_income_exclusion_adjustment
+          + ctc_puerto_rico_income_exclusion_adjustment
+
+  - name: ctc_qualifying_child
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 24(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: qualifying child means a qualifying child of the taxpayer (as defined in section 152(c)) who has not attained age 17
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: shall not include any individual who would not be a dependent if subparagraph (A) of section 152(b)(3) were applied without regard to all that follows "resident of the United States"
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          ctc_child_satisfies_dependency_rules
+          and age < ctc_child_age_ceiling_exclusive
+          and ctc_child_deduction_allowed
+          and not certain_noncitizen_exception_applies
+
+  - name: ctc_child_identification_requirement_satisfied
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 24(e)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: includes the name and taxpayer identification number of such qualifying child on the return ... and such taxpayer identification number was issued on or before the due date
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          qualifying_child_name_included_on_return
+          and qualifying_child_tin_included_on_return
+          and qualifying_child_tin_issued_on_or_before_return_due_date
+
+  - name: ctc_qualifying_children_count
+    kind: derived
+    entity: TaxUnit
+    dtype: Count
+    period: Year
+    source: 26 USC 24(a), (c), (e)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: with respect to each qualifying child ... No credit shall be allowed ... unless the taxpayer includes the name and taxpayer identification number of such qualifying child
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          count_where(ctc_qualifying_child_of_tax_unit, ctc_qualifying_child)
+          - count_where(ctc_qualifying_child_of_tax_unit, ctc_child_missing_identification)
+
+  - name: ctc_taxpayer_identification_requirement_satisfied
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 24(e)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: No credit shall be allowed ... if the taxpayer identification number of the taxpayer was issued after the due date
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          not taxpayer_identification_number_issued_after_return_due_date
+
+  - name: ctc_full_taxable_year_requirement_satisfied
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 24(f)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: Except in the case of a taxable year closed by reason of the death of the taxpayer
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: no credit shall be allowable ... in the case of a taxable year covering a period of less than 12 months
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          taxable_year_months >= ctc_full_taxable_year_months
+          or taxable_year_closed_by_reason_of_taxpayer_death
+
+  - name: ctc_prior_claim_restriction_satisfied
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 24(g)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: No credit shall be allowed under this section for any taxable year in the disallowance period
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: no credit shall be allowed ... unless the taxpayer provides such information as the Secretary may require to demonstrate eligibility
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          not ctc_fraud_disallowance_period_applies
+          and not ctc_reckless_or_intentional_disregard_disallowance_period_applies
+          and not prior_deficiency_denial_without_required_eligibility_information
+
+  - name: ctc_phaseout_threshold_base
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: threshold amount means $110,000 in the case of a joint return, $75,000 in the case of an individual who is not married, and $55,000 in the case of a married individual filing a separate return
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          if ctc_phaseout_joint_threshold_applies:
+              ctc_joint_threshold_base
+          else:
+              if ctc_phaseout_separate_threshold_applies:
+                  ctc_separate_threshold_base
+              else:
+                  ctc_unmarried_threshold_base
+
+  - name: ctc_phaseout_threshold
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(b)(2), 24(h)(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: In lieu of the amount determined under subsection (b)(2), the threshold amount shall be $400,000 in the case of a joint return ($200,000 in any other case)
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/24/h#ctc_phase_out_threshold_under_subsection_h
+              output: ctc_phase_out_threshold_under_subsection_h
+              hash: sha256:80d253ad020aaf460588e169963b2d126ea532359124436c2905c343b7dbc103
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          if ctc_subsection_h_special_rules_apply:
+              ctc_phase_out_threshold_under_subsection_h
+          else:
+              ctc_phaseout_threshold_base
+
+  - name: ctc_maximum_before_phaseout
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(a), 24(h)(2), 24(h)(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: with respect to each qualifying child ... $1,000; after 2017, subsection (a) is applied by substituting $2,200, and the credit is increased by $500 for certain other dependents
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/24/h#ctc_maximum_before_phase_out_under_subsection_h
+              output: ctc_maximum_before_phase_out_under_subsection_h
+              hash: sha256:80d253ad020aaf460588e169963b2d126ea532359124436c2905c343b7dbc103
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          if ctc_subsection_h_special_rules_apply:
+              ctc_maximum_before_phase_out_under_subsection_h
+          else:
+              ctc_qualifying_children_count * ctc_child_amount_base
+
+  - name: ctc_phaseout_amount
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: reduced (but not below zero) by $50 for each $1,000 (or fraction thereof) by which modified adjusted gross income exceeds the threshold amount
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          ctc_phaseout_reduction_per_increment
+          * ceil(max(0, ctc_modified_adjusted_gross_income - ctc_phaseout_threshold) / ctc_phaseout_increment)
+
+  - name: ctc_before_advance_payments
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(a), 24(b), 24(e), 24(f), 24(g), 24(h)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: There shall be allowed as a credit ... reduced (but not below zero) ... No credit shall be allowed if identification, short-year, or prior-claim restrictions apply
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          if ctc_taxpayer_identification_requirement_satisfied
+             and ctc_full_taxable_year_requirement_satisfied
+             and ctc_prior_claim_restriction_satisfied:
+              max(0, ctc_maximum_before_phaseout - ctc_phaseout_amount)
+          else:
+              0
+
+  - name: ctc_after_advance_payments
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(j)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: reduced (but not below zero) by the aggregate amount of payments made under section 7527A
+    versions:
+      - effective_from: '2018-01-01'
+        formula: |-
+          max(0, ctc_before_advance_payments - ctc_advance_payments_received)

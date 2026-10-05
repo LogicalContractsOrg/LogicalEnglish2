@@ -1,0 +1,140 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+  summary: |-
+    The income standards of eligibility shall be adjusted each October 1 and shall provide that a household shall be ineligible if income after subsection (d) exclusions and subsection (e) deductions exceeds the poverty line; for households without an elderly or disabled member, income after subsection (d) exclusions but before subsection (e) deductions may not exceed that poverty line by more than 30 percent. Virgin Islands and Guam standards may not exceed those in the forty-eight contiguous States.
+imports:
+  - us:statutes/7/2014/e/6/A#snap_net_income
+rules:
+  - name: snap_gross_income_excess_rate_over_poverty_line
+    kind: parameter
+    dtype: Rate
+    source: 7 USC 2014(c)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "exceeds such poverty line by more than 30 per centum"
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          0.30
+
+  - name: snap_income_standard_poverty_line_with_territory_cap
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "In no event shall the standards of eligibility for the Virgin Islands of the United States or Guam exceed those in the forty-eight contiguous States."
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          if household_is_in_virgin_islands_or_guam: min(poverty_line_under_42_usc_9902_2_for_household_area, poverty_line_under_42_usc_9902_2_for_forty_eight_contiguous_states_and_dc) else: poverty_line_under_42_usc_9902_2_for_household_area
+
+  - name: snap_net_income_exceeds_poverty_line
+    kind: derived
+    entity: Household
+    dtype: Judgment
+    period: Month
+    source: 7 USC 2014(c)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2014
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/e/6/A#snap_net_income
+              output: snap_net_income
+              hash: sha256:f53ed05c6283dbf02f63c634a96f60d6ce9955f00e2f9ce44f7c5a3a9796c675
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/c#snap_income_standard_poverty_line_with_territory_cap
+              output: snap_income_standard_poverty_line_with_territory_cap
+              hash: sha256:local
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          snap_net_income > snap_income_standard_poverty_line_with_territory_cap
+
+  - name: household_fails_gross_income_standard
+    kind: derived
+    entity: Household
+    dtype: Judgment
+    period: Month
+    source: 7 USC 2014(c)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "in the case of a household that does not include an elderly or disabled member"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/c#snap_income_standard_poverty_line_with_territory_cap
+              output: snap_income_standard_poverty_line_with_territory_cap
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/c#snap_gross_income_excess_rate_over_poverty_line
+              output: snap_gross_income_excess_rate_over_poverty_line
+              hash: sha256:local
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          not household_includes_elderly_or_disabled_member
+          and snap_total_gross_income > snap_income_standard_poverty_line_with_territory_cap * (1 + snap_gross_income_excess_rate_over_poverty_line)
+
+  - name: household_ineligible_to_participate_due_to_income_standards
+    kind: derived
+    entity: Household
+    dtype: Judgment
+    period: Month
+    source: 7 USC 2014(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/c#snap_net_income_exceeds_poverty_line
+              output: snap_net_income_exceeds_poverty_line
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/c#household_fails_gross_income_standard
+              output: household_fails_gross_income_standard
+              hash: sha256:local
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          snap_net_income_exceeds_poverty_line
+          or household_fails_gross_income_standard

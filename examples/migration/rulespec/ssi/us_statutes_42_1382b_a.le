@@ -1,0 +1,128 @@
+% 42 U.S.C. 1382b(a)
+% RuleSpec module us:statutes/42/1382b/a (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the alaska native stock inalienability exclusion period years is *a number*.
+    the assistance resource exclusion period months is *a number*.
+    the prior underpayment resource exclusion period months is *a number*.
+    the post receipt resource exclusion period months is *a number*.
+    the qualifying gift child age ceiling years is *a number*.
+    the annual cash gift resource exclusion cap is *an amount*.
+    the life insurance face value disregard threshold is *an amount*.
+    the life insurance policy counted resource value of *an asset* is *an amount*.
+    the qualifying cash gift excluded resource amount of *a person* is *an amount*.
+    the total face value of all life insurance policies on same person of *an asset* is *an amount*; scenario element.
+    the cash surrender value of *an asset* is *an amount*; scenario element.
+    the individual age years of *a person* is *a number*; scenario element.
+    the individual of *a person* has life threatening condition; scenario element.
+    *a person* is gift from organization described in section 501 c 3 exempt under section_501_a; scenario element.
+    the gift of *a person* is cash; scenario element.
+    the cash gift amount of *a person* is *an amount*; scenario element.
+
+the knowledge base us_statutes_42_1382b_a includes:
+
+
+% 42 U.S.C. 1382b(a) — us:statutes/42/1382b/a
+the text of "42 U.S.C. 1382b(a)(5)" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the text of "42 U.S.C. 1382b(a)(6)" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the text of "42 U.S.C. 1382b(a)(7)" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the text of "42 U.S.C. 1382b(a)(9), (10), (11), (14), and (15)" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the text of "42 U.S.C. 1382b(a)(13)" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the text of "42 U.S.C. 1382b(a)(13)(B)" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the text of "42 U.S.C. 1382b(a), final sentence" is at "sources/us/statutes/42/1382b/a.yaml".
+
+the alaska native stock inalienability exclusion period years is 20, as stated in "42 U.S.C. 1382b(a)(5)".
+
+the assistance resource exclusion period months is 9, as stated in "42 U.S.C. 1382b(a)(6)".
+
+the prior underpayment resource exclusion period months is 9, as stated in "42 U.S.C. 1382b(a)(7)".
+
+the post receipt resource exclusion period months is 9, as stated in "42 U.S.C. 1382b(a)(9), (10), (11), (14), and (15)".
+
+the qualifying gift child age ceiling years is 18, as stated in "42 U.S.C. 1382b(a)(13)".
+
+the annual cash gift resource exclusion cap is 2000, as stated in "42 U.S.C. 1382b(a)(13)(B)".
+
+the life insurance face value disregard threshold is 1500, as stated in "42 U.S.C. 1382b(a), final sentence".
+
+rule life_insurance_policy_counted_resource_value with provenance "42 U.S.C. 1382b(a), final sentence":
+the life insurance policy counted resource value of an asset is an amount N if
+    the total face value of all life insurance policies on same person of the asset is an amount M
+    and the life insurance face value disregard threshold is an amount K
+    and M <= K
+    and N = 0
+    otherwise the cash surrender value of the asset is N.
+
+rule qualifying_cash_gift_excluded_resource_amount with provenance "42 U.S.C. 1382b(a)(13)(B)":
+the qualifying cash gift excluded resource amount of a person is an amount N if
+    the individual age years of the person is a number M
+    and the qualifying gift child age ceiling years is a number K
+    and M < K
+    and the individual of the person has life threatening condition
+    and the person is gift from organization described in section 501 c 3 exempt under section_501_a
+    and the gift of the person is cash
+    and the cash gift amount of the person is an amount P
+    and the annual cash gift resource exclusion cap is an amount Q
+    and the minimum of P and Q is N
+    otherwise the person is a person
+    and N = 0.
+
+scenario life_insurance_policy_disregarded_when_total_face_value_at_threshold is, as stated in "sources/us/statutes/42/1382b/a.test.yaml" at case 1:
+    asset_1 is an asset.
+    the cash surrender value of asset_1 is 900.
+    the total face value of all life insurance policies on same person of asset_1 is 1500.
+    q_life_insurance_policy_counted_resource_value expects answers ["the life insurance policy counted resource value of asset_1 is 0"].
+
+scenario life_insurance_policy_counted_at_cash_surrender_value_when_total_face_value_exceeds_threshold is, as stated in "sources/us/statutes/42/1382b/a.test.yaml" at case 2:
+    asset_1 is an asset.
+    the cash surrender value of asset_1 is 900.
+    the total face value of all life insurance policies on same person of asset_1 is 1501.
+    q_life_insurance_policy_counted_resource_value expects answers ["the life insurance policy counted resource value of asset_1 is 900"].
+
+scenario qualifying_cash_gift_excluded_up_to_annual_cap is, as stated in "sources/us/statutes/42/1382b/a.test.yaml" at case 3:
+    person_1 is a person.
+    the cash gift amount of person_1 is 2500.
+    person_1 is gift from organization described in section 501 c 3 exempt under section_501_a.
+    the gift of person_1 is cash.
+    the individual age years of person_1 is 17.
+    the individual of person_1 has life threatening condition.
+    q_qualifying_cash_gift_excluded_resource_amount expects answers ["the qualifying cash gift excluded resource amount of person_1 is 2000"].
+
+scenario cash_gift_not_excluded_when_child_age_condition_fails is, as stated in "sources/us/statutes/42/1382b/a.test.yaml" at case 4:
+    person_1 is a person.
+    the cash gift amount of person_1 is 1000.
+    person_1 is gift from organization described in section 501 c 3 exempt under section_501_a.
+    the gift of person_1 is cash.
+    the individual age years of person_1 is 18.
+    the individual of person_1 has life threatening condition.
+    q_qualifying_cash_gift_excluded_resource_amount expects answers ["the qualifying cash gift excluded resource amount of person_1 is 0"].
+
+query q_life_insurance_policy_counted_resource_value is:
+    the life insurance policy counted resource value of which asset is which amount.
+
+query q_life_insurance_policy_counted_resource_value is:
+    the life insurance policy counted resource value of which asset is which amount.
+
+query q_qualifying_cash_gift_excluded_resource_amount is:
+    the qualifying cash gift excluded resource amount of which person is which amount.
+
+query q_qualifying_cash_gift_excluded_resource_amount is:
+    the qualifying cash gift excluded resource amount of which person is which amount.
+

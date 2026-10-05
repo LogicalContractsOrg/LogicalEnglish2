@@ -1,0 +1,22 @@
+format: rulespec/v1
+module:
+  summary: |-
+    7 USC 2012(j) defines an elderly or disabled member for SNAP. A SNAP
+    household has an elderly or disabled member when at least one related
+    household member satisfies that federal definition.
+  source_verification:
+    corpus_citation_path: us/statute/7/2012
+rules:
+  - name: member_of_household
+    kind: data_relation
+    data_relation:
+      arity: 2
+  - name: snap_household_has_elderly_or_disabled_member
+    kind: derived
+    entity: Household
+    dtype: Judgment
+    period: Month
+    source: 7 USC 2012(j)
+    versions:
+      - effective_from: '2008-10-01'
+        formula: count_where(member_of_household, snap_member_is_elderly_or_disabled) > 0

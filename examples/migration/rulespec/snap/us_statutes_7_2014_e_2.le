@@ -1,0 +1,81 @@
+% 7 U.S.C. 2014(e)(2)
+% RuleSpec module us:statutes/7/2014/e/2 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 1 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the snap earned income deduction rate is *a rate*.
+    the snap earned income subject to deduction of *a household* is *an amount*.
+    the snap earned income deduction of *a household* is *an amount*.
+    the snap countable earned income of *a household* is *an amount*; scenario element.
+    the work supplementation earned income of *a household* is *an amount*; scenario element.
+
+the knowledge base us_statutes_7_2014_e_2 includes:
+
+
+% 7 U.S.C. 2014(e)(2)(B) — us:statutes/7/2014/e/2/B
+the text of "7 USC 2014(e)(2)(B)" is at "sources/us/statutes/7/2014/e/2/B.yaml".
+
+the snap earned income deduction rate is 0.2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+
+% 7 U.S.C. 2014(e)(2) — us:statutes/7/2014/e/2
+the text of "7 USC 2014(e)(2)" is at "sources/us/statutes/7/2014/e/2.yaml".
+
+rule snap_earned_income_subject_to_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income subject to deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap countable earned income of the household is an amount M
+    and the work supplementation earned income of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule snap_earned_income_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap earned income subject to deduction of the household is an amount M
+        and the snap earned income deduction rate is a rate R
+        and N = M * R.
+
+scenario earned_income_deduction_is_twenty_percent is, as stated in "sources/us/statutes/7/2014/e/2.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the snap countable earned income of household_1 is 1000.
+    the work supplementation earned income of household_1 is 0.
+    q_snap_earned_income_deduction expects answers ["the snap earned income deduction of household_1 is 200"].
+    q_snap_earned_income_subject_to_deduction expects answers ["the snap earned income subject to deduction of household_1 is 1000"].
+
+scenario work_supplementation_income_is_excluded is, as stated in "sources/us/statutes/7/2014/e/2.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the snap countable earned income of household_1 is 1000.
+    the work supplementation earned income of household_1 is 250.
+    q_snap_earned_income_deduction expects answers ["the snap earned income deduction of household_1 is 150"].
+    q_snap_earned_income_subject_to_deduction expects answers ["the snap earned income subject to deduction of household_1 is 750"].
+
+query q_snap_earned_income_deduction is:
+    the snap earned income deduction of which household is which amount.
+
+query q_snap_earned_income_deduction is:
+    the snap earned income deduction of which household is which amount.
+
+query q_snap_earned_income_subject_to_deduction is:
+    the snap earned income subject to deduction of which household is which amount.
+
+query q_snap_earned_income_subject_to_deduction is:
+    the snap earned income subject to deduction of which household is which amount.
+

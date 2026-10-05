@@ -1,0 +1,195 @@
+% 42 U.S.C. 1382(b)
+% RuleSpec module us:statutes/42/1382/b (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 1 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the annual rounding multiple is *an amount*.
+    the prior rounding carryover increase of *a statutory dollar amount* is *an amount*.
+    the amount after paragraph 1 increase of *a statutory dollar amount* is *an amount*.
+    the subsection_a applicable increase percentage of *a statutory dollar amount* is *a rate*.
+    the amount after subsection_a increase of *a statutory dollar amount* is *an amount*.
+    the prior rounding carryover increase for section 1382 b 1 amount of *a statutory dollar amount* is *an amount*.
+    the amount determined under section 1382f for section 1382 b 1 of *a statutory dollar amount* is *an amount*.
+    the prior rounding carryover increase for section 1382 b 2 amount of *a statutory dollar amount* is *an amount*.
+    the amount determined under section 1382f for section 1382 b 2 of *a statutory dollar amount* is *an amount*.
+    the statutory base annual rate without eligible spouse is *an amount*.
+    the statutory base annual rate with eligible spouse is *an amount*.
+    the annual benefit without eligible spouse of *a person* is *an amount*.
+    the annual benefit with eligible spouse of *a person* is *an amount*.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the subchapter ii increase of *a statutory dollar amount* was determined on wage increase percentage; scenario element.
+    the subchapter ii benefit increase percentage for month of *a statutory dollar amount* is *a number*; scenario element.
+    the cpi basis subchapter ii increase percentage for month of *a statutory dollar amount* is *a number*; scenario element.
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the section 1382 b 1 dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the section 1382 b 2 dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the individual income not excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+    the individual and spouse income not excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+
+the knowledge base us_statutes_42_1382_b includes:
+
+
+% 42 U.S.C. 1382f(a) — us:statutes/42/1382f/a
+the text of "42 USC 1382f(a)(2)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the text of "42 USC 1382f(a)(1)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the text of "42 USC 1382f(a)(1)-(2)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the annual rounding multiple is 12, as stated in "42 USC 1382f(a)(2)".
+
+rule prior_rounding_carryover_increase with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase of a statutory dollar amount is an amount N if
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_after_paragraph_1_increase with provenance "42 USC 1382f(a)(1)":
+the amount after paragraph 1 increase of a statutory dollar amount is an amount N if
+    the dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase of the statutory dollar amount is an amount K
+    and N = M + K.
+
+rule subsection_a_applicable_increase_percentage with provenance "42 USC 1382f(a)(2)":
+the subsection_a applicable increase percentage of a statutory dollar amount is a rate R if
+    the subchapter ii increase of the statutory dollar amount was determined on wage increase percentage
+    and the subchapter ii benefit increase percentage for month of the statutory dollar amount is a number N
+    and the cpi basis subchapter ii increase percentage for month of the statutory dollar amount is a number M
+    and the maximum of N and M is R
+    otherwise the subchapter ii benefit increase percentage for month of the statutory dollar amount is R.
+
+rule amount_after_subsection_a_increase with provenance "42 USC 1382f(a)(2)":
+the amount after subsection_a increase of a statutory dollar amount is an amount N if
+    the amount after paragraph 1 increase of the statutory dollar amount is an amount M
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount K
+    and N = floor(M * (1 + R) / K) * K.
+
+rule prior_rounding_carryover_increase_for_section_1382_b_1_amount with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase for section 1382 b 1 amount of a statutory dollar amount is an amount N if
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the section 1382 b 1 dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_determined_under_section_1382f_for_section_1382_b_1 with provenance "42 USC 1382f(a)(1)-(2)":
+the amount determined under section 1382 f for section 1382 b 1 of a statutory dollar amount is an amount N if
+    the section 1382 b 1 dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase for section 1382 b 1 amount of the statutory dollar amount is an amount K
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount P
+    and N = floor((M + K) * (1 + R) / P) * P.
+
+rule prior_rounding_carryover_increase_for_section_1382_b_2_amount with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase for section 1382 b 2 amount of a statutory dollar amount is an amount N if
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the section 1382 b 2 dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_determined_under_section_1382f_for_section_1382_b_2 with provenance "42 USC 1382f(a)(1)-(2)":
+the amount determined under section 1382 f for section 1382 b 2 of a statutory dollar amount is an amount N if
+    the section 1382 b 2 dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase for section 1382 b 2 amount of the statutory dollar amount is an amount K
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount P
+    and N = floor((M + K) * (1 + R) / P) * P.
+
+
+% 42 U.S.C. 1382(b) — us:statutes/42/1382/b
+the text of "42 USC 1382(b)(1)" is at "sources/us/statutes/42/1382/b.yaml".
+
+the text of "42 USC 1382(b)(2)" is at "sources/us/statutes/42/1382/b.yaml".
+
+the statutory base annual rate without eligible spouse is 1752, as stated in "42 USC 1382(b)(1)".
+
+the statutory base annual rate with eligible spouse is 2628, as stated in "42 USC 1382(b)(2)".
+
+rule annual_benefit_without_eligible_spouse with provenance "42 USC 1382(b)(1)":
+the annual benefit without eligible spouse of a person is an amount N if
+    the statutory base annual rate without eligible spouse is an amount M
+    and the amount determined under section 1382 f for section 1382 b 1 of the person is an amount K
+    and the individual income not excluded pursuant to section 1382 a b of the person is an amount P
+    and the maximum of M and K is a number Q
+    and a number R = Q - P
+    and the maximum of 0 and R is N.
+
+rule annual_benefit_with_eligible_spouse with provenance "42 USC 1382(b)(2)":
+the annual benefit with eligible spouse of a person is an amount N if
+    the statutory base annual rate with eligible spouse is an amount M
+    and the amount determined under section 1382 f for section 1382 b 2 of the person is an amount K
+    and the individual and spouse income not excluded pursuant to section 1382 a b of the person is an amount P
+    and the maximum of M and K is a number Q
+    and a number R = Q - P
+    and the maximum of 0 and R is N.
+
+scenario base_rates_apply_when_section_1382f_amounts_are_lower is, as stated in "sources/us/statutes/42/1382/b.test.yaml" at case 1:
+    person_1 is a person.
+    the individual and spouse income not excluded pursuant to section 1382 a b of person_1 is 300.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 200.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the section 1382 b 1 dollar amount in effect for month of person_1 is 1740.
+    the section 1382 b 2 dollar amount in effect for month of person_1 is 2616.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of person_1 is 1740.
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of person_1 is 2616.
+    q_annual_benefit_with_eligible_spouse expects answers ["the annual benefit with eligible spouse of person_1 is 2328"].
+    q_annual_benefit_without_eligible_spouse expects answers ["the annual benefit without eligible spouse of person_1 is 1552"].
+
+scenario section_1382f_amounts_apply_when_greater_than_statutory_base_rates is, as stated in "sources/us/statutes/42/1382/b.test.yaml" at case 2:
+    person_1 is a person.
+    the individual and spouse income not excluded pursuant to section 1382 a b of person_1 is 200.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 100.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the section 1382 b 1 dollar amount in effect for month of person_1 is 1800.
+    the section 1382 b 2 dollar amount in effect for month of person_1 is 2700.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of person_1 is 1800.
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of person_1 is 2700.
+    q_annual_benefit_with_eligible_spouse expects answers ["the annual benefit with eligible spouse of person_1 is 2500"].
+    q_annual_benefit_without_eligible_spouse expects answers ["the annual benefit without eligible spouse of person_1 is 1700"].
+
+scenario income_reduction_cannot_make_payable_benefit_negative is, as stated in "sources/us/statutes/42/1382/b.test.yaml" at case 3:
+    person_1 is a person.
+    the individual and spouse income not excluded pursuant to section 1382 a b of person_1 is 4000.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 3000.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the section 1382 b 1 dollar amount in effect for month of person_1 is 1800.
+    the section 1382 b 2 dollar amount in effect for month of person_1 is 2700.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of person_1 is 1800.
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of person_1 is 2700.
+    q_annual_benefit_with_eligible_spouse expects answers ["the annual benefit with eligible spouse of person_1 is 0"].
+    q_annual_benefit_without_eligible_spouse expects answers ["the annual benefit without eligible spouse of person_1 is 0"].
+
+query q_annual_benefit_with_eligible_spouse is:
+    the annual benefit with eligible spouse of which person is which amount.
+
+query q_annual_benefit_with_eligible_spouse is:
+    the annual benefit with eligible spouse of which person is which amount.
+
+query q_annual_benefit_with_eligible_spouse is:
+    the annual benefit with eligible spouse of which person is which amount.
+
+query q_annual_benefit_without_eligible_spouse is:
+    the annual benefit without eligible spouse of which person is which amount.
+
+query q_annual_benefit_without_eligible_spouse is:
+    the annual benefit without eligible spouse of which person is which amount.
+
+query q_annual_benefit_without_eligible_spouse is:
+    the annual benefit without eligible spouse of which person is which amount.
+
