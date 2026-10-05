@@ -33,6 +33,7 @@ the text of "7 USC 2014(d)(2)" is at "sources/us/statutes/7/2014/d.yaml".
 
 the text of "7 USC 2014(d)(7)" is at "sources/us/statutes/7/2014/d.yaml".
 
+rule irregular_income_quarter_cap with provenance "7 USC 2014(d)(2)":
 the irregular income quarter cap is 30 if
     the calculation date is a date D
     and 2008-10-01 <= D.
@@ -48,6 +49,7 @@ the irregular income excluded from snap income of a household is an amount N if
         otherwise the household is a household
         and N = 0.
 
+rule student_child_income_age_limit with provenance "7 USC 2014(d)(7)":
 the student child income age limit is 17 if
     the calculation date is a date D
     and 2008-10-01 <= D.

@@ -60,6 +60,7 @@ the knowledge base us_statutes_7_2017_a includes:
 % 7 U.S.C. 2014(e)(2)(B) — us:statutes/7/2014/e/2/B
 the text of "7 USC 2014(e)(2)(B)" is at "sources/us/statutes/7/2014/e/2/B.yaml".
 
+rule snap_earned_income_deduction_rate with provenance "7 USC 2014(e)(2)(B)":
 the snap earned income deduction rate is 0.2 if
     the calculation date is a date D
     and 2008-10-01 <= D.
@@ -149,6 +150,7 @@ the snap maximum allotment table for 8 is 1789 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment additional member is 218 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -205,6 +207,7 @@ the snap maximum allotment alaska urban table for 8 is 2314 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_alaska_urban_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment alaska urban additional member is 282 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -241,6 +244,7 @@ the snap maximum allotment alaska rural 1 table for 8 is 2950 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_alaska_rural_1_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment alaska rural 1 additional member is 360 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -277,6 +281,7 @@ the snap maximum allotment alaska rural 2 table for 8 is 3591 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_alaska_rural_2_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment alaska rural 2 additional member is 438 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -313,6 +318,7 @@ the snap maximum allotment guam table for 8 is 2637 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_guam_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment guam additional member is 322 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -349,6 +355,7 @@ the snap maximum allotment hawaii table for 8 is 3040 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_hawaii_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment hawaii additional member is 371 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -385,6 +392,7 @@ the snap maximum allotment virgin islands table for 8 is 2300 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
+rule snap_maximum_allotment_virgin_islands_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment virgin islands additional member is 281 if
     the calculation date is a date D
     and 2025-10-01 <= D.
@@ -397,14 +405,20 @@ the text of "7 USC 2017(a), proviso for households of one and two persons" is at
 
 the text of "7 USC 2017(a), allotment authorized for households certified as eligible" is at "sources/us/statutes/7/2017/a.yaml".
 
+rule snap_household_food_contribution_rate with provenance "7 USC 2017(a)",
+        confer "30 per centum":
 the snap household food contribution rate is 0.3 if
     the calculation date is a date D
     and 2008-10-01 <= D.
 
+rule snap_minimum_allotment_rate with provenance "7 USC 2017(a)",
+        confer "8 percent":
 the snap minimum allotment rate is 0.08 if
     the calculation date is a date D
     and 2008-10-01 <= D.
 
+rule snap_minimum_allotment_household_size_limit with provenance "7 USC 2017(a)",
+        confer "households of one and two persons":
 the snap minimum allotment household size limit is 2 if
     the calculation date is a date D
     and 2008-10-01 <= D.

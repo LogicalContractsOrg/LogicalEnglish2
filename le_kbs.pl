@@ -2195,7 +2195,14 @@ token_to_atom(N, Atom) :- number(N), !, number_locale_atom(N, Atom).
 token_to_atom(S, Atom) :- string(S), !, atom_string(Atom, S).
 token_to_atom(A, Atom) :- atom(A), !, 
     ( (A \== '_', sub_atom(A, _, _, _, '_')) -> re_replace("_"/g, " ", A, Atom); Atom = A).
-token_to_atom(X, Atom) :- term_to_atom(X, Atom).
+token_to_atom(X, Atom) :- display_floats(X, Y), term_to_atom(Y, Atom).
+
+%   An expression in an explanation (`298 - 115.94999999999999`) shows its
+%   floats as an answer does (float_digits_atom/2).
+display_floats(X, X) :- var(X), !.
+display_floats(F, G) :- float(F), !, float_digits_atom(F, A), atom_number(A, G).
+display_floats(X, X) :- \+ compound(X), !.
+display_floats(X, Y) :- X =.. [Fn|As], maplist(display_floats, As, Bs), Y =.. [Fn|Bs].
 
 iso_date_atom(Y, M, D, Atom) :-
     Yi is integer(Y), Mi is integer(M), Di is integer(D),
