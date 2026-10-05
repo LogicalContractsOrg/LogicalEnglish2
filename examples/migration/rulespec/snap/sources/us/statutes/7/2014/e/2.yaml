@@ -1,0 +1,52 @@
+format: rulespec/v1
+module:
+  summary: '7 USC 2014(e)(2) allows a household with earned income a deduction of
+
+    20 percent of earned income. Work supplementation or support income
+
+    attributable to a public assistance program is excluded from the earned
+
+    income subject to this deduction.'
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+  proof_validation:
+    required: true
+rules:
+- name: snap_earned_income_subject_to_deduction
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: 7 USC 2014(e)(2)
+  versions:
+  - effective_from: '2008-10-01'
+    formula: max(0, snap_countable_earned_income - work_supplementation_earned_income)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/statute/7/2014
+          span: 7 USC 2014(e)(2)
+- name: snap_earned_income_deduction
+  kind: derived
+  entity: Household
+  dtype: Money
+  period: Month
+  unit: USD
+  source: 7 USC 2014(e)(2)
+  versions:
+  - effective_from: '2008-10-01'
+    formula: snap_earned_income_subject_to_deduction * snap_earned_income_deduction_rate
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/statute/7/2014
+          span: 7 USC 2014(e)(2)
+imports:
+- us:statutes/7/2014/e/2/B#snap_earned_income_deduction_rate

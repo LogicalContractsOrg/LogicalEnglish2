@@ -1,0 +1,399 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  summary: |-
+    USDA SNAP FY 2024 cost-of-living adjustments set deductions for the
+    48 states and the District of Columbia effective October 1, 2023 through
+    September 30, 2024. The standard deductions are 198, 198, 198, 208,
+    244, and 279 for household sizes 1, 2, 3, 4, 5, and 6 or more. The
+    same memorandum sets Alaska standard deductions at 338, 338, 338, 338,
+    338, and 349; Guam at 397, 397, 397, 416, 487, and 558; Hawaii at 279,
+    279, 279, 279, 280, and 321; and the Virgin Islands at 174, 174, 174,
+    208, 244, and 279. The maximum excess shelter deductions are 672, 1073,
+    789, 905, and 529 for the 48 states and District of Columbia, Alaska,
+    Guam, Hawaii, and the Virgin Islands. The homeless shelter deduction is
+    179.66. The maximum asset limits are 4250 for households with at least
+    one member age 60 or older or disabled, and 2750 for all other
+    households.
+  source_verification:
+    upstream_source_check:
+      status: official_parameter_source
+      checked_paths:
+        - us/statute/7/2014
+      rationale: 7 USC 2014(e) defines the standard deduction as a percentage
+        of the applicable income eligibility standard subject to regional
+        floors, sets the homeless shelter deduction, and requires annual
+        adjustment of the excess shelter expense cap, and 7 USC 2014(g)
+        indexes the resource limits, without fixing FY dollar amounts in
+        statute. The USDA FY 2024 cost-of-living adjustment memorandum is the
+        controlling published source for the FY 2024 deduction and resource
+        limit dollar values, effective October 1, 2023 through September 30,
+        2024.
+    corpus_citation_paths:
+      - us/guidance/usda/fns/snap-fy2024-cola/page-4
+      - us/guidance/usda/fns/snap-fy2024-cola/page-5
+    values:
+      # The memorandum's standard deduction table merges household sizes 1-2
+      # into a single column, so these source values mirror the five source
+      # columns (1-2, 3, 4, 5, 6+); the rule tables below expand size 2.
+      snap_standard_deduction_48_states_dc_table:
+        1: 198
+        3: 198
+        4: 208
+        5: 244
+        6: 279
+      snap_standard_deduction_alaska_table:
+        1: 338
+        3: 338
+        4: 338
+        5: 338
+        6: 349
+      snap_standard_deduction_guam_table:
+        1: 397
+        3: 397
+        4: 416
+        5: 487
+        6: 558
+      snap_standard_deduction_hawaii_table:
+        1: 279
+        3: 279
+        4: 279
+        5: 280
+        6: 321
+      snap_standard_deduction_virgin_islands_table:
+        1: 174
+        3: 174
+        4: 208
+        5: 244
+        6: 279
+      snap_maximum_excess_shelter_deduction_48_states_dc: 672
+      snap_maximum_excess_shelter_deduction_alaska: 1073
+      snap_maximum_excess_shelter_deduction_guam: 789
+      snap_maximum_excess_shelter_deduction_hawaii: 905
+      snap_maximum_excess_shelter_deduction_virgin_islands: 529
+      snap_homeless_shelter_deduction: 179.66
+      snap_asset_limit_elderly_or_disabled_member: 4250
+      snap_asset_limit_other_households: 2750
+imports:
+  - us:statutes/7/2012/j
+rules:
+  - name: snap_standard_deduction_48_states_dc_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_48_states_dc_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: 48_states_dc
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 198
+          2: 198
+          3: 198
+          4: 208
+          5: 244
+          6: 279
+  - name: snap_standard_deduction_48_states_dc
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_48_states_dc_table
+    versions:
+      - effective_from: '2023-10-01'
+        formula: snap_standard_deduction_48_states_dc_table[min(household_size, 6)]
+  - name: snap_standard_deduction
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_48_states_dc_table
+    versions:
+      - effective_from: '2023-10-01'
+        formula: snap_standard_deduction_48_states_dc
+  - name: snap_maximum_excess_shelter_deduction_48_states_dc
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_maximum_excess_shelter_deduction_48_states_dc
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '672'
+  - name: snap_standard_deduction_alaska_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_alaska_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: alaska
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 338
+          2: 338
+          3: 338
+          4: 338
+          5: 338
+          6: 349
+  - name: snap_standard_deduction_guam_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_guam_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: guam
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 397
+          2: 397
+          3: 397
+          4: 416
+          5: 487
+          6: 558
+  - name: snap_standard_deduction_hawaii_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_hawaii_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: hawaii
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 279
+          2: 279
+          3: 279
+          4: 279
+          5: 280
+          6: 321
+  - name: snap_standard_deduction_virgin_islands_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_standard_deduction_virgin_islands_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: virgin_islands
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 174
+          2: 174
+          3: 174
+          4: 208
+          5: 244
+          6: 279
+  - name: snap_maximum_excess_shelter_deduction_alaska
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_maximum_excess_shelter_deduction_alaska
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '1073'
+  - name: snap_maximum_excess_shelter_deduction_guam
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_maximum_excess_shelter_deduction_guam
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '789'
+  - name: snap_maximum_excess_shelter_deduction_hawaii
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_maximum_excess_shelter_deduction_hawaii
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '905'
+  - name: snap_maximum_excess_shelter_deduction_virgin_islands
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_maximum_excess_shelter_deduction_virgin_islands
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '529'
+  - name: snap_homeless_shelter_deduction
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_homeless_shelter_deduction
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '179.66'
+  - name: snap_asset_limit_elderly_or_disabled_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_asset_limit_elderly_or_disabled_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '4250'
+  - name: snap_asset_limit_other_households
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+              value_key: snap_asset_limit_other_households
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '2750'
+  - name: snap_asset_limit
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-5
+    versions:
+      - effective_from: '2023-10-01'
+        formula: |-
+          if snap_household_has_elderly_or_disabled_member:
+              snap_asset_limit_elderly_or_disabled_member
+          else: snap_asset_limit_other_households

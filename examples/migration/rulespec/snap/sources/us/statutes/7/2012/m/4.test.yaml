@@ -1,0 +1,36 @@
+- name: institution_resident_cannot_constitute_household
+  period: 2026-01
+  input:
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_institution: true
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_boarding_house: false
+    us:statutes/7/2012/m/4#input.individual_or_group_lives_with_others: false
+    us:statutes/7/2012/m/4#input.individual_or_group_pays_compensation_to_others_for_meals: false
+  output:
+    us:statutes/7/2012/m/4#individual_or_group_shall_not_constitute_household: holds
+- name: boarding_house_resident_cannot_constitute_household
+  period: 2026-01
+  input:
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_institution: false
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_boarding_house: true
+    us:statutes/7/2012/m/4#input.individual_or_group_lives_with_others: false
+    us:statutes/7/2012/m/4#input.individual_or_group_pays_compensation_to_others_for_meals: false
+  output:
+    us:statutes/7/2012/m/4#individual_or_group_shall_not_constitute_household: holds
+- name: lives_with_others_without_meal_compensation_not_barred
+  period: 2026-01
+  input:
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_institution: false
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_boarding_house: false
+    us:statutes/7/2012/m/4#input.individual_or_group_lives_with_others: true
+    us:statutes/7/2012/m/4#input.individual_or_group_pays_compensation_to_others_for_meals: false
+  output:
+    us:statutes/7/2012/m/4#individual_or_group_shall_not_constitute_household: not_holds
+- name: lives_with_others_and_pays_for_meals_cannot_constitute_household
+  period: 2026-01
+  input:
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_institution: false
+    us:statutes/7/2012/m/4#input.individual_or_group_resides_in_boarding_house: false
+    us:statutes/7/2012/m/4#input.individual_or_group_lives_with_others: true
+    us:statutes/7/2012/m/4#input.individual_or_group_pays_compensation_to_others_for_meals: true
+  output:
+    us:statutes/7/2012/m/4#individual_or_group_shall_not_constitute_household: holds

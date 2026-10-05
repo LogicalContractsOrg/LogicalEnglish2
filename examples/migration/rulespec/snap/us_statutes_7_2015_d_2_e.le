@@ -1,0 +1,99 @@
+% 7 U.S.C. 2015(d)(2)(E)
+% RuleSpec module us:statutes/7/2015/d/2/E (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the minimum employment hours per week is *a number*.
+    the employment or earnings exemption of *a person* applies.
+    *a person* is person otherwise required to comply with paragraph 1 requirements; scenario element.
+    the employed hours per week of *a person* is *a value*; scenario element.
+    the weekly earnings of *a person* is *an amount*; scenario element.
+    the minimum hourly rate under fair labor standards act of *a person* is *a rate*; scenario element.
+
+the knowledge base us_statutes_7_2015_d_2_e includes:
+
+
+% 7 U.S.C. 2015(d)(2)(E) — us:statutes/7/2015/d/2/E
+the text of "7 U.S.C. 2015(d)(2)(E)" is at "sources/us/statutes/7/2015/d/2/E.yaml".
+
+the minimum employment hours per week is 30 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule employment_or_earnings_exemption_applies_1 with provenance "7 U.S.C. 2015(d)(2)(E)":
+the employment or earnings exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+        and the employed hours per week of the person is a value V
+        and the minimum employment hours per week is a number N
+        and V >= N.
+
+rule employment_or_earnings_exemption_applies_2 with provenance "7 U.S.C. 2015(d)(2)(E)":
+the employment or earnings exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+        and the weekly earnings of the person is an amount N
+        and the minimum hourly rate under fair labor standards act of the person is a rate R
+        and the minimum employment hours per week is a number M
+        and N >= R * M.
+
+scenario employed_minimum_thirty_hours_per_week_exemption_applies is, as stated in "sources/us/statutes/7/2015/d/2/E.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the employed hours per week of person_1 is 30.
+    the minimum hourly rate under fair labor standards act of person_1 is 8.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the weekly earnings of person_1 is 0.
+    q_employment_or_earnings_exemption_applies expects answers ["the employment or earnings exemption of person_1 applies"].
+
+scenario weekly_earnings_equal_flsa_rate_times_thirty_hours_exemption_applies is, as stated in "sources/us/statutes/7/2015/d/2/E.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the employed hours per week of person_1 is 20.
+    the minimum hourly rate under fair labor standards act of person_1 is 8.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the weekly earnings of person_1 is 240.
+    q_employment_or_earnings_exemption_applies expects answers ["the employment or earnings exemption of person_1 applies"].
+
+scenario insufficient_hours_and_earnings_no_exemption is, as stated in "sources/us/statutes/7/2015/d/2/E.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the employed hours per week of person_1 is 29.
+    the minimum hourly rate under fair labor standards act of person_1 is 8.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the weekly earnings of person_1 is 200.
+    q_employment_or_earnings_exemption_applies expects answers [].
+
+scenario person_not_otherwise_required_has_no_exemption_under_this_branch is, as stated in "sources/us/statutes/7/2015/d/2/E.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the employed hours per week of person_1 is 30.
+    the minimum hourly rate under fair labor standards act of person_1 is 8.
+    the weekly earnings of person_1 is 240.
+    q_employment_or_earnings_exemption_applies expects answers [].
+
+query q_employment_or_earnings_exemption_applies is:
+    the employment or earnings exemption of which person applies.
+
+query q_employment_or_earnings_exemption_applies is:
+    the employment or earnings exemption of which person applies.
+
+query q_employment_or_earnings_exemption_applies is:
+    the employment or earnings exemption of which person applies.
+
+query q_employment_or_earnings_exemption_applies is:
+    the employment or earnings exemption of which person applies.
+

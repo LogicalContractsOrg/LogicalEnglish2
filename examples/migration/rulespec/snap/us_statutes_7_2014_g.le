@@ -1,0 +1,200 @@
+% 7 U.S.C. 2014(g)
+% RuleSpec module us:statutes/7/2014/g (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the snap household resource limit base amount is *an amount*.
+    the snap household resource limit base amount with elderly or disabled member is *an amount*.
+    the allowable financial resources rounding increment is *an amount*.
+    the statutory household resource limit base amount of *a household* is *an amount*.
+    the next annual household resource limit amount of *a household* is *an amount*.
+    the licensed vehicle resource fair market value threshold is *an amount*.
+    *an asset* is vehicle excluded from financial resources under vehicle exceptions.
+    the licensed vehicle countable resource amount under default rule of *an asset* is *an amount*.
+    *a household* includes elderly or disabled member; scenario element.
+    the prior unrounded household resource limit amount of *a household* is *an amount*; scenario element.
+    the consumer price index change for 12 month period ending preceding june of *a household* is *a number*; scenario element.
+    *an asset* is vehicle used to produce earned income; scenario element.
+    *an asset* is vehicle necessary for transport of physically disabled household member; scenario element.
+    *an asset* is vehicle depended on to carry household fuel or water; scenario element.
+    the vehicle of *an asset* provides household primary source of fuel or water; scenario element.
+    *an asset* is licensed vehicle; scenario element.
+    *an asset* is used for household transportation or to obtain or continue employment; scenario element.
+    *an asset* is state vehicle allowance standards apply in lieu of default vehicle rule; scenario element.
+    the asset fair market value of *an asset* is *an amount*; scenario element.
+
+the knowledge base us_statutes_7_2014_g includes:
+
+
+% 7 U.S.C. 2014(g) — us:statutes/7/2014/g
+the text of "7 USC 2014(g)(1)(A)" is at "sources/us/statutes/7/2014/g.yaml".
+
+the text of "7 USC 2014(g)(1)(B)(i)" is at "sources/us/statutes/7/2014/g.yaml".
+
+the text of "7 USC 2014(g)(1)(B)" is at "sources/us/statutes/7/2014/g.yaml".
+
+the text of "7 USC 2014(g)(2)(B)(iv)" is at "sources/us/statutes/7/2014/g.yaml".
+
+the text of "7 USC 2014(g)(2)(C)" is at "sources/us/statutes/7/2014/g.yaml".
+
+the text of "7 USC 2014(g)(2)(B)(iv); 7 USC 2014(g)(2)(C); 7 USC 2014(g)(2)(D)" is at "sources/us/statutes/7/2014/g.yaml".
+
+the snap household resource limit base amount is 2000 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+the snap household resource limit base amount with elderly or disabled member is 3000 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+the allowable financial resources rounding increment is 250 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule statutory_household_resource_limit_base_amount with provenance "7 USC 2014(g)(1)(A)":
+the statutory household resource limit base amount of a household is an amount if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household includes elderly or disabled member
+        and the snap household resource limit base amount with elderly or disabled member is the amount
+        otherwise the household is a household
+        and the snap household resource limit base amount is the amount.
+
+rule next_annual_household_resource_limit_amount with provenance "7 USC 2014(g)(1)(B)":
+the next annual household resource limit amount of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the prior unrounded household resource limit amount of the household is an amount M
+        and the consumer price index change for 12 month period ending preceding june of the household is a number K
+        and the allowable financial resources rounding increment is an amount P
+        and N = floor(M * (1 + K) / P) * P.
+
+the licensed vehicle resource fair market value threshold is 4650 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule vehicle_excluded_from_financial_resources_under_vehicle_exceptions_1 with provenance "7 USC 2014(g)(2)(C)":
+an asset is vehicle excluded from financial resources under vehicle exceptions if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the asset is vehicle used to produce earned income.
+
+rule vehicle_excluded_from_financial_resources_under_vehicle_exceptions_2 with provenance "7 USC 2014(g)(2)(C)":
+an asset is vehicle excluded from financial resources under vehicle exceptions if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the asset is vehicle necessary for transport of physically disabled household member.
+
+rule vehicle_excluded_from_financial_resources_under_vehicle_exceptions_3 with provenance "7 USC 2014(g)(2)(C)":
+an asset is vehicle excluded from financial resources under vehicle exceptions if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the asset is vehicle depended on to carry household fuel or water
+        and the vehicle of the asset provides household primary source of fuel or water.
+
+rule licensed_vehicle_countable_resource_amount_under_default_rule with provenance "7 USC 2014(g)(2)(B)(iv); 7 USC 2014(g)(2)(C); 7 USC 2014(g)(2)(D)":
+the licensed vehicle countable resource amount under default rule of an asset is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the asset is licensed vehicle
+        and the asset is used for household transportation or to obtain or continue employment
+        and it is not the case that the asset is vehicle excluded from financial resources under vehicle exceptions
+        and it is not the case that the asset is state vehicle allowance standards apply in lieu of default vehicle rule
+        and the asset fair market value of the asset is an amount M
+        and the licensed vehicle resource fair market value threshold is an amount K
+        and M > K
+        and the asset fair market value of the asset is an amount P
+        and the licensed vehicle resource fair market value threshold is an amount Q
+        and N = P - Q
+        otherwise the asset is an asset
+        and N = 0.
+
+scenario household_resource_limit_with_elderly_member_and_annual_adjustment is, as stated in "sources/us/statutes/7/2014/g.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-10-01.
+    the consumer price index change for 12 month period ending preceding june of household_1 is 0.1.
+    household_1 includes elderly or disabled member.
+    the prior unrounded household resource limit amount of household_1 is 3000.
+    q_allowable_financial_resources_rounding_increment expects answers ["the allowable financial resources rounding increment is 250"].
+    q_next_annual_household_resource_limit_amount expects answers ["the next annual household resource limit amount of household_1 is 3250"].
+    q_snap_household_resource_limit_base_amount expects answers ["the snap household resource limit base amount is 2000"].
+    q_snap_household_resource_limit_base_amount_with_elderly_or_disabled_member expects answers ["the snap household resource limit base amount with elderly or disabled member is 3000"].
+    q_statutory_household_resource_limit_base_amount expects answers ["the statutory household resource limit base amount of household_1 is 3000"].
+
+scenario licensed_vehicle_default_countable_amount is, as stated in "sources/us/statutes/7/2014/g.test.yaml" at case 2:
+    asset_1 is an asset.
+    the calculation date is 2026-10-01.
+    the asset fair market value of asset_1 is 5000.
+    asset_1 is licensed vehicle.
+    asset_1 is used for household transportation or to obtain or continue employment.
+    q_licensed_vehicle_countable_resource_amount_under_default_rule expects answers ["the licensed vehicle countable resource amount under default rule of asset_1 is 350"].
+    q_licensed_vehicle_resource_fair_market_value_threshold expects answers ["the licensed vehicle resource fair market value threshold is 4650"].
+    q_vehicle_excluded_from_financial_resources_under_vehicle_exceptions expects answers [].
+
+scenario licensed_vehicle_state_alternative_displaces_default_rule is, as stated in "sources/us/statutes/7/2014/g.test.yaml" at case 3:
+    asset_1 is an asset.
+    the calculation date is 2026-10-01.
+    the asset fair market value of asset_1 is 5000.
+    asset_1 is licensed vehicle.
+    asset_1 is used for household transportation or to obtain or continue employment.
+    asset_1 is state vehicle allowance standards apply in lieu of default vehicle rule.
+    q_licensed_vehicle_countable_resource_amount_under_default_rule expects answers ["the licensed vehicle countable resource amount under default rule of asset_1 is 0"].
+    q_vehicle_excluded_from_financial_resources_under_vehicle_exceptions expects answers [].
+
+scenario licensed_vehicle_earned_income_use_exclusion is, as stated in "sources/us/statutes/7/2014/g.test.yaml" at case 4:
+    asset_1 is an asset.
+    the calculation date is 2026-10-01.
+    the asset fair market value of asset_1 is 5000.
+    asset_1 is licensed vehicle.
+    asset_1 is used for household transportation or to obtain or continue employment.
+    asset_1 is vehicle used to produce earned income.
+    q_licensed_vehicle_countable_resource_amount_under_default_rule expects answers ["the licensed vehicle countable resource amount under default rule of asset_1 is 0"].
+    q_vehicle_excluded_from_financial_resources_under_vehicle_exceptions expects answers ["asset_1 is vehicle excluded from financial resources under vehicle exceptions"].
+
+query q_allowable_financial_resources_rounding_increment is:
+    the allowable financial resources rounding increment is which amount.
+
+query q_licensed_vehicle_countable_resource_amount_under_default_rule is:
+    the licensed vehicle countable resource amount under default rule of which asset is which amount.
+
+query q_licensed_vehicle_countable_resource_amount_under_default_rule is:
+    the licensed vehicle countable resource amount under default rule of which asset is which amount.
+
+query q_licensed_vehicle_countable_resource_amount_under_default_rule is:
+    the licensed vehicle countable resource amount under default rule of which asset is which amount.
+
+query q_licensed_vehicle_resource_fair_market_value_threshold is:
+    the licensed vehicle resource fair market value threshold is which amount.
+
+query q_next_annual_household_resource_limit_amount is:
+    the next annual household resource limit amount of which household is which amount.
+
+query q_snap_household_resource_limit_base_amount is:
+    the snap household resource limit base amount is which amount.
+
+query q_snap_household_resource_limit_base_amount_with_elderly_or_disabled_member is:
+    the snap household resource limit base amount with elderly or disabled member is which amount.
+
+query q_statutory_household_resource_limit_base_amount is:
+    the statutory household resource limit base amount of which household is which amount.
+
+query q_vehicle_excluded_from_financial_resources_under_vehicle_exceptions is:
+    which asset is vehicle excluded from financial resources under vehicle exceptions.
+
+query q_vehicle_excluded_from_financial_resources_under_vehicle_exceptions is:
+    which asset is vehicle excluded from financial resources under vehicle exceptions.
+
+query q_vehicle_excluded_from_financial_resources_under_vehicle_exceptions is:
+    which asset is vehicle excluded from financial resources under vehicle exceptions.
+

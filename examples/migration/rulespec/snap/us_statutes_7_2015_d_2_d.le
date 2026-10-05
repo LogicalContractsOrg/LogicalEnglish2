@@ -1,0 +1,61 @@
+% 7 U.S.C. 2015(d)(2)(D)
+% RuleSpec module us:statutes/7/2015/d/2/D (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the treatment and rehabilitation program participation exemption of *a person* applies.
+    *a person* is person otherwise required to comply with paragraph 1 requirements; scenario element.
+    *a person* is regular participant in drug addiction or alcoholic treatment and rehabilitation program; scenario element.
+
+the knowledge base us_statutes_7_2015_d_2_d includes:
+
+
+% 7 U.S.C. 2015(d)(2)(D) — us:statutes/7/2015/d/2/D
+the text of "7 U.S.C. 2015(d)(2)(D)" is at "sources/us/statutes/7/2015/d/2/D.yaml".
+
+rule treatment_and_rehabilitation_program_participation_exemption_applies with provenance "7 U.S.C. 2015(d)(2)(D)":
+the treatment and rehabilitation program participation exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+        and the person is regular participant in drug addiction or alcoholic treatment and rehabilitation program.
+
+scenario regular_participant_in_treatment_and_rehabilitation_program_exemption_applies is, as stated in "sources/us/statutes/7/2015/d/2/D.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is regular participant in drug addiction or alcoholic treatment and rehabilitation program.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_treatment_and_rehabilitation_program_participation_exemption_applies expects answers ["the treatment and rehabilitation program participation exemption of person_1 applies"].
+
+scenario not_regular_participant_in_treatment_and_rehabilitation_program_no_exemption is, as stated in "sources/us/statutes/7/2015/d/2/D.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_treatment_and_rehabilitation_program_participation_exemption_applies expects answers [].
+
+scenario person_not_otherwise_required_has_no_exemption_under_this_branch is, as stated in "sources/us/statutes/7/2015/d/2/D.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is regular participant in drug addiction or alcoholic treatment and rehabilitation program.
+    q_treatment_and_rehabilitation_program_participation_exemption_applies expects answers [].
+
+query q_treatment_and_rehabilitation_program_participation_exemption_applies is:
+    the treatment and rehabilitation program participation exemption of which person applies.
+
+query q_treatment_and_rehabilitation_program_participation_exemption_applies is:
+    the treatment and rehabilitation program participation exemption of which person applies.
+
+query q_treatment_and_rehabilitation_program_participation_exemption_applies is:
+    the treatment and rehabilitation program participation exemption of which person applies.
+

@@ -1,0 +1,146 @@
+% 7 U.S.C. 2014(a)
+% RuleSpec module us:statutes/7/2014/a (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the household of *a person* meets social security act benefit criterion.
+    the household of *a person* meets qualifying general assistance benefit criterion.
+    the household of *a person* has snap participation basis from income or categorical benefits.
+    the each household member of *a person* receives benefits under state program funded under part_a title iv social security act; scenario element.
+    the each household member of *a person* receives supplemental security income benefits under title xvi social security act; scenario element.
+    the each household member of *a person* receives aid to aged blind or disabled under title i x xiv or xvi social security act; scenario element.
+    the each household member of *a person* receives benefits under state or local general assistance program; scenario element.
+    the state or local general assistance program of *a person* uses income criteria comparable to or more restrictive than subsection c 2; scenario element.
+    the state or local general assistance program of *a person* is not limited to one time emergency payments unavailable for more than one consecutive month; scenario element.
+    the household income and other financial resources of *a person* are substantial limiting factor in permitting more nutritious diet; scenario element.
+
+the knowledge base us_statutes_7_2014_a includes:
+
+
+% 7 U.S.C. 2014(a) — us:statutes/7/2014/a
+the text of "7 U.S.C. 2014(a)" is at "sources/us/statutes/7/2014/a.yaml".
+
+rule household_meets_social_security_act_benefit_criterion_1 with provenance "7 U.S.C. 2014(a)":
+the household of a person meets social security act benefit criterion if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the each household member of the person receives benefits under state program funded under part_a title iv social security act.
+
+rule household_meets_social_security_act_benefit_criterion_2 with provenance "7 U.S.C. 2014(a)":
+the household of a person meets social security act benefit criterion if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the each household member of the person receives supplemental security income benefits under title xvi social security act.
+
+rule household_meets_social_security_act_benefit_criterion_3 with provenance "7 U.S.C. 2014(a)":
+the household of a person meets social security act benefit criterion if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the each household member of the person receives aid to aged blind or disabled under title i x xiv or xvi social security act.
+
+rule household_meets_qualifying_general_assistance_benefit_criterion with provenance "7 U.S.C. 2014(a)":
+the household of a person meets qualifying general assistance benefit criterion if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the each household member of the person receives benefits under state or local general assistance program
+        and the state or local general assistance program of the person uses income criteria comparable to or more restrictive than subsection c 2
+        and the state or local general assistance program of the person is not limited to one time emergency payments unavailable for more than one consecutive month.
+
+rule household_has_snap_participation_basis_from_income_or_categorical_benefits_1 with provenance "7 U.S.C. 2014(a)":
+the household of a person has snap participation basis from income or categorical benefits if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household income and other financial resources of the person are substantial limiting factor in permitting more nutritious diet.
+
+rule household_has_snap_participation_basis_from_income_or_categorical_benefits_2 with provenance "7 U.S.C. 2014(a)":
+the household of a person has snap participation basis from income or categorical benefits if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household of the person meets social security act benefit criterion.
+
+rule household_has_snap_participation_basis_from_income_or_categorical_benefits_3 with provenance "7 U.S.C. 2014(a)":
+the household of a person has snap participation basis from income or categorical benefits if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household of the person meets qualifying general assistance benefit criterion.
+
+scenario no_income_or_categorical_basis is, as stated in "sources/us/statutes/7/2014/a.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2008-10-01.
+    q_household_has_snap_participation_basis_from_income_or_categorical_benefits expects answers [].
+    q_household_meets_qualifying_general_assistance_benefit_criterion expects answers [].
+    q_household_meets_social_security_act_benefit_criterion expects answers [].
+
+scenario substantial_limiting_factor_basis is, as stated in "sources/us/statutes/7/2014/a.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2008-10-01.
+    the household income and other financial resources of person_1 are substantial limiting factor in permitting more nutritious diet.
+    q_household_has_snap_participation_basis_from_income_or_categorical_benefits expects answers ["the household of person_1 has snap participation basis from income or categorical benefits"].
+    q_household_meets_qualifying_general_assistance_benefit_criterion expects answers [].
+    q_household_meets_social_security_act_benefit_criterion expects answers [].
+
+scenario supplemental_security_income_categorical_basis is, as stated in "sources/us/statutes/7/2014/a.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2008-10-01.
+    the each household member of person_1 receives supplemental security income benefits under title xvi social security act.
+    q_household_has_snap_participation_basis_from_income_or_categorical_benefits expects answers ["the household of person_1 has snap participation basis from income or categorical benefits"].
+    q_household_meets_qualifying_general_assistance_benefit_criterion expects answers [].
+    q_household_meets_social_security_act_benefit_criterion expects answers ["the household of person_1 meets social security act benefit criterion"].
+
+scenario qualifying_general_assistance_categorical_basis is, as stated in "sources/us/statutes/7/2014/a.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2008-10-01.
+    the each household member of person_1 receives benefits under state or local general assistance program.
+    the state or local general assistance program of person_1 is not limited to one time emergency payments unavailable for more than one consecutive month.
+    the state or local general assistance program of person_1 uses income criteria comparable to or more restrictive than subsection c 2.
+    q_household_has_snap_participation_basis_from_income_or_categorical_benefits expects answers ["the household of person_1 has snap participation basis from income or categorical benefits"].
+    q_household_meets_qualifying_general_assistance_benefit_criterion expects answers ["the household of person_1 meets qualifying general assistance benefit criterion"].
+    q_household_meets_social_security_act_benefit_criterion expects answers [].
+
+query q_household_has_snap_participation_basis_from_income_or_categorical_benefits is:
+    the household of which person has snap participation basis from income or categorical benefits.
+
+query q_household_has_snap_participation_basis_from_income_or_categorical_benefits is:
+    the household of which person has snap participation basis from income or categorical benefits.
+
+query q_household_has_snap_participation_basis_from_income_or_categorical_benefits is:
+    the household of which person has snap participation basis from income or categorical benefits.
+
+query q_household_has_snap_participation_basis_from_income_or_categorical_benefits is:
+    the household of which person has snap participation basis from income or categorical benefits.
+
+query q_household_meets_qualifying_general_assistance_benefit_criterion is:
+    the household of which person meets qualifying general assistance benefit criterion.
+
+query q_household_meets_qualifying_general_assistance_benefit_criterion is:
+    the household of which person meets qualifying general assistance benefit criterion.
+
+query q_household_meets_qualifying_general_assistance_benefit_criterion is:
+    the household of which person meets qualifying general assistance benefit criterion.
+
+query q_household_meets_qualifying_general_assistance_benefit_criterion is:
+    the household of which person meets qualifying general assistance benefit criterion.
+
+query q_household_meets_social_security_act_benefit_criterion is:
+    the household of which person meets social security act benefit criterion.
+
+query q_household_meets_social_security_act_benefit_criterion is:
+    the household of which person meets social security act benefit criterion.
+
+query q_household_meets_social_security_act_benefit_criterion is:
+    the household of which person meets social security act benefit criterion.
+
+query q_household_meets_social_security_act_benefit_criterion is:
+    the household of which person meets social security act benefit criterion.
+

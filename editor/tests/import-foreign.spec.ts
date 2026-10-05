@@ -101,6 +101,8 @@ test.describe('Opening another system\'s file', () => {
         await page.waitForSelector('.monaco-editor', { timeout: 30000 });
         await page.evaluate((p: string) => (window as any).monaco.editor.getModels()[0].setValue(p), PROG);
         await page.evaluate(() => (document.getElementById('menu-export') as HTMLElement).click());
+        // several exporters apply (LegalRuleML, Axiom RuleSpec): the editor lists them first
+        await expect(page.locator('#export-list, #export-refused').first()).toBeVisible({ timeout: 60000 });
         if (await page.locator('#export-list').count()) {
             await page.locator('#export-list div', { hasText: /^LegalRuleML/ }).click();
         }

@@ -1,0 +1,92 @@
+- name: other_dependent_positive_path
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+    us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: false
+    us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: false
+    us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+    us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: true
+    us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+    us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: true
+  output:
+    us:statutes/26/24/h#ctc_child_ssn_requirement_satisfied_under_subsection_h: holds
+    us:statutes/26/24/h#ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h: not_holds
+    us:statutes/26/24/h#ctc_qualifying_child_under_subsection_h: not_holds
+    us:statutes/26/24/h#ctc_other_dependent_under_subsection_h: holds
+- name: other_dependent_noncitizen_exception_path
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+    us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: false
+    us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: true
+    us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+    us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: true
+    us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+    us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: true
+  output:
+    us:statutes/26/24/h#ctc_other_dependent_under_subsection_h: not_holds
+- name: qualifying_child_with_required_social_security_numbers
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+    us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: true
+    us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: false
+    us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+    us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: true
+    us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+    us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: true
+  output:
+    us:statutes/26/24/h#ctc_child_ssn_requirement_satisfied_under_subsection_h: holds
+    us:statutes/26/24/h#ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h: not_holds
+    us:statutes/26/24/h#ctc_qualifying_child_under_subsection_h: holds
+    us:statutes/26/24/h#ctc_other_dependent_under_subsection_h: not_holds
+- name: joint_return_aggregate_credit_and_refundable_cap
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24/h#input.filing_status: 1
+    us:statutes/26/24/h#relation.dependent_of_tax_unit:
+    - us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+      us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: true
+      us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: false
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: true
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: true
+    - us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+      us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: false
+      us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: false
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: true
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: true
+    - us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+      us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: true
+      us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: false
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: false
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: false
+  output:
+    us:statutes/26/24/h#ctc_child_amount_under_subsection_h: 2200
+    us:statutes/26/24/h#ctc_joint_phase_out_threshold_under_subsection_h: 400000
+    us:statutes/26/24/h#ctc_other_phase_out_threshold_under_subsection_h: 200000
+    us:statutes/26/24/h#ctc_other_dependent_amount_under_subsection_h: 500
+    us:statutes/26/24/h#ctc_refundable_per_child_cap_under_subsection_h: 1400
+    us:statutes/26/24/h#ctc_refundable_phase_in_threshold_under_subsection_h: 2500
+    us:statutes/26/24/h#ctc_qualifying_children_under_subsection_h: 1
+    us:statutes/26/24/h#ctc_other_dependents_under_subsection_h: 2
+    us:statutes/26/24/h#ctc_phase_out_threshold_under_subsection_h: 400000
+    us:statutes/26/24/h#ctc_maximum_before_phase_out_under_subsection_h: 3200
+    us:statutes/26/24/h#ctc_refundable_maximum_under_subsection_h: 1400

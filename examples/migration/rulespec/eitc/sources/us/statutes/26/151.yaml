@@ -1,0 +1,557 @@
+format: rulespec/v1
+imports:
+  - us:statutes/26/911/a#section_911_amount_excluded_from_gross_income
+  - us:statutes/26/931#amount_excluded_from_gross_income_under_section_931
+  - us:statutes/26/933#income_excluded_from_gross_income_under_section_933
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/151
+  deferred_outputs:
+  - output: us:statutes/26/151#exemption_phaseout_applicable_percentage
+    blocked_by:
+    - us:statutes/26/68/b#applicable_amount
+    reason: >-
+      Current section 151(d)(3) continues to refer to the applicable amount in
+      effect under section 68(b), but section 68(b), as amended for taxable years
+      beginning after December 31, 2025, no longer defines that applicable amount.
+      The 2026 RuleSpec therefore leaves this phaseout percentage non-executable
+      rather than preserving a local cross-reference placeholder.
+    source_values:
+    - us:statutes/26/151#exemption_phaseout_rate_per_increment
+    - us:statutes/26/151#exemption_phaseout_increment
+    - us:statutes/26/151#exemption_phaseout_increment_separate
+    - us:statutes/26/151#exemption_phaseout_maximum_percentage
+  summary: |-
+    (a) Allowance of deductions In the case of an individual, the exemptions provided by this section shall be allowed as deductions in computing taxable income.
+
+    (b) Taxpayer and spouse An exemption of the exemption amount for the taxpayer; and an additional exemption of the exemption amount for the spouse of the taxpayer if a joint return is not made by the taxpayer and his spouse, and if the spouse, for the calendar year in which the taxable year of the taxpayer begins, has no gross income and is not the dependent of another taxpayer.
+
+    (c) Additional exemption for dependents An exemption of the exemption amount for each individual who is a dependent (as defined in section 152) of the taxpayer for the taxable year.
+
+    (d) Exemption amount For purposes of this section— (1) In general Except as otherwise provided in this subsection, the term “exemption amount” means $2,000. (2) Exemption amount disallowed in case of certain dependents In the case of an individual with respect to whom a deduction under this section is allowable to another taxpayer for a taxable year beginning in the calendar year in which the individual’s taxable year begins, the exemption amount applicable to such individual for such individual’s taxable year shall be zero. (3) Phaseout (A) In general In the case of any taxpayer whose adjusted gross income for the taxable year exceeds the applicable amount in effect under section 68(b), the exemption amount shall be reduced by the applicable percentage. (B) Applicable percentage For purposes of subparagraph (A), the term “applicable percentage” means 2 percentage points for each $2,500 (or fraction thereof) by which the taxpayer’s adjusted gross income for the taxable year exceeds the applicable amount in effect under section 68(b). In the case of a married individual filing a separate return, the preceding sentence shall be applied by substituting “$1,250” for “$2,500”. In no event shall the applicable percentage exceed 100 percent. (C) Coordination with other provisions The provisions of this paragraph shall not apply for purposes of determining whether a deduction under this section with respect to any individual is allowable to another taxpayer for any taxable year. (4) Inflation adjustment Except as provided in paragraph (5), in the case of any taxable year beginning in a calendar year after 1989, the dollar amount contained in paragraph (1) shall be increased by an amount equal to— (A) such dollar amount, multiplied by (B) the cost-of-living adjustment determined under section 1(f)(3) for the calendar year in which the taxable year begins, by substituting “calendar year 1988” for “calendar year 2016” in subparagraph (A)(ii) thereof. (5) Special rules for taxable years beginning after 2017 In the case of a taxable year beginning after December 31, 2017 — (A) Exemption amount The term “exemption amount” means zero. (B) References For purposes of any other provision of this title, the reduction of the exemption amount to zero under subparagraph (A) shall not be taken into account in determining whether a deduction is allowed or allowable, or whether a taxpayer is entitled to a deduction, under this section. (C) Deduction for seniors (i) In general In the case of a taxable year beginning before January 1, 2029 , there shall be allowed a deduction in an amount equal to $6,000 for each qualified individual with respect to the taxpayer. (ii) Qualified individual For purposes of clause (i), the term “qualified individual” means— (I) the taxpayer, if the taxpayer has attained age 65 before the close of the taxable year, and (II) in the case of a joint return, the taxpayer’s spouse, if such spouse has attained age 65 before the close of the taxable year. (iii) Limitation based on modified adjusted gross income (I) In general In the case of any taxpayer for any taxable year, the $6,000 amount in clause (i) shall be reduced (but not below zero) by 6 percent of so much of the taxpayer’s modified adjusted gross income as exceeds $75,000 ($150,000 in the case of a joint return). (II) Modified adjusted gross income For purposes of this clause, the term “modified adjusted gross income” means the adjusted gross income of the taxpayer for the taxable year increased by any amount excluded from gross income under section 911, 931, or 933. (iv) Social security number required (I) In general Clause (i) shall not apply with respect to a qualified individual unless the taxpayer includes such qualified individual’s social security number on the return of tax for the taxable year. (II) Social security number For purposes of subclause (I), the term “social security number” has the meaning given such term in section 24(h)(7). (v) Married individuals If the taxpayer is a married individual (within the meaning of section 7703), this subparagraph shall apply only if the taxpayer and the taxpayer’s spouse file a joint return for the taxable year.
+
+    (e) Identifying information required No exemption shall be allowed under this section with respect to any individual unless the TIN of such individual is included on the return claiming the exemption.
+rules:
+  - name: exemption_individual_of_tax_unit
+    kind: data_relation
+    data_relation:
+      predicate: exemption_individual_of_tax_unit
+      arity: 2
+      arguments:
+        - TaxUnit
+        - Person
+
+  - name: senior_deduction_individual_of_tax_unit
+    kind: data_relation
+    data_relation:
+      predicate: senior_deduction_individual_of_tax_unit
+      arity: 2
+      arguments:
+        - TaxUnit
+        - Person
+
+  - name: statutory_exemption_amount_base
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: the term “exemption amount” means $2,000
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          2000
+
+  - name: exemption_phaseout_rate_per_increment
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 151(d)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: the term “applicable percentage” means 2 percentage points for each $2,500 (or fraction thereof)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          0.02
+
+  - name: exemption_phaseout_increment
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: for each $2,500 (or fraction thereof)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          2500
+
+  - name: exemption_phaseout_increment_separate
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: In the case of a married individual filing a separate return, the preceding sentence shall be applied by substituting “$1,250” for “$2,500”.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          1250
+
+  - name: exemption_phaseout_maximum_percentage
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 151(d)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: In no event shall the applicable percentage exceed 100 percent.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          1
+
+  - name: post_2017_exemption_amount
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(5)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: In the case of a taxable year beginning after December 31, 2017 — (A) Exemption amount The term “exemption amount” means zero.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          0
+
+  - name: senior_deduction_base_amount
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(5)(C)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: there shall be allowed a deduction in an amount equal to $6,000 for each qualified individual
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          6000
+
+  - name: senior_deduction_age_threshold
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 151(d)(5)(C)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: has attained age 65 before the close of the taxable year
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          65
+
+  - name: senior_deduction_phaseout_rate
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 151(d)(5)(C)(iii)(I)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: shall be reduced (but not below zero) by 6 percent
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          0.06
+
+  - name: senior_deduction_phaseout_threshold_other
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(5)(C)(iii)(I)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: exceeds $75,000 ($150,000 in the case of a joint return)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          75000
+
+  - name: senior_deduction_phaseout_threshold_joint
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 151(d)(5)(C)(iii)(I)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: $150,000 in the case of a joint return
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          150000
+
+  - name: exemption_amount
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 151(d)(1), 151(d)(5)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: default
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: Except as otherwise provided in this subsection, the term “exemption amount” means $2,000.
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: In the case of a taxable year beginning after December 31, 2017 — (A) Exemption amount The term “exemption amount” means zero.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if taxable_year_begins_after_exemption_amount_zero_start:
+              post_2017_exemption_amount
+          else:
+              statutory_exemption_amount_base
+
+
+  - name: exemption_individual_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 151(b), 151(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: An exemption of the exemption amount for the taxpayer; and an additional exemption of the exemption amount for the spouse of the taxpayer if a joint return is not made by the taxpayer and his spouse, and if the spouse ... has no gross income and is not the dependent of another taxpayer.
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: No exemption shall be allowed under this section with respect to any individual unless the TIN of such individual is included on the return claiming the exemption.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          tin_included_on_return_claiming_exemption
+          and (
+              is_taxpayer
+              or (
+                  is_spouse_of_taxpayer
+                  and not (filing_status == 1)
+                  and spouse_has_no_gross_income_for_calendar_year
+                  and not spouse_is_dependent_of_another_taxpayer
+              )
+          )
+
+  - name: section_151_exemption_deduction
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 151(a), 151(b), 151(c), 151(d)(5)(A), 151(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: the exemptions provided by this section shall be allowed as deductions in computing taxable income
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#exemption_amount
+              output: exemption_amount
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#exemption_individual_eligible
+              output: exemption_individual_eligible
+              hash: sha256:local
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if taxpayer_is_individual:
+              exemption_amount * count_where(exemption_individual_of_tax_unit, exemption_individual_eligible)
+          else:
+              0
+
+  - name: senior_deduction_qualified_individual
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 151(d)(5)(C)(ii), 151(d)(5)(C)(iv)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: the term “qualified individual” means— (I) the taxpayer, if the taxpayer has attained age 65 before the close of the taxable year, and (II) in the case of a joint return, the taxpayer’s spouse, if such spouse has attained age 65 before the close of the taxable year.
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: Clause (i) shall not apply with respect to a qualified individual unless the taxpayer includes such qualified individual’s social security number on the return of tax for the taxable year.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          qualified_individual_social_security_number_included_on_return
+          and age >= senior_deduction_age_threshold
+          and (
+              is_taxpayer
+              or (
+                  is_spouse_of_taxpayer
+                  and (filing_status == 1)
+              )
+          )
+
+  - name: senior_deduction_modified_adjusted_gross_income
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 151(d)(5)(C)(iii)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: modified adjusted gross income means the adjusted gross income for the taxable year increased by any amount excluded from gross income under section 911, 931, or 933.
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/911/a#section_911_amount_excluded_from_gross_income
+              output: section_911_amount_excluded_from_gross_income
+              hash: sha256:b128d251a0f74fc46a27e516e864e53c8d25442f5b419c7bb3bb4b607542d725
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/931#amount_excluded_from_gross_income_under_section_931
+              output: amount_excluded_from_gross_income_under_section_931
+              hash: sha256:1fa430ea6a413cdaea822ffd05121d78a82954e52929f5a8e48a80c85249c295
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/933#income_excluded_from_gross_income_under_section_933
+              output: income_excluded_from_gross_income_under_section_933
+              hash: sha256:e9b939801362efae757d1886823555c38a5f4ea828538308fe531f3619adc72f
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(
+              0,
+              adjusted_gross_income
+              + section_911_amount_excluded_from_gross_income
+              + amount_excluded_from_gross_income_under_section_931
+              + income_excluded_from_gross_income_under_section_933
+          )
+
+  - name: senior_deduction_phaseout_threshold
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 151(d)(5)(C)(iii)(I)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: exceeds $75,000 ($150,000 in the case of a joint return)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if filing_status == 1:
+              senior_deduction_phaseout_threshold_joint
+          else:
+              senior_deduction_phaseout_threshold_other
+
+  - name: senior_deduction_amount_per_qualified_individual
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(iii)(I)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: the $6,000 amount in clause (i) shall be reduced (but not below zero) by 6 percent of so much of the taxpayer’s modified adjusted gross income as exceeds $75,000 ($150,000 in the case of a joint return)
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#senior_deduction_modified_adjusted_gross_income
+              output: senior_deduction_modified_adjusted_gross_income
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#senior_deduction_phaseout_threshold
+              output: senior_deduction_phaseout_threshold
+              hash: sha256:local
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(
+              0,
+              senior_deduction_base_amount
+              - (
+                  senior_deduction_phaseout_rate
+                  * max(
+                      0,
+                      senior_deduction_modified_adjusted_gross_income
+                      - senior_deduction_phaseout_threshold
+                  )
+              )
+          )
+
+  - name: senior_deduction_eligible
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(v)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: In the case of a taxable year beginning before January 1, 2029
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: If the taxpayer is a married individual (within the meaning of section 7703), this subparagraph shall apply only if the taxpayer and the taxpayer’s spouse file a joint return for the taxable year.
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          taxpayer_is_individual
+          and taxable_year_begins_before_senior_deduction_termination
+          and (
+              not (filing_status == 1 or filing_status == 2)
+              or (filing_status == 1)
+          )
+
+  - name: senior_deduction
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 151(d)(5)(C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/151
+              excerpt: there shall be allowed a deduction in an amount equal to $6,000 for each qualified individual with respect to the taxpayer
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#senior_deduction_eligible
+              output: senior_deduction_eligible
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#senior_deduction_amount_per_qualified_individual
+              output: senior_deduction_amount_per_qualified_individual
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#senior_deduction_qualified_individual
+              output: senior_deduction_qualified_individual
+              hash: sha256:local
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if senior_deduction_eligible:
+              senior_deduction_amount_per_qualified_individual
+              * count_where(senior_deduction_individual_of_tax_unit, senior_deduction_qualified_individual)
+          else:
+              0

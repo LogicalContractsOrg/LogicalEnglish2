@@ -1,0 +1,245 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382f/a
+  summary: |-
+    Whenever subchapter II benefit amounts are increased effective with a month, each listed SSI dollar amount "shall be increased" by any prior-rounding excess and then "further increased" by the applicable percentage, "rounded, when not a multiple of $12, to the next lower multiple of $12."
+rules:
+  - name: annual_rounding_multiple
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382f(a)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "multiple of $12"
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          12
+
+  - name: prior_rounding_carryover_increase
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "the amount which would have been in effect for such month ... but for the rounding ... exceeds ... the amount in effect"
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          max(0, unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding - dollar_amount_in_effect_for_month)
+
+  - name: amount_after_paragraph_1_increase
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "shall be increased by the amount (if any)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#prior_rounding_carryover_increase
+              output: prior_rounding_carryover_increase
+              hash: sha256:local
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          dollar_amount_in_effect_for_month + prior_rounding_carryover_increase
+
+  - name: subsection_a_applicable_increase_percentage
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Rate
+    period: Month
+    source: 42 USC 1382f(a)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "the same percentage ... or, if greater ... the percentage ... on the basis of the CPI increase percentage"
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          if subchapter_ii_increase_was_determined_on_wage_increase_percentage: max(subchapter_ii_benefit_increase_percentage_for_month, cpi_basis_subchapter_ii_increase_percentage_for_month) else: subchapter_ii_benefit_increase_percentage_for_month
+
+  - name: amount_after_subsection_a_increase
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "shall be further increased ... and rounded ... to the next lower multiple of $12"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#amount_after_paragraph_1_increase
+              output: amount_after_paragraph_1_increase
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage
+              output: subsection_a_applicable_increase_percentage
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#annual_rounding_multiple
+              output: annual_rounding_multiple
+              hash: sha256:local
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          floor((amount_after_paragraph_1_increase * (1 + subsection_a_applicable_increase_percentage)) / annual_rounding_multiple) * annual_rounding_multiple
+
+  - name: prior_rounding_carryover_increase_for_section_1382_b_1_amount
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "subsections ... (b)(1) ... of section 1382 ... the amount which would have been in effect ... but for the rounding ... exceeds ... the amount in effect"
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          max(0, unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding - section_1382_b_1_dollar_amount_in_effect_for_month)
+
+  - name: amount_determined_under_section_1382f_for_section_1382_b_1
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "subsections ... (b)(1) ... of section 1382 ... shall be further increased ... and rounded ... to the next lower multiple of $12"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_1_amount
+              output: prior_rounding_carryover_increase_for_section_1382_b_1_amount
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage
+              output: subsection_a_applicable_increase_percentage
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#annual_rounding_multiple
+              output: annual_rounding_multiple
+              hash: sha256:local
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          floor(((section_1382_b_1_dollar_amount_in_effect_for_month + prior_rounding_carryover_increase_for_section_1382_b_1_amount) * (1 + subsection_a_applicable_increase_percentage)) / annual_rounding_multiple) * annual_rounding_multiple
+
+  - name: prior_rounding_carryover_increase_for_section_1382_b_2_amount
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "subsections ... (b)(2) of section 1382 ... the amount which would have been in effect ... but for the rounding ... exceeds ... the amount in effect"
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          max(0, unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding - section_1382_b_2_dollar_amount_in_effect_for_month)
+
+  - name: amount_determined_under_section_1382f_for_section_1382_b_2
+    kind: derived
+    entity: StatutoryDollarAmount
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382f(a)(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382f/a
+              excerpt: "subsections ... (b)(2) of section 1382 ... shall be further increased ... and rounded ... to the next lower multiple of $12"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_2_amount
+              output: prior_rounding_carryover_increase_for_section_1382_b_2_amount
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage
+              output: subsection_a_applicable_increase_percentage
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#annual_rounding_multiple
+              output: annual_rounding_multiple
+              hash: sha256:local
+    versions:
+      - effective_from: '1975-01-01'
+        formula: |-
+          floor(((section_1382_b_2_dollar_amount_in_effect_for_month + prior_rounding_carryover_increase_for_section_1382_b_2_amount) * (1 + subsection_a_applicable_increase_percentage)) / annual_rounding_multiple) * annual_rounding_multiple

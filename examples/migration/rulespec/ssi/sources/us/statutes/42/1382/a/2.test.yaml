@@ -1,0 +1,97 @@
+- name: aged_citizen_with_eligible_spouse_income_and_resources_within_limits_qualifies
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 65
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: true
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+    us:statutes/42/1382f/a#input.dollar_amount_in_effect_for_month: 3000
+    us:statutes/42/1382f/a#input.unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding: 3000
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+    us:statutes/42/1382/a/2#input.individual_has_eligible_spouse: true
+    us:statutes/42/1382/a/2#input.combined_annual_income_other_than_excluded_pursuant_to_section_1382a_b: 3000
+    us:statutes/42/1382/a/2#input.combined_resources_other_than_excluded_pursuant_to_section_1382b_a: 3000
+  output:
+    us:statutes/42/1382/a/2#applicable_couple_annual_income_limit: 3000
+    us:statutes/42/1382/a/2#eligible_individual_with_eligible_spouse: holds
+- name: no_eligible_spouse_does_not_qualify_under_couple_branch
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 65
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: true
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+    us:statutes/42/1382f/a#input.dollar_amount_in_effect_for_month: 3000
+    us:statutes/42/1382f/a#input.unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding: 3000
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+    us:statutes/42/1382/a/2#input.individual_has_eligible_spouse: false
+    us:statutes/42/1382/a/2#input.combined_annual_income_other_than_excluded_pursuant_to_section_1382a_b: 3000
+    us:statutes/42/1382/a/2#input.combined_resources_other_than_excluded_pursuant_to_section_1382b_a: 3000
+  output:
+    us:statutes/42/1382/a/2#eligible_individual_with_eligible_spouse: not_holds
+- name: combined_income_above_applicable_couple_limit_does_not_qualify
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 65
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: true
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+    us:statutes/42/1382f/a#input.dollar_amount_in_effect_for_month: 3000
+    us:statutes/42/1382f/a#input.unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding: 3000
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+    us:statutes/42/1382/a/2#input.individual_has_eligible_spouse: true
+    us:statutes/42/1382/a/2#input.combined_annual_income_other_than_excluded_pursuant_to_section_1382a_b: 3001
+    us:statutes/42/1382/a/2#input.combined_resources_other_than_excluded_pursuant_to_section_1382b_a: 3000
+  output:
+    us:statutes/42/1382/a/2#eligible_individual_with_eligible_spouse: not_holds
+- name: combined_resources_above_paragraph_3_amount_does_not_qualify
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 65
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: true
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+    us:statutes/42/1382f/a#input.dollar_amount_in_effect_for_month: 3000
+    us:statutes/42/1382f/a#input.unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding: 3000
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0
+    us:statutes/42/1382/a/2#input.individual_has_eligible_spouse: true
+    us:statutes/42/1382/a/2#input.combined_annual_income_other_than_excluded_pursuant_to_section_1382a_b: 3000
+    us:statutes/42/1382/a/2#input.combined_resources_other_than_excluded_pursuant_to_section_1382b_a: 3001
+  output:
+    us:statutes/42/1382/a/2#eligible_individual_with_eligible_spouse: not_holds

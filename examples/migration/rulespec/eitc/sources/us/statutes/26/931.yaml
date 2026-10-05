@@ -1,0 +1,162 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/931
+  summary: |-
+    (a) General rule In the case of an individual who is a bona fide resident of a specified possession during the entire taxable year, gross income shall not include— (1) income derived from sources within any specified possession, and (2) income effectively connected with the conduct of a trade or business by such individual within any specified possession.
+
+    (b) Deductions, etc. allocable to excluded amounts not allowable An individual shall not be allowed— (1) as a deduction from gross income any deductions (other than the deduction under section 151, relating to personal exemptions), or (2) any credit, properly allocable or chargeable against amounts excluded from gross income under this section.
+
+    (c) Specified possession For purposes of this section, the term “specified possession” means Guam, American Samoa, and the Northern Mariana Islands.
+
+    (d) Employees of the United States Amounts paid for services performed as an employee of the United States (or any agency thereof) shall be treated as not described in paragraph (1) or (2) of subsection (a).
+rules:
+  - name: possession_is_specified_possession
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 931(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "the term “specified possession” means Guam, American Samoa, and the Northern Mariana Islands"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          possession_is_guam
+          or possession_is_american_samoa
+          or possession_is_northern_mariana_islands
+
+  - name: amount_excluded_from_gross_income_under_section_931
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 931(a), 931(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "In the case of an individual who is a bona fide resident of a specified possession during the entire taxable year, gross income shall not include— (1) income derived from sources within any specified possession, and (2) income effectively connected with the conduct of a trade or business by such individual within any specified possession."
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "Amounts paid for services performed as an employee of the United States (or any agency thereof) shall be treated as not described in paragraph (1) or (2) of subsection (a)."
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          if bona_fide_resident_of_specified_possession_during_entire_taxable_year:
+              max(
+                  0,
+                  income_derived_from_sources_within_specified_possessions
+                  + income_effectively_connected_with_trade_or_business_within_specified_possessions
+                  - amounts_paid_for_services_as_employee_of_united_states_or_agency
+              )
+          else:
+              0
+
+  - name: section_931_disallowed_deductions_excluding_section_151
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 931(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "An individual shall not be allowed— (1) as a deduction from gross income any deductions (other than the deduction under section 151, relating to personal exemptions) ... properly allocable or chargeable against amounts excluded from gross income under this section."
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          min(
+              max(0, deductions_other_than_section_151_before_section_931_denial),
+              max(0, deductions_properly_allocable_or_chargeable_to_amounts_excluded_under_section_931)
+          )
+
+  - name: deductions_other_than_section_151_allowed_after_section_931
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 931(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "An individual shall not be allowed— (1) as a deduction from gross income any deductions (other than the deduction under section 151, relating to personal exemptions) ... properly allocable or chargeable against amounts excluded from gross income under this section."
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          max(
+              0,
+              deductions_other_than_section_151_before_section_931_denial
+              - section_931_disallowed_deductions_excluding_section_151
+          )
+
+  - name: section_931_disallowed_credits
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 931(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "any credit properly allocable or chargeable against amounts excluded from gross income under this section shall not be allowed."
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          min(
+              max(0, credits_before_section_931_denial),
+              max(0, credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_931)
+          )
+
+  - name: credits_allowed_after_section_931
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 931(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/931
+              excerpt: "any credit properly allocable or chargeable against amounts excluded from gross income under this section shall not be allowed."
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          max(
+              0,
+              credits_before_section_931_denial
+              - section_931_disallowed_credits
+          )

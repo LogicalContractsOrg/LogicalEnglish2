@@ -838,7 +838,9 @@ resolve_resource(Resource, Base, Kind, Id) :-
     (   sub_atom(Full, _, 3, 0, '.pl')
     ->  ( is_url(Full) -> Kind = pl_url(Full) ; Kind = pl_file(Full) ),
         Id = Full
-    ;   atom_concat(Full, '.le', WithExt),
+    ;   (   sub_atom(Full, _, 3, 0, '.le') -> WithExt = Full    % `temporal.le`, as language.md §14 allows
+        ;   atom_concat(Full, '.le', WithExt)
+        ),
         ( is_url(Full) -> Kind = le_url(WithExt) ; Kind = le_file(WithExt) ),
         Id = WithExt
     ).
@@ -2203,9 +2205,12 @@ iso_date_atom(Y, M, D, Atom) :-
 %
 %   Renders a number using the active language's decimal separator (English:
 %   '1.5'; Portuguese and friends: '1,5'). No thousands grouping is added, in
-%   either language, mirroring the previous English behavior.
+%   either language, mirroring the previous English behavior. A float whose
+%   shortest digits need more than 15 significant ones is the noise of binary
+%   arithmetic (386.5 * 0.3 is 115.94999999999999): it is written with 15,
+%   as a spreadsheet shows it (115.95).
 number_locale_atom(N, Atom) :-
-    atom_number(Atom0, N),
+    float_digits_atom(N, Atom0),
     (   le_i18n:le_active_language(Lang),
         Lang \== en,
         catch(le_i18n:language_param(Lang, decimal_sep, Dec), _, fail),
@@ -2215,6 +2220,30 @@ number_locale_atom(N, Atom) :-
         atomic_list_concat(Parts, Dec, Atom)
     ;   Atom = Atom0
     ).
+
+float_digits_atom(N, Atom) :-
+    atom_number(Atom0, N),
+    (   float(N),
+        format(atom(A150), '~15g', [N]),
+        \+ sub_atom(A150, _, _, _, e),
+        ( sub_atom(A150, _, _, _, '.') -> A15 = A150 ; atom_concat(A150, '.0', A15) ),
+        atom_length(A15, L15), atom_length(Atom0, L0), L15 < L0,
+        significant_digits(A15, S), S =< 12,
+        catch(atom_number(A15, F15), _, fail), F15 =\= N
+    ->  Atom = A15
+    ;   Atom = Atom0
+    ).
+
+significant_digits(A, S) :-
+    atom_codes(A, Cs0),
+    include(digit_code, Cs0, Ds0),
+    drop_leading_zeros(Ds0, Ds),
+    length(Ds, S).
+
+digit_code(C) :- code_type(C, digit).
+
+drop_leading_zeros([0'0|T], Ds) :- !, drop_leading_zeros(T, Ds).
+drop_leading_zeros(Ds, Ds).
 
 %!  item_to_instance(+KBmodule:atom, +Head:term, -WordsAndVars:list) is det.
 %
@@ -3159,10 +3188,23 @@ normalize_string(string(S, _), N) :- !, normalize_string(S, N).
 normalize_string(S, N) :-
     (   number(S) -> atom_string(S, N)
     ;   (atom(S) ; string(S)) ->  
-        split_string(S, "_- ", "_- ", Words),
+        split_string(S, "_- ", "_- ", Words0),
+        maplist(same_number_word, Words0, Words),
         atomic_list_concat(Words, ' ', Atom),
         atom_string(Atom, N)
     ;   N = S
+    ).
+
+%   A number in an answer is compared as a number: 30 and 30.0 are one
+%   answer, as are 1.5 and 1.50 (a translated program computes in floats
+%   what its source computed in exact decimals).
+same_number_word(W0, W) :-
+    (   catch(number_string(X, W0), _, fail)
+    ->  (   float(X), X =:= truncate(X), abs(X) < 1.0e15
+        ->  I is truncate(X), number_string(I, W)
+        ;   number_string(X, W)
+        )
+    ;   W = W0
     ).
 %!  run_one_test(+KBmodule:atom, +Test:term, -Result:term) is det.
 %

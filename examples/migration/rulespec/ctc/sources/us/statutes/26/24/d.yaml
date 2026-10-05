@@ -1,0 +1,330 @@
+format: rulespec/v1
+imports:
+  - us:statutes/26/32/c/2
+  - us:statutes/26/112
+  - us:statutes/26/32
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/24
+  summary: |-
+    (d) Portion of credit refundable (1) In general The aggregate credits allowed to a taxpayer under subpart C shall be increased by the lesser of— (A) the credit which would be allowed under this section without regard to this subsection and the limitation under section 26(a) or (B) the amount by which the aggregate amount of credits allowed by this subpart (determined without regard to this subsection) would increase if the limitation imposed by section 26(a) were increased by the greater of— (i) 15 percent of so much of the taxpayer’s earned income (within the meaning of section 32) which is taken into account in computing taxable income for the taxable year as exceeds $3,000, or (ii) in the case of a taxpayer with 3 or more qualifying children, the excess (if any) of— (I) the taxpayer’s social security taxes for the taxable year, over (II) the credit allowed under section 32 for the taxable year. The amount of the credit allowed under this subsection shall not be treated as a credit allowed under this subpart and shall reduce the amount of credit otherwise allowable under subsection (a) without regard to section 26(a). For purposes of subparagraph (B), any amount excluded from gross income by reason of section 112 shall be treated as earned income which is taken into account in computing taxable income for the taxable year. (2) Social security taxes For purposes of paragraph (1)— (A) In general The term “social security taxes” means, with respect to any taxpayer for any taxable year— (i) the amount of the taxes imposed by sections 3101 and 3201(a) on amounts received by the taxpayer during the calendar year in which the taxable year begins, (ii) 50 percent of the taxes imposed by section 1401 on the self-employment income of the taxpayer for the taxable year, and (iii) 50 percent of the taxes imposed by section 3211(a) on amounts received by the taxpayer during the calendar year in which the taxable year begins. (B) Coordination with special refund of social security taxes The term “social security taxes” shall not include any taxes to the extent the taxpayer is entitled to a special refund of such taxes under section 6413(c). (C) Special rule Any amounts paid pursuant to an agreement under section 3121( l ) (relating to agreements entered into by American employers with respect to foreign affiliates) which are equivalent to the taxes referred to in subparagraph (A)(i) shall be treated as taxes referred to in such subparagraph. (3) Exception for taxpayers excluding foreign earned income Paragraph (1) shall not apply to any taxpayer for any taxable year if such taxpayer elects to exclude any amount from gross income under section 911 for such taxable year.
+rules:
+  - name: ctc_refundable_phase_in_rate
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 24(d)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: 15 percent of so much of the taxpayer’s earned income
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          0.15
+
+  - name: ctc_refundable_phase_in_threshold
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 26 USC 24(d)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: as exceeds $3,000
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          3000
+
+  - name: ctc_refundable_min_children_for_ss_excess
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 24(d)(1)(B)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: in the case of a taxpayer with 3 or more qualifying children
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          3
+
+  - name: ctc_social_security_half_share
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 24(d)(2)(A)(ii)-(iii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/24
+              text: 50 percent of the taxes imposed by section 1401 ... and 50 percent of the taxes imposed by section 3211(a)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          0.50
+
+  - name: ctc_phase_in_earned_income_base
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/32/c/2#earned_income_before_section_112_election
+              output: earned_income_before_section_112_election
+              hash: sha256:67e13e5e77ecd7b4a7c5c03294843763c666830aabb567f1c15a22d6890c1408
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112
+              output: amount_excluded_from_gross_income_by_reason_of_section_112
+              hash: sha256:a7549fc6774224d725eaf654655707e7e97aecfa9fcebf378918778482f67512
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: earned income ... which is taken into account in computing taxable income ... any amount excluded from gross income by reason of section 112 shall be treated as earned income
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          earned_income_before_section_112_election
+          + amount_excluded_from_gross_income_by_reason_of_section_112
+
+  - name: ctc_phase_in_relevant_earnings
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: 15 percent of so much of the taxpayer’s earned income ... as exceeds $3,000
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          ctc_refundable_phase_in_rate
+          * max(0, ctc_phase_in_earned_income_base - ctc_refundable_phase_in_threshold)
+
+  - name: ctc_social_security_tax
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: the amount of the taxes imposed by sections 3101 and 3201(a) ... 50 percent of the taxes imposed by section 1401 ... 50 percent of the taxes imposed by section 3211(a) ... shall not include any taxes to the extent the taxpayer is entitled to a special refund ... amounts paid pursuant to an agreement under section 3121(l) ... shall be treated as taxes
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(
+              0,
+              employee_3101_3201a_taxes
+              + american_employer_foreign_affiliate_equivalent_3121l_taxes
+              + (ctc_social_security_half_share * self_employment_1401_taxes)
+              + (ctc_social_security_half_share * railroad_3211a_taxes)
+              - special_refund_social_security_taxes_under_6413c
+          )
+
+  - name: ctc_social_security_excess
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)(B)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: in the case of a taxpayer with 3 or more qualifying children, the excess (if any) of the taxpayer’s social security taxes ... over the credit allowed under section 32
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/32#eitc
+              output: eitc
+              hash: sha256:979e101eb20ac9f43fd37884e7241f3afc1abb7f3eea5abc93cc1b67067d8179
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if qualifying_children_count >= ctc_refundable_min_children_for_ss_excess:
+              max(0, ctc_social_security_tax - eitc)
+          else:
+              0
+
+  - name: ctc_refundable_limitation_increase_amount
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: the limitation imposed by section 26(a) were increased by the greater of clause (i) or clause (ii)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(ctc_phase_in_relevant_earnings, ctc_social_security_excess)
+
+  - name: ctc_refundable_tax_increase
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: the amount by which the aggregate amount of credits allowed by this subpart ... would increase
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(
+              0,
+              aggregate_subpart_c_credits_with_increased_26a_limit
+              - aggregate_subpart_c_credits_without_subsection
+          )
+
+  - name: ctc_refundable_cap
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: the credit which would be allowed under this section without regard to this subsection and the limitation under section 26(a)
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          ctc_credit_without_subsection_and_26a_limit
+
+  - name: ctc_refundable_foreign_income_eligible
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 24(d)(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: Paragraph (1) shall not apply ... if such taxpayer elects to exclude any amount from gross income under section 911
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          not elects_foreign_earned_income_exclusion_under_911
+
+  - name: refundable_ctc
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: aggregate credits allowed ... shall be increased by the lesser of subparagraph (A) or subparagraph (B); paragraph (1) shall not apply if taxpayer elects section 911 exclusion
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if ctc_refundable_foreign_income_eligible:
+              min(
+                  ctc_refundable_cap,
+                  min(ctc_refundable_limitation_increase_amount, ctc_refundable_tax_increase)
+              )
+          else:
+              0
+
+  - name: non_refundable_ctc
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 24(d)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/24
+              excerpt: "refundable child tax credit amount for the taxable year"
+              text: The amount of the credit allowed under this subsection ... shall reduce the amount of credit otherwise allowable under subsection (a) without regard to section 26(a).
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(0, ctc_credit_without_subsection_and_26a_limit - refundable_ctc)

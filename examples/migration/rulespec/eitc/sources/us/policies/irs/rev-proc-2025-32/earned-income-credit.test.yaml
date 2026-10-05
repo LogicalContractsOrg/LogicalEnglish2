@@ -1,0 +1,57 @@
+- name: no_child_values
+  period:
+    period_kind: tax_year
+    start: 2026-01-01
+    end: 2026-12-31
+  input:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#input.qualifying_child_count: 0
+  output:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts: 8680
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts: 664
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint: 18140
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_joint: 26820
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other: 10860
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_other: 19540
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_investment_income: 12200
+- name: one_child_values
+  period:
+    period_kind: tax_year
+    start: 2026-01-01
+    end: 2026-12-31
+  input:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#input.qualifying_child_count: 1
+  output:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts: 13020
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts: 4427
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint: 31160
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_joint: 58863
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other: 23890
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_other: 51593
+- name: two_child_values
+  period:
+    period_kind: tax_year
+    start: 2026-01-01
+    end: 2026-12-31
+  input:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#input.qualifying_child_count: 2
+  output:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts: 18290
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts: 7316
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint: 31160
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_joint: 65899
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other: 23890
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_other: 58629
+- name: three_or_more_child_values
+  period:
+    period_kind: tax_year
+    start: 2026-01-01
+    end: 2026-12-31
+  input:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#input.qualifying_child_count: 3
+  output:
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts: 18290
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts: 8231
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint: 31160
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_joint: 70244
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other: 23890
+    us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_other: 62974

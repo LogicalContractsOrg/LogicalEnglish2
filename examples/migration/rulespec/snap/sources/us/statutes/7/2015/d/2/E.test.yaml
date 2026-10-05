@@ -1,0 +1,36 @@
+- name: employed_minimum_thirty_hours_per_week_exemption_applies
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/E#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/E#input.employed_hours_per_week: 30
+    us:statutes/7/2015/d/2/E#input.weekly_earnings: 0
+    us:statutes/7/2015/d/2/E#input.minimum_hourly_rate_under_fair_labor_standards_act: 8
+  output:
+    us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies: holds
+- name: weekly_earnings_equal_flsa_rate_times_thirty_hours_exemption_applies
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/E#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/E#input.employed_hours_per_week: 20
+    us:statutes/7/2015/d/2/E#input.weekly_earnings: 240
+    us:statutes/7/2015/d/2/E#input.minimum_hourly_rate_under_fair_labor_standards_act: 8
+  output:
+    us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies: holds
+- name: insufficient_hours_and_earnings_no_exemption
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/E#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/E#input.employed_hours_per_week: 29
+    us:statutes/7/2015/d/2/E#input.weekly_earnings: 200
+    us:statutes/7/2015/d/2/E#input.minimum_hourly_rate_under_fair_labor_standards_act: 8
+  output:
+    us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies: not_holds
+- name: person_not_otherwise_required_has_no_exemption_under_this_branch
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/E#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: false
+    us:statutes/7/2015/d/2/E#input.employed_hours_per_week: 30
+    us:statutes/7/2015/d/2/E#input.weekly_earnings: 240
+    us:statutes/7/2015/d/2/E#input.minimum_hourly_rate_under_fair_labor_standards_act: 8
+  output:
+    us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies: not_holds

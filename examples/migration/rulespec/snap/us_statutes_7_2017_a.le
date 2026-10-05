@@ -1,0 +1,586 @@
+% 7 U.S.C. 2017(a)
+% RuleSpec module us:statutes/7/2017/a (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 4 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the snap earned income deduction rate is *a rate*.
+    the snap earned income subject to deduction of *a household* is *an amount*.
+    the snap earned income deduction of *a household* is *an amount*.
+    the snap net income pre shelter of *a household* is *an amount*.
+    the snap net income of *a household* is *an amount*.
+    the snap maximum allotment table for *a household size* is *an amount*.
+    the snap maximum allotment additional member is *an amount*.
+    the snap maximum allotment of *a household* is *an amount*.
+    the snap one person thrifty food plan cost of *a household* is *an amount*.
+    the snap maximum allotment alaska urban table for *a household size* is *an amount*.
+    the snap maximum allotment alaska urban additional member is *an amount*.
+    the snap maximum allotment alaska rural 1 table for *a household size* is *an amount*.
+    the snap maximum allotment alaska rural 1 additional member is *an amount*.
+    the snap maximum allotment alaska rural 2 table for *a household size* is *an amount*.
+    the snap maximum allotment alaska rural 2 additional member is *an amount*.
+    the snap maximum allotment guam table for *a household size* is *an amount*.
+    the snap maximum allotment guam additional member is *an amount*.
+    the snap maximum allotment hawaii table for *a household size* is *an amount*.
+    the snap maximum allotment hawaii additional member is *an amount*.
+    the snap maximum allotment virgin islands table for *a household size* is *an amount*.
+    the snap maximum allotment virgin islands additional member is *an amount*.
+    the snap household food contribution rate is *a rate*.
+    the snap minimum allotment rate is *a rate*.
+    the snap minimum allotment household size limit is *a number*.
+    the snap net income for allotment of *a household* is *an amount*.
+    the snap household food contribution of *a household* is *an amount*.
+    the snap allotment before minimum of *a household* is *an amount*.
+    the snap minimum monthly allotment of *a household* is *an amount*.
+    the snap regular month allotment of *a household* is *an amount*.
+    the snap countable earned income of *a household* is *an amount*; scenario element.
+    the work supplementation earned income of *a household* is *an amount*; scenario element.
+    the snap monthly household income of *a household* is *an amount*; scenario element.
+    the snap standard deduction of *a household* is *an amount*; scenario element.
+    the dependent care deduction of *a household* is *an amount*; scenario element.
+    the child support deduction of *a household* is *an amount*; scenario element.
+    the medical deduction of *a household* is *an amount*; scenario element.
+    the snap excess shelter deduction of *a household* is *an amount*; scenario element.
+    the household size of *a household* is *a number*; scenario element.
+    *a household* is snap eligible; scenario element.
+
+the knowledge base us_statutes_7_2017_a includes:
+
+
+% 7 U.S.C. 2014(e)(2)(B) — us:statutes/7/2014/e/2/B
+the text of "7 USC 2014(e)(2)(B)" is at "sources/us/statutes/7/2014/e/2/B.yaml".
+
+the snap earned income deduction rate is 0.2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+
+% 7 U.S.C. 2014(e)(2) — us:statutes/7/2014/e/2
+the text of "7 USC 2014(e)(2)" is at "sources/us/statutes/7/2014/e/2.yaml".
+
+rule snap_earned_income_subject_to_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income subject to deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap countable earned income of the household is an amount M
+    and the work supplementation earned income of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule snap_earned_income_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap earned income subject to deduction of the household is an amount M
+        and the snap earned income deduction rate is a rate R
+        and N = M * R.
+
+
+% 7 U.S.C. 2014(e)(6)(A) — us:statutes/7/2014/e/6/A
+the text of "7 USC 2014(e)(6)(A)" is at "sources/us/statutes/7/2014/e/6/A.yaml".
+
+the text of "7 USC 2014(d) and (e)" is at "sources/us/statutes/7/2014/e/6/A.yaml".
+
+rule snap_net_income_pre_shelter with provenance "7 USC 2014(e)(6)(A)":
+the snap net income pre shelter of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap monthly household income of the household is an amount M
+    and the snap standard deduction of the household is an amount K
+    and the snap earned income deduction of the household is an amount P
+    and the dependent care deduction of the household is an amount Q
+    and the child support deduction of the household is an amount R
+    and the medical deduction of the household is an amount S
+    and a number T = M - K - P - Q - R - S
+    and the maximum of 0 and T is N.
+
+rule snap_net_income with provenance "7 USC 2014(d) and (e)":
+the snap net income of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income pre shelter of the household is an amount M
+    and the snap excess shelter deduction of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+
+% us:policies/usda/snap/fy-2026-cola/maximum-allotments
+the text of "USDA SNAP FY 2026 maximum allotments and deductions" is at "sources/us/policies/usda/snap/fy-2026-cola/maximum-allotments.yaml".
+
+the snap maximum allotment table for 1 is 298 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 2 is 546 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 3 is 785 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 4 is 994 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 5 is 1183 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 6 is 1421 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 7 is 1571 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment table for 8 is 1789 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment additional member is 218 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_maximum_allotment with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap maximum allotment of a household is an amount N if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap maximum allotment table for P is an amount Q
+    and the snap maximum allotment additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_one_person_thrifty_food_plan_cost with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap one person thrifty food plan cost of a household is an amount if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the household is a household
+        and the snap maximum allotment table for 1 is the amount.
+
+the snap maximum allotment alaska urban table for 1 is 385 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 2 is 707 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 3 is 1015 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 4 is 1285 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 5 is 1529 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 6 is 1838 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 7 is 2031 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban table for 8 is 2314 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska urban additional member is 282 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 1 is 491 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 2 is 901 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 3 is 1295 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 4 is 1639 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 5 is 1950 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 6 is 2344 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 7 is 2590 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 table for 8 is 2950 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 1 additional member is 360 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 1 is 598 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 2 is 1097 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 3 is 1576 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 4 is 1995 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 5 is 2374 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 6 is 2853 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 7 is 3152 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 table for 8 is 3591 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment alaska rural 2 additional member is 438 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 1 is 439 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 2 is 806 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 3 is 1157 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 4 is 1465 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 5 is 1743 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 6 is 2095 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 7 is 2315 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam table for 8 is 2637 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment guam additional member is 322 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 1 is 506 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 2 is 929 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 3 is 1334 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 4 is 1689 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 5 is 2010 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 6 is 2415 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 7 is 2668 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii table for 8 is 3040 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment hawaii additional member is 371 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 1 is 383 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 2 is 703 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 3 is 1009 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 4 is 1278 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 5 is 1521 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 6 is 1827 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 7 is 2019 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands table for 8 is 2300 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+the snap maximum allotment virgin islands additional member is 281 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+
+% 7 U.S.C. 2017(a) — us:statutes/7/2017/a
+the text of "7 USC 2017(a)" is at "sources/us/statutes/7/2017/a.yaml".
+
+the text of "7 USC 2017(a), proviso for households of one and two persons" is at "sources/us/statutes/7/2017/a.yaml".
+
+the text of "7 USC 2017(a), allotment authorized for households certified as eligible" is at "sources/us/statutes/7/2017/a.yaml".
+
+the snap household food contribution rate is 0.3 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+the snap minimum allotment rate is 0.08 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+the snap minimum allotment household size limit is 2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule snap_net_income_for_allotment with provenance "7 USC 2017(a)",
+        confer "income, as determined in accordance with section 2014(d) and (e)":
+the snap net income for allotment of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income of the household is an amount M
+    and the maximum of 0 and M is N.
+
+rule snap_household_food_contribution with provenance "7 USC 2017(a)",
+        confer "an amount equal to 30 per centum of the household's income":
+the snap household food contribution of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income for allotment of the household is an amount M
+        and the snap household food contribution rate is a rate R
+        and N = M * R.
+
+rule snap_allotment_before_minimum with provenance "7 USC 2017(a)",
+        confer "cost ... of the thrifty food plan reduced ... rounded to the nearest lower whole dollar":
+the snap allotment before minimum of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap maximum allotment of the household is an amount M
+    and the snap household food contribution of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is a number Q
+    and N = floor(Q).
+
+rule snap_minimum_monthly_allotment with provenance "7 USC 2017(a), proviso for households of one and two persons":
+the snap minimum monthly allotment of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household size of the household is a number M
+        and the snap minimum allotment household size limit is a number K
+        and M <= K
+        and the snap one person thrifty food plan cost of the household is an amount P
+        and the snap minimum allotment rate is a rate R
+        and N = floor(P * R + 0.5)
+        otherwise the household is a household
+        and N = 0.
+
+rule snap_regular_month_allotment with provenance "7 USC 2017(a), allotment authorized for households certified as eligible":
+the snap regular month allotment of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household is snap eligible
+        and the snap allotment before minimum of the household is an amount M
+        and the snap minimum monthly allotment of the household is an amount K
+        and the maximum of M and K is N
+        otherwise the household is a household
+        and N = 0.
+
+scenario one_person_eligible_household_receives_thrifty_food_plan_less_thirty_percent_income is, as stated in "sources/us/statutes/7/2017/a.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 1.
+    the snap countable earned income of household_1 is 1000.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 204.5.
+    the snap monthly household income of household_1 is 1000.
+    the snap standard deduction of household_1 is 209.
+    household_1 is snap eligible.
+    q_snap_allotment_before_minimum expects answers ["the snap allotment before minimum of household_1 is 182"].
+    q_snap_household_food_contribution expects answers ["the snap household food contribution of household_1 is 115.95"].
+    q_snap_household_food_contribution_rate expects answers ["the snap household food contribution rate is 0.3"].
+    q_snap_minimum_allotment_household_size_limit expects answers ["the snap minimum allotment household size limit is 2"].
+    q_snap_minimum_allotment_rate expects answers ["the snap minimum allotment rate is 0.08"].
+    q_snap_minimum_monthly_allotment expects answers ["the snap minimum monthly allotment of household_1 is 24"].
+    q_snap_net_income_for_allotment expects answers ["the snap net income for allotment of household_1 is 386.5"].
+    q_snap_regular_month_allotment expects answers ["the snap regular month allotment of household_1 is 182"].
+
+scenario two_person_eligible_household_receives_minimum_allotment_when_income_reduction_exceeds_plan_cost is, as stated in "sources/us/statutes/7/2017/a.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 2.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 0.
+    the snap monthly household income of household_1 is 3000.
+    the snap standard deduction of household_1 is 0.
+    household_1 is snap eligible.
+    q_snap_allotment_before_minimum expects answers ["the snap allotment before minimum of household_1 is 0"].
+    q_snap_household_food_contribution expects answers ["the snap household food contribution of household_1 is 900"].
+    q_snap_minimum_monthly_allotment expects answers ["the snap minimum monthly allotment of household_1 is 24"].
+    q_snap_net_income_for_allotment expects answers ["the snap net income for allotment of household_1 is 3000"].
+    q_snap_regular_month_allotment expects answers ["the snap regular month allotment of household_1 is 24"].
+
+scenario three_person_household_has_no_minimum_allotment_under_proviso is, as stated in "sources/us/statutes/7/2017/a.test.yaml" at case 3:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 3.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 0.
+    the snap monthly household income of household_1 is 3000.
+    the snap standard deduction of household_1 is 0.
+    household_1 is snap eligible.
+    q_snap_allotment_before_minimum expects answers ["the snap allotment before minimum of household_1 is 0"].
+    q_snap_minimum_monthly_allotment expects answers ["the snap minimum monthly allotment of household_1 is 0"].
+    q_snap_regular_month_allotment expects answers ["the snap regular month allotment of household_1 is 0"].
+
+scenario household_not_certified_eligible_receives_no_regular_month_allotment is, as stated in "sources/us/statutes/7/2017/a.test.yaml" at case 4:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 1.
+    the snap countable earned income of household_1 is 1000.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 204.5.
+    the snap monthly household income of household_1 is 1000.
+    the snap standard deduction of household_1 is 209.
+    q_snap_regular_month_allotment expects answers ["the snap regular month allotment of household_1 is 0"].
+
+query q_snap_allotment_before_minimum is:
+    the snap allotment before minimum of which household is which amount.
+
+query q_snap_allotment_before_minimum is:
+    the snap allotment before minimum of which household is which amount.
+
+query q_snap_allotment_before_minimum is:
+    the snap allotment before minimum of which household is which amount.
+
+query q_snap_household_food_contribution is:
+    the snap household food contribution of which household is which amount.
+
+query q_snap_household_food_contribution is:
+    the snap household food contribution of which household is which amount.
+
+query q_snap_household_food_contribution_rate is:
+    the snap household food contribution rate is which rate.
+
+query q_snap_minimum_allotment_household_size_limit is:
+    the snap minimum allotment household size limit is which number.
+
+query q_snap_minimum_allotment_rate is:
+    the snap minimum allotment rate is which rate.
+
+query q_snap_minimum_monthly_allotment is:
+    the snap minimum monthly allotment of which household is which amount.
+
+query q_snap_minimum_monthly_allotment is:
+    the snap minimum monthly allotment of which household is which amount.
+
+query q_snap_minimum_monthly_allotment is:
+    the snap minimum monthly allotment of which household is which amount.
+
+query q_snap_net_income_for_allotment is:
+    the snap net income for allotment of which household is which amount.
+
+query q_snap_net_income_for_allotment is:
+    the snap net income for allotment of which household is which amount.
+
+query q_snap_regular_month_allotment is:
+    the snap regular month allotment of which household is which amount.
+
+query q_snap_regular_month_allotment is:
+    the snap regular month allotment of which household is which amount.
+
+query q_snap_regular_month_allotment is:
+    the snap regular month allotment of which household is which amount.
+
+query q_snap_regular_month_allotment is:
+    the snap regular month allotment of which household is which amount.
+

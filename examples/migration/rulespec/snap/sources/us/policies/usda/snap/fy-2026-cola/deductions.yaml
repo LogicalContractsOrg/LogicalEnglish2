@@ -1,0 +1,420 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  summary: |-
+    USDA SNAP FY 2026 cost-of-living adjustments set deductions for the
+    48 states and the District of Columbia effective October 1, 2025 through
+    September 30, 2026. The standard deductions are 209, 209, 209, 223,
+    261, and 299 for household sizes 1, 2, 3, 4, 5, and 6 or more. The
+    same table sets Alaska standard deductions at 358, 358, 358, 358, 358,
+    and 374; Guam at 420, 420, 420, 445, 522, and 598; Hawaii at 295, 295,
+    295, 295, 300, and 344; and the Virgin Islands at 184, 184, 185, 223,
+    261, and 299. The maximum excess shelter deductions are 744, 1189, 873,
+    1003, and 586 for the 48 states and District of Columbia, Alaska, Guam,
+    Hawaii, and the Virgin Islands. The homeless shelter deduction is 198.99.
+    The maximum asset limits are 4500 for households with at least one member
+    age 60 or older or disabled, and 3000 for all other households.
+  source_verification:
+    corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+    values:
+      snap_standard_deduction_48_states_dc_table:
+        1: 209
+        2: 209
+        3: 209
+        4: 223
+        5: 261
+        6: 299
+      snap_standard_deduction_alaska_table:
+        1: 358
+        2: 358
+        3: 358
+        4: 358
+        5: 358
+        6: 374
+      snap_standard_deduction_guam_table:
+        1: 420
+        2: 420
+        3: 420
+        4: 445
+        5: 522
+        6: 598
+      snap_standard_deduction_hawaii_table:
+        1: 295
+        2: 295
+        3: 295
+        4: 295
+        5: 300
+        6: 344
+      snap_standard_deduction_virgin_islands_table:
+        1: 184
+        2: 184
+        3: 185
+        4: 223
+        5: 261
+        6: 299
+      snap_maximum_excess_shelter_deduction_48_states_dc: 744
+      snap_maximum_excess_shelter_deduction_alaska: 1189
+      snap_maximum_excess_shelter_deduction_guam: 873
+      snap_maximum_excess_shelter_deduction_hawaii: 1003
+      snap_maximum_excess_shelter_deduction_virgin_islands: 586
+      snap_homeless_shelter_deduction: 198.99
+      snap_asset_limit_elderly_or_disabled_member: 4500
+      snap_asset_limit_other_households: 3000
+  source_claims:
+    - claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    - claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-resource-limits
+imports:
+  - us:statutes/7/2012/j
+rules:
+  - name: snap_standard_deduction_48_states_dc_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_48_states_dc_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: 48_states_dc
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 209
+          2: 209
+          3: 209
+          4: 223
+          5: 261
+          6: 299
+  - name: snap_standard_deduction_48_states_dc
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_48_states_dc_table
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: snap_standard_deduction_48_states_dc_table[min(household_size, 6)]
+  - name: snap_standard_deduction
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_48_states_dc_table
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: snap_standard_deduction_48_states_dc
+  - name: snap_maximum_excess_shelter_deduction_48_states_dc
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_maximum_excess_shelter_deduction_48_states_dc
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '744'
+  - name: snap_standard_deduction_alaska_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_alaska_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: alaska
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 358
+          2: 358
+          3: 358
+          4: 358
+          5: 358
+          6: 374
+  - name: snap_standard_deduction_guam_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_guam_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: guam
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 420
+          2: 420
+          3: 420
+          4: 445
+          5: 522
+          6: 598
+  - name: snap_standard_deduction_hawaii_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_hawaii_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: hawaii
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 295
+          2: 295
+          3: 295
+          4: 295
+          5: 300
+          6: 344
+  - name: snap_standard_deduction_virgin_islands_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_standard_deduction_virgin_islands_table
+              table:
+                header: Standard Deductions
+                row_key: household_size
+                column_key: virgin_islands
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 184
+          2: 184
+          3: 185
+          4: 223
+          5: 261
+          6: 299
+  - name: snap_maximum_excess_shelter_deduction_alaska
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_maximum_excess_shelter_deduction_alaska
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '1189'
+  - name: snap_maximum_excess_shelter_deduction_guam
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_maximum_excess_shelter_deduction_guam
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '873'
+  - name: snap_maximum_excess_shelter_deduction_hawaii
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_maximum_excess_shelter_deduction_hawaii
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '1003'
+  - name: snap_maximum_excess_shelter_deduction_virgin_islands
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_maximum_excess_shelter_deduction_virgin_islands
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '586'
+  - name: snap_homeless_shelter_deduction
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_homeless_shelter_deduction
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-deductions
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '198.99'
+  - name: snap_asset_limit_elderly_or_disabled_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_asset_limit_elderly_or_disabled_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-resource-limits
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '4500'
+  - name: snap_asset_limit_other_households
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+              value_key: snap_asset_limit_other_households
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-resource-limits
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '3000'
+  - name: snap_asset_limit
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-2
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-2#sets-resource-limits
+    versions:
+      - effective_from: '2025-10-01'
+        formula: |-
+          if snap_household_has_elderly_or_disabled_member:
+              snap_asset_limit_elderly_or_disabled_member
+          else: snap_asset_limit_other_households

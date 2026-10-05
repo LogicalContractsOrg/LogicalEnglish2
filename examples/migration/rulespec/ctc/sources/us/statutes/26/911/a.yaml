@@ -1,0 +1,99 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/911
+  summary: |-
+    (a) Exclusion from gross income At the election of a qualified individual (made separately with respect to paragraphs (1) and (2)), there shall be excluded from the gross income of such individual, and exempt from taxation under this subtitle, for any taxable year— (1) the foreign earned income of such individual, and (2) the housing cost amount of such individual.
+rules:
+  - name: foreign_earned_income_excluded_from_gross_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 911(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/911
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/911
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if individual_is_qualified_individual and election_made_for_foreign_earned_income:
+              max(0, foreign_earned_income_of_individual)
+          else:
+              0
+
+  - name: housing_cost_amount_excluded_from_gross_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 911(a)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/911
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/911
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if individual_is_qualified_individual and election_made_for_housing_cost_amount:
+              max(0, housing_cost_amount_of_individual)
+          else:
+              0
+
+  - name: section_911_amount_excluded_from_gross_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 911(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/911
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          foreign_earned_income_excluded_from_gross_income
+          + housing_cost_amount_excluded_from_gross_income
+
+  - name: section_911_amount_exempt_from_taxation
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 911(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/911
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          section_911_amount_excluded_from_gross_income

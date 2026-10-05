@@ -1,0 +1,549 @@
+% 42 U.S.C. 1382(e)(1)
+% RuleSpec module us:statutes/42/1382/e/1 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 2 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the annual rounding multiple is *an amount*.
+    the prior rounding carryover increase of *a statutory dollar amount* is *an amount*.
+    the amount after paragraph 1 increase of *a statutory dollar amount* is *an amount*.
+    the subsection_a applicable increase percentage of *a statutory dollar amount* is *a rate*.
+    the amount after subsection_a increase of *a statutory dollar amount* is *an amount*.
+    the prior rounding carryover increase for section 1382 b 1 amount of *a statutory dollar amount* is *an amount*.
+    the amount determined under section 1382f for section 1382 b 1 of *a statutory dollar amount* is *an amount*.
+    the prior rounding carryover increase for section 1382 b 2 amount of *a statutory dollar amount* is *an amount*.
+    the amount determined under section 1382f for section 1382 b 2 of *a statutory dollar amount* is *an amount*.
+    the statutory base annual rate without eligible spouse is *an amount*.
+    the statutory base annual rate with eligible spouse is *an amount*.
+    the annual benefit without eligible spouse of *a person* is *an amount*.
+    the annual benefit with eligible spouse of *a person* is *an amount*.
+    the medical facility individual annual rate cap is *an amount*.
+    the medical facility couple both in facility annual rate cap is *an amount*.
+    the publicly operated community residence resident limit is *a number*.
+    the emergency shelter eligibility month limit is *a number*.
+    the emergency shelter lookback period months is *a number*.
+    the temporary institutionalization month limit is *a number*.
+    the timely inmate reporting payment amount is *an amount*.
+    the later inmate reporting payment amount is *an amount*.
+    the timely inmate reporting deadline days is *a number*.
+    the later inmate reporting deadline days is *a number*.
+    the duplicate reporting payment reduction rate is *a rate*.
+    *a person* is qualifying publicly operated community residence.
+    *a person* is inmate of public institution for subparagraph_a.
+    the public emergency shelter eligibility exception of *a person* applies.
+    the retained benefit institutional month eligibility of *a person* applies.
+    the temporary institutionalization exception of *a person* applies.
+    *a person* is public institution inmate ineligible for month.
+    the medical facility annual benefit payable of *a person* is *an amount*.
+    *a person* is not treated as eligible under section 1382h for subparagraph e preceding month test.
+    the temporary institutionalization benefit payable at prior month rate of *a person* is *an amount*.
+    the inmate reporting payment to institution of *a person* is *an amount*.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the subchapter ii increase of *a statutory dollar amount* was determined on wage increase percentage; scenario element.
+    the subchapter ii benefit increase percentage for month of *a statutory dollar amount* is *a number*; scenario element.
+    the cpi basis subchapter ii increase percentage for month of *a statutory dollar amount* is *a number*; scenario element.
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the section 1382 b 1 dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the section 1382 b 2 dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the individual income not excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+    the individual and spouse income not excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+    the residence of *a person* is publicly operated community residence; scenario element.
+    the residence number of residents of *a person* is *a number*; scenario element.
+    *a person* is inmate of public institution throughout month; scenario element.
+    *a person* is resident of public emergency shelter for homeless throughout month; scenario element.
+    the months eligible by reason of public emergency shelter in current nine month period of *a person* is *a number*; scenario element.
+    *a person* is inmate of public institution primarily for medical or psychiatric care throughout month; scenario element.
+    *a person* is in medical treatment facility throughout month; scenario element.
+    *a person* was eligible under section 1382h_a or b for preceding month; scenario element.
+    *a person* is institution or facility agreement permits retention of benefit payable by reason of subparagraph e; scenario element.
+    the month of *a person* is initial or succeeding month for continuing subparagraph e institution or facility status; scenario element.
+    *a person* is in medical treatment facility receiving medicaid or child private health insurance payments throughout month; scenario element.
+    *a person* is physician certifies stay likely not to exceed temporary institutionalization month limit; scenario element.
+    the month number in continuous institutionalization period of *a person* is *a number*; scenario element.
+    *a person* needs to maintain home or living arrangement expenses for return; scenario element.
+    *a person* is in medical treatment facility receiving payments under subparagraph b throughout month; scenario element.
+    the individual of *a person* has eligible spouse; scenario element.
+    the spouse of *a person* is in medical treatment facility throughout month; scenario element.
+    the combined income not excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+    the spouse income not excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+    the benefit rate applicable in month prior to first full month in institution or facility of *a person* is *a number*; scenario element.
+    the institution of *a person* has agreement to report inmates to commissioner; scenario element.
+    the individual of *a person* received benefit under this subchapter for month preceding first full month of confinement; scenario element.
+    *a person* is commissioner determines individual ineligible by reason of confinement based on institution information; scenario element.
+    the days after inmate entry when information furnished of *a person* is *a number*; scenario element.
+    *a person* is commissioner also required to pay institution under section 402 x 3 B for same individual; scenario element.
+
+the knowledge base us_statutes_42_1382_e_1 includes:
+
+
+% 42 U.S.C. 1382f(a) — us:statutes/42/1382f/a
+the text of "42 USC 1382f(a)(2)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the text of "42 USC 1382f(a)(1)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the text of "42 USC 1382f(a)(1)-(2)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the annual rounding multiple is 12, as stated in "42 USC 1382f(a)(2)".
+
+rule prior_rounding_carryover_increase with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase of a statutory dollar amount is an amount N if
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_after_paragraph_1_increase with provenance "42 USC 1382f(a)(1)":
+the amount after paragraph 1 increase of a statutory dollar amount is an amount N if
+    the dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase of the statutory dollar amount is an amount K
+    and N = M + K.
+
+rule subsection_a_applicable_increase_percentage with provenance "42 USC 1382f(a)(2)":
+the subsection_a applicable increase percentage of a statutory dollar amount is a rate R if
+    the subchapter ii increase of the statutory dollar amount was determined on wage increase percentage
+    and the subchapter ii benefit increase percentage for month of the statutory dollar amount is a number N
+    and the cpi basis subchapter ii increase percentage for month of the statutory dollar amount is a number M
+    and the maximum of N and M is R
+    otherwise the subchapter ii benefit increase percentage for month of the statutory dollar amount is R.
+
+rule amount_after_subsection_a_increase with provenance "42 USC 1382f(a)(2)":
+the amount after subsection_a increase of a statutory dollar amount is an amount N if
+    the amount after paragraph 1 increase of the statutory dollar amount is an amount M
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount K
+    and N = floor(M * (1 + R) / K) * K.
+
+rule prior_rounding_carryover_increase_for_section_1382_b_1_amount with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase for section 1382 b 1 amount of a statutory dollar amount is an amount N if
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the section 1382 b 1 dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_determined_under_section_1382f_for_section_1382_b_1 with provenance "42 USC 1382f(a)(1)-(2)":
+the amount determined under section 1382 f for section 1382 b 1 of a statutory dollar amount is an amount N if
+    the section 1382 b 1 dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase for section 1382 b 1 amount of the statutory dollar amount is an amount K
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount P
+    and N = floor((M + K) * (1 + R) / P) * P.
+
+rule prior_rounding_carryover_increase_for_section_1382_b_2_amount with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase for section 1382 b 2 amount of a statutory dollar amount is an amount N if
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the section 1382 b 2 dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_determined_under_section_1382f_for_section_1382_b_2 with provenance "42 USC 1382f(a)(1)-(2)":
+the amount determined under section 1382 f for section 1382 b 2 of a statutory dollar amount is an amount N if
+    the section 1382 b 2 dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase for section 1382 b 2 amount of the statutory dollar amount is an amount K
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount P
+    and N = floor((M + K) * (1 + R) / P) * P.
+
+
+% 42 U.S.C. 1382(b) — us:statutes/42/1382/b
+the text of "42 USC 1382(b)(1)" is at "sources/us/statutes/42/1382/b.yaml".
+
+the text of "42 USC 1382(b)(2)" is at "sources/us/statutes/42/1382/b.yaml".
+
+the statutory base annual rate without eligible spouse is 1752, as stated in "42 USC 1382(b)(1)".
+
+the statutory base annual rate with eligible spouse is 2628, as stated in "42 USC 1382(b)(2)".
+
+rule annual_benefit_without_eligible_spouse with provenance "42 USC 1382(b)(1)":
+the annual benefit without eligible spouse of a person is an amount N if
+    the statutory base annual rate without eligible spouse is an amount M
+    and the amount determined under section 1382 f for section 1382 b 1 of the person is an amount K
+    and the individual income not excluded pursuant to section 1382 a b of the person is an amount P
+    and the maximum of M and K is a number Q
+    and a number R = Q - P
+    and the maximum of 0 and R is N.
+
+rule annual_benefit_with_eligible_spouse with provenance "42 USC 1382(b)(2)":
+the annual benefit with eligible spouse of a person is an amount N if
+    the statutory base annual rate with eligible spouse is an amount M
+    and the amount determined under section 1382 f for section 1382 b 2 of the person is an amount K
+    and the individual and spouse income not excluded pursuant to section 1382 a b of the person is an amount P
+    and the maximum of M and K is a number Q
+    and a number R = Q - P
+    and the maximum of 0 and R is N.
+
+
+% 42 U.S.C. 1382(e)(1) — us:statutes/42/1382/e/1
+the text of "42 USC 1382(e)(1)(B)(i)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(B)(iii)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(C)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(D)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(G)(i)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(I)(i)(II)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(I)(ii)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(A), (C)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(E)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(G)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(A), (B), (D), (E), (G)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(B)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(F)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the text of "42 USC 1382(e)(1)(I)(i)(II), (ii)" is at "sources/us/statutes/42/1382/e/1.yaml".
+
+the medical facility individual annual rate cap is 360, as stated in "42 USC 1382(e)(1)(B)(i)".
+
+the medical facility couple both in facility annual rate cap is 720, as stated in "42 USC 1382(e)(1)(B)(iii)".
+
+the publicly operated community residence resident limit is 16, as stated in "42 USC 1382(e)(1)(C)".
+
+the emergency shelter eligibility month limit is 6, as stated in "42 USC 1382(e)(1)(D)".
+
+the emergency shelter lookback period months is 9, as stated in "42 USC 1382(e)(1)(D)".
+
+the temporary institutionalization month limit is 3, as stated in "42 USC 1382(e)(1)(G)(i)".
+
+the timely inmate reporting payment amount is 400, as stated in "42 USC 1382(e)(1)(I)(i)(II)".
+
+the later inmate reporting payment amount is 200, as stated in "42 USC 1382(e)(1)(I)(i)(II)".
+
+the timely inmate reporting deadline days is 15, as stated in "42 USC 1382(e)(1)(I)(i)(II)".
+
+the later inmate reporting deadline days is 90, as stated in "42 USC 1382(e)(1)(I)(i)(II)".
+
+the duplicate reporting payment reduction rate is 0.5, as stated in "42 USC 1382(e)(1)(I)(ii)".
+
+rule qualifying_publicly_operated_community_residence with provenance "42 USC 1382(e)(1)(C)":
+a person is qualifying publicly operated community residence if
+    the residence of the person is publicly operated community residence
+    and the residence number of residents of the person is a number N
+    and the publicly operated community residence resident limit is a number M
+    and N <= M.
+
+rule inmate_of_public_institution_for_subparagraph_a with provenance "42 USC 1382(e)(1)(A), (C)":
+a person is inmate of public institution for subparagraph_a if
+    the person is inmate of public institution throughout month
+    and it is not the case that the person is qualifying publicly operated community residence.
+
+rule public_emergency_shelter_eligibility_exception_applies with provenance "42 USC 1382(e)(1)(D)":
+the public emergency shelter eligibility exception of a person applies if
+    the person is resident of public emergency shelter for homeless throughout month
+    and the months eligible by reason of public emergency shelter in current nine month period of the person is a number N
+    and the emergency shelter eligibility month limit is a number M
+    and N < M.
+
+rule retained_benefit_institutional_month_eligibility_applies_1 with provenance "42 USC 1382(e)(1)(E)":
+the retained benefit institutional month eligibility of a person applies if
+    the person is inmate of public institution primarily for medical or psychiatric care throughout month
+    and the person was eligible under section 1382 h_a or b for preceding month
+    and the person is institution or facility agreement permits retention of benefit payable by reason of subparagraph e
+    and the month of the person is initial or succeeding month for continuing subparagraph e institution or facility status.
+
+rule retained_benefit_institutional_month_eligibility_applies_2 with provenance "42 USC 1382(e)(1)(E)":
+the retained benefit institutional month eligibility of a person applies if
+    the person is in medical treatment facility throughout month
+    and the person was eligible under section 1382 h_a or b for preceding month
+    and the person is institution or facility agreement permits retention of benefit payable by reason of subparagraph e
+    and the month of the person is initial or succeeding month for continuing subparagraph e institution or facility status.
+
+rule temporary_institutionalization_exception_applies_1 with provenance "42 USC 1382(e)(1)(G)":
+the temporary institutionalization exception of a person applies if
+    the person is inmate of public institution primarily for medical or psychiatric care throughout month
+    and the person is physician certifies stay likely not to exceed temporary institutionalization month limit
+    and the month number in continuous institutionalization period of the person is a number N
+    and the temporary institutionalization month limit is a number M
+    and N <= M
+    and the person needs to maintain home or living arrangement expenses for return.
+
+rule temporary_institutionalization_exception_applies_2 with provenance "42 USC 1382(e)(1)(G)":
+the temporary institutionalization exception of a person applies if
+    the person is in medical treatment facility receiving medicaid or child private health insurance payments throughout month
+    and the person is physician certifies stay likely not to exceed temporary institutionalization month limit
+    and the month number in continuous institutionalization period of the person is a number N
+    and the temporary institutionalization month limit is a number M
+    and N <= M
+    and the person needs to maintain home or living arrangement expenses for return.
+
+rule public_institution_inmate_ineligible_for_month with provenance "42 USC 1382(e)(1)(A), (B), (D), (E), (G)":
+a person is public institution inmate ineligible for month if
+    the person is inmate of public institution for subparagraph_a
+    and it is not the case that the person is in medical treatment facility receiving payments under subparagraph b throughout month
+    and it is not the case that the public emergency shelter eligibility exception of the person applies
+    and it is not the case that the retained benefit institutional month eligibility of the person applies
+    and it is not the case that the temporary institutionalization exception of the person applies.
+
+rule medical_facility_annual_benefit_payable with provenance "42 USC 1382(e)(1)(B)":
+the medical facility annual benefit payable of a person is an amount N if
+    the retained benefit institutional month eligibility of the person applies
+    and N = 0
+    otherwise the temporary institutionalization exception of the person applies
+    and N = 0
+    otherwise the person is a person
+    and it is not the case that the person is in medical treatment facility receiving payments under subparagraph b throughout month
+    and N = 0
+    otherwise the individual of the person has eligible spouse
+    and the spouse of the person is in medical treatment facility throughout month
+    and the medical facility couple both in facility annual rate cap is an amount M
+    and the combined income not excluded pursuant to section 1382 a b of the person is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N
+    otherwise the individual of the person has eligible spouse
+    and the medical facility individual annual rate cap is an amount Q
+    and the individual income not excluded pursuant to section 1382 a b of the person is an amount R
+    and the statutory base annual rate without eligible spouse is an amount S
+    and the spouse income not excluded pursuant to section 1382 a b of the person is an amount T
+    and a number U = Q - R
+    and the maximum of 0 and U is a number V
+    and a number W = S - T
+    and the maximum of 0 and W is a number X
+    and N = V + X
+    otherwise the medical facility individual annual rate cap is an amount Y
+    and the individual income not excluded pursuant to section 1382 a b of the person is an amount Z
+    and a number C = Y - Z
+    and the maximum of 0 and C is N.
+
+rule not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test with provenance "42 USC 1382(e)(1)(F)":
+a person is not treated as eligible under section 1382 h for subparagraph e preceding month test if
+    the retained benefit institutional month eligibility of the person applies.
+
+rule temporary_institutionalization_benefit_payable_at_prior_month_rate with provenance "42 USC 1382(e)(1)(G)":
+the temporary institutionalization benefit payable at prior month rate of a person is an amount N if
+    the temporary institutionalization exception of the person applies
+    and the benefit rate applicable in month prior to first full month in institution or facility of the person is a number M
+    and the maximum of 0 and M is N
+    otherwise the person is a person
+    and N = 0.
+
+rule inmate_reporting_payment_to_institution with provenance "42 USC 1382(e)(1)(I)(i)(II), (ii)":
+the inmate reporting payment to institution of a person is an amount N if
+    the person is a person
+    and it is not the case that the institution of the person has agreement to report inmates to commissioner
+    and N = 0
+    otherwise the person is a person
+    and it is not the case that the individual of the person received benefit under this subchapter for month preceding first full month of confinement
+    and N = 0
+    otherwise the person is a person
+    and it is not the case that the person is commissioner determines individual ineligible by reason of confinement based on institution information
+    and N = 0
+    otherwise the person is a person
+    and the days after inmate entry when information furnished of the person is a number M
+        and the timely inmate reporting deadline days is a number K
+        and M <= K
+        and the timely inmate reporting payment amount is an amount P
+        otherwise the days after inmate entry when information furnished of the person is a number Q
+        and the later inmate reporting deadline days is a number R
+        and Q <= R
+        and the later inmate reporting payment amount is P
+        otherwise P = 0
+    and the person is commissioner also required to pay institution under section 402 x 3 B for same individual
+        and the duplicate reporting payment reduction rate is a rate S
+        otherwise S = 1
+    and N = P * S.
+
+scenario public_institution_inmate_is_ineligible_absent_exceptions is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 1:
+    person_1 is a person.
+    the month number in continuous institutionalization period of person_1 is 4.
+    the months eligible by reason of public emergency shelter in current nine month period of person_1 is 0.
+    person_1 is inmate of public institution throughout month.
+    the residence number of residents of person_1 is 20.
+    q_inmate_of_public_institution_for_subparagraph_a expects answers ["person_1 is inmate of public institution for subparagraph_a"].
+    q_public_emergency_shelter_eligibility_exception_applies expects answers [].
+    q_public_institution_inmate_ineligible_for_month expects answers ["person_1 is public institution inmate ineligible for month"].
+    q_qualifying_publicly_operated_community_residence expects answers [].
+    q_retained_benefit_institutional_month_eligibility_applies expects answers [].
+    q_temporary_institutionalization_exception_applies expects answers [].
+
+scenario public_emergency_shelter_exception_blocks_public_institution_ineligibility is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 2:
+    person_1 is a person.
+    the month number in continuous institutionalization period of person_1 is 4.
+    the months eligible by reason of public emergency shelter in current nine month period of person_1 is 5.
+    person_1 is inmate of public institution throughout month.
+    person_1 is resident of public emergency shelter for homeless throughout month.
+    the residence number of residents of person_1 is 20.
+    q_public_emergency_shelter_eligibility_exception_applies expects answers ["the public emergency shelter eligibility exception of person_1 applies"].
+    q_public_institution_inmate_ineligible_for_month expects answers [].
+
+scenario medical_facility_couple_one_spouse_in_facility_amount is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 3:
+    person_1 is a person.
+    the combined income not excluded pursuant to section 1382 a b of person_1 is 260.
+    the individual of person_1 has eligible spouse.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 60.
+    the month number in continuous institutionalization period of person_1 is 4.
+    person_1 is in medical treatment facility receiving payments under subparagraph b throughout month.
+    person_1 is in medical treatment facility throughout month.
+    the spouse income not excluded pursuant to section 1382 a b of person_1 is 200.
+    q_medical_facility_annual_benefit_payable expects answers ["the medical facility annual benefit payable of person_1 is 1852"].
+    q_retained_benefit_institutional_month_eligibility_applies expects answers [].
+    q_temporary_institutionalization_exception_applies expects answers [].
+
+scenario timely_inmate_reporting_payment_reduced_for_duplicate_agreement is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 4:
+    person_1 is a person.
+    person_1 is commissioner also required to pay institution under section 402 x 3 B for same individual.
+    person_1 is commissioner determines individual ineligible by reason of confinement based on institution information.
+    the days after inmate entry when information furnished of person_1 is 10.
+    the individual of person_1 received benefit under this subchapter for month preceding first full month of confinement.
+    the institution of person_1 has agreement to report inmates to commissioner.
+    q_inmate_reporting_payment_to_institution expects answers ["the inmate reporting payment to institution of person_1 is 200"].
+
+scenario auto_zero_medical_facility_annual_benefit_payable is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 5:
+    person_1 is a person.
+    the benefit rate applicable in month prior to first full month in institution or facility of person_1 is 0.
+    the combined income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the days after inmate entry when information furnished of person_1 is 0.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the month number in continuous institutionalization period of person_1 is 4.
+    the months eligible by reason of public emergency shelter in current nine month period of person_1 is 0.
+    the residence number of residents of person_1 is 0.
+    the spouse income not excluded pursuant to section 1382 a b of person_1 is 0.
+    q_medical_facility_annual_benefit_payable expects answers ["the medical facility annual benefit payable of person_1 is 0"].
+
+scenario auto_zero_temporary_institutionalization_benefit_payable_at_prior_month_rate is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 6:
+    person_1 is a person.
+    the benefit rate applicable in month prior to first full month in institution or facility of person_1 is 0.
+    the combined income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the days after inmate entry when information furnished of person_1 is 0.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the month number in continuous institutionalization period of person_1 is 4.
+    the months eligible by reason of public emergency shelter in current nine month period of person_1 is 0.
+    the residence number of residents of person_1 is 0.
+    the spouse income not excluded pursuant to section 1382 a b of person_1 is 0.
+    q_temporary_institutionalization_benefit_payable_at_prior_month_rate expects answers ["the temporary institutionalization benefit payable at prior month rate of person_1 is 0"].
+
+scenario auto_zero_inmate_reporting_payment_to_institution is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 7:
+    person_1 is a person.
+    the benefit rate applicable in month prior to first full month in institution or facility of person_1 is 0.
+    the combined income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the days after inmate entry when information furnished of person_1 is 91.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the month number in continuous institutionalization period of person_1 is 0.
+    the months eligible by reason of public emergency shelter in current nine month period of person_1 is 0.
+    the residence number of residents of person_1 is 0.
+    the spouse income not excluded pursuant to section 1382 a b of person_1 is 0.
+    q_inmate_reporting_payment_to_institution expects answers ["the inmate reporting payment to institution of person_1 is 0"].
+
+scenario auto_output_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 8:
+    person_1 is a person.
+    the benefit rate applicable in month prior to first full month in institution or facility of person_1 is 0.
+    the combined income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the days after inmate entry when information furnished of person_1 is 0.
+    the individual income not excluded pursuant to section 1382 a b of person_1 is 0.
+    the month number in continuous institutionalization period of person_1 is 0.
+    the months eligible by reason of public emergency shelter in current nine month period of person_1 is 0.
+    the residence number of residents of person_1 is 0.
+    the spouse income not excluded pursuant to section 1382 a b of person_1 is 0.
+    q_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test expects answers [].
+
+scenario auto_positive_qualifying_publicly_operated_community_residence is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 9:
+    person_1 is a person.
+    the residence of person_1 is publicly operated community residence.
+    the residence number of residents of person_1 is 0.
+    q_qualifying_publicly_operated_community_residence expects answers ["person_1 is qualifying publicly operated community residence"].
+
+scenario auto_positive_retained_benefit_institutional_month_eligibility_applies is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 10:
+    person_1 is a person.
+    person_1 is institution or facility agreement permits retention of benefit payable by reason of subparagraph e.
+    the month of person_1 is initial or succeeding month for continuing subparagraph e institution or facility status.
+    person_1 is in medical treatment facility throughout month.
+    person_1 is inmate of public institution primarily for medical or psychiatric care throughout month.
+    person_1 was eligible under section 1382 h_a or b for preceding month.
+    q_retained_benefit_institutional_month_eligibility_applies expects answers ["the retained benefit institutional month eligibility of person_1 applies"].
+
+scenario auto_positive_temporary_institutionalization_exception_applies is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 11:
+    person_1 is a person.
+    the month number in continuous institutionalization period of person_1 is 0.
+    person_1 is in medical treatment facility receiving medicaid or child private health insurance payments throughout month.
+    person_1 is inmate of public institution primarily for medical or psychiatric care throughout month.
+    person_1 needs to maintain home or living arrangement expenses for return.
+    person_1 is physician certifies stay likely not to exceed temporary institutionalization month limit.
+    q_temporary_institutionalization_exception_applies expects answers ["the temporary institutionalization exception of person_1 applies"].
+
+scenario auto_positive_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test is, as stated in "sources/us/statutes/42/1382/e/1.test.yaml" at case 12:
+    person_1 is a person.
+    person_1 is institution or facility agreement permits retention of benefit payable by reason of subparagraph e.
+    the month of person_1 is initial or succeeding month for continuing subparagraph e institution or facility status.
+    person_1 is in medical treatment facility throughout month.
+    person_1 is inmate of public institution primarily for medical or psychiatric care throughout month.
+    person_1 was eligible under section 1382 h_a or b for preceding month.
+    q_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test expects answers ["person_1 is not treated as eligible under section 1382 h for subparagraph e preceding month test"].
+
+query q_inmate_of_public_institution_for_subparagraph_a is:
+    which person is inmate of public institution for subparagraph_a.
+
+query q_inmate_reporting_payment_to_institution is:
+    the inmate reporting payment to institution of which person is which amount.
+
+query q_inmate_reporting_payment_to_institution is:
+    the inmate reporting payment to institution of which person is which amount.
+
+query q_medical_facility_annual_benefit_payable is:
+    the medical facility annual benefit payable of which person is which amount.
+
+query q_medical_facility_annual_benefit_payable is:
+    the medical facility annual benefit payable of which person is which amount.
+
+query q_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test is:
+    which person is not treated as eligible under section 1382 h for subparagraph e preceding month test.
+
+query q_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test is:
+    which person is not treated as eligible under section 1382 h for subparagraph e preceding month test.
+
+query q_public_emergency_shelter_eligibility_exception_applies is:
+    the public emergency shelter eligibility exception of which person applies.
+
+query q_public_emergency_shelter_eligibility_exception_applies is:
+    the public emergency shelter eligibility exception of which person applies.
+
+query q_public_institution_inmate_ineligible_for_month is:
+    which person is public institution inmate ineligible for month.
+
+query q_public_institution_inmate_ineligible_for_month is:
+    which person is public institution inmate ineligible for month.
+
+query q_qualifying_publicly_operated_community_residence is:
+    which person is qualifying publicly operated community residence.
+
+query q_qualifying_publicly_operated_community_residence is:
+    which person is qualifying publicly operated community residence.
+
+query q_retained_benefit_institutional_month_eligibility_applies is:
+    the retained benefit institutional month eligibility of which person applies.
+
+query q_retained_benefit_institutional_month_eligibility_applies is:
+    the retained benefit institutional month eligibility of which person applies.
+
+query q_retained_benefit_institutional_month_eligibility_applies is:
+    the retained benefit institutional month eligibility of which person applies.
+
+query q_temporary_institutionalization_benefit_payable_at_prior_month_rate is:
+    the temporary institutionalization benefit payable at prior month rate of which person is which amount.
+
+query q_temporary_institutionalization_exception_applies is:
+    the temporary institutionalization exception of which person applies.
+
+query q_temporary_institutionalization_exception_applies is:
+    the temporary institutionalization exception of which person applies.
+
+query q_temporary_institutionalization_exception_applies is:
+    the temporary institutionalization exception of which person applies.
+

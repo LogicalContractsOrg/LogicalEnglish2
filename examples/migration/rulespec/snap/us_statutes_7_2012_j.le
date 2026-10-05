@@ -1,0 +1,55 @@
+% 7 U.S.C. 2012(j)
+% RuleSpec module us:statutes/7/2012/j (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    *a person* is a member of *a household*; scenario element.
+    the snap household of *a household* has elderly or disabled member.
+    the snap member of *a person* is elderly or disabled; scenario element.
+
+the knowledge base us_statutes_7_2012_j includes:
+
+
+% 7 U.S.C. 2012(j) — us:statutes/7/2012/j
+the text of "7 USC 2012(j)" is at "sources/us/statutes/7/2012/j.yaml".
+
+rule snap_household_has_elderly_or_disabled_member with provenance "7 USC 2012(j)":
+the snap household of a household has elderly or disabled member if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household is a household
+        and a number N is the count of each P such that
+            a person P is a member of the household
+            and the snap member of P is elderly or disabled
+        and N > 0.
+
+scenario household_has_elderly_or_disabled_member is, as stated in "sources/us/statutes/7/2012/j.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    person_1 is a person.
+    person_1 is a member of household_1.
+    the snap member of person_1 is elderly or disabled.
+    q_snap_household_has_elderly_or_disabled_member expects answers ["the snap household of household_1 has elderly or disabled member"].
+
+scenario household_without_elderly_or_disabled_member is, as stated in "sources/us/statutes/7/2012/j.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    q_snap_household_has_elderly_or_disabled_member expects answers [].
+
+query q_snap_household_has_elderly_or_disabled_member is:
+    the snap household of which household has elderly or disabled member.
+
+query q_snap_household_has_elderly_or_disabled_member is:
+    the snap household of which household has elderly or disabled member.
+

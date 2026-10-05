@@ -1,0 +1,12 @@
+- name: household_has_elderly_or_disabled_member
+  period: 2026-01
+  input:
+    us:statutes/7/2012/j#relation.member_of_household:
+      - us:statutes/7/2012/j#input.snap_member_is_elderly_or_disabled: true
+  output:
+    us:statutes/7/2012/j#snap_household_has_elderly_or_disabled_member: holds
+- name: household_without_elderly_or_disabled_member
+  period: 2026-01
+  input: {}
+  output:
+    us:statutes/7/2012/j#snap_household_has_elderly_or_disabled_member: not_holds

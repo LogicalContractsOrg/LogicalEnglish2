@@ -1,0 +1,34 @@
+- name: snap_maximum_allotment_for_one_person_household
+  period: 2026-01
+  input:
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#input.household_size: 1
+  output:
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_table: 298
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_one_person_thrifty_food_plan_cost: 298
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment: 298
+- name: snap_maximum_allotment_for_eight_person_household
+  period: 2026-01
+  input:
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#input.household_size: 8
+  output:
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_table: 1789
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_urban_table: 2314
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_1_table: 2950
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_2_table: 3591
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_guam_table: 2637
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_hawaii_table: 3040
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_virgin_islands_table: 2300
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment: 1789
+- name: snap_maximum_allotment_adds_each_additional_person
+  period: 2026-01
+  input:
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#input.household_size: 9
+  output:
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_additional_member: 218
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_urban_additional_member: 282
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_1_additional_member: 360
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_2_additional_member: 438
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_guam_additional_member: 322
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_hawaii_additional_member: 371
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_virgin_islands_additional_member: 281
+    us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment: 2007

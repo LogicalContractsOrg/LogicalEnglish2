@@ -1,0 +1,99 @@
+format: rulespec/v1
+imports:
+  - us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/32
+  summary: |-
+    The term "earned income" means wages, salaries, tips, and other employee compensation includible in gross income, plus net earnings from self-employment determined with regard to section 164(f). It is computed without regard to community property laws; pensions or annuities, nonresident-alien nonbusiness income, inmate-service amounts, and subsidized State work-activity amounts are not taken into account; a taxpayer may elect to treat section 112 excluded amounts as earned income.
+rules:
+  - name: earned_income_before_section_112_election
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(i)-(v)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: wages, salaries, tips, and other employee compensation
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: net earnings from self-employment
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: no amount received as a pension or annuity shall be taken into account
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: no amount to which section 871(a) applies
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: inmate at a penal institution
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: only to the extent such amount is subsidized
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          max(
+              0,
+              employee_compensation_includible_in_gross_income
+              + net_earnings_from_self_employment_after_self_employment_tax_deduction
+              - pension_or_annuity_amount
+              - nonresident_alien_income_not_connected_with_united_states_business
+              - penal_institution_service_compensation
+              - subsidized_state_work_activity_service_compensation
+          )
+
+  - name: earned_income
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(vi)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/32/c/2#earned_income_before_section_112_election
+              output: earned_income_before_section_112_election
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: a taxpayer may elect to treat amounts excluded from gross income by reason of section 112 as earned income
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112
+              output: amount_excluded_from_gross_income_by_reason_of_section_112
+              hash: sha256:a7549fc6774224d725eaf654655707e7e97aecfa9fcebf378918778482f67512
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          earned_income_before_section_112_election
+          + (if taxpayer_elects_to_treat_section_112_excluded_amounts_as_earned_income:
+              amount_excluded_from_gross_income_by_reason_of_section_112
+             else:
+              0)

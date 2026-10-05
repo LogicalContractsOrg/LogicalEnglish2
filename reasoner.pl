@@ -1636,14 +1636,16 @@ call_reasoner_built_in(le_assign(X, Y), _) :-
     ;   le_compare_operand(Y, YV), number(YV) -> XV =:= YV
     ;   Y = XV
     ).
-call_reasoner_built_in(le_assign(X, Y), _) :- !,
+call_reasoner_built_in(le_assign(X, Y0), _) :- !,
+    le_snap_rounding(Y0, Y),
     ( number(Y) -> X = Y
     ; catch(X is Y, _, (
         (var(X) -> true ; true), % debug point
         X = Y
       ))
     ).
-call_reasoner_built_in(le_is(X, Y), _) :- !, ( number(Y) -> X is Y; catch(X is Y, _, X = Y)).
+call_reasoner_built_in(le_is(X, Y0), _) :- !, le_snap_rounding(Y0, Y), ( number(Y) -> X is Y; catch(X is Y, _, X = Y)).
+
 call_reasoner_built_in(le_is_in(X, Y), _) :- !, is_list(Y), member(X, Y).
 call_reasoner_built_in(le_ge(X, Y), _) :- !, le_compare(>=, X, Y).
 call_reasoner_built_in(le_le(X, Y), _) :- !, le_compare(=<, X, Y).
@@ -1655,6 +1657,26 @@ call_reasoner_built_in(le_minimum(X, Y, Z), _) :- !, le_minimum(X, Y, Z).
 call_reasoner_built_in(le_maximum(X, Y, Z), _) :- !, le_maximum(X, Y, Z).
 call_reasoner_built_in(equal_to(X, Y), _) :- !, equal_to(X, Y).
 call_reasoner_built_in(G, _) :- call(G).
+
+%!  le_snap_rounding(+Expr, -Expr1) is det.
+%
+%   floor, ceiling and truncate of a value that is a whole number but for
+%   the noise of binary floating point (1920 * 1.025 / 12 is
+%   163.99999999999997, not 164) round that whole number, as the decimal
+%   arithmetic of the rules' sources does: an argument within a billionth
+%   (relative) of a whole number is taken as that number. Everything else is
+%   left as it is.
+le_snap_rounding(E, E) :- \+ compound(E), !.
+le_snap_rounding(E0, E) :-
+    E0 =.. [F, A0], memberchk(F, [floor, ceiling, truncate]), !,
+    le_snap_rounding(A0, A),
+    (   ground(A), catch(V is A, _, fail), float(V),
+        R is round(V), abs(V - R) =< 1.0e-9 * max(1.0, abs(V))
+    ->  E =.. [F, R]
+    ;   E =.. [F, A]
+    ).
+le_snap_rounding(E0, E) :-
+    E0 =.. [F|As0], maplist(le_snap_rounding, As0, As), E =.. [F|As].
 
 le_compare(Op, X0, Y0) :-
     le_compare_operand(X0, X), le_compare_operand(Y0, Y),
