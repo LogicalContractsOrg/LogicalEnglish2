@@ -619,46 +619,57 @@ the text of "26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(v)" is at "sources/us/statutes
 
 the text of "26 USC 151(d)(5)(C)" is at "sources/us/statutes/26/151.yaml".
 
+rule statutory_exemption_amount_base with provenance "26 USC 151(d)(1)":
 the statutory exemption amount base is 2000 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule exemption_phaseout_rate_per_increment with provenance "26 USC 151(d)(3)(B)":
 the exemption phaseout rate per increment is 0.02 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule exemption_phaseout_increment with provenance "26 USC 151(d)(3)(B)":
 the exemption phaseout increment is 2500 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule exemption_phaseout_increment_separate with provenance "26 USC 151(d)(3)(B)":
 the exemption phaseout increment separate is 1250 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule exemption_phaseout_maximum_percentage with provenance "26 USC 151(d)(3)(B)":
 the exemption phaseout maximum percentage is 1 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule post_2017_exemption_amount with provenance "26 USC 151(d)(5)(A)":
 the post 2017 exemption amount is 0 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule senior_deduction_base_amount with provenance "26 USC 151(d)(5)(C)(i)":
 the senior deduction base amount is 6000 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule senior_deduction_age_threshold with provenance "26 USC 151(d)(5)(C)(ii)":
 the senior deduction age threshold is 65 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule senior_deduction_phaseout_rate with provenance "26 USC 151(d)(5)(C)(iii)(I)":
 the senior deduction phaseout rate is 0.06 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule senior_deduction_phaseout_threshold_other with provenance "26 USC 151(d)(5)(C)(iii)(I)":
 the senior deduction phaseout threshold other is 75000 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule senior_deduction_phaseout_threshold_joint with provenance "26 USC 151(d)(5)(C)(iii)(I)":
 the senior deduction phaseout threshold joint is 150000 if
     the calculation date is a date D
     and 2026-01-01 <= D.
@@ -819,6 +830,7 @@ the household cost fraction threshold is a rate R if
     and 2026-01-01 <= D
     and R = 1 / 2.
 
+rule spouse_absence_period_months with provenance "26 USC 7703(b)(3)":
 the spouse absence period months is 6 if
     the calculation date is a date D
     and 2026-01-01 <= D.
@@ -988,6 +1000,7 @@ the eitc completed phaseout amounts other for 3 is 62974 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule eitc_maximum_investment_income with provenance "Rev. Proc. 2025-32 section 3.06(2)":
 the eitc maximum investment income is 12200 if
     the calculation date is a date D
     and 2026-01-01 <= D.
@@ -1054,10 +1067,12 @@ the eitc phase out rates for 3 is 0.2106 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule eitc_childless_minimum_age with provenance "26 USC 32(c)(1)(A)(ii)(II)":
 the eitc childless minimum age is 25 if
     the calculation date is a date D
     and 2026-01-01 <= D.
 
+rule eitc_childless_age_ceiling_exclusive with provenance "26 USC 32(c)(1)(A)(ii)(II)":
 the eitc childless age ceiling exclusive is 65 if
     the calculation date is a date D
     and 2026-01-01 <= D.

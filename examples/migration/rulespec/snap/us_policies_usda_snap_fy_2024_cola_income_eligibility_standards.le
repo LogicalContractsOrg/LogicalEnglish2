@@ -95,6 +95,7 @@ the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty 
 
 the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
 
+rule contiguous_states_count with provenance "Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii":
 the contiguous states count is 48 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -140,6 +141,7 @@ the snap net income limit 100 percent fpl 48 states dc table for 8 is 4214 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_net_income_limit_100_percent_fpl_48_states_dc_additional_member with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column":
 the snap net income limit 100 percent fpl 48 states dc additional member is 429 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -185,6 +187,7 @@ the snap net income limit 100 percent fpl alaska table for 8 is 5269 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_net_income_limit_100_percent_fpl_alaska_additional_member with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, Alaska column":
 the snap net income limit 100 percent fpl alaska additional member is 536 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -230,6 +233,7 @@ the snap net income limit 100 percent fpl hawaii table for 8 is 4845 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_net_income_limit_100_percent_fpl_hawaii_additional_member with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, Hawaii column":
 the snap net income limit 100 percent fpl hawaii additional member is 493 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -275,6 +279,7 @@ the snap gross income limit 130 percent fpl 48 states dc table for 8 is 5478 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_gross_income_limit_130_percent_fpl_48_states_dc_additional_member with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column":
 the snap gross income limit 130 percent fpl 48 states dc additional member is 557 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -320,6 +325,7 @@ the snap gross income limit 130 percent fpl alaska table for 8 is 6849 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_gross_income_limit_130_percent_fpl_alaska_additional_member with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, Alaska column":
 the snap gross income limit 130 percent fpl alaska additional member is 697 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -365,6 +371,7 @@ the snap gross income limit 130 percent fpl hawaii table for 8 is 6299 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_gross_income_limit_130_percent_fpl_hawaii_additional_member with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, Hawaii column":
 the snap gross income limit 130 percent fpl hawaii additional member is 641 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -410,6 +417,7 @@ the snap gross income limit 165 percent fpl 48 states dc table for 8 is 6952 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_gross_income_limit_165_percent_fpl_48_states_dc_additional_member with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column":
 the snap gross income limit 165 percent fpl 48 states dc additional member is 707 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -455,6 +463,7 @@ the snap gross income limit 165 percent fpl alaska table for 8 is 8693 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_gross_income_limit_165_percent_fpl_alaska_additional_member with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, Alaska column":
 the snap gross income limit 165 percent fpl alaska additional member is 885 if
     the calculation date is a date D
     and 2023-10-01 <= D
@@ -500,21 +509,25 @@ the snap gross income limit 165 percent fpl hawaii table for 8 is 7995 if
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule snap_gross_income_limit_165_percent_fpl_hawaii_additional_member with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, Hawaii column":
 the snap gross income limit 165 percent fpl hawaii additional member is 813 if
     the calculation date is a date D
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule net_income_poverty_level_ratio with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level)":
 the net income poverty level ratio is 1 if
     the calculation date is a date D
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule gross_income_poverty_level_ratio with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level)":
 the gross income poverty level ratio is 1.3 if
     the calculation date is a date D
     and 2023-10-01 <= D
     and D <= 2024-09-30.
 
+rule elderly_disabled_separate_household_gross_income_poverty_level_ratio with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)":
 the elderly disabled separate household gross income poverty level ratio is 1.65 if
     the calculation date is a date D
     and 2023-10-01 <= D
