@@ -31,6 +31,13 @@ the templates are:
     the snap maximum allotment virgin islands table for *a household size* is *an amount*.
     the snap maximum allotment virgin islands additional member is *an amount*.
     the household size of *a household* is *a number*; scenario element.
+    the snap maximum allotment table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment alaska urban table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment alaska rural 1 table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment alaska rural 2 table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment guam table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment virgin islands table for *a household size* from *a first date* to *a last date* is *an amount*.
 
 the knowledge base us_policies_usda_snap_fy_2024_cola_maximum_allotments includes:
 
@@ -38,37 +45,28 @@ the knowledge base us_policies_usda_snap_fy_2024_cola_maximum_allotments include
 % us:policies/usda/snap/fy-2024-cola/maximum-allotments
 the text of "USDA SNAP FY 2024 cost-of-living adjustments" is at "sources/us/policies/usda/snap/fy-2024-cola/maximum-allotments.yaml".
 
-the snap maximum allotment table for 1 is 291 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment table for 2 is 535 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 1 from 2023-10-01 to 9999-12-31 is 291, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment table for 3 is 766 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 2 from 2023-10-01 to 9999-12-31 is 535, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment table for 4 is 973 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 3 from 2023-10-01 to 9999-12-31 is 766, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment table for 5 is 1155 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 4 from 2023-10-01 to 9999-12-31 is 973, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment table for 6 is 1386 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 5 from 2023-10-01 to 9999-12-31 is 1155, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment table for 7 is 1532 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 6 from 2023-10-01 to 9999-12-31 is 1386, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment table for 8 is 1751 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment table for 7 from 2023-10-01 to 9999-12-31 is 1532, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment table for 8 from 2023-10-01 to 9999-12-31 is 1751, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment additional member is 219 if
@@ -93,224 +91,170 @@ the snap one person thrifty food plan cost of a household is an amount if
     the calculation date is a date D
     and 2023-10-01 <= D
     and the household is a household
-        and the snap maximum allotment table for 1 is the amount.
+    and the snap maximum allotment table for 1 is the amount.
 
-the snap maximum allotment alaska urban table for 1 is 374 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment alaska urban table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment alaska urban table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment alaska urban table for 2 is 686 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 1 from 2023-10-01 to 9999-12-31 is 374, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska urban table for 3 is 983 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 2 from 2023-10-01 to 9999-12-31 is 686, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska urban table for 4 is 1248 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 3 from 2023-10-01 to 9999-12-31 is 983, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska urban table for 5 is 1482 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 4 from 2023-10-01 to 9999-12-31 is 1248, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska urban table for 6 is 1778 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 5 from 2023-10-01 to 9999-12-31 is 1482, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska urban table for 7 is 1966 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 6 from 2023-10-01 to 9999-12-31 is 1778, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska urban table for 8 is 2246 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska urban table for 7 from 2023-10-01 to 9999-12-31 is 1966, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment alaska urban table for 8 from 2023-10-01 to 9999-12-31 is 2246, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_alaska_urban_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment alaska urban additional member is 281 if
     the calculation date is a date D
     and 2023-10-01 <= D.
 
-the snap maximum allotment alaska rural 1 table for 1 is 477 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment alaska rural 1 table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment alaska rural 1 table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment alaska rural 1 table for 2 is 875 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 1 from 2023-10-01 to 9999-12-31 is 477, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 1 table for 3 is 1253 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 2 from 2023-10-01 to 9999-12-31 is 875, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 1 table for 4 is 1591 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 3 from 2023-10-01 to 9999-12-31 is 1253, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 1 table for 5 is 1890 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 4 from 2023-10-01 to 9999-12-31 is 1591, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 1 table for 6 is 2268 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 5 from 2023-10-01 to 9999-12-31 is 1890, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 1 table for 7 is 2506 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 6 from 2023-10-01 to 9999-12-31 is 2268, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 1 table for 8 is 2865 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 7 from 2023-10-01 to 9999-12-31 is 2506, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment alaska rural 1 table for 8 from 2023-10-01 to 9999-12-31 is 2865, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_alaska_rural_1_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment alaska rural 1 additional member is 358 if
     the calculation date is a date D
     and 2023-10-01 <= D.
 
-the snap maximum allotment alaska rural 2 table for 1 is 581 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment alaska rural 2 table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment alaska rural 2 table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment alaska rural 2 table for 2 is 1065 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 1 from 2023-10-01 to 9999-12-31 is 581, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 2 table for 3 is 1525 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 2 from 2023-10-01 to 9999-12-31 is 1065, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 2 table for 4 is 1937 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 3 from 2023-10-01 to 9999-12-31 is 1525, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 2 table for 5 is 2300 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 4 from 2023-10-01 to 9999-12-31 is 1937, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 2 table for 6 is 2760 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 5 from 2023-10-01 to 9999-12-31 is 2300, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 2 table for 7 is 3051 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 6 from 2023-10-01 to 9999-12-31 is 2760, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment alaska rural 2 table for 8 is 3487 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 7 from 2023-10-01 to 9999-12-31 is 3051, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment alaska rural 2 table for 8 from 2023-10-01 to 9999-12-31 is 3487, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_alaska_rural_2_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment alaska rural 2 additional member is 436 if
     the calculation date is a date D
     and 2023-10-01 <= D.
 
-the snap maximum allotment guam table for 1 is 430 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment guam table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment guam table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment guam table for 2 is 788 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 1 from 2023-10-01 to 9999-12-31 is 430, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment guam table for 3 is 1129 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 2 from 2023-10-01 to 9999-12-31 is 788, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment guam table for 4 is 1434 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 3 from 2023-10-01 to 9999-12-31 is 1129, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment guam table for 5 is 1703 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 4 from 2023-10-01 to 9999-12-31 is 1434, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment guam table for 6 is 2044 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 5 from 2023-10-01 to 9999-12-31 is 1703, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment guam table for 7 is 2259 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 6 from 2023-10-01 to 9999-12-31 is 2044, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment guam table for 8 is 2581 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment guam table for 7 from 2023-10-01 to 9999-12-31 is 2259, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment guam table for 8 from 2023-10-01 to 9999-12-31 is 2581, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_guam_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment guam additional member is 323 if
     the calculation date is a date D
     and 2023-10-01 <= D.
 
-the snap maximum allotment hawaii table for 1 is 527 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment hawaii table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment hawaii table for 2 is 967 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 1 from 2023-10-01 to 9999-12-31 is 527, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment hawaii table for 3 is 1385 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 2 from 2023-10-01 to 9999-12-31 is 967, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment hawaii table for 4 is 1759 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 3 from 2023-10-01 to 9999-12-31 is 1385, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment hawaii table for 5 is 2088 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 4 from 2023-10-01 to 9999-12-31 is 1759, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment hawaii table for 6 is 2506 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 5 from 2023-10-01 to 9999-12-31 is 2088, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment hawaii table for 7 is 2770 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 6 from 2023-10-01 to 9999-12-31 is 2506, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment hawaii table for 8 is 3166 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment hawaii table for 7 from 2023-10-01 to 9999-12-31 is 2770, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment hawaii table for 8 from 2023-10-01 to 9999-12-31 is 3166, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_hawaii_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment hawaii additional member is 396 if
     the calculation date is a date D
     and 2023-10-01 <= D.
 
-the snap maximum allotment virgin islands table for 1 is 375 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment virgin islands table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap maximum allotment virgin islands table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment virgin islands table for 2 is 688 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 1 from 2023-10-01 to 9999-12-31 is 375, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment virgin islands table for 3 is 985 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 2 from 2023-10-01 to 9999-12-31 is 688, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment virgin islands table for 4 is 1251 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 3 from 2023-10-01 to 9999-12-31 is 985, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment virgin islands table for 5 is 1485 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 4 from 2023-10-01 to 9999-12-31 is 1251, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment virgin islands table for 6 is 1782 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 5 from 2023-10-01 to 9999-12-31 is 1485, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment virgin islands table for 7 is 1970 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 6 from 2023-10-01 to 9999-12-31 is 1782, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap maximum allotment virgin islands table for 8 is 2252 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap maximum allotment virgin islands table for 7 from 2023-10-01 to 9999-12-31 is 1970, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap maximum allotment virgin islands table for 8 from 2023-10-01 to 9999-12-31 is 2252, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_allotment_virgin_islands_additional_member with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum allotment virgin islands additional member is 282 if

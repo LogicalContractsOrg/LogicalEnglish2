@@ -31,6 +31,13 @@ the templates are:
     the snap maximum allotment virgin islands table for *a household size* is *an amount*.
     the snap maximum allotment virgin islands additional member is *an amount*.
     the household size of *a household* is *a number*; scenario element.
+    the snap maximum allotment table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment alaska urban table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment alaska rural 1 table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment alaska rural 2 table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment guam table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap maximum allotment virgin islands table for *a household size* from *a first date* to *a last date* is *an amount*.
 
 the knowledge base us_policies_usda_snap_fy_2026_cola_maximum_allotments includes:
 
@@ -38,37 +45,28 @@ the knowledge base us_policies_usda_snap_fy_2026_cola_maximum_allotments include
 % us:policies/usda/snap/fy-2026-cola/maximum-allotments
 the text of "USDA SNAP FY 2026 maximum allotments and deductions" is at "sources/us/policies/usda/snap/fy-2026-cola/maximum-allotments.yaml".
 
-the snap maximum allotment table for 1 is 298 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment table for 2 is 546 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 1 from 2025-10-01 to 9999-12-31 is 298, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment table for 3 is 785 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 2 from 2025-10-01 to 9999-12-31 is 546, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment table for 4 is 994 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 3 from 2025-10-01 to 9999-12-31 is 785, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment table for 5 is 1183 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 4 from 2025-10-01 to 9999-12-31 is 994, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment table for 6 is 1421 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 5 from 2025-10-01 to 9999-12-31 is 1183, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment table for 7 is 1571 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 6 from 2025-10-01 to 9999-12-31 is 1421, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment table for 8 is 1789 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment table for 7 from 2025-10-01 to 9999-12-31 is 1571, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment table for 8 from 2025-10-01 to 9999-12-31 is 1789, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment additional member is 218 if
@@ -93,224 +91,170 @@ the snap one person thrifty food plan cost of a household is an amount if
     the calculation date is a date D
     and 2025-10-01 <= D
     and the household is a household
-        and the snap maximum allotment table for 1 is the amount.
+    and the snap maximum allotment table for 1 is the amount.
 
-the snap maximum allotment alaska urban table for 1 is 385 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment alaska urban table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment alaska urban table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment alaska urban table for 2 is 707 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 1 from 2025-10-01 to 9999-12-31 is 385, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska urban table for 3 is 1015 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 2 from 2025-10-01 to 9999-12-31 is 707, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska urban table for 4 is 1285 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 3 from 2025-10-01 to 9999-12-31 is 1015, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska urban table for 5 is 1529 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 4 from 2025-10-01 to 9999-12-31 is 1285, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska urban table for 6 is 1838 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 5 from 2025-10-01 to 9999-12-31 is 1529, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska urban table for 7 is 2031 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 6 from 2025-10-01 to 9999-12-31 is 1838, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska urban table for 8 is 2314 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska urban table for 7 from 2025-10-01 to 9999-12-31 is 2031, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment alaska urban table for 8 from 2025-10-01 to 9999-12-31 is 2314, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_alaska_urban_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment alaska urban additional member is 282 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
-the snap maximum allotment alaska rural 1 table for 1 is 491 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment alaska rural 1 table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment alaska rural 1 table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment alaska rural 1 table for 2 is 901 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 1 from 2025-10-01 to 9999-12-31 is 491, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 1 table for 3 is 1295 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 2 from 2025-10-01 to 9999-12-31 is 901, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 1 table for 4 is 1639 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 3 from 2025-10-01 to 9999-12-31 is 1295, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 1 table for 5 is 1950 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 4 from 2025-10-01 to 9999-12-31 is 1639, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 1 table for 6 is 2344 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 5 from 2025-10-01 to 9999-12-31 is 1950, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 1 table for 7 is 2590 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 6 from 2025-10-01 to 9999-12-31 is 2344, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 1 table for 8 is 2950 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 1 table for 7 from 2025-10-01 to 9999-12-31 is 2590, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment alaska rural 1 table for 8 from 2025-10-01 to 9999-12-31 is 2950, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_alaska_rural_1_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment alaska rural 1 additional member is 360 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
-the snap maximum allotment alaska rural 2 table for 1 is 598 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment alaska rural 2 table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment alaska rural 2 table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment alaska rural 2 table for 2 is 1097 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 1 from 2025-10-01 to 9999-12-31 is 598, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 2 table for 3 is 1576 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 2 from 2025-10-01 to 9999-12-31 is 1097, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 2 table for 4 is 1995 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 3 from 2025-10-01 to 9999-12-31 is 1576, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 2 table for 5 is 2374 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 4 from 2025-10-01 to 9999-12-31 is 1995, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 2 table for 6 is 2853 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 5 from 2025-10-01 to 9999-12-31 is 2374, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 2 table for 7 is 3152 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 6 from 2025-10-01 to 9999-12-31 is 2853, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment alaska rural 2 table for 8 is 3591 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment alaska rural 2 table for 7 from 2025-10-01 to 9999-12-31 is 3152, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment alaska rural 2 table for 8 from 2025-10-01 to 9999-12-31 is 3591, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_alaska_rural_2_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment alaska rural 2 additional member is 438 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
-the snap maximum allotment guam table for 1 is 439 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment guam table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment guam table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment guam table for 2 is 806 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 1 from 2025-10-01 to 9999-12-31 is 439, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment guam table for 3 is 1157 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 2 from 2025-10-01 to 9999-12-31 is 806, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment guam table for 4 is 1465 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 3 from 2025-10-01 to 9999-12-31 is 1157, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment guam table for 5 is 1743 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 4 from 2025-10-01 to 9999-12-31 is 1465, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment guam table for 6 is 2095 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 5 from 2025-10-01 to 9999-12-31 is 1743, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment guam table for 7 is 2315 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 6 from 2025-10-01 to 9999-12-31 is 2095, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment guam table for 8 is 2637 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment guam table for 7 from 2025-10-01 to 9999-12-31 is 2315, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment guam table for 8 from 2025-10-01 to 9999-12-31 is 2637, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_guam_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment guam additional member is 322 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
-the snap maximum allotment hawaii table for 1 is 506 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment hawaii table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment hawaii table for 2 is 929 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 1 from 2025-10-01 to 9999-12-31 is 506, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment hawaii table for 3 is 1334 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 2 from 2025-10-01 to 9999-12-31 is 929, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment hawaii table for 4 is 1689 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 3 from 2025-10-01 to 9999-12-31 is 1334, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment hawaii table for 5 is 2010 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 4 from 2025-10-01 to 9999-12-31 is 1689, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment hawaii table for 6 is 2415 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 5 from 2025-10-01 to 9999-12-31 is 2010, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment hawaii table for 7 is 2668 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 6 from 2025-10-01 to 9999-12-31 is 2415, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment hawaii table for 8 is 3040 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment hawaii table for 7 from 2025-10-01 to 9999-12-31 is 2668, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment hawaii table for 8 from 2025-10-01 to 9999-12-31 is 3040, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_hawaii_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment hawaii additional member is 371 if
     the calculation date is a date D
     and 2025-10-01 <= D.
 
-the snap maximum allotment virgin islands table for 1 is 383 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap maximum allotment virgin islands table for a household size is an amount if
     the calculation date is a date D
-    and 2025-10-01 <= D.
+    and the snap maximum allotment virgin islands table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap maximum allotment virgin islands table for 2 is 703 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 1 from 2025-10-01 to 9999-12-31 is 383, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment virgin islands table for 3 is 1009 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 2 from 2025-10-01 to 9999-12-31 is 703, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment virgin islands table for 4 is 1278 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 3 from 2025-10-01 to 9999-12-31 is 1009, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment virgin islands table for 5 is 1521 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 4 from 2025-10-01 to 9999-12-31 is 1278, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment virgin islands table for 6 is 1827 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 5 from 2025-10-01 to 9999-12-31 is 1521, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment virgin islands table for 7 is 2019 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 6 from 2025-10-01 to 9999-12-31 is 1827, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
-the snap maximum allotment virgin islands table for 8 is 2300 if
-    the calculation date is a date D
-    and 2025-10-01 <= D.
+the snap maximum allotment virgin islands table for 7 from 2025-10-01 to 9999-12-31 is 2019, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap maximum allotment virgin islands table for 8 from 2025-10-01 to 9999-12-31 is 2300, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
 
 rule snap_maximum_allotment_virgin_islands_additional_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
 the snap maximum allotment virgin islands additional member is 281 if

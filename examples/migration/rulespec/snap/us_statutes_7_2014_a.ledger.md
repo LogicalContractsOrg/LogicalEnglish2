@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2014/a.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 13 |
+| encoded | 10 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 13 |
+| **total** | 10 |
 
 Fidelity: **12 of 12** source test expectation(s) reproduced (100%).
 
@@ -23,11 +23,8 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/7/2014/a#household_meets_social_security_act_benefit_criterion | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_household_meets_social_security_act_benefit_criterion |  |
-| us:statutes/7/2014/a#household_meets_social_security_act_benefit_criterion | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_household_meets_social_security_act_benefit_criterion |  |
 | us:statutes/7/2014/a#household_meets_qualifying_general_assistance_benefit_criterion | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_household_meets_qualifying_general_assistance_benefit_criterion |  |
-| us:statutes/7/2014/a#household_meets_qualifying_general_assistance_benefit_criterion | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_household_meets_qualifying_general_assistance_benefit_criterion |  |
 | us:statutes/7/2014/a#household_has_snap_participation_basis_from_income_or_categorical_benefits | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_household_has_snap_participation_basis_from_income_or_categorical_benefits |  |
-| us:statutes/7/2014/a#household_has_snap_participation_basis_from_income_or_categorical_benefits | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_household_has_snap_participation_basis_from_income_or_categorical_benefits |  |
 | input each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act | input | encoded | a name no rule defines -> a fact the scenario states | rs_each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act |  |
 | input each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act | input | encoded | a name no rule defines -> a fact the scenario states | rs_each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act |  |
 | input each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act | input | encoded | a name no rule defines -> a fact the scenario states | rs_each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act |  |

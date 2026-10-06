@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/26/112.yaml, sources/us/statutes/26/32/c/2.yaml, sources/us/statutes/26/152/c.yaml, sources/us/statutes/26/911/a.yaml, sources/us/statutes/26/931.yaml, sources/us/statutes/26/933.yaml, sources/us/statutes/26/151.yaml, sources/us/statutes/26/7703.yaml, sources/us/policies/irs/rev-proc-2025-32/earned-income-credit.yaml, sources/us/statutes/26/32.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 294 |
+| encoded | 202 |
 | approximated | 2 |
 | residue | 0 |
-| **total** | 296 |
+| **total** | 204 |
 
 Fidelity: **28 of 28** source test expectation(s) reproduced (100%).
 
@@ -23,189 +23,97 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/26/112#hospitalization_after_combat_zone_termination_limit_years | parameter | encoded | parameter -> a fact, cited | rs_hospitalization_after_combat_zone_termination_limit_years |  |
-| us:statutes/26/112#hospitalization_after_combat_zone_termination_limit_years | parameter | encoded | rule | rs_hospitalization_after_combat_zone_termination_limit_years |  |
 | us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_excluded_from_gross_income_by_reason_of_section_112 |  |
-| us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112 | derived | encoded | rule | rs_amount_excluded_from_gross_income_by_reason_of_section_112 |  |
 | us:statutes/26/32/c/2#earned_income_before_section_112_election | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_earned_income_before_section_112_election |  |
-| us:statutes/26/32/c/2#earned_income_before_section_112_election | derived | encoded | rule | rs_earned_income_before_section_112_election |  |
 | us:statutes/26/32/c/2#earned_income | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_earned_income |  |
-| us:statutes/26/32/c/2#earned_income | derived | encoded | rule | rs_earned_income |  |
 | us:statutes/26/152/c#abode_fraction_threshold | parameter | encoded | parameter -> a fact, cited | rs_abode_fraction_threshold |  |
-| us:statutes/26/152/c#abode_fraction_threshold | parameter | encoded | rule | rs_abode_fraction_threshold |  |
 | us:statutes/26/152/c#support_fraction_threshold | parameter | encoded | parameter -> a fact, cited | rs_support_fraction_threshold |  |
-| us:statutes/26/152/c#support_fraction_threshold | parameter | encoded | rule | rs_support_fraction_threshold |  |
 | us:statutes/26/152/c#child_age_limit | parameter | encoded | parameter -> a fact, cited | rs_child_age_limit |  |
-| us:statutes/26/152/c#child_age_limit | parameter | encoded | rule | rs_child_age_limit |  |
 | us:statutes/26/152/c#student_age_limit | parameter | encoded | parameter -> a fact, cited | rs_student_age_limit |  |
-| us:statutes/26/152/c#student_age_limit | parameter | encoded | rule | rs_student_age_limit |  |
 | us:statutes/26/152/c#qualifying_child_relationship | derived | encoded | derived judgment -> a rule concluding a sentence | rs_qualifying_child_relationship |  |
-| us:statutes/26/152/c#qualifying_child_relationship | derived | encoded | rule | rs_qualifying_child_relationship |  |
 | us:statutes/26/152/c#age_requirements_met | derived | encoded | derived judgment -> a rule concluding a sentence | rs_age_requirements_met |  |
-| us:statutes/26/152/c#age_requirements_met | derived | encoded | rule | rs_age_requirements_met |  |
 | us:statutes/26/152/c#individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund | derived | encoded | derived judgment -> a rule concluding a sentence | rs_individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund |  |
-| us:statutes/26/152/c#individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund | derived | encoded | rule | rs_individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund |  |
 | us:statutes/26/152/c#parents_claiming_child_do_not_file_joint_return_together | derived | encoded | derived judgment -> a rule concluding a sentence | rs_parents_claiming_child_do_not_file_joint_return_together |  |
-| us:statutes/26/152/c#parents_claiming_child_do_not_file_joint_return_together | derived | encoded | rule | rs_parents_claiming_child_do_not_file_joint_return_together |  |
 | us:statutes/26/152/c#qualifying_child_before_tiebreaker | derived | encoded | derived judgment -> a rule concluding a sentence | rs_qualifying_child_before_tiebreaker |  |
-| us:statutes/26/152/c#qualifying_child_before_tiebreaker | derived | encoded | rule | rs_qualifying_child_before_tiebreaker |  |
 | us:statutes/26/152/c#tiebreaker_treats_individual_as_qualifying_child_of_taxpayer | derived | encoded | derived judgment -> a rule concluding a sentence | rs_tiebreaker_treats_individual_as_qualifying_child_of_taxpayer |  |
-| us:statutes/26/152/c#tiebreaker_treats_individual_as_qualifying_child_of_taxpayer | derived | encoded | rule | rs_tiebreaker_treats_individual_as_qualifying_child_of_taxpayer |  |
 | us:statutes/26/152/c#qualifying_child | derived | encoded | derived judgment -> a rule concluding a sentence | rs_qualifying_child |  |
-| us:statutes/26/152/c#qualifying_child | derived | encoded | rule | rs_qualifying_child |  |
 | us:statutes/26/911/a#foreign_earned_income_excluded_from_gross_income | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_foreign_earned_income_excluded_from_gross_income |  |
-| us:statutes/26/911/a#foreign_earned_income_excluded_from_gross_income | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_foreign_earned_income_excluded_from_gross_income |  |
 | us:statutes/26/911/a#housing_cost_amount_excluded_from_gross_income | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_housing_cost_amount_excluded_from_gross_income |  |
-| us:statutes/26/911/a#housing_cost_amount_excluded_from_gross_income | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_housing_cost_amount_excluded_from_gross_income |  |
 | us:statutes/26/911/a#section_911_amount_excluded_from_gross_income | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_section_911_amount_excluded_from_gross_income |  |
-| us:statutes/26/911/a#section_911_amount_excluded_from_gross_income | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_section_911_amount_excluded_from_gross_income |  |
 | us:statutes/26/911/a#section_911_amount_exempt_from_taxation | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_section_911_amount_exempt_from_taxation |  |
-| us:statutes/26/911/a#section_911_amount_exempt_from_taxation | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_section_911_amount_exempt_from_taxation |  |
 | us:statutes/26/931#possession_is_specified_possession | derived | encoded | derived judgment -> a rule concluding a sentence | rs_possession_is_specified_possession |  |
-| us:statutes/26/931#possession_is_specified_possession | derived | encoded | rule | rs_possession_is_specified_possession |  |
 | us:statutes/26/931#amount_excluded_from_gross_income_under_section_931 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_excluded_from_gross_income_under_section_931 |  |
-| us:statutes/26/931#amount_excluded_from_gross_income_under_section_931 | derived | encoded | rule | rs_amount_excluded_from_gross_income_under_section_931 |  |
 | us:statutes/26/931#section_931_disallowed_deductions_excluding_section_151 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_section_931_disallowed_deductions_excluding_section_151 |  |
-| us:statutes/26/931#section_931_disallowed_deductions_excluding_section_151 | derived | encoded | rule | rs_section_931_disallowed_deductions_excluding_section_151 |  |
 | us:statutes/26/931#deductions_other_than_section_151_allowed_after_section_931 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_deductions_other_than_section_151_allowed_after_section_931 |  |
-| us:statutes/26/931#deductions_other_than_section_151_allowed_after_section_931 | derived | encoded | rule | rs_deductions_other_than_section_151_allowed_after_section_931 |  |
 | us:statutes/26/931#section_931_disallowed_credits | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_section_931_disallowed_credits |  |
-| us:statutes/26/931#section_931_disallowed_credits | derived | encoded | rule | rs_section_931_disallowed_credits |  |
 | us:statutes/26/931#credits_allowed_after_section_931 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_credits_allowed_after_section_931 |  |
-| us:statutes/26/931#credits_allowed_after_section_931 | derived | encoded | rule | rs_credits_allowed_after_section_931 |  |
 | us:statutes/26/933#puerto_rico_residence_before_change_minimum_years | parameter | encoded | parameter -> a fact, cited | rs_puerto_rico_residence_before_change_minimum_years |  |
-| us:statutes/26/933#puerto_rico_residence_before_change_minimum_years | parameter | encoded | rule | rs_puerto_rico_residence_before_change_minimum_years |  |
 | us:statutes/26/933#entire_year_puerto_rico_source_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_entire_year_puerto_rico_source_income_excluded |  |
-| us:statutes/26/933#entire_year_puerto_rico_source_income_excluded | derived | encoded | rule | rs_entire_year_puerto_rico_source_income_excluded |  |
 | us:statutes/26/933#change_year_puerto_rico_source_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_change_year_puerto_rico_source_income_excluded |  |
-| us:statutes/26/933#change_year_puerto_rico_source_income_excluded | derived | encoded | rule | rs_change_year_puerto_rico_source_income_excluded |  |
 | us:statutes/26/933#income_excluded_from_gross_income_under_section_933 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_income_excluded_from_gross_income_under_section_933 |  |
-| us:statutes/26/933#income_excluded_from_gross_income_under_section_933 | derived | encoded | rule | rs_income_excluded_from_gross_income_under_section_933 |  |
 | us:statutes/26/933#section_933_disallowed_deductions_other_than_section_151 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_section_933_disallowed_deductions_other_than_section_151 |  |
-| us:statutes/26/933#section_933_disallowed_deductions_other_than_section_151 | derived | encoded | rule | rs_section_933_disallowed_deductions_other_than_section_151 |  |
 | us:statutes/26/933#section_933_disallowed_credits | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_section_933_disallowed_credits |  |
-| us:statutes/26/933#section_933_disallowed_credits | derived | encoded | rule | rs_section_933_disallowed_credits |  |
 | us:statutes/26/151#exemption_individual_of_tax_unit | data_relation | encoded | data relation -> a two-place sentence the scenario states | rs_exemption_individual_of_tax_unit |  |
-| us:statutes/26/151#exemption_individual_of_tax_unit | data_relation | encoded | rule | rs_exemption_individual_of_tax_unit |  |
 | us:statutes/26/151#senior_deduction_individual_of_tax_unit | data_relation | encoded | data relation -> a two-place sentence the scenario states | rs_senior_deduction_individual_of_tax_unit |  |
-| us:statutes/26/151#senior_deduction_individual_of_tax_unit | data_relation | encoded | rule | rs_senior_deduction_individual_of_tax_unit |  |
 | us:statutes/26/151#statutory_exemption_amount_base | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_statutory_exemption_amount_base |  |
-| us:statutes/26/151#statutory_exemption_amount_base | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_statutory_exemption_amount_base |  |
 | us:statutes/26/151#exemption_phaseout_rate_per_increment | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_rate_per_increment |  |
-| us:statutes/26/151#exemption_phaseout_rate_per_increment | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_rate_per_increment |  |
 | us:statutes/26/151#exemption_phaseout_increment | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_increment |  |
-| us:statutes/26/151#exemption_phaseout_increment | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_increment |  |
 | us:statutes/26/151#exemption_phaseout_increment_separate | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_increment_separate |  |
-| us:statutes/26/151#exemption_phaseout_increment_separate | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_increment_separate |  |
 | us:statutes/26/151#exemption_phaseout_maximum_percentage | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_maximum_percentage |  |
-| us:statutes/26/151#exemption_phaseout_maximum_percentage | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_exemption_phaseout_maximum_percentage |  |
 | us:statutes/26/151#post_2017_exemption_amount | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_post_2017_exemption_amount |  |
-| us:statutes/26/151#post_2017_exemption_amount | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_post_2017_exemption_amount |  |
 | us:statutes/26/151#senior_deduction_base_amount | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_senior_deduction_base_amount |  |
-| us:statutes/26/151#senior_deduction_base_amount | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_base_amount |  |
 | us:statutes/26/151#senior_deduction_age_threshold | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_senior_deduction_age_threshold |  |
-| us:statutes/26/151#senior_deduction_age_threshold | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_age_threshold |  |
 | us:statutes/26/151#senior_deduction_phaseout_rate | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_rate |  |
-| us:statutes/26/151#senior_deduction_phaseout_rate | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_rate |  |
 | us:statutes/26/151#senior_deduction_phaseout_threshold_other | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_threshold_other |  |
-| us:statutes/26/151#senior_deduction_phaseout_threshold_other | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_threshold_other |  |
 | us:statutes/26/151#senior_deduction_phaseout_threshold_joint | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_threshold_joint |  |
-| us:statutes/26/151#senior_deduction_phaseout_threshold_joint | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_threshold_joint |  |
 | us:statutes/26/151#exemption_amount | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_exemption_amount |  |
-| us:statutes/26/151#exemption_amount | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_exemption_amount |  |
 | us:statutes/26/151#exemption_individual_eligible | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_exemption_individual_eligible |  |
-| us:statutes/26/151#exemption_individual_eligible | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_exemption_individual_eligible |  |
 | us:statutes/26/151#section_151_exemption_deduction | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_section_151_exemption_deduction |  |
-| us:statutes/26/151#section_151_exemption_deduction | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_section_151_exemption_deduction |  |
 | us:statutes/26/151#senior_deduction_qualified_individual | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_senior_deduction_qualified_individual |  |
-| us:statutes/26/151#senior_deduction_qualified_individual | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_qualified_individual |  |
 | us:statutes/26/151#senior_deduction_modified_adjusted_gross_income | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_senior_deduction_modified_adjusted_gross_income |  |
-| us:statutes/26/151#senior_deduction_modified_adjusted_gross_income | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_modified_adjusted_gross_income |  |
 | us:statutes/26/151#senior_deduction_phaseout_threshold | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_threshold |  |
-| us:statutes/26/151#senior_deduction_phaseout_threshold | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_phaseout_threshold |  |
 | us:statutes/26/151#senior_deduction_amount_per_qualified_individual | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_senior_deduction_amount_per_qualified_individual |  |
-| us:statutes/26/151#senior_deduction_amount_per_qualified_individual | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_amount_per_qualified_individual |  |
 | us:statutes/26/151#senior_deduction_eligible | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_senior_deduction_eligible |  |
-| us:statutes/26/151#senior_deduction_eligible | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction_eligible |  |
 | us:statutes/26/151#senior_deduction | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_senior_deduction |  |
-| us:statutes/26/151#senior_deduction | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_senior_deduction |  |
 | us:statutes/26/7703#living_apart_child_of_tax_unit | data_relation | encoded | data relation -> a two-place sentence the scenario states | rs_living_apart_child_of_tax_unit |  |
-| us:statutes/26/7703#living_apart_child_of_tax_unit | data_relation | encoded | rule | rs_living_apart_child_of_tax_unit |  |
 | us:statutes/26/7703#child_principal_abode_fraction_threshold | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_child_principal_abode_fraction_threshold |  |
-| us:statutes/26/7703#child_principal_abode_fraction_threshold | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_child_principal_abode_fraction_threshold |  |
 | us:statutes/26/7703#household_cost_fraction_threshold | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_household_cost_fraction_threshold |  |
-| us:statutes/26/7703#household_cost_fraction_threshold | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_household_cost_fraction_threshold |  |
 | us:statutes/26/7703#spouse_absence_period_months | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_spouse_absence_period_months |  |
-| us:statutes/26/7703#spouse_absence_period_months | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_spouse_absence_period_months |  |
 | us:statutes/26/7703#taxpayer_married_under_general_rule | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_taxpayer_married_under_general_rule |  |
-| us:statutes/26/7703#taxpayer_married_under_general_rule | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_taxpayer_married_under_general_rule |  |
 | us:statutes/26/7703#living_apart_child_has_required_abode_and_deduction | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_living_apart_child_has_required_abode_and_deduction |  |
-| us:statutes/26/7703#living_apart_child_has_required_abode_and_deduction | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_living_apart_child_has_required_abode_and_deduction |  |
 | us:statutes/26/7703#taxpayer_not_considered_married_when_living_apart | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_taxpayer_not_considered_married_when_living_apart |  |
-| us:statutes/26/7703#taxpayer_not_considered_married_when_living_apart | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_taxpayer_not_considered_married_when_living_apart |  |
 | us:statutes/26/7703#taxpayer_considered_married_after_living_apart_rule | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_taxpayer_considered_married_after_living_apart_rule |  |
-| us:statutes/26/7703#taxpayer_considered_married_after_living_apart_rule | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_taxpayer_considered_married_after_living_apart_rule |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_earned_income_amounts |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_earned_income_amounts |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_maximum_credit_amounts |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_maximum_credit_amounts |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_threshold_phaseout_amounts_joint |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_threshold_phaseout_amounts_joint |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_joint | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_completed_phaseout_amounts_joint |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_joint | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_completed_phaseout_amounts_joint |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_threshold_phaseout_amounts_other |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_threshold_phaseout_amounts_other |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_other | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_completed_phaseout_amounts_other |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_completed_phaseout_amounts_other | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_completed_phaseout_amounts_other |  |
 | us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_investment_income | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_eitc_maximum_investment_income |  |
-| us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_investment_income | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_maximum_investment_income |  |
 | us:statutes/26/32#qualifying_child_of_tax_unit | data_relation | encoded | data relation -> a two-place sentence the scenario states | rs_qualifying_child_of_tax_unit |  |
-| us:statutes/26/32#qualifying_child_of_tax_unit | data_relation | encoded | rule | rs_qualifying_child_of_tax_unit |  |
 | us:statutes/26/32#eitc_phase_in_rates | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_phase_in_rates |  |
-| us:statutes/26/32#eitc_phase_in_rates | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phase_in_rates |  |
 | us:statutes/26/32#eitc_phase_out_rates | parameter | encoded | indexed parameter -> one fact per row, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_rates |  |
-| us:statutes/26/32#eitc_phase_out_rates | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_rates |  |
 | us:statutes/26/32#eitc_childless_minimum_age | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_eitc_childless_minimum_age |  |
-| us:statutes/26/32#eitc_childless_minimum_age | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_childless_minimum_age |  |
 | us:statutes/26/32#eitc_childless_age_ceiling_exclusive | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_eitc_childless_age_ceiling_exclusive |  |
-| us:statutes/26/32#eitc_childless_age_ceiling_exclusive | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_childless_age_ceiling_exclusive |  |
 | us:statutes/26/32#eitc_qualifying_child_base | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_qualifying_child_base |  |
-| us:statutes/26/32#eitc_qualifying_child_base | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_qualifying_child_base |  |
 | us:statutes/26/32#eitc_qualifying_child | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_qualifying_child |  |
-| us:statutes/26/32#eitc_qualifying_child | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_qualifying_child |  |
 | us:statutes/26/32#eitc_child_count | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_child_count |  |
-| us:statutes/26/32#eitc_child_count | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_child_count |  |
 | us:statutes/26/32#eitc_capped_child_count | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_capped_child_count |  |
-| us:statutes/26/32#eitc_capped_child_count | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_capped_child_count |  |
 | us:statutes/26/32#eitc_phase_in_rate | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_phase_in_rate |  |
-| us:statutes/26/32#eitc_phase_in_rate | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phase_in_rate |  |
 | us:statutes/26/32#eitc_phase_out_rate | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_rate |  |
-| us:statutes/26/32#eitc_phase_out_rate | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_rate |  |
 | us:statutes/26/32#eitc_earned_income_amount | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_earned_income_amount |  |
-| us:statutes/26/32#eitc_earned_income_amount | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_earned_income_amount |  |
 | us:statutes/26/32#eitc_maximum | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_maximum |  |
-| us:statutes/26/32#eitc_maximum | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_maximum |  |
 | us:statutes/26/32#eitc_phase_out_start | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_start |  |
-| us:statutes/26/32#eitc_phase_out_start | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_start |  |
 | us:statutes/26/32#eitc_phase_out_income | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_income |  |
-| us:statutes/26/32#eitc_phase_out_income | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phase_out_income |  |
 | us:statutes/26/32#eitc_phased_in | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_phased_in |  |
-| us:statutes/26/32#eitc_phased_in | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_phased_in |  |
 | us:statutes/26/32#eitc_reduction | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_reduction |  |
-| us:statutes/26/32#eitc_reduction | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_reduction |  |
 | us:statutes/26/32#eitc_before_eligibility | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc_before_eligibility |  |
-| us:statutes/26/32#eitc_before_eligibility | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_before_eligibility |  |
 | us:statutes/26/32#eitc_childless_age_eligible | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_childless_age_eligible |  |
-| us:statutes/26/32#eitc_childless_age_eligible | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_childless_age_eligible |  |
 | us:statutes/26/32#eitc_demographic_eligible | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_demographic_eligible |  |
-| us:statutes/26/32#eitc_demographic_eligible | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_demographic_eligible |  |
 | us:statutes/26/32#eitc_identification_requirements_satisfied | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_identification_requirements_satisfied |  |
-| us:statutes/26/32#eitc_identification_requirements_satisfied | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_identification_requirements_satisfied |  |
 | us:statutes/26/32#eitc_investment_income_eligible | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_investment_income_eligible |  |
-| us:statutes/26/32#eitc_investment_income_eligible | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_investment_income_eligible |  |
 | us:statutes/26/32#eitc_allowed | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_eitc_allowed |  |
-| us:statutes/26/32#eitc_allowed | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc_allowed |  |
 | us:statutes/26/32#eitc | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_eitc |  |
-| us:statutes/26/32#eitc | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_eitc |  |
 | input member_below_grade_of_commissioned_officer_in_armed_forces | input | encoded | a name no rule defines -> a fact the scenario states | rs_member_below_grade_of_commissioned_officer_in_armed_forces |  |
 | input served_in_combat_zone_during_month | input | encoded | a name no rule defines -> a fact the scenario states | rs_served_in_combat_zone_during_month |  |
 | input hospitalized_resulting_from_combat_zone_wounds_disease_or_injury | input | encoded | a name no rule defines -> a fact the scenario states | rs_hospitalized_resulting_from_combat_zone_wounds_disease_or_injury |  |

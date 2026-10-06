@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2015/e.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 54 |
+| encoded | 38 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 54 |
+| **total** | 38 |
 
 Fidelity: **20 of 20** source test expectation(s) reproduced (100%).
 
@@ -23,37 +23,21 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/7/2015/e#student_under_age_exception_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_under_age_exception_threshold_years |  |
-| us:statutes/7/2015/e#student_under_age_exception_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_under_age_exception_threshold_years |  |
 | us:statutes/7/2015/e#student_older_age_exception_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_older_age_exception_threshold_years |  |
-| us:statutes/7/2015/e#student_older_age_exception_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_older_age_exception_threshold_years |  |
 | us:statutes/7/2015/e#snap_employment_and_training_career_technical_program_max_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_snap_employment_and_training_career_technical_program_max_years |  |
-| us:statutes/7/2015/e#snap_employment_and_training_career_technical_program_max_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_snap_employment_and_training_career_technical_program_max_years |  |
 | us:statutes/7/2015/e#student_minimum_employment_hours_per_week | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_minimum_employment_hours_per_week |  |
-| us:statutes/7/2015/e#student_minimum_employment_hours_per_week | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_minimum_employment_hours_per_week |  |
 | us:statutes/7/2015/e#student_parent_young_child_age_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_parent_young_child_age_threshold_years |  |
-| us:statutes/7/2015/e#student_parent_young_child_age_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_parent_young_child_age_threshold_years |  |
 | us:statutes/7/2015/e#student_parent_older_child_lower_age_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_parent_older_child_lower_age_threshold_years |  |
-| us:statutes/7/2015/e#student_parent_older_child_lower_age_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_parent_older_child_lower_age_threshold_years |  |
 | us:statutes/7/2015/e#student_parent_older_child_upper_age_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_parent_older_child_upper_age_threshold_years |  |
-| us:statutes/7/2015/e#student_parent_older_child_upper_age_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_parent_older_child_upper_age_threshold_years |  |
 | us:statutes/7/2015/e#student_single_parent_child_age_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_student_single_parent_child_age_threshold_years |  |
-| us:statutes/7/2015/e#student_single_parent_child_age_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_single_parent_child_age_threshold_years |  |
 | us:statutes/7/2015/e#student_age_exception_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_age_exception_applies |  |
-| us:statutes/7/2015/e#student_age_exception_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_age_exception_applies |  |
 | us:statutes/7/2015/e#snap_employment_and_training_course_condition_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_snap_employment_and_training_course_condition_applies |  |
-| us:statutes/7/2015/e#snap_employment_and_training_course_condition_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_snap_employment_and_training_course_condition_applies |  |
 | us:statutes/7/2015/e#student_assignment_or_placement_exception_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_assignment_or_placement_exception_applies |  |
-| us:statutes/7/2015/e#student_assignment_or_placement_exception_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_assignment_or_placement_exception_applies |  |
 | us:statutes/7/2015/e#student_work_exception_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_work_exception_applies |  |
-| us:statutes/7/2015/e#student_work_exception_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_work_exception_applies |  |
 | us:statutes/7/2015/e#student_parent_child_care_exception_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_parent_child_care_exception_applies |  |
-| us:statutes/7/2015/e#student_parent_child_care_exception_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_parent_child_care_exception_applies |  |
 | us:statutes/7/2015/e#student_single_parent_exception_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_single_parent_exception_applies |  |
-| us:statutes/7/2015/e#student_single_parent_exception_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_single_parent_exception_applies |  |
 | us:statutes/7/2015/e#student_exception_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_exception_applies |  |
-| us:statutes/7/2015/e#student_exception_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_exception_applies |  |
 | us:statutes/7/2015/e#student_ineligible_for_snap_participation | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_student_ineligible_for_snap_participation |  |
-| us:statutes/7/2015/e#student_ineligible_for_snap_participation | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_student_ineligible_for_snap_participation |  |
 | input person_age_years | input | encoded | a name no rule defines -> a fact the scenario states | rs_person_age_years |  |
 | input program_of_study_is_part_of_career_and_technical_education | input | encoded | a name no rule defines -> a fact the scenario states | rs_program_of_study_is_part_of_career_and_technical_education |  |
 | input program_of_study_may_be_completed_in_years | input | encoded | a name no rule defines -> a fact the scenario states | rs_program_of_study_may_be_completed_in_years |  |

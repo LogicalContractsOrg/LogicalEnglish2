@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/26/112.yaml, sources/us/statutes/26/32/c/2.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 29 |
+| encoded | 25 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 29 |
+| **total** | 25 |
 
 Fidelity: **4 of 4** source test expectation(s) reproduced (100%).
 
@@ -23,13 +23,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/26/112#hospitalization_after_combat_zone_termination_limit_years | parameter | encoded | parameter -> a fact, cited | rs_hospitalization_after_combat_zone_termination_limit_years |  |
-| us:statutes/26/112#hospitalization_after_combat_zone_termination_limit_years | parameter | encoded | rule | rs_hospitalization_after_combat_zone_termination_limit_years |  |
 | us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_excluded_from_gross_income_by_reason_of_section_112 |  |
-| us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112 | derived | encoded | rule | rs_amount_excluded_from_gross_income_by_reason_of_section_112 |  |
 | us:statutes/26/32/c/2#earned_income_before_section_112_election | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_earned_income_before_section_112_election |  |
-| us:statutes/26/32/c/2#earned_income_before_section_112_election | derived | encoded | rule | rs_earned_income_before_section_112_election |  |
 | us:statutes/26/32/c/2#earned_income | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_earned_income |  |
-| us:statutes/26/32/c/2#earned_income | derived | encoded | rule | rs_earned_income |  |
 | input member_below_grade_of_commissioned_officer_in_armed_forces | input | encoded | a name no rule defines -> a fact the scenario states | rs_member_below_grade_of_commissioned_officer_in_armed_forces |  |
 | input served_in_combat_zone_during_month | input | encoded | a name no rule defines -> a fact the scenario states | rs_served_in_combat_zone_during_month |  |
 | input hospitalized_resulting_from_combat_zone_wounds_disease_or_injury | input | encoded | a name no rule defines -> a fact the scenario states | rs_hospitalized_resulting_from_combat_zone_wounds_disease_or_injury |  |
