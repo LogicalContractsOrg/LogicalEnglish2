@@ -1,0 +1,399 @@
+% smic — jumeau des champs d'application Catala Smic (catala-examples, Apache-2.0), avec les tests de leurs fichiers.
+% Traduit par lpsPlus migration/catala (roadmap.md §5.4, phase 3c).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+la langue cible est: prolog.
+
+les modèles sont:
+    le brut horaire est *un montant*.
+    la date courante est *une date*; élément de scénario.
+    la résidence est *un code*; élément de scénario.
+
+la base de connaissances cat_smic comprend:
+
+
+% Catala scope(s) Smic — cat:smic
+le texte de "Article 1 | JORFARTI000037833214; Article 1 | LEGIARTI000039640195; Article 1 | JORFARTI000042677367; Article 1  | JORFARTI000044546655; Article 2 | JORFARTI000045602327; Article 2 | JORFARTI000046113526; Article 1 | JORFARTI000046780051; Article 2 | JORFARTI000047495827; Article 1 | JORFARTI000048604684; Article 1 | JORFARTI000050392696" est à "sources/smic/Smic.catala_fr".
+
+règle brut_horaire avec pour source "Article 1 | JORFARTI000037833214; Article 1 | LEGIARTI000039640195; Article 1 | JORFARTI000042677367; Article 1  | JORFARTI000044546655; Article 2 | JORFARTI000045602327; Article 2 | JORFARTI000046113526; Article 1 | JORFARTI000046780051; Article 2 | JORFARTI000047495827; Article 1 | JORFARTI000048604684; Article 1 | JORFARTI000050392696":
+le brut horaire est un montant M si
+    la date courante est une date D
+    et D >= 2019-01-01
+    et la date courante est une date N
+    et N <= 2019-12-31
+    et la résidence est un code
+    et le code est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,03
+    sinon la date courante est une date K
+    et K >= 2019-01-01
+    et la date courante est une date P
+    et P <= 2019-12-31
+    et la résidence est un deuxième code
+    et le deuxième code est égal à "Mayotte"
+    et M = 7,57
+    sinon la date courante est une date Q
+    et Q >= 2020-01-01
+    et la date courante est une date R
+    et R <= 2020-12-31
+    et la résidence est un troisième code
+    et le troisième code est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,15
+    sinon la date courante est une date S
+    et S >= 2020-01-01
+    et la date courante est une date T
+    et T <= 2020-12-31
+    et la résidence est un quatrième code
+    et le quatrième code est égal à "Mayotte"
+    et M = 7,66
+    sinon la date courante est une date U
+    et U >= 2021-01-01
+    et la date courante est une date V
+    et V <= 2021-12-31
+    et la résidence est un cinquième code
+    et le cinquième code est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,25
+    sinon la date courante est une date W
+    et W >= 2021-01-01
+    et la date courante est une date X
+    et X <= 2021-12-31
+    et la résidence est un sixième code
+    et le sixième code est égal à "Mayotte"
+    et M = 7,74
+    sinon la date courante est une date Y
+    et Y >= 2022-01-01
+    et la date courante est une date Z
+    et Z <= 2022-04-30
+    et la résidence est un code C
+    et C est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,57
+    sinon la date courante est une date B
+    et B >= 2022-01-01
+    et la date courante est une date E
+    et E <= 2022-04-30
+    et la résidence est un code F
+    et F est égal à "Mayotte"
+    et M = 7,98
+    sinon la date courante est une date G
+    et G >= 2022-05-01
+    et la date courante est une date H
+    et H <= 2022-07-31
+    et la résidence est un code J
+    et J est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,85
+    sinon la date courante est une date L
+    et L >= 2022-05-01
+    et la date courante est une date NN
+    et NN <= 2022-07-31
+    et la résidence est un code NM
+    et NM est égal à "Mayotte"
+    et M = 8,19
+    sinon la date courante est une date NK
+    et NK >= 2022-08-01
+    et la date courante est une date NP
+    et NP <= 2022-12-31
+    et la résidence est un code NQ
+    et NQ est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,07
+    sinon la date courante est une date NR
+    et NR >= 2022-08-01
+    et la date courante est une date NS
+    et NS <= 2022-12-31
+    et la résidence est un code NT
+    et NT est égal à "Mayotte"
+    et M = 8,35
+    sinon la date courante est une date NU
+    et NU >= 2023-01-01
+    et la date courante est une date NV
+    et NV < 2023-05-01
+    et la résidence est un code NW
+    et NW est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,27
+    sinon la date courante est une date NX
+    et NX >= 2023-01-01
+    et la date courante est une date NY
+    et NY < 2023-05-01
+    et la résidence est un code NZ
+    et NZ est égal à "Mayotte"
+    et M = 8,51
+    sinon la date courante est une date NB
+    et NB >= 2023-05-01
+    et la date courante est une date NC
+    et NC < 2024-01-01
+    et la résidence est un code ND
+    et ND est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,52
+    sinon la date courante est une date NE
+    et NE >= 2023-05-01
+    et la date courante est une date NF
+    et NF < 2024-01-01
+    et la résidence est un code NG
+    et NG est égal à "Mayotte"
+    et M = 8,7
+    sinon la date courante est une date NH
+    et NH >= 2024-01-01
+    et la date courante est une date NJ
+    et NJ < 2024-11-01
+    et la résidence est un code NL
+    et NL est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,65
+    sinon la date courante est une date MN
+    et MN >= 2024-01-01
+    et la date courante est une date MM
+    et MM < 2024-11-01
+    et la résidence est un code MK
+    et MK est égal à "Mayotte"
+    et M = 8,8
+    sinon la date courante est une date MP
+    et MP >= 2024-11-01
+    et la résidence est un code MQ
+    et MQ est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,88
+    sinon la date courante est une date MR
+    et MR >= 2024-01-01
+    et la résidence est un code MS
+    et MS est égal à "Mayotte"
+    et M = 8,98.
+
+scénario Gen1 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 1:
+    la date courante est 2019-06-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,03"].
+
+scénario Gen2 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 2:
+    la date courante est 2019-06-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 7,57"].
+
+scénario Gen3 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 3:
+    la date courante est 2019-06-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,03"].
+
+scénario Gen4 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 4:
+    la date courante est 2020-06-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,15"].
+
+scénario Gen5 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 5:
+    la date courante est 2020-06-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 7,66"].
+
+scénario Gen6 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 6:
+    la date courante est 2020-06-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,15"].
+
+scénario Gen7 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 7:
+    la date courante est 2021-06-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,25"].
+
+scénario Gen8 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 8:
+    la date courante est 2021-06-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 7,74"].
+
+scénario Gen9 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 9:
+    la date courante est 2021-06-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,25"].
+
+scénario Gen10 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 10:
+    la date courante est 2022-03-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,57"].
+
+scénario Gen11 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 11:
+    la date courante est 2022-03-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 7,98"].
+
+scénario Gen12 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 12:
+    la date courante est 2022-03-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,57"].
+
+scénario Gen13 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 13:
+    la date courante est 2022-06-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,85"].
+
+scénario Gen14 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 14:
+    la date courante est 2022-06-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 8,19"].
+
+scénario Gen15 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 15:
+    la date courante est 2022-06-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 10,85"].
+
+scénario Gen16 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 16:
+    la date courante est 2022-10-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,07"].
+
+scénario Gen17 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 17:
+    la date courante est 2022-10-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 8,35"].
+
+scénario Gen18 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 18:
+    la date courante est 2022-10-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,07"].
+
+scénario Gen19 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 19:
+    la date courante est 2023-03-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,27"].
+
+scénario Gen20 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 20:
+    la date courante est 2023-03-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 8,51"].
+
+scénario Gen21 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 21:
+    la date courante est 2023-03-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,27"].
+
+scénario Gen22 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 22:
+    la date courante est 2023-08-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,52"].
+
+scénario Gen23 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 23:
+    la date courante est 2023-08-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 8,7"].
+
+scénario Gen24 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 24:
+    la date courante est 2023-08-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,52"].
+
+scénario Gen25 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 25:
+    la date courante est 2024-06-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,65"].
+
+scénario Gen26 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 26:
+    la date courante est 2024-06-15.
+    la résidence est "Mayotte".
+
+scénario Gen27 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 27:
+    la date courante est 2024-06-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,65"].
+
+scénario Gen28 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 28:
+    la date courante est 2024-12-15.
+    la résidence est "Métropole".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,88"].
+
+scénario Gen29 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 29:
+    la date courante est 2024-12-15.
+    la résidence est "Mayotte".
+    q_brut_horaire attend les réponses ["le brut horaire est 8,98"].
+
+scénario Gen30 est, comme indiqué dans "sources/cat/smic.test.yaml" à cas 30:
+    la date courante est 2024-12-15.
+    la résidence est "Guyane".
+    q_brut_horaire attend les réponses ["le brut horaire est 11,88"].
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+
+requête q_brut_horaire est:
+    le brut horaire est quel montant.
+

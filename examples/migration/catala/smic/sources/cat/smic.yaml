@@ -1,0 +1,86 @@
+format: rulespec/v1
+module:
+  summary: Scopes of catala-examples, lowered for the twin builder.
+  title: Catala scope(s) Smic
+rules:
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: Smic
+  dtype: Money
+  kind: derived
+  name: brut_horaire
+  source: Article 1 | JORFARTI000037833214; Article 1 | LEGIARTI000039640195; Article
+    1 | JORFARTI000042677367; Article 1  | JORFARTI000044546655; Article 2 | JORFARTI000045602327;
+    Article 2 | JORFARTI000046113526; Article 1 | JORFARTI000046780051; Article 2
+    | JORFARTI000047495827; Article 1 | JORFARTI000048604684; Article 1 | JORFARTI000050392696
+  source_document: sources/smic/Smic.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2019-01-01")) and ((date_courante <= date("2019-12-31"))
+      and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'') or ((résidence
+      == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence == ''LaRéunion'')
+      or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'') or
+      (résidence == ''SaintPierreEtMiquelon''))))))))))): 10.03 elif (((date_courante
+      >= date("2019-01-01")) and ((date_courante <= date("2019-12-31")) and (résidence
+      == ''Mayotte'')))): 7.57 elif (((date_courante >= date("2020-01-01")) and ((date_courante
+      <= date("2020-12-31")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 10.15 elif (((date_courante
+      >= date("2020-01-01")) and ((date_courante <= date("2020-12-31")) and (résidence
+      == ''Mayotte'')))): 7.66 elif (((date_courante >= date("2021-01-01")) and ((date_courante
+      <= date("2021-12-31")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 10.25 elif (((date_courante
+      >= date("2021-01-01")) and ((date_courante <= date("2021-12-31")) and (résidence
+      == ''Mayotte'')))): 7.74 elif (((date_courante >= date("2022-01-01")) and ((date_courante
+      <= date("2022-04-30")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 10.57 elif (((date_courante
+      >= date("2022-01-01")) and ((date_courante <= date("2022-04-30")) and (résidence
+      == ''Mayotte'')))): 7.98 elif (((date_courante >= date("2022-05-01")) and ((date_courante
+      <= date("2022-07-31")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 10.85 elif (((date_courante
+      >= date("2022-05-01")) and ((date_courante <= date("2022-07-31")) and (résidence
+      == ''Mayotte'')))): 8.19 elif (((date_courante >= date("2022-08-01")) and ((date_courante
+      <= date("2022-12-31")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 11.07 elif (((date_courante
+      >= date("2022-08-01")) and ((date_courante <= date("2022-12-31")) and (résidence
+      == ''Mayotte'')))): 8.35 elif (((date_courante >= date("2023-01-01")) and ((date_courante
+      < date("2023-05-01")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 11.27 elif (((date_courante
+      >= date("2023-01-01")) and ((date_courante < date("2023-05-01")) and (résidence
+      == ''Mayotte'')))): 8.51 elif (((date_courante >= date("2023-05-01")) and ((date_courante
+      < date("2024-01-01")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 11.52 elif (((date_courante
+      >= date("2023-05-01")) and ((date_courante < date("2024-01-01")) and (résidence
+      == ''Mayotte'')))): 8.7 elif (((date_courante >= date("2024-01-01")) and ((date_courante
+      < date("2024-11-01")) and ((résidence == ''Métropole'') or ((résidence == ''Guadeloupe'')
+      or ((résidence == ''Guyane'') or ((résidence == ''Martinique'') or ((résidence
+      == ''LaRéunion'') or ((résidence == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'')
+      or (résidence == ''SaintPierreEtMiquelon''))))))))))): 11.65 elif (((date_courante
+      >= date("2024-01-01")) and ((date_courante < date("2024-11-01")) and (résidence
+      == ''Mayotte'')))): 8.8 elif (((date_courante >= date("2024-11-01")) and ((résidence
+      == ''Métropole'') or ((résidence == ''Guadeloupe'') or ((résidence == ''Guyane'')
+      or ((résidence == ''Martinique'') or ((résidence == ''LaRéunion'') or ((résidence
+      == ''SaintBarthélemy'') or ((résidence == ''SaintMartin'') or (résidence ==
+      ''SaintPierreEtMiquelon'')))))))))): 11.88 elif (((date_courante >= date("2024-01-01"))
+      and (résidence == ''Mayotte''))): 8.98)'
+- catala_scope: Smic
+  dtype: Date
+  kind: input
+  name: date_courante
+- catala_scope: Smic
+  dtype: Text
+  kind: input
+  name: résidence

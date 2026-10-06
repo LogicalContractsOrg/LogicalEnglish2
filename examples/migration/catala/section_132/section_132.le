@@ -1,0 +1,139 @@
+% section_132 — a twin of the Catala scope(s) QualifiedEmployeeDiscount (catala-examples, Apache-2.0), with the tests of their files.
+% Translated by lpsPlus migration/catala (roadmap.md §5.4, Phase 3c).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the aggregate cost is *an amount*.
+    the customer price is *an amount*; scenario element.
+    the discount type is *a text*; scenario element.
+    the employee discount is *an amount*.
+    the employee price is *an amount*; scenario element.
+    the gross profit percentage is *a number*.
+    the case is property.
+    the case is services.
+    the qualified employee discount is *an amount*.
+
+the knowledge base cat_section_132 includes:
+
+
+% Catala scope(s) QualifiedEmployeeDiscount — cat:section_132
+the text of "(1) Qualified employee discount" is at "sources/us_tax_code/section_132.catala_en".
+
+the text of "(3) Employee discount defined" is at "sources/us_tax_code/section_132.catala_en".
+
+the text of "(1) Qualified employee discount; (A) In general" is at "sources/us_tax_code/section_132.catala_en".
+
+the text of "Section 132" is at "sources/us_tax_code/section_132.catala_en".
+
+rule aggregate_cost with provenance "(1) Qualified employee discount":
+the aggregate cost is an amount N if
+    the case is services
+    and N = 0.
+
+rule employee_discount with provenance "(3) Employee discount defined":
+the employee discount is an amount N if
+    the customer price is an amount M
+    and the employee price is an amount K
+    and N = M - K.
+
+rule gross_profit_percentage with provenance "(1) Qualified employee discount; (A) In general":
+the gross profit percentage is a number N if
+    the case is services
+    and N = 0
+    otherwise the case is property
+    and the customer price is an amount M
+    and the aggregate cost is an amount K
+    and N = (M - K) / M.
+
+rule is_property with provenance "Section 132":
+the case is property if
+    the discount type is a text
+    and the text is equal to "Property".
+
+rule is_services with provenance "Section 132":
+the case is services if
+    it is not the case that
+        the discount type is a text
+        and the text is equal to "Property"
+    and the discount type is a second text
+    and the second text is equal to "Services".
+
+rule qualified_employee_discount with provenance "(1) Qualified employee discount":
+the qualified employee discount is an amount N if
+    the case is property
+    and the employee discount is an amount M
+    and the customer price is an amount K
+    and the gross profit percentage is a number P
+    and M > round(K * P * 100) / 100
+    and the customer price is an amount Q
+    and the gross profit percentage is a number R
+    and N = round(Q * R * 100) / 100
+    otherwise the case is property
+    and the employee discount is N
+    otherwise the case is services
+    and the employee discount is an amount S
+    and the customer price is an amount T
+    and S > round(T * 0.2 * 100) / 100
+    and the customer price is an amount U
+    and N = round(U * 0.2 * 100) / 100
+    otherwise the case is services
+    and the employee discount is N.
+
+scenario TestSection132_1 is, as stated in "sources/cat/section_132.test.yaml" at case 1:
+    the aggregate cost is 900.
+    the customer price is 1500.
+    the discount type is "Property".
+    the employee price is 1000.
+    q_employee_discount expects answers ["the employee discount is 500"].
+    q_gross_profit_percentage expects answers ["the gross profit percentage is 0.4"].
+    q_qualified_employee_discount expects answers ["the qualified employee discount is 500"].
+
+scenario TestSection132_2 is, as stated in "sources/cat/section_132.test.yaml" at case 2:
+    the aggregate cost is 1200.
+    the customer price is 1500.
+    the discount type is "Property".
+    the employee price is 1000.
+    q_employee_discount expects answers ["the employee discount is 500"].
+    q_gross_profit_percentage expects answers ["the gross profit percentage is 0.2"].
+    q_qualified_employee_discount expects answers ["the qualified employee discount is 300"].
+
+scenario TestSection132_3 is, as stated in "sources/cat/section_132.test.yaml" at case 3:
+    the customer price is 1500.
+    the discount type is "Services".
+    the employee price is 1000.
+    q_employee_discount expects answers ["the employee discount is 500"].
+    q_qualified_employee_discount expects answers ["the qualified employee discount is 300"].
+
+query q_employee_discount is:
+    the employee discount is which amount.
+
+query q_employee_discount is:
+    the employee discount is which amount.
+
+query q_employee_discount is:
+    the employee discount is which amount.
+
+query q_gross_profit_percentage is:
+    the gross profit percentage is which number.
+
+query q_gross_profit_percentage is:
+    the gross profit percentage is which number.
+
+query q_qualified_employee_discount is:
+    the qualified employee discount is which amount.
+
+query q_qualified_employee_discount is:
+    the qualified employee discount is which amount.
+
+query q_qualified_employee_discount is:
+    the qualified employee discount is which amount.
+

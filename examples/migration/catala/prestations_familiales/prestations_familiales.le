@@ -1,0 +1,242 @@
+% prestations_familiales — jumeau des champs d'application Catala ÉligibilitéPrestationsFamiliales (catala-examples, Apache-2.0), avec les tests de leurs fichiers.
+% Traduit par lpsPlus migration/catala (roadmap.md §5.4, phase 3c).
+%
+% AVERTISSEMENT. Ce programme a été écrit par un traducteur à partir d'un
+% programme d'un autre système. Il est fourni « tel quel », sans garantie
+% d'aucune sorte, expresse ou implicite, y compris toute garantie d'exactitude,
+% d'exhaustivité ou d'adéquation à un usage particulier. La traduction peut être
+% erronée : vérifiez-la par rapport à sa source avant de vous y fier. Ce n'est
+% pas un conseil juridique, fiscal, d'assurance, financier ou professionnel
+% d'aucune autre sorte. Ses auteurs déclinent toute responsabilité pour toute
+% perte ou tout dommage résultant de son utilisation.
+
+la langue cible est: prolog.
+
+les modèles sont:
+    la condition conditions hors âge est remplie.
+    la date courante est *une date*; élément de scénario.
+    la condition droit ouvert est remplie.
+    le plafond l512 3 2 est *un montant*.
+    la condition régime outre mer l751 1 est remplie.
+    la résidence est *un code*; élément de scénario.
+    le smic brut horaire est *un montant*.
+    le smic date courante est *une date*.
+    le smic résidence est *un code*.
+    l'âge l512 3 2 est *un nombre*.
+
+la base de connaissances cat_prestations_familiales comprend:
+
+
+% Catala scope(s) ÉligibilitéPrestationsFamiliales — cat:prestations_familiales
+le texte de "Article L512-3 | LEGIARTI000041979743" est à "sources/prestations_familiales/sécurité_sociale_L.catala_fr".
+
+le texte de "Article R512-2|LEGIARTI000006750602; Article R755-0-2|LEGIARTI000006752633" est à "sources/prestations_familiales/sécurité_sociale_R.catala_fr".
+
+le texte de "Article L751-1|LEGIARTI000031323778" est à "sources/prestations_familiales/sécurité_sociale_L.catala_fr".
+
+le texte de "Article 1 | JORFARTI000037833214; Article 1 | LEGIARTI000039640195; Article 1 | JORFARTI000042677367; Article 1  | JORFARTI000044546655; Article 2 | JORFARTI000045602327; Article 2 | JORFARTI000046113526; Article 1 | JORFARTI000046780051; Article 2 | JORFARTI000047495827; Article 1 | JORFARTI000048604684; Article 1 | JORFARTI000050392696" est à "sources/smic/Smic.catala_fr".
+
+le texte de "Prologue : prestations familiales" est à "sources/prestations_familiales/prologue.catala_fr".
+
+le texte de "Article R512-2|LEGIARTI000006750602" est à "sources/prestations_familiales/sécurité_sociale_R.catala_fr".
+
+% RESIDUE r1 BEGIN: cat:prestations_familiales#conditions_hors_âge
+% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
+% Non traduit : a function of its parameters.
+% Conclusion attendue : la condition conditions hors âge est remplie.
+%   Catala:
+%   |   règle conditions_hors_âge d'enfant
+%   |   sous condition
+%   |     (
+%   |       enfant.obligation_scolaire sous forme Avant
+%   |       ou enfant.obligation_scolaire sous forme Pendant
+%   |       ou enfant.obligation_scolaire sous forme Après
+%   |     )
+%   |     et (
+%   |       enfant.rémuneration_mensuelle
+%   |       <= plafond_l512_3_2
+%   |     )
+%   |   conséquence rempli
+% RESIDUE r1 END
+
+% RESIDUE r2 BEGIN: cat:prestations_familiales#droit_ouvert
+% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
+% Non traduit : a function of its parameters.
+% Conclusion attendue : la condition droit ouvert est remplie.
+%   Catala:
+%   |   étiquette cas_base
+%   |   étiquette cas_base
+% RESIDUE r2 END
+
+règle plafond_l512_3_2 avec pour source "Article R512-2|LEGIARTI000006750602; Article R755-0-2|LEGIARTI000006752633":
+le plafond l512 3 2 est un montant M si
+    la condition régime outre mer l751 1 est remplie
+    et le smic brut horaire est un montant N
+    et M = round(round(N * 0,55 * 100) / 100 * 169,0 * 100) / 100
+    sinon le smic brut horaire est un montant K
+    et M = round(round(K * 0,55 * 100) / 100 * 169,0 * 100) / 100.
+
+règle régime_outre_mer_l751_1 avec pour source "Article L751-1|LEGIARTI000031323778":
+la condition régime outre mer l751 1 est remplie si
+    la résidence est un code
+    et le code est dans ["Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin"].
+
+règle smic_brut_horaire avec pour source "Article 1 | JORFARTI000037833214; Article 1 | LEGIARTI000039640195; Article 1 | JORFARTI000042677367; Article 1  | JORFARTI000044546655; Article 2 | JORFARTI000045602327; Article 2 | JORFARTI000046113526; Article 1 | JORFARTI000046780051; Article 2 | JORFARTI000047495827; Article 1 | JORFARTI000048604684; Article 1 | JORFARTI000050392696":
+le smic brut horaire est un montant M si
+    le smic date courante est une date D
+    et D >= 2019-01-01
+    et le smic date courante est une date N
+    et N <= 2019-12-31
+    et le smic résidence est un code
+    et le code est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,03
+    sinon le smic date courante est une date K
+    et K >= 2019-01-01
+    et le smic date courante est une date P
+    et P <= 2019-12-31
+    et le smic résidence est un deuxième code
+    et le deuxième code est égal à "Mayotte"
+    et M = 7,57
+    sinon le smic date courante est une date Q
+    et Q >= 2020-01-01
+    et le smic date courante est une date R
+    et R <= 2020-12-31
+    et le smic résidence est un troisième code
+    et le troisième code est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,15
+    sinon le smic date courante est une date S
+    et S >= 2020-01-01
+    et le smic date courante est une date T
+    et T <= 2020-12-31
+    et le smic résidence est un quatrième code
+    et le quatrième code est égal à "Mayotte"
+    et M = 7,66
+    sinon le smic date courante est une date U
+    et U >= 2021-01-01
+    et le smic date courante est une date V
+    et V <= 2021-12-31
+    et le smic résidence est un cinquième code
+    et le cinquième code est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,25
+    sinon le smic date courante est une date W
+    et W >= 2021-01-01
+    et le smic date courante est une date X
+    et X <= 2021-12-31
+    et le smic résidence est un sixième code
+    et le sixième code est égal à "Mayotte"
+    et M = 7,74
+    sinon le smic date courante est une date Y
+    et Y >= 2022-01-01
+    et le smic date courante est une date Z
+    et Z <= 2022-04-30
+    et le smic résidence est un code C
+    et C est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,57
+    sinon le smic date courante est une date B
+    et B >= 2022-01-01
+    et le smic date courante est une date E
+    et E <= 2022-04-30
+    et le smic résidence est un code F
+    et F est égal à "Mayotte"
+    et M = 7,98
+    sinon le smic date courante est une date G
+    et G >= 2022-05-01
+    et le smic date courante est une date H
+    et H <= 2022-07-31
+    et le smic résidence est un code J
+    et J est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 10,85
+    sinon le smic date courante est une date L
+    et L >= 2022-05-01
+    et le smic date courante est une date NN
+    et NN <= 2022-07-31
+    et le smic résidence est un code NM
+    et NM est égal à "Mayotte"
+    et M = 8,19
+    sinon le smic date courante est une date NK
+    et NK >= 2022-08-01
+    et le smic date courante est une date NP
+    et NP <= 2022-12-31
+    et le smic résidence est un code NQ
+    et NQ est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,07
+    sinon le smic date courante est une date NR
+    et NR >= 2022-08-01
+    et le smic date courante est une date NS
+    et NS <= 2022-12-31
+    et le smic résidence est un code NT
+    et NT est égal à "Mayotte"
+    et M = 8,35
+    sinon le smic date courante est une date NU
+    et NU >= 2023-01-01
+    et le smic date courante est une date NV
+    et NV < 2023-05-01
+    et le smic résidence est un code NW
+    et NW est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,27
+    sinon le smic date courante est une date NX
+    et NX >= 2023-01-01
+    et le smic date courante est une date NY
+    et NY < 2023-05-01
+    et le smic résidence est un code NZ
+    et NZ est égal à "Mayotte"
+    et M = 8,51
+    sinon le smic date courante est une date NB
+    et NB >= 2023-05-01
+    et le smic date courante est une date NC
+    et NC < 2024-01-01
+    et le smic résidence est un code ND
+    et ND est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,52
+    sinon le smic date courante est une date NE
+    et NE >= 2023-05-01
+    et le smic date courante est une date NF
+    et NF < 2024-01-01
+    et le smic résidence est un code NG
+    et NG est égal à "Mayotte"
+    et M = 8,7
+    sinon le smic date courante est une date NH
+    et NH >= 2024-01-01
+    et le smic date courante est une date NJ
+    et NJ < 2024-11-01
+    et le smic résidence est un code NL
+    et NL est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,65
+    sinon le smic date courante est une date MN
+    et MN >= 2024-01-01
+    et le smic date courante est une date MM
+    et MM < 2024-11-01
+    et le smic résidence est un code MK
+    et MK est égal à "Mayotte"
+    et M = 8,8
+    sinon le smic date courante est une date MP
+    et MP >= 2024-11-01
+    et le smic résidence est un code MQ
+    et MQ est dans ["Métropole", "Guadeloupe", "Guyane", "Martinique", "LaRéunion", "SaintBarthélemy", "SaintMartin", "SaintPierreEtMiquelon"]
+    et M = 11,88
+    sinon le smic date courante est une date MR
+    et MR >= 2024-01-01
+    et le smic résidence est un code MS
+    et MS est égal à "Mayotte"
+    et M = 8,98.
+
+règle smic_date_courante avec pour source "Prologue : prestations familiales":
+le smic date courante est une date si
+    la date courante est la date.
+
+règle smic_résidence avec pour source "Prologue : prestations familiales":
+le smic résidence est un code si
+    la résidence est le code.
+
+% RESIDUE r3 BEGIN: cat:prestations_familiales#âge_l512_3_2
+% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
+% Non traduit : a duration.
+% Conclusion attendue : l'âge l512 3 2 est *un nombre*.
+%   Catala:
+%   |   définition âge_l512_3_2 égal à 20 an
+% RESIDUE r3 END
+
+scénario Test1 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 1:
+    la date courante est 2020-05-01.
+    la résidence est "Métropole".
+

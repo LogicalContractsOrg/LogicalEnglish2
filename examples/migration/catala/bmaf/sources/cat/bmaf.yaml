@@ -1,0 +1,39 @@
+format: rulespec/v1
+module:
+  summary: Scopes of catala-examples, lowered for the twin builder.
+  title: Catala scope(s) BaseMensuelleAllocationsFamiliales
+rules:
+- catala_scope: BaseMensuelleAllocationsFamiliales
+  dtype: Date
+  kind: input
+  name: date_courante
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: BaseMensuelleAllocationsFamiliales
+  dtype: Money
+  kind: derived
+  name: montant
+  source: Instruction ministérielle N°DSS/SD2B/2019/65 du 25 mars 2019 relative à
+    la revalorisation au 1er avril 2019 des prestations familiales servies en métropole;
+    Instruction interministérielle no DSS/SD2B/2020/33 du 18 février 2020 relative
+    à la revalorisation au 1er avril 2020 des prestations familiales servies en métropole,
+    en Guadeloupe, en Guyane, en Martinique, à La Réunion, à Saint-Barthélemy, à Saint-Martin
+    et dans le département de Mayotte; Instruction interministérielle n°DSS/2B/2021/65
+    du 19 mars 2021 relative à la revalorisation au 1er avril 2021 des prestations
+    familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la
+    Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte;
+    Instruction interministérielle n°DSS/2B/2022/82 du 28 mars 2022 relative à la
+    revalorisation au 1er avril 2022 des prestations familiales servies en métropole,
+    en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin
+    et dans le département de Mayotte; Instruction interministérielle N° DSS/2B/2023/41
+    du 24 mars 2023 relative à la revalorisation au 1er avril 2023 des prestations
+    familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la
+    Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte
+  source_document: sources/base_mensuelle_allocations_familiales/Bmaf.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2019-04-01")) and (date_courante < date("2020-04-01")))):
+      413.16 elif (((date_courante >= date("2020-04-01")) and (date_courante < date("2021-04-01")))):
+      414.4 elif (((date_courante >= date("2021-04-01")) and (date_courante < date("2022-04-01")))):
+      414.81 elif (((date_courante >= date("2022-04-01")) and (date_courante < date("2023-04-01")))):
+      422.28 elif ((date_courante >= date("2023-04-01"))): 445.93)'

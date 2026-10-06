@@ -19,7 +19,16 @@ When no opener matches, the program is parsed as English (decision O-1).
 
 - **`languages.csv`** — language registry: code, autonym, opener phrase, and
   number locale (`decimal_sep`, `thousands_sep`, `list_sep`). `status` is
-  informational (`core`, `pilot`, `draft`).
+  informational (`core`, `pilot`, `draft`). Two optional columns serve
+  languages that shorten words: `elisions` lists the words written short
+  before a vowel, as `short=full` pairs separated by `|` (French
+  `l'=le|d'=de|qu'=que|…`), and `contractions` the words that stand for two
+  (`au=à le|du=de le|s'il=si il`). The parser reads a short form as its full
+  form ("l'autre personne" as "le autre personne", "au marché" as "à le
+  marché"), so a template and a sentence match whichever way each is
+  written; the LE writer writes the short forms; a test's expected answer
+  may use either. An apostrophe directly after a letter is always part of
+  the word, in every language: it never opens a quoted string.
 - **`keywords.csv`** — grammar keywords and word classes. One row per keyword
   `key` (grouped by `category`), one column per language. A cell holds one or
   more **synonyms separated by `|`**; each synonym is a space-separated word

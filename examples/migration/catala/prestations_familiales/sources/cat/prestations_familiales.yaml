@@ -1,0 +1,177 @@
+format: rulespec/v1
+module:
+  summary: Scopes of catala-examples, lowered for the twin builder.
+  title: Catala scope(s) ÉligibilitéPrestationsFamiliales
+rules:
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  catala_source: "  règle conditions_hors_âge de enfant\n  sous condition\n    (\n
+    \     enfant.obligation_scolaire sous forme Avant\n      ou enfant.obligation_scolaire
+    sous forme Pendant\n      ou enfant.obligation_scolaire sous forme Après\n    )\n
+    \   et (\n      enfant.rémuneration_mensuelle\n      <= plafond_l512_3_2\n    )\n
+    \ conséquence rempli"
+  dtype: Judgment
+  kind: derived
+  name: conditions_hors_âge
+  residue_reason: a function of its parameters
+  source: Article L512-3 | LEGIARTI000041979743
+  source_document: sources/prestations_familiales/sécurité_sociale_L.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: 0
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  dtype: Date
+  kind: input
+  name: date_courante
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  catala_source: "  étiquette cas_base\n  étiquette cas_base"
+  dtype: Judgment
+  kind: derived
+  name: droit_ouvert
+  residue_reason: a function of its parameters
+  source: Article L512-3 | LEGIARTI000041979743
+  source_document: sources/prestations_familiales/sécurité_sociale_L.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: 0
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  dtype: Money
+  kind: derived
+  name: plafond_l512_3_2
+  source: Article R512-2|LEGIARTI000006750602; Article R755-0-2|LEGIARTI000006752633
+  source_document: sources/prestations_familiales/sécurité_sociale_R.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (régime_outre_mer_l751_1): round((round((smic_brut_horaire * 0.55),
+      2) * 169.0), 2) else: round((round((smic_brut_horaire * 0.55), 2) * 169.0),
+      2))'
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  dtype: Judgment
+  kind: derived
+  name: régime_outre_mer_l751_1
+  source: Article L751-1|LEGIARTI000031323778
+  source_document: sources/prestations_familiales/sécurité_sociale_L.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((résidence == ''Guadeloupe'') or ((résidence == ''Guyane'') or
+      ((résidence == ''Martinique'') or ((résidence == ''LaRéunion'') or ((résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))))))): true else:
+      false)'
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  dtype: Text
+  kind: input
+  name: résidence
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: Smic
+  dtype: Money
+  kind: derived
+  name: smic_brut_horaire
+  source: Article 1 | JORFARTI000037833214; Article 1 | LEGIARTI000039640195; Article
+    1 | JORFARTI000042677367; Article 1  | JORFARTI000044546655; Article 2 | JORFARTI000045602327;
+    Article 2 | JORFARTI000046113526; Article 1 | JORFARTI000046780051; Article 2
+    | JORFARTI000047495827; Article 1 | JORFARTI000048604684; Article 1 | JORFARTI000050392696
+  source_document: sources/smic/Smic.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((smic_date_courante >= date("2019-01-01")) and ((smic_date_courante
+      <= date("2019-12-31")) and ((smic_résidence == ''Métropole'') or ((smic_résidence
+      == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or ((smic_résidence ==
+      ''Martinique'') or ((smic_résidence == ''LaRéunion'') or ((smic_résidence ==
+      ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'') or (smic_résidence
+      == ''SaintPierreEtMiquelon''))))))))))): 10.03 elif (((smic_date_courante >=
+      date("2019-01-01")) and ((smic_date_courante <= date("2019-12-31")) and (smic_résidence
+      == ''Mayotte'')))): 7.57 elif (((smic_date_courante >= date("2020-01-01")) and
+      ((smic_date_courante <= date("2020-12-31")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 10.15 elif (((smic_date_courante
+      >= date("2020-01-01")) and ((smic_date_courante <= date("2020-12-31")) and (smic_résidence
+      == ''Mayotte'')))): 7.66 elif (((smic_date_courante >= date("2021-01-01")) and
+      ((smic_date_courante <= date("2021-12-31")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 10.25 elif (((smic_date_courante
+      >= date("2021-01-01")) and ((smic_date_courante <= date("2021-12-31")) and (smic_résidence
+      == ''Mayotte'')))): 7.74 elif (((smic_date_courante >= date("2022-01-01")) and
+      ((smic_date_courante <= date("2022-04-30")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 10.57 elif (((smic_date_courante
+      >= date("2022-01-01")) and ((smic_date_courante <= date("2022-04-30")) and (smic_résidence
+      == ''Mayotte'')))): 7.98 elif (((smic_date_courante >= date("2022-05-01")) and
+      ((smic_date_courante <= date("2022-07-31")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 10.85 elif (((smic_date_courante
+      >= date("2022-05-01")) and ((smic_date_courante <= date("2022-07-31")) and (smic_résidence
+      == ''Mayotte'')))): 8.19 elif (((smic_date_courante >= date("2022-08-01")) and
+      ((smic_date_courante <= date("2022-12-31")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 11.07 elif (((smic_date_courante
+      >= date("2022-08-01")) and ((smic_date_courante <= date("2022-12-31")) and (smic_résidence
+      == ''Mayotte'')))): 8.35 elif (((smic_date_courante >= date("2023-01-01")) and
+      ((smic_date_courante < date("2023-05-01")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 11.27 elif (((smic_date_courante
+      >= date("2023-01-01")) and ((smic_date_courante < date("2023-05-01")) and (smic_résidence
+      == ''Mayotte'')))): 8.51 elif (((smic_date_courante >= date("2023-05-01")) and
+      ((smic_date_courante < date("2024-01-01")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 11.52 elif (((smic_date_courante
+      >= date("2023-05-01")) and ((smic_date_courante < date("2024-01-01")) and (smic_résidence
+      == ''Mayotte'')))): 8.7 elif (((smic_date_courante >= date("2024-01-01")) and
+      ((smic_date_courante < date("2024-11-01")) and ((smic_résidence == ''Métropole'')
+      or ((smic_résidence == ''Guadeloupe'') or ((smic_résidence == ''Guyane'') or
+      ((smic_résidence == ''Martinique'') or ((smic_résidence == ''LaRéunion'') or
+      ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence == ''SaintMartin'')
+      or (smic_résidence == ''SaintPierreEtMiquelon''))))))))))): 11.65 elif (((smic_date_courante
+      >= date("2024-01-01")) and ((smic_date_courante < date("2024-11-01")) and (smic_résidence
+      == ''Mayotte'')))): 8.8 elif (((smic_date_courante >= date("2024-11-01")) and
+      ((smic_résidence == ''Métropole'') or ((smic_résidence == ''Guadeloupe'') or
+      ((smic_résidence == ''Guyane'') or ((smic_résidence == ''Martinique'') or ((smic_résidence
+      == ''LaRéunion'') or ((smic_résidence == ''SaintBarthélemy'') or ((smic_résidence
+      == ''SaintMartin'') or (smic_résidence == ''SaintPierreEtMiquelon'')))))))))):
+      11.88 elif (((smic_date_courante >= date("2024-01-01")) and (smic_résidence
+      == ''Mayotte''))): 8.98)'
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  dtype: Date
+  kind: derived
+  name: smic_date_courante
+  overridable: true
+  source: 'Prologue : prestations familiales'
+  source_document: sources/prestations_familiales/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: date_courante
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  dtype: Text
+  kind: derived
+  name: smic_résidence
+  overridable: true
+  source: 'Prologue : prestations familiales'
+  source_document: sources/prestations_familiales/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: résidence
+- catala_scope: ÉligibilitéPrestationsFamiliales
+  catala_source: '  définition âge_l512_3_2 égal à 20 an'
+  dtype: Decimal
+  kind: derived
+  name: âge_l512_3_2
+  overridable: true
+  residue_reason: a duration
+  source: Article R512-2|LEGIARTI000006750602
+  source_document: sources/prestations_familiales/sécurité_sociale_R.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: 0
