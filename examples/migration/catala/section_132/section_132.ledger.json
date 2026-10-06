@@ -1,0 +1,142 @@
+{
+  "counts": {"approximated":2,"encoded":7,"residue":0},
+  "entries": [
+    {
+      "element":"cat:section_132#aggregate_cost",
+      "in_program":"rs_aggregate_cost",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#customer_price",
+      "in_program":"rs_customer_price",
+      "kind":"input",
+      "mapping":"input -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#discount_type",
+      "in_program":"rs_discount_type",
+      "kind":"input",
+      "mapping":"input -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#employee_discount",
+      "in_program":"rs_employee_discount",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#employee_price",
+      "in_program":"rs_employee_price",
+      "kind":"input",
+      "mapping":"input -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#gross_profit_percentage",
+      "in_program":"rs_gross_profit_percentage",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"where two of its definitions at one level both apply, Catala stops with a conflict; the twin takes the first",
+      "verdict":"approximated"
+    },
+    {
+      "element":"cat:section_132#is_property",
+      "in_program":"rs_is_property",
+      "kind":"derived",
+      "mapping":"derived judgment -> a rule concluding a sentence",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#is_services",
+      "in_program":"rs_is_services",
+      "kind":"derived",
+      "mapping":"derived judgment -> a rule concluding a sentence",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:section_132#qualified_employee_discount",
+      "in_program":"rs_qualified_employee_discount",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"where two of its definitions at one level both apply, Catala stops with a conflict; the twin takes the first",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":8,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_employee_discount",
+	"result":"pass",
+	"scenario":"TestSection132_1"
+      },
+      {
+	"detail":"",
+	"query":"q_gross_profit_percentage",
+	"result":"pass",
+	"scenario":"TestSection132_1"
+      },
+      {
+	"detail":"",
+	"query":"q_qualified_employee_discount",
+	"result":"pass",
+	"scenario":"TestSection132_1"
+      },
+      {
+	"detail":"",
+	"query":"q_employee_discount",
+	"result":"pass",
+	"scenario":"TestSection132_2"
+      },
+      {
+	"detail":"",
+	"query":"q_gross_profit_percentage",
+	"result":"pass",
+	"scenario":"TestSection132_2"
+      },
+      {
+	"detail":"",
+	"query":"q_qualified_employee_discount",
+	"result":"pass",
+	"scenario":"TestSection132_2"
+      },
+      {
+	"detail":"",
+	"query":"q_employee_discount",
+	"result":"pass",
+	"scenario":"TestSection132_3"
+      },
+      {
+	"detail":"",
+	"query":"q_qualified_employee_discount",
+	"result":"pass",
+	"scenario":"TestSection132_3"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/cat/section_132.yaml" ],
+    "date":"2026-10-06",
+    "licence":"Apache-2.0 (catala-examples, Inria and contributors)",
+    "program":"cat_section_132",
+    "source":"Catala (catala-examples)",
+    "translator":"lpsPlus migration/catala"
+  },
+  "pending_expectations":0,
+  "source_tests":3
+}

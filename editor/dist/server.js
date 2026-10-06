@@ -8723,6 +8723,13 @@ var keywords = {
         "unknowns"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "and",
+        "any",
+        "unknowns"
+      ]
+    ],
     "rule": [
       [
         "rule"
@@ -9173,6 +9180,11 @@ var keywords = {
       ],
       [
         "max"
+      ]
+    ],
+    "list": [
+      [
+        "list"
       ]
     ],
     "is_the": [
@@ -10245,6 +10257,13 @@ var keywords = {
         "desconhecidos"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "e",
+        "quaisquer",
+        "desconhecidos"
+      ]
+    ],
     "rule": [
       [
         "regra"
@@ -10882,6 +10901,11 @@ var keywords = {
       ],
       [
         "m\xE1x"
+      ]
+    ],
+    "list": [
+      [
+        "lista"
       ]
     ],
     "is_the": [
@@ -12083,6 +12107,13 @@ var keywords = {
         "desconocidos"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "y",
+        "cualesquiera",
+        "desconocidos"
+      ]
+    ],
     "rule": [
       [
         "regla"
@@ -12728,6 +12759,11 @@ var keywords = {
       ],
       [
         "m\xE1x"
+      ]
+    ],
+    "list": [
+      [
+        "lista"
       ]
     ],
     "is_the": [
@@ -13856,6 +13892,18 @@ var keywords = {
         "inconnus"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "et",
+        "toutes",
+        "inconnues"
+      ],
+      [
+        "et",
+        "tous",
+        "inconnus"
+      ]
+    ],
     "rule": [
       [
         "r\xE8gle"
@@ -14451,6 +14499,11 @@ var keywords = {
       ],
       [
         "max"
+      ]
+    ],
+    "list": [
+      [
+        "liste"
       ]
     ],
     "is_the": [
@@ -15579,6 +15632,18 @@ var keywords = {
         "sconosciute"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "e",
+        "qualsiasi",
+        "sconosciuto"
+      ],
+      [
+        "e",
+        "qualunque",
+        "sconosciuto"
+      ]
+    ],
     "rule": [
       [
         "regola"
@@ -16235,6 +16300,11 @@ var keywords = {
       ],
       [
         "max"
+      ]
+    ],
+    "list": [
+      [
+        "lista"
       ]
     ],
     "is_the": [
@@ -17303,17 +17373,13 @@ function tokenize(text) {
       i += numMatch[0].length;
       continue;
     }
-    const wordMatch = text.substring(i).match(/^[a-zA-Z][a-zA-Z0-9_]*/);
+    const wordMatch = text.substring(i).match(/^\p{L}[\p{L}\p{N}_]*/u);
     if (wordMatch) {
       let end = i + wordMatch[0].length;
-      if (text[end] === "'") {
-        const nextQuote = text.indexOf("'", end + 1);
-        const lineEnd = lineEndFrom(text, end);
-        if (nextQuote === -1 || nextQuote >= lineEnd) {
-          end++;
-          const tail = text.substring(end).match(/^[a-zA-Z0-9_]*/);
-          if (tail) end += tail[0].length;
-        }
+      if (text[end] === "'" || text[end] === "\u2019") {
+        end++;
+        const tail = text.substring(end).match(/^[\p{L}\p{N}_]*/u);
+        if (tail) end += tail[0].length;
       }
       tokens.push({ type: 1 /* Word */, value: text.substring(i, end), start, end });
       i = end;

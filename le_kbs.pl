@@ -3195,11 +3195,42 @@ normalize_string(string(S, _), N) :- !, normalize_string(S, N).
 normalize_string(S, N) :-
     (   number(S) -> atom_string(S, N)
     ;   (atom(S) ; string(S)) ->  
-        split_string(S, "_- ", "_- ", Words0),
+        split_string(S, "_- ", "_- ", Words00),
+        unelide_words(Words00, Words0),
         maplist(same_number_word, Words0, Words),
         atomic_list_concat(Words, ' ', Atom),
         atom_string(Atom, N)
     ;   N = S
+    ).
+
+%   An expected answer may elide where the answer does not ("la mère
+%   d'Alice", "la mère de Alice"): each is read with the elisions and
+%   contractions of the program's language (languages.csv), or, when that
+%   is not known, with the elisions of any language that has them.
+unelide_words(Words0, Words) :-
+    (   catch(le_i18n:le_active_language(L), _, fail),
+        catch(le_i18n:language_param(L, elisions, Els), _, fail), Els \== []
+    ->  le_i18n:language_param(L, contractions, Cons)
+    ;   findall(E, ( le_i18n:known_language(L), le_i18n:language_param(L, elisions, Es), member(E, Es) ), Els),
+        Cons = []
+    ),
+    (   Els == [], Cons == []
+    ->  Words = Words0
+    ;   foldl(unelide_word(Els, Cons), Words0, Parts, []),
+        Words = Parts
+    ).
+
+unelide_word(Els, Cons, W, Out0, Out) :-
+    atom_string(A, W), downcase_atom(A, Al),
+    (   memberchk(Al-Ws, Cons)
+    ->  maplist([X, Y]>>atom_string(X, Y), Ws, Ss), append(Ss, Out, Out0)
+    ;   sub_atom(A, B, 1, After, '\''), B > 0,
+        sub_atom(A, 0, B, _, P0), downcase_atom(P0, P), memberchk(P-Full, Els)
+    ->  atom_string(Full, FS),
+        (   After =:= 0 -> Out0 = [FS|Out]
+        ;   sub_atom(A, _, After, 0, R), atom_string(R, RS), Out0 = [FS, RS|Out]
+        )
+    ;   Out0 = [W|Out]
     ).
 
 %   A number in an answer is compared as a number: 30 and 30.0 are one

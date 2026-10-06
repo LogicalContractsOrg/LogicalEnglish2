@@ -1,0 +1,44 @@
+{
+  "counts": {"approximated":1,"encoded":1,"residue":0},
+  "entries": [
+    {
+      "element":"cat:bmaf#date_courante",
+      "in_program":"rs_date_courante",
+      "kind":"input",
+      "mapping":"input -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"cat:bmaf#montant",
+      "in_program":"rs_montant",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"where two of its definitions at one level both apply, Catala stops with a conflict; the twin takes the first",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":6,
+    "tests": [
+      {"detail":"","query":"q_montant","result":"pass","scenario":"Gen1"},
+      {"detail":"","query":"q_montant","result":"pass","scenario":"Gen2"},
+      {"detail":"","query":"q_montant","result":"pass","scenario":"Gen3"},
+      {"detail":"","query":"q_montant","result":"pass","scenario":"Gen4"},
+      {"detail":"","query":"q_montant","result":"pass","scenario":"Gen5"},
+      {"detail":"","query":"q_montant","result":"pass","scenario":"Gen6"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/cat/bmaf.yaml" ],
+    "date":"2026-10-06",
+    "licence":"Apache-2.0 (catala-examples, Inria and contributors)",
+    "program":"cat_bmaf",
+    "source":"Catala (catala-examples)",
+    "translator":"lpsPlus migration/catala"
+  },
+  "pending_expectations":0,
+  "source_tests":6
+}

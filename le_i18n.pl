@@ -547,10 +547,26 @@ load_language_row(Header, Row) :-
     cell_value(Row, Header, list_sep, ListSep),
     cell_value(Row, Header, status, Status),
     cell_value(Row, Header, english_name, EnglishName),
+    optional_pairs(Row, Header, elisions, Elisions),
+    optional_pairs(Row, Header, contractions, Contractions0),
+    findall(K-Ws, ( member(K-V, Contractions0), split_phrase_words(V, Ws) ), Contractions),
     assertz(lang_entry(Code, [autonym-Autonym, opener-OpenerWords,
                               decimal_sep-Dec, thousands_sep-Thou,
                               list_sep-ListSep, status-Status,
-                              english_name-EnglishName])).
+                              english_name-EnglishName,
+                              elisions-Elisions, contractions-Contractions])).
+
+%   A column of `short=full|short=full` pairs (elisions: `l'=le`, the short
+%   form kept without its apostrophe; contractions: `au=à le`); [] when the
+%   column is absent or empty.
+optional_pairs(Row, Header, Column, Pairs) :-
+    (   catch(cell_value(Row, Header, Column, Cell), _, fail), Cell \== ''
+    ->  atomic_list_concat(Items, '|', Cell),
+        findall(K-V, ( member(I, Items), atomic_list_concat([K0, V0], '=', I),
+                       normalize_space(atom(K1), K0), normalize_space(atom(V), V0),
+                       ( atom_concat(K, '\'', K1) -> true ; K = K1 ) ), Pairs)
+    ;   Pairs = []
+    ).
 
 % --- keywords.csv ---
 load_keywords_csv(Dir) :-
@@ -569,7 +585,7 @@ load_keyword_row(Header, Langs, Row) :-
     forall(member(Lang, Langs),
            ( cell_value(Row, Header, Lang, Cell),
              ( Cell == '' -> true
-             ; split_synonyms(Cell, Syns),
+             ; split_synonyms(Lang, Cell, Syns),
                % longest synonyms first (stable for equal lengths), so e.g.
                % "it is not the case that" is tried before "not the case that"
                % wherever order matters
@@ -589,6 +605,33 @@ phrase_neg_length_key(Words, NL) :- length(Words, L), NL is -L.
 split_synonyms(Cell, Syns) :-
     atomic_list_concat(Alts, '|', Cell),
     findall(Words, ( member(A, Alts), A \== '', split_phrase_words(A, Words), Words \== [] ), Syns).
+
+%   In a language that shortens words (languages.csv: elisions,
+%   contractions), a cell's words are read as the parser reads a program:
+%   "du scénario" as "de le scénario", "l'inversion" as "le inversion", so a
+%   cell may be written as French is written.
+split_synonyms(Lang, Cell, Syns) :-
+    split_synonyms(Cell, Syns0),
+    maplist(expand_words(Lang), Syns0, Syns).
+
+expand_words(Lang, Ws0, Ws) :-
+    (   lang_entry(Lang, Ps), memberchk(elisions-Els, Ps), memberchk(contractions-Cons, Ps),
+        ( Els \== [] ; Cons \== [] )
+    ->  foldl(expand_word(Els, Cons), Ws0, Parts, []), Ws = Parts
+    ;   Ws = Ws0
+    ).
+
+expand_word(Els, Cons, W, Out0, Out) :-
+    downcase_atom(W, L),
+    (   memberchk(L-Full, Cons)
+    ->  append(Full, Out, Out0)
+    ;   sub_atom(W, B, 1, After, '\''), B > 0, sub_atom(W, 0, B, _, P0),
+        downcase_atom(P0, P), memberchk(P-Full, Els)
+    ->  (   After =:= 0 -> Out0 = [Full|Out]
+        ;   sub_atom(W, _, After, 0, R), Out0 = [Full, R|Out]
+        )
+    ;   Out0 = [W|Out]
+    ).
 
 split_phrase_words('', []) :- !.
 split_phrase_words(Phrase, Words) :-
@@ -610,7 +653,7 @@ load_sys_row(Header, Langs, Row) :-
       forall(member(Lang, Langs),
              ( cell_value(Row, Header, Lang, Cell),
                ( Cell == '' -> true
-               ; split_synonyms(Cell, Syns),
+               ; split_synonyms(Lang, Cell, Syns),
                  forall(member(Words, Syns),
                         ( maplist(word_to_part, Words, Parts),
                           assertz(sys_row(Lang, Functor, Types, Parts)) ))

@@ -210,8 +210,10 @@ tokenize_for_language(Text, Tokens) :-
         le_i18n:language_param(Lang, decimal_sep, Dec),
         le_i18n:language_param(Lang, thousands_sep, Thou),
         Dec \== '', Thou \== '',
-        \+ (Dec == '.', Thou == ',')
-    ->  tokenizer:tokenize(Text, Dec, Thou, Tokens)
+        (   \+ (Dec == '.', Thou == ',')
+        ;   le_i18n:language_param(Lang, elisions, Els), Els \== []
+        )
+    ->  tokenizer:tokenize(Text, Dec, Thou, Lang, Tokens)     % (its number locale and elisions)
     ;   Tokens = Tokens0
     ).
 
@@ -1882,7 +1884,17 @@ member_var(V, [_|T]) :- member_var(V, T).
 
 extract_functor(Tokens, Functor) :-
     findall(W, (member(T, Tokens), (T = word(W, _) ; T = number(W, _))), Words),
-    atomic_list_concat(Words, '_', Functor).
+    template_functor(Words, Functor).
+
+%!  template_functor(+Words, -Functor) is det.
+%
+%   A template's functor: its words joined with '_'. A name that would begin
+%   with `le_` (a French or Italian template beginning with the article
+%   "le": "le taux de *une catégorie* est *un nombre*") is given a `t_` in
+%   front, since the system reserves `le_` for its own built-in predicates.
+template_functor(Words, Functor) :-
+    atomic_list_concat(Words, '_', F0),
+    (   sub_atom(F0, 0, _, _, le_) -> atom_concat(t_, F0, Functor) ; Functor = F0 ).
 
 process_template_parts([], [], [], []).
 process_template_parts([var(Words, _)|Ps], [V|Args], [V-Type|NTs], [V|WVs]) :-
@@ -3837,7 +3849,7 @@ dict_fa_wv(dict(FA, _, WV), FA, WV).
 wv_functor(WV, Functor) :-
     include(atom, WV, Words),
     Words \== [],
-    atomic_list_concat(Words, '_', Functor).
+    template_functor(Words, Functor).
 
 % wv_skeleton(+WordsAndVars, -Skeleton): each variable becomes '$v', each atom is
 % kept, so two surface forms compare equal iff they share the same words in the
