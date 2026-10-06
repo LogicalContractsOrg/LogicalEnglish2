@@ -1000,6 +1000,9 @@ handle_answering_query(Dict, Reply) :-
     atom_string(SM, SMStr),
     le_kbs:note_session_use(SM),
     ( SM:le_kb_module_fact(KB) -> true; KB = none),
+    %  the answers and their explanations in the program's language
+    %  (Français Logique: "il n'est pas vrai que", 7,66)
+    le_kbs:ensure_kb_language(KB),
     
     % Handle Scenario
     (   get_dict(customScenario, Dict, CustomScenario), CustomScenario \== null ->
