@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2015/b/1.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 42 |
+| encoded | 27 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 42 |
+| **total** | 27 |
 
 Fidelity: **22 of 22** source test expectation(s) reproduced (100%).
 
@@ -23,35 +23,20 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/7/2015/b/1#first_determination_disqualification_period_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_first_determination_disqualification_period_years |  |
-| us:statutes/7/2015/b/1#first_determination_disqualification_period_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_first_determination_disqualification_period_years |  |
 | us:statutes/7/2015/b/1#second_determination_disqualification_period_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_second_determination_disqualification_period_years |  |
-| us:statutes/7/2015/b/1#second_determination_disqualification_period_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_second_determination_disqualification_period_years |  |
 | us:statutes/7/2015/b/1#first_determination_occasion_number | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_first_determination_occasion_number |  |
-| us:statutes/7/2015/b/1#first_determination_occasion_number | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_first_determination_occasion_number |  |
 | us:statutes/7/2015/b/1#second_determination_occasion_number | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_second_determination_occasion_number |  |
-| us:statutes/7/2015/b/1#second_determination_occasion_number | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_second_determination_occasion_number |  |
 | us:statutes/7/2015/b/1#third_determination_occasion_number | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_third_determination_occasion_number |  |
-| us:statutes/7/2015/b/1#third_determination_occasion_number | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_third_determination_occasion_number |  |
 | us:statutes/7/2015/b/1#controlled_substance_first_finding_occasion_number | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_controlled_substance_first_finding_occasion_number |  |
-| us:statutes/7/2015/b/1#controlled_substance_first_finding_occasion_number | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_controlled_substance_first_finding_occasion_number |  |
 | us:statutes/7/2015/b/1#controlled_substance_second_finding_occasion_number | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_controlled_substance_second_finding_occasion_number |  |
-| us:statutes/7/2015/b/1#controlled_substance_second_finding_occasion_number | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_controlled_substance_second_finding_occasion_number |  |
 | us:statutes/7/2015/b/1#firearms_ammunition_or_explosives_first_finding_occasion_number | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_firearms_ammunition_or_explosives_first_finding_occasion_number |  |
-| us:statutes/7/2015/b/1#firearms_ammunition_or_explosives_first_finding_occasion_number | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_firearms_ammunition_or_explosives_first_finding_occasion_number |  |
 | us:statutes/7/2015/b/1#section_2024_item_value_permanent_disqualification_threshold | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_section_2024_item_value_permanent_disqualification_threshold |  |
-| us:statutes/7/2015/b/1#section_2024_item_value_permanent_disqualification_threshold | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_section_2024_item_value_permanent_disqualification_threshold |  |
 | us:statutes/7/2015/b/1#intentional_program_violation_determination | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_intentional_program_violation_determination |  |
-| us:statutes/7/2015/b/1#intentional_program_violation_determination | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_intentional_program_violation_determination |  |
 | us:statutes/7/2015/b/1#ineligible_for_one_year | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ineligible_for_one_year |  |
-| us:statutes/7/2015/b/1#ineligible_for_one_year | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ineligible_for_one_year |  |
 | us:statutes/7/2015/b/1#ineligible_for_two_years | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ineligible_for_two_years |  |
-| us:statutes/7/2015/b/1#ineligible_for_two_years | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ineligible_for_two_years |  |
 | us:statutes/7/2015/b/1#permanently_ineligible | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_permanently_ineligible |  |
-| us:statutes/7/2015/b/1#permanently_ineligible | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_permanently_ineligible |  |
 | us:statutes/7/2015/b/1#ineligible_for_further_participation | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ineligible_for_further_participation |  |
-| us:statutes/7/2015/b/1#ineligible_for_further_participation | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ineligible_for_further_participation |  |
 | us:statutes/7/2015/b/1#household_barred_from_increased_benefits_due_to_member_disqualification | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_household_barred_from_increased_benefits_due_to_member_disqualification |  |
-| us:statutes/7/2015/b/1#household_barred_from_increased_benefits_due_to_member_disqualification | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_household_barred_from_increased_benefits_due_to_member_disqualification |  |
 | input found_by_state_or_federal_court_or_administrative_agency | input | encoded | a name no rule defines -> a fact the scenario states | rs_found_by_state_or_federal_court_or_administrative_agency |  |
 | input intentionally_made_false_or_misleading_statement_or_misrepresented_concealed_or_withheld_facts | input | encoded | a name no rule defines -> a fact the scenario states | rs_intentionally_made_false_or_misleading_statement_or_misrepresented_concealed_or_withheld_facts |  |
 | input intentionally_committed_act_constituting_violation_of_chapter_regulations_or_state_statute | input | encoded | a name no rule defines -> a fact the scenario states | rs_intentionally_committed_act_constituting_violation_of_chapter_regulations_or_state_statute |  |

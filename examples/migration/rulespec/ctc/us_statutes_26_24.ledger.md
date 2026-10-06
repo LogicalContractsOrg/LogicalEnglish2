@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/26/24/h.yaml, sources/us/statutes/26/24.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 110 |
+| encoded | 70 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 110 |
+| **total** | 70 |
 
 Fidelity: **28 of 28** source test expectation(s) reproduced (100%).
 
@@ -23,85 +23,45 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/26/24/h#dependent_of_tax_unit | data_relation | encoded | data relation -> a two-place sentence the scenario states | rs_dependent_of_tax_unit |  |
-| us:statutes/26/24/h#dependent_of_tax_unit | data_relation | encoded | rule | rs_dependent_of_tax_unit |  |
 | us:statutes/26/24/h#ctc_child_amount_under_subsection_h | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_child_amount_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_child_amount_under_subsection_h | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_child_amount_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_joint_phase_out_threshold_under_subsection_h | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_joint_phase_out_threshold_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_joint_phase_out_threshold_under_subsection_h | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_joint_phase_out_threshold_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_other_phase_out_threshold_under_subsection_h | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_other_phase_out_threshold_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_other_phase_out_threshold_under_subsection_h | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_other_phase_out_threshold_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_other_dependent_amount_under_subsection_h | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_other_dependent_amount_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_other_dependent_amount_under_subsection_h | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_other_dependent_amount_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_refundable_per_child_cap_under_subsection_h | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_refundable_per_child_cap_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_refundable_per_child_cap_under_subsection_h | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_refundable_per_child_cap_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_refundable_phase_in_threshold_under_subsection_h | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_refundable_phase_in_threshold_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_refundable_phase_in_threshold_under_subsection_h | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_refundable_phase_in_threshold_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_child_ssn_requirement_satisfied_under_subsection_h | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_child_ssn_requirement_satisfied_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_child_ssn_requirement_satisfied_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_child_ssn_requirement_satisfied_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_qualifying_child_under_subsection_h | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_child_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_qualifying_child_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_child_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_other_dependent_under_subsection_h | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_other_dependent_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_other_dependent_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_other_dependent_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_qualifying_children_under_subsection_h | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_children_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_qualifying_children_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_children_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_other_dependents_under_subsection_h | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_other_dependents_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_other_dependents_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_other_dependents_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_phase_out_threshold_under_subsection_h | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_phase_out_threshold_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_phase_out_threshold_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_phase_out_threshold_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_maximum_before_phase_out_under_subsection_h | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_maximum_before_phase_out_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_maximum_before_phase_out_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_maximum_before_phase_out_under_subsection_h |  |
 | us:statutes/26/24/h#ctc_refundable_maximum_under_subsection_h | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_refundable_maximum_under_subsection_h |  |
-| us:statutes/26/24/h#ctc_refundable_maximum_under_subsection_h | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_refundable_maximum_under_subsection_h |  |
 | us:statutes/26/24#ctc_qualifying_child_of_tax_unit | data_relation | encoded | data relation -> a two-place sentence the scenario states | rs_ctc_qualifying_child_of_tax_unit |  |
-| us:statutes/26/24#ctc_qualifying_child_of_tax_unit | data_relation | encoded | rule | rs_ctc_qualifying_child_of_tax_unit |  |
 | us:statutes/26/24#ctc_child_amount_base | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_child_amount_base |  |
-| us:statutes/26/24#ctc_child_amount_base | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_child_amount_base |  |
 | us:statutes/26/24#ctc_phaseout_reduction_per_increment | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_reduction_per_increment |  |
-| us:statutes/26/24#ctc_phaseout_reduction_per_increment | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_reduction_per_increment |  |
 | us:statutes/26/24#ctc_phaseout_increment | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_increment |  |
-| us:statutes/26/24#ctc_phaseout_increment | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_increment |  |
 | us:statutes/26/24#ctc_joint_threshold_base | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_joint_threshold_base |  |
-| us:statutes/26/24#ctc_joint_threshold_base | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_joint_threshold_base |  |
 | us:statutes/26/24#ctc_unmarried_threshold_base | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_unmarried_threshold_base |  |
-| us:statutes/26/24#ctc_unmarried_threshold_base | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_unmarried_threshold_base |  |
 | us:statutes/26/24#ctc_separate_threshold_base | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_separate_threshold_base |  |
-| us:statutes/26/24#ctc_separate_threshold_base | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_separate_threshold_base |  |
 | us:statutes/26/24#ctc_child_age_ceiling_exclusive | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_child_age_ceiling_exclusive |  |
-| us:statutes/26/24#ctc_child_age_ceiling_exclusive | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_child_age_ceiling_exclusive |  |
 | us:statutes/26/24#ctc_full_taxable_year_months | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_full_taxable_year_months |  |
-| us:statutes/26/24#ctc_full_taxable_year_months | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_full_taxable_year_months |  |
 | us:statutes/26/24#ctc_fraud_disallowance_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_fraud_disallowance_years |  |
-| us:statutes/26/24#ctc_fraud_disallowance_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_fraud_disallowance_years |  |
 | us:statutes/26/24#ctc_reckless_disallowance_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_ctc_reckless_disallowance_years |  |
-| us:statutes/26/24#ctc_reckless_disallowance_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_reckless_disallowance_years |  |
 | us:statutes/26/24#ctc_modified_adjusted_gross_income | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_modified_adjusted_gross_income |  |
-| us:statutes/26/24#ctc_modified_adjusted_gross_income | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_modified_adjusted_gross_income |  |
 | us:statutes/26/24#ctc_qualifying_child | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_child |  |
-| us:statutes/26/24#ctc_qualifying_child | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_child |  |
 | us:statutes/26/24#ctc_child_identification_requirement_satisfied | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_child_identification_requirement_satisfied |  |
-| us:statutes/26/24#ctc_child_identification_requirement_satisfied | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_child_identification_requirement_satisfied |  |
 | us:statutes/26/24#ctc_qualifying_children_count | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_children_count |  |
-| us:statutes/26/24#ctc_qualifying_children_count | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_qualifying_children_count |  |
 | us:statutes/26/24#ctc_taxpayer_identification_requirement_satisfied | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_taxpayer_identification_requirement_satisfied |  |
-| us:statutes/26/24#ctc_taxpayer_identification_requirement_satisfied | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_taxpayer_identification_requirement_satisfied |  |
 | us:statutes/26/24#ctc_full_taxable_year_requirement_satisfied | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_full_taxable_year_requirement_satisfied |  |
-| us:statutes/26/24#ctc_full_taxable_year_requirement_satisfied | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_full_taxable_year_requirement_satisfied |  |
 | us:statutes/26/24#ctc_prior_claim_restriction_satisfied | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_ctc_prior_claim_restriction_satisfied |  |
-| us:statutes/26/24#ctc_prior_claim_restriction_satisfied | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_prior_claim_restriction_satisfied |  |
 | us:statutes/26/24#ctc_phaseout_threshold_base | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_threshold_base |  |
-| us:statutes/26/24#ctc_phaseout_threshold_base | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_threshold_base |  |
 | us:statutes/26/24#ctc_phaseout_threshold | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_threshold |  |
-| us:statutes/26/24#ctc_phaseout_threshold | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_threshold |  |
 | us:statutes/26/24#ctc_maximum_before_phaseout | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_maximum_before_phaseout |  |
-| us:statutes/26/24#ctc_maximum_before_phaseout | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_maximum_before_phaseout |  |
 | us:statutes/26/24#ctc_phaseout_amount | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_amount |  |
-| us:statutes/26/24#ctc_phaseout_amount | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_phaseout_amount |  |
 | us:statutes/26/24#ctc_before_advance_payments | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_before_advance_payments |  |
-| us:statutes/26/24#ctc_before_advance_payments | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_before_advance_payments |  |
 | us:statutes/26/24#ctc_after_advance_payments | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_ctc_after_advance_payments |  |
-| us:statutes/26/24#ctc_after_advance_payments | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_ctc_after_advance_payments |  |
 | input taxpayer_or_spouse_ssn_included_on_return | input | encoded | a name no rule defines -> a fact the scenario states | rs_taxpayer_or_spouse_ssn_included_on_return |  |
 | input qualifying_child_ssn_included_on_return | input | encoded | a name no rule defines -> a fact the scenario states | rs_qualifying_child_ssn_included_on_return |  |
 | input taxpayer_or_spouse_ssn_is_valid_for_subsection_h | input | encoded | a name no rule defines -> a fact the scenario states | rs_taxpayer_or_spouse_ssn_is_valid_for_subsection_h |  |

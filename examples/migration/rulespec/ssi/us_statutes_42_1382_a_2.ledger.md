@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/42/1382c/a/1.yaml, sources/us/statutes/42/1382/a/3.yaml, sources/us/statutes/42/1382f/a.yaml, sources/us/statutes/42/1382/a/2.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 58 |
+| encoded | 40 |
 | approximated | 1 |
 | residue | 0 |
-| **total** | 59 |
+| **total** | 41 |
 
 Fidelity: **5 of 5** source test expectation(s) reproduced (100%).
 
@@ -23,41 +23,23 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/42/1382c/a/1#aged_age_threshold_years | parameter | encoded | parameter -> a fact, cited | rs_aged_age_threshold_years |  |
-| us:statutes/42/1382c/a/1#aged_age_threshold_years | parameter | encoded | rule | rs_aged_age_threshold_years |  |
 | us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual | derived | encoded | derived judgment -> a rule concluding a sentence | rs_aged_blind_or_disabled_individual |  |
-| us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual | derived | encoded | rule | rs_aged_blind_or_disabled_individual |  |
 | us:statutes/42/1382/a/3#resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B | parameter | encoded | parameter -> a fact, cited, 6 version(s) guarded by the calculation date | rs_resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B |  |
-| us:statutes/42/1382/a/3#resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B | parameter | encoded | rule, 6 version(s) guarded by the calculation date | rs_resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B |  |
 | us:statutes/42/1382/a/3#resource_limit_amount_for_paragraph_1_B_ii | parameter | encoded | parameter -> a fact, cited, 6 version(s) guarded by the calculation date | rs_resource_limit_amount_for_paragraph_1_B_ii |  |
-| us:statutes/42/1382/a/3#resource_limit_amount_for_paragraph_1_B_ii | parameter | encoded | rule, 6 version(s) guarded by the calculation date | rs_resource_limit_amount_for_paragraph_1_B_ii |  |
 | us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_couple_or_living_with_spouse_resource_limit |  |
-| us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit | derived | encoded | rule | rs_couple_or_living_with_spouse_resource_limit |  |
 | us:statutes/42/1382/a/3#individual_no_spouse_resource_limit | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_individual_no_spouse_resource_limit |  |
-| us:statutes/42/1382/a/3#individual_no_spouse_resource_limit | derived | encoded | rule | rs_individual_no_spouse_resource_limit |  |
 | us:statutes/42/1382f/a#annual_rounding_multiple | parameter | encoded | parameter -> a fact, cited | rs_annual_rounding_multiple |  |
-| us:statutes/42/1382f/a#annual_rounding_multiple | parameter | encoded | rule | rs_annual_rounding_multiple |  |
 | us:statutes/42/1382f/a#prior_rounding_carryover_increase | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_prior_rounding_carryover_increase |  |
-| us:statutes/42/1382f/a#prior_rounding_carryover_increase | derived | encoded | rule | rs_prior_rounding_carryover_increase |  |
 | us:statutes/42/1382f/a#amount_after_paragraph_1_increase | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_after_paragraph_1_increase |  |
-| us:statutes/42/1382f/a#amount_after_paragraph_1_increase | derived | encoded | rule | rs_amount_after_paragraph_1_increase |  |
 | us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_subsection_a_applicable_increase_percentage |  |
-| us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage | derived | encoded | rule | rs_subsection_a_applicable_increase_percentage |  |
 | us:statutes/42/1382f/a#amount_after_subsection_a_increase | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_after_subsection_a_increase |  |
-| us:statutes/42/1382f/a#amount_after_subsection_a_increase | derived | encoded | rule | rs_amount_after_subsection_a_increase |  |
 | us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_1_amount | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_prior_rounding_carryover_increase_for_section_1382_b_1_amount |  |
-| us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_1_amount | derived | encoded | rule | rs_prior_rounding_carryover_increase_for_section_1382_b_1_amount |  |
 | us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_1 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_determined_under_section_1382f_for_section_1382_b_1 |  |
-| us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_1 | derived | encoded | rule | rs_amount_determined_under_section_1382f_for_section_1382_b_1 |  |
 | us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_2_amount | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_prior_rounding_carryover_increase_for_section_1382_b_2_amount |  |
-| us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_2_amount | derived | encoded | rule | rs_prior_rounding_carryover_increase_for_section_1382_b_2_amount |  |
 | us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_2 | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_amount_determined_under_section_1382f_for_section_1382_b_2 |  |
-| us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_2 | derived | encoded | rule | rs_amount_determined_under_section_1382f_for_section_1382_b_2 |  |
 | us:statutes/42/1382/a/2#couple_annual_income_base_limit | parameter | encoded | parameter -> a fact, cited | rs_couple_annual_income_base_limit |  |
-| us:statutes/42/1382/a/2#couple_annual_income_base_limit | parameter | encoded | rule | rs_couple_annual_income_base_limit |  |
 | us:statutes/42/1382/a/2#applicable_couple_annual_income_limit | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_applicable_couple_annual_income_limit |  |
-| us:statutes/42/1382/a/2#applicable_couple_annual_income_limit | derived | encoded | rule | rs_applicable_couple_annual_income_limit |  |
 | us:statutes/42/1382/a/2#eligible_individual_with_eligible_spouse | derived | encoded | derived judgment -> a rule concluding a sentence | rs_eligible_individual_with_eligible_spouse |  |
-| us:statutes/42/1382/a/2#eligible_individual_with_eligible_spouse | derived | encoded | rule | rs_eligible_individual_with_eligible_spouse |  |
 | input individual_age_years | input | encoded | a name no rule defines -> a fact the scenario states | rs_individual_age_years |  |
 | input blind_as_determined_under_paragraph_2 | input | encoded | a name no rule defines -> a fact the scenario states | rs_blind_as_determined_under_paragraph_2 |  |
 | input disabled_as_determined_under_paragraph_3 | input | encoded | a name no rule defines -> a fact the scenario states | rs_disabled_as_determined_under_paragraph_3 |  |

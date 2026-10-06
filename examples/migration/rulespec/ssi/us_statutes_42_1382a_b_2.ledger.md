@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/42/1382a/b/2.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 20 |
+| encoded | 15 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 20 |
+| **total** | 15 |
 
 Fidelity: **5 of 5** source test expectation(s) reproduced (100%).
 
@@ -23,15 +23,10 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/42/1382a/b/2#annual_general_income_exclusion_limit | parameter | encoded | parameter -> a fact, cited | rs_annual_general_income_exclusion_limit |  |
-| us:statutes/42/1382a/b/2#annual_general_income_exclusion_limit | parameter | encoded | rule | rs_annual_general_income_exclusion_limit |  |
 | us:statutes/42/1382a/b/2#default_state_age_payment_age | parameter | encoded | parameter -> a fact, cited | rs_default_state_age_payment_age |  |
-| us:statutes/42/1382a/b/2#default_state_age_payment_age | parameter | encoded | rule | rs_default_state_age_payment_age |  |
 | us:statutes/42/1382a/b/2#state_age_payment_residency_year_requirement | parameter | encoded | parameter -> a fact, cited | rs_state_age_payment_residency_year_requirement |  |
-| us:statutes/42/1382a/b/2#state_age_payment_residency_year_requirement | parameter | encoded | rule | rs_state_age_payment_residency_year_requirement |  |
 | us:statutes/42/1382a/b/2#annual_general_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_annual_general_income_excluded |  |
-| us:statutes/42/1382a/b/2#annual_general_income_excluded | derived | encoded | rule | rs_annual_general_income_excluded |  |
 | us:statutes/42/1382a/b/2#state_age_residency_payment_excluded | derived | encoded | derived judgment -> a rule concluding a sentence | rs_state_age_residency_payment_excluded |  |
-| us:statutes/42/1382a/b/2#state_age_residency_payment_excluded | derived | encoded | rule | rs_state_age_residency_payment_excluded |  |
 | input annual_income_not_paid_on_basis_of_need | input | encoded | a name no rule defines -> a fact the scenario states | rs_annual_income_not_paid_on_basis_of_need |  |
 | input payment_is_monthly_or_other_periodic | input | encoded | a name no rule defines -> a fact the scenario states | rs_payment_is_monthly_or_other_periodic |  |
 | input payment_received_by_individual | input | encoded | a name no rule defines -> a fact the scenario states | rs_payment_received_by_individual |  |

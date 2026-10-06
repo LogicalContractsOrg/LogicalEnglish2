@@ -62,6 +62,7 @@ flowchart LR
 
   subgraph both["Both ways"]
     RS["Axiom RuleSpec"]
+    OF["OpenFisca · PolicyEngine"]
     SC["s(CASP) · Prolog · LE1"]
     LR["LegalRuleML"]
     MS["Bitcoin Miniscript"]
@@ -85,6 +86,7 @@ flowchart LR
   DR -- "stateful rules" --> LPS
 
   LE <--> RS
+  LE <--> OF
   LE <--> SC
   LE <--> LR
   LE <--> MS
@@ -99,6 +101,7 @@ flowchart LR
   click EP "epilog" "Epilog and Logical English"
   click L4 "l4" "L4 and Logical English"
   click RS "rulespec" "Axiom RuleSpec and Logical English"
+  click OF "openfisca" "OpenFisca, PolicyEngine and Logical English"
   click SC "scasp" "s(CASP), Prolog and LE1"
   click LR "legalruleml" "LegalRuleML and Logical English"
   click MS "miniscript" "Bitcoin Miniscript and Logical English"
@@ -118,6 +121,7 @@ reads (PDDL, Inform 7):
 | System | Ways | Document |
 |---|---|---|
 | Axiom RuleSpec module (United States statutes, regulations and policies as YAML) | import, export | [Axiom RuleSpec](rulespec.md) |
+| OpenFisca or PolicyEngine model (Python variables, YAML parameters and tests) | import, export | [OpenFisca and PolicyEngine](openfisca.md) |
 | Bitcoin Miniscript policy or descriptor | import, export | [Bitcoin Miniscript](miniscript.md) |
 | LegalRuleML (OASIS) | import, export | [LegalRuleML](legalruleml.md) |
 | s(CASP), Prolog, LE1's s(CASP) translations | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |

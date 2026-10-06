@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2015/f.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 21 |
+| encoded | 16 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 21 |
+| **total** | 16 |
 
 Fidelity: **35 of 35** source test expectation(s) reproduced (100%).
 
@@ -23,15 +23,10 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_qualifying_immigration_or_nationality_status_for_snap_participation |  |
-| us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_qualifying_immigration_or_nationality_status_for_snap_participation |  |
 | us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_citizenship_or_nationality_qualifies_for_snap_participation |  |
-| us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_citizenship_or_nationality_qualifies_for_snap_participation |  |
 | us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_individual_ineligible_for_snap_participation_due_to_residence_or_status |  |
-| us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_individual_ineligible_for_snap_participation_due_to_residence_or_status |  |
 | us:statutes/7/2015/f#individual_income_considered_for_household_eligibility_and_allotment | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_individual_income_considered_for_household_eligibility_and_allotment |  |
-| us:statutes/7/2015/f#individual_income_considered_for_household_eligibility_and_allotment | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_individual_income_considered_for_household_eligibility_and_allotment |  |
 | us:statutes/7/2015/f#individual_financial_resources_considered_for_household_eligibility_and_allotment | derived | encoded | derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date | rs_individual_financial_resources_considered_for_household_eligibility_and_allotment |  |
-| us:statutes/7/2015/f#individual_financial_resources_considered_for_household_eligibility_and_allotment | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_individual_financial_resources_considered_for_household_eligibility_and_allotment |  |
 | input person_is_alien_lawfully_admitted_for_permanent_residence_as_immigrant | input | encoded | a name no rule defines -> a fact the scenario states | rs_person_is_alien_lawfully_admitted_for_permanent_residence_as_immigrant |  |
 | input person_has_been_granted_status_of_cuban_and_haitian_entrant | input | encoded | a name no rule defines -> a fact the scenario states | rs_person_has_been_granted_status_of_cuban_and_haitian_entrant |  |
 | input person_lawfully_resides_in_united_states_in_accordance_with_compact_of_free_association | input | encoded | a name no rule defines -> a fact the scenario states | rs_person_lawfully_resides_in_united_states_in_accordance_with_compact_of_free_association |  |

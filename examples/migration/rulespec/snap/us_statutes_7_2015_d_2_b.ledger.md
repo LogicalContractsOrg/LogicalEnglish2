@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2015/d/2/B.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 8 |
+| encoded | 6 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 8 |
+| **total** | 6 |
 
 Fidelity: **4 of 4** source test expectation(s) reproduced (100%).
 
@@ -23,9 +23,7 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/7/2015/d/2/B#dependent_child_age_exemption_threshold_years | parameter | encoded | parameter -> a fact, cited, 1 version(s) guarded by the calculation date | rs_dependent_child_age_exemption_threshold_years |  |
-| us:statutes/7/2015/d/2/B#dependent_child_age_exemption_threshold_years | parameter | encoded | rule, 1 version(s) guarded by the calculation date | rs_dependent_child_age_exemption_threshold_years |  |
 | us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies | derived | encoded | derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date | rs_care_responsibility_exemption_applies |  |
-| us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies | derived | encoded | rule, 1 version(s) guarded by the calculation date | rs_care_responsibility_exemption_applies |  |
 | input person_otherwise_required_to_comply_with_paragraph_1_requirements | input | encoded | a name no rule defines -> a fact the scenario states | rs_person_otherwise_required_to_comply_with_paragraph_1_requirements |  |
 | input person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child | input | encoded | a name no rule defines -> a fact the scenario states | rs_person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child |  |
 | input dependent_child_age_years | input | encoded | a name no rule defines -> a fact the scenario states | rs_dependent_child_age_years |  |

@@ -2,17 +2,17 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/42/1382a/b/4.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-05
+Date: 2026-10-06
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
 
 | Verdict | Source elements |
 |---|---|
-| encoded | 24 |
+| encoded | 16 |
 | approximated | 0 |
 | residue | 0 |
-| **total** | 24 |
+| **total** | 16 |
 
 Fidelity: **20 of 20** source test expectation(s) reproduced (100%).
 
@@ -23,21 +23,13 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit | parameter | encoded | parameter -> a fact, cited | rs_annual_earned_income_initial_exclusion_limit |  |
-| us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit | parameter | encoded | rule | rs_annual_earned_income_initial_exclusion_limit |  |
 | us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate | parameter | encoded | parameter -> a fact, cited | rs_earned_income_remainder_exclusion_rate |  |
-| us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate | parameter | encoded | rule | rs_earned_income_remainder_exclusion_rate |  |
 | us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_blind_branch_earned_income_excluded |  |
-| us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded | derived | encoded | rule | rs_blind_branch_earned_income_excluded |  |
 | us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_blind_branch_earning_expenses_excluded |  |
-| us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded | derived | encoded | rule | rs_blind_branch_earning_expenses_excluded |  |
 | us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_blind_branch_self_support_plan_other_income_excluded |  |
-| us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded | derived | encoded | rule | rs_blind_branch_self_support_plan_other_income_excluded |  |
 | us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_disabled_branch_earned_income_excluded |  |
-| us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded | derived | encoded | rule | rs_disabled_branch_earned_income_excluded |  |
 | us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_disabled_branch_self_support_plan_other_income_excluded |  |
-| us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded | derived | encoded | rule | rs_disabled_branch_self_support_plan_other_income_excluded |  |
 | us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded | derived | encoded | derived value -> a rule, the formula's names as conditions | rs_age_sixty_five_branch_earned_income_excluded |  |
-| us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded | derived | encoded | rule | rs_age_sixty_five_branch_earned_income_excluded |  |
 | input individual_or_spouse_satisfies_blind_branch_status_condition | input | encoded | a name no rule defines -> a fact the scenario states | rs_individual_or_spouse_satisfies_blind_branch_status_condition |  |
 | input earned_income_not_excluded_by_preceding_paragraphs | input | encoded | a name no rule defines -> a fact the scenario states | rs_earned_income_not_excluded_by_preceding_paragraphs |  |
 | input expenses_reasonably_attributable_to_earning_income | input | encoded | a name no rule defines -> a fact the scenario states | rs_expenses_reasonably_attributable_to_earning_income |  |

@@ -34,6 +34,11 @@ the templates are:
     the snap asset limit of *a household* is *an amount*.
     the snap member of *a person* is elderly or disabled; scenario element.
     the household size of *a household* is *a number*; scenario element.
+    the snap standard deduction 48 states dc table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction alaska table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction guam table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction virgin islands table for *a household size* from *a first date* to *a last date* is *an amount*.
 
 the knowledge base us_policies_usda_snap_fy_2024_cola_deductions includes:
 
@@ -46,38 +51,35 @@ the snap household of a household has elderly or disabled member if
     the calculation date is a date D
     and 2008-10-01 <= D
     and the household is a household
-        and a number N is the count of each P such that
-            a person P is a member of the household
-            and the snap member of P is elderly or disabled
-        and N > 0.
+    and a number N is the count of each P such that
+        a person P is a member of the household
+    and a number K is the count of each M such that
+        a person M is a member of the household
+        and it is not the case that the snap member of M is elderly or disabled
+    and N - K > 0.
 
 
 % us:policies/usda/snap/fy-2024-cola/deductions
 the text of "USDA SNAP FY 2024 cost-of-living adjustments" is at "sources/us/policies/usda/snap/fy-2024-cola/deductions.yaml".
 
-the snap standard deduction 48 states dc table for 1 is 198 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction 48 states dc table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap standard deduction 48 states dc table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap standard deduction 48 states dc table for 2 is 198 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction 48 states dc table for 1 from 2023-10-01 to 9999-12-31 is 198, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction 48 states dc table for 3 is 198 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction 48 states dc table for 2 from 2023-10-01 to 9999-12-31 is 198, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction 48 states dc table for 4 is 208 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction 48 states dc table for 3 from 2023-10-01 to 9999-12-31 is 198, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction 48 states dc table for 5 is 244 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction 48 states dc table for 4 from 2023-10-01 to 9999-12-31 is 208, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction 48 states dc table for 6 is 279 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction 48 states dc table for 5 from 2023-10-01 to 9999-12-31 is 244, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap standard deduction 48 states dc table for 6 from 2023-10-01 to 9999-12-31 is 279, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_standard_deduction_48_states_dc with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap standard deduction 48 states dc of a household is an amount if
@@ -98,101 +100,81 @@ the snap maximum excess shelter deduction 48 states dc is 672 if
     the calculation date is a date D
     and 2023-10-01 <= D.
 
-the snap standard deduction alaska table for 1 is 338 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction alaska table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap standard deduction alaska table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap standard deduction alaska table for 2 is 338 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction alaska table for 1 from 2023-10-01 to 9999-12-31 is 338, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction alaska table for 3 is 338 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction alaska table for 2 from 2023-10-01 to 9999-12-31 is 338, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction alaska table for 4 is 338 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction alaska table for 3 from 2023-10-01 to 9999-12-31 is 338, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction alaska table for 5 is 338 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction alaska table for 4 from 2023-10-01 to 9999-12-31 is 338, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction alaska table for 6 is 349 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction alaska table for 5 from 2023-10-01 to 9999-12-31 is 338, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction guam table for 1 is 397 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction alaska table for 6 from 2023-10-01 to 9999-12-31 is 349, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction guam table for 2 is 397 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction guam table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap standard deduction guam table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap standard deduction guam table for 3 is 397 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction guam table for 1 from 2023-10-01 to 9999-12-31 is 397, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction guam table for 4 is 416 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction guam table for 2 from 2023-10-01 to 9999-12-31 is 397, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction guam table for 5 is 487 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction guam table for 3 from 2023-10-01 to 9999-12-31 is 397, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction guam table for 6 is 558 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction guam table for 4 from 2023-10-01 to 9999-12-31 is 416, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction hawaii table for 1 is 279 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction guam table for 5 from 2023-10-01 to 9999-12-31 is 487, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction hawaii table for 2 is 279 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction guam table for 6 from 2023-10-01 to 9999-12-31 is 558, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction hawaii table for 3 is 279 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction hawaii table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap standard deduction hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap standard deduction hawaii table for 4 is 279 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction hawaii table for 1 from 2023-10-01 to 9999-12-31 is 279, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction hawaii table for 5 is 280 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction hawaii table for 2 from 2023-10-01 to 9999-12-31 is 279, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction hawaii table for 6 is 321 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction hawaii table for 3 from 2023-10-01 to 9999-12-31 is 279, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction virgin islands table for 1 is 174 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction hawaii table for 4 from 2023-10-01 to 9999-12-31 is 279, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction virgin islands table for 2 is 174 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction hawaii table for 5 from 2023-10-01 to 9999-12-31 is 280, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction virgin islands table for 3 is 174 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction hawaii table for 6 from 2023-10-01 to 9999-12-31 is 321, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction virgin islands table for 4 is 208 if
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction virgin islands table for a household size is an amount if
     the calculation date is a date D
-    and 2023-10-01 <= D.
+    and the snap standard deduction virgin islands table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
 
-the snap standard deduction virgin islands table for 5 is 244 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction virgin islands table for 1 from 2023-10-01 to 9999-12-31 is 174, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
-the snap standard deduction virgin islands table for 6 is 279 if
-    the calculation date is a date D
-    and 2023-10-01 <= D.
+the snap standard deduction virgin islands table for 2 from 2023-10-01 to 9999-12-31 is 174, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap standard deduction virgin islands table for 3 from 2023-10-01 to 9999-12-31 is 174, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap standard deduction virgin islands table for 4 from 2023-10-01 to 9999-12-31 is 208, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap standard deduction virgin islands table for 5 from 2023-10-01 to 9999-12-31 is 244, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
+
+the snap standard deduction virgin islands table for 6 from 2023-10-01 to 9999-12-31 is 279, as stated in "USDA SNAP FY 2024 cost-of-living adjustments".
 
 rule snap_maximum_excess_shelter_deduction_alaska with provenance "USDA SNAP FY 2024 cost-of-living adjustments":
 the snap maximum excess shelter deduction alaska is 1073 if
