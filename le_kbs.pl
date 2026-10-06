@@ -48,6 +48,7 @@
 :- use_module(tokenizer).
 :- use_module(le_system_templates).
 :- use_module(le_i18n).
+:- use_module(le_writer, []).   % the articles and elisions of an explanation in the program's language
 :- use_module(reasoner).
 :- use_module(le_verifier, [verify/2, verify/3, find_in_body/2]).
 :- use_module(le_provenance).
@@ -1824,7 +1825,7 @@ postprocess_why(success(Goal0, Ref, Children), SM, success(Goal, Range, LE, Chil
     ( Goal0 = le_at(Goal, _, _) -> true; Goal = Goal0),
     ( SM:le_kb_module_fact(KB) -> true; KB = none),
     ( (SM:le_source_info(Ref, Start, End, _); (KB \== none, KB:le_source_info(Ref, Start, End, _))) -> Range0 = range(Start, End); Range0 = Ref),
-    ( (KB \== none, item_to_instance_ranged(KB, Goal, Range0, Tokens)) -> canonical_string(Tokens, LE0); term_string(Goal, LE0)),
+    ( (KB \== none, item_to_instance_ranged(KB, Goal, Range0, Tokens)) -> display_string(Tokens, LE0); term_string(Goal, LE0)),
     why_annotation(SM, KB, Goal, Ref, LE0, LE),
     % A condition the user explicitly assumed in THIS scenario ("it is unknown
     % whether …", e.g. the Assume checkbox) is shown as an assumption (unknown /
@@ -1857,7 +1858,7 @@ postprocess_why(failure(Goal0, Children), SM, failure(Goal, Range, LE, ChildrenO
     ( Goal0 = le_at(Goal, Start, End) -> Range = range(Start, End)
     ; Goal = Goal0, ( find_first_range(Goal, SM, KB, Range) -> true ; Range = none )
     ),
-    ( (KB \== none, item_to_instance_ranged(KB, Goal, Range, Tokens)) -> canonical_string(Tokens, LE); term_string(Goal, LE)),
+    ( (KB \== none, item_to_instance_ranged(KB, Goal, Range, Tokens)) -> display_string(Tokens, LE); term_string(Goal, LE)),
     postprocess_why_children(SM, Children, ChildrenOut).
 
 postprocess_why(Whys, SM, WhysOut) :-
@@ -2143,6 +2144,20 @@ canonical_string(Instance, String) :-
         ;
         token_to_atom(Instance, Atom),
         atom_string(Atom, String)
+    ).
+
+%!  display_string(+Instance, -String) is det.
+%
+%   canonical_string/2 as a speaker of the active language writes it: in a
+%   language with elisions (languages.csv), "il ne est pas vrai que" is "il
+%   n'est pas vrai que" (le_writer:elide_text/3). For the sentences of an
+%   explanation; the parser reads both forms.
+display_string(Instance, String) :-
+    canonical_string(Instance, String0),
+    le_i18n:le_active_language(Lang),
+    (   Lang \== en, catch(le_writer:elide_text(Lang, String0, String1), _, fail)
+    ->  String = String1
+    ;   String = String0
     ).
 
 %!  goal_string(+Instance, -String) is det.
@@ -2605,10 +2620,12 @@ fill_variable_name(NTs, V, Name) :-
     var(V),
     member(V1-Type, NTs),
     V1 == V, !,
-    (   atom(Type) -> 
-        atom_codes(Type, [C|_]),
-        ( memberchk(C, [97, 101, 105, 111, 117, 65, 69, 73, 79, 85]) -> Art = an ; Art = a ),
-        format(atom(Name), "~w ~w", [Art, Type])
+    (   atom(Type)
+    ->  % in the program's language: "a date", "une date"; the system
+        % templates' type `any` is "a thing", "une chose"
+        ( Type == any, le_writer:writer_word(type_thing, Noun) -> true ; Noun = Type ),
+        le_writer:article_for(Noun, Noun, Art),
+        format(atom(Name), "~w ~w", [Art, Noun])
     ;   Name = 'a variable'
     ).
 fill_variable_name(_, V, V).
