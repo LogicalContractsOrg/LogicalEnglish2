@@ -1214,7 +1214,13 @@ seq(Ctx, St, B, Nodes) :-
     seq(Ctx, St, and(and(L, RL), RR), Nodes).
 seq(Ctx, St, B, Nodes) :-
     binary_conn(B, Op, L, R), !,
-    seq(Ctx, St, L, NL),
+    %  A cascade on the left of a connective is one group, as on its right:
+    %  spread into the connective's own lines, `(A otherwise B) and C` would
+    %  read back as `A otherwise (B and C)`.
+    (   ( otherwise_pattern(L, _, _) ; L = otherwise([_, _|_]) )
+    ->  single(Ctx, St, L, NL0), NL = [NL0]
+    ;   seq(Ctx, St, L, NL)
+    ),
     single(Ctx, St, R, NR),
     set_op(NR, Op, NR1),
     append(NL, [NR1], Nodes).
@@ -1242,7 +1248,9 @@ single(Ctx, St, B, Node) :-
     compound_single(Ctx, St, B, Node).
 single(Ctx, St, not(G), Node) :- !,
     kw(not_the_case, NTC),
-    (   line_goal(G)
+    %  A negation of a negation is a block: on one line, `it is not the case
+    %  that it is not the case that X` reads as the generic "is" sentence.
+    (   line_goal(G), \+ G = not(_)
     ->  goal_text(Ctx, St, G, GT),
         format(atom(T), '~w ~w', [NTC, GT]),
         Node = node(none, T, [])
@@ -1668,8 +1676,8 @@ system_arg_type(le_is_days_after(A, B, C), V, T) :-
 system_arg_type(le_is_months_after(A, B, C), V, T) :-
     ( A == V -> K = type_date ; B == V -> K = type_number ; C == V -> K = type_date ),
     writer_word(K, T).
-system_arg_type(agg(_, _, _, R), V, T) :-
-    R == V, writer_word(type_number, T).
+system_arg_type(agg(Op, _, _, R), V, T) :-
+    R == V, ( Op == list -> writer_word(type_list, T) ; writer_word(type_number, T) ).
 
 clean_type(T0, T) :-
     (   atom(T0), T0 \== any, T0 \== expr, T0 \== ''

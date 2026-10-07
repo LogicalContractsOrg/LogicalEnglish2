@@ -2194,8 +2194,11 @@ match_part(Part, V, VMIn, VMOut, Templates, AllowVars) :- var(V), !, extract_val
 
 check_global_abbreviation(Words, Templates, Var, VMIn, VMOut) :-
     reconstruct_name_acc(Words, Name),
-    % Find a template that defines this name as a global
-    member(dict(FunctorArgs, _NTs, _WV, _S, _E, _NIW, Globals, _Opposite, _Prep, _Unknown), Templates),
+    % Find a template that defines this name as a global (the templates
+    % that define any, indexed once per template list)
+    global_templates(Templates, GTs),
+    GTs \== [],
+    member(dict(FunctorArgs, _NTs, _WV, _S, _E, _NIW, Globals, _Opposite, _Prep, _Unknown), GTs),
     member(Name, Globals),
     !,
     % Use the template's identity (e.g., its Functor) to group variables in VM
@@ -2207,6 +2210,16 @@ check_global_abbreviation(Words, Templates, Var, VMIn, VMOut) :-
         Goal =.. [Functor | Args],
         VMOut = [global_template(Functor)-Var, extra_goal(Goal) | VMIn]
     ).
+
+global_templates(Templates, GTs) :-
+    (   catch(b_getval(le_global_templates, globals(Cached, G0)), _, fail),
+        Cached == Templates
+    ->  GTs = G0
+    ;   include(has_globals, Templates, GTs),
+        b_setval(le_global_templates, globals(Templates, GTs))
+    ).
+
+has_globals(dict(_, _, _, _, _, _, Globals, _, _, _)) :- Globals \== [].
 
 %!  check_function_application(+Parts, +Templates, -Value, +VMIn, -VMOut,
 %!                              +AllowVars, +Depth) is semidet.
@@ -2484,12 +2497,41 @@ candidate_template(Templates, Words, Dict) :-
     % predicate scans every template, and a per-word lexicon lookup here is a
     % measurable parse-time regression on large programs.
     le_i18n:class_word_list(meta_marker, Ms),
-    template_partition(Templates, Ms, Metas, Rest),
+    template_partition(Templates, Ms, Metas, _Rest, Index),
     (   outer_first(Metas, Words, Ordered), member(Dict, Ordered)
-    ;   member(Dict, Rest),
+    ;   indexed_candidates(Index, Words, Dicts),
+        member(Dict, Dicts),
         Dict = dict(_FA, _NTs, _WV, _Start, _End, NIW, _Globals, _Opposite, _Prep, _Unknown),
         contains_subsequence(NIW, Words)
     ).
+
+%   indexed_candidates(+Index, +Words, -Dicts): the templates (of Rest, in
+%   their order) whose first non-ignorable word is one of Words, and those
+%   without one: contains_subsequence/2 needs that word, so the others
+%   cannot match. A program with a thousand templates (a translated
+%   regulation) otherwise tries every one of them for every condition.
+indexed_candidates(Index, Words, Dicts) :-
+    \+ ( member(W, Words), \+ atomic(W) ), !,
+    sort(Words, Ws),
+    foldl(index_hits(Index), ['$any'|Ws], [], Hits0),
+    keysort(Hits0, Hits),
+    pairs_values(Hits, Dicts).
+
+indexed_candidates(Index, _, Dicts) :-      % a word that is not a word: all of them
+    assoc_to_values(Index, Ls), append(Ls, Hits0), keysort(Hits0, Hits), pairs_values(Hits, Dicts).
+
+index_hits(Index, W, Acc, Out) :-
+    (   atomic(W), get_assoc(W, Index, L) -> append(L, Acc, Out) ; Out = Acc ).
+
+template_index(Rest, Index) :-
+    findall(K-(I-D),
+            ( nth1(I, Rest, D),
+              D = dict(_, _, _, _, _, NIW, _, _, _, _),
+              ( NIW = [W|_], atomic(W) -> K = W ; K = '$any' ) ),
+            Ps0),
+    keysort(Ps0, Ps),
+    group_pairs_by_key(Ps, Groups),
+    list_to_assoc(Groups, Index).
 
 %!  outer_first(+Metas, +Words, -Ordered) is det.
 %
@@ -2531,11 +2573,15 @@ outer_first(Metas, Words, Ordered) :-
 %   each other's, and a value restored by backtracking is still a correct
 %   partition of whatever list it was computed from).
 template_partition(Templates, Ms, Metas, Rest) :-
-    (   catch(b_getval(le_template_partition, part(Cached, M0, R0)), _, fail),
+    template_partition(Templates, Ms, Metas, Rest, _).
+
+template_partition(Templates, Ms, Metas, Rest, Index) :-
+    (   catch(b_getval(le_template_partition, part(Cached, M0, R0, I0)), _, fail),
         Cached == Templates
-    ->  Metas = M0, Rest = R0
+    ->  Metas = M0, Rest = R0, Index = I0
     ;   partition(meta_candidate(Ms), Templates, Metas, Rest),
-        b_setval(le_template_partition, part(Templates, Metas, Rest))
+        template_index(Rest, Index),
+        b_setval(le_template_partition, part(Templates, Metas, Rest, Index))
     ).
 
 % A template that gets META parse priority: not a built-in, and its word list
