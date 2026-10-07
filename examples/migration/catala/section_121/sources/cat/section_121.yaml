@@ -4,27 +4,27 @@ module:
   title: Catala scope(s) Section121SinglePerson, Section121TwoPersons
 rules:
 - catala_scope: Section121SinglePerson
-  catala_source: "  definition aggregate_periods_from_last_five_years of periods equals\n
-    \   Duration.sum of\n      (\n        map each period among periods to\n          if
-    date_of_sale_or_exchange <= period.begin + 5 year then\n            period.end
-    - period.begin\n          else\n            (\n              if date_of_sale_or_exchange
-    >= period.end + 5 year then\n                0 day\n              else ((period.end
-    + 5 year) - date_of_sale_or_exchange)\n            )\n      )\n\n  # Regulation
-    1.121-1(c)(1): 2 years = 730 days\n  # Regulation 1.121-1(c)(1): the periods of
-    ownage and usage\n  # don't have to overlap"
-  dtype: Decimal
-  kind: derived
-  name: section121_single_person_aggregate_periods_from_last_five_years
-  residue_reason: a function of its parameters
-  source: (a) Exclusion
-  source_document: sources/us_tax_code/section_121.catala_en
-  versions:
-  - effective_from: 1900-01-01
-    formula: 0
+  dtype: Judgment
+  entity: Period
+  kind: input
+  name: is_in_section121_single_person_property_ownage
+- catala_scope: Section121SinglePerson
+  dtype: Judgment
+  entity: Period
+  kind: input
+  name: is_in_section121_single_person_property_usage_as_principal_residence
+- dtype: Date
+  entity: Period
+  kind: input
+  name: section121_single_person_begin
 - catala_scope: Section121SinglePerson
   dtype: Date
   kind: input
   name: section121_single_person_date_of_sale_or_exchange
+- dtype: Date
+  entity: Period
+  kind: input
+  name: section121_single_person_end
 - catala_scope: Section121SinglePerson
   dtype: Money
   kind: derived
@@ -66,14 +66,6 @@ rules:
   kind: input
   name: section121_single_person_other_section_121a_sale
 - catala_scope: Section121SinglePerson
-  dtype: Decimal
-  kind: input
-  name: section121_single_person_property_ownage
-- catala_scope: Section121SinglePerson
-  dtype: Decimal
-  kind: input
-  name: section121_single_person_property_usage_as_principal_residence
-- catala_scope: Section121SinglePerson
   dtype: Judgment
   kind: derived
   name: section121_single_person_requirements_met
@@ -84,30 +76,33 @@ rules:
     formula: '(if ((section121_single_person_requirements_ownership_met and section121_single_person_requirements_usage_met)):
       true else: false)'
 - catala_scope: Section121SinglePerson
-  catala_source: "  rule requirements_ownership_met\n  under condition aggregate_periods_from_last_five_years
-    of property_ownage >= 730 day\n  consequence fulfilled\n"
   dtype: Judgment
   kind: derived
   name: section121_single_person_requirements_ownership_met
-  residue_reason: a function call
   source: (a) Exclusion
   source_document: sources/us_tax_code/section_121.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((sum_over(Period, is_in_section121_single_person_property_ownage,
+      (if (section121_single_person_date_of_sale_or_exchange <= add_months(section121_single_person_begin,
+      60)): days_between(section121_single_person_begin, section121_single_person_end)
+      else: (if (section121_single_person_date_of_sale_or_exchange >= add_months(section121_single_person_end,
+      60)): 0 else: days_between(section121_single_person_date_of_sale_or_exchange,
+      add_months(section121_single_person_end, 60))))) >= 730)): true else: false)'
 - catala_scope: Section121SinglePerson
-  catala_source: "  rule requirements_usage_met\n  under condition\n    aggregate_periods_from_last_five_years
-    of\n      property_usage_as_principal_residence\n    >= 730 day\n  consequence
-    fulfilled\n"
   dtype: Judgment
   kind: derived
   name: section121_single_person_requirements_usage_met
-  residue_reason: a function call
   source: (a) Exclusion
   source_document: sources/us_tax_code/section_121.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((sum_over(Period, is_in_section121_single_person_property_usage_as_principal_residence,
+      (if (section121_single_person_date_of_sale_or_exchange <= add_months(section121_single_person_begin,
+      60)): days_between(section121_single_person_begin, section121_single_person_end)
+      else: (if (section121_single_person_date_of_sale_or_exchange >= add_months(section121_single_person_end,
+      60)): 0 else: days_between(section121_single_person_date_of_sale_or_exchange,
+      add_months(section121_single_person_end, 60))))) >= 730)): true else: false)'
 - catala_scope: Section121SinglePerson
   catala_source: "  rule section_121_b_3_applies\n  under condition\n    other_section_121a_sale\n
     \   with pattern MostRecentSaleWhereSection121aApplied content other_sale\n    and
@@ -256,24 +251,10 @@ rules:
   dtype: Text
   kind: input
   name: section121_two_persons_return_type
-- catala_scope: Section121SinglePerson
-  catala_source: "  definition aggregate_periods_from_last_five_years of periods equals\n
-    \   Duration.sum of\n      (\n        map each period among periods to\n          if
-    date_of_sale_or_exchange <= period.begin + 5 year then\n            period.end
-    - period.begin\n          else\n            (\n              if date_of_sale_or_exchange
-    >= period.end + 5 year then\n                0 day\n              else ((period.end
-    + 5 year) - date_of_sale_or_exchange)\n            )\n      )\n\n  # Regulation
-    1.121-1(c)(1): 2 years = 730 days\n  # Regulation 1.121-1(c)(1): the periods of
-    ownage and usage\n  # don't have to overlap"
-  dtype: Decimal
-  kind: derived
-  name: section121_two_persons_section121Person1_aggregate_periods_from_last_five_years
-  residue_reason: a function of its parameters
-  source: (a) Exclusion
-  source_document: sources/us_tax_code/section_121.catala_en
-  versions:
-  - effective_from: 1900-01-01
-    formula: 0
+- dtype: Date
+  entity: Period
+  kind: input
+  name: section121_two_persons_section121Person1_begin
 - catala_scope: Section121TwoPersons
   dtype: Date
   kind: derived
@@ -284,6 +265,10 @@ rules:
   versions:
   - effective_from: 1900-01-01
     formula: section121_two_persons_date_of_sale_or_exchange
+- dtype: Date
+  entity: Period
+  kind: input
+  name: section121_two_persons_section121Person1_end
 - catala_scope: Section121SinglePerson
   dtype: Money
   kind: derived
@@ -378,30 +363,35 @@ rules:
       and section121_two_persons_section121Person1_requirements_usage_met)): true
       else: false)'
 - catala_scope: Section121SinglePerson
-  catala_source: "  rule requirements_ownership_met\n  under condition aggregate_periods_from_last_five_years
-    of property_ownage >= 730 day\n  consequence fulfilled\n"
   dtype: Judgment
   kind: derived
   name: section121_two_persons_section121Person1_requirements_ownership_met
-  residue_reason: a function call
   source: (a) Exclusion
   source_document: sources/us_tax_code/section_121.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((sum_over(Period, is_in_section121_two_persons_section121Person1_property_ownage,
+      (if (section121_two_persons_section121Person1_date_of_sale_or_exchange <= add_months(section121_two_persons_section121Person1_begin,
+      60)): days_between(section121_two_persons_section121Person1_begin, section121_two_persons_section121Person1_end)
+      else: (if (section121_two_persons_section121Person1_date_of_sale_or_exchange
+      >= add_months(section121_two_persons_section121Person1_end, 60)): 0 else: days_between(section121_two_persons_section121Person1_date_of_sale_or_exchange,
+      add_months(section121_two_persons_section121Person1_end, 60))))) >= 730)): true
+      else: false)'
 - catala_scope: Section121SinglePerson
-  catala_source: "  rule requirements_usage_met\n  under condition\n    aggregate_periods_from_last_five_years
-    of\n      property_usage_as_principal_residence\n    >= 730 day\n  consequence
-    fulfilled\n"
   dtype: Judgment
   kind: derived
   name: section121_two_persons_section121Person1_requirements_usage_met
-  residue_reason: a function call
   source: (a) Exclusion
   source_document: sources/us_tax_code/section_121.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((sum_over(Period, is_in_section121_two_persons_section121Person1_property_usage_as_principal_residence,
+      (if (section121_two_persons_section121Person1_date_of_sale_or_exchange <= add_months(section121_two_persons_section121Person1_begin,
+      60)): days_between(section121_two_persons_section121Person1_begin, section121_two_persons_section121Person1_end)
+      else: (if (section121_two_persons_section121Person1_date_of_sale_or_exchange
+      >= add_months(section121_two_persons_section121Person1_end, 60)): 0 else: days_between(section121_two_persons_section121Person1_date_of_sale_or_exchange,
+      add_months(section121_two_persons_section121Person1_end, 60))))) >= 730)): true
+      else: false)'
 - catala_scope: Section121SinglePerson
   catala_source: "  rule section_121_b_3_applies\n  under condition\n    other_section_121a_sale\n
     \   with pattern MostRecentSaleWhereSection121aApplied content other_sale\n    and
@@ -417,24 +407,10 @@ rules:
   versions:
   - effective_from: 1900-01-01
     formula: 0
-- catala_scope: Section121SinglePerson
-  catala_source: "  definition aggregate_periods_from_last_five_years of periods equals\n
-    \   Duration.sum of\n      (\n        map each period among periods to\n          if
-    date_of_sale_or_exchange <= period.begin + 5 year then\n            period.end
-    - period.begin\n          else\n            (\n              if date_of_sale_or_exchange
-    >= period.end + 5 year then\n                0 day\n              else ((period.end
-    + 5 year) - date_of_sale_or_exchange)\n            )\n      )\n\n  # Regulation
-    1.121-1(c)(1): 2 years = 730 days\n  # Regulation 1.121-1(c)(1): the periods of
-    ownage and usage\n  # don't have to overlap"
-  dtype: Decimal
-  kind: derived
-  name: section121_two_persons_section121Person2_aggregate_periods_from_last_five_years
-  residue_reason: a function of its parameters
-  source: (a) Exclusion
-  source_document: sources/us_tax_code/section_121.catala_en
-  versions:
-  - effective_from: 1900-01-01
-    formula: 0
+- dtype: Date
+  entity: Period
+  kind: input
+  name: section121_two_persons_section121Person2_begin
 - catala_scope: Section121TwoPersons
   dtype: Date
   kind: derived
@@ -445,6 +421,10 @@ rules:
   versions:
   - effective_from: 1900-01-01
     formula: section121_two_persons_date_of_sale_or_exchange
+- dtype: Date
+  entity: Period
+  kind: input
+  name: section121_two_persons_section121Person2_end
 - catala_scope: Section121SinglePerson
   dtype: Money
   kind: derived
@@ -539,30 +519,35 @@ rules:
       and section121_two_persons_section121Person2_requirements_usage_met)): true
       else: false)'
 - catala_scope: Section121SinglePerson
-  catala_source: "  rule requirements_ownership_met\n  under condition aggregate_periods_from_last_five_years
-    of property_ownage >= 730 day\n  consequence fulfilled\n"
   dtype: Judgment
   kind: derived
   name: section121_two_persons_section121Person2_requirements_ownership_met
-  residue_reason: a function call
   source: (a) Exclusion
   source_document: sources/us_tax_code/section_121.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((sum_over(Period, is_in_section121_two_persons_section121Person2_property_ownage,
+      (if (section121_two_persons_section121Person2_date_of_sale_or_exchange <= add_months(section121_two_persons_section121Person2_begin,
+      60)): days_between(section121_two_persons_section121Person2_begin, section121_two_persons_section121Person2_end)
+      else: (if (section121_two_persons_section121Person2_date_of_sale_or_exchange
+      >= add_months(section121_two_persons_section121Person2_end, 60)): 0 else: days_between(section121_two_persons_section121Person2_date_of_sale_or_exchange,
+      add_months(section121_two_persons_section121Person2_end, 60))))) >= 730)): true
+      else: false)'
 - catala_scope: Section121SinglePerson
-  catala_source: "  rule requirements_usage_met\n  under condition\n    aggregate_periods_from_last_five_years
-    of\n      property_usage_as_principal_residence\n    >= 730 day\n  consequence
-    fulfilled\n"
   dtype: Judgment
   kind: derived
   name: section121_two_persons_section121Person2_requirements_usage_met
-  residue_reason: a function call
   source: (a) Exclusion
   source_document: sources/us_tax_code/section_121.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((sum_over(Period, is_in_section121_two_persons_section121Person2_property_usage_as_principal_residence,
+      (if (section121_two_persons_section121Person2_date_of_sale_or_exchange <= add_months(section121_two_persons_section121Person2_begin,
+      60)): days_between(section121_two_persons_section121Person2_begin, section121_two_persons_section121Person2_end)
+      else: (if (section121_two_persons_section121Person2_date_of_sale_or_exchange
+      >= add_months(section121_two_persons_section121Person2_end, 60)): 0 else: days_between(section121_two_persons_section121Person2_date_of_sale_or_exchange,
+      add_months(section121_two_persons_section121Person2_end, 60))))) >= 730)): true
+      else: false)'
 - catala_scope: Section121SinglePerson
   catala_source: "  rule section_121_b_3_applies\n  under condition\n    other_section_121a_sale\n
     \   with pattern MostRecentSaleWhereSection121aApplied content other_sale\n    and

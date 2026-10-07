@@ -100,10 +100,18 @@ values are not yet checked by the twin.
 
 ## What is left for a person to translate
 
-Some of Catala has no translation yet: lists (the children of a family),
-values that change over a period (*states*), definitions that take
-parameters, enumerations that carry a value, and structures built inside a
-definition. Such a definition is kept in the program as a *residue* block:
+Most of Catala translates. A definition that takes a child (or any other
+structure) as its parameter becomes a rule about a child: each child is an
+individual of the program, and the child's details are facts about it. A
+list of structures, such as the periods a person owned a house, becomes one
+individual for each element, with a fact that says which list it is in; a
+sum over the list becomes a sum over those individuals. A duration becomes a
+number of months added to a date, or a number of days between two dates.
+
+Some of Catala has no translation yet: values that change over a period
+(*states*), enumerations that carry a value, a list kept inside a
+structure's field, combining a list step by step (a *fold*), and structures
+built inside a definition. Such a definition is kept in the program as a *residue* block:
 its Catala text, the reason it was not translated, and the sentence a
 translation must conclude. The scenarios that depend on it are left out of
 the program and counted in the program's ledger, the record of what was
@@ -133,11 +141,12 @@ The examples in `examples/migration/catala` come from Catala's own examples
 | United States tax code, section 132 (qualified employee discounts) | English | its 3 tests: 8 of 8 answers |
 | The French minimum wage (SMIC), 2019 to 2024 | French | 29 cases made from its dates and regions, checked against Catala's interpreter |
 | The monthly base of French family allowances, 2019 to 2024 | French | 6 cases, the same way |
-| United States tax code, section 121 (sale of a principal residence) | English | partly residue (lists of periods, definitions with parameters); its tests read structures, so none is checked yet |
-| French family benefits, eligibility | French | partly residue: conditions that depend on a child |
+| United States tax code, section 121 (sale of a principal residence) | English | the scope for one person whole, and its 4 tests pass; the scopes for two persons partly residue (lists inside a person's details, the kind of tax return, merging periods) |
+| French family benefits, eligibility | French | whole: its test, about four children, becomes four scenarios, and all pass |
 
 Written back to Catala, the first three pass every test on Catala's
-interpreter. A program that still holds residue blocks is not written back.
+interpreter. A program that still holds residue blocks is not written back,
+and neither, yet, is a rule about a child.
 
 ## See also
 
