@@ -93,7 +93,7 @@ explain(Goal, SessionModule, Unknowns, Whys) :-
             Unknowns = Unknowns2
             ;
             Unknowns = [],
-            findall(W, (called(0, CID, _), build_failure_tree(CID, Ws), member(W, Ws)), Whys)
+            findall(W, (called(0, CID, _), failure_tree(CID, Ws), member(W, Ws)), Whys)
         ),
         ( memo_exit(Memo), le_kbs:clear_kb_module )
     ).
@@ -194,18 +194,32 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
     is_aggregate(Aggregate, Type, VarTerm, Goal, ResultTerm), !,
     D1 is D + 1,
     extract_var(VarTerm, Var),
-    findall(agg(Var, Us1, Whys),
-            ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, Whys),
-              \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
-            ),
-            Solutions),
+    %  a caller that wants answers only (le_failure_explanations off) keeps
+    %  no explanation of each solution: nested aggregates over many items
+    %  (a basket's constituents in a trade report) otherwise multiply them
+    %  past any memory
+    (   failure_explanations
+    ->  findall(agg(Var, Us1, Whys),
+                ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, Whys),
+                  \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
+                ),
+                Solutions)
+    ;   findall(agg(Var, Us1, []),
+                ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, _),
+                  \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
+                ),
+                Solutions)
+    ),
     (   Solutions == [] ->
         % Goal failed, build failure tree for the goal
         % We need to ensure the failure is recorded under MyID
         next_id(GoalID),
         ( (MyID \== none, ground(Goal)) -> assertz(called(MyID, GoalID, Goal)); true),
-        ( solve(Goal, SM, KM, Anc, D1, GoalID, [], _) -> true ; true ),
-        build_failure_tree(GoalID, WhysGoal),
+        (   failure_explanations
+        ->  ( solve(Goal, SM, KM, Anc, D1, GoalID, [], _) -> true ; true ),
+            build_failure_tree(GoalID, WhysGoal)
+        ;   WhysGoal = []
+        ),
         List = [], Us = []
     ;   maplist(agg_value, Solutions, List),
         maplist(agg_whys, Solutions, WhysList),
@@ -270,7 +284,7 @@ solve_real_actual(forall(Cond, Cons), SM, KM, Anc, D, MyID, Us,
     (   Cases == [] ->
             % Vacuously true: no matching cases. Explain the condition's FAILURE
             % so it renders as a (red) negative branch under the header.
-            build_failure_tree(CondID, CondFailWhys),
+            failure_tree(CondID, CondFailWhys),
             ( CondFailWhys = [CondWhy] -> true ; CondWhy = failure(Cond, CondFailWhys) ),
             CaseChildren = [CondWhy],
             Us = []
@@ -308,7 +322,7 @@ solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negat
         fail
     ;   % Goal has no proof at all: not(Goal) succeeds.
         Us = [],
-        build_failure_tree(GoalID, FailureTrees),
+        failure_tree(GoalID, FailureTrees),
         assertz(success_in_not(GoalID, FailureTrees))
     ).
 
@@ -645,11 +659,14 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
         flag(le_memo_birth, Start, Start),
         setup_call_cleanup(
             assertz(memo_active(Key, Gen)),
-            memo_fixpoint(G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Answers-Floor),
+            memo_fixpoint(G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Answers0-Floor),
             ( retractall(memo_active(Key, Gen)),
               retractall(memo_provisional(Key, Gen, _)),
               retractall(memo_consumed(Key, Gen)),
               restore_loop_floor(Saved) )),
+        %  the answers are a set: the same answer proved in two ways is
+        %  given once, with its first proof
+        distinct_memo_answers(Answers0, Answers),
         (   Floor < Outside
         ->  memo_count(unremembered),
             % the memorable calls inside it may rest on its answers
@@ -665,6 +682,20 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
             memo_replay(Key, Gen, G, Us, Whys)
         )
     ).
+
+%   distinct_memo_answers(+Answers, -Distinct): one answer(G, Us, Whys) for
+%   each variant of G and its unknowns Us, the first.
+distinct_memo_answers(As, Ds) :- distinct_memo_answers(As, [], Ds).
+distinct_memo_answers([], _, []).
+distinct_memo_answers([A|As], Seen, Ds) :-
+    A = answer(G, Us, _),
+    (   memberchk_variant(G-Us, Seen)
+    ->  Ds = Ds1, Seen1 = Seen
+    ;   Ds = [A|Ds1], Seen1 = [G-Us|Seen]
+    ),
+    distinct_memo_answers(As, Seen1, Ds1).
+
+memberchk_variant(X, L) :- member(Y, L), Y =@= X, !.
 
 %!  memo_fixpoint(+G, +SM, +KM, +Anc, +D, +MyID, +Key, +Gen, +Outside, -Result) is det.
 %
@@ -1370,6 +1401,19 @@ solve_rule_body(Body, SM, KM, Anc, D, MyID, Ref, Us, WhysBody) :-
         solve(Body, SM, KM, Anc, D, ClauseID, Us, WhysBody)
     ;   solve(Body, SM, KM, Anc, D, MyID, Us, WhysBody)
     ).
+
+%   failure_tree(+ID, -Whys): the explanation of a failure, when failures
+%   are explained (flag le_failure_explanations, default true). A caller that
+%   wants answers only (the test runner) turns it off: a negation that holds
+%   otherwise records why its condition failed, which on a large program
+%   (a translated regulation full of tests) is most of the work. Off, an
+%   aggregate keeps no explanation of its solutions either.
+:- create_prolog_flag(le_failure_explanations, true, [type(boolean), keep(true)]).
+
+failure_explanations :- current_prolog_flag(le_failure_explanations, true).
+
+failure_tree(ID, Whys) :-
+    (   failure_explanations -> build_failure_tree(ID, Whys) ; Whys = [] ).
 
 % build_failure_tree(+ID, -Whys)
 % Reconstructs a list of "juicy" failure trees of all calls made under ID. When

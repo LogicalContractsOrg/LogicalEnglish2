@@ -35,6 +35,8 @@ verify(KB, Issues) :-
 verify(KB, Options, Issues) :-
     ensure_kb_language(KB),
     nb_setval(le_query_reachable, none),       % computed once per verification
+    nb_setval(le_body_functors, none),         % likewise (template_used/3)
+    nb_setval(le_template_used, none),
     %  the budget is this verification's: a test run after it (runTestsFor,
     %  in the same thread) has none
     setup_call_cleanup(
@@ -1022,57 +1024,83 @@ template_prefix(Label, Prefix) :-
 
 %!  template_used(+KB, +F, +A) is semidet.
 %
+%   (Remembered for the rest of the verification: shadowing_templates/3 asks
+%   again for every pair of templates.)
+template_used(KB, F, A) :-
+    (   nb_current(le_template_used, KB-Memo0), Memo0 \== none -> Memo = Memo0 ; empty_assoc(Memo) ),
+    (   get_assoc(F/A, Memo, Ans) -> true
+    ;   ( template_used_(KB, F, A) -> Ans = true ; Ans = false ),
+        put_assoc(F/A, Memo, Ans, Memo1),
+        nb_setval(le_template_used, KB-Memo1)
+    ),
+    Ans == true.
+
+%
 %   Anywhere at all: as the head of a rule or fact, inside any rule body,
 %   inside a scenario's facts, or inside a query.
-template_used(KB, F, A) :-
+template_used_(KB, F, A) :-
     functor(Head, F, A),
     current_predicate(KB:F/A),
     le_kbs:kb_own_predicate(KB, Head),
     clause(KB:Head, _), !.
-template_used(KB, F, A) :-
-    current_predicate(KB:Other/OA),
-    \+ is_system_predicate(Other/OA),
-    functor(H, Other, OA),
-    le_kbs:kb_own_predicate(KB, H),
-    clause(KB:H, Body),
-    find_in_body(Body, Literal),
-    functor(Literal, F, A), !.
+template_used_(KB, F, A) :-
+    body_functors(KB, Used),
+    get_assoc(F/A, Used, _), !.
 %   Used by an LPS sentence. An `lps`-target program's rules are not Prolog
 %   clauses — they are le_lps_item/3 payloads handed to the LPS2 engine — so
 %   the clause-walking cases above find nothing and every template in a
 %   perfectly ordinary LPS program is reported as dead vocabulary.
-template_used(KB, F, A) :-
+template_used_(KB, F, A) :-
     current_predicate(KB:le_lps_item/3),
     KB:le_lps_item(_, Payload, _),
     contains_literal(Payload, F, A), !.
-template_used(KB, F, A) :-
+template_used_(KB, F, A) :-
     safe_scenario_fact(KB, F, A), !.
-template_used(KB, F, A) :-
-    current_predicate(KB:query_info/3),
-    KB:query_info(_, Goal, _),
-    find_in_body(Goal, Literal),
-    functor(Literal, F, A), !.
 %   Used inside an embedded sentence, the argument of a template such as
 %   `*a party* is obliged that *a sentence*`: "y is obliged that x is a rel4"
 %   uses `*a thing* is a rel4` as much as a condition would.
-template_used(KB, F, A) :-
+template_used_(KB, F, A) :-
     current_predicate(KB:Other/OA),
     \+ is_system_predicate(Other/OA),
     functor(H, Other, OA),
     le_kbs:kb_own_predicate(KB, H),
     clause(KB:H, Body),
     ( embeds_literal(H, F, A) ; find_in_body(Body, L), embeds_literal(L, F, A) ), !.
-template_used(KB, F, A) :-
+template_used_(KB, F, A) :-
     current_predicate(KB:scenario/2),
     KB:scenario(_, Facts),
     member(Item, Facts),
     ( Item = fact_with_source(Fact, _, _) -> true ; Fact = Item ),
     embeds_literal(Fact, F, A), !.
-template_used(KB, F, A) :-
+template_used_(KB, F, A) :-
     current_predicate(KB:query_info/3),
     KB:query_info(_, Goal, _),
     find_in_body(Goal, L),
     embeds_literal(L, F, A), !.
+
+%   body_functors(+KB, -Used): every F/A a condition of a rule or a query
+%   names, computed once per verification (a program of a thousand templates
+%   would otherwise walk every rule body once per template).
+body_functors(KB, Used) :-
+    (   nb_current(le_body_functors, KB-Used0), Used0 \== none
+    ->  Used = Used0
+    ;   findall(F/A-x,
+                (   current_predicate(KB:Other/OA),
+                    \+ is_system_predicate(Other/OA),
+                    functor(H, Other, OA),
+                    le_kbs:kb_own_predicate(KB, H),
+                    clause(KB:H, Body),
+                    find_in_body(Body, Literal), callable(Literal),
+                    functor(Literal, F, A)
+                ;   current_predicate(KB:query_info/3),
+                    KB:query_info(_, Goal, _),
+                    find_in_body(Goal, Literal), callable(Literal),
+                    functor(Literal, F, A)
+                ), Pairs0),
+        sort(Pairs0, Pairs),
+        list_to_assoc(Pairs, Used),
+        nb_setval(le_body_functors, KB-Used)
+    ).
 
 %   F/A is inside one of Literal's arguments (not Literal itself).
 embeds_literal(Literal, F, A) :-

@@ -3408,7 +3408,12 @@ runTestsFor(LEFile, Result) :-
         ( current_predicate(KBmodule:le_expected/4) -> findall(test(Q, S, A, U), KBmodule:le_expected(Q, S, A, U), EmbeddedTests); EmbeddedTests = []),
         ( current_predicate(KBmodule:le_expected_changes/3) -> findall(test_changes(Q, S, Sets), KBmodule:le_expected_changes(Q, S, Sets), ChangeTests) ; ChangeTests = [] ),
         append([LegacyTests, EmbeddedTests, ChangeTests], AllTests),
-        maplist(run_one_test(KBmodule), AllTests, TestResults),
+        %  the tests compare answers and unknowns, never the explanation of
+        %  a failure: not building those makes a large program's tests fast
+        current_prolog_flag(le_failure_explanations, FE),
+        setup_call_cleanup(set_prolog_flag(le_failure_explanations, false),
+                           maplist(run_one_test(KBmodule), AllTests, TestResults),
+                           set_prolog_flag(le_failure_explanations, FE)),
         Result = test_file(LEFile, TestResults)
         ;   
         Result = test_file(LEFile, [error(load, LEFile, 'Failed to load or timeout loading LE file')])
