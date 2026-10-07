@@ -2,7 +2,7 @@
 
 Source: Axiom RuleSpec — sources/us/statutes/42/1382/a/3.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-06
+Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary

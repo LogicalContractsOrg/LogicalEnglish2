@@ -63,6 +63,10 @@ reference, usually a link to the statute.
 | a group's sum over its members | `the sum of each … such that the person is a member of the spm unit` |
 | a tax scale with brackets | the brackets written out, each rate times the part of the income in its bracket |
 | a variable's formulas from different dates | one rule per date range |
+| a question a person asks of the group the person belongs to (`person.benunit.any(...)`) | a sentence about the group, `*a benunit* has members who count for …`, read through `the person is a member of a benunit` |
+| a person's age from a birth date | the whole months from the birth date to the calculation date, divided by 12 |
+| a list kept as a parameter (`np.isin(status, p.eligible_statuses)`) | `the code is in [...]`, one list for each period the parameter defines |
+| a loop over a list written in the model, or a helper function of the model | written out: one copy of the loop's body per item; the helper's body in place of its call |
 
 **Months and years.** A model defines each variable for a month or for a
 year. When a test asks for a year of a monthly variable, PolicyEngine adds
@@ -78,9 +82,12 @@ parameter finds no value, and its answer is not to be trusted.
 
 ## What is left for a person to translate
 
-Python can say things that have no fixed translation: loops, lists built
-by computation, calls to the model's own helper functions, values from
-other periods (last year's income), the roles people have in a household.
+Python can say things that have no fixed translation: lists built by
+computation, values a variable had in another period (last year's income),
+the roles people have in a household, texts kept as parameters (a state's
+name). Loops over a list written in the model and the model's own helper
+functions are translated (see the table above); a loop over a list the
+program computes is not.
 Such a formula is kept in the program as a *residue* block: its Python,
 the reason it was not translated, and the sentence a translation must
 conclude. The scenarios that depend on it are left out of the program and
@@ -95,8 +102,11 @@ such as a household), a variable for each template, the parameters, and a
 function `system()` that assembles them; the scenarios follow as
 OpenFisca's tests. A program that OpenFisca cannot express is refused,
 with the reasons: a value concluded only under conditions, with no
-`otherwise`; a rule of one kind of thing that reads a value of another,
-except through the members of a group.
+`otherwise`; a count over the members of a person's own group (a child's
+rank among the children). A rule about a person may read a value of the
+person's group (*the person is a member of a tax unit and the tax unit …*),
+and a rule about a group may add up, count, or take the largest or smallest
+value over its members.
 
 ## See also
 
