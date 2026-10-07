@@ -13,11 +13,14 @@
 la langue cible est: prolog.
 
 les modèles sont:
-    la condition conditions hors âge est remplie.
+    *un enfant prestations familiales* remplit la condition conditions hors âge.
     la date courante est *une date*; élément de scénario.
-    la condition droit ouvert est remplie.
+    la date de naissance d'*un enfant prestations familiales* est *une date*; élément de scénario.
+    *un enfant prestations familiales* remplit la condition droit ouvert.
+    l'obligation scolaire d'*un enfant prestations familiales* est *un code*; élément de scénario.
     le plafond l512 3 2 est *un montant*.
     la condition régime outre mer l751 1 est remplie.
+    la rémuneration mensuelle d'*un enfant prestations familiales* est *un montant*; élément de scénario.
     la résidence est *un code*; élément de scénario.
     le smic brut horaire est *un montant*.
     le smic date courante est *une date*.
@@ -40,33 +43,42 @@ le texte de "Prologue : prestations familiales" est à "sources/prestations_fami
 
 le texte de "Article R512-2|LEGIARTI000006750602" est à "sources/prestations_familiales/sécurité_sociale_R.catala_fr".
 
-% RESIDUE r1 BEGIN: cat:prestations_familiales#conditions_hors_âge
-% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
-% Non traduit : a function of its parameters.
-% Conclusion attendue : la condition conditions hors âge est remplie.
-%   Catala:
-%   |   règle conditions_hors_âge d'enfant
-%   |   sous condition
-%   |     (
-%   |       enfant.obligation_scolaire sous forme Avant
-%   |       ou enfant.obligation_scolaire sous forme Pendant
-%   |       ou enfant.obligation_scolaire sous forme Après
-%   |     )
-%   |     et (
-%   |       enfant.rémuneration_mensuelle
-%   |       <= plafond_l512_3_2
-%   |     )
-%   |   conséquence rempli
-% RESIDUE r1 END
+règle conditions_hors_âge avec pour source "Article L512-3 | LEGIARTI000041979743":
+un enfant prestations familiales remplit la condition conditions hors âge si
+    l'obligation scolaire de l'enfant prestations familiales est un code
+    et le code est dans ["Avant", "Pendant", "Après"]
+    et la rémuneration mensuelle de l'enfant prestations familiales est un montant M
+    et le plafond l512 3 2 est un montant N
+    et M <= N.
 
-% RESIDUE r2 BEGIN: cat:prestations_familiales#droit_ouvert
-% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
-% Non traduit : a function of its parameters.
-% Conclusion attendue : la condition droit ouvert est remplie.
-%   Catala:
-%   |   étiquette cas_base
-%   |   étiquette cas_base
-% RESIDUE r2 END
+règle droit_ouvert_1 avec pour source "Article L512-3 | LEGIARTI000041979743":
+un enfant prestations familiales remplit la condition droit ouvert si
+    l'obligation scolaire de l'enfant prestations familiales est un code
+    et le code est égal à "Avant".
+
+règle droit_ouvert_2 avec pour source "Article L512-3 | LEGIARTI000041979743":
+un enfant prestations familiales remplit la condition droit ouvert si
+    l'obligation scolaire de l'enfant prestations familiales est un code
+    et le code est égal à "Pendant".
+
+règle droit_ouvert_3 avec pour source "Article L512-3 | LEGIARTI000041979743":
+un enfant prestations familiales remplit la condition droit ouvert si
+    il n'est pas vrai que
+        l'obligation scolaire de l'enfant prestations familiales est un code
+        et le code est égal à "Avant"
+    et il n'est pas vrai que
+        l'obligation scolaire de l'enfant prestations familiales est un deuxième code
+        et le deuxième code est égal à "Pendant"
+    et l'obligation scolaire de l'enfant prestations familiales est un troisième code
+    et le troisième code est égal à "Après"
+    et la rémuneration mensuelle de l'enfant prestations familiales est un montant M
+    et le plafond l512 3 2 est un montant N
+    et M <= N
+    et la date de naissance de l'enfant prestations familiales est une date
+    et l'âge l512 3 2 est un nombre
+    et une date D est le nombre mois après la date
+    et la date courante est une date K
+    et D > K.
 
 règle plafond_l512_3_2 avec pour source "Article R512-2|LEGIARTI000006750602; Article R755-0-2|LEGIARTI000006752633":
 le plafond l512 3 2 est un montant M si
@@ -228,15 +240,55 @@ règle smic_résidence avec pour source "Prologue : prestations familiales":
 le smic résidence est un code si
     la résidence est le code.
 
-% RESIDUE r3 BEGIN: cat:prestations_familiales#âge_l512_3_2
-% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
-% Non traduit : a duration.
-% Conclusion attendue : l'âge l512 3 2 est *un nombre*.
-%   Catala:
-%   |   définition âge_l512_3_2 égal à 20 an
-% RESIDUE r3 END
+règle âge_l512_3_2 avec pour source "Article R512-2|LEGIARTI000006750602":
+le âge l512 3 2 est un nombre N si
+    N = 240.
 
-scénario Test1 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 1:
+scénario Test1_droit_ouvert_enfant1 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 1:
+    enfant_prestations_familiales_1 est un enfant_prestations_familiales.
     la date courante est 2020-05-01.
+    la date de naissance d'enfant_prestations_familiales_1 est 2007-01-01.
+    l'obligation scolaire d'enfant_prestations_familiales_1 est "Pendant".
+    la rémuneration mensuelle d'enfant_prestations_familiales_1 est 0.
     la résidence est "Métropole".
+    q_droit_ouvert attend les réponses ["enfant_prestations_familiales_1 remplit la condition droit ouvert"].
+
+scénario Test1_droit_ouvert_enfant2 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 2:
+    enfant_prestations_familiales_1 est un enfant_prestations_familiales.
+    la date courante est 2020-05-01.
+    la date de naissance d'enfant_prestations_familiales_1 est 2003-01-01.
+    l'obligation scolaire d'enfant_prestations_familiales_1 est "Après".
+    la rémuneration mensuelle d'enfant_prestations_familiales_1 est 1000.
+    la résidence est "Métropole".
+    q_droit_ouvert attend les réponses [].
+
+scénario Test1_droit_ouvert_enfant3 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 3:
+    enfant_prestations_familiales_1 est un enfant_prestations_familiales.
+    la date courante est 2020-05-01.
+    la date de naissance d'enfant_prestations_familiales_1 est 2003-01-01.
+    l'obligation scolaire d'enfant_prestations_familiales_1 est "Après".
+    la rémuneration mensuelle d'enfant_prestations_familiales_1 est 400.
+    la résidence est "Métropole".
+    q_droit_ouvert attend les réponses ["enfant_prestations_familiales_1 remplit la condition droit ouvert"].
+
+scénario Test1_droit_ouvert_enfant4 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 4:
+    enfant_prestations_familiales_1 est un enfant_prestations_familiales.
+    la date courante est 2020-05-01.
+    la date de naissance d'enfant_prestations_familiales_1 est 1999-01-01.
+    l'obligation scolaire d'enfant_prestations_familiales_1 est "Après".
+    la rémuneration mensuelle d'enfant_prestations_familiales_1 est 0.
+    la résidence est "Métropole".
+    q_droit_ouvert attend les réponses [].
+
+requête q_droit_ouvert est:
+    quel enfant prestations familiales remplit la condition droit ouvert.
+
+requête q_droit_ouvert est:
+    quel enfant prestations familiales remplit la condition droit ouvert.
+
+requête q_droit_ouvert est:
+    quel enfant prestations familiales remplit la condition droit ouvert.
+
+requête q_droit_ouvert est:
+    quel enfant prestations familiales remplit la condition droit ouvert.
 

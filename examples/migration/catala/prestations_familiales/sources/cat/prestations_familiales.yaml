@@ -4,35 +4,44 @@ module:
   title: Catala scope(s) ÉligibilitéPrestationsFamiliales
 rules:
 - catala_scope: ÉligibilitéPrestationsFamiliales
-  catala_source: "  règle conditions_hors_âge de enfant\n  sous condition\n    (\n
-    \     enfant.obligation_scolaire sous forme Avant\n      ou enfant.obligation_scolaire
-    sous forme Pendant\n      ou enfant.obligation_scolaire sous forme Après\n    )\n
-    \   et (\n      enfant.rémuneration_mensuelle\n      <= plafond_l512_3_2\n    )\n
-    \ conséquence rempli"
   dtype: Judgment
+  entity: EnfantPrestationsFamiliales
   kind: derived
   name: conditions_hors_âge
-  residue_reason: a function of its parameters
   source: Article L512-3 | LEGIARTI000041979743
   source_document: sources/prestations_familiales/sécurité_sociale_L.catala_fr
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if ((((obligation_scolaire == ''Avant'') or ((obligation_scolaire ==
+      ''Pendant'') or (obligation_scolaire == ''Après''))) and (rémuneration_mensuelle
+      <= plafond_l512_3_2))): true else: false)'
 - catala_scope: ÉligibilitéPrestationsFamiliales
   dtype: Date
   kind: input
   name: date_courante
-- catala_scope: ÉligibilitéPrestationsFamiliales
-  catala_source: "  étiquette cas_base\n  étiquette cas_base"
+- dtype: Date
+  entity: EnfantPrestationsFamiliales
+  kind: input
+  name: date_de_naissance
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: ÉligibilitéPrestationsFamiliales
   dtype: Judgment
+  entity: EnfantPrestationsFamiliales
   kind: derived
   name: droit_ouvert
-  residue_reason: a function of its parameters
   source: Article L512-3 | LEGIARTI000041979743
   source_document: sources/prestations_familiales/sécurité_sociale_L.catala_fr
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: '(if (((obligation_scolaire == ''Avant'') or (obligation_scolaire ==
+      ''Pendant''))): true elif (((obligation_scolaire == ''Après'') and ((rémuneration_mensuelle
+      <= plafond_l512_3_2) and (add_months(date_de_naissance, âge_l512_3_2) > date_courante)))):
+      true else: false)'
+- dtype: Text
+  entity: EnfantPrestationsFamiliales
+  kind: input
+  name: obligation_scolaire
 - catala_scope: ÉligibilitéPrestationsFamiliales
   dtype: Money
   kind: derived
@@ -56,6 +65,10 @@ rules:
       ((résidence == ''Martinique'') or ((résidence == ''LaRéunion'') or ((résidence
       == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))))))): true else:
       false)'
+- dtype: Money
+  entity: EnfantPrestationsFamiliales
+  kind: input
+  name: rémuneration_mensuelle
 - catala_scope: ÉligibilitéPrestationsFamiliales
   dtype: Text
   kind: input
@@ -164,14 +177,13 @@ rules:
   - effective_from: 1900-01-01
     formula: résidence
 - catala_scope: ÉligibilitéPrestationsFamiliales
-  catala_source: '  définition âge_l512_3_2 égal à 20 an'
-  dtype: Decimal
+  dtype: Integer
   kind: derived
   name: âge_l512_3_2
   overridable: true
-  residue_reason: a duration
   source: Article R512-2|LEGIARTI000006750602
   source_document: sources/prestations_familiales/sécurité_sociale_R.catala_fr
+  unit: months
   versions:
   - effective_from: 1900-01-01
-    formula: 0
+    formula: !!str 240

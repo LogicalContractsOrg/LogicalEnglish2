@@ -12,15 +12,16 @@
 the target language is: prolog.
 
 the templates are:
-    the section121 single person aggregate periods from last five years is *a number*.
+    *a period* is in section121 single person property ownage; scenario element.
+    *a period* is in section121 single person property usage as principal residence; scenario element.
+    the section121 single person begin of *a period* is *a date*; scenario element.
     the section121 single person date of sale or exchange is *a date*; scenario element.
+    the section121 single person end of *a period* is *a date*; scenario element.
     the section121 single person gain cap is *an amount*.
     the section121 single person gain from sale or exchange of property is *an amount*; scenario element.
     the section121 single person income excluded from gross income is *an amount*.
     the section121 single person income excluded from gross income uncapped is *an amount*.
     the section121 single person other section 121a sale is *a text*; scenario element.
-    the section121 single person property ownage is *a number*; scenario element.
-    the section121 single person property usage as principal residence is *a number*; scenario element.
     the rule section121 single person requirements met holds.
     the rule section121 single person requirements ownership met holds.
     the rule section121 single person requirements usage met holds.
@@ -39,8 +40,9 @@ the templates are:
     the section121 two persons person2 is *a number*.
     the section121 two persons return date is *a date*; scenario element.
     the section121 two persons return type is *a text*; scenario element.
-    the section121 two persons section121Person1 aggregate periods from last five years is *a number*.
+    the section121 two persons section121Person1 begin of *a period* is *a date*; scenario element.
     the section121 two persons section121Person1 date of sale or exchange is *a date*.
+    the section121 two persons section121Person1 end of *a period* is *a date*; scenario element.
     the section121 two persons section121Person1 gain cap is *an amount*.
     the section121 two persons section121Person1 gain from sale or exchange of property is *an amount*.
     the section121 two persons section121Person1 income excluded from gross income is *an amount*.
@@ -52,8 +54,9 @@ the templates are:
     the rule section121 two persons section121Person1 requirements ownership met holds.
     the rule section121 two persons section121Person1 requirements usage met holds.
     the rule section121 two persons section121Person1 section 121 b 3 applies holds.
-    the section121 two persons section121Person2 aggregate periods from last five years is *a number*.
+    the section121 two persons section121Person2 begin of *a period* is *a date*; scenario element.
     the section121 two persons section121Person2 date of sale or exchange is *a date*.
+    the section121 two persons section121Person2 end of *a period* is *a date*; scenario element.
     the section121 two persons section121Person2 gain cap is *an amount*.
     the section121 two persons section121Person2 gain from sale or exchange of property is *an amount*.
     the section121 two persons section121Person2 income excluded from gross income is *an amount*.
@@ -67,16 +70,21 @@ the templates are:
     the rule section121 two persons section121Person2 section 121 b 3 applies holds.
     the rule section121 two persons section121a requirements met holds.
     the rule section121 two persons section 121 b 2 A condition holds.
+    the Period is *a value*; scenario element.
+    the is in section121 two persons section121Person1 property ownage is *a number*; scenario element.
+    the is in section121 two persons section121Person1 property usage as principal residence is *a number*; scenario element.
+    the is in section121 two persons section121Person2 property ownage is *a number*; scenario element.
+    the is in section121 two persons section121Person2 property usage as principal residence is *a number*; scenario element.
 
 the knowledge base cat_section_121 includes:
 
 
 % Catala scope(s) Section121SinglePerson, Section121TwoPersons — cat:section_121
-the text of "(a) Exclusion" is at "sources/us_tax_code/section_121.catala_en".
-
 the text of "(1) In general" is at "sources/us_tax_code/section_121.catala_en".
 
 the text of "(a) Exclusion; (3) Application to only 1 sale or exchange every 2 years" is at "sources/us_tax_code/section_121.catala_en".
+
+the text of "(a) Exclusion" is at "sources/us_tax_code/section_121.catala_en".
 
 the text of "(3) Application to only 1 sale or exchange every 2 years" is at "sources/us_tax_code/section_121.catala_en".
 
@@ -87,30 +95,6 @@ the text of "Section 121" is at "sources/us_tax_code/section_121.catala_en".
 the text of "(a) Exclusion; (A) $500,000 Limitation for certain joint returns" is at "sources/us_tax_code/section_121.catala_en".
 
 the text of "(A) $500,000 Limitation for certain joint returns" is at "sources/us_tax_code/section_121.catala_en".
-
-% RESIDUE r1 BEGIN: cat:section_121#section121_single_person_aggregate_periods_from_last_five_years
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function of its parameters.
-% Conclude: the section121 single person aggregate periods from last five years is *a number*.
-%   Catala:
-%   |   definition aggregate_periods_from_last_five_years of periods equals
-%   |     Duration.sum of
-%   |       (
-%   |         map each period among periods to
-%   |           if date_of_sale_or_exchange <= period.begin + 5 year then
-%   |             period.end - period.begin
-%   |           else
-%   |             (
-%   |               if date_of_sale_or_exchange >= period.end + 5 year then
-%   |                 0 day
-%   |               else ((period.end + 5 year) - date_of_sale_or_exchange)
-%   |             )
-%   |       )
-%   | 
-%   |   # Regulation 1.121-1(c)(1): 2 years = 730 days
-%   |   # Regulation 1.121-1(c)(1): the periods of ownage and usage
-%   |   # don't have to overlap
-% RESIDUE r1 END
 
 rule section121_single_person_gain_cap with provenance "(1) In general":
 the section121 single person gain cap is an amount N if
@@ -137,32 +121,51 @@ the rule section121 single person requirements met holds if
     the rule section121 single person requirements ownership met holds
     and the rule section121 single person requirements usage met holds.
 
-% RESIDUE r2 BEGIN: cat:section_121#section121_single_person_requirements_ownership_met
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function call.
-% Conclude: the rule section121 single person requirements ownership met holds.
-%   Catala:
-%   |   rule requirements_ownership_met
-%   |   under condition aggregate_periods_from_last_five_years of property_ownage >= 730 day
-%   |   consequence fulfilled
-%   | 
-% RESIDUE r2 END
+rule section121_single_person_requirements_ownership_met with provenance "(a) Exclusion":
+the rule section121 single person requirements ownership met holds if
+    a number U is the sum of each N such that
+        a period is in section121 single person property ownage
+        and the section121 single person date of sale or exchange is a date D
+            and the section121 single person begin of the period is a second date
+            and a date M is 60 months after the second date
+            and D <= M
+            and the section121 single person begin of the period is a fourth date
+            and the section121 single person end of the period is a fifth date
+            and the fifth date is a number N days after the fourth date
+            otherwise the section121 single person date of sale or exchange is a date K
+            and the section121 single person end of the period is a date P
+            and a date Q is 60 months after P
+            and K >= Q
+            and N = 0
+            otherwise the section121 single person date of sale or exchange is a date R
+            and the section121 single person end of the period is a date S
+            and a date T is 60 months after S
+            and T is N days after R
+    and U >= 730.
 
-% RESIDUE r3 BEGIN: cat:section_121#section121_single_person_requirements_usage_met
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function call.
-% Conclude: the rule section121 single person requirements usage met holds.
-%   Catala:
-%   |   rule requirements_usage_met
-%   |   under condition
-%   |     aggregate_periods_from_last_five_years of
-%   |       property_usage_as_principal_residence
-%   |     >= 730 day
-%   |   consequence fulfilled
-%   | 
-% RESIDUE r3 END
+rule section121_single_person_requirements_usage_met with provenance "(a) Exclusion":
+the rule section121 single person requirements usage met holds if
+    a number U is the sum of each N such that
+        a period is in section121 single person property usage as principal residence
+        and the section121 single person date of sale or exchange is a date D
+            and the section121 single person begin of the period is a second date
+            and a date M is 60 months after the second date
+            and D <= M
+            and the section121 single person begin of the period is a fourth date
+            and the section121 single person end of the period is a fifth date
+            and the fifth date is a number N days after the fourth date
+            otherwise the section121 single person date of sale or exchange is a date K
+            and the section121 single person end of the period is a date P
+            and a date Q is 60 months after P
+            and K >= Q
+            and N = 0
+            otherwise the section121 single person date of sale or exchange is a date R
+            and the section121 single person end of the period is a date S
+            and a date T is 60 months after S
+            and T is N days after R
+    and U >= 730.
 
-% RESIDUE r4 BEGIN: cat:section_121#section121_single_person_section_121_b_3_applies
+% RESIDUE r1 BEGIN: cat:section_121#section121_single_person_section_121_b_3_applies
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: an expression this translator does not read: test_case(id([],other_section_121a_sale,none),[],'MostRecentSaleWhereSection121aApplied',[other_sale]).
 % Conclude: the rule section121 single person section 121 b 3 applies holds.
@@ -174,7 +177,7 @@ the rule section121 single person requirements met holds if
 %   |     and date_of_sale_or_exchange - other_sale.date_of_sale_or_exchange <= 2 year
 %   |   consequence fulfilled
 %   | 
-% RESIDUE r4 END
+% RESIDUE r1 END
 
 rule section121_two_persons_gain_cap with provenance "(1) In general; (A) $500,000 Limitation for certain joint returns":
 the section121 two persons gain cap is an amount N if
@@ -202,24 +205,24 @@ rule section121_two_persons_income_excluded_from_gross_income_uncapped with prov
 the section121 two persons income excluded from gross income uncapped is an amount if
     the section121 two persons section121Person1 income excluded from gross income uncapped is the amount.
 
-% RESIDUE r5 BEGIN: cat:section_121#section121_two_persons_period_merge_output_periods
+% RESIDUE r2 BEGIN: cat:section_121#section121_two_persons_period_merge_output_periods
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: a list.
 % Conclude: the section121 two persons period merge output periods is *a number*.
 %   Catala:
 %   |   definition output_periods equals []
 %   | 
-% RESIDUE r5 END
+% RESIDUE r2 END
 
-% RESIDUE r6 BEGIN: cat:section_121#section121_two_persons_period_merge_periods1
+% RESIDUE r3 BEGIN: cat:section_121#section121_two_persons_period_merge_periods1
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: a list.
 % Conclude: the section121 two persons period merge periods1 is *a number*.
 %   Catala:
 %   |   definition periods1 equals []
-% RESIDUE r6 END
+% RESIDUE r3 END
 
-% RESIDUE r7 BEGIN: cat:section_121#section121_two_persons_period_merge_periods2
+% RESIDUE r4 BEGIN: cat:section_121#section121_two_persons_period_merge_periods2
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: a list.
 % Conclude: the section121 two persons period merge periods2 is *a number*.
@@ -229,9 +232,9 @@ the section121 two persons income excluded from gross income uncapped is an amou
 %   |   # TODO: find a way to implement the merging of two collections of date
 %   |   # periods into a single non-overlapping collection of date periods such
 %   |   # that the output covers both input date ranges.
-% RESIDUE r7 END
+% RESIDUE r4 END
 
-% RESIDUE r8 BEGIN: cat:section_121#section121_two_persons_person1
+% RESIDUE r5 BEGIN: cat:section_121#section121_two_persons_person1
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: a case with content (SingleReturn).
 % Conclude: the section121 two persons person1 is *a number*.
@@ -242,9 +245,9 @@ the section121 two persons income excluded from gross income uncapped is an amou
 %   |     -- JointReturn content data_couple : data_couple.person1
 %   |     -- SingleReturnSurvivingSpouse content data_single : data_single.return
 %   | 
-% RESIDUE r8 END
+% RESIDUE r5 END
 
-% RESIDUE r9 BEGIN: cat:section_121#section121_two_persons_person2
+% RESIDUE r6 BEGIN: cat:section_121#section121_two_persons_person2
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: a case with content (SingleReturn).
 % Conclude: the section121 two persons person2 is *a number*.
@@ -255,31 +258,7 @@ the section121 two persons income excluded from gross income uncapped is an amou
 %   |     -- JointReturn content data_couple : data_couple.person2
 %   |     -- SingleReturnSurvivingSpouse content data_single : data_single.return
 %   | 
-% RESIDUE r9 END
-
-% RESIDUE r10 BEGIN: cat:section_121#section121_two_persons_section121Person1_aggregate_periods_from_last_five_years
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function of its parameters.
-% Conclude: the section121 two persons section121Person1 aggregate periods from last five years is *a number*.
-%   Catala:
-%   |   definition aggregate_periods_from_last_five_years of periods equals
-%   |     Duration.sum of
-%   |       (
-%   |         map each period among periods to
-%   |           if date_of_sale_or_exchange <= period.begin + 5 year then
-%   |             period.end - period.begin
-%   |           else
-%   |             (
-%   |               if date_of_sale_or_exchange >= period.end + 5 year then
-%   |                 0 day
-%   |               else ((period.end + 5 year) - date_of_sale_or_exchange)
-%   |             )
-%   |       )
-%   | 
-%   |   # Regulation 1.121-1(c)(1): 2 years = 730 days
-%   |   # Regulation 1.121-1(c)(1): the periods of ownage and usage
-%   |   # don't have to overlap
-% RESIDUE r10 END
+% RESIDUE r6 END
 
 rule section121_two_persons_section121Person1_date_of_sale_or_exchange with provenance "Section 121":
 the section121 two persons section121Person1 date of sale or exchange is a date if
@@ -309,7 +288,7 @@ the section121 two persons section121Person1 income excluded from gross income u
     and the section121 two persons section121Person1 gain from sale or exchange of property is N
     otherwise N = 0.
 
-% RESIDUE r11 BEGIN: cat:section_121#section121_two_persons_section121Person1_other_section_121a_sale
+% RESIDUE r7 BEGIN: cat:section_121#section121_two_persons_section121Person1_other_section_121a_sale
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: the field other_section_121a_sale of person1, a structure.
 % Conclude: the section121 two persons section121Person1 other section 121a sale is *a text*.
@@ -317,18 +296,18 @@ the section121 two persons section121Person1 income excluded from gross income u
 %   |   definition section121Person1.other_section_121a_sale equals
 %   |     person1.other_section_121a_sale
 %   | 
-% RESIDUE r11 END
+% RESIDUE r7 END
 
-% RESIDUE r12 BEGIN: cat:section_121#section121_two_persons_section121Person1_property_ownage
+% RESIDUE r8 BEGIN: cat:section_121#section121_two_persons_section121Person1_property_ownage
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: the field property_ownage of person1, a structure.
 % Conclude: the section121 two persons section121Person1 property ownage is *a number*.
 %   Catala:
 %   |   definition section121Person1.property_ownage equals person1.property_ownage
 %   | 
-% RESIDUE r12 END
+% RESIDUE r8 END
 
-% RESIDUE r13 BEGIN: cat:section_121#section121_two_persons_section121Person1_property_usage_as_principal_residence
+% RESIDUE r9 BEGIN: cat:section_121#section121_two_persons_section121Person1_property_usage_as_principal_residence
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: the field property_usage_as_principal_residence of person1, a structure.
 % Conclude: the section121 two persons section121Person1 property usage as principal residence is *a number*.
@@ -336,39 +315,58 @@ the section121 two persons section121Person1 income excluded from gross income u
 %   |   definition section121Person1.property_usage_as_principal_residence equals
 %   |     person1.property_usage_as_principal_residence
 %   | 
-% RESIDUE r13 END
+% RESIDUE r9 END
 
 rule section121_two_persons_section121Person1_requirements_met with provenance "(a) Exclusion":
 the rule section121 two persons section121Person1 requirements met holds if
     the rule section121 two persons section121Person1 requirements ownership met holds
     and the rule section121 two persons section121Person1 requirements usage met holds.
 
-% RESIDUE r14 BEGIN: cat:section_121#section121_two_persons_section121Person1_requirements_ownership_met
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function call.
-% Conclude: the rule section121 two persons section121Person1 requirements ownership met holds.
-%   Catala:
-%   |   rule requirements_ownership_met
-%   |   under condition aggregate_periods_from_last_five_years of property_ownage >= 730 day
-%   |   consequence fulfilled
-%   | 
-% RESIDUE r14 END
+rule section121_two_persons_section121Person1_requirements_ownership_met with provenance "(a) Exclusion":
+the rule section121 two persons section121Person1 requirements ownership met holds if
+    a number U is the sum of each N such that
+        the is in section121 two persons section121Person1 property ownage is a second number
+        and the section121 two persons section121Person1 date of sale or exchange is a date D
+            and the section121 two persons section121Person1 begin of the second number is a second date
+            and a date M is 60 months after the second date
+            and D <= M
+            and the section121 two persons section121Person1 begin of the second number is a fourth date
+            and the section121 two persons section121Person1 end of the second number is a fifth date
+            and the fifth date is a number N days after the fourth date
+            otherwise the section121 two persons section121Person1 date of sale or exchange is a date K
+            and the section121 two persons section121Person1 end of the second number is a date P
+            and a date Q is 60 months after P
+            and K >= Q
+            and N = 0
+            otherwise the section121 two persons section121Person1 date of sale or exchange is a date R
+            and the section121 two persons section121Person1 end of the second number is a date S
+            and a date T is 60 months after S
+            and T is N days after R
+    and U >= 730.
 
-% RESIDUE r15 BEGIN: cat:section_121#section121_two_persons_section121Person1_requirements_usage_met
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function call.
-% Conclude: the rule section121 two persons section121Person1 requirements usage met holds.
-%   Catala:
-%   |   rule requirements_usage_met
-%   |   under condition
-%   |     aggregate_periods_from_last_five_years of
-%   |       property_usage_as_principal_residence
-%   |     >= 730 day
-%   |   consequence fulfilled
-%   | 
-% RESIDUE r15 END
+rule section121_two_persons_section121Person1_requirements_usage_met with provenance "(a) Exclusion":
+the rule section121 two persons section121Person1 requirements usage met holds if
+    a number U is the sum of each N such that
+        the is in section121 two persons section121Person1 property usage as principal residence is a second number
+        and the section121 two persons section121Person1 date of sale or exchange is a date D
+            and the section121 two persons section121Person1 begin of the second number is a second date
+            and a date M is 60 months after the second date
+            and D <= M
+            and the section121 two persons section121Person1 begin of the second number is a fourth date
+            and the section121 two persons section121Person1 end of the second number is a fifth date
+            and the fifth date is a number N days after the fourth date
+            otherwise the section121 two persons section121Person1 date of sale or exchange is a date K
+            and the section121 two persons section121Person1 end of the second number is a date P
+            and a date Q is 60 months after P
+            and K >= Q
+            and N = 0
+            otherwise the section121 two persons section121Person1 date of sale or exchange is a date R
+            and the section121 two persons section121Person1 end of the second number is a date S
+            and a date T is 60 months after S
+            and T is N days after R
+    and U >= 730.
 
-% RESIDUE r16 BEGIN: cat:section_121#section121_two_persons_section121Person1_section_121_b_3_applies
+% RESIDUE r10 BEGIN: cat:section_121#section121_two_persons_section121Person1_section_121_b_3_applies
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: an expression this translator does not read: test_case(id([],other_section_121a_sale,none),[],'MostRecentSaleWhereSection121aApplied',[other_sale]).
 % Conclude: the rule section121 two persons section121Person1 section 121 b 3 applies holds.
@@ -380,31 +378,7 @@ the rule section121 two persons section121Person1 requirements met holds if
 %   |     and date_of_sale_or_exchange - other_sale.date_of_sale_or_exchange <= 2 year
 %   |   consequence fulfilled
 %   | 
-% RESIDUE r16 END
-
-% RESIDUE r17 BEGIN: cat:section_121#section121_two_persons_section121Person2_aggregate_periods_from_last_five_years
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function of its parameters.
-% Conclude: the section121 two persons section121Person2 aggregate periods from last five years is *a number*.
-%   Catala:
-%   |   definition aggregate_periods_from_last_five_years of periods equals
-%   |     Duration.sum of
-%   |       (
-%   |         map each period among periods to
-%   |           if date_of_sale_or_exchange <= period.begin + 5 year then
-%   |             period.end - period.begin
-%   |           else
-%   |             (
-%   |               if date_of_sale_or_exchange >= period.end + 5 year then
-%   |                 0 day
-%   |               else ((period.end + 5 year) - date_of_sale_or_exchange)
-%   |             )
-%   |       )
-%   | 
-%   |   # Regulation 1.121-1(c)(1): 2 years = 730 days
-%   |   # Regulation 1.121-1(c)(1): the periods of ownage and usage
-%   |   # don't have to overlap
-% RESIDUE r17 END
+% RESIDUE r10 END
 
 rule section121_two_persons_section121Person2_date_of_sale_or_exchange with provenance "Section 121":
 the section121 two persons section121Person2 date of sale or exchange is a date if
@@ -434,7 +408,7 @@ the section121 two persons section121Person2 income excluded from gross income u
     and the section121 two persons section121Person2 gain from sale or exchange of property is N
     otherwise N = 0.
 
-% RESIDUE r18 BEGIN: cat:section_121#section121_two_persons_section121Person2_other_section_121a_sale
+% RESIDUE r11 BEGIN: cat:section_121#section121_two_persons_section121Person2_other_section_121a_sale
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: the field other_section_121a_sale of person2, a structure.
 % Conclude: the section121 two persons section121Person2 other section 121a sale is *a text*.
@@ -442,18 +416,18 @@ the section121 two persons section121Person2 income excluded from gross income u
 %   |   definition section121Person2.other_section_121a_sale equals
 %   |     person2.other_section_121a_sale
 %   | 
-% RESIDUE r18 END
+% RESIDUE r11 END
 
-% RESIDUE r19 BEGIN: cat:section_121#section121_two_persons_section121Person2_property_ownage
+% RESIDUE r12 BEGIN: cat:section_121#section121_two_persons_section121Person2_property_ownage
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: the field property_ownage of person2, a structure.
 % Conclude: the section121 two persons section121Person2 property ownage is *a number*.
 %   Catala:
 %   |   definition section121Person2.property_ownage equals person2.property_ownage
 %   | 
-% RESIDUE r19 END
+% RESIDUE r12 END
 
-% RESIDUE r20 BEGIN: cat:section_121#section121_two_persons_section121Person2_property_usage_as_principal_residence
+% RESIDUE r13 BEGIN: cat:section_121#section121_two_persons_section121Person2_property_usage_as_principal_residence
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: the field property_usage_as_principal_residence of person1, a structure.
 % Conclude: the section121 two persons section121Person2 property usage as principal residence is *a number*.
@@ -461,39 +435,58 @@ the section121 two persons section121Person2 income excluded from gross income u
 %   |   definition section121Person2.property_usage_as_principal_residence equals
 %   |     person1.property_usage_as_principal_residence
 %   | 
-% RESIDUE r20 END
+% RESIDUE r13 END
 
 rule section121_two_persons_section121Person2_requirements_met with provenance "(a) Exclusion":
 the rule section121 two persons section121Person2 requirements met holds if
     the rule section121 two persons section121Person2 requirements ownership met holds
     and the rule section121 two persons section121Person2 requirements usage met holds.
 
-% RESIDUE r21 BEGIN: cat:section_121#section121_two_persons_section121Person2_requirements_ownership_met
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function call.
-% Conclude: the rule section121 two persons section121Person2 requirements ownership met holds.
-%   Catala:
-%   |   rule requirements_ownership_met
-%   |   under condition aggregate_periods_from_last_five_years of property_ownage >= 730 day
-%   |   consequence fulfilled
-%   | 
-% RESIDUE r21 END
+rule section121_two_persons_section121Person2_requirements_ownership_met with provenance "(a) Exclusion":
+the rule section121 two persons section121Person2 requirements ownership met holds if
+    a number U is the sum of each N such that
+        the is in section121 two persons section121Person2 property ownage is a second number
+        and the section121 two persons section121Person2 date of sale or exchange is a date D
+            and the section121 two persons section121Person2 begin of the second number is a second date
+            and a date M is 60 months after the second date
+            and D <= M
+            and the section121 two persons section121Person2 begin of the second number is a fourth date
+            and the section121 two persons section121Person2 end of the second number is a fifth date
+            and the fifth date is a number N days after the fourth date
+            otherwise the section121 two persons section121Person2 date of sale or exchange is a date K
+            and the section121 two persons section121Person2 end of the second number is a date P
+            and a date Q is 60 months after P
+            and K >= Q
+            and N = 0
+            otherwise the section121 two persons section121Person2 date of sale or exchange is a date R
+            and the section121 two persons section121Person2 end of the second number is a date S
+            and a date T is 60 months after S
+            and T is N days after R
+    and U >= 730.
 
-% RESIDUE r22 BEGIN: cat:section_121#section121_two_persons_section121Person2_requirements_usage_met
-% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
-% Not translated: a function call.
-% Conclude: the rule section121 two persons section121Person2 requirements usage met holds.
-%   Catala:
-%   |   rule requirements_usage_met
-%   |   under condition
-%   |     aggregate_periods_from_last_five_years of
-%   |       property_usage_as_principal_residence
-%   |     >= 730 day
-%   |   consequence fulfilled
-%   | 
-% RESIDUE r22 END
+rule section121_two_persons_section121Person2_requirements_usage_met with provenance "(a) Exclusion":
+the rule section121 two persons section121Person2 requirements usage met holds if
+    a number U is the sum of each N such that
+        the is in section121 two persons section121Person2 property usage as principal residence is a second number
+        and the section121 two persons section121Person2 date of sale or exchange is a date D
+            and the section121 two persons section121Person2 begin of the second number is a second date
+            and a date M is 60 months after the second date
+            and D <= M
+            and the section121 two persons section121Person2 begin of the second number is a fourth date
+            and the section121 two persons section121Person2 end of the second number is a fifth date
+            and the fifth date is a number N days after the fourth date
+            otherwise the section121 two persons section121Person2 date of sale or exchange is a date K
+            and the section121 two persons section121Person2 end of the second number is a date P
+            and a date Q is 60 months after P
+            and K >= Q
+            and N = 0
+            otherwise the section121 two persons section121Person2 date of sale or exchange is a date R
+            and the section121 two persons section121Person2 end of the second number is a date S
+            and a date T is 60 months after S
+            and T is N days after R
+    and U >= 730.
 
-% RESIDUE r23 BEGIN: cat:section_121#section121_two_persons_section121Person2_section_121_b_3_applies
+% RESIDUE r14 BEGIN: cat:section_121#section121_two_persons_section121Person2_section_121_b_3_applies
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: an expression this translator does not read: test_case(id([],other_section_121a_sale,none),[],'MostRecentSaleWhereSection121aApplied',[other_sale]).
 % Conclude: the rule section121 two persons section121Person2 section 121 b 3 applies holds.
@@ -505,9 +498,9 @@ the rule section121 two persons section121Person2 requirements met holds if
 %   |     and date_of_sale_or_exchange - other_sale.date_of_sale_or_exchange <= 2 year
 %   |   consequence fulfilled
 %   | 
-% RESIDUE r23 END
+% RESIDUE r14 END
 
-% RESIDUE r24 BEGIN: cat:section_121#section121_two_persons_section121a_requirements_met
+% RESIDUE r15 BEGIN: cat:section_121#section121_two_persons_section121a_requirements_met
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
 % Not translated: a definition this translator does not read.
 % Conclude: the rule section121 two persons section121a requirements met holds.
@@ -516,7 +509,7 @@ the rule section121 two persons section121Person2 requirements met holds if
 %   |     section121Person1.requirements_met
 %   | 
 %   |   exception
-% RESIDUE r24 END
+% RESIDUE r15 END
 
 rule section121_two_persons_section_121_b_2_A_condition_1 with provenance "(A) $500,000 Limitation for certain joint returns":
 the rule section121 two persons section 121 b 2 A condition holds if
@@ -539,31 +532,74 @@ the rule section121 two persons section 121 b 2 A condition holds if
     and it is not the case that the rule section121 two persons section121Person2 section 121 b 3 applies holds.
 
 scenario Test1 is, as stated in "sources/cat/section_121.test.yaml" at case 1:
+    period_1 is a period.
+    period_1 is in section121 single person property ownage.
+    period_1 is in section121 single person property usage as principal residence.
+    the section121 single person begin of period_1 is 2017-01-01.
+    the section121 single person end of period_1 is 2021-01-01.
+    the section121 single person date of sale or exchange is 2021-01-01.
+    the section121 single person gain from sale or exchange of property is 350000.
     the section121 single person other section 121 a sale is "NoOtherSaleWhereSection121aApplied".
-    % pending — waits for residue r2, r3:
-    % q_section121_single_person_requirements_met expects answers ["the rule section121 single person requirements met holds"].
+    q_section121_single_person_requirements_met expects answers ["the rule section121 single person requirements met holds"].
 
 scenario Test2 is, as stated in "sources/cat/section_121.test.yaml" at case 2:
+    period_1 is a period.
+    period_1 is in section121 single person property ownage.
+    the section121 single person begin of period_1 is 2017-01-01.
+    the section121 single person end of period_1 is 2021-01-01.
+    period_2 is a period.
+    period_2 is in section121 single person property usage as principal residence.
+    the section121 single person begin of period_2 is 2019-01-01.
+    the section121 single person end of period_2 is 2020-01-01.
+    the section121 single person date of sale or exchange is 2021-01-01.
+    the section121 single person gain from sale or exchange of property is 350000.
     the section121 single person other section 121 a sale is "NoOtherSaleWhereSection121aApplied".
-    % pending — waits for residue r2, r3:
-    % q_section121_single_person_requirements_met expects answers [].
+    q_section121_single_person_requirements_met expects answers [].
 
 scenario Test3 is, as stated in "sources/cat/section_121.test.yaml" at case 3:
+    period_1 is a period.
+    period_1 is in section121 single person property ownage.
+    the section121 single person begin of period_1 is 2017-01-01.
+    the section121 single person end of period_1 is 2021-01-01.
+    period_2 is a period.
+    period_2 is in section121 single person property usage as principal residence.
+    the section121 single person begin of period_2 is 2015-01-01.
+    the section121 single person end of period_2 is 2017-01-02.
+    the section121 single person date of sale or exchange is 2021-01-01.
+    the section121 single person gain from sale or exchange of property is 350000.
     the section121 single person other section 121 a sale is "NoOtherSaleWhereSection121aApplied".
-    % pending — waits for residue r2, r3:
-    % q_section121_single_person_requirements_met expects answers [].
+    q_section121_single_person_requirements_met expects answers [].
 
 scenario Test4 is, as stated in "sources/cat/section_121.test.yaml" at case 4:
+    period_1 is a period.
+    period_1 is in section121 single person property ownage.
+    the section121 single person begin of period_1 is 2017-01-01.
+    the section121 single person end of period_1 is 2021-01-01.
+    period_2 is a period.
+    period_2 is in section121 single person property usage as principal residence.
+    the section121 single person begin of period_2 is 2015-01-01.
+    the section121 single person end of period_2 is 2017-01-02.
+    period_3 is a period.
+    period_3 is in section121 single person property usage as principal residence.
+    the section121 single person begin of period_3 is 2019-01-01.
+    the section121 single person end of period_3 is 2020-01-01.
+    the section121 single person date of sale or exchange is 2021-01-01.
+    the section121 single person gain from sale or exchange of property is 350000.
     the section121 single person other section 121 a sale is "NoOtherSaleWhereSection121aApplied".
-    % pending — waits for residue r2, r3:
-    % q_section121_single_person_requirements_met expects answers ["the rule section121 single person requirements met holds"].
+    q_section121_single_person_requirements_met expects answers ["the rule section121 single person requirements met holds"].
 
 scenario Test5 is, as stated in "sources/cat/section_121.test.yaml" at case 5:
-    % pending — waits for residue r14, r15, r16, r21, r22, r23:
+    the section121 two persons date of sale or exchange is 2021-01-01.
+    the section121 two persons gain from sale or exchange of property is 350000.
+    the section121 two persons return date is 2021-01-01.
+    % pending — waits for residue r10, r14:
     % q_section121_two_persons_income_excluded_from_gross_income expects answers ["the section121 two persons income excluded from gross income is 250000"].
 
 scenario Test6 is, as stated in "sources/cat/section_121.test.yaml" at case 6:
-    % pending — waits for residue r14, r15, r16, r21, r22, r23:
+    the section121 two persons date of sale or exchange is 2021-01-01.
+    the section121 two persons gain from sale or exchange of property is 350000.
+    the section121 two persons return date is 2021-01-01.
+    % pending — waits for residue r10, r14:
     % q_section121_two_persons_income_excluded_from_gross_income expects answers ["the section121 two persons income excluded from gross income is 350000"].
 
 query q_section121_single_person_requirements_met is:
