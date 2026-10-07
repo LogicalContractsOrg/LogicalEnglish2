@@ -2,7 +2,7 @@
 
 Source: Axiom RuleSpec — sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml
 Translator: lpsPlus migration/rulespec
-Date: 2026-10-06
+Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 
 ## Summary
