@@ -25,6 +25,8 @@ fluent — are part of what is being taught: use them, and define each at first
 use.
 
 If /lps2 exists, it contains the Logic Production Systems repository, which depends on ours.
+<<<<<<< HEAD
+=======
 
 ## Videos
 A request to "build a standard video for X" (a feature or an example of this
@@ -33,6 +35,7 @@ script that drives the editor, an opening slide and a concluding slide with
 the Logical Contracts logo, calm narration without hype spoken by ElevenLabs
 voice `0HN93OO0QQQR6Vh2gSAe` (key in `.credentials`), about four minutes,
 built into an `.mp4` with `ffmpeg` by `vlib.cjs` in that folder.
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 ## Build, Lint, and Test
 In what follows, SWIPL refers to the `./myswipl.sh` wrapper at the repo root. It

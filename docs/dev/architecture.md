@@ -10,7 +10,11 @@ editor is TypeScript bundled with esbuild; it has no server of its own.
 ```
 browser pages ──POST /leapi {token, operation, …}──►  classic_web_api.pl
    editor/*.html (Monaco + dist/*.js)                    │
+<<<<<<< HEAD
+   web_extras/{executive,contract_assistant,docsview}    ├─ le_kbs ─ le_grammar ─ tokenizer
+=======
    web_extras/{executive,docsview}                       ├─ le_kbs ─ le_grammar ─ tokenizer
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   ──WebSocket /dap──────────────────►     │    ├─ reasoner, le_verifier, …
 LLM agents (opencode, Claude Desktop) ──/mcp──────►       ├─ llm/mcp.pl, le_tools.pl
                                                           └─ assistants → llm/llm_client.pl → LLM providers
@@ -89,7 +93,11 @@ program includes.
 | `le_assistant.pl` | LE Assistant, deep mode: runs `opencode` as a background job; job table shared with light mode |
 | `le_assistant_light.pl` | LE Assistant, light mode: in-process agent loop |
 | `le_tools.pl` | `verify` and `query` tools shared by MCP and light mode |
+<<<<<<< HEAD
+| `le_contract_assistant.pl` | Contract Assistant: materials to a tested program, as a background job (`contract_*` operations) |
+=======
 | (lpsPlus) `contract_assistant/le_contract_assistant.pl` | Contract Assistant: materials to a tested program, as a background job (`contract_*` operations). Licensed, in the private lpsPlus repository; `le_api.pl` loads it when an lpsPlus checkout has it ([contract-assistant.md](contract-assistant.md)) |
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 | `nl_to_le.pl` | "Write it in English…": English to facts or a query body, verified (`nl_to_le` operation) |
 | `le_issue_feedback.pl` | ranks verifier issues for an LLM repair round (Contract Assistant, `nl_to_le`) |
 | `llm/llm_client.pl` | OpenAI-compatible client, model registry `llm_model_entry/4`, API keys from request, flags or environment |
@@ -137,7 +145,11 @@ in [editor/README.md](../../editor/README.md).
 | Directory | What |
 |---|---|
 | `executive/` | the executive view (`/executive`): runs an example without editing, renders a program's views with `editor/dist/le-views.js`. Plain JS |
+<<<<<<< HEAD
+| `contract_assistant/` | the Contract Assistant web app, at `/web_extras/contract_assistant/index.html`. Plain JS |
+=======
 | (lpsPlus `contract_assistant/web/`) | the Contract Assistant web app, served at `/web_extras/contract_assistant/index.html` from the lpsPlus checkout. Plain JS |
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 | `docsview/` | the markdown viewer for `/docs/…` (`marked.min.js`, the `nav.json` sidebar) |
 | `telemetry/` | the page-side telemetry script behind `/telemetry.js` |
 

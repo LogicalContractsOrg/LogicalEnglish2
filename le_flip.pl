@@ -14,11 +14,18 @@
 
     The search is explanation-guided and verified. Candidates are never drawn
     from the whole fact space, only from what an attempt at the goal actually
+<<<<<<< HEAD
+    touched: an ADDITION is a ground goal of a scenario-element template that
+    the attempt called and that is not a fact (it failed, or held only by
+    assumption — so a judged template's open instance becomes a "judgment"
+    change); a REMOVAL is a scenario fact the attempt used. Change sets grow
+=======
     touched: an ADDITION is a goal of a scenario-element template that the
     attempt called and that is not a fact (it failed, or held only by
     assumption — so a judged template's open instance becomes a "judgment"
     change), with any open place of the call filled by an individual the
     scenario names; a REMOVAL is a scenario fact the attempt used. Change sets grow
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     one change at a time (iterative deepening on their size), each candidate
     set applied to a copy of the session and the goal re-solved there; the
     candidates of a set are recomputed from ITS attempt, so a change that
@@ -146,9 +153,14 @@ candidate_pool(T, KM, Base, Set, Pool) :-
     findall(G, ( reasoner:called(_, _, G0), strip_le_at(G0, G), callable(G) ), Called0),
     sort(Called0, Called),
     findall(add(G),
+<<<<<<< HEAD
+            ( member(G, Called), ground(G),
+              changeable(KM, G), \+ kept(G),
+=======
             ( member(G0, Called),
               changeable(KM, G0), \+ kept(G0),
               ground_instance(G0, T, KM, Base, G),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               \+ current_fact(T, G) ),
             Adds),
     Base = base(Facts, _),
@@ -164,6 +176,8 @@ candidate_pool(T, KM, Base, Set, Pool) :-
 strip_le_at(le_at(G0, _, _), G) :- !, strip_le_at(G0, G).
 strip_le_at(G, G).
 
+<<<<<<< HEAD
+=======
 %!  ground_instance(+Called, +T, +KM, +Base, -Instance) is nondet.
 %
 %   A fact the attempt's call could be answered by. A ground call is its own
@@ -247,6 +261,7 @@ individuals_of_type(KM, Facts, T, Is) :-
 subtype(_, Facts, S, T) :- member(fact(is_a(S, T), _, _), Facts), !.
 subtype(KM, _, S, T) :- catch(clause(KM:is_a(S, T), true), _, fail), !.
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 current_fact(T, G) :-
     catch(clause(T:G, true), _, fail), !.
 

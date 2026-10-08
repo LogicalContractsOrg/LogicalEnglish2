@@ -1186,6 +1186,9 @@ derivados nunca mudam.
 - **Expectativas**: `inverter espera alterações [["acrescentar: rico tem baixos rendimentos"]].`
   (a ordem não conta, dentro e entre conjuntos).
 - **A pesquisa** segue a explicação e confirma cada resultado. Os candidatos
+<<<<<<< HEAD
+  vêm só daquilo que uma tentativa do objetivo tocou, e os conjuntos crescem
+=======
   vêm só daquilo que uma tentativa do objetivo tocou: uma frase de elemento de
   cenário que a tentativa pediu e não encontrou como facto (pode acrescentá-la)
   ou um facto do cenário que a tentativa usou (pode retirá-lo). Quando a frase
@@ -1197,6 +1200,7 @@ derivados nunca mudam.
   deixa de lado uma frase com mais de dois lugares em aberto, e não preenche
   uma frase a que o cenário já responde (uma reclamação que nomeia o seu
   artigo não recebe um segundo). Os conjuntos crescem
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   uma alteração de cada vez, aplicada a uma cópia da sessão. Os limites são as
   opções Prolog `le_flip_max_changes` (3 por omissão) e
   `le_flip_max_evaluations` (400).

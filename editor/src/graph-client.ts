@@ -35,6 +35,8 @@ let sessionModule: string | null = null;
 let rawGraphData: { nodes: any[], edges: any[] } | null = null;
 const graphChannel = new BroadcastChannel('le-graph-sync');
 
+<<<<<<< HEAD
+=======
 // A message over the graph area when there is nothing to draw: the editor has
 // not loaded the program, the server no longer has it, or the graph could not
 // be built. Without it the window just stayed blank, with nothing to go on.
@@ -55,6 +57,7 @@ function requestLoad(expired: boolean) {
     graphChannel.postMessage({ type: 'request-load', data: { expired } });
 }
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 // --- View preferences, persisted in LocalStorage -------------------------------
 // Layout algorithm, direction, and the selected layers (node/edge type
 // checkboxes) survive across graph windows, so the view opens the way the user
@@ -343,7 +346,11 @@ cy.on('mouseout', 'node, edge', () => {
 });
 
 async function refreshGraph() {
+<<<<<<< HEAD
+    if (!sessionModule) return;
+=======
     if (!sessionModule) { requestLoad(false); return; }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
     try {
         const response = await fetch('/leapi', {
@@ -356,6 +363,36 @@ async function refreshGraph() {
             })
         });
         const data = await response.json();
+<<<<<<< HEAD
+        if (data.nodes && data.edges) {
+            rawGraphData = data;
+            
+            // Update scenario select
+            const scenarios = data.nodes.filter((n: any) => n.data.type === 'scenario');
+            const currentVal = scenarioSelect.value;
+            scenarioSelect.innerHTML = '<option value="">None</option>';
+            scenarios.forEach((s: any) => {
+                const opt = document.createElement('option');
+                opt.value = s.data.id;
+                opt.textContent = s.data.label;
+                scenarioSelect.appendChild(opt);
+            });
+            scenarioSelect.value = currentVal;
+
+            cy.elements().remove();
+            cy.add(data.nodes);
+            cy.add(data.edges);
+
+            // One deterministic sequence: filter to the selected layers, then lay
+            // out the visible elements once. (A second, deferred layout used to
+            // race the initial one, so the view sometimes settled on a layout
+            // computed from a stale visible set — "fewer layers than selected".)
+            applyFilters();
+            runLayout();
+        }
+    } catch (err) {
+        console.error('Failed to refresh graph', err);
+=======
         if (data.session_expired) {
             // The server no longer has the session (reclaimed when idle, or
             // the server restarted since the editor loaded the program).
@@ -399,6 +436,7 @@ async function refreshGraph() {
     } catch (err) {
         console.error('Failed to refresh graph', err);
         showStatus(t('Could not reach the server to build the graph.'));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
 }
 
@@ -522,14 +560,20 @@ function runLayout() {
     }
 }
 
+<<<<<<< HEAD
+=======
 // Whether an editor tab has answered request-state yet.
 let stateReceived = false;
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 graphChannel.onmessage = (event) => {
     const { type, data } = event.data;
     switch (type) {
         case 'init-state':
+<<<<<<< HEAD
+=======
             stateReceived = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             sessionModule = data.sessionModule;
             cy.style(getThemeStyles(data.theme));
             if (data.filename) {
@@ -551,6 +595,10 @@ graphChannel.onmessage = (event) => {
                         }
                     }
                 });
+<<<<<<< HEAD
+            }
+            break;
+=======
             } else {
                 requestLoad(false);
             }
@@ -558,6 +606,7 @@ graphChannel.onmessage = (event) => {
         case 'load-failed':
             showStatus(t('The program could not be loaded: ') + (data.error || ''));
             break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         case 'theme-change':
             cy.style(getThemeStyles(data.theme));
             break;
@@ -675,6 +724,10 @@ try {
     }
 } catch { /* localStorage unavailable */ }
 
+<<<<<<< HEAD
+// Request initial state
+graphChannel.postMessage({ type: 'request-state' });
+=======
 // Request initial state. Only an editor tab can answer: say so when none does.
 showStatus(t('Waiting for the editor...'));
 graphChannel.postMessage({ type: 'request-state' });
@@ -683,6 +736,7 @@ setTimeout(() => {
         showStatus(t('No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.'));
     }
 }, 4000);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 
 // UI chrome i18n: translate this page's static chrome and carry the UI

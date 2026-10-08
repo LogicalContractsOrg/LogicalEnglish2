@@ -1,12 +1,21 @@
+<<<<<<< HEAD
+% Tests for the LLM price table (llm/llm_prices.pl) and the Contract
+% Assistant's cost estimate built on it. A tiny local price file (pointed at by
+=======
 % Tests for the LLM price table (llm/llm_prices.pl). The Contract Assistant's
 % cost estimate built on it is tested where the assistant is, in the lpsPlus
 % repository (contract_assistant/testing/test_cost_estimate.pl). A tiny local price file (pointed at by
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 % LE_MODEL_PRICES_FILE, exactly as an offline deployment would) stands in for
 % LiteLLM's model_prices_and_context_window.json, so nothing here touches the
 % network.
 
 :- use_module('../llm/llm_prices').
 :- use_module('../llm/llm_client').
+<<<<<<< HEAD
+:- use_module('../le_contract_assistant').
+=======
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 % A handful of rows in LiteLLM's schema: bare keys for OpenAI/Anthropic,
 % provider-prefixed keys for the rest, plus a costless entry that must be
@@ -78,3 +87,68 @@ test(unknown_model_has_no_price) :-
 
 :- end_tests(llm_prices).
 
+<<<<<<< HEAD
+% --------------------------- the cost estimate -------------------------------
+
+:- begin_tests(contract_cost_estimate, [setup(prices_setup), cleanup(prices_cleanup)]).
+
+test(priced_estimate_is_positive_and_conservative) :-
+    cost_estimate(_{model: "gpt-4o", judge_model: "gpt-4o", k: 3, w: 2,
+                    repairs: 3, probes: 4, input_chars: 120000}, E),
+    assertion(E.priced == true),
+    assertion(E.cost_usd > 0),
+    assertion(E.calls > 10),
+    % every call carries the materials (30000 tokens) plus the house style and
+    % the LE syntax summary
+    assertion(E.input_tokens_per_call > 30000).
+
+% More effort must never cost less.
+test(more_effort_costs_more) :-
+    cost_estimate(_{model: "gpt-4o", judge_model: "gpt-4o", k: 1, w: 1,
+                    repairs: 2, probes: 0, input_chars: 40000}, Draft),
+    cost_estimate(_{model: "gpt-4o", judge_model: "gpt-4o", k: 5, w: 3,
+                    repairs: 4, probes: 8, input_chars: 40000}, Thorough),
+    assertion(Thorough.calls > Draft.calls),
+    assertion(Thorough.cost_usd > Draft.cost_usd).
+
+% A cheap model must be cheaper than a dear one for the same work.
+test(cheaper_model_is_cheaper) :-
+    Params = _{model: "gpt-4o", judge_model: "gpt-4o", k: 1, w: 1,
+               repairs: 2, probes: 0, input_chars: 40000},
+    cost_estimate(Params, Dear),
+    cost_estimate(Params.put(_{model: "openai/gpt-oss-120b",
+                               judge_model: "openai/gpt-oss-120b"}), Cheap),
+    assertion(Cheap.cost_usd < Dear.cost_usd).
+
+% An unpriced model is reported as such — never as free.
+test(unpriced_model_says_so) :-
+    cost_estimate(_{model: "no-such-model-anywhere", judge_model: "no-such-model-anywhere",
+                    k: 1, w: 1, repairs: 2, probes: 0, input_chars: 1000}, E),
+    assertion(E.priced == false),
+    assertion(E.cost_usd == null),
+    assertion(sub_string(E.note, _, _, _, "no price listed")).
+
+% An unpriced JUDGE still yields a (noted) estimate at the main model's rate.
+test(unpriced_judge_falls_back_to_the_main_model) :-
+    cost_estimate(_{model: "gpt-4o", judge_model: "no-such-model-anywhere",
+                    k: 3, w: 1, repairs: 2, probes: 0, input_chars: 1000}, E),
+    assertion(E.priced == true),
+    assertion(sub_string(E.note, _, _, _, "judge model")).
+
+% The /leapi entry point: request dict in (preset budget, no explicit K/W),
+% JSON-able dict out.
+test(handler_prices_a_preset) :-
+    handle_contract_estimate(_{model: "gpt-4o", budget: _{preset: "standard"},
+                               input_chars: 50000}, R),
+    assertion(R.priced == true),
+    assertion(R.cost_usd > 0),
+    assertion(R.currency == "USD").
+
+test(handler_survives_a_bare_request) :-
+    handle_contract_estimate(_{}, R),
+    assertion(is_dict(R)),
+    assertion(get_dict(priced, R, _)).
+
+:- end_tests(contract_cost_estimate).
+=======
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f

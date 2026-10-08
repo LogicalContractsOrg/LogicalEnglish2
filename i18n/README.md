@@ -19,6 +19,9 @@ When no opener matches, the program is parsed as English (decision O-1).
 
 - **`languages.csv`** — language registry: code, autonym, opener phrase, and
   number locale (`decimal_sep`, `thousands_sep`, `list_sep`). `status` is
+<<<<<<< HEAD
+  informational (`core`, `pilot`, `draft`).
+=======
   informational (`core`, `pilot`, `draft`). Two optional columns serve
   languages that shorten words: `elisions` lists the words written short
   before a vowel, as `short=full` pairs separated by `|` (French
@@ -29,6 +32,7 @@ When no opener matches, the program is parsed as English (decision O-1).
   written; the LE writer writes the short forms; a test's expected answer
   may use either. An apostrophe directly after a letter is always part of
   the word, in every language: it never opens a quoted string.
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 - **`keywords.csv`** — grammar keywords and word classes. One row per keyword
   `key` (grouped by `category`), one column per language. A cell holds one or
   more **synonyms separated by `|`**; each synonym is a space-separated word

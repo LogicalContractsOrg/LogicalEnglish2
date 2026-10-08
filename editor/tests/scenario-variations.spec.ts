@@ -18,7 +18,11 @@ async function openVariations(page: any): Promise<any> {
         }
         await expect(item).toBeVisible({ timeout: 10000 });
     }).toPass({ timeout: 90000 });
+<<<<<<< HEAD
+    await item.click();
+=======
     await item.dblclick();   // a click selects and previews; a double click opens
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     await expect(page.locator('#filename-display')).toHaveText('citizenship.le');
     // Module loads proactively: scenario-select gains options.
     await expect(async () => {

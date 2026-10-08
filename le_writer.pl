@@ -306,7 +306,11 @@ write_program_(Header, Items, Text) :-
     kb_name(Header, KBName),
     extensions_mode(Header, Ext),
     Ctx = ctx(Dicts, Ext, Target),
+<<<<<<< HEAD
+    with_output_to(string(Text),
+=======
     with_output_to(string(Text0),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ( write_header(Header, Target, KBName),
           write_templates(Ctx, Items),
           write_constants(Items),
@@ -314,6 +318,9 @@ write_program_(Header, Items, Text) :-
           write_kb(Ctx, KBName, Items),
           write_scenarios(Ctx, Items),
           write_queries(Ctx, Items),
+<<<<<<< HEAD
+          write_views(Items) )).
+=======
           write_views(Items) )),
     le_i18n:le_active_language(Lang),
     elide_text(Lang, Text0, Text).
@@ -404,6 +411,7 @@ vowel_start(W) :-
     sub_atom('aeiouyàâäéèêëîïôöùûüœæ', _, 1, _, L), !.
 
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 kb_name(Header, Name) :- ( memberchk(kb(Name), Header) -> true ; Name = program ).
 
@@ -776,16 +784,26 @@ write_document_facts(Name, Opts) :-
     render_constant(Name, NT),
     (   option(url(U), Opts)
     ->  render_string(U, UT),
+<<<<<<< HEAD
+        format("~w is published at ~w.~n", [NT, UT])
+=======
         sys_sentence(le_published_at, [NT, UT], S1), format("~w.~n", [S1])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ;   true
     ),
     (   option(text(P), Opts)
     ->  render_string(P, PT),
+<<<<<<< HEAD
+        format("the text of ~w is at ~w.~n", [NT, PT])
+=======
         sys_sentence(le_text_at, [NT, PT], S2), format("~w.~n", [S2])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ;   true
     ),
     nl.
 
+<<<<<<< HEAD
+=======
 %   A system template's sentence in the active language
 %   (system_templates.csv: its first wording), the slots filled with Args.
 sys_sentence(F, Args, Text) :-
@@ -798,6 +816,7 @@ sys_sentence(F, Args, Text) :-
 sys_part(Args, slot(N), W) :- !, nth1(N, Args, W).
 sys_part(_, W, W).
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 		 /*******************************
 		 *        RULES AND FACTS       *
 		 *******************************/
@@ -1214,6 +1233,9 @@ seq(Ctx, St, B, Nodes) :-
     seq(Ctx, St, and(and(L, RL), RR), Nodes).
 seq(Ctx, St, B, Nodes) :-
     binary_conn(B, Op, L, R), !,
+<<<<<<< HEAD
+    seq(Ctx, St, L, NL),
+=======
     %  A cascade on the left of a connective is one group, as on its right:
     %  spread into the connective's own lines, `(A otherwise B) and C` would
     %  read back as `A otherwise (B and C)`.
@@ -1221,6 +1243,7 @@ seq(Ctx, St, B, Nodes) :-
     ->  single(Ctx, St, L, NL0), NL = [NL0]
     ;   seq(Ctx, St, L, NL)
     ),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     single(Ctx, St, R, NR),
     set_op(NR, Op, NR1),
     append(NL, [NR1], Nodes).
@@ -1248,9 +1271,13 @@ single(Ctx, St, B, Node) :-
     compound_single(Ctx, St, B, Node).
 single(Ctx, St, not(G), Node) :- !,
     kw(not_the_case, NTC),
+<<<<<<< HEAD
+    (   line_goal(G)
+=======
     %  A negation of a negation is a block: on one line, `it is not the case
     %  that it is not the case that X` reads as the generic "is" sentence.
     (   line_goal(G), \+ G = not(_)
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ->  goal_text(Ctx, St, G, GT),
         format(atom(T), '~w ~w', [NTC, GT]),
         Node = node(none, T, [])
@@ -1676,8 +1703,13 @@ system_arg_type(le_is_days_after(A, B, C), V, T) :-
 system_arg_type(le_is_months_after(A, B, C), V, T) :-
     ( A == V -> K = type_date ; B == V -> K = type_number ; C == V -> K = type_date ),
     writer_word(K, T).
+<<<<<<< HEAD
+system_arg_type(agg(_, _, _, R), V, T) :-
+    R == V, writer_word(type_number, T).
+=======
 system_arg_type(agg(Op, _, _, R), V, T) :-
     R == V, ( Op == list -> writer_word(type_list, T) ; writer_word(type_number, T) ).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 clean_type(T0, T) :-
     (   atom(T0), T0 \== any, T0 \== expr, T0 \== ''
@@ -2598,7 +2630,11 @@ kb_templates(KB, Items) :-
 wv_derives(WV, F) :-
     include(functor_part, WV, Parts),
     Parts \== [],
+<<<<<<< HEAD
+    atomic_list_concat(Parts, '_', F).
+=======
     le_grammar:template_functor(Parts, F).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 functor_part(X) :- atom(X), \+ le_grammar:is_punct(X).
 functor_part(X) :- number(X).

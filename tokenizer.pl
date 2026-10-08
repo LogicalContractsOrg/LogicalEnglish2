@@ -42,6 +42,8 @@ tokenize(String, Tokens) :-
 %   thousands separator groups exactly three digits ("1.234.567"), never
 %   clashing with the sentence-final full stop (which is not digit-digit).
 tokenize(String, DecSep, ThouSep, Tokens) :-
+<<<<<<< HEAD
+=======
     tokenize(String, DecSep, ThouSep, none, Tokens).
 
 %!  tokenize(+String, +DecimalSep, +ThousandsSep, +Lang, -Tokens) is det.
@@ -63,6 +65,7 @@ tokenize(String, DecSep, ThouSep, Lang, Tokens) :-
     ).
 
 tokenize_codes(String, DecSep, ThouSep, Tokens) :-
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     atom_codes(DecSep, [DecCode]),
     atom_codes(ThouSep, [ThouCode]),
     string_codes(String, Codes),
@@ -101,13 +104,22 @@ unary_minus_position(Prev, S) :-
 
 %!  tokenize_lang(+String, -Tokens) is det.
 %
+<<<<<<< HEAD
+%   Tokenizes with the number locale of the ACTIVE language (le_i18n).
+=======
 %   Tokenizes with the number locale and the elisions of the ACTIVE language
 %   (le_i18n).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 tokenize_lang(String, Tokens) :-
     (   catch(le_i18n:le_active_language(Lang), _, fail),
         catch(le_i18n:language_param(Lang, decimal_sep, Dec), _, fail),
         catch(le_i18n:language_param(Lang, thousands_sep, Thou), _, fail),
         Dec \== '', Thou \== ''
+<<<<<<< HEAD
+    ->  tokenize(String, Dec, Thou, Tokens)
+    ;   tokenize(String, Tokens)
+    ).
+=======
     ->  tokenize(String, Dec, Thou, Lang, Tokens)
     ;   tokenize(String, Tokens)
     ).
@@ -149,6 +161,7 @@ same_case(Short, Full0, Full) :-
         upcase_atom(F, FU), atom_concat(FU, Rest, Full)
     ;   Full = Full0
     ).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 %!  tokens_to_string(+Tokens:list, -String:string) is det.
 %
@@ -190,11 +203,14 @@ tokens_to_string_([T|Tokens],LastEnd,[S|Strings]) :-
                 Advance_ = Advance
             ; arg(1,T,X) -> 
                 ( X = date(Y,M,D) -> format(string(S_), "~w-~|~`0t~w~2+-~|~`0t~w~2+", [Y,M,D])
+<<<<<<< HEAD
+=======
                   % a number written with leading zeros keeps them: the `01`
                   % of the claim reference SYN-01-C1 (see le_grammar's
                   % name_part_word/2)
                 ; leading_zeros_width(X, Begin, NewEnd, Len)
                   -> format(string(S_), '~|~`0t~d~*+', [X, Len])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 ; (atom(X); string(X); number(X)) -> S_=X
                 ; term_string(X, S_)
                 ),
@@ -409,6 +425,14 @@ word_char(C) :- code_type(C, csym), !.
 word_char(C) :- code_type(C, alnum).
 
 word_remainder([C|Cs]) --> [C], { word_char(C) }, !, word_remainder(Cs).
+<<<<<<< HEAD
+% A lone apostrophe (no matching quote before the end of the line) attaches to the
+% word, so templates may contain possessives/contractions, e.g. "employers'",
+% "don't". At most one apostrophe per word; a quote that has a partner ahead on
+% the line is left alone, so it still opens a string constant. (Code 39 = ').
+word_remainder([39|Cs]) -->
+    [39], peek_rest(After), { \+ quote_before_eol(After) }, !,
+=======
 % An apostrophe directly after a letter belongs to the word: a possessive or a
 % contraction ("employers'", "don't"), or a French or Italian elision ("l'autre",
 % "d'une", split by elide/3). It never opens a string constant: a string opens
@@ -417,6 +441,7 @@ word_remainder([C|Cs]) --> [C], { word_char(C) }, !, word_remainder(Cs).
 % typographic apostrophe (U+2019) is read as the plain one. (Code 39 = '.)
 word_remainder([39|Cs]) -->
     ( [39] ; [8217] ), !,
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     word_remainder_no_quote(Cs).
 word_remainder([])     --> [].
 
