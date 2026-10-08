@@ -5,9 +5,14 @@
 #   ./vendor_lpsplus.sh [/path/to/lpsPlus]      (default: $LPS_PLUS_DIR, then ../lpsPlus)
 #
 # What it copies: accounts/ (lc_accounts.pl, licenses.csv, passwords.csv —
+<<<<<<< HEAD
+# signing in and who holds which licence) and migration/ (the translators of
+# other systems that File ▸ Open and Export offer). Only the files git knows
+=======
 # signing in and who holds which licence), migration/ (the translators of
 # other systems that File ▸ Open and Export offer) and contract_assistant/
 # (the LE Contract Assistant: its module, prompts, web page and tests). Only the files git knows
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 # about or would add: the gitignored caches of fetched sources and tools
 # (gigabytes of them) stay behind.
 #
@@ -26,7 +31,11 @@ if [ ! -f "$PLUS/accounts/lc_accounts.pl" ]; then
     exit 1
 fi
 
+<<<<<<< HEAD
+echo "vendoring lpsPlus (accounts, translators) from $PLUS"
+=======
 echo "vendoring lpsPlus (accounts, translators, contract assistant) from $PLUS"
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 rm -rf "$OUT"
 mkdir -p "$OUT"
 n=0
@@ -35,7 +44,11 @@ while IFS= read -r f; do
     mkdir -p "$OUT/$(dirname "$f")"
     cp "$PLUS/$f" "$OUT/$f"
     n=$((n+1))
+<<<<<<< HEAD
+done < <(git -c safe.directory='*' -C "$PLUS" ls-files --cached --others --exclude-standard -- accounts migration)
+=======
 done < <(git -c safe.directory='*' -C "$PLUS" ls-files --cached --others --exclude-standard -- accounts migration contract_assistant)
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 {
     echo "lpsPlus, vendored for the LE2 image by vendor_lpsplus.sh."
     echo "Source: $PLUS"

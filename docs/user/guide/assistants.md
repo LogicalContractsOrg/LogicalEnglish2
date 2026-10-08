@@ -146,9 +146,13 @@ document.
 ## The Contract Assistant
 
 The Contract Assistant is a web page of its own, at
+<<<<<<< HEAD
+**`/web_extras/contract_assistant/index.html`** on the server. The Contract
+=======
 **`/web_extras/contract_assistant/index.html`** on the server. It belongs to
 the **Logical English Translators** licence: you need to sign in with an
 account that holds that licence ([signing in](accounts.md)). The Contract
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 Assistant runs longer pieces of work on the server, each within a budget you
 set. One run may call the model many times and take anything from minutes to
 hours, and what it costs depends on the models and on the effort you choose.
@@ -157,11 +161,15 @@ The Contract Assistant needs a model and a key for it (**3. Model**). A key
 field appears only for the provider of the model you picked, and only when the
 server has no key of its own for that provider. The **Judge model** does just
 two things — it merges the vocabulary samples and writes the coverage ledger —
+<<<<<<< HEAD
+so a cheaper model usually serves. **Additional instructions** and the
+=======
 so a cheaper model usually serves. **Branches also drafted by** names a second
 model. When a run writes two or more competing drafts, the main model and the
 second model write them in turn, and the same tests decide between them. You
 might pair a model from one company with a model whose weights are published
 (an "open-weight" model), and let the tests choose. **Additional instructions** and the
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 **Effort budget** described below apply whichever of the modes you use.
 
 ### What to generate
@@ -207,12 +215,20 @@ for more checking.
 
 ### A whole program
 
+<<<<<<< HEAD
+1. **Documents.** The **contract wording** is required. **Schedule** and
+   **cases / claims** are optional and may be several files each. Markdown or
+   plain text works best. The server can also convert a Word file (`.docx`,
+   using the pandoc tool) and a PDF (using pdftotext), where those tools are
+   installed. Schedules and cases may also arrive as JSON or CSV, two common
+=======
 1. **Documents.** The **contract wording** is required: a file, or the web
    address where it is published. **Schedule** and **cases / claims** are
    optional and may be several files each. Markdown or plain text works best.
    The server can also convert a Word file (`.docx`, using the pandoc tool), a
    web page, and a PDF (using pdftotext or PyMuPDF4LLM, which read a page set
    in two columns one column at a time), where those tools are installed. Schedules and cases may also arrive as JSON or CSV, two common
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
    ways of writing structured data as text. A JSON list of claims gives one
    case, and so one scenario, for each item in the list.
 2. **Target section** (optional, strongly recommended): a section title (that
@@ -236,6 +252,8 @@ for more checking.
    you have chosen a wording file, the page shows an **estimate of the cost**
    before you start.
 
+<<<<<<< HEAD
+=======
 What the program contains besides its rules:
 
 - **Citations.** The program names the wording as a document: where it is
@@ -259,6 +277,7 @@ What the program contains besides its rules:
   amount payable, the clauses it rests on, the changes that would change it,
   and the other claims with their results.
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 Press **Generate Logical English**. The assistant then writes several drafts,
 checks each one, and repairs it against the cases, keeping the best draft of
 them all. In judging the drafts, the assistant prefers a program that has

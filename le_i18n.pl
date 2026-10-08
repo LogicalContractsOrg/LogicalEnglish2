@@ -547,6 +547,12 @@ load_language_row(Header, Row) :-
     cell_value(Row, Header, list_sep, ListSep),
     cell_value(Row, Header, status, Status),
     cell_value(Row, Header, english_name, EnglishName),
+<<<<<<< HEAD
+    assertz(lang_entry(Code, [autonym-Autonym, opener-OpenerWords,
+                              decimal_sep-Dec, thousands_sep-Thou,
+                              list_sep-ListSep, status-Status,
+                              english_name-EnglishName])).
+=======
     optional_pairs(Row, Header, elisions, Elisions),
     optional_pairs(Row, Header, contractions, Contractions0),
     findall(K-Ws, ( member(K-V, Contractions0), split_phrase_words(V, Ws) ), Contractions),
@@ -567,6 +573,7 @@ optional_pairs(Row, Header, Column, Pairs) :-
                        ( atom_concat(K, '\'', K1) -> true ; K = K1 ) ), Pairs)
     ;   Pairs = []
     ).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 % --- keywords.csv ---
 load_keywords_csv(Dir) :-
@@ -585,7 +592,11 @@ load_keyword_row(Header, Langs, Row) :-
     forall(member(Lang, Langs),
            ( cell_value(Row, Header, Lang, Cell),
              ( Cell == '' -> true
+<<<<<<< HEAD
+             ; split_synonyms(Cell, Syns),
+=======
              ; split_synonyms(Lang, Cell, Syns),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                % longest synonyms first (stable for equal lengths), so e.g.
                % "it is not the case that" is tried before "not the case that"
                % wherever order matters
@@ -606,6 +617,8 @@ split_synonyms(Cell, Syns) :-
     atomic_list_concat(Alts, '|', Cell),
     findall(Words, ( member(A, Alts), A \== '', split_phrase_words(A, Words), Words \== [] ), Syns).
 
+<<<<<<< HEAD
+=======
 %   In a language that shortens words (languages.csv: elisions,
 %   contractions), a cell's words are read as the parser reads a program:
 %   "du scénario" as "de le scénario", "l'inversion" as "le inversion", so a
@@ -633,6 +646,7 @@ expand_word(Els, Cons, W, Out0, Out) :-
     ;   Out0 = [W|Out]
     ).
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 split_phrase_words('', []) :- !.
 split_phrase_words(Phrase, Words) :-
     atomic_list_concat(Parts0, ' ', Phrase),
@@ -653,7 +667,11 @@ load_sys_row(Header, Langs, Row) :-
       forall(member(Lang, Langs),
              ( cell_value(Row, Header, Lang, Cell),
                ( Cell == '' -> true
+<<<<<<< HEAD
+               ; split_synonyms(Cell, Syns),
+=======
                ; split_synonyms(Lang, Cell, Syns),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                  forall(member(Words, Syns),
                         ( maplist(word_to_part, Words, Parts),
                           assertz(sys_row(Lang, Functor, Types, Parts)) ))

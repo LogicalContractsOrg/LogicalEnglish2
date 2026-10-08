@@ -481,6 +481,8 @@ An aggregate works out one value from a whole set of answers.
           a person pays I
       and N > 12.
   ```
+<<<<<<< HEAD
+=======
 - **Name the thing first.** In `the capped amount for a claim component is an
   amount P if P is the max of each V such that the payable benefit for the
   claim component is V`, no condition before the aggregate says which claim
@@ -488,6 +490,7 @@ An aggregate works out one value from a whole set of answers.
   the rule answers once, for no component in particular. Name it first:
   `if a claim has the claim component and P is the max of each V such that
   ...`. The verifier warns of the first form (`unbound_aggregate_variable`).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 - **Answers and explanations** read an aggregate back as a sentence, with the
   value found and the conditions: `15 is the sum of each I such that a person
   pays I`. Where the thing counted or added up is named by a noun, the sentence
@@ -1415,6 +1418,12 @@ the rules work out for themselves.
   (order-insensitive, within and between sets).
 - **How the search works.** The explanation guides it, and the system checks
   every answer it proposes. The changes it considers come only from what an
+<<<<<<< HEAD
+  attempt at the goal actually touched: a scenario-element sentence with all
+  its values fixed that the attempt asked for and did not find as a fact (which
+  it may add), or a scenario fact the attempt used (which it may remove). It
+  never ranges over every fact the program could state. A set of changes grows
+=======
   attempt at the goal actually touched: a scenario-element sentence the
   attempt asked for and did not find as a fact (which it may add), or a
   scenario fact the attempt used (which it may remove). Where the sentence
@@ -1427,6 +1436,7 @@ the rules work out for themselves.
   than two open places, and does not fill a sentence the scenario already
   answers (a claim that names its item is not given a second one). It never
   ranges over every fact the program could state. A set of changes grows
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   one change at a time. The system applies each set to a copy of the session
   and solves the goal again, and each set's own attempt supplies the next
   changes to consider, so a change that opens a new path brings that path's

@@ -42,6 +42,8 @@ test(graph_has_all_layers) :-
     forall(member(Expected, ["template", "rule", "fact", "scenario", "query"]),
            assertion(memberchk(Expected, Ts))).
 
+<<<<<<< HEAD
+=======
 % eu261_integration.le has two `; undefined` templates (each asserts an
 % le_unknown/1 fact under the source id `template_unknown`), a
 % `scenario facts require provenance.` statement and an `expects changes`
@@ -86,4 +88,5 @@ test(eu261_layers) :-
     aggregate_all(count, member("scenario"-_, TLs), 4),
     aggregate_all(count, member("query"-_, TLs), 4).
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 :- end_tests(source_graph).
