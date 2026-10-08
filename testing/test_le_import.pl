@@ -201,6 +201,22 @@ test(originals_of_an_archive) :-
     le_api:handle_originals(_{source: R.source}, O),
     O.files == ["sources/readme.txt", "sources/rules.arrows"].
 
+%   And inside the program too, as a comment at the end: `sources/` is
+%   forgotten with the upload after a day, and a program saved elsewhere
+%   takes nothing with it but its own text (le_import:embed_originals/2;
+%   testing/test_embedded_originals.pl has the rest).
+test(the_upload_is_kept_in_the_program_too) :-
+    import_upload("my rules.arrows", text("a => b\nnot an arrow\n"), R, []),
+    once(sub_string(R.document, _, _, _, "my rules.arrows begins")),
+    once(sub_string(R.document, _, _, _, "% not an arrow")),
+    once(sub_string(R.document, _, _, _, "my rules.arrows ends")).
+
+%   A file no translator reads is already written out verbatim as a TODO:
+%   carrying it a second time would be the same text twice.
+test(a_file_nobody_translated_is_not_kept_twice) :-
+    import_upload("notes.xyz", text("some text\nmore"), R, []),
+    \+ sub_string(R.document, _, _, _, "notes.xyz begins").
+
 test(no_originals_for_a_program_not_converted) :-
     le_api:handle_originals(_{source: "moreExamples/citizenship"}, O),
     O.files == [].

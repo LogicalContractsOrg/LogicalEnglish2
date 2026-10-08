@@ -1,5 +1,8 @@
-node_modules
-editor/node_modules
+#  Node packages, at any depth: the image installs its own, and a host's
+#  node_modules holds binaries built for the host's platform. The editor's are
+#  installed by `npm install` in the image, and the Solidity translator's by
+#  `npm ci` in vendor/lpsplus/migration/solidity (see the Dockerfile).
+**/node_modules
 editor/dist
 tmp
 .git
