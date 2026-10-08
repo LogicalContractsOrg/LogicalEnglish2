@@ -996,10 +996,30 @@ local_resource_allowed(Abs, Base) :-
     ( is_url(Base) -> working_directory(BaseDir, BaseDir) ; BaseDir = Base ),
     (   sub_atom(Abs, 0, _, _, BaseDir)
     ->  true
+    ;   under_directory(Abs, BaseDir)
+    ->  true
     ;   working_directory(CWD, CWD),
         sub_atom(Abs, 0, _, _, CWD),
         catch(restricted_paths:is_path_allowed(Abs, []), _, fail)
     ).
+
+%   under_directory(+File, +Dir): File lies in Dir's tree, Dir and the
+%   file's folders compared as folders on disk, not as text. A program
+%   opened through a symbolic link (examples/moreExamples/lpsPlus ->
+%   ../../../lpsPlus/examples) has its includes resolved to the link's
+%   target, and the text of the two paths then differs.
+under_directory(File, Dir) :-
+    \+ is_url(File),
+    absolute_file_name(Dir, AbsDir, [file_type(directory), file_errors(fail)]),
+    file_directory_name(File, D0),
+    folder_or_ancestor(D0, D),
+    exists_directory(D),
+    same_file(D, AbsDir), !.
+
+folder_or_ancestor(D, D).
+folder_or_ancestor(D0, D) :-
+    file_directory_name(D0, D1), D1 \== D0,
+    folder_or_ancestor(D1, D).
 
 fetch_resource_kind(le_url(URL), _Id, Resource, M, Sections) :-
     catch(fetch_url(URL, Text), FetchErr, true),
