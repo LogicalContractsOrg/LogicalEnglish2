@@ -1,10 +1,6 @@
 # Logical English Load-Time Warnings
 
-<<<<<<< HEAD
-*Kind: guide · Audience: users · Status: current (2026-09-01)*
-=======
 *Kind: guide · Audience: users · Status: current (2026-10-04)*
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 These warnings apply only to programs the system can already read: programs
 whose sentences are correctly written
@@ -34,8 +30,6 @@ A template is declared, but appears nowhere else: in no rule's conclusion, in no
 The answers the query actually gives differ from the answers the scenario says to expect (`<query> expects answers [...] and unknowns [...]`), or from those in an old `.le.tests` file beside the program, where an example still has one.  
 **Fix:** check the logic of your rules or the facts in the scenario.
 
-<<<<<<< HEAD
-=======
 ## Template '...' has no word of its own besides "is" (an error)
 
 Every word of the template's sentence is inside asterisks except *is*, as in
@@ -57,7 +51,6 @@ them together, and the rule answers once, for none in particular.
 **Fix:** name it in a condition before the aggregate, such as `a claim has the
 claim component`.
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 ## Rule without variables: ...
 
 Neither the conclusion of the rule nor its conditions contain a single variable: every part of the rule names one particular value.  

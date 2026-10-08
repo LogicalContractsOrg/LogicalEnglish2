@@ -1,21 +1,11 @@
 // src/key-event-guard.ts
 function installKeyEventGuard() {
   const w = window;
-<<<<<<< HEAD
-  if (w.__leKeyEventGuard)
-    return;
-  w.__leKeyEventGuard = true;
-  for (const type of ["keydown", "keyup", "keypress"]) {
-    window.addEventListener(type, (e) => {
-      if (!(e instanceof KeyboardEvent))
-        e.stopImmediatePropagation();
-=======
   if (w.__leKeyEventGuard) return;
   w.__leKeyEventGuard = true;
   for (const type of ["keydown", "keyup", "keypress"]) {
     window.addEventListener(type, (e) => {
       if (!(e instanceof KeyboardEvent)) e.stopImmediatePropagation();
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }, true);
   }
 }
@@ -285,8 +275,6 @@ var keywords = {
         "unknowns"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "and",
@@ -294,7 +282,6 @@ var keywords = {
         "unknowns"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "rule"
@@ -747,14 +734,11 @@ var keywords = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "list"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "is",
@@ -1825,8 +1809,6 @@ var keywords = {
         "desconhecidos"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "e",
@@ -1834,7 +1816,6 @@ var keywords = {
         "desconhecidos"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "regra"
@@ -2474,14 +2455,11 @@ var keywords = {
         "m\xE1x"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "\xE9",
@@ -3681,8 +3659,6 @@ var keywords = {
         "desconocidos"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "y",
@@ -3690,7 +3666,6 @@ var keywords = {
         "desconocidos"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "regla"
@@ -4338,14 +4313,11 @@ var keywords = {
         "m\xE1x"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "es",
@@ -5472,8 +5444,6 @@ var keywords = {
         "inconnus"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "et",
@@ -5486,7 +5456,6 @@ var keywords = {
         "inconnus"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "r\xE8gle"
@@ -6084,14 +6053,11 @@ var keywords = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "liste"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "est",
@@ -7218,8 +7184,6 @@ var keywords = {
         "sconosciute"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "e",
@@ -7232,7 +7196,6 @@ var keywords = {
         "sconosciuto"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "regola"
@@ -7891,14 +7854,11 @@ var keywords = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "\xE8",
@@ -8830,12 +8790,7 @@ function phraseRe(words2) {
 function alt(table, keys) {
   const phrases = [];
   for (const key of keys) {
-<<<<<<< HEAD
-    for (const syn of table[key] ?? [])
-      phrases.push(syn);
-=======
     for (const syn of table[key] ?? []) phrases.push(syn);
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   phrases.sort((a, b) => b.join(" ").length - a.join(" ").length);
   return phrases.map(phraseRe).join("|");
@@ -8844,12 +8799,7 @@ function words(table, keys) {
   const ws = /* @__PURE__ */ new Set();
   for (const key of keys) {
     for (const syn of table[key] ?? []) {
-<<<<<<< HEAD
-      if (syn.length === 1)
-        ws.add(syn[0]);
-=======
       if (syn.length === 1) ws.add(syn[0]);
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   return [...ws].sort((a, b) => b.length - a.length).map(esc).join("|");
@@ -8858,13 +8808,9 @@ function buildLeMonarchTokens(lang) {
   const T = kwTable(lang);
   const W = "[A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF0-9_]";
   const b = (re) => `(?<!${W})(?:${re})(?!${W})`;
-<<<<<<< HEAD
-  const headers = alt(T, ["kb_open", "contract_open", "scenario", "query", "ontology", "meta_target", "constants"]);
-=======
   const headers = alt(T, ["kb_open", "scenario", "query", "ontology", "meta_target", "constants"]);
   const contractHeader = alt(T, ["contract_open"]) && `^[ \\t]*(?:${alt(T, ["contract_open"])})(?=[ \\t].*?(?:${alt(T, ["contract_states", "resources_include"])})[ \\t]*:)`;
   const aggregates = `(?:${alt(T, ["sum", "count", "average", "min", "max"])})(?=[ \\t]+(?:${alt(T, ["of_each"])})(?!${W}))`;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   const templateHeaders = alt(T, ["predicates", "templates", "functions", "fluents", "events", "actions", "prolog_events"]);
   const structural = alt(T, [
     "resources_include",
@@ -8881,14 +8827,6 @@ function buildLeMonarchTokens(lang) {
     "it_the_case",
     "not_the_case",
     "such_that",
-<<<<<<< HEAD
-    "sum",
-    "count",
-    "average",
-    "min",
-    "max",
-=======
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "marker",
     // LPS (lps2's docs/user/reference/le-for-lps.md §3): the sentence forms a document with
     // "the target language is: lps." adds. Highlighting them in a plain-LE
@@ -8939,15 +8877,10 @@ function buildLeMonarchTokens(lang) {
         // Section headers
         [new RegExp(`(?:${templateHeaders}):`), { token: "keyword.header", next: "@templates" }],
         [new RegExp(b(headers)), "keyword.header"],
-<<<<<<< HEAD
-        // Structural keywords
-        [new RegExp(b(structural)), "keyword"],
-=======
         ...contractHeader ? [[new RegExp(contractHeader), "keyword.header"]] : [],
         // Structural keywords
         [new RegExp(b(structural)), "keyword"],
         [new RegExp(b(aggregates)), "keyword"],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         [new RegExp(`^\\s*(?:${andOr})(?!${W})`), "keyword"],
         [new RegExp(b(expects)), "keyword.expects"],
         // Template words (copula followed by article/preposition) —
@@ -8985,13 +8918,10 @@ function buildLeMonarchTokens(lang) {
       templates: [
         [new RegExp(b(additions)), "keyword.addition"],
         [new RegExp(b(headers)), { token: "keyword.header", next: "@pop" }],
-<<<<<<< HEAD
-=======
         // The next list of templates ("the fluents are:" after "the
         // events are:") is a header too, and stays in this state.
         [new RegExp(`(?:${templateHeaders}):`), "keyword.header"],
         ...contractHeader ? [[new RegExp(contractHeader), { token: "keyword.header", next: "@pop" }]] : [],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         [/\*[^*]+\*/, "variable"],
         [/%.*$/, "comment"],
         [/\/\*/, "comment", "@comment"],
@@ -9150,12 +9080,7 @@ async function post(base, body) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body)
   });
-<<<<<<< HEAD
-  if (!r.ok)
-    throw new Error(`${base}: HTTP ${r.status}`);
-=======
   if (!r.ok) throw new Error(`${base}: HTTP ${r.status}`);
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   return await r.json();
 }
 var leApi = (body) => post(LE_BASE, { ...body, token: LE_TOKEN });
@@ -9256,12 +9181,7 @@ var setStatus = (t) => {
 };
 function clearMarkers() {
   const model = state.editor?.getModel();
-<<<<<<< HEAD
-  if (model)
-    monaco.editor.setModelMarkers(model, "lps", []);
-=======
   if (model) monaco.editor.setModelMarkers(model, "lps", []);
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   $("diags").replaceChildren();
 }
 function showIssues(issues) {
@@ -9298,57 +9218,29 @@ function addMarkers(items) {
     const div = document.createElement("div");
     div.className = "diag " + i.severity;
     div.textContent = `${i.origin} ${i.severity}${i.line ? ` (line ${i.line})` : ""}: ${i.message}`;
-<<<<<<< HEAD
-    if (i.line > 0)
-      div.addEventListener("click", () => {
-        state.editor.revealLineInCenter(i.line);
-        state.editor.setPosition({ lineNumber: i.line, column: i.col + 1 });
-        state.editor.focus();
-      });
-=======
     if (i.line > 0) div.addEventListener("click", () => {
       state.editor.revealLineInCenter(i.line);
       state.editor.setPosition({ lineNumber: i.line, column: i.col + 1 });
       state.editor.focus();
     });
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     $("diags").appendChild(div);
   }
 }
 var el = (tag, attrs = {}, kids = []) => {
   const e = document.createElement(tag);
   for (const k in attrs) {
-<<<<<<< HEAD
-    if (k === "text")
-      e.textContent = attrs[k];
-    else if (k === "class")
-      e.className = attrs[k];
-    else
-      e.setAttribute(k, attrs[k]);
-  }
-  for (const kid of kids)
-    e.append(kid);
-=======
     if (k === "text") e.textContent = attrs[k];
     else if (k === "class") e.className = attrs[k];
     else e.setAttribute(k, attrs[k]);
   }
   for (const kid of kids) e.append(kid);
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   return e;
 };
 var svgNs = "http://www.w3.org/2000/svg";
 var ns = (tag, attrs = {}, text) => {
   const e = document.createElementNS(svgNs, tag);
-<<<<<<< HEAD
-  for (const k in attrs)
-    e.setAttribute(k, String(attrs[k]));
-  if (text !== void 0)
-    e.textContent = text;
-=======
   for (const k in attrs) e.setAttribute(k, String(attrs[k]));
   if (text !== void 0) e.textContent = text;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   return e;
 };
 async function renderTimeline() {
@@ -9394,22 +9286,12 @@ async function renderChanges() {
     el("th", { text: "causal law" })
   ]));
   const rows = (mark, list) => {
-<<<<<<< HEAD
-    for (const c of list)
-      tbl.appendChild(el("tr", {}, [
-        el("td", { text: mark }),
-        el("td", { class: "mono", text: c.fluent }),
-        el("td", { class: "mono", text: c.action }),
-        el("td", { class: "mono", text: c.source })
-      ]));
-=======
     for (const c of list) tbl.appendChild(el("tr", {}, [
       el("td", { text: mark }),
       el("td", { class: "mono", text: c.fluent }),
       el("td", { class: "mono", text: c.action }),
       el("td", { class: "mono", text: c.source })
     ]));
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   rows("+", r.initiated);
   rows("\u2212", r.terminated);
@@ -9436,41 +9318,22 @@ async function renderAutomaton() {
   for (let pass = 0; pass < r.states.length; pass++) {
     let moved = false;
     for (const e of r.transitions) {
-<<<<<<< HEAD
-      if (e.from === e.to)
-        continue;
-=======
       if (e.from === e.to) continue;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       const d = depth.get(e.from) + 1;
       if (d > depth.get(e.to)) {
         depth.set(e.to, d);
         moved = true;
       }
     }
-<<<<<<< HEAD
-    if (!moved)
-      break;
-=======
     if (!moved) break;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   const W = 240, pos = /* @__PURE__ */ new Map();
   let y = 20;
   const byDepth = [];
-<<<<<<< HEAD
-  for (const s of r.states)
-    (byDepth[depth.get(s.id)] ||= []).push(s);
-  let cols = 1;
-  byDepth.forEach((row) => {
-    if (!row)
-      return;
-=======
   for (const s of r.states) (byDepth[depth.get(s.id)] ||= []).push(s);
   let cols = 1;
   byDepth.forEach((row) => {
     if (!row) return;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     cols = Math.max(cols, row.length);
     let h = 0;
     row.forEach((s, i) => {
@@ -9492,12 +9355,7 @@ async function renderAutomaton() {
   let lane = 0;
   for (const e of r.transitions) {
     const a = pos.get(e.from), b = pos.get(e.to);
-<<<<<<< HEAD
-    if (!a || !b)
-      continue;
-=======
     if (!a || !b) continue;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     const colour = e.kind === "event" ? "#E19735" : "forestgreen";
     const mark = e.kind === "event" ? "a-ev" : "a-ac";
     let d, lx, ly;
@@ -9603,12 +9461,7 @@ function boot() {
   $("run").addEventListener("click", compileAndRun);
   $("cycle").addEventListener("input", () => {
     $("cyclab").textContent = `cycle ${$("cycle").value}`;
-<<<<<<< HEAD
-    if (activePane() === "changes")
-      renderChanges();
-=======
     if (activePane() === "changes") renderChanges();
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   });
   $("absnum").addEventListener("change", renderAutomaton);
   $("nonrefl").addEventListener("change", renderAutomaton);
@@ -9627,12 +9480,7 @@ function boot() {
         state.editor.getModel().setValue(String(h.le ?? ""));
         state.source = String(h.source ?? "");
         state.base = String(h.base ?? "");
-<<<<<<< HEAD
-        if (h.name)
-          document.title = `${h.name} \u2014 Logical English \u2192 LPS`;
-=======
         if (h.name) document.title = `${h.name} \u2014 Logical English \u2192 LPS`;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         compileAndRun();
       }
     } catch {

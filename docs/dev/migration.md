@@ -26,15 +26,10 @@ program.le with RESIDUE blocks ──Contract Assistant, mode residue──▶ r
 |---|---|---|
 | The general LE writer: Migration IR → LE text; a loaded knowledge base → IR; plain Prolog / s(CASP) → IR | `le_writer.pl` | E1 |
 | The migration ledger, source tests as scenarios, fidelity | `le_migration.pl` | E14 |
-<<<<<<< HEAD
-| Residue mode: a fixed skeleton, only the residue translated by the LLM | `le_contract_assistant.pl` (mode `residue`), prompts `llm/contract_prompts/residue_*.md` | Phase 0 item 4 |
-| Dates, periods and lock times | `lib/temporal.le` + `lib/temporal.pl` | E3 |
-=======
 | Residue mode: a fixed skeleton, only the residue translated by the LLM | lpsPlus `contract_assistant/le_contract_assistant.pl` (mode `residue`), prompts `contract_assistant/prompts/residue_*.md` | Phase 0 item 4 |
 | Dates, periods and lock times | `lib/temporal.le` + `lib/temporal.pl` | E3 |
 | Rounding at a number of decimals: half up, half even, down, up, to a step | `lib/rounding.le` + `lib/rounding.pl` | N8 |
 | Dated versions of a rule: the calculation date | a convention, §6 below | N9 |
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 | Obligations, permissions, prohibitions, violations (the deontic pattern library) and `*a sentence* is the case` | `lib/deontic.le`, `reasoner.pl` (`le_holds/1`) | N4 |
 | Integer division `//` and remainder `mod` | `le_grammar.pl` | E4 |
 | `either`/`any of` with nested `all of`; negation in numbered items | `le_extensions.pl` (InsurLE) | D1, D2 |
@@ -460,11 +455,7 @@ explanation, and their translated residues with alternatives (two rules, or
 `either`/`or`) go back first — each doubles the answers — and the rest of
 those rows' translations if that is not enough. A translation that negates an unknown (`negated_unknown`, an
 error inside a residue block) is the usual cause. Tests:
-<<<<<<< HEAD
-`testing/test_residue_mode.pl`.
-=======
 lpsPlus `contract_assistant/testing/test_residue_mode.pl`.
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 ## 5. The defects fixed before the readers (Appendix A of the report)
 
@@ -482,8 +473,6 @@ lpsPlus `contract_assistant/testing/test_residue_mode.pl`.
   prints the LPS emitter's own diagnostics. Propositional LPS templates are no
   longer reported as unused.
 
-<<<<<<< HEAD
-=======
 ## 6. Dated versions: the calculation date (N9)
 
 A source that versions its rules by date (RuleSpec's `versions` with
@@ -517,7 +506,6 @@ need more than 15 significant ones with 15 (`115.95`, not
 the numbers of an answer as numbers (`30` is `30.0`; `normalize_string/2`).
 When a rule itself must round, `lib/rounding` rounds exactly.
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 ## The disclaimer every twin carries
 
 `migration_text/3` closes the opening comment of every program it writes with

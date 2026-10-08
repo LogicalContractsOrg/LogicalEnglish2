@@ -12,10 +12,7 @@ gives, so running them checks the translation.
 - [LegalRuleML](legalruleml/) — the examples of the OASIS LegalRuleML standard: duties, permissions, prohibitions.
 - [Miniscript](miniscript/) — Bitcoin spending policies: who can spend a coin, and when.
 - [OIPA](oipa/) — insurance transactions of Oracle Insurance Policy Administration, on two plans we wrote.
-<<<<<<< HEAD
-=======
 - [RuleSpec](rulespec/) — United States food assistance, tax credit and disability benefit rules from the Axiom Foundation's RuleSpec programs.
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 - [s(CASP)](scasp/) — logic programs of the s(CASP) reasoner, including Logical English 1's own.
 
 ## Try this

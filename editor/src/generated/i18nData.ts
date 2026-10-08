@@ -728,14 +728,11 @@ export const keywords: Record<string, KeywordTable> = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "list"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "is",
@@ -2452,14 +2449,11 @@ export const keywords: Record<string, KeywordTable> = {
         "máx"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "é",
@@ -4313,14 +4307,11 @@ export const keywords: Record<string, KeywordTable> = {
         "máx"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "es",
@@ -6056,14 +6047,11 @@ export const keywords: Record<string, KeywordTable> = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "liste"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "est",
@@ -7860,14 +7848,11 @@ export const keywords: Record<string, KeywordTable> = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "è",
@@ -8823,10 +8808,7 @@ export const keywordCategories: Record<string, string> = {
   "average": "aggregate",
   "min": "aggregate",
   "max": "aggregate",
-<<<<<<< HEAD
-=======
   "list": "aggregate",
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   "is_the": "aggregate",
   "of_each": "aggregate",
   "such_that": "aggregate",
@@ -9542,9 +9524,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Logical English in other languages": "Logical English noutras línguas",
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escrever programas em português, espanhol, francês ou italiano, e escolher o idioma dos menus.",
     "About this folder": "Sobre esta pasta",
-<<<<<<< HEAD
-    "Copy the web address of this README": "Copiar o endereço web deste README"
-=======
     "Copy the web address of this README": "Copiar o endereço web deste README",
     "Sign in with Google": "Iniciar sessão com Google",
     "Sign in with GitHub": "Iniciar sessão com GitHub",
@@ -9571,7 +9550,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "O programa não tem nada para mostrar: nem modelos, nem regras, nem factos, nem cenários, nem consultas.",
     "Could not reach the server to build the graph.": "Não foi possível contactar o servidor para construir o grafo.",
     "The program could not be loaded: ": "Não foi possível carregar o programa: "
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -10185,9 +10163,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Logical English in other languages": "Logical English en otros idiomas",
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escribir programas en portugués, español, francés o italiano, y elegir el idioma de los menús.",
     "About this folder": "Acerca de esta carpeta",
-<<<<<<< HEAD
-    "Copy the web address of this README": "Copiar la dirección web de este README"
-=======
     "Copy the web address of this README": "Copiar la dirección web de este README",
     "Sign in with Google": "Iniciar sesión con Google",
     "Sign in with GitHub": "Iniciar sesión con GitHub",
@@ -10214,7 +10189,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "El programa no tiene nada que mostrar: ni plantillas, ni reglas, ni hechos, ni escenarios, ni consultas.",
     "Could not reach the server to build the graph.": "No se pudo contactar con el servidor para construir el grafo.",
     "The program could not be loaded: ": "No se pudo cargar el programa: "
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -10828,9 +10802,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Logical English in other languages": "Logical English dans d'autres langues",
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Écrire des programmes en portugais, espagnol, français ou italien, et choisir la langue des menus.",
     "About this folder": "À propos de ce dossier",
-<<<<<<< HEAD
-    "Copy the web address of this README": "Copier l'adresse web de ce README"
-=======
     "Copy the web address of this README": "Copier l'adresse web de ce README",
     "Sign in with Google": "Se connecter avec Google",
     "Sign in with GitHub": "Se connecter avec GitHub",
@@ -10857,7 +10828,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Le programme n'a rien à montrer : ni modèles, ni règles, ni faits, ni scénarios, ni requêtes.",
     "Could not reach the server to build the graph.": "Impossible de joindre le serveur pour construire le graphe.",
     "The program could not be loaded: ": "Le programme n'a pas pu être chargé : "
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11471,9 +11441,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Logical English in other languages": "Logical English in altre lingue",
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese o italiano, e scegliere la lingua dei menu.",
     "About this folder": "Informazioni su questa cartella",
-<<<<<<< HEAD
-    "Copy the web address of this README": "Copia l'indirizzo web di questo README"
-=======
     "Copy the web address of this README": "Copia l'indirizzo web di questo README",
     "Sign in with Google": "Accedi con Google",
     "Sign in with GitHub": "Accedi con GitHub",
@@ -11500,7 +11467,6 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Il programma non ha nulla da mostrare: né modelli, né regole, né fatti, né scenari, né interrogazioni.",
     "Could not reach the server to build the graph.": "Impossibile raggiungere il server per costruire il grafo.",
     "The program could not be loaded: ": "Non è stato possibile caricare il programma: "
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 } as const;
 

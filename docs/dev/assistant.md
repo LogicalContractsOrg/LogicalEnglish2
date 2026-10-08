@@ -129,8 +129,6 @@ UI language. The system message is, in order:
 The user message is the command. There is no token budget: the prompt is
 sent as assembled.
 
-<<<<<<< HEAD
-=======
 **One reference for every assistant.** The language reference,
 `docs/user/reference/language.md`, is what every assistant that writes Logical
 English reads: this one (step 3), the Contract Assistant
@@ -144,7 +142,6 @@ separate Portuguese reference and needs the same section. Advice about the
 assistant's own conduct, rather than the language, belongs in
 `AGENTS_LE_template.md`.
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 ### The loop (`agent_loop/10`)
 
 Each step checks the job is still `running`, calls

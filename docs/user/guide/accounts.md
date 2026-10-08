@@ -1,10 +1,6 @@
 # Signing in, and what a licence adds
 
-<<<<<<< HEAD
-*Kind: guide · Audience: everyone who uses the hosted editor · Status: current (2026-09-28)*
-=======
 *Kind: guide · Audience: everyone who uses the hosted editor · Status: current (2026-10-04)*
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 You do not need an account to use Logical English. Everything described in
 this documentation works without signing in, except the few things listed
@@ -40,11 +36,7 @@ end of that day.
 
 | Licence | What it adds |
 |---|---|
-<<<<<<< HEAD
-| **With extensions** | The translators of other systems: **File ▸ Open** of a file written for another rules system (for example Oracle Intelligent Advisor, Socotra, Blawx or Drools), and **File ▸ Export** of a program to such a system. The private example programs, including the programs these translators wrote from sources that may not be published. In the LPS editor, it also adds **Deploy as Solidity** and the Drools reader. |
-=======
 | **Logical English Translators** | The translators of other systems: **File ▸ Open** of a file written for another rules system (for example Oracle Intelligent Advisor, Socotra, Blawx or Drools), and **File ▸ Export** of a program to such a system. The **LE Contract Assistant**, which writes the first draft of a program from a contract, its schedules and its cases ([the assistants](assistants.md#the-contract-assistant)). The private example programs, including the programs these translators wrote from sources that may not be published. In the LPS editor, it also adds **Deploy as Solidity** and the Drools reader. |
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 | **InsurLE** | The InsurLE language extensions: a *which* in the conclusion of a rule, conditions introduced by *unless*, groups of conditions under *either*, *any of* or *all of*, and conditions numbered 1., 2., 3. It also adds InsurLE's own example programs. |
 
 A person may hold one licence, the other, or both. To obtain a licence,
@@ -54,11 +46,8 @@ contact Logical Contracts.
 
 - **File ▸ Open** accepts Logical English files only, and **File ▸ Export**
   offers no other systems.
-<<<<<<< HEAD
-=======
 - The Contract Assistant's page says which licence it belongs to, and offers
   to sign in.
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 - The private examples are not listed. A link to one of them sends you to the
   sign-in page, and then back to the example if your account holds the
   licence.

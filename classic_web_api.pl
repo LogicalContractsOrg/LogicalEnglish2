@@ -44,10 +44,6 @@
 :- use_module(le_scasp).
 :- use_module(le_lps).
 :- use_module(le_assistant).
-<<<<<<< HEAD
-:- use_module(le_contract_assistant).
-=======
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 :- use_module(dap_server).
 :- use_module(llm/llm_client, [llm_list_models/1]).
 :- use_module(llm/llm_prices, [llm_prices_start/0]).
@@ -137,14 +133,11 @@ visitor(Email, Caps) :-
 % page lacked).
 :- http_handler('/editor/', http_reply_from_files('editor', [headers([cache_control('no-cache')])]), [prefix]).
 :- http_handler('/web_extras/', http_reply_from_files('web_extras', [headers([cache_control('no-cache')])]), [prefix]).
-<<<<<<< HEAD
-=======
 % The Contract Assistant belongs to the Logical English Translators licence
 % (capability `contract_assistant`) and lives in the private lpsPlus
 % repository (contract_assistant/web/): its page is served, from there, to
 % those who hold the licence.
 :- http_handler('/web_extras/contract_assistant/', handle_contract_assistant_page, [prefix]).
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 :- http_handler('/editor', http_redirect(moved, '/editor/index.html'), []).
 
 %!  start_api_server is det.
@@ -169,13 +162,10 @@ start_api_server(Port) :-
     % Per-token model prices (LiteLLM's public table) for the Contract
     % Assistant's cost estimates: cached copy now, refresh in the background.
     llm_prices_start,
-<<<<<<< HEAD
-=======
     % The examples' search index (le_examples_search.pl) takes a few seconds
     % to build from the files; build it now, in the background, rather than
     % at the first visitor's first search.
     catch(thread_create(catch(le_examples_search:examples_index_size(_), _, true), _, [detached(true)]), _, true),
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     % Reclaim reasoning-session modules abandoned by the editor (reload on edit,
     % tab close, ...) so they don't accumulate in memory over time.
     le_kbs:start_session_reaper,
@@ -417,8 +407,6 @@ handle_landing_page(Request) :-
     uit('Documentation', DocumentationTxt),
     uit('Search the documentation', SearchDocsTxt),
     uit('Search', SearchTxt),
-<<<<<<< HEAD
-=======
     %  The examples' search, above the tree as the documentation's is above
     %  its links, and answered on this page: the panel of
     %  editor/examples-search.js (shared with the editor's "Open example from
@@ -428,7 +416,6 @@ handle_landing_page(Request) :-
     SearchExamplesForm = div([id('le-examples-search'), 'aria-label'(SearchExamplesTxt),
                               style('margin: 6px 0 10px; max-width: 54rem;')], []),
     landing_examples_search_script(SearchScript),
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     landing_doc_items(DocItems),
     %  The programs written in the other languages of Logical English, each
     %  language on a landing page of its own, and the guide to them.
@@ -466,12 +453,8 @@ handle_landing_page(Request) :-
                 a.folder-link:hover, a.folder-link.copied { opacity: 1; } \c
                 details.folder-target > summary { background: rgba(255, 200, 0, 0.25); }'),
          script([type('text/javascript')], FolderScript),
-<<<<<<< HEAD
-         script([type('text/javascript')], ReadmeScript)],
-=======
          script([type('text/javascript')], ReadmeScript),
          script([type('text/javascript')], SearchScript)],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         [
             AuthCorner,
             h1('Logical English 2.0'),
@@ -489,10 +472,7 @@ handle_landing_page(Request) :-
                         ')'
                     ]),
                     FocusNote,
-<<<<<<< HEAD
-=======
                     SearchExamplesForm,
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     ul(ExampleItems)
                 ]),
                 li([
@@ -555,8 +535,6 @@ handle_login(Request) :-
                         [h1(LoginTxt), p(NoAccounts), p(a(href('/'), 'Logical English'))])
     ).
 
-<<<<<<< HEAD
-=======
 %!  handle_contract_assistant_page(+Request) is det.
 %
 %   The Contract Assistant's web app (lpsPlus contract_assistant/web/), for a
@@ -591,7 +569,6 @@ handle_contract_assistant_page(Request) :-
                          p(a(href('/'), 'Logical English'))])
     ).
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 handle_logout(Request) :-
     safe_return(Request, Target),
     (   accounts_available
@@ -641,8 +618,6 @@ editor: "/editor/index.html?example=", viewer: "/executive?program=", programs: 
 source: "https://github.com/LogicalContractsOrg/LogicalEnglish2/blob/main/", about: ~w, close: ~w, copy: ~w, copied: ~w };~n~w',
            [AboutJs, CloseJs, CopyJs, CopiedJs, Panel]).
 
-<<<<<<< HEAD
-=======
 %!  landing_examples_search_script(-JS:atom) is det.
 %
 %   The examples' search panel (editor/examples-search.js, the same file as
@@ -669,7 +644,6 @@ landing_examples_search_script(JS) :-
 preview: { operation: "examples", param: "file", field: "document" }, open: "/editor/index.html?example=", \c
 boot: ["/le-wasm/config.js", "/le-wasm/boot.js"], labels: ~w };~n~w', [LabelsJs, Panel]).
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  landing_folders_script(-JS:atom) is det.
 %
 %   Client-side script (embedded inline in the landing pages) that makes the

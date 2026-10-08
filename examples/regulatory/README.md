@@ -12,10 +12,7 @@ language reference, §17; two large models apply them all to real regulation.
 - [sections_benefit.le, the rent decision](sections_benefit.le?view=rent%20decision&scenario=not_eligible) — a decision in three sections (does the rule apply, the question, the remedy), shown as a view with a draft letter.
 - [customs/](customs/) — customs classification of goods under the US tariff, on published rulings.
 - [medicare/](medicare/) — Medicare coverage of medical equipment, on claims and appeal decisions.
-<<<<<<< HEAD
-=======
 - [fema/](fema/) — an experiment: the US flood insurance policy for dwellings, drafted by the LE Contract Assistant from its web address, three schedules and seventeen claims, with the one rule we wrote by hand.
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 ## Try this
 
