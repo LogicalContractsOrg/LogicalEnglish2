@@ -1,0 +1,236 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382/a/3
+  summary: |-
+    Paragraph (3) sets the dollar amount referred to in paragraph (1)(B)(i) and paragraph (2)(B) at $2,250 before January 1, 1985, increasing to $3,000 on January 1, 1989; it sets the dollar amount referred to in paragraph (1)(B)(ii) at $1,500 before January 1, 1985, increasing to $2,000 on January 1, 1989.
+rules:
+  - name: resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(a)(3)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "shall be $2,250 prior to January 1, 1985"
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "prior to January 1, 1985"
+          - path: versions[1].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "increased to $2,400 on January 1, 1985"
+          - path: versions[1].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1985"
+          - path: versions[2].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $2,550 on January 1, 1986"
+          - path: versions[2].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1986"
+          - path: versions[3].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $2,700 on January 1, 1987"
+          - path: versions[3].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1987"
+          - path: versions[4].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $2,850 on January 1, 1988"
+          - path: versions[4].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1988"
+          - path: versions[5].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $3,000 on January 1, 1989"
+          - path: versions[5].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1989"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          2250
+      - effective_from: '1985-01-01'
+        formula: |-
+          2400
+      - effective_from: '1986-01-01'
+        formula: |-
+          2550
+      - effective_from: '1987-01-01'
+        formula: |-
+          2700
+      - effective_from: '1988-01-01'
+        formula: |-
+          2850
+      - effective_from: '1989-01-01'
+        formula: |-
+          3000
+
+  - name: resource_limit_amount_for_paragraph_1_B_ii
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(a)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "shall be $1,500 prior to January 1, 1985"
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "prior to January 1, 1985"
+          - path: versions[1].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "increased to $1,600 on January 1, 1985"
+          - path: versions[1].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1985"
+          - path: versions[2].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $1,700 on January 1, 1986"
+          - path: versions[2].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1986"
+          - path: versions[3].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $1,800 on January 1, 1987"
+          - path: versions[3].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1987"
+          - path: versions[4].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $1,900 on January 1, 1988"
+          - path: versions[4].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1988"
+          - path: versions[5].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "to $2,000 on January 1, 1989"
+          - path: versions[5].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "on January 1, 1989"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          1500
+      - effective_from: '1985-01-01'
+        formula: |-
+          1600
+      - effective_from: '1986-01-01'
+        formula: |-
+          1700
+      - effective_from: '1987-01-01'
+        formula: |-
+          1800
+      - effective_from: '1988-01-01'
+        formula: |-
+          1900
+      - effective_from: '1989-01-01'
+        formula: |-
+          2000
+
+  - name: couple_or_living_with_spouse_resource_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382(a)(3)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "The dollar amount referred to in clause (i) of paragraph (1)(B), and in paragraph (2)(B)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/a/3#resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B
+              output: resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B
+
+  - name: individual_no_spouse_resource_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382(a)(3)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/a/3
+              excerpt: "The dollar amount referred to in clause (ii) of paragraph (1)(B)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/a/3#resource_limit_amount_for_paragraph_1_B_ii
+              output: resource_limit_amount_for_paragraph_1_B_ii
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          resource_limit_amount_for_paragraph_1_B_ii

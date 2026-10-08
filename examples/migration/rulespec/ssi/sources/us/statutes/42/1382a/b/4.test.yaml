@@ -1,0 +1,85 @@
+- name: blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382a/b/4#input.individual_or_spouse_satisfies_blind_branch_status_condition: true
+    us:statutes/42/1382a/b/4#input.individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition: false
+    ? us:statutes/42/1382a/b/4#input.individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b
+    : false
+    us:statutes/42/1382a/b/4#input.earned_income_not_excluded_by_preceding_paragraphs: 1780
+    us:statutes/42/1382a/b/4#input.expenses_reasonably_attributable_to_earning_income: 300
+    us:statutes/42/1382a/b/4#input.individual_has_commissioner_approved_plan_for_achieving_self_support: true
+    us:statutes/42/1382a/b/4#input.other_income_amount_necessary_for_fulfillment_of_self_support_plan: 400
+    us:statutes/42/1382a/b/4#input.disability_work_expense_amount_necessary_and_within_commissioner_limits: 200
+  output:
+    us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded: 1280
+    us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded: 300
+    us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded: 400
+    us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded: 0
+    us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded: 0
+    us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded: 0
+- name: disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382a/b/4#input.individual_or_spouse_satisfies_blind_branch_status_condition: false
+    us:statutes/42/1382a/b/4#input.individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition: true
+    ? us:statutes/42/1382a/b/4#input.individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b
+    : false
+    us:statutes/42/1382a/b/4#input.earned_income_not_excluded_by_preceding_paragraphs: 1780
+    us:statutes/42/1382a/b/4#input.expenses_reasonably_attributable_to_earning_income: 300
+    us:statutes/42/1382a/b/4#input.individual_has_commissioner_approved_plan_for_achieving_self_support: true
+    us:statutes/42/1382a/b/4#input.other_income_amount_necessary_for_fulfillment_of_self_support_plan: 400
+    us:statutes/42/1382a/b/4#input.disability_work_expense_amount_necessary_and_within_commissioner_limits: 200
+  output:
+    us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded: 0
+    us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded: 0
+    us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded: 0
+    us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded: 1380
+    us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded: 400
+    us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded: 0
+- name: age_sixty_five_branch_excludes_initial_amount_and_half_remainder
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382a/b/4#input.individual_or_spouse_satisfies_blind_branch_status_condition: false
+    us:statutes/42/1382a/b/4#input.individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition: false
+    ? us:statutes/42/1382a/b/4#input.individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b
+    : true
+    us:statutes/42/1382a/b/4#input.earned_income_not_excluded_by_preceding_paragraphs: 1780
+    us:statutes/42/1382a/b/4#input.expenses_reasonably_attributable_to_earning_income: 300
+    us:statutes/42/1382a/b/4#input.individual_has_commissioner_approved_plan_for_achieving_self_support: false
+    us:statutes/42/1382a/b/4#input.other_income_amount_necessary_for_fulfillment_of_self_support_plan: 400
+    us:statutes/42/1382a/b/4#input.disability_work_expense_amount_necessary_and_within_commissioner_limits: 200
+  output:
+    us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded: 0
+    us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded: 0
+    us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded: 0
+    us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded: 0
+    us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded: 0
+    us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded: 1280
+- name: oracle_parameter_annual_earned_income_initial_exclusion_limit
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit: 780
+- name: oracle_parameter_earned_income_remainder_exclusion_rate
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate: 0.5

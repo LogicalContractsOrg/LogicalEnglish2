@@ -1,0 +1,178 @@
+format: rulespec/v1
+imports:
+  - us:statutes/26/151#exemption_individual_eligible
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/7703
+  summary: |-
+    (a) General rule For purposes of part V of subchapter B of chapter 1 and those provisions of this title which refer to this subsection— (1) the determination of whether an individual is married shall be made as of the close of his taxable year; except that if his spouse dies during his taxable year such determination shall be made as of the time of such death; and (2) an individual legally separated from his spouse under a decree of divorce or of separate maintenance shall not be considered as married.
+
+    (b) Certain married individuals living apart For purposes of those provisions of this title which refer to this subsection, if— (1) an individual who is married (within the meaning of subsection (a)) and who files a separate return maintains as his home a household which constitutes for more than one-half of the taxable year the principal place of abode of a child (within the meaning of section 152(f)(1)) with respect to whom such individual is entitled to a deduction for the taxable year under section 151 (or would be so entitled but for section 152(e)), (2) such individual furnishes over one-half of the cost of maintaining such household during the taxable year, and (3) during the last 6 months of the taxable year, such individual’s spouse is not a member of such household, such individual shall not be considered as married.
+rules:
+  - name: living_apart_child_of_tax_unit
+    kind: data_relation
+    data_relation:
+      predicate: living_apart_child_of_tax_unit
+      arity: 2
+      arguments:
+        - TaxUnit
+        - Person
+
+  - name: child_principal_abode_fraction_threshold
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 7703(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: constitutes for more than one-half of the taxable year the principal place of abode of a child
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          1 / 2
+
+  - name: household_cost_fraction_threshold
+    kind: parameter
+    dtype: Rate
+    source: 26 USC 7703(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: such individual furnishes over one-half of the cost of maintaining such household during the taxable year
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          1 / 2
+
+  - name: spouse_absence_period_months
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 7703(b)(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: during the last 6 months of the taxable year, such individual’s spouse is not a member of such household
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          6
+
+  - name: taxpayer_married_under_general_rule
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 7703(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: the determination of whether an individual is married shall be made as of the close of his taxable year; except that if his spouse dies during his taxable year such determination shall be made as of the time of such death
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: an individual legally separated from his spouse under a decree of divorce or of separate maintenance shall not be considered as married
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          (
+              (spouse_dies_during_taxable_year and taxpayer_married_at_time_of_spouse_death)
+              or (
+                  not spouse_dies_during_taxable_year
+                  and taxpayer_married_at_close_of_taxable_year
+              )
+          )
+          and not legally_separated_under_decree_of_divorce_or_separate_maintenance
+
+  - name: living_apart_child_has_required_abode_and_deduction
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 7703(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: a household which constitutes for more than one-half of the taxable year the principal place of abode of a child (within the meaning of section 152(f)(1)) with respect to whom such individual is entitled to a deduction for the taxable year under section 151 (or would be so entitled but for section 152(e))
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/151#exemption_individual_eligible
+              output: exemption_individual_eligible
+              hash: sha256:28fb0e7c50d48ad764ff1ddee8b654a18006fc3dde026034b4dfb6efb90a0fb2
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          person_is_child_within_federal_tax_child_definition
+          and taxpayer_household_is_child_principal_place_of_abode
+          and child_principal_abode_fraction_of_taxable_year > child_principal_abode_fraction_threshold
+          and (
+              exemption_individual_eligible
+              or would_be_entitled_to_child_deduction_but_for_parent_release_rule
+          )
+
+  - name: taxpayer_not_considered_married_when_living_apart
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 7703(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: if an individual who is married (within the meaning of subsection (a)) and who files a separate return maintains as his home a household ... such individual furnishes over one-half of the cost ... during the last 6 months ... such individual’s spouse is not a member of such household, such individual shall not be considered as married
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          taxpayer_married_under_general_rule
+          and taxpayer_files_separate_return
+          and taxpayer_maintains_household_as_home
+          and count_where(living_apart_child_of_tax_unit, living_apart_child_has_required_abode_and_deduction) > 0
+          and taxpayer_household_cost_fraction_furnished > household_cost_fraction_threshold
+          and spouse_not_member_of_household_final_month_count >= spouse_absence_period_months
+
+  - name: taxpayer_considered_married_after_living_apart_rule
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 7703(a), (b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/7703
+              text: an individual legally separated ... shall not be considered as married; if ... such individual shall not be considered as married
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          taxpayer_married_under_general_rule
+          and not taxpayer_not_considered_married_when_living_apart

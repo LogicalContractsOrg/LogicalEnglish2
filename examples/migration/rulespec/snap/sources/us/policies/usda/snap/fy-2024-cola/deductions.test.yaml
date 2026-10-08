@@ -1,0 +1,55 @@
+- name: standard_deduction_for_one_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/deductions#input.household_size: 1
+  output:
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_48_states_dc_table: 198
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_48_states_dc: 198
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction: 198
+- name: standard_deduction_for_five_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/deductions#input.household_size: 5
+  output:
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_48_states_dc_table: 244
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_48_states_dc: 244
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction: 244
+- name: regional_deduction_parameters_for_six_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/deductions#input.household_size: 6
+  output:
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_48_states_dc_table: 279
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_alaska_table: 349
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_guam_table: 558
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_hawaii_table: 321
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_virgin_islands_table: 279
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_maximum_excess_shelter_deduction_48_states_dc: 672
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_maximum_excess_shelter_deduction_alaska: 1073
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_maximum_excess_shelter_deduction_guam: 789
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_maximum_excess_shelter_deduction_hawaii: 905
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_maximum_excess_shelter_deduction_virgin_islands: 529
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_homeless_shelter_deduction: 179.66
+- name: standard_deduction_for_six_or_more_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/deductions#input.household_size: 7
+  output:
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction_48_states_dc: 279
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_standard_deduction: 279
+- name: asset_limit_for_household_with_elderly_or_disabled_member
+  period: 2024-01
+  input:
+    us:statutes/7/2012/j#relation.member_of_household:
+      - us:statutes/7/2012/j#input.snap_member_is_elderly_or_disabled: true
+  output:
+    us:statutes/7/2012/j#snap_household_has_elderly_or_disabled_member: holds
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_asset_limit_elderly_or_disabled_member: 4250
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_asset_limit: 4250
+- name: asset_limit_for_other_households
+  period: 2024-01
+  input: {}
+  output:
+    us:statutes/7/2012/j#snap_household_has_elderly_or_disabled_member: not_holds
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_asset_limit_other_households: 2750
+    us:policies/usda/snap/fy-2024-cola/deductions#snap_asset_limit: 2750

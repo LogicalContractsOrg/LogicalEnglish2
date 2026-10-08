@@ -1,0 +1,110 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+  summary: |-
+    Household income for purposes of the supplemental nutrition assistance program shall include all income from whatever source excluding only income in the certification period which is received too infrequently or irregularly to be reasonably anticipated, but not in excess of $30 in a quarter, and income earned by a child who is a member of the household, who is an elementary or secondary school student, and who is 17 years of age or younger.
+  deferred_outputs:
+    - output: us:statutes/7/2014/d#snap_excluded_income_under_subsection_d
+      reason: Subsection (d) excludes many income categories; this file encodes selected source-backed leaves only, while the full aggregate requires additional branch encodings and upstream classifications.
+    - output: us:statutes/7/2014/d#other_federal_law_exclusions_from_snap_income
+      reason: Paragraph (10) excludes income categories identified by other Federal laws, but those upstream Federal-law exclusion rules are not enumerated in this source slice.
+    - output: us:statutes/7/2014/d#advance_earned_income_credit_payments_excluded_from_snap_income
+      reason: Paragraph (13) excludes payments made under 26 USC 3507, but no copied RuleSpec source provides that upstream classification.
+    - output: us:statutes/7/2014/d#section_2015_or_section_2025_work_related_or_dependent_care_payments_excluded_from_snap_income
+      reason: Paragraph (14) depends on 7 USC 2015(d)(4)(I) and 7 USC 2025(h)(1)(F), which are not copied into the workspace.
+    - output: us:statutes/7/2014/d#state_optional_medicaid_and_tanf_aligned_exclusions_from_snap_income
+      reason: Paragraphs (16) through (18) depend on State-option treatment aligned to title XIX or section 1931 medical assistance and part A of title IV cash assistance classifications that are not encoded here.
+rules:
+  - name: irregular_income_quarter_cap
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 7 USC 2014(d)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "but not in excess of $30 in a quarter"
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          30
+
+  - name: irregular_income_excluded_from_snap_income
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(d)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "any income in the certification period which is received too infrequently or irregularly to be reasonably anticipated, but not in excess of $30 in a quarter"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/d#irregular_income_quarter_cap
+              output: irregular_income_quarter_cap
+              hash: sha256:local
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          if income_received_too_infrequently_or_irregularly_to_be_reasonably_anticipated:
+            min(irregular_income_amount_in_certification_period, irregular_income_quarter_cap)
+          else: 0
+
+  - name: student_child_income_age_limit
+    kind: parameter
+    dtype: Integer
+    source: 7 USC 2014(d)(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "17 years of age or younger"
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          17
+
+  - name: student_child_earned_income_excluded_from_snap_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(d)(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: "income earned by a child who is a member of the household, who is an elementary or secondary school student, and who is 17 years of age or younger"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/7/2014/d#student_child_income_age_limit
+              output: student_child_income_age_limit
+              hash: sha256:local
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          if person_is_child_member_of_household and person_is_elementary_or_secondary_school_student and person_age <= student_child_income_age_limit:
+            child_earned_income_amount
+          else: 0

@@ -7,12 +7,24 @@ var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __require = /* @__PURE__ */ ((x2) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x2, {
   get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
 }) : x2)(function(x2) {
+<<<<<<< HEAD
   if (typeof require !== "undefined")
     return require.apply(this, arguments);
   throw Error('Dynamic require of "' + x2 + '" is not supported');
 });
 var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+=======
+  if (typeof require !== "undefined") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x2 + '" is not supported');
+});
+var __commonJS = (cb, mod) => function __require2() {
+  try {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  } catch (e) {
+    throw mod = 0, e;
+  }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -46,7 +58,11 @@ var require_layout_base = __commonJS({
     })(exports, function() {
       return (
         /******/
+<<<<<<< HEAD
         function(modules2) {
+=======
+        (function(modules2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var installedModules = {};
           function __webpack_require__(moduleId) {
             if (installedModules[moduleId]) {
@@ -103,10 +119,17 @@ var require_layout_base = __commonJS({
           };
           __webpack_require__.p = "";
           return __webpack_require__(__webpack_require__.s = 28);
+<<<<<<< HEAD
         }([
           /* 0 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+        })([
+          /* 0 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function LayoutConstants() {
             }
@@ -128,10 +151,17 @@ var require_layout_base = __commonJS({
             LayoutConstants.WORLD_CENTER_X = 1200;
             LayoutConstants.WORLD_CENTER_Y = 900;
             module2.exports = LayoutConstants;
+<<<<<<< HEAD
           },
           /* 1 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 1 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LGraphObject = __webpack_require__(2);
             var IGeometry = __webpack_require__(8);
@@ -225,19 +255,33 @@ var require_layout_base = __commonJS({
               this.length = Math.sqrt(this.lengthX * this.lengthX + this.lengthY * this.lengthY);
             };
             module2.exports = LEdge;
+<<<<<<< HEAD
           },
           /* 2 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 2 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function LGraphObject(vGraphObject) {
               this.vGraphObject = vGraphObject;
             }
             module2.exports = LGraphObject;
+<<<<<<< HEAD
           },
           /* 3 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 3 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LGraphObject = __webpack_require__(2);
             var Integer = __webpack_require__(10);
@@ -250,17 +294,26 @@ var require_layout_base = __commonJS({
                 vNode = loc;
               }
               LGraphObject.call(this, vNode);
+<<<<<<< HEAD
               if (gm.graphManager != null)
                 gm = gm.graphManager;
+=======
+              if (gm.graphManager != null) gm = gm.graphManager;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               this.estimatedSize = Integer.MIN_VALUE;
               this.inclusionTreeDepth = Integer.MAX_VALUE;
               this.vGraphObject = vNode;
               this.edges = [];
               this.graphManager = gm;
+<<<<<<< HEAD
               if (size3 != null && loc != null)
                 this.rect = new RectangleD(loc.x, loc.y, size3.width, size3.height);
               else
                 this.rect = new RectangleD();
+=======
+              if (size3 != null && loc != null) this.rect = new RectangleD(loc.x, loc.y, size3.width, size3.height);
+              else this.rect = new RectangleD();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             LNode.prototype = Object.create(LGraphObject.prototype);
             for (var prop in LGraphObject) {
@@ -332,8 +385,12 @@ var require_layout_base = __commonJS({
               var self2 = this;
               self2.edges.forEach(function(edge2) {
                 if (edge2.target == to) {
+<<<<<<< HEAD
                   if (edge2.source != self2)
                     throw "Incorrect edge source!";
+=======
+                  if (edge2.source != self2) throw "Incorrect edge source!";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   edgeList.push(edge2);
                 }
               });
@@ -344,8 +401,12 @@ var require_layout_base = __commonJS({
               var edge;
               var self2 = this;
               self2.edges.forEach(function(edge2) {
+<<<<<<< HEAD
                 if (!(edge2.source == self2 || edge2.target == self2))
                   throw "Incorrect edge source and/or target";
+=======
+                if (!(edge2.source == self2 || edge2.target == self2)) throw "Incorrect edge source and/or target";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 if (edge2.target == other || edge2.source == other) {
                   edgeList.push(edge2);
                 }
@@ -374,8 +435,13 @@ var require_layout_base = __commonJS({
               withNeighborsList.add(this);
               if (this.child != null) {
                 var nodes3 = this.child.getNodes();
+<<<<<<< HEAD
                 for (var i = 0; i < nodes3.length; i++) {
                   childNode = nodes3[i];
+=======
+                for (var i2 = 0; i2 < nodes3.length; i2++) {
+                  childNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   children = childNode.withChildren();
                   children.forEach(function(node) {
                     withNeighborsList.add(node);
@@ -391,8 +457,13 @@ var require_layout_base = __commonJS({
                 noOfChildren = 1;
               } else {
                 var nodes3 = this.child.getNodes();
+<<<<<<< HEAD
                 for (var i = 0; i < nodes3.length; i++) {
                   childNode = nodes3[i];
+=======
+                for (var i2 = 0; i2 < nodes3.length; i2++) {
+                  childNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   noOfChildren += childNode.getNoOfChildren();
                 }
               }
@@ -510,10 +581,17 @@ var require_layout_base = __commonJS({
               return this.owner.getParent();
             };
             module2.exports = LNode;
+<<<<<<< HEAD
           },
           /* 4 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 4 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LayoutConstants = __webpack_require__(0);
             function FDLayoutConstants() {
@@ -543,10 +621,17 @@ var require_layout_base = __commonJS({
             FDLayoutConstants.MIN_EDGE_LENGTH = 1;
             FDLayoutConstants.GRID_CALCULATION_CHECK_PERIOD = 10;
             module2.exports = FDLayoutConstants;
+<<<<<<< HEAD
           },
           /* 5 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 5 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function PointD(x2, y2) {
               if (x2 == null && y2 == null) {
@@ -581,10 +666,17 @@ var require_layout_base = __commonJS({
               return this;
             };
             module2.exports = PointD;
+<<<<<<< HEAD
           },
           /* 6 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 6 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LGraphObject = __webpack_require__(2);
             var Integer = __webpack_require__(10);
@@ -689,8 +781,13 @@ var require_layout_base = __commonJS({
                 var edgesToBeRemoved = node.edges.slice();
                 var edge;
                 var s = edgesToBeRemoved.length;
+<<<<<<< HEAD
                 for (var i = 0; i < s; i++) {
                   edge = edgesToBeRemoved[i];
+=======
+                for (var i2 = 0; i2 < s; i2++) {
+                  edge = edgesToBeRemoved[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   if (edge.isInterGraph) {
                     this.graphManager.remove(edge);
                   } else {
@@ -737,8 +834,13 @@ var require_layout_base = __commonJS({
               var margin;
               var nodes3 = this.getNodes();
               var s = nodes3.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 var lNode = nodes3[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                var lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 nodeTop = lNode.getTop();
                 nodeLeft = lNode.getLeft();
                 if (top > nodeTop) {
@@ -772,8 +874,13 @@ var require_layout_base = __commonJS({
               var margin;
               var nodes3 = this.nodes;
               var s = nodes3.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 var lNode = nodes3[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                var lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 if (recursive && lNode.child != null) {
                   lNode.updateBounds();
                 }
@@ -821,8 +928,13 @@ var require_layout_base = __commonJS({
               var nodeTop;
               var nodeBottom;
               var s = nodes3.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 var lNode = nodes3[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                var lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 nodeLeft = lNode.getLeft();
                 nodeRight = lNode.getRight();
                 nodeTop = lNode.getTop();
@@ -860,8 +972,13 @@ var require_layout_base = __commonJS({
               var size3 = 0;
               var nodes3 = this.nodes;
               var s = nodes3.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 var lNode = nodes3[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                var lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 size3 += lNode.calcEstimatedSize();
               }
               if (size3 == 0) {
@@ -891,8 +1008,13 @@ var require_layout_base = __commonJS({
                 currentNode = queue.shift();
                 neighborEdges = currentNode.getEdges();
                 var size3 = neighborEdges.length;
+<<<<<<< HEAD
                 for (var i = 0; i < size3; i++) {
                   var neighborEdge = neighborEdges[i];
+=======
+                for (var i2 = 0; i2 < size3; i2++) {
+                  var neighborEdge = neighborEdges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   currentNeighbor = neighborEdge.getOtherEndInGraph(currentNode, this);
                   if (currentNeighbor != null && !visited.has(currentNeighbor)) {
                     var childrenOfNeighbor = currentNeighbor.withChildren();
@@ -917,10 +1039,17 @@ var require_layout_base = __commonJS({
               }
             };
             module2.exports = LGraph;
+<<<<<<< HEAD
           },
           /* 7 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 7 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LGraph;
             var LEdge = __webpack_require__(1);
@@ -1006,16 +1135,26 @@ var require_layout_base = __commonJS({
                 edgesToBeRemoved = edgesToBeRemoved.concat(graph.getEdges());
                 var edge;
                 var s = edgesToBeRemoved.length;
+<<<<<<< HEAD
                 for (var i = 0; i < s; i++) {
                   edge = edgesToBeRemoved[i];
+=======
+                for (var i2 = 0; i2 < s; i2++) {
+                  edge = edgesToBeRemoved[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   graph.remove(edge);
                 }
                 var nodesToBeRemoved = [];
                 nodesToBeRemoved = nodesToBeRemoved.concat(graph.getNodes());
                 var node;
                 s = nodesToBeRemoved.length;
+<<<<<<< HEAD
                 for (var i = 0; i < s; i++) {
                   node = nodesToBeRemoved[i];
+=======
+                for (var i2 = 0; i2 < s; i2++) {
+                  node = nodesToBeRemoved[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   graph.remove(node);
                 }
                 if (graph == this.rootGraph) {
@@ -1063,8 +1202,13 @@ var require_layout_base = __commonJS({
                 var nodeList = [];
                 var graphs = this.getGraphs();
                 var s = graphs.length;
+<<<<<<< HEAD
                 for (var i = 0; i < s; i++) {
                   nodeList = nodeList.concat(graphs[i].getNodes());
+=======
+                for (var i2 = 0; i2 < s; i2++) {
+                  nodeList = nodeList.concat(graphs[i2].getNodes());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 this.allNodes = nodeList;
               }
@@ -1084,8 +1228,13 @@ var require_layout_base = __commonJS({
                 var edgeList = [];
                 var graphs = this.getGraphs();
                 var s = graphs.length;
+<<<<<<< HEAD
                 for (var i = 0; i < graphs.length; i++) {
                   edgeList = edgeList.concat(graphs[i].getEdges());
+=======
+                for (var i2 = 0; i2 < graphs.length; i2++) {
+                  edgeList = edgeList.concat(graphs[i2].getEdges());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 edgeList = edgeList.concat(this.edges);
                 this.allEdges = edgeList;
@@ -1162,8 +1311,13 @@ var require_layout_base = __commonJS({
               var targetAncestorGraph;
               var edges3 = this.getAllEdges();
               var s = edges3.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 edge = edges3[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                edge = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 sourceNode = edge.source;
                 targetNode = edge.target;
                 edge.lca = null;
@@ -1235,8 +1389,13 @@ var require_layout_base = __commonJS({
               var node;
               var nodes3 = graph.getNodes();
               var s = nodes3.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 node = nodes3[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 node.inclusionTreeDepth = depth;
                 if (node.child != null) {
                   this.calcInclusionTreeDepths(node.child, depth + 1);
@@ -1247,22 +1406,39 @@ var require_layout_base = __commonJS({
               var edge;
               var edgesToRemove = [];
               var s = this.edges.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 edge = this.edges[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                edge = this.edges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 if (this.isOneAncestorOfOther(edge.source, edge.target)) {
                   edgesToRemove.push(edge);
                 }
               }
+<<<<<<< HEAD
               for (var i = 0; i < edgesToRemove.length; i++) {
                 this.remove(edgesToRemove[i]);
+=======
+              for (var i2 = 0; i2 < edgesToRemove.length; i2++) {
+                this.remove(edgesToRemove[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return false;
             };
             module2.exports = LGraphManager;
+<<<<<<< HEAD
           },
           /* 8 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 8 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var Point2 = __webpack_require__(12);
             function IGeometry() {
@@ -1588,18 +1764,29 @@ var require_layout_base = __commonJS({
                   return [t2];
                 }
                 return intersections;
+<<<<<<< HEAD
               } else
                 return null;
+=======
+              } else return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             IGeometry.HALF_PI = 0.5 * Math.PI;
             IGeometry.ONE_AND_HALF_PI = 1.5 * Math.PI;
             IGeometry.TWO_PI = 2 * Math.PI;
             IGeometry.THREE_PI = 3 * Math.PI;
             module2.exports = IGeometry;
+<<<<<<< HEAD
           },
           /* 9 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 9 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function IMath() {
             }
@@ -1619,16 +1806,24 @@ var require_layout_base = __commonJS({
               return value < 0 ? Math.floor(value) : Math.ceil(value);
             };
             module2.exports = IMath;
+<<<<<<< HEAD
           },
           /* 10 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 10 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function Integer() {
             }
             Integer.MAX_VALUE = 2147483647;
             Integer.MIN_VALUE = -2147483648;
             module2.exports = Integer;
+<<<<<<< HEAD
           },
           /* 11 */
           /***/
@@ -1642,10 +1837,25 @@ var require_layout_base = __commonJS({
                   descriptor.configurable = true;
                   if ("value" in descriptor)
                     descriptor.writable = true;
+=======
+          }),
+          /* 11 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+            "use strict";
+            var _createClass2 = /* @__PURE__ */ (function() {
+              function defineProperties(target, props) {
+                for (var i2 = 0; i2 < props.length; i2++) {
+                  var descriptor = props[i2];
+                  descriptor.enumerable = descriptor.enumerable || false;
+                  descriptor.configurable = true;
+                  if ("value" in descriptor) descriptor.writable = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   Object.defineProperty(target, descriptor.key, descriptor);
                 }
               }
               return function(Constructor, protoProps, staticProps) {
+<<<<<<< HEAD
                 if (protoProps)
                   defineProperties(Constructor.prototype, protoProps);
                 if (staticProps)
@@ -1653,6 +1863,13 @@ var require_layout_base = __commonJS({
                 return Constructor;
               };
             }();
+=======
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+              };
+            })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             function _classCallCheck2(instance2, Constructor) {
               if (!(instance2 instanceof Constructor)) {
                 throw new TypeError("Cannot call a class as a function");
@@ -1693,7 +1910,11 @@ var require_layout_base = __commonJS({
               list.length--;
               return node;
             };
+<<<<<<< HEAD
             var LinkedList = function() {
+=======
+            var LinkedList = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               function LinkedList2(vals) {
                 var _this = this;
                 _classCallCheck2(this, LinkedList2);
@@ -1770,11 +1991,19 @@ var require_layout_base = __commonJS({
                 key: "get_object_at",
                 value: function get_object_at(index) {
                   if (index <= this.length()) {
+<<<<<<< HEAD
                     var i = 1;
                     var current = this.head;
                     while (i < index) {
                       current = current.next;
                       i++;
+=======
+                    var i2 = 1;
+                    var current = this.head;
+                    while (i2 < index) {
+                      current = current.next;
+                      i2++;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     return current.value;
                   }
@@ -1783,23 +2012,40 @@ var require_layout_base = __commonJS({
                 key: "set_object_at",
                 value: function set_object_at(index, value) {
                   if (index <= this.length()) {
+<<<<<<< HEAD
                     var i = 1;
                     var current = this.head;
                     while (i < index) {
                       current = current.next;
                       i++;
+=======
+                    var i2 = 1;
+                    var current = this.head;
+                    while (i2 < index) {
+                      current = current.next;
+                      i2++;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     current.value = value;
                   }
                 }
               }]);
               return LinkedList2;
+<<<<<<< HEAD
             }();
             module2.exports = LinkedList;
           },
           /* 12 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+            })();
+            module2.exports = LinkedList;
+          }),
+          /* 12 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function Point2(x2, y2, p2) {
               this.x = null;
@@ -1857,10 +2103,17 @@ var require_layout_base = __commonJS({
               return new Point2().constructor.name + "[x=" + this.x + ",y=" + this.y + "]";
             };
             module2.exports = Point2;
+<<<<<<< HEAD
           },
           /* 13 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 13 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function RectangleD(x2, y2, width2, height2) {
               this.x = 0;
@@ -1944,10 +2197,17 @@ var require_layout_base = __commonJS({
               return this.height / 2;
             };
             module2.exports = RectangleD;
+<<<<<<< HEAD
           },
           /* 14 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 14 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
               return typeof obj;
@@ -1969,8 +2229,12 @@ var require_layout_base = __commonJS({
               return obj.uniqueID;
             };
             UniqueIDGeneretor.getString = function(id2) {
+<<<<<<< HEAD
               if (id2 == null)
                 id2 = UniqueIDGeneretor.lastID;
+=======
+              if (id2 == null) id2 = UniqueIDGeneretor.lastID;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return "Object#" + id2;
             };
             UniqueIDGeneretor.isPrimitive = function(arg) {
@@ -1978,6 +2242,7 @@ var require_layout_base = __commonJS({
               return arg == null || type != "object" && type != "function";
             };
             module2.exports = UniqueIDGeneretor;
+<<<<<<< HEAD
           },
           /* 15 */
           /***/
@@ -1987,6 +2252,17 @@ var require_layout_base = __commonJS({
               if (Array.isArray(arr)) {
                 for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
                   arr2[i] = arr[i];
+=======
+          }),
+          /* 15 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+            "use strict";
+            function _toConsumableArray2(arr) {
+              if (Array.isArray(arr)) {
+                for (var i2 = 0, arr2 = Array(arr.length); i2 < arr.length; i2++) {
+                  arr2[i2] = arr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 return arr2;
               } else {
@@ -2090,6 +2366,7 @@ var require_layout_base = __commonJS({
               if (!this.isRemoteUse) {
                 var edge;
                 var allEdges = this.graphManager.getAllEdges();
+<<<<<<< HEAD
                 for (var i = 0; i < allEdges.length; i++) {
                   edge = allEdges[i];
                 }
@@ -2097,6 +2374,15 @@ var require_layout_base = __commonJS({
                 var nodes3 = this.graphManager.getRoot().getNodes();
                 for (var i = 0; i < nodes3.length; i++) {
                   node = nodes3[i];
+=======
+                for (var i2 = 0; i2 < allEdges.length; i2++) {
+                  edge = allEdges[i2];
+                }
+                var node;
+                var nodes3 = this.graphManager.getRoot().getNodes();
+                for (var i2 = 0; i2 < nodes3.length; i2++) {
+                  node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 this.update(this.graphManager.getRoot());
               }
@@ -2108,8 +2394,13 @@ var require_layout_base = __commonJS({
                 var node = obj;
                 if (node.getChild() != null) {
                   var nodes3 = node.getChild().getNodes();
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     update(nodes3[i]);
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    update(nodes3[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
                 if (node.vGraphObject != null) {
@@ -2157,8 +2448,13 @@ var require_layout_base = __commonJS({
                   trans.setDeviceOrgY(leftTop.y);
                   var nodes3 = this.getAllNodes();
                   var node;
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     node = nodes3[i];
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     node.transform(trans);
                   }
                 }
@@ -2172,8 +2468,13 @@ var require_layout_base = __commonJS({
                 var lNode;
                 var childGraph;
                 var nodes3 = graph.getNodes();
+<<<<<<< HEAD
                 for (var i = 0; i < nodes3.length; i++) {
                   lNode = nodes3[i];
+=======
+                for (var i2 = 0; i2 < nodes3.length; i2++) {
+                  lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   childGraph = lNode.getChild();
                   if (childGraph == null) {
                     lNode.scatter();
@@ -2191,8 +2492,13 @@ var require_layout_base = __commonJS({
               var isForest = true;
               var allNodes = this.graphManager.getRoot().getNodes();
               var isFlat = true;
+<<<<<<< HEAD
               for (var i = 0; i < allNodes.length; i++) {
                 if (allNodes[i].getChild() != null) {
+=======
+              for (var i2 = 0; i2 < allNodes.length; i2++) {
+                if (allNodes[i2].getChild() != null) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   isFlat = false;
                 }
               }
@@ -2211,8 +2517,13 @@ var require_layout_base = __commonJS({
                   toBeVisited.splice(0, 1);
                   visited.add(currentNode);
                   var neighborEdges = currentNode.getEdges();
+<<<<<<< HEAD
                   for (var i = 0; i < neighborEdges.length; i++) {
                     var currentNeighbor = neighborEdges[i].getOtherEnd(currentNode);
+=======
+                  for (var i2 = 0; i2 < neighborEdges.length; i2++) {
+                    var currentNeighbor = neighborEdges[i2].getOtherEnd(currentNode);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (parents2.get(currentNode) != currentNeighbor) {
                       if (!visited.has(currentNeighbor)) {
                         toBeVisited.push(currentNeighbor);
@@ -2229,8 +2540,13 @@ var require_layout_base = __commonJS({
                 } else {
                   var temp = [].concat(_toConsumableArray2(visited));
                   flatForest.push(temp);
+<<<<<<< HEAD
                   for (var i = 0; i < temp.length; i++) {
                     var value = temp[i];
+=======
+                  for (var i2 = 0; i2 < temp.length; i2++) {
+                    var value = temp[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var index = unProcessedNodes.indexOf(value);
                     if (index > -1) {
                       unProcessedNodes.splice(index, 1);
@@ -2246,7 +2562,11 @@ var require_layout_base = __commonJS({
               var dummyNodes = [];
               var prev = edge.source;
               var graph = this.graphManager.calcLowestCommonAncestor(edge.source, edge.target);
+<<<<<<< HEAD
               for (var i = 0; i < edge.bendpoints.length; i++) {
+=======
+              for (var i2 = 0; i2 < edge.bendpoints.length; i2++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var dummyNode = this.newNode(null);
                 dummyNode.setRect(new Point(0, 0), new Dimension(1, 1));
                 graph.add(dummyNode);
@@ -2273,10 +2593,17 @@ var require_layout_base = __commonJS({
                 var lEdge = edges3[k];
                 if (lEdge.bendpoints.length > 0) {
                   var path = this.edgeToDummyNodes.get(lEdge);
+<<<<<<< HEAD
                   for (var i = 0; i < path.length; i++) {
                     var dummyNode = path[i];
                     var p2 = new PointD(dummyNode.getCenterX(), dummyNode.getCenterY());
                     var ebp = lEdge.bendpoints.get(i);
+=======
+                  for (var i2 = 0; i2 < path.length; i2++) {
+                    var dummyNode = path[i2];
+                    var p2 = new PointD(dummyNode.getCenterX(), dummyNode.getCenterY());
+                    var ebp = lEdge.bendpoints.get(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     ebp.x = p2.x;
                     ebp.y = p2.y;
                     dummyNode.getOwner().remove(dummyNode);
@@ -2319,8 +2646,13 @@ var require_layout_base = __commonJS({
                 foundCenter = true;
                 centerNode = list[0];
               }
+<<<<<<< HEAD
               for (var i = 0; i < list.length; i++) {
                 var node = list[i];
+=======
+              for (var i2 = 0; i2 < list.length; i2++) {
+                var node = list[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var degree = node.getNeighborsList().size;
                 remainingDegrees.set(node, node.getNeighborsList().size);
                 if (degree == 1) {
@@ -2333,8 +2665,13 @@ var require_layout_base = __commonJS({
                 var tempList2 = [];
                 tempList2 = tempList2.concat(tempList);
                 tempList = [];
+<<<<<<< HEAD
                 for (var i = 0; i < list.length; i++) {
                   var node = list[i];
+=======
+                for (var i2 = 0; i2 < list.length; i2++) {
+                  var node = list[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   var index = list.indexOf(node);
                   if (index >= 0) {
                     list.splice(index, 1);
@@ -2363,10 +2700,17 @@ var require_layout_base = __commonJS({
               this.graphManager = gm;
             };
             module2.exports = Layout2;
+<<<<<<< HEAD
           },
           /* 16 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 16 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function RandomSeed() {
             }
@@ -2377,10 +2721,17 @@ var require_layout_base = __commonJS({
               return RandomSeed.x - Math.floor(RandomSeed.x);
             };
             module2.exports = RandomSeed;
+<<<<<<< HEAD
           },
           /* 17 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 17 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var PointD = __webpack_require__(5);
             function Transform(x2, y2) {
@@ -2478,6 +2829,7 @@ var require_layout_base = __commonJS({
               return outPoint;
             };
             module2.exports = Transform;
+<<<<<<< HEAD
           },
           /* 18 */
           /***/
@@ -2487,6 +2839,17 @@ var require_layout_base = __commonJS({
               if (Array.isArray(arr)) {
                 for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
                   arr2[i] = arr[i];
+=======
+          }),
+          /* 18 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+            "use strict";
+            function _toConsumableArray2(arr) {
+              if (Array.isArray(arr)) {
+                for (var i2 = 0, arr2 = Array(arr.length); i2 < arr.length; i2++) {
+                  arr2[i2] = arr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 return arr2;
               } else {
@@ -2532,8 +2895,13 @@ var require_layout_base = __commonJS({
               var sizeOfSourceInLca;
               var sizeOfTargetInLca;
               var allEdges = this.getGraphManager().getAllEdges();
+<<<<<<< HEAD
               for (var i = 0; i < allEdges.length; i++) {
                 edge = allEdges[i];
+=======
+              for (var i2 = 0; i2 < allEdges.length; i2++) {
+                edge = allEdges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 originalIdealLength = edge.idealLength;
                 if (edge.isInterGraph) {
                   source = edge.getSource();
@@ -2572,15 +2940,24 @@ var require_layout_base = __commonJS({
             FDLayout.prototype.calcSpringForces = function() {
               var lEdges = this.getAllEdges();
               var edge;
+<<<<<<< HEAD
               for (var i = 0; i < lEdges.length; i++) {
                 edge = lEdges[i];
+=======
+              for (var i2 = 0; i2 < lEdges.length; i2++) {
+                edge = lEdges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 this.calcSpringForce(edge, edge.idealLength);
               }
             };
             FDLayout.prototype.calcRepulsionForces = function() {
               var gridUpdateAllowed = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : true;
               var forceToNodeSurroundingUpdate = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
+<<<<<<< HEAD
               var i, j;
+=======
+              var i2, j;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               var nodeA, nodeB;
               var lNodes = this.getAllNodes();
               var processedNodeSet;
@@ -2589,15 +2966,26 @@ var require_layout_base = __commonJS({
                   this.updateGrid();
                 }
                 processedNodeSet = /* @__PURE__ */ new Set();
+<<<<<<< HEAD
                 for (i = 0; i < lNodes.length; i++) {
                   nodeA = lNodes[i];
+=======
+                for (i2 = 0; i2 < lNodes.length; i2++) {
+                  nodeA = lNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   this.calculateRepulsionForceOfANode(nodeA, processedNodeSet, gridUpdateAllowed, forceToNodeSurroundingUpdate);
                   processedNodeSet.add(nodeA);
                 }
               } else {
+<<<<<<< HEAD
                 for (i = 0; i < lNodes.length; i++) {
                   nodeA = lNodes[i];
                   for (j = i + 1; j < lNodes.length; j++) {
+=======
+                for (i2 = 0; i2 < lNodes.length; i2++) {
+                  nodeA = lNodes[i2];
+                  for (j = i2 + 1; j < lNodes.length; j++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     nodeB = lNodes[j];
                     if (nodeA.getOwner() != nodeB.getOwner()) {
                       continue;
@@ -2610,16 +2998,26 @@ var require_layout_base = __commonJS({
             FDLayout.prototype.calcGravitationalForces = function() {
               var node;
               var lNodes = this.getAllNodesToApplyGravitation();
+<<<<<<< HEAD
               for (var i = 0; i < lNodes.length; i++) {
                 node = lNodes[i];
+=======
+              for (var i2 = 0; i2 < lNodes.length; i2++) {
+                node = lNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 this.calcGravitationalForce(node);
               }
             };
             FDLayout.prototype.moveNodes = function() {
               var lNodes = this.getAllNodes();
               var node;
+<<<<<<< HEAD
               for (var i = 0; i < lNodes.length; i++) {
                 node = lNodes[i];
+=======
+              for (var i2 = 0; i2 < lNodes.length; i2++) {
+                node = lNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 node.move();
               }
             };
@@ -2639,8 +3037,12 @@ var require_layout_base = __commonJS({
                 }
               }
               length = edge.getLength();
+<<<<<<< HEAD
               if (length == 0)
                 return;
+=======
+              if (length == 0) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               springForce = edge.edgeElasticity * (length - idealLength);
               springForceX = springForce * (edge.lengthX / length);
               springForceY = springForce * (edge.lengthY / length);
@@ -2749,8 +3151,13 @@ var require_layout_base = __commonJS({
             FDLayout.prototype.calcNoOfChildrenForAllNodes = function() {
               var node;
               var allNodes = this.graphManager.getAllNodes();
+<<<<<<< HEAD
               for (var i = 0; i < allNodes.length; i++) {
                 node = allNodes[i];
+=======
+              for (var i2 = 0; i2 < allNodes.length; i2++) {
+                node = allNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 node.noOfChildren = node.getNoOfChildren();
               }
             };
@@ -2760,12 +3167,21 @@ var require_layout_base = __commonJS({
               sizeX = parseInt(Math.ceil((graph.getRight() - graph.getLeft()) / this.repulsionRange));
               sizeY = parseInt(Math.ceil((graph.getBottom() - graph.getTop()) / this.repulsionRange));
               var grid = new Array(sizeX);
+<<<<<<< HEAD
               for (var i = 0; i < sizeX; i++) {
                 grid[i] = new Array(sizeY);
               }
               for (var i = 0; i < sizeX; i++) {
                 for (var j = 0; j < sizeY; j++) {
                   grid[i][j] = new Array();
+=======
+              for (var i2 = 0; i2 < sizeX; i2++) {
+                grid[i2] = new Array(sizeY);
+              }
+              for (var i2 = 0; i2 < sizeX; i2++) {
+                for (var j = 0; j < sizeY; j++) {
+                  grid[i2][j] = new Array();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return grid;
@@ -2779,20 +3195,35 @@ var require_layout_base = __commonJS({
               finishX = parseInt(Math.floor((v.getRect().width + v.getRect().x - left) / this.repulsionRange));
               startY2 = parseInt(Math.floor((v.getRect().y - top) / this.repulsionRange));
               finishY = parseInt(Math.floor((v.getRect().height + v.getRect().y - top) / this.repulsionRange));
+<<<<<<< HEAD
               for (var i = startX2; i <= finishX; i++) {
                 for (var j = startY2; j <= finishY; j++) {
                   this.grid[i][j].push(v);
+=======
+              for (var i2 = startX2; i2 <= finishX; i2++) {
+                for (var j = startY2; j <= finishY; j++) {
+                  this.grid[i2][j].push(v);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   v.setGridCoordinates(startX2, finishX, startY2, finishY);
                 }
               }
             };
             FDLayout.prototype.updateGrid = function() {
+<<<<<<< HEAD
               var i;
               var nodeA;
               var lNodes = this.getAllNodes();
               this.grid = this.calcGrid(this.graphManager.getRoot());
               for (i = 0; i < lNodes.length; i++) {
                 nodeA = lNodes[i];
+=======
+              var i2;
+              var nodeA;
+              var lNodes = this.getAllNodes();
+              this.grid = this.calcGrid(this.graphManager.getRoot());
+              for (i2 = 0; i2 < lNodes.length; i2++) {
+                nodeA = lNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 this.addNodeToGrid(nodeA, this.graphManager.getRoot().getLeft(), this.graphManager.getRoot().getTop());
               }
             };
@@ -2802,11 +3233,19 @@ var require_layout_base = __commonJS({
                 nodeA.surrounding = new Array();
                 var nodeB;
                 var grid = this.grid;
+<<<<<<< HEAD
                 for (var i = nodeA.startX - 1; i < nodeA.finishX + 2; i++) {
                   for (var j = nodeA.startY - 1; j < nodeA.finishY + 2; j++) {
                     if (!(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length)) {
                       for (var k = 0; k < grid[i][j].length; k++) {
                         nodeB = grid[i][j][k];
+=======
+                for (var i2 = nodeA.startX - 1; i2 < nodeA.finishX + 2; i2++) {
+                  for (var j = nodeA.startY - 1; j < nodeA.finishY + 2; j++) {
+                    if (!(i2 < 0 || j < 0 || i2 >= grid.length || j >= grid[0].length)) {
+                      for (var k = 0; k < grid[i2][j].length; k++) {
+                        nodeB = grid[i2][j][k];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         if (nodeA.getOwner() != nodeB.getOwner() || nodeA == nodeB) {
                           continue;
                         }
@@ -2823,18 +3262,30 @@ var require_layout_base = __commonJS({
                 }
                 nodeA.surrounding = [].concat(_toConsumableArray2(surrounding));
               }
+<<<<<<< HEAD
               for (i = 0; i < nodeA.surrounding.length; i++) {
                 this.calcRepulsionForce(nodeA, nodeA.surrounding[i]);
+=======
+              for (i2 = 0; i2 < nodeA.surrounding.length; i2++) {
+                this.calcRepulsionForce(nodeA, nodeA.surrounding[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             FDLayout.prototype.calcRepulsionRange = function() {
               return 0;
             };
             module2.exports = FDLayout;
+<<<<<<< HEAD
           },
           /* 19 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 19 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LEdge = __webpack_require__(1);
             var FDLayoutConstants = __webpack_require__(4);
@@ -2848,10 +3299,17 @@ var require_layout_base = __commonJS({
               FDLayoutEdge[prop] = LEdge[prop];
             }
             module2.exports = FDLayoutEdge;
+<<<<<<< HEAD
           },
           /* 20 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 20 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var LNode = __webpack_require__(3);
             var FDLayoutConstants = __webpack_require__(4);
@@ -2883,10 +3341,17 @@ var require_layout_base = __commonJS({
               this.finishY = _finishY;
             };
             module2.exports = FDLayoutNode;
+<<<<<<< HEAD
           },
           /* 21 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 21 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function DimensionD2(width2, height2) {
               this.width = 0;
@@ -2909,10 +3374,17 @@ var require_layout_base = __commonJS({
               this.height = height2;
             };
             module2.exports = DimensionD2;
+<<<<<<< HEAD
           },
           /* 22 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 22 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var UniqueIDGeneretor = __webpack_require__(14);
             function HashMap() {
@@ -2938,10 +3410,17 @@ var require_layout_base = __commonJS({
               return this.keys;
             };
             module2.exports = HashMap;
+<<<<<<< HEAD
           },
           /* 23 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 23 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var UniqueIDGeneretor = __webpack_require__(14);
             function HashSet() {
@@ -2950,8 +3429,12 @@ var require_layout_base = __commonJS({
             ;
             HashSet.prototype.add = function(obj) {
               var theId = UniqueIDGeneretor.createID(obj);
+<<<<<<< HEAD
               if (!this.contains(theId))
                 this.set[theId] = obj;
+=======
+              if (!this.contains(theId)) this.set[theId] = obj;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             HashSet.prototype.remove = function(obj) {
               delete this.set[UniqueIDGeneretor.createID(obj)];
@@ -2971,8 +3454,13 @@ var require_layout_base = __commonJS({
             HashSet.prototype.addAllTo = function(list) {
               var keys = Object.keys(this.set);
               var length = keys.length;
+<<<<<<< HEAD
               for (var i = 0; i < length; i++) {
                 list.push(this.set[keys[i]]);
+=======
+              for (var i2 = 0; i2 < length; i2++) {
+                list.push(this.set[keys[i2]]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             HashSet.prototype.size = function() {
@@ -2980,27 +3468,48 @@ var require_layout_base = __commonJS({
             };
             HashSet.prototype.addAll = function(list) {
               var s = list.length;
+<<<<<<< HEAD
               for (var i = 0; i < s; i++) {
                 var v = list[i];
+=======
+              for (var i2 = 0; i2 < s; i2++) {
+                var v = list[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 this.add(v);
               }
             };
             module2.exports = HashSet;
+<<<<<<< HEAD
           },
           /* 24 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 24 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function Matrix() {
             }
             Matrix.multMat = function(array1, array22) {
               var result = [];
+<<<<<<< HEAD
               for (var i = 0; i < array1.length; i++) {
                 result[i] = [];
                 for (var j = 0; j < array22[0].length; j++) {
                   result[i][j] = 0;
                   for (var k = 0; k < array1[0].length; k++) {
                     result[i][j] += array1[i][k] * array22[k][j];
+=======
+              for (var i2 = 0; i2 < array1.length; i2++) {
+                result[i2] = [];
+                for (var j = 0; j < array22[0].length; j++) {
+                  result[i2][j] = 0;
+                  for (var k = 0; k < array1[0].length; k++) {
+                    result[i2][j] += array1[i2][k] * array22[k][j];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
               }
@@ -3008,32 +3517,54 @@ var require_layout_base = __commonJS({
             };
             Matrix.transpose = function(array3) {
               var result = [];
+<<<<<<< HEAD
               for (var i = 0; i < array3[0].length; i++) {
                 result[i] = [];
                 for (var j = 0; j < array3.length; j++) {
                   result[i][j] = array3[j][i];
+=======
+              for (var i2 = 0; i2 < array3[0].length; i2++) {
+                result[i2] = [];
+                for (var j = 0; j < array3.length; j++) {
+                  result[i2][j] = array3[j][i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return result;
             };
             Matrix.multCons = function(array3, constant) {
               var result = [];
+<<<<<<< HEAD
               for (var i = 0; i < array3.length; i++) {
                 result[i] = array3[i] * constant;
+=======
+              for (var i2 = 0; i2 < array3.length; i2++) {
+                result[i2] = array3[i2] * constant;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return result;
             };
             Matrix.minusOp = function(array1, array22) {
               var result = [];
+<<<<<<< HEAD
               for (var i = 0; i < array1.length; i++) {
                 result[i] = array1[i] - array22[i];
+=======
+              for (var i2 = 0; i2 < array1.length; i2++) {
+                result[i2] = array1[i2] - array22[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return result;
             };
             Matrix.dotProduct = function(array1, array22) {
               var product = 0;
+<<<<<<< HEAD
               for (var i = 0; i < array1.length; i++) {
                 product += array1[i] * array22[i];
+=======
+              for (var i2 = 0; i2 < array1.length; i2++) {
+                product += array1[i2] * array22[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return product;
             };
@@ -3043,16 +3574,26 @@ var require_layout_base = __commonJS({
             Matrix.normalize = function(array3) {
               var result = [];
               var magnitude = this.mag(array3);
+<<<<<<< HEAD
               for (var i = 0; i < array3.length; i++) {
                 result[i] = array3[i] / magnitude;
+=======
+              for (var i2 = 0; i2 < array3.length; i2++) {
+                result[i2] = array3[i2] / magnitude;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return result;
             };
             Matrix.multGamma = function(array3) {
               var result = [];
               var sum = 0;
+<<<<<<< HEAD
               for (var i = 0; i < array3.length; i++) {
                 sum += array3[i];
+=======
+              for (var i2 = 0; i2 < array3.length; i2++) {
+                sum += array3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               sum *= -1 / array3.length;
               for (var _i = 0; _i < array3.length; _i++) {
@@ -3064,12 +3605,21 @@ var require_layout_base = __commonJS({
               var result = [];
               var temp1 = [];
               var temp2 = [];
+<<<<<<< HEAD
               for (var i = 0; i < C[0].length; i++) {
                 var sum = 0;
                 for (var j = 0; j < C.length; j++) {
                   sum += -0.5 * C[j][i] * array3[j];
                 }
                 temp1[i] = sum;
+=======
+              for (var i2 = 0; i2 < C[0].length; i2++) {
+                var sum = 0;
+                for (var j = 0; j < C.length; j++) {
+                  sum += -0.5 * C[j][i2] * array3[j];
+                }
+                temp1[i2] = sum;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               for (var _i2 = 0; _i2 < INV.length; _i2++) {
                 var _sum = 0;
@@ -3088,6 +3638,7 @@ var require_layout_base = __commonJS({
               return result;
             };
             module2.exports = Matrix;
+<<<<<<< HEAD
           },
           /* 25 */
           /***/
@@ -3101,10 +3652,25 @@ var require_layout_base = __commonJS({
                   descriptor.configurable = true;
                   if ("value" in descriptor)
                     descriptor.writable = true;
+=======
+          }),
+          /* 25 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+            "use strict";
+            var _createClass2 = /* @__PURE__ */ (function() {
+              function defineProperties(target, props) {
+                for (var i2 = 0; i2 < props.length; i2++) {
+                  var descriptor = props[i2];
+                  descriptor.enumerable = descriptor.enumerable || false;
+                  descriptor.configurable = true;
+                  if ("value" in descriptor) descriptor.writable = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   Object.defineProperty(target, descriptor.key, descriptor);
                 }
               }
               return function(Constructor, protoProps, staticProps) {
+<<<<<<< HEAD
                 if (protoProps)
                   defineProperties(Constructor.prototype, protoProps);
                 if (staticProps)
@@ -3112,12 +3678,20 @@ var require_layout_base = __commonJS({
                 return Constructor;
               };
             }();
+=======
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+              };
+            })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             function _classCallCheck2(instance2, Constructor) {
               if (!(instance2 instanceof Constructor)) {
                 throw new TypeError("Cannot call a class as a function");
               }
             }
             var LinkedList = __webpack_require__(11);
+<<<<<<< HEAD
             var Quicksort = function() {
               function Quicksort2(A, compareFunction) {
                 _classCallCheck2(this, Quicksort2);
@@ -3128,6 +3702,15 @@ var require_layout_base = __commonJS({
                   length = A.size();
                 else
                   length = A.length;
+=======
+            var Quicksort = (function() {
+              function Quicksort2(A, compareFunction) {
+                _classCallCheck2(this, Quicksort2);
+                if (compareFunction !== null || compareFunction !== void 0) this.compareFunction = this._defaultCompareFunction;
+                var length = void 0;
+                if (A instanceof LinkedList) length = A.size();
+                else length = A.length;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 this._quicksort(A, 0, length - 1);
               }
               _createClass2(Quicksort2, [{
@@ -3143,12 +3726,17 @@ var require_layout_base = __commonJS({
                 key: "_partition",
                 value: function _partition(A, p2, r) {
                   var x2 = this._get(A, p2);
+<<<<<<< HEAD
                   var i = p2;
+=======
+                  var i2 = p2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   var j = r;
                   while (true) {
                     while (this.compareFunction(x2, this._get(A, j))) {
                       j--;
                     }
+<<<<<<< HEAD
                     while (this.compareFunction(this._get(A, i), x2)) {
                       i++;
                     }
@@ -3158,19 +3746,35 @@ var require_layout_base = __commonJS({
                       j--;
                     } else
                       return j;
+=======
+                    while (this.compareFunction(this._get(A, i2), x2)) {
+                      i2++;
+                    }
+                    if (i2 < j) {
+                      this._swap(A, i2, j);
+                      i2++;
+                      j--;
+                    } else return j;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
               }, {
                 key: "_get",
                 value: function _get(object3, index) {
+<<<<<<< HEAD
                   if (object3 instanceof LinkedList)
                     return object3.get_object_at(index);
                   else
                     return object3[index];
+=======
+                  if (object3 instanceof LinkedList) return object3.get_object_at(index);
+                  else return object3[index];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }, {
                 key: "_set",
                 value: function _set(object3, index, value) {
+<<<<<<< HEAD
                   if (object3 instanceof LinkedList)
                     object3.set_object_at(index, value);
                   else
@@ -3181,6 +3785,16 @@ var require_layout_base = __commonJS({
                 value: function _swap(A, i, j) {
                   var temp = this._get(A, i);
                   this._set(A, i, this._get(A, j));
+=======
+                  if (object3 instanceof LinkedList) object3.set_object_at(index, value);
+                  else object3[index] = value;
+                }
+              }, {
+                key: "_swap",
+                value: function _swap(A, i2, j) {
+                  var temp = this._get(A, i2);
+                  this._set(A, i2, this._get(A, j));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   this._set(A, j, temp);
                 }
               }, {
@@ -3190,12 +3804,21 @@ var require_layout_base = __commonJS({
                 }
               }]);
               return Quicksort2;
+<<<<<<< HEAD
             }();
             module2.exports = Quicksort;
           },
           /* 26 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+            })();
+            module2.exports = Quicksort;
+          }),
+          /* 26 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function SVD() {
             }
@@ -3209,55 +3832,91 @@ var require_layout_base = __commonJS({
               this.m = A.length;
               this.n = A[0].length;
               var nu = Math.min(this.m, this.n);
+<<<<<<< HEAD
               this.s = function(s) {
+=======
+              this.s = (function(s) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var a = [];
                 while (s-- > 0) {
                   a.push(0);
                 }
                 return a;
+<<<<<<< HEAD
               }(Math.min(this.m + 1, this.n));
               this.U = function(dims) {
+=======
+              })(Math.min(this.m + 1, this.n));
+              this.U = (function(dims) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var allocate = function allocate2(dims2) {
                   if (dims2.length == 0) {
                     return 0;
                   } else {
                     var array3 = [];
+<<<<<<< HEAD
                     for (var i2 = 0; i2 < dims2[0]; i2++) {
+=======
+                    for (var i3 = 0; i3 < dims2[0]; i3++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       array3.push(allocate2(dims2.slice(1)));
                     }
                     return array3;
                   }
                 };
                 return allocate(dims);
+<<<<<<< HEAD
               }([this.m, nu]);
               this.V = function(dims) {
+=======
+              })([this.m, nu]);
+              this.V = (function(dims) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var allocate = function allocate2(dims2) {
                   if (dims2.length == 0) {
                     return 0;
                   } else {
                     var array3 = [];
+<<<<<<< HEAD
                     for (var i2 = 0; i2 < dims2[0]; i2++) {
+=======
+                    for (var i3 = 0; i3 < dims2[0]; i3++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       array3.push(allocate2(dims2.slice(1)));
                     }
                     return array3;
                   }
                 };
                 return allocate(dims);
+<<<<<<< HEAD
               }([this.n, this.n]);
               var e = function(s) {
+=======
+              })([this.n, this.n]);
+              var e = (function(s) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var a = [];
                 while (s-- > 0) {
                   a.push(0);
                 }
                 return a;
+<<<<<<< HEAD
               }(this.n);
               var work = function(s) {
+=======
+              })(this.n);
+              var work = (function(s) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var a = [];
                 while (s-- > 0) {
                   a.push(0);
                 }
                 return a;
+<<<<<<< HEAD
               }(this.m);
+=======
+              })(this.m);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               var wantu = true;
               var wantv = true;
               var nct = Math.min(this.m - 1, this.n);
@@ -3265,8 +3924,13 @@ var require_layout_base = __commonJS({
               for (var k = 0; k < Math.max(nct, nrt); k++) {
                 if (k < nct) {
                   this.s[k] = 0;
+<<<<<<< HEAD
                   for (var i = k; i < this.m; i++) {
                     this.s[k] = SVD.hypot(this.s[k], A[i][k]);
+=======
+                  for (var i2 = k; i2 < this.m; i2++) {
+                    this.s[k] = SVD.hypot(this.s[k], A[i2][k]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   ;
                   if (this.s[k] !== 0) {
@@ -3282,9 +3946,15 @@ var require_layout_base = __commonJS({
                   this.s[k] = -this.s[k];
                 }
                 for (var j = k + 1; j < this.n; j++) {
+<<<<<<< HEAD
                   if (/* @__PURE__ */ function(lhs, rhs) {
                     return lhs && rhs;
                   }(k < nct, this.s[k] !== 0)) {
+=======
+                  if (/* @__PURE__ */ (function(lhs, rhs) {
+                    return lhs && rhs;
+                  })(k < nct, this.s[k] !== 0)) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var t2 = 0;
                     for (var _i2 = k; _i2 < this.m; _i2++) {
                       t2 += A[_i2][k] * A[_i2][j];
@@ -3299,9 +3969,15 @@ var require_layout_base = __commonJS({
                   e[j] = A[k][j];
                 }
                 ;
+<<<<<<< HEAD
                 if (/* @__PURE__ */ function(lhs, rhs) {
                   return lhs && rhs;
                 }(wantu, k < nct)) {
+=======
+                if (/* @__PURE__ */ (function(lhs, rhs) {
+                  return lhs && rhs;
+                })(wantu, k < nct)) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   for (var _i4 = k; _i4 < this.m; _i4++) {
                     this.U[_i4][k] = A[_i4][k];
                   }
@@ -3324,9 +4000,15 @@ var require_layout_base = __commonJS({
                     e[k + 1] += 1;
                   }
                   e[k] = -e[k];
+<<<<<<< HEAD
                   if (/* @__PURE__ */ function(lhs, rhs) {
                     return lhs && rhs;
                   }(k + 1 < this.m, e[k] !== 0)) {
+=======
+                  if (/* @__PURE__ */ (function(lhs, rhs) {
+                    return lhs && rhs;
+                  })(k + 1 < this.m, e[k] !== 0)) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     for (var _i7 = k + 1; _i7 < this.m; _i7++) {
                       work[_i7] = 0;
                     }
@@ -3412,9 +4094,15 @@ var require_layout_base = __commonJS({
               }
               if (wantv) {
                 for (var _k2 = this.n - 1; _k2 >= 0; _k2--) {
+<<<<<<< HEAD
                   if (/* @__PURE__ */ function(lhs, rhs) {
                     return lhs && rhs;
                   }(_k2 < nrt, e[_k2] !== 0)) {
+=======
+                  if (/* @__PURE__ */ (function(lhs, rhs) {
+                    return lhs && rhs;
+                  })(_k2 < nrt, e[_k2] !== 0)) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     for (var _j5 = _k2 + 1; _j5 < nu; _j5++) {
                       var _t3 = 0;
                       for (var _i17 = _k2 + 1; _i17 < this.n; _i17++) {
@@ -3541,9 +4229,15 @@ var require_layout_base = __commonJS({
                       var b = ((spm1 + sp) * (spm1 - sp) + epm1 * epm1) / 2;
                       var c = sp * epm1 * (sp * epm1);
                       var shift2 = 0;
+<<<<<<< HEAD
                       if (/* @__PURE__ */ function(lhs, rhs) {
                         return lhs || rhs;
                       }(b !== 0, c !== 0)) {
+=======
+                      if (/* @__PURE__ */ (function(lhs, rhs) {
+                        return lhs || rhs;
+                      })(b !== 0, c !== 0)) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         shift2 = Math.sqrt(b * b + c);
                         if (b < 0) {
                           shift2 = -shift2;
@@ -3656,6 +4350,7 @@ var require_layout_base = __commonJS({
               return r;
             };
             module2.exports = SVD;
+<<<<<<< HEAD
           },
           /* 27 */
           /***/
@@ -3669,10 +4364,25 @@ var require_layout_base = __commonJS({
                   descriptor.configurable = true;
                   if ("value" in descriptor)
                     descriptor.writable = true;
+=======
+          }),
+          /* 27 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+            "use strict";
+            var _createClass2 = /* @__PURE__ */ (function() {
+              function defineProperties(target, props) {
+                for (var i2 = 0; i2 < props.length; i2++) {
+                  var descriptor = props[i2];
+                  descriptor.enumerable = descriptor.enumerable || false;
+                  descriptor.configurable = true;
+                  if ("value" in descriptor) descriptor.writable = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   Object.defineProperty(target, descriptor.key, descriptor);
                 }
               }
               return function(Constructor, protoProps, staticProps) {
+<<<<<<< HEAD
                 if (protoProps)
                   defineProperties(Constructor.prototype, protoProps);
                 if (staticProps)
@@ -3680,12 +4390,23 @@ var require_layout_base = __commonJS({
                 return Constructor;
               };
             }();
+=======
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+              };
+            })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             function _classCallCheck2(instance2, Constructor) {
               if (!(instance2 instanceof Constructor)) {
                 throw new TypeError("Cannot call a class as a function");
               }
             }
+<<<<<<< HEAD
             var NeedlemanWunsch = function() {
+=======
+            var NeedlemanWunsch = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               function NeedlemanWunsch2(sequence1, sequence2) {
                 var match_score = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 1;
                 var mismatch_penalty = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : -1;
@@ -3699,10 +4420,17 @@ var require_layout_base = __commonJS({
                 this.iMax = sequence1.length + 1;
                 this.jMax = sequence2.length + 1;
                 this.grid = new Array(this.iMax);
+<<<<<<< HEAD
                 for (var i = 0; i < this.iMax; i++) {
                   this.grid[i] = new Array(this.jMax);
                   for (var j = 0; j < this.jMax; j++) {
                     this.grid[i][j] = 0;
+=======
+                for (var i2 = 0; i2 < this.iMax; i2++) {
+                  this.grid[i2] = new Array(this.jMax);
+                  for (var j = 0; j < this.jMax; j++) {
+                    this.grid[i2][j] = 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
                 this.tracebackGrid = new Array(this.iMax);
@@ -3734,17 +4462,28 @@ var require_layout_base = __commonJS({
                     this.grid[0][j] = this.grid[0][j - 1] + this.gap_penalty;
                     this.tracebackGrid[0][j] = [false, false, true];
                   }
+<<<<<<< HEAD
                   for (var i = 1; i < this.iMax; i++) {
                     this.grid[i][0] = this.grid[i - 1][0] + this.gap_penalty;
                     this.tracebackGrid[i][0] = [false, true, false];
+=======
+                  for (var i2 = 1; i2 < this.iMax; i2++) {
+                    this.grid[i2][0] = this.grid[i2 - 1][0] + this.gap_penalty;
+                    this.tracebackGrid[i2][0] = [false, true, false];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   for (var _i2 = 1; _i2 < this.iMax; _i2++) {
                     for (var _j2 = 1; _j2 < this.jMax; _j2++) {
                       var diag = void 0;
+<<<<<<< HEAD
                       if (this.sequence1[_i2 - 1] === this.sequence2[_j2 - 1])
                         diag = this.grid[_i2 - 1][_j2 - 1] + this.match_score;
                       else
                         diag = this.grid[_i2 - 1][_j2 - 1] + this.mismatch_penalty;
+=======
+                      if (this.sequence1[_i2 - 1] === this.sequence2[_j2 - 1]) diag = this.grid[_i2 - 1][_j2 - 1] + this.match_score;
+                      else diag = this.grid[_i2 - 1][_j2 - 1] + this.mismatch_penalty;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       var up = this.grid[_i2 - 1][_j2] + this.gap_penalty;
                       var left = this.grid[_i2][_j2 - 1] + this.gap_penalty;
                       var maxOf = [diag, up, left];
@@ -3789,11 +4528,18 @@ var require_layout_base = __commonJS({
                         seq2: this.sequence2[current.pos[1] - 1] + current.seq2
                       });
                     }
+<<<<<<< HEAD
                     if (current.pos[0] === 0 && current.pos[1] === 0)
                       this.alignments.push({
                         sequence1: current.seq1,
                         sequence2: current.seq2
                       });
+=======
+                    if (current.pos[0] === 0 && current.pos[1] === 0) this.alignments.push({
+                      sequence1: current.seq1,
+                      sequence2: current.seq2
+                    });
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     inProcessAlignments.shift();
                   }
                   return this.alignments;
@@ -3802,9 +4548,15 @@ var require_layout_base = __commonJS({
               }, {
                 key: "getAllIndexes",
                 value: function getAllIndexes(arr, val) {
+<<<<<<< HEAD
                   var indexes = [], i = -1;
                   while ((i = arr.indexOf(val, i + 1)) !== -1) {
                     indexes.push(i);
+=======
+                  var indexes = [], i2 = -1;
+                  while ((i2 = arr.indexOf(val, i2 + 1)) !== -1) {
+                    indexes.push(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   return indexes;
                 }
@@ -3815,12 +4567,21 @@ var require_layout_base = __commonJS({
                 }
               }]);
               return NeedlemanWunsch2;
+<<<<<<< HEAD
             }();
             module2.exports = NeedlemanWunsch;
           },
           /* 28 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+            })();
+            module2.exports = NeedlemanWunsch;
+          }),
+          /* 28 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             var layoutBase = function layoutBase2() {
               return;
@@ -3854,10 +4615,17 @@ var require_layout_base = __commonJS({
             layoutBase.Matrix = __webpack_require__(24);
             layoutBase.SVD = __webpack_require__(26);
             module2.exports = layoutBase;
+<<<<<<< HEAD
           },
           /* 29 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 29 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             "use strict";
             function Emitter2() {
               this.listeners = [];
@@ -3870,23 +4638,39 @@ var require_layout_base = __commonJS({
               });
             };
             p2.removeListener = function(event3, callback) {
+<<<<<<< HEAD
               for (var i = this.listeners.length; i >= 0; i--) {
                 var l = this.listeners[i];
                 if (l.event === event3 && l.callback === callback) {
                   this.listeners.splice(i, 1);
+=======
+              for (var i2 = this.listeners.length; i2 >= 0; i2--) {
+                var l = this.listeners[i2];
+                if (l.event === event3 && l.callback === callback) {
+                  this.listeners.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
             };
             p2.emit = function(event3, data4) {
+<<<<<<< HEAD
               for (var i = 0; i < this.listeners.length; i++) {
                 var l = this.listeners[i];
+=======
+              for (var i2 = 0; i2 < this.listeners.length; i2++) {
+                var l = this.listeners[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 if (event3 === l.event) {
                   l.callback(data4);
                 }
               }
             };
             module2.exports = Emitter2;
+<<<<<<< HEAD
           }
+=======
+          })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           /******/
         ])
       );
@@ -3915,7 +4699,11 @@ var require_cose_base = __commonJS({
             /***/
             45: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var coseBase = {};
                 coseBase.layoutBase = __webpack_require__2(551);
                 coseBase.CoSEConstants = __webpack_require__2(806);
@@ -3926,12 +4714,20 @@ var require_cose_base = __commonJS({
                 coseBase.CoSENode = __webpack_require__2(991);
                 coseBase.ConstraintHandler = __webpack_require__2(902);
                 module2.exports = coseBase;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             806: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var FDLayoutConstants = __webpack_require__2(551).FDLayoutConstants;
                 function CoSEConstants() {
                 }
@@ -3951,12 +4747,20 @@ var require_cose_base = __commonJS({
                 CoSEConstants.TREE_REDUCTION_ON_INCREMENTAL = true;
                 CoSEConstants.PURE_INCREMENTAL = CoSEConstants.DEFAULT_INCREMENTAL;
                 module2.exports = CoSEConstants;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             767: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var FDLayoutEdge = __webpack_require__2(551).FDLayoutEdge;
                 function CoSEEdge(source, target, vEdge) {
                   FDLayoutEdge.call(this, source, target, vEdge);
@@ -3966,12 +4770,20 @@ var require_cose_base = __commonJS({
                   CoSEEdge[prop] = FDLayoutEdge[prop];
                 }
                 module2.exports = CoSEEdge;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             880: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var LGraph = __webpack_require__2(551).LGraph;
                 function CoSEGraph(parent4, graphMgr, vGraph) {
                   LGraph.call(this, parent4, graphMgr, vGraph);
@@ -3981,12 +4793,20 @@ var require_cose_base = __commonJS({
                   CoSEGraph[prop] = LGraph[prop];
                 }
                 module2.exports = CoSEGraph;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             578: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var LGraphManager = __webpack_require__2(551).LGraphManager;
                 function CoSEGraphManager(layout4) {
                   LGraphManager.call(this, layout4);
@@ -3996,12 +4816,20 @@ var require_cose_base = __commonJS({
                   CoSEGraphManager[prop] = LGraphManager[prop];
                 }
                 module2.exports = CoSEGraphManager;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             765: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var FDLayout = __webpack_require__2(551).FDLayout;
                 var CoSEGraphManager = __webpack_require__2(578);
                 var CoSEGraph = __webpack_require__2(880);
@@ -4162,10 +4990,15 @@ var require_cose_base = __commonJS({
                         this.graphManager.setAllNodesToApplyGravitation(intersection2);
                         this.graphManager.updateBounds();
                         this.updateGrid();
+<<<<<<< HEAD
                         if (CoSEConstants.PURE_INCREMENTAL)
                           this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL / 2;
                         else
                           this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL;
+=======
+                        if (CoSEConstants.PURE_INCREMENTAL) this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL / 2;
+                        else this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       } else {
                         this.isTreeGrowing = false;
                         this.isGrowthFinished = true;
@@ -4181,10 +5014,15 @@ var require_cose_base = __commonJS({
                       this.graphManager.updateBounds();
                       this.updateGrid();
                     }
+<<<<<<< HEAD
                     if (CoSEConstants.PURE_INCREMENTAL)
                       this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL / 2 * ((100 - this.afterGrowthIterations) / 100);
                     else
                       this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL * ((100 - this.afterGrowthIterations) / 100);
+=======
+                    if (CoSEConstants.PURE_INCREMENTAL) this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL / 2 * ((100 - this.afterGrowthIterations) / 100);
+                    else this.coolingFactor = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL * ((100 - this.afterGrowthIterations) / 100);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     this.afterGrowthIterations++;
                   }
                   var gridUpdateAllowed = !this.isTreeGrowing && !this.isGrowthFinished;
@@ -4201,9 +5039,15 @@ var require_cose_base = __commonJS({
                 CoSELayout.prototype.getPositionsData = function() {
                   var allNodes = this.graphManager.getAllNodes();
                   var pData = {};
+<<<<<<< HEAD
                   for (var i = 0; i < allNodes.length; i++) {
                     var rect = allNodes[i].rect;
                     var id2 = allNodes[i].id;
+=======
+                  for (var i2 = 0; i2 < allNodes.length; i2++) {
+                    var rect = allNodes[i2].rect;
+                    var id2 = allNodes[i2].id;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     pData[id2] = {
                       id: id2,
                       x: rect.getCenterX(),
@@ -4230,15 +5074,25 @@ var require_cose_base = __commonJS({
                 CoSELayout.prototype.moveNodes = function() {
                   var lNodes = this.getAllNodes();
                   var node;
+<<<<<<< HEAD
                   for (var i = 0; i < lNodes.length; i++) {
                     node = lNodes[i];
+=======
+                  for (var i2 = 0; i2 < lNodes.length; i2++) {
+                    node = lNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     node.calculateDisplacement();
                   }
                   if (Object.keys(this.constraints).length > 0) {
                     this.updateDisplacements();
                   }
+<<<<<<< HEAD
                   for (var i = 0; i < lNodes.length; i++) {
                     node = lNodes[i];
+=======
+                  for (var i2 = 0; i2 < lNodes.length; i2++) {
+                    node = lNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     node.move();
                   }
                 };
@@ -4247,16 +5101,26 @@ var require_cose_base = __commonJS({
                   this.idToNodeMap = /* @__PURE__ */ new Map();
                   this.fixedNodeSet = /* @__PURE__ */ new Set();
                   var allNodes = this.graphManager.getAllNodes();
+<<<<<<< HEAD
                   for (var i = 0; i < allNodes.length; i++) {
                     var node = allNodes[i];
+=======
+                  for (var i2 = 0; i2 < allNodes.length; i2++) {
+                    var node = allNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     this.idToNodeMap.set(node.id, node);
                   }
                   var calculateCompoundWeight = function calculateCompoundWeight2(compoundNode) {
                     var nodes3 = compoundNode.getChild().getNodes();
                     var node2;
                     var fixedNodeWeight2 = 0;
+<<<<<<< HEAD
                     for (var i2 = 0; i2 < nodes3.length; i2++) {
                       node2 = nodes3[i2];
+=======
+                    for (var i3 = 0; i3 < nodes3.length; i3++) {
+                      node2 = nodes3[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       if (node2.getChild() == null) {
                         if (self2.fixedNodeSet.has(node2.id)) {
                           fixedNodeWeight2 += 100;
@@ -4273,8 +5137,13 @@ var require_cose_base = __commonJS({
                     });
                     var allNodes = this.graphManager.getAllNodes();
                     var node;
+<<<<<<< HEAD
                     for (var i = 0; i < allNodes.length; i++) {
                       node = allNodes[i];
+=======
+                    for (var i2 = 0; i2 < allNodes.length; i2++) {
+                      node = allNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       if (node.getChild() != null) {
                         var fixedNodeWeight = calculateCompoundWeight(node);
                         if (fixedNodeWeight > 0) {
@@ -4297,6 +5166,7 @@ var require_cose_base = __commonJS({
                     if (this.constraints.alignmentConstraint) {
                       if (this.constraints.alignmentConstraint.vertical) {
                         var verticalAlignment = this.constraints.alignmentConstraint.vertical;
+<<<<<<< HEAD
                         for (var i = 0; i < verticalAlignment.length; i++) {
                           this.dummyToNodeForVerticalAlignment.set("dummy" + i, []);
                           verticalAlignment[i].forEach(function(nodeId) {
@@ -4304,12 +5174,22 @@ var require_cose_base = __commonJS({
                             self2.dummyToNodeForVerticalAlignment.get("dummy" + i).push(nodeId);
                             if (self2.fixedNodeSet.has(nodeId)) {
                               self2.fixedNodesOnHorizontal.add("dummy" + i);
+=======
+                        for (var i2 = 0; i2 < verticalAlignment.length; i2++) {
+                          this.dummyToNodeForVerticalAlignment.set("dummy" + i2, []);
+                          verticalAlignment[i2].forEach(function(nodeId) {
+                            nodeToDummyForVerticalAlignment.set(nodeId, "dummy" + i2);
+                            self2.dummyToNodeForVerticalAlignment.get("dummy" + i2).push(nodeId);
+                            if (self2.fixedNodeSet.has(nodeId)) {
+                              self2.fixedNodesOnHorizontal.add("dummy" + i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                             }
                           });
                         }
                       }
                       if (this.constraints.alignmentConstraint.horizontal) {
                         var horizontalAlignment = this.constraints.alignmentConstraint.horizontal;
+<<<<<<< HEAD
                         for (var i = 0; i < horizontalAlignment.length; i++) {
                           this.dummyToNodeForHorizontalAlignment.set("dummy" + i, []);
                           horizontalAlignment[i].forEach(function(nodeId) {
@@ -4317,6 +5197,15 @@ var require_cose_base = __commonJS({
                             self2.dummyToNodeForHorizontalAlignment.get("dummy" + i).push(nodeId);
                             if (self2.fixedNodeSet.has(nodeId)) {
                               self2.fixedNodesOnVertical.add("dummy" + i);
+=======
+                        for (var i2 = 0; i2 < horizontalAlignment.length; i2++) {
+                          this.dummyToNodeForHorizontalAlignment.set("dummy" + i2, []);
+                          horizontalAlignment[i2].forEach(function(nodeId) {
+                            nodeToDummyForHorizontalAlignment.set(nodeId, "dummy" + i2);
+                            self2.dummyToNodeForHorizontalAlignment.get("dummy" + i2).push(nodeId);
+                            if (self2.fixedNodeSet.has(nodeId)) {
+                              self2.fixedNodesOnVertical.add("dummy" + i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                             }
                           });
                         }
@@ -4324,11 +5213,19 @@ var require_cose_base = __commonJS({
                     }
                     if (CoSEConstants.RELAX_MOVEMENT_ON_CONSTRAINTS) {
                       this.shuffle = function(array3) {
+<<<<<<< HEAD
                         var j, x2, i2;
                         for (i2 = array3.length - 1; i2 >= 2 * array3.length / 3; i2--) {
                           j = Math.floor(Math.random() * (i2 + 1));
                           x2 = array3[i2];
                           array3[i2] = array3[j];
+=======
+                        var j, x2, i3;
+                        for (i3 = array3.length - 1; i3 >= 2 * array3.length / 3; i3--) {
+                          j = Math.floor(Math.random() * (i3 + 1));
+                          x2 = array3[i3];
+                          array3[i3] = array3[j];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           array3[j] = x2;
                         }
                         return array3;
@@ -4474,6 +5371,7 @@ var require_cose_base = __commonJS({
                   if (this.constraints.alignmentConstraint) {
                     if (this.constraints.alignmentConstraint.vertical) {
                       var allVerticalAlignments = this.constraints.alignmentConstraint.vertical;
+<<<<<<< HEAD
                       for (var i = 0; i < allVerticalAlignments.length; i++) {
                         var totalDisplacementX = 0;
                         for (var j = 0; j < allVerticalAlignments[i].length; j++) {
@@ -4486,11 +5384,26 @@ var require_cose_base = __commonJS({
                         var averageDisplacementX = totalDisplacementX / allVerticalAlignments[i].length;
                         for (var j = 0; j < allVerticalAlignments[i].length; j++) {
                           this.idToNodeMap.get(allVerticalAlignments[i][j]).displacementX = averageDisplacementX;
+=======
+                      for (var i2 = 0; i2 < allVerticalAlignments.length; i2++) {
+                        var totalDisplacementX = 0;
+                        for (var j = 0; j < allVerticalAlignments[i2].length; j++) {
+                          if (this.fixedNodeSet.has(allVerticalAlignments[i2][j])) {
+                            totalDisplacementX = 0;
+                            break;
+                          }
+                          totalDisplacementX += this.idToNodeMap.get(allVerticalAlignments[i2][j]).displacementX;
+                        }
+                        var averageDisplacementX = totalDisplacementX / allVerticalAlignments[i2].length;
+                        for (var j = 0; j < allVerticalAlignments[i2].length; j++) {
+                          this.idToNodeMap.get(allVerticalAlignments[i2][j]).displacementX = averageDisplacementX;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         }
                       }
                     }
                     if (this.constraints.alignmentConstraint.horizontal) {
                       var allHorizontalAlignments = this.constraints.alignmentConstraint.horizontal;
+<<<<<<< HEAD
                       for (var i = 0; i < allHorizontalAlignments.length; i++) {
                         var totalDisplacementY = 0;
                         for (var j = 0; j < allHorizontalAlignments[i].length; j++) {
@@ -4503,6 +5416,20 @@ var require_cose_base = __commonJS({
                         var averageDisplacementY = totalDisplacementY / allHorizontalAlignments[i].length;
                         for (var j = 0; j < allHorizontalAlignments[i].length; j++) {
                           this.idToNodeMap.get(allHorizontalAlignments[i][j]).displacementY = averageDisplacementY;
+=======
+                      for (var i2 = 0; i2 < allHorizontalAlignments.length; i2++) {
+                        var totalDisplacementY = 0;
+                        for (var j = 0; j < allHorizontalAlignments[i2].length; j++) {
+                          if (this.fixedNodeSet.has(allHorizontalAlignments[i2][j])) {
+                            totalDisplacementY = 0;
+                            break;
+                          }
+                          totalDisplacementY += this.idToNodeMap.get(allHorizontalAlignments[i2][j]).displacementY;
+                        }
+                        var averageDisplacementY = totalDisplacementY / allHorizontalAlignments[i2].length;
+                        for (var j = 0; j < allHorizontalAlignments[i2].length; j++) {
+                          this.idToNodeMap.get(allHorizontalAlignments[i2][j]).displacementY = averageDisplacementY;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         }
                       }
                     }
@@ -4576,9 +5503,15 @@ var require_cose_base = __commonJS({
                         }
                       });
                     } else {
+<<<<<<< HEAD
                       for (var i = 0; i < this.componentsOnHorizontal.length; i++) {
                         var component2 = this.componentsOnHorizontal[i];
                         if (this.fixedComponentsOnHorizontal[i]) {
+=======
+                      for (var i2 = 0; i2 < this.componentsOnHorizontal.length; i2++) {
+                        var component2 = this.componentsOnHorizontal[i2];
+                        if (this.fixedComponentsOnHorizontal[i2]) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           for (var j = 0; j < component2.length; j++) {
                             if (this.dummyToNodeForVerticalAlignment.has(component2[j])) {
                               this.dummyToNodeForVerticalAlignment.get(component2[j]).forEach(function(nodeId) {
@@ -4613,9 +5546,15 @@ var require_cose_base = __commonJS({
                           }
                         }
                       }
+<<<<<<< HEAD
                       for (var i = 0; i < this.componentsOnVertical.length; i++) {
                         var component2 = this.componentsOnVertical[i];
                         if (this.fixedComponentsOnVertical[i]) {
+=======
+                      for (var i2 = 0; i2 < this.componentsOnVertical.length; i2++) {
+                        var component2 = this.componentsOnVertical[i2];
+                        if (this.fixedComponentsOnVertical[i2]) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           for (var j = 0; j < component2.length; j++) {
                             if (this.dummyToNodeForHorizontalAlignment.has(component2[j])) {
                               this.dummyToNodeForHorizontalAlignment.get(component2[j]).forEach(function(nodeId) {
@@ -4658,9 +5597,15 @@ var require_cose_base = __commonJS({
                   var graph;
                   var graphs = this.graphManager.getGraphs();
                   var size3 = graphs.length;
+<<<<<<< HEAD
                   var i;
                   for (i = 0; i < size3; i++) {
                     graph = graphs[i];
+=======
+                  var i2;
+                  for (i2 = 0; i2 < size3; i2++) {
+                    graph = graphs[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     graph.updateConnected();
                     if (!graph.isConnected) {
                       nodeList = nodeList.concat(graph.getNodes());
@@ -4672,9 +5617,15 @@ var require_cose_base = __commonJS({
                   var edges3 = [];
                   edges3 = edges3.concat(this.graphManager.getAllEdges());
                   var visited = /* @__PURE__ */ new Set();
+<<<<<<< HEAD
                   var i;
                   for (i = 0; i < edges3.length; i++) {
                     var edge = edges3[i];
+=======
+                  var i2;
+                  for (i2 = 0; i2 < edges3.length; i2++) {
+                    var edge = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (!visited.has(edge)) {
                       var source = edge.getSource();
                       var target = edge.getTarget();
@@ -4714,16 +5665,28 @@ var require_cose_base = __commonJS({
                   var currentY = 0;
                   var currentX = 0;
                   var point = new PointD(0, 0);
+<<<<<<< HEAD
                   for (var i = 0; i < forest.length; i++) {
                     if (i % numberOfColumns == 0) {
                       currentX = 0;
                       currentY = height2;
                       if (i != 0) {
+=======
+                  for (var i2 = 0; i2 < forest.length; i2++) {
+                    if (i2 % numberOfColumns == 0) {
+                      currentX = 0;
+                      currentY = height2;
+                      if (i2 != 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         currentY += CoSEConstants.DEFAULT_COMPONENT_SEPERATION;
                       }
                       height2 = 0;
                     }
+<<<<<<< HEAD
                     var tree = forest[i];
+=======
+                    var tree = forest[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var centerNode = Layout2.findCenterOfTree(tree);
                     currentStartingPoint.x = currentX;
                     currentStartingPoint.y = currentY;
@@ -4744,8 +5707,13 @@ var require_cose_base = __commonJS({
                   transform7.setDeviceOrgY(bounds2.getMinY());
                   transform7.setWorldOrgX(startingPoint.x);
                   transform7.setWorldOrgY(startingPoint.y);
+<<<<<<< HEAD
                   for (var i = 0; i < tree.length; i++) {
                     var node = tree[i];
+=======
+                  for (var i2 = 0; i2 < tree.length; i2++) {
+                    var node = tree[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     node.transform(transform7);
                   }
                   var bottomRight = new PointD(bounds2.getMaxX(), bounds2.getMaxY());
@@ -4788,8 +5756,13 @@ var require_cose_base = __commonJS({
                     startIndex = 0;
                   }
                   var stepAngle = Math.abs(endAngle - startAngle) / childCount;
+<<<<<<< HEAD
                   for (var i = startIndex; branchCount != childCount; i = ++i % incEdgesCount) {
                     var currentNeighbor = neighborEdges[i].getOtherEnd(node);
+=======
+                  for (var i2 = startIndex; branchCount != childCount; i2 = ++i2 % incEdgesCount) {
+                    var currentNeighbor = neighborEdges[i2].getOtherEnd(node);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (currentNeighbor == parentOfNode) {
                       continue;
                     }
@@ -4801,8 +5774,13 @@ var require_cose_base = __commonJS({
                 };
                 CoSELayout.maxDiagonalInTree = function(tree) {
                   var maxDiagonal = Integer.MIN_VALUE;
+<<<<<<< HEAD
                   for (var i = 0; i < tree.length; i++) {
                     var node = tree[i];
+=======
+                  for (var i2 = 0; i2 < tree.length; i2++) {
+                    var node = tree[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var diagonal = node.getDiagonal();
                     if (diagonal > maxDiagonal) {
                       maxDiagonal = diagonal;
@@ -4820,18 +5798,30 @@ var require_cose_base = __commonJS({
                   this.idToDummyNode = {};
                   var zeroDegree = [];
                   var allNodes = this.graphManager.getAllNodes();
+<<<<<<< HEAD
                   for (var i = 0; i < allNodes.length; i++) {
                     var node = allNodes[i];
+=======
+                  for (var i2 = 0; i2 < allNodes.length; i2++) {
+                    var node = allNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var parent4 = node.getParent();
                     if (this.getNodeDegreeWithChildren(node) === 0 && (parent4.id == void 0 || !this.getToBeTiled(parent4))) {
                       zeroDegree.push(node);
                     }
                   }
+<<<<<<< HEAD
                   for (var i = 0; i < zeroDegree.length; i++) {
                     var node = zeroDegree[i];
                     var p_id = node.getParent().id;
                     if (typeof tempMemberGroups[p_id] === "undefined")
                       tempMemberGroups[p_id] = [];
+=======
+                  for (var i2 = 0; i2 < zeroDegree.length; i2++) {
+                    var node = zeroDegree[i2];
+                    var p_id = node.getParent().id;
+                    if (typeof tempMemberGroups[p_id] === "undefined") tempMemberGroups[p_id] = [];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     tempMemberGroups[p_id] = tempMemberGroups[p_id].concat(node);
                   }
                   Object.keys(tempMemberGroups).forEach(function(p_id2) {
@@ -4849,8 +5839,13 @@ var require_cose_base = __commonJS({
                       var dummyParentGraph = self2.getGraphManager().add(self2.newGraph(), dummyCompound);
                       var parentGraph = parent5.getChild();
                       parentGraph.add(dummyCompound);
+<<<<<<< HEAD
                       for (var i2 = 0; i2 < tempMemberGroups[p_id2].length; i2++) {
                         var node2 = tempMemberGroups[p_id2][i2];
+=======
+                      for (var i3 = 0; i3 < tempMemberGroups[p_id2].length; i3++) {
+                        var node2 = tempMemberGroups[p_id2][i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         parentGraph.remove(node2);
                         dummyParentGraph.add(node2);
                       }
@@ -4861,11 +5856,19 @@ var require_cose_base = __commonJS({
                   var childGraphMap = {};
                   var idToNode = {};
                   this.performDFSOnCompounds();
+<<<<<<< HEAD
                   for (var i = 0; i < this.compoundOrder.length; i++) {
                     idToNode[this.compoundOrder[i].id] = this.compoundOrder[i];
                     childGraphMap[this.compoundOrder[i].id] = [].concat(this.compoundOrder[i].getChild().getNodes());
                     this.graphManager.remove(this.compoundOrder[i].getChild());
                     this.compoundOrder[i].child = null;
+=======
+                  for (var i2 = 0; i2 < this.compoundOrder.length; i2++) {
+                    idToNode[this.compoundOrder[i2].id] = this.compoundOrder[i2];
+                    childGraphMap[this.compoundOrder[i2].id] = [].concat(this.compoundOrder[i2].getChild().getNodes());
+                    this.graphManager.remove(this.compoundOrder[i2].getChild());
+                    this.compoundOrder[i2].child = null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   this.graphManager.resetAllNodes();
                   this.tileCompoundMembers(childGraphMap, idToNode);
@@ -4914,8 +5917,13 @@ var require_cose_base = __commonJS({
                   });
                 };
                 CoSELayout.prototype.repopulateCompounds = function() {
+<<<<<<< HEAD
                   for (var i = this.compoundOrder.length - 1; i >= 0; i--) {
                     var lCompoundNode = this.compoundOrder[i];
+=======
+                  for (var i2 = this.compoundOrder.length - 1; i2 >= 0; i2--) {
+                    var lCompoundNode = this.compoundOrder[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var id2 = lCompoundNode.id;
                     var horizontalMargin = lCompoundNode.paddingLeft;
                     var verticalMargin = lCompoundNode.paddingTop;
@@ -4947,8 +5955,13 @@ var require_cose_base = __commonJS({
                     return false;
                   }
                   var children = childGraph.getNodes();
+<<<<<<< HEAD
                   for (var i = 0; i < children.length; i++) {
                     var theChild = children[i];
+=======
+                  for (var i2 = 0; i2 < children.length; i2++) {
+                    var theChild = children[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (this.getNodeDegree(theChild) > 0) {
                       this.toBeTiled[id2] = false;
                       return false;
@@ -4969,8 +5982,13 @@ var require_cose_base = __commonJS({
                   var id2 = node.id;
                   var edges3 = node.getEdges();
                   var degree = 0;
+<<<<<<< HEAD
                   for (var i = 0; i < edges3.length; i++) {
                     var edge = edges3[i];
+=======
+                  for (var i2 = 0; i2 < edges3.length; i2++) {
+                    var edge = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (edge.getSource().id !== edge.getTarget().id) {
                       degree = degree + 1;
                     }
@@ -4983,8 +6001,13 @@ var require_cose_base = __commonJS({
                     return degree;
                   }
                   var children = node.getChild().getNodes();
+<<<<<<< HEAD
                   for (var i = 0; i < children.length; i++) {
                     var child = children[i];
+=======
+                  for (var i2 = 0; i2 < children.length; i2++) {
+                    var child = children[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     degree += this.getNodeDegreeWithChildren(child);
                   }
                   return degree;
@@ -4994,8 +6017,13 @@ var require_cose_base = __commonJS({
                   this.fillCompexOrderByDFS(this.graphManager.getRoot().getNodes());
                 };
                 CoSELayout.prototype.fillCompexOrderByDFS = function(children) {
+<<<<<<< HEAD
                   for (var i = 0; i < children.length; i++) {
                     var child = children[i];
+=======
+                  for (var i2 = 0; i2 < children.length; i2++) {
+                    var child = children[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (child.getChild() != null) {
                       this.fillCompexOrderByDFS(child.getChild().getNodes());
                     }
@@ -5008,8 +6036,13 @@ var require_cose_base = __commonJS({
                   x2 += compoundHorizontalMargin + compoundLabelMarginLeft;
                   y2 += compoundVerticalMargin + compoundLabelMarginTop;
                   var left = x2;
+<<<<<<< HEAD
                   for (var i = 0; i < organization.rows.length; i++) {
                     var row = organization.rows[i];
+=======
+                  for (var i2 = 0; i2 < organization.rows.length; i2++) {
+                    var row = organization.rows[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     x2 = left;
                     var maxHeight = 0;
                     for (var j = 0; j < row.length; j++) {
@@ -5017,8 +6050,12 @@ var require_cose_base = __commonJS({
                       lnode.rect.x = x2;
                       lnode.rect.y = y2;
                       x2 += lnode.rect.width + organization.horizontalPadding;
+<<<<<<< HEAD
                       if (lnode.rect.height > maxHeight)
                         maxHeight = lnode.rect.height;
+=======
+                      if (lnode.rect.height > maxHeight) maxHeight = lnode.rect.height;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     y2 += maxHeight + organization.verticalPadding;
                   }
@@ -5157,15 +6194,25 @@ var require_cose_base = __commonJS({
                   });
                   var sumCenterX = 0;
                   var sumCenterY = 0;
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     var lNode = nodes3[i];
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    var lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     sumCenterX += lNode.getCenterX();
                     sumCenterY += lNode.getCenterY();
                   }
                   organization.centerX = sumCenterX / nodes3.length;
                   organization.centerY = sumCenterY / nodes3.length;
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     var lNode = nodes3[i];
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    var lNode = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (organization.rows.length == 0) {
                       this.insertNodeToRow(organization, lNode, 0, minWidth);
                     } else if (this.canAddHorizontal(organization, lNode.rect.width, lNode.rect.height)) {
@@ -5198,8 +6245,12 @@ var require_cose_base = __commonJS({
                     organization.width = w;
                   }
                   var h = node.rect.height;
+<<<<<<< HEAD
                   if (rowIndex > 0)
                     h += organization.verticalPadding;
+=======
+                  if (rowIndex > 0) h += organization.verticalPadding;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   var extraHeight = 0;
                   if (h > organization.rowHeight[rowIndex]) {
                     extraHeight = organization.rowHeight[rowIndex];
@@ -5212,10 +6263,17 @@ var require_cose_base = __commonJS({
                 CoSELayout.prototype.getShortestRowIndex = function(organization) {
                   var r = -1;
                   var min4 = Number.MAX_VALUE;
+<<<<<<< HEAD
                   for (var i = 0; i < organization.rows.length; i++) {
                     if (organization.rowWidth[i] < min4) {
                       r = i;
                       min4 = organization.rowWidth[i];
+=======
+                  for (var i2 = 0; i2 < organization.rows.length; i2++) {
+                    if (organization.rowWidth[i2] < min4) {
+                      r = i2;
+                      min4 = organization.rowWidth[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                   }
                   return r;
@@ -5223,10 +6281,17 @@ var require_cose_base = __commonJS({
                 CoSELayout.prototype.getLongestRowIndex = function(organization) {
                   var r = -1;
                   var max5 = Number.MIN_VALUE;
+<<<<<<< HEAD
                   for (var i = 0; i < organization.rows.length; i++) {
                     if (organization.rowWidth[i] > max5) {
                       r = i;
                       max5 = organization.rowWidth[i];
+=======
+                  for (var i2 = 0; i2 < organization.rows.length; i2++) {
+                    if (organization.rowWidth[i2] > max5) {
+                      r = i2;
+                      max5 = organization.rowWidth[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                   }
                   return r;
@@ -5242,12 +6307,19 @@ var require_cose_base = __commonJS({
                     return true;
                   }
                   var min4 = organization.rowWidth[sri];
+<<<<<<< HEAD
                   if (min4 + organization.horizontalPadding + extraWidth <= organization.width)
                     return true;
                   var hDiff = 0;
                   if (organization.rowHeight[sri] < extraHeight) {
                     if (sri > 0)
                       hDiff = extraHeight + organization.verticalPadding - organization.rowHeight[sri];
+=======
+                  if (min4 + organization.horizontalPadding + extraWidth <= organization.width) return true;
+                  var hDiff = 0;
+                  if (organization.rowHeight[sri] < extraHeight) {
+                    if (sri > 0) hDiff = extraHeight + organization.verticalPadding - organization.rowHeight[sri];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   var add_to_row_ratio;
                   if (organization.width - min4 >= extraWidth + organization.horizontalPadding) {
@@ -5262,10 +6334,15 @@ var require_cose_base = __commonJS({
                   } else {
                     add_new_row_ratio = (organization.height + hDiff) / organization.width;
                   }
+<<<<<<< HEAD
                   if (add_new_row_ratio < 1)
                     add_new_row_ratio = 1 / add_new_row_ratio;
                   if (add_to_row_ratio < 1)
                     add_to_row_ratio = 1 / add_to_row_ratio;
+=======
+                  if (add_new_row_ratio < 1) add_new_row_ratio = 1 / add_new_row_ratio;
+                  if (add_to_row_ratio < 1) add_to_row_ratio = 1 / add_to_row_ratio;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return add_to_row_ratio < add_new_row_ratio;
                 };
                 CoSELayout.prototype.shiftToLastRow = function(organization) {
@@ -5281,6 +6358,7 @@ var require_cose_base = __commonJS({
                     organization.rowWidth[last2] = organization.rowWidth[last2] + diff2;
                     organization.width = organization.rowWidth[instance.getLongestRowIndex(organization)];
                     var maxHeight = Number.MIN_VALUE;
+<<<<<<< HEAD
                     for (var i = 0; i < row.length; i++) {
                       if (row[i].height > maxHeight)
                         maxHeight = row[i].height;
@@ -5291,6 +6369,15 @@ var require_cose_base = __commonJS({
                     organization.rowHeight[longest] = maxHeight;
                     if (organization.rowHeight[last2] < node.height + organization.verticalPadding)
                       organization.rowHeight[last2] = node.height + organization.verticalPadding;
+=======
+                    for (var i2 = 0; i2 < row.length; i2++) {
+                      if (row[i2].height > maxHeight) maxHeight = row[i2].height;
+                    }
+                    if (longest > 0) maxHeight += organization.verticalPadding;
+                    var prevTotal = organization.rowHeight[longest] + organization.rowHeight[last2];
+                    organization.rowHeight[longest] = maxHeight;
+                    if (organization.rowHeight[last2] < node.height + organization.verticalPadding) organization.rowHeight[last2] = node.height + organization.verticalPadding;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var finalTotal = organization.rowHeight[longest] + organization.rowHeight[last2];
                     organization.height += finalTotal - prevTotal;
                     this.shiftToLastRow(organization);
@@ -5317,8 +6404,13 @@ var require_cose_base = __commonJS({
                     var allNodes = this.graphManager.getAllNodes();
                     var prunedNodesInStepTemp = [];
                     containsLeaf = false;
+<<<<<<< HEAD
                     for (var i = 0; i < allNodes.length; i++) {
                       node = allNodes[i];
+=======
+                    for (var i2 = 0; i2 < allNodes.length; i2++) {
+                      node = allNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       if (node.getEdges().length == 1 && !node.getEdges()[0].isInterGraph && node.getChild() == null) {
                         if (CoSEConstants.PURE_INCREMENTAL) {
                           var otherEnd = node.getEdges()[0].getOtherEnd(node);
@@ -5349,8 +6441,13 @@ var require_cose_base = __commonJS({
                   var lengthOfPrunedNodesInStep = prunedNodesAll.length;
                   var prunedNodesInStep = prunedNodesAll[lengthOfPrunedNodesInStep - 1];
                   var nodeData;
+<<<<<<< HEAD
                   for (var i = 0; i < prunedNodesInStep.length; i++) {
                     nodeData = prunedNodesInStep[i];
+=======
+                  for (var i2 = 0; i2 < prunedNodesInStep.length; i2++) {
+                    nodeData = prunedNodesInStep[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     this.findPlaceforPrunedNode(nodeData);
                     nodeData[2].add(nodeData[0]);
                     nodeData[2].add(nodeData[1], nodeData[1].source, nodeData[1].target);
@@ -5381,6 +6478,7 @@ var require_cose_base = __commonJS({
                     var leftNodeCount = 0;
                     var controlRegions = [upNodeCount, rightNodeCount, downNodeCount, leftNodeCount];
                     if (startGridY > 0) {
+<<<<<<< HEAD
                       for (var i = startGridX; i <= finishGridX; i++) {
                         controlRegions[0] += this.grid[i][startGridY - 1].length + this.grid[i][startGridY].length - 1;
                       }
@@ -5398,6 +6496,25 @@ var require_cose_base = __commonJS({
                     if (startGridX > 0) {
                       for (var i = startGridY; i <= finishGridY; i++) {
                         controlRegions[3] += this.grid[startGridX - 1][i].length + this.grid[startGridX][i].length - 1;
+=======
+                      for (var i2 = startGridX; i2 <= finishGridX; i2++) {
+                        controlRegions[0] += this.grid[i2][startGridY - 1].length + this.grid[i2][startGridY].length - 1;
+                      }
+                    }
+                    if (finishGridX < this.grid.length - 1) {
+                      for (var i2 = startGridY; i2 <= finishGridY; i2++) {
+                        controlRegions[1] += this.grid[finishGridX + 1][i2].length + this.grid[finishGridX][i2].length - 1;
+                      }
+                    }
+                    if (finishGridY < this.grid[0].length - 1) {
+                      for (var i2 = startGridX; i2 <= finishGridX; i2++) {
+                        controlRegions[2] += this.grid[i2][finishGridY + 1].length + this.grid[i2][finishGridY].length - 1;
+                      }
+                    }
+                    if (startGridX > 0) {
+                      for (var i2 = startGridY; i2 <= finishGridY; i2++) {
+                        controlRegions[3] += this.grid[startGridX - 1][i2].length + this.grid[startGridX][i2].length - 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     }
                     var min4 = Integer.MAX_VALUE;
@@ -5480,12 +6597,20 @@ var require_cose_base = __commonJS({
                   }
                 };
                 module2.exports = CoSELayout;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             991: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var FDLayoutNode = __webpack_require__2(551).FDLayoutNode;
                 var IMath = __webpack_require__2(551).IMath;
                 function CoSENode(gm, loc, size3, vNode) {
@@ -5517,8 +6642,13 @@ var require_cose_base = __commonJS({
                 CoSENode.prototype.propogateDisplacementToChildren = function(dX, dY) {
                   var nodes3 = this.getChild().getNodes();
                   var node;
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     node = nodes3[i];
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (node.getChild() == null) {
                       node.displacementX += dX;
                       node.displacementY += dY;
@@ -5564,16 +6694,28 @@ var require_cose_base = __commonJS({
                   return processed;
                 };
                 module2.exports = CoSENode;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             902: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
                 function _toConsumableArray2(arr) {
                   if (Array.isArray(arr)) {
                     for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
                       arr2[i] = arr[i];
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+                function _toConsumableArray2(arr) {
+                  if (Array.isArray(arr)) {
+                    for (var i2 = 0, arr2 = Array(arr.length); i2 < arr.length; i2++) {
+                      arr2[i2] = arr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     return arr2;
                   } else {
@@ -5597,8 +6739,13 @@ var require_cose_base = __commonJS({
                   var yCoords = [];
                   var allNodes = layout4.getAllNodes();
                   var index = 0;
+<<<<<<< HEAD
                   for (var i = 0; i < allNodes.length; i++) {
                     var node = allNodes[i];
+=======
+                  for (var i2 = 0; i2 < allNodes.length; i2++) {
+                    var node = allNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (node.getChild() == null) {
                       nodeIndexes.set(node.id, index++);
                       xCoords.push(node.getCenterX());
@@ -6005,9 +7152,15 @@ var require_cose_base = __commonJS({
                   }
                   if (CoSEConstants.TRANSFORM_ON_CONSTRAINT_HANDLING) {
                     if (constraints.fixedNodeConstraint && constraints.fixedNodeConstraint.length > 1) {
+<<<<<<< HEAD
                       constraints.fixedNodeConstraint.forEach(function(nodeData, i2) {
                         targetMatrix[i2] = [nodeData.position.x, nodeData.position.y];
                         sourceMatrix[i2] = [xCoords[nodeIndexes.get(nodeData.nodeId)], yCoords[nodeIndexes.get(nodeData.nodeId)]];
+=======
+                      constraints.fixedNodeConstraint.forEach(function(nodeData, i3) {
+                        targetMatrix[i3] = [nodeData.position.x, nodeData.position.y];
+                        sourceMatrix[i3] = [xCoords[nodeIndexes.get(nodeData.nodeId)], yCoords[nodeIndexes.get(nodeData.nodeId)]];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       });
                       standardTransformation = true;
                     } else if (constraints.alignmentConstraint) {
@@ -6024,10 +7177,15 @@ var require_cose_base = __commonJS({
                               return fixedNodes.has(x2);
                             }));
                             var xPos = void 0;
+<<<<<<< HEAD
                             if (intersection2.size > 0)
                               xPos = xCoords[nodeIndexes.get(intersection2.values().next().value)];
                             else
                               xPos = calculateAvgPosition(alignmentSet).x;
+=======
+                            if (intersection2.size > 0) xPos = xCoords[nodeIndexes.get(intersection2.values().next().value)];
+                            else xPos = calculateAvgPosition(alignmentSet).x;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                             verticalAlign[_i42].forEach(function(nodeId) {
                               targetMatrix[count] = [xPos, yCoords[nodeIndexes.get(nodeId)]];
                               sourceMatrix[count] = [xCoords[nodeIndexes.get(nodeId)], yCoords[nodeIndexes.get(nodeId)]];
@@ -6050,10 +7208,15 @@ var require_cose_base = __commonJS({
                               return fixedNodes.has(x2);
                             }));
                             var yPos = void 0;
+<<<<<<< HEAD
                             if (intersection2.size > 0)
                               yPos = xCoords[nodeIndexes.get(intersection2.values().next().value)];
                             else
                               yPos = calculateAvgPosition(alignmentSet).y;
+=======
+                            if (intersection2.size > 0) yPos = xCoords[nodeIndexes.get(intersection2.values().next().value)];
+                            else yPos = calculateAvgPosition(alignmentSet).y;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                             horizontalAlign[_i52].forEach(function(nodeId) {
                               targetMatrix[count] = [xCoords[nodeIndexes.get(nodeId)], yPos];
                               sourceMatrix[count] = [xCoords[nodeIndexes.get(nodeId)], yCoords[nodeIndexes.get(nodeId)]];
@@ -6115,6 +7278,7 @@ var require_cose_base = __commonJS({
                         reflectionType = false;
                         var positionMapHorizontal = findAppropriatePositionForRelativePlacement(subGraphOnHorizontal, "horizontal");
                         var positionMapVertical = findAppropriatePositionForRelativePlacement(subGraphOnVertical, "vertical");
+<<<<<<< HEAD
                         components2[largestComponentIndex].forEach(function(nodeId, i2) {
                           sourceMatrix[i2] = [xCoords[nodeIndexes.get(nodeId)], yCoords[nodeIndexes.get(nodeId)]];
                           targetMatrix[i2] = [];
@@ -6127,6 +7291,20 @@ var require_cose_base = __commonJS({
                             targetMatrix[i2][1] = positionMapVertical.get(nodeId);
                           } else {
                             targetMatrix[i2][1] = yCoords[nodeIndexes.get(nodeId)];
+=======
+                        components2[largestComponentIndex].forEach(function(nodeId, i3) {
+                          sourceMatrix[i3] = [xCoords[nodeIndexes.get(nodeId)], yCoords[nodeIndexes.get(nodeId)]];
+                          targetMatrix[i3] = [];
+                          if (positionMapHorizontal.has(nodeId)) {
+                            targetMatrix[i3][0] = positionMapHorizontal.get(nodeId);
+                          } else {
+                            targetMatrix[i3][0] = xCoords[nodeIndexes.get(nodeId)];
+                          }
+                          if (positionMapVertical.has(nodeId)) {
+                            targetMatrix[i3][1] = positionMapVertical.get(nodeId);
+                          } else {
+                            targetMatrix[i3][1] = yCoords[nodeIndexes.get(nodeId)];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           }
                         });
                         standardTransformation = true;
@@ -6158,7 +7336,11 @@ var require_cose_base = __commonJS({
                   if (CoSEConstants.ENFORCE_CONSTRAINTS) {
                     if (constraints.fixedNodeConstraint && constraints.fixedNodeConstraint.length > 0) {
                       var translationAmount = { x: 0, y: 0 };
+<<<<<<< HEAD
                       constraints.fixedNodeConstraint.forEach(function(nodeData, i2) {
+=======
+                      constraints.fixedNodeConstraint.forEach(function(nodeData, i3) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         var posInTheory = { x: xCoords[nodeIndexes.get(nodeData.nodeId)], y: yCoords[nodeIndexes.get(nodeData.nodeId)] };
                         var posDesired = nodeData.position;
                         var posDiff = calculatePositionDiff(posDesired, posInTheory);
@@ -6167,11 +7349,19 @@ var require_cose_base = __commonJS({
                       });
                       translationAmount.x /= constraints.fixedNodeConstraint.length;
                       translationAmount.y /= constraints.fixedNodeConstraint.length;
+<<<<<<< HEAD
                       xCoords.forEach(function(value, i2) {
                         xCoords[i2] += translationAmount.x;
                       });
                       yCoords.forEach(function(value, i2) {
                         yCoords[i2] += translationAmount.y;
+=======
+                      xCoords.forEach(function(value, i3) {
+                        xCoords[i3] += translationAmount.x;
+                      });
+                      yCoords.forEach(function(value, i3) {
+                        yCoords[i3] += translationAmount.y;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       });
                       constraints.fixedNodeConstraint.forEach(function(nodeData) {
                         xCoords[nodeIndexes.get(nodeData.nodeId)] = nodeData.position.x;
@@ -6190,6 +7380,7 @@ var require_cose_base = __commonJS({
                             return fixedNodes.has(x2);
                           }));
                           var xPos = void 0;
+<<<<<<< HEAD
                           if (intersection2.size > 0)
                             xPos = xCoords[nodeIndexes.get(intersection2.values().next().value)];
                           else
@@ -6197,6 +7388,12 @@ var require_cose_base = __commonJS({
                           alignmentSet.forEach(function(nodeId) {
                             if (!fixedNodes.has(nodeId))
                               xCoords[nodeIndexes.get(nodeId)] = xPos;
+=======
+                          if (intersection2.size > 0) xPos = xCoords[nodeIndexes.get(intersection2.values().next().value)];
+                          else xPos = calculateAvgPosition(alignmentSet).x;
+                          alignmentSet.forEach(function(nodeId) {
+                            if (!fixedNodes.has(nodeId)) xCoords[nodeIndexes.get(nodeId)] = xPos;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           });
                         };
                         for (var _i9 = 0; _i9 < xAlign.length; _i9++) {
@@ -6214,6 +7411,7 @@ var require_cose_base = __commonJS({
                             return fixedNodes.has(x2);
                           }));
                           var yPos = void 0;
+<<<<<<< HEAD
                           if (intersection2.size > 0)
                             yPos = yCoords[nodeIndexes.get(intersection2.values().next().value)];
                           else
@@ -6221,6 +7419,12 @@ var require_cose_base = __commonJS({
                           alignmentSet.forEach(function(nodeId) {
                             if (!fixedNodes.has(nodeId))
                               yCoords[nodeIndexes.get(nodeId)] = yPos;
+=======
+                          if (intersection2.size > 0) yPos = yCoords[nodeIndexes.get(intersection2.values().next().value)];
+                          else yPos = calculateAvgPosition(alignmentSet).y;
+                          alignmentSet.forEach(function(nodeId) {
+                            if (!fixedNodes.has(nodeId)) yCoords[nodeIndexes.get(nodeId)] = yPos;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           });
                         };
                         for (var _i10 = 0; _i10 < yAlign.length; _i10++) {
@@ -6438,14 +7642,24 @@ var require_cose_base = __commonJS({
                   }
                 };
                 module2.exports = ConstraintHandler;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             551: (
               /***/
+<<<<<<< HEAD
               (module2) => {
                 module2.exports = __WEBPACK_EXTERNAL_MODULE__551__;
               }
+=======
+              ((module2) => {
+                module2.exports = __WEBPACK_EXTERNAL_MODULE__551__;
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             )
             /******/
           };
@@ -6496,7 +7710,11 @@ var require_cytoscape_fcose = __commonJS({
             /***/
             658: (
               /***/
+<<<<<<< HEAD
               (module2) => {
+=======
+              ((module2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 module2.exports = Object.assign != null ? Object.assign.bind(Object) : function(tgt) {
                   for (var _len = arguments.length, srcs = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
                     srcs[_key - 1] = arguments[_key];
@@ -6508,14 +7726,24 @@ var require_cytoscape_fcose = __commonJS({
                   });
                   return tgt;
                 };
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             548: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
                 var _slicedToArray2 = /* @__PURE__ */ function() {
                   function sliceIterator(arr, i) {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+                var _slicedToArray2 = /* @__PURE__ */ (function() {
+                  function sliceIterator(arr, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     var _arr = [];
                     var _n = true;
                     var _d = false;
@@ -6523,43 +7751,74 @@ var require_cytoscape_fcose = __commonJS({
                     try {
                       for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
                         _arr.push(_s.value);
+<<<<<<< HEAD
                         if (i && _arr.length === i)
                           break;
+=======
+                        if (i2 && _arr.length === i2) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     } catch (err) {
                       _d = true;
                       _e = err;
                     } finally {
                       try {
+<<<<<<< HEAD
                         if (!_n && _i["return"])
                           _i["return"]();
                       } finally {
                         if (_d)
                           throw _e;
+=======
+                        if (!_n && _i["return"]) _i["return"]();
+                      } finally {
+                        if (_d) throw _e;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     }
                     return _arr;
                   }
+<<<<<<< HEAD
                   return function(arr, i) {
                     if (Array.isArray(arr)) {
                       return arr;
                     } else if (Symbol.iterator in Object(arr)) {
                       return sliceIterator(arr, i);
+=======
+                  return function(arr, i2) {
+                    if (Array.isArray(arr)) {
+                      return arr;
+                    } else if (Symbol.iterator in Object(arr)) {
+                      return sliceIterator(arr, i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     } else {
                       throw new TypeError("Invalid attempt to destructure non-iterable instance");
                     }
                   };
+<<<<<<< HEAD
                 }();
+=======
+                })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var LinkedList = __webpack_require__2(140).layoutBase.LinkedList;
                 var auxiliary = {};
                 auxiliary.getTopMostNodes = function(nodes3) {
                   var nodesMap = {};
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     nodesMap[nodes3[i].id()] = true;
                   }
                   var roots = nodes3.filter(function(ele, i2) {
                     if (typeof ele === "number") {
                       ele = i2;
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    nodesMap[nodes3[i2].id()] = true;
+                  }
+                  var roots = nodes3.filter(function(ele, i3) {
+                    if (typeof ele === "number") {
+                      ele = i3;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     var parent4 = ele.parent()[0];
                     while (parent4 != null) {
@@ -6603,8 +7862,13 @@ var require_cytoscape_fcose = __commonJS({
                           neighborNodes.merge(node);
                         }
                       });
+<<<<<<< HEAD
                       for (var i = 0; i < neighborNodes.length; i++) {
                         var neighborNode = neighborNodes[i];
+=======
+                      for (var i2 = 0; i2 < neighborNodes.length; i2++) {
+                        var neighborNode = neighborNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         currentNeighbor = topMostNodes.intersection(neighborNode.union(neighborNode.ancestors()));
                         if (currentNeighbor != null && !visited.has(currentNeighbor[0])) {
                           var childrenOfNeighbor = currentNeighbor.union(currentNeighbor.descendants());
@@ -6685,6 +7949,7 @@ var require_cytoscape_fcose = __commonJS({
                             var rightX = componentResult.xCoords[value] + nodeBB.w / 2;
                             var topY = componentResult.yCoords[value] - nodeBB.h / 2;
                             var bottomY = componentResult.yCoords[value] + nodeBB.h / 2;
+<<<<<<< HEAD
                             if (leftX < minXCoord)
                               minXCoord = leftX;
                             if (rightX > maxXCoord)
@@ -6693,6 +7958,12 @@ var require_cytoscape_fcose = __commonJS({
                               minYCoord = topY;
                             if (bottomY > maxYCoord)
                               maxYCoord = bottomY;
+=======
+                            if (leftX < minXCoord) minXCoord = leftX;
+                            if (rightX > maxXCoord) maxXCoord = rightX;
+                            if (topY < minYCoord) minYCoord = topY;
+                            if (bottomY > maxYCoord) maxYCoord = bottomY;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           }
                         }
                       } catch (err) {
@@ -6724,6 +7995,7 @@ var require_cytoscape_fcose = __commonJS({
                         var rightX2 = node.getRect().x + node.getRect().width;
                         var topY2 = node.getRect().y;
                         var bottomY2 = node.getRect().y + node.getRect().height;
+<<<<<<< HEAD
                         if (leftX2 < minXCoord)
                           minXCoord = leftX2;
                         if (rightX2 > maxXCoord)
@@ -6732,6 +8004,12 @@ var require_cytoscape_fcose = __commonJS({
                           minYCoord = topY2;
                         if (bottomY2 > maxYCoord)
                           maxYCoord = bottomY2;
+=======
+                        if (leftX2 < minXCoord) minXCoord = leftX2;
+                        if (rightX2 > maxXCoord) maxXCoord = rightX2;
+                        if (topY2 < minYCoord) minYCoord = topY2;
+                        if (bottomY2 > maxYCoord) maxYCoord = bottomY2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       });
                       var _diffOnX = originalCenter.x - (maxXCoord + minXCoord) / 2;
                       var _diffOnY = originalCenter.y - (maxYCoord + minYCoord) / 2;
@@ -6753,8 +8031,13 @@ var require_cytoscape_fcose = __commonJS({
                   var nodeBottom = void 0;
                   var nodes3 = parentNode.descendants().not(":parent");
                   var s = nodes3.length;
+<<<<<<< HEAD
                   for (var i = 0; i < s; i++) {
                     var node = nodes3[i];
+=======
+                  for (var i2 = 0; i2 < s; i2++) {
+                    var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     nodeLeft = xCoords[nodeIndexes.get(node.id())] - node.width() / 2;
                     nodeRight = xCoords[nodeIndexes.get(node.id())] + node.width() / 2;
                     nodeTop = yCoords[nodeIndexes.get(node.id())] - node.height() / 2;
@@ -6795,12 +8078,20 @@ var require_cytoscape_fcose = __commonJS({
                   return parentsWithoutChildren;
                 };
                 module2.exports = auxiliary;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             816: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var aux = __webpack_require__2(548);
                 var CoSELayout = __webpack_require__2(140).CoSELayout;
                 var CoSENode = __webpack_require__2(140).CoSENode;
@@ -6836,8 +8127,13 @@ var require_cytoscape_fcose = __commonJS({
                   var parentsWithoutChildren = aux.calcParentsWithoutChildren(cy2, eles);
                   var processChildrenList = function processChildrenList2(parent4, children, layout4, options3) {
                     var size3 = children.length;
+<<<<<<< HEAD
                     for (var i = 0; i < size3; i++) {
                       var theChild = children[i];
+=======
+                    for (var i2 = 0; i2 < size3; i2++) {
+                      var theChild = children[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       var children_of_children = null;
                       if (theChild.intersection(parentsWithoutChildren).length == 0) {
                         children_of_children = theChild.children();
@@ -6893,8 +8189,13 @@ var require_cytoscape_fcose = __commonJS({
                   var processEdges = function processEdges2(layout4, gm2, edges4) {
                     var idealLengthTotal = 0;
                     var edgeCount = 0;
+<<<<<<< HEAD
                     for (var i = 0; i < edges4.length; i++) {
                       var edge = edges4[i];
+=======
+                    for (var i2 = 0; i2 < edges4.length; i2++) {
+                      var edge = edges4[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       var sourceNode = idToLNode[edge.data("source")];
                       var targetNode = idToLNode[edge.data("target")];
                       if (sourceNode && targetNode && sourceNode !== targetNode && sourceNode.getEdgesBetween(targetNode).length == 0) {
@@ -6907,8 +8208,12 @@ var require_cytoscape_fcose = __commonJS({
                       }
                     }
                     if (options2.idealEdgeLength != null) {
+<<<<<<< HEAD
                       if (edgeCount > 0)
                         CoSEConstants.DEFAULT_EDGE_LENGTH = FDLayoutConstants.DEFAULT_EDGE_LENGTH = idealLengthTotal / edgeCount;
+=======
+                      if (edgeCount > 0) CoSEConstants.DEFAULT_EDGE_LENGTH = FDLayoutConstants.DEFAULT_EDGE_LENGTH = idealLengthTotal / edgeCount;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       else if (!isFn(options2.idealEdgeLength))
                         CoSEConstants.DEFAULT_EDGE_LENGTH = FDLayoutConstants.DEFAULT_EDGE_LENGTH = options2.idealEdgeLength;
                       else
@@ -6928,6 +8233,7 @@ var require_cytoscape_fcose = __commonJS({
                       layout4.constraints["relativePlacementConstraint"] = options3.relativePlacementConstraint;
                     }
                   };
+<<<<<<< HEAD
                   if (options2.nestingFactor != null)
                     CoSEConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR = FDLayoutConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR = options2.nestingFactor;
                   if (options2.gravity != null)
@@ -6948,6 +8254,18 @@ var require_cytoscape_fcose = __commonJS({
                     LayoutConstants.QUALITY = 2;
                   else
                     LayoutConstants.QUALITY = 0;
+=======
+                  if (options2.nestingFactor != null) CoSEConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR = FDLayoutConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR = options2.nestingFactor;
+                  if (options2.gravity != null) CoSEConstants.DEFAULT_GRAVITY_STRENGTH = FDLayoutConstants.DEFAULT_GRAVITY_STRENGTH = options2.gravity;
+                  if (options2.numIter != null) CoSEConstants.MAX_ITERATIONS = FDLayoutConstants.MAX_ITERATIONS = options2.numIter;
+                  if (options2.gravityRange != null) CoSEConstants.DEFAULT_GRAVITY_RANGE_FACTOR = FDLayoutConstants.DEFAULT_GRAVITY_RANGE_FACTOR = options2.gravityRange;
+                  if (options2.gravityCompound != null) CoSEConstants.DEFAULT_COMPOUND_GRAVITY_STRENGTH = FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_STRENGTH = options2.gravityCompound;
+                  if (options2.gravityRangeCompound != null) CoSEConstants.DEFAULT_COMPOUND_GRAVITY_RANGE_FACTOR = FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_RANGE_FACTOR = options2.gravityRangeCompound;
+                  if (options2.initialEnergyOnIncremental != null) CoSEConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL = FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL = options2.initialEnergyOnIncremental;
+                  if (options2.tilingCompareBy != null) CoSEConstants.TILING_COMPARE_BY = options2.tilingCompareBy;
+                  if (options2.quality == "proof") LayoutConstants.QUALITY = 2;
+                  else LayoutConstants.QUALITY = 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   CoSEConstants.NODE_DIMENSIONS_INCLUDE_LABELS = FDLayoutConstants.NODE_DIMENSIONS_INCLUDE_LABELS = LayoutConstants.NODE_DIMENSIONS_INCLUDE_LABELS = options2.nodeDimensionsIncludeLabels;
                   CoSEConstants.DEFAULT_INCREMENTAL = FDLayoutConstants.DEFAULT_INCREMENTAL = LayoutConstants.DEFAULT_INCREMENTAL = !options2.randomize;
                   CoSEConstants.ANIMATE = FDLayoutConstants.ANIMATE = LayoutConstants.ANIMATE = options2.animate;
@@ -6973,10 +8291,15 @@ var require_cytoscape_fcose = __commonJS({
                     CoSEConstants.APPLY_LAYOUT = true;
                   }
                   if (options2.step == "all") {
+<<<<<<< HEAD
                     if (options2.randomize)
                       CoSEConstants.TRANSFORM_ON_CONSTRAINT_HANDLING = true;
                     else
                       CoSEConstants.TRANSFORM_ON_CONSTRAINT_HANDLING = false;
+=======
+                    if (options2.randomize) CoSEConstants.TRANSFORM_ON_CONSTRAINT_HANDLING = true;
+                    else CoSEConstants.TRANSFORM_ON_CONSTRAINT_HANDLING = false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     CoSEConstants.ENFORCE_CONSTRAINTS = true;
                     CoSEConstants.APPLY_LAYOUT = true;
                   }
@@ -6994,11 +8317,16 @@ var require_cytoscape_fcose = __commonJS({
                   return idToLNode;
                 };
                 module2.exports = { coseLayout };
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             212: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
                 var _createClass2 = /* @__PURE__ */ function() {
                   function defineProperties(target, props) {
@@ -7008,10 +8336,21 @@ var require_cytoscape_fcose = __commonJS({
                       descriptor.configurable = true;
                       if ("value" in descriptor)
                         descriptor.writable = true;
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+                var _createClass2 = /* @__PURE__ */ (function() {
+                  function defineProperties(target, props) {
+                    for (var i2 = 0; i2 < props.length; i2++) {
+                      var descriptor = props[i2];
+                      descriptor.enumerable = descriptor.enumerable || false;
+                      descriptor.configurable = true;
+                      if ("value" in descriptor) descriptor.writable = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       Object.defineProperty(target, descriptor.key, descriptor);
                     }
                   }
                   return function(Constructor, protoProps, staticProps) {
+<<<<<<< HEAD
                     if (protoProps)
                       defineProperties(Constructor.prototype, protoProps);
                     if (staticProps)
@@ -7019,6 +8358,13 @@ var require_cytoscape_fcose = __commonJS({
                     return Constructor;
                   };
                 }();
+=======
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                  };
+                })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 function _classCallCheck2(instance2, Constructor) {
                   if (!(instance2 instanceof Constructor)) {
                     throw new TypeError("Cannot call a class as a function");
@@ -7118,7 +8464,11 @@ var require_cytoscape_fcose = __commonJS({
                   }
                   // on layoutstop
                 });
+<<<<<<< HEAD
                 var Layout2 = function() {
+=======
+                var Layout2 = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   function Layout3(options2) {
                     _classCallCheck2(this, Layout3);
                     this.options = assign5({}, defaults3, options2);
@@ -7159,8 +8509,12 @@ var require_cytoscape_fcose = __commonJS({
                       var packingEnabled = false;
                       if (cy2.layoutUtilities && options2.packComponents) {
                         layUtil = cy2.layoutUtilities("get");
+<<<<<<< HEAD
                         if (!layUtil)
                           layUtil = cy2.layoutUtilities();
+=======
+                        if (!layUtil) layUtil = cy2.layoutUtilities();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         packingEnabled = true;
                       }
                       if (eles.nodes().length > 0) {
@@ -7201,10 +8555,17 @@ var require_cytoscape_fcose = __commonJS({
                               var indexesToBeDeleted = [];
                               components2.forEach(function(component2, index) {
                                 if (component2.edges().length == 0) {
+<<<<<<< HEAD
                                   component2.nodes().forEach(function(node, i2) {
                                     toBeTiledNodes.merge(component2.nodes()[i2]);
                                     if (!node.isParent()) {
                                       tempSpectralResult.nodeIndexes.set(component2.nodes()[i2].id(), count++);
+=======
+                                  component2.nodes().forEach(function(node, i3) {
+                                    toBeTiledNodes.merge(component2.nodes()[i3]);
+                                    if (!node.isParent()) {
+                                      tempSpectralResult.nodeIndexes.set(component2.nodes()[i3].id(), count++);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                                       tempSpectralResult.xCoords.push(component2.nodes()[0].position().x);
                                       tempSpectralResult.yCoords.push(component2.nodes()[0].position().y);
                                     }
@@ -7217,10 +8578,17 @@ var require_cytoscape_fcose = __commonJS({
                                 componentCenters.push({ x: _boundingBox.x1 + _boundingBox.w / 2, y: _boundingBox.y1 + _boundingBox.h / 2 });
                                 components2.push(toBeTiledNodes);
                                 spectralResult.push(tempSpectralResult);
+<<<<<<< HEAD
                                 for (var i = indexesToBeDeleted.length - 1; i >= 0; i--) {
                                   components2.splice(indexesToBeDeleted[i], 1);
                                   spectralResult.splice(indexesToBeDeleted[i], 1);
                                   componentCenters.splice(indexesToBeDeleted[i], 1);
+=======
+                                for (var i2 = indexesToBeDeleted.length - 1; i2 >= 0; i2--) {
+                                  components2.splice(indexesToBeDeleted[i2], 1);
+                                  spectralResult.splice(indexesToBeDeleted[i2], 1);
+                                  componentCenters.splice(indexesToBeDeleted[i2], 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                                 }
                                 ;
                               }
@@ -7330,10 +8698,17 @@ var require_cytoscape_fcose = __commonJS({
                           }
                         }
                       }
+<<<<<<< HEAD
                       var getPositions = function getPositions2(ele, i2) {
                         if (options2.quality == "default" || options2.quality == "proof") {
                           if (typeof ele === "number") {
                             ele = i2;
+=======
+                      var getPositions = function getPositions2(ele, i3) {
+                        if (options2.quality == "default" || options2.quality == "proof") {
+                          if (typeof ele === "number") {
+                            ele = i3;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           }
                           var pos = void 0;
                           var node = void 0;
@@ -7360,8 +8735,12 @@ var require_cytoscape_fcose = __commonJS({
                               }
                             }
                           }
+<<<<<<< HEAD
                           if (pos == void 0)
                             pos = { x: ele.position("x"), y: ele.position("y") };
+=======
+                          if (pos == void 0) pos = { x: ele.position("x"), y: ele.position("y") };
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           return {
                             x: pos.x,
                             y: pos.y
@@ -7374,8 +8753,12 @@ var require_cytoscape_fcose = __commonJS({
                               _pos = { x: result2.xCoords[index], y: result2.yCoords[index] };
                             }
                           });
+<<<<<<< HEAD
                           if (_pos == void 0)
                             _pos = { x: ele.position("x"), y: ele.position("y") };
+=======
+                          if (_pos == void 0) _pos = { x: ele.position("x"), y: ele.position("y") };
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           return {
                             x: _pos.x,
                             y: _pos.y
@@ -7400,14 +8783,24 @@ var require_cytoscape_fcose = __commonJS({
                     }
                   }]);
                   return Layout3;
+<<<<<<< HEAD
                 }();
                 module2.exports = Layout2;
               }
+=======
+                })();
+                module2.exports = Layout2;
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             657: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var aux = __webpack_require__2(548);
                 var Matrix = __webpack_require__2(140).layoutBase.Matrix;
                 var SVD = __webpack_require__2(140).layoutBase.SVD;
@@ -7442,8 +8835,13 @@ var require_cytoscape_fcose = __commonJS({
                     while (count < sampleSize) {
                       sample2 = Math.floor(Math.random() * nodeSize);
                       flag = false;
+<<<<<<< HEAD
                       for (var i2 = 0; i2 < count; i2++) {
                         if (samplesColumn[i2] == sample2) {
+=======
+                      for (var i3 = 0; i3 < count; i3++) {
+                        if (samplesColumn[i3] == sample2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                           flag = true;
                           break;
                         }
@@ -7465,8 +8863,13 @@ var require_cytoscape_fcose = __commonJS({
                     var distance = [];
                     var max_dist = 0;
                     var max_ind = 1;
+<<<<<<< HEAD
                     for (var i2 = 0; i2 < nodeSize; i2++) {
                       distance[i2] = infinity;
+=======
+                    for (var i3 = 0; i3 < nodeSize; i3++) {
+                      distance[i3] = infinity;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     path[back] = pivot;
                     distance[pivot] = 0;
@@ -7484,8 +8887,12 @@ var require_cytoscape_fcose = __commonJS({
                     }
                     if (samplingMethod) {
                       for (var _i2 = 0; _i2 < nodeSize; _i2++) {
+<<<<<<< HEAD
                         if (C[_i2][index2] < minDistancesColumn[_i2])
                           minDistancesColumn[_i2] = C[_i2][index2];
+=======
+                        if (C[_i2][index2] < minDistancesColumn[_i2]) minDistancesColumn[_i2] = C[_i2][index2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                       for (var _i3 = 0; _i3 < nodeSize; _i3++) {
                         if (minDistancesColumn[_i3] > max_dist) {
@@ -7500,8 +8907,13 @@ var require_cytoscape_fcose = __commonJS({
                     var sample2 = void 0;
                     if (!samplingMethod) {
                       randomSampleCR();
+<<<<<<< HEAD
                       for (var i2 = 0; i2 < sampleSize; i2++) {
                         BFS(samplesColumn[i2], i2, samplingMethod, false);
+=======
+                      for (var i3 = 0; i3 < sampleSize; i3++) {
+                        BFS(samplesColumn[i3], i3, samplingMethod, false);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     } else {
                       sample2 = Math.floor(Math.random() * nodeSize);
@@ -7535,12 +8947,21 @@ var require_cytoscape_fcose = __commonJS({
                     var a_v = SVDResult.V;
                     var max_s = a_q[0] * a_q[0] * a_q[0];
                     var a_Sig = [];
+<<<<<<< HEAD
                     for (var i2 = 0; i2 < sampleSize; i2++) {
                       a_Sig[i2] = [];
                       for (var j = 0; j < sampleSize; j++) {
                         a_Sig[i2][j] = 0;
                         if (i2 == j) {
                           a_Sig[i2][j] = a_q[i2] / (a_q[i2] * a_q[i2] + max_s / (a_q[i2] * a_q[i2]));
+=======
+                    for (var i3 = 0; i3 < sampleSize; i3++) {
+                      a_Sig[i3] = [];
+                      for (var j = 0; j < sampleSize; j++) {
+                        a_Sig[i3][j] = 0;
+                        if (i3 == j) {
+                          a_Sig[i3][j] = a_q[i3] / (a_q[i3] * a_q[i3] + max_s / (a_q[i3] * a_q[i3]));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         }
                       }
                     }
@@ -7553,9 +8974,15 @@ var require_cytoscape_fcose = __commonJS({
                     var Y2 = [];
                     var V1 = [];
                     var V2 = [];
+<<<<<<< HEAD
                     for (var i2 = 0; i2 < nodeSize; i2++) {
                       Y1[i2] = Math.random();
                       Y2[i2] = Math.random();
+=======
+                    for (var i3 = 0; i3 < nodeSize; i3++) {
+                      Y1[i3] = Math.random();
+                      Y2[i3] = Math.random();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     Y1 = Matrix.normalize(Y1);
                     Y2 = Matrix.normalize(Y2);
@@ -7610,9 +9037,15 @@ var require_cytoscape_fcose = __commonJS({
                     aux.connectComponents(cy2, eles, aux.getTopMostNodes(ele.descendants().intersection(eles)), dummyNodes);
                   });
                   var index = 0;
+<<<<<<< HEAD
                   for (var i = 0; i < nodes3.length; i++) {
                     if (!nodes3[i].isParent()) {
                       nodeIndexes.set(nodes3[i].id(), index++);
+=======
+                  for (var i2 = 0; i2 < nodes3.length; i2++) {
+                    if (!nodes3[i2].isParent()) {
+                      nodeIndexes.set(nodes3[i2].id(), index++);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                   }
                   var _iteratorNormalCompletion = true;
@@ -7647,16 +9080,24 @@ var require_cytoscape_fcose = __commonJS({
                     }
                     var index2 = 0;
                     var min4 = children.nodes(":childless")[0].connectedEdges().length;
+<<<<<<< HEAD
                     children.nodes(":childless").forEach(function(ele2, i2) {
                       if (ele2.connectedEdges().length < min4) {
                         min4 = ele2.connectedEdges().length;
                         index2 = i2;
+=======
+                    children.nodes(":childless").forEach(function(ele2, i3) {
+                      if (ele2.connectedEdges().length < min4) {
+                        min4 = ele2.connectedEdges().length;
+                        index2 = i3;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     });
                     parentChildMap.set(ele.id(), children.nodes(":childless")[index2].id());
                   });
                   nodes3.forEach(function(ele) {
                     var eleIndex = void 0;
+<<<<<<< HEAD
                     if (ele.isParent())
                       eleIndex = nodeIndexes.get(parentChildMap.get(ele.id()));
                     else
@@ -7667,6 +9108,14 @@ var require_cytoscape_fcose = __commonJS({
                           allNodesNeighborhood[eleIndex].push(parentChildMap.get(node.id()));
                         else
                           allNodesNeighborhood[eleIndex].push(node.id());
+=======
+                    if (ele.isParent()) eleIndex = nodeIndexes.get(parentChildMap.get(ele.id()));
+                    else eleIndex = nodeIndexes.get(ele.id());
+                    ele.neighborhood().nodes().forEach(function(node) {
+                      if (eles.intersection(ele.edgesWith(node)).length > 0) {
+                        if (node.isParent()) allNodesNeighborhood[eleIndex].push(parentChildMap.get(node.id()));
+                        else allNodesNeighborhood[eleIndex].push(node.id());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     });
                   });
@@ -7674,10 +9123,15 @@ var require_cytoscape_fcose = __commonJS({
                     var eleIndex = nodeIndexes.get(_key2);
                     var disconnectedId = void 0;
                     dummyNodes.get(_key2).forEach(function(id2) {
+<<<<<<< HEAD
                       if (cy2.getElementById(id2).isParent())
                         disconnectedId = parentChildMap.get(id2);
                       else
                         disconnectedId = id2;
+=======
+                      if (cy2.getElementById(id2).isParent()) disconnectedId = parentChildMap.get(id2);
+                      else disconnectedId = id2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       allNodesNeighborhood[eleIndex].push(disconnectedId);
                       allNodesNeighborhood[nodeIndexes.get(disconnectedId)].push(_key2);
                     });
@@ -7745,12 +9199,20 @@ var require_cytoscape_fcose = __commonJS({
                   }
                 };
                 module2.exports = { spectralLayout };
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             579: (
               /***/
+<<<<<<< HEAD
               (module2, __unused_webpack_exports, __webpack_require__2) => {
+=======
+              ((module2, __unused_webpack_exports, __webpack_require__2) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var impl2 = __webpack_require__2(212);
                 var register = function register2(cytoscape4) {
                   if (!cytoscape4) {
@@ -7762,14 +9224,24 @@ var require_cytoscape_fcose = __commonJS({
                   register(cytoscape);
                 }
                 module2.exports = register;
+<<<<<<< HEAD
               }
+=======
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ),
             /***/
             140: (
               /***/
+<<<<<<< HEAD
               (module2) => {
                 module2.exports = __WEBPACK_EXTERNAL_MODULE__140__;
               }
+=======
+              ((module2) => {
+                module2.exports = __WEBPACK_EXTERNAL_MODULE__140__;
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             )
             /******/
           };
@@ -8102,10 +9574,17 @@ var require_coreJsData2 = __commonJS({
 var require_isMasked2 = __commonJS({
   "node_modules/lodash/_isMasked.js"(exports, module) {
     var coreJsData = require_coreJsData2();
+<<<<<<< HEAD
     var maskSrcKey = function() {
       var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
       return uid ? "Symbol(src)_1." + uid : "";
     }();
+=======
+    var maskSrcKey = (function() {
+      var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
+      return uid ? "Symbol(src)_1." + uid : "";
+    })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     function isMasked(func) {
       return !!maskSrcKey && maskSrcKey in func;
     }
@@ -8484,14 +9963,22 @@ var require_arrayEach = __commonJS({
 var require_defineProperty2 = __commonJS({
   "node_modules/lodash/_defineProperty.js"(exports, module) {
     var getNative = require_getNative2();
+<<<<<<< HEAD
     var defineProperty = function() {
+=======
+    var defineProperty = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       try {
         var func = getNative(Object, "defineProperty");
         func({}, "", {});
         return func;
       } catch (e) {
       }
+<<<<<<< HEAD
     }();
+=======
+    })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     module.exports = defineProperty;
   }
 });
@@ -8605,9 +10092,15 @@ var require_isArguments = __commonJS({
     var objectProto = Object.prototype;
     var hasOwnProperty = objectProto.hasOwnProperty;
     var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+<<<<<<< HEAD
     var isArguments = baseIsArguments(/* @__PURE__ */ function() {
       return arguments;
     }()) ? baseIsArguments : function(value) {
+=======
+    var isArguments = baseIsArguments(/* @__PURE__ */ (function() {
+      return arguments;
+    })()) ? baseIsArguments : function(value) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return isObjectLike(value) && hasOwnProperty.call(value, "callee") && !propertyIsEnumerable.call(value, "callee");
     };
     module.exports = isArguments;
@@ -8732,7 +10225,11 @@ var require_nodeUtil = __commonJS({
     var freeModule = freeExports && typeof module == "object" && module && !module.nodeType && module;
     var moduleExports = freeModule && freeModule.exports === freeExports;
     var freeProcess = moduleExports && freeGlobal.process;
+<<<<<<< HEAD
     var nodeUtil = function() {
+=======
+    var nodeUtil = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       try {
         var types = freeModule && freeModule.require && freeModule.require("util").types;
         if (types) {
@@ -8741,7 +10238,11 @@ var require_nodeUtil = __commonJS({
         return freeProcess && freeProcess.binding && freeProcess.binding("util");
       } catch (e) {
       }
+<<<<<<< HEAD
     }();
+=======
+    })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     module.exports = nodeUtil;
   }
 });
@@ -9378,7 +10879,11 @@ var require_baseCreate = __commonJS({
   "node_modules/lodash/_baseCreate.js"(exports, module) {
     var isObject = require_isObject();
     var objectCreate = Object.create;
+<<<<<<< HEAD
     var baseCreate = /* @__PURE__ */ function() {
+=======
+    var baseCreate = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       function object3() {
       }
       return function(proto) {
@@ -9393,7 +10898,11 @@ var require_baseCreate = __commonJS({
         object3.prototype = void 0;
         return result;
       };
+<<<<<<< HEAD
     }();
+=======
+    })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     module.exports = baseCreate;
   }
 });
@@ -11770,8 +13279,12 @@ var require_components = __commonJS({
       var cmpts = [];
       var cmpt;
       function dfs(v) {
+<<<<<<< HEAD
         if (_.has(visited, v))
           return;
+=======
+        if (_.has(visited, v)) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         visited[v] = true;
         cmpt.push(v);
         _.each(g.successors(v), dfs);
@@ -11849,18 +13362,31 @@ var require_priority_queue = __commonJS({
       this._arr[index].priority = priority3;
       this._decrease(index);
     };
+<<<<<<< HEAD
     PriorityQueue.prototype._heapify = function(i) {
       var arr = this._arr;
       var l = 2 * i;
       var r = l + 1;
       var largest = i;
+=======
+    PriorityQueue.prototype._heapify = function(i2) {
+      var arr = this._arr;
+      var l = 2 * i2;
+      var r = l + 1;
+      var largest = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (l < arr.length) {
         largest = arr[l].priority < arr[largest].priority ? l : largest;
         if (r < arr.length) {
           largest = arr[r].priority < arr[largest].priority ? r : largest;
         }
+<<<<<<< HEAD
         if (largest !== i) {
           this._swap(i, largest);
+=======
+        if (largest !== i2) {
+          this._swap(i2, largest);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           this._heapify(largest);
         }
       }
@@ -11878,6 +13404,7 @@ var require_priority_queue = __commonJS({
         index = parent4;
       }
     };
+<<<<<<< HEAD
     PriorityQueue.prototype._swap = function(i, j) {
       var arr = this._arr;
       var keyIndices = this._keyIndices;
@@ -11886,6 +13413,16 @@ var require_priority_queue = __commonJS({
       arr[i] = origArrJ;
       arr[j] = origArrI;
       keyIndices[origArrJ.key] = i;
+=======
+    PriorityQueue.prototype._swap = function(i2, j) {
+      var arr = this._arr;
+      var keyIndices = this._keyIndices;
+      var origArrI = arr[i2];
+      var origArrJ = arr[j];
+      arr[i2] = origArrJ;
+      arr[j] = origArrI;
+      keyIndices[origArrJ.key] = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       keyIndices[origArrI.key] = j;
     };
   }
@@ -12052,8 +13589,13 @@ var require_floyd_warshall = __commonJS({
       });
       nodes3.forEach(function(k) {
         var rowK = results[k];
+<<<<<<< HEAD
         nodes3.forEach(function(i) {
           var rowI = results[i];
+=======
+        nodes3.forEach(function(i2) {
+          var rowI = results[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           nodes3.forEach(function(j) {
             var ik = rowI[k];
             var kj = rowK[j];
@@ -13278,8 +14820,13 @@ var require_greedy_fas = __commonJS({
           removeNode(g, buckets, zeroIdx, entry);
         }
         if (g.nodeCount()) {
+<<<<<<< HEAD
           for (var i = buckets.length - 2; i > 0; --i) {
             entry = buckets[i].dequeue();
+=======
+          for (var i2 = buckets.length - 2; i2 > 0; --i2) {
+            entry = buckets[i2].dequeue();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             if (entry) {
               results = results.concat(removeNode(g, buckets, zeroIdx, entry, true));
               break;
@@ -13550,8 +15097,13 @@ var require_util = __commonJS({
       });
       var delta = 0;
       var nodeRankFactor = g.graph().nodeRankFactor;
+<<<<<<< HEAD
       _.forEach(layers, function(vs, i) {
         if (_.isUndefined(vs) && i % nodeRankFactor !== 0) {
+=======
+      _.forEach(layers, function(vs, i2) {
+        if (_.isUndefined(vs) && i2 % nodeRankFactor !== 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           --delta;
         } else if (delta) {
           _.forEach(vs, function(v) {
@@ -13628,11 +15180,18 @@ var require_normalize = __commonJS({
       var name = e.name;
       var edgeLabel = g.edge(e);
       var labelRank = edgeLabel.labelRank;
+<<<<<<< HEAD
       if (wRank === vRank + 1)
         return;
       g.removeEdge(e);
       var dummy, attrs, i;
       for (i = 0, ++vRank; vRank < wRank; ++i, ++vRank) {
+=======
+      if (wRank === vRank + 1) return;
+      g.removeEdge(e);
+      var dummy, attrs, i2;
+      for (i2 = 0, ++vRank; vRank < wRank; ++i2, ++vRank) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         edgeLabel.points = [];
         attrs = {
           width: 0,
@@ -13649,7 +15208,11 @@ var require_normalize = __commonJS({
           attrs.labelpos = edgeLabel.labelpos;
         }
         g.setEdge(v, dummy, { weight: edgeLabel.weight }, name);
+<<<<<<< HEAD
         if (i === 0) {
+=======
+        if (i2 === 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           g.graph().dummyChains.push(dummy);
         }
         v = dummy;
@@ -14244,8 +15807,12 @@ var require_init_order = __commonJS({
         return [];
       });
       function dfs(v) {
+<<<<<<< HEAD
         if (_.has(visited, v))
           return;
+=======
+        if (_.has(visited, v)) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         visited[v] = true;
         var node = g.node(v);
         layers[node.rank].push(v);
@@ -14268,16 +15835,26 @@ var require_cross_count = __commonJS({
     module.exports = crossCount;
     function crossCount(g, layering) {
       var cc = 0;
+<<<<<<< HEAD
       for (var i = 1; i < layering.length; ++i) {
         cc += twoLayerCrossCount(g, layering[i - 1], layering[i]);
+=======
+      for (var i2 = 1; i2 < layering.length; ++i2) {
+        cc += twoLayerCrossCount(g, layering[i2 - 1], layering[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       return cc;
     }
     function twoLayerCrossCount(g, northLayer, southLayer) {
       var southPos = _.zipObject(
         southLayer,
+<<<<<<< HEAD
         _.map(southLayer, function(v, i) {
           return i;
+=======
+        _.map(southLayer, function(v, i2) {
+          return i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         })
       );
       var southEntries = _.flatten(_.map(northLayer, function(v) {
@@ -14286,8 +15863,12 @@ var require_cross_count = __commonJS({
         }), "pos");
       }), true);
       var firstIndex = 1;
+<<<<<<< HEAD
       while (firstIndex < southLayer.length)
         firstIndex <<= 1;
+=======
+      while (firstIndex < southLayer.length) firstIndex <<= 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var treeSize = 2 * firstIndex - 1;
       firstIndex -= 1;
       var tree = _.map(new Array(treeSize), function() {
@@ -14349,13 +15930,21 @@ var require_resolve_conflicts = __commonJS({
     module.exports = resolveConflicts;
     function resolveConflicts(entries, cg) {
       var mappedEntries = {};
+<<<<<<< HEAD
       _.forEach(entries, function(entry, i) {
+=======
+      _.forEach(entries, function(entry, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var tmp = mappedEntries[entry.v] = {
           indegree: 0,
           "in": [],
           out: [],
           vs: [entry.v],
+<<<<<<< HEAD
           i
+=======
+          i: i2
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         };
         if (!_.isUndefined(entry.barycenter)) {
           tmp.barycenter = entry.barycenter;
@@ -14580,8 +16169,12 @@ var require_build_layer_graph = __commonJS({
     }
     function createRootNode(g) {
       var v;
+<<<<<<< HEAD
       while (g.hasNode(v = _.uniqueId("_root")))
         ;
+=======
+      while (g.hasNode(v = _.uniqueId("_root"))) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return v;
     }
   }
@@ -14634,8 +16227,13 @@ var require_order = __commonJS({
       var layering = initOrder(g);
       assignOrder(g, layering);
       var bestCC = Number.POSITIVE_INFINITY, best;
+<<<<<<< HEAD
       for (var i = 0, lastBest = 0; lastBest < 4; ++i, ++lastBest) {
         sweepLayerGraphs(i % 2 ? downLayerGraphs : upLayerGraphs, i % 4 >= 2);
+=======
+      for (var i2 = 0, lastBest = 0; lastBest < 4; ++i2, ++lastBest) {
+        sweepLayerGraphs(i2 % 2 ? downLayerGraphs : upLayerGraphs, i2 % 4 >= 2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         layering = util.buildLayerMatrix(g);
         var cc = crossCount(g, layering);
         if (cc < bestCC) {
@@ -14656,16 +16254,26 @@ var require_order = __commonJS({
       _.forEach(layerGraphs, function(lg) {
         var root = lg.graph().root;
         var sorted = sortSubgraph(lg, root, cg, biasRight);
+<<<<<<< HEAD
         _.forEach(sorted.vs, function(v, i) {
           lg.node(v).order = i;
+=======
+        _.forEach(sorted.vs, function(v, i2) {
+          lg.node(v).order = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         });
         addSubgraphConstraints(lg, cg, sorted.vs);
       });
     }
     function assignOrder(g, layering) {
       _.forEach(layering, function(layer) {
+<<<<<<< HEAD
         _.forEach(layer, function(v, i) {
           g.node(v).order = i;
+=======
+        _.forEach(layer, function(v, i2) {
+          g.node(v).order = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         });
       });
     }
@@ -14695,10 +16303,17 @@ var require_bk = __commonJS({
       var conflicts = {};
       function visitLayer(prevLayer, layer) {
         var k0 = 0, scanPos = 0, prevLayerLength = prevLayer.length, lastNode = _.last(layer);
+<<<<<<< HEAD
         _.forEach(layer, function(v, i) {
           var w = findOtherInnerSegmentNode(g, v), k1 = w ? g.node(w).order : prevLayerLength;
           if (w || v === lastNode) {
             _.forEach(layer.slice(scanPos, i + 1), function(scanNode) {
+=======
+        _.forEach(layer, function(v, i2) {
+          var w = findOtherInnerSegmentNode(g, v), k1 = w ? g.node(w).order : prevLayerLength;
+          if (w || v === lastNode) {
+            _.forEach(layer.slice(scanPos, i2 + 1), function(scanNode) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               _.forEach(g.predecessors(scanNode), function(u) {
                 var uLabel = g.node(u), uPos = uLabel.order;
                 if ((uPos < k0 || k1 < uPos) && !(uLabel.dummy && g.node(scanNode).dummy)) {
@@ -14706,7 +16321,11 @@ var require_bk = __commonJS({
                 }
               });
             });
+<<<<<<< HEAD
             scanPos = i + 1;
+=======
+            scanPos = i2 + 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             k0 = k1;
           }
         });
@@ -14719,8 +16338,13 @@ var require_bk = __commonJS({
       var conflicts = {};
       function scan(south, southPos, southEnd, prevNorthBorder, nextNorthBorder) {
         var v;
+<<<<<<< HEAD
         _.forEach(_.range(southPos, southEnd), function(i) {
           v = south[i];
+=======
+        _.forEach(_.range(southPos, southEnd), function(i2) {
+          v = south[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           if (g.node(v).dummy) {
             _.forEach(g.predecessors(v), function(u) {
               var uNode = g.node(u);
@@ -14795,8 +16419,13 @@ var require_bk = __commonJS({
               return pos[w2];
             });
             var mp = (ws.length - 1) / 2;
+<<<<<<< HEAD
             for (var i = Math.floor(mp), il = Math.ceil(mp); i <= il; ++i) {
               var w = ws[i];
+=======
+            for (var i2 = Math.floor(mp), il = Math.ceil(mp); i2 <= il; ++i2) {
+              var w = ws[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (align[v] === v && prevIdx < pos[w] && !hasConflict(conflicts, v, w)) {
                 align[w] = v;
                 align[v] = root[v] = root[w];
@@ -14879,8 +16508,12 @@ var require_bk = __commonJS({
       _.forEach(["u", "d"], function(vert) {
         _.forEach(["l", "r"], function(horiz) {
           var alignment = vert + horiz, xs = xss[alignment], delta;
+<<<<<<< HEAD
           if (xs === alignTo)
             return;
+=======
+          if (xs === alignTo) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var xsVals = _.values(xs);
           delta = horiz === "l" ? alignToMin - _.min(xsVals) : alignToMax - _.max(xsVals);
           if (delta) {
@@ -15375,15 +17008,25 @@ var require_layout = __commonJS({
       var layers = util.buildLayerMatrix(g);
       _.forEach(layers, function(layer) {
         var orderShift = 0;
+<<<<<<< HEAD
         _.forEach(layer, function(v, i) {
           var node = g.node(v);
           node.order = i + orderShift;
+=======
+        _.forEach(layer, function(v, i2) {
+          var node = g.node(v);
+          node.order = i2 + orderShift;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           _.forEach(node.selfEdges, function(selfEdge) {
             util.addDummyNode(g, "selfedge", {
               width: selfEdge.label.width,
               height: selfEdge.label.height,
               rank: node.rank,
+<<<<<<< HEAD
               order: i + ++orderShift,
+=======
+              order: i2 + ++orderShift,
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               e: selfEdge.e,
               label: selfEdge.label
             }, "_se");
@@ -15447,8 +17090,13 @@ var require_debug = __commonJS({
       _.forEach(g.edges(), function(e) {
         h.setEdge(e.v, e.w, {}, e.name);
       });
+<<<<<<< HEAD
       _.forEach(layerMatrix, function(layer, i) {
         var layerV = "layer" + i;
+=======
+      _.forEach(layerMatrix, function(layer, i2) {
+        var layerV = "layer" + i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         h.setNode(layerV, { rank: "same" });
         _.reduce(layer, function(u, v) {
           h.setEdge(u, v, { style: "invis" });
@@ -15498,7 +17146,11 @@ var require_cytoscape_dagre = __commonJS({
     })(exports, function(__WEBPACK_EXTERNAL_MODULE__4__) {
       return (
         /******/
+<<<<<<< HEAD
         function(modules2) {
+=======
+        (function(modules2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var installedModules = {};
           function __webpack_require__(moduleId) {
             if (installedModules[moduleId]) {
@@ -15531,6 +17183,7 @@ var require_cytoscape_dagre = __commonJS({
             Object.defineProperty(exports2, "__esModule", { value: true });
           };
           __webpack_require__.t = function(value, mode) {
+<<<<<<< HEAD
             if (mode & 1)
               value = __webpack_require__(value);
             if (mode & 8)
@@ -15545,6 +17198,17 @@ var require_cytoscape_dagre = __commonJS({
                 __webpack_require__.d(ns, key, function(key2) {
                   return value[key2];
                 }.bind(null, key));
+=======
+            if (mode & 1) value = __webpack_require__(value);
+            if (mode & 8) return value;
+            if (mode & 4 && typeof value === "object" && value && value.__esModule) return value;
+            var ns = /* @__PURE__ */ Object.create(null);
+            __webpack_require__.r(ns);
+            Object.defineProperty(ns, "default", { enumerable: true, value });
+            if (mode & 2 && typeof value != "string") for (var key in value) __webpack_require__.d(ns, key, function(key2) {
+              return value[key2];
+            }.bind(null, key));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             return ns;
           };
           __webpack_require__.n = function(module2) {
@@ -15567,10 +17231,17 @@ var require_cytoscape_dagre = __commonJS({
           };
           __webpack_require__.p = "";
           return __webpack_require__(__webpack_require__.s = 0);
+<<<<<<< HEAD
         }([
           /* 0 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+        })([
+          /* 0 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             var impl2 = __webpack_require__(1);
             var register = function register2(cytoscape4) {
               if (!cytoscape4) {
@@ -15582,10 +17253,17 @@ var require_cytoscape_dagre = __commonJS({
               register(cytoscape);
             }
             module2.exports = register;
+<<<<<<< HEAD
           },
           /* 1 */
           /***/
           function(module2, exports2, __webpack_require__) {
+=======
+          }),
+          /* 1 */
+          /***/
+          (function(module2, exports2, __webpack_require__) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             function _typeof2(obj) {
               "@babel/helpers - typeof";
               if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -15662,8 +17340,13 @@ var require_cytoscape_dagre = __commonJS({
               if (isFunction(options2.sort)) {
                 nodes3 = nodes3.sort(options2.sort);
               }
+<<<<<<< HEAD
               for (var i = 0; i < nodes3.length; i++) {
                 var node = nodes3[i];
+=======
+              for (var i2 = 0; i2 < nodes3.length; i2++) {
+                var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var nbb = node.layoutDimensions(options2);
                 g.setNode(node.id(), {
                   width: nbb.w,
@@ -15741,10 +17424,17 @@ var require_cytoscape_dagre = __commonJS({
               return this;
             };
             module2.exports = DagreLayout;
+<<<<<<< HEAD
           },
           /* 2 */
           /***/
           function(module2, exports2) {
+=======
+          }),
+          /* 2 */
+          /***/
+          (function(module2, exports2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             var defaults3 = {
               // dagre algo options, uses default value on undefined
               nodeSep: void 0,
@@ -15782,7 +17472,11 @@ var require_cytoscape_dagre = __commonJS({
               // whether labels should be included in determining the space used by a node
               animate: false,
               // whether to transition the node positions
+<<<<<<< HEAD
               animateFilter: function animateFilter8(node, i) {
+=======
+              animateFilter: function animateFilter8(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 return true;
               },
               // whether to animate specific nodes when animation is on; non-animated nodes immediately go to their final positions
@@ -15809,10 +17503,17 @@ var require_cytoscape_dagre = __commonJS({
               // on layoutstop
             };
             module2.exports = defaults3;
+<<<<<<< HEAD
           },
           /* 3 */
           /***/
           function(module2, exports2) {
+=======
+          }),
+          /* 3 */
+          /***/
+          (function(module2, exports2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             module2.exports = Object.assign != null ? Object.assign.bind(Object) : function(tgt) {
               for (var _len = arguments.length, srcs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
                 srcs[_key - 1] = arguments[_key];
@@ -15824,12 +17525,21 @@ var require_cytoscape_dagre = __commonJS({
               });
               return tgt;
             };
+<<<<<<< HEAD
           },
           /* 4 */
           /***/
           function(module2, exports2) {
             module2.exports = __WEBPACK_EXTERNAL_MODULE__4__;
           }
+=======
+          }),
+          /* 4 */
+          /***/
+          (function(module2, exports2) {
+            module2.exports = __WEBPACK_EXTERNAL_MODULE__4__;
+          })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           /******/
         ])
       );
@@ -15860,6 +17570,7 @@ var require_elk_bundled = __commonJS({
       }
     })(function() {
       var define3, module2, exports2;
+<<<<<<< HEAD
       return (/* @__PURE__ */ function() {
         function r(e, n, t2) {
           function o(i2, f) {
@@ -15887,10 +17598,37 @@ var require_elk_bundled = __commonJS({
         }
         return r;
       }())({ 1: [function(require2, module3, exports3) {
+=======
+      return (/* @__PURE__ */ (function() {
+        function r(e, n, t2) {
+          function o(i3, f) {
+            if (!n[i3]) {
+              if (!e[i3]) {
+                var c = "function" == typeof __require && __require;
+                if (!f && c) return c(i3, true);
+                if (u) return u(i3, true);
+                var a = new Error("Cannot find module '" + i3 + "'");
+                throw a.code = "MODULE_NOT_FOUND", a;
+              }
+              var p2 = n[i3] = { exports: {} };
+              e[i3][0].call(p2.exports, function(r2) {
+                var n2 = e[i3][1][r2];
+                return o(n2 || r2);
+              }, p2, p2.exports, r, e, n, t2);
+            }
+            return n[i3].exports;
+          }
+          for (var u = "function" == typeof __require && __require, i2 = 0; i2 < t2.length; i2++) o(t2[i2]);
+          return o;
+        }
+        return r;
+      })())({ 1: [function(require2, module3, exports3) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         "use strict";
         Object.defineProperty(exports3, "__esModule", {
           value: true
         });
+<<<<<<< HEAD
         var _createClass2 = /* @__PURE__ */ function() {
           function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
@@ -15899,10 +17637,20 @@ var require_elk_bundled = __commonJS({
               descriptor.configurable = true;
               if ("value" in descriptor)
                 descriptor.writable = true;
+=======
+        var _createClass2 = /* @__PURE__ */ (function() {
+          function defineProperties(target, props) {
+            for (var i2 = 0; i2 < props.length; i2++) {
+              var descriptor = props[i2];
+              descriptor.enumerable = descriptor.enumerable || false;
+              descriptor.configurable = true;
+              if ("value" in descriptor) descriptor.writable = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Object.defineProperty(target, descriptor.key, descriptor);
             }
           }
           return function(Constructor, protoProps, staticProps) {
+<<<<<<< HEAD
             if (protoProps)
               defineProperties(Constructor.prototype, protoProps);
             if (staticProps)
@@ -15910,12 +17658,23 @@ var require_elk_bundled = __commonJS({
             return Constructor;
           };
         }();
+=======
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+          };
+        })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         function _classCallCheck2(instance2, Constructor) {
           if (!(instance2 instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
           }
         }
+<<<<<<< HEAD
         var ELK = function() {
+=======
+        var ELK = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           function ELK2() {
             var _this = this;
             var _ref = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, _ref$defaultLayoutOpt = _ref.defaultLayoutOptions, defaultLayoutOptions = _ref$defaultLayoutOpt === void 0 ? {} : _ref$defaultLayoutOpt, _ref$algorithms = _ref.algorithms, algorithms = _ref$algorithms === void 0 ? ["layered", "stress", "mrtree", "radial", "force", "disco", "sporeOverlap", "sporeCompaction", "rectpacking"] : _ref$algorithms, workerFactory = _ref.workerFactory, workerUrl = _ref.workerUrl;
@@ -15978,6 +17737,7 @@ var require_elk_bundled = __commonJS({
           }, {
             key: "terminateWorker",
             value: function terminateWorker() {
+<<<<<<< HEAD
               if (this.worker)
                 this.worker.terminate();
             }
@@ -15986,6 +17746,15 @@ var require_elk_bundled = __commonJS({
         }();
         exports3.default = ELK;
         var PromisedWorker = function() {
+=======
+              if (this.worker) this.worker.terminate();
+            }
+          }]);
+          return ELK2;
+        })();
+        exports3.default = ELK;
+        var PromisedWorker = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           function PromisedWorker2(worker) {
             var _this2 = this;
             _classCallCheck2(this, PromisedWorker2);
@@ -16057,7 +17826,11 @@ var require_elk_bundled = __commonJS({
             }
           }]);
           return PromisedWorker2;
+<<<<<<< HEAD
         }();
+=======
+        })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }, {}], 2: [function(require2, module3, exports3) {
         (function(global2) {
           (function() {
@@ -16070,7 +17843,11 @@ var require_elk_bundled = __commonJS({
             else if (typeof self !== "undefined")
               $wnd = self;
             var $moduleName, $moduleBase;
+<<<<<<< HEAD
             var g, i, o;
+=======
+            var g, i2, o;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             function nb() {
             }
             function xb() {
@@ -19601,8 +21378,12 @@ var require_elk_bundled = __commonJS({
               return a;
             }
             function _wb(a, b) {
+<<<<<<< HEAD
               while (a.Bd(b))
                 ;
+=======
+              while (a.Bd(b)) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function atb(a) {
               this.a = new Usb(a);
@@ -19668,8 +21449,12 @@ var require_elk_bundled = __commonJS({
               a.splice(b, c);
             }
             function ixb(a, b) {
+<<<<<<< HEAD
               while (a.Re(b))
                 ;
+=======
+              while (a.Re(b)) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function NKb(a) {
               a.c ? MKb(a) : OKb(a);
@@ -24948,6 +26733,7 @@ var require_elk_bundled = __commonJS({
               return ZD(a, 484) ? RD(a, 484) : jeb(a);
             }
             function bve(a) {
+<<<<<<< HEAD
               if (a)
                 return a.dc();
               return !a.Kc().Ob();
@@ -24955,6 +26741,13 @@ var require_elk_bundled = __commonJS({
             function kte(a) {
               if (!Ase)
                 return false;
+=======
+              if (a) return a.dc();
+              return !a.Kc().Ob();
+            }
+            function kte(a) {
+              if (!Ase) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return Yjb(Ase, a);
             }
             function hDb(a) {
@@ -25038,6 +26831,7 @@ var require_elk_bundled = __commonJS({
               return a;
             }
             function uKd(a) {
+<<<<<<< HEAD
               if (a.p != 4)
                 throw Adb(new cgb());
               return a.e;
@@ -25065,6 +26859,29 @@ var require_elk_bundled = __commonJS({
             function FKd(a) {
               if (a.p != 6)
                 throw Adb(new cgb());
+=======
+              if (a.p != 4) throw Adb(new cgb());
+              return a.e;
+            }
+            function tKd(a) {
+              if (a.p != 3) throw Adb(new cgb());
+              return a.e;
+            }
+            function CKd(a) {
+              if (a.p != 3) throw Adb(new cgb());
+              return a.j;
+            }
+            function DKd(a) {
+              if (a.p != 4) throw Adb(new cgb());
+              return a.j;
+            }
+            function wKd(a) {
+              if (a.p != 6) throw Adb(new cgb());
+              return a.f;
+            }
+            function FKd(a) {
+              if (a.p != 6) throw Adb(new cgb());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return a.k;
             }
             function $9d(a) {
@@ -25923,6 +27740,7 @@ var require_elk_bundled = __commonJS({
               return Uub(a.b);
             }
             function vKd(a) {
+<<<<<<< HEAD
               if (a.p != 5)
                 throw Adb(new cgb());
               return Ydb(a.f);
@@ -25930,6 +27748,13 @@ var require_elk_bundled = __commonJS({
             function EKd(a) {
               if (a.p != 5)
                 throw Adb(new cgb());
+=======
+              if (a.p != 5) throw Adb(new cgb());
+              return Ydb(a.f);
+            }
+            function EKd(a) {
+              if (a.p != 5) throw Adb(new cgb());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return Ydb(a.k);
             }
             function P$d(a) {
@@ -26077,6 +27902,7 @@ var require_elk_bundled = __commonJS({
               return eeb[b];
             }
             function kzd(a) {
+<<<<<<< HEAD
               if (a.Db >> 16 != 3)
                 return null;
               return RD(a.Cb, 27);
@@ -26089,6 +27915,17 @@ var require_elk_bundled = __commonJS({
             function Fzd(a) {
               if (a.Db >> 16 != 6)
                 return null;
+=======
+              if (a.Db >> 16 != 3) return null;
+              return RD(a.Cb, 27);
+            }
+            function MCd(a) {
+              if (a.Db >> 16 != 9) return null;
+              return RD(a.Cb, 27);
+            }
+            function Fzd(a) {
+              if (a.Db >> 16 != 6) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return RD(a.Cb, 74);
             }
             function dVc() {
@@ -26197,6 +28034,7 @@ var require_elk_bundled = __commonJS({
               return new dnb(c);
             }
             function qKd(a) {
+<<<<<<< HEAD
               if (a.p != 0)
                 throw Adb(new cgb());
               return Pdb(a.f, 0);
@@ -26234,6 +28072,37 @@ var require_elk_bundled = __commonJS({
             function kVd(a) {
               if (a.Db >> 16 != 3)
                 return null;
+=======
+              if (a.p != 0) throw Adb(new cgb());
+              return Pdb(a.f, 0);
+            }
+            function zKd(a) {
+              if (a.p != 0) throw Adb(new cgb());
+              return Pdb(a.k, 0);
+            }
+            function gBd(a) {
+              if (a.Db >> 16 != 7) return null;
+              return RD(a.Cb, 241);
+            }
+            function xXd(a) {
+              if (a.Db >> 16 != 6) return null;
+              return RD(a.Cb, 241);
+            }
+            function dCd(a) {
+              if (a.Db >> 16 != 7) return null;
+              return RD(a.Cb, 167);
+            }
+            function vCd(a) {
+              if (a.Db >> 16 != 11) return null;
+              return RD(a.Cb, 27);
+            }
+            function uWd(a) {
+              if (a.Db >> 16 != 17) return null;
+              return RD(a.Cb, 29);
+            }
+            function kVd(a) {
+              if (a.Db >> 16 != 3) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return RD(a.Cb, 155);
             }
             function BDb(a) {
@@ -26677,6 +28546,7 @@ var require_elk_bundled = __commonJS({
               return new Gv(a, c);
             }
             function CXd(a) {
+<<<<<<< HEAD
               if (a.Db >> 16 != 6)
                 return null;
               return RD(yvd(a), 241);
@@ -26689,6 +28559,17 @@ var require_elk_bundled = __commonJS({
             function BKd(a) {
               if (a.p != 2)
                 throw Adb(new cgb());
+=======
+              if (a.Db >> 16 != 6) return null;
+              return RD(yvd(a), 241);
+            }
+            function sKd(a) {
+              if (a.p != 2) throw Adb(new cgb());
+              return Ydb(a.f) & Bwe;
+            }
+            function BKd(a) {
+              if (a.p != 2) throw Adb(new cgb());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return Ydb(a.k) & Bwe;
             }
             function ynb(a) {
@@ -26971,8 +28852,12 @@ var require_elk_bundled = __commonJS({
               return !a.a ? a.c : a.e.length == 0 ? a.a.a : a.a.a + ("" + a.e);
             }
             function Rib(a) {
+<<<<<<< HEAD
               while (a.d > 0 && a.a[--a.d] == 0)
                 ;
+=======
+              while (a.d > 0 && a.a[--a.d] == 0) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.a[a.d++] == 0 && (a.e = 0);
             }
             function fvb(a) {
@@ -27446,6 +29331,7 @@ var require_elk_bundled = __commonJS({
               return !c || c.fk(b);
             }
             function rKd(a) {
+<<<<<<< HEAD
               if (a.p != 1)
                 throw Adb(new cgb());
               return Ydb(a.f) << 24 >> 24;
@@ -27463,6 +29349,21 @@ var require_elk_bundled = __commonJS({
             function xKd(a) {
               if (a.p != 7)
                 throw Adb(new cgb());
+=======
+              if (a.p != 1) throw Adb(new cgb());
+              return Ydb(a.f) << 24 >> 24;
+            }
+            function AKd(a) {
+              if (a.p != 1) throw Adb(new cgb());
+              return Ydb(a.k) << 24 >> 24;
+            }
+            function GKd(a) {
+              if (a.p != 7) throw Adb(new cgb());
+              return Ydb(a.k) << 16 >> 16;
+            }
+            function xKd(a) {
+              if (a.p != 7) throw Adb(new cgb());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return Ydb(a.f) << 16 >> 16;
             }
             function Wib(a, b) {
@@ -27731,8 +29632,12 @@ var require_elk_bundled = __commonJS({
             }
             function Tib(a, b) {
               var c;
+<<<<<<< HEAD
               for (c = a.d - 1; c >= 0 && a.a[c] === b[c]; c--)
                 ;
+=======
+              for (c = a.d - 1; c >= 0 && a.a[c] === b[c]; c--) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return c < 0;
             }
             function Xx(a) {
@@ -28945,8 +30850,12 @@ var require_elk_bundled = __commonJS({
               return iMc(a, d);
             }
             function Pue(a) {
+<<<<<<< HEAD
               if (a.b <= 0)
                 throw Adb(new Dvb());
+=======
+              if (a.b <= 0) throw Adb(new Dvb());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               --a.b;
               a.a -= a.c.c;
               return sgb(a.a);
@@ -29005,8 +30914,12 @@ var require_elk_bundled = __commonJS({
               }
             }
             function NHd(a, b) {
+<<<<<<< HEAD
               if (a.g == null || b >= a.i)
                 throw Adb(new yNd(b, a.i));
+=======
+              if (a.g == null || b >= a.i) throw Adb(new yNd(b, a.i));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return a.g[b];
             }
             function P_d(a, b, c) {
@@ -30139,8 +32052,12 @@ var require_elk_bundled = __commonJS({
               }
             }
             function QHd(a, b) {
+<<<<<<< HEAD
               if (a.g == null || b >= a.i)
                 throw Adb(new yNd(b, a.i));
+=======
+              if (a.g == null || b >= a.i) throw Adb(new yNd(b, a.i));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return a.Wi(b, a.g[b]);
             }
             function Dob(a, b) {
@@ -30574,8 +32491,12 @@ var require_elk_bundled = __commonJS({
             function ZGd(a, b) {
               var c;
               c = a.gc();
+<<<<<<< HEAD
               if (b < 0 || b > c)
                 throw Adb(new aMd(b, c));
+=======
+              if (b < 0 || b > c) throw Adb(new aMd(b, c));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return new CMd(a, b);
             }
             function Cad(a, b) {
@@ -31500,8 +33421,12 @@ var require_elk_bundled = __commonJS({
                 if (a.e == 0) {
                   b = -1;
                 } else {
+<<<<<<< HEAD
                   for (b = 0; a.a[b] == 0; b++)
                     ;
+=======
+                  for (b = 0; a.a[b] == 0; b++) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 a.b = b;
               }
@@ -31932,8 +33857,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 82)) {
                   d = a;
                   ZEb(b.c, d);
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Wdb(a) {
@@ -32544,8 +34473,12 @@ var require_elk_bundled = __commonJS({
             function XGd(a, b, c) {
               var d;
               d = a.gc();
+<<<<<<< HEAD
               if (b > d)
                 throw Adb(new aMd(b, d));
+=======
+              if (b > d) throw Adb(new aMd(b, d));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.Si() && (c = bHd(a, c));
               return a.Ei(b, c);
             }
@@ -32582,14 +34515,22 @@ var require_elk_bundled = __commonJS({
               } else if (a == 0) {
                 return 0;
               } else {
+<<<<<<< HEAD
                 for (b = hwe; (b & a) == 0; b >>= 1)
                   ;
+=======
+                for (b = hwe; (b & a) == 0; b >>= 1) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 return b;
               }
             }
             function zSd(a, b, c) {
+<<<<<<< HEAD
               if (a >= 128)
                 return false;
+=======
+              if (a >= 128) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return a < 64 ? Pdb(Cdb(Sdb(1, a), c), 0) : Pdb(Cdb(Sdb(1, a - 64), b), 0);
             }
             function oQb(a, b, c) {
@@ -33074,8 +35015,12 @@ var require_elk_bundled = __commonJS({
             function fte() {
               Vse();
               var a;
+<<<<<<< HEAD
               if (Cse)
                 return Cse;
+=======
+              if (Cse) return Cse;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = Zse(hte("M", true));
               a = $se(hte("M", false), a);
               Cse = a;
@@ -33219,8 +35164,12 @@ var require_elk_bundled = __commonJS({
             }
             function Ejb(a, b, c) {
               var d;
+<<<<<<< HEAD
               for (d = c - 1; d >= 0 && a[d] === b[d]; d--)
                 ;
+=======
+              for (d = c - 1; d >= 0 && a[d] === b[d]; d--) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return d < 0 ? 0 : Ldb(Cdb(a[d], yxe), Cdb(b[d], yxe)) ? -1 : 1;
             }
             function it(a, b, c) {
@@ -33603,11 +35552,17 @@ var require_elk_bundled = __commonJS({
             }
             function tSd(a) {
               var b, c;
+<<<<<<< HEAD
               if (a == null)
                 return null;
               for (b = 0, c = a.length; b < c; b++) {
                 if (!GSd(a[b]))
                   return a[b];
+=======
+              if (a == null) return null;
+              for (b = 0, c = a.length; b < c; b++) {
+                if (!GSd(a[b])) return a[b];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return null;
             }
@@ -33772,11 +35727,17 @@ var require_elk_bundled = __commonJS({
             }
             function HSd(a) {
               var b, c;
+<<<<<<< HEAD
               if (a == null)
                 return false;
               for (b = 0, c = a.length; b < c; b++) {
                 if (!GSd(a[b]))
                   return false;
+=======
+              if (a == null) return false;
+              for (b = 0, c = a.length; b < c; b++) {
+                if (!GSd(a[b])) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return true;
             }
@@ -34033,8 +35994,12 @@ var require_elk_bundled = __commonJS({
                   if (b) {
                     RD(b.g, 379);
                     e = b.i;
+<<<<<<< HEAD
                     for (d = 0; d < e; ++d)
                       ;
+=======
+                    for (d = 0; d < e; ++d) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
               }
@@ -34214,8 +36179,12 @@ var require_elk_bundled = __commonJS({
                 e = Kfb(UD(evb(f)));
                 if (e > c) {
                   break;
+<<<<<<< HEAD
                 } else
                   e >= b && ++d;
+=======
+                } else e >= b && ++d;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return d;
             }
@@ -34227,8 +36196,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 212) || ZD(a, 169)) {
                   return false;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Nk(b, c) {
@@ -34239,8 +36212,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 212) || ZD(a, 169)) {
                   return false;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Ok(b, c) {
@@ -34251,8 +36228,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 212) || ZD(a, 169)) {
                   return false;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Xv(b, c) {
@@ -34263,8 +36244,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 212) || ZD(a, 169)) {
                   return null;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Yv(b, c) {
@@ -34275,8 +36260,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 212) || ZD(a, 169)) {
                   return null;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function aMc(a, b) {
@@ -34292,8 +36281,12 @@ var require_elk_bundled = __commonJS({
             }
             function QAd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return awd(a);
+=======
+              if ((a.Db & 64) != 0) return awd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(awd(a));
               b.a += " (name: ";
               Nhb(b, a.zb);
@@ -34423,8 +36416,12 @@ var require_elk_bundled = __commonJS({
             }
             function oVd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return awd(a);
+=======
+              if ((a.Db & 64) != 0) return awd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(awd(a));
               b.a += " (source: ";
               Nhb(b, a.d);
@@ -34621,8 +36618,12 @@ var require_elk_bundled = __commonJS({
             function VGd(a, b, c) {
               var d;
               d = a.gc();
+<<<<<<< HEAD
               if (b > d)
                 throw Adb(new aMd(b, d));
+=======
+              if (b > d) throw Adb(new aMd(b, d));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (a.Si() && a.Hc(c)) {
                 throw Adb(new agb(LIe));
               }
@@ -35045,8 +37046,12 @@ var require_elk_bundled = __commonJS({
             }
             function kyd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return awd(a);
+=======
+              if ((a.Db & 64) != 0) return awd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(awd(a));
               b.a += " (identifier: ";
               Nhb(b, a.k);
@@ -35167,8 +37172,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 606)) {
                   e = a;
                   throw Adb(new Deb(e));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return c;
             }
@@ -35222,8 +37231,12 @@ var require_elk_bundled = __commonJS({
               var b, c;
               for (c = Nje(BXd(uWd(a))).Kc(); c.Ob(); ) {
                 b = WD(c.Pb());
+<<<<<<< HEAD
                 if (bAd(a, b))
                   return dTd((cTd(), bTd), b);
+=======
+                if (bAd(a, b)) return dTd((cTd(), bTd), b);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return null;
             }
@@ -35457,8 +37470,12 @@ var require_elk_bundled = __commonJS({
             function mSd(a, b, c) {
               var d, e;
               for (d = 0, e = a.length; d < e; d++) {
+<<<<<<< HEAD
                 if (zSd((BFb(d, a.length), a.charCodeAt(d)), b, c))
                   return true;
+=======
+                if (zSd((BFb(d, a.length), a.charCodeAt(d)), b, c)) return true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return false;
             }
@@ -35524,8 +37541,12 @@ var require_elk_bundled = __commonJS({
             function kSd(a) {
               if (a.e == null) {
                 return a;
+<<<<<<< HEAD
               } else
                 !a.c && (a.c = new lSd((a.f & 256) != 0, a.i, a.a, a.d, (a.f & 16) != 0, a.j, a.g, null));
+=======
+              } else !a.c && (a.c = new lSd((a.f & 256) != 0, a.i, a.a, a.d, (a.f & 16) != 0, a.j, a.g, null));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return a.c;
             }
             function pnc(a) {
@@ -35540,6 +37561,7 @@ var require_elk_bundled = __commonJS({
                 c = vm(RD(a, 307));
                 b = c;
                 return b;
+<<<<<<< HEAD
               } else
                 return ZD(a, 441) ? RD(a, 441).a : ZD(a, 59) ? new Fv(a) : new uv(a);
             }
@@ -35547,6 +37569,13 @@ var require_elk_bundled = __commonJS({
               var b;
               if (a == null)
                 return true;
+=======
+              } else return ZD(a, 441) ? RD(a, 441).a : ZD(a, 59) ? new Fv(a) : new uv(a);
+            }
+            function FSd(a) {
+              var b;
+              if (a == null) return true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = a.length;
               return b > 0 && (BFb(b - 1, a.length), a.charCodeAt(b - 1) == 58) && !mSd(a, aSd, bSd);
             }
@@ -35990,8 +38019,12 @@ var require_elk_bundled = __commonJS({
             }
             function MXd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return QAd(a);
+=======
+              if ((a.Db & 64) != 0) return QAd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(QAd(a));
               b.a += " (instanceClassName: ";
               Nhb(b, a.D);
@@ -36102,8 +38135,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 77)) {
                   throw Adb(new Jrb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function a8d() {
@@ -36304,8 +38341,12 @@ var require_elk_bundled = __commonJS({
             function ose(a, b) {
               var c, d;
               d = b.length;
+<<<<<<< HEAD
               for (c = 0; c < d; c += 2)
                 rte(a, (BFb(c, b.length), b.charCodeAt(c)), (BFb(c + 1, b.length), b.charCodeAt(c + 1)));
+=======
+              for (c = 0; c < d; c += 2) rte(a, (BFb(c, b.length), b.charCodeAt(c)), (BFb(c + 1, b.length), b.charCodeAt(c + 1)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function G6c(a, b) {
               b.Ug("Min Size Postprocessing", 1);
@@ -36492,8 +38533,12 @@ var require_elk_bundled = __commonJS({
             }
             function kne(a) {
               var b, c, d, e, f;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               f = new bnb();
               for (c = xAd(a), d = 0, e = c.length; d < e; ++d) {
                 b = c[d];
@@ -36503,8 +38548,12 @@ var require_elk_bundled = __commonJS({
             }
             function nne(a) {
               var b, c, d, e, f;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               f = new bnb();
               for (c = xAd(a), d = 0, e = c.length; d < e; ++d) {
                 b = c[d];
@@ -36514,8 +38563,12 @@ var require_elk_bundled = __commonJS({
             }
             function one3(a) {
               var b, c, d, e, f;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               f = new bnb();
               for (c = xAd(a), d = 0, e = c.length; d < e; ++d) {
                 b = c[d];
@@ -36737,8 +38790,12 @@ var require_elk_bundled = __commonJS({
                   d = Xwd(a, b);
                   d == -1 ? a.Eb = c : bD(SD(a.Eb), d, c);
                 }
+<<<<<<< HEAD
               } else
                 c != null && Twd(a, b, c);
+=======
+              } else c != null && Twd(a, b, c);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function tTc(a, b, c, d) {
               var e, f;
@@ -37135,8 +39192,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 103)) {
                   e = a;
                   throw Adb(e);
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function tEd(a, b, c) {
@@ -37158,11 +39219,17 @@ var require_elk_bundled = __commonJS({
             function sSd(a, b, c, d) {
               var e;
               e = a.length;
+<<<<<<< HEAD
               if (b >= e)
                 return e;
               for (b = b > 0 ? b : 0; b < e; b++) {
                 if (zSd((BFb(b, a.length), a.charCodeAt(b)), c, d))
                   break;
+=======
+              if (b >= e) return e;
+              for (b = b > 0 ? b : 0; b < e; b++) {
+                if (zSd((BFb(b, a.length), a.charCodeAt(b)), c, d)) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return b;
             }
@@ -37200,8 +39267,12 @@ var require_elk_bundled = __commonJS({
             }
             function mne(a) {
               var b;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = Hqe(nue(a, true));
               if (b == null) {
                 throw Adb(new Mle("Invalid hexBinary value: '" + a + "'"));
@@ -37417,11 +39488,17 @@ var require_elk_bundled = __commonJS({
             }
             function iSd(a, b) {
               var c, d;
+<<<<<<< HEAD
               if (a.j.length != b.j.length)
                 return false;
               for (c = 0, d = a.j.length; c < d; c++) {
                 if (!lhb(a.j[c], b.j[c]))
                   return false;
+=======
+              if (a.j.length != b.j.length) return false;
+              for (c = 0, d = a.j.length; c < d; c++) {
+                if (!lhb(a.j[c], b.j[c])) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return true;
             }
@@ -37437,8 +39514,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   b.Xj();
                   throw Adb(new Dvb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function xMd(b) {
@@ -37453,8 +39534,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   b.Xj();
                   throw Adb(new Dvb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function vSd(a) {
@@ -37486,8 +39571,12 @@ var require_elk_bundled = __commonJS({
                 } else {
                   Xub(c);
                 }
+<<<<<<< HEAD
               } else
                 !!c && pQb(a, RAc, null);
+=======
+              } else !!c && pQb(a, RAc, null);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return c;
             }
             function tSb() {
@@ -37549,8 +39638,12 @@ var require_elk_bundled = __commonJS({
             }
             function ine(a) {
               var b;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = Aqe(nue(a, true));
               if (b == null) {
                 throw Adb(new Mle("Invalid base64Binary value: '" + a + "'"));
@@ -37566,8 +39659,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 112)) {
                   throw Adb(new veb("Can't get element " + c));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function ANb(a, b) {
@@ -37928,8 +40025,12 @@ var require_elk_bundled = __commonJS({
             function fZd(a, b) {
               var c, d, e;
               e = RHd(a, b);
+<<<<<<< HEAD
               if (e >= 0)
                 return e;
+=======
+              if (e >= 0) return e;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (a.ol()) {
                 for (d = 0; d < a.i; ++d) {
                   c = a.pl(RD(a.g[d], 58));
@@ -37943,8 +40044,12 @@ var require_elk_bundled = __commonJS({
             function eHd(a, b, c) {
               var d, e;
               e = a.gc();
+<<<<<<< HEAD
               if (b >= e)
                 throw Adb(new aMd(b, e));
+=======
+              if (b >= e) throw Adb(new aMd(b, e));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (a.Si()) {
                 d = a.dd(c);
                 if (d >= 0 && d != b) {
@@ -38201,8 +40306,12 @@ var require_elk_bundled = __commonJS({
               } else if (b.Ik() != -2) {
                 d = b.ik();
                 return d == null ? c == null : pb(d, c);
+<<<<<<< HEAD
               } else
                 return b.qk() == a.e.Dh() && c == null;
+=======
+              } else return b.qk() == a.e.Dh() && c == null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function Io() {
               var a;
@@ -38334,6 +40443,7 @@ var require_elk_bundled = __commonJS({
               return a.a;
             }
             function Xqe(a) {
+<<<<<<< HEAD
               if (a < 48)
                 return -1;
               if (a > 102)
@@ -38346,6 +40456,14 @@ var require_elk_bundled = __commonJS({
                 return a - 65 + 10;
               if (a < 97)
                 return -1;
+=======
+              if (a < 48) return -1;
+              if (a > 102) return -1;
+              if (a <= 57) return a - 48;
+              if (a < 65) return -1;
+              if (a <= 70) return a - 65 + 10;
+              if (a < 97) return -1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return a - 97 + 10;
             }
             function ck(a, b) {
@@ -38469,8 +40587,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   e = a;
                   throw Adb(new veb(e.g + ize + c + pve + d + ")."));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function _Pb(b, c, d) {
@@ -38482,8 +40604,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   e = a;
                   throw Adb(new veb(e.g + ize + c + pve + d + ")."));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function aQb(b, c, d) {
@@ -38495,8 +40621,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   e = a;
                   throw Adb(new veb(e.g + ize + c + pve + d + ")."));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function J8b(a) {
@@ -38639,8 +40769,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 333)) {
                   throw Adb(new veb(fze + b.o + "*" + b.p + gze + c + pve + d + hze));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function QPb(b, c, d) {
@@ -38650,8 +40784,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 333)) {
                   throw Adb(new veb(fze + b.o + "*" + b.p + gze + c + pve + d + hze));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function RPb(b, c, d) {
@@ -38661,8 +40799,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 333)) {
                   throw Adb(new veb(fze + b.o + "*" + b.p + gze + c + pve + d + hze));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function lMd(b, c) {
@@ -38677,8 +40819,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 77)) {
                   throw Adb(new Jrb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Y7b(a) {
@@ -38835,8 +40981,12 @@ var require_elk_bundled = __commonJS({
                   a = zdb(a);
                   if (ZD(a, 212)) {
                     return false;
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return false;
@@ -38934,10 +41084,15 @@ var require_elk_bundled = __commonJS({
             }
             function ene(a) {
               var b, c, d;
+<<<<<<< HEAD
               if (!a)
                 return null;
               if (a.dc())
                 return "";
+=======
+              if (!a) return null;
+              if (a.dc()) return "";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = new Qhb();
               for (c = a.Kc(); c.Ob(); ) {
                 b = c.Pb();
@@ -39019,8 +41174,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   e = a;
                   throw Adb(new veb(e.g + ize + c + pve + d + ")."));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function dQb(b, c, d) {
@@ -39032,8 +41191,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   e = a;
                   throw Adb(new veb(e.g + ize + c + pve + d + ")."));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function u8b(a) {
@@ -39118,8 +41281,12 @@ var require_elk_bundled = __commonJS({
                     b.hl(null);
                   } catch (a) {
                     a = zdb(a);
+<<<<<<< HEAD
                     if (!ZD(a, 63))
                       throw Adb(a);
+=======
+                    if (!ZD(a, 63)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
               }
@@ -39385,8 +41552,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 130)) {
                   c = Ahb(b);
                   d = c[0];
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return hfb(d);
             }
@@ -39403,8 +41574,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 130)) {
                   c = Ahb(b);
                   d = c[0];
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return hfb(d);
             }
@@ -39479,8 +41654,12 @@ var require_elk_bundled = __commonJS({
             }
             function THd(a, b) {
               var c, d;
+<<<<<<< HEAD
               if (b >= a.i)
                 throw Adb(new yNd(b, a.i));
+=======
+              if (b >= a.i) throw Adb(new yNd(b, a.i));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               ++a.j;
               c = a.g[b];
               d = a.i - b - 1;
@@ -39720,8 +41899,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 112)) {
                   throw Adb(new veb("Can't remove element " + c));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function GA(a, b) {
@@ -40263,8 +42446,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 103)) {
                   b = a;
                   UId((Hde(), b));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return new KAd();
             }
@@ -40281,8 +42468,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 103)) {
                   b = a;
                   UId((Hde(), b));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return new Mae();
             }
@@ -40299,8 +42490,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 103)) {
                   b = a;
                   UId((Hde(), b));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return new rne();
             }
@@ -40659,8 +42854,12 @@ var require_elk_bundled = __commonJS({
             function Bid(a) {
               if (a < 0) {
                 throw Adb(new agb("The input must be positive"));
+<<<<<<< HEAD
               } else
                 return a < sid.length ? Xdb(sid[a]) : $wnd.Math.sqrt(dFe * a) * (Jid(a, a) / Iid(2.718281828459045, a));
+=======
+              } else return a < sid.length ? Xdb(sid[a]) : $wnd.Math.sqrt(dFe * a) * (Jid(a, a) / Iid(2.718281828459045, a));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function PHd(a, b) {
               var c;
@@ -40984,8 +43183,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 77)) {
                   throw Adb(new Jrb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function v0b(a) {
@@ -40997,8 +43200,12 @@ var require_elk_bundled = __commonJS({
                 if (b.c == (BEc(), yEc)) {
                   e = d == 0 ? 0 : d - 1;
                   break;
+<<<<<<< HEAD
                 } else
                   d == a.c.length - 1 && (e = d);
+=======
+                } else d == a.c.length - 1 && (e = d);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d += 1;
               }
               return e;
@@ -41234,8 +43441,12 @@ var require_elk_bundled = __commonJS({
             }
             function GYd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return MXd(a);
+=======
+              if ((a.Db & 64) != 0) return MXd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(MXd(a));
               b.a += " (abstract: ";
               Ohb(b, (a.Bb & 256) != 0);
@@ -41276,8 +43487,12 @@ var require_elk_bundled = __commonJS({
                 e = d - b;
                 if (e > AEe) {
                   return c;
+<<<<<<< HEAD
                 } else
                   e > -1e-6 && ++c;
+=======
+                } else e > -1e-6 && ++c;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return c;
             }
@@ -41289,8 +43504,12 @@ var require_elk_bundled = __commonJS({
                 !!b && (c = Ivd(b, a, -4, c));
                 c = e2d(a, b, c);
                 !!c && c.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 3, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 3, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function q2d(a, b) {
               var c;
@@ -41300,8 +43519,12 @@ var require_elk_bundled = __commonJS({
                 !!b && (c = Ivd(b, a, -1, c));
                 c = g2d(a, b, c);
                 !!c && c.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 0, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 0, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function Lge(a, b, c, d) {
               var e, f, g10, h;
@@ -41316,11 +43539,17 @@ var require_elk_bundled = __commonJS({
             }
             function bne(a) {
               var b, c, d;
+<<<<<<< HEAD
               if (a == null)
                 return null;
               c = RD(a, 15);
               if (c.dc())
                 return "";
+=======
+              if (a == null) return null;
+              c = RD(a, 15);
+              if (c.dc()) return "";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = new Qhb();
               for (b = c.Kc(); b.Ob(); ) {
                 Nhb(d, (nme(), WD(b.Pb())));
@@ -41330,11 +43559,17 @@ var require_elk_bundled = __commonJS({
             }
             function fne(a) {
               var b, c, d;
+<<<<<<< HEAD
               if (a == null)
                 return null;
               c = RD(a, 15);
               if (c.dc())
                 return "";
+=======
+              if (a == null) return null;
+              c = RD(a, 15);
+              if (c.dc()) return "";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = new Qhb();
               for (b = c.Kc(); b.Ob(); ) {
                 Nhb(d, (nme(), WD(b.Pb())));
@@ -41401,8 +43636,12 @@ var require_elk_bundled = __commonJS({
                   return c.e == null;
                 } catch (a) {
                   a = zdb(a);
+<<<<<<< HEAD
                   if (!ZD(a, 33))
                     throw Adb(a);
+=======
+                  if (!ZD(a, 33)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return false;
@@ -41808,8 +44047,12 @@ var require_elk_bundled = __commonJS({
             }
             function aCd() {
               var a;
+<<<<<<< HEAD
               if (YBd)
                 return RD(N5d((YSd(), XSd), $He), 2115);
+=======
+              if (YBd) return RD(N5d((YSd(), XSd), $He), 2115);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = RD(ZD(Xjb((YSd(), XSd), $He), 569) ? Xjb(XSd, $He) : new _Bd(), 569);
               YBd = true;
               ZBd(a);
@@ -41820,8 +44063,12 @@ var require_elk_bundled = __commonJS({
             }
             function Tge(a, b, c) {
               var d, e;
+<<<<<<< HEAD
               if (a.j == 0)
                 return c;
+=======
+              if (a.j == 0) return c;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               e = RD(jZd(a, b, c), 76);
               d = c.Lk();
               if (!d.rk() || !a.a.am(d)) {
@@ -42665,8 +44912,12 @@ var require_elk_bundled = __commonJS({
                   if (ZD(a, 33)) {
                     e = a;
                     c = e;
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               throw Adb(new RSd(c));
@@ -42797,10 +45048,15 @@ var require_elk_bundled = __commonJS({
               var d, e, f;
               ++a.j;
               e = a.Ej();
+<<<<<<< HEAD
               if (b >= e || b < 0)
                 throw Adb(new veb(MIe + b + NIe + e));
               if (c >= e || c < 0)
                 throw Adb(new veb(OIe + c + NIe + e));
+=======
+              if (b >= e || b < 0) throw Adb(new veb(MIe + b + NIe + e));
+              if (c >= e || c < 0) throw Adb(new veb(OIe + c + NIe + e));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b != c ? d = (f = a.Cj(c), a.qj(b, f), f) : d = a.xj(c);
               return d;
             }
@@ -42849,8 +45105,12 @@ var require_elk_bundled = __commonJS({
                 !!b && (c = RD(b, 54).Rh(a, 4, t7, c));
                 c = rAd(a, b, c);
                 !!c && c.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 1, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 1, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function p2d(a, b) {
               var c;
@@ -42859,8 +45119,12 @@ var require_elk_bundled = __commonJS({
                 !!b && (!b.b && (b.b = new pae(new lae())), nae(b.b, a));
                 c = f2d(a, b, null);
                 !!c && c.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 4, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 4, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function $mc(a, b) {
               var c;
@@ -43133,8 +45397,12 @@ var require_elk_bundled = __commonJS({
                 !!b && (c = RD(b, 54).Rh(a, 1, n7, c));
                 c = hBd(a, b, c);
                 !!c && c.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 4, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 4, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function YDd(a, b) {
               var c, d, e, f;
@@ -43301,8 +45569,12 @@ var require_elk_bundled = __commonJS({
                 throw Adb(new agb("k and n must be positive"));
               } else if (b > a) {
                 throw Adb(new agb("k must be smaller than n"));
+<<<<<<< HEAD
               } else
                 return b == 0 || b == a ? 1 : a == 0 ? 0 : Bid(a) / (Bid(b) * Bid(a - b));
+=======
+              } else return b == 0 || b == a ? 1 : a == 0 ? 0 : Bid(a) / (Bid(b) * Bid(a - b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function msd(a, b) {
               var c, d, e, f;
@@ -43319,8 +45591,12 @@ var require_elk_bundled = __commonJS({
             }
             function Fyd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return kyd(a);
+=======
+              if ((a.Db & 64) != 0) return kyd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(kyd(a));
               b.a += " (height: ";
               Khb(b, a.f);
@@ -43405,8 +45681,12 @@ var require_elk_bundled = __commonJS({
               b = 0;
               for (a = 0; a < "X".length; a++) {
                 c = rse((BFb(a, "X".length), "X".charCodeAt(a)));
+<<<<<<< HEAD
                 if (c == 0)
                   throw Adb(new Lqe((BFb(a, "X".length + 1), "Unknown Option: " + "X".substr(a))));
+=======
+                if (c == 0) throw Adb(new Lqe((BFb(a, "X".length + 1), "Unknown Option: " + "X".substr(a))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 b |= c;
               }
               return b;
@@ -43495,8 +45775,12 @@ var require_elk_bundled = __commonJS({
             function Iqe(a) {
               Gqe();
               var b, c, d, e, f;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = a.length;
               e = d * 2;
               b = $C(hE, zwe, 28, e, 15, 1);
@@ -43688,8 +45972,12 @@ var require_elk_bundled = __commonJS({
                   a = zdb(a);
                   if (ZD(a, 169) || ZD(a, 212)) {
                     return false;
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return false;
@@ -43927,8 +46215,12 @@ var require_elk_bundled = __commonJS({
             }
             function gCd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return Fyd(a);
+=======
+              if ((a.Db & 64) != 0) return Fyd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new dib(FHe);
               !a.a || Zhb(Zhb((b.a += ' "', b), a.a), '"');
               Zhb(Uhb(Zhb(Uhb(Zhb(Uhb(Zhb(Uhb((b.a += " (", b), a.i), ","), a.j), " | "), a.g), ","), a.f), ")");
@@ -43991,8 +46283,12 @@ var require_elk_bundled = __commonJS({
                     d = a;
                     Qz();
                     Wz(ZD(d, 486) ? RD(d, 486).ke() : d);
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return c;
@@ -44697,8 +46993,12 @@ var require_elk_bundled = __commonJS({
             }
             function Cne() {
               var a;
+<<<<<<< HEAD
               if (wne)
                 return RD(N5d((YSd(), XSd), dLe), 2044);
+=======
+              if (wne) return RD(N5d((YSd(), XSd), dLe), 2044);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Dne();
               a = RD(ZD(Xjb((YSd(), XSd), dLe), 594) ? Xjb(XSd, dLe) : new Bne(), 594);
               wne = true;
@@ -44974,8 +47274,12 @@ var require_elk_bundled = __commonJS({
                   }
                 } catch (a) {
                   a = zdb(a);
+<<<<<<< HEAD
                   if (!ZD(a, 63))
                     throw Adb(a);
+=======
+                  if (!ZD(a, 63)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return b;
@@ -45165,8 +47469,12 @@ var require_elk_bundled = __commonJS({
                   if (ZD(a, 130)) {
                     e = a;
                     throw Adb(new RSd(e));
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               d = (!b.a && (b.a = new Zde(b)), b.a);
@@ -46025,6 +48333,7 @@ var require_elk_bundled = __commonJS({
             function Sqe(a, b) {
               var c, d, e, f;
               Mqe(a);
+<<<<<<< HEAD
               if (a.c != 0 || a.a != 123)
                 throw Adb(new Lqe(TId((Hde(), eJe))));
               f = b == 112;
@@ -46032,6 +48341,13 @@ var require_elk_bundled = __commonJS({
               c = phb(a.i, 125, d);
               if (c < 0)
                 throw Adb(new Lqe(TId((Hde(), fJe))));
+=======
+              if (a.c != 0 || a.a != 123) throw Adb(new Lqe(TId((Hde(), eJe))));
+              f = b == 112;
+              d = a.d;
+              c = phb(a.i, 125, d);
+              if (c < 0) throw Adb(new Lqe(TId((Hde(), fJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               e = zhb(a.i, d, c);
               a.d = c + 1;
               return ite(e, f, (a.e & 512) == 512);
@@ -46137,12 +48453,19 @@ var require_elk_bundled = __commonJS({
                     }
                   } catch (a) {
                     a = zdb(a);
+<<<<<<< HEAD
                     if (!ZD(a, 130))
                       throw Adb(a);
                   }
                   return null;
                 } else
                   throw Adb(b);
+=======
+                    if (!ZD(a, 130)) throw Adb(a);
+                  }
+                  return null;
+                } else throw Adb(b);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function Rvd(a, b) {
@@ -46160,8 +48483,12 @@ var require_elk_bundled = __commonJS({
             function _ae() {
               Tae();
               var a;
+<<<<<<< HEAD
               if (Sae)
                 return RD(N5d((YSd(), XSd), AKe), 2038);
+=======
+              if (Sae) return RD(N5d((YSd(), XSd), AKe), 2038);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               RRd(UK, new hde());
               abe();
               a = RD(ZD(Xjb((YSd(), XSd), AKe), 560) ? Xjb(XSd, AKe) : new $ae(), 560);
@@ -46275,10 +48602,15 @@ var require_elk_bundled = __commonJS({
             function SHd(a, b, c) {
               var d;
               ++a.j;
+<<<<<<< HEAD
               if (b >= a.i)
                 throw Adb(new veb(MIe + b + NIe + a.i));
               if (c >= a.i)
                 throw Adb(new veb(OIe + c + NIe + a.i));
+=======
+              if (b >= a.i) throw Adb(new veb(MIe + b + NIe + a.i));
+              if (c >= a.i) throw Adb(new veb(OIe + c + NIe + a.i));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = a.g[c];
               if (b != c) {
                 b < c ? hib(a.g, b, a.g, b + 1, c - b) : hib(a.g, c + 1, a.g, c, b - c);
@@ -46729,8 +49061,12 @@ var require_elk_bundled = __commonJS({
               var c, d, e, f, g10;
               c = RD(Ywd(a.a, 4), 129);
               g10 = c == null ? 0 : c.length;
+<<<<<<< HEAD
               if (b >= g10)
                 throw Adb(new aMd(b, g10));
+=======
+              if (b >= g10) throw Adb(new aMd(b, g10));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               e = c[b];
               if (g10 == 1) {
                 d = null;
@@ -46968,8 +49304,12 @@ var require_elk_bundled = __commonJS({
             }
             function Qzd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return awd(a);
+=======
+              if ((a.Db & 64) != 0) return awd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(awd(a));
               b.a += " (startX: ";
               Khb(b, a.j);
@@ -46986,8 +49326,12 @@ var require_elk_bundled = __commonJS({
             }
             function cWd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return QAd(a);
+=======
+              if ((a.Db & 64) != 0) return QAd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(QAd(a));
               b.a += " (ordered: ";
               Ohb(b, (a.Bb & 256) != 0);
@@ -47491,8 +49835,12 @@ var require_elk_bundled = __commonJS({
                 d = Uib(a);
                 if (e < d) {
                   return false;
+<<<<<<< HEAD
                 } else
                   d == e ? c = -c : c = ~c;
+=======
+                } else d == e ? c = -c : c = ~c;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return (c & b) != 0;
             }
@@ -48072,8 +50420,12 @@ var require_elk_bundled = __commonJS({
                   if (h.f.d) {
                     f.d.d += d + Tye;
                     f.d.a -= d + Tye;
+<<<<<<< HEAD
                   } else
                     h.f.a && (f.d.a -= d + Tye);
+=======
+                  } else h.f.a && (f.d.a -= d + Tye);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
             }
@@ -48438,8 +50790,12 @@ var require_elk_bundled = __commonJS({
                 e = ASd(b);
                 LSd(fSd, b, e);
                 c != null && (e = hSd(e, c));
+<<<<<<< HEAD
               } else
                 c != null && (e = hSd(e, (uFb(c), c)));
+=======
+              } else c != null && (e = hSd(e, (uFb(c), c)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return e;
             }
             function Ree(a, b, c, d) {
@@ -48453,12 +50809,19 @@ var require_elk_bundled = __commonJS({
                   if (c == null) {
                     if (g10 == null) {
                       return f;
+<<<<<<< HEAD
                     } else
                       !i10 && (i10 = f);
                   } else if (lhb(c, g10)) {
                     return f;
                   } else
                     g10 == null && !i10 && (i10 = f);
+=======
+                    } else !i10 && (i10 = f);
+                  } else if (lhb(c, g10)) {
+                    return f;
+                  } else g10 == null && !i10 && (i10 = f);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return null;
@@ -48474,12 +50837,19 @@ var require_elk_bundled = __commonJS({
                   if (c == null) {
                     if (g10 == null) {
                       return f;
+<<<<<<< HEAD
                     } else
                       !i10 && (i10 = f);
                   } else if (lhb(c, g10)) {
                     return f;
                   } else
                     g10 == null && !i10 && (i10 = f);
+=======
+                    } else !i10 && (i10 = f);
+                  } else if (lhb(c, g10)) {
+                    return f;
+                  } else g10 == null && !i10 && (i10 = f);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
               return null;
@@ -48583,10 +50953,15 @@ var require_elk_bundled = __commonJS({
             }
             function vte(a) {
               var b, c, d;
+<<<<<<< HEAD
               if (a.c)
                 return;
               if (a.b == null)
                 return;
+=======
+              if (a.c) return;
+              if (a.b == null) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               for (b = a.b.length - 4; b >= 0; b -= 2) {
                 for (c = 0; c <= b; c += 2) {
                   if (a.b[c] > a.b[c + 2] || a.b[c] === a.b[c + 2] && a.b[c + 1] > a.b[c + 3]) {
@@ -48739,21 +51114,33 @@ var require_elk_bundled = __commonJS({
             function Hqe(a) {
               Gqe();
               var b, c, d, e, f, g10, h;
+<<<<<<< HEAD
               if (a == null)
                 return null;
               e = a.length;
               if (e % 2 != 0)
                 return null;
+=======
+              if (a == null) return null;
+              e = a.length;
+              if (e % 2 != 0) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = Ahb(a);
               f = e / 2 | 0;
               c = $C(gE, YHe, 28, f, 15, 1);
               for (d = 0; d < f; d++) {
                 g10 = Eqe[b[d * 2]];
+<<<<<<< HEAD
                 if (g10 == -1)
                   return null;
                 h = Eqe[b[d * 2 + 1]];
                 if (h == -1)
                   return null;
+=======
+                if (g10 == -1) return null;
+                h = Eqe[b[d * 2 + 1]];
+                if (h == -1) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 c[d] = (g10 << 4 | h) << 24 >> 24;
               }
               return c;
@@ -48914,8 +51301,12 @@ var require_elk_bundled = __commonJS({
                   }
                   b.a += "\\";
                   Jhb(b, c & Bwe);
+<<<<<<< HEAD
                 } else
                   !!b && Jhb(b, c & Bwe);
+=======
+                } else !!b && Jhb(b, c & Bwe);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return b ? b.a : a;
             }
@@ -49006,6 +51397,7 @@ var require_elk_bundled = __commonJS({
               b = true;
               e = null;
               f = null;
+<<<<<<< HEAD
               j:
                 for (i10 = new Anb(a.a); i10.a < i10.c.c.length; ) {
                   h = RD(ynb(i10), 10);
@@ -49024,6 +51416,25 @@ var require_elk_bundled = __commonJS({
                     f = g10;
                   }
                 }
+=======
+              j: for (i10 = new Anb(a.a); i10.a < i10.c.c.length; ) {
+                h = RD(ynb(i10), 10);
+                for (d = new is2(Mr(Z2b(h).a.Kc(), new ir())); gs(d); ) {
+                  c = RD(hs(d), 18);
+                  if (!!e && e != h) {
+                    b = false;
+                    break j;
+                  }
+                  e = h;
+                  g10 = c.c.i;
+                  if (!!f && f != g10) {
+                    b = false;
+                    break j;
+                  }
+                  f = g10;
+                }
+              }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return b;
             }
             function mTc(a, b, c) {
@@ -49551,7 +51962,11 @@ var require_elk_bundled = __commonJS({
                 for (h = (d.b - d.a) * d.c < 0 ? (uue(), tue) : new Rue(d); h.Ob(); ) {
                   g10 = RD(h.Pb(), 17);
                   e = xDd(c, g10.a);
+<<<<<<< HEAD
                   !!e && (i = null, j = sEd(a, (k = (bvd(), l = new PCd(), l), !!b && NCd(k, b), k), e), jyd(j, zDd(e, uIe)), GEd(e, j), HEd(e, j), CEd(a, e, j));
+=======
+                  !!e && (i2 = null, j = sEd(a, (k = (bvd(), l = new PCd(), l), !!b && NCd(k, b), k), e), jyd(j, zDd(e, uIe)), GEd(e, j), HEd(e, j), CEd(a, e, j));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
             }
@@ -49792,41 +52207,65 @@ var require_elk_bundled = __commonJS({
             function Mzd(a, b) {
               var c, d;
               if (b != a.Cb || a.Db >> 16 != 6 && !!b) {
+<<<<<<< HEAD
                 if (Oje(a, b))
                   throw Adb(new agb(UHe + Qzd(a)));
+=======
+                if (Oje(a, b)) throw Adb(new agb(UHe + Qzd(a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d = null;
                 !!a.Cb && (d = (c = a.Db >> 16, c >= 0 ? Czd(a, d) : a.Cb.Th(a, -1 - c, null, d)));
                 !!b && (d = Ivd(b, a, 6, d));
                 d = Bzd(a, b, d);
                 !!d && d.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 6, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 6, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function pzd(a, b) {
               var c, d;
               if (b != a.Cb || a.Db >> 16 != 3 && !!b) {
+<<<<<<< HEAD
                 if (Oje(a, b))
                   throw Adb(new agb(UHe + qzd(a)));
+=======
+                if (Oje(a, b)) throw Adb(new agb(UHe + qzd(a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d = null;
                 !!a.Cb && (d = (c = a.Db >> 16, c >= 0 ? jzd(a, d) : a.Cb.Th(a, -1 - c, null, d)));
                 !!b && (d = Ivd(b, a, 12, d));
                 d = izd(a, b, d);
                 !!d && d.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 3, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 3, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function NCd(a, b) {
               var c, d;
               if (b != a.Cb || a.Db >> 16 != 9 && !!b) {
+<<<<<<< HEAD
                 if (Oje(a, b))
                   throw Adb(new agb(UHe + OCd(a)));
+=======
+                if (Oje(a, b)) throw Adb(new agb(UHe + OCd(a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d = null;
                 !!a.Cb && (d = (c = a.Db >> 16, c >= 0 ? LCd(a, d) : a.Cb.Th(a, -1 - c, null, d)));
                 !!b && (d = Ivd(b, a, 9, d));
                 d = KCd(a, b, d);
                 !!d && d.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 9, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 9, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function tWd(b) {
               var c, d, e, f, g10;
@@ -49847,8 +52286,12 @@ var require_elk_bundled = __commonJS({
                         a = zdb(a);
                         if (ZD(a, 82)) {
                           b.g = null;
+<<<<<<< HEAD
                         } else
                           throw Adb(a);
+=======
+                        } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     }
                     b.i = f;
@@ -49881,8 +52324,12 @@ var require_elk_bundled = __commonJS({
                   e = nfb(rb(b)) + "@" + (d = (gib(), jFb(b)) >>> 0, d.toString(16));
                   lBb(pBb(), (SAb(), "Exception during lenientFormat for " + e), c);
                   return "<" + e + " threw " + nfb(c.Rm) + ">";
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function mTb(a, b, c) {
@@ -50003,15 +52450,23 @@ var require_elk_bundled = __commonJS({
             function yCd(a, b) {
               var c, d;
               if (b != a.Cb || a.Db >> 16 != 11 && !!b) {
+<<<<<<< HEAD
                 if (Oje(a, b))
                   throw Adb(new agb(UHe + zCd(a)));
+=======
+                if (Oje(a, b)) throw Adb(new agb(UHe + zCd(a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d = null;
                 !!a.Cb && (d = (c = a.Db >> 16, c >= 0 ? sCd(a, d) : a.Cb.Th(a, -1 - c, null, d)));
                 !!b && (d = Ivd(b, a, 10, d));
                 d = rCd(a, b, d);
                 !!d && d.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 11, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 11, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function C0b(a) {
               var b, c, d, e;
@@ -50522,28 +52977,44 @@ var require_elk_bundled = __commonJS({
             function eCd(a, b) {
               var c, d;
               if (b != a.Cb || a.Db >> 16 != 7 && !!b) {
+<<<<<<< HEAD
                 if (Oje(a, b))
                   throw Adb(new agb(UHe + gCd(a)));
+=======
+                if (Oje(a, b)) throw Adb(new agb(UHe + gCd(a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d = null;
                 !!a.Cb && (d = (c = a.Db >> 16, c >= 0 ? cCd(a, d) : a.Cb.Th(a, -1 - c, null, d)));
                 !!b && (d = RD(b, 54).Rh(a, 1, H4, d));
                 d = bCd(a, b, d);
                 !!d && d.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 7, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 7, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function lVd(a, b) {
               var c, d;
               if (b != a.Cb || a.Db >> 16 != 3 && !!b) {
+<<<<<<< HEAD
                 if (Oje(a, b))
                   throw Adb(new agb(UHe + oVd(a)));
+=======
+                if (Oje(a, b)) throw Adb(new agb(UHe + oVd(a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 d = null;
                 !!a.Cb && (d = (c = a.Db >> 16, c >= 0 ? iVd(a, d) : a.Cb.Th(a, -1 - c, null, d)));
                 !!b && (d = RD(b, 54).Rh(a, 0, p7, d));
                 d = hVd(a, b, d);
                 !!d && d.oj();
+<<<<<<< HEAD
               } else
                 (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 3, b, b));
+=======
+              } else (a.Db & 4) != 0 && (a.Db & 1) == 0 && qvd(a, new N3d(a, 1, 3, b, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function Mjb(a, b) {
               Ljb();
@@ -50862,8 +53333,12 @@ var require_elk_bundled = __commonJS({
                 do {
                   if (h > i10 - a.b && h < i10 + a.b) {
                     return -1;
+<<<<<<< HEAD
                   } else
                     h > i10 - a.a && h < i10 + a.a && ++d;
+=======
+                  } else h > i10 - a.a && h < i10 + a.a && ++d;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   h <= i10 && f.b != f.d.c ? h = Kfb(UD(evb(f))) : i10 <= h && g10.b != g10.d.c ? i10 = Kfb(UD(evb(g10))) : e = false;
                 } while (e);
               }
@@ -51532,8 +54007,12 @@ var require_elk_bundled = __commonJS({
               e = $C(kE, Pwe, 28, f + 1, 15, 1);
               ujb(e, f, a.a, d, b);
               if (a.e < 0) {
+<<<<<<< HEAD
                 for (c = 0; c < d && a.a[c] == 0; c++)
                   ;
+=======
+                for (c = 0; c < d && a.a[c] == 0; c++) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 if (c < d || b > 0 && a.a[c] << 32 - b != 0) {
                   for (c = 0; c < f && e[c] == -1; c++) {
                     e[c] = 0;
@@ -52005,6 +54484,7 @@ var require_elk_bundled = __commonJS({
               a.j = a.i.length;
               Mqe(a);
               f = Qqe(a);
+<<<<<<< HEAD
               if (a.d != a.j)
                 throw Adb(new Lqe(TId((Hde(), TIe))));
               if (a.g) {
@@ -52012,6 +54492,13 @@ var require_elk_bundled = __commonJS({
                   e = RD(eyb(a.g, d), 592);
                   if (a.f <= e.a)
                     throw Adb(new Lqe(TId((Hde(), UIe))));
+=======
+              if (a.d != a.j) throw Adb(new Lqe(TId((Hde(), TIe))));
+              if (a.g) {
+                for (d = 0; d < a.g.a.c.length; d++) {
+                  e = RD(eyb(a.g, d), 592);
+                  if (a.f <= e.a) throw Adb(new Lqe(TId((Hde(), UIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 a.g.a.c.length = 0;
               }
@@ -52068,6 +54555,7 @@ var require_elk_bundled = __commonJS({
               var d, e, f, g10, h, i10, j, k, l, m;
               m = b.c.length;
               l = (j = a.Ih(c), RD(j >= 0 ? a.Lh(j, false, true) : Qvd(a, c, false), 61));
+<<<<<<< HEAD
               n:
                 for (f = l.Kc(); f.Ob(); ) {
                   e = RD(f.Pb(), 58);
@@ -52082,6 +54570,21 @@ var require_elk_bundled = __commonJS({
                   }
                   return e;
                 }
+=======
+              n: for (f = l.Kc(); f.Ob(); ) {
+                e = RD(f.Pb(), 58);
+                for (k = 0; k < m; ++k) {
+                  g10 = (tFb(k, b.c.length), RD(b.c[k], 76));
+                  i10 = g10.md();
+                  h = g10.Lk();
+                  d = e.Nh(h, false);
+                  if (i10 == null ? d != null : !pb(i10, d)) {
+                    continue n;
+                  }
+                }
+                return e;
+              }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return null;
             }
             function o6b(a, b) {
@@ -52817,10 +55320,15 @@ var require_elk_bundled = __commonJS({
               for (e = 102; e >= 97; e--) {
                 Eqe[e] = e - 97 + 10 << 24 >> 24;
               }
+<<<<<<< HEAD
               for (f = 0; f < 10; f++)
                 Fqe[f] = 48 + f & Bwe;
               for (a = 10; a <= 15; a++)
                 Fqe[a] = 65 + a - 10 & Bwe;
+=======
+              for (f = 0; f < 10; f++) Fqe[f] = 48 + f & Bwe;
+              for (a = 10; a <= 15; a++) Fqe[a] = 65 + a - 10 & Bwe;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function yYc(a, b) {
               b.Ug("Process graph bounds", 1);
@@ -52885,8 +55393,12 @@ var require_elk_bundled = __commonJS({
             }
             function Dre(a) {
               var b;
+<<<<<<< HEAD
               if (a.c != 10)
                 throw Adb(new Lqe(TId((Hde(), VIe))));
+=======
+              if (a.c != 10) throw Adb(new Lqe(TId((Hde(), VIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = a.a;
               switch (b) {
                 case 110:
@@ -53806,8 +56318,12 @@ var require_elk_bundled = __commonJS({
             }
             function GWd(a) {
               var b;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return cWd(a);
+=======
+              if ((a.Db & 64) != 0) return cWd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new Shb(cWd(a));
               b.a += " (changeable: ";
               Ohb(b, (a.Bb & gwe) != 0);
@@ -54239,8 +56755,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 333)) {
                   throw Adb(new veb(fze + b.o + "*" + b.p + gze + c + pve + d + hze));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function eMc(a, b, c, d) {
@@ -54324,8 +56844,12 @@ var require_elk_bundled = __commonJS({
             }
             function zCd(a) {
               var b, c, d;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return Fyd(a);
+=======
+              if ((a.Db & 64) != 0) return Fyd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new dib(GHe);
               c = a.k;
               if (!c) {
@@ -54342,8 +56866,12 @@ var require_elk_bundled = __commonJS({
             }
             function OCd(a) {
               var b, c, d;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return Fyd(a);
+=======
+              if ((a.Db & 64) != 0) return Fyd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new dib(HHe);
               c = a.k;
               if (!c) {
@@ -54991,6 +57519,7 @@ var require_elk_bundled = __commonJS({
               f = 0;
               while (f < d) {
                 c = ihb(a, f++);
+<<<<<<< HEAD
                 if (c == 9 || c == 10 || c == 12 || c == 13 || c == 32)
                   continue;
                 if (c == 35) {
@@ -54998,6 +57527,13 @@ var require_elk_bundled = __commonJS({
                     c = ihb(a, f++);
                     if (c == 13 || c == 10)
                       break;
+=======
+                if (c == 9 || c == 10 || c == 12 || c == 13 || c == 32) continue;
+                if (c == 35) {
+                  while (f < d) {
+                    c = ihb(a, f++);
+                    if (c == 13 || c == 10) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   continue;
                 }
@@ -55010,8 +57546,12 @@ var require_elk_bundled = __commonJS({
                     Jhb(b, e & Bwe);
                     ++f;
                   }
+<<<<<<< HEAD
                 } else
                   Jhb(b, c & Bwe);
+=======
+                } else Jhb(b, c & Bwe);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return b.a;
             }
@@ -57904,12 +60444,18 @@ var require_elk_bundled = __commonJS({
               }
               xqe[43] = 62;
               xqe[47] = 63;
+<<<<<<< HEAD
               for (f = 0; f <= 25; f++)
                 yqe[f] = 65 + f & Bwe;
               for (g10 = 26, i10 = 0; g10 <= 51; ++g10, i10++)
                 yqe[g10] = 97 + i10 & Bwe;
               for (a = 52, h = 0; a <= 61; ++a, h++)
                 yqe[a] = 48 + h & Bwe;
+=======
+              for (f = 0; f <= 25; f++) yqe[f] = 65 + f & Bwe;
+              for (g10 = 26, i10 = 0; g10 <= 51; ++g10, i10++) yqe[g10] = 97 + i10 & Bwe;
+              for (a = 52, h = 0; a <= 61; ++a, h++) yqe[a] = 48 + h & Bwe;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               yqe[62] = 43;
               yqe[63] = 47;
             }
@@ -57933,8 +60479,12 @@ var require_elk_bundled = __commonJS({
                   d < 0 ? f = Wib(f, Sjb(-d)) : d > 0 && (g10 = Wib(g10, Sjb(d)));
                   return Qib(f, g10);
                 }
+<<<<<<< HEAD
               } else
                 return e < h ? -1 : 1;
+=======
+              } else return e < h ? -1 : 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function pUb(a, b, c) {
               var d, e, f, g10, h, i10, j, k;
@@ -58065,8 +60615,12 @@ var require_elk_bundled = __commonJS({
             function yte(a) {
               Vse();
               var b, c, d, e, f, g10;
+<<<<<<< HEAD
               if (a.e != 4 && a.e != 5)
                 throw Adb(new agb("Token#complementRanges(): must be RANGE: " + a.e));
+=======
+              if (a.e != 4 && a.e != 5) throw Adb(new agb("Token#complementRanges(): must be RANGE: " + a.e));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               f = a;
               vte(f);
               ste(f);
@@ -58325,8 +60879,12 @@ var require_elk_bundled = __commonJS({
             function gte() {
               Vse();
               var a, b, c, d, e, f;
+<<<<<<< HEAD
               if (Fse)
                 return Fse;
+=======
+              if (Fse) return Fse;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = (++Use, new xte(4));
               ute(a, hte(WLe, true));
               wte(a, hte("M", true));
@@ -59061,8 +61619,12 @@ var require_elk_bundled = __commonJS({
                   } else if (a >= txe) {
                     c = (b = a >>> 0, "0" + b.toString(16));
                     d = "\\v" + zhb(c, c.length - 6, c.length);
+<<<<<<< HEAD
                   } else
                     d = "" + String.fromCharCode(a & Bwe);
+=======
+                  } else d = "" + String.fromCharCode(a & Bwe);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return d;
             }
@@ -60057,8 +62619,12 @@ var require_elk_bundled = __commonJS({
                 nAd = cD(WC(h8, 1), rve, 2114, 0, [new c2d((WA(), YA("yyyy-MM-dd'T'HH:mm:ss'.'SSSZ", _A(($A(), $A(), ZA))))), new c2d(YA("yyyy-MM-dd'T'HH:mm:ss'.'SSS", _A((null, ZA)))), new c2d(YA("yyyy-MM-dd'T'HH:mm:ss", _A((null, ZA)))), new c2d(YA("yyyy-MM-dd'T'HH:mm", _A((null, ZA)))), new c2d(YA("yyyy-MM-dd", _A((null, ZA))))]);
               } catch (a) {
                 a = zdb(a);
+<<<<<<< HEAD
                 if (!ZD(a, 82))
                   throw Adb(a);
+=======
+                if (!ZD(a, 82)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             }
             function uKc(a, b) {
@@ -60712,8 +63278,12 @@ var require_elk_bundled = __commonJS({
               g10 = RD(b, 138);
               vte(a);
               vte(g10);
+<<<<<<< HEAD
               if (g10.b == null)
                 return;
+=======
+              if (g10.b == null) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.c = true;
               if (a.b == null) {
                 a.b = $C(kE, Pwe, 28, g10.b.length, 15, 1);
@@ -60792,8 +63362,12 @@ var require_elk_bundled = __commonJS({
             }
             function qzd(a) {
               var b, c, d, e;
+<<<<<<< HEAD
               if ((a.Db & 64) != 0)
                 return kyd(a);
+=======
+              if ((a.Db & 64) != 0) return kyd(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = new dib(BHe);
               d = a.k;
               if (!d) {
@@ -61244,8 +63818,12 @@ var require_elk_bundled = __commonJS({
                         f == Jle || f == Gle ? vLd(a, g10) : ++g10;
                       }
                       j || RD(eHd(a, h, oke(b, c)), 76);
+<<<<<<< HEAD
                     } else
                       Mge(a, b, c) ? vLd(a, g10) : RD(eHd(a, g10, (nke(), RD(b, 69).xk() ? RD(c, 76) : oke(b, c))), 76);
+=======
+                    } else Mge(a, b, c) ? vLd(a, g10) : RD(eHd(a, g10, (nke(), RD(b, 69).xk() ? RD(c, 76) : oke(b, c))), 76);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     return;
                   }
                 }
@@ -61536,8 +64114,12 @@ var require_elk_bundled = __commonJS({
                   !!k && (n += d);
                   n < j && !e && !f && (n = j);
                   q += n;
+<<<<<<< HEAD
                 } else
                   !e && !f && (q += j);
+=======
+                } else !e && !f && (q += j);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 h = k;
                 i10 = l;
               } while (k);
@@ -61910,22 +64492,34 @@ var require_elk_bundled = __commonJS({
             }
             function ste(a) {
               var b, c, d, e;
+<<<<<<< HEAD
               if (a.b == null || a.b.length <= 2)
                 return;
               if (a.a)
                 return;
+=======
+              if (a.b == null || a.b.length <= 2) return;
+              if (a.a) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = 0;
               e = 0;
               while (e < a.b.length) {
                 if (b != e) {
                   a.b[b] = a.b[e++];
                   a.b[b + 1] = a.b[e++];
+<<<<<<< HEAD
                 } else
                   e += 2;
                 c = a.b[b + 1];
                 while (e < a.b.length) {
                   if (c + 1 < a.b[e])
                     break;
+=======
+                } else e += 2;
+                c = a.b[b + 1];
+                while (e < a.b.length) {
+                  if (c + 1 < a.b[e]) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   if (c + 1 == a.b[e]) {
                     a.b[b + 1] = a.b[e + 1];
                     c = a.b[b + 1];
@@ -62279,16 +64873,24 @@ var require_elk_bundled = __commonJS({
             }
             function hue(a, b) {
               var c, d, e, f, g10, h;
+<<<<<<< HEAD
               if (!b)
                 return;
+=======
+              if (!b) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               !a.a && (a.a = new gyb());
               if (a.e == 2) {
                 dyb(a.a, b);
                 return;
               }
               if (b.e == 1) {
+<<<<<<< HEAD
                 for (e = 0; e < b.Pm(); e++)
                   hue(a, b.Lm(e));
+=======
+                for (e = 0; e < b.Pm(); e++) hue(a, b.Lm(e));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 return;
               }
               h = a.a.a.c.length;
@@ -63885,6 +66487,7 @@ var require_elk_bundled = __commonJS({
               a.c = 0;
               a.b = 0;
               d = 2 * b.c.a.c.length + 1;
+<<<<<<< HEAD
               o:
                 for (l = c.Kc(); l.Ob(); ) {
                   k = RD(l.Pb(), 12);
@@ -63925,6 +66528,46 @@ var require_elk_bundled = __commonJS({
                   } else
                     h && (a.f[k.p] = n);
                 }
+=======
+              o: for (l = c.Kc(); l.Ob(); ) {
+                k = RD(l.Pb(), 12);
+                h = k.j == (qpd(), Yod) || k.j == npd;
+                n = 0;
+                if (h) {
+                  m = RD(mQb(k, (Ywc(), Iwc)), 10);
+                  if (!m) {
+                    continue;
+                  }
+                  n += tIc(a, d, k, m);
+                } else {
+                  for (j = new Anb(k.g); j.a < j.c.c.length; ) {
+                    i10 = RD(ynb(j), 18);
+                    e = i10.d;
+                    if (e.i.c == b.c) {
+                      Rmb(a.a, k);
+                      continue o;
+                    } else {
+                      n += a.g[e.p];
+                    }
+                  }
+                  for (g10 = new Anb(k.e); g10.a < g10.c.c.length; ) {
+                    f = RD(ynb(g10), 18);
+                    e = f.c;
+                    if (e.i.c == b.c) {
+                      Rmb(a.a, k);
+                      continue o;
+                    } else {
+                      n -= a.g[e.p];
+                    }
+                  }
+                }
+                if (k.e.c.length + k.g.c.length > 0) {
+                  a.f[k.p] = n / (k.e.c.length + k.g.c.length);
+                  a.c = $wnd.Math.min(a.c, a.f[k.p]);
+                  a.b = $wnd.Math.max(a.b, a.f[k.p]);
+                } else h && (a.f[k.p] = n);
+              }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             function xne(a) {
               a.b = null;
@@ -64325,8 +66968,12 @@ var require_elk_bundled = __commonJS({
                     a = zdb(a);
                     if (ZD(a, 130)) {
                       return null;
+<<<<<<< HEAD
                     } else
                       throw Adb(a);
+=======
+                    } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 case 4:
                   try {
@@ -64335,8 +66982,12 @@ var require_elk_bundled = __commonJS({
                     a = zdb(a);
                     if (ZD(a, 130)) {
                       return null;
+<<<<<<< HEAD
                     } else
                       throw Adb(a);
+=======
+                    } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 case 3:
                   return c;
@@ -64355,8 +67006,12 @@ var require_elk_bundled = __commonJS({
                     a = zdb(a);
                     if (ZD(a, 33)) {
                       return null;
+<<<<<<< HEAD
                     } else
                       throw Adb(a);
+=======
+                    } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 default:
                   throw Adb(new dgb("Invalid type set for this layout option."));
@@ -64601,8 +67256,12 @@ var require_elk_bundled = __commonJS({
                     d = RD(e.Pb(), 239);
                     if (d == b) {
                       continue;
+<<<<<<< HEAD
                     } else
                       this.e.Hc(d) ? --d.c : this.e.Fc(d);
+=======
+                    } else this.e.Hc(d) ? --d.c : this.e.Fc(d);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
               } else if (c.e) {
@@ -65242,8 +67901,12 @@ var require_elk_bundled = __commonJS({
             function tte(a, b) {
               var c, d, e, f, g10, h, i10, j, k;
               j = b;
+<<<<<<< HEAD
               if (j.b == null || a.b == null)
                 return;
+=======
+              if (j.b == null || a.b == null) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               vte(a);
               ste(a);
               vte(j);
@@ -65713,8 +68376,12 @@ var require_elk_bundled = __commonJS({
               b.Vg();
             }
             function ZBd(a) {
+<<<<<<< HEAD
               if (a.q)
                 return;
+=======
+              if (a.q) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.q = true;
               a.p = jBd(a, 0);
               a.a = jBd(a, 1);
@@ -65827,8 +68494,12 @@ var require_elk_bundled = __commonJS({
                       }
                     } catch (a) {
                       a = zdb(a);
+<<<<<<< HEAD
                       if (!ZD(a, 103))
                         throw Adb(a);
+=======
+                      if (!ZD(a, 103)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                   }
                 }
@@ -66041,8 +68712,12 @@ var require_elk_bundled = __commonJS({
                 return;
               }
               j = b;
+<<<<<<< HEAD
               if (j.b == null || a.b == null)
                 return;
+=======
+              if (j.b == null || a.b == null) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               vte(a);
               ste(a);
               vte(j);
@@ -66398,8 +69073,12 @@ var require_elk_bundled = __commonJS({
               for (f = 0; f < j; ) {
                 d = ihb(a.a, f);
                 if (d >= 97 && d <= 122 || d >= 65 && d <= 90) {
+<<<<<<< HEAD
                   for (g10 = f + 1; g10 < j && ihb(a.a, g10) == d; ++g10)
                     ;
+=======
+                  for (g10 = f + 1; g10 < j && ihb(a.a, g10) == d; ++g10) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   LA(k, d, g10 - f, h, i10, c);
                   f = g10;
                 } else if (d == 39) {
@@ -66495,8 +69174,12 @@ var require_elk_bundled = __commonJS({
                       j = new btb(b);
                       Gyb(c, Inb(h, j));
                     }
+<<<<<<< HEAD
                   } else
                     ZD(d, 183) ? Gyb(c, hob(RD(d, 183))) : ZD(d, 195) ? Gyb(c, aob(RD(d, 195))) : ZD(d, 201) ? Gyb(c, bob(RD(d, 201))) : ZD(d, 2111) ? Gyb(c, gob(RD(d, 2111))) : ZD(d, 53) ? Gyb(c, eob(RD(d, 53))) : ZD(d, 376) ? Gyb(c, fob(RD(d, 376))) : ZD(d, 846) ? Gyb(c, dob(RD(d, 846))) : ZD(d, 109) && Gyb(c, cob(RD(d, 109)));
+=======
+                  } else ZD(d, 183) ? Gyb(c, hob(RD(d, 183))) : ZD(d, 195) ? Gyb(c, aob(RD(d, 195))) : ZD(d, 201) ? Gyb(c, bob(RD(d, 201))) : ZD(d, 2111) ? Gyb(c, gob(RD(d, 2111))) : ZD(d, 53) ? Gyb(c, eob(RD(d, 53))) : ZD(d, 376) ? Gyb(c, fob(RD(d, 376))) : ZD(d, 846) ? Gyb(c, dob(RD(d, 846))) : ZD(d, 109) && Gyb(c, cob(RD(d, 109)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 } else {
                   Gyb(c, d == null ? vve : jeb(d));
                 }
@@ -66562,8 +69245,12 @@ var require_elk_bundled = __commonJS({
                       if (ZD(a, 130)) {
                         g10 = a;
                         throw Adb(new RSd(g10));
+<<<<<<< HEAD
                       } else
                         throw Adb(a);
+=======
+                      } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                     if (k < e.gc()) {
                       m = e.Xb(k);
@@ -67121,6 +69808,7 @@ var require_elk_bundled = __commonJS({
                 do
                   f.a += "[";
                 while ((c = phb(d, 91, ++c)) != -1);
+<<<<<<< HEAD
                 if (lhb(e, hve))
                   f.a += "Z";
                 else if (lhb(e, dKe))
@@ -67137,6 +69825,16 @@ var require_elk_bundled = __commonJS({
                   f.a += "J";
                 else if (lhb(e, jKe))
                   f.a += "S";
+=======
+                if (lhb(e, hve)) f.a += "Z";
+                else if (lhb(e, dKe)) f.a += "B";
+                else if (lhb(e, eKe)) f.a += "C";
+                else if (lhb(e, fKe)) f.a += "D";
+                else if (lhb(e, gKe)) f.a += "F";
+                else if (lhb(e, hKe)) f.a += "I";
+                else if (lhb(e, iKe)) f.a += "J";
+                else if (lhb(e, jKe)) f.a += "S";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 else {
                   f.a += "L";
                   f.a += "" + e;
@@ -67146,6 +69844,7 @@ var require_elk_bundled = __commonJS({
                   return null;
                 } catch (a) {
                   a = zdb(a);
+<<<<<<< HEAD
                   if (!ZD(a, 63))
                     throw Adb(a);
                 }
@@ -67166,6 +69865,19 @@ var require_elk_bundled = __commonJS({
                   return lE;
                 else if (lhb(d, jKe))
                   return wdb;
+=======
+                  if (!ZD(a, 63)) throw Adb(a);
+                }
+              } else if (qhb(d, Fhb(46)) == -1) {
+                if (lhb(d, hve)) return xdb;
+                else if (lhb(d, dKe)) return gE;
+                else if (lhb(d, eKe)) return hE;
+                else if (lhb(d, fKe)) return iE;
+                else if (lhb(d, gKe)) return jE;
+                else if (lhb(d, hKe)) return kE;
+                else if (lhb(d, iKe)) return lE;
+                else if (lhb(d, jKe)) return wdb;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return null;
             }
@@ -69450,8 +72162,12 @@ var require_elk_bundled = __commonJS({
                 var c = this;
                 var d = 0;
                 return { next: function() {
+<<<<<<< HEAD
                   if (d >= b.length)
                     return { done: true };
+=======
+                  if (d >= b.length) return { done: true };
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   var a = b[d++];
                   return { value: [a, c.get(a)], done: false };
                 } };
@@ -69515,8 +72231,12 @@ var require_elk_bundled = __commonJS({
             function Bqe(a) {
               zqe();
               var b, c, d, e, f, g10, h, i10, j, k, l, m, n, o10, p10, q;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               l = a.length * 8;
               if (l == 0) {
                 return "";
@@ -70356,8 +73076,12 @@ var require_elk_bundled = __commonJS({
                           if (ZD(a, 130)) {
                             i10 = a;
                             throw Adb(new RSd(i10));
+<<<<<<< HEAD
                           } else
                             throw Adb(a);
+=======
+                          } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                         }
                       }
                       for (r = P2d(b.Gh()); r.Ob(); ) {
@@ -70383,8 +73107,12 @@ var require_elk_bundled = __commonJS({
                       a = zdb(a);
                       if (ZD(a, 130)) {
                         o10 = c;
+<<<<<<< HEAD
                       } else
                         throw Adb(a);
+=======
+                      } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     }
                   }
                   o10 = lhb("%", o10) ? null : oSd(o10);
@@ -70786,8 +73514,12 @@ var require_elk_bundled = __commonJS({
             function oSd(a) {
               gSd();
               var b, c, d, e, f, g10, h, i10;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               e = qhb(a, Fhb(37));
               if (e < 0) {
                 return a;
@@ -71406,16 +74138,24 @@ var require_elk_bundled = __commonJS({
             function Aqe(a) {
               zqe();
               var b, c, d, e, f, g10, h, i10, j, k, l, m, n, o10, p10, q;
+<<<<<<< HEAD
               if (a == null)
                 return null;
+=======
+              if (a == null) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               f = Ahb(a);
               o10 = Dqe(f);
               if (o10 % 4 != 0) {
                 return null;
               }
               p10 = o10 / 4 | 0;
+<<<<<<< HEAD
               if (p10 == 0)
                 return $C(gE, YHe, 28, 0, 15, 1);
+=======
+              if (p10 == 0) return $C(gE, YHe, 28, 0, 15, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               l = null;
               b = 0;
               c = 0;
@@ -71430,8 +74170,12 @@ var require_elk_bundled = __commonJS({
               k = 0;
               l = $C(gE, YHe, 28, p10 * 3, 15, 1);
               for (; n < p10 - 1; n++) {
+<<<<<<< HEAD
                 if (!Cqe(g10 = f[k++]) || !Cqe(h = f[k++]) || !Cqe(i10 = f[k++]) || !Cqe(j = f[k++]))
                   return null;
+=======
+                if (!Cqe(g10 = f[k++]) || !Cqe(h = f[k++]) || !Cqe(i10 = f[k++]) || !Cqe(j = f[k++])) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 b = xqe[g10];
                 c = xqe[h];
                 d = xqe[i10];
@@ -71449,16 +74193,24 @@ var require_elk_bundled = __commonJS({
               j = f[k++];
               if (xqe[i10] == -1 || xqe[j] == -1) {
                 if (i10 == 61 && j == 61) {
+<<<<<<< HEAD
                   if ((c & 15) != 0)
                     return null;
+=======
+                  if ((c & 15) != 0) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   q = $C(gE, YHe, 28, n * 3 + 1, 15, 1);
                   hib(l, 0, q, 0, n * 3);
                   q[m] = (b << 2 | c >> 4) << 24 >> 24;
                   return q;
                 } else if (i10 != 61 && j == 61) {
                   d = xqe[i10];
+<<<<<<< HEAD
                   if ((d & 3) != 0)
                     return null;
+=======
+                  if ((d & 3) != 0) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   q = $C(gE, YHe, 28, n * 3 + 2, 15, 1);
                   hib(l, 0, q, 0, n * 3);
                   q[m++] = (b << 2 | c >> 4) << 24 >> 24;
@@ -71944,6 +74696,7 @@ var require_elk_bundled = __commonJS({
               if (Dod(RD(mQb(d, (yCc(), BBc)), 101))) {
                 g10 = false;
                 h = false;
+<<<<<<< HEAD
                 t:
                   for (o10 = new Anb(d.j); o10.a < o10.c.c.length; ) {
                     n = RD(ynb(o10), 12);
@@ -71961,6 +74714,24 @@ var require_elk_bundled = __commonJS({
                       }
                     }
                   }
+=======
+                t: for (o10 = new Anb(d.j); o10.a < o10.c.c.length; ) {
+                  n = RD(ynb(o10), 12);
+                  for (q = Fl(Al(cD(WC(cJ, 1), rve, 20, 0, [new T3b(n), new _3b(n)]))); gs(q); ) {
+                    p10 = RD(hs(q), 12);
+                    if (!Heb(TD(mQb(p10.i, Uzc)))) {
+                      if (n.j == (qpd(), Yod)) {
+                        g10 = true;
+                        break t;
+                      }
+                      if (n.j == npd) {
+                        h = true;
+                        break t;
+                      }
+                    }
+                  }
+                }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 m = h && !g10;
                 l = g10 && !h;
               }
@@ -72142,8 +74913,12 @@ var require_elk_bundled = __commonJS({
                     j = s;
                   }
                   u += j;
+<<<<<<< HEAD
                 } else
                   !m && !n && (u += s);
+=======
+                } else !m && !n && (u += s);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 !!t10 && p2b(t10, u);
                 for (w = new Anb(a.i); w.a < w.c.c.length; ) {
                   v = RD(ynb(w), 131);
@@ -72244,6 +75019,7 @@ var require_elk_bundled = __commonJS({
                   for (e = 0; e < a.i; ++e) {
                     h = a.g[e];
                     n = h;
+<<<<<<< HEAD
                     v:
                       for (s = 0; s < 2; ++s) {
                         for (i10 = k; --i10 >= 0; ) {
@@ -72263,6 +75039,26 @@ var require_elk_bundled = __commonJS({
                           break;
                         }
                       }
+=======
+                    v: for (s = 0; s < 2; ++s) {
+                      for (i10 = k; --i10 >= 0; ) {
+                        if (n != null ? pb(n, o10[i10]) : dE(n) === dE(o10[i10])) {
+                          if (r.length <= d) {
+                            q = r;
+                            r = $C(kE, Pwe, 28, 2 * r.length, 15, 1);
+                            hib(q, 0, r, 0, d);
+                          }
+                          r[d++] = e;
+                          WGd(u, o10[i10]);
+                          break v;
+                        }
+                      }
+                      n = n;
+                      if (dE(n) === dE(h)) {
+                        break;
+                      }
+                    }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   j = u;
                   o10 = u.g;
@@ -73011,8 +75807,12 @@ var require_elk_bundled = __commonJS({
               return new rjd(l, F);
             }
             function zne(a) {
+<<<<<<< HEAD
               if (a.N)
                 return;
+=======
+              if (a.N) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.N = true;
               a.b = jBd(a, 0);
               iBd(a.b, 0);
@@ -73416,6 +76216,7 @@ var require_elk_bundled = __commonJS({
                   case 91: {
                     m = new bnb();
                     Rmb(i10, new KTd(d, m));
+<<<<<<< HEAD
                     n:
                       for (; ; ) {
                         switch (ihb(b, ++k)) {
@@ -73458,6 +76259,49 @@ var require_elk_bundled = __commonJS({
                           break;
                         }
                       }
+=======
+                    n: for (; ; ) {
+                      switch (ihb(b, ++k)) {
+                        case 39: {
+                          h = phb(b, 39, ++k);
+                          Rmb(m, lwd((AFb(k, h, b.length), b.substr(k, h - k)), f, e));
+                          k = h + 1;
+                          break;
+                        }
+                        case 34: {
+                          h = phb(b, 34, ++k);
+                          Rmb(m, lwd((AFb(k, h, b.length), b.substr(k, h - k)), f, e));
+                          k = h + 1;
+                          break;
+                        }
+                        case 110: {
+                          ++k;
+                          if (b.indexOf("ull", k) == k) {
+                            m.c.push(null);
+                          } else {
+                            throw Adb(new yz(MHe));
+                          }
+                          k += 3;
+                          break;
+                        }
+                      }
+                      if (k < l) {
+                        switch (BFb(k, b.length), b.charCodeAt(k)) {
+                          case 44: {
+                            break;
+                          }
+                          case 93: {
+                            break n;
+                          }
+                          default: {
+                            throw Adb(new yz("Expecting , or ]"));
+                          }
+                        }
+                      } else {
+                        break;
+                      }
+                    }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     j = k + 1;
                     break;
                   }
@@ -73555,8 +76399,12 @@ var require_elk_bundled = __commonJS({
                     case 80:
                     case 112:
                       f = Sqe(a, a.a);
+<<<<<<< HEAD
                       if (!f)
                         throw Adb(new Lqe(TId((Hde(), hJe))));
+=======
+                      if (!f) throw Adb(new Lqe(TId((Hde(), hJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       break;
                     default:
                       f = Yse(a.a);
@@ -73564,8 +76412,12 @@ var require_elk_bundled = __commonJS({
                   Mqe(a);
                   break;
                 case 0:
+<<<<<<< HEAD
                   if (a.a == 93 || a.a == 123 || a.a == 125)
                     throw Adb(new Lqe(TId((Hde(), gJe))));
+=======
+                  if (a.a == 93 || a.a == 123 || a.a == 125) throw Adb(new Lqe(TId((Hde(), gJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   f = Yse(a.a);
                   d = a.a;
                   Mqe(a);
@@ -74253,8 +77105,12 @@ var require_elk_bundled = __commonJS({
                       d = b - 48;
                       while (e < a.j && (b = ihb(a.i, e++)) >= 48 && b <= 57) {
                         d = d * 10 + b - 48;
+<<<<<<< HEAD
                         if (d < 0)
                           throw Adb(new Lqe(TId((Hde(), CJe))));
+=======
+                        if (d < 0) throw Adb(new Lqe(TId((Hde(), CJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       }
                     } else {
                       throw Adb(new Lqe(TId((Hde(), yJe))));
@@ -74267,17 +77123,27 @@ var require_elk_bundled = __commonJS({
                         c = b - 48;
                         while (e < a.j && (b = ihb(a.i, e++)) >= 48 && b <= 57) {
                           c = c * 10 + b - 48;
+<<<<<<< HEAD
                           if (c < 0)
                             throw Adb(new Lqe(TId((Hde(), CJe))));
                         }
                         if (d > c)
                           throw Adb(new Lqe(TId((Hde(), BJe))));
+=======
+                          if (c < 0) throw Adb(new Lqe(TId((Hde(), CJe))));
+                        }
+                        if (d > c) throw Adb(new Lqe(TId((Hde(), BJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       } else {
                         c = -1;
                       }
                     }
+<<<<<<< HEAD
                     if (b != 125)
                       throw Adb(new Lqe(TId((Hde(), zJe))));
+=======
+                    if (b != 125) throw Adb(new Lqe(TId((Hde(), zJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (a.bm(e)) {
                       f = (Vse(), Vse(), ++Use, new Kte(9, f));
                       a.d = e + 1;
@@ -74461,16 +77327,24 @@ var require_elk_bundled = __commonJS({
                     }
                   } catch (a) {
                     a = zdb(a);
+<<<<<<< HEAD
                     if (!ZD(a, 63))
                       throw Adb(a);
+=======
+                    if (!ZD(a, 63)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
                 throw Adb(new agb(XHe + d + "' does not match any member types of the union datatype '" + c.xe() + "'"));
               }
               RD(c, 847).ok();
               f = Qje(c.kk());
+<<<<<<< HEAD
               if (!f)
                 return null;
+=======
+              if (!f) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (f == SI) {
                 h = 0;
                 try {
@@ -74480,8 +77354,12 @@ var require_elk_bundled = __commonJS({
                   if (ZD(a, 130)) {
                     g10 = Ahb(d);
                     h = g10[0];
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 return hfb(h);
               }
@@ -74491,8 +77369,12 @@ var require_elk_bundled = __commonJS({
                     return b2d(nAd[i10], d);
                   } catch (a) {
                     a = zdb(a);
+<<<<<<< HEAD
                     if (!ZD(a, 33))
                       throw Adb(a);
+=======
+                    if (!ZD(a, 33)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
                 throw Adb(new agb(XHe + d + "' is not a date formatted string of the form yyyy-MM-dd'T'HH:mm:ss'.'SSSZ or a valid subset thereof"));
@@ -74921,6 +77803,7 @@ var require_elk_bundled = __commonJS({
                 D = $C(kE, Pwe, 28, o10, 15, 1);
                 G = o10;
                 hib(e, 0, D, 0, G);
+<<<<<<< HEAD
                 I:
                   while (true) {
                     A = 0;
@@ -74947,6 +77830,33 @@ var require_elk_bundled = __commonJS({
                     }
                     G = l + 1;
                   }
+=======
+                I: while (true) {
+                  A = 0;
+                  for (j = G - 1; j >= 0; j--) {
+                    F = Bdb(Sdb(A, 32), Cdb(D[j], yxe));
+                    r = yjb(F);
+                    D[j] = Ydb(r);
+                    A = Ydb(Tdb(r, 32));
+                  }
+                  s = Ydb(A);
+                  q = c;
+                  do {
+                    u[--c] = 48 + s % 10 & Bwe;
+                  } while ((s = s / 10 | 0) != 0 && c != 0);
+                  d = 9 - q + c;
+                  for (i10 = 0; i10 < d && c > 0; i10++) {
+                    u[--c] = 48;
+                  }
+                  l = G - 1;
+                  for (; D[l] == 0; l--) {
+                    if (l == 0) {
+                      break I;
+                    }
+                  }
+                  G = l + 1;
+                }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 while (u[c] == 48) {
                   ++c;
                 }
@@ -75862,16 +78772,24 @@ var require_elk_bundled = __commonJS({
                 switch (b) {
                   case 92:
                     d = 10;
+<<<<<<< HEAD
                     if (a.d >= a.j)
                       throw Adb(new Lqe(TId((Hde(), VIe))));
+=======
+                    if (a.d >= a.j) throw Adb(new Lqe(TId((Hde(), VIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     a.a = ihb(a.i, a.d++);
                     break;
                   case 45:
                     if ((a.e & 512) == 512 && a.d < a.j && ihb(a.i, a.d) == 91) {
                       ++a.d;
                       d = 24;
+<<<<<<< HEAD
                     } else
                       d = 0;
+=======
+                    } else d = 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     break;
                   case 91:
                     if ((a.e & 512) != 512 && a.d < a.j && ihb(a.i, a.d) == 58) {
@@ -75922,12 +78840,18 @@ var require_elk_bundled = __commonJS({
                   break;
                 case 40:
                   d = 6;
+<<<<<<< HEAD
                   if (a.d >= a.j)
                     break;
                   if (ihb(a.i, a.d) != 63)
                     break;
                   if (++a.d >= a.j)
                     throw Adb(new Lqe(TId((Hde(), WIe))));
+=======
+                  if (a.d >= a.j) break;
+                  if (ihb(a.i, a.d) != 63) break;
+                  if (++a.d >= a.j) throw Adb(new Lqe(TId((Hde(), WIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   b = ihb(a.i, a.d++);
                   switch (b) {
                     case 58:
@@ -75946,24 +78870,38 @@ var require_elk_bundled = __commonJS({
                       d = 18;
                       break;
                     case 60:
+<<<<<<< HEAD
                       if (a.d >= a.j)
                         throw Adb(new Lqe(TId((Hde(), WIe))));
+=======
+                      if (a.d >= a.j) throw Adb(new Lqe(TId((Hde(), WIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       b = ihb(a.i, a.d++);
                       if (b == 61) {
                         d = 16;
                       } else if (b == 33) {
                         d = 17;
+<<<<<<< HEAD
                       } else
                         throw Adb(new Lqe(TId((Hde(), XIe))));
+=======
+                      } else throw Adb(new Lqe(TId((Hde(), XIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       break;
                     case 35:
                       while (a.d < a.j) {
                         b = ihb(a.i, a.d++);
+<<<<<<< HEAD
                         if (b == 41)
                           break;
                       }
                       if (b != 41)
                         throw Adb(new Lqe(TId((Hde(), YIe))));
+=======
+                        if (b == 41) break;
+                      }
+                      if (b != 41) throw Adb(new Lqe(TId((Hde(), YIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       d = 21;
                       break;
                     default:
@@ -75980,8 +78918,12 @@ var require_elk_bundled = __commonJS({
                   break;
                 case 92:
                   d = 10;
+<<<<<<< HEAD
                   if (a.d >= a.j)
                     throw Adb(new Lqe(TId((Hde(), VIe))));
+=======
+                  if (a.d >= a.j) throw Adb(new Lqe(TId((Hde(), VIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   a.a = ihb(a.i, a.d++);
                   break;
                 default:
@@ -76119,8 +79061,12 @@ var require_elk_bundled = __commonJS({
                     case 112:
                     case 80:
                       i10 = Sqe(a, c);
+<<<<<<< HEAD
                       if (!i10)
                         throw Adb(new Lqe(TId((Hde(), hJe))));
+=======
+                      if (!i10) throw Adb(new Lqe(TId((Hde(), hJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       ute(h, i10);
                       d = true;
                       break;
@@ -76134,26 +79080,40 @@ var require_elk_bundled = __commonJS({
                   }
                   f = Fre(a);
                   wte(h, f);
+<<<<<<< HEAD
                   if (a.c != 0 || a.a != 93)
                     throw Adb(new Lqe(TId((Hde(), lJe))));
+=======
+                  if (a.c != 0 || a.a != 93) throw Adb(new Lqe(TId((Hde(), lJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   break;
                 }
                 Mqe(a);
                 if (!d) {
                   if (j == 0) {
+<<<<<<< HEAD
                     if (c == 91)
                       throw Adb(new Lqe(TId((Hde(), mJe))));
                     if (c == 93)
                       throw Adb(new Lqe(TId((Hde(), nJe))));
                     if (c == 45 && !e && a.a != 93)
                       throw Adb(new Lqe(TId((Hde(), oJe))));
+=======
+                    if (c == 91) throw Adb(new Lqe(TId((Hde(), mJe))));
+                    if (c == 93) throw Adb(new Lqe(TId((Hde(), nJe))));
+                    if (c == 45 && !e && a.a != 93) throw Adb(new Lqe(TId((Hde(), oJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   if (a.c != 0 || a.a != 45 || c == 45 && e) {
                     rte(h, c, c);
                   } else {
                     Mqe(a);
+<<<<<<< HEAD
                     if ((j = a.c) == 1)
                       throw Adb(new Lqe(TId((Hde(), jJe))));
+=======
+                    if ((j = a.c) == 1) throw Adb(new Lqe(TId((Hde(), jJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (j == 0 && a.a == 93) {
                       rte(h, c, c);
                       rte(h, 45, 45);
@@ -76162,6 +79122,7 @@ var require_elk_bundled = __commonJS({
                     } else {
                       g10 = a.a;
                       if (j == 0) {
+<<<<<<< HEAD
                         if (g10 == 91)
                           throw Adb(new Lqe(TId((Hde(), mJe))));
                         if (g10 == 93)
@@ -76173,14 +79134,26 @@ var require_elk_bundled = __commonJS({
                       Mqe(a);
                       if (c > g10)
                         throw Adb(new Lqe(TId((Hde(), rJe))));
+=======
+                        if (g10 == 91) throw Adb(new Lqe(TId((Hde(), mJe))));
+                        if (g10 == 93) throw Adb(new Lqe(TId((Hde(), nJe))));
+                        if (g10 == 45) throw Adb(new Lqe(TId((Hde(), oJe))));
+                      } else j == 10 && (g10 = Dre(a));
+                      Mqe(a);
+                      if (c > g10) throw Adb(new Lqe(TId((Hde(), rJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       rte(h, c, g10);
                     }
                   }
                 }
                 e = false;
               }
+<<<<<<< HEAD
               if (a.c == 1)
                 throw Adb(new Lqe(TId((Hde(), jJe))));
+=======
+              if (a.c == 1) throw Adb(new Lqe(TId((Hde(), jJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               vte(h);
               ste(h);
               a.b = 0;
@@ -77308,8 +80281,12 @@ var require_elk_bundled = __commonJS({
               }
             }
             function Yae(a) {
+<<<<<<< HEAD
               if (a.gb)
                 return;
+=======
+              if (a.gb) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.gb = true;
               a.b = jBd(a, 0);
               iBd(a.b, 18);
@@ -78426,8 +81403,12 @@ var require_elk_bundled = __commonJS({
             }
             function Ane(a) {
               var b;
+<<<<<<< HEAD
               if (a.O)
                 return;
+=======
+              if (a.O) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.O = true;
               PAd(a, "type");
               CBd(a, "ecore.xml.type");
@@ -78929,8 +81910,12 @@ var require_elk_bundled = __commonJS({
             }
             function $Bd(a) {
               var b, c, d, e, f, g10, h, i10, j, k, l, m, n, o10, p10;
+<<<<<<< HEAD
               if (a.r)
                 return;
+=======
+              if (a.r) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.r = true;
               PAd(a, "graph");
               CBd(a, "graph");
@@ -79680,8 +82665,12 @@ var require_elk_bundled = __commonJS({
             }
             function Zae(a) {
               var b, c, d, e, f, g10, h;
+<<<<<<< HEAD
               if (a.hb)
                 return;
+=======
+              if (a.hb) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a.hb = true;
               PAd(a, "ecore");
               CBd(a, "ecore");
@@ -81920,8 +84909,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 212)) {
                   return false;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Wd = function _n() {
@@ -82878,8 +85871,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 112)) {
                   throw Adb(new veb("Can't set element " + b));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             var QJ = sfb(Bve, "AbstractSequentialList", 2062);
@@ -83173,8 +86170,12 @@ var require_elk_bundled = __commonJS({
                     }
                   }
                   return false;
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.gc = function uw() {
@@ -84451,8 +87452,12 @@ var require_elk_bundled = __commonJS({
               return ye(this, a);
             };
             _.$b = function gmb() {
+<<<<<<< HEAD
               while (mwb(this) != null)
                 ;
+=======
+              while (mwb(this) != null) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             var PJ = sfb(Bve, "AbstractQueue", 2103);
             feb(310, 31, { 4: 1, 20: 1, 31: 1, 16: 1 }, wmb, xmb);
@@ -86274,8 +89279,12 @@ var require_elk_bundled = __commonJS({
             feb(737, 500, Pve, hEb);
             _.Bd = function iEb(a) {
               this.b = false;
+<<<<<<< HEAD
               while (!this.b && this.c.Bd(new jEb(this, a)))
                 ;
+=======
+              while (!this.b && this.c.Bd(new jEb(this, a))) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return this.b;
             };
             _.b = false;
@@ -88653,8 +91662,12 @@ var require_elk_bundled = __commonJS({
                   if (ZD(a, 130)) {
                     d = a;
                     throw Adb(new agb($Ae + d));
+<<<<<<< HEAD
                   } else
                     throw Adb(a);
+=======
+                  } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
               }
             };
@@ -94414,7 +97427,11 @@ var require_elk_bundled = __commonJS({
             _.Mg = function ted(a, b) {
               return hed(), !a.pf(b);
             };
+<<<<<<< HEAD
             var i2 = sfb(pze, "LayoutConfigurator/lambda$1$Type", 943);
+=======
+            var i22 = sfb(pze, "LayoutConfigurator/lambda$1$Type", 943);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             feb(945, 1, { 2032: 1 }, ved);
             _.Lg = function wed(a, b) {
               return ued(a, b);
@@ -94763,8 +97780,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 130)) {
                   d = a;
                   throw Adb(new agb($Ae + d));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Ib = function yjd() {
@@ -94799,8 +97820,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 130)) {
                   c = a;
                   throw Adb(new agb("The given string does not match the expected format for vectors." + c));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Ib = function Kjd() {
@@ -95079,8 +98104,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 103)) {
                   p10 = a;
                   throw Adb(p10);
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               Hxd(A, Ikd) || Hxd(A, Hkd) || psd(A);
               j = Kfb(UD(Gxd(A, Ikd)));
@@ -95412,8 +98441,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 103)) {
                   c = a;
                   throw Adb(new bgb(c));
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Ib = function itd() {
@@ -96145,8 +99178,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function byd() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return awd(this);
+=======
+              if ((this.Db & 64) != 0) return awd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(awd(this));
               a.a += " (x: ";
               Khb(a, this.a);
@@ -96414,12 +99451,19 @@ var require_elk_bundled = __commonJS({
                 case 6:
                   return Fzd(this);
                 case 7:
+<<<<<<< HEAD
                   if (b)
                     return Ezd(this);
                   return this.i;
                 case 8:
                   if (b)
                     return Dzd(this);
+=======
+                  if (b) return Ezd(this);
+                  return this.i;
+                case 8:
+                  if (b) return Dzd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.f;
                 case 9:
                   return !this.g && (this.g = new Yie(F4, this, 9, 10)), this.g;
@@ -96880,8 +99924,12 @@ var require_elk_bundled = __commonJS({
                 case 6:
                   return !this.vb && (this.vb = new G5d(t7, this, 6, 7)), this.vb;
                 case 7:
+<<<<<<< HEAD
                   if (b)
                     return this.Db >> 16 == 7 ? RD(this.Cb, 241) : null;
+=======
+                  if (b) return this.Db >> 16 == 7 ? RD(this.Cb, 241) : null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return gBd(this);
               }
               return zvd(this, a - AYd((JTd(), CTd)), vYd((d = RD(Ywd(this, 16), 29), !d ? CTd : d), a), b, c);
@@ -97049,8 +100097,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function XBd() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return QAd(this);
+=======
+              if ((this.Db & 64) != 0) return QAd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(QAd(this));
               a.a += " (nsURI: ";
               Nhb(a, this.yb);
@@ -97383,8 +100435,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function nDd() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return awd(this);
+=======
+              if ((this.Db & 64) != 0) return awd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new bib();
               Zhb(Zhb(Zhb(a, this.b ? this.b.Pg() : vve), SAe), Ghb(this.c));
               return a.a;
@@ -97624,8 +100680,12 @@ var require_elk_bundled = __commonJS({
             _.fd = function AHd(a) {
               var b;
               b = this.gc();
+<<<<<<< HEAD
               if (a < 0 || a > b)
                 throw Adb(new aMd(a, b));
+=======
+              if (a < 0 || a > b) throw Adb(new aMd(a, b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return new nMd(this, a);
             };
             _.Ui = function BHd(a, b) {
@@ -98396,8 +101456,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   this.Xj();
                   throw Adb(new Dvb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.$j = function qMd(a) {
@@ -98443,8 +101507,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   this.Xj();
                   throw Adb(new Dvb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Zj = function FMd() {
@@ -98459,8 +101527,12 @@ var require_elk_bundled = __commonJS({
                 if (ZD(a, 77)) {
                   this.Xj();
                   throw Adb(new Dvb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Qb = function GMd() {
@@ -98550,8 +101622,12 @@ var require_elk_bundled = __commonJS({
             _.Ki = function VMd(a) {
               var b, c;
               c = (b = RD(Ywd(this.a, 4), 129), b == null ? 0 : b.length);
+<<<<<<< HEAD
               if (a < 0 || a > c)
                 throw Adb(new aMd(a, c));
+=======
+              if (a < 0 || a > c) throw Adb(new aMd(a, c));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return new wNd(this, a);
             };
             _.$b = function WMd() {
@@ -98588,8 +101664,12 @@ var require_elk_bundled = __commonJS({
               var b, c;
               b = RD(Ywd(this.a, 4), 129);
               c = b == null ? 0 : b.length;
+<<<<<<< HEAD
               if (a >= c)
                 throw Adb(new aMd(a, c));
+=======
+              if (a >= c) throw Adb(new aMd(a, c));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return b[a];
             };
             _.dd = function ZMd(a) {
@@ -98624,18 +101704,27 @@ var require_elk_bundled = __commonJS({
             _.fd = function bNd(a) {
               var b, c;
               c = (b = RD(Ywd(this.a, 4), 129), b == null ? 0 : b.length);
+<<<<<<< HEAD
               if (a < 0 || a > c)
                 throw Adb(new aMd(a, c));
+=======
+              if (a < 0 || a > c) throw Adb(new aMd(a, c));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return new oNd(this, a);
             };
             _.Ti = function cNd(a, b) {
               var c, d, e;
               c = MMd(this);
               e = c == null ? 0 : c.length;
+<<<<<<< HEAD
               if (a >= e)
                 throw Adb(new veb(MIe + a + NIe + e));
               if (b >= e)
                 throw Adb(new veb(OIe + b + NIe + e));
+=======
+              if (a >= e) throw Adb(new veb(MIe + a + NIe + e));
+              if (b >= e) throw Adb(new veb(OIe + b + NIe + e));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = c[b];
               if (a != b) {
                 a < b ? hib(c, a, c, a + 1, b - a) : hib(c, b + 1, c, b, a - b);
@@ -99345,10 +102434,15 @@ var require_elk_bundled = __commonJS({
             feb(288, 1, { 288: 1 }, lSd);
             _.Fb = function pSd(a) {
               var b;
+<<<<<<< HEAD
               if (this === a)
                 return true;
               if (!ZD(a, 288))
                 return false;
+=======
+              if (this === a) return true;
+              if (!ZD(a, 288)) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = RD(a, 288);
               return this.f == b.f && rSd(this.i, b.i) && qSd(this.a, (this.f & 256) != 0 ? (b.f & 256) != 0 ? b.a : null : (b.f & 256) != 0 ? null : b.a) && qSd(this.d, b.d) && qSd(this.g, b.g) && qSd(this.e, b.e) && iSd(this, b);
             };
@@ -99876,8 +102970,12 @@ var require_elk_bundled = __commonJS({
                 case 7:
                   return Geb(), e = this.s, e >= 1 ? true : false;
                 case 8:
+<<<<<<< HEAD
                   if (b)
                     return WVd(this);
+=======
+                  if (b) return WVd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.r;
                 case 9:
                   return this.q;
@@ -100042,8 +103140,12 @@ var require_elk_bundled = __commonJS({
                 case 7:
                   return Geb(), e = this.s, e >= 1 ? true : false;
                 case 8:
+<<<<<<< HEAD
                   if (b)
                     return WVd(this);
+=======
+                  if (b) return WVd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.r;
                 case 9:
                   return this.q;
@@ -100335,8 +103437,12 @@ var require_elk_bundled = __commonJS({
                 case 7:
                   return Geb(), e = this.s, e >= 1 ? true : false;
                 case 8:
+<<<<<<< HEAD
                   if (b)
                     return WVd(this);
+=======
+                  if (b) return WVd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.r;
                 case 9:
                   return this.q;
@@ -100359,8 +103465,12 @@ var require_elk_bundled = __commonJS({
                 case 18:
                   return Geb(), (this.Bb & QHe) != 0 ? true : false;
                 case 19:
+<<<<<<< HEAD
                   if (b)
                     return iXd(this);
+=======
+                  if (b) return iXd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return hXd(this);
               }
               return zvd(this, a - AYd((JTd(), nTd)), vYd((d = RD(Ywd(this, 16), 29), !d ? nTd : d), a), b, c);
@@ -100544,8 +103654,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function wXd() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return GWd(this);
+=======
+              if ((this.Db & 64) != 0) return GWd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(GWd(this));
               a.a += " (iD: ";
               Ohb(a, (this.Bb & QHe) != 0);
@@ -100582,8 +103696,12 @@ var require_elk_bundled = __commonJS({
                 case 5:
                   return this.F;
                 case 6:
+<<<<<<< HEAD
                   if (b)
                     return BXd(this);
+=======
+                  if (b) return BXd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return xXd(this);
                 case 7:
                   return !this.A && (this.A = new iie(z7, this, 7)), this.A;
@@ -100754,8 +103872,12 @@ var require_elk_bundled = __commonJS({
                 case 5:
                   return this.F;
                 case 6:
+<<<<<<< HEAD
                   if (b)
                     return BXd(this);
+=======
+                  if (b) return BXd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return xXd(this);
                 case 7:
                   return !this.A && (this.A = new iie(z7, this, 7)), this.A;
@@ -101637,8 +104759,12 @@ var require_elk_bundled = __commonJS({
             _.dd = function c0d(a) {
               var b, c, d, e;
               d = this.zj(a);
+<<<<<<< HEAD
               if (d >= 0)
                 return d;
+=======
+              if (d >= 0) return d;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (this.ol()) {
                 for (c = 0, e = this.Ej(); c < e; ++c) {
                   b = O_d(this, this.xj(c));
@@ -101916,8 +105042,12 @@ var require_elk_bundled = __commonJS({
                 case 5:
                   return this.F;
                 case 6:
+<<<<<<< HEAD
                   if (b)
                     return BXd(this);
+=======
+                  if (b) return BXd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return xXd(this);
                 case 7:
                   return !this.A && (this.A = new iie(z7, this, 7)), this.A;
@@ -102036,8 +105166,12 @@ var require_elk_bundled = __commonJS({
                   b = DXd(this);
                 } catch (a) {
                   a = zdb(a);
+<<<<<<< HEAD
                   if (!ZD(a, 103))
                     throw Adb(a);
+=======
+                  if (!ZD(a, 103)) throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 }
                 this.d = null;
                 !!b && (b.i & 1) != 0 && (b == xdb ? this.d = (Geb(), Eeb) : b == kE ? this.d = sgb(0) : b == jE ? this.d = new Tfb(0) : b == iE ? this.d = 0 : b == lE ? this.d = Hgb(0) : b == wdb ? this.d = bhb(0) : b == gE ? this.d = $eb(0) : this.d = hfb(0));
@@ -102061,8 +105195,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function x1d() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return MXd(this);
+=======
+              if ((this.Db & 64) != 0) return MXd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(MXd(this));
               a.a += " (serializable: ";
               Ohb(a, (this.Bb & 256) != 0);
@@ -102090,8 +105228,12 @@ var require_elk_bundled = __commonJS({
                 case 5:
                   return this.F;
                 case 6:
+<<<<<<< HEAD
                   if (b)
                     return BXd(this);
+=======
+                  if (b) return BXd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return xXd(this);
                 case 7:
                   return !this.A && (this.A = new iie(z7, this, 7)), this.A;
@@ -102390,16 +105532,24 @@ var require_elk_bundled = __commonJS({
                 case 1:
                   return !this.d && (this.d = new XZd(o7, this, 1)), this.d;
                 case 2:
+<<<<<<< HEAD
                   if (b)
                     return i2d(this);
+=======
+                  if (b) return i2d(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.c;
                 case 3:
                   return this.b;
                 case 4:
                   return this.e;
                 case 5:
+<<<<<<< HEAD
                   if (b)
                     return h2d(this);
+=======
+                  if (b) return h2d(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.a;
               }
               return zvd(this, a - AYd((JTd(), vTd)), vYd((d = RD(Ywd(this, 16), 29), !d ? vTd : d), a), b, c);
@@ -102640,8 +105790,12 @@ var require_elk_bundled = __commonJS({
                       for (d = 0, f = b.gc(); d < f; ++d) {
                         O2d(b.Tl(d)) && b.Ul(d) != null && ++e;
                       }
+<<<<<<< HEAD
                     } else
                       a.Jk() ? e += RD(g10, 16).gc() : g10 != null && ++e;
+=======
+                    } else a.Jk() ? e += RD(g10, 16).gc() : g10 != null && ++e;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                 }
               }
@@ -102945,8 +106099,12 @@ var require_elk_bundled = __commonJS({
                 case 7:
                   return Geb(), e = this.s, e >= 1 ? true : false;
                 case 8:
+<<<<<<< HEAD
                   if (b)
                     return WVd(this);
+=======
+                  if (b) return WVd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.r;
                 case 9:
                   return this.q;
@@ -103416,8 +106574,12 @@ var require_elk_bundled = __commonJS({
                 case 7:
                   return Geb(), e = this.s, e >= 1 ? true : false;
                 case 8:
+<<<<<<< HEAD
                   if (b)
                     return WVd(this);
+=======
+                  if (b) return WVd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.r;
                 case 9:
                   return this.q;
@@ -103502,8 +106664,12 @@ var require_elk_bundled = __commonJS({
                 case 7:
                   return Geb(), e = this.s, e >= 1 ? true : false;
                 case 8:
+<<<<<<< HEAD
                   if (b)
                     return WVd(this);
+=======
+                  if (b) return WVd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return this.r;
                 case 9:
                   return this.q;
@@ -103530,12 +106696,19 @@ var require_elk_bundled = __commonJS({
                 case 20:
                   return Geb(), (this.Bb & txe) != 0 ? true : false;
                 case 21:
+<<<<<<< HEAD
                   if (b)
                     return Z5d(this);
                   return this.b;
                 case 22:
                   if (b)
                     return $5d(this);
+=======
+                  if (b) return Z5d(this);
+                  return this.b;
+                case 22:
+                  if (b) return $5d(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return Y5d(this);
                 case 23:
                   return !this.a && (this.a = new zie(g7, this, 23)), this.a;
@@ -103757,8 +106930,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function p6d() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return GWd(this);
+=======
+              if ((this.Db & 64) != 0) return GWd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(GWd(this));
               a.a += " (containment: ";
               Ohb(a, (this.Bb & QHe) != 0);
@@ -103847,8 +107024,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function J6d() {
               var a;
+<<<<<<< HEAD
               if ((this.Db & 64) != 0)
                 return awd(this);
+=======
+              if ((this.Db & 64) != 0) return awd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(awd(this));
               a.a += " (key: ";
               Nhb(a, this.b);
@@ -104065,8 +107246,12 @@ var require_elk_bundled = __commonJS({
               e = a.Ph();
               g10 = BYd(a.Dh(), this.e);
               if (dE(d) !== dE(e) || a.Fh() != g10 && d != null) {
+<<<<<<< HEAD
                 if (Oje(a, RD(d, 58)))
                   throw Adb(new agb(UHe + a.Ib()));
+=======
+                if (Oje(a, RD(d, 58))) throw Adb(new agb(UHe + a.Ib()));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 i10 = null;
                 !!e && (i10 = (f = a.Fh(), f >= 0 ? a.Ah(i10) : a.Ph().Th(a, -1 - f, null, i10)));
                 h = RD(d, 54);
@@ -104116,8 +107301,12 @@ var require_elk_bundled = __commonJS({
                   if (this.c != null) {
                     b.mi(c, null);
                     d = this.b;
+<<<<<<< HEAD
                   } else
                     this.b != null ? b.mi(c, r7d) : b.mi(c, null);
+=======
+                  } else this.b != null ? b.mi(c, r7d) : b.mi(c, null);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 } else {
                   this.Bl(d);
                   b.mi(c, d);
@@ -104244,8 +107433,12 @@ var require_elk_bundled = __commonJS({
                 if (f == null) {
                   e = false;
                   f = this.b;
+<<<<<<< HEAD
                 } else
                   dE(f) === dE(r7d) && (f = null);
+=======
+                } else dE(f) === dE(r7d) && (f = null);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 if (d == null) {
                   if (this.c != null) {
                     b.mi(c, null);
@@ -104275,8 +107468,12 @@ var require_elk_bundled = __commonJS({
                 if (e == null) {
                   d = false;
                   e = this.b;
+<<<<<<< HEAD
                 } else
                   dE(e) === dE(r7d) && (e = null);
+=======
+                } else dE(e) === dE(r7d) && (e = null);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 b.ni(c);
                 qvd(a, this.d.Dl(a, 2, this.e, e, this.b, d));
               } else {
@@ -104334,8 +107531,12 @@ var require_elk_bundled = __commonJS({
                   f = RD(g10, 54);
                   e = f.Th(a, BYd(f.Dh(), this.b), null, e);
                 }
+<<<<<<< HEAD
               } else
                 this.al() && g10 != null && (e = RD(g10, 54).Th(a, -1 - BYd(a.Dh(), this.e), null, e));
+=======
+              } else this.al() && g10 != null && (e = RD(g10, 54).Th(a, -1 - BYd(a.Dh(), this.e), null, e));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (a.vh() && a.wh()) {
                 !e && (e = new gLd(4));
                 e.nj(new b4d(a, 1, this.e, g10, d));
@@ -104393,8 +107594,12 @@ var require_elk_bundled = __commonJS({
                   g10.nj(f);
                   g10.oj();
                 }
+<<<<<<< HEAD
               } else
                 !!g10 && g10.oj();
+=======
+              } else !!g10 && g10.oj();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             _.Ek = function U8d(a, b, c) {
               var d, e, f, g10, h;
@@ -104406,8 +107611,12 @@ var require_elk_bundled = __commonJS({
                 if (this.Mj()) {
                   d = RD(h, 54);
                   f = d.Th(a, BYd(d.Dh(), this.b), null, f);
+<<<<<<< HEAD
                 } else
                   this.al() && (f = RD(h, 54).Th(a, -1 - BYd(a.Dh(), this.e), null, f));
+=======
+                } else this.al() && (f = RD(h, 54).Th(a, -1 - BYd(a.Dh(), this.e), null, f));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               b.ni(c);
               if (a.vh() && a.wh()) {
@@ -104418,8 +107627,12 @@ var require_elk_bundled = __commonJS({
                   f.nj(e);
                   f.oj();
                 }
+<<<<<<< HEAD
               } else
                 !!f && f.oj();
+=======
+              } else !!f && f.oj();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             _.Mj = function V8d() {
               return false;
@@ -104720,8 +107933,12 @@ var require_elk_bundled = __commonJS({
                 b = c.Kk();
                 Zjb(this, RD(a, 241), b);
                 return b;
+<<<<<<< HEAD
               } else
                 return b != null ? b : a == null ? (Gie(), Fie) : null;
+=======
+              } else return b != null ? b : a == null ? (Gie(), Fie) : null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             var B9 = sfb(SHe, "EValidatorRegistryImpl", 1329);
             feb(1349, 720, { 110: 1, 94: 1, 93: 1, 480: 1, 155: 1, 58: 1, 114: 1, 2040: 1, 54: 1, 99: 1, 158: 1, 119: 1, 120: 1 }, Mae);
@@ -105570,8 +108787,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 77)) {
                   throw Adb(new Jrb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.Ob = function Ghe() {
@@ -105621,8 +108842,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 77)) {
                   throw Adb(new Jrb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.ul = function Nhe() {
@@ -105640,8 +108865,12 @@ var require_elk_bundled = __commonJS({
                 a = zdb(a);
                 if (ZD(a, 77)) {
                   throw Adb(new Jrb());
+<<<<<<< HEAD
                 } else
                   throw Adb(a);
+=======
+                } else throw Adb(a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
             };
             _.a = 0;
@@ -106036,8 +109265,12 @@ var require_elk_bundled = __commonJS({
             feb(773, 1, { 2041: 1 }, wke);
             _.am = function xke(a) {
               var b;
+<<<<<<< HEAD
               if (this.c == a)
                 return true;
+=======
+              if (this.c == a) return true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = TD(Wjb(this.a, a));
               if (b == null) {
                 if (vke(this, a)) {
@@ -106335,6 +109568,7 @@ var require_elk_bundled = __commonJS({
             _.Lh = function pme(a, b, c) {
               switch (a) {
                 case 0:
+<<<<<<< HEAD
                   if (c)
                     return !this.c && (this.c = new Uge(this, 0)), this.c;
                   return !this.c && (this.c = new Uge(this, 0)), this.c.b;
@@ -106345,6 +109579,15 @@ var require_elk_bundled = __commonJS({
                 case 2:
                   if (c)
                     return !this.b && (this.b = new Uge(this, 2)), this.b;
+=======
+                  if (c) return !this.c && (this.c = new Uge(this, 0)), this.c;
+                  return !this.c && (this.c = new Uge(this, 0)), this.c.b;
+                case 1:
+                  if (c) return !this.c && (this.c = new Uge(this, 0)), RD(rge(this.c, (nme(), Sle)), 160);
+                  return (!this.c && (this.c = new Uge(this, 0)), RD(RD(rge(this.c, (nme(), Sle)), 160), 220)).Vl();
+                case 2:
+                  if (c) return !this.b && (this.b = new Uge(this, 2)), this.b;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return !this.b && (this.b = new Uge(this, 2)), this.b.b;
               }
               return zvd(this, a - AYd(this.ii()), vYd((this.j & 2) == 0 ? this.ii() : (!this.k && (this.k = new fUd()), this.k).Nk(), a), b, c);
@@ -106409,8 +109652,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function vme() {
               var a;
+<<<<<<< HEAD
               if ((this.j & 4) != 0)
                 return awd(this);
+=======
+              if ((this.j & 4) != 0) return awd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(awd(this));
               a.a += " (mixed: ";
               Mhb(a, this.c);
@@ -106466,8 +109713,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function Eme() {
               var a;
+<<<<<<< HEAD
               if ((this.j & 4) != 0)
                 return awd(this);
+=======
+              if ((this.j & 4) != 0) return awd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(awd(this));
               a.a += " (data: ";
               Nhb(a, this.a);
@@ -106483,6 +109734,7 @@ var require_elk_bundled = __commonJS({
             _.Lh = function Ime(a, b, c) {
               switch (a) {
                 case 0:
+<<<<<<< HEAD
                   if (c)
                     return !this.c && (this.c = new Uge(this, 0)), this.c;
                   return !this.c && (this.c = new Uge(this, 0)), this.c.b;
@@ -106493,6 +109745,15 @@ var require_elk_bundled = __commonJS({
                 case 2:
                   if (c)
                     return !this.b && (this.b = new Uge(this, 2)), this.b;
+=======
+                  if (c) return !this.c && (this.c = new Uge(this, 0)), this.c;
+                  return !this.c && (this.c = new Uge(this, 0)), this.c.b;
+                case 1:
+                  if (c) return !this.c && (this.c = new Uge(this, 0)), RD(rge(this.c, (nme(), Sle)), 160);
+                  return (!this.c && (this.c = new Uge(this, 0)), RD(RD(rge(this.c, (nme(), Sle)), 160), 220)).Vl();
+                case 2:
+                  if (c) return !this.b && (this.b = new Uge(this, 2)), this.b;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return !this.b && (this.b = new Uge(this, 2)), this.b.b;
                 case 3:
                   return !this.c && (this.c = new Uge(this, 0)), WD(ige(this.c, (nme(), fme), true));
@@ -106579,8 +109840,12 @@ var require_elk_bundled = __commonJS({
             _.Lh = function Ome(a, b, c) {
               switch (a) {
                 case 0:
+<<<<<<< HEAD
                   if (c)
                     return !this.a && (this.a = new Uge(this, 0)), this.a;
+=======
+                  if (c) return !this.a && (this.a = new Uge(this, 0)), this.a;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   return !this.a && (this.a = new Uge(this, 0)), this.a.b;
                 case 1:
                   return c ? (!this.b && (this.b = new DVd((JTd(), FTd), C8, this, 1)), this.b) : (!this.b && (this.b = new DVd((JTd(), FTd), C8, this, 1)), dOd(this.b));
@@ -106709,8 +109974,12 @@ var require_elk_bundled = __commonJS({
             };
             _.Ib = function Ume() {
               var a;
+<<<<<<< HEAD
               if ((this.j & 4) != 0)
                 return awd(this);
+=======
+              if ((this.j & 4) != 0) return awd(this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = new Shb(awd(this));
               a.a += " (mixed: ";
               Mhb(a, this.a);
@@ -107355,8 +110624,12 @@ var require_elk_bundled = __commonJS({
             };
             _.cm = function Vqe() {
               var a, b, c, d, e;
+<<<<<<< HEAD
               if (this.c != 10)
                 throw Adb(new Lqe(TId((Hde(), VIe))));
+=======
+              if (this.c != 10) throw Adb(new Lqe(TId((Hde(), VIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               a = this.a;
               switch (a) {
                 case 101:
@@ -107376,13 +110649,18 @@ var require_elk_bundled = __commonJS({
                   break;
                 case 120:
                   Mqe(this);
+<<<<<<< HEAD
                   if (this.c != 0)
                     throw Adb(new Lqe(TId((Hde(), sJe))));
+=======
+                  if (this.c != 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   if (this.a == 123) {
                     e = 0;
                     c = 0;
                     do {
                       Mqe(this);
+<<<<<<< HEAD
                       if (this.c != 0)
                         throw Adb(new Lqe(TId((Hde(), sJe))));
                       if ((e = Xqe(this.a)) < 0)
@@ -107404,6 +110682,22 @@ var require_elk_bundled = __commonJS({
                     Mqe(this);
                     if (this.c != 0 || (e = Xqe(this.a)) < 0)
                       throw Adb(new Lqe(TId((Hde(), sJe))));
+=======
+                      if (this.c != 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                      if ((e = Xqe(this.a)) < 0) break;
+                      if (c > c * 16) throw Adb(new Lqe(TId((Hde(), tJe))));
+                      c = c * 16 + e;
+                    } while (true);
+                    if (this.a != 125) throw Adb(new Lqe(TId((Hde(), uJe))));
+                    if (c > MLe) throw Adb(new Lqe(TId((Hde(), vJe))));
+                    a = c;
+                  } else {
+                    e = 0;
+                    if (this.c != 0 || (e = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                    c = e;
+                    Mqe(this);
+                    if (this.c != 0 || (e = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     c = c * 16 + e;
                     a = c;
                   }
@@ -107411,6 +110705,7 @@ var require_elk_bundled = __commonJS({
                 case 117:
                   d = 0;
                   Mqe(this);
+<<<<<<< HEAD
                   if (this.c != 0 || (d = Xqe(this.a)) < 0)
                     throw Adb(new Lqe(TId((Hde(), sJe))));
                   b = d;
@@ -107425,11 +110720,24 @@ var require_elk_bundled = __commonJS({
                   Mqe(this);
                   if (this.c != 0 || (d = Xqe(this.a)) < 0)
                     throw Adb(new Lqe(TId((Hde(), sJe))));
+=======
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   b = b * 16 + d;
                   a = b;
                   break;
                 case 118:
                   Mqe(this);
+<<<<<<< HEAD
                   if (this.c != 0 || (d = Xqe(this.a)) < 0)
                     throw Adb(new Lqe(TId((Hde(), sJe))));
                   b = d;
@@ -107455,6 +110763,26 @@ var require_elk_bundled = __commonJS({
                   b = b * 16 + d;
                   if (b > MLe)
                     throw Adb(new Lqe(TId((Hde(), "parser.descappe.4"))));
+=======
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  Mqe(this);
+                  if (this.c != 0 || (d = Xqe(this.a)) < 0) throw Adb(new Lqe(TId((Hde(), sJe))));
+                  b = b * 16 + d;
+                  if (b > MLe) throw Adb(new Lqe(TId((Hde(), "parser.descappe.4"))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   a = b;
                   break;
                 case 65:
@@ -107509,8 +110837,12 @@ var require_elk_bundled = __commonJS({
               }
               e = true;
               while ((m = this.c) != 1) {
+<<<<<<< HEAD
                 if (m == 0 && this.a == 93 && !e)
                   break;
+=======
+                if (m == 0 && this.a == 93 && !e) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 e = false;
                 c = this.a;
                 d = false;
@@ -107535,8 +110867,12 @@ var require_elk_bundled = __commonJS({
                     case 112:
                     case 80:
                       l = Sqe(this, c);
+<<<<<<< HEAD
                       if (!l)
                         throw Adb(new Lqe(TId((Hde(), hJe))));
+=======
+                      if (!l) throw Adb(new Lqe(TId((Hde(), hJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                       ute(k, l);
                       d = true;
                       break;
@@ -107545,8 +110881,12 @@ var require_elk_bundled = __commonJS({
                   }
                 } else if (m == 20) {
                   g10 = phb(this.i, 58, this.d);
+<<<<<<< HEAD
                   if (g10 < 0)
                     throw Adb(new Lqe(TId((Hde(), iJe))));
+=======
+                  if (g10 < 0) throw Adb(new Lqe(TId((Hde(), iJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   h = true;
                   if (ihb(this.i, this.d) == 94) {
                     ++this.d;
@@ -107554,12 +110894,19 @@ var require_elk_bundled = __commonJS({
                   }
                   f = zhb(this.i, this.d, g10);
                   i10 = ite(f, h, (this.e & 512) == 512);
+<<<<<<< HEAD
                   if (!i10)
                     throw Adb(new Lqe(TId((Hde(), kJe))));
                   ute(k, i10);
                   d = true;
                   if (g10 + 1 >= this.j || ihb(this.i, g10 + 1) != 93)
                     throw Adb(new Lqe(TId((Hde(), iJe))));
+=======
+                  if (!i10) throw Adb(new Lqe(TId((Hde(), kJe))));
+                  ute(k, i10);
+                  d = true;
+                  if (g10 + 1 >= this.j || ihb(this.i, g10 + 1) != 93) throw Adb(new Lqe(TId((Hde(), iJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   this.d = g10 + 2;
                 }
                 Mqe(this);
@@ -107568,8 +110915,12 @@ var require_elk_bundled = __commonJS({
                     rte(k, c, c);
                   } else {
                     Mqe(this);
+<<<<<<< HEAD
                     if ((m = this.c) == 1)
                       throw Adb(new Lqe(TId((Hde(), jJe))));
+=======
+                    if ((m = this.c) == 1) throw Adb(new Lqe(TId((Hde(), jJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     if (m == 0 && this.a == 93) {
                       rte(k, c, c);
                       rte(k, 45, 45);
@@ -107583,8 +110934,12 @@ var require_elk_bundled = __commonJS({
                 }
                 (this.e & gwe) == gwe && this.c == 0 && this.a == 44 && Mqe(this);
               }
+<<<<<<< HEAD
               if (this.c == 1)
                 throw Adb(new Lqe(TId((Hde(), jJe))));
+=======
+              if (this.c == 1) throw Adb(new Lqe(TId((Hde(), jJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (b) {
                 wte(b, k);
                 k = b;
@@ -107602,6 +110957,7 @@ var require_elk_bundled = __commonJS({
                 a = this.a;
                 if (d == 0 && (a == 45 || a == 38) || d == 4) {
                   Mqe(this);
+<<<<<<< HEAD
                   if (this.c != 9)
                     throw Adb(new Lqe(TId((Hde(), pJe))));
                   b = this.em(false);
@@ -107613,6 +110969,14 @@ var require_elk_bundled = __commonJS({
                     tte(c, b);
                   else
                     throw Adb(new yz("ASSERT"));
+=======
+                  if (this.c != 9) throw Adb(new Lqe(TId((Hde(), pJe))));
+                  b = this.em(false);
+                  if (d == 4) ute(c, b);
+                  else if (a == 45) wte(c, b);
+                  else if (a == 38) tte(c, b);
+                  else throw Adb(new yz("ASSERT"));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 } else {
                   throw Adb(new Lqe(TId((Hde(), qJe))));
                 }
@@ -107657,8 +111021,12 @@ var require_elk_bundled = __commonJS({
             };
             _.om = function gre() {
               var a;
+<<<<<<< HEAD
               if (this.d >= this.j || ((a = ihb(this.i, this.d++)) & 65504) != 64)
                 throw Adb(new Lqe(TId((Hde(), dJe))));
+=======
+              if (this.d >= this.j || ((a = ihb(this.i, this.d++)) & 65504) != 64) throw Adb(new Lqe(TId((Hde(), dJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return Vse(), Vse(), ++Use, new Hte(0, a - 64);
             };
@@ -107693,8 +111061,12 @@ var require_elk_bundled = __commonJS({
             };
             _.wm = function ore() {
               var a, b, c, d, e;
+<<<<<<< HEAD
               if (this.d + 1 >= this.j)
                 throw Adb(new Lqe(TId((Hde(), aJe))));
+=======
+              if (this.d + 1 >= this.j) throw Adb(new Lqe(TId((Hde(), aJe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               d = -1;
               b = null;
               a = ihb(this.i, this.d);
@@ -107703,8 +111075,12 @@ var require_elk_bundled = __commonJS({
                 !this.g && (this.g = new gyb());
                 dyb(this.g, new Bte(d));
                 ++this.d;
+<<<<<<< HEAD
                 if (ihb(this.i, this.d) != 41)
                   throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+                if (ihb(this.i, this.d) != 41) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 ++this.d;
               } else {
                 a == 63 && --this.d;
@@ -107717,8 +111093,12 @@ var require_elk_bundled = __commonJS({
                   case 23:
                     break;
                   case 8:
+<<<<<<< HEAD
                     if (this.c != 7)
                       throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+                    if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                     break;
                   default:
                     throw Adb(new Lqe(TId((Hde(), bJe))));
@@ -107728,6 +111108,7 @@ var require_elk_bundled = __commonJS({
               e = Qqe(this);
               c = null;
               if (e.e == 2) {
+<<<<<<< HEAD
                 if (e.Pm() != 2)
                   throw Adb(new Lqe(TId((Hde(), cJe))));
                 c = e.Lm(1);
@@ -107735,6 +111116,13 @@ var require_elk_bundled = __commonJS({
               }
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+                if (e.Pm() != 2) throw Adb(new Lqe(TId((Hde(), cJe))));
+                c = e.Lm(1);
+                e = e.Lm(0);
+              }
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return Vse(), Vse(), ++Use, new Ute(d, b, e, c);
             };
@@ -107746,8 +111134,12 @@ var require_elk_bundled = __commonJS({
               var a;
               Mqe(this);
               a = _se(24, Qqe(this));
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -107755,8 +111147,12 @@ var require_elk_bundled = __commonJS({
               var a;
               Mqe(this);
               a = _se(20, Qqe(this));
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -107764,8 +111160,12 @@ var require_elk_bundled = __commonJS({
               var a;
               Mqe(this);
               a = _se(22, Qqe(this));
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -107777,6 +111177,7 @@ var require_elk_bundled = __commonJS({
               while (this.d < this.j) {
                 b = ihb(this.i, this.d);
                 e = rse(b);
+<<<<<<< HEAD
                 if (e == 0)
                   break;
                 a |= e;
@@ -107784,11 +111185,19 @@ var require_elk_bundled = __commonJS({
               }
               if (this.d >= this.j)
                 throw Adb(new Lqe(TId((Hde(), $Ie))));
+=======
+                if (e == 0) break;
+                a |= e;
+                ++this.d;
+              }
+              if (this.d >= this.j) throw Adb(new Lqe(TId((Hde(), $Ie))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (b == 45) {
                 ++this.d;
                 while (this.d < this.j) {
                   b = ihb(this.i, this.d);
                   e = rse(b);
+<<<<<<< HEAD
                   if (e == 0)
                     break;
                   c |= e;
@@ -107796,28 +111205,47 @@ var require_elk_bundled = __commonJS({
                 }
                 if (this.d >= this.j)
                   throw Adb(new Lqe(TId((Hde(), $Ie))));
+=======
+                  if (e == 0) break;
+                  c |= e;
+                  ++this.d;
+                }
+                if (this.d >= this.j) throw Adb(new Lqe(TId((Hde(), $Ie))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               if (b == 58) {
                 ++this.d;
                 Mqe(this);
                 d = ate(Qqe(this), a, c);
+<<<<<<< HEAD
                 if (this.c != 7)
                   throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+                if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 Mqe(this);
               } else if (b == 41) {
                 ++this.d;
                 Mqe(this);
                 d = ate(Qqe(this), a, c);
+<<<<<<< HEAD
               } else
                 throw Adb(new Lqe(TId((Hde(), _Ie))));
+=======
+              } else throw Adb(new Lqe(TId((Hde(), _Ie))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               return d;
             };
             _.Cm = function ure() {
               var a;
               Mqe(this);
               a = _se(21, Qqe(this));
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -107825,8 +111253,12 @@ var require_elk_bundled = __commonJS({
               var a;
               Mqe(this);
               a = _se(23, Qqe(this));
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -107835,8 +111267,12 @@ var require_elk_bundled = __commonJS({
               Mqe(this);
               a = this.f++;
               b = bte(Qqe(this), a);
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return b;
             };
@@ -107844,8 +111280,12 @@ var require_elk_bundled = __commonJS({
               var a;
               Mqe(this);
               a = bte(Qqe(this), 0);
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -107854,8 +111294,12 @@ var require_elk_bundled = __commonJS({
               if (this.c == 5) {
                 Mqe(this);
                 return $se(a, (Vse(), Vse(), ++Use, new Kte(9, a)));
+<<<<<<< HEAD
               } else
                 return $se(a, (Vse(), Vse(), ++Use, new Kte(3, a)));
+=======
+              } else return $se(a, (Vse(), Vse(), ++Use, new Kte(3, a)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             _.Hm = function zre(a) {
               var b;
@@ -107876,8 +111320,12 @@ var require_elk_bundled = __commonJS({
               if (this.c == 5) {
                 Mqe(this);
                 return Vse(), Vse(), ++Use, new Kte(9, a);
+<<<<<<< HEAD
               } else
                 return Vse(), Vse(), ++Use, new Kte(3, a);
+=======
+              } else return Vse(), Vse(), ++Use, new Kte(3, a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             };
             _.a = 0;
             _.b = 0;
@@ -107986,8 +111434,12 @@ var require_elk_bundled = __commonJS({
               var a;
               Mqe(this);
               a = bte(Qqe(this), 0);
+<<<<<<< HEAD
               if (this.c != 7)
                 throw Adb(new Lqe(TId((Hde(), ZIe))));
+=======
+              if (this.c != 7) throw Adb(new Lqe(TId((Hde(), ZIe))));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Mqe(this);
               return a;
             };
@@ -108045,6 +111497,7 @@ var require_elk_bundled = __commonJS({
             _.Qm = function Ate(a) {
               var b, c, d;
               if (this.e == 4) {
+<<<<<<< HEAD
                 if (this == Dse)
                   c = ".";
                 else if (this == Bse)
@@ -108053,6 +111506,12 @@ var require_elk_bundled = __commonJS({
                   c = "\\w";
                 else if (this == Mse)
                   c = "\\s";
+=======
+                if (this == Dse) c = ".";
+                else if (this == Bse) c = "\\d";
+                else if (this == Rse) c = "\\w";
+                else if (this == Mse) c = "\\s";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 else {
                   d = new Qhb();
                   d.a += "[";
@@ -108070,12 +111529,18 @@ var require_elk_bundled = __commonJS({
                   c = d.a;
                 }
               } else {
+<<<<<<< HEAD
                 if (this == Ise)
                   c = "\\D";
                 else if (this == Kse)
                   c = "\\W";
                 else if (this == Jse)
                   c = "\\S";
+=======
+                if (this == Ise) c = "\\D";
+                else if (this == Kse) c = "\\W";
+                else if (this == Jse) c = "\\S";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 else {
                   d = new Qhb();
                   d.a += "[^";
@@ -108104,10 +111569,15 @@ var require_elk_bundled = __commonJS({
             feb(591, 1, { 3: 1, 591: 1 }, Dte);
             _.Fb = function Ete(a) {
               var b;
+<<<<<<< HEAD
               if (a == null)
                 return false;
               if (!ZD(a, 591))
                 return false;
+=======
+              if (a == null) return false;
+              if (!ZD(a, 591)) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               b = RD(a, 591);
               return lhb(this.b, b.b) && this.a == b.a;
             };
@@ -108159,8 +111629,12 @@ var require_elk_bundled = __commonJS({
                       if (this.a >= txe) {
                         c = (b = this.a >>> 0, "0" + b.toString(16));
                         d = "\\v" + zhb(c, c.length - 6, c.length);
+<<<<<<< HEAD
                       } else
                         d = "" + XD(this.a & Bwe);
+=======
+                      } else d = "" + XD(this.a & Bwe);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                   }
                   break;
                 case 8:
@@ -108197,8 +111671,12 @@ var require_elk_bundled = __commonJS({
                   b = this.a.Qm(a) + "{" + this.c + "," + this.b + "}";
                 } else if (this.c >= 0 && this.b < 0) {
                   b = this.a.Qm(a) + "{" + this.c + ",}";
+<<<<<<< HEAD
                 } else
                   throw Adb(new yz("Token#toString(): CLOSURE " + this.c + pve + this.b));
+=======
+                } else throw Adb(new yz("Token#toString(): CLOSURE " + this.c + pve + this.b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               } else {
                 if (this.c < 0 && this.b < 0) {
                   b = this.a.Qm(a) + "*?";
@@ -108208,8 +111686,12 @@ var require_elk_bundled = __commonJS({
                   b = this.a.Qm(a) + "{" + this.c + "," + this.b + "}?";
                 } else if (this.c >= 0 && this.b < 0) {
                   b = this.a.Qm(a) + "{" + this.c + ",}?";
+<<<<<<< HEAD
                 } else
                   throw Adb(new yz("Token#toString(): NONGREEDYCLOSURE " + this.c + pve + this.b));
+=======
+                } else throw Adb(new yz("Token#toString(): NONGREEDYCLOSURE " + this.c + pve + this.b));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               }
               return b;
             };
@@ -108231,10 +111713,15 @@ var require_elk_bundled = __commonJS({
             var kdb = sfb(LLe, "RegEx/Token/ConcatToken", 837);
             feb(1945, 122, ZLe, Ute);
             _.Lm = function Vte(a) {
+<<<<<<< HEAD
               if (a == 0)
                 return this.d;
               if (a == 1)
                 return this.b;
+=======
+              if (a == 0) return this.d;
+              if (a == 1) return this.b;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               throw Adb(new yz("Internal Error: " + a));
             };
             _.Pm = function Wte() {
@@ -108472,11 +111959,18 @@ var require_elk_bundled = __commonJS({
             throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
           }
           subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });
+<<<<<<< HEAD
           if (superClass)
             Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
         }
         var ELK = require2("./elk-api.js").default;
         var ELKNode = function(_ELK) {
+=======
+          if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+        }
+        var ELK = require2("./elk-api.js").default;
+        var ELKNode = (function(_ELK) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           _inherits(ELKNode2, _ELK);
           function ELKNode2() {
             var options2 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
@@ -108507,7 +112001,11 @@ var require_elk_bundled = __commonJS({
             return _possibleConstructorReturn(this, (ELKNode2.__proto__ || Object.getPrototypeOf(ELKNode2)).call(this, optionsClone));
           }
           return ELKNode2;
+<<<<<<< HEAD
         }(ELK);
+=======
+        })(ELK);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         Object.defineProperty(module3.exports, "__esModule", {
           value: true
         });
@@ -108535,15 +112033,25 @@ var require_cytoscape_elk = __commonJS({
     })(exports, function(__WEBPACK_EXTERNAL_MODULE__632__) {
       return (
         /******/
+<<<<<<< HEAD
         function() {
+=======
+        (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           "use strict";
           var __webpack_modules__ = {
             /***/
             632: (
               /***/
+<<<<<<< HEAD
               function(module2) {
                 module2.exports = __WEBPACK_EXTERNAL_MODULE__632__;
               }
+=======
+              (function(module2) {
+                module2.exports = __WEBPACK_EXTERNAL_MODULE__632__;
+              })
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             )
             /******/
           };
@@ -108565,7 +112073,11 @@ var require_cytoscape_elk = __commonJS({
             __webpack_modules__[moduleId](module2, module2.exports, __webpack_require__);
             return module2.exports;
           }
+<<<<<<< HEAD
           !function() {
+=======
+          !(function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             __webpack_require__.n = function(module2) {
               var getter = module2 && module2.__esModule ? (
                 /******/
@@ -108581,8 +112093,13 @@ var require_cytoscape_elk = __commonJS({
               __webpack_require__.d(getter, { a: getter });
               return getter;
             };
+<<<<<<< HEAD
           }();
           !function() {
+=======
+          })();
+          !(function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             __webpack_require__.d = function(exports2, definition) {
               for (var key in definition) {
                 if (__webpack_require__.o(definition, key) && !__webpack_require__.o(exports2, key)) {
@@ -108590,6 +112107,7 @@ var require_cytoscape_elk = __commonJS({
                 }
               }
             };
+<<<<<<< HEAD
           }();
           !function() {
             __webpack_require__.o = function(obj, prop) {
@@ -108598,6 +112116,16 @@ var require_cytoscape_elk = __commonJS({
           }();
           var __webpack_exports__ = {};
           !function() {
+=======
+          })();
+          !(function() {
+            __webpack_require__.o = function(obj, prop) {
+              return Object.prototype.hasOwnProperty.call(obj, prop);
+            };
+          })();
+          var __webpack_exports__ = {};
+          !(function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             __webpack_require__.d(__webpack_exports__, {
               "default": function() {
                 return (
@@ -108671,20 +112199,33 @@ var require_cytoscape_elk = __commonJS({
               }
             }
             function _defineProperties2(target, props) {
+<<<<<<< HEAD
               for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
                 descriptor.enumerable = descriptor.enumerable || false;
                 descriptor.configurable = true;
                 if ("value" in descriptor)
                   descriptor.writable = true;
+=======
+              for (var i2 = 0; i2 < props.length; i2++) {
+                var descriptor = props[i2];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 Object.defineProperty(target, descriptor.key, descriptor);
               }
             }
             function _createClass2(Constructor, protoProps, staticProps) {
+<<<<<<< HEAD
               if (protoProps)
                 _defineProperties2(Constructor.prototype, protoProps);
               if (staticProps)
                 _defineProperties2(Constructor, staticProps);
+=======
+              if (protoProps) _defineProperties2(Constructor.prototype, protoProps);
+              if (staticProps) _defineProperties2(Constructor, staticProps);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               Object.defineProperty(Constructor, "prototype", { writable: false });
               return Constructor;
             }
@@ -108745,8 +112286,13 @@ var require_cytoscape_elk = __commonJS({
                 children: [],
                 edges: []
               };
+<<<<<<< HEAD
               for (var i = 0; i < nodes3.length; i++) {
                 var n = nodes3[i];
+=======
+              for (var i2 = 0; i2 < nodes3.length; i2++) {
+                var n = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 var k = makeNode(n, options2);
                 elkNodes.push(k);
                 elkEleLookup[n.id()] = k;
@@ -108775,7 +112321,11 @@ var require_cytoscape_elk = __commonJS({
               }
               return graph;
             };
+<<<<<<< HEAD
             var Layout2 = /* @__PURE__ */ function() {
+=======
+            var Layout2 = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               function Layout3(options2) {
                 _classCallCheck2(this, Layout3);
                 var elkOptions = options2.elk;
@@ -108817,7 +112367,11 @@ var require_cytoscape_elk = __commonJS({
                 }
               }]);
               return Layout3;
+<<<<<<< HEAD
             }();
+=======
+            })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             var layout4 = Layout2;
             ;
             var register = function register2(cytoscape4) {
@@ -108830,10 +112384,17 @@ var require_cytoscape_elk = __commonJS({
               register(cytoscape);
             }
             var src = register;
+<<<<<<< HEAD
           }();
           __webpack_exports__ = __webpack_exports__["default"];
           return __webpack_exports__;
         }()
+=======
+          })();
+          __webpack_exports__ = __webpack_exports__["default"];
+          return __webpack_exports__;
+        })()
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       );
     });
   }
@@ -108842,6 +112403,7 @@ var require_cytoscape_elk = __commonJS({
 // node_modules/cytoscape/dist/cytoscape.esm.mjs
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
+<<<<<<< HEAD
   for (var e = 0, n = Array(a); e < a; e++)
     n[e] = r[e];
   return n;
@@ -108857,6 +112419,19 @@ function _arrayWithoutHoles(r) {
 function _classCallCheck(a, n) {
   if (!(a instanceof n))
     throw new TypeError("Cannot call a class as a function");
+=======
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return _arrayLikeToArray(r);
+}
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 }
 function _defineProperties(e, r) {
   for (var t2 = 0; t2 < r.length; t2++) {
@@ -108910,8 +112485,12 @@ function _createForOfIteratorHelper(r, e) {
       try {
         a || null == t2.return || t2.return();
       } finally {
+<<<<<<< HEAD
         if (u)
           throw o;
+=======
+        if (u) throw o;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
   };
@@ -108925,12 +112504,17 @@ function _defineProperty$1(e, r, t2) {
   }) : e[r] = t2, e;
 }
 function _iterableToArray(r) {
+<<<<<<< HEAD
   if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"])
     return Array.from(r);
+=======
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 }
 function _iterableToArrayLimit(r, l) {
   var t2 = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
   if (null != t2) {
+<<<<<<< HEAD
     var e, n, i, u, a = [], f = true, o = false;
     try {
       if (i = (t2 = t2.call(r)).next, 0 === l) {
@@ -108940,15 +112524,29 @@ function _iterableToArrayLimit(r, l) {
       } else
         for (; !(f = (e = i.call(t2)).done) && (a.push(e.value), a.length !== l); f = true)
           ;
+=======
+    var e, n, i2, u, a = [], f = true, o = false;
+    try {
+      if (i2 = (t2 = t2.call(r)).next, 0 === l) {
+        if (Object(t2) !== t2) return;
+        f = false;
+      } else for (; !(f = (e = i2.call(t2)).done) && (a.push(e.value), a.length !== l); f = true) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     } catch (r2) {
       o = true, n = r2;
     } finally {
       try {
+<<<<<<< HEAD
         if (!f && null != t2.return && (u = t2.return(), Object(u) !== u))
           return;
       } finally {
         if (o)
           throw n;
+=======
+        if (!f && null != t2.return && (u = t2.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
     return a;
@@ -108967,6 +112565,7 @@ function _toConsumableArray(r) {
   return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
 }
 function _toPrimitive(t2, r) {
+<<<<<<< HEAD
   if ("object" != typeof t2 || !t2)
     return t2;
   var e = t2[Symbol.toPrimitive];
@@ -108974,13 +112573,25 @@ function _toPrimitive(t2, r) {
     var i = e.call(t2, r);
     if ("object" != typeof i)
       return i;
+=======
+  if ("object" != typeof t2 || !t2) return t2;
+  var e = t2[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i2 = e.call(t2, r);
+    if ("object" != typeof i2) return i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return String(t2);
 }
 function _toPropertyKey(t2) {
+<<<<<<< HEAD
   var i = _toPrimitive(t2, "string");
   return "symbol" == typeof i ? i : i + "";
+=======
+  var i2 = _toPrimitive(t2, "string");
+  return "symbol" == typeof i2 ? i2 : i2 + "";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 }
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -108992,8 +112603,12 @@ function _typeof(o) {
 }
 function _unsupportedIterableToArray(r, a) {
   if (r) {
+<<<<<<< HEAD
     if ("string" == typeof r)
       return _arrayLikeToArray(r, a);
+=======
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var t2 = {}.toString.call(r).slice(8, -1);
     return "Object" === t2 && r.constructor && (t2 = r.constructor.name), "Map" === t2 || "Set" === t2 ? Array.from(r) : "Arguments" === t2 || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t2) ? _arrayLikeToArray(r, a) : void 0;
   }
@@ -109088,8 +112703,13 @@ var memoize = function memoize2(fn3, keyFn) {
         return "undefined";
       }
       var args = [];
+<<<<<<< HEAD
       for (var i = 0; i < arguments.length; i++) {
         args.push(arguments[i]);
+=======
+      for (var i2 = 0; i2 < arguments.length; i2++) {
+        args.push(arguments[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       return args.join("$");
     };
@@ -109153,8 +112773,13 @@ var descending = function descending2(a, b) {
 };
 var extend = Object.assign != null ? Object.assign.bind(Object) : function(tgt) {
   var args = arguments;
+<<<<<<< HEAD
   for (var i = 1; i < args.length; i++) {
     var obj = args[i];
+=======
+  for (var i2 = 1; i2 < args.length; i2++) {
+    var obj = args[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (obj == null) {
       continue;
     }
@@ -109188,6 +112813,7 @@ var hsl2tuple = function hsl2tuple2(hsl) {
   var ret;
   var h, s, l, a, r, g, b;
   function hue2rgb(p3, q2, t2) {
+<<<<<<< HEAD
     if (t2 < 0)
       t2 += 1;
     if (t2 > 1)
@@ -109198,6 +112824,13 @@ var hsl2tuple = function hsl2tuple2(hsl) {
       return q2;
     if (t2 < 2 / 3)
       return p3 + (q2 - p3) * (2 / 3 - t2) * 6;
+=======
+    if (t2 < 0) t2 += 1;
+    if (t2 > 1) t2 -= 1;
+    if (t2 < 1 / 6) return p3 + (q2 - p3) * 6 * t2;
+    if (t2 < 1 / 2) return q2;
+    if (t2 < 2 / 3) return p3 + (q2 - p3) * (2 / 3 - t2) * 6;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return p3;
   }
   var m = new RegExp("^" + hsla + "$").exec(hsl);
@@ -109245,6 +112878,7 @@ var rgb2tuple = function rgb2tuple2(rgb) {
   if (m) {
     ret = [];
     var isPct = [];
+<<<<<<< HEAD
     for (var i = 1; i <= 3; i++) {
       var channel = m[i];
       if (channel[channel.length - 1] === "%") {
@@ -109252,6 +112886,15 @@ var rgb2tuple = function rgb2tuple2(rgb) {
       }
       channel = parseFloat(channel);
       if (isPct[i]) {
+=======
+    for (var i2 = 1; i2 <= 3; i2++) {
+      var channel = m[i2];
+      if (channel[channel.length - 1] === "%") {
+        isPct[i2] = true;
+      }
+      channel = parseFloat(channel);
+      if (isPct[i2]) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         channel = channel / 100 * 255;
       }
       if (channel < 0 || channel > 255) {
@@ -109438,12 +113081,21 @@ var setMap = function setMap2(options2) {
   var obj = options2.map;
   var keys = options2.keys;
   var l = keys.length;
+<<<<<<< HEAD
   for (var i = 0; i < l; i++) {
     var key = keys[i];
     if (plainObject(key)) {
       throw Error("Tried to set map with object key");
     }
     if (i < keys.length - 1) {
+=======
+  for (var i2 = 0; i2 < l; i2++) {
+    var key = keys[i2];
+    if (plainObject(key)) {
+      throw Error("Tried to set map with object key");
+    }
+    if (i2 < keys.length - 1) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (obj[key] == null) {
         obj[key] = {};
       }
@@ -109457,8 +113109,13 @@ var getMap = function getMap2(options2) {
   var obj = options2.map;
   var keys = options2.keys;
   var l = keys.length;
+<<<<<<< HEAD
   for (var i = 0; i < l; i++) {
     var key = keys[i];
+=======
+  for (var i2 = 0; i2 < l; i2++) {
+    var key = keys[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (plainObject(key)) {
       throw Error("Tried to get map with object key");
     }
@@ -109476,8 +113133,12 @@ function getDefaultExportFromCjs(x2) {
 var isObject_1;
 var hasRequiredIsObject;
 function requireIsObject() {
+<<<<<<< HEAD
   if (hasRequiredIsObject)
     return isObject_1;
+=======
+  if (hasRequiredIsObject) return isObject_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredIsObject = 1;
   function isObject(value) {
     var type = typeof value;
@@ -109489,8 +113150,12 @@ function requireIsObject() {
 var _freeGlobal;
 var hasRequired_freeGlobal;
 function require_freeGlobal() {
+<<<<<<< HEAD
   if (hasRequired_freeGlobal)
     return _freeGlobal;
+=======
+  if (hasRequired_freeGlobal) return _freeGlobal;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_freeGlobal = 1;
   var freeGlobal = typeof commonjsGlobal == "object" && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
   _freeGlobal = freeGlobal;
@@ -109499,8 +113164,12 @@ function require_freeGlobal() {
 var _root;
 var hasRequired_root;
 function require_root() {
+<<<<<<< HEAD
   if (hasRequired_root)
     return _root;
+=======
+  if (hasRequired_root) return _root;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_root = 1;
   var freeGlobal = require_freeGlobal();
   var freeSelf = typeof self == "object" && self && self.Object === Object && self;
@@ -109511,8 +113180,12 @@ function require_root() {
 var now_1;
 var hasRequiredNow;
 function requireNow() {
+<<<<<<< HEAD
   if (hasRequiredNow)
     return now_1;
+=======
+  if (hasRequiredNow) return now_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredNow = 1;
   var root = require_root();
   var now = function() {
@@ -109524,8 +113197,12 @@ function requireNow() {
 var _trimmedEndIndex;
 var hasRequired_trimmedEndIndex;
 function require_trimmedEndIndex() {
+<<<<<<< HEAD
   if (hasRequired_trimmedEndIndex)
     return _trimmedEndIndex;
+=======
+  if (hasRequired_trimmedEndIndex) return _trimmedEndIndex;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_trimmedEndIndex = 1;
   var reWhitespace = /\s/;
   function trimmedEndIndex(string3) {
@@ -109540,8 +113217,12 @@ function require_trimmedEndIndex() {
 var _baseTrim;
 var hasRequired_baseTrim;
 function require_baseTrim() {
+<<<<<<< HEAD
   if (hasRequired_baseTrim)
     return _baseTrim;
+=======
+  if (hasRequired_baseTrim) return _baseTrim;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseTrim = 1;
   var trimmedEndIndex = require_trimmedEndIndex();
   var reTrimStart = /^\s+/;
@@ -109554,8 +113235,12 @@ function require_baseTrim() {
 var _Symbol;
 var hasRequired_Symbol;
 function require_Symbol() {
+<<<<<<< HEAD
   if (hasRequired_Symbol)
     return _Symbol;
+=======
+  if (hasRequired_Symbol) return _Symbol;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_Symbol = 1;
   var root = require_root();
   var Symbol2 = root.Symbol;
@@ -109565,8 +113250,12 @@ function require_Symbol() {
 var _getRawTag;
 var hasRequired_getRawTag;
 function require_getRawTag() {
+<<<<<<< HEAD
   if (hasRequired_getRawTag)
     return _getRawTag;
+=======
+  if (hasRequired_getRawTag) return _getRawTag;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_getRawTag = 1;
   var Symbol2 = require_Symbol();
   var objectProto = Object.prototype;
@@ -109596,8 +113285,12 @@ function require_getRawTag() {
 var _objectToString;
 var hasRequired_objectToString;
 function require_objectToString() {
+<<<<<<< HEAD
   if (hasRequired_objectToString)
     return _objectToString;
+=======
+  if (hasRequired_objectToString) return _objectToString;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_objectToString = 1;
   var objectProto = Object.prototype;
   var nativeObjectToString = objectProto.toString;
@@ -109610,8 +113303,12 @@ function require_objectToString() {
 var _baseGetTag;
 var hasRequired_baseGetTag;
 function require_baseGetTag() {
+<<<<<<< HEAD
   if (hasRequired_baseGetTag)
     return _baseGetTag;
+=======
+  if (hasRequired_baseGetTag) return _baseGetTag;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseGetTag = 1;
   var Symbol2 = require_Symbol(), getRawTag = require_getRawTag(), objectToString = require_objectToString();
   var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
@@ -109628,8 +113325,12 @@ function require_baseGetTag() {
 var isObjectLike_1;
 var hasRequiredIsObjectLike;
 function requireIsObjectLike() {
+<<<<<<< HEAD
   if (hasRequiredIsObjectLike)
     return isObjectLike_1;
+=======
+  if (hasRequiredIsObjectLike) return isObjectLike_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredIsObjectLike = 1;
   function isObjectLike(value) {
     return value != null && typeof value == "object";
@@ -109640,8 +113341,12 @@ function requireIsObjectLike() {
 var isSymbol_1;
 var hasRequiredIsSymbol;
 function requireIsSymbol() {
+<<<<<<< HEAD
   if (hasRequiredIsSymbol)
     return isSymbol_1;
+=======
+  if (hasRequiredIsSymbol) return isSymbol_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredIsSymbol = 1;
   var baseGetTag = require_baseGetTag(), isObjectLike = requireIsObjectLike();
   var symbolTag = "[object Symbol]";
@@ -109654,8 +113359,12 @@ function requireIsSymbol() {
 var toNumber_1;
 var hasRequiredToNumber;
 function requireToNumber() {
+<<<<<<< HEAD
   if (hasRequiredToNumber)
     return toNumber_1;
+=======
+  if (hasRequiredToNumber) return toNumber_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredToNumber = 1;
   var baseTrim = require_baseTrim(), isObject = requireIsObject(), isSymbol = requireIsSymbol();
   var NAN = 0 / 0;
@@ -109687,8 +113396,12 @@ function requireToNumber() {
 var debounce_1;
 var hasRequiredDebounce;
 function requireDebounce() {
+<<<<<<< HEAD
   if (hasRequiredDebounce)
     return debounce_1;
+=======
+  if (hasRequiredDebounce) return debounce_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredDebounce = 1;
   var isObject = requireIsObject(), now = requireNow(), toNumber = requireToNumber();
   var FUNC_ERROR_TEXT = "Expected a function";
@@ -109785,7 +113498,11 @@ var pnow = performance$1 && performance$1.now ? function() {
 } : function() {
   return Date.now();
 };
+<<<<<<< HEAD
 var raf = function() {
+=======
+var raf = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   if (_window) {
     if (_window.requestAnimationFrame) {
       return function(fn3) {
@@ -109812,7 +113529,11 @@ var raf = function() {
       }, 1e3 / 60);
     }
   };
+<<<<<<< HEAD
 }();
+=======
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var requestAnimationFrame = function requestAnimationFrame2(fn3) {
   return raf(fn3);
 };
@@ -109855,12 +113576,21 @@ var hashIntsArray = function hashIntsArray2(ints, seed) {
     value: 0,
     done: false
   };
+<<<<<<< HEAD
   var i = 0;
   var length = ints.length;
   var iterator = {
     next: function next2() {
       if (i < length) {
         entry.value = ints[i++];
+=======
+  var i2 = 0;
+  var length = ints.length;
+  var iterator = {
+    next: function next2() {
+      if (i2 < length) {
+        entry.value = ints[i2++];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       } else {
         entry.done = true;
       }
@@ -109874,12 +113604,21 @@ var hashString = function hashString2(str, seed) {
     value: 0,
     done: false
   };
+<<<<<<< HEAD
   var i = 0;
   var length = str.length;
   var iterator = {
     next: function next2() {
       if (i < length) {
         entry.value = str.charCodeAt(i++);
+=======
+  var i2 = 0;
+  var length = str.length;
+  var iterator = {
+    next: function next2() {
+      if (i2 < length) {
+        entry.value = str.charCodeAt(i2++);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       } else {
         entry.done = true;
       }
@@ -109893,9 +113632,15 @@ var hashStrings = function hashStrings2() {
 };
 var hashStringsArray = function hashStringsArray2(strs) {
   var hash;
+<<<<<<< HEAD
   for (var i = 0; i < strs.length; i++) {
     var str = strs[i];
     if (i === 0) {
+=======
+  for (var i2 = 0; i2 < strs.length; i2++) {
+    var str = strs[i2];
+    if (i2 === 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       hash = hashString(str);
     } else {
       hash = hashString(str, hash);
@@ -109919,8 +113664,12 @@ var movePointByBoxAspect = function movePointByBoxAspect2(x2, y2, boxX, boxY, sk
   };
 };
 function rotatePosAndSkewByBox(pos, box, angleDegrees) {
+<<<<<<< HEAD
   if (angleDegrees === 0)
     return pos;
+=======
+  if (angleDegrees === 0) return pos;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var centerX = (box.x1 + box.x2) / 2;
   var centerY = (box.y1 + box.y2) / 2;
   var skewX = box.w / box.h;
@@ -110002,8 +113751,12 @@ var uuid = function uuid2(a, b) {
         8 ^ Math.random() * (a ^ 20 ? 16 : 4)
       ) : 4).toString(16)
     ) : "-"
+<<<<<<< HEAD
   )
     ;
+=======
+  ) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   return b;
 };
 var _staticEmptyObject = {};
@@ -110014,8 +113767,13 @@ var defaults$g = function defaults(_defaults) {
   var keys = Object.keys(_defaults);
   return function(opts) {
     var filledOpts = {};
+<<<<<<< HEAD
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
+=======
+    for (var i2 = 0; i2 < keys.length; i2++) {
+      var key = keys[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var optVal = opts == null ? void 0 : opts[key];
       filledOpts[key] = optVal === void 0 ? _defaults[key] : optVal;
     }
@@ -110023,9 +113781,15 @@ var defaults$g = function defaults(_defaults) {
   };
 };
 var removeFromArray = function removeFromArray2(arr, ele, oneCopy) {
+<<<<<<< HEAD
   for (var i = arr.length - 1; i >= 0; i--) {
     if (arr[i] === ele) {
       arr.splice(i, 1);
+=======
+  for (var i2 = arr.length - 1; i2 >= 0; i2--) {
+    if (arr[i2] === ele) {
+      arr.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
 };
@@ -110033,8 +113797,13 @@ var clearArray = function clearArray2(arr) {
   arr.splice(0, arr.length);
 };
 var push = function push2(arr, otherArr) {
+<<<<<<< HEAD
   for (var i = 0; i < otherArr.length; i++) {
     var el = otherArr[i];
+=======
+  for (var i2 = 0; i2 < otherArr.length; i2++) {
+    var el = otherArr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     arr.push(el);
   }
 };
@@ -110050,7 +113819,11 @@ var setPrefixedProperty = function setPrefixedProperty2(obj, propName, prefix, v
   }
   obj[propName] = value;
 };
+<<<<<<< HEAD
 var ObjectMap = /* @__PURE__ */ function() {
+=======
+var ObjectMap = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function ObjectMap2() {
     _classCallCheck(this, ObjectMap2);
     this._obj = {};
@@ -110083,10 +113856,17 @@ var ObjectMap = /* @__PURE__ */ function() {
       return this._obj[key];
     }
   }]);
+<<<<<<< HEAD
 }();
 var Map$1 = typeof Map !== "undefined" ? Map : ObjectMap;
 var undef = "undefined";
 var ObjectSet = /* @__PURE__ */ function() {
+=======
+})();
+var Map$1 = typeof Map !== "undefined" ? Map : ObjectMap;
+var undef = "undefined";
+var ObjectSet = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function ObjectSet2(arrayOrObjectSet) {
     _classCallCheck(this, ObjectSet2);
     this._obj = /* @__PURE__ */ Object.create(null);
@@ -110098,8 +113878,13 @@ var ObjectSet = /* @__PURE__ */ function() {
       } else {
         arr = arrayOrObjectSet;
       }
+<<<<<<< HEAD
       for (var i = 0; i < arr.length; i++) {
         this.add(arr[i]);
+=======
+      for (var i2 = 0; i2 < arr.length; i2++) {
+        this.add(arr[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
   }
@@ -110150,7 +113935,11 @@ var ObjectSet = /* @__PURE__ */ function() {
       return this.toArray().forEach(callback, thisArg);
     }
   }]);
+<<<<<<< HEAD
 }();
+=======
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var Set$1 = (typeof Set === "undefined" ? "undefined" : _typeof(Set)) !== undef ? Set : ObjectSet;
 var Element = function Element2(cy2, params) {
   var restore = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : true;
@@ -110285,8 +114074,13 @@ var Element = function Element2(cy2, params) {
   } else if (string(params.classes)) {
     classes2 = params.classes.split(/\s+/);
   }
+<<<<<<< HEAD
   for (var i = 0, l = classes2.length; i < l; i++) {
     var cls = classes2[i];
+=======
+  for (var i2 = 0, l = classes2.length; i2 < l; i2++) {
+    var cls = classes2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (!cls || cls === "") {
       continue;
     }
@@ -110328,8 +114122,13 @@ var defineSearch = function defineSearch2(params) {
     var j = 0;
     var found;
     var _this$byGroup = this.byGroup(), nodes3 = _this$byGroup.nodes, edges3 = _this$byGroup.edges;
+<<<<<<< HEAD
     for (var i = 0; i < v.length; i++) {
       var vi = v[i];
+=======
+    for (var i2 = 0; i2 < v.length; i2++) {
+      var vi = v[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var viId = vi.id();
       if (vi.isNode()) {
         Q.unshift(vi);
@@ -110387,10 +114186,15 @@ var defineSearch = function defineSearch2(params) {
     }, _ret;
     while (Q.length !== 0) {
       _ret = _loop();
+<<<<<<< HEAD
       if (_ret === 0)
         continue;
       if (_ret === 1)
         break;
+=======
+      if (_ret === 0) continue;
+      if (_ret === 1) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     var connectedEles = cy2.collection();
     for (var _i = 0; _i < connectedNodes.length; _i++) {
@@ -110421,8 +114225,12 @@ var heap$2 = { exports: {} };
 var heap$1 = heap$2.exports;
 var hasRequiredHeap$1;
 function requireHeap$1() {
+<<<<<<< HEAD
   if (hasRequiredHeap$1)
     return heap$2.exports;
+=======
+  if (hasRequiredHeap$1) return heap$2.exports;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredHeap$1 = 1;
   (function(module, exports) {
     (function() {
@@ -110505,21 +114313,37 @@ function requireHeap$1() {
         return item;
       };
       heapify = function(array3, cmp) {
+<<<<<<< HEAD
         var i, _i, _len, _ref1, _results, _results1;
         if (cmp == null) {
           cmp = defaultCmp;
         }
         _ref1 = function() {
+=======
+        var i2, _i, _len, _ref1, _results, _results1;
+        if (cmp == null) {
+          cmp = defaultCmp;
+        }
+        _ref1 = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           _results1 = [];
           for (var _j = 0, _ref = floor(array3.length / 2); 0 <= _ref ? _j < _ref : _j > _ref; 0 <= _ref ? _j++ : _j--) {
             _results1.push(_j);
           }
           return _results1;
+<<<<<<< HEAD
         }.apply(this).reverse();
         _results = [];
         for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
           i = _ref1[_i];
           _results.push(_siftup(array3, i, cmp));
+=======
+        }).apply(this).reverse();
+        _results = [];
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          i2 = _ref1[_i];
+          _results.push(_siftup(array3, i2, cmp));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }
         return _results;
       };
@@ -110620,7 +114444,11 @@ function requireHeap$1() {
         array3[pos] = newitem;
         return _siftdown(array3, startpos, pos, cmp);
       };
+<<<<<<< HEAD
       Heap2 = function() {
+=======
+      Heap2 = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         Heap3.push = heappush;
         Heap3.pop = heappop;
         Heap3.replace = heapreplace;
@@ -110681,7 +114509,11 @@ function requireHeap$1() {
         Heap3.prototype.has = Heap3.prototype.contains;
         Heap3.prototype.copy = Heap3.prototype.clone;
         return Heap3;
+<<<<<<< HEAD
       }();
+=======
+      })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       (function(root, factory) {
         {
           return module.exports = factory();
@@ -110696,8 +114528,12 @@ function requireHeap$1() {
 var heap;
 var hasRequiredHeap;
 function requireHeap() {
+<<<<<<< HEAD
   if (hasRequiredHeap)
     return heap;
+=======
+  if (hasRequiredHeap) return heap;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredHeap = 1;
   heap = requireHeap$1();
   return heap;
@@ -110742,8 +114578,13 @@ var elesfn$u = {
     var Q = new Heap(function(a, b) {
       return getDist3(a) - getDist3(b);
     });
+<<<<<<< HEAD
     for (var i = 0; i < nodes3.length; i++) {
       var node = nodes3[i];
+=======
+    for (var i2 = 0; i2 < nodes3.length; i2++) {
+      var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       dist3[node.id()] = node.same(source) ? 0 : Infinity;
       Q.push(node);
     }
@@ -110824,6 +114665,7 @@ var elesfn$t = {
     var forest = new Array(numNodes);
     var A = nodes3;
     var findSetIndex = function findSetIndex2(ele) {
+<<<<<<< HEAD
       for (var i2 = 0; i2 < forest.length; i2++) {
         var eles = forest[i2];
         if (eles.has(ele)) {
@@ -110833,6 +114675,17 @@ var elesfn$t = {
     };
     for (var i = 0; i < numNodes; i++) {
       forest[i] = this.spawn(nodes3[i]);
+=======
+      for (var i3 = 0; i3 < forest.length; i3++) {
+        var eles = forest[i3];
+        if (eles.has(ele)) {
+          return i3;
+        }
+      }
+    };
+    for (var i2 = 0; i2 < numNodes; i2++) {
+      forest[i2] = this.spawn(nodes3[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     var S = edges3.sort(function(a, b) {
       return weightFn(a) - weightFn(b);
@@ -110929,8 +114782,13 @@ var elesfn$s = {
       }
       closedSetIds[cMinId] = true;
       var vwEdges = cMin._private.edges;
+<<<<<<< HEAD
       for (var i = 0; i < vwEdges.length; i++) {
         var e = vwEdges[i];
+=======
+      for (var i2 = 0; i2 < vwEdges.length; i2++) {
+        var e = vwEdges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (!this.hasElementWithId(e.id())) {
           continue;
         }
@@ -110990,14 +114848,24 @@ var elesfn$r = {
     var indexOf = function indexOf2(node) {
       return nodes3.indexOf(node);
     };
+<<<<<<< HEAD
     var atIndex = function atIndex2(i2) {
       return nodes3[i2];
+=======
+    var atIndex = function atIndex2(i3) {
+      return nodes3[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     };
     var dist3 = new Array(Nsq);
     for (var n = 0; n < Nsq; n++) {
       var j = n % N;
+<<<<<<< HEAD
       var i = (n - j) / N;
       if (i === j) {
+=======
+      var i2 = (n - j) / N;
+      if (i2 === j) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         dist3[n] = 0;
       } else {
         dist3[n] = Infinity;
@@ -111051,6 +114919,7 @@ var elesfn$r = {
     };
     var res = {
       distance: function distance(from, to) {
+<<<<<<< HEAD
         var i2 = indexOfArgEle(from);
         var j2 = indexOfArgEle(to);
         return dist3[i2 * N + j2];
@@ -111075,6 +114944,32 @@ var elesfn$r = {
           edge2 = edgeNext[prev * N + i2];
           path2.merge(edge2);
           path2.merge(atIndex(i2));
+=======
+        var i3 = indexOfArgEle(from);
+        var j2 = indexOfArgEle(to);
+        return dist3[i3 * N + j2];
+      },
+      path: function path(from, to) {
+        var i3 = indexOfArgEle(from);
+        var j2 = indexOfArgEle(to);
+        var fromNode = atIndex(i3);
+        if (i3 === j2) {
+          return fromNode.collection();
+        }
+        if (next2[i3 * N + j2] == null) {
+          return cy2.collection();
+        }
+        var path2 = cy2.collection();
+        var prev = i3;
+        var edge2;
+        path2.merge(fromNode);
+        while (i3 !== j2) {
+          prev = i3;
+          i3 = next2[i3 * N + j2];
+          edge2 = edgeNext[prev * N + i3];
+          path2.merge(edge2);
+          path2.merge(atIndex(i3));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }
         return path2;
       }
@@ -111143,8 +115038,13 @@ var elesfn$q = {
       }
       return eles.spawn(path);
     };
+<<<<<<< HEAD
     for (var i = 0; i < numNodes; i++) {
       var node = nodes3[i];
+=======
+    for (var i2 = 0; i2 < numNodes; i2++) {
+      var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var info = getInfo3(node);
       if (node.same(root)) {
         info.dist = 0;
@@ -111260,12 +115160,21 @@ var collapse = function collapse2(edgeIndex, nodeMap, remainingEdges) {
   var partition1 = nodeMap[sourceIn];
   var partition2 = nodeMap[targetIn];
   var newEdges = remainingEdges;
+<<<<<<< HEAD
   for (var i = newEdges.length - 1; i >= 0; i--) {
     var edge = newEdges[i];
     var src = edge[1];
     var tgt = edge[2];
     if (nodeMap[src] === partition1 && nodeMap[tgt] === partition2 || nodeMap[src] === partition2 && nodeMap[tgt] === partition1) {
       newEdges.splice(i, 1);
+=======
+  for (var i2 = newEdges.length - 1; i2 >= 0; i2--) {
+    var edge = newEdges[i2];
+    var src = edge[1];
+    var tgt = edge[2];
+    if (nodeMap[src] === partition1 && nodeMap[tgt] === partition2 || nodeMap[src] === partition2 && nodeMap[tgt] === partition1) {
+      newEdges.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   for (var _i = 0; _i < newEdges.length; _i++) {
@@ -111311,9 +115220,15 @@ var elesfn$p = {
       return void 0;
     }
     var edgeIndexes = [];
+<<<<<<< HEAD
     for (var i = 0; i < numEdges; i++) {
       var e = edges3[i];
       edgeIndexes.push([i, nodes3.indexOf(e.source()), nodes3.indexOf(e.target())]);
+=======
+    for (var i2 = 0; i2 < numEdges; i2++) {
+      var e = edges3[i2];
+      edgeIndexes.push([i2, nodes3.indexOf(e.source()), nodes3.indexOf(e.target())]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     var minCutSize = Infinity;
     var minCutEdgeIndexes = [];
@@ -111412,8 +115327,13 @@ var min = function min2(arr) {
   var begin = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
   var end = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : arr.length;
   var min4 = Infinity;
+<<<<<<< HEAD
   for (var i = begin; i < end; i++) {
     var val = arr[i];
+=======
+  for (var i2 = begin; i2 < end; i2++) {
+    var val = arr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (isFinite(val)) {
       min4 = Math.min(val, min4);
     }
@@ -111424,8 +115344,13 @@ var max = function max2(arr) {
   var begin = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
   var end = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : arr.length;
   var max5 = -Infinity;
+<<<<<<< HEAD
   for (var i = begin; i < end; i++) {
     var val = arr[i];
+=======
+  for (var i2 = begin; i2 < end; i2++) {
+    var val = arr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (isFinite(val)) {
       max5 = Math.max(val, max5);
     }
@@ -111437,8 +115362,13 @@ var mean = function mean2(arr) {
   var end = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : arr.length;
   var total = 0;
   var n = 0;
+<<<<<<< HEAD
   for (var i = begin; i < end; i++) {
     var val = arr[i];
+=======
+  for (var i2 = begin; i2 < end; i2++) {
+    var val = arr[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (isFinite(val)) {
       total += val;
       n++;
@@ -111463,6 +115393,7 @@ var median = function median2(arr) {
     }
   }
   var off = 0;
+<<<<<<< HEAD
   for (var i = arr.length - 1; i >= 0; i--) {
     var v = arr[i];
     if (includeHoles) {
@@ -111472,6 +115403,17 @@ var median = function median2(arr) {
       }
     } else {
       arr.splice(i, 1);
+=======
+  for (var i2 = arr.length - 1; i2 >= 0; i2--) {
+    var v = arr[i2];
+    if (includeHoles) {
+      if (!isFinite(v)) {
+        arr[i2] = -Infinity;
+        off++;
+      }
+    } else {
+      arr.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   if (sort2) {
@@ -111516,8 +115458,13 @@ var sqdist = function sqdist2(p1, p2) {
 var inPlaceSumNormalize = function inPlaceSumNormalize2(v) {
   var length = v.length;
   var total = 0;
+<<<<<<< HEAD
   for (var i = 0; i < length; i++) {
     total += v[i];
+=======
+  for (var i2 = 0; i2 < length; i2++) {
+    total += v[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   for (var _i = 0; _i < length; _i++) {
     v[_i] = v[_i] / total;
@@ -111736,8 +115683,13 @@ function inflatePolygon(polygon2, d) {
   };
   var signedArea = function signedArea2(pts3) {
     var A = 0;
+<<<<<<< HEAD
     for (var i2 = 0; i2 < pts3.length; i2++) {
       var p3 = pts3[i2], q2 = pts3[(i2 + 1) % pts3.length];
+=======
+    for (var i3 = 0; i3 < pts3.length; i3++) {
+      var p3 = pts3[i3], q2 = pts3[(i3 + 1) % pts3.length];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       A += p3.x * q2.y - q2.x * p3.y;
     }
     return A / 2;
@@ -111758,12 +115710,20 @@ function inflatePolygon(polygon2, d) {
       y: p3.y
     };
   });
+<<<<<<< HEAD
   if (signedArea(pts2) < 0)
     pts2.reverse();
   var n = pts2.length;
   var normals = [];
   for (var i = 0; i < n; i++) {
     var p2 = pts2[i], q = pts2[(i + 1) % n];
+=======
+  if (signedArea(pts2) < 0) pts2.reverse();
+  var n = pts2.length;
+  var normals = [];
+  for (var i2 = 0; i2 < n; i2++) {
+    var p2 = pts2[i2], q = pts2[(i2 + 1) % n];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var edge = sub(q, p2);
     var out = normalize3({
       x: edge.y,
@@ -111771,9 +115731,15 @@ function inflatePolygon(polygon2, d) {
     });
     normals.push(out);
   }
+<<<<<<< HEAD
   var offsetEdges = normals.map(function(nrm, i2) {
     var p1 = add3(pts2[i2], scale2(nrm, d));
     var p22 = add3(pts2[(i2 + 1) % n], scale2(nrm, d));
+=======
+  var offsetEdges = normals.map(function(nrm, i3) {
+    var p1 = add3(pts2[i3], scale2(nrm, d));
+    var p22 = add3(pts2[(i3 + 1) % n], scale2(nrm, d));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return {
       p1,
       p2: p22
@@ -111975,9 +115941,15 @@ var sqdistToQuadraticBezier = function sqdistToQuadraticBezier2(x2, y2, x1, y1, 
   params.push(0);
   var minDistanceSquared = -1;
   var curX, curY, distSquared;
+<<<<<<< HEAD
   for (var i = 0; i < params.length; i++) {
     curX = Math.pow(1 - params[i], 2) * x1 + 2 * (1 - params[i]) * params[i] * x22 + params[i] * params[i] * x3;
     curY = Math.pow(1 - params[i], 2) * y1 + 2 * (1 - params[i]) * params[i] * y22 + params[i] * params[i] * y3;
+=======
+  for (var i2 = 0; i2 < params.length; i2++) {
+    curX = Math.pow(1 - params[i2], 2) * x1 + 2 * (1 - params[i2]) * params[i2] * x22 + params[i2] * params[i2] * x3;
+    curY = Math.pow(1 - params[i2], 2) * y1 + 2 * (1 - params[i2]) * params[i2] * y22 + params[i2] * params[i2] * y3;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     distSquared = Math.pow(curX - x2, 2) + Math.pow(curY - y2, 2);
     if (minDistanceSquared >= 0) {
       if (distSquared < minDistanceSquared) {
@@ -112008,6 +115980,7 @@ var pointInsidePolygonPoints = function pointInsidePolygonPoints2(x2, y2, points
   var x1, y1, x22, y22;
   var y3;
   var up = 0;
+<<<<<<< HEAD
   for (var i = 0; i < points.length / 2; i++) {
     x1 = points[i * 2];
     y1 = points[i * 2 + 1];
@@ -112020,6 +115993,19 @@ var pointInsidePolygonPoints = function pointInsidePolygonPoints2(x2, y2, points
     }
     if (x1 == x2 && x22 == x2)
       ;
+=======
+  for (var i2 = 0; i2 < points.length / 2; i2++) {
+    x1 = points[i2 * 2];
+    y1 = points[i2 * 2 + 1];
+    if (i2 + 1 < points.length / 2) {
+      x22 = points[(i2 + 1) * 2];
+      y22 = points[(i2 + 1) * 2 + 1];
+    } else {
+      x22 = points[(i2 + 1 - points.length / 2) * 2];
+      y22 = points[(i2 + 1 - points.length / 2) * 2 + 1];
+    }
+    if (x1 == x2 && x22 == x2) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (x1 >= x2 && x2 >= x22 || x1 <= x2 && x2 <= x22) {
       y3 = (x2 - x1) / (x22 - x1) * (y22 - y1) + y1;
       if (y3 > y2) {
@@ -112050,11 +116036,19 @@ var pointInsidePolygon = function pointInsidePolygon2(x2, y2, basePoints, center
   }
   var cos2 = Math.cos(-angle2);
   var sin2 = Math.sin(-angle2);
+<<<<<<< HEAD
   for (var i = 0; i < transformedPoints.length / 2; i++) {
     transformedPoints[i * 2] = width2 / 2 * (basePoints[i * 2] * cos2 - basePoints[i * 2 + 1] * sin2);
     transformedPoints[i * 2 + 1] = height2 / 2 * (basePoints[i * 2 + 1] * cos2 + basePoints[i * 2] * sin2);
     transformedPoints[i * 2] += centerX;
     transformedPoints[i * 2 + 1] += centerY;
+=======
+  for (var i2 = 0; i2 < transformedPoints.length / 2; i2++) {
+    transformedPoints[i2 * 2] = width2 / 2 * (basePoints[i2 * 2] * cos2 - basePoints[i2 * 2 + 1] * sin2);
+    transformedPoints[i2 * 2 + 1] = height2 / 2 * (basePoints[i2 * 2 + 1] * cos2 + basePoints[i2 * 2] * sin2);
+    transformedPoints[i2 * 2] += centerX;
+    transformedPoints[i2 * 2 + 1] += centerY;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   var points;
   if (padding > 0) {
@@ -112067,12 +116061,21 @@ var pointInsidePolygon = function pointInsidePolygon2(x2, y2, basePoints, center
 };
 var pointInsideRoundPolygon = function pointInsideRoundPolygon2(x2, y2, basePoints, centerX, centerY, width2, height2, corners) {
   var cutPolygonPoints = new Array(basePoints.length * 2);
+<<<<<<< HEAD
   for (var i = 0; i < corners.length; i++) {
     var corner = corners[i];
     cutPolygonPoints[i * 4 + 0] = corner.startX;
     cutPolygonPoints[i * 4 + 1] = corner.startY;
     cutPolygonPoints[i * 4 + 2] = corner.stopX;
     cutPolygonPoints[i * 4 + 3] = corner.stopY;
+=======
+  for (var i2 = 0; i2 < corners.length; i2++) {
+    var corner = corners[i2];
+    cutPolygonPoints[i2 * 4 + 0] = corner.startX;
+    cutPolygonPoints[i2 * 4 + 1] = corner.startY;
+    cutPolygonPoints[i2 * 4 + 2] = corner.stopX;
+    cutPolygonPoints[i2 * 4 + 3] = corner.stopY;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var squaredDistance = Math.pow(corner.cx - x2, 2) + Math.pow(corner.cy - y2, 2);
     if (squaredDistance <= Math.pow(corner.radius, 2)) {
       return true;
@@ -112084,6 +116087,7 @@ var joinLines = function joinLines2(lineSet) {
   var vertices = new Array(lineSet.length / 2);
   var currentLineStartX, currentLineStartY, currentLineEndX, currentLineEndY;
   var nextLineStartX, nextLineStartY, nextLineEndX, nextLineEndY;
+<<<<<<< HEAD
   for (var i = 0; i < lineSet.length / 4; i++) {
     currentLineStartX = lineSet[i * 4];
     currentLineStartY = lineSet[i * 4 + 1];
@@ -112094,6 +116098,18 @@ var joinLines = function joinLines2(lineSet) {
       nextLineStartY = lineSet[(i + 1) * 4 + 1];
       nextLineEndX = lineSet[(i + 1) * 4 + 2];
       nextLineEndY = lineSet[(i + 1) * 4 + 3];
+=======
+  for (var i2 = 0; i2 < lineSet.length / 4; i2++) {
+    currentLineStartX = lineSet[i2 * 4];
+    currentLineStartY = lineSet[i2 * 4 + 1];
+    currentLineEndX = lineSet[i2 * 4 + 2];
+    currentLineEndY = lineSet[i2 * 4 + 3];
+    if (i2 < lineSet.length / 4 - 1) {
+      nextLineStartX = lineSet[(i2 + 1) * 4];
+      nextLineStartY = lineSet[(i2 + 1) * 4 + 1];
+      nextLineEndX = lineSet[(i2 + 1) * 4 + 2];
+      nextLineEndY = lineSet[(i2 + 1) * 4 + 3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     } else {
       nextLineStartX = lineSet[0];
       nextLineStartY = lineSet[1];
@@ -112101,20 +116117,34 @@ var joinLines = function joinLines2(lineSet) {
       nextLineEndY = lineSet[3];
     }
     var intersection2 = finiteLinesIntersect(currentLineStartX, currentLineStartY, currentLineEndX, currentLineEndY, nextLineStartX, nextLineStartY, nextLineEndX, nextLineEndY, true);
+<<<<<<< HEAD
     vertices[i * 2] = intersection2[0];
     vertices[i * 2 + 1] = intersection2[1];
+=======
+    vertices[i2 * 2] = intersection2[0];
+    vertices[i2 * 2 + 1] = intersection2[1];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return vertices;
 };
 var expandPolygon = function expandPolygon2(points, pad) {
   var expandedLineSet = new Array(points.length * 2);
   var currentPointX, currentPointY, nextPointX, nextPointY;
+<<<<<<< HEAD
   for (var i = 0; i < points.length / 2; i++) {
     currentPointX = points[i * 2];
     currentPointY = points[i * 2 + 1];
     if (i < points.length / 2 - 1) {
       nextPointX = points[(i + 1) * 2];
       nextPointY = points[(i + 1) * 2 + 1];
+=======
+  for (var i2 = 0; i2 < points.length / 2; i2++) {
+    currentPointX = points[i2 * 2];
+    currentPointY = points[i2 * 2 + 1];
+    if (i2 < points.length / 2 - 1) {
+      nextPointX = points[(i2 + 1) * 2];
+      nextPointY = points[(i2 + 1) * 2 + 1];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     } else {
       nextPointX = points[0];
       nextPointY = points[1];
@@ -112124,10 +116154,17 @@ var expandPolygon = function expandPolygon2(points, pad) {
     var offsetLength = Math.sqrt(offsetX * offsetX + offsetY * offsetY);
     var normalizedOffsetX = offsetX / offsetLength;
     var normalizedOffsetY = offsetY / offsetLength;
+<<<<<<< HEAD
     expandedLineSet[i * 4] = currentPointX + normalizedOffsetX * pad;
     expandedLineSet[i * 4 + 1] = currentPointY + normalizedOffsetY * pad;
     expandedLineSet[i * 4 + 2] = nextPointX + normalizedOffsetX * pad;
     expandedLineSet[i * 4 + 3] = nextPointY + normalizedOffsetY * pad;
+=======
+    expandedLineSet[i2 * 4] = currentPointX + normalizedOffsetX * pad;
+    expandedLineSet[i2 * 4 + 1] = currentPointY + normalizedOffsetY * pad;
+    expandedLineSet[i2 * 4 + 2] = nextPointX + normalizedOffsetX * pad;
+    expandedLineSet[i2 * 4 + 3] = nextPointY + normalizedOffsetY * pad;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return expandedLineSet;
 };
@@ -112250,10 +116287,17 @@ var transformPoints = function transformPoints2(points, centerX, centerY, width2
     x: x2 + halfW * points[0],
     y: y2 + halfH * points[1]
   });
+<<<<<<< HEAD
   for (var i = 1; i < points.length / 2; i++) {
     ret.push({
       x: x2 + halfW * points[i * 2],
       y: y2 + halfH * points[i * 2 + 1]
+=======
+  for (var i2 = 1; i2 < points.length / 2; i2++) {
+    ret.push({
+      x: x2 + halfW * points[i2 * 2],
+      y: y2 + halfH * points[i2 * 2 + 1]
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     });
   }
   return ret;
@@ -112268,9 +116312,15 @@ var polygonIntersectLine = function polygonIntersectLine2(x2, y2, basePoints, ce
   }
   var points;
   if (doTransform) {
+<<<<<<< HEAD
     for (var i = 0; i < transformedPoints.length / 2; i++) {
       transformedPoints[i * 2] = basePoints[i * 2] * width2 + centerX;
       transformedPoints[i * 2 + 1] = basePoints[i * 2 + 1] * height2 + centerY;
+=======
+    for (var i2 = 0; i2 < transformedPoints.length / 2; i2++) {
+      transformedPoints[i2 * 2] = basePoints[i2 * 2] * width2 + centerX;
+      transformedPoints[i2 * 2 + 1] = basePoints[i2 * 2 + 1] * height2 + centerY;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     if (padding > 0) {
       var expandedLineSet = expandPolygon(transformedPoints, -padding);
@@ -112303,6 +116353,7 @@ var roundPolygonIntersectLine = function roundPolygonIntersectLine2(x2, y2, base
   var intersections = [];
   var intersection2;
   var lines = new Array(basePoints.length * 2);
+<<<<<<< HEAD
   corners.forEach(function(corner, i2) {
     if (i2 === 0) {
       lines[lines.length - 2] = corner.startX;
@@ -112313,13 +116364,30 @@ var roundPolygonIntersectLine = function roundPolygonIntersectLine2(x2, y2, base
     }
     lines[i2 * 4] = corner.stopX;
     lines[i2 * 4 + 1] = corner.stopY;
+=======
+  corners.forEach(function(corner, i3) {
+    if (i3 === 0) {
+      lines[lines.length - 2] = corner.startX;
+      lines[lines.length - 1] = corner.startY;
+    } else {
+      lines[i3 * 4 - 2] = corner.startX;
+      lines[i3 * 4 - 1] = corner.startY;
+    }
+    lines[i3 * 4] = corner.stopX;
+    lines[i3 * 4 + 1] = corner.stopY;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     intersection2 = intersectLineCircle(x2, y2, centerX, centerY, corner.cx, corner.cy, corner.radius);
     if (intersection2.length !== 0) {
       intersections.push(intersection2[0], intersection2[1]);
     }
   });
+<<<<<<< HEAD
   for (var i = 0; i < lines.length / 4; i++) {
     intersection2 = finiteLinesIntersect(x2, y2, centerX, centerY, lines[i * 4], lines[i * 4 + 1], lines[i * 4 + 2], lines[i * 4 + 3], false);
+=======
+  for (var i2 = 0; i2 < lines.length / 4; i2++) {
+    intersection2 = finiteLinesIntersect(x2, y2, centerX, centerY, lines[i2 * 4], lines[i2 * 4 + 1], lines[i2 * 4 + 2], lines[i2 * 4 + 3], false);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (intersection2.length !== 0) {
       intersections.push(intersection2[0], intersection2[1]);
     }
@@ -112357,9 +116425,15 @@ var fitPolygonToSquare = function fitPolygonToSquare2(points) {
   var x2, y2;
   var sides = points.length / 2;
   var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+<<<<<<< HEAD
   for (var i = 0; i < sides; i++) {
     x2 = points[2 * i];
     y2 = points[2 * i + 1];
+=======
+  for (var i2 = 0; i2 < sides; i2++) {
+    x2 = points[2 * i2];
+    y2 = points[2 * i2 + 1];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     minX = Math.min(minX, x2);
     maxX = Math.max(maxX, x2);
     minY = Math.min(minY, y2);
@@ -112388,10 +116462,17 @@ var generateUnitNgonPoints = function generateUnitNgonPoints2(sides, rotationRad
   startAngle += rotationRadians;
   var points = new Array(sides * 2);
   var currentAngle;
+<<<<<<< HEAD
   for (var i = 0; i < sides; i++) {
     currentAngle = i * increment + startAngle;
     points[2 * i] = Math.cos(currentAngle);
     points[2 * i + 1] = Math.sin(-currentAngle);
+=======
+  for (var i2 = 0; i2 < sides; i2++) {
+    currentAngle = i2 * increment + startAngle;
+    points[2 * i2] = Math.cos(currentAngle);
+    points[2 * i2 + 1] = Math.sin(-currentAngle);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return points;
 };
@@ -112417,9 +116498,15 @@ var getBarrelCurveConstants = function getBarrelCurveConstants2(width2, height2)
 function satPolygonIntersection(poly1, poly2) {
   function getAxes(polygon2) {
     var axes2 = [];
+<<<<<<< HEAD
     for (var i = 0; i < polygon2.length; i++) {
       var p1 = polygon2[i];
       var p2 = polygon2[(i + 1) % polygon2.length];
+=======
+    for (var i2 = 0; i2 < polygon2.length; i2++) {
+      var p1 = polygon2[i2];
+      var p2 = polygon2[(i2 + 1) % polygon2.length];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var edge = {
         x: p2.x - p1.x,
         y: p2.y - p1.y
@@ -112497,12 +116584,21 @@ var elesfn$o = {
     var matrix = new Array(numNodesSqd);
     var columnSum = new Array(numNodes);
     var additionalProb = (1 - dampingFactor) / numNodes;
+<<<<<<< HEAD
     for (var i = 0; i < numNodes; i++) {
       for (var j = 0; j < numNodes; j++) {
         var n = i * numNodes + j;
         matrix[n] = 0;
       }
       columnSum[i] = 0;
+=======
+    for (var i2 = 0; i2 < numNodes; i2++) {
+      for (var j = 0; j < numNodes; j++) {
+        var n = i2 * numNodes + j;
+        matrix[n] = 0;
+      }
+      columnSum[i2] = 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     for (var _i = 0; _i < numEdges; _i++) {
       var edge = edges3[_i];
@@ -112588,8 +116684,13 @@ var elesfn$n = {
     if (!options2.directed) {
       var degrees = {};
       var maxDegree = 0;
+<<<<<<< HEAD
       for (var i = 0; i < numNodes; i++) {
         var node = nodes3[i];
+=======
+      for (var i2 = 0; i2 < numNodes; i2++) {
+        var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         options2.root = node;
         var currDegree = this.degreeCentrality(options2);
         if (maxDegree < currDegree.degree) {
@@ -112618,10 +116719,15 @@ var elesfn$n = {
         var id2 = _node.id();
         options2.root = _node;
         var _currDegree = this.degreeCentrality(options2);
+<<<<<<< HEAD
         if (maxIndegree < _currDegree.indegree)
           maxIndegree = _currDegree.indegree;
         if (maxOutdegree < _currDegree.outdegree)
           maxOutdegree = _currDegree.outdegree;
+=======
+        if (maxIndegree < _currDegree.indegree) maxIndegree = _currDegree.indegree;
+        if (maxOutdegree < _currDegree.outdegree) maxOutdegree = _currDegree.outdegree;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         indegrees[id2] = _currDegree.indegree;
         outdegrees[id2] = _currDegree.outdegree;
       }
@@ -112661,8 +116767,13 @@ var elesfn$n = {
       var connEdges = root.connectedEdges().intersection(callingEles);
       var k = connEdges.length;
       var s = 0;
+<<<<<<< HEAD
       for (var i = 0; i < connEdges.length; i++) {
         s += weight8(connEdges[i]);
+=======
+      for (var i2 = 0; i2 < connEdges.length; i2++) {
+        s += weight8(connEdges[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       return {
         degree: Math.pow(k, 1 - alpha) * Math.pow(s, alpha)
@@ -112714,11 +116825,19 @@ var elesfn$m = {
       weight: weight8,
       directed
     });
+<<<<<<< HEAD
     for (var i = 0; i < nodes3.length; i++) {
       var currCloseness = 0;
       var node_i = nodes3[i];
       for (var j = 0; j < nodes3.length; j++) {
         if (i !== j) {
+=======
+    for (var i2 = 0; i2 < nodes3.length; i2++) {
+      var currCloseness = 0;
+      var node_i = nodes3[i2];
+      for (var j = 0; j < nodes3.length; j++) {
+        if (i2 !== j) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var d = fw.distance(node_i, nodes3[j]);
           if (harmonic) {
             currCloseness += 1 / d;
@@ -112760,8 +116879,13 @@ var elesfn$m = {
     });
     var totalDistance = 0;
     var nodes3 = this.nodes();
+<<<<<<< HEAD
     for (var i = 0; i < nodes3.length; i++) {
       var n = nodes3[i];
+=======
+    for (var i2 = 0; i2 < nodes3.length; i2++) {
+      var n = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!n.same(root)) {
         var d = dijkstra2.distanceTo(n);
         if (harmonic) {
@@ -112802,8 +116926,13 @@ var elesfn$l = {
         return _C[key];
       }
     };
+<<<<<<< HEAD
     for (var i = 0; i < V.length; i++) {
       var v = V[i];
+=======
+    for (var i2 = 0; i2 < V.length; i2++) {
+      var v = V[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var vid = v.id();
       if (directed) {
         A[vid] = v.outgoers().nodes();
@@ -112932,14 +117061,24 @@ var setOptions$3 = function setOptions(options2) {
 };
 var getSimilarity$1 = function getSimilarity(edge, attributes) {
   var total = 0;
+<<<<<<< HEAD
   for (var i = 0; i < attributes.length; i++) {
     total += attributes[i](edge);
+=======
+  for (var i2 = 0; i2 < attributes.length; i2++) {
+    total += attributes[i2](edge);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return total;
 };
 var addLoops = function addLoops2(M, n, val) {
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
     M[i * n + i] = val;
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+    M[i2 * n + i2] = val;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 };
 var normalize = function normalize2(M, n) {
@@ -112956,6 +117095,7 @@ var normalize = function normalize2(M, n) {
 };
 var mmult = function mmult2(A, B, n) {
   var C = new Array(n * n);
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
     for (var j = 0; j < n; j++) {
       C[i * n + j] = 0;
@@ -112963,6 +117103,15 @@ var mmult = function mmult2(A, B, n) {
     for (var k = 0; k < n; k++) {
       for (var _j = 0; _j < n; _j++) {
         C[i * n + _j] += A[i * n + k] * B[k * n + _j];
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+    for (var j = 0; j < n; j++) {
+      C[i2 * n + j] = 0;
+    }
+    for (var k = 0; k < n; k++) {
+      for (var _j = 0; _j < n; _j++) {
+        C[i2 * n + _j] += A[i2 * n + k] * B[k * n + _j];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
   }
@@ -112977,16 +117126,27 @@ var expand = function expand2(M, n, expandFactor) {
 };
 var inflate = function inflate2(M, n, inflateFactor) {
   var _M = new Array(n * n);
+<<<<<<< HEAD
   for (var i = 0; i < n * n; i++) {
     _M[i] = Math.pow(M[i], inflateFactor);
+=======
+  for (var i2 = 0; i2 < n * n; i2++) {
+    _M[i2] = Math.pow(M[i2], inflateFactor);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   normalize(_M, n);
   return _M;
 };
 var hasConverged = function hasConverged2(M, _M, n2, roundFactor) {
+<<<<<<< HEAD
   for (var i = 0; i < n2; i++) {
     var v12 = Math.round(M[i] * Math.pow(10, roundFactor)) / Math.pow(10, roundFactor);
     var v22 = Math.round(_M[i] * Math.pow(10, roundFactor)) / Math.pow(10, roundFactor);
+=======
+  for (var i2 = 0; i2 < n2; i2++) {
+    var v12 = Math.round(M[i2] * Math.pow(10, roundFactor)) / Math.pow(10, roundFactor);
+    var v22 = Math.round(_M[i2] * Math.pow(10, roundFactor)) / Math.pow(10, roundFactor);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (v12 !== v22) {
       return false;
     }
@@ -112995,10 +117155,17 @@ var hasConverged = function hasConverged2(M, _M, n2, roundFactor) {
 };
 var assign$2 = function assign(M, n, nodes3, cy2) {
   var clusters = [];
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
     var cluster = [];
     for (var j = 0; j < n; j++) {
       if (Math.round(M[i * n + j] * 1e3) / 1e3 > 0) {
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+    var cluster = [];
+    for (var j = 0; j < n; j++) {
+      if (Math.round(M[i2 * n + j] * 1e3) / 1e3 > 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         cluster.push(nodes3[j]);
       }
     }
@@ -113009,17 +117176,28 @@ var assign$2 = function assign(M, n, nodes3, cy2) {
   return clusters;
 };
 var isDuplicate = function isDuplicate2(c1, c2) {
+<<<<<<< HEAD
   for (var i = 0; i < c1.length; i++) {
     if (!c2[i] || c1[i].id() !== c2[i].id()) {
+=======
+  for (var i2 = 0; i2 < c1.length; i2++) {
+    if (!c2[i2] || c1[i2].id() !== c2[i2].id()) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return false;
     }
   }
   return true;
 };
 var removeDuplicates = function removeDuplicates2(clusters) {
+<<<<<<< HEAD
   for (var i = 0; i < clusters.length; i++) {
     for (var j = 0; j < clusters.length; j++) {
       if (i != j && isDuplicate(clusters[i], clusters[j])) {
+=======
+  for (var i2 = 0; i2 < clusters.length; i2++) {
+    for (var j = 0; j < clusters.length; j++) {
+      if (i2 != j && isDuplicate(clusters[i2], clusters[j])) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         clusters.splice(j, 1);
       }
     }
@@ -113032,8 +117210,13 @@ var markovClustering = function markovClustering2(options2) {
   var cy2 = this.cy();
   var opts = setOptions$3(options2);
   var id2position = {};
+<<<<<<< HEAD
   for (var i = 0; i < nodes3.length; i++) {
     id2position[nodes3[i].id()] = i;
+=======
+  for (var i2 = 0; i2 < nodes3.length; i2++) {
+    id2position[nodes3[i2].id()] = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   var n = nodes3.length, n2 = n * n;
   var M = new Array(n2), _M;
@@ -113146,6 +117329,7 @@ var setOptions$2 = function setOptions2(options2) {
 };
 var getDist = function getDist2(type, node, centroid, attributes, mode) {
   var noNodeP = mode !== "kMedoids";
+<<<<<<< HEAD
   var getP = noNodeP ? function(i) {
     return centroid[i];
   } : function(i) {
@@ -113153,6 +117337,15 @@ var getDist = function getDist2(type, node, centroid, attributes, mode) {
   };
   var getQ = function getQ2(i) {
     return attributes[i](node);
+=======
+  var getP = noNodeP ? function(i2) {
+    return centroid[i2];
+  } : function(i2) {
+    return attributes[i2](centroid);
+  };
+  var getQ = function getQ2(i2) {
+    return attributes[i2](node);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   var nodeP = centroid;
   var nodeQ = node;
@@ -113164,9 +117357,15 @@ var randomCentroids = function randomCentroids2(nodes3, k, attributes) {
   var max5 = new Array(ndim);
   var centroids = new Array(k);
   var centroid = null;
+<<<<<<< HEAD
   for (var i = 0; i < ndim; i++) {
     min4[i] = nodes3.min(attributes[i]).value;
     max5[i] = nodes3.max(attributes[i]).value;
+=======
+  for (var i2 = 0; i2 < ndim; i2++) {
+    min4[i2] = nodes3.min(attributes[i2]).value;
+    max5[i2] = nodes3.max(attributes[i2]).value;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   for (var c = 0; c < k; c++) {
     centroid = [];
@@ -113180,11 +117379,19 @@ var randomCentroids = function randomCentroids2(nodes3, k, attributes) {
 var classify = function classify2(node, centroids, distance, attributes, type) {
   var min4 = Infinity;
   var index = 0;
+<<<<<<< HEAD
   for (var i = 0; i < centroids.length; i++) {
     var dist3 = getDist(distance, node, centroids[i], attributes, type);
     if (dist3 < min4) {
       min4 = dist3;
       index = i;
+=======
+  for (var i2 = 0; i2 < centroids.length; i2++) {
+    var dist3 = getDist(distance, node, centroids[i2], attributes, type);
+    if (dist3 < min4) {
+      min4 = dist3;
+      index = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   return index;
@@ -113204,9 +117411,15 @@ var haveValuesConverged = function haveValuesConverged2(v12, v22, sensitivityThr
   return Math.abs(v22 - v12) <= sensitivityThreshold;
 };
 var haveMatricesConverged = function haveMatricesConverged2(v12, v22, sensitivityThreshold) {
+<<<<<<< HEAD
   for (var i = 0; i < v12.length; i++) {
     for (var j = 0; j < v12[i].length; j++) {
       var diff2 = Math.abs(v12[i][j] - v22[i][j]);
+=======
+  for (var i2 = 0; i2 < v12.length; i2++) {
+    for (var j = 0; j < v12[i2].length; j++) {
+      var diff2 = Math.abs(v12[i2][j] - v22[i2][j]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (diff2 > sensitivityThreshold) {
         return false;
       }
@@ -113215,21 +117428,35 @@ var haveMatricesConverged = function haveMatricesConverged2(v12, v22, sensitivit
   return true;
 };
 var seenBefore = function seenBefore2(node, medoids, n) {
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
     if (node === medoids[i])
       return true;
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+    if (node === medoids[i2]) return true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return false;
 };
 var randomMedoids = function randomMedoids2(nodes3, k) {
   var medoids = new Array(k);
   if (nodes3.length < 50) {
+<<<<<<< HEAD
     for (var i = 0; i < k; i++) {
       var node = nodes3[Math.floor(Math.random() * nodes3.length)];
       while (seenBefore(node, medoids, i)) {
         node = nodes3[Math.floor(Math.random() * nodes3.length)];
       }
       medoids[i] = node;
+=======
+    for (var i2 = 0; i2 < k; i2++) {
+      var node = nodes3[Math.floor(Math.random() * nodes3.length)];
+      while (seenBefore(node, medoids, i2)) {
+        node = nodes3[Math.floor(Math.random() * nodes3.length)];
+      }
+      medoids[i2] = node;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   } else {
     for (var _i2 = 0; _i2 < k; _i2++) {
@@ -113284,8 +117511,13 @@ var kMeans = function kMeans2(options2) {
       var sum = new Array(ndim);
       for (var d = 0; d < ndim; d++) {
         sum[d] = 0;
+<<<<<<< HEAD
         for (var i = 0; i < cluster.length; i++) {
           node = cluster[i];
+=======
+        for (var i2 = 0; i2 < cluster.length; i2++) {
+          node = cluster[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           sum[d] += opts.attributes[d](node);
         }
         newCentroid[d] = sum[d] / cluster.length;
@@ -113311,8 +117543,12 @@ var kMedoids = function kMedoids2(options2) {
   var curCost;
   var minCosts = new Array(opts.k);
   if (opts.testMode) {
+<<<<<<< HEAD
     if (typeof opts.testCentroids === "number")
       ;
+=======
+    if (typeof opts.testCentroids === "number") ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (_typeof(opts.testCentroids) === "object") {
       medoids = opts.testCentroids;
     } else {
@@ -113369,8 +117605,13 @@ var updateCentroids = function updateCentroids2(centroids, nodes3, U, weight8, o
   }
 };
 var updateMembership = function updateMembership2(U, _U, centroids, nodes3, opts) {
+<<<<<<< HEAD
   for (var i = 0; i < U.length; i++) {
     _U[i] = U[i].slice();
+=======
+  for (var i2 = 0; i2 < U.length; i2++) {
+    _U[i2] = U[i2].slice();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   var sum, numerator, denominator;
   var pow = 2 / (opts.m - 1);
@@ -113419,8 +117660,13 @@ var fuzzyCMeans = function fuzzyCMeans2(options2) {
   var _U;
   var weight8;
   _U = new Array(nodes3.length);
+<<<<<<< HEAD
   for (var i = 0; i < nodes3.length; i++) {
     _U[i] = new Array(opts.k);
+=======
+  for (var i2 = 0; i2 < nodes3.length; i2++) {
+    _U[i2] = new Array(opts.k);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   U = new Array(nodes3.length);
   for (var _i3 = 0; _i3 < nodes3.length; _i3++) {
@@ -113502,6 +117748,7 @@ var mergeClosest = function mergeClosest2(clusters, index, dists, mins, opts) {
   var dist3;
   var attrs = opts.attributes;
   var getDist3 = function getDist4(n1, n2) {
+<<<<<<< HEAD
     return clusteringDistance(opts.distance, attrs.length, function(i2) {
       return attrs[i2](n1);
     }, function(i2) {
@@ -113510,6 +117757,16 @@ var mergeClosest = function mergeClosest2(clusters, index, dists, mins, opts) {
   };
   for (var i = 0; i < clusters.length; i++) {
     var key = clusters[i].key;
+=======
+    return clusteringDistance(opts.distance, attrs.length, function(i3) {
+      return attrs[i3](n1);
+    }, function(i3) {
+      return attrs[i3](n2);
+    }, n1, n2);
+  };
+  for (var i2 = 0; i2 < clusters.length; i2++) {
+    var key = clusters[i2].key;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var _dist = dists[key][mins[key]];
     if (_dist < min4) {
       minKey = key;
@@ -113554,10 +117811,15 @@ var mergeClosest = function mergeClosest2(clusters, index, dists, mins, opts) {
     } else if (opts.linkage === "mean") {
       dist3 = (dists[c1.key][cur.key] * c1.size + dists[c2.key][cur.key] * c2.size) / (c1.size + c2.size);
     } else {
+<<<<<<< HEAD
       if (opts.mode === "dendrogram")
         dist3 = getDist3(cur.value, c1.value);
       else
         dist3 = getDist3(cur.value[0], c1.value[0]);
+=======
+      if (opts.mode === "dendrogram") dist3 = getDist3(cur.value, c1.value);
+      else dist3 = getDist3(cur.value[0], c1.value[0]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     dists[c1.key][cur.key] = dists[cur.key][c1.key] = dist3;
   }
@@ -113579,6 +117841,7 @@ var mergeClosest = function mergeClosest2(clusters, index, dists, mins, opts) {
   return true;
 };
 var _getAllChildren = function getAllChildren(root, arr, cy2) {
+<<<<<<< HEAD
   if (!root)
     return;
   if (root.value) {
@@ -113593,6 +117856,18 @@ var _getAllChildren = function getAllChildren(root, arr, cy2) {
 var _buildDendrogram = function buildDendrogram(root, cy2) {
   if (!root)
     return "";
+=======
+  if (!root) return;
+  if (root.value) {
+    arr.push(root.value);
+  } else {
+    if (root.left) _getAllChildren(root.left, arr);
+    if (root.right) _getAllChildren(root.right, arr);
+  }
+};
+var _buildDendrogram = function buildDendrogram(root, cy2) {
+  if (!root) return "";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   if (root.left && root.right) {
     var leftStr = _buildDendrogram(root.left, cy2);
     var rightStr = _buildDendrogram(root.right, cy2);
@@ -113622,6 +117897,7 @@ var _buildDendrogram = function buildDendrogram(root, cy2) {
   }
 };
 var _buildClustersFromTree = function buildClustersFromTree(root, k, cy2) {
+<<<<<<< HEAD
   if (!root)
     return [];
   var left = [], right = [], leaves = [];
@@ -113630,26 +117906,43 @@ var _buildClustersFromTree = function buildClustersFromTree(root, k, cy2) {
       _getAllChildren(root.left, left);
     if (root.right)
       _getAllChildren(root.right, right);
+=======
+  if (!root) return [];
+  var left = [], right = [], leaves = [];
+  if (k === 0) {
+    if (root.left) _getAllChildren(root.left, left);
+    if (root.right) _getAllChildren(root.right, right);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     leaves = left.concat(right);
     return [cy2.collection(leaves)];
   } else if (k === 1) {
     if (root.value) {
       return [cy2.collection(root.value)];
     } else {
+<<<<<<< HEAD
       if (root.left)
         _getAllChildren(root.left, left);
       if (root.right)
         _getAllChildren(root.right, right);
+=======
+      if (root.left) _getAllChildren(root.left, left);
+      if (root.right) _getAllChildren(root.right, right);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return [cy2.collection(left), cy2.collection(right)];
     }
   } else {
     if (root.value) {
       return [cy2.collection(root.value)];
     } else {
+<<<<<<< HEAD
       if (root.left)
         left = _buildClustersFromTree(root.left, k - 1, cy2);
       if (root.right)
         right = _buildClustersFromTree(root.right, k - 1, cy2);
+=======
+      if (root.left) left = _buildClustersFromTree(root.left, k - 1, cy2);
+      if (root.right) right = _buildClustersFromTree(root.right, k - 1, cy2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return left.concat(right);
     }
   }
@@ -113660,10 +117953,17 @@ var hierarchicalClustering = function hierarchicalClustering2(options2) {
   var opts = setOptions$1(options2);
   var attrs = opts.attributes;
   var getDist3 = function getDist4(n1, n2) {
+<<<<<<< HEAD
     return clusteringDistance(opts.distance, attrs.length, function(i2) {
       return attrs[i2](n1);
     }, function(i2) {
       return attrs[i2](n2);
+=======
+    return clusteringDistance(opts.distance, attrs.length, function(i3) {
+      return attrs[i3](n1);
+    }, function(i3) {
+      return attrs[i3](n2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }, n1, n2);
   };
   var clusters = [];
@@ -113681,6 +117981,7 @@ var hierarchicalClustering = function hierarchicalClustering2(options2) {
     dists[n] = [];
     mins[n] = 0;
   }
+<<<<<<< HEAD
   for (var i = 0; i < clusters.length; i++) {
     for (var j = 0; j <= i; j++) {
       var dist3 = void 0;
@@ -113693,6 +117994,20 @@ var hierarchicalClustering = function hierarchicalClustering2(options2) {
       dists[j][i] = dist3;
       if (dist3 < dists[i][mins[i]]) {
         mins[i] = j;
+=======
+  for (var i2 = 0; i2 < clusters.length; i2++) {
+    for (var j = 0; j <= i2; j++) {
+      var dist3 = void 0;
+      if (opts.mode === "dendrogram") {
+        dist3 = i2 === j ? Infinity : getDist3(clusters[i2].value, clusters[j].value);
+      } else {
+        dist3 = i2 === j ? Infinity : getDist3(clusters[i2].value[0], clusters[j].value[0]);
+      }
+      dists[i2][j] = dist3;
+      dists[j][i2] = dist3;
+      if (dist3 < dists[i2][mins[i2]]) {
+        mins[i2] = j;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
   }
@@ -113703,6 +118018,7 @@ var hierarchicalClustering = function hierarchicalClustering2(options2) {
   var retClusters;
   if (opts.mode === "dendrogram") {
     retClusters = _buildClustersFromTree(clusters[0], opts.dendrogramDepth, cy2);
+<<<<<<< HEAD
     if (opts.addDendrogram)
       _buildDendrogram(clusters[0], cy2);
   } else {
@@ -113710,6 +118026,14 @@ var hierarchicalClustering = function hierarchicalClustering2(options2) {
     clusters.forEach(function(cluster2, i2) {
       cluster2.key = cluster2.index = null;
       retClusters[i2] = cy2.collection(cluster2.value);
+=======
+    if (opts.addDendrogram) _buildDendrogram(clusters[0], cy2);
+  } else {
+    retClusters = new Array(clusters.length);
+    clusters.forEach(function(cluster2, i3) {
+      cluster2.key = cluster2.index = null;
+      retClusters[i3] = cy2.collection(cluster2.value);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     });
   }
   return retClusters;
@@ -113751,6 +118075,7 @@ var setOptions4 = function setOptions5(options2) {
   return defaults$9(options2);
 };
 var getSimilarity2 = function getSimilarity3(type, n1, n2, attributes) {
+<<<<<<< HEAD
   var attr = function attr2(n, i) {
     return attributes[i](n);
   };
@@ -113758,6 +118083,15 @@ var getSimilarity2 = function getSimilarity3(type, n1, n2, attributes) {
     return attr(n1, i);
   }, function(i) {
     return attr(n2, i);
+=======
+  var attr = function attr2(n, i2) {
+    return attributes[i2](n);
+  };
+  return -clusteringDistance(type, attributes.length, function(i2) {
+    return attr(n1, i2);
+  }, function(i2) {
+    return attr(n2, i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }, n1, n2);
 };
 var getPreference = function getPreference2(S, preference) {
@@ -113777,23 +118111,39 @@ var getPreference = function getPreference2(S, preference) {
 };
 var findExemplars = function findExemplars2(n, R, A) {
   var indices = [];
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
     if (R[i * n + i] + A[i * n + i] > 0) {
       indices.push(i);
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+    if (R[i2 * n + i2] + A[i2 * n + i2] > 0) {
+      indices.push(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   return indices;
 };
 var assignClusters = function assignClusters2(n, S, exemplars) {
   var clusters = [];
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var index = -1;
     var max5 = -Infinity;
     for (var ei = 0; ei < exemplars.length; ei++) {
       var e = exemplars[ei];
+<<<<<<< HEAD
       if (S[i * n + e] > max5) {
         index = e;
         max5 = S[i * n + e];
+=======
+      if (S[i2 * n + e] > max5) {
+        index = e;
+        max5 = S[i2 * n + e];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
     if (index > 0) {
@@ -113816,6 +118166,7 @@ var assign3 = function assign4(n, S, exemplars) {
     }
     var maxI = -1;
     var maxSum = -Infinity;
+<<<<<<< HEAD
     for (var i = 0; i < ii.length; i++) {
       var sum = 0;
       for (var j = 0; j < ii.length; j++) {
@@ -113823,6 +118174,15 @@ var assign3 = function assign4(n, S, exemplars) {
       }
       if (sum > maxSum) {
         maxI = i;
+=======
+    for (var i2 = 0; i2 < ii.length; i2++) {
+      var sum = 0;
+      for (var j = 0; j < ii.length; j++) {
+        sum += S[ii[j] * n + ii[i2]];
+      }
+      if (sum > maxSum) {
+        maxI = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         maxSum = sum;
       }
     }
@@ -113836,8 +118196,13 @@ var affinityPropagation = function affinityPropagation2(options2) {
   var nodes3 = this.nodes();
   var opts = setOptions4(options2);
   var id2position = {};
+<<<<<<< HEAD
   for (var i = 0; i < nodes3.length; i++) {
     id2position[nodes3[i].id()] = i;
+=======
+  for (var i2 = 0; i2 < nodes3.length; i2++) {
+    id2position[nodes3[i2].id()] = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   var n;
   var n2;
@@ -113981,8 +118346,12 @@ var elesfn$k = {
     var oddIn;
     var oddOut;
     var startVertex;
+<<<<<<< HEAD
     if (root)
       startVertex = string(root) ? this.filter(root)[0].id() : root[0].id();
+=======
+    if (root) startVertex = string(root) ? this.filter(root)[0].id() : root[0].id();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var nodes3 = {};
     var edges3 = {};
     if (directed) {
@@ -113994,6 +118363,7 @@ var elesfn$k = {
           var d1 = ind - outd;
           var d2 = outd - ind;
           if (d1 == 1) {
+<<<<<<< HEAD
             if (oddIn)
               dflag = true;
             else
@@ -114003,13 +118373,24 @@ var elesfn$k = {
               dflag = true;
             else
               oddOut = id2;
+=======
+            if (oddIn) dflag = true;
+            else oddIn = id2;
+          } else if (d2 == 1) {
+            if (oddOut) dflag = true;
+            else oddOut = id2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           } else if (d2 > 1 || d1 > 1) {
             dflag = true;
           }
           nodes3[id2] = [];
           ele.outgoers().forEach(function(e) {
+<<<<<<< HEAD
             if (e.isEdge())
               nodes3[id2].push(e.id());
+=======
+            if (e.isEdge()) nodes3[id2].push(e.id());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           });
         } else {
           edges3[id2] = [void 0, ele.target().id()];
@@ -114021,12 +118402,18 @@ var elesfn$k = {
         if (ele.isNode()) {
           var d2 = ele.degree(true);
           if (d2 % 2) {
+<<<<<<< HEAD
             if (!oddIn)
               oddIn = id2;
             else if (!oddOut)
               oddOut = id2;
             else
               dflag = true;
+=======
+            if (!oddIn) oddIn = id2;
+            else if (!oddOut) oddOut = id2;
+            else dflag = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           }
           nodes3[id2] = [];
           ele.connectedEdges().forEach(function(e) {
@@ -114041,8 +118428,12 @@ var elesfn$k = {
       found: false,
       trail: void 0
     };
+<<<<<<< HEAD
     if (dflag)
       return result;
+=======
+    if (dflag) return result;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (oddOut && oddIn) {
       if (directed) {
         if (startVertex && oddOut != startVertex) {
@@ -114057,8 +118448,12 @@ var elesfn$k = {
         }
       }
     } else {
+<<<<<<< HEAD
       if (!startVertex)
         startVertex = eles[0].id();
+=======
+      if (!startVertex) startVertex = eles[0].id();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     var walk = function walk2(v) {
       var currentNode = v;
@@ -114115,12 +118510,21 @@ var hopcroftTarjanBiconnected = function hopcroftTarjanBiconnected2() {
   var stack = [];
   var visitedEdges = {};
   var buildComponent = function buildComponent2(x2, y2) {
+<<<<<<< HEAD
     var i = stack.length - 1;
     var cutset = [];
     var component2 = eles.spawn();
     while (stack[i].x != x2 || stack[i].y != y2) {
       cutset.push(stack.pop().edge);
       i--;
+=======
+    var i2 = stack.length - 1;
+    var cutset = [];
+    var component2 = eles.spawn();
+    while (stack[i2].x != x2 || stack[i2].y != y2) {
+      cutset.push(stack.pop().edge);
+      i2--;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     cutset.push(stack.pop().edge);
     cutset.forEach(function(edge) {
@@ -114142,8 +118546,12 @@ var hopcroftTarjanBiconnected = function hopcroftTarjanBiconnected2() {
     components2.push(component2);
   };
   var _biconnectedSearch = function biconnectedSearch(root, currentNode, parent4) {
+<<<<<<< HEAD
     if (root === parent4)
       edgeCount += 1;
+=======
+    if (root === parent4) edgeCount += 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     nodes3[currentNode] = {
       id: id2,
       low: id2++,
@@ -114278,8 +118686,12 @@ var STATE_PENDING = 0;
 var STATE_FULFILLED = 1;
 var STATE_REJECTED = 2;
 var _api = function api(executor) {
+<<<<<<< HEAD
   if (!(this instanceof _api))
     return new _api(executor);
+=======
+  if (!(this instanceof _api)) return new _api(executor);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   this.id = "Thenable/1.0.7";
   this.state = STATE_PENDING;
   this.fulfillValue = void 0;
@@ -114289,8 +118701,12 @@ var _api = function api(executor) {
   this.proxy = {
     then: this.then.bind(this)
   };
+<<<<<<< HEAD
   if (typeof executor === "function")
     executor.call(this, this.fulfill.bind(this), this.reject.bind(this));
+=======
+  if (typeof executor === "function") executor.call(this, this.fulfill.bind(this), this.reject.bind(this));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 };
 _api.prototype = {
   /*  promise resolving methods  */
@@ -114319,6 +118735,7 @@ var deliver = function deliver2(curr, state, name, value) {
   return curr;
 };
 var execute = function execute2(curr) {
+<<<<<<< HEAD
   if (curr.state === STATE_FULFILLED)
     execute_handlers(curr, "onFulfilled", curr.fulfillValue);
   else if (curr.state === STATE_REJECTED)
@@ -114337,6 +118754,20 @@ var execute_handlers = function execute_handlers2(curr, name, value) {
     setImmediate(func);
   else
     setTimeout(func, 0);
+=======
+  if (curr.state === STATE_FULFILLED) execute_handlers(curr, "onFulfilled", curr.fulfillValue);
+  else if (curr.state === STATE_REJECTED) execute_handlers(curr, "onRejected", curr.rejectReason);
+};
+var execute_handlers = function execute_handlers2(curr, name, value) {
+  if (curr[name].length === 0) return;
+  var handlers = curr[name];
+  curr[name] = [];
+  var func = function func2() {
+    for (var i2 = 0; i2 < handlers.length; i2++) handlers[i2](value);
+  };
+  if (typeof setImmediate === "function") setImmediate(func);
+  else setTimeout(func, 0);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 };
 var resolver = function resolver2(cb, next2, method) {
   return function(value) {
@@ -114376,6 +118807,7 @@ var _resolve = function resolve(promise4, x2) {
         /*  resolvePromise  */
         /*  [Promises/A+ 2.3.3.3.1]  */
         function(y2) {
+<<<<<<< HEAD
           if (resolved)
             return;
           resolved = true;
@@ -114383,12 +118815,23 @@ var _resolve = function resolve(promise4, x2) {
             promise4.reject(new TypeError("circular thenable chain"));
           else
             _resolve(promise4, y2);
+=======
+          if (resolved) return;
+          resolved = true;
+          if (y2 === x2)
+            promise4.reject(new TypeError("circular thenable chain"));
+          else _resolve(promise4, y2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         },
         /*  rejectPromise  */
         /*  [Promises/A+ 2.3.3.3.2]  */
         function(r) {
+<<<<<<< HEAD
           if (resolved)
             return;
+=======
+          if (resolved) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           resolved = true;
           promise4.reject(r);
         }
@@ -114405,13 +118848,19 @@ _api.all = function(ps) {
   return new _api(function(resolveAll, rejectAll) {
     var vals = new Array(ps.length);
     var doneCount = 0;
+<<<<<<< HEAD
     var fulfill2 = function fulfill3(i2, val) {
       vals[i2] = val;
+=======
+    var fulfill2 = function fulfill3(i3, val) {
+      vals[i3] = val;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       doneCount++;
       if (doneCount === ps.length) {
         resolveAll(vals);
       }
     };
+<<<<<<< HEAD
     for (var i = 0; i < ps.length; i++) {
       (function(i2) {
         var p2 = ps[i2];
@@ -114419,14 +118868,29 @@ _api.all = function(ps) {
         if (isPromise) {
           p2.then(function(val2) {
             fulfill2(i2, val2);
+=======
+    for (var i2 = 0; i2 < ps.length; i2++) {
+      (function(i3) {
+        var p2 = ps[i3];
+        var isPromise = p2 != null && p2.then != null;
+        if (isPromise) {
+          p2.then(function(val2) {
+            fulfill2(i3, val2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           }, function(err) {
             rejectAll(err);
           });
         } else {
           var val = p2;
+<<<<<<< HEAD
           fulfill2(i2, val);
         }
       })(i);
+=======
+          fulfill2(i3, val);
+        }
+      })(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   });
 };
@@ -114593,12 +119057,21 @@ extend(anifn, {
     swap("pan", "startPan");
     swap("position", "startPosition");
     if (_p.style) {
+<<<<<<< HEAD
       for (var i = 0; i < _p.style.length; i++) {
         var prop = _p.style[i];
         var name = prop.name;
         var startStyleProp = _p.startStyle[name];
         _p.startStyle[name] = prop;
         _p.style[i] = startStyleProp;
+=======
+      for (var i2 = 0; i2 < _p.style.length; i2++) {
+        var prop = _p.style[i2];
+        var name = prop.name;
+        var startStyleProp = _p.startStyle[name];
+        _p.startStyle[name] = prop;
+        _p.style[i2] = startStyleProp;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
     if (wasPlaying) {
@@ -114654,8 +119127,13 @@ var define$3 = {
       if (!cy2.styleEnabled()) {
         return this;
       }
+<<<<<<< HEAD
       for (var i = 0; i < all.length; i++) {
         var ele = all[i];
+=======
+      for (var i2 = 0; i2 < all.length; i2++) {
+        var ele = all[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ele._private.animation.queue = [];
       }
       return this;
@@ -114780,8 +119258,13 @@ var define$3 = {
       if (params) {
         properties = extend({}, properties, params);
       }
+<<<<<<< HEAD
       for (var i = 0; i < all.length; i++) {
         var ele = all[i];
+=======
+      for (var i2 = 0; i2 < all.length; i2++) {
+        var ele = all[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var queue = ele.animated() && (properties.queue === void 0 || properties.queue);
         var ani = ele.animation(properties, queue ? {
           queue: true
@@ -114801,8 +119284,13 @@ var define$3 = {
       if (!cy2.styleEnabled()) {
         return this;
       }
+<<<<<<< HEAD
       for (var i = 0; i < all.length; i++) {
         var ele = all[i];
+=======
+      for (var i2 = 0; i2 < all.length; i2++) {
+        var ele = all[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var _p = ele._private;
         var anis = _p.animation.current;
         for (var j = 0; j < anis.length; j++) {
@@ -114828,8 +119316,12 @@ var define$3 = {
 var isArray_1;
 var hasRequiredIsArray;
 function requireIsArray() {
+<<<<<<< HEAD
   if (hasRequiredIsArray)
     return isArray_1;
+=======
+  if (hasRequiredIsArray) return isArray_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredIsArray = 1;
   var isArray = Array.isArray;
   isArray_1 = isArray;
@@ -114838,8 +119330,12 @@ function requireIsArray() {
 var _isKey;
 var hasRequired_isKey;
 function require_isKey() {
+<<<<<<< HEAD
   if (hasRequired_isKey)
     return _isKey;
+=======
+  if (hasRequired_isKey) return _isKey;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_isKey = 1;
   var isArray = requireIsArray(), isSymbol = requireIsSymbol();
   var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, reIsPlainProp = /^\w*$/;
@@ -114859,8 +119355,12 @@ function require_isKey() {
 var isFunction_1;
 var hasRequiredIsFunction;
 function requireIsFunction() {
+<<<<<<< HEAD
   if (hasRequiredIsFunction)
     return isFunction_1;
+=======
+  if (hasRequiredIsFunction) return isFunction_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredIsFunction = 1;
   var baseGetTag = require_baseGetTag(), isObject = requireIsObject();
   var asyncTag = "[object AsyncFunction]", funcTag = "[object Function]", genTag = "[object GeneratorFunction]", proxyTag = "[object Proxy]";
@@ -114877,8 +119377,12 @@ function requireIsFunction() {
 var _coreJsData;
 var hasRequired_coreJsData;
 function require_coreJsData() {
+<<<<<<< HEAD
   if (hasRequired_coreJsData)
     return _coreJsData;
+=======
+  if (hasRequired_coreJsData) return _coreJsData;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_coreJsData = 1;
   var root = require_root();
   var coreJsData = root["__core-js_shared__"];
@@ -114888,6 +119392,7 @@ function require_coreJsData() {
 var _isMasked;
 var hasRequired_isMasked;
 function require_isMasked() {
+<<<<<<< HEAD
   if (hasRequired_isMasked)
     return _isMasked;
   hasRequired_isMasked = 1;
@@ -114896,6 +119401,15 @@ function require_isMasked() {
     var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
     return uid ? "Symbol(src)_1." + uid : "";
   }();
+=======
+  if (hasRequired_isMasked) return _isMasked;
+  hasRequired_isMasked = 1;
+  var coreJsData = require_coreJsData();
+  var maskSrcKey = (function() {
+    var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
+    return uid ? "Symbol(src)_1." + uid : "";
+  })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function isMasked(func) {
     return !!maskSrcKey && maskSrcKey in func;
   }
@@ -114905,8 +119419,12 @@ function require_isMasked() {
 var _toSource;
 var hasRequired_toSource;
 function require_toSource() {
+<<<<<<< HEAD
   if (hasRequired_toSource)
     return _toSource;
+=======
+  if (hasRequired_toSource) return _toSource;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_toSource = 1;
   var funcProto = Function.prototype;
   var funcToString = funcProto.toString;
@@ -114929,8 +119447,12 @@ function require_toSource() {
 var _baseIsNative;
 var hasRequired_baseIsNative;
 function require_baseIsNative() {
+<<<<<<< HEAD
   if (hasRequired_baseIsNative)
     return _baseIsNative;
+=======
+  if (hasRequired_baseIsNative) return _baseIsNative;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseIsNative = 1;
   var isFunction = requireIsFunction(), isMasked = require_isMasked(), isObject = requireIsObject(), toSource = require_toSource();
   var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
@@ -114954,8 +119476,12 @@ function require_baseIsNative() {
 var _getValue;
 var hasRequired_getValue;
 function require_getValue() {
+<<<<<<< HEAD
   if (hasRequired_getValue)
     return _getValue;
+=======
+  if (hasRequired_getValue) return _getValue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_getValue = 1;
   function getValue2(object3, key) {
     return object3 == null ? void 0 : object3[key];
@@ -114966,8 +119492,12 @@ function require_getValue() {
 var _getNative;
 var hasRequired_getNative;
 function require_getNative() {
+<<<<<<< HEAD
   if (hasRequired_getNative)
     return _getNative;
+=======
+  if (hasRequired_getNative) return _getNative;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_getNative = 1;
   var baseIsNative = require_baseIsNative(), getValue2 = require_getValue();
   function getNative(object3, key) {
@@ -114980,8 +119510,12 @@ function require_getNative() {
 var _nativeCreate;
 var hasRequired_nativeCreate;
 function require_nativeCreate() {
+<<<<<<< HEAD
   if (hasRequired_nativeCreate)
     return _nativeCreate;
+=======
+  if (hasRequired_nativeCreate) return _nativeCreate;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_nativeCreate = 1;
   var getNative = require_getNative();
   var nativeCreate = getNative(Object, "create");
@@ -114991,8 +119525,12 @@ function require_nativeCreate() {
 var _hashClear;
 var hasRequired_hashClear;
 function require_hashClear() {
+<<<<<<< HEAD
   if (hasRequired_hashClear)
     return _hashClear;
+=======
+  if (hasRequired_hashClear) return _hashClear;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_hashClear = 1;
   var nativeCreate = require_nativeCreate();
   function hashClear() {
@@ -115005,8 +119543,12 @@ function require_hashClear() {
 var _hashDelete;
 var hasRequired_hashDelete;
 function require_hashDelete() {
+<<<<<<< HEAD
   if (hasRequired_hashDelete)
     return _hashDelete;
+=======
+  if (hasRequired_hashDelete) return _hashDelete;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_hashDelete = 1;
   function hashDelete(key) {
     var result = this.has(key) && delete this.__data__[key];
@@ -115019,8 +119561,12 @@ function require_hashDelete() {
 var _hashGet;
 var hasRequired_hashGet;
 function require_hashGet() {
+<<<<<<< HEAD
   if (hasRequired_hashGet)
     return _hashGet;
+=======
+  if (hasRequired_hashGet) return _hashGet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_hashGet = 1;
   var nativeCreate = require_nativeCreate();
   var HASH_UNDEFINED = "__lodash_hash_undefined__";
@@ -115040,8 +119586,12 @@ function require_hashGet() {
 var _hashHas;
 var hasRequired_hashHas;
 function require_hashHas() {
+<<<<<<< HEAD
   if (hasRequired_hashHas)
     return _hashHas;
+=======
+  if (hasRequired_hashHas) return _hashHas;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_hashHas = 1;
   var nativeCreate = require_nativeCreate();
   var objectProto = Object.prototype;
@@ -115056,8 +119606,12 @@ function require_hashHas() {
 var _hashSet;
 var hasRequired_hashSet;
 function require_hashSet() {
+<<<<<<< HEAD
   if (hasRequired_hashSet)
     return _hashSet;
+=======
+  if (hasRequired_hashSet) return _hashSet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_hashSet = 1;
   var nativeCreate = require_nativeCreate();
   var HASH_UNDEFINED = "__lodash_hash_undefined__";
@@ -115073,8 +119627,12 @@ function require_hashSet() {
 var _Hash;
 var hasRequired_Hash;
 function require_Hash() {
+<<<<<<< HEAD
   if (hasRequired_Hash)
     return _Hash;
+=======
+  if (hasRequired_Hash) return _Hash;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_Hash = 1;
   var hashClear = require_hashClear(), hashDelete = require_hashDelete(), hashGet = require_hashGet(), hashHas = require_hashHas(), hashSet = require_hashSet();
   function Hash(entries) {
@@ -115096,8 +119654,12 @@ function require_Hash() {
 var _listCacheClear;
 var hasRequired_listCacheClear;
 function require_listCacheClear() {
+<<<<<<< HEAD
   if (hasRequired_listCacheClear)
     return _listCacheClear;
+=======
+  if (hasRequired_listCacheClear) return _listCacheClear;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_listCacheClear = 1;
   function listCacheClear() {
     this.__data__ = [];
@@ -115109,8 +119671,12 @@ function require_listCacheClear() {
 var eq_1;
 var hasRequiredEq;
 function requireEq() {
+<<<<<<< HEAD
   if (hasRequiredEq)
     return eq_1;
+=======
+  if (hasRequiredEq) return eq_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredEq = 1;
   function eq2(value, other) {
     return value === other || value !== value && other !== other;
@@ -115121,8 +119687,12 @@ function requireEq() {
 var _assocIndexOf;
 var hasRequired_assocIndexOf;
 function require_assocIndexOf() {
+<<<<<<< HEAD
   if (hasRequired_assocIndexOf)
     return _assocIndexOf;
+=======
+  if (hasRequired_assocIndexOf) return _assocIndexOf;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_assocIndexOf = 1;
   var eq2 = requireEq();
   function assocIndexOf(array3, key) {
@@ -115140,8 +119710,12 @@ function require_assocIndexOf() {
 var _listCacheDelete;
 var hasRequired_listCacheDelete;
 function require_listCacheDelete() {
+<<<<<<< HEAD
   if (hasRequired_listCacheDelete)
     return _listCacheDelete;
+=======
+  if (hasRequired_listCacheDelete) return _listCacheDelete;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_listCacheDelete = 1;
   var assocIndexOf = require_assocIndexOf();
   var arrayProto = Array.prototype;
@@ -115166,8 +119740,12 @@ function require_listCacheDelete() {
 var _listCacheGet;
 var hasRequired_listCacheGet;
 function require_listCacheGet() {
+<<<<<<< HEAD
   if (hasRequired_listCacheGet)
     return _listCacheGet;
+=======
+  if (hasRequired_listCacheGet) return _listCacheGet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_listCacheGet = 1;
   var assocIndexOf = require_assocIndexOf();
   function listCacheGet(key) {
@@ -115180,8 +119758,12 @@ function require_listCacheGet() {
 var _listCacheHas;
 var hasRequired_listCacheHas;
 function require_listCacheHas() {
+<<<<<<< HEAD
   if (hasRequired_listCacheHas)
     return _listCacheHas;
+=======
+  if (hasRequired_listCacheHas) return _listCacheHas;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_listCacheHas = 1;
   var assocIndexOf = require_assocIndexOf();
   function listCacheHas(key) {
@@ -115193,8 +119775,12 @@ function require_listCacheHas() {
 var _listCacheSet;
 var hasRequired_listCacheSet;
 function require_listCacheSet() {
+<<<<<<< HEAD
   if (hasRequired_listCacheSet)
     return _listCacheSet;
+=======
+  if (hasRequired_listCacheSet) return _listCacheSet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_listCacheSet = 1;
   var assocIndexOf = require_assocIndexOf();
   function listCacheSet(key, value) {
@@ -115213,8 +119799,12 @@ function require_listCacheSet() {
 var _ListCache;
 var hasRequired_ListCache;
 function require_ListCache() {
+<<<<<<< HEAD
   if (hasRequired_ListCache)
     return _ListCache;
+=======
+  if (hasRequired_ListCache) return _ListCache;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_ListCache = 1;
   var listCacheClear = require_listCacheClear(), listCacheDelete = require_listCacheDelete(), listCacheGet = require_listCacheGet(), listCacheHas = require_listCacheHas(), listCacheSet = require_listCacheSet();
   function ListCache(entries) {
@@ -115236,8 +119826,12 @@ function require_ListCache() {
 var _Map;
 var hasRequired_Map;
 function require_Map() {
+<<<<<<< HEAD
   if (hasRequired_Map)
     return _Map;
+=======
+  if (hasRequired_Map) return _Map;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_Map = 1;
   var getNative = require_getNative(), root = require_root();
   var Map2 = getNative(root, "Map");
@@ -115247,8 +119841,12 @@ function require_Map() {
 var _mapCacheClear;
 var hasRequired_mapCacheClear;
 function require_mapCacheClear() {
+<<<<<<< HEAD
   if (hasRequired_mapCacheClear)
     return _mapCacheClear;
+=======
+  if (hasRequired_mapCacheClear) return _mapCacheClear;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_mapCacheClear = 1;
   var Hash = require_Hash(), ListCache = require_ListCache(), Map2 = require_Map();
   function mapCacheClear() {
@@ -115265,8 +119863,12 @@ function require_mapCacheClear() {
 var _isKeyable;
 var hasRequired_isKeyable;
 function require_isKeyable() {
+<<<<<<< HEAD
   if (hasRequired_isKeyable)
     return _isKeyable;
+=======
+  if (hasRequired_isKeyable) return _isKeyable;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_isKeyable = 1;
   function isKeyable(value) {
     var type = typeof value;
@@ -115278,8 +119880,12 @@ function require_isKeyable() {
 var _getMapData;
 var hasRequired_getMapData;
 function require_getMapData() {
+<<<<<<< HEAD
   if (hasRequired_getMapData)
     return _getMapData;
+=======
+  if (hasRequired_getMapData) return _getMapData;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_getMapData = 1;
   var isKeyable = require_isKeyable();
   function getMapData(map2, key) {
@@ -115292,8 +119898,12 @@ function require_getMapData() {
 var _mapCacheDelete;
 var hasRequired_mapCacheDelete;
 function require_mapCacheDelete() {
+<<<<<<< HEAD
   if (hasRequired_mapCacheDelete)
     return _mapCacheDelete;
+=======
+  if (hasRequired_mapCacheDelete) return _mapCacheDelete;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_mapCacheDelete = 1;
   var getMapData = require_getMapData();
   function mapCacheDelete(key) {
@@ -115307,8 +119917,12 @@ function require_mapCacheDelete() {
 var _mapCacheGet;
 var hasRequired_mapCacheGet;
 function require_mapCacheGet() {
+<<<<<<< HEAD
   if (hasRequired_mapCacheGet)
     return _mapCacheGet;
+=======
+  if (hasRequired_mapCacheGet) return _mapCacheGet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_mapCacheGet = 1;
   var getMapData = require_getMapData();
   function mapCacheGet(key) {
@@ -115320,8 +119934,12 @@ function require_mapCacheGet() {
 var _mapCacheHas;
 var hasRequired_mapCacheHas;
 function require_mapCacheHas() {
+<<<<<<< HEAD
   if (hasRequired_mapCacheHas)
     return _mapCacheHas;
+=======
+  if (hasRequired_mapCacheHas) return _mapCacheHas;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_mapCacheHas = 1;
   var getMapData = require_getMapData();
   function mapCacheHas(key) {
@@ -115333,8 +119951,12 @@ function require_mapCacheHas() {
 var _mapCacheSet;
 var hasRequired_mapCacheSet;
 function require_mapCacheSet() {
+<<<<<<< HEAD
   if (hasRequired_mapCacheSet)
     return _mapCacheSet;
+=======
+  if (hasRequired_mapCacheSet) return _mapCacheSet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_mapCacheSet = 1;
   var getMapData = require_getMapData();
   function mapCacheSet(key, value) {
@@ -115349,8 +119971,12 @@ function require_mapCacheSet() {
 var _MapCache;
 var hasRequired_MapCache;
 function require_MapCache() {
+<<<<<<< HEAD
   if (hasRequired_MapCache)
     return _MapCache;
+=======
+  if (hasRequired_MapCache) return _MapCache;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_MapCache = 1;
   var mapCacheClear = require_mapCacheClear(), mapCacheDelete = require_mapCacheDelete(), mapCacheGet = require_mapCacheGet(), mapCacheHas = require_mapCacheHas(), mapCacheSet = require_mapCacheSet();
   function MapCache(entries) {
@@ -115372,8 +119998,12 @@ function require_MapCache() {
 var memoize_1;
 var hasRequiredMemoize;
 function requireMemoize() {
+<<<<<<< HEAD
   if (hasRequiredMemoize)
     return memoize_1;
+=======
+  if (hasRequiredMemoize) return memoize_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredMemoize = 1;
   var MapCache = require_MapCache();
   var FUNC_ERROR_TEXT = "Expected a function";
@@ -115400,8 +120030,12 @@ function requireMemoize() {
 var _memoizeCapped;
 var hasRequired_memoizeCapped;
 function require_memoizeCapped() {
+<<<<<<< HEAD
   if (hasRequired_memoizeCapped)
     return _memoizeCapped;
+=======
+  if (hasRequired_memoizeCapped) return _memoizeCapped;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_memoizeCapped = 1;
   var memoize3 = requireMemoize();
   var MAX_MEMOIZE_SIZE = 500;
@@ -115421,8 +120055,12 @@ function require_memoizeCapped() {
 var _stringToPath;
 var hasRequired_stringToPath;
 function require_stringToPath() {
+<<<<<<< HEAD
   if (hasRequired_stringToPath)
     return _stringToPath;
+=======
+  if (hasRequired_stringToPath) return _stringToPath;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_stringToPath = 1;
   var memoizeCapped = require_memoizeCapped();
   var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
@@ -115443,8 +120081,12 @@ function require_stringToPath() {
 var _arrayMap;
 var hasRequired_arrayMap;
 function require_arrayMap() {
+<<<<<<< HEAD
   if (hasRequired_arrayMap)
     return _arrayMap;
+=======
+  if (hasRequired_arrayMap) return _arrayMap;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_arrayMap = 1;
   function arrayMap(array3, iteratee) {
     var index = -1, length = array3 == null ? 0 : array3.length, result = Array(length);
@@ -115459,8 +120101,12 @@ function require_arrayMap() {
 var _baseToString;
 var hasRequired_baseToString;
 function require_baseToString() {
+<<<<<<< HEAD
   if (hasRequired_baseToString)
     return _baseToString;
+=======
+  if (hasRequired_baseToString) return _baseToString;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseToString = 1;
   var Symbol2 = require_Symbol(), arrayMap = require_arrayMap(), isArray = requireIsArray(), isSymbol = requireIsSymbol();
   var symbolProto = Symbol2 ? Symbol2.prototype : void 0, symbolToString = symbolProto ? symbolProto.toString : void 0;
@@ -115483,8 +120129,12 @@ function require_baseToString() {
 var toString_1;
 var hasRequiredToString;
 function requireToString() {
+<<<<<<< HEAD
   if (hasRequiredToString)
     return toString_1;
+=======
+  if (hasRequiredToString) return toString_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredToString = 1;
   var baseToString = require_baseToString();
   function toString3(value) {
@@ -115496,8 +120146,12 @@ function requireToString() {
 var _castPath;
 var hasRequired_castPath;
 function require_castPath() {
+<<<<<<< HEAD
   if (hasRequired_castPath)
     return _castPath;
+=======
+  if (hasRequired_castPath) return _castPath;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_castPath = 1;
   var isArray = requireIsArray(), isKey = require_isKey(), stringToPath = require_stringToPath(), toString3 = requireToString();
   function castPath(value, object3) {
@@ -115512,8 +120166,12 @@ function require_castPath() {
 var _toKey;
 var hasRequired_toKey;
 function require_toKey() {
+<<<<<<< HEAD
   if (hasRequired_toKey)
     return _toKey;
+=======
+  if (hasRequired_toKey) return _toKey;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_toKey = 1;
   var isSymbol = requireIsSymbol();
   function toKey(value) {
@@ -115529,8 +120187,12 @@ function require_toKey() {
 var _baseGet;
 var hasRequired_baseGet;
 function require_baseGet() {
+<<<<<<< HEAD
   if (hasRequired_baseGet)
     return _baseGet;
+=======
+  if (hasRequired_baseGet) return _baseGet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseGet = 1;
   var castPath = require_castPath(), toKey = require_toKey();
   function baseGet(object3, path) {
@@ -115547,8 +120209,12 @@ function require_baseGet() {
 var get_1;
 var hasRequiredGet;
 function requireGet() {
+<<<<<<< HEAD
   if (hasRequiredGet)
     return get_1;
+=======
+  if (hasRequiredGet) return get_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredGet = 1;
   var baseGet = require_baseGet();
   function get2(object3, path, defaultValue) {
@@ -115563,26 +120229,41 @@ var get = /* @__PURE__ */ getDefaultExportFromCjs(getExports);
 var _defineProperty;
 var hasRequired_defineProperty;
 function require_defineProperty() {
+<<<<<<< HEAD
   if (hasRequired_defineProperty)
     return _defineProperty;
   hasRequired_defineProperty = 1;
   var getNative = require_getNative();
   var defineProperty = function() {
+=======
+  if (hasRequired_defineProperty) return _defineProperty;
+  hasRequired_defineProperty = 1;
+  var getNative = require_getNative();
+  var defineProperty = (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     try {
       var func = getNative(Object, "defineProperty");
       func({}, "", {});
       return func;
     } catch (e) {
     }
+<<<<<<< HEAD
   }();
+=======
+  })();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   _defineProperty = defineProperty;
   return _defineProperty;
 }
 var _baseAssignValue;
 var hasRequired_baseAssignValue;
 function require_baseAssignValue() {
+<<<<<<< HEAD
   if (hasRequired_baseAssignValue)
     return _baseAssignValue;
+=======
+  if (hasRequired_baseAssignValue) return _baseAssignValue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseAssignValue = 1;
   var defineProperty = require_defineProperty();
   function baseAssignValue(object3, key, value) {
@@ -115603,8 +120284,12 @@ function require_baseAssignValue() {
 var _assignValue;
 var hasRequired_assignValue;
 function require_assignValue() {
+<<<<<<< HEAD
   if (hasRequired_assignValue)
     return _assignValue;
+=======
+  if (hasRequired_assignValue) return _assignValue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_assignValue = 1;
   var baseAssignValue = require_baseAssignValue(), eq2 = requireEq();
   var objectProto = Object.prototype;
@@ -115621,8 +120306,12 @@ function require_assignValue() {
 var _isIndex;
 var hasRequired_isIndex;
 function require_isIndex() {
+<<<<<<< HEAD
   if (hasRequired_isIndex)
     return _isIndex;
+=======
+  if (hasRequired_isIndex) return _isIndex;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_isIndex = 1;
   var MAX_SAFE_INTEGER = 9007199254740991;
   var reIsUint = /^(?:0|[1-9]\d*)$/;
@@ -115637,8 +120326,12 @@ function require_isIndex() {
 var _baseSet;
 var hasRequired_baseSet;
 function require_baseSet() {
+<<<<<<< HEAD
   if (hasRequired_baseSet)
     return _baseSet;
+=======
+  if (hasRequired_baseSet) return _baseSet;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_baseSet = 1;
   var assignValue = require_assignValue(), castPath = require_castPath(), isIndex = require_isIndex(), isObject = requireIsObject(), toKey = require_toKey();
   function baseSet(object3, path, value, customizer) {
@@ -115670,8 +120363,12 @@ function require_baseSet() {
 var set_1;
 var hasRequiredSet;
 function requireSet() {
+<<<<<<< HEAD
   if (hasRequiredSet)
     return set_1;
+=======
+  if (hasRequiredSet) return set_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredSet = 1;
   var baseSet = require_baseSet();
   function set2(object3, path, value) {
@@ -115685,8 +120382,12 @@ var set = /* @__PURE__ */ getDefaultExportFromCjs(setExports);
 var _copyArray;
 var hasRequired_copyArray;
 function require_copyArray() {
+<<<<<<< HEAD
   if (hasRequired_copyArray)
     return _copyArray;
+=======
+  if (hasRequired_copyArray) return _copyArray;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequired_copyArray = 1;
   function copyArray3(source, array3) {
     var index = -1, length = source.length;
@@ -115702,8 +120403,12 @@ function require_copyArray() {
 var toPath_1;
 var hasRequiredToPath;
 function requireToPath() {
+<<<<<<< HEAD
   if (hasRequiredToPath)
     return toPath_1;
+=======
+  if (hasRequiredToPath) return toPath_1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   hasRequiredToPath = 1;
   var arrayMap = require_arrayMap(), copyArray3 = require_copyArray(), isArray = requireIsArray(), isSymbol = requireIsSymbol(), stringToPath = require_stringToPath(), toKey = require_toKey(), toString3 = requireToString();
   function toPath2(value) {
@@ -115768,8 +120473,13 @@ var define$2 = {
           if (valid2) {
             var change = _defineProperty$1({}, name, value);
             p2.beforeSet(self2, change);
+<<<<<<< HEAD
             for (var i = 0, l = all.length; i < l; i++) {
               var ele = all[i];
+=======
+            for (var i2 = 0, l = all.length; i2 < l; i2++) {
+              var ele = all[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (p2.canSet(ele)) {
                 if (path && single._private[p2.field][name] === void 0) {
                   set(ele._private[p2.field], path, value);
@@ -115846,8 +120556,13 @@ var define$2 = {
       if (string(names)) {
         var keys = names.split(/\s+/);
         var l = keys.length;
+<<<<<<< HEAD
         for (var i = 0; i < l; i++) {
           var key = keys[i];
+=======
+        for (var i2 = 0; i2 < l; i2++) {
+          var key = keys[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           if (emptyString(key)) {
             continue;
           }
@@ -115935,8 +120650,13 @@ var elesfn$h = {
       var _p = ele._private;
       var eleClasses = _p.classes;
       var changedEle = false;
+<<<<<<< HEAD
       for (var i = 0; i < _classes.length; i++) {
         var cls = _classes[i];
+=======
+      for (var i2 = 0; i2 < _classes.length; i2++) {
+        var cls = _classes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var eleHasClass = eleClasses.has(cls);
         if (!eleHasClass) {
           changedEle = true;
@@ -115970,8 +120690,13 @@ var elesfn$h = {
     var self2 = this;
     var toggleUndefd = toggle === void 0;
     var changed = [];
+<<<<<<< HEAD
     for (var i = 0, il = self2.length; i < il; i++) {
       var ele = self2[i];
+=======
+    for (var i2 = 0, il = self2.length; i2 < il; i2++) {
+      var ele = self2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var eleClasses = ele._private.classes;
       var changedEle = false;
       for (var j = 0; j < classes2.length; j++) {
@@ -116041,6 +120766,7 @@ tokens.className = "(?:[\\w-]|(?:\\\\" + tokens.metaChar + "))+";
 tokens.value = tokens.string + "|" + tokens.number;
 tokens.id = tokens.variable;
 (function() {
+<<<<<<< HEAD
   var ops, op, i;
   ops = tokens.comparatorOp.split("|");
   for (i = 0; i < ops.length; i++) {
@@ -116050,6 +120776,17 @@ tokens.id = tokens.variable;
   ops = tokens.comparatorOp.split("|");
   for (i = 0; i < ops.length; i++) {
     op = ops[i];
+=======
+  var ops, op, i2;
+  ops = tokens.comparatorOp.split("|");
+  for (i2 = 0; i2 < ops.length; i2++) {
+    op = ops[i2];
+    tokens.comparatorOp += "|@" + op;
+  }
+  ops = tokens.comparatorOp.split("|");
+  for (i2 = 0; i2 < ops.length; i2++) {
+    op = ops[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (op.indexOf("!") >= 0) {
       continue;
     }
@@ -116260,6 +120997,7 @@ var stateSelectors = [{
 }].sort(function(a, b) {
   return descending(a.selector, b.selector);
 });
+<<<<<<< HEAD
 var lookup = function() {
   var selToFn = {};
   var s;
@@ -116269,6 +121007,17 @@ var lookup = function() {
   }
   return selToFn;
 }();
+=======
+var lookup = (function() {
+  var selToFn = {};
+  var s;
+  for (var i2 = 0; i2 < stateSelectors.length; i2++) {
+    s = stateSelectors[i2];
+    selToFn[s.selector] = s.matches;
+  }
+  return selToFn;
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var stateSelectorMatches = function stateSelectorMatches2(sel, ele) {
   return lookup[sel](ele);
 };
@@ -116676,8 +121425,13 @@ var parse = function parse2(selector) {
   }
   lastQ.edgeCount = self2.edgeCount;
   lastQ.compoundCount = self2.compoundCount;
+<<<<<<< HEAD
   for (var i = 0; i < self2.length; i++) {
     var q = self2[i];
+=======
+  for (var i2 = 0; i2 < self2.length; i2++) {
+    var q = self2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (q.compoundCount > 0 && q.edgeCount > 0) {
       warn("The selector `" + selector + "` is invalid because it uses both a compound selector and an edge selector");
       return false;
@@ -116764,6 +121518,7 @@ var toString = function toString2() {
     }
   };
   var queryToString = function queryToString2(query2, subject) {
+<<<<<<< HEAD
     return query2.checks.reduce(function(str2, chk, i2) {
       return str2 + (subject === query2 && i2 === 0 ? "$" : "") + checkToString(chk, subject);
     }, "");
@@ -116773,6 +121528,17 @@ var toString = function toString2() {
     var query = this[i];
     str += queryToString(query, query.subject);
     if (this.length > 1 && i < this.length - 1) {
+=======
+    return query2.checks.reduce(function(str2, chk, i3) {
+      return str2 + (subject === query2 && i3 === 0 ? "$" : "") + checkToString(chk, subject);
+    }, "");
+  };
+  var str = "";
+  for (var i2 = 0; i2 < this.length; i2++) {
+    var query = this[i2];
+    str += queryToString(query, query.subject);
+    if (this.length > 1 && i2 < this.length - 1) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       str += ", ";
     }
   }
@@ -117002,8 +121768,12 @@ var Selector = function Selector2(selector) {
   this.compoundCount = 0;
   this.edgeCount = 0;
   this.length = 0;
+<<<<<<< HEAD
   if (selector == null || string(selector) && selector.match(/^\s*$/))
     ;
+=======
+  if (selector == null || string(selector) && selector.match(/^\s*$/)) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   else if (elementOrCollection(selector)) {
     this.addQuery({
       checks: [{
@@ -117036,8 +121806,13 @@ selfn.text = function() {
 selfn.size = function() {
   return this.length;
 };
+<<<<<<< HEAD
 selfn.eq = function(i) {
   return this[i];
+=======
+selfn.eq = function(i2) {
+  return this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 };
 selfn.sameText = function(otherSel) {
   return !this.invalid && !otherSel.invalid && this.text() === otherSel.text();
@@ -117060,8 +121835,13 @@ var elesfn$g = {
     });
   },
   some: function some(fn3, thisArg) {
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ret = !thisArg ? fn3(this[i], i, this) : fn3.apply(thisArg, [this[i], i, this]);
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ret = !thisArg ? fn3(this[i2], i2, this) : fn3.apply(thisArg, [this[i2], i2, this]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (ret) {
         return true;
       }
@@ -117069,8 +121849,13 @@ var elesfn$g = {
     return false;
   },
   every: function every(fn3, thisArg) {
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ret = !thisArg ? fn3(this[i], i, this) : fn3.apply(thisArg, [this[i], i, this]);
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ret = !thisArg ? fn3(this[i2], i2, this) : fn3.apply(thisArg, [this[i2], i2, this]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!ret) {
         return false;
       }
@@ -117153,8 +121938,13 @@ var elesfn$f = {
         return parent4;
       }
     }
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var _parent = ele._private.parent;
       if (_parent) {
         parents2.push(_parent);
@@ -117166,8 +121956,13 @@ var elesfn$f = {
     var parents2 = [];
     var eles = this.parent();
     while (eles.nonempty()) {
+<<<<<<< HEAD
       for (var i = 0; i < eles.length; i++) {
         var ele = eles[i];
+=======
+      for (var i2 = 0; i2 < eles.length; i2++) {
+        var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         parents2.push(ele);
       }
       eles = eles.parent();
@@ -117176,8 +121971,13 @@ var elesfn$f = {
   },
   commonAncestors: function commonAncestors(selector) {
     var ancestors;
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var parents2 = ele.parents();
       ancestors = ancestors || parents2;
       ancestors = ancestors.intersect(parents2);
@@ -117196,8 +121996,13 @@ var elesfn$f = {
   },
   children: cache(function(selector) {
     var children = [];
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var eleChildren = ele._private.children;
       for (var j = 0; j < eleChildren.length; j++) {
         children.push(eleChildren[j]);
@@ -117235,8 +122040,13 @@ var elesfn$f = {
   descendants: function descendants(selector) {
     var elements = [];
     function add3(eles) {
+<<<<<<< HEAD
       for (var i = 0; i < eles.length; i++) {
         var ele = eles[i];
+=======
+      for (var i2 = 0; i2 < eles.length; i2++) {
+        var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         elements.push(ele);
         if (ele.children().nonempty()) {
           add3(ele.children());
@@ -117252,8 +122062,13 @@ function forEachCompound(eles, fn3, includeSelf, recursiveStep) {
   var did = new Set$1();
   var cy2 = eles.cy();
   var hasCompounds = cy2.hasCompoundNodes();
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (includeSelf) {
       q.push(ele);
     } else if (hasCompounds) {
@@ -117273,8 +122088,13 @@ function forEachCompound(eles, fn3, includeSelf, recursiveStep) {
 function addChildren(q, did, ele) {
   if (ele.isParent()) {
     var children = ele._private.children;
+<<<<<<< HEAD
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
+=======
+    for (var i2 = 0; i2 < children.length; i2++) {
+      var child = children[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!did.has(child.id())) {
         q.push(child);
       }
@@ -117392,8 +122212,13 @@ function defineDegreeFunction(callback) {
       var degree = 0;
       var node = self2[0];
       var connectedEdges = node._private.edges;
+<<<<<<< HEAD
       for (var i = 0; i < connectedEdges.length; i++) {
         var edge = connectedEdges[i];
+=======
+      for (var i2 = 0; i2 < connectedEdges.length; i2++) {
+        var edge = connectedEdges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (!includeLoops && edge.isLoop()) {
           continue;
         }
@@ -117432,8 +122257,13 @@ function defineDegreeBoundsFunction(degreeFn, callback) {
   return function(includeLoops) {
     var ret;
     var nodes3 = this.nodes();
+<<<<<<< HEAD
     for (var i = 0; i < nodes3.length; i++) {
       var ele = nodes3[i];
+=======
+    for (var i2 = 0; i2 < nodes3.length; i2++) {
+      var ele = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var degree = ele[degreeFn](includeLoops);
       if (degree !== void 0 && (ret === void 0 || callback(degree, ret))) {
         ret = degree;
@@ -117466,8 +122296,13 @@ extend(elesfn$d, {
   totalDegree: function totalDegree(includeLoops) {
     var total = 0;
     var nodes3 = this.nodes();
+<<<<<<< HEAD
     for (var i = 0; i < nodes3.length; i++) {
       total += nodes3[i].degree(includeLoops);
+=======
+    for (var i2 = 0; i2 < nodes3.length; i2++) {
+      total += nodes3[i2].degree(includeLoops);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     return total;
   }
@@ -117475,8 +122310,13 @@ extend(elesfn$d, {
 var fn$4;
 var elesfn$c;
 var beforePositionSet = function beforePositionSet2(eles, newPos, silent) {
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (!ele.locked()) {
       var oldPos = ele._private.position;
       var delta = {
@@ -117539,10 +122379,17 @@ fn$4 = elesfn$c = {
       var _fn = pos;
       var cy2 = this.cy();
       cy2.startBatch();
+<<<<<<< HEAD
       for (var i = 0; i < this.length; i++) {
         var ele = this[i];
         var _pos = void 0;
         if (_pos = _fn(ele, i)) {
+=======
+      for (var i2 = 0; i2 < this.length; i2++) {
+        var ele = this[i2];
+        var _pos = void 0;
+        if (_pos = _fn(ele, i2)) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           if (silent) {
             ele.silentPosition(_pos);
           } else {
@@ -117575,8 +122422,13 @@ fn$4 = elesfn$c = {
     if (delta != null) {
       var cy2 = this.cy();
       cy2.startBatch();
+<<<<<<< HEAD
       for (var i = 0; i < this.length; i++) {
         var ele = this[i];
+=======
+      for (var i2 = 0; i2 < this.length; i2++) {
+        var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (cy2.hasCompoundNodes() && ele.isChild() && ele.ancestors().anySame(this)) {
           continue;
         }
@@ -117613,8 +122465,13 @@ fn$4 = elesfn$c = {
     var setting = rpos !== void 0 || val !== void 0 && string(dim);
     if (ele && ele.isNode()) {
       if (setting) {
+<<<<<<< HEAD
         for (var i = 0; i < this.length; i++) {
           var _ele = this[i];
+=======
+        for (var i2 = 0; i2 < this.length; i2++) {
+          var _ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           if (val !== void 0) {
             _ele.position(dim, (val - pan2[dim]) / zoom2);
           } else if (rpos !== void 0) {
@@ -117644,8 +122501,13 @@ fn$4 = elesfn$c = {
     var hasCompoundNodes2 = cy2.hasCompoundNodes();
     if (ele && ele.isNode()) {
       if (setting) {
+<<<<<<< HEAD
         for (var i = 0; i < this.length; i++) {
           var _ele2 = this[i];
+=======
+        for (var i2 = 0; i2 < this.length; i2++) {
+          var _ele2 = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var parent4 = hasCompoundNodes2 ? _ele2.parent() : null;
           var hasParent = parent4 && parent4.length > 0;
           var relativeToParent = hasParent;
@@ -117846,8 +122708,13 @@ elesfn$b.updateCompoundBounds = function() {
     _p2.autoHeight = Math.max(bb.h, min4.height.val);
     pos.y = (-diffTop + bb.y1 + bb.y2 + diffBottom) / 2;
   }
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     var ele = this[i];
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var _p = ele._private;
     if (!_p.compoundBoundsClean || force) {
       update2(ele);
@@ -118314,9 +123181,15 @@ var boundingBoxImpl = function boundingBoxImpl2(ele, options2) {
   return bounds2;
 };
 var getKey = function getKey2(opts) {
+<<<<<<< HEAD
   var i = 0;
   var tf = function tf2(val) {
     return (val ? 1 : 0) << i++;
+=======
+  var i2 = 0;
+  var tf = function tf2(val) {
+    return (val ? 1 : 0) << i2++;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   var key = 0;
   key += tf(opts.incudeNodes);
@@ -118428,8 +123301,13 @@ elesfn$b.boundingBox = function(options2) {
       this.recalculateRenderedStyle(useCache);
     }
     this.updateCompoundBounds(!useCache);
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var ele = eles[i];
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (isDirty(ele)) {
         ele.dirtyBoundingBoxCache();
       }
@@ -118445,8 +123323,13 @@ elesfn$b.boundingBox = function(options2) {
   return bounds2;
 };
 elesfn$b.dirtyBoundingBoxCache = function() {
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     var _p = this[i]._private;
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    var _p = this[i2]._private;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     _p.bbCache = null;
     _p.bbCachePosKey = null;
     _p.bodyBounds = null;
@@ -118483,8 +123366,13 @@ elesfn$b.boundingBoxAt = function(fn3) {
       return obj;
     };
   }
+<<<<<<< HEAD
   var storeOldPos = function storeOldPos2(node, i) {
     return node._private.bbAtOldPos = fn3(node, i);
+=======
+  var storeOldPos = function storeOldPos2(node, i2) {
+    return node._private.bbAtOldPos = fn3(node, i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   var getOldPos = function getOldPos2(node) {
     return node._private.bbAtOldPos;
@@ -118791,8 +123679,13 @@ var emptyOpts = {};
 function Emitter() {
   var opts = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : emptyOpts;
   var context = arguments.length > 1 ? arguments[1] : void 0;
+<<<<<<< HEAD
   for (var i = 0; i < defaultsKeys.length; i++) {
     var key = defaultsKeys[i];
+=======
+  for (var i2 = 0; i2 < defaultsKeys.length; i2++) {
+    var key = defaultsKeys[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     this[key] = opts[key] || defaults$8[key];
   }
   this.context = context || this.context;
@@ -118813,8 +123706,13 @@ var forEachEvent = function forEachEvent2(self2, handler, events, qualifier, cal
     }
   }
   var eventList = array(events) ? events : events.split(/\s+/);
+<<<<<<< HEAD
   for (var i = 0; i < eventList.length; i++) {
     var evt = eventList[i];
+=======
+  for (var i2 = 0; i2 < eventList.length; i2++) {
+    var evt = eventList[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (emptyString(evt)) {
       continue;
     }
@@ -118842,8 +123740,13 @@ var forEachEventObj = function forEachEventObj2(self2, handler, events) {
     return;
   }
   var eventList = array(events) ? events : events.split(/\s+/);
+<<<<<<< HEAD
   for (var i = 0; i < eventList.length; i++) {
     var evt = eventList[i];
+=======
+  for (var i2 = 0; i2 < eventList.length; i2++) {
+    var evt = eventList[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (emptyString(evt)) {
       continue;
     }
@@ -118892,17 +123795,30 @@ p.removeListener = p.off = function(events, qualifier, callback, conf) {
     this.listeners = copyArray(this.listeners);
   }
   var listeners = this.listeners;
+<<<<<<< HEAD
   var _loop = function _loop2(i2) {
     var listener = listeners[i2];
     forEachEvent(_this, function(self2, event3, type, namespace, qualifier2, callback2) {
       if ((listener.type === type || events === "*") && (!namespace && listener.namespace !== ".*" || listener.namespace === namespace) && (!qualifier2 || self2.qualifierCompare(listener.qualifier, qualifier2)) && (!callback2 || listener.callback === callback2)) {
         listeners.splice(i2, 1);
+=======
+  var _loop = function _loop2(i3) {
+    var listener = listeners[i3];
+    forEachEvent(_this, function(self2, event3, type, namespace, qualifier2, callback2) {
+      if ((listener.type === type || events === "*") && (!namespace && listener.namespace !== ".*" || listener.namespace === namespace) && (!qualifier2 || self2.qualifierCompare(listener.qualifier, qualifier2)) && (!callback2 || listener.callback === callback2)) {
+        listeners.splice(i3, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         return false;
       }
     }, events, qualifier, callback, conf);
   };
+<<<<<<< HEAD
   for (var i = listeners.length - 1; i >= 0; i--) {
     _loop(i);
+=======
+  for (var i2 = listeners.length - 1; i2 >= 0; i2--) {
+    _loop(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return this;
 };
@@ -118927,7 +123843,11 @@ p.emit = p.trigger = function(events, extraParams, manualCallback) {
       numListenersBeforeEmit = listeners.length;
     }
     var _loop2 = function _loop22() {
+<<<<<<< HEAD
       var listener = listeners[i];
+=======
+      var listener = listeners[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (listener.type === eventObj.type && (!listener.namespace || listener.namespace === eventObj.namespace || listener.namespace === universalNamespace) && self2.eventMatches(self2.context, listener, eventObj)) {
         var args = [eventObj];
         if (extraParams != null) {
@@ -118948,7 +123868,11 @@ p.emit = p.trigger = function(events, extraParams, manualCallback) {
         }
       }
     };
+<<<<<<< HEAD
     for (var i = 0; i < numListenersBeforeEmit; i++) {
+=======
+    for (var i2 = 0; i2 < numListenersBeforeEmit; i2++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       _loop2();
     }
     if (self2.bubble(self2.context) && !eventObj.isPropagationStopped()) {
@@ -119001,8 +123925,13 @@ var argSelector$1 = function argSelector(arg) {
 };
 var elesfn$9 = {
   createEmitter: function createEmitter() {
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var _p = ele._private;
       if (!_p.emitter) {
         _p.emitter = new Emitter(emitterOptions$1, ele);
@@ -119015,39 +123944,64 @@ var elesfn$9 = {
   },
   on: function on(events, selector, callback) {
     var argSel = argSelector$1(selector);
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ele.emitter().on(events, argSel, callback);
     }
     return this;
   },
   removeListener: function removeListener(events, selector, callback) {
     var argSel = argSelector$1(selector);
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ele.emitter().removeListener(events, argSel, callback);
     }
     return this;
   },
   removeAllListeners: function removeAllListeners() {
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ele.emitter().removeAllListeners();
     }
     return this;
   },
   one: function one(events, selector, callback) {
     var argSel = argSelector$1(selector);
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ele.emitter().one(events, argSel, callback);
     }
     return this;
   },
   once: function once(events, selector, callback) {
     var argSel = argSelector$1(selector);
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ele.emitter().on(events, argSel, callback, {
         once: true,
         onceCollection: this
@@ -119055,8 +124009,13 @@ var elesfn$9 = {
     }
   },
   emit: function emit(events, extraParams) {
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ele.emitter().emit(events, extraParams);
     }
     return this;
@@ -119086,8 +124045,13 @@ var elesfn$8 = {
   byGroup: function byGroup() {
     var nodes3 = this.spawn();
     var edges3 = this.spawn();
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (ele.isNode()) {
         nodes3.push(ele);
       } else {
@@ -119107,9 +124071,15 @@ var elesfn$8 = {
     } else if (fn$6(_filter)) {
       var filterEles = this.spawn();
       var eles = this;
+<<<<<<< HEAD
       for (var i = 0; i < eles.length; i++) {
         var ele = eles[i];
         var include = thisArg ? _filter.apply(thisArg, [ele, i, eles]) : _filter(ele, i, eles);
+=======
+      for (var i2 = 0; i2 < eles.length; i2++) {
+        var ele = eles[i2];
+        var include = thisArg ? _filter.apply(thisArg, [ele, i2, eles]) : _filter(ele, i2, eles);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (include) {
           filterEles.push(ele);
         }
@@ -119126,8 +124096,13 @@ var elesfn$8 = {
         toRemove = this.filter(toRemove);
       }
       var elements = this.spawn();
+<<<<<<< HEAD
       for (var i = 0; i < this.length; i++) {
         var element3 = this[i];
+=======
+      for (var i2 = 0; i2 < this.length; i2++) {
+        var element3 = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var remove2 = toRemove.has(element3);
         if (!remove2) {
           elements.push(element3);
@@ -119151,8 +124126,13 @@ var elesfn$8 = {
     var col1Smaller = this.length < other.length;
     var colS = col1Smaller ? col1 : col2;
     var colL = col1Smaller ? col2 : col1;
+<<<<<<< HEAD
     for (var i = 0; i < colS.length; i++) {
       var ele = colS[i];
+=======
+    for (var i2 = 0; i2 < colS.length; i2++) {
+      var ele = colS[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (colL.has(ele)) {
         elements.push(ele);
       }
@@ -119168,8 +124148,13 @@ var elesfn$8 = {
     var col1 = this;
     var col2 = other;
     var add3 = function add4(col, other2) {
+<<<<<<< HEAD
       for (var i = 0; i < col.length; i++) {
         var ele = col[i];
+=======
+      for (var i2 = 0; i2 < col.length; i2++) {
+        var ele = col[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var id2 = ele._private.data.id;
         var inOther = other2.hasElementWithId(id2);
         if (!inOther) {
@@ -119192,8 +124177,13 @@ var elesfn$8 = {
     var col1 = this;
     var col2 = other;
     var add3 = function add4(col, other2, retEles) {
+<<<<<<< HEAD
       for (var i = 0; i < col.length; i++) {
         var ele = col[i];
+=======
+      for (var i2 = 0; i2 < col.length; i2++) {
+        var ele = col[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var id2 = ele._private.data.id;
         var inOther = other2.hasElementWithId(id2);
         if (inOther) {
@@ -119221,8 +124211,13 @@ var elesfn$8 = {
       toAdd = cy2.mutableElements().filter(selector);
     }
     var elements = this.spawnSelf();
+<<<<<<< HEAD
     for (var i = 0; i < toAdd.length; i++) {
       var ele = toAdd[i];
+=======
+    for (var i2 = 0; i2 < toAdd.length; i2++) {
+      var ele = toAdd[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var add3 = !this.has(ele);
       if (add3) {
         elements.push(ele);
@@ -119242,8 +124237,13 @@ var elesfn$8 = {
       toAdd = cy2.mutableElements().filter(selector);
     }
     var map2 = _p.map;
+<<<<<<< HEAD
     for (var i = 0; i < toAdd.length; i++) {
       var toAddEle = toAdd[i];
+=======
+    for (var i2 = 0; i2 < toAdd.length; i2++) {
+      var toAddEle = toAdd[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var id2 = toAddEle._private.data.id;
       var add3 = !map2.has(id2);
       if (add3) {
@@ -119257,6 +124257,7 @@ var elesfn$8 = {
     }
     return this;
   },
+<<<<<<< HEAD
   unmergeAt: function unmergeAt(i) {
     var ele = this[i];
     var id2 = ele.id();
@@ -119265,15 +124266,32 @@ var elesfn$8 = {
     this[i] = void 0;
     map2["delete"](id2);
     var unmergedLastEle = i === this.length - 1;
+=======
+  unmergeAt: function unmergeAt(i2) {
+    var ele = this[i2];
+    var id2 = ele.id();
+    var _p = this._private;
+    var map2 = _p.map;
+    this[i2] = void 0;
+    map2["delete"](id2);
+    var unmergedLastEle = i2 === this.length - 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (this.length > 1 && !unmergedLastEle) {
       var lastEleI = this.length - 1;
       var lastEle = this[lastEleI];
       var lastEleId = lastEle._private.data.id;
       this[lastEleI] = void 0;
+<<<<<<< HEAD
       this[i] = lastEle;
       map2.set(lastEleId, {
         ele: lastEle,
         index: i
+=======
+      this[i2] = lastEle;
+      map2.set(lastEleId, {
+        ele: lastEle,
+        index: i2
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       });
     }
     this.length--;
@@ -119289,8 +124307,13 @@ var elesfn$8 = {
     if (!entry) {
       return this;
     }
+<<<<<<< HEAD
     var i = entry.index;
     this.unmergeAt(i);
+=======
+    var i2 = entry.index;
+    this.unmergeAt(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return this;
   },
   // remove eles in place on calling collection
@@ -119303,16 +124326,28 @@ var elesfn$8 = {
       var selector = toRemove;
       toRemove = cy2.mutableElements().filter(selector);
     }
+<<<<<<< HEAD
     for (var i = 0; i < toRemove.length; i++) {
       this.unmergeOne(toRemove[i]);
+=======
+    for (var i2 = 0; i2 < toRemove.length; i2++) {
+      this.unmergeOne(toRemove[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     return this;
   },
   unmergeBy: function unmergeBy(toRmFn) {
+<<<<<<< HEAD
     for (var i = this.length - 1; i >= 0; i--) {
       var ele = this[i];
       if (toRmFn(ele)) {
         this.unmergeAt(i);
+=======
+    for (var i2 = this.length - 1; i2 >= 0; i2--) {
+      var ele = this[i2];
+      if (toRmFn(ele)) {
+        this.unmergeAt(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
     return this;
@@ -119320,9 +124355,15 @@ var elesfn$8 = {
   map: function map(mapFn, thisArg) {
     var arr = [];
     var eles = this;
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var ele = eles[i];
       var ret = thisArg ? mapFn.apply(thisArg, [ele, i, eles]) : mapFn(ele, i, eles);
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var ele = eles[i2];
+      var ret = thisArg ? mapFn.apply(thisArg, [ele, i2, eles]) : mapFn(ele, i2, eles);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       arr.push(ret);
     }
     return arr;
@@ -119330,8 +124371,13 @@ var elesfn$8 = {
   reduce: function reduce(fn3, initialValue) {
     var val = initialValue;
     var eles = this;
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       val = fn3(val, eles[i], i, eles);
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      val = fn3(val, eles[i2], i2, eles);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     return val;
   },
@@ -119339,9 +124385,15 @@ var elesfn$8 = {
     var max5 = -Infinity;
     var maxEle;
     var eles = this;
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var ele = eles[i];
       var val = thisArg ? valFn.apply(thisArg, [ele, i, eles]) : valFn(ele, i, eles);
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var ele = eles[i2];
+      var val = thisArg ? valFn.apply(thisArg, [ele, i2, eles]) : valFn(ele, i2, eles);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (val > max5) {
         max5 = val;
         maxEle = ele;
@@ -119356,9 +124408,15 @@ var elesfn$8 = {
     var min4 = Infinity;
     var minEle;
     var eles = this;
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var ele = eles[i];
       var val = thisArg ? valFn.apply(thisArg, [ele, i, eles]) : valFn(ele, i, eles);
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var ele = eles[i2];
+      var val = thisArg ? valFn.apply(thisArg, [ele, i2, eles]) : valFn(ele, i2, eles);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (val < min4) {
         min4 = val;
         minEle = ele;
@@ -119436,9 +124494,15 @@ var elesfn$6 = {
   forEach: function forEach(fn3, thisArg) {
     if (fn$6(fn3)) {
       var N = this.length;
+<<<<<<< HEAD
       for (var i = 0; i < N; i++) {
         var ele = this[i];
         var ret = thisArg ? fn3.apply(thisArg, [ele, i, this]) : fn3(ele, i, this);
+=======
+      for (var i2 = 0; i2 < N; i2++) {
+        var ele = this[i2];
+        var ret = thisArg ? fn3.apply(thisArg, [ele, i2, this]) : fn3(ele, i2, this);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (ret === false) {
           break;
         }
@@ -119448,8 +124512,13 @@ var elesfn$6 = {
   },
   toArray: function toArray() {
     var array3 = [];
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       array3.push(this[i]);
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      array3.push(this[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     return array3;
   },
@@ -119468,16 +124537,26 @@ var elesfn$6 = {
     if (end < 0) {
       end = thisSize + end;
     }
+<<<<<<< HEAD
     for (var i = start; i >= 0 && i < end && i < thisSize; i++) {
       array3.push(this[i]);
+=======
+    for (var i2 = start; i2 >= 0 && i2 < end && i2 < thisSize; i2++) {
+      array3.push(this[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     return this.spawn(array3);
   },
   size: function size() {
     return this.length;
   },
+<<<<<<< HEAD
   eq: function eq(i) {
     return this[i] || this.spawn();
+=======
+  eq: function eq(i2) {
+    return this[i2] || this.spawn();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   first: function first() {
     return this[0] || this.spawn();
@@ -119534,12 +124613,21 @@ var defineSymbolIterator = function defineSymbolIterator2() {
         value: void 0,
         done: false
       };
+<<<<<<< HEAD
       var i = 0;
       var length = this.length;
       return _defineProperty$1({
         next: function next2() {
           if (i < length) {
             entry.value = _this[i++];
+=======
+      var i2 = 0;
+      var length = this.length;
+      return _defineProperty$1({
+        next: function next2() {
+          if (i2 < length) {
+            entry.value = _this[i2++];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           } else {
             entry.value = void 0;
             entry.done = true;
@@ -119620,16 +124708,27 @@ var elesfn$5 = {
         return null;
       }
       var bb2 = makeBoundingBox();
+<<<<<<< HEAD
       for (var i2 = 0; i2 < nodes3.length; i2++) {
         var node2 = nodes3[i2];
         var pos = fnMem(node2, i2);
+=======
+      for (var i3 = 0; i3 < nodes3.length; i3++) {
+        var node2 = nodes3[i3];
+        var pos = fnMem(node2, i3);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         expandBoundingBoxByPoint(bb2, pos.x, pos.y);
       }
       return bb2;
     };
     var bb = spacingBb();
+<<<<<<< HEAD
     var getFinalPos = memoize(function(node2, i2) {
       var newPos2 = fnMem(node2, i2);
+=======
+    var getFinalPos = memoize(function(node2, i3) {
+      var newPos2 = fnMem(node2, i3);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (useSpacingFactor) {
         var spacing = Math.abs(options2.spacingFactor);
         newPos2 = calculateSpacing(spacing, bb, newPos2);
@@ -119640,10 +124739,17 @@ var elesfn$5 = {
       return newPos2;
     }, getMemoizeKey);
     if (options2.animate) {
+<<<<<<< HEAD
       for (var i = 0; i < nodes3.length; i++) {
         var node = nodes3[i];
         var newPos = getFinalPos(node, i);
         var animateNode = options2.animateFilter == null || options2.animateFilter(node, i);
+=======
+      for (var i2 = 0; i2 < nodes3.length; i2++) {
+        var node = nodes3[i2];
+        var newPos = getFinalPos(node, i2);
+        var animateNode = options2.animateFilter == null || options2.animateFilter(node, i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (animateNode) {
           var ani = node.animation({
             position: newPos,
@@ -119814,8 +124920,13 @@ var elesfn$4 = {
     if (!cy2.styleEnabled()) {
       return;
     }
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (ele._private.styleDirty) {
         ele._private.styleDirty = false;
         cy2.style().apply(ele);
@@ -119919,8 +125030,13 @@ var elesfn$4 = {
     var style3 = cy2.style();
     var eles = this;
     if (names === void 0) {
+<<<<<<< HEAD
       for (var i = 0; i < eles.length; i++) {
         var ele = eles[i];
+=======
+      for (var i2 = 0; i2 < eles.length; i2++) {
+        var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         style3.removeAllBypasses(ele, updateTransitions);
       }
     } else {
@@ -119956,8 +125072,13 @@ var elesfn$4 = {
       }
       var parents2 = !_p.data.parent ? null : ele.parents();
       if (parents2) {
+<<<<<<< HEAD
         for (var i = 0; i < parents2.length; i++) {
           var parent4 = parents2[i];
+=======
+        for (var i2 = 0; i2 < parents2.length; i2++) {
+          var parent4 = parents2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var opacity = parent4.pstyle("opacity").value;
           parentOpacity = opacity * parentOpacity;
         }
@@ -119993,8 +125114,13 @@ function checkCompound(ele, parentOk) {
   var _p = ele._private;
   var parents2 = _p.data.parent ? ele.parents() : null;
   if (parents2) {
+<<<<<<< HEAD
     for (var i = 0; i < parents2.length; i++) {
       var parent4 = parents2[i];
+=======
+    for (var i2 = 0; i2 < parents2.length; i2++) {
+      var parent4 = parents2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!parentOk(parent4)) {
         return false;
       }
@@ -120089,8 +125215,13 @@ function defineSwitchFunction(params) {
       this.on(params.event, _handler);
     } else if (args.length === 0 || args.length === 1 && array(args[0])) {
       var addlEvents = args.length === 1 ? args[0] : null;
+<<<<<<< HEAD
       for (var i = 0; i < this.length; i++) {
         var ele = this[i];
+=======
+      for (var i2 = 0; i2 < this.length; i2++) {
+        var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var able = !params.ableField || ele._private[params.ableField];
         var changed = ele._private[params.field] != params.value;
         if (params.overrideAble) {
@@ -120208,8 +125339,13 @@ var defineDagExtremity = function defineDagExtremity2(params) {
   return function dagExtremityImpl(selector) {
     var eles = this;
     var ret = [];
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var ele = eles[i];
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!ele.isNode()) {
         continue;
       }
@@ -120235,8 +125371,13 @@ var defineDagOneHop = function defineDagOneHop2(params) {
   return function(selector) {
     var eles = this;
     var oEles = [];
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var ele = eles[i];
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!ele.isNode()) {
         continue;
       }
@@ -120268,8 +125409,13 @@ var defineDagAllHops = function defineDagAllHops2(params) {
         break;
       }
       var newNext = false;
+<<<<<<< HEAD
       for (var i = 0; i < next2.length; i++) {
         var n = next2[i];
+=======
+      for (var i2 = 0; i2 < next2.length; i2++) {
+        var n = next2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var nid = n.id();
         if (!sElesIds[nid]) {
           sElesIds[nid] = true;
@@ -120286,8 +125432,13 @@ var defineDagAllHops = function defineDagAllHops2(params) {
   };
 };
 elesfn$2.clearTraversalCache = function() {
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     this[i]._private.traversalCache = null;
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    this[i2]._private.traversalCache = null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 };
 extend(elesfn$2, {
@@ -120320,8 +125471,13 @@ extend(elesfn$2, {
   neighborhood: cache(function(selector) {
     var elements = [];
     var nodes3 = this.nodes();
+<<<<<<< HEAD
     for (var i = 0; i < nodes3.length; i++) {
       var node = nodes3[i];
+=======
+    for (var i2 = 0; i2 < nodes3.length; i2++) {
+      var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var connectedEdges = node.connectedEdges();
       for (var j = 0; j < connectedEdges.length; j++) {
         var edge = connectedEdges[j];
@@ -120373,8 +125529,13 @@ extend(elesfn$2, {
 function defineSourceFunction(params) {
   return function sourceImpl2(selector) {
     var sources = [];
+<<<<<<< HEAD
     for (var i = 0; i < this.length; i++) {
       var ele = this[i];
+=======
+    for (var i2 = 0; i2 < this.length; i2++) {
+      var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var src = ele._private[params.attr];
       if (src) {
         sources.push(src);
@@ -120399,8 +125560,13 @@ function defineEdgesWithFunction(params) {
     }
     for (var h = 0; h < otherNodes.length; h++) {
       var edges3 = otherNodes[h]._private.edges;
+<<<<<<< HEAD
       for (var i = 0; i < edges3.length; i++) {
         var edge = edges3[i];
+=======
+      for (var i2 = 0; i2 < edges3.length; i2++) {
+        var edge = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var edgeData = edge._private.data;
         var thisToOther = this.hasElementWithId(edgeData.source) && otherNodes.hasElementWithId(edgeData.target);
         var otherToThis = otherNodes.hasElementWithId(edgeData.source) && this.hasElementWithId(edgeData.target);
@@ -120426,8 +125592,13 @@ extend(elesfn$2, {
   connectedEdges: cache(function(selector) {
     var retEles = [];
     var eles = this;
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var node = eles[i];
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var node = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!node.isNode()) {
         continue;
       }
@@ -120442,8 +125613,13 @@ extend(elesfn$2, {
   connectedNodes: cache(function(selector) {
     var retEles = [];
     var eles = this;
+<<<<<<< HEAD
     for (var i = 0; i < eles.length; i++) {
       var edge = eles[i];
+=======
+    for (var i2 = 0; i2 < eles.length; i2++) {
+      var edge = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (!edge.isEdge()) {
         continue;
       }
@@ -120466,8 +125642,13 @@ function defineParallelEdgesFunction(params) {
     var elements = [];
     var edges3 = this.edges();
     var p2 = params;
+<<<<<<< HEAD
     for (var i = 0; i < edges3.length; i++) {
       var edge1 = edges3[i];
+=======
+    for (var i2 = 0; i2 < edges3.length; i2++) {
+      var edge1 = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var edge1_p = edge1._private;
       var src1 = edge1_p.source;
       var srcid1 = src1._private.data.id;
@@ -120552,8 +125733,13 @@ var Collection = function Collection2(cy2, elements) {
     createdElements = true;
     var eles = [];
     var elesIds = new Set$1();
+<<<<<<< HEAD
     for (var i = 0, l = elements.length; i < l; i++) {
       var json2 = elements[i];
+=======
+    for (var i2 = 0, l = elements.length; i2 < l; i2++) {
+      var json2 = elements[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (json2.data == null) {
         json2.data = {};
       }
@@ -120757,17 +125943,28 @@ elesfn$1.json = function(obj) {
       classes: null
     };
     json2.classes = "";
+<<<<<<< HEAD
     var i = 0;
     p2.classes.forEach(function(cls) {
       return json2.classes += i++ === 0 ? cls : " " + cls;
+=======
+    var i2 = 0;
+    p2.classes.forEach(function(cls) {
+      return json2.classes += i2++ === 0 ? cls : " " + cls;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     });
     return json2;
   }
 };
 elesfn$1.jsons = function() {
   var jsons = [];
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     var ele = this[i];
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var json2 = ele.json();
     jsons.push(json2);
   }
@@ -120776,8 +125973,13 @@ elesfn$1.jsons = function() {
 elesfn$1.clone = function() {
   var cy2 = this.cy();
   var elesArr = [];
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     var ele = this[i];
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    var ele = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var json2 = ele.json();
     var clone3 = new Element(cy2, json2, false);
     elesArr.push(clone3);
@@ -120806,6 +126008,7 @@ elesfn$1.restore = function() {
     }
   }
   elements = nodes3.concat(edges3);
+<<<<<<< HEAD
   var i;
   var removeFromElements = function removeFromElements2() {
     elements.splice(i, 1);
@@ -120818,6 +126021,19 @@ elesfn$1.restore = function() {
     _ele2.clearTraversalCache();
     if (!addToPool2 && !_private.removed)
       ;
+=======
+  var i2;
+  var removeFromElements = function removeFromElements2() {
+    elements.splice(i2, 1);
+    i2--;
+  };
+  for (i2 = 0; i2 < elements.length; i2++) {
+    var _ele2 = elements[i2];
+    var _private = _ele2._private;
+    var _data3 = _private.data;
+    _ele2.clearTraversalCache();
+    if (!addToPool2 && !_private.removed) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (_data3.id === void 0) {
       _data3.id = uuid();
     } else if (number$1(_data3.id)) {
@@ -120963,14 +126179,24 @@ elesfn$1.remove = function() {
   var cy2 = self2._private.cy;
   function addConnectedEdges(node) {
     var edges3 = node._private.edges;
+<<<<<<< HEAD
     for (var i2 = 0; i2 < edges3.length; i2++) {
       add3(edges3[i2]);
+=======
+    for (var i3 = 0; i3 < edges3.length; i3++) {
+      add3(edges3[i3]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   function addChildren2(node) {
     var children = node._private.children;
+<<<<<<< HEAD
     for (var i2 = 0; i2 < children.length; i2++) {
       add3(children[i2]);
+=======
+    for (var i3 = 0; i3 < children.length; i3++) {
+      add3(children[i3]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   function add3(ele2) {
@@ -120988,8 +126214,13 @@ elesfn$1.remove = function() {
       elesToRemove.unshift(ele2);
     }
   }
+<<<<<<< HEAD
   for (var i = 0, l = self2.length; i < l; i++) {
     var ele = self2[i];
+=======
+  for (var i2 = 0, l = self2.length; i2 < l; i2++) {
+    var ele = self2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     add3(ele);
   }
   function removeEdgeRef(node, edge) {
@@ -121085,8 +126316,13 @@ elesfn$1.move = function(struct) {
       cy2.batch(function() {
         eles.remove(notifyRenderer, modifyPool);
         eles.emitAndNotify("moveout");
+<<<<<<< HEAD
         for (var i = 0; i < eles.length; i++) {
           var ele = eles[i];
+=======
+        for (var i2 = 0; i2 < eles.length; i2++) {
+          var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var _data5 = ele._private.data;
           if (ele.isEdge()) {
             if (srcExists) {
@@ -121109,8 +126345,13 @@ elesfn$1.move = function(struct) {
       cy2.batch(function() {
         var updated = eles.remove(notifyRenderer, modifyPool);
         updated.emitAndNotify("moveout");
+<<<<<<< HEAD
         for (var i = 0; i < eles.length; i++) {
           var ele = eles[i];
+=======
+        for (var i2 = 0; i2 < eles.length; i2++) {
+          var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var _data6 = ele._private.data;
           if (ele.isNode()) {
             _data6.parent = pidToAssign;
@@ -121136,8 +126377,13 @@ var corefn$9 = {
         elements = eles.restore();
       } else {
         var jsons = [];
+<<<<<<< HEAD
         for (var i = 0; i < eles.length; i++) {
           var ele = eles[i];
+=======
+        for (var i2 = 0; i2 < eles.length; i2++) {
+          var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           jsons.push(ele.json());
         }
         elements = new Collection(cy2, jsons);
@@ -121169,8 +126415,12 @@ var corefn$9 = {
     return elements;
   },
   remove: function remove(collection4) {
+<<<<<<< HEAD
     if (elementOrCollection(collection4))
       ;
+=======
+    if (elementOrCollection(collection4)) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (string(collection4)) {
       var selector = collection4;
       collection4 = this.$(selector);
@@ -121183,8 +126433,13 @@ function generateCubicBezier(mX1, mY1, mX2, mY2) {
   if (arguments.length !== 4) {
     return false;
   }
+<<<<<<< HEAD
   for (var i = 0; i < 4; ++i) {
     if (typeof arguments[i] !== "number" || isNaN(arguments[i]) || !isFinite(arguments[i])) {
+=======
+  for (var i2 = 0; i2 < 4; ++i2) {
+    if (typeof arguments[i2] !== "number" || isNaN(arguments[i2]) || !isFinite(arguments[i2])) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return false;
     }
   }
@@ -121225,7 +126480,11 @@ function generateCubicBezier(mX1, mY1, mX2, mY2) {
     }
   }
   function binarySubdivide(aX, aA, aB) {
+<<<<<<< HEAD
     var currentX, currentT, i2 = 0;
+=======
+    var currentX, currentT, i3 = 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     do {
       currentT = aA + (aB - aA) / 2;
       currentX = calcBezier(currentT, mX1, mX2) - aX;
@@ -121234,7 +126493,11 @@ function generateCubicBezier(mX1, mY1, mX2, mY2) {
       } else {
         aA = currentT;
       }
+<<<<<<< HEAD
     } while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i2 < SUBDIVISION_MAX_ITERATIONS);
+=======
+    } while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i3 < SUBDIVISION_MAX_ITERATIONS);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return currentT;
   }
   function getTForX(aX) {
@@ -121289,7 +126552,11 @@ function generateCubicBezier(mX1, mY1, mX2, mY2) {
   };
   return f;
 }
+<<<<<<< HEAD
 var generateSpringRK4 = /* @__PURE__ */ function() {
+=======
+var generateSpringRK4 = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function springAccelerationForState(state) {
     return -state.tension * state.x - state.friction * state.v;
   }
@@ -121345,7 +126612,11 @@ var generateSpringRK4 = /* @__PURE__ */ function() {
       return path[percentComplete * (path.length - 1) | 0];
     };
   };
+<<<<<<< HEAD
 }();
+=======
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var cubicBezier = function cubicBezier2(t1, p1, t2, p2) {
   var bezier = generateCubicBezier(t1, p1, t2, p2);
   return function(start, end, percent) {
@@ -121447,9 +126718,15 @@ function ease(startProp, endProp, percent, easingFn, propSpec) {
     return getEasedValue(type, start, end, percent, easingFn);
   } else if (array(start) && array(end)) {
     var easedArr = [];
+<<<<<<< HEAD
     for (var i = 0; i < end.length; i++) {
       var si = start[i];
       var ei = end[i];
+=======
+    for (var i2 = 0; i2 < end.length; i2++) {
+      var si = start[i2];
+      var ei = end[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (si != null && ei != null) {
         var val = getEasedValue(type, si, ei, percent, easingFn);
         easedArr.push(val);
@@ -121555,8 +126832,13 @@ function step$1(self2, ani, now, isCore) {
     }
     var props = ani_p.style;
     if (props && props.length > 0 && isEles) {
+<<<<<<< HEAD
       for (var i = 0; i < props.length; i++) {
         var prop = props[i];
+=======
+      for (var i2 = 0; i2 < props.length; i2++) {
+        var prop = props[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var _name = prop.name;
         var end = prop;
         var start = ani_p.startStyle[_name];
@@ -121607,11 +126889,19 @@ function stepAll(now, cy2) {
       }
       _callbacks.splice(0, _callbacks.length);
     };
+<<<<<<< HEAD
     for (var i = current.length - 1; i >= 0; i--) {
       var ani = current[i];
       var ani_p = ani._private;
       if (ani_p.stopped) {
         current.splice(i, 1);
+=======
+    for (var i2 = current.length - 1; i2 >= 0; i2--) {
+      var ani = current[i2];
+      var ani_p = ani._private;
+      if (ani_p.stopped) {
+        current.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ani_p.hooked = false;
         ani_p.playing = false;
         ani_p.started = false;
@@ -121636,7 +126926,11 @@ function stepAll(now, cy2) {
         ani_p.step(now);
       }
       if (ani.completed()) {
+<<<<<<< HEAD
         current.splice(i, 1);
+=======
+        current.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ani_p.hooked = false;
         ani_p.playing = false;
         ani_p.started = false;
@@ -121907,8 +127201,13 @@ var corefn$5 = {
     var cy2 = this;
     return this.batch(function() {
       var ids = Object.keys(map2);
+<<<<<<< HEAD
       for (var i = 0; i < ids.length; i++) {
         var id2 = ids[i];
+=======
+      for (var i2 = 0; i2 < ids.length; i2++) {
+        var id2 = ids[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var data4 = map2[id2];
         var ele = cy2.getElementById(id2);
         ele.data(data4);
@@ -122087,10 +127386,17 @@ styfn$8.getPropertiesDiff = function(oldCxtKey, newCxtKey) {
   }
   var diffProps = [];
   var addedProp = {};
+<<<<<<< HEAD
   for (var i = 0; i < self2.length; i++) {
     var cxt = self2[i];
     var oldHasCxt = oldCxtKey[i] === TRUE;
     var newHasCxt = newCxtKey[i] === TRUE;
+=======
+  for (var i2 = 0; i2 < self2.length; i2++) {
+    var cxt = self2[i2];
+    var oldHasCxt = oldCxtKey[i2] === TRUE;
+    var newHasCxt = newCxtKey[i2] === TRUE;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var cxtHasDiffed = oldHasCxt !== newHasCxt;
     var cxtHasMappedProps = cxt.mappedProperties.length > 0;
     if (cxtHasDiffed || newHasCxt && cxtHasMappedProps) {
@@ -122106,7 +127412,11 @@ styfn$8.getPropertiesDiff = function(oldCxtKey, newCxtKey) {
         var prop = props[j];
         var name = prop.name;
         var laterCxtOverrides = false;
+<<<<<<< HEAD
         for (var k = i + 1; k < self2.length; k++) {
+=======
+        for (var k = i2 + 1; k < self2.length; k++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var laterCxt = self2[k];
           var hasLaterCxt = newCxtKey[k] === TRUE;
           if (!hasLaterCxt) {
@@ -122132,8 +127442,13 @@ styfn$8.getContextMeta = function(ele) {
   var cxtKey = "";
   var diffProps;
   var prevKey = ele._private.styleCxtKey || "";
+<<<<<<< HEAD
   for (var i = 0; i < self2.length; i++) {
     var context = self2[i];
+=======
+  for (var i2 = 0; i2 < self2.length; i2++) {
+    var context = self2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var contextSelectorMatches = context.selector && context.selector.matches(ele);
     if (contextSelectorMatches) {
       cxtKey += TRUE;
@@ -122161,9 +127476,15 @@ styfn$8.getContextStyle = function(cxtMeta) {
       key: cxtKey
     }
   };
+<<<<<<< HEAD
   for (var i = 0; i < self2.length; i++) {
     var cxt = self2[i];
     var hasCxt = cxtKey[i] === TRUE;
+=======
+  for (var i2 = 0; i2 < self2.length; i2++) {
+    var cxt = self2[i2];
+    var hasCxt = cxtKey[i2] === TRUE;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (!hasCxt) {
       continue;
     }
@@ -122180,8 +127501,13 @@ styfn$8.applyContextStyle = function(cxtMeta, cxtStyle, ele) {
   var diffProps = cxtMeta.diffPropNames;
   var retDiffProps = {};
   var types = self2.types;
+<<<<<<< HEAD
   for (var i = 0; i < diffProps.length; i++) {
     var diffPropName = diffProps[i];
+=======
+  for (var i2 = 0; i2 < diffProps.length; i2++) {
+    var diffPropName = diffProps[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var cxtProp = cxtStyle[diffPropName];
     var eleProp = ele.pstyle(diffPropName);
     if (!cxtProp) {
@@ -122237,8 +127563,13 @@ styfn$8.updateStyleHints = function(ele) {
   var isNode2 = _p.group === "nodes";
   var overriddenStyles = ele._private.style;
   propNames = Object.keys(overriddenStyles);
+<<<<<<< HEAD
   for (var i = 0; i < propGrKeys.length; i++) {
     var grKey = propGrKeys[i];
+=======
+  for (var i2 = 0; i2 < propGrKeys.length; i2++) {
+    var grKey = propGrKeys[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     _p.styleKeys[grKey] = [DEFAULT_HASH_SEED, DEFAULT_HASH_SEED_ALT];
   }
   var updateGrKey1 = function updateGrKey12(val, grKey2) {
@@ -122403,11 +127734,20 @@ styfn$8.applyParsedProperty = function(ele, parsedProp) {
     warn("Do not assign mappings to elements without corresponding data (i.e. ele `" + ele.id() + "` has no mapping for property `" + prop.name + "` with data field `" + prop.field + "`); try a `[" + prop.field + "]` selector to limit scope to elements with `" + prop.field + "` defined");
   };
   switch (prop.mapped) {
+<<<<<<< HEAD
     case types.mapData: {
       var fields = prop.field.split(".");
       var fieldVal = _p.data;
       for (var i = 0; i < fields.length && fieldVal; i++) {
         var field = fields[i];
+=======
+    // flatten the property if mapped
+    case types.mapData: {
+      var fields = prop.field.split(".");
+      var fieldVal = _p.data;
+      for (var i2 = 0; i2 < fields.length && fieldVal; i2++) {
+        var field = fields[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         fieldVal = fieldVal[field];
       }
       if (fieldVal == null) {
@@ -122463,6 +127803,10 @@ styfn$8.applyParsedProperty = function(ele, parsedProp) {
       prop = flatProp;
       break;
     }
+<<<<<<< HEAD
+=======
+    // direct mapping
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     case types.data: {
       var _fields = prop.field.split(".");
       var _fieldVal = _p.data;
@@ -122500,6 +127844,10 @@ styfn$8.applyParsedProperty = function(ele, parsedProp) {
     }
     case void 0:
       break;
+<<<<<<< HEAD
+=======
+    // just set the property
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     default:
       return false;
   }
@@ -122521,8 +127869,13 @@ styfn$8.applyParsedProperty = function(ele, parsedProp) {
   return true;
 };
 styfn$8.cleanElements = function(eles, keepBypasses) {
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     this.clearStyleHints(ele);
     ele.dirtyCompoundBoundsCache();
     ele.dirtyBoundingBoxCache();
@@ -122559,8 +127912,13 @@ styfn$8.updateTransitions = function(ele, diffProps) {
   if (props.length > 0 && duration > 0) {
     var style3 = {};
     var anyPrev = false;
+<<<<<<< HEAD
     for (var i = 0; i < props.length; i++) {
       var prop = props[i];
+=======
+    for (var i2 = 0; i2 < props.length; i2++) {
+      var prop = props[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var styProp = ele.pstyle(prop);
       var diffProp = diffProps[prop];
       if (!diffProp) {
@@ -122677,8 +128035,13 @@ styfn$7.applyBypass = function(eles, name, value, updateTransitions) {
   var isBypass = true;
   if (name === "*" || name === "**") {
     if (value !== void 0) {
+<<<<<<< HEAD
       for (var i = 0; i < self2.properties.length; i++) {
         var prop = self2.properties[i];
+=======
+      for (var i2 = 0; i2 < self2.properties.length; i2++) {
+        var prop = self2.properties[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var _name = prop.name;
         var parsedProp = this.parse(_name, value, true);
         if (parsedProp) {
@@ -122743,8 +128106,13 @@ styfn$7.applyBypass = function(eles, name, value, updateTransitions) {
 };
 styfn$7.overrideBypass = function(eles, name, value) {
   name = camel2dash(name);
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var prop = ele._private.style[name];
     var type = this.properties[name].type;
     var isColor = type.color;
@@ -122777,8 +128145,13 @@ styfn$7.removeBypasses = function(eles, props, updateTransitions) {
   for (var j = 0; j < eles.length; j++) {
     var ele = eles[j];
     var diffProps = {};
+<<<<<<< HEAD
     for (var i = 0; i < props.length; i++) {
       var name = props[i];
+=======
+    for (var i2 = 0; i2 < props.length; i2++) {
+      var name = props[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var prop = this.properties[name];
       var prevProp = ele.pstyle(prop.name);
       if (!prevProp || !prevProp.bypass) {
@@ -122828,8 +128201,13 @@ styfn$5.getRawStyle = function(ele, isRenderedVal) {
   ele = ele[0];
   if (ele) {
     var rstyle = {};
+<<<<<<< HEAD
     for (var i = 0; i < self2.properties.length; i++) {
       var prop = self2.properties[i];
+=======
+    for (var i2 = 0; i2 < self2.properties.length; i2++) {
+      var prop = self2.properties[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var val = self2.getStylePropertyValue(ele, prop.name, isRenderedVal);
       if (val != null) {
         rstyle[prop.name] = val;
@@ -122869,8 +128247,13 @@ styfn$5.getStylePropertyValue = function(ele, propName, isRenderedVal) {
         }) : units != null;
         if (haveUnits) {
           if (isArrayValue) {
+<<<<<<< HEAD
             return value.map(function(v, i) {
               return getValueStringWithUnits(v, units[i]);
+=======
+            return value.map(function(v, i2) {
+              return getValueStringWithUnits(v, units[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }).join(" ");
           } else {
             return getValueStringWithUnits(value, units);
@@ -122893,8 +128276,13 @@ styfn$5.getStylePropertyValue = function(ele, propName, isRenderedVal) {
 };
 styfn$5.getAnimationStartStyle = function(ele, aniProps) {
   var rstyle = {};
+<<<<<<< HEAD
   for (var i = 0; i < aniProps.length; i++) {
     var aniProp = aniProps[i];
+=======
+  for (var i2 = 0; i2 < aniProps.length; i2++) {
+    var aniProp = aniProps[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var name = aniProp.name;
     var styleProp = ele.pstyle(name);
     if (styleProp !== void 0) {
@@ -122917,8 +128305,13 @@ styfn$5.getPropsList = function(propsObj) {
   var props = self2.properties;
   if (style3) {
     var names = Object.keys(style3);
+<<<<<<< HEAD
     for (var i = 0; i < names.length; i++) {
       var name = names[i];
+=======
+    for (var i2 = 0; i2 < names.length; i2++) {
+      var name = names[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var val = style3[name];
       var prop = props[name] || props[camel2dash(name)];
       var styleProp = this.parse(prop.name, val);
@@ -122932,9 +128325,15 @@ styfn$5.getPropsList = function(propsObj) {
 styfn$5.getNonDefaultPropertiesHash = function(ele, propNames, seed) {
   var hash = seed.slice();
   var name, val, strVal, chVal;
+<<<<<<< HEAD
   var i, j;
   for (i = 0; i < propNames.length; i++) {
     name = propNames[i];
+=======
+  var i2, j;
+  for (i2 = 0; i2 < propNames.length; i2++) {
+    name = propNames[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     val = ele.pstyle(name, false);
     if (val == null) {
       continue;
@@ -122956,8 +128355,13 @@ styfn$5.getPropertiesHash = styfn$5.getNonDefaultPropertiesHash;
 var styfn$4 = {};
 styfn$4.appendFromJson = function(json2) {
   var style3 = this;
+<<<<<<< HEAD
   for (var i = 0; i < json2.length; i++) {
     var context = json2[i];
+=======
+  for (var i2 = 0; i2 < json2.length; i2++) {
+    var context = json2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var selector = context.selector;
     var props = context.style || context.css;
     var names = Object.keys(props);
@@ -122978,8 +128382,13 @@ styfn$4.fromJson = function(json2) {
 };
 styfn$4.json = function() {
   var json2 = [];
+<<<<<<< HEAD
   for (var i = this.defaultLength; i < this.length; i++) {
     var cxt = this[i];
+=======
+  for (var i2 = this.defaultLength; i2 < this.length; i2++) {
+    var cxt = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var selector = cxt.selector;
     var props = cxt.properties;
     var css = {};
@@ -123078,8 +128487,13 @@ styfn$3.appendFromString = function(string3) {
       break;
     }
     style3.selector(selectorStr);
+<<<<<<< HEAD
     for (var i = 0; i < props.length; i++) {
       var _prop = props[i];
+=======
+    for (var i2 = 0; i2 < props.length; i2++) {
+      var _prop = props[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       style3.css(_prop.name, _prop.val);
     }
     removeSelAndBlockFromRemaining();
@@ -124136,6 +129550,7 @@ var styfn$2 = {};
     name: "pie-start-angle",
     type: t2.angle
   });
+<<<<<<< HEAD
   for (var i = 1; i <= styfn$2.pieBackgroundN; i++) {
     pie.push({
       name: "pie-" + i + "-background-color",
@@ -124147,6 +129562,19 @@ var styfn$2 = {};
     });
     pie.push({
       name: "pie-" + i + "-background-opacity",
+=======
+  for (var i2 = 1; i2 <= styfn$2.pieBackgroundN; i2++) {
+    pie.push({
+      name: "pie-" + i2 + "-background-color",
+      type: t2.color
+    });
+    pie.push({
+      name: "pie-" + i2 + "-background-size",
+      type: t2.percent
+    });
+    pie.push({
+      name: "pie-" + i2 + "-background-opacity",
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       type: t2.zeroOneNumber
     });
   }
@@ -124452,8 +129880,13 @@ styfn$2.getDefaultProperties = function() {
     name: "pie-{{i}}-background-opacity",
     value: 1
   }].reduce(function(css, prop2) {
+<<<<<<< HEAD
     for (var i2 = 1; i2 <= styfn$2.pieBackgroundN; i2++) {
       var name2 = prop2.name.replace("{{i}}", i2);
+=======
+    for (var i3 = 1; i3 <= styfn$2.pieBackgroundN; i3++) {
+      var name2 = prop2.name.replace("{{i}}", i3);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var val2 = prop2.value;
       css[name2] = val2;
     }
@@ -124472,8 +129905,13 @@ styfn$2.getDefaultProperties = function() {
     name: "stripe-{{i}}-background-opacity",
     value: 1
   }].reduce(function(css, prop2) {
+<<<<<<< HEAD
     for (var i2 = 1; i2 <= styfn$2.stripeBackgroundN; i2++) {
       var name2 = prop2.name.replace("{{i}}", i2);
+=======
+    for (var i3 = 1; i3 <= styfn$2.stripeBackgroundN; i3++) {
+      var name2 = prop2.name.replace("{{i}}", i3);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var val2 = prop2.value;
       css[name2] = val2;
     }
@@ -124532,8 +129970,13 @@ styfn$2.getDefaultProperties = function() {
     return css;
   }, {}));
   var parsedProps = {};
+<<<<<<< HEAD
   for (var i = 0; i < this.properties.length; i++) {
     var prop = this.properties[i];
+=======
+  for (var i2 = 0; i2 < this.properties.length; i2++) {
+    var prop = this.properties[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (prop.pointsTo) {
       continue;
     }
@@ -124652,8 +130095,12 @@ styfn$1.parseImpl = function(name, value, propIsBypass, propIsFlat) {
     };
   }
   var data4, mapData;
+<<<<<<< HEAD
   if (!valueIsString || propIsFlat || value.length < 7 || value[1] !== "a")
     ;
+=======
+  if (!valueIsString || propIsFlat || value.length < 7 || value[1] !== "a") ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   else if (value.length >= 7 && value[0] === "d" && (data4 = new RegExp(types.data.regex).exec(value))) {
     if (propIsBypass) {
       return false;
@@ -124729,13 +130176,22 @@ styfn$1.parseImpl = function(name, value, propIsBypass, propIsFlat) {
     var pfValArr = [];
     var strVal = "";
     var hasEnum = false;
+<<<<<<< HEAD
     for (var i = 0; i < vals.length; i++) {
       var p2 = self2.parse(name, vals[i], propIsBypass, "multiple");
+=======
+    for (var i2 = 0; i2 < vals.length; i2++) {
+      var p2 = self2.parse(name, vals[i2], propIsBypass, "multiple");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       hasEnum = hasEnum || string(p2.value);
       valArr.push(p2.value);
       pfValArr.push(p2.pfValue != null ? p2.pfValue : p2.value);
       unitsArr.push(p2.units);
+<<<<<<< HEAD
       strVal += (i > 0 ? " " : "") + p2.strValue;
+=======
+      strVal += (i2 > 0 ? " " : "") + p2.strValue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     if (type.validate && !type.validate(valArr, unitsArr)) {
       return null;
@@ -124838,8 +130294,12 @@ styfn$1.parseImpl = function(name, value, propIsBypass, propIsFlat) {
   } else if (type.propList) {
     var props = [];
     var propsStr = "" + value;
+<<<<<<< HEAD
     if (propsStr === "none")
       ;
+=======
+    if (propsStr === "none") ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else {
       var propsSplit = propsStr.split(/\s*,\s*|\s+/);
       for (var _i2 = 0; _i2 < propsSplit.length; _i2++) {
@@ -124930,8 +130390,13 @@ styfn.clear = function() {
   var _p = this._private;
   var cy2 = _p.cy;
   var eles = cy2.elements();
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     this[i] = void 0;
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    this[i2] = void 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   this.length = 0;
   _p.contextStyles = {};
@@ -124954,12 +130419,21 @@ styfn.core = function(propName) {
 };
 styfn.selector = function(selectorStr) {
   var selector = selectorStr === "core" ? null : new Selector(selectorStr);
+<<<<<<< HEAD
   var i = this.length++;
   this[i] = {
     selector,
     properties: [],
     mappedProperties: [],
     index: i
+=======
+  var i2 = this.length++;
+  this[i2] = {
+    selector,
+    properties: [],
+    mappedProperties: [],
+    index: i2
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   return this;
 };
@@ -124968,8 +130442,13 @@ styfn.css = function() {
   var args = arguments;
   if (args.length === 1) {
     var map2 = args[0];
+<<<<<<< HEAD
     for (var i = 0; i < self2.properties.length; i++) {
       var prop = self2.properties[i];
+=======
+    for (var i2 = 0; i2 < self2.properties.length; i2++) {
+      var prop = self2.properties[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var mapVal = map2[prop.name];
       if (mapVal === void 0) {
         mapVal = map2[dash2camel(prop.name)];
@@ -124987,9 +130466,15 @@ styfn.style = styfn.css;
 styfn.cssRule = function(name, value) {
   var property = this.parse(name, value);
   if (property) {
+<<<<<<< HEAD
     var i = this.length - 1;
     this[i].properties.push(property);
     this[i].properties[property.name] = property;
+=======
+    var i2 = this.length - 1;
+    this[i2].properties.push(property);
+    this[i2].properties[property.name] = property;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (property.name.match(/pie-(\d+)-background-size/) && property.value) {
       this._private.hasPie = true;
     }
@@ -124997,9 +130482,15 @@ styfn.cssRule = function(name, value) {
       this._private.hasStripe = true;
     }
     if (property.mapped) {
+<<<<<<< HEAD
       this[i].mappedProperties.push(property);
     }
     var currentSelectorIsCore = !this[i].selector;
+=======
+      this[i2].mappedProperties.push(property);
+    }
+    var currentSelectorIsCore = !this[i2].selector;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (currentSelectorIsCore) {
       this._private.coreStyle[property.name] = property;
     }
@@ -125484,7 +130975,11 @@ var corefn$1 = {
     var _p = this._private;
     var container2 = _p.container;
     var cy2 = this;
+<<<<<<< HEAD
     return _p.sizeCache = _p.sizeCache || (container2 ? function() {
+=======
+    return _p.sizeCache = _p.sizeCache || (container2 ? (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var style3 = cy2.window().getComputedStyle(container2);
       var val = function val2(name) {
         return parseFloat(style3.getPropertyValue(name));
@@ -125493,7 +130988,11 @@ var corefn$1 = {
         width: container2.clientWidth - val("padding-left") - val("padding-right"),
         height: container2.clientHeight - val("padding-top") - val("padding-bottom")
       };
+<<<<<<< HEAD
     }() : {
+=======
+    })() : {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       // fallback if no container (not 0 b/c can be used for dividing etc)
       width: 1,
       height: 1
@@ -125532,10 +131031,15 @@ var corefn$1 = {
     };
   },
   multiClickDebounceTime: function multiClickDebounceTime(_int) {
+<<<<<<< HEAD
     if (_int)
       this._private.multiClickDebounceTime = _int;
     else
       return this._private.multiClickDebounceTime;
+=======
+    if (_int) this._private.multiClickDebounceTime = _int;
+    else return this._private.multiClickDebounceTime;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return this;
   }
 };
@@ -125719,8 +131223,13 @@ var Core = function Core2(opts) {
       if (fn$6(options2.ready)) {
         cy2.on("ready", options2.ready);
       }
+<<<<<<< HEAD
       for (var i = 0; i < readies.length; i++) {
         var fn3 = readies[i];
+=======
+      for (var i2 = 0; i2 < readies.length; i2++) {
+        var fn3 = readies[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         cy2.on("ready", fn3);
       }
       if (reg) {
@@ -125751,8 +131260,12 @@ extend(corefn, {
   },
   destroy: function destroy() {
     var cy2 = this;
+<<<<<<< HEAD
     if (cy2.destroyed())
       return;
+=======
+    if (cy2.destroyed()) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     cy2.stopAnimationLoop();
     cy2.destroyRenderer();
     this.emit("destroy");
@@ -125787,8 +131300,12 @@ extend(corefn, {
   },
   window: function window2() {
     var container2 = this._private.container;
+<<<<<<< HEAD
     if (container2 == null)
       return _window;
+=======
+    if (container2 == null) return _window;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var ownerDocument = this._private.container.ownerDocument;
     if (ownerDocument === void 0 || ownerDocument == null) {
       return _window;
@@ -125846,8 +131363,13 @@ extend(corefn, {
         var updateEles = function updateEles2(jsons, gr2) {
           var toAdd = [];
           var toMod = [];
+<<<<<<< HEAD
           for (var i2 = 0; i2 < jsons.length; i2++) {
             var json3 = jsons[i2];
+=======
+          for (var i3 = 0; i3 < jsons.length; i3++) {
+            var json3 = jsons[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             if (!json3.data.id) {
               warn("cy.json() cannot handle elements without an ID attribute");
               continue;
@@ -125879,8 +131401,13 @@ extend(corefn, {
           updateEles(obj.elements);
         } else {
           var grs = ["nodes", "edges"];
+<<<<<<< HEAD
           for (var i = 0; i < grs.length; i++) {
             var gr = grs[i];
+=======
+          for (var i2 = 0; i2 < grs.length; i2++) {
+            var gr = grs[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             var elements = obj.elements[gr];
             if (array(elements)) {
               updateEles(elements, gr);
@@ -126005,7 +131532,11 @@ var defaults$7 = {
   // duration of animation in ms if enabled
   animationEasing: void 0,
   // easing of animation if enabled,
+<<<<<<< HEAD
   animateFilter: function animateFilter(node, i) {
+=======
+  animateFilter: function animateFilter(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
@@ -126050,8 +131581,13 @@ BreadthFirstLayout.prototype.run = function() {
     roots = options2.roots;
   } else if (array(options2.roots)) {
     var rootsArray = [];
+<<<<<<< HEAD
     for (var i = 0; i < options2.roots.length; i++) {
       var id2 = options2.roots[i];
+=======
+    for (var i2 = 0; i2 < options2.roots.length; i2++) {
+      var id2 = options2.roots[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var ele = cy2.getElementById(id2);
       rootsArray.push(ele);
     }
@@ -126083,27 +131619,45 @@ BreadthFirstLayout.prototype.run = function() {
     if (depths[d] == null) {
       depths[d] = [];
     }
+<<<<<<< HEAD
     var i2 = depths[d].length;
     depths[d].push(ele2);
     setInfo(ele2, {
       index: i2,
+=======
+    var i3 = depths[d].length;
+    depths[d].push(ele2);
+    setInfo(ele2, {
+      index: i3,
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       depth: d
     });
   };
   var changeDepth = function changeDepth2(ele2, newDepth) {
     var _getInfo = getInfo(ele2), depth = _getInfo.depth, index = _getInfo.index;
     depths[depth][index] = null;
+<<<<<<< HEAD
     if (ele2.isChildless())
       addToDepth(ele2, newDepth);
+=======
+    if (ele2.isChildless()) addToDepth(ele2, newDepth);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   graph.bfs({
     roots,
     directed: options2.directed,
+<<<<<<< HEAD
     visit: function visit(node, edge, pNode, i2, depth) {
       var ele2 = node[0];
       var id3 = ele2.id();
       if (ele2.isChildless())
         addToDepth(ele2, depth);
+=======
+    visit: function visit(node, edge, pNode, i3, depth) {
+      var ele2 = node[0];
+      var id3 = ele2.id();
+      if (ele2.isChildless()) addToDepth(ele2, depth);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       foundByBfs[id3] = true;
     }
   });
@@ -126116,8 +131670,13 @@ BreadthFirstLayout.prototype.run = function() {
       orphanNodes.push(_ele);
     }
   }
+<<<<<<< HEAD
   var assignDepthsAt = function assignDepthsAt2(i2) {
     var eles2 = depths[i2];
+=======
+  var assignDepthsAt = function assignDepthsAt2(i3) {
+    var eles2 = depths[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     for (var j = 0; j < eles2.length; j++) {
       var _ele2 = eles2[j];
       if (_ele2 == null) {
@@ -126126,7 +131685,11 @@ BreadthFirstLayout.prototype.run = function() {
         continue;
       }
       setInfo(_ele2, {
+<<<<<<< HEAD
         depth: i2,
+=======
+        depth: i3,
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         index: j
       });
     }
@@ -126267,12 +131830,20 @@ BreadthFirstLayout.prototype.run = function() {
     y: bb.y1 + bb.h / 2
   };
   var aveNodeSize = nodes3.reduce(function(acc, node) {
+<<<<<<< HEAD
     return function(box) {
+=======
+    return (function(box) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return {
         w: acc.w === -1 ? box.w : (acc.w + box.w) / 2,
         h: acc.h === -1 ? box.h : (acc.h + box.h) / 2
       };
+<<<<<<< HEAD
     }(node.boundingBox({
+=======
+    })(node.boundingBox({
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       includeLabels: options2.nodeDimensionsIncludeLabels
     }));
   }, {
@@ -126365,7 +131936,11 @@ var defaults$6 = {
   // duration of animation in ms if enabled
   animationEasing: void 0,
   // easing of animation if enabled
+<<<<<<< HEAD
   animateFilter: function animateFilter2(node, i) {
+=======
+  animateFilter: function animateFilter2(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
@@ -126405,8 +131980,13 @@ CircleLayout.prototype.run = function() {
   var dTheta = sweep / Math.max(1, nodes3.length - 1);
   var r;
   var minDistance = 0;
+<<<<<<< HEAD
   for (var i = 0; i < nodes3.length; i++) {
     var n = nodes3[i];
+=======
+  for (var i2 = 0; i2 < nodes3.length; i2++) {
+    var n = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var nbb = n.layoutDimensions(options2);
     var w = nbb.w;
     var h = nbb.h;
@@ -126426,8 +132006,13 @@ CircleLayout.prototype.run = function() {
     var rMin = Math.sqrt(minDistance * minDistance / (dcos * dcos + dsin * dsin));
     r = Math.max(rMin, r);
   }
+<<<<<<< HEAD
   var getPos = function getPos2(ele, i2) {
     var theta = options2.startAngle + i2 * dTheta * (clockwise ? 1 : -1);
+=======
+  var getPos = function getPos2(ele, i3) {
+    var theta = options2.startAngle + i3 * dTheta * (clockwise ? 1 : -1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var rx = r * Math.cos(theta);
     var ry = r * Math.sin(theta);
     var pos = {
@@ -126478,7 +132063,11 @@ var defaults$5 = {
   // duration of animation in ms if enabled
   animationEasing: void 0,
   // easing of animation if enabled
+<<<<<<< HEAD
   animateFilter: function animateFilter3(node, i) {
+=======
+  animateFilter: function animateFilter3(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
@@ -126513,8 +132102,13 @@ ConcentricLayout.prototype.run = function() {
   };
   var nodeValues = [];
   var maxNodeSize = 0;
+<<<<<<< HEAD
   for (var i = 0; i < nodes3.length; i++) {
     var node = nodes3[i];
+=======
+  for (var i2 = 0; i2 < nodes3.length; i2++) {
+    var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var value = void 0;
     value = options2.concentric(node);
     nodeValues.push({
@@ -126626,7 +132220,11 @@ var defaults$4 = {
   // A function that determines whether the node should be animated
   // All nodes animated by default on animate enabled
   // Non-animated nodes are positioned immediately when the layout starts
+<<<<<<< HEAD
   animateFilter: function animateFilter4(node, i) {
+=======
+  animateFilter: function animateFilter4(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // The layout animates only after this many milliseconds for animate:true
@@ -126721,8 +132319,13 @@ CoseLayout.prototype.run = function() {
       cy2.fit(options2.padding);
     }
   };
+<<<<<<< HEAD
   var mainLoop = function mainLoop2(i2) {
     if (layout4.stopped || i2 >= options2.numIter) {
+=======
+  var mainLoop = function mainLoop2(i3) {
+    if (layout4.stopped || i3 >= options2.numIter) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return false;
     }
     step(layoutInfo, options2);
@@ -126746,14 +132349,23 @@ CoseLayout.prototype.run = function() {
       nodes3.layoutPositions(layout4, options2, getScaledPos);
     }
   };
+<<<<<<< HEAD
   var i = 0;
+=======
+  var i2 = 0;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var loopRet = true;
   if (options2.animate === true) {
     var _frame = function frame() {
       var f = 0;
       while (loopRet && f < options2.refresh) {
+<<<<<<< HEAD
         loopRet = mainLoop(i);
         i++;
+=======
+        loopRet = mainLoop(i2);
+        i2++;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         f++;
       }
       if (!loopRet) {
@@ -126770,8 +132382,13 @@ CoseLayout.prototype.run = function() {
     _frame();
   } else {
     while (loopRet) {
+<<<<<<< HEAD
       loopRet = mainLoop(i);
       i++;
+=======
+      loopRet = mainLoop(i2);
+      i2++;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     separateComponents(layoutInfo, options2);
     done();
@@ -126817,6 +132434,7 @@ var createLayoutInfo = function createLayoutInfo2(cy2, layout4, options2) {
   };
   var components2 = options2.eles.components();
   var id2cmptId = {};
+<<<<<<< HEAD
   for (var i = 0; i < components2.length; i++) {
     var component2 = components2[i];
     for (var j = 0; j < component2.length; j++) {
@@ -126826,6 +132444,17 @@ var createLayoutInfo = function createLayoutInfo2(cy2, layout4, options2) {
   }
   for (var i = 0; i < layoutInfo.nodeSize; i++) {
     var n = nodes3[i];
+=======
+  for (var i2 = 0; i2 < components2.length; i2++) {
+    var component2 = components2[i2];
+    for (var j = 0; j < component2.length; j++) {
+      var node = component2[j];
+      id2cmptId[node.id()] = i2;
+    }
+  }
+  for (var i2 = 0; i2 < layoutInfo.nodeSize; i2++) {
+    var n = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var nbb = n.layoutDimensions(options2);
     var tempNode = {};
     tempNode.isLocked = n.locked();
@@ -126849,14 +132478,23 @@ var createLayoutInfo = function createLayoutInfo2(cy2, layout4, options2) {
     tempNode.padBottom = parseFloat(n.style("padding"));
     tempNode.nodeRepulsion = fn$6(options2.nodeRepulsion) ? options2.nodeRepulsion(n) : options2.nodeRepulsion;
     layoutInfo.layoutNodes.push(tempNode);
+<<<<<<< HEAD
     layoutInfo.idToIndex[tempNode.id] = i;
+=======
+    layoutInfo.idToIndex[tempNode.id] = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   var queue = [];
   var start = 0;
   var end = -1;
   var tempGraph = [];
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.nodeSize; i++) {
     var n = layoutInfo.layoutNodes[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.nodeSize; i2++) {
+    var n = layoutInfo.layoutNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var p_id = n.parentId;
     if (null != p_id) {
       layoutInfo.layoutNodes[layoutInfo.idToIndex[p_id]].children.push(n.id);
@@ -126873,6 +132511,7 @@ var createLayoutInfo = function createLayoutInfo2(cy2, layout4, options2) {
     var children = node.children;
     if (children.length > 0) {
       layoutInfo.graphSet.push(children);
+<<<<<<< HEAD
       for (var i = 0; i < children.length; i++) {
         queue[++end] = children[i];
       }
@@ -126887,6 +132526,22 @@ var createLayoutInfo = function createLayoutInfo2(cy2, layout4, options2) {
   }
   for (var i = 0; i < layoutInfo.edgeSize; i++) {
     var e = edges3[i];
+=======
+      for (var i2 = 0; i2 < children.length; i2++) {
+        queue[++end] = children[i2];
+      }
+    }
+  }
+  for (var i2 = 0; i2 < layoutInfo.graphSet.length; i2++) {
+    var graph = layoutInfo.graphSet[i2];
+    for (var j = 0; j < graph.length; j++) {
+      var index = layoutInfo.idToIndex[graph[j]];
+      layoutInfo.indexToGraph[index] = i2;
+    }
+  }
+  for (var i2 = 0; i2 < layoutInfo.edgeSize; i2++) {
+    var e = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var tempEdge = {};
     tempEdge.id = e.data("id");
     tempEdge.sourceId = e.data("source");
@@ -126936,8 +132591,13 @@ var _findLCA_aux = function findLCA_aux(node1, node2, graphIx, layoutInfo) {
     };
   }
   var c = 0;
+<<<<<<< HEAD
   for (var i = 0; i < graph.length; i++) {
     var nodeId = graph[i];
+=======
+  for (var i2 = 0; i2 < graph.length; i2++) {
+    var nodeId = graph[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var nodeIx = layoutInfo.idToIndex[nodeId];
     var children = layoutInfo.layoutNodes[nodeIx].children;
     if (0 === children.length) {
@@ -126965,8 +132625,13 @@ var printLayoutInfo;
 var randomizePositions = function randomizePositions2(layoutInfo, cy2) {
   var width2 = layoutInfo.clientWidth;
   var height2 = layoutInfo.clientHeight;
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.nodeSize; i++) {
     var n = layoutInfo.layoutNodes[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.nodeSize; i2++) {
+    var n = layoutInfo.layoutNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (0 === n.children.length && !n.isLocked) {
       n.positionX = Math.random() * width2;
       n.positionY = Math.random() * height2;
@@ -126992,7 +132657,11 @@ var getScaleInBoundsFn = function getScaleInBoundsFn2(layoutInfo, options2, node
     coseBB.w = coseBB.x2 - coseBB.x1;
     coseBB.h = coseBB.y2 - coseBB.y1;
   }
+<<<<<<< HEAD
   return function(ele, i) {
+=======
+  return function(ele, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var lnode = layoutInfo.layoutNodes[layoutInfo.idToIndex[ele.data("id")]];
     if (options2.boundingBox) {
       var pctX = coseBB.w === 0 ? 0.5 : (lnode.positionX - coseBB.x1) / coseBB.w;
@@ -127031,8 +132700,13 @@ var step = function step2(layoutInfo, options2, _step) {
   updatePositions(layoutInfo);
 };
 var calculateNodeForces = function calculateNodeForces2(layoutInfo, options2) {
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.graphSet.length; i++) {
     var graph = layoutInfo.graphSet[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.graphSet.length; i2++) {
+    var graph = layoutInfo.graphSet[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var numNodes = graph.length;
     for (var j = 0; j < numNodes; j++) {
       var node1 = layoutInfo.layoutNodes[layoutInfo.idToIndex[graph[j]]];
@@ -127144,8 +132818,13 @@ var findClippingPoint = function findClippingPoint2(node, dX, dY) {
   return res;
 };
 var calculateEdgeForces = function calculateEdgeForces2(layoutInfo, options2) {
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.edgeSize; i++) {
     var edge = layoutInfo.layoutEdges[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.edgeSize; i2++) {
+    var edge = layoutInfo.layoutEdges[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var sourceIx = layoutInfo.idToIndex[edge.sourceId];
     var source = layoutInfo.layoutNodes[sourceIx];
     var targetIx = layoutInfo.idToIndex[edge.targetId];
@@ -127183,10 +132862,17 @@ var calculateGravityForces = function calculateGravityForces2(layoutInfo, option
     return;
   }
   var distThreshold = 1;
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.graphSet.length; i++) {
     var graph = layoutInfo.graphSet[i];
     var numNodes = graph.length;
     if (0 === i) {
+=======
+  for (var i2 = 0; i2 < layoutInfo.graphSet.length; i2++) {
+    var graph = layoutInfo.graphSet[i2];
+    var numNodes = graph.length;
+    if (0 === i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var centerX = layoutInfo.clientHeight / 2;
       var centerY = layoutInfo.clientWidth / 2;
     } else {
@@ -127226,11 +132912,19 @@ var propagateForces = function propagateForces2(layoutInfo, options2) {
     if (0 < children.length && !node.isLocked) {
       var offX = node.offsetX;
       var offY = node.offsetY;
+<<<<<<< HEAD
       for (var i = 0; i < children.length; i++) {
         var childNode = layoutInfo.layoutNodes[layoutInfo.idToIndex[children[i]]];
         childNode.offsetX += offX;
         childNode.offsetY += offY;
         queue[++end] = children[i];
+=======
+      for (var i2 = 0; i2 < children.length; i2++) {
+        var childNode = layoutInfo.layoutNodes[layoutInfo.idToIndex[children[i2]]];
+        childNode.offsetX += offX;
+        childNode.offsetY += offY;
+        queue[++end] = children[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       node.offsetX = 0;
       node.offsetY = 0;
@@ -127238,8 +132932,13 @@ var propagateForces = function propagateForces2(layoutInfo, options2) {
   }
 };
 var updatePositions = function updatePositions2(layoutInfo, options2) {
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.nodeSize; i++) {
     var n = layoutInfo.layoutNodes[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.nodeSize; i2++) {
+    var n = layoutInfo.layoutNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (0 < n.children.length) {
       n.maxX = void 0;
       n.minX = void 0;
@@ -127247,8 +132946,13 @@ var updatePositions = function updatePositions2(layoutInfo, options2) {
       n.minY = void 0;
     }
   }
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.nodeSize; i++) {
     var n = layoutInfo.layoutNodes[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.nodeSize; i2++) {
+    var n = layoutInfo.layoutNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (0 < n.children.length || n.isLocked) {
       continue;
     }
@@ -127263,8 +132967,13 @@ var updatePositions = function updatePositions2(layoutInfo, options2) {
     n.maxY = n.positionY + n.height;
     _updateAncestryBoundaries(n, layoutInfo);
   }
+<<<<<<< HEAD
   for (var i = 0; i < layoutInfo.nodeSize; i++) {
     var n = layoutInfo.layoutNodes[i];
+=======
+  for (var i2 = 0; i2 < layoutInfo.nodeSize; i2++) {
+    var n = layoutInfo.layoutNodes[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (0 < n.children.length && !n.isLocked) {
       n.positionX = (n.maxX + n.minX) / 2;
       n.positionY = (n.maxY + n.minY) / 2;
@@ -127319,15 +133028,25 @@ var _updateAncestryBoundaries = function updateAncestryBoundaries(node, layoutIn
 var separateComponents = function separateComponents2(layoutInfo, options2) {
   var nodes3 = layoutInfo.layoutNodes;
   var components2 = [];
+<<<<<<< HEAD
   for (var i = 0; i < nodes3.length; i++) {
     var node = nodes3[i];
+=======
+  for (var i2 = 0; i2 < nodes3.length; i2++) {
+    var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var cid = node.cmptId;
     var component2 = components2[cid] = components2[cid] || [];
     component2.push(node);
   }
   var totalA = 0;
+<<<<<<< HEAD
   for (var i = 0; i < components2.length; i++) {
     var c = components2[i];
+=======
+  for (var i2 = 0; i2 < components2.length; i2++) {
+    var c = components2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (!c) {
       continue;
     }
@@ -127354,8 +133073,13 @@ var separateComponents = function separateComponents2(layoutInfo, options2) {
   var usedW = 0;
   var rowH = 0;
   var maxRowW = Math.sqrt(totalA) * layoutInfo.clientWidth / layoutInfo.clientHeight;
+<<<<<<< HEAD
   for (var i = 0; i < components2.length; i++) {
     var c = components2[i];
+=======
+  for (var i2 = 0; i2 < components2.length; i2++) {
+    var c = components2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (!c) {
       continue;
     }
@@ -127409,7 +133133,11 @@ var defaults$3 = {
   // duration of animation in ms if enabled
   animationEasing: void 0,
   // easing of animation if enabled
+<<<<<<< HEAD
   animateFilter: function animateFilter5(node, i) {
+=======
+  animateFilter: function animateFilter5(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
@@ -127513,8 +133241,13 @@ GridLayout.prototype.run = function() {
       cellHeight = 0;
     }
     if (options2.avoidOverlap) {
+<<<<<<< HEAD
       for (var i = 0; i < nodes3.length; i++) {
         var node = nodes3[i];
+=======
+      for (var i2 = 0; i2 < nodes3.length; i2++) {
+        var node = nodes3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var pos = node._private.position;
         if (pos.x == null || pos.y == null) {
           pos.x = 0;
@@ -127568,7 +133301,11 @@ GridLayout.prototype.run = function() {
         use(_pos.row, _pos.col);
       }
     }
+<<<<<<< HEAD
     var getPos = function getPos2(element3, i2) {
+=======
+    var getPos = function getPos2(element3, i3) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var x2, y2;
       if (element3.locked() || element3.isParent()) {
         return false;
@@ -127646,7 +133383,11 @@ var defaults$1 = {
   // duration of animation in ms if enabled
   animationEasing: void 0,
   // easing of animation if enabled
+<<<<<<< HEAD
   animateFilter: function animateFilter6(node, i) {
+=======
+  animateFilter: function animateFilter6(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
@@ -127680,7 +133421,11 @@ PresetLayout.prototype.run = function() {
     }
     return pos;
   }
+<<<<<<< HEAD
   nodes3.layoutPositions(this, options2, function(node, i) {
+=======
+  nodes3.layoutPositions(this, options2, function(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var position3 = getPosition(node);
     if (node.locked() || position3 == null) {
       return false;
@@ -127702,7 +133447,11 @@ var defaults2 = {
   // duration of animation in ms if enabled
   animationEasing: void 0,
   // easing of animation if enabled
+<<<<<<< HEAD
   animateFilter: function animateFilter7(node, i) {
+=======
+  animateFilter: function animateFilter7(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   },
   // a function that determines whether the node should be animated.  All nodes animated by default on animate enabled.  Non-animated nodes are positioned immediately when the layout starts
@@ -127728,7 +133477,11 @@ RandomLayout.prototype.run = function() {
     w: cy2.width(),
     h: cy2.height()
   });
+<<<<<<< HEAD
   var getPos = function getPos2(node, i) {
+=======
+  var getPos = function getPos2(node, i2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return {
       x: bb.x1 + Math.round(Math.random() * bb.w),
       y: bb.y1 + Math.round(Math.random() * bb.h)
@@ -127810,17 +133563,28 @@ BRp$f.registerArrowShapes = function() {
   };
   var transformPoints3 = function transformPoints4(pts2, size3, angle2, translation) {
     var retPts = [];
+<<<<<<< HEAD
     for (var i = 0; i < pts2.length; i += 2) {
       var x2 = pts2[i];
       var y2 = pts2[i + 1];
+=======
+    for (var i2 = 0; i2 < pts2.length; i2 += 2) {
+      var x2 = pts2[i2];
+      var y2 = pts2[i2 + 1];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       retPts.push(transform7(x2, y2, size3, angle2, translation));
     }
     return retPts;
   };
   var pointsToArr = function pointsToArr2(pts2) {
     var ret = [];
+<<<<<<< HEAD
     for (var i = 0; i < pts2.length; i++) {
       var p2 = pts2[i];
+=======
+    for (var i2 = 0; i2 < pts2.length; i2++) {
+      var p2 = pts2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       ret.push(p2.x, p2.y);
     }
     return ret;
@@ -128069,9 +133833,15 @@ BRp$e.findNearestElements = function(x2, y2, interactiveElementsOnly, isTouch) {
     if (ele2.isEdge() && (sqDist == null || sqDist < minSqDist)) {
       if (nearEdge) {
         if (nearEdge.pstyle("z-compound-depth").value === ele2.pstyle("z-compound-depth").value && nearEdge.pstyle("z-compound-depth").value === ele2.pstyle("z-compound-depth").value) {
+<<<<<<< HEAD
           for (var i2 = 0; i2 < near.length; i2++) {
             if (near[i2].isEdge()) {
               near[i2] = ele2;
+=======
+          for (var i3 = 0; i3 < near.length; i3++) {
+            if (near[i3].isEdge()) {
+              near[i3] = ele2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               nearEdge = ele2;
               minSqDist = sqDist != null ? sqDist : minSqDist;
               break;
@@ -128114,16 +133884,26 @@ BRp$e.findNearestElements = function(x2, y2, interactiveElementsOnly, isTouch) {
     var sqDist;
     if (rs.edgeType === "segments" || rs.edgeType === "straight" || rs.edgeType === "haystack") {
       var pts2 = rs.allpts;
+<<<<<<< HEAD
       for (var i2 = 0; i2 + 3 < pts2.length; i2 += 2) {
         if (inLineVicinity(x2, y2, pts2[i2], pts2[i2 + 1], pts2[i2 + 2], pts2[i2 + 3], width22) && widthSq > (sqDist = sqdistToFiniteLine(x2, y2, pts2[i2], pts2[i2 + 1], pts2[i2 + 2], pts2[i2 + 3]))) {
+=======
+      for (var i3 = 0; i3 + 3 < pts2.length; i3 += 2) {
+        if (inLineVicinity(x2, y2, pts2[i3], pts2[i3 + 1], pts2[i3 + 2], pts2[i3 + 3], width22) && widthSq > (sqDist = sqdistToFiniteLine(x2, y2, pts2[i3], pts2[i3 + 1], pts2[i3 + 2], pts2[i3 + 3]))) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           addEle(edge, sqDist);
           return true;
         }
       }
     } else if (rs.edgeType === "bezier" || rs.edgeType === "multibezier" || rs.edgeType === "self" || rs.edgeType === "compound") {
       var pts2 = rs.allpts;
+<<<<<<< HEAD
       for (var i2 = 0; i2 + 5 < rs.allpts.length; i2 += 4) {
         if (inBezierVicinity(x2, y2, pts2[i2], pts2[i2 + 1], pts2[i2 + 2], pts2[i2 + 3], pts2[i2 + 4], pts2[i2 + 5], width22) && widthSq > (sqDist = sqdistToQuadraticBezier(x2, y2, pts2[i2], pts2[i2 + 1], pts2[i2 + 2], pts2[i2 + 3], pts2[i2 + 4], pts2[i2 + 5]))) {
+=======
+      for (var i3 = 0; i3 + 5 < rs.allpts.length; i3 += 4) {
+        if (inBezierVicinity(x2, y2, pts2[i3], pts2[i3 + 1], pts2[i3 + 2], pts2[i3 + 3], pts2[i3 + 4], pts2[i3 + 5], width22) && widthSq > (sqDist = sqdistToQuadraticBezier(x2, y2, pts2[i3], pts2[i3 + 1], pts2[i3 + 2], pts2[i3 + 3], pts2[i3 + 4], pts2[i3 + 5]))) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           addEle(edge, sqDist);
           return true;
         }
@@ -128153,8 +133933,13 @@ BRp$e.findNearestElements = function(x2, y2, interactiveElementsOnly, isTouch) {
       y: rs.midY,
       angle: rs.midtgtArrowAngle
     }];
+<<<<<<< HEAD
     for (var i2 = 0; i2 < arrows.length; i2++) {
       var ar = arrows[i2];
+=======
+    for (var i3 = 0; i3 < arrows.length; i3++) {
+      var ar = arrows[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var shape = r.arrowShapes[edge.pstyle(ar.name + "-arrow-shape").value];
       var edgeWidth = edge.pstyle("width").pfValue;
       if (shape.roughCollide(x2, y2, arSize, ar.angle, {
@@ -128238,8 +134023,13 @@ BRp$e.findNearestElements = function(x2, y2, interactiveElementsOnly, isTouch) {
       }
     }
   }
+<<<<<<< HEAD
   for (var i = eles.length - 1; i >= 0; i--) {
     var ele = eles[i];
+=======
+  for (var i2 = eles.length - 1; i2 >= 0; i2--) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (ele.isNode()) {
       checkNode(ele) || checkLabel(ele);
     } else {
@@ -128415,8 +134205,13 @@ BRp$e.getAllInBox = function(x1, y1, x2, y2) {
         if (rs.edgeType === "bezier" || rs.edgeType === "multibezier" || rs.edgeType === "self" || rs.edgeType === "compound" || rs.edgeType === "segments" || rs.edgeType === "haystack") {
           var pts2 = _p.rstyle.bezierPts || _p.rstyle.linePts || _p.rstyle.haystackPts;
           var allInside = true;
+<<<<<<< HEAD
           for (var i = 0; i < pts2.length; i++) {
             if (!pointInBoundingBox(boxBb, pts2[i])) {
+=======
+          for (var i2 = 0; i2 < pts2.length; i2++) {
+            if (!pointInBoundingBox(boxBb, pts2[i2])) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               allInside = false;
               break;
             }
@@ -128455,8 +134250,12 @@ BRp$e.getAllInBox = function(x1, y1, x2, y2) {
               }];
             }
           }
+<<<<<<< HEAD
           if (!_pts || _pts.length < 2)
             continue;
+=======
+          if (!_pts || _pts.length < 2) continue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           for (var _i2 = 0; _i2 < _pts.length - 1; _i2++) {
             var segStart = _pts[_i2];
             var segEnd = _pts[_i2 + 1];
@@ -128468,8 +134267,12 @@ BRp$e.getAllInBox = function(x1, y1, x2, y2) {
                 break;
               }
             }
+<<<<<<< HEAD
             if (_selected)
               break;
+=======
+            if (_selected) break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           }
         }
       }
@@ -128571,8 +134374,12 @@ BRp$d.calculateArrowAngles = function(edge) {
   dispY *= -1;
   if (isSegments) {
     var pts2 = rs.allpts;
+<<<<<<< HEAD
     if (pts2.length / 2 % 2 === 0)
       ;
+=======
+    if (pts2.length / 2 % 2 === 0) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (!rs.isRound) {
       var i2 = pts2.length / 2 - 1;
       var i3 = i2 + 2;
@@ -128697,6 +134504,7 @@ var calcCornerArc = function calcCornerArc2(previousPoint, currentPoint, nextPoi
   lastPoint = currentPoint;
 };
 function drawPreparedRoundCorner(ctx, roundCorner) {
+<<<<<<< HEAD
   if (roundCorner.radius === 0)
     ctx.lineTo(roundCorner.cx, roundCorner.cy);
   else
@@ -128717,6 +134525,25 @@ function getRoundCorner(previousPoint, currentPoint, nextPoint, radiusMax) {
       endAngle: void 0,
       counterClockwise: void 0
     };
+=======
+  if (roundCorner.radius === 0) ctx.lineTo(roundCorner.cx, roundCorner.cy);
+  else ctx.arc(roundCorner.cx, roundCorner.cy, roundCorner.radius, roundCorner.startAngle, roundCorner.endAngle, roundCorner.counterClockwise);
+}
+function getRoundCorner(previousPoint, currentPoint, nextPoint, radiusMax) {
+  var isArcRadius = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : true;
+  if (radiusMax === 0 || currentPoint.radius === 0) return {
+    cx: currentPoint.x,
+    cy: currentPoint.y,
+    radius: 0,
+    startX: currentPoint.x,
+    startY: currentPoint.y,
+    stopX: currentPoint.x,
+    stopY: currentPoint.y,
+    startAngle: void 0,
+    endAngle: void 0,
+    counterClockwise: void 0
+  };
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   calcCornerArc(previousPoint, currentPoint, nextPoint, radiusMax, isArcRadius);
   return {
     cx: x,
@@ -128782,8 +134609,13 @@ BRp$c.findMidptPtsEtc = function(edge, pairInfo) {
   };
 };
 BRp$c.findHaystackPoints = function(edges3) {
+<<<<<<< HEAD
   for (var i = 0; i < edges3.length; i++) {
     var edge = edges3[i];
+=======
+  for (var i2 = 0; i2 < edges3.length; i2++) {
+    var edge = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var _p = edge._private;
     var rs = _p.rscratch;
     if (!rs.haystack) {
@@ -128847,7 +134679,11 @@ BRp$c.findSegmentsPoints = function(edge, pairInfo) {
     rs.isArcRadius.push((segmentTs.pfValue[s] !== void 0 ? segmentTs.pfValue[s] : lastRadiusType) === "arc-radius");
   }
 };
+<<<<<<< HEAD
 BRp$c.findLoopPoints = function(edge, pairInfo, i, edgeIsUnbundled) {
+=======
+BRp$c.findLoopPoints = function(edge, pairInfo, i2, edgeIsUnbundled) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var rs = edge._private.rscratch;
   var dirCounts = pairInfo.dirCounts, srcPos = pairInfo.srcPos;
   var ctrlptDists = edge.pstyle("control-point-distances");
@@ -128856,7 +134692,11 @@ BRp$c.findLoopPoints = function(edge, pairInfo, i, edgeIsUnbundled) {
   var loopSwp = edge.pstyle("loop-sweep").pfValue;
   var stepSize = edge.pstyle("control-point-step-size").pfValue;
   rs.edgeType = "self";
+<<<<<<< HEAD
   var j = i;
+=======
+  var j = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var loopDist = stepSize;
   if (edgeIsUnbundled) {
     j = 0;
@@ -128869,14 +134709,22 @@ BRp$c.findLoopPoints = function(edge, pairInfo, i, edgeIsUnbundled) {
   j = dirCounts[dc] === void 0 ? dirCounts[dc] = 0 : ++dirCounts[dc];
   rs.ctrlpts = [srcPos.x + Math.cos(outAngle) * 1.4 * loopDist * (j / 3 + 1), srcPos.y + Math.sin(outAngle) * 1.4 * loopDist * (j / 3 + 1), srcPos.x + Math.cos(inAngle) * 1.4 * loopDist * (j / 3 + 1), srcPos.y + Math.sin(inAngle) * 1.4 * loopDist * (j / 3 + 1)];
 };
+<<<<<<< HEAD
 BRp$c.findCompoundLoopPoints = function(edge, pairInfo, i, edgeIsUnbundled) {
+=======
+BRp$c.findCompoundLoopPoints = function(edge, pairInfo, i2, edgeIsUnbundled) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var rs = edge._private.rscratch;
   rs.edgeType = "compound";
   var srcPos = pairInfo.srcPos, tgtPos = pairInfo.tgtPos, srcW = pairInfo.srcW, srcH = pairInfo.srcH, tgtW = pairInfo.tgtW, tgtH = pairInfo.tgtH;
   var stepSize = edge.pstyle("control-point-step-size").pfValue;
   var ctrlptDists = edge.pstyle("control-point-distances");
   var ctrlptDist = ctrlptDists ? ctrlptDists.pfValue[0] : void 0;
+<<<<<<< HEAD
   var j = i;
+=======
+  var j = i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var loopDist = stepSize;
   if (edgeIsUnbundled) {
     j = 0;
@@ -128903,7 +134751,11 @@ BRp$c.findCompoundLoopPoints = function(edge, pairInfo, i, edgeIsUnbundled) {
 BRp$c.findStraightEdgePoints = function(edge) {
   edge._private.rscratch.edgeType = "straight";
 };
+<<<<<<< HEAD
 BRp$c.findBezierPoints = function(edge, pairInfo, i, edgeIsUnbundled, edgeIsSwapped) {
+=======
+BRp$c.findBezierPoints = function(edge, pairInfo, i2, edgeIsUnbundled, edgeIsSwapped) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var rs = edge._private.rscratch;
   var stepSize = edge.pstyle("control-point-step-size").pfValue;
   var ctrlptDists = edge.pstyle("control-point-distances");
@@ -128915,7 +134767,11 @@ BRp$c.findBezierPoints = function(edge, pairInfo, i, edgeIsUnbundled, edgeIsSwap
   rs.edgeType = multi ? "multibezier" : "bezier";
   rs.ctrlpts = [];
   for (var b = 0; b < bezierN; b++) {
+<<<<<<< HEAD
     var normctrlptDist = (0.5 - pairInfo.eles.length / 2 + i) * stepSize * (edgeIsSwapped ? -1 : 1);
+=======
+    var normctrlptDist = (0.5 - pairInfo.eles.length / 2 + i2) * stepSize * (edgeIsSwapped ? -1 : 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var manctrlptDist = void 0;
     var sign = signum(normctrlptDist);
     if (multi) {
@@ -129176,6 +135032,7 @@ BRp$c.storeAllpts = function(edge) {
     rs.allpts.push(rs.endX, rs.endY);
     if (rs.isRound) {
       rs.roundCorners = [];
+<<<<<<< HEAD
       for (var i = 2; i + 3 < rs.allpts.length; i += 2) {
         var radius2 = rs.radii[i / 2 - 1];
         var isArcRadius = rs.isArcRadius[i / 2 - 1];
@@ -129189,14 +135046,36 @@ BRp$c.storeAllpts = function(edge) {
         }, {
           x: rs.allpts[i + 2],
           y: rs.allpts[i + 3]
+=======
+      for (var i2 = 2; i2 + 3 < rs.allpts.length; i2 += 2) {
+        var radius2 = rs.radii[i2 / 2 - 1];
+        var isArcRadius = rs.isArcRadius[i2 / 2 - 1];
+        rs.roundCorners.push(getRoundCorner({
+          x: rs.allpts[i2 - 2],
+          y: rs.allpts[i2 - 1]
+        }, {
+          x: rs.allpts[i2],
+          y: rs.allpts[i2 + 1],
+          radius: radius2
+        }, {
+          x: rs.allpts[i2 + 2],
+          y: rs.allpts[i2 + 3]
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }, radius2, isArcRadius));
       }
     }
     if (rs.segpts.length % 4 === 0) {
+<<<<<<< HEAD
       var i2 = rs.segpts.length / 2;
       var i1 = i2 - 2;
       rs.midX = (rs.segpts[i1] + rs.segpts[i2]) / 2;
       rs.midY = (rs.segpts[i1 + 1] + rs.segpts[i2 + 1]) / 2;
+=======
+      var i22 = rs.segpts.length / 2;
+      var i1 = i22 - 2;
+      rs.midX = (rs.segpts[i1] + rs.segpts[i22]) / 2;
+      rs.midY = (rs.segpts[i1 + 1] + rs.segpts[i22 + 1]) / 2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     } else {
       var _i = rs.segpts.length / 2 - 1;
       if (!rs.isRound) {
@@ -129255,8 +135134,13 @@ BRp$c.findEdgeControlPoints = function(edges3) {
   };
   var pairIds = [];
   var haystackEdges = [];
+<<<<<<< HEAD
   for (var i = 0; i < edges3.length; i++) {
     var edge = edges3[i];
+=======
+  for (var i2 = 0; i2 < edges3.length; i2++) {
+    var edge = edges3[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var _p = edge._private;
     var curveStyle = edge.pstyle("curve-style").value;
     if (edge.removed() || !edge.takesUpSpace()) {
@@ -129367,8 +135251,12 @@ BRp$c.findEdgeControlPoints = function(edges3) {
         var dy = tgtOutside[1] - srcOutside[1];
         var dx = tgtOutside[0] - srcOutside[0];
         var l = Math.sqrt(dx * dx + dy * dy);
+<<<<<<< HEAD
         if (number$1(l) && l >= AVOID_IMPOSSIBLE_BEZIER_CONSTANT_L)
           ;
+=======
+        if (number$1(l) && l >= AVOID_IMPOSSIBLE_BEZIER_CONSTANT_L) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         else {
           l = Math.sqrt(Math.max(dx * dx, AVOID_IMPOSSIBLE_BEZIER_CONSTANT) + Math.max(dy * dy, AVOID_IMPOSSIBLE_BEZIER_CONSTANT));
         }
@@ -129469,9 +135357,15 @@ function getPts(pts2) {
   if (pts2 == null) {
     return;
   }
+<<<<<<< HEAD
   for (var i = 0; i < pts2.length; i += 2) {
     var x2 = pts2[i];
     var y2 = pts2[i + 1];
+=======
+  for (var i2 = 0; i2 < pts2.length; i2 += 2) {
+    var x2 = pts2[i2];
+    var y2 = pts2[i2 + 1];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     retPts.push({
       x: x2,
       y: y2
@@ -129748,8 +135642,13 @@ function pushBezierPts(r, edge, pts2) {
   };
   var _p = edge._private;
   var bpts = _p.rstyle.bezierPts;
+<<<<<<< HEAD
   for (var i = 0; i < r.bezierProjPcts.length; i++) {
     var p2 = r.bezierProjPcts[i];
+=======
+  for (var i2 = 0; i2 < r.bezierProjPcts.length; i2++) {
+    var p2 = r.bezierProjPcts[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     bpts.push({
       x: qbezierAt$1(pts2[0], pts2[2], pts2[4], p2),
       y: qbezierAt$1(pts2[1], pts2[3], pts2[5], p2)
@@ -129765,6 +135664,7 @@ BRp$a.storeEdgeProjections = function(edge) {
   _p.rstyle.haystackPts = null;
   if (et === "multibezier" || et === "bezier" || et === "self" || et === "compound") {
     _p.rstyle.bezierPts = [];
+<<<<<<< HEAD
     for (var i = 0; i + 5 < rs.allpts.length; i += 4) {
       pushBezierPts(this, edge, rs.allpts.slice(i, i + 6));
     }
@@ -129774,6 +135674,17 @@ BRp$a.storeEdgeProjections = function(edge) {
       lpts.push({
         x: rs.allpts[i],
         y: rs.allpts[i + 1]
+=======
+    for (var i2 = 0; i2 + 5 < rs.allpts.length; i2 += 4) {
+      pushBezierPts(this, edge, rs.allpts.slice(i2, i2 + 6));
+    }
+  } else if (et === "segments") {
+    var lpts = _p.rstyle.linePts = [];
+    for (var i2 = 0; i2 + 1 < rs.allpts.length; i2 += 2) {
+      lpts.push({
+        x: rs.allpts[i2],
+        y: rs.allpts[i2 + 1]
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       });
     }
   } else if (et === "haystack") {
@@ -129863,8 +135774,12 @@ BRp$9.recalculateEdgeLabelProjections = function(edge) {
     source: edge.pstyle("source-label").strValue,
     target: edge.pstyle("target-label").strValue
   };
+<<<<<<< HEAD
   if (content.mid || content.source || content.target)
     ;
+=======
+  if (content.mid || content.source || content.target) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   else {
     return;
   }
@@ -129885,6 +135800,7 @@ BRp$9.recalculateEdgeLabelProjections = function(edge) {
       return _createControlPointInfo.cache;
     }
     var ctrlpts = [];
+<<<<<<< HEAD
     for (var i = 0; i + 5 < rs.allpts.length; i += 4) {
       var p0 = {
         x: rs.allpts[i],
@@ -129897,6 +135813,20 @@ BRp$9.recalculateEdgeLabelProjections = function(edge) {
       var p22 = {
         x: rs.allpts[i + 4],
         y: rs.allpts[i + 5]
+=======
+    for (var i2 = 0; i2 + 5 < rs.allpts.length; i2 += 4) {
+      var p0 = {
+        x: rs.allpts[i2],
+        y: rs.allpts[i2 + 1]
+      };
+      var p1 = {
+        x: rs.allpts[i2 + 2],
+        y: rs.allpts[i2 + 3]
+      };
+      var p22 = {
+        x: rs.allpts[i2 + 4],
+        y: rs.allpts[i2 + 5]
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       };
       ctrlpts.push({
         p0,
@@ -129953,11 +135883,19 @@ BRp$9.recalculateEdgeLabelProjections = function(edge) {
         var selected;
         var startDist = 0;
         var totalDist = 0;
+<<<<<<< HEAD
         for (var i = 0; i < cps.length; i++) {
           var _cp = cps[isSrc ? i : cps.length - 1 - i];
           for (var j = 0; j < _cp.segments.length; j++) {
             var _seg = _cp.segments[isSrc ? j : _cp.segments.length - 1 - j];
             var lastSeg = i === cps.length - 1 && j === _cp.segments.length - 1;
+=======
+        for (var i2 = 0; i2 < cps.length; i2++) {
+          var _cp = cps[isSrc ? i2 : cps.length - 1 - i2];
+          for (var j = 0; j < _cp.segments.length; j++) {
+            var _seg = _cp.segments[isSrc ? j : _cp.segments.length - 1 - j];
+            var lastSeg = i2 === cps.length - 1 && j === _cp.segments.length - 1;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             startDist = totalDist;
             totalDist += _seg.length;
             if (totalDist >= offset || lastSeg) {
@@ -130077,8 +136015,12 @@ BRp$9.getLabelText = function(ele, prefix) {
   if (!text) {
     return "";
   }
+<<<<<<< HEAD
   if (textTransform == "none")
     ;
+=======
+  if (textTransform == "none") ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   else if (textTransform == "uppercase") {
     text = text.toUpperCase();
   } else if (textTransform == "lowercase") {
@@ -130151,6 +136093,7 @@ BRp$9.getLabelText = function(ele, prefix) {
     if (this.calculateLabelDimensions(ele, text).width < _maxW) {
       return text;
     }
+<<<<<<< HEAD
     for (var i = 0; i < text.length; i++) {
       var widthWithNextCh = this.calculateLabelDimensions(ele, ellipsized + text[i] + ellipsis).width;
       if (widthWithNextCh > _maxW) {
@@ -130158,6 +136101,15 @@ BRp$9.getLabelText = function(ele, prefix) {
       }
       ellipsized += text[i];
       if (i === text.length - 1) {
+=======
+    for (var i2 = 0; i2 < text.length; i2++) {
+      var widthWithNextCh = this.calculateLabelDimensions(ele, ellipsized + text[i2] + ellipsis).width;
+      if (widthWithNextCh > _maxW) {
+        break;
+      }
+      ellipsized += text[i2];
+      if (i2 === text.length - 1) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         incLastCh = true;
       }
     }
@@ -130214,8 +136166,13 @@ BRp$9.calculateLabelDimensions = function(ele, text) {
   var width2 = 0;
   var height2 = 0;
   var lines = text.split("\n");
+<<<<<<< HEAD
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i];
+=======
+  for (var i2 = 0; i2 < lines.length; i2++) {
+    var line = lines[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var metrics = c2d.measureText(line);
     var w = Math.ceil(metrics.width);
     var h = size3;
@@ -130292,8 +136249,13 @@ BRp$7.registerCalculationListeners = function() {
     var dirtyStyleCaches = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
     elesToUpdate.merge(eles);
     if (dirtyStyleCaches) {
+<<<<<<< HEAD
       for (var i = 0; i < eles.length; i++) {
         var ele = eles[i];
+=======
+      for (var i2 = 0; i2 < eles.length; i2++) {
+        var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var _p = ele._private;
         var rstyle = _p.rstyle;
         rstyle.clean = false;
@@ -130312,8 +136274,13 @@ BRp$7.registerCalculationListeners = function() {
     if (willDraw) {
       var fns = r.onUpdateEleCalcsFns;
       elesToUpdate.cleanStyle();
+<<<<<<< HEAD
       for (var i = 0; i < elesToUpdate.length; i++) {
         var ele = elesToUpdate[i];
+=======
+      for (var i2 = 0; i2 < elesToUpdate.length; i2++) {
+        var ele = elesToUpdate[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var rstyle = ele._private.rstyle;
         if (ele.isNode() && !rstyle.cleanConnected) {
           enqueue(ele.connectedEdges());
@@ -130354,8 +136321,13 @@ BRp$7.recalculateRenderedStyle = function(eles, useCache) {
   if (useCache === void 0) {
     useCache = true;
   }
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var _p = ele._private;
     var rstyle = _p.rstyle;
     if (ele.isEdge() && (!isCleanConnected(ele.source()) || !isCleanConnected(ele.target()))) {
@@ -130418,8 +136390,13 @@ BRp$6.updateCachedGrabbedEles = function() {
   eles.drag = [];
   eles.nondrag = [];
   var grabTargets = [];
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var rs = ele._private.rscratch;
     if (ele.grabbed() && !ele.isParent()) {
       grabTargets.push(ele);
@@ -130429,8 +136406,13 @@ BRp$6.updateCachedGrabbedEles = function() {
       eles.nondrag.push(ele);
     }
   }
+<<<<<<< HEAD
   for (var i = 0; i < grabTargets.length; i++) {
     var ele = grabTargets[i];
+=======
+  for (var i2 = 0; i2 < grabTargets.length; i2++) {
+    var ele = grabTargets[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     eles.drag.push(ele);
   }
 };
@@ -130501,8 +136483,13 @@ BRp$3.registerBinding = function(target, event3, handler, useCapture) {
   var args = Array.prototype.slice.apply(arguments, [1]);
   if (Array.isArray(target)) {
     var res = [];
+<<<<<<< HEAD
     for (var i = 0; i < target.length; i++) {
       var t2 = target[i];
+=======
+    for (var i2 = 0; i2 < target.length; i2++) {
+      var t2 = target[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (t2 !== void 0) {
         var b = this.binder(t2);
         res.push(b.on.apply(b, args));
@@ -130576,8 +136563,13 @@ BRp$3.load = function() {
     if (target == null) {
       target = r.cy;
     }
+<<<<<<< HEAD
     for (var i = 0; i < names.length; i++) {
       var name = names[i];
+=======
+    for (var i2 = 0; i2 < names.length; i2++) {
+      var name = names[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       target.emit({
         originalEvent: e,
         type: name,
@@ -130591,8 +136583,13 @@ BRp$3.load = function() {
   var allowPanningPassthrough = function allowPanningPassthrough2(down, downs) {
     var allowPassthrough = true;
     if (r.cy.hasCompoundNodes() && down && down.pannable()) {
+<<<<<<< HEAD
       for (var i = 0; downs && i < downs.length; i++) {
         var down = downs[i];
+=======
+      for (var i2 = 0; downs && i2 < downs.length; i2++) {
+        var down = downs[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         if (down.isNode() && down.isParent() && !down.pannable()) {
           allowPassthrough = false;
           break;
@@ -130703,8 +136700,13 @@ BRp$3.load = function() {
   var haveResizeObserverApi = typeof ResizeObserver !== "undefined";
   if (haveMutationsApi) {
     r.removeObserver = new MutationObserver(function(mutns) {
+<<<<<<< HEAD
       for (var i = 0; i < mutns.length; i++) {
         var mutn = mutns[i];
+=======
+      for (var i2 = 0; i2 < mutns.length; i2++) {
+        var mutn = mutns[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var rNodes = mutn.removedNodes;
         if (rNodes) {
           for (var j = 0; j < rNodes.length; j++) {
@@ -130769,8 +136771,13 @@ BRp$3.load = function() {
     var height2 = containerPageCoords[3];
     var positions2 = e.touches ? e.touches : [e];
     var atLeastOnePosInside = false;
+<<<<<<< HEAD
     for (var i = 0; i < positions2.length; i++) {
       var p2 = positions2[i];
+=======
+    for (var i2 = 0; i2 < positions2.length; i2++) {
+      var p2 = positions2[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (x2 <= p2.clientX && p2.clientX <= x2 + width2 && y2 <= p2.clientY && p2.clientY <= y2 + height2) {
         atLeastOnePosInside = true;
         break;
@@ -131118,10 +137125,15 @@ BRp$3.load = function() {
     select[2] = pos[0];
     select[3] = pos[1];
     if (preventDefault2) {
+<<<<<<< HEAD
       if (e.stopPropagation)
         e.stopPropagation();
       if (e.preventDefault)
         e.preventDefault();
+=======
+      if (e.stopPropagation) e.stopPropagation();
+      if (e.preventDefault) e.preventDefault();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return false;
     }
   }, false);
@@ -131202,8 +137214,12 @@ BRp$3.load = function() {
           });
         } else {
           clickTimeout = setTimeout(function() {
+<<<<<<< HEAD
             if (didDoubleClick)
               return;
+=======
+            if (didDoubleClick) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             triggerEvents(down, ["oneclick", "onetap", "voneclick"], e, {
               x: pos[0],
               y: pos[1]
@@ -131221,8 +137237,12 @@ BRp$3.load = function() {
       }
       if (near == down && !r.dragData.didDrag && !r.hoverData.selecting) {
         if (near != null && near._private.selectable) {
+<<<<<<< HEAD
           if (r.hoverData.dragging)
             ;
+=======
+          if (r.hoverData.dragging) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           else if (cy2.selectionType() === "additive" || multSelKeyDown) {
             if (near.selected()) {
               near.unselect(["tapunselect"]);
@@ -131297,8 +137317,13 @@ BRp$3.load = function() {
   var inaccurateScrollDevice;
   var inaccurateScrollFactor = 1e5;
   var allAreDivisibleBy = function allAreDivisibleBy2(list, factor) {
+<<<<<<< HEAD
     for (var i = 0; i < list.length; i++) {
       if (list[i] % factor !== 0) {
+=======
+    for (var i2 = 0; i2 < list.length; i2++) {
+      if (list[i2] % factor !== 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         return false;
       }
     }
@@ -131306,8 +137331,13 @@ BRp$3.load = function() {
   };
   var allAreSameMagnitude = function allAreSameMagnitude2(list) {
     var firstMag = Math.abs(list[0]);
+<<<<<<< HEAD
     for (var i = 1; i < list.length; i++) {
       if (Math.abs(list[i]) !== firstMag) {
+=======
+    for (var i2 = 1; i2 < list.length; i2++) {
+      if (Math.abs(list[i2]) !== firstMag) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         return false;
       }
     }
@@ -131335,8 +137365,13 @@ BRp$3.load = function() {
           inaccurateScrollDevice = allAreSameMagnitude(wds) && firstMag > 5;
         }
         if (inaccurateScrollDevice) {
+<<<<<<< HEAD
           for (var i = 0; i < wds.length; i++) {
             inaccurateScrollFactor = Math.min(Math.abs(wds[i]), inaccurateScrollFactor);
+=======
+          for (var i2 = 0; i2 < wds.length; i2++) {
+            inaccurateScrollFactor = Math.min(Math.abs(wds[i2]), inaccurateScrollFactor);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           }
         }
       } else {
@@ -131539,8 +137574,12 @@ BRp$3.load = function() {
       if (cy2.boxSelectionEnabled()) {
         e.preventDefault();
       }
+<<<<<<< HEAD
     } else if (e.touches[1])
       ;
+=======
+    } else if (e.touches[1]) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (e.touches[0]) {
       var nears = r.findNearestElements(now[0], now[1], true, true);
       var near = nears[0];
@@ -131602,8 +137641,13 @@ BRp$3.load = function() {
     }
     if (e.touches.length >= 1) {
       var sPos = r.touchData.startPosition = [null, null, null, null, null, null];
+<<<<<<< HEAD
       for (var i = 0; i < now.length; i++) {
         sPos[i] = earlier[i] = now[i];
+=======
+      for (var i2 = 0; i2 < now.length; i2++) {
+        sPos[i2] = earlier[i2] = now[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       var touch0 = e.touches[0];
       r.touchData.startGPosition = [touch0.clientX, touch0.clientY];
@@ -131733,8 +137777,13 @@ BRp$3.load = function() {
       var draggedEles = r.dragData.touchDragEles;
       if (draggedEles) {
         r.redrawHint("drag", true);
+<<<<<<< HEAD
         for (var i = 0; i < draggedEles.length; i++) {
           var de_p = draggedEles[i]._private;
+=======
+        for (var i2 = 0; i2 < draggedEles.length; i2++) {
+          var de_p = draggedEles[i2]._private;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           de_p.grabbed = false;
           de_p.rscratch.inDragLayer = false;
         }
@@ -131870,8 +137919,13 @@ BRp$3.load = function() {
         r.touchData.last = near;
       }
       if (capture) {
+<<<<<<< HEAD
         for (var i = 0; i < now.length; i++) {
           if (now[i] && r.touchData.startPosition[i] && isOverThresholdDrag) {
+=======
+        for (var i2 = 0; i2 < now.length; i2++) {
+          if (now[i2] && r.touchData.startPosition[i2] && isOverThresholdDrag) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             r.touchData.singleTouchMoved = true;
           }
         }
@@ -132021,10 +138075,15 @@ BRp$3.load = function() {
     if (e.touches[2]) {
       r.data.bgActivePosistion = void 0;
       r.redrawHint("select", true);
+<<<<<<< HEAD
     } else if (e.touches[1])
       ;
     else if (e.touches[0])
       ;
+=======
+    } else if (e.touches[1]) ;
+    else if (e.touches[0]) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (!e.touches[0]) {
       r.data.bgActivePosistion = void 0;
       r.redrawHint("select", true);
@@ -132080,8 +138139,12 @@ BRp$3.load = function() {
           });
         } else {
           touchTimeout = setTimeout(function() {
+<<<<<<< HEAD
             if (didDoubleTouch)
               return;
+=======
+            if (didDoubleTouch) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             triggerEvents(start, ["onetap", "voneclick"], e, {
               x: now[0],
               y: now[1]
@@ -132151,10 +138214,17 @@ BRp$3.load = function() {
       pointers.push(makePointer(e));
     };
     var removePointer = function removePointer2(e) {
+<<<<<<< HEAD
       for (var i = 0; i < pointers.length; i++) {
         var p2 = pointers[i];
         if (p2.event.pointerId === e.pointerId) {
           pointers.splice(i, 1);
+=======
+      for (var i2 = 0; i2 < pointers.length; i2++) {
+        var p2 = pointers[i2];
+        if (p2.event.pointerId === e.pointerId) {
+          pointers.splice(i2, 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           return;
         }
       }
@@ -132268,12 +138338,21 @@ BRp$2.generateRoundPolygon = function(name, points) {
           y: centerY + halfH * points[_i * 2 + 1]
         };
       }
+<<<<<<< HEAD
       var i, p1, p22, p3, len = p2.length;
       p1 = p2[len - 1];
       for (i = 0; i < len; i++) {
         p22 = p2[i % len];
         p3 = p2[(i + 1) % len];
         rs[field][i] = getRoundCorner(p1, p22, p3, cornerRadius);
+=======
+      var i2, p1, p22, p3, len = p2.length;
+      p1 = p2[len - 1];
+      for (i2 = 0; i2 < len; i2++) {
+        p22 = p2[i2 % len];
+        p3 = p2[(i2 + 1) % len];
+        rs[field][i2] = getRoundCorner(p1, p22, p3, cornerRadius);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         p1 = p22;
         p22 = p3;
       }
@@ -132477,8 +138556,13 @@ BRp$2.generateBarrel = function() {
         return null;
       };
       var curveRegions = Object.keys(barrelCurvePts);
+<<<<<<< HEAD
       for (var i = 0; i < curveRegions.length; i++) {
         var corner = curveRegions[i];
+=======
+      for (var i2 = 0; i2 < curveRegions.length; i2++) {
+        var corner = curveRegions[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         var cornerPts = barrelCurvePts[corner];
         var t2 = getCurveT(x2, y2, cornerPts);
         if (t2 == null) {
@@ -132574,6 +138658,7 @@ BRp$2.registerNodeShapes = function() {
     var innerPoints = generateUnitNgonPoints(5, Math.PI / 5);
     var innerRadius = 0.5 * (3 - Math.sqrt(5));
     innerRadius *= 1.57;
+<<<<<<< HEAD
     for (var i = 0; i < innerPoints.length / 2; i++) {
       innerPoints[i * 2] *= innerRadius;
       innerPoints[i * 2 + 1] *= innerRadius;
@@ -132583,6 +138668,17 @@ BRp$2.registerNodeShapes = function() {
       star5Points[i * 4 + 1] = outerPoints[i * 2 + 1];
       star5Points[i * 4 + 2] = innerPoints[i * 2];
       star5Points[i * 4 + 3] = innerPoints[i * 2 + 1];
+=======
+    for (var i2 = 0; i2 < innerPoints.length / 2; i2++) {
+      innerPoints[i2 * 2] *= innerRadius;
+      innerPoints[i2 * 2 + 1] *= innerRadius;
+    }
+    for (var i2 = 0; i2 < 20 / 4; i2++) {
+      star5Points[i2 * 4] = outerPoints[i2 * 2];
+      star5Points[i2 * 4 + 1] = outerPoints[i2 * 2 + 1];
+      star5Points[i2 * 4 + 2] = innerPoints[i2 * 2];
+      star5Points[i2 * 4 + 3] = innerPoints[i2 * 2 + 1];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   }
   star5Points = fitPolygonToSquare(star5Points);
@@ -132643,8 +138739,13 @@ BRp$1.beforeRender = function(fn3, priority3) {
 };
 var beforeRenderCallbacks = function beforeRenderCallbacks2(r, willDraw, startTime) {
   var cbs = r.beforeRenderCallbacks;
+<<<<<<< HEAD
   for (var i = 0; i < cbs.length; i++) {
     cbs[i].fn(willDraw, startTime);
+=======
+  for (var i2 = 0; i2 < cbs.length; i2++) {
+    cbs[i2].fn(willDraw, startTime);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 };
 BRp$1.startRenderLoop = function() {
@@ -132659,8 +138760,12 @@ BRp$1.startRenderLoop = function() {
     if (r.destroyed) {
       return;
     }
+<<<<<<< HEAD
     if (cy2.batching())
       ;
+=======
+    if (cy2.batching()) ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     else if (r.requestedFrame && !r.skipFrame) {
       beforeRenderCallbacks(r, true, requestTime);
       var startTime = performanceNow();
@@ -132818,8 +138923,13 @@ BRp.destroy = function() {
   var r = this;
   r.destroyed = true;
   r.cy.stopAnimationLoop();
+<<<<<<< HEAD
   for (var i = 0; i < r.bindings.length; i++) {
     var binding = r.bindings[i];
+=======
+  for (var i2 = 0; i2 < r.bindings.length; i2++) {
+    var binding = r.bindings[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var b = binding;
     var tgt = b.target;
     (tgt.off || tgt.removeEventListener).apply(tgt, b.args);
@@ -132895,8 +139005,13 @@ var defs = {
           }
           var thisDeqd = opts.deq(self2, pixelRatio, extent2);
           if (thisDeqd.length > 0) {
+<<<<<<< HEAD
             for (var i = 0; i < thisDeqd.length; i++) {
               deqd.push(thisDeqd[i]);
+=======
+            for (var i2 = 0; i2 < thisDeqd.length; i2++) {
+              deqd.push(thisDeqd[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
           } else {
             break;
@@ -132914,7 +139029,11 @@ var defs = {
     };
   }
 };
+<<<<<<< HEAD
 var ElementTextureCacheLookup = /* @__PURE__ */ function() {
+=======
+var ElementTextureCacheLookup = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function ElementTextureCacheLookup2(getKey3) {
     var doesEleInvalidateKey = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : falsify;
     _classCallCheck(this, ElementTextureCacheLookup2);
@@ -133084,7 +139203,11 @@ var ElementTextureCacheLookup = /* @__PURE__ */ function() {
       return entireKeyInvalidated || this.getNumberOfIdsForKey(key) === 0;
     }
   }]);
+<<<<<<< HEAD
 }();
+=======
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var minTxrH = 25;
 var txrStepH = 50;
 var minLvl$1 = -4;
@@ -133281,8 +139404,13 @@ ETCp.getElement = function(ele, bb, pxRatio, lvl, reason) {
   return eleCache;
 };
 ETCp.invalidateElements = function(eles) {
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     this.invalidateElement(eles[i]);
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    this.invalidateElement(eles[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 };
 ETCp.invalidateElement = function(ele) {
@@ -133301,8 +139429,13 @@ ETCp.invalidateElement = function(ele) {
   }
   var noOtherElesUseCache = lookup2.invalidate(ele);
   if (noOtherElesUseCache) {
+<<<<<<< HEAD
     for (var i = 0; i < caches.length; i++) {
       var _cache = caches[i];
+=======
+    for (var i2 = 0; i2 < caches.length; i2++) {
+      var _cache = caches[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var txr = _cache.texture;
       txr.invalidatedWidth += _cache.width;
       _cache.invalidated = true;
@@ -133333,8 +139466,13 @@ ETCp.retireTexture = function(txr) {
   removeFromArray(txrQ, txr);
   txr.retired = true;
   var eleCaches = txr.eleCaches;
+<<<<<<< HEAD
   for (var i = 0; i < eleCaches.length; i++) {
     var eleCache = eleCaches[i];
+=======
+  for (var i2 = 0; i2 < eleCaches.length; i2++) {
+    var eleCache = eleCaches[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     lookup2.deleteCache(eleCache.key, eleCache.level);
   }
   clearArray(eleCaches);
@@ -133360,8 +139498,13 @@ ETCp.recycleTexture = function(txrH, minW) {
   var self2 = this;
   var txrQ = self2.getTextureQueue(txrH);
   var rtxtrQ = self2.getRetiredTextureQueue(txrH);
+<<<<<<< HEAD
   for (var i = 0; i < rtxtrQ.length; i++) {
     var txr = rtxtrQ[i];
+=======
+  for (var i2 = 0; i2 < rtxtrQ.length; i2++) {
+    var txr = rtxtrQ[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (txr.width >= minW) {
       txr.retired = false;
       txr.usedWidth = 0;
@@ -133404,7 +139547,11 @@ ETCp.dequeue = function(pxRatio) {
   var k2q = self2.getElementKeyToQueue();
   var dequeued = [];
   var lookup2 = self2.lookup;
+<<<<<<< HEAD
   for (var i = 0; i < maxDeqSize$1; i++) {
+=======
+  for (var i2 = 0; i2 < maxDeqSize$1; i2++) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (q.size() > 0) {
       var req = q.pop();
       var key = req.key;
@@ -133456,14 +139603,24 @@ ETCp.setupDequeueing = defs.setupDequeueing({
     return self2.dequeue(pxRatio, extent2);
   },
   onDeqd: function onDeqd(self2, deqd) {
+<<<<<<< HEAD
     for (var i = 0; i < self2.onDequeues.length; i++) {
       var fn3 = self2.onDequeues[i];
+=======
+    for (var i2 = 0; i2 < self2.onDequeues.length; i2++) {
+      var fn3 = self2.onDequeues[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       fn3(deqd);
     }
   },
   shouldRedraw: function shouldRedraw(self2, deqd, pxRatio, extent2) {
+<<<<<<< HEAD
     for (var i = 0; i < deqd.length; i++) {
       var eles = deqd[i].eles;
+=======
+    for (var i2 = 0; i2 < deqd.length; i2++) {
+      var eles = deqd[i2].eles;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       for (var j = 0; j < eles.length; j++) {
         var bb = eles[j].boundingBox();
         if (boundingBoxesIntersect(bb, extent2)) {
@@ -133587,8 +139744,13 @@ LTCp.getLayers = function(eles, pxRatio, lvl) {
     };
     checkLvls(1);
     checkLvls(-1);
+<<<<<<< HEAD
     for (var i2 = layers.length - 1; i2 >= 0; i2--) {
       var layer2 = layers[i2];
+=======
+    for (var i3 = layers.length - 1; i3 >= 0; i3--) {
+      var layer2 = layers[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (layer2.invalid) {
         removeFromArray(layers, layer2);
       }
@@ -133602,8 +139764,13 @@ LTCp.getLayers = function(eles, pxRatio, lvl) {
   var getBb = function getBb2() {
     if (!bb) {
       bb = makeBoundingBox();
+<<<<<<< HEAD
       for (var i2 = 0; i2 < eles.length; i2++) {
         updateBoundingBox(bb, eles[i2].boundingBox());
+=======
+      for (var i3 = 0; i3 < eles.length; i3++) {
+        updateBoundingBox(bb, eles[i3].boundingBox());
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
     return bb;
@@ -133636,8 +139803,13 @@ LTCp.getLayers = function(eles, pxRatio, lvl) {
   var layer = null;
   var maxElesPerLayer = eles.length / defNumLayers;
   var allowLazyQueueing = !firstGet;
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var rs = ele._private.rscratch;
     var caches = rs.imgLayerCaches = rs.imgLayerCaches || {};
     var existingLayer = caches[lvl];
@@ -133699,8 +139871,13 @@ LTCp.levelIsComplete = function(lvl, eles) {
     return false;
   }
   var numElesInLayers = 0;
+<<<<<<< HEAD
   for (var i = 0; i < layers.length; i++) {
     var layer = layers[i];
+=======
+  for (var i2 = 0; i2 < layers.length; i2++) {
+    var layer = layers[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (layer.reqs > 0) {
       return false;
     }
@@ -133719,8 +139896,13 @@ LTCp.validateLayersElesOrdering = function(lvl, eles) {
   if (!layers) {
     return;
   }
+<<<<<<< HEAD
   for (var i = 0; i < layers.length; i++) {
     var layer = layers[i];
+=======
+  for (var i2 = 0; i2 < layers.length; i2++) {
+    var layer = layers[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var offset = -1;
     for (var j = 0; j < eles.length; j++) {
       if (layer.eles[0] === eles[j]) {
@@ -133744,9 +139926,15 @@ LTCp.validateLayersElesOrdering = function(lvl, eles) {
 LTCp.updateElementsInLayers = function(eles, update2) {
   var self2 = this;
   var isEles = element(eles[0]);
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var req = isEles ? null : eles[i];
     var ele = isEles ? eles[i] : eles[i].ele;
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var req = isEles ? null : eles[i2];
+    var ele = isEles ? eles[i2] : eles[i2].ele;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var rs = ele._private.rscratch;
     var caches = rs.imgLayerCaches = rs.imgLayerCaches || {};
     for (var l = minLvl; l <= maxLvl; l++) {
@@ -133800,8 +139988,13 @@ LTCp.invalidateLayer = function(layer) {
   if (layer.replacement) {
     layer.replacement.invalid = true;
   }
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var caches = eles[i]._private.rscratch.imgLayerCaches;
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var caches = eles[i2]._private.rscratch.imgLayerCaches;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (caches) {
       caches[lvl] = null;
     }
@@ -133817,8 +140010,13 @@ LTCp.refineElementTextures = function(eles) {
       rLyr.eles = layer.eles;
     }
     if (!rLyr.reqs) {
+<<<<<<< HEAD
       for (var i = 0; i < rLyr.eles.length; i++) {
         self2.queueLayer(rLyr, rLyr.eles[i]);
+=======
+      for (var i2 = 0; i2 < rLyr.eles.length; i2++) {
+        self2.queueLayer(rLyr, rLyr.eles[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
     }
   });
@@ -133900,8 +140098,13 @@ LTCp.applyLayerReplacement = function(layer) {
     return;
   }
   layersInLevel[index] = layer;
+<<<<<<< HEAD
   for (var i = 0; i < layer.eles.length; i++) {
     var _p = layer.eles[i]._private;
+=======
+  for (var i2 = 0; i2 < layer.eles.length; i2++) {
+    var _p = layer.eles[i2]._private;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var cache3 = _p.imgLayerCaches = _p.imgLayerCaches || {};
     if (cache3) {
       cache3[layer.level] = layer;
@@ -133933,16 +140136,27 @@ LTCp.setupDequeueing = defs.setupDequeueing({
 var CRp$b = {};
 var impl;
 function polygon(context, points) {
+<<<<<<< HEAD
   for (var i = 0; i < points.length; i++) {
     var pt = points[i];
+=======
+  for (var i2 = 0; i2 < points.length; i2++) {
+    var pt = points[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     context.lineTo(pt.x, pt.y);
   }
 }
 function triangleBackcurve(context, points, controlPoint) {
   var firstPt;
+<<<<<<< HEAD
   for (var i = 0; i < points.length; i++) {
     var pt = points[i];
     if (i === 0) {
+=======
+  for (var i2 = 0; i2 < points.length; i2++) {
+    var pt = points[i2];
+    if (i2 === 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       firstPt = pt;
     }
     context.lineTo(pt.x, pt.y);
@@ -133954,15 +140168,25 @@ function triangleTee(context, trianglePoints, teePoints) {
     context.beginPath();
   }
   var triPts = trianglePoints;
+<<<<<<< HEAD
   for (var i = 0; i < triPts.length; i++) {
     var pt = triPts[i];
+=======
+  for (var i2 = 0; i2 < triPts.length; i2++) {
+    var pt = triPts[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     context.lineTo(pt.x, pt.y);
   }
   var teePts = teePoints;
   var firstTeePt = teePoints[0];
   context.moveTo(firstTeePt.x, firstTeePt.y);
+<<<<<<< HEAD
   for (var i = 1; i < teePts.length; i++) {
     var pt = teePts[i];
+=======
+  for (var i2 = 1; i2 < teePts.length; i2++) {
+    var pt = teePts[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     context.lineTo(pt.x, pt.y);
   }
   if (context.closePath) {
@@ -133977,8 +140201,13 @@ function circleTriangle(context, trianglePoints, rx, ry, r) {
   var triPts = trianglePoints;
   var firstTrPt = triPts[0];
   context.moveTo(firstTrPt.x, firstTrPt.y);
+<<<<<<< HEAD
   for (var i = 0; i < triPts.length; i++) {
     var pt = triPts[i];
+=======
+  for (var i2 = 0; i2 < triPts.length; i2++) {
+    var pt = triPts[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     context.lineTo(pt.x, pt.y);
   }
   if (context.closePath) {
@@ -134118,22 +140347,37 @@ CRp$a.drawCachedElement = function(context, ele, pxRatio, extent2, lvl, requestH
 };
 CRp$a.drawElements = function(context, eles) {
   var r = this;
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     r.drawElement(context, ele);
   }
 };
 CRp$a.drawCachedElements = function(context, eles, pxRatio, extent2) {
   var r = this;
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     r.drawCachedElement(context, ele, pxRatio, extent2);
   }
 };
 CRp$a.drawCachedNodes = function(context, eles, pxRatio, extent2) {
   var r = this;
+<<<<<<< HEAD
   for (var i = 0; i < eles.length; i++) {
     var ele = eles[i];
+=======
+  for (var i2 = 0; i2 < eles.length; i2++) {
+    var ele = eles[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (!ele.isNode()) {
       continue;
     }
@@ -134144,8 +140388,13 @@ CRp$a.drawLayeredElements = function(context, eles, pxRatio, extent2) {
   var r = this;
   var layers = r.data.lyrTxrCache.getLayers(eles, pxRatio);
   if (layers) {
+<<<<<<< HEAD
     for (var i = 0; i < layers.length; i++) {
       var layer = layers[i];
+=======
+    for (var i2 = 0; i2 < layers.length; i2++) {
+      var layer = layers[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var bb = layer.bb;
       if (bb.w === 0 || bb.h === 0) {
         continue;
@@ -134330,8 +140579,13 @@ CRp$9.drawEdgePath = function(edge, context, pts2, type) {
       case "self":
       case "compound":
       case "multibezier":
+<<<<<<< HEAD
         for (var i = 2; i + 3 < pts2.length; i += 4) {
           context.quadraticCurveTo(pts2[i], pts2[i + 1], pts2[i + 2], pts2[i + 3]);
+=======
+        for (var i2 = 2; i2 + 3 < pts2.length; i2 += 4) {
+          context.quadraticCurveTo(pts2[i2], pts2[i2 + 1], pts2[i2 + 2], pts2[i2 + 3]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }
         break;
       case "straight":
@@ -134375,15 +140629,26 @@ CRp$9.drawEdgePath = function(edge, context, pts2, type) {
 CRp$9.drawEdgeTrianglePath = function(edge, context, pts2) {
   context.fillStyle = context.strokeStyle;
   var edgeWidth = edge.pstyle("width").pfValue;
+<<<<<<< HEAD
   for (var i = 0; i + 1 < pts2.length; i += 2) {
     var vector = [pts2[i + 2] - pts2[i], pts2[i + 3] - pts2[i + 1]];
+=======
+  for (var i2 = 0; i2 + 1 < pts2.length; i2 += 2) {
+    var vector = [pts2[i2 + 2] - pts2[i2], pts2[i2 + 3] - pts2[i2 + 1]];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var length = Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
     var normal = [vector[1] / length, -vector[0] / length];
     var triangleHead = [normal[0] * edgeWidth / 2, normal[1] * edgeWidth / 2];
     context.beginPath();
+<<<<<<< HEAD
     context.moveTo(pts2[i] - triangleHead[0], pts2[i + 1] - triangleHead[1]);
     context.lineTo(pts2[i] + triangleHead[0], pts2[i + 1] + triangleHead[1]);
     context.lineTo(pts2[i + 2], pts2[i + 3]);
+=======
+    context.moveTo(pts2[i2] - triangleHead[0], pts2[i2 + 1] - triangleHead[1]);
+    context.lineTo(pts2[i2] + triangleHead[0], pts2[i2 + 1] + triangleHead[1]);
+    context.lineTo(pts2[i2 + 2], pts2[i2 + 3]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     context.closePath();
     context.fill();
   }
@@ -134414,8 +140679,12 @@ CRp$9.drawArrowhead = function(context, edge, prefix, x2, y2, angle2, opacity) {
   var edgeWidth = edge.pstyle("width").pfValue;
   var pArrowWidth = edge.pstyle(prefix + "-arrow-width");
   var arrowWidth = pArrowWidth.value === "match-line" ? edgeWidth : pArrowWidth.pfValue;
+<<<<<<< HEAD
   if (pArrowWidth.units === "%")
     arrowWidth *= edgeWidth;
+=======
+  if (pArrowWidth.units === "%") arrowWidth *= edgeWidth;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var edgeOpacity = edge.pstyle("opacity").value;
   if (opacity === void 0) {
     opacity = edgeOpacity;
@@ -134533,8 +140802,12 @@ CRp$8.drawInscribedImage = function(context, img, node, index, nodeOpacity) {
   var imgOpacity = getIndexedStyle(node, "background-image-opacity", "value", index) * nodeOpacity;
   var smooth = getIndexedStyle(node, "background-image-smoothing", "value", index);
   var cornerRadius = node.pstyle("corner-radius").value;
+<<<<<<< HEAD
   if (cornerRadius !== "auto")
     cornerRadius = node.pstyle("corner-radius").pfValue;
+=======
+  if (cornerRadius !== "auto") cornerRadius = node.pstyle("corner-radius").pfValue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var imgW = img.width || img.cachedW;
   var imgH = img.height || img.cachedH;
   if (null == imgW || null == imgH) {
@@ -134711,8 +140984,13 @@ CRp$7.drawElementText = function(context, ele, shiftToOriginWithBb, force, prefi
 CRp$7.getFontCache = function(context) {
   var cache3;
   this.fontCaches = this.fontCaches || [];
+<<<<<<< HEAD
   for (var i = 0; i < this.fontCaches.length; i++) {
     cache3 = this.fontCaches[i];
+=======
+  for (var i2 = 0; i2 < this.fontCaches.length; i2++) {
+    cache3 = this.fontCaches[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (cache3.context === context) {
       return cache3;
     }
@@ -134898,10 +141176,15 @@ CRp$7.drawText = function(context, ele, prefix) {
         context.beginPath();
         context.rect(bgX, bgY, bgW, bgH);
       }
+<<<<<<< HEAD
       if (doFill)
         context.fill();
       if (doStroke)
         context.stroke();
+=======
+      if (doFill) context.fill();
+      if (doStroke) context.stroke();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       if (doStroke && textBorderStyle === "double") {
         var whiteWidth = textBorderWidth / 2;
         context.beginPath();
@@ -134915,8 +141198,12 @@ CRp$7.drawText = function(context, ele, prefix) {
       context.fillStyle = textFill;
       context.strokeStyle = textStroke;
       context.lineWidth = textLineWidth;
+<<<<<<< HEAD
       if (context.setLineDash)
         context.setLineDash([]);
+=======
+      if (context.setLineDash) context.setLineDash([]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
     var lineWidth = 2 * ele.pstyle("text-outline-width").pfValue;
     if (lineWidth > 0) {
@@ -134927,8 +141214,12 @@ CRp$7.drawText = function(context, ele, prefix) {
       var lineHeight = getPrefixedProperty(rscratch, "labelLineHeight", prefix);
       var halfTextW = textW / 2;
       var justification = this.getLabelJustification(ele);
+<<<<<<< HEAD
       if (justification === "auto")
         ;
+=======
+      if (justification === "auto") ;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       else if (halign === "left") {
         if (justification === "left") {
           textX += -textW;
@@ -135009,6 +141300,7 @@ CRp$6.drawNode = function(context, node, shiftToOriginWithBb) {
   var urlDefined = new Array(urls.length);
   var image = new Array(urls.length);
   var numImages = 0;
+<<<<<<< HEAD
   for (var i = 0; i < urls.length; i++) {
     var url = urls[i];
     var defd = urlDefined[i] = url != null && url !== "none";
@@ -135016,6 +141308,15 @@ CRp$6.drawNode = function(context, node, shiftToOriginWithBb) {
       var bgImgCrossOrigin = node.cy().style().getIndexedStyle(node, "background-image-crossorigin", "value", i);
       numImages++;
       image[i] = r.getCachedImage(url, bgImgCrossOrigin, function() {
+=======
+  for (var i2 = 0; i2 < urls.length; i2++) {
+    var url = urls[i2];
+    var defd = urlDefined[i2] = url != null && url !== "none";
+    if (defd) {
+      var bgImgCrossOrigin = node.cy().style().getIndexedStyle(node, "background-image-crossorigin", "value", i2);
+      numImages++;
+      image[i2] = r.getCachedImage(url, bgImgCrossOrigin, function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         _p.backgroundTimestamp = Date.now();
         node.emitAndNotify("background");
       });
@@ -135038,8 +141339,12 @@ CRp$6.drawNode = function(context, node, shiftToOriginWithBb) {
   var outlineOpacity = node.pstyle("outline-opacity").value * eleOpacity;
   var outlineOffset = node.pstyle("outline-offset").value;
   var cornerRadius = node.pstyle("corner-radius").value;
+<<<<<<< HEAD
   if (cornerRadius !== "auto")
     cornerRadius = node.pstyle("corner-radius").pfValue;
+=======
+  if (cornerRadius !== "auto") cornerRadius = node.pstyle("corner-radius").pfValue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   var setupShapeColor = function setupShapeColor2() {
     var bgOpy = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : bgOpacity;
     r.eleFillStyle(context, node, bgOpy);
@@ -135241,10 +141546,15 @@ CRp$6.drawNode = function(context, node, shiftToOriginWithBb) {
       }
       var shape = r.getNodeShape(node);
       var bWidth = borderWidth;
+<<<<<<< HEAD
       if (borderPosition === "inside")
         bWidth = 0;
       if (borderPosition === "outside")
         bWidth *= 2;
+=======
+      if (borderPosition === "inside") bWidth = 0;
+      if (borderPosition === "outside") bWidth *= 2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var scaleX = (nodeWidth + bWidth + (outlineWidth + outlineOffset)) / nodeWidth;
       var scaleY = (nodeHeight + bWidth + (outlineWidth + outlineOffset)) / nodeHeight;
       var sWidth = nodeWidth * scaleX;
@@ -135478,10 +141788,17 @@ CRp$6.drawPie = function(context, node, nodeOpacity, pos) {
   if (holeRadius >= radius2) {
     return;
   }
+<<<<<<< HEAD
   for (var i = 1; i <= cyStyle.pieBackgroundN; i++) {
     var size3 = node.pstyle("pie-" + i + "-background-size").value;
     var color = node.pstyle("pie-" + i + "-background-color").value;
     var opacity = node.pstyle("pie-" + i + "-background-opacity").value * nodeOpacity;
+=======
+  for (var i2 = 1; i2 <= cyStyle.pieBackgroundN; i2++) {
+    var size3 = node.pstyle("pie-" + i2 + "-background-size").value;
+    var color = node.pstyle("pie-" + i2 + "-background-color").value;
+    var opacity = node.pstyle("pie-" + i2 + "-background-opacity").value * nodeOpacity;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var percent = size3 / 100;
     if (percent + lastPercent > 1) {
       percent = 1 - lastPercent;
@@ -135525,6 +141842,10 @@ CRp$6.drawStripe = function(context, node, nodeOpacity, pos) {
   switch (direction) {
     case "vertical":
       break;
+<<<<<<< HEAD
+=======
+    // default
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     case "righward":
       context.rotate(-Math.PI / 2);
       break;
@@ -135544,10 +141865,17 @@ CRp$6.drawStripe = function(context, node, nodeOpacity, pos) {
   }
   y2 -= stripeW / 2;
   x2 -= stripeH / 2;
+<<<<<<< HEAD
   for (var i = 1; i <= cyStyle.stripeBackgroundN; i++) {
     var size3 = node.pstyle("stripe-" + i + "-background-size").value;
     var color = node.pstyle("stripe-" + i + "-background-color").value;
     var opacity = node.pstyle("stripe-" + i + "-background-opacity").value * nodeOpacity;
+=======
+  for (var i2 = 1; i2 <= cyStyle.stripeBackgroundN; i2++) {
+    var size3 = node.pstyle("stripe-" + i2 + "-background-size").value;
+    var color = node.pstyle("stripe-" + i2 + "-background-color").value;
+    var opacity = node.pstyle("stripe-" + i2 + "-background-opacity").value * nodeOpacity;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var percent = size3 / 100;
     if (percent + lastPercent > 1) {
       percent = 1 - lastPercent;
@@ -135579,8 +141907,13 @@ CRp$5.paintCache = function(context) {
   var caches = this.paintCaches = this.paintCaches || [];
   var needToCreateCache = true;
   var cache3;
+<<<<<<< HEAD
   for (var i = 0; i < caches.length; i++) {
     cache3 = caches[i];
+=======
+  for (var i2 = 0; i2 < caches.length; i2++) {
+    cache3 = caches[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     if (cache3.context === context) {
       needToCreateCache = false;
       break;
@@ -135653,19 +141986,31 @@ CRp$5.createGradientStyleFor = function(context, shapeStyleName, ele, fill, opac
       }
     }
   }
+<<<<<<< HEAD
   if (!gradientStyle)
     return null;
   var hasPositions = positions2.length === colors2.length;
   var length = colors2.length;
   for (var i = 0; i < length; i++) {
     gradientStyle.addColorStop(hasPositions ? positions2[i] : i / (length - 1), "rgba(" + colors2[i][0] + "," + colors2[i][1] + "," + colors2[i][2] + "," + opacity + ")");
+=======
+  if (!gradientStyle) return null;
+  var hasPositions = positions2.length === colors2.length;
+  var length = colors2.length;
+  for (var i2 = 0; i2 < length; i2++) {
+    gradientStyle.addColorStop(hasPositions ? positions2[i2] : i2 / (length - 1), "rgba(" + colors2[i2][0] + "," + colors2[i2][1] + "," + colors2[i2][2] + "," + opacity + ")");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return gradientStyle;
 };
 CRp$5.gradientFillStyle = function(context, ele, fill, opacity) {
   var gradientStyle = this.createGradientStyleFor(context, "background", ele, fill, opacity);
+<<<<<<< HEAD
   if (!gradientStyle)
     return null;
+=======
+  if (!gradientStyle) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   context.fillStyle = gradientStyle;
 };
 CRp$5.colorFillStyle = function(context, r, g, b, a) {
@@ -135682,8 +142027,12 @@ CRp$5.eleFillStyle = function(context, ele, opacity) {
 };
 CRp$5.gradientStrokeStyle = function(context, ele, fill, opacity) {
   var gradientStyle = this.createGradientStyleFor(context, "line", ele, fill, opacity);
+<<<<<<< HEAD
   if (!gradientStyle)
     return null;
+=======
+  if (!gradientStyle) return null;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   context.strokeStyle = gradientStyle;
 };
 CRp$5.colorStrokeStyle = function(context, r, g, b, a) {
@@ -135719,15 +142068,25 @@ CRp$5.matchCanvasSize = function(container2) {
   var canvasContainer = data4.canvasContainer;
   canvasContainer.style.width = width2 + "px";
   canvasContainer.style.height = height2 + "px";
+<<<<<<< HEAD
   for (var i = 0; i < r.CANVAS_LAYERS; i++) {
     canvas = data4.canvases[i];
+=======
+  for (var i2 = 0; i2 < r.CANVAS_LAYERS; i2++) {
+    canvas = data4.canvases[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     canvas.style.width = width2 + "px";
     canvas.style.height = height2 + "px";
   }
+<<<<<<< HEAD
   for (var i = 0; i < r.BUFFER_COUNT; i++) {
     canvas = data4.bufferCanvases[i];
+=======
+  for (var i2 = 0; i2 < r.BUFFER_COUNT; i2++) {
+    canvas = data4.bufferCanvases[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     canvas.style.width = width2 + "px";
@@ -136153,6 +142512,7 @@ function isSimpleShape(node, renderTarget) {
   if (renderTarget.picking) {
     return true;
   } else {
+<<<<<<< HEAD
     if (node.pstyle("background-fill").value !== "solid")
       return false;
     if (node.pstyle("background-image").strValue !== "none")
@@ -136163,6 +142523,13 @@ function isSimpleShape(node, renderTarget) {
       return true;
     if (node.pstyle("border-style").value !== "solid")
       return false;
+=======
+    if (node.pstyle("background-fill").value !== "solid") return false;
+    if (node.pstyle("background-image").strValue !== "none") return false;
+    if (node.pstyle("border-width").value === 0) return true;
+    if (node.pstyle("border-opacity").value === 0) return true;
+    if (node.pstyle("border-style").value !== "solid") return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     return true;
   }
 }
@@ -136170,8 +142537,13 @@ function arrayEqual(a1, a2) {
   if (a1.length !== a2.length) {
     return false;
   }
+<<<<<<< HEAD
   for (var i = 0; i < a1.length; i++) {
     if (a1[i] !== a2[i]) {
+=======
+  for (var i2 = 0; i2 < a1.length; i2++) {
+    if (a1[i2] !== a2[i2]) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       return false;
     }
   }
@@ -136242,12 +142614,21 @@ function createTypedArray(gl, glType, dataOrSize) {
       return new Int32Array(dataOrSize);
   }
 }
+<<<<<<< HEAD
 function createTypedArrayView(gl, glType, array3, stride, size3, i) {
   switch (glType) {
     case gl.FLOAT:
       return new Float32Array(array3.buffer, i * stride, size3);
     case gl.INT:
       return new Int32Array(array3.buffer, i * stride, size3);
+=======
+function createTypedArrayView(gl, glType, array3, stride, size3, i2) {
+  switch (glType) {
+    case gl.FLOAT:
+      return new Float32Array(array3.buffer, i2 * stride, size3);
+    case gl.INT:
+      return new Int32Array(array3.buffer, i2 * stride, size3);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 }
 function createBufferStaticDraw(gl, type, attributeLoc, dataArray) {
@@ -136281,17 +142662,30 @@ function createBufferDynamicDraw(gl, instances, type, attributeLoc) {
   gl.vertexAttribDivisor(attributeLoc, 1);
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   var views = new Array(instances);
+<<<<<<< HEAD
   for (var i = 0; i < instances; i++) {
     views[i] = createTypedArrayView(gl, glType, dataArray, stride, size3, i);
+=======
+  for (var i2 = 0; i2 < instances; i2++) {
+    views[i2] = createTypedArrayView(gl, glType, dataArray, stride, size3, i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   buffer.dataArray = dataArray;
   buffer.stride = stride;
   buffer.size = size3;
+<<<<<<< HEAD
   buffer.getView = function(i2) {
     return views[i2];
   };
   buffer.setPoint = function(i2, x2, y2) {
     var view = views[i2];
+=======
+  buffer.getView = function(i3) {
+    return views[i3];
+  };
+  buffer.setPoint = function(i3, x2, y2) {
+    var view = views[i3];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     view[0] = x2;
     view[1] = y2;
   };
@@ -136309,9 +142703,15 @@ function create3x3MatrixBufferDynamicDraw(gl, instances, attributeLoc) {
   var matrixSize = 9;
   var matrixData = new Float32Array(instances * matrixSize);
   var matrixViews = new Array(instances);
+<<<<<<< HEAD
   for (var i = 0; i < instances; i++) {
     var byteOffset = i * matrixSize * 4;
     matrixViews[i] = new Float32Array(matrixData.buffer, byteOffset, matrixSize);
+=======
+  for (var i2 = 0; i2 < instances; i2++) {
+    var byteOffset = i2 * matrixSize * 4;
+    matrixViews[i2] = new Float32Array(matrixData.buffer, byteOffset, matrixSize);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   var buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -136323,11 +142723,19 @@ function create3x3MatrixBufferDynamicDraw(gl, instances, attributeLoc) {
     gl.vertexAttribDivisor(loc, 1);
   }
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
+<<<<<<< HEAD
   buffer.getMatrixView = function(i2) {
     return matrixViews[i2];
   };
   buffer.setData = function(matrix, i2) {
     matrixViews[i2].set(matrix, 0);
+=======
+  buffer.getMatrixView = function(i3) {
+    return matrixViews[i3];
+  };
+  buffer.setData = function(matrix, i3) {
+    matrixViews[i3].set(matrix, 0);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   };
   buffer.bufferSubData = function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -136352,6 +142760,7 @@ function createPickingFrameBuffer(gl) {
   return fb;
 }
 var ARRAY_TYPE = typeof Float32Array !== "undefined" ? Float32Array : Array;
+<<<<<<< HEAD
 if (!Math.hypot)
   Math.hypot = function() {
     var y2 = 0, i = arguments.length;
@@ -136360,6 +142769,15 @@ if (!Math.hypot)
     }
     return Math.sqrt(y2);
   };
+=======
+if (!Math.hypot) Math.hypot = function() {
+  var y2 = 0, i2 = arguments.length;
+  while (i2--) {
+    y2 += arguments[i2] * arguments[i2];
+  }
+  return Math.sqrt(y2);
+};
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 function create() {
   var out = new ARRAY_TYPE(9);
   if (ARRAY_TYPE != Float32Array) {
@@ -136456,7 +142874,11 @@ function projection(out, width2, height2) {
   out[8] = 1;
   return out;
 }
+<<<<<<< HEAD
 var Atlas = /* @__PURE__ */ function() {
+=======
+var Atlas = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function Atlas2(r, texSize, texRows, createTextureCanvas2) {
     _classCallCheck(this, Atlas2);
     this.debugID = Math.floor(Math.random() * 1e4);
@@ -136509,8 +142931,12 @@ var Atlas = /* @__PURE__ */ function() {
     key: "draw",
     value: function draw(key, bb, doDrawing) {
       var _this = this;
+<<<<<<< HEAD
       if (this.locked)
         throw new Error("can't draw, atlas is locked");
+=======
+      if (this.locked) throw new Error("can't draw, atlas is locked");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var texSize = this.texSize, texRows = this.texRows, texHeight = this.texHeight;
       var _this$getScale = this.getScale(bb), scale2 = _this$getScale.scale, texW = _this$getScale.texW, texH = _this$getScale.texH;
       var drawAt = function drawAt2(location, canvas) {
@@ -136621,8 +143047,12 @@ var Atlas = /* @__PURE__ */ function() {
   }, {
     key: "canFit",
     value: function canFit(bb) {
+<<<<<<< HEAD
       if (this.locked)
         return false;
+=======
+      if (this.locked) return false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var texSize = this.texSize, texRows = this.texRows;
       var _this$getScale2 = this.getScale(bb), texW = _this$getScale2.texW;
       if (this.freePointer.x + texW > texSize) {
@@ -136658,8 +143088,13 @@ var Atlas = /* @__PURE__ */ function() {
       this.locked = true;
     }
   }]);
+<<<<<<< HEAD
 }();
 var AtlasCollection = /* @__PURE__ */ function() {
+=======
+})();
+var AtlasCollection = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function AtlasCollection2(r, texSize, texRows, createTextureCanvas2) {
     _classCallCheck(this, AtlasCollection2);
     this.r = r;
@@ -136698,8 +143133,12 @@ var AtlasCollection = /* @__PURE__ */ function() {
       if (!atlas) {
         atlas = this.atlases[this.atlases.length - 1];
         if (!atlas || !atlas.canFit(bb)) {
+<<<<<<< HEAD
           if (atlas)
             atlas.lock();
+=======
+          if (atlas) atlas.lock();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           atlas = this._createAtlas();
           this.atlases.push(atlas);
         }
@@ -136780,8 +143219,12 @@ var AtlasCollection = /* @__PURE__ */ function() {
           atlas.dispose();
         };
         for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+<<<<<<< HEAD
           if (_loop())
             continue;
+=======
+          if (_loop()) continue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }
       } catch (err) {
         _iterator.e(err);
@@ -136835,6 +143278,7 @@ var AtlasCollection = /* @__PURE__ */ function() {
       };
     }
   }]);
+<<<<<<< HEAD
 }();
 function intersection(set1, set2) {
   if (set1.intersection)
@@ -136845,6 +143289,16 @@ function intersection(set1, set2) {
     }));
 }
 var AtlasManager = /* @__PURE__ */ function() {
+=======
+})();
+function intersection(set1, set2) {
+  if (set1.intersection) return set1.intersection(set2);
+  else return new Set(_toConsumableArray(set1).filter(function(x2) {
+    return set2.has(x2);
+  }));
+}
+var AtlasManager = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function AtlasManager2(r, globalOptions) {
     _classCallCheck(this, AtlasManager2);
     this.r = r;
@@ -136873,8 +143327,12 @@ var AtlasManager = /* @__PURE__ */ function() {
     key: "addRenderType",
     value: function addRenderType(type, renderTypeOptions) {
       var collection4 = renderTypeOptions.collection;
+<<<<<<< HEAD
       if (!this.collections.has(collection4))
         throw new Error("invalid atlas collection name '".concat(collection4, "'"));
+=======
+      if (!this.collections.has(collection4)) throw new Error("invalid atlas collection name '".concat(collection4, "'"));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var atlasCollection = this.collections.get(collection4);
       var opts = extend({
         type,
@@ -137071,8 +143529,13 @@ var AtlasManager = /* @__PURE__ */ function() {
       return debugInfo;
     }
   }]);
+<<<<<<< HEAD
 }();
 var AtlasBatchManager = /* @__PURE__ */ function() {
+=======
+})();
+var AtlasBatchManager = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function AtlasBatchManager2(globalOptions) {
     _classCallCheck(this, AtlasBatchManager2);
     this.globalOptions = globalOptions;
@@ -137095,8 +143558,13 @@ var AtlasBatchManager = /* @__PURE__ */ function() {
     value: function getIndexArray() {
       return Array.from({
         length: this.maxAtlasesPerBatch
+<<<<<<< HEAD
       }, function(v, i) {
         return i;
+=======
+      }, function(v, i2) {
+        return i2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       });
     }
   }, {
@@ -137136,7 +143604,11 @@ var AtlasBatchManager = /* @__PURE__ */ function() {
       return atlasID;
     }
   }]);
+<<<<<<< HEAD
 }();
+=======
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var circleSD = "\n  float circleSD(vec2 p, float r) {\n    return distance(vec2(0), p) - r; // signed distance\n  }\n";
 var rectangleSD = "\n  float rectangleSD(vec2 p, vec2 b) {\n    vec2 d = abs(p)-b;\n    return distance(vec2(0),max(d,0.0)) + min(max(d.x,d.y),0.0);\n  }\n";
 var roundRectangleSD = "\n  float roundRectangleSD(vec2 p, vec2 b, vec4 cr) {\n    cr.xy = (p.x > 0.0) ? cr.xy : cr.zw;\n    cr.x  = (p.y > 0.0) ? cr.x  : cr.y;\n    vec2 q = abs(p) - b + cr.x;\n    return min(max(q.x, q.y), 0.0) + distance(vec2(0), max(q, 0.0)) - cr.x;\n  }\n";
@@ -137166,7 +143638,11 @@ var RECTANGLE = 4;
 var ROUND_RECTANGLE = 5;
 var BOTTOM_ROUND_RECTANGLE = 6;
 var ELLIPSE = 7;
+<<<<<<< HEAD
 var ElementDrawingWebGL = /* @__PURE__ */ function() {
+=======
+var ElementDrawingWebGL = /* @__PURE__ */ (function() {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   function ElementDrawingWebGL2(r, gl, opts) {
     _classCallCheck(this, ElementDrawingWebGL2);
     this.r = r;
@@ -137271,10 +143747,17 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
       var gl = this.gl;
       var vertexShaderSource = "#version 300 es\n      precision highp float;\n\n      uniform mat3 uPanZoomMatrix;\n      uniform int  uAtlasSize;\n      \n      // instanced\n      in vec2 aPosition; // a vertex from the unit square\n      \n      in mat3 aTransform; // used to transform verticies, eg into a bounding box\n      in int aVertType; // the type of thing we are rendering\n\n      // the z-index that is output when using picking mode\n      in vec4 aIndex;\n      \n      // For textures\n      in int aAtlasId; // which shader unit/atlas to use\n      in vec4 aTex; // x/y/w/h of texture in atlas\n\n      // for edges\n      in vec4 aPointAPointB;\n      in vec4 aPointCPointD;\n      in vec2 aLineWidth; // also used for node border width\n\n      // simple shapes\n      in vec4 aCornerRadius; // for round-rectangle [top-right, bottom-right, top-left, bottom-left]\n      in vec4 aColor; // also used for edges\n      in vec4 aBorderColor; // aLineWidth is used for border width\n\n      // output values passed to the fragment shader\n      out vec2 vTexCoord;\n      out vec4 vColor;\n      out vec2 vPosition;\n      // flat values are not interpolated\n      flat out int vAtlasId; \n      flat out int vVertType;\n      flat out vec2 vTopRight;\n      flat out vec2 vBotLeft;\n      flat out vec4 vCornerRadius;\n      flat out vec4 vBorderColor;\n      flat out vec2 vBorderWidth;\n      flat out vec4 vIndex;\n      \n      void main(void) {\n        int vid = gl_VertexID;\n        vec2 position = aPosition; // TODO make this a vec3, simplifies some code below\n\n        if(aVertType == ".concat(TEXTURE, ") {\n          float texX = aTex.x; // texture coordinates\n          float texY = aTex.y;\n          float texW = aTex.z;\n          float texH = aTex.w;\n\n          if(vid == 1 || vid == 2 || vid == 4) {\n            texX += texW;\n          }\n          if(vid == 2 || vid == 4 || vid == 5) {\n            texY += texH;\n          }\n\n          float d = float(uAtlasSize);\n          vTexCoord = vec2(texX / d, texY / d); // tex coords must be between 0 and 1\n\n          gl_Position = vec4(uPanZoomMatrix * aTransform * vec3(position, 1.0), 1.0);\n        }\n        else if(aVertType == ").concat(RECTANGLE, " || aVertType == ").concat(ELLIPSE, " \n             || aVertType == ").concat(ROUND_RECTANGLE, " || aVertType == ").concat(BOTTOM_ROUND_RECTANGLE, ") { // simple shapes\n\n          // the bounding box is needed by the fragment shader\n          vBotLeft  = (aTransform * vec3(0, 0, 1)).xy; // flat\n          vTopRight = (aTransform * vec3(1, 1, 1)).xy; // flat\n          vPosition = (aTransform * vec3(position, 1)).xy; // will be interpolated\n\n          // calculations are done in the fragment shader, just pass these along\n          vColor = aColor;\n          vCornerRadius = aCornerRadius;\n          vBorderColor = aBorderColor;\n          vBorderWidth = aLineWidth;\n\n          gl_Position = vec4(uPanZoomMatrix * aTransform * vec3(position, 1.0), 1.0);\n        }\n        else if(aVertType == ").concat(EDGE_STRAIGHT, ") {\n          vec2 source = aPointAPointB.xy;\n          vec2 target = aPointAPointB.zw;\n\n          // adjust the geometry so that the line is centered on the edge\n          position.y = position.y - 0.5;\n\n          // stretch the unit square into a long skinny rectangle\n          vec2 xBasis = target - source;\n          vec2 yBasis = normalize(vec2(-xBasis.y, xBasis.x));\n          vec2 point = source + xBasis * position.x + yBasis * aLineWidth[0] * position.y;\n\n          gl_Position = vec4(uPanZoomMatrix * vec3(point, 1.0), 1.0);\n          vColor = aColor;\n        } \n        else if(aVertType == ").concat(EDGE_CURVE_SEGMENT, ") {\n          vec2 pointA = aPointAPointB.xy;\n          vec2 pointB = aPointAPointB.zw;\n          vec2 pointC = aPointCPointD.xy;\n          vec2 pointD = aPointCPointD.zw;\n\n          // adjust the geometry so that the line is centered on the edge\n          position.y = position.y - 0.5;\n\n          vec2 p0, p1, p2, pos;\n          if(position.x == 0.0) { // The left side of the unit square\n            p0 = pointA;\n            p1 = pointB;\n            p2 = pointC;\n            pos = position;\n          } else { // The right side of the unit square, use same approach but flip the geometry upside down\n            p0 = pointD;\n            p1 = pointC;\n            p2 = pointB;\n            pos = vec2(0.0, -position.y);\n          }\n\n          vec2 p01 = p1 - p0;\n          vec2 p12 = p2 - p1;\n          vec2 p21 = p1 - p2;\n\n          // Find the normal vector.\n          vec2 tangent = normalize(normalize(p12) + normalize(p01));\n          vec2 normal = vec2(-tangent.y, tangent.x);\n\n          // Find the vector perpendicular to p0 -> p1.\n          vec2 p01Norm = normalize(vec2(-p01.y, p01.x));\n\n          // Determine the bend direction.\n          float sigma = sign(dot(p01 + p21, normal));\n          float width = aLineWidth[0];\n\n          if(sign(pos.y) == -sigma) {\n            // This is an intersecting vertex. Adjust the position so that there's no overlap.\n            vec2 point = 0.5 * width * normal * -sigma / dot(normal, p01Norm);\n            gl_Position = vec4(uPanZoomMatrix * vec3(p1 + point, 1.0), 1.0);\n          } else {\n            // This is a non-intersecting vertex. Treat it like a mitre join.\n            vec2 point = 0.5 * width * normal * sigma * dot(normal, p01Norm);\n            gl_Position = vec4(uPanZoomMatrix * vec3(p1 + point, 1.0), 1.0);\n          }\n\n          vColor = aColor;\n        } \n        else if(aVertType == ").concat(EDGE_ARROW, " && vid < 3) {\n          // massage the first triangle into an edge arrow\n          if(vid == 0)\n            position = vec2(-0.15, -0.3);\n          if(vid == 1)\n            position = vec2(  0.0,  0.0);\n          if(vid == 2)\n            position = vec2( 0.15, -0.3);\n\n          gl_Position = vec4(uPanZoomMatrix * aTransform * vec3(position, 1.0), 1.0);\n          vColor = aColor;\n        }\n        else {\n          gl_Position = vec4(2.0, 0.0, 0.0, 1.0); // discard vertex by putting it outside webgl clip space\n        }\n\n        vAtlasId = aAtlasId;\n        vVertType = aVertType;\n        vIndex = aIndex;\n      }\n    ");
       var idxs = this.batchManager.getIndexArray();
+<<<<<<< HEAD
       var fragmentShaderSource = "#version 300 es\n      precision highp float;\n\n      // declare texture unit for each texture atlas in the batch\n      ".concat(idxs.map(function(i2) {
         return "uniform sampler2D uTexture".concat(i2, ";");
       }).join("\n	"), "\n\n      uniform vec4 uBGColor;\n      uniform float uZoom;\n\n      in vec2 vTexCoord;\n      in vec4 vColor;\n      in vec2 vPosition; // model coordinates\n\n      flat in int vAtlasId;\n      flat in vec4 vIndex;\n      flat in int vVertType;\n      flat in vec2 vTopRight;\n      flat in vec2 vBotLeft;\n      flat in vec4 vCornerRadius;\n      flat in vec4 vBorderColor;\n      flat in vec2 vBorderWidth;\n\n      out vec4 outColor;\n\n      ").concat(circleSD, "\n      ").concat(rectangleSD, "\n      ").concat(roundRectangleSD, "\n      ").concat(ellipseSD, "\n\n      vec4 blend(vec4 top, vec4 bot) { // blend colors with premultiplied alpha\n        return vec4( \n          top.rgb + (bot.rgb * (1.0 - top.a)),\n          top.a   + (bot.a   * (1.0 - top.a)) \n        );\n      }\n\n      vec4 distInterp(vec4 cA, vec4 cB, float d) { // interpolate color using Signed Distance\n        // scale to the zoom level so that borders don't look blurry when zoomed in\n        // note 1.5 is an aribitrary value chosen because it looks good\n        return mix(cA, cB, 1.0 - smoothstep(0.0, 1.5 / uZoom, abs(d))); \n      }\n\n      void main(void) {\n        if(vVertType == ").concat(TEXTURE, ") {\n          // look up the texel from the texture unit\n          ").concat(idxs.map(function(i2) {
         return "if(vAtlasId == ".concat(i2, ") outColor = texture(uTexture").concat(i2, ", vTexCoord);");
+=======
+      var fragmentShaderSource = "#version 300 es\n      precision highp float;\n\n      // declare texture unit for each texture atlas in the batch\n      ".concat(idxs.map(function(i3) {
+        return "uniform sampler2D uTexture".concat(i3, ";");
+      }).join("\n	"), "\n\n      uniform vec4 uBGColor;\n      uniform float uZoom;\n\n      in vec2 vTexCoord;\n      in vec4 vColor;\n      in vec2 vPosition; // model coordinates\n\n      flat in int vAtlasId;\n      flat in vec4 vIndex;\n      flat in int vVertType;\n      flat in vec2 vTopRight;\n      flat in vec2 vBotLeft;\n      flat in vec4 vCornerRadius;\n      flat in vec4 vBorderColor;\n      flat in vec2 vBorderWidth;\n\n      out vec4 outColor;\n\n      ").concat(circleSD, "\n      ").concat(rectangleSD, "\n      ").concat(roundRectangleSD, "\n      ").concat(ellipseSD, "\n\n      vec4 blend(vec4 top, vec4 bot) { // blend colors with premultiplied alpha\n        return vec4( \n          top.rgb + (bot.rgb * (1.0 - top.a)),\n          top.a   + (bot.a   * (1.0 - top.a)) \n        );\n      }\n\n      vec4 distInterp(vec4 cA, vec4 cB, float d) { // interpolate color using Signed Distance\n        // scale to the zoom level so that borders don't look blurry when zoomed in\n        // note 1.5 is an aribitrary value chosen because it looks good\n        return mix(cA, cB, 1.0 - smoothstep(0.0, 1.5 / uZoom, abs(d))); \n      }\n\n      void main(void) {\n        if(vVertType == ").concat(TEXTURE, ") {\n          // look up the texel from the texture unit\n          ").concat(idxs.map(function(i3) {
+        return "if(vAtlasId == ".concat(i3, ") outColor = texture(uTexture").concat(i3, ", vTexCoord);");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }).join("\n	else "), "\n        } \n        else if(vVertType == ").concat(EDGE_ARROW, ") {\n          // mimics how canvas renderer uses context.globalCompositeOperation = 'destination-out';\n          outColor = blend(vColor, uBGColor);\n          outColor.a = 1.0; // make opaque, masks out line under arrow\n        }\n        else if(vVertType == ").concat(RECTANGLE, " && vBorderWidth == vec2(0.0)) { // simple rectangle with no border\n          outColor = vColor; // unit square is already transformed to the rectangle, nothing else needs to be done\n        }\n        else if(vVertType == ").concat(RECTANGLE, " || vVertType == ").concat(ELLIPSE, " \n          || vVertType == ").concat(ROUND_RECTANGLE, " || vVertType == ").concat(BOTTOM_ROUND_RECTANGLE, ") { // use SDF\n\n          float outerBorder = vBorderWidth[0];\n          float innerBorder = vBorderWidth[1];\n          float borderPadding = outerBorder * 2.0;\n          float w = vTopRight.x - vBotLeft.x - borderPadding;\n          float h = vTopRight.y - vBotLeft.y - borderPadding;\n          vec2 b = vec2(w/2.0, h/2.0); // half width, half height\n          vec2 p = vPosition - vec2(vTopRight.x - b[0] - outerBorder, vTopRight.y - b[1] - outerBorder); // translate to center\n\n          float d; // signed distance\n          if(vVertType == ").concat(RECTANGLE, ") {\n            d = rectangleSD(p, b);\n          } else if(vVertType == ").concat(ELLIPSE, " && w == h) {\n            d = circleSD(p, b.x); // faster than ellipse\n          } else if(vVertType == ").concat(ELLIPSE, ") {\n            d = ellipseSD(p, b);\n          } else {\n            d = roundRectangleSD(p, b, vCornerRadius.wzyx);\n          }\n\n          // use the distance to interpolate a color to smooth the edges of the shape, doesn't need multisampling\n          // we must smooth colors inwards, because we can't change pixels outside the shape's bounding box\n          if(d > 0.0) {\n            if(d > outerBorder) {\n              discard;\n            } else {\n              outColor = distInterp(vBorderColor, vec4(0), d - outerBorder);\n            }\n          } else {\n            if(d > innerBorder) {\n              vec4 outerColor = outerBorder == 0.0 ? vec4(0) : vBorderColor;\n              vec4 innerBorderColor = blend(vBorderColor, vColor);\n              outColor = distInterp(innerBorderColor, outerColor, d);\n            } \n            else {\n              vec4 outerColor;\n              if(innerBorder == 0.0 && outerBorder == 0.0) {\n                outerColor = vec4(0);\n              } else if(innerBorder == 0.0) {\n                outerColor = vBorderColor;\n              } else {\n                outerColor = blend(vBorderColor, vColor);\n              }\n              outColor = distInterp(vColor, outerColor, d - innerBorder);\n            }\n          }\n        }\n        else {\n          outColor = vColor;\n        }\n\n        ").concat(renderTarget.picking ? "if(outColor.a == 0.0) discard;\n             else outColor = vIndex;" : "", "\n      }\n    ");
       var program = createProgram(gl, vertexShaderSource, fragmentShaderSource);
       program.aPosition = gl.getAttribLocation(program, "aPosition");
@@ -137294,8 +143777,13 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
       program.uBGColor = gl.getUniformLocation(program, "uBGColor");
       program.uZoom = gl.getUniformLocation(program, "uZoom");
       program.uTextures = [];
+<<<<<<< HEAD
       for (var i = 0; i < this.batchManager.getMaxAtlasesPerBatch(); i++) {
         program.uTextures.push(gl.getUniformLocation(program, "uTexture".concat(i)));
+=======
+      for (var i2 = 0; i2 < this.batchManager.getMaxAtlasesPerBatch(); i2++) {
+        program.uTextures.push(gl.getUniformLocation(program, "uTexture".concat(i2)));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       return program;
     }
@@ -137419,8 +143907,12 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
               var matrixView = this.transformBuffer.getMatrixView(instance2);
               this.setTransformMatrix(ele, matrixView, opts, atlasInfo, first2);
               this.instanceCount++;
+<<<<<<< HEAD
               if (!first2)
                 this.wrappedCount++;
+=======
+              if (!first2) this.wrappedCount++;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
               if (this.instanceCount >= this.maxInstances) {
                 this.endBatch();
               }
@@ -137727,7 +144219,11 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
           this.endBatch();
         }
       } else {
+<<<<<<< HEAD
         for (var i = 0; i < points.length - 2; i += 2) {
+=======
+        for (var i2 = 0; i2 < points.length - 2; i2 += 2) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
           var _instance = this.instanceCount;
           this.vertTypeBuffer.getView(_instance)[0] = EDGE_CURVE_SEGMENT;
           var _indexView = this.indexBuffer.getView(_instance);
@@ -137736,6 +144232,7 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
           toWebGLColor(color, opacity, _colorView);
           var _lineWidthBuffer = this.lineWidthBuffer.getView(_instance);
           _lineWidthBuffer[0] = width2;
+<<<<<<< HEAD
           var pAx = points[i - 2], pAy = points[i - 1];
           var pBx = points[i], pBy = points[i + 1];
           var pCx = points[i + 2], pCy = points[i + 3];
@@ -137745,6 +144242,17 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
             pAy = 2 * pBy - pCy + 1e-3;
           }
           if (i == points.length - 4) {
+=======
+          var pAx = points[i2 - 2], pAy = points[i2 - 1];
+          var pBx = points[i2], pBy = points[i2 + 1];
+          var pCx = points[i2 + 2], pCy = points[i2 + 3];
+          var pDx = points[i2 + 4], pDy = points[i2 + 5];
+          if (i2 == 0) {
+            pAx = 2 * pBx - pCx + 1e-3;
+            pAy = 2 * pBy - pCy + 1e-3;
+          }
+          if (i2 == points.length - 4) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             pDx = 2 * pCx - pBx + 1e-3;
             pDy = 2 * pCy - pBy + 1e-3;
           }
@@ -137801,6 +144309,7 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
         return controlPoints3;
       }
       var curvePoints = Array((segments + 1) * 2);
+<<<<<<< HEAD
       for (var i = 0; i <= segments; i++) {
         if (i == 0) {
           curvePoints[0] = controlPoints3[0];
@@ -137811,6 +144320,18 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
         } else {
           var t2 = i / segments;
           this._setCurvePoint(controlPoints3, t2, curvePoints, i * 2);
+=======
+      for (var i2 = 0; i2 <= segments; i2++) {
+        if (i2 == 0) {
+          curvePoints[0] = controlPoints3[0];
+          curvePoints[1] = controlPoints3[1];
+        } else if (i2 == segments) {
+          curvePoints[i2 * 2] = controlPoints3[controlPoints3.length - 2];
+          curvePoints[i2 * 2 + 1] = controlPoints3[controlPoints3.length - 1];
+        } else {
+          var t2 = i2 / segments;
+          this._setCurvePoint(controlPoints3, t2, curvePoints, i2 * 2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }
       }
       return curvePoints;
@@ -137823,11 +144344,19 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
         curvePoints[cpi + 1] = points[1];
       } else {
         var newpoints = Array(points.length - 2);
+<<<<<<< HEAD
         for (var i = 0; i < newpoints.length; i += 2) {
           var x2 = (1 - t2) * points[i] + t2 * points[i + 2];
           var y2 = (1 - t2) * points[i + 1] + t2 * points[i + 3];
           newpoints[i] = x2;
           newpoints[i + 1] = y2;
+=======
+        for (var i2 = 0; i2 < newpoints.length; i2 += 2) {
+          var x2 = (1 - t2) * points[i2] + t2 * points[i2 + 2];
+          var y2 = (1 - t2) * points[i2 + 1] + t2 * points[i2 + 3];
+          newpoints[i2] = x2;
+          newpoints[i2 + 1] = y2;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         }
         return this._setCurvePoint(newpoints, t2, curvePoints, cpi);
       }
@@ -137836,8 +144365,12 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
     key: "endBatch",
     value: function endBatch2() {
       var gl = this.gl, vao = this.vao, vertexCount = this.vertexCount, count = this.instanceCount;
+<<<<<<< HEAD
       if (count === 0)
         return;
+=======
+      if (count === 0) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       var program = this.renderTarget.picking ? this.pickingProgram : this.program;
       gl.useProgram(program);
       gl.bindVertexArray(vao);
@@ -137853,8 +144386,13 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
         _iterator2.f();
       }
       var atlases = this.batchManager.getAtlases();
+<<<<<<< HEAD
       for (var i = 0; i < atlases.length; i++) {
         atlases[i].bufferIfNeeded(gl);
+=======
+      for (var i2 = 0; i2 < atlases.length; i2++) {
+        atlases[i2].bufferIfNeeded(gl);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       for (var _i2 = 0; _i2 < atlases.length; _i2++) {
         gl.activeTexture(gl.TEXTURE0 + _i2);
@@ -137900,7 +144438,11 @@ var ElementDrawingWebGL = /* @__PURE__ */ function() {
       };
     }
   }]);
+<<<<<<< HEAD
 }();
+=======
+})();
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var CRp$4 = {};
 CRp$4.initWebgl = function(opts, fns) {
   var r = this;
@@ -138219,9 +144761,15 @@ function drawAtlases(r) {
       }
     }
   };
+<<<<<<< HEAD
   var i = 0;
   draw(r.drawing, "node", i++);
   draw(r.drawing, "label", i++);
+=======
+  var i2 = 0;
+  draw(r.drawing, "node", i2++);
+  draw(r.drawing, "label", i2++);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 }
 function getPickingIndexes(r, mX1, mY1, mX2, mY2) {
   var x2, y2, w, h;
@@ -138249,8 +144797,13 @@ function getPickingIndexes(r, mX1, mY1, mX2, mY2) {
   gl.readPixels(x2, y2, w, h, gl.RGBA, gl.UNSIGNED_BYTE, data4);
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   var indexes = /* @__PURE__ */ new Set();
+<<<<<<< HEAD
   for (var i = 0; i < n; i++) {
     var pixel = data4.slice(i * 4, i * 4 + 4);
+=======
+  for (var i2 = 0; i2 < n; i2++) {
+    var pixel = data4.slice(i2 * 4, i2 * 4 + 4);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var index = vec4ToIndex(pixel) - 1;
     if (index >= 0) {
       indexes.add(index);
@@ -138329,8 +144882,13 @@ function renderWebgl(r, options2, renderTarget) {
     eleCount = eles.length;
     drawing.startFrame(panZoomMatrix, renderTarget);
     if (renderTarget.screen) {
+<<<<<<< HEAD
       for (var i = 0; i < eles.nondrag.length; i++) {
         drawEle(r, i, eles.nondrag[i]);
+=======
+      for (var i2 = 0; i2 < eles.nondrag.length; i2++) {
+        drawEle(r, i2, eles.nondrag[i2]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       for (var _i2 = 0; _i2 < eles.drag.length; _i2++) {
         drawEle(r, _i2, eles.drag[_i2]);
@@ -138390,8 +144948,13 @@ CRp$3.drawPolygonPath = function(context, x2, y2, width2, height2, points) {
     context.beginPath();
   }
   context.moveTo(x2 + halfW * points[0], y2 + halfH * points[1]);
+<<<<<<< HEAD
   for (var i = 1; i < points.length / 2; i++) {
     context.lineTo(x2 + halfW * points[i * 2], y2 + halfH * points[i * 2 + 1]);
+=======
+  for (var i2 = 1; i2 < points.length / 2; i2++) {
+    context.lineTo(x2 + halfW * points[i2 * 2], y2 + halfH * points[i2 * 2 + 1]);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   context.closePath();
 };
@@ -138494,10 +145057,17 @@ CRp$3.drawEllipsePath = function(context, centerX, centerY, width2, height2) {
     var xPos, yPos;
     var rw = width2 / 2;
     var rh = height2 / 2;
+<<<<<<< HEAD
     for (var i = 0 * Math.PI; i < 2 * Math.PI; i += ellipseStepSize) {
       xPos = centerX - rw * sin[i] * sin0 + rw * cos[i] * cos0;
       yPos = centerY + rh * cos[i] * sin0 + rh * sin[i] * cos0;
       if (i === 0) {
+=======
+    for (var i2 = 0 * Math.PI; i2 < 2 * Math.PI; i2 += ellipseStepSize) {
+      xPos = centerX - rw * sin[i2] * sin0 + rw * cos[i2] * cos0;
+      yPos = centerY + rh * cos[i2] * sin0 + rh * sin[i2] * cos0;
+      if (i2 === 0) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         context.moveTo(xPos, yPos);
       } else {
         context.lineTo(xPos, yPos);
@@ -138587,16 +145157,26 @@ function b64ToBlob(b64, mimeType) {
   var bytes = atob(b64);
   var buff = new ArrayBuffer(bytes.length);
   var buffUint8 = new Uint8Array(buff);
+<<<<<<< HEAD
   for (var i = 0; i < bytes.length; i++) {
     buffUint8[i] = bytes.charCodeAt(i);
+=======
+  for (var i2 = 0; i2 < bytes.length; i2++) {
+    buffUint8[i2] = bytes.charCodeAt(i2);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return new Blob([buff], {
     type: mimeType
   });
 }
 function b64UriToB64(b64uri) {
+<<<<<<< HEAD
   var i = b64uri.indexOf(",");
   return b64uri.substr(i + 1);
+=======
+  var i2 = b64uri.indexOf(",");
+  return b64uri.substr(i2 + 1);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 }
 function output(options2, canvas, mimeType) {
   var getB64Uri = function getB64Uri2() {
@@ -138703,21 +145283,36 @@ function CanvasRenderer(options2) {
     styleMap["-ms-touch-action"] = "none";
     styleMap["touch-action"] = "none";
   }
+<<<<<<< HEAD
   for (var i = 0; i < CRp.CANVAS_LAYERS; i++) {
     var canvas = r.data.canvases[i] = document2.createElement("canvas");
     var type = CRp.CANVAS_TYPES[i];
     r.data.contexts[i] = canvas.getContext(type);
     if (!r.data.contexts[i]) {
+=======
+  for (var i2 = 0; i2 < CRp.CANVAS_LAYERS; i2++) {
+    var canvas = r.data.canvases[i2] = document2.createElement("canvas");
+    var type = CRp.CANVAS_TYPES[i2];
+    r.data.contexts[i2] = canvas.getContext(type);
+    if (!r.data.contexts[i2]) {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       error("Could not create canvas of type " + type);
     }
     Object.keys(styleMap).forEach(function(k) {
       canvas.style[k] = styleMap[k];
     });
     canvas.style.position = "absolute";
+<<<<<<< HEAD
     canvas.setAttribute("data-id", "layer" + i);
     canvas.style.zIndex = String(CRp.CANVAS_LAYERS - i);
     r.data.canvasContainer.appendChild(canvas);
     r.data.canvasNeedsRedraw[i] = false;
+=======
+    canvas.setAttribute("data-id", "layer" + i2);
+    canvas.style.zIndex = String(CRp.CANVAS_LAYERS - i2);
+    r.data.canvasContainer.appendChild(canvas);
+    r.data.canvasNeedsRedraw[i2] = false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   r.data.topCanvas = r.data.canvases[0];
   r.data.canvases[CRp.NODE].setAttribute("data-id", "layer" + CRp.NODE + "-node");
@@ -138726,6 +145321,7 @@ function CanvasRenderer(options2) {
   if (r.data.canvases[CRp.WEBGL]) {
     r.data.canvases[CRp.WEBGL].setAttribute("data-id", "layer" + CRp.WEBGL + "-webgl");
   }
+<<<<<<< HEAD
   for (var i = 0; i < CRp.BUFFER_COUNT; i++) {
     r.data.bufferCanvases[i] = document2.createElement("canvas");
     r.data.bufferContexts[i] = r.data.bufferCanvases[i].getContext("2d");
@@ -138733,6 +145329,15 @@ function CanvasRenderer(options2) {
     r.data.bufferCanvases[i].setAttribute("data-id", "buffer" + i);
     r.data.bufferCanvases[i].style.zIndex = String(-i - 1);
     r.data.bufferCanvases[i].style.visibility = "hidden";
+=======
+  for (var i2 = 0; i2 < CRp.BUFFER_COUNT; i2++) {
+    r.data.bufferCanvases[i2] = document2.createElement("canvas");
+    r.data.bufferContexts[i2] = r.data.bufferCanvases[i2].getContext("2d");
+    r.data.bufferCanvases[i2].style.position = "absolute";
+    r.data.bufferCanvases[i2].setAttribute("data-id", "buffer" + i2);
+    r.data.bufferCanvases[i2].style.zIndex = String(-i2 - 1);
+    r.data.bufferCanvases[i2].style.visibility = "hidden";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   r.pathsEnabled = true;
   var emptyBb = makeBoundingBox();
@@ -138901,8 +145506,13 @@ function CanvasRenderer(options2) {
     }
   });
   var refineInLayers = function refineInLayers2(reqs) {
+<<<<<<< HEAD
     for (var i2 = 0; i2 < reqs.length; i2++) {
       lyrTxrCache.enqueueElementRefinement(reqs[i2].ele);
+=======
+    for (var i3 = 0; i3 < reqs.length; i3++) {
+      lyrTxrCache.enqueueElementRefinement(reqs[i3].ele);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   };
   eleTxrCache.onDequeue(refineInLayers);
@@ -139042,8 +145652,13 @@ function setExtension(type, name, registrant) {
     };
     var layoutProto = Layout2.prototype = Object.create(registrant.prototype);
     var optLayoutFns = [];
+<<<<<<< HEAD
     for (var i = 0; i < optLayoutFns.length; i++) {
       var fnName = optLayoutFns[i];
+=======
+    for (var i2 = 0; i2 < optLayoutFns.length; i2++) {
+      var fnName = optLayoutFns[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       layoutProto[fnName] = layoutProto[fnName] || function() {
         return this;
       };
@@ -139221,17 +145836,28 @@ sheetfn.instanceString = function() {
   return "stylesheet";
 };
 sheetfn.selector = function(selector) {
+<<<<<<< HEAD
   var i = this.length++;
   this[i] = {
+=======
+  var i2 = this.length++;
+  this[i2] = {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     selector,
     properties: []
   };
   return this;
 };
 sheetfn.css = function(name, value) {
+<<<<<<< HEAD
   var i = this.length - 1;
   if (string(name)) {
     this[i].properties.push({
+=======
+  var i2 = this.length - 1;
+  if (string(name)) {
+    this[i2].properties.push({
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       name,
       value
     });
@@ -139250,7 +145876,11 @@ sheetfn.css = function(name, value) {
       }
       var _name = prop.name;
       var _value = mapVal;
+<<<<<<< HEAD
       this[i].properties.push({
+=======
+      this[i2].properties.push({
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         name: _name,
         value: _value
       });
@@ -139264,8 +145894,13 @@ sheetfn.generateStyle = function(cy2) {
   return this.appendToStyle(style3);
 };
 sheetfn.appendToStyle = function(style3) {
+<<<<<<< HEAD
   for (var i = 0; i < this.length; i++) {
     var context = this[i];
+=======
+  for (var i2 = 0; i2 < this.length; i2++) {
+    var context = this[i2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     var selector = context.selector;
     var props = context.properties;
     style3.selector(selector);
@@ -139914,7 +146549,38 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copiar o endere\xE7o web desta pasta",
     "(guide)": "(guia)",
     "Logical English in other languages": "Logical English noutras l\xEDnguas",
+<<<<<<< HEAD
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escrever programas em portugu\xEAs, espanhol, franc\xEAs ou italiano, e escolher o idioma dos menus."
+=======
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escrever programas em portugu\xEAs, espanhol, franc\xEAs ou italiano, e escolher o idioma dos menus.",
+    "About this folder": "Sobre esta pasta",
+    "Copy the web address of this README": "Copiar o endere\xE7o web deste README",
+    "Sign in with Google": "Iniciar sess\xE3o com Google",
+    "Sign in with GitHub": "Iniciar sess\xE3o com GitHub",
+    "Or, with an account we created for you:": "Ou, com uma conta que cri\xE1mos para si:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Qualquer pessoa pode iniciar sess\xE3o com Google ou GitHub. Uma licen\xE7a fica associada ao endere\xE7o de email da conta.",
+    "Signing in is not available on this server.": "Este servidor n\xE3o oferece in\xEDcio de sess\xE3o.",
+    "Search the examples": "Pesquisar os exemplos",
+    "search \u2014 a few words, or a phrase in quotes": "pesquisa \u2014 algumas palavras, ou uma frase entre aspas",
+    "in names": "nos nomes",
+    "in templates": "nos modelos",
+    "in the text": "no texto",
+    "everywhere": "em todo o lado",
+    "No example matches the search.": "Nenhum exemplo corresponde \xE0 pesquisa.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Onde pesquisar: os nomes dos programas, os seus modelos (as sec\xE7\xF5es de declara\xE7\xF5es), o texto completo, ou os tr\xEAs",
+    "Open": "Abrir",
+    "Type a few words to search the examples.": "Escreva algumas palavras para pesquisar os exemplos.",
+    "The search failed.": "A pesquisa falhou.",
+    "Waiting for the editor...": "\xC0 espera do editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Nenhum editor respondeu. Abra o grafo do programa a partir do editor: Diversos > Ver grafo do programa.",
+    "Loading the program...": "A carregar o programa...",
+    "The server no longer has the program loaded. Loading it again...": "O servidor j\xE1 n\xE3o tem o programa carregado. A carreg\xE1-lo de novo...",
+    "The server could not build the graph: ": "O servidor n\xE3o conseguiu construir o grafo: ",
+    "unexpected reply": "resposta inesperada",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "O programa n\xE3o tem nada para mostrar: nem modelos, nem regras, nem factos, nem cen\xE1rios, nem consultas.",
+    "Could not reach the server to build the graph.": "N\xE3o foi poss\xEDvel contactar o servidor para construir o grafo.",
+    "The program could not be loaded: ": "N\xE3o foi poss\xEDvel carregar o programa: "
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -140526,7 +147192,38 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copiar la direcci\xF3n web de esta carpeta",
     "(guide)": "(gu\xEDa)",
     "Logical English in other languages": "Logical English en otros idiomas",
+<<<<<<< HEAD
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escribir programas en portugu\xE9s, espa\xF1ol, franc\xE9s o italiano, y elegir el idioma de los men\xFAs."
+=======
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escribir programas en portugu\xE9s, espa\xF1ol, franc\xE9s o italiano, y elegir el idioma de los men\xFAs.",
+    "About this folder": "Acerca de esta carpeta",
+    "Copy the web address of this README": "Copiar la direcci\xF3n web de este README",
+    "Sign in with Google": "Iniciar sesi\xF3n con Google",
+    "Sign in with GitHub": "Iniciar sesi\xF3n con GitHub",
+    "Or, with an account we created for you:": "O, con una cuenta que creamos para usted:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Cualquier persona puede iniciar sesi\xF3n con Google o GitHub. Una licencia queda asociada a la direcci\xF3n de correo de la cuenta.",
+    "Signing in is not available on this server.": "Este servidor no ofrece inicio de sesi\xF3n.",
+    "Search the examples": "Buscar en los ejemplos",
+    "search \u2014 a few words, or a phrase in quotes": "b\xFAsqueda \u2014 unas palabras, o una frase entre comillas",
+    "in names": "en los nombres",
+    "in templates": "en las plantillas",
+    "in the text": "en el texto",
+    "everywhere": "en todas partes",
+    "No example matches the search.": "Ning\xFAn ejemplo coincide con la b\xFAsqueda.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "D\xF3nde buscar: los nombres de los programas, sus plantillas (las secciones de declaraciones), el texto completo, o los tres",
+    "Open": "Abrir",
+    "Type a few words to search the examples.": "Escriba unas palabras para buscar en los ejemplos.",
+    "The search failed.": "La b\xFAsqueda fall\xF3.",
+    "Waiting for the editor...": "Esperando al editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Ning\xFAn editor respondi\xF3. Abra el grafo del programa desde el editor: Varios > Ver grafo del programa.",
+    "Loading the program...": "Cargando el programa...",
+    "The server no longer has the program loaded. Loading it again...": "El servidor ya no tiene el programa cargado. Carg\xE1ndolo de nuevo...",
+    "The server could not build the graph: ": "El servidor no pudo construir el grafo: ",
+    "unexpected reply": "respuesta inesperada",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "El programa no tiene nada que mostrar: ni plantillas, ni reglas, ni hechos, ni escenarios, ni consultas.",
+    "Could not reach the server to build the graph.": "No se pudo contactar con el servidor para construir el grafo.",
+    "The program could not be loaded: ": "No se pudo cargar el programa: "
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -141138,7 +147835,38 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copier l'adresse web de ce dossier",
     "(guide)": "(guide)",
     "Logical English in other languages": "Logical English dans d'autres langues",
+<<<<<<< HEAD
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "\xC9crire des programmes en portugais, espagnol, fran\xE7ais ou italien, et choisir la langue des menus."
+=======
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "\xC9crire des programmes en portugais, espagnol, fran\xE7ais ou italien, et choisir la langue des menus.",
+    "About this folder": "\xC0 propos de ce dossier",
+    "Copy the web address of this README": "Copier l'adresse web de ce README",
+    "Sign in with Google": "Se connecter avec Google",
+    "Sign in with GitHub": "Se connecter avec GitHub",
+    "Or, with an account we created for you:": "Ou, avec un compte que nous avons cr\xE9\xE9 pour vous :",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Tout le monde peut se connecter avec Google ou GitHub. Une licence est attach\xE9e \xE0 l'adresse e-mail du compte.",
+    "Signing in is not available on this server.": "Ce serveur ne propose pas de connexion.",
+    "Search the examples": "Chercher dans les exemples",
+    "search \u2014 a few words, or a phrase in quotes": "recherche \u2014 quelques mots, ou une phrase entre guillemets",
+    "in names": "dans les noms",
+    "in templates": "dans les mod\xE8les",
+    "in the text": "dans le texte",
+    "everywhere": "partout",
+    "No example matches the search.": "Aucun exemple ne correspond \xE0 la recherche.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "O\xF9 chercher : les noms des programmes, leurs mod\xE8les (les sections de d\xE9clarations), le texte entier, ou les trois",
+    "Open": "Ouvrir",
+    "Type a few words to search the examples.": "Tapez quelques mots pour chercher dans les exemples.",
+    "The search failed.": "La recherche a \xE9chou\xE9.",
+    "Waiting for the editor...": "En attente de l'\xE9diteur...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Aucun \xE9diteur n'a r\xE9pondu. Ouvrez le graphe du programme depuis l'\xE9diteur : Divers > Voir le graphe du programme.",
+    "Loading the program...": "Chargement du programme...",
+    "The server no longer has the program loaded. Loading it again...": "Le serveur n'a plus le programme charg\xE9. Nouveau chargement...",
+    "The server could not build the graph: ": "Le serveur n'a pas pu construire le graphe : ",
+    "unexpected reply": "r\xE9ponse inattendue",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Le programme n'a rien \xE0 montrer : ni mod\xE8les, ni r\xE8gles, ni faits, ni sc\xE9narios, ni requ\xEAtes.",
+    "Could not reach the server to build the graph.": "Impossible de joindre le serveur pour construire le graphe.",
+    "The program could not be loaded: ": "Le programme n'a pas pu \xEAtre charg\xE9 : "
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -141750,7 +148478,38 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copia l'indirizzo web di questa cartella",
     "(guide)": "(guida)",
     "Logical English in other languages": "Logical English in altre lingue",
+<<<<<<< HEAD
     "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese o italiano, e scegliere la lingua dei menu."
+=======
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese o italiano, e scegliere la lingua dei menu.",
+    "About this folder": "Informazioni su questa cartella",
+    "Copy the web address of this README": "Copia l'indirizzo web di questo README",
+    "Sign in with Google": "Accedi con Google",
+    "Sign in with GitHub": "Accedi con GitHub",
+    "Or, with an account we created for you:": "Oppure, con un account che abbiamo creato per lei:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Chiunque pu\xF2 accedere con Google o GitHub. Una licenza \xE8 associata all'indirizzo email dell'account.",
+    "Signing in is not available on this server.": "Questo server non offre l'accesso.",
+    "Search the examples": "Cerca negli esempi",
+    "search \u2014 a few words, or a phrase in quotes": "ricerca \u2014 alcune parole, o una frase tra virgolette",
+    "in names": "nei nomi",
+    "in templates": "nei modelli",
+    "in the text": "nel testo",
+    "everywhere": "ovunque",
+    "No example matches the search.": "Nessun esempio corrisponde alla ricerca.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Dove cercare: i nomi dei programmi, i loro modelli (le sezioni di dichiarazioni), il testo intero, o tutti e tre",
+    "Open": "Apri",
+    "Type a few words to search the examples.": "Digita alcune parole per cercare negli esempi.",
+    "The search failed.": "La ricerca non \xE8 riuscita.",
+    "Waiting for the editor...": "In attesa dell'editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Nessun editor ha risposto. Apra il grafo del programma dall'editor: Varie > Visualizza grafo del programma.",
+    "Loading the program...": "Caricamento del programma...",
+    "The server no longer has the program loaded. Loading it again...": "Il server non ha pi\xF9 il programma caricato. Nuovo caricamento...",
+    "The server could not build the graph: ": "Il server non \xE8 riuscito a costruire il grafo: ",
+    "unexpected reply": "risposta inattesa",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Il programma non ha nulla da mostrare: n\xE9 modelli, n\xE9 regole, n\xE9 fatti, n\xE9 scenari, n\xE9 interrogazioni.",
+    "Could not reach the server to build the graph.": "Impossibile raggiungere il server per costruire il grafo.",
+    "The program could not be loaded: ": "Non \xE8 stato possibile caricare il programma: "
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 };
 var languages = [
@@ -141815,14 +148574,22 @@ function browserUiLang() {
   }
   for (const p2 of prefs) {
     const code = (p2 || "").toLowerCase().split("-")[0];
+<<<<<<< HEAD
     if (isLanguage(code))
       return code;
+=======
+    if (isLanguage(code)) return code;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
   return "en";
 }
 function setUiLang(code) {
+<<<<<<< HEAD
   if (!isLanguage(code))
     return;
+=======
+  if (!isLanguage(code)) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   try {
     localStorage.setItem(STORAGE_KEY, code);
   } catch (e) {
@@ -141834,8 +148601,12 @@ function setUiLang(code) {
 }
 var cachedLang = null;
 function uiLang() {
+<<<<<<< HEAD
   if (cachedLang)
     return cachedLang;
+=======
+  if (cachedLang) return cachedLang;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   let stored = null;
   try {
     stored = localStorage.getItem(STORAGE_KEY);
@@ -141851,8 +148622,12 @@ function uiLang() {
 }
 function t(key) {
   const lang = uiLang();
+<<<<<<< HEAD
   if (lang === "en")
     return key;
+=======
+  if (lang === "en") return key;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   const cat = uiCatalog[lang];
   return cat && cat[key] || key;
 }
@@ -141878,52 +148653,82 @@ function translateFirstTextNode(el) {
       const trimmed = raw.trim();
       if (trimmed) {
         const tr = t(trimmed);
+<<<<<<< HEAD
         if (tr !== trimmed)
           node.textContent = raw.replace(trimmed, tr);
+=======
+        if (tr !== trimmed) node.textContent = raw.replace(trimmed, tr);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         return;
       }
     }
   }
 }
 function applyI18nDom(root = document) {
+<<<<<<< HEAD
   if (uiLang() === "en")
     return;
+=======
+  if (uiLang() === "en") return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   root.querySelectorAll(AUTO_SELECTOR).forEach((el) => translateFirstTextNode(el));
   root.querySelectorAll("[title]").forEach((el) => {
     const v = el.getAttribute("title");
     if (v) {
       const tr = t(v.trim());
+<<<<<<< HEAD
       if (tr !== v.trim())
         el.setAttribute("title", tr);
+=======
+      if (tr !== v.trim()) el.setAttribute("title", tr);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   });
   root.querySelectorAll("[placeholder]").forEach((el) => {
     const v = el.getAttribute("placeholder");
     if (v) {
       const tr = t(v.trim());
+<<<<<<< HEAD
       if (tr !== v.trim())
         el.setAttribute("placeholder", tr);
+=======
+      if (tr !== v.trim()) el.setAttribute("placeholder", tr);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     }
   });
 }
 function installLeApiLang() {
+<<<<<<< HEAD
   if (uiLang() === "en")
     return;
   const origFetch = window.fetch.bind(window);
   window.fetch = (input, init) => {
+=======
+  if (uiLang() === "en") return;
+  const origFetch = window.fetch.bind(window);
+  window.fetch = ((input, init) => {
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     try {
       const url = typeof input === "string" ? input : input.url ?? String(input);
       if (/^\/(leapi|query|verify|list_examples|example_details)\b/.test(url) && !/[?&]lang=/.test(url)) {
         const sep = url.includes("?") ? "&" : "?";
         const newUrl = `${url}${sep}lang=${encodeURIComponent(uiLang())}`;
+<<<<<<< HEAD
         if (typeof input === "string")
           return origFetch(newUrl, init);
+=======
+        if (typeof input === "string") return origFetch(newUrl, init);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         return origFetch(new Request(newUrl, input), init);
       }
     } catch (e) {
     }
     return origFetch(input, init);
+<<<<<<< HEAD
   };
+=======
+  });
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 }
 
 // src/graph-client.ts
@@ -141955,6 +148760,7 @@ function nodeStatement(id2, node) {
 function graphToMermaid(nodes3, edges3, direction = "LR") {
   const lines = [`flowchart ${direction}`];
   const idOf = /* @__PURE__ */ new Map();
+<<<<<<< HEAD
   nodes3.forEach((node, i) => idOf.set(node.id, `n${i}`));
   const parents2 = new Set(nodes3.filter((n) => n.parent && idOf.has(n.parent)).map((n) => n.parent));
   const topLevel = nodes3.filter((n) => !parents2.has(n.id) && !(n.parent && idOf.has(n.parent)));
@@ -141965,12 +148771,26 @@ function graphToMermaid(nodes3, edges3, direction = "LR") {
     lines.push(`    subgraph ${idOf.get(node.id)}["${esc(node.label || node.id)}"]`);
     for (const child of childrenOf(node.id))
       lines.push(`        ${nodeStatement(idOf.get(child.id), child)}`);
+=======
+  nodes3.forEach((node, i2) => idOf.set(node.id, `n${i2}`));
+  const parents2 = new Set(nodes3.filter((n) => n.parent && idOf.has(n.parent)).map((n) => n.parent));
+  const topLevel = nodes3.filter((n) => !parents2.has(n.id) && !(n.parent && idOf.has(n.parent)));
+  const childrenOf = (pid) => nodes3.filter((n) => n.parent === pid);
+  for (const node of topLevel) lines.push(`    ${nodeStatement(idOf.get(node.id), node)}`);
+  for (const node of nodes3.filter((n) => parents2.has(n.id))) {
+    lines.push(`    subgraph ${idOf.get(node.id)}["${esc(node.label || node.id)}"]`);
+    for (const child of childrenOf(node.id)) lines.push(`        ${nodeStatement(idOf.get(child.id), child)}`);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     lines.push("    end");
   }
   for (const e of edges3) {
     const s = idOf.get(e.source), t2 = idOf.get(e.target);
+<<<<<<< HEAD
     if (!s || !t2 || e.type === "scopes")
       continue;
+=======
+    if (!s || !t2 || e.type === "scopes") continue;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     const label = esc((e.type || "").replace(/-/g, " "));
     const arrow = e.type === "depends-on" ? "-.->" : "-->";
     lines.push(label ? `    ${s} ${arrow}|${label}| ${t2}` : `    ${s} ${arrow} ${t2}`);
@@ -142007,6 +148827,21 @@ var visibilityCheckboxes = document.querySelectorAll('.checkbox-item input[type=
 var sessionModule = null;
 var rawGraphData = null;
 var graphChannel = new BroadcastChannel("le-graph-sync");
+<<<<<<< HEAD
+=======
+var graphStatus = document.getElementById("graph-status");
+function showStatus(message) {
+  graphStatus.textContent = message;
+  graphStatus.style.display = "flex";
+}
+function hideStatus() {
+  graphStatus.style.display = "none";
+}
+function requestLoad(expired) {
+  showStatus(expired ? t("The server no longer has the program loaded. Loading it again...") : t("Loading the program..."));
+  graphChannel.postMessage({ type: "request-load", data: { expired } });
+}
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 var PREF_LAYOUT = "le-graph-layout";
 var PREF_DIRECTION = "le-graph-direction";
 var PREF_LAYERS = "le-graph-layers";
@@ -142024,8 +148859,12 @@ function restorePreferences() {
     if (layers && typeof layers === "object") {
       visibilityCheckboxes.forEach((cb) => {
         const t2 = cb.dataset.type || "";
+<<<<<<< HEAD
         if (t2 in layers)
           cb.checked = !!layers[t2];
+=======
+        if (t2 in layers) cb.checked = !!layers[t2];
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       });
     }
   } catch {
@@ -142045,10 +148884,15 @@ var getThemeStyles = (theme) => {
   const isLight = theme === "le-theme-light";
   const isHC = theme === "hc-black";
   document.body.classList.remove("light-theme", "hc-theme");
+<<<<<<< HEAD
   if (isLight)
     document.body.classList.add("light-theme");
   else if (isHC)
     document.body.classList.add("hc-theme");
+=======
+  if (isLight) document.body.classList.add("light-theme");
+  else if (isHC) document.body.classList.add("hc-theme");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   const bgColor = isLight ? "#ffffff" : isHC ? "#000000" : "#1e1e1e";
   const textColor = isLight ? "#000000" : "#ffffff";
   const edgeColor = isLight ? "#888" : "#444";
@@ -142239,6 +149083,7 @@ cy.on("mouseover", "node, edge", (evt) => {
   const label = ele.data("label") || "";
   if (ele.isNode()) {
     let typeName = type.toUpperCase();
+<<<<<<< HEAD
     if (type === "template")
       typeName = "TEMPLATE";
     else if (type === "rule")
@@ -142251,6 +149096,14 @@ cy.on("mouseover", "node, edge", (evt) => {
       typeName = "TYPE";
     else if (type === "query")
       typeName = "QUERY";
+=======
+    if (type === "template") typeName = "TEMPLATE";
+    else if (type === "rule") typeName = "RULE";
+    else if (type === "fact") typeName = "FACT";
+    else if (type === "scenario") typeName = "SCENARIO";
+    else if (type === "type") typeName = "TYPE";
+    else if (type === "query") typeName = "QUERY";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     tooltip.textContent = `${typeName}: ${label}`;
   } else {
     const sourceEle = ele.source();
@@ -142258,6 +149111,7 @@ cy.on("mouseover", "node, edge", (evt) => {
     const targetType = ele.target().data("type");
     let msg = `${type}: ${sourceType} -> ${targetType}`;
     if (type === "uses") {
+<<<<<<< HEAD
       if (sourceType === "fact")
         msg = "fact uses template";
       else if (sourceType === "query")
@@ -142270,6 +149124,14 @@ cy.on("mouseover", "node, edge", (evt) => {
       msg = "rule depends on rule/fact";
     else if (type === "is-a")
       msg = "type is a supertype";
+=======
+      if (sourceType === "fact") msg = "fact uses template";
+      else if (sourceType === "query") msg = "query uses template";
+      else msg = "rule uses template";
+    } else if (type === "negates") msg = "rule negates template";
+    else if (type === "depends-on") msg = "rule depends on rule/fact";
+    else if (type === "is-a") msg = "type is a supertype";
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     tooltip.textContent = msg;
   }
   tooltip.style.display = "block";
@@ -142283,8 +149145,15 @@ cy.on("mouseout", "node, edge", () => {
   tooltip.style.display = "none";
 });
 async function refreshGraph() {
+<<<<<<< HEAD
   if (!sessionModule)
     return;
+=======
+  if (!sessionModule) {
+    requestLoad(false);
+    return;
+  }
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   try {
     const response = await fetch("/leapi", {
       method: "POST",
@@ -142296,6 +149165,7 @@ async function refreshGraph() {
       })
     });
     const data4 = await response.json();
+<<<<<<< HEAD
     if (data4.nodes && data4.edges) {
       rawGraphData = data4;
       const scenarios = data4.nodes.filter((n) => n.data.type === "scenario");
@@ -142316,16 +149186,56 @@ async function refreshGraph() {
     }
   } catch (err) {
     console.error("Failed to refresh graph", err);
+=======
+    if (data4.session_expired) {
+      requestLoad(true);
+      return;
+    }
+    if (data4.error || !data4.nodes || !data4.edges) {
+      console.error("The server could not build the graph:", data4);
+      showStatus(t("The server could not build the graph: ") + (data4.error || t("unexpected reply")));
+      return;
+    }
+    rawGraphData = data4;
+    if (data4.nodes.length === 0) {
+      showStatus(t("The program has nothing to show: no templates, rules, facts, scenarios or queries."));
+    } else {
+      hideStatus();
+    }
+    const scenarios = data4.nodes.filter((n) => n.data.type === "scenario");
+    const currentVal = scenarioSelect.value;
+    scenarioSelect.innerHTML = '<option value="">None</option>';
+    scenarios.forEach((s) => {
+      const opt = document.createElement("option");
+      opt.value = s.data.id;
+      opt.textContent = s.data.label;
+      scenarioSelect.appendChild(opt);
+    });
+    scenarioSelect.value = currentVal;
+    cy.elements().remove();
+    cy.add(data4.nodes);
+    cy.add(data4.edges);
+    applyFilters();
+    runLayout();
+  } catch (err) {
+    console.error("Failed to refresh graph", err);
+    showStatus(t("Could not reach the server to build the graph."));
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   }
 }
 function applyFilters() {
   const checkboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
   const activeTypes = Array.from(checkboxes).filter((cb) => cb.checked).map((cb) => cb.dataset.type || "");
   const internalTypes = [...activeTypes];
+<<<<<<< HEAD
   if (activeTypes.includes("scenario"))
     internalTypes.push("scopes");
   if (activeTypes.includes("template") && activeTypes.includes("type"))
     internalTypes.push("defines");
+=======
+  if (activeTypes.includes("scenario")) internalTypes.push("scopes");
+  if (activeTypes.includes("template") && activeTypes.includes("type")) internalTypes.push("defines");
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   console.log("Active types:", activeTypes);
   const selectedScenarioId = scenarioSelect.value;
   cy.nodes().forEach((ele) => {
@@ -142370,8 +149280,12 @@ function runLayout() {
   const direction = directionSelect.value;
   console.log("Running layout:", layoutName, "Direction:", direction);
   const visibleEles = cy.elements(":visible");
+<<<<<<< HEAD
   if (visibleEles.empty())
     return;
+=======
+  if (visibleEles.empty()) return;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   const options2 = {
     name: layoutName,
     animate: true,
@@ -142412,16 +149326,28 @@ function runLayout() {
     cy.layout({ name: "grid", eles: visibleEles }).run();
   }
 }
+<<<<<<< HEAD
+=======
+var stateReceived = false;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 graphChannel.onmessage = (event3) => {
   const { type, data: data4 } = event3.data;
   switch (type) {
     case "init-state":
+<<<<<<< HEAD
+=======
+      stateReceived = true;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       sessionModule = data4.sessionModule;
       cy.style(getThemeStyles(data4.theme));
       if (data4.filename) {
         const titleEl = document.getElementById("title");
+<<<<<<< HEAD
         if (titleEl)
           titleEl.textContent = `Graph View for ${data4.filename}`;
+=======
+        if (titleEl) titleEl.textContent = `Graph View for ${data4.filename}`;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       if (data4.isLoaded) {
         refreshGraph().then(() => {
@@ -142436,8 +149362,18 @@ graphChannel.onmessage = (event3) => {
             }
           }
         });
+<<<<<<< HEAD
       }
       break;
+=======
+      } else {
+        requestLoad(false);
+      }
+      break;
+    case "load-failed":
+      showStatus(t("The program could not be loaded: ") + (data4.error || ""));
+      break;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     case "theme-change":
       cy.style(getThemeStyles(data4.theme));
       break;
@@ -142551,7 +149487,17 @@ try {
   }
 } catch {
 }
+<<<<<<< HEAD
 graphChannel.postMessage({ type: "request-state" });
+=======
+showStatus(t("Waiting for the editor..."));
+graphChannel.postMessage({ type: "request-state" });
+setTimeout(() => {
+  if (!stateReceived) {
+    showStatus(t("No editor answered. Open the Source Graph from the editor: Misc > View Source Graph."));
+  }
+}, 4e3);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 installLeApiLang();
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => applyI18nDom());

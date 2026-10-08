@@ -112,6 +112,31 @@ if [ "$run_unit" -eq 1 ]; then
       record "unit (plunit)" FAIL
     fi
   fi
+<<<<<<< HEAD
+=======
+  # The LE Contract Assistant lives in the private lpsPlus repository
+  # (contract_assistant/). Where a checkout is found (the order of le_plus.pl),
+  # its tests run too, in a process of their own; otherwise they are skipped.
+  plus=""
+  for d in "${LPS_PLUS_DIR:-}" "$PWD/../lpsPlus" "$PWD/../lpsplus" /lpsPlus "$PWD/vendor/lpsplus"; do
+    if [ -n "$d" ] && [ "$d" != none ] && [ -f "$d/contract_assistant/le_contract_assistant.pl" ]; then plus="$d"; break; fi
+  done
+  if [ "${LPS_PLUS_DIR:-}" = none ] || [ -z "$plus" ]; then
+    echo "No lpsPlus checkout with contract_assistant/: its tests are skipped."
+    record "unit (lpsPlus contract assistant)" SKIP
+  else
+    shopt -s nullglob
+    ca_files=("$plus"/contract_assistant/testing/test_*.pl)
+    shopt -u nullglob
+    ca_ok=1
+    for f in "${ca_files[@]}"; do
+      echo "Running: $f"
+      "$SWIPL" -q -l "$f" -g "(run_tests -> halt(0) ; halt(1))" || ca_ok=0
+    done
+    if [ "$ca_ok" -eq 1 ]; then record "unit (lpsPlus contract assistant)" PASS
+    else record "unit (lpsPlus contract assistant)" FAIL; fi
+  fi
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 fi
 
 # --- le: Logical English example tests --------------------------------------

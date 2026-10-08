@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 % Traduction française de l'exemple classique de citoyenneté britannique (Français Logique).
 la langue cible est: prolog.
 
@@ -43,4 +44,51 @@ scénario harry est:
     un attend réponses ["John acquiert la citoyenneté britannique à 2021-10-09"].
 
 requête un est:
+=======
+% Traduction française de l'exemple classique de la citoyenneté britannique (Français Logique).
+la langue cible est : prolog.
+
+les modèles sont :
+*une personne* acquiert la citoyenneté britannique à *une date*,
+*une personne* naît à *un lieu* à *une date*,
+*une date* est postérieure à l'entrée en vigueur,
+*une personne* est la mère de *une personne*,
+*une personne* est le père de *une personne*,
+*une personne* possède la citoyenneté britannique à *une date*,
+*une personne* réside durablement au Royaume-Uni à *une date*,
+*une personne* déclare que *une phrase*,
+*une personne* a qualité pour établir la paternité.
+
+la base de connaissances citoyennete comprend :
+
+une personne acquiert la citoyenneté britannique à une date
+si la personne naît au Royaume-Uni à la date
+    et la date est postérieure à l'entrée en vigueur
+    et une autre personne est la mère de la personne
+        ou l'autre personne est le père de la personne
+    et l'autre personne possède la citoyenneté britannique à la date
+        ou l'autre personne réside durablement au Royaume-Uni à la date.
+
+une personne est le père d'une autre personne
+si une troisième personne déclare
+    que la personne est le père de l'autre personne
+    et la troisième personne a qualité pour établir la paternité.
+
+scénario alice est :
+    John naît au Royaume-Uni à 2021-10-09.
+    2021-10-09 est postérieure à l'entrée en vigueur.
+    Alice est la mère de John.
+    Alice possède la citoyenneté britannique à 2021-10-09.
+    un attend les réponses ["John acquiert la citoyenneté britannique à 2021-10-09"].
+
+scénario harry est :
+    John naît au Royaume-Uni à 2021-10-09.
+    2021-10-09 est postérieure à l'entrée en vigueur.
+    Harry déclare que Harry est le père de John.
+    Harry a qualité pour établir la paternité.
+    Harry réside durablement au Royaume-Uni à 2021-10-09.
+    un attend les réponses ["John acquiert la citoyenneté britannique à 2021-10-09"].
+
+requête un est :
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     quelle personne acquiert la citoyenneté britannique à quelle date.

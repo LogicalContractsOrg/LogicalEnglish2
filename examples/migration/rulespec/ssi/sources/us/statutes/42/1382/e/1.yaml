@@ -1,0 +1,523 @@
+format: rulespec/v1
+imports:
+  - us:statutes/42/1382/b#statutory_base_annual_rate_without_eligible_spouse
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382/e/1
+  summary: |-
+    Except for stated institutional, medical-facility, shelter, retained-benefit, and temporary-institutionalization rules, "no person shall be an eligible individual or eligible spouse ... with respect to any month if throughout such month he is an inmate of a public institution." Medical-facility benefits are capped at "$360 per year" for one individual and "$720 per year" if both spouses are in the facility; public emergency shelter eligibility is limited to "6 months in any 9-month period"; temporary institutionalization applies where a stay is likely not to exceed "3 months"; correctional-institution reporting payments are "$400" or "$200" and may be reduced by "50 percent."
+rules:
+  - name: medical_facility_individual_annual_rate_cap
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(e)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "$360 per year"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          360
+
+  - name: medical_facility_couple_both_in_facility_annual_rate_cap
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(e)(1)(B)(iii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "$720 per year"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          720
+
+  - name: publicly_operated_community_residence_resident_limit
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382(e)(1)(C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "serves no more than 16 residents"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          16
+
+  - name: emergency_shelter_eligibility_month_limit
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382(e)(1)(D)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "more than 6 months"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          6
+
+  - name: emergency_shelter_lookback_period_months
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382(e)(1)(D)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "in any 9-month period"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          9
+
+  - name: temporary_institutionalization_month_limit
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382(e)(1)(G)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "not to exceed 3 months"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          3
+
+  - name: timely_inmate_reporting_payment_amount
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(e)(1)(I)(i)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "$400"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          400
+
+  - name: later_inmate_reporting_payment_amount
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(e)(1)(I)(i)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "$200"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          200
+
+  - name: timely_inmate_reporting_deadline_days
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382(e)(1)(I)(i)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "within 15 days"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          15
+
+  - name: later_inmate_reporting_deadline_days
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382(e)(1)(I)(i)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "within 90 days"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          90
+
+  - name: duplicate_reporting_payment_reduction_rate
+    kind: parameter
+    dtype: Rate
+    source: 42 USC 1382(e)(1)(I)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+              excerpt: "reduced by 50 percent"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          0.50
+
+  - name: qualifying_publicly_operated_community_residence
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#publicly_operated_community_residence_resident_limit
+              output: publicly_operated_community_residence_resident_limit
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          residence_is_publicly_operated_community_residence
+          and residence_number_of_residents <= publicly_operated_community_residence_resident_limit
+
+  - name: inmate_of_public_institution_for_subparagraph_a
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(A), (C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#qualifying_publicly_operated_community_residence
+              output: qualifying_publicly_operated_community_residence
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          person_is_inmate_of_public_institution_throughout_month
+          and not qualifying_publicly_operated_community_residence
+
+  - name: public_emergency_shelter_eligibility_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(D)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#emergency_shelter_eligibility_month_limit
+              output: emergency_shelter_eligibility_month_limit
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month
+          and months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period < emergency_shelter_eligibility_month_limit
+
+  - name: retained_benefit_institutional_month_eligibility_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(E)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          (
+            person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+            or person_is_in_medical_treatment_facility_throughout_month
+          )
+          and person_was_eligible_under_section_1382h_a_or_b_for_preceding_month
+          and institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+          and month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+
+  - name: temporary_institutionalization_exception_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(G)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#temporary_institutionalization_month_limit
+              output: temporary_institutionalization_month_limit
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          (
+            person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+            or person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+          )
+          and physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit
+          and month_number_in_continuous_institutionalization_period <= temporary_institutionalization_month_limit
+          and person_needs_to_maintain_home_or_living_arrangement_expenses_for_return
+
+  - name: public_institution_inmate_ineligible_for_month
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(A), (B), (D), (E), (G)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#inmate_of_public_institution_for_subparagraph_a
+              output: inmate_of_public_institution_for_subparagraph_a
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#public_emergency_shelter_eligibility_exception_applies
+              output: public_emergency_shelter_eligibility_exception_applies
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies
+              output: retained_benefit_institutional_month_eligibility_applies
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies
+              output: temporary_institutionalization_exception_applies
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          inmate_of_public_institution_for_subparagraph_a
+          and not person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+          and not public_emergency_shelter_eligibility_exception_applies
+          and not retained_benefit_institutional_month_eligibility_applies
+          and not temporary_institutionalization_exception_applies
+
+  - name: medical_facility_annual_benefit_payable
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382(e)(1)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#medical_facility_individual_annual_rate_cap
+              output: medical_facility_individual_annual_rate_cap
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#medical_facility_couple_both_in_facility_annual_rate_cap
+              output: medical_facility_couple_both_in_facility_annual_rate_cap
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/b#statutory_base_annual_rate_without_eligible_spouse
+              output: statutory_base_annual_rate_without_eligible_spouse
+              hash: sha256:ef314bc070041ea2346a9bb22369b8649c9ec4b328863e91c2edfbbd2eb9a63f
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies
+              output: temporary_institutionalization_exception_applies
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies
+              output: retained_benefit_institutional_month_eligibility_applies
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if retained_benefit_institutional_month_eligibility_applies or temporary_institutionalization_exception_applies: 0 else: if not person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month: 0 else: if individual_has_eligible_spouse: if spouse_is_in_medical_treatment_facility_throughout_month: max(0, medical_facility_couple_both_in_facility_annual_rate_cap - combined_income_not_excluded_pursuant_to_section_1382a_b) else: max(0, medical_facility_individual_annual_rate_cap - individual_income_not_excluded_pursuant_to_section_1382a_b) + max(0, statutory_base_annual_rate_without_eligible_spouse - spouse_income_not_excluded_pursuant_to_section_1382a_b) else: max(0, medical_facility_individual_annual_rate_cap - individual_income_not_excluded_pursuant_to_section_1382a_b)
+
+  - name: not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(e)(1)(F)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies
+              output: retained_benefit_institutional_month_eligibility_applies
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          retained_benefit_institutional_month_eligibility_applies
+
+  - name: temporary_institutionalization_benefit_payable_at_prior_month_rate
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382(e)(1)(G)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies
+              output: temporary_institutionalization_exception_applies
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if temporary_institutionalization_exception_applies: max(0, benefit_rate_applicable_in_month_prior_to_first_full_month_in_institution_or_facility) else: 0
+
+  - name: inmate_reporting_payment_to_institution
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 42 USC 1382(e)(1)(I)(i)(II), (ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/e/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#timely_inmate_reporting_payment_amount
+              output: timely_inmate_reporting_payment_amount
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#later_inmate_reporting_payment_amount
+              output: later_inmate_reporting_payment_amount
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#timely_inmate_reporting_deadline_days
+              output: timely_inmate_reporting_deadline_days
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#later_inmate_reporting_deadline_days
+              output: later_inmate_reporting_deadline_days
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/e/1#duplicate_reporting_payment_reduction_rate
+              output: duplicate_reporting_payment_reduction_rate
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if not institution_has_agreement_to_report_inmates_to_commissioner: 0 else: if not individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement: 0 else: if not commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information: 0 else: (if days_after_inmate_entry_when_information_furnished <= timely_inmate_reporting_deadline_days: timely_inmate_reporting_payment_amount else: if days_after_inmate_entry_when_information_furnished <= later_inmate_reporting_deadline_days: later_inmate_reporting_payment_amount else: 0) * (if commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual: duplicate_reporting_payment_reduction_rate else: 1)

@@ -1,0 +1,158 @@
+- name: taxpayer_person_exemption_and_senior_qualified_with_identifying_numbers
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+    us:statutes/26/151#input.is_taxpayer: true
+    us:statutes/26/151#input.is_spouse_of_taxpayer: false
+    us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+    us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+    us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: true
+    us:statutes/26/151#input.age: 65
+    us:statutes/26/151#input.filing_status: 0
+  output:
+    us:statutes/26/151#exemption_phaseout_rate_per_increment: 0.02
+    us:statutes/26/151#exemption_phaseout_increment: 2500
+    us:statutes/26/151#exemption_phaseout_increment_separate: 1250
+    us:statutes/26/151#senior_deduction_base_amount: 6000
+    us:statutes/26/151#senior_deduction_age_threshold: 65
+    us:statutes/26/151#senior_deduction_phaseout_rate: 0.06
+    us:statutes/26/151#senior_deduction_phaseout_threshold_other: 75000
+    us:statutes/26/151#senior_deduction_phaseout_threshold_joint: 150000
+    us:statutes/26/151#exemption_individual_eligible: holds
+    us:statutes/26/151#senior_deduction_qualified_individual: holds
+- name: missing_tin_blocks_exemption_but_missing_social_security_number_blocks_senior_status
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/151#input.tin_included_on_return_claiming_exemption: false
+    us:statutes/26/151#input.is_taxpayer: true
+    us:statutes/26/151#input.is_spouse_of_taxpayer: false
+    us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+    us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+    us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: false
+    us:statutes/26/151#input.age: 65
+    us:statutes/26/151#input.filing_status: 0
+  output:
+    us:statutes/26/151#exemption_individual_eligible: not_holds
+    us:statutes/26/151#senior_deduction_qualified_individual: not_holds
+- name: joint_two_seniors_partial_phaseout_and_zero_exemption_amount
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/151#input.taxpayer_is_individual: true
+    us:statutes/26/151#input.taxable_year_begins_after_exemption_amount_zero_start: true
+    us:statutes/26/151#input.taxable_year_begins_before_senior_deduction_termination: true
+    us:statutes/26/151#input.adjusted_gross_income: 160000
+    us:statutes/26/911/a#input.individual_is_qualified_individual: false
+    us:statutes/26/911/a#input.election_made_for_foreign_earned_income: false
+    us:statutes/26/911/a#input.election_made_for_housing_cost_amount: false
+    us:statutes/26/911/a#input.foreign_earned_income_of_individual: 0
+    us:statutes/26/911/a#input.housing_cost_amount_of_individual: 0
+    us:statutes/26/931#input.bona_fide_resident_of_specified_possession_during_entire_taxable_year: false
+    us:statutes/26/931#input.income_derived_from_sources_within_specified_possessions: 0
+    us:statutes/26/931#input.income_effectively_connected_with_trade_or_business_within_specified_possessions: 0
+    us:statutes/26/931#input.amounts_paid_for_services_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/933#input.individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year: false
+    us:statutes/26/933#input.income_derived_from_sources_within_puerto_rico: 0
+    us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/933#input.individual_is_citizen_of_united_states: false
+    us:statutes/26/933#input.individual_changes_residence_from_puerto_rico_during_taxable_year: false
+    us:statutes/26/933#input.bona_fide_resident_of_puerto_rico_years_before_change: 0
+    us:statutes/26/933#input.puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change: 0
+    ? us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+    : 0
+    us:statutes/26/151#relation.exemption_individual_of_tax_unit:
+    - us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+      us:statutes/26/151#input.is_taxpayer: true
+      us:statutes/26/151#input.is_spouse_of_taxpayer: false
+      us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+      us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+      us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: true
+      us:statutes/26/151#input.age: 70
+      us:statutes/26/151#input.filing_status: 1
+    - us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+      us:statutes/26/151#input.is_taxpayer: false
+      us:statutes/26/151#input.is_spouse_of_taxpayer: true
+      us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+      us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+      us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: true
+      us:statutes/26/151#input.age: 68
+      us:statutes/26/151#input.filing_status: 1
+    us:statutes/26/151#relation.senior_deduction_individual_of_tax_unit:
+    - us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+      us:statutes/26/151#input.is_taxpayer: true
+      us:statutes/26/151#input.is_spouse_of_taxpayer: false
+      us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+      us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+      us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: true
+      us:statutes/26/151#input.age: 70
+      us:statutes/26/151#input.filing_status: 1
+    - us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+      us:statutes/26/151#input.is_taxpayer: false
+      us:statutes/26/151#input.is_spouse_of_taxpayer: true
+      us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+      us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+      us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: true
+      us:statutes/26/151#input.age: 68
+      us:statutes/26/151#input.filing_status: 1
+    us:statutes/26/151#input.filing_status: 1
+  output:
+    us:statutes/26/151#exemption_amount: 0
+    us:statutes/26/151#section_151_exemption_deduction: 0
+    us:statutes/26/151#senior_deduction_modified_adjusted_gross_income: 160000
+    us:statutes/26/151#senior_deduction_phaseout_threshold: 150000
+    us:statutes/26/151#senior_deduction_amount_per_qualified_individual: 5400
+    us:statutes/26/151#senior_deduction_eligible: holds
+    us:statutes/26/151#senior_deduction: 10800
+- name: married_individual_without_joint_return_not_eligible_for_senior_deduction
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/151#input.taxpayer_is_individual: true
+    us:statutes/26/151#input.taxable_year_begins_after_exemption_amount_zero_start: true
+    us:statutes/26/151#input.taxable_year_begins_before_senior_deduction_termination: true
+    us:statutes/26/151#input.adjusted_gross_income: 50000
+    us:statutes/26/911/a#input.individual_is_qualified_individual: false
+    us:statutes/26/911/a#input.election_made_for_foreign_earned_income: false
+    us:statutes/26/911/a#input.election_made_for_housing_cost_amount: false
+    us:statutes/26/911/a#input.foreign_earned_income_of_individual: 0
+    us:statutes/26/911/a#input.housing_cost_amount_of_individual: 0
+    us:statutes/26/931#input.bona_fide_resident_of_specified_possession_during_entire_taxable_year: false
+    us:statutes/26/931#input.income_derived_from_sources_within_specified_possessions: 0
+    us:statutes/26/931#input.income_effectively_connected_with_trade_or_business_within_specified_possessions: 0
+    us:statutes/26/931#input.amounts_paid_for_services_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/933#input.individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year: false
+    us:statutes/26/933#input.income_derived_from_sources_within_puerto_rico: 0
+    us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/933#input.individual_is_citizen_of_united_states: false
+    us:statutes/26/933#input.individual_changes_residence_from_puerto_rico_during_taxable_year: false
+    us:statutes/26/933#input.bona_fide_resident_of_puerto_rico_years_before_change: 0
+    us:statutes/26/933#input.puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change: 0
+    ? us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+    : 0
+    us:statutes/26/151#relation.exemption_individual_of_tax_unit: []
+    us:statutes/26/151#relation.senior_deduction_individual_of_tax_unit:
+    - us:statutes/26/151#input.tin_included_on_return_claiming_exemption: true
+      us:statutes/26/151#input.is_taxpayer: true
+      us:statutes/26/151#input.is_spouse_of_taxpayer: false
+      us:statutes/26/151#input.spouse_has_no_gross_income_for_calendar_year: false
+      us:statutes/26/151#input.spouse_is_dependent_of_another_taxpayer: false
+      us:statutes/26/151#input.qualified_individual_social_security_number_included_on_return: true
+      us:statutes/26/151#input.age: 70
+      us:statutes/26/151#input.filing_status: 2
+    us:statutes/26/151#input.filing_status: 2
+  output:
+    us:statutes/26/151#senior_deduction_modified_adjusted_gross_income: 50000
+    us:statutes/26/151#senior_deduction_phaseout_threshold: 75000
+    us:statutes/26/151#senior_deduction_amount_per_qualified_individual: 6000
+    us:statutes/26/151#senior_deduction_eligible: not_holds
+    us:statutes/26/151#senior_deduction: 0

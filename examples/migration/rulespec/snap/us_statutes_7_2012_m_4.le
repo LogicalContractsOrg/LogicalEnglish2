@@ -1,0 +1,84 @@
+% 7 U.S.C. 2012(m)(4)
+% RuleSpec module us:statutes/7/2012/m/4 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    *a household* is individual or group shall not constitute household.
+    the individual or group of *a household* resides in institution; scenario element.
+    the individual or group of *a household* resides in boarding house; scenario element.
+    the individual or group of *a household* lives with others; scenario element.
+    the individual or group of *a household* pays compensation to others for meals; scenario element.
+
+the knowledge base us_statutes_7_2012_m_4 includes:
+
+
+% 7 U.S.C. 2012(m)(4) — us:statutes/7/2012/m/4
+the text of "7 U.S.C. 2012(m)(4)" is at "sources/us/statutes/7/2012/m/4.yaml".
+
+rule individual_or_group_shall_not_constitute_household_1 with provenance "7 U.S.C. 2012(m)(4)":
+a household is individual or group shall not constitute household if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the individual or group of the household resides in institution.
+
+rule individual_or_group_shall_not_constitute_household_2 with provenance "7 U.S.C. 2012(m)(4)":
+a household is individual or group shall not constitute household if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the individual or group of the household resides in boarding house.
+
+rule individual_or_group_shall_not_constitute_household_3 with provenance "7 U.S.C. 2012(m)(4)":
+a household is individual or group shall not constitute household if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the individual or group of the household lives with others
+    and the individual or group of the household pays compensation to others for meals.
+
+scenario institution_resident_cannot_constitute_household is, as stated in "sources/us/statutes/7/2012/m/4.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the individual or group of household_1 resides in institution.
+    q_individual_or_group_shall_not_constitute_household expects answers ["household_1 is individual or group shall not constitute household"].
+
+scenario boarding_house_resident_cannot_constitute_household is, as stated in "sources/us/statutes/7/2012/m/4.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the individual or group of household_1 resides in boarding house.
+    q_individual_or_group_shall_not_constitute_household expects answers ["household_1 is individual or group shall not constitute household"].
+
+scenario lives_with_others_without_meal_compensation_not_barred is, as stated in "sources/us/statutes/7/2012/m/4.test.yaml" at case 3:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the individual or group of household_1 lives with others.
+    q_individual_or_group_shall_not_constitute_household expects answers [].
+
+scenario lives_with_others_and_pays_for_meals_cannot_constitute_household is, as stated in "sources/us/statutes/7/2012/m/4.test.yaml" at case 4:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the individual or group of household_1 lives with others.
+    the individual or group of household_1 pays compensation to others for meals.
+    q_individual_or_group_shall_not_constitute_household expects answers ["household_1 is individual or group shall not constitute household"].
+
+query q_individual_or_group_shall_not_constitute_household is:
+    which household is individual or group shall not constitute household.
+
+query q_individual_or_group_shall_not_constitute_household is:
+    which household is individual or group shall not constitute household.
+
+query q_individual_or_group_shall_not_constitute_household is:
+    which household is individual or group shall not constitute household.
+
+query q_individual_or_group_shall_not_constitute_household is:
+    which household is individual or group shall not constitute household.
+

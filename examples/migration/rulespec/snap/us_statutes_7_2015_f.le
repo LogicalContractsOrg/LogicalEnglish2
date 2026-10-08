@@ -1,0 +1,360 @@
+% 7 U.S.C. 2015(f)
+% RuleSpec module us:statutes/7/2015/f (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    *a person* is qualifying immigration or nationality status for snap participation.
+    the citizenship or nationality of *a person* qualifies for snap participation.
+    *a person* is individual ineligible for snap participation due to residence or status.
+    the individual income considered for household eligibility and allotment of *a person* is *an amount*.
+    the individual financial resources considered for household eligibility and allotment of *a person* is *an amount*.
+    *a person* is alien lawfully admitted for permanent residence as immigrant; scenario element.
+    *a person* has been granted status of cuban and haitian entrant; scenario element.
+    the person lawfully of *a person* resides in united states in accordance with compact of free association; scenario element.
+    *a person* is citizen of united states; scenario element.
+    *a person* is national of united states; scenario element.
+    *a person* is member of household otherwise eligible to participate under this section; scenario element.
+    *a person* is resident of united states; scenario element.
+    the individual income of *a person* is *an amount*; scenario element.
+    *a person* is state exercises income pro rata share option; scenario element.
+    the income pro rata share of *a person* is *a rate*; scenario element.
+    the individual financial resources of *a person* is *an amount*; scenario element.
+
+the knowledge base us_statutes_7_2015_f includes:
+
+
+% 7 U.S.C. 2015(f) — us:statutes/7/2015/f
+the text of "7 U.S.C. 2015(f)(2)(A)-(D)" is at "sources/us/statutes/7/2015/f.yaml".
+
+the text of "7 U.S.C. 2015(f)(2)(A)" is at "sources/us/statutes/7/2015/f.yaml".
+
+the text of "7 U.S.C. 2015(f)(1)-(2)" is at "sources/us/statutes/7/2015/f.yaml".
+
+the text of "7 U.S.C. 2015(f)" is at "sources/us/statutes/7/2015/f.yaml".
+
+rule qualifying_immigration_or_nationality_status_for_snap_participation_1 with provenance "7 U.S.C. 2015(f)(2)(A)-(D)":
+a person is qualifying immigration or nationality status for snap participation if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the citizenship or nationality of the person qualifies for snap participation.
+
+rule qualifying_immigration_or_nationality_status_for_snap_participation_2 with provenance "7 U.S.C. 2015(f)(2)(A)-(D)":
+a person is qualifying immigration or nationality status for snap participation if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is alien lawfully admitted for permanent residence as immigrant.
+
+rule qualifying_immigration_or_nationality_status_for_snap_participation_3 with provenance "7 U.S.C. 2015(f)(2)(A)-(D)":
+a person is qualifying immigration or nationality status for snap participation if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person has been granted status of cuban and haitian entrant.
+
+rule qualifying_immigration_or_nationality_status_for_snap_participation_4 with provenance "7 U.S.C. 2015(f)(2)(A)-(D)":
+a person is qualifying immigration or nationality status for snap participation if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person lawfully of the person resides in united states in accordance with compact of free association.
+
+rule citizenship_or_nationality_qualifies_for_snap_participation_1 with provenance "7 U.S.C. 2015(f)(2)(A)":
+the citizenship or nationality of a person qualifies for snap participation if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is citizen of united states.
+
+rule citizenship_or_nationality_qualifies_for_snap_participation_2 with provenance "7 U.S.C. 2015(f)(2)(A)":
+the citizenship or nationality of a person qualifies for snap participation if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is national of united states.
+
+rule individual_ineligible_for_snap_participation_due_to_residence_or_status_1 with provenance "7 U.S.C. 2015(f)(1)-(2)":
+a person is individual ineligible for snap participation due to residence or status if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is member of household otherwise eligible to participate under this section
+    and it is not the case that the person is resident of united states.
+
+rule individual_ineligible_for_snap_participation_due_to_residence_or_status_2 with provenance "7 U.S.C. 2015(f)(1)-(2)":
+a person is individual ineligible for snap participation due to residence or status if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is member of household otherwise eligible to participate under this section
+    and it is not the case that the person is qualifying immigration or nationality status for snap participation.
+
+rule individual_income_considered_for_household_eligibility_and_allotment with provenance "7 U.S.C. 2015(f)":
+the individual income considered for household eligibility and allotment of a person is an amount N if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is individual ineligible for snap participation due to residence or status
+        and the individual income of the person is an amount M
+        and the person is state exercises income pro rata share option
+            and the income pro rata share of the person is a rate R
+            otherwise R = 0
+        and a number K = M - R
+        and the maximum of 0 and K is N
+        otherwise the person is a person
+        and N = 0.
+
+rule individual_financial_resources_considered_for_household_eligibility_and_allotment with provenance "7 U.S.C. 2015(f)":
+the individual financial resources considered for household eligibility and allotment of a person is an amount N if
+    the calculation date is a date D
+    and 2025-07-04 <= D
+    and the person is individual ineligible for snap participation due to residence or status
+        and the individual financial resources of the person is an amount M
+        and the maximum of 0 and M is N
+        otherwise the person is a person
+        and N = 0.
+
+scenario negative_resources_are_clamped_at_zero is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    the individual financial resources of person_1 is -100.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_citizenship_or_nationality_qualifies_for_snap_participation expects answers [].
+    q_individual_financial_resources_considered_for_household_eligibility_and_allotment expects answers ["the individual financial resources considered for household eligibility and allotment of person_1 is 0"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers [].
+
+scenario citizen_resident_member_has_qualifying_status is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 is citizen of united states.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_citizenship_or_nationality_qualifies_for_snap_participation expects answers ["the citizenship or nationality of person_1 qualifies for snap participation"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers ["person_1 is qualifying immigration or nationality status for snap participation"].
+
+scenario national_only_resident_member_has_qualifying_status is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is national of united states.
+    person_1 is resident of united states.
+    q_citizenship_or_nationality_qualifies_for_snap_participation expects answers ["the citizenship or nationality of person_1 qualifies for snap participation"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers ["person_1 is qualifying immigration or nationality status for snap participation"].
+
+scenario lawful_permanent_resident_has_qualifying_status is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 is alien lawfully admitted for permanent residence as immigrant.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_citizenship_or_nationality_qualifies_for_snap_participation expects answers [].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers ["person_1 is qualifying immigration or nationality status for snap participation"].
+
+scenario cuban_haitian_entrant_has_qualifying_status is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 5:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 has been granted status of cuban and haitian entrant.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers ["person_1 is qualifying immigration or nationality status for snap participation"].
+
+scenario compact_of_free_association_resident_has_qualifying_status is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 6:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    the person lawfully of person_1 resides in united states in accordance with compact of free association.
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers ["person_1 is qualifying immigration or nationality status for snap participation"].
+
+scenario member_with_no_permitted_status_is_ineligible is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 7:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_citizenship_or_nationality_qualifies_for_snap_participation expects answers [].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers [].
+
+scenario nonresident_member_is_ineligible is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 8:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    person_1 is citizen of united states.
+    person_1 is member of household otherwise eligible to participate under this section.
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers ["person_1 is qualifying immigration or nationality status for snap participation"].
+
+scenario nonmember_is_not_ineligible_under_this_subsection is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 9:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+    q_qualifying_immigration_or_nationality_status_for_snap_participation expects answers [].
+
+scenario ineligible_income_without_proration_is_considered is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 10:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    the income pro rata share of person_1 is 30.
+    the individual income of person_1 is 100.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_individual_income_considered_for_household_eligibility_and_allotment expects answers ["the individual income considered for household eligibility and allotment of person_1 is 100"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+
+scenario ineligible_income_with_proration_is_considered is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 11:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    the income pro rata share of person_1 is 30.
+    the individual income of person_1 is 100.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    person_1 is state exercises income pro rata share option.
+    q_individual_income_considered_for_household_eligibility_and_allotment expects answers ["the individual income considered for household eligibility and allotment of person_1 is 70"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+
+scenario income_proration_is_clamped_at_zero is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 12:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    the income pro rata share of person_1 is 150.
+    the individual income of person_1 is 100.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    person_1 is state exercises income pro rata share option.
+    q_individual_income_considered_for_household_eligibility_and_allotment expects answers ["the individual income considered for household eligibility and allotment of person_1 is 0"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+
+scenario ineligible_positive_resources_are_considered is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 13:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    the individual financial resources of person_1 is 50.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_individual_financial_resources_considered_for_household_eligibility_and_allotment expects answers ["the individual financial resources considered for household eligibility and allotment of person_1 is 50"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers ["person_1 is individual ineligible for snap participation due to residence or status"].
+
+scenario eligible_person_income_and_resources_are_not_considered is, as stated in "sources/us/statutes/7/2015/f.test.yaml" at case 14:
+    person_1 is a person.
+    the calculation date is 2025-07-04.
+    the income pro rata share of person_1 is 0.
+    the individual financial resources of person_1 is 200.
+    the individual income of person_1 is 100.
+    person_1 is citizen of united states.
+    person_1 is member of household otherwise eligible to participate under this section.
+    person_1 is resident of united states.
+    q_individual_financial_resources_considered_for_household_eligibility_and_allotment expects answers ["the individual financial resources considered for household eligibility and allotment of person_1 is 0"].
+    q_individual_income_considered_for_household_eligibility_and_allotment expects answers ["the individual income considered for household eligibility and allotment of person_1 is 0"].
+    q_individual_ineligible_for_snap_participation_due_to_residence_or_status expects answers [].
+
+query q_citizenship_or_nationality_qualifies_for_snap_participation is:
+    the citizenship or nationality of which person qualifies for snap participation.
+
+query q_citizenship_or_nationality_qualifies_for_snap_participation is:
+    the citizenship or nationality of which person qualifies for snap participation.
+
+query q_citizenship_or_nationality_qualifies_for_snap_participation is:
+    the citizenship or nationality of which person qualifies for snap participation.
+
+query q_citizenship_or_nationality_qualifies_for_snap_participation is:
+    the citizenship or nationality of which person qualifies for snap participation.
+
+query q_citizenship_or_nationality_qualifies_for_snap_participation is:
+    the citizenship or nationality of which person qualifies for snap participation.
+
+query q_individual_financial_resources_considered_for_household_eligibility_and_allotment is:
+    the individual financial resources considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_financial_resources_considered_for_household_eligibility_and_allotment is:
+    the individual financial resources considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_financial_resources_considered_for_household_eligibility_and_allotment is:
+    the individual financial resources considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_income_considered_for_household_eligibility_and_allotment is:
+    the individual income considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_income_considered_for_household_eligibility_and_allotment is:
+    the individual income considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_income_considered_for_household_eligibility_and_allotment is:
+    the individual income considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_income_considered_for_household_eligibility_and_allotment is:
+    the individual income considered for household eligibility and allotment of which person is which amount.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_individual_ineligible_for_snap_participation_due_to_residence_or_status is:
+    which person is individual ineligible for snap participation due to residence or status.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+
+query q_qualifying_immigration_or_nationality_status_for_snap_participation is:
+    which person is qualifying immigration or nationality status for snap participation.
+

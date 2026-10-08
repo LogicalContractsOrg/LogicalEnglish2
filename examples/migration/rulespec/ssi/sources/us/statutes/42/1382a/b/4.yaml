@@ -1,0 +1,254 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382a/b/4
+  summary: |-
+    Excludes, for blind, disabled-but-not-blind, and certain age-65 individuals or spouses, "the first $780 per year ... of earned income" and, for blind or age-65 branches, "one-half of the remainder"; for disabled-but-not-blind, excludes specified impairment-related work expenses before excluding "one-half" of remaining earned income, and excludes approved self-support plan amounts of other income where stated.
+rules:
+  - name: annual_earned_income_initial_exclusion_limit
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382a(b)(4)(A)(i), (B)(i), (C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "the first $780 per year"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "$780 per year"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          780
+
+  - name: earned_income_remainder_exclusion_rate
+    kind: parameter
+    dtype: Rate
+    source: 42 USC 1382a(b)(4)(A)(i), (B)(iii), (C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "one-half"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          1 / 2
+
+  - name: blind_branch_earned_income_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(4)(A)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "if such individual (or such spouse) is blind"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "the first $780 per year ... plus one-half of the remainder"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit
+              output: annual_earned_income_initial_exclusion_limit
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate
+              output: earned_income_remainder_exclusion_rate
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_or_spouse_satisfies_blind_branch_status_condition: min(max(0, earned_income_not_excluded_by_preceding_paragraphs), annual_earned_income_initial_exclusion_limit) + (earned_income_remainder_exclusion_rate * max(0, earned_income_not_excluded_by_preceding_paragraphs - annual_earned_income_initial_exclusion_limit)) else: 0
+
+  - name: blind_branch_earning_expenses_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(4)(A)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "if such individual (or such spouse) is blind"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "an amount equal to any expenses reasonably attributable to the earning of any income"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_or_spouse_satisfies_blind_branch_status_condition: max(0, expenses_reasonably_attributable_to_earning_income) else: 0
+
+  - name: blind_branch_self_support_plan_other_income_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(4)(A)(iii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "if such individual (or such spouse) is blind"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "has a plan for achieving self-support approved by the Commissioner"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "such additional amounts of other income ... as may be necessary for the fulfillment of such plan"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_or_spouse_satisfies_blind_branch_status_condition and individual_has_commissioner_approved_plan_for_achieving_self_support: max(0, other_income_amount_necessary_for_fulfillment_of_self_support_plan) else: 0
+
+  - name: disabled_branch_earned_income_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(4)(B)(i)-(iii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "if such individual (or such spouse) is disabled but not blind"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "the first $780 per year"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "additional amounts of earned income ... necessary to pay the costs"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "one-half of the amount of earned income not excluded after the application of the preceding provisions"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit
+              output: annual_earned_income_initial_exclusion_limit
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate
+              output: earned_income_remainder_exclusion_rate
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition: min(max(0, earned_income_not_excluded_by_preceding_paragraphs), annual_earned_income_initial_exclusion_limit) + min(max(0, earned_income_not_excluded_by_preceding_paragraphs - min(max(0, earned_income_not_excluded_by_preceding_paragraphs), annual_earned_income_initial_exclusion_limit)), max(0, disability_work_expense_amount_necessary_and_within_commissioner_limits)) + (earned_income_remainder_exclusion_rate * max(0, earned_income_not_excluded_by_preceding_paragraphs - min(max(0, earned_income_not_excluded_by_preceding_paragraphs), annual_earned_income_initial_exclusion_limit) - min(max(0, earned_income_not_excluded_by_preceding_paragraphs - min(max(0, earned_income_not_excluded_by_preceding_paragraphs), annual_earned_income_initial_exclusion_limit)), max(0, disability_work_expense_amount_necessary_and_within_commissioner_limits)))) else: 0
+
+  - name: disabled_branch_self_support_plan_other_income_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(4)(B)(iv)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "if such individual (or such spouse) is disabled but not blind"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "has a plan for achieving self-support approved by the Commissioner"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "such additional amounts of other income ... as may be necessary for the fulfillment of such plan"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition and individual_has_commissioner_approved_plan_for_achieving_self_support: max(0, other_income_amount_necessary_for_fulfillment_of_self_support_plan) else: 0
+
+  - name: age_sixty_five_branch_earned_income_excluded
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382a(b)(4)(C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "has attained age 65 and is not included under subparagraph (A) or (B)"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382a/b/4
+              excerpt: "the first $780 per year ... plus one-half of the remainder"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit
+              output: annual_earned_income_initial_exclusion_limit
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate
+              output: earned_income_remainder_exclusion_rate
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          if individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b: min(max(0, earned_income_not_excluded_by_preceding_paragraphs), annual_earned_income_initial_exclusion_limit) + (earned_income_remainder_exclusion_rate * max(0, earned_income_not_excluded_by_preceding_paragraphs - annual_earned_income_initial_exclusion_limit)) else: 0

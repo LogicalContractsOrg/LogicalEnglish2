@@ -1,12 +1,21 @@
+<<<<<<< HEAD
 % Tests for the LLM price table (llm/llm_prices.pl) and the Contract
 % Assistant's cost estimate built on it. A tiny local price file (pointed at by
+=======
+% Tests for the LLM price table (llm/llm_prices.pl). The Contract Assistant's
+% cost estimate built on it is tested where the assistant is, in the lpsPlus
+% repository (contract_assistant/testing/test_cost_estimate.pl). A tiny local price file (pointed at by
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 % LE_MODEL_PRICES_FILE, exactly as an offline deployment would) stands in for
 % LiteLLM's model_prices_and_context_window.json, so nothing here touches the
 % network.
 
 :- use_module('../llm/llm_prices').
 :- use_module('../llm/llm_client').
+<<<<<<< HEAD
 :- use_module('../le_contract_assistant').
+=======
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 % A handful of rows in LiteLLM's schema: bare keys for OpenAI/Anthropic,
 % provider-prefixed keys for the rest, plus a costless entry that must be
@@ -78,6 +87,7 @@ test(unknown_model_has_no_price) :-
 
 :- end_tests(llm_prices).
 
+<<<<<<< HEAD
 % --------------------------- the cost estimate -------------------------------
 
 :- begin_tests(contract_cost_estimate, [setup(prices_setup), cleanup(prices_cleanup)]).
@@ -140,3 +150,5 @@ test(handler_survives_a_bare_request) :-
     assertion(get_dict(priced, R, _)).
 
 :- end_tests(contract_cost_estimate).
+=======
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f

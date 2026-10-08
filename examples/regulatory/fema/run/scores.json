@@ -1,0 +1,410 @@
+{
+  "existing_code": {"enabled":false},
+  "interrogation": {"enabled":false,"note":"skipped: budget exhausted"},
+  "paraphrase": {"enabled":false,"note":"skipped: budget exhausted"},
+  "scores": [
+    {
+      "branch":1,
+      "declined":0,
+      "errors":0,
+      "holdout_failed":6,
+      "holdout_passed":22,
+      "open":0,
+      "summary":"0 errors, 6 warnings, 41/47 tests passing; held-out: 22/28",
+      "test_details": [
+	 {"query":"payment","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"total_payable","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"dwelling_classification","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"construction_insured_property","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"manufactured_home_status","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"post_firm_status","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"repetitive_loss_status","scenario":"'SYN-01-C1'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C2'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C3'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C4'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C5'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C6'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C7'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C8'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C1'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C2'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C3'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C4'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-03-C1'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 4400 for claim 101\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 6400 for claim 101\"]-[]",
+	  "query":"payment",
+	  "scenario":"'case 101'",
+	  "status":"fail",
+	  "why_not":"      - not met: the maximum of _-1000 and 0 is _ (asked by the rule at line 1287)"
+	},
+	 {
+	  "actual":"[\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\",\"we will pay 4400 in respect of component 101-contents\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 4700 in respect of component 101-building\",\"we will pay 1700 in respect of component 101-contents\"]-[]",
+	  "query":"component_payment",
+	  "scenario":"'case 101'",
+	  "status":"fail",
+	  "why_not":"      - not met: the maximum of _-1000 and 0 is _ (asked by the rule at line 1287)"
+	},
+	 {
+	  "actual":"[\"the total payable amount for claim 101 is 4400\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"the total payable amount for claim 101 is 6400\"]-[]",
+	  "query":"total_payable",
+	  "scenario":"'case 101'",
+	  "status":"fail",
+	  "why_not":"      - not met: the maximum of _-1000 and 0 is _ (asked by the rule at line 1287)"
+	},
+	 {"query":"claim_coverage","scenario":"'case 101'","status":"pass"},
+	 {"query":"component_coverage","scenario":"'case 101'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for claim SYN-03-C3\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 11000 for claim SYN-03-C3\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-03-C3'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 11000 in respect of component SYN-03-C3-garage\"]-[]",
+	  "query":"component_payment",
+	  "scenario":"'SYN-03-C3'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"the total payable amount for claim SYN-03-C3 is 0\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"the total payable amount for claim SYN-03-C3 is 11000\"]-[]",
+	  "query":"total_payable",
+	  "scenario":"'SYN-03-C3'",
+	  "status":"fail"
+	},
+	 {"query":"claim_coverage","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"component_coverage","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"recorded_cause","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"basement_area","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"dwelling_classification","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"construction_insured_property","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"manufactured_home_status","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"post_firm_status","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"repetitive_loss_status","scenario":"'SYN-03-C3'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-03-C4'","status":"pass"},
+	 {"query":"component_payment","scenario":"'SYN-03-C4'","status":"pass"},
+	 {"query":"total_payable","scenario":"'SYN-03-C4'","status":"pass"},
+	 {"query":"claim_coverage","scenario":"'SYN-03-C4'","status":"pass"},
+	 {"query":"component_coverage","scenario":"'SYN-03-C4'","status":"pass"},
+	 {"query":"payment","scenario":"'held out case 104'","status":"pass"},
+	 {"query":"component_payment","scenario":"'held out case 104'","status":"pass"},
+	 {"query":"total_payable","scenario":"'held out case 104'","status":"pass"},
+	 {"query":"claim_coverage","scenario":"'held out case 104'","status":"pass"},
+	 {"query":"component_coverage","scenario":"'held out case 104'","status":"pass"},
+	 {"query":"recorded_cause","scenario":"'held out case 104'","status":"pass"}
+      ],
+      "tests_failed":6,
+      "tests_passed":41,
+      "warnings":6
+    },
+    {
+      "branch":2,
+      "declined":0,
+      "errors":0,
+      "holdout_failed":0,
+      "holdout_passed":0,
+      "open":0,
+      "summary":"0 errors, 114 warnings, 18/26 tests passing",
+      "test_details": [
+	 {"query":"coverage","scenario":"'SYN-01-C1'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 352000 for claim SYN-01-C1\",\"we will pay 352000 for claim SYN-01-C1\",\"we will pay 352000 for claim SYN-01-C1\",\"we will pay 352000 for claim SYN-01-C1\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 44000 for claim SYN-01-C1\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-01-C1'",
+	  "status":"fail",
+	  "why_not":"      - not met: 44000 is the sum of each P such that claim SYN-01-C1 has a claim component and we will pay P to a claim component (asked by the rule at line 1184)"
+	},
+	 {"query":"coverage","scenario":"'SYN-01-C2'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 64000 for claim SYN-01-C2\",\"we will pay 64000 for claim SYN-01-C2\",\"we will pay 64000 for claim SYN-01-C2\",\"we will pay 64000 for claim SYN-01-C2\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 8000 for claim SYN-01-C2\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-01-C2'",
+	  "status":"fail",
+	  "why_not":"      - not met: 8000 is the sum of each P such that claim SYN-01-C2 has a claim component and we will pay P to a claim component (asked by the rule at line 1184)"
+	},
+	 {"query":"coverage","scenario":"'SYN-01-C3'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C3'","status":"pass"},
+	 {"query":"coverage","scenario":"'SYN-01-C4'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C4'","status":"pass"},
+	 {"query":"coverage","scenario":"'SYN-01-C5'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for claim SYN-01-C5\",\"we will pay 0 for claim SYN-01-C5\",\"we will pay 0 for claim SYN-01-C5\",\"we will pay 0 for claim SYN-01-C5\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 800 for claim SYN-01-C5\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-01-C5'",
+	  "status":"fail",
+	  "why_not":"      - not met: the minimum of expense amount and 200000 is _ (asked by the rule at line 1178)\n      - not met: the minimum of expense amount and 1000 is _ (asked by the rule at line 1178)"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C6 is covered under the Dwelling Form section\"]-[]",
+	  "query":"coverage",
+	  "scenario":"'SYN-01-C6'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 25000 for claim SYN-01-C6\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-01-C6'",
+	  "status":"fail"
+	},
+	 {"query":"coverage","scenario":"'SYN-01-C7'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-01-C7'","status":"pass"},
+	 {"query":"coverage","scenario":"'SYN-01-C8'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for claim SYN-01-C8\",\"we will pay 0 for claim SYN-01-C8\",\"we will pay 0 for claim SYN-01-C8\",\"we will pay 0 for claim SYN-01-C8\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 49000 for claim SYN-01-C8\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-01-C8'",
+	  "status":"fail"
+	},
+	 {"query":"coverage","scenario":"'SYN-02-C1'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 464000 for claim SYN-02-C1\",\"we will pay 464000 for claim SYN-02-C1\",\"we will pay 464000 for claim SYN-02-C1\",\"we will pay 464000 for claim SYN-02-C1\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 58000 for claim SYN-02-C1\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-02-C1'",
+	  "status":"fail"
+	},
+	 {"query":"coverage","scenario":"'SYN-02-C2'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C2'","status":"pass"},
+	 {"query":"coverage","scenario":"'SYN-02-C3'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C3'","status":"pass"},
+	 {"query":"coverage","scenario":"'SYN-02-C4'","status":"pass"},
+	 {"query":"payment","scenario":"'SYN-02-C4'","status":"pass"},
+	 {"query":"coverage","scenario":"'SYN-03-C1'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\",\"we will pay 608000 for claim SYN-03-C1\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 38000 for claim SYN-03-C1\"]-[]",
+	  "query":"payment",
+	  "scenario":"'SYN-03-C1'",
+	  "status":"fail"
+	}
+      ],
+      "tests_failed":8,
+      "tests_passed":18,
+      "warnings":114
+    },
+    {
+      "branch":3,
+      "declined":0,
+      "errors":0,
+      "holdout_failed":0,
+      "holdout_passed":0,
+      "open":0,
+      "summary":"0 errors, 117 warnings, 4/26 tests passing",
+      "test_details": [
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 46200 for claim SYN-01-C1\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C1'",
+	  "status":"fail",
+	  "why_not":"      - not met: 46200 is the sum of each A such that claim SYN-01-C1 has a claim component and the payable amount for a claim component is A (asked by the rule at line 1416)"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C1 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-01-C1'",
+	  "status":"fail",
+	  "why_not":"      - not stated by the scenario: dwelling SYN-01 involves a general and temporary inundation (asked by the rule at line 340)\n      - not stated by the scenario: dwelling SYN-01 involves collapse or subsidence of land along the shore of a lake or similar body of water (asked by the rule at line 373)"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 38500 for claim SYN-01-C2\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C2'",
+	  "status":"fail",
+	  "why_not":"      - not met: 38500 is the sum of each A such that claim SYN-01-C2 has a claim component and the payable amount for a claim component is A (asked by the rule at line 1416)"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C2 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-01-C2'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 0 for claim SYN-01-C3\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C3'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C3 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-01-C3'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 250000 for claim SYN-01-C4\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C4'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C4 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-01-C4'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 3500 for claim SYN-01-C5\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C5'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C5 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-01-C5'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 0 for claim SYN-01-C6\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C6'",
+	  "status":"fail"
+	},
+	 {"query":"covered","scenario":"'SYN-01-C6'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 176000 for claim SYN-01-C7\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C7'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-01-C7 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-01-C7'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 4000 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 1000 for claim SYN-01-C8\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-01-C8'",
+	  "status":"fail"
+	},
+	 {"query":"covered","scenario":"'SYN-01-C8'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 46000 for claim SYN-02-C1\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-02-C1'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-02-C1 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-02-C1'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 0 for claim SYN-02-C2\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-02-C2'",
+	  "status":"fail"
+	},
+	 {"query":"covered","scenario":"'SYN-02-C2'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 0 for claim SYN-02-C3\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-02-C3'",
+	  "status":"fail"
+	},
+	 {"query":"covered","scenario":"'SYN-02-C3'","status":"pass"},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 4000 for claim SYN-02-C4\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-02-C4'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-02-C4 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-02-C4'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[\"we will pay 0 for _\"]-[]",
+	  "answers_match":false,
+	  "expected":"[\"we will pay 31000 for claim SYN-03-C1\"]-[]",
+	  "query":"payable",
+	  "scenario":"'SYN-03-C1'",
+	  "status":"fail"
+	},
+	 {
+	  "actual":"[]-[]",
+	  "answers_match":false,
+	  "expected":"[\"claim SYN-03-C1 is covered under the Dwelling Form section\"]-[]",
+	  "query":"covered",
+	  "scenario":"'SYN-03-C1'",
+	  "status":"fail"
+	}
+      ],
+      "tests_failed":22,
+      "tests_passed":4,
+      "warnings":117
+    }
+  ],
+  "winner":1
+}

@@ -1,0 +1,457 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  summary: |-
+    USDA SNAP FY 2024 cost-of-living adjustments set maximum monthly
+    allotments for the 48 states and the District of Columbia effective
+    October 1, 2023 through September 30, 2024. The maximum allotments are
+    291, 535, 766, 973, 1155, 1386, 1532, and 1751 for household sizes 1
+    through 8, plus 219 for each additional person. The same memorandum sets
+    Alaska Urban amounts of 374, 686, 983, 1248, 1482, 1778, 1966, and
+    2246, plus 281; Alaska Rural 1 amounts of 477, 875, 1253, 1591, 1890,
+    2268, 2506, and 2865, plus 358; Alaska Rural 2 amounts of 581, 1065,
+    1525, 1937, 2300, 2760, 3051, and 3487, plus 436; Guam amounts of
+    430, 788, 1129, 1434, 1703, 2044, 2259, and 2581, plus 323; Hawaii
+    amounts of 527, 967, 1385, 1759, 2088, 2506, 2770, and 3166, plus
+    396; and Virgin Islands amounts of 375, 688, 985, 1251, 1485, 1782,
+    1970, and 2252, plus 282.
+  source_verification:
+    upstream_source_check:
+      status: official_parameter_source
+      checked_paths:
+        - us/statute/7/2012
+        - us/statute/7/2017
+      rationale: 7 USC 2012(u) defines the thrifty food plan and requires the
+        Secretary to adjust its cost each October 1, and 7 USC 2017(a) computes
+        allotments from that adjusted cost without fixing dollar amounts in
+        statute. The USDA FY 2024 cost-of-living adjustment memorandum is the
+        controlling published source for the FY 2024 maximum allotment dollar
+        values, effective October 1, 2023 through September 30, 2024.
+    corpus_citation_paths:
+      - us/guidance/usda/fns/snap-fy2024-cola/page-3
+      - us/guidance/usda/fns/snap-fy2024-cola/page-4
+    values:
+      snap_maximum_allotment_table:
+        1: 291
+        2: 535
+        3: 766
+        4: 973
+        5: 1155
+        6: 1386
+        7: 1532
+        8: 1751
+      snap_maximum_allotment_additional_member: 219
+      snap_maximum_allotment_alaska_urban_table:
+        1: 374
+        2: 686
+        3: 983
+        4: 1248
+        5: 1482
+        6: 1778
+        7: 1966
+        8: 2246
+      snap_maximum_allotment_alaska_urban_additional_member: 281
+      snap_maximum_allotment_alaska_rural_1_table:
+        1: 477
+        2: 875
+        3: 1253
+        4: 1591
+        5: 1890
+        6: 2268
+        7: 2506
+        8: 2865
+      snap_maximum_allotment_alaska_rural_1_additional_member: 358
+      snap_maximum_allotment_alaska_rural_2_table:
+        1: 581
+        2: 1065
+        3: 1525
+        4: 1937
+        5: 2300
+        6: 2760
+        7: 3051
+        8: 3487
+      snap_maximum_allotment_alaska_rural_2_additional_member: 436
+      snap_maximum_allotment_guam_table:
+        1: 430
+        2: 788
+        3: 1129
+        4: 1434
+        5: 1703
+        6: 2044
+        7: 2259
+        8: 2581
+      snap_maximum_allotment_guam_additional_member: 323
+      snap_maximum_allotment_hawaii_table:
+        1: 527
+        2: 967
+        3: 1385
+        4: 1759
+        5: 2088
+        6: 2506
+        7: 2770
+        8: 3166
+      snap_maximum_allotment_hawaii_additional_member: 396
+      snap_maximum_allotment_virgin_islands_table:
+        1: 375
+        2: 688
+        3: 985
+        4: 1251
+        5: 1485
+        6: 1782
+        7: 1970
+        8: 2252
+      snap_maximum_allotment_virgin_islands_additional_member: 282
+rules:
+  - name: snap_maximum_allotment_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_table
+              table:
+                header: Maximum SNAP Allotments for 48 States and D.C.
+                row_key: household_size
+                column_key: 48_states_dc
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 291
+          2: 535
+          3: 766
+          4: 973
+          5: 1155
+          6: 1386
+          7: 1532
+          8: 1751
+  - name: snap_maximum_allotment_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '219'
+  - name: snap_maximum_allotment
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+    versions:
+      - effective_from: '2023-10-01'
+        formula: |-
+          snap_maximum_allotment_table[max(min(household_size, 8), 1)]
+          + (max(household_size - 8, 0) * snap_maximum_allotment_additional_member)
+  - name: snap_one_person_thrifty_food_plan_cost
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_table
+    versions:
+      - effective_from: '2023-10-01'
+        formula: snap_maximum_allotment_table[1]
+  - name: snap_maximum_allotment_alaska_urban_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_alaska_urban_table
+              table:
+                header: Maximum SNAP Allotments for Alaska
+                row_key: household_size
+                column_key: alaska_urban
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 374
+          2: 686
+          3: 983
+          4: 1248
+          5: 1482
+          6: 1778
+          7: 1966
+          8: 2246
+  - name: snap_maximum_allotment_alaska_urban_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_alaska_urban_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '281'
+  - name: snap_maximum_allotment_alaska_rural_1_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_alaska_rural_1_table
+              table:
+                header: Maximum SNAP Allotments for Alaska
+                row_key: household_size
+                column_key: alaska_rural_1
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 477
+          2: 875
+          3: 1253
+          4: 1591
+          5: 1890
+          6: 2268
+          7: 2506
+          8: 2865
+  - name: snap_maximum_allotment_alaska_rural_1_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_alaska_rural_1_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '358'
+  - name: snap_maximum_allotment_alaska_rural_2_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_alaska_rural_2_table
+              table:
+                header: Maximum SNAP Allotments for Alaska
+                row_key: household_size
+                column_key: alaska_rural_2
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 581
+          2: 1065
+          3: 1525
+          4: 1937
+          5: 2300
+          6: 2760
+          7: 3051
+          8: 3487
+  - name: snap_maximum_allotment_alaska_rural_2_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_alaska_rural_2_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '436'
+  - name: snap_maximum_allotment_guam_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_guam_table
+              table:
+                header: Maximum SNAP Allotments for Guam
+                row_key: household_size
+                column_key: guam
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 430
+          2: 788
+          3: 1129
+          4: 1434
+          5: 1703
+          6: 2044
+          7: 2259
+          8: 2581
+  - name: snap_maximum_allotment_guam_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_guam_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '323'
+  - name: snap_maximum_allotment_hawaii_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_hawaii_table
+              table:
+                header: Maximum SNAP Allotments for Hawaii
+                row_key: household_size
+                column_key: hawaii
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 527
+          2: 967
+          3: 1385
+          4: 1759
+          5: 2088
+          6: 2506
+          7: 2770
+          8: 3166
+  - name: snap_maximum_allotment_hawaii_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-4
+              value_key: snap_maximum_allotment_hawaii_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '396'
+  - name: snap_maximum_allotment_virgin_islands_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_virgin_islands_table
+              table:
+                header: Maximum SNAP Allotments for U.S. Virgin Islands
+                row_key: household_size
+                column_key: virgin_islands
+    versions:
+      - effective_from: '2023-10-01'
+        values:
+          1: 375
+          2: 688
+          3: 985
+          4: 1251
+          5: 1485
+          6: 1782
+          7: 1970
+          8: 2252
+  - name: snap_maximum_allotment_virgin_islands_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2024 cost-of-living adjustments
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2024-cola/page-3
+              value_key: snap_maximum_allotment_virgin_islands_additional_member
+    versions:
+      - effective_from: '2023-10-01'
+        formula: '282'

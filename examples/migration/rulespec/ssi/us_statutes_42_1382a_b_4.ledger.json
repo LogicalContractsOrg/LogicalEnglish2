@@ -1,0 +1,270 @@
+{
+  "counts": {"approximated":0,"encoded":16,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit",
+      "in_program":"rs_annual_earned_income_initial_exclusion_limit",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate",
+      "in_program":"rs_earned_income_remainder_exclusion_rate",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded",
+      "in_program":"rs_blind_branch_earned_income_excluded",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded",
+      "in_program":"rs_blind_branch_earning_expenses_excluded",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded",
+      "in_program":"rs_blind_branch_self_support_plan_other_income_excluded",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded",
+      "in_program":"rs_disabled_branch_earned_income_excluded",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded",
+      "in_program":"rs_disabled_branch_self_support_plan_other_income_excluded",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded",
+      "in_program":"rs_age_sixty_five_branch_earned_income_excluded",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input individual_or_spouse_satisfies_blind_branch_status_condition",
+      "in_program":"rs_individual_or_spouse_satisfies_blind_branch_status_condition",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input earned_income_not_excluded_by_preceding_paragraphs",
+      "in_program":"rs_earned_income_not_excluded_by_preceding_paragraphs",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input expenses_reasonably_attributable_to_earning_income",
+      "in_program":"rs_expenses_reasonably_attributable_to_earning_income",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input individual_has_commissioner_approved_plan_for_achieving_self_support",
+      "in_program":"rs_individual_has_commissioner_approved_plan_for_achieving_self_support",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input other_income_amount_necessary_for_fulfillment_of_self_support_plan",
+      "in_program":"rs_other_income_amount_necessary_for_fulfillment_of_self_support_plan",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition",
+      "in_program":"rs_individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input disability_work_expense_amount_necessary_and_within_commissioner_limits",
+      "in_program":"rs_disability_work_expense_amount_necessary_and_within_commissioner_limits",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b",
+      "in_program":"rs_individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":20,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_age_sixty_five_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_earning_expenses_excluded",
+	"result":"pass",
+	"scenario":"blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_self_support_plan_other_income_excluded",
+	"result":"pass",
+	"scenario":"blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income"
+      },
+      {
+	"detail":"",
+	"query":"q_disabled_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income"
+      },
+      {
+	"detail":"",
+	"query":"q_disabled_branch_self_support_plan_other_income_excluded",
+	"result":"pass",
+	"scenario":"blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income"
+      },
+      {
+	"detail":"",
+	"query":"q_age_sixty_five_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_earning_expenses_excluded",
+	"result":"pass",
+	"scenario":"disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_self_support_plan_other_income_excluded",
+	"result":"pass",
+	"scenario":"disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining"
+      },
+      {
+	"detail":"",
+	"query":"q_disabled_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining"
+      },
+      {
+	"detail":"",
+	"query":"q_disabled_branch_self_support_plan_other_income_excluded",
+	"result":"pass",
+	"scenario":"disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining"
+      },
+      {
+	"detail":"",
+	"query":"q_age_sixty_five_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"age_sixty_five_branch_excludes_initial_amount_and_half_remainder"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"age_sixty_five_branch_excludes_initial_amount_and_half_remainder"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_earning_expenses_excluded",
+	"result":"pass",
+	"scenario":"age_sixty_five_branch_excludes_initial_amount_and_half_remainder"
+      },
+      {
+	"detail":"",
+	"query":"q_blind_branch_self_support_plan_other_income_excluded",
+	"result":"pass",
+	"scenario":"age_sixty_five_branch_excludes_initial_amount_and_half_remainder"
+      },
+      {
+	"detail":"",
+	"query":"q_disabled_branch_earned_income_excluded",
+	"result":"pass",
+	"scenario":"age_sixty_five_branch_excludes_initial_amount_and_half_remainder"
+      },
+      {
+	"detail":"",
+	"query":"q_disabled_branch_self_support_plan_other_income_excluded",
+	"result":"pass",
+	"scenario":"age_sixty_five_branch_excludes_initial_amount_and_half_remainder"
+      },
+      {
+	"detail":"",
+	"query":"q_annual_earned_income_initial_exclusion_limit",
+	"result":"pass",
+	"scenario":"oracle_parameter_annual_earned_income_initial_exclusion_limit"
+      },
+      {
+	"detail":"",
+	"query":"q_earned_income_remainder_exclusion_rate",
+	"result":"pass",
+	"scenario":"oracle_parameter_earned_income_remainder_exclusion_rate"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/42/1382a/b/4.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_42_1382a_b_4",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":5
+}

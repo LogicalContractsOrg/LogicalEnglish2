@@ -1,0 +1,42 @@
+- name: life_insurance_policy_disregarded_when_total_face_value_at_threshold
+  period: 2024-01
+  input:
+    us:statutes/42/1382b/a#input.total_face_value_of_all_life_insurance_policies_on_same_person: 1500
+    us:statutes/42/1382b/a#input.cash_surrender_value: 900
+  output:
+    us:statutes/42/1382b/a#life_insurance_policy_counted_resource_value: 0
+- name: life_insurance_policy_counted_at_cash_surrender_value_when_total_face_value_exceeds_threshold
+  period: 2024-01
+  input:
+    us:statutes/42/1382b/a#input.total_face_value_of_all_life_insurance_policies_on_same_person: 1501
+    us:statutes/42/1382b/a#input.cash_surrender_value: 900
+  output:
+    us:statutes/42/1382b/a#life_insurance_policy_counted_resource_value: 900
+- name: qualifying_cash_gift_excluded_up_to_annual_cap
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382b/a#input.individual_age_years: 17
+    us:statutes/42/1382b/a#input.individual_has_life_threatening_condition: true
+    us:statutes/42/1382b/a#input.gift_from_organization_described_in_section_501_c_3_exempt_under_section_501_a: true
+    us:statutes/42/1382b/a#input.gift_is_cash: true
+    us:statutes/42/1382b/a#input.cash_gift_amount: 2500
+  output:
+    us:statutes/42/1382b/a#qualifying_cash_gift_excluded_resource_amount: 2000
+- name: cash_gift_not_excluded_when_child_age_condition_fails
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    us:statutes/42/1382b/a#input.individual_age_years: 18
+    us:statutes/42/1382b/a#input.individual_has_life_threatening_condition: true
+    us:statutes/42/1382b/a#input.gift_from_organization_described_in_section_501_c_3_exempt_under_section_501_a: true
+    us:statutes/42/1382b/a#input.gift_is_cash: true
+    us:statutes/42/1382b/a#input.cash_gift_amount: 1000
+  output:
+    us:statutes/42/1382b/a#qualifying_cash_gift_excluded_resource_amount: 0

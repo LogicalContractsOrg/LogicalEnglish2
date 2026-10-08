@@ -1,0 +1,121 @@
+- name: qualifying_child_person_positive_and_identification
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24#input.ctc_child_satisfies_dependency_rules: true
+    us:statutes/26/24#input.age: 16
+    us:statutes/26/24#input.ctc_child_deduction_allowed: true
+    us:statutes/26/24#input.certain_noncitizen_exception_applies: false
+    us:statutes/26/24#input.qualifying_child_name_included_on_return: true
+    us:statutes/26/24#input.qualifying_child_tin_included_on_return: true
+    us:statutes/26/24#input.qualifying_child_tin_issued_on_or_before_return_due_date: true
+  output:
+    us:statutes/26/24#ctc_child_age_ceiling_exclusive: 17
+    us:statutes/26/24#ctc_qualifying_child: holds
+    us:statutes/26/24#ctc_child_identification_requirement_satisfied: holds
+- name: qualifying_child_noncitizen_exception_not_holds
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24#input.ctc_child_satisfies_dependency_rules: true
+    us:statutes/26/24#input.age: 16
+    us:statutes/26/24#input.ctc_child_deduction_allowed: true
+    us:statutes/26/24#input.certain_noncitizen_exception_applies: true
+    us:statutes/26/24#input.qualifying_child_name_included_on_return: true
+    us:statutes/26/24#input.qualifying_child_tin_included_on_return: true
+    us:statutes/26/24#input.qualifying_child_tin_issued_on_or_before_return_due_date: true
+  output:
+    us:statutes/26/24#ctc_qualifying_child: not_holds
+    us:statutes/26/24#ctc_child_identification_requirement_satisfied: holds
+- name: post_2017_joint_credit_composes_subsection_h_and_phaseout
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24#input.adjusted_gross_income: 401000
+    us:statutes/26/24#input.ctc_foreign_earned_income_exclusion_adjustment: 0
+    us:statutes/26/24#input.ctc_possession_income_exclusion_adjustment: 0
+    us:statutes/26/24#input.ctc_puerto_rico_income_exclusion_adjustment: 0
+    us:statutes/26/24#input.ctc_phaseout_joint_threshold_applies: true
+    us:statutes/26/24#input.ctc_phaseout_separate_threshold_applies: false
+    us:statutes/26/24#input.ctc_subsection_h_special_rules_apply: true
+    us:statutes/26/24#input.taxpayer_identification_number_issued_after_return_due_date: false
+    us:statutes/26/24#input.taxable_year_months: 12
+    us:statutes/26/24#input.taxable_year_closed_by_reason_of_taxpayer_death: false
+    us:statutes/26/24#input.ctc_fraud_disallowance_period_applies: false
+    us:statutes/26/24#input.ctc_reckless_or_intentional_disregard_disallowance_period_applies: false
+    us:statutes/26/24#input.prior_deficiency_denial_without_required_eligibility_information: false
+    us:statutes/26/24#input.ctc_advance_payments_received: 100
+    us:statutes/26/24#relation.ctc_qualifying_child_of_tax_unit:
+    - us:statutes/26/24#input.ctc_child_satisfies_dependency_rules: true
+      us:statutes/26/24#input.age: 16
+      us:statutes/26/24#input.ctc_child_deduction_allowed: true
+      us:statutes/26/24#input.certain_noncitizen_exception_applies: false
+      us:statutes/26/24#input.ctc_child_missing_identification: false
+    us:statutes/26/24/h#input.filing_status: 1
+    us:statutes/26/24/h#relation.dependent_of_tax_unit:
+    - us:statutes/26/24/h#input.ctc_person_satisfies_dependency_rules: true
+      us:statutes/26/24/h#input.ctc_child_satisfies_subsection_c: true
+      us:statutes/26/24/h#input.noncitizen_exception_to_other_dependent_credit_under_subsection_h: false
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_included_on_return: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_included_on_return: true
+      us:statutes/26/24/h#input.taxpayer_or_spouse_ssn_is_valid_for_subsection_h: true
+      us:statutes/26/24/h#input.qualifying_child_ssn_is_valid_for_subsection_h: true
+  output:
+    us:statutes/26/24#ctc_child_amount_base: 1000
+    us:statutes/26/24#ctc_phaseout_reduction_per_increment: 50
+    us:statutes/26/24#ctc_phaseout_increment: 1000
+    us:statutes/26/24#ctc_joint_threshold_base: 110000
+    us:statutes/26/24#ctc_unmarried_threshold_base: 75000
+    us:statutes/26/24#ctc_separate_threshold_base: 55000
+    us:statutes/26/24#ctc_full_taxable_year_months: 12
+    us:statutes/26/24#ctc_fraud_disallowance_years: 10
+    us:statutes/26/24#ctc_reckless_disallowance_years: 2
+    us:statutes/26/24#ctc_modified_adjusted_gross_income: 401000
+    us:statutes/26/24#ctc_qualifying_children_count: 1
+    us:statutes/26/24#ctc_taxpayer_identification_requirement_satisfied: holds
+    us:statutes/26/24#ctc_full_taxable_year_requirement_satisfied: holds
+    us:statutes/26/24#ctc_prior_claim_restriction_satisfied: holds
+    us:statutes/26/24#ctc_phaseout_threshold_base: 110000
+    us:statutes/26/24#ctc_phaseout_threshold: 400000
+    us:statutes/26/24#ctc_maximum_before_phaseout: 2200
+    us:statutes/26/24#ctc_phaseout_amount: 50
+    us:statutes/26/24#ctc_before_advance_payments: 2150
+    us:statutes/26/24#ctc_after_advance_payments: 2050
+- name: taxpayer_tin_after_due_date_disallows_credit
+  period:
+    period_kind: tax_year
+    start: '2018-01-01'
+    end: '2018-12-31'
+  input:
+    us:statutes/26/24#input.adjusted_gross_income: 0
+    us:statutes/26/24#input.ctc_foreign_earned_income_exclusion_adjustment: 0
+    us:statutes/26/24#input.ctc_possession_income_exclusion_adjustment: 0
+    us:statutes/26/24#input.ctc_puerto_rico_income_exclusion_adjustment: 0
+    us:statutes/26/24#input.ctc_phaseout_joint_threshold_applies: false
+    us:statutes/26/24#input.ctc_phaseout_separate_threshold_applies: false
+    us:statutes/26/24#input.ctc_subsection_h_special_rules_apply: true
+    us:statutes/26/24#input.taxpayer_identification_number_issued_after_return_due_date: true
+    us:statutes/26/24#input.taxable_year_months: 12
+    us:statutes/26/24#input.taxable_year_closed_by_reason_of_taxpayer_death: false
+    us:statutes/26/24#input.ctc_fraud_disallowance_period_applies: false
+    us:statutes/26/24#input.ctc_reckless_or_intentional_disregard_disallowance_period_applies: false
+    us:statutes/26/24#input.prior_deficiency_denial_without_required_eligibility_information: false
+    us:statutes/26/24#input.ctc_advance_payments_received: 0
+    us:statutes/26/24#relation.ctc_qualifying_child_of_tax_unit: []
+    us:statutes/26/24/h#input.filing_status: 0
+    us:statutes/26/24/h#relation.dependent_of_tax_unit: []
+    us:statutes/26/24#input.age: 0
+    us:statutes/26/24#input.ctc_child_deduction_allowed: 0
+    us:statutes/26/24#input.certain_noncitizen_exception_applies: false
+    us:statutes/26/24#input.ctc_child_missing_identification: false
+    us:statutes/26/24#input.ctc_child_satisfies_dependency_rules: false
+  output:
+    us:statutes/26/24#ctc_taxpayer_identification_requirement_satisfied: not_holds
+    us:statutes/26/24#ctc_before_advance_payments: 0
+    us:statutes/26/24#ctc_after_advance_payments: 0

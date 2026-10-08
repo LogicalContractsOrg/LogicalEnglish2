@@ -210,8 +210,15 @@ tokenize_for_language(Text, Tokens) :-
         le_i18n:language_param(Lang, decimal_sep, Dec),
         le_i18n:language_param(Lang, thousands_sep, Thou),
         Dec \== '', Thou \== '',
+<<<<<<< HEAD
         \+ (Dec == '.', Thou == ',')
     ->  tokenizer:tokenize(Text, Dec, Thou, Tokens)
+=======
+        (   \+ (Dec == '.', Thou == ',')
+        ;   le_i18n:language_param(Lang, elisions, Els), Els \== []
+        )
+    ->  tokenizer:tokenize(Text, Dec, Thou, Lang, Tokens)     % (its number locale and elisions)
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ;   Tokens = Tokens0
     ).
 
@@ -801,8 +808,19 @@ query_name_tokens([T|Ts]) -->
 query_name_tokens([]) --> [].
 
 reconstruct_name(Parts, Name) :-
-    maplist(extract_simple_word, Parts, Words),
+    maplist(name_part_word, Parts, Words),
     reconstruct_name_acc(Words, Name).
+
+%   A number inside a name keeps the digits it was written with: the
+%   tokenizer reads the `01` of `SYN-01-C1` as the number 1, and a claim
+%   reference written with a leading zero (the usual style of claim, policy
+%   and case numbers) came out as `SYN-1-C1`, which no expected answer naming
+%   `SYN-01-C1` could match.
+name_part_word(number(N, loc(S, E)), W) :-
+    tokenizer:leading_zeros_width(N, S, E, Len), !,
+    format(atom(W), '~|~`0t~d~*+', [N, Len]).
+name_part_word(Part, Word) :-
+    extract_simple_word(Part, Word).
 
 reconstruct_name_acc([], '') :- !.
 reconstruct_name_acc([W], W) :- !.
@@ -1871,7 +1889,17 @@ member_var(V, [_|T]) :- member_var(V, T).
 
 extract_functor(Tokens, Functor) :-
     findall(W, (member(T, Tokens), (T = word(W, _) ; T = number(W, _))), Words),
-    atomic_list_concat(Words, '_', Functor).
+    template_functor(Words, Functor).
+
+%!  template_functor(+Words, -Functor) is det.
+%
+%   A template's functor: its words joined with '_'. A name that would begin
+%   with `le_` (a French or Italian template beginning with the article
+%   "le": "le taux de *une catégorie* est *un nombre*") is given a `t_` in
+%   front, since the system reserves `le_` for its own built-in predicates.
+template_functor(Words, Functor) :-
+    atomic_list_concat(Words, '_', F0),
+    (   sub_atom(F0, 0, _, _, le_) -> atom_concat(t_, F0, Functor) ; Functor = F0 ).
 
 process_template_parts([], [], [], []).
 process_template_parts([var(Words, _)|Ps], [V|Args], [V-Type|NTs], [V|WVs]) :-
@@ -2063,7 +2091,12 @@ extract_id(Words, Name) :-
 extract_var_name(Words, Name) :-
     extract_var_name_extension(Words, Name), !.
 extract_var_name(Words, Name) :-
+<<<<<<< HEAD
     (   Words = [Art | Rest], Rest \== [], is_article(Art) ->
+=======
+    (   Words = [Art | Rest], Rest \== [], is_article(Art),
+        \+ capital_id_not_article(Art, Rest) ->
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             length(Rest, L), L =< 5,
             extract_id(Rest, Name)
         ; Words = [W1 | Rest], Rest \== [], le_i18n:class_member(each, W1) ->
@@ -2076,6 +2109,7 @@ extract_var_name(Words, Name) :-
         ; Words = [W], is_id(W) -> Name = W
     ).
 
+<<<<<<< HEAD
 % A standalone interrogative pronoun usable as a variable ("who", "what",
 % "when", "where" in English); its capitalised surface becomes the variable
 % name ('Who', 'What', ...), whatever the language.
@@ -2086,6 +2120,28 @@ wh_pronoun(W) :-
     ;   le_i18n:class_member(where, W)
     ), !.
 
+=======
+%   A capital `A` (or another one-letter article written in capitals) is the
+%   variable A, not the article, when what follows it is not a word: in
+%   `P = A - 2000` the phrase `A - 2000` is an expression on the variable A.
+%   Read as the article, it named a fresh variable "- 2000", and the rule
+%   computed nothing (a Contract Assistant draft paid the deductible instead of
+%   the loss less the deductible).
+capital_id_not_article(Art, [Next|_]) :-
+    is_id(Art),
+    \+ ( atom(Next), atom_codes(Next, [C|_]), code_type(C, alpha) ).
+
+% A standalone interrogative pronoun usable as a variable ("who", "what",
+% "when", "where" in English); its capitalised surface becomes the variable
+% name ('Who', 'What', ...), whatever the language.
+wh_pronoun(W) :-
+    (   le_i18n:class_member(who, W)
+    ;   le_i18n:class_member(what, W)
+    ;   le_i18n:class_member(when, W)
+    ;   le_i18n:class_member(where, W)
+    ), !.
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 capitalize_atom(W, Cap) :-
     atom_codes(W, [C|Cs]),
     ( code_type(C, lower(U)) -> atom_codes(Cap, [U|Cs]) ; Cap = W ).
@@ -2160,8 +2216,16 @@ match_part(Part, V, VMIn, VMOut, Templates, AllowVars) :- var(V), !, extract_val
 
 check_global_abbreviation(Words, Templates, Var, VMIn, VMOut) :-
     reconstruct_name_acc(Words, Name),
+<<<<<<< HEAD
     % Find a template that defines this name as a global
     member(dict(FunctorArgs, _NTs, _WV, _S, _E, _NIW, Globals, _Opposite, _Prep, _Unknown), Templates),
+=======
+    % Find a template that defines this name as a global (the templates
+    % that define any, indexed once per template list)
+    global_templates(Templates, GTs),
+    GTs \== [],
+    member(dict(FunctorArgs, _NTs, _WV, _S, _E, _NIW, Globals, _Opposite, _Prep, _Unknown), GTs),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     member(Name, Globals),
     !,
     % Use the template's identity (e.g., its Functor) to group variables in VM
@@ -2174,6 +2238,19 @@ check_global_abbreviation(Words, Templates, Var, VMIn, VMOut) :-
         VMOut = [global_template(Functor)-Var, extra_goal(Goal) | VMIn]
     ).
 
+<<<<<<< HEAD
+=======
+global_templates(Templates, GTs) :-
+    (   catch(b_getval(le_global_templates, globals(Cached, G0)), _, fail),
+        Cached == Templates
+    ->  GTs = G0
+    ;   include(has_globals, Templates, GTs),
+        b_setval(le_global_templates, globals(Templates, GTs))
+    ).
+
+has_globals(dict(_, _, _, _, _, _, Globals, _, _, _)) :- Globals \== [].
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  check_function_application(+Parts, +Templates, -Value, +VMIn, -VMOut,
 %!                              +AllowVars, +Depth) is semidet.
 %
@@ -2450,13 +2527,51 @@ candidate_template(Templates, Words, Dict) :-
     % predicate scans every template, and a per-word lexicon lookup here is a
     % measurable parse-time regression on large programs.
     le_i18n:class_word_list(meta_marker, Ms),
+<<<<<<< HEAD
     template_partition(Templates, Ms, Metas, Rest),
     (   outer_first(Metas, Words, Ordered), member(Dict, Ordered)
     ;   member(Dict, Rest),
+=======
+    template_partition(Templates, Ms, Metas, _Rest, Index),
+    (   outer_first(Metas, Words, Ordered), member(Dict, Ordered)
+    ;   indexed_candidates(Index, Words, Dicts),
+        member(Dict, Dicts),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         Dict = dict(_FA, _NTs, _WV, _Start, _End, NIW, _Globals, _Opposite, _Prep, _Unknown),
         contains_subsequence(NIW, Words)
     ).
 
+<<<<<<< HEAD
+=======
+%   indexed_candidates(+Index, +Words, -Dicts): the templates (of Rest, in
+%   their order) whose first non-ignorable word is one of Words, and those
+%   without one: contains_subsequence/2 needs that word, so the others
+%   cannot match. A program with a thousand templates (a translated
+%   regulation) otherwise tries every one of them for every condition.
+indexed_candidates(Index, Words, Dicts) :-
+    \+ ( member(W, Words), \+ atomic(W) ), !,
+    sort(Words, Ws),
+    foldl(index_hits(Index), ['$any'|Ws], [], Hits0),
+    keysort(Hits0, Hits),
+    pairs_values(Hits, Dicts).
+
+indexed_candidates(Index, _, Dicts) :-      % a word that is not a word: all of them
+    assoc_to_values(Index, Ls), append(Ls, Hits0), keysort(Hits0, Hits), pairs_values(Hits, Dicts).
+
+index_hits(Index, W, Acc, Out) :-
+    (   atomic(W), get_assoc(W, Index, L) -> append(L, Acc, Out) ; Out = Acc ).
+
+template_index(Rest, Index) :-
+    findall(K-(I-D),
+            ( nth1(I, Rest, D),
+              D = dict(_, _, _, _, _, NIW, _, _, _, _),
+              ( NIW = [W|_], atomic(W) -> K = W ; K = '$any' ) ),
+            Ps0),
+    keysort(Ps0, Ps),
+    group_pairs_by_key(Ps, Groups),
+    list_to_assoc(Groups, Index).
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  outer_first(+Metas, +Words, -Ordered) is det.
 %
 %   The meta templates whose words occur in Words, the one whose first word
@@ -2497,11 +2612,23 @@ outer_first(Metas, Words, Ordered) :-
 %   each other's, and a value restored by backtracking is still a correct
 %   partition of whatever list it was computed from).
 template_partition(Templates, Ms, Metas, Rest) :-
+<<<<<<< HEAD
     (   catch(b_getval(le_template_partition, part(Cached, M0, R0)), _, fail),
         Cached == Templates
     ->  Metas = M0, Rest = R0
     ;   partition(meta_candidate(Ms), Templates, Metas, Rest),
         b_setval(le_template_partition, part(Templates, Metas, Rest))
+=======
+    template_partition(Templates, Ms, Metas, Rest, _).
+
+template_partition(Templates, Ms, Metas, Rest, Index) :-
+    (   catch(b_getval(le_template_partition, part(Cached, M0, R0, I0)), _, fail),
+        Cached == Templates
+    ->  Metas = M0, Rest = R0, Index = I0
+    ;   partition(meta_candidate(Ms), Templates, Metas, Rest),
+        template_index(Rest, Index),
+        b_setval(le_template_partition, part(Templates, Metas, Rest, Index))
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ).
 
 % A template that gets META parse priority: not a built-in, and its word list
@@ -3815,7 +3942,11 @@ dict_fa_wv(dict(FA, _, WV), FA, WV).
 wv_functor(WV, Functor) :-
     include(atom, WV, Words),
     Words \== [],
+<<<<<<< HEAD
     atomic_list_concat(Words, '_', Functor).
+=======
+    template_functor(Words, Functor).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 % wv_skeleton(+WordsAndVars, -Skeleton): each variable becomes '$v', each atom is
 % kept, so two surface forms compare equal iff they share the same words in the

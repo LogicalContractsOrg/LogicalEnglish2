@@ -1,0 +1,134 @@
+% 42 U.S.C. 1382a(b)(2)
+% RuleSpec module us:statutes/42/1382a/b/2 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the annual general income exclusion limit is *an amount*.
+    the default state age payment age is *a number*.
+    the state age payment residency year requirement is *a number*.
+    the annual general income excluded of *a person* is *an amount*.
+    *a payment* is state age residency payment excluded.
+    the annual income not paid on basis of need of *a person* is *an amount*; scenario element.
+    *a payment* is monthly or other periodic; scenario element.
+    *a payment* received by individual; scenario element.
+    *a payment* is program established prior to july first nineteen seventy three; scenario element.
+    *a payment* is program established prior to july first nineteen seventy three and subsequently amended to conform to state or federal constitutional standards; scenario element.
+    the payment made by state of which receiving individual of *a payment* is resident; scenario element.
+    *a payment* is payment program eligibility not based on need; scenario element.
+    *a payment* is payment program eligibility based solely on required age and state residency; scenario element.
+    *a payment* is individual first became eligible individual or eligible spouse on or before september thirtieth nineteen eighty five; scenario element.
+    the individual residency years under program as in effect prior to january first nineteen eighty three of *a payment* is *a number*; scenario element.
+
+the knowledge base us_statutes_42_1382a_b_2 includes:
+
+
+% 42 U.S.C. 1382a(b)(2) — us:statutes/42/1382a/b/2
+the text of "42 USC 1382a(b)(2)(A)" is at "sources/us/statutes/42/1382a/b/2.yaml".
+
+the text of "42 USC 1382a(b)(2)(B)(ii)" is at "sources/us/statutes/42/1382a/b/2.yaml".
+
+the text of "42 USC 1382a(b)(2)(B)(iii)(II)" is at "sources/us/statutes/42/1382a/b/2.yaml".
+
+the text of "42 USC 1382a(b)(2)(B)" is at "sources/us/statutes/42/1382a/b/2.yaml".
+
+the annual general income exclusion limit is 240, as stated in "42 USC 1382a(b)(2)(A)".
+
+the default state age payment age is 65, as stated in "42 USC 1382a(b)(2)(B)(ii)".
+
+the state age payment residency year requirement is 25, as stated in "42 USC 1382a(b)(2)(B)(iii)(II)".
+
+rule annual_general_income_excluded with provenance "42 USC 1382a(b)(2)(A)":
+the annual general income excluded of a person is an amount N if
+    the annual income not paid on basis of need of the person is an amount M
+    and the annual general income exclusion limit is an amount K
+    and the maximum of 0 and M is a number P
+    and the minimum of P and K is N.
+
+rule state_age_residency_payment_excluded_1 with provenance "42 USC 1382a(b)(2)(B)":
+a payment is state age residency payment excluded if
+    the payment is monthly or other periodic
+    and the payment received by individual
+    and the payment is program established prior to july first nineteen seventy three
+    and the payment made by state of which receiving individual of the payment is resident
+    and the payment is payment program eligibility not based on need
+    and the payment is payment program eligibility based solely on required age and state residency
+    and the payment is individual first became eligible individual or eligible spouse on or before september thirtieth nineteen eighty five
+    and the individual residency years under program as in effect prior to january first nineteen eighty three of the payment is a number N
+    and the state age payment residency year requirement is a number M
+    and N >= M.
+
+rule state_age_residency_payment_excluded_2 with provenance "42 USC 1382a(b)(2)(B)":
+a payment is state age residency payment excluded if
+    the payment is monthly or other periodic
+    and the payment received by individual
+    and the payment is program established prior to july first nineteen seventy three and subsequently amended to conform to state or federal constitutional standards
+    and the payment made by state of which receiving individual of the payment is resident
+    and the payment is payment program eligibility not based on need
+    and the payment is payment program eligibility based solely on required age and state residency
+    and the payment is individual first became eligible individual or eligible spouse on or before september thirtieth nineteen eighty five
+    and the individual residency years under program as in effect prior to january first nineteen eighty three of the payment is a number N
+    and the state age payment residency year requirement is a number M
+    and N >= M.
+
+scenario annual_general_income_exclusion_capped_at_240 is, as stated in "sources/us/statutes/42/1382a/b/2.test.yaml" at case 1:
+    person_1 is a person.
+    the annual income not paid on basis of need of person_1 is 300.
+    q_annual_general_income_excluded expects answers ["the annual general income excluded of person_1 is 240"].
+
+scenario annual_general_income_exclusion_uses_lower_non_need_income is, as stated in "sources/us/statutes/42/1382a/b/2.test.yaml" at case 2:
+    person_1 is a person.
+    the annual income not paid on basis of need of person_1 is 180.
+    q_annual_general_income_excluded expects answers ["the annual general income excluded of person_1 is 180"].
+
+scenario qualifying_state_age_residency_payment_is_excluded is, as stated in "sources/us/statutes/42/1382a/b/2.test.yaml" at case 3:
+    payment_1 is a payment.
+    payment_1 is individual first became eligible individual or eligible spouse on or before september thirtieth nineteen eighty five.
+    the individual residency years under program as in effect prior to january first nineteen eighty three of payment_1 is 25.
+    payment_1 is monthly or other periodic.
+    the payment made by state of which receiving individual of payment_1 is resident.
+    payment_1 is payment program eligibility based solely on required age and state residency.
+    payment_1 is payment program eligibility not based on need.
+    payment_1 received by individual.
+    payment_1 is program established prior to july first nineteen seventy three.
+    q_state_age_residency_payment_excluded expects answers ["payment_1 is state age residency payment excluded"].
+
+scenario state_age_residency_payment_not_excluded_when_need_based is, as stated in "sources/us/statutes/42/1382a/b/2.test.yaml" at case 4:
+    payment_1 is a payment.
+    payment_1 is individual first became eligible individual or eligible spouse on or before september thirtieth nineteen eighty five.
+    the individual residency years under program as in effect prior to january first nineteen eighty three of payment_1 is 25.
+    payment_1 is monthly or other periodic.
+    the payment made by state of which receiving individual of payment_1 is resident.
+    payment_1 is payment program eligibility based solely on required age and state residency.
+    payment_1 received by individual.
+    payment_1 is program established prior to july first nineteen seventy three.
+    q_state_age_residency_payment_excluded expects answers [].
+
+scenario oracle_parameter_annual_general_income_exclusion_limit is, as stated in "sources/us/statutes/42/1382a/b/2.test.yaml" at case 5:
+    person_1 is a person.
+    q_annual_general_income_exclusion_limit expects answers ["the annual general income exclusion limit is 240"].
+
+query q_annual_general_income_excluded is:
+    the annual general income excluded of which person is which amount.
+
+query q_annual_general_income_excluded is:
+    the annual general income excluded of which person is which amount.
+
+query q_annual_general_income_exclusion_limit is:
+    the annual general income exclusion limit is which amount.
+
+query q_state_age_residency_payment_excluded is:
+    which payment is state age residency payment excluded.
+
+query q_state_age_residency_payment_excluded is:
+    which payment is state age residency payment excluded.
+

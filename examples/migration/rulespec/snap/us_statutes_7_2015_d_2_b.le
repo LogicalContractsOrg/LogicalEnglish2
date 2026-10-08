@@ -1,0 +1,94 @@
+% 7 U.S.C. 2015(d)(2)(B)
+% RuleSpec module us:statutes/7/2015/d/2/B (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the dependent child age exemption threshold years is *a number*.
+    the care responsibility exemption of *a person* applies.
+    *a person* is person otherwise required to comply with paragraph 1 requirements; scenario element.
+    *a person* is parent or other household member with responsibility for care of dependent child; scenario element.
+    the dependent child age years of *a person* is *a number*; scenario element.
+    *a person* is parent or other household member with responsibility for care of incapacitated person; scenario element.
+
+the knowledge base us_statutes_7_2015_d_2_b includes:
+
+
+% 7 U.S.C. 2015(d)(2)(B) — us:statutes/7/2015/d/2/B
+the text of "7 U.S.C. 2015(d)(2)(B)" is at "sources/us/statutes/7/2015/d/2/B.yaml".
+
+rule dependent_child_age_exemption_threshold_years with provenance "7 U.S.C. 2015(d)(2)(B)":
+the dependent child age exemption threshold years is 6 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule care_responsibility_exemption_applies_1 with provenance "7 U.S.C. 2015(d)(2)(B)":
+the care responsibility exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is parent or other household member with responsibility for care of dependent child
+    and the dependent child age years of the person is a number N
+    and the dependent child age exemption threshold years is a number M
+    and N < M.
+
+rule care_responsibility_exemption_applies_2 with provenance "7 U.S.C. 2015(d)(2)(B)":
+the care responsibility exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is parent or other household member with responsibility for care of incapacitated person.
+
+scenario dependent_child_under_age_six_care_responsibility_exempts_person is, as stated in "sources/us/statutes/7/2015/d/2/B.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the dependent child age years of person_1 is 5.
+    person_1 is parent or other household member with responsibility for care of dependent child.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_care_responsibility_exemption_applies expects answers ["the care responsibility exemption of person_1 applies"].
+
+scenario incapacitated_person_care_responsibility_exempts_person is, as stated in "sources/us/statutes/7/2015/d/2/B.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the dependent child age years of person_1 is 10.
+    person_1 is parent or other household member with responsibility for care of incapacitated person.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_care_responsibility_exemption_applies expects answers ["the care responsibility exemption of person_1 applies"].
+
+scenario dependent_child_age_six_or_older_and_no_incapacitated_person_no_exemption is, as stated in "sources/us/statutes/7/2015/d/2/B.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the dependent child age years of person_1 is 6.
+    person_1 is parent or other household member with responsibility for care of dependent child.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_care_responsibility_exemption_applies expects answers [].
+
+scenario person_not_otherwise_required_has_no_exemption_under_this_branch is, as stated in "sources/us/statutes/7/2015/d/2/B.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the dependent child age years of person_1 is 5.
+    person_1 is parent or other household member with responsibility for care of dependent child.
+    q_care_responsibility_exemption_applies expects answers [].
+
+query q_care_responsibility_exemption_applies is:
+    the care responsibility exemption of which person applies.
+
+query q_care_responsibility_exemption_applies is:
+    the care responsibility exemption of which person applies.
+
+query q_care_responsibility_exemption_applies is:
+    the care responsibility exemption of which person applies.
+
+query q_care_responsibility_exemption_applies is:
+    the care responsibility exemption of which person applies.
+

@@ -1,0 +1,325 @@
+% us:policies/usda/snap/fy-2026-cola/deductions
+% RuleSpec module us:policies/usda/snap/fy-2026-cola/deductions (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 1 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    *a person* is a member of *a household*; scenario element.
+    the snap household of *a household* has elderly or disabled member.
+    the snap standard deduction 48 states dc table for *a household size* is *an amount*.
+    the snap standard deduction 48 states dc of *a household* is *an amount*.
+    the snap standard deduction of *a household* is *an amount*.
+    the snap maximum excess shelter deduction 48 states dc is *an amount*.
+    the snap standard deduction alaska table for *a household size* is *an amount*.
+    the snap standard deduction guam table for *a household size* is *an amount*.
+    the snap standard deduction hawaii table for *a household size* is *an amount*.
+    the snap standard deduction virgin islands table for *a household size* is *an amount*.
+    the snap maximum excess shelter deduction alaska is *an amount*.
+    the snap maximum excess shelter deduction guam is *an amount*.
+    the snap maximum excess shelter deduction hawaii is *an amount*.
+    the snap maximum excess shelter deduction virgin islands is *an amount*.
+    the snap homeless shelter deduction is *an amount*.
+    the snap asset limit elderly or disabled member is *an amount*.
+    the snap asset limit other households is *an amount*.
+    the snap asset limit of *a household* is *an amount*.
+    the snap member of *a person* is elderly or disabled; scenario element.
+    the household size of *a household* is *a number*; scenario element.
+    the snap standard deduction 48 states dc table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction alaska table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction guam table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap standard deduction virgin islands table for *a household size* from *a first date* to *a last date* is *an amount*.
+
+the knowledge base us_policies_usda_snap_fy_2026_cola_deductions includes:
+
+
+% 7 U.S.C. 2012(j) — us:statutes/7/2012/j
+the text of "7 USC 2012(j)" is at "sources/us/statutes/7/2012/j.yaml".
+
+rule snap_household_has_elderly_or_disabled_member with provenance "7 USC 2012(j)":
+the snap household of a household has elderly or disabled member if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household is a household
+    and a number N is the count of each P such that
+        a person P is a member of the household
+    and a number K is the count of each M such that
+        a person M is a member of the household
+        and it is not the case that the snap member of M is elderly or disabled
+    and N - K > 0.
+
+
+% us:policies/usda/snap/fy-2026-cola/deductions
+the text of "USDA SNAP FY 2026 maximum allotments and deductions" is at "sources/us/policies/usda/snap/fy-2026-cola/deductions.yaml".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction 48 states dc table for a household size is an amount if
+    the calculation date is a date D
+    and the snap standard deduction 48 states dc table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap standard deduction 48 states dc table for 1 from 2025-10-01 to 9999-12-31 is 209, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction 48 states dc table for 2 from 2025-10-01 to 9999-12-31 is 209, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction 48 states dc table for 3 from 2025-10-01 to 9999-12-31 is 209, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction 48 states dc table for 4 from 2025-10-01 to 9999-12-31 is 223, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction 48 states dc table for 5 from 2025-10-01 to 9999-12-31 is 261, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction 48 states dc table for 6 from 2025-10-01 to 9999-12-31 is 299, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+rule snap_standard_deduction_48_states_dc with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap standard deduction 48 states dc of a household is an amount if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the household size of the household is a number N
+    and the minimum of N and 6 is a number M
+    and the snap standard deduction 48 states dc table for M is the amount.
+
+rule snap_standard_deduction with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap standard deduction of a household is an amount if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the snap standard deduction 48 states dc of the household is the amount.
+
+rule snap_maximum_excess_shelter_deduction_48_states_dc with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap maximum excess shelter deduction 48 states dc is 744 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction alaska table for a household size is an amount if
+    the calculation date is a date D
+    and the snap standard deduction alaska table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap standard deduction alaska table for 1 from 2025-10-01 to 9999-12-31 is 358, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction alaska table for 2 from 2025-10-01 to 9999-12-31 is 358, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction alaska table for 3 from 2025-10-01 to 9999-12-31 is 358, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction alaska table for 4 from 2025-10-01 to 9999-12-31 is 358, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction alaska table for 5 from 2025-10-01 to 9999-12-31 is 358, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction alaska table for 6 from 2025-10-01 to 9999-12-31 is 374, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction guam table for a household size is an amount if
+    the calculation date is a date D
+    and the snap standard deduction guam table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap standard deduction guam table for 1 from 2025-10-01 to 9999-12-31 is 420, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction guam table for 2 from 2025-10-01 to 9999-12-31 is 420, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction guam table for 3 from 2025-10-01 to 9999-12-31 is 420, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction guam table for 4 from 2025-10-01 to 9999-12-31 is 445, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction guam table for 5 from 2025-10-01 to 9999-12-31 is 522, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction guam table for 6 from 2025-10-01 to 9999-12-31 is 598, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction hawaii table for a household size is an amount if
+    the calculation date is a date D
+    and the snap standard deduction hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap standard deduction hawaii table for 1 from 2025-10-01 to 9999-12-31 is 295, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction hawaii table for 2 from 2025-10-01 to 9999-12-31 is 295, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction hawaii table for 3 from 2025-10-01 to 9999-12-31 is 295, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction hawaii table for 4 from 2025-10-01 to 9999-12-31 is 295, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction hawaii table for 5 from 2025-10-01 to 9999-12-31 is 300, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction hawaii table for 6 from 2025-10-01 to 9999-12-31 is 344, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap standard deduction virgin islands table for a household size is an amount if
+    the calculation date is a date D
+    and the snap standard deduction virgin islands table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap standard deduction virgin islands table for 1 from 2025-10-01 to 9999-12-31 is 184, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction virgin islands table for 2 from 2025-10-01 to 9999-12-31 is 184, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction virgin islands table for 3 from 2025-10-01 to 9999-12-31 is 185, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction virgin islands table for 4 from 2025-10-01 to 9999-12-31 is 223, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction virgin islands table for 5 from 2025-10-01 to 9999-12-31 is 261, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+the snap standard deduction virgin islands table for 6 from 2025-10-01 to 9999-12-31 is 299, as stated in "USDA SNAP FY 2026 maximum allotments and deductions".
+
+rule snap_maximum_excess_shelter_deduction_alaska with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap maximum excess shelter deduction alaska is 1189 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_maximum_excess_shelter_deduction_guam with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap maximum excess shelter deduction guam is 873 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_maximum_excess_shelter_deduction_hawaii with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap maximum excess shelter deduction hawaii is 1003 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_maximum_excess_shelter_deduction_virgin_islands with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap maximum excess shelter deduction virgin islands is 586 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_homeless_shelter_deduction with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap homeless shelter deduction is 198.99 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_asset_limit_elderly_or_disabled_member with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap asset limit elderly or disabled member is 4500 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_asset_limit_other_households with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap asset limit other households is 3000 if
+    the calculation date is a date D
+    and 2025-10-01 <= D.
+
+rule snap_asset_limit with provenance "USDA SNAP FY 2026 maximum allotments and deductions":
+the snap asset limit of a household is an amount if
+    the calculation date is a date D
+    and 2025-10-01 <= D
+    and the snap household of the household has elderly or disabled member
+        and the snap asset limit elderly or disabled member is the amount
+        otherwise the household is a household
+        and the snap asset limit other households is the amount.
+
+scenario standard_deduction_for_one_person_household is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/deductions.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 1.
+    q_snap_standard_deduction expects answers ["the snap standard deduction of household_1 is 209"].
+    q_snap_standard_deduction_48_states_dc expects answers ["the snap standard deduction 48 states dc of household_1 is 209"].
+
+scenario standard_deduction_for_five_person_household is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/deductions.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 5.
+    q_snap_standard_deduction expects answers ["the snap standard deduction of household_1 is 261"].
+    q_snap_standard_deduction_48_states_dc expects answers ["the snap standard deduction 48 states dc of household_1 is 261"].
+
+scenario regional_deduction_parameters_for_six_person_household is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/deductions.test.yaml" at case 3:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 6.
+    q_snap_homeless_shelter_deduction expects answers ["the snap homeless shelter deduction is 198.99"].
+    q_snap_maximum_excess_shelter_deduction_48_states_dc expects answers ["the snap maximum excess shelter deduction 48 states dc is 744"].
+    q_snap_maximum_excess_shelter_deduction_alaska expects answers ["the snap maximum excess shelter deduction alaska is 1189"].
+    q_snap_maximum_excess_shelter_deduction_guam expects answers ["the snap maximum excess shelter deduction guam is 873"].
+    q_snap_maximum_excess_shelter_deduction_hawaii expects answers ["the snap maximum excess shelter deduction hawaii is 1003"].
+    q_snap_maximum_excess_shelter_deduction_virgin_islands expects answers ["the snap maximum excess shelter deduction virgin islands is 586"].
+
+scenario standard_deduction_for_six_or_more_person_household is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/deductions.test.yaml" at case 4:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the household size of household_1 is 7.
+    q_snap_standard_deduction expects answers ["the snap standard deduction of household_1 is 299"].
+    q_snap_standard_deduction_48_states_dc expects answers ["the snap standard deduction 48 states dc of household_1 is 299"].
+
+scenario asset_limit_for_household_with_elderly_or_disabled_member is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/deductions.test.yaml" at case 5:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    person_1 is a person.
+    person_1 is a member of household_1.
+    the snap member of person_1 is elderly or disabled.
+    q_snap_asset_limit expects answers ["the snap asset limit of household_1 is 4500"].
+    q_snap_asset_limit_elderly_or_disabled_member expects answers ["the snap asset limit elderly or disabled member is 4500"].
+    q_snap_household_has_elderly_or_disabled_member expects answers ["the snap household of household_1 has elderly or disabled member"].
+
+scenario asset_limit_for_other_households is, as stated in "sources/us/policies/usda/snap/fy-2026-cola/deductions.test.yaml" at case 6:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    q_snap_asset_limit expects answers ["the snap asset limit of household_1 is 3000"].
+    q_snap_asset_limit_other_households expects answers ["the snap asset limit other households is 3000"].
+    q_snap_household_has_elderly_or_disabled_member expects answers [].
+
+query q_snap_asset_limit is:
+    the snap asset limit of which household is which amount.
+
+query q_snap_asset_limit is:
+    the snap asset limit of which household is which amount.
+
+query q_snap_asset_limit_elderly_or_disabled_member is:
+    the snap asset limit elderly or disabled member is which amount.
+
+query q_snap_asset_limit_other_households is:
+    the snap asset limit other households is which amount.
+
+query q_snap_homeless_shelter_deduction is:
+    the snap homeless shelter deduction is which amount.
+
+query q_snap_household_has_elderly_or_disabled_member is:
+    the snap household of which household has elderly or disabled member.
+
+query q_snap_household_has_elderly_or_disabled_member is:
+    the snap household of which household has elderly or disabled member.
+
+query q_snap_maximum_excess_shelter_deduction_48_states_dc is:
+    the snap maximum excess shelter deduction 48 states dc is which amount.
+
+query q_snap_maximum_excess_shelter_deduction_alaska is:
+    the snap maximum excess shelter deduction alaska is which amount.
+
+query q_snap_maximum_excess_shelter_deduction_guam is:
+    the snap maximum excess shelter deduction guam is which amount.
+
+query q_snap_maximum_excess_shelter_deduction_hawaii is:
+    the snap maximum excess shelter deduction hawaii is which amount.
+
+query q_snap_maximum_excess_shelter_deduction_virgin_islands is:
+    the snap maximum excess shelter deduction virgin islands is which amount.
+
+query q_snap_standard_deduction is:
+    the snap standard deduction of which household is which amount.
+
+query q_snap_standard_deduction is:
+    the snap standard deduction of which household is which amount.
+
+query q_snap_standard_deduction is:
+    the snap standard deduction of which household is which amount.
+
+query q_snap_standard_deduction_48_states_dc is:
+    the snap standard deduction 48 states dc of which household is which amount.
+
+query q_snap_standard_deduction_48_states_dc is:
+    the snap standard deduction 48 states dc of which household is which amount.
+
+query q_snap_standard_deduction_48_states_dc is:
+    the snap standard deduction 48 states dc of which household is which amount.
+

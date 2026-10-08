@@ -1,0 +1,123 @@
+% 7 U.S.C. 2015(d)(2)(A)
+% RuleSpec module us:statutes/7/2015/d/2/A (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the title iv or unemployment work registration compliance exemption of *a person* applies.
+    *a person* is subject work requirement noncompliance treated as paragraph 1 failure.
+    *a person* is person otherwise required to comply with paragraph 1 requirements; scenario element.
+    *a person* is currently subject to title iv work registration requirement; scenario element.
+    *a person* is complying with title iv work registration requirement; scenario element.
+    *a person* is currently subject to federal state unemployment compensation work registration requirement; scenario element.
+    *a person* is complying with federal state unemployment compensation work registration requirement; scenario element.
+    *a person* fails to comply with any work requirement to which person is subject; scenario element.
+
+the knowledge base us_statutes_7_2015_d_2_a includes:
+
+
+% 7 U.S.C. 2015(d)(2)(A) — us:statutes/7/2015/d/2/A
+the text of "7 U.S.C. 2015(d)(2)(A)" is at "sources/us/statutes/7/2015/d/2/A.yaml".
+
+rule title_iv_or_unemployment_work_registration_compliance_exemption_applies_1 with provenance "7 U.S.C. 2015(d)(2)(A)":
+the title iv or unemployment work registration compliance exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is currently subject to title iv work registration requirement
+    and the person is complying with title iv work registration requirement.
+
+rule title_iv_or_unemployment_work_registration_compliance_exemption_applies_2 with provenance "7 U.S.C. 2015(d)(2)(A)":
+the title iv or unemployment work registration compliance exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is currently subject to federal state unemployment compensation work registration requirement
+    and the person is complying with federal state unemployment compensation work registration requirement.
+
+rule subject_work_requirement_noncompliance_treated_as_paragraph_1_failure_1 with provenance "7 U.S.C. 2015(d)(2)(A)":
+a person is subject work requirement noncompliance treated as paragraph 1 failure if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person fails to comply with any work requirement to which person is subject
+    and the person is currently subject to title iv work registration requirement.
+
+rule subject_work_requirement_noncompliance_treated_as_paragraph_1_failure_2 with provenance "7 U.S.C. 2015(d)(2)(A)":
+a person is subject work requirement noncompliance treated as paragraph 1 failure if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person fails to comply with any work requirement to which person is subject
+    and the person is currently subject to federal state unemployment compensation work registration requirement.
+
+scenario title_iv_work_registration_compliance_exemption_applies is, as stated in "sources/us/statutes/7/2015/d/2/A.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is complying with title iv work registration requirement.
+    person_1 is currently subject to title iv work registration requirement.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure expects answers [].
+    q_title_iv_or_unemployment_work_registration_compliance_exemption_applies expects answers ["the title iv or unemployment work registration compliance exemption of person_1 applies"].
+
+scenario unemployment_compensation_work_registration_compliance_exemption_applies is, as stated in "sources/us/statutes/7/2015/d/2/A.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is complying with federal state unemployment compensation work registration requirement.
+    person_1 is currently subject to federal state unemployment compensation work registration requirement.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure expects answers [].
+    q_title_iv_or_unemployment_work_registration_compliance_exemption_applies expects answers ["the title iv or unemployment work registration compliance exemption of person_1 applies"].
+
+scenario noncompliance_with_subject_work_requirement_counts_as_paragraph_1_failure is, as stated in "sources/us/statutes/7/2015/d/2/A.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is currently subject to title iv work registration requirement.
+    person_1 fails to comply with any work requirement to which person is subject.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure expects answers ["person_1 is subject work requirement noncompliance treated as paragraph 1 failure"].
+    q_title_iv_or_unemployment_work_registration_compliance_exemption_applies expects answers [].
+
+scenario person_not_otherwise_required_has_no_branch_exemption_or_failure_treatment is, as stated in "sources/us/statutes/7/2015/d/2/A.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is complying with title iv work registration requirement.
+    person_1 is currently subject to title iv work registration requirement.
+    person_1 fails to comply with any work requirement to which person is subject.
+    q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure expects answers [].
+    q_title_iv_or_unemployment_work_registration_compliance_exemption_applies expects answers [].
+
+query q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure is:
+    which person is subject work requirement noncompliance treated as paragraph 1 failure.
+
+query q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure is:
+    which person is subject work requirement noncompliance treated as paragraph 1 failure.
+
+query q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure is:
+    which person is subject work requirement noncompliance treated as paragraph 1 failure.
+
+query q_subject_work_requirement_noncompliance_treated_as_paragraph_1_failure is:
+    which person is subject work requirement noncompliance treated as paragraph 1 failure.
+
+query q_title_iv_or_unemployment_work_registration_compliance_exemption_applies is:
+    the title iv or unemployment work registration compliance exemption of which person applies.
+
+query q_title_iv_or_unemployment_work_registration_compliance_exemption_applies is:
+    the title iv or unemployment work registration compliance exemption of which person applies.
+
+query q_title_iv_or_unemployment_work_registration_compliance_exemption_applies is:
+    the title iv or unemployment work registration compliance exemption of which person applies.
+
+query q_title_iv_or_unemployment_work_registration_compliance_exemption_applies is:
+    the title iv or unemployment work registration compliance exemption of which person applies.
+

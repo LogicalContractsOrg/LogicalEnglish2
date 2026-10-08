@@ -1,0 +1,187 @@
+% 26 U.S.C. 32(c)(2)
+% RuleSpec module us:statutes/26/32/c/2 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 1 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the hospitalization after combat zone termination limit years is *a number*.
+    the amount excluded from gross income by reason of section 112 of *a tax unit* is *an amount*.
+    the earned income before section 112 election of *a tax unit* is *an amount*.
+    the earned income of *a tax unit* is *an amount*.
+    *a tax unit* is member below grade of commissioned officer in armed forces; scenario element.
+    *a tax unit* is served in combat zone during month; scenario element.
+    *a tax unit* is hospitalized resulting from combat zone wounds disease or injury; scenario element.
+    the months beginning after combatant activities termination of *a tax unit* is *a number*; scenario element.
+    *a tax unit* is vietnam combat zone hospitalization month after january 1978; scenario element.
+    the active service compensation as enlisted member excluding pensions and retirement pay of *a tax unit* is *an amount*; scenario element.
+    *a tax unit* is commissioned officer in armed forces excluding commissioned warrant officer; scenario element.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of *a tax unit* is *an amount*; scenario element.
+    the maximum enlisted amount for commissioned officer months of *a tax unit* is *a number*; scenario element.
+    *a tax unit* is armed forces member in missing status during vietnam conflict as result of conflict; scenario element.
+    *a tax unit* is officially absent from post of duty without authority; scenario element.
+    the armed forces missing status active service compensation of *a tax unit* is *an amount*; scenario element.
+    *a tax unit* is civilian employee in missing status during vietnam conflict as result of conflict; scenario element.
+    the civilian employee missing status active service compensation of *a tax unit* is *an amount*; scenario element.
+    the employee compensation includible in gross income of *a tax unit* is *an amount*; scenario element.
+    the net earnings from self employment after self employment tax deduction of *a tax unit* is *an amount*; scenario element.
+    the pension or annuity amount of *a tax unit* is *an amount*; scenario element.
+    the nonresident alien income not connected with united states business of *a tax unit* is *an amount*; scenario element.
+    the penal institution service compensation of *a tax unit* is *an amount*; scenario element.
+    the subsidized state work activity service compensation of *a tax unit* is *an amount*; scenario element.
+    the taxpayer of *a tax unit* elects to treat section 112 excluded amounts as earned income; scenario element.
+
+the knowledge base us_statutes_26_32_c_2 includes:
+
+
+% 26 U.S.C. 112 — us:statutes/26/112
+the text of "26 USC 112(a), 112(b)" is at "sources/us/statutes/26/112.yaml".
+
+the text of "26 USC 112(a), 26 USC 112(b), 26 USC 112(c), 26 USC 112(d)" is at "sources/us/statutes/26/112.yaml".
+
+the hospitalization after combat zone termination limit years is 2, as stated in "26 USC 112(a), 112(b)".
+
+rule amount_excluded_from_gross_income_by_reason_of_section_112 with provenance "26 USC 112(a), 26 USC 112(b), 26 USC 112(c), 26 USC 112(d)":
+the amount excluded from gross income by reason of section 112 of a tax unit is an amount N if
+    the tax unit is a tax_unit
+    and the tax unit is member below grade of commissioned officer in armed forces
+        and the tax unit is served in combat zone during month
+        and the active service compensation as enlisted member excluding pensions and retirement pay of the tax unit is an amount M
+        otherwise the tax unit is member below grade of commissioned officer in armed forces
+        and the tax unit is hospitalized resulting from combat zone wounds disease or injury
+        and the months beginning after combatant activities termination of the tax unit is a number K
+        and the hospitalization after combat zone termination limit years is a number P
+        and K <= P
+        and it is not the case that the tax unit is vietnam combat zone hospitalization month after january 1978
+        and the active service compensation as enlisted member excluding pensions and retirement pay of the tax unit is M
+        otherwise M = 0
+    and the tax unit is commissioned officer in armed forces excluding commissioned warrant officer
+        and the tax unit is served in combat zone during month
+        and the active service compensation as commissioned officer excluding pensions and retirement pay of the tax unit is an amount Q
+        and the maximum enlisted amount for commissioned officer months of the tax unit is a number R
+        and the minimum of Q and R is a number S
+        otherwise the tax unit is commissioned officer in armed forces excluding commissioned warrant officer
+        and the tax unit is hospitalized resulting from combat zone wounds disease or injury
+        and the months beginning after combatant activities termination of the tax unit is a number T
+        and the hospitalization after combat zone termination limit years is a number U
+        and T <= U
+        and it is not the case that the tax unit is vietnam combat zone hospitalization month after january 1978
+        and the active service compensation as commissioned officer excluding pensions and retirement pay of the tax unit is Q
+        and the maximum enlisted amount for commissioned officer months of the tax unit is R
+        and the minimum of Q and R is S
+        otherwise S = 0
+    and the tax unit is armed forces member in missing status during vietnam conflict as result of conflict
+        and it is not the case that the tax unit is officially absent from post of duty without authority
+        and the armed forces missing status active service compensation of the tax unit is an amount V
+        otherwise V = 0
+    and the tax unit is civilian employee in missing status during vietnam conflict as result of conflict
+        and the civilian employee missing status active service compensation of the tax unit is an amount W
+        otherwise W = 0
+    and N = M + S + V + W.
+
+
+% 26 U.S.C. 32(c)(2) — us:statutes/26/32/c/2
+the text of "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(i)-(v)" is at "sources/us/statutes/26/32/c/2.yaml".
+
+the text of "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(vi)" is at "sources/us/statutes/26/32/c/2.yaml".
+
+rule earned_income_before_section_112_election with provenance "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(i)-(v)":
+the earned income before section 112 election of a tax unit is an amount N if
+    the employee compensation includible in gross income of the tax unit is an amount M
+    and the net earnings from self employment after self employment tax deduction of the tax unit is an amount K
+    and the pension or annuity amount of the tax unit is an amount P
+    and the nonresident alien income not connected with united states business of the tax unit is an amount Q
+    and the penal institution service compensation of the tax unit is an amount R
+    and the subsidized state work activity service compensation of the tax unit is an amount S
+    and a number T = M + K - P - Q - R - S
+    and the maximum of 0 and T is N.
+
+rule earned_income with provenance "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(vi)":
+the earned income of a tax unit is an amount N if
+    the earned income before section 112 election of the tax unit is an amount M
+    and the taxpayer of the tax unit elects to treat section 112 excluded amounts as earned income
+        and the amount excluded from gross income by reason of section 112 of the tax unit is an amount K
+        otherwise K = 0
+    and N = M + K.
+
+scenario employee_compensation_plus_self_employment_earnings is, as stated in "sources/us/statutes/26/32/c/2.test.yaml" at case 1:
+    tax_unit_1 is a tax_unit.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 0.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    the employee compensation includible in gross income of tax_unit_1 is 30000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 12000.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    q_earned_income expects answers ["the earned income of tax_unit_1 is 42000"].
+
+scenario explicit_exclusions_reduce_earned_income is, as stated in "sources/us/statutes/26/32/c/2.test.yaml" at case 2:
+    tax_unit_1 is a tax_unit.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 0.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    the employee compensation includible in gross income of tax_unit_1 is 20000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 5000.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 2000.
+    the penal institution service compensation of tax_unit_1 is 1000.
+    the pension or annuity amount of tax_unit_1 is 3000.
+    the subsidized state work activity service compensation of tax_unit_1 is 4000.
+    q_earned_income expects answers ["the earned income of tax_unit_1 is 15000"].
+
+scenario section_112_election_adds_excluded_combat_zone_amount is, as stated in "sources/us/statutes/26/32/c/2.test.yaml" at case 3:
+    tax_unit_1 is a tax_unit.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 6000.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    tax_unit_1 is member below grade of commissioned officer in armed forces.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    tax_unit_1 is served in combat zone during month.
+    the employee compensation includible in gross income of tax_unit_1 is 10000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 0.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    the taxpayer of tax_unit_1 elects to treat section 112 excluded amounts as earned income.
+    q_earned_income expects answers ["the earned income of tax_unit_1 is 16000"].
+
+scenario auto_output_earned_income_before_section_112_election is, as stated in "sources/us/statutes/26/32/c/2.test.yaml" at case 4:
+    tax_unit_1 is a tax_unit.
+    the employee compensation includible in gross income of tax_unit_1 is 0.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 0.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    q_earned_income_before_section_112_election expects answers ["the earned income before section 112 election of tax_unit_1 is 0"].
+
+query q_earned_income is:
+    the earned income of which tax unit is which amount.
+
+query q_earned_income is:
+    the earned income of which tax unit is which amount.
+
+query q_earned_income is:
+    the earned income of which tax unit is which amount.
+
+query q_earned_income_before_section_112_election is:
+    the earned income before section 112 election of which tax unit is which amount.
+

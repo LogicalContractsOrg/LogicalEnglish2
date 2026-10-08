@@ -1,0 +1,32 @@
+% lib/rounding.le — rounding a number at a number of decimals, by mode.
+%
+% Need N8 of lpsPlus/docs/migration/roadmap.md (§7.5): RuleSpec rounds a
+% money output to its currency's minor units `half_up`, `half_even`, `floor`
+% or `ceil`; Catala rounds money to the cent; RegelSpraak rounds
+% `rekenkundig` to a number of decimals. LE itself has round(), floor(),
+% ceiling() and truncate(), all to a whole number. This library adds the
+% rounding at a number of decimals, and banker's rounding (half to even).
+% A library, not syntax: include it as a resource (a translator copies it
+% beside the program it writes, with rounding.pl), and use its templates
+% like any other.
+%
+% The arithmetic is exact: rounding.pl turns the number into a fraction
+% before it rounds, so 2.675 to 2 decimals half up is 2.68 (binary floating
+% point alone would give 2.67). A result with no decimals is a whole number.
+%
+% Each template gives ONE value for its arguments, so they are declared
+% FUNCTIONS (§2.3 of the language reference).
+
+the knowledge base rounding includes these resources:
+    rounding.pl.
+
+the functions are:
+    the rounding of *a number* to *a count* decimals half up is *a result*.
+    the rounding of *a number* to *a count* decimals half even is *a result*.
+    the rounding of *a number* down to *a count* decimals is *a result*.
+    the rounding of *a number* up to *a count* decimals is *a result*.
+    the rounding of *a number* to the nearest *a step* is *a result*.
+
+the knowledge base rounding includes:
+
+% Every template is answered by rounding.pl.

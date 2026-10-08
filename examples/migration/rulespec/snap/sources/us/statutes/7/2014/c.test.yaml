@@ -1,0 +1,89 @@
+- name: net_income_above_poverty_line_makes_household_ineligible
+  period: 2026-01
+  input:
+    us:statutes/7/2014/c#input.household_is_in_virgin_islands_or_guam: false
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_household_area: 1000
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_forty_eight_contiguous_states_and_dc: 1000
+    us:statutes/7/2014/c#input.household_includes_elderly_or_disabled_member: false
+    us:statutes/7/2014/e/6/A#input.snap_standard_deduction: 300
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 0
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+    us:statutes/7/2014/e/6/A#input.dependent_care_deduction: 0
+    us:statutes/7/2014/e/6/A#input.child_support_deduction: 0
+    us:statutes/7/2014/e/6/A#input.medical_deduction: 0
+    us:regulations/7-cfr/273/10#snap_total_gross_income: 1400
+    us:statutes/7/2014/c#input.snap_total_gross_income: 1200
+    us:statutes/7/2014/e/6/A#input.snap_monthly_household_income: 1400
+    us:statutes/7/2014/e/6/A#input.snap_excess_shelter_deduction: 0
+  output:
+    us:statutes/7/2014/c#snap_gross_income_excess_rate_over_poverty_line: 0.3
+    us:statutes/7/2014/c#snap_income_standard_poverty_line_with_territory_cap: 1000
+    us:statutes/7/2014/c#snap_net_income_exceeds_poverty_line: holds
+    us:statutes/7/2014/c#household_fails_gross_income_standard: holds
+    us:statutes/7/2014/c#household_ineligible_to_participate_due_to_income_standards: holds
+- name: non_elderly_disabled_household_fails_gross_income_standard
+  period: 2026-01
+  input:
+    us:statutes/7/2014/c#input.household_is_in_virgin_islands_or_guam: false
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_household_area: 1000
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_forty_eight_contiguous_states_and_dc: 1000
+    us:statutes/7/2014/c#input.household_includes_elderly_or_disabled_member: false
+    us:statutes/7/2014/e/6/A#input.snap_standard_deduction: 300
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 0
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+    us:statutes/7/2014/e/6/A#input.dependent_care_deduction: 0
+    us:statutes/7/2014/e/6/A#input.child_support_deduction: 0
+    us:statutes/7/2014/e/6/A#input.medical_deduction: 0
+    us:regulations/7-cfr/273/10#snap_total_gross_income: 1200
+    us:statutes/7/2014/c#input.snap_total_gross_income: 1400
+    us:statutes/7/2014/e/6/A#input.snap_monthly_household_income: 1200
+    us:statutes/7/2014/e/6/A#input.snap_excess_shelter_deduction: 0
+  output:
+    us:statutes/7/2014/c#snap_income_standard_poverty_line_with_territory_cap: 1000
+    us:statutes/7/2014/c#snap_net_income_exceeds_poverty_line: not_holds
+    us:statutes/7/2014/c#household_fails_gross_income_standard: not_holds
+    us:statutes/7/2014/c#household_ineligible_to_participate_due_to_income_standards: not_holds
+- name: elderly_or_disabled_member_removes_gross_income_standard_failure
+  period: 2026-01
+  input:
+    us:statutes/7/2014/c#input.household_is_in_virgin_islands_or_guam: false
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_household_area: 1000
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_forty_eight_contiguous_states_and_dc: 1000
+    us:statutes/7/2014/c#input.household_includes_elderly_or_disabled_member: true
+    us:statutes/7/2014/e/6/A#input.snap_standard_deduction: 300
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 0
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+    us:statutes/7/2014/e/6/A#input.dependent_care_deduction: 0
+    us:statutes/7/2014/e/6/A#input.child_support_deduction: 0
+    us:statutes/7/2014/e/6/A#input.medical_deduction: 0
+    us:regulations/7-cfr/273/10#snap_total_gross_income: 1200
+    us:statutes/7/2014/c#input.snap_total_gross_income: 1400
+    us:statutes/7/2014/e/6/A#input.snap_monthly_household_income: 1200
+    us:statutes/7/2014/e/6/A#input.snap_excess_shelter_deduction: 0
+  output:
+    us:statutes/7/2014/c#snap_income_standard_poverty_line_with_territory_cap: 1000
+    us:statutes/7/2014/c#snap_net_income_exceeds_poverty_line: not_holds
+    us:statutes/7/2014/c#household_fails_gross_income_standard: not_holds
+    us:statutes/7/2014/c#household_ineligible_to_participate_due_to_income_standards: not_holds
+- name: virgin_islands_or_guam_standard_is_capped_to_contiguous_states_standard
+  period: 2026-01
+  input:
+    us:statutes/7/2014/c#input.household_is_in_virgin_islands_or_guam: true
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_household_area: 1200
+    us:statutes/7/2014/c#input.poverty_line_under_42_usc_9902_2_for_forty_eight_contiguous_states_and_dc: 1000
+    us:statutes/7/2014/c#input.household_includes_elderly_or_disabled_member: false
+    us:statutes/7/2014/e/6/A#input.snap_standard_deduction: 300
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 0
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+    us:statutes/7/2014/e/6/A#input.dependent_care_deduction: 0
+    us:statutes/7/2014/e/6/A#input.child_support_deduction: 0
+    us:statutes/7/2014/e/6/A#input.medical_deduction: 0
+    us:regulations/7-cfr/273/10#snap_total_gross_income: 1400
+    us:statutes/7/2014/c#input.snap_total_gross_income: 1200
+    us:statutes/7/2014/e/6/A#input.snap_monthly_household_income: 1400
+    us:statutes/7/2014/e/6/A#input.snap_excess_shelter_deduction: 0
+  output:
+    us:statutes/7/2014/c#snap_income_standard_poverty_line_with_territory_cap: 1000
+    us:statutes/7/2014/c#snap_net_income_exceeds_poverty_line: holds
+    us:statutes/7/2014/c#household_fails_gross_income_standard: holds
+    us:statutes/7/2014/c#household_ineligible_to_participate_due_to_income_standards: holds

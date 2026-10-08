@@ -1,0 +1,101 @@
+- name: entire_year_resident_excludes_puerto_rico_source_income_except_us_employee_amounts
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/933#input.individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year: true
+    us:statutes/26/933#input.income_derived_from_sources_within_puerto_rico: 50000
+    us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency: 8000
+    us:statutes/26/933#input.individual_is_citizen_of_united_states: false
+    us:statutes/26/933#input.individual_changes_residence_from_puerto_rico_during_taxable_year: false
+    us:statutes/26/933#input.bona_fide_resident_of_puerto_rico_years_before_change: 0
+    us:statutes/26/933#input.puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change: 0
+    ? us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+    : 0
+    us:statutes/26/933#input.deductions_other_than_section_151_before_section_933_denial: 3000
+    ? us:statutes/26/933#input.deductions_other_than_section_151_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933
+    : 1200
+    us:statutes/26/933#input.credits_before_section_933_denial: 700
+    us:statutes/26/933#input.credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933: 400
+  output:
+    us:statutes/26/933#entire_year_puerto_rico_source_income_excluded: 42000
+    us:statutes/26/933#change_year_puerto_rico_source_income_excluded: 0
+    us:statutes/26/933#income_excluded_from_gross_income_under_section_933: 42000
+    us:statutes/26/933#section_933_disallowed_deductions_other_than_section_151: 1200
+    us:statutes/26/933#section_933_disallowed_credits: 400
+- name: entire_year_us_employee_amount_exception_reduces_exclusion_to_zero
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/933#input.individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year: true
+    us:statutes/26/933#input.income_derived_from_sources_within_puerto_rico: 8000
+    us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency: 8000
+    us:statutes/26/933#input.individual_is_citizen_of_united_states: false
+    us:statutes/26/933#input.individual_changes_residence_from_puerto_rico_during_taxable_year: false
+    us:statutes/26/933#input.bona_fide_resident_of_puerto_rico_years_before_change: 0
+    us:statutes/26/933#input.puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change: 0
+    ? us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+    : 0
+    us:statutes/26/933#input.deductions_other_than_section_151_before_section_933_denial: 3000
+    ? us:statutes/26/933#input.deductions_other_than_section_151_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933
+    : 1200
+    us:statutes/26/933#input.credits_before_section_933_denial: 700
+    us:statutes/26/933#input.credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933: 400
+  output:
+    us:statutes/26/933#entire_year_puerto_rico_source_income_excluded: 0
+    us:statutes/26/933#income_excluded_from_gross_income_under_section_933: 0
+    us:statutes/26/933#section_933_disallowed_deductions_other_than_section_151: 0
+    us:statutes/26/933#section_933_disallowed_credits: 0
+- name: change_year_resident_with_two_year_prior_residence_excludes_pre_change_puerto_rico_source_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/933#input.individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year: false
+    us:statutes/26/933#input.income_derived_from_sources_within_puerto_rico: 0
+    us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/933#input.individual_is_citizen_of_united_states: true
+    us:statutes/26/933#input.individual_changes_residence_from_puerto_rico_during_taxable_year: true
+    us:statutes/26/933#input.bona_fide_resident_of_puerto_rico_years_before_change: 2
+    us:statutes/26/933#input.puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change: 30000
+    ? us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+    : 5000
+    us:statutes/26/933#input.deductions_other_than_section_151_before_section_933_denial: 2000
+    ? us:statutes/26/933#input.deductions_other_than_section_151_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933
+    : 2500
+    us:statutes/26/933#input.credits_before_section_933_denial: 900
+    us:statutes/26/933#input.credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933: 1000
+  output:
+    us:statutes/26/933#change_year_puerto_rico_source_income_excluded: 25000
+    us:statutes/26/933#income_excluded_from_gross_income_under_section_933: 25000
+    us:statutes/26/933#section_933_disallowed_deductions_other_than_section_151: 2000
+    us:statutes/26/933#section_933_disallowed_credits: 900
+- name: change_year_less_than_two_year_prior_residence_does_not_exclude_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/933#input.individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year: false
+    us:statutes/26/933#input.income_derived_from_sources_within_puerto_rico: 0
+    us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency: 0
+    us:statutes/26/933#input.individual_is_citizen_of_united_states: true
+    us:statutes/26/933#input.individual_changes_residence_from_puerto_rico_during_taxable_year: true
+    us:statutes/26/933#input.bona_fide_resident_of_puerto_rico_years_before_change: 1
+    us:statutes/26/933#input.puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change: 30000
+    ? us:statutes/26/933#input.amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+    : 5000
+    us:statutes/26/933#input.deductions_other_than_section_151_before_section_933_denial: 2000
+    ? us:statutes/26/933#input.deductions_other_than_section_151_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933
+    : 1500
+    us:statutes/26/933#input.credits_before_section_933_denial: 900
+    us:statutes/26/933#input.credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933: 600
+  output:
+    us:statutes/26/933#change_year_puerto_rico_source_income_excluded: 0
+    us:statutes/26/933#income_excluded_from_gross_income_under_section_933: 0
+    us:statutes/26/933#section_933_disallowed_deductions_other_than_section_151: 0
+    us:statutes/26/933#section_933_disallowed_credits: 0

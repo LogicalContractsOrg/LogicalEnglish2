@@ -1,0 +1,126 @@
+% 7 U.S.C. 2015(d)(2)(F)
+% RuleSpec module us:statutes/7/2015/d/2/F (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the youth exemption lower age years is *a number*.
+    the youth exemption upper age years is *a number*.
+    the youth work requirement exemption of *a person* applies.
+    *a person* is person otherwise required to comply with paragraph 1 requirements; scenario element.
+    the person age years of *a person* is *a number*; scenario element.
+    *a person* is snap household head; scenario element.
+    *a person* is attending school at least half time; scenario element.
+    *a person* is enrolled in employment training program at least half time; scenario element.
+
+the knowledge base us_statutes_7_2015_d_2_f includes:
+
+
+% 7 U.S.C. 2015(d)(2)(F) — us:statutes/7/2015/d/2/F
+the text of "7 U.S.C. 2015(d)(2)(F)" is at "sources/us/statutes/7/2015/d/2/F.yaml".
+
+rule youth_exemption_lower_age_years with provenance "7 U.S.C. 2015(d)(2)(F)":
+the youth exemption lower age years is 16 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule youth_exemption_upper_age_years with provenance "7 U.S.C. 2015(d)(2)(F)":
+the youth exemption upper age years is 18 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule youth_work_requirement_exemption_applies_1 with provenance "7 U.S.C. 2015(d)(2)(F)":
+the youth work requirement exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person age years of the person is a number N
+    and the youth exemption lower age years is a number M
+    and N >= M
+    and the person age years of the person is a number K
+    and the youth exemption upper age years is a number P
+    and K < P
+    and it is not the case that the person is snap household head.
+
+rule youth_work_requirement_exemption_applies_2 with provenance "7 U.S.C. 2015(d)(2)(F)":
+the youth work requirement exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person age years of the person is a number N
+    and the youth exemption lower age years is a number M
+    and N >= M
+    and the person age years of the person is a number K
+    and the youth exemption upper age years is a number P
+    and K < P
+    and the person is attending school at least half time.
+
+rule youth_work_requirement_exemption_applies_3 with provenance "7 U.S.C. 2015(d)(2)(F)":
+the youth work requirement exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person age years of the person is a number N
+    and the youth exemption lower age years is a number M
+    and N >= M
+    and the person age years of the person is a number K
+    and the youth exemption upper age years is a number P
+    and K < P
+    and the person is enrolled in employment training program at least half time.
+
+scenario youth_between_sixteen_and_eighteen_not_head_of_household_exempt is, as stated in "sources/us/statutes/7/2015/d/2/F.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the person age years of person_1 is 16.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_youth_work_requirement_exemption_applies expects answers ["the youth work requirement exemption of person_1 applies"].
+
+scenario youth_head_of_household_attending_school_at_least_half_time_exempt is, as stated in "sources/us/statutes/7/2015/d/2/F.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the person age years of person_1 is 17.
+    person_1 is attending school at least half time.
+    person_1 is snap household head.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_youth_work_requirement_exemption_applies expects answers ["the youth work requirement exemption of person_1 applies"].
+
+scenario youth_head_of_household_enrolled_in_employment_training_at_least_half_time_exempt is, as stated in "sources/us/statutes/7/2015/d/2/F.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the person age years of person_1 is 17.
+    person_1 is enrolled in employment training program at least half time.
+    person_1 is snap household head.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_youth_work_requirement_exemption_applies expects answers ["the youth work requirement exemption of person_1 applies"].
+
+scenario age_eighteen_not_within_youth_exemption_no_exemption is, as stated in "sources/us/statutes/7/2015/d/2/F.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the person age years of person_1 is 18.
+    person_1 is attending school at least half time.
+    person_1 is enrolled in employment training program at least half time.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    q_youth_work_requirement_exemption_applies expects answers [].
+
+query q_youth_work_requirement_exemption_applies is:
+    the youth work requirement exemption of which person applies.
+
+query q_youth_work_requirement_exemption_applies is:
+    the youth work requirement exemption of which person applies.
+
+query q_youth_work_requirement_exemption_applies is:
+    the youth work requirement exemption of which person applies.
+
+query q_youth_work_requirement_exemption_applies is:
+    the youth work requirement exemption of which person applies.
+

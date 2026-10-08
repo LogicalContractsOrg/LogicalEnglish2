@@ -1,0 +1,143 @@
+format: rulespec/v1
+imports:
+  - us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual
+  - us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit
+  - us:statutes/42/1382/a/3#individual_no_spouse_resource_limit
+  - us:statutes/42/1382f/a#amount_after_subsection_a_increase
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382/a/1
+  summary: |-
+    Each aged, blind, or disabled individual who does not have an eligible spouse, whose countable income is not more than $1,752 (or, if greater, the amount determined under section 1382f), and whose countable resources do not exceed the applicable paragraph (3) amount, shall be an eligible individual.
+rules:
+  - name: individual_annual_income_base_limit
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 42 USC 1382(a)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "not more than $1,752"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "$1,752"
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "for the calendar year 1974 or any calendar year thereafter"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          1752
+
+  - name: applicable_individual_annual_income_limit
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 42 USC 1382(a)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "not more than $1,752 (or, if greater, the amount determined under section 1382f)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382f/a#amount_after_subsection_a_increase
+              output: amount_after_subsection_a_increase
+              hash: sha256:502268310fe317b035772003201f91a2006fab334630e90ead5b2cc591433048
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/a/1#individual_annual_income_base_limit
+              output: individual_annual_income_base_limit
+              hash: sha256:local
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          max(individual_annual_income_base_limit, amount_after_subsection_a_increase)
+
+  - name: eligible_individual
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "Each aged, blind, or disabled individual"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "does not have an eligible spouse"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "whose income, other than income excluded pursuant to section 1382a(b)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/a/1#applicable_individual_annual_income_limit
+              output: applicable_individual_annual_income_limit
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382/a/1
+              excerpt: "whose resources, other than resources excluded pursuant to section 1382b(a)"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual
+              output: aged_blind_or_disabled_individual
+              hash: sha256:c275ea56e2d71cc7cd5338993032e28442f0f8e0cb27efcf41134e84db3e9984
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit
+              output: couple_or_living_with_spouse_resource_limit
+              hash: sha256:adcb915790ccca04d6a1fda7a9b54d775625bf33020f35925ba341b55b563e6a
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382/a/3#individual_no_spouse_resource_limit
+              output: individual_no_spouse_resource_limit
+              hash: sha256:adcb915790ccca04d6a1fda7a9b54d775625bf33020f35925ba341b55b563e6a
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          aged_blind_or_disabled_individual
+          and not individual_has_eligible_spouse
+          and annual_income_other_than_excluded_pursuant_to_section_1382a_b <= applicable_individual_annual_income_limit
+          and (
+            (
+              individual_has_spouse_with_whom_living
+              and resources_other_than_excluded_pursuant_to_section_1382b_a <= couple_or_living_with_spouse_resource_limit
+            )
+            or (
+              not individual_has_spouse_with_whom_living
+              and resources_other_than_excluded_pursuant_to_section_1382b_a <= individual_no_spouse_resource_limit
+            )
+          )

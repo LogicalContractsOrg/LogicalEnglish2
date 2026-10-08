@@ -1,0 +1,1771 @@
+% 26 U.S.C. 24(d)
+% RuleSpec module us:statutes/26/24/d (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 10 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the hospitalization after combat zone termination limit years is *a number*.
+    the amount excluded from gross income by reason of section 112 of *a tax unit* is *an amount*.
+    the earned income before section 112 election of *a tax unit* is *an amount*.
+    the earned income of *a tax unit* is *an amount*.
+    the abode fraction threshold is *a number*.
+    the support fraction threshold is *a number*.
+    the child age limit is *a number*.
+    the student age limit is *a number*.
+    *a person* is qualifying child relationship.
+    *a person* is age requirements met.
+    *a person* is individual filed joint return with spouse other than only for claim of refund.
+    *a person* is parents claiming child do not file joint return together.
+    *a person* is qualifying child before tiebreaker.
+    *a person* is tiebreaker treats individual as qualifying child of taxpayer.
+    *a person* is qualifying child.
+    the foreign earned income excluded from gross income of *a person* is *an amount*.
+    the housing cost amount excluded from gross income of *a person* is *an amount*.
+    the section 911 amount excluded from gross income of *a person* is *an amount*.
+    the section 911 amount exempt from taxation of *a person* is *an amount*.
+    the possession of *a tax unit* is specified possession.
+    the amount excluded from gross income under section 931 of *a tax unit* is *an amount*.
+    the section 931 disallowed deductions excluding section 151 of *a tax unit* is *an amount*.
+    the deductions other than section 151 allowed after section 931 of *a tax unit* is *an amount*.
+    the section 931 disallowed credits of *a tax unit* is *an amount*.
+    the credits allowed after section 931 of *a tax unit* is *an amount*.
+    the puerto rico residence before change minimum years is *a number*.
+    the entire year puerto rico source income excluded of *a tax unit* is *an amount*.
+    the change year puerto rico source income excluded of *a tax unit* is *an amount*.
+    the income excluded from gross income under section 933 of *a tax unit* is *an amount*.
+    the section 933 disallowed deductions other than section 151 of *a tax unit* is *an amount*.
+    the section 933 disallowed credits of *a tax unit* is *an amount*.
+    *a person* is a exemption individual of *a tax unit*; scenario element.
+    *a person* is a senior deduction individual of *a tax unit*; scenario element.
+    the statutory exemption amount base is *an amount*.
+    the exemption phaseout rate per increment is *a rate*.
+    the exemption phaseout increment is *an amount*.
+    the exemption phaseout increment separate is *an amount*.
+    the exemption phaseout maximum percentage is *a rate*.
+    the post 2017 exemption amount is *an amount*.
+    the senior deduction base amount is *an amount*.
+    the senior deduction age threshold is *a number*.
+    the senior deduction phaseout rate is *a rate*.
+    the senior deduction phaseout threshold other is *an amount*.
+    the senior deduction phaseout threshold joint is *an amount*.
+    the exemption amount of *a tax unit* is *an amount*.
+    *a person* is exemption individual eligible.
+    the section 151 exemption deduction of *a tax unit* is *an amount*.
+    the senior deduction of *a person* qualified individual.
+    the senior deduction modified adjusted gross income of *a tax unit* is *an amount*.
+    the senior deduction phaseout threshold of *a tax unit* is *an amount*.
+    the senior deduction amount per qualified individual of *a tax unit* is *an amount*.
+    *a tax unit* is senior deduction eligible.
+    the senior deduction of *a tax unit* is *an amount*.
+    *a person* is a living apart child of *a tax unit*; scenario element.
+    the child principal abode fraction threshold is *a rate*.
+    the household cost fraction threshold is *a rate*.
+    the spouse absence period months is *a number*.
+    *a tax unit* is taxpayer married under general rule.
+    the living apart child of *a person* has required abode and deduction.
+    *a tax unit* is taxpayer not considered married when living apart.
+    *a tax unit* is taxpayer considered married after living apart rule.
+    the eitc earned income amounts for *a child count* is *an amount*.
+    the eitc maximum credit amounts for *a child count* is *an amount*.
+    the eitc threshold phaseout amounts joint for *a child count* is *an amount*.
+    the eitc completed phaseout amounts joint for *a child count* is *an amount*.
+    the eitc threshold phaseout amounts other for *a child count* is *an amount*.
+    the eitc completed phaseout amounts other for *a child count* is *an amount*.
+    the eitc maximum investment income is *an amount*.
+    *a person* is a qualifying child of *a tax unit*; scenario element.
+    the eitc phase in rates for *a child count* is *a rate*.
+    the eitc phase out rates for *a child count* is *a rate*.
+    the eitc childless minimum age is *a number*.
+    the eitc childless age ceiling exclusive is *a number*.
+    *a person* is eitc qualifying child base.
+    *a person* is eitc qualifying child.
+    the eitc child count of *a tax unit* is *a number*.
+    the eitc capped child count of *a tax unit* is *a number*.
+    the eitc phase in rate of *a tax unit* is *a rate*.
+    the eitc phase out rate of *a tax unit* is *a rate*.
+    the eitc earned income amount of *a tax unit* is *an amount*.
+    the eitc maximum of *a tax unit* is *an amount*.
+    the eitc phase out start of *a tax unit* is *an amount*.
+    the eitc phase out income of *a tax unit* is *an amount*.
+    the eitc phased in of *a tax unit* is *an amount*.
+    the eitc reduction of *a tax unit* is *an amount*.
+    the eitc before eligibility of *a tax unit* is *an amount*.
+    *a person* is eitc childless age eligible.
+    *a tax unit* is eitc demographic eligible.
+    *a tax unit* is eitc identification requirements satisfied.
+    *a tax unit* is eitc investment income eligible.
+    *a tax unit* is eitc allowed.
+    the eitc of *a tax unit* is *an amount*.
+    the ctc refundable phase in rate is *a rate*.
+    the ctc refundable phase in threshold is *an amount*.
+    the ctc refundable min children for ss excess is *a number*.
+    the ctc social security half share is *a rate*.
+    the ctc phase in earned income base of *a tax unit* is *an amount*.
+    the ctc phase in relevant earnings of *a tax unit* is *an amount*.
+    the ctc social security tax of *a tax unit* is *an amount*.
+    the ctc social security excess of *a tax unit* is *an amount*.
+    the ctc refundable limitation increase amount of *a tax unit* is *an amount*.
+    the ctc refundable tax increase of *a tax unit* is *an amount*.
+    the ctc refundable cap of *a tax unit* is *an amount*.
+    *a tax unit* is ctc refundable foreign income eligible.
+    the refundable ctc of *a tax unit* is *an amount*.
+    the non refundable ctc of *a tax unit* is *an amount*.
+    *a tax unit* is member below grade of commissioned officer in armed forces; scenario element.
+    *a tax unit* is served in combat zone during month; scenario element.
+    *a tax unit* is hospitalized resulting from combat zone wounds disease or injury; scenario element.
+    the months beginning after combatant activities termination of *a tax unit* is *a number*; scenario element.
+    *a tax unit* is vietnam combat zone hospitalization month after january 1978; scenario element.
+    the active service compensation as enlisted member excluding pensions and retirement pay of *a tax unit* is *an amount*; scenario element.
+    *a tax unit* is commissioned officer in armed forces excluding commissioned warrant officer; scenario element.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of *a tax unit* is *an amount*; scenario element.
+    the maximum enlisted amount for commissioned officer months of *a tax unit* is *a number*; scenario element.
+    *a tax unit* is armed forces member in missing status during vietnam conflict as result of conflict; scenario element.
+    *a tax unit* is officially absent from post of duty without authority; scenario element.
+    the armed forces missing status active service compensation of *a tax unit* is *an amount*; scenario element.
+    *a tax unit* is civilian employee in missing status during vietnam conflict as result of conflict; scenario element.
+    the civilian employee missing status active service compensation of *a tax unit* is *an amount*; scenario element.
+    the employee compensation includible in gross income of *a tax unit* is *an amount*; scenario element.
+    the net earnings from self employment after self employment tax deduction of *a tax unit* is *an amount*; scenario element.
+    the pension or annuity amount of *a tax unit* is *an amount*; scenario element.
+    the nonresident alien income not connected with united states business of *a tax unit* is *an amount*; scenario element.
+    the penal institution service compensation of *a tax unit* is *an amount*; scenario element.
+    the subsidized state work activity service compensation of *a tax unit* is *an amount*; scenario element.
+    the taxpayer of *a tax unit* elects to treat section 112 excluded amounts as earned income; scenario element.
+    the individual of *a person* is child of taxpayer or descendant of such child; scenario element.
+    the individual of *a person* is sibling stepsibling or descendant of such relative; scenario element.
+    the individual of *a person* is permanently and totally disabled; scenario element.
+    the individual of *a person* is younger than taxpayer; scenario element.
+    the individual age at close of calendar year of *a person* is *a number*; scenario element.
+    the individual of *a person* is student; scenario element.
+    the filing status of *a person* is *a code*; scenario element.
+    *a person* is return filed only for claim of refund; scenario element.
+    the parents filing status of *a person* is *a code*; scenario element.
+    the individual principal place of abode with taxpayer fraction of *a person* is *a rate*; scenario element.
+    the individual own support fraction provided by individual of *a person* is *a rate*; scenario element.
+    the individual of *a person* may be claimed as qualifying child by two or more taxpayers; scenario element.
+    the parents of individual of *a person* may claim individual but no parent claims; scenario element.
+    the taxpayer of *a person* is parent of individual; scenario element.
+    *a person* is taxpayer adjusted gross income higher than highest parent adjusted gross income; scenario element.
+    *a person* is child resided with taxpayer parent for longest period; scenario element.
+    the child resided with both parents same amount of time and taxpayer parent of *a person* has highest adjusted gross income; scenario element.
+    the no parent of individual of *a person* is claiming taxpayer; scenario element.
+    the taxpayer of *a person* has highest adjusted gross income among claiming taxpayers; scenario element.
+    the individual of *a person* is qualified individual; scenario element.
+    *a person* is election made for foreign earned income; scenario element.
+    the foreign earned income of individual of *a person* is *an amount*; scenario element.
+    *a person* is election made for housing cost amount; scenario element.
+    the housing cost amount of individual of *a person* is *an amount*; scenario element.
+    the possession of *a tax unit* is guam; scenario element.
+    the possession of *a tax unit* is american samoa; scenario element.
+    the possession of *a tax unit* is northern mariana islands; scenario element.
+    *a tax unit* is bona fide resident of specified possession during entire taxable year; scenario element.
+    the income derived from sources within specified possessions of *a tax unit* is *an amount*; scenario element.
+    the income effectively connected with trade or business within specified possessions of *a tax unit* is *an amount*; scenario element.
+    the amounts paid for services as employee of united states or agency of *a tax unit* is *a value*; scenario element.
+    the deductions other than section 151 before section 931 denial of *a tax unit* is *an amount*; scenario element.
+    the deductions properly allocable or chargeable to amounts excluded under section 931 of *a tax unit* is *an amount*; scenario element.
+    the credits before section 931 denial of *a tax unit* is *a value*; scenario element.
+    the credits properly allocable or chargeable to amounts excluded under section 931 of *a tax unit* is *a value*; scenario element.
+    the individual of *a tax unit* is bona fide resident of puerto rico during entire taxable year; scenario element.
+    the income derived from sources within puerto rico of *a tax unit* is *an amount*; scenario element.
+    the amounts received for services performed as employee of united states or agency of *a tax unit* is *a value*; scenario element.
+    the individual of *a tax unit* is citizen of united states; scenario element.
+    *a tax unit* is individual changes residence from puerto rico during taxable year; scenario element.
+    the bona fide resident of puerto rico years before change of *a tax unit* is *a number*; scenario element.
+    the puerto rico source income attributable to puerto rican residence period before change of *a tax unit* is *an amount*; scenario element.
+    the amounts received for services performed as employee of united states or agency attributable to period before change of *a tax unit* is *a value*; scenario element.
+    the deductions other than section 151 before section 933 denial of *a tax unit* is *an amount*; scenario element.
+    the deductions other than section 151 properly allocable or chargeable to amounts excluded under section 933 of *a tax unit* is *an amount*; scenario element.
+    the credits before section 933 denial of *a tax unit* is *a value*; scenario element.
+    the credits properly allocable or chargeable to amounts excluded under section 933 of *a tax unit* is *a value*; scenario element.
+    *a tax unit* is taxable year begins after exemption amount zero start; scenario element.
+    *a person* is tin included on return claiming exemption; scenario element.
+    *a person* is taxpayer; scenario element.
+    *a person* is spouse of taxpayer; scenario element.
+    the spouse of *a person* has no gross income for calendar year; scenario element.
+    the spouse of *a person* is dependent of another taxpayer; scenario element.
+    the taxpayer of *a tax unit* is individual; scenario element.
+    *a person* qualified individual social security number included on return; scenario element.
+    the age of *a person* is *a number*; scenario element.
+    the adjusted gross income of *a tax unit* is *an amount*; scenario element.
+    *a tax unit* is taxable year begins before senior deduction termination; scenario element.
+    *a tax unit* is spouse dies during taxable year; scenario element.
+    *a tax unit* is taxpayer married at time of spouse death; scenario element.
+    *a tax unit* is taxpayer married at close of taxable year; scenario element.
+    *a tax unit* is legally separated under decree of divorce or separate maintenance; scenario element.
+    *a person* is child within federal tax child definition; scenario element.
+    the taxpayer household of *a person* is child principal place of abode; scenario element.
+    the child principal abode fraction of taxable year of *a person* is *a number*; scenario element.
+    *a person* would be entitled to child deduction but for parent release rule; scenario element.
+    the taxpayer of *a tax unit* files separate return; scenario element.
+    *a tax unit* is taxpayer maintains household as home; scenario element.
+    the taxpayer household cost fraction furnished of *a tax unit* is *a rate*; scenario element.
+    the spouse not member of household final month count of *a tax unit* is *a number*; scenario element.
+    the qualifying child principal place of abode of *a person* is in united states; scenario element.
+    *a person* is qualifying child name age and tin included on return; scenario element.
+    the qualifying child marital status of *a person* requires section 151 entitlement; scenario element.
+    the taxpayer entitled to section 151 deduction for child or of *a person* would be but for section 152 e; scenario element.
+    *a tax unit* is childless taxpayer principal place of abode in united states more than half year; scenario element.
+    *a tax unit* is childless taxpayer or spouse age eligible for eitc; scenario element.
+    the taxpayer of *a tax unit* is dependent for section 151 to another taxpayer; scenario element.
+    the taxpayer of *a tax unit* is qualifying child of another taxpayer; scenario element.
+    the taxpayer of *a tax unit* claims section 911 benefits; scenario element.
+    the taxpayer of *a tax unit* is nonresident alien for any portion of year; scenario element.
+    *a tax unit* is taxpayer treated as resident by section 6013 g or h election; scenario element.
+    *a tax unit* satisfies eitc separated spouse rules; scenario element.
+    the taxable year of *a tax unit* is full 12 months; scenario element.
+    *a tax unit* is taxable year closed by reason of taxpayer death; scenario element.
+    the eitc disallowance period of *a tax unit* applies; scenario element.
+    *a tax unit* is prior deficiency denial without required eligibility information; scenario element.
+    the taxpayer of *a tax unit* includes required social security number on return; scenario element.
+    the spouse of *a tax unit* includes required social security number on return; scenario element.
+    the eitc relevant investment income of *a tax unit* is *an amount*; scenario element.
+    the employee 3101 3201a taxes of *a tax unit* is *a value*; scenario element.
+    the american employer foreign affiliate equivalent 3121l taxes of *a tax unit* is *a value*; scenario element.
+    the self employment 1401 taxes of *a tax unit* is *a value*; scenario element.
+    the railroad 3211a taxes of *a tax unit* is *a value*; scenario element.
+    the special refund social security taxes under 6413c of *a tax unit* is *a value*; scenario element.
+    the qualifying children count of *a tax unit* is *a number*; scenario element.
+    the aggregate subpart c credits with increased 26a limit of *a tax unit* is *a value*; scenario element.
+    the aggregate subpart c credits without subsection of *a tax unit* is *a value*; scenario element.
+    the ctc credit without subsection and 26a limit of *a tax unit* is *an amount*; scenario element.
+    *a tax unit* elects foreign earned income exclusion under 911; scenario element.
+    the eitc earned income amounts for *a child count* from *a first date* to *a last date* is *an amount*.
+    the eitc maximum credit amounts for *a child count* from *a first date* to *a last date* is *an amount*.
+    the eitc threshold phaseout amounts joint for *a child count* from *a first date* to *a last date* is *an amount*.
+    the eitc completed phaseout amounts joint for *a child count* from *a first date* to *a last date* is *an amount*.
+    the eitc threshold phaseout amounts other for *a child count* from *a first date* to *a last date* is *an amount*.
+    the eitc completed phaseout amounts other for *a child count* from *a first date* to *a last date* is *an amount*.
+    the eitc phase in rates for *a child count* from *a first date* to *a last date* is *a rate*.
+    the eitc phase out rates for *a child count* from *a first date* to *a last date* is *a rate*.
+
+the knowledge base us_statutes_26_24_d includes:
+
+
+% 26 U.S.C. 112 — us:statutes/26/112
+the text of "26 USC 112(a), 112(b)" is at "sources/us/statutes/26/112.yaml".
+
+the text of "26 USC 112(a), 26 USC 112(b), 26 USC 112(c), 26 USC 112(d)" is at "sources/us/statutes/26/112.yaml".
+
+the hospitalization after combat zone termination limit years is 2, as stated in "26 USC 112(a), 112(b)".
+
+rule amount_excluded_from_gross_income_by_reason_of_section_112 with provenance "26 USC 112(a), 26 USC 112(b), 26 USC 112(c), 26 USC 112(d)":
+the amount excluded from gross income by reason of section 112 of a tax unit is an amount N if
+    the tax unit is a tax_unit
+    and the tax unit is member below grade of commissioned officer in armed forces
+        and the tax unit is served in combat zone during month
+        and the active service compensation as enlisted member excluding pensions and retirement pay of the tax unit is an amount M
+        otherwise the tax unit is member below grade of commissioned officer in armed forces
+        and the tax unit is hospitalized resulting from combat zone wounds disease or injury
+        and the months beginning after combatant activities termination of the tax unit is a number K
+        and the hospitalization after combat zone termination limit years is a number P
+        and K <= P
+        and it is not the case that the tax unit is vietnam combat zone hospitalization month after january 1978
+        and the active service compensation as enlisted member excluding pensions and retirement pay of the tax unit is M
+        otherwise M = 0
+    and the tax unit is commissioned officer in armed forces excluding commissioned warrant officer
+        and the tax unit is served in combat zone during month
+        and the active service compensation as commissioned officer excluding pensions and retirement pay of the tax unit is an amount Q
+        and the maximum enlisted amount for commissioned officer months of the tax unit is a number R
+        and the minimum of Q and R is a number S
+        otherwise the tax unit is commissioned officer in armed forces excluding commissioned warrant officer
+        and the tax unit is hospitalized resulting from combat zone wounds disease or injury
+        and the months beginning after combatant activities termination of the tax unit is a number T
+        and the hospitalization after combat zone termination limit years is a number U
+        and T <= U
+        and it is not the case that the tax unit is vietnam combat zone hospitalization month after january 1978
+        and the active service compensation as commissioned officer excluding pensions and retirement pay of the tax unit is Q
+        and the maximum enlisted amount for commissioned officer months of the tax unit is R
+        and the minimum of Q and R is S
+        otherwise S = 0
+    and the tax unit is armed forces member in missing status during vietnam conflict as result of conflict
+        and it is not the case that the tax unit is officially absent from post of duty without authority
+        and the armed forces missing status active service compensation of the tax unit is an amount V
+        otherwise V = 0
+    and the tax unit is civilian employee in missing status during vietnam conflict as result of conflict
+        and the civilian employee missing status active service compensation of the tax unit is an amount W
+        otherwise W = 0
+    and N = M + S + V + W.
+
+
+% 26 U.S.C. 32(c)(2) — us:statutes/26/32/c/2
+the text of "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(i)-(v)" is at "sources/us/statutes/26/32/c/2.yaml".
+
+the text of "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(vi)" is at "sources/us/statutes/26/32/c/2.yaml".
+
+rule earned_income_before_section_112_election with provenance "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(i)-(v)":
+the earned income before section 112 election of a tax unit is an amount N if
+    the employee compensation includible in gross income of the tax unit is an amount M
+    and the net earnings from self employment after self employment tax deduction of the tax unit is an amount K
+    and the pension or annuity amount of the tax unit is an amount P
+    and the nonresident alien income not connected with united states business of the tax unit is an amount Q
+    and the penal institution service compensation of the tax unit is an amount R
+    and the subsidized state work activity service compensation of the tax unit is an amount S
+    and a number T = M + K - P - Q - R - S
+    and the maximum of 0 and T is N.
+
+rule earned_income with provenance "26 USC 32(c)(2)(A), 26 USC 32(c)(2)(B)(vi)":
+the earned income of a tax unit is an amount N if
+    the earned income before section 112 election of the tax unit is an amount M
+    and the taxpayer of the tax unit elects to treat section 112 excluded amounts as earned income
+        and the amount excluded from gross income by reason of section 112 of the tax unit is an amount K
+        otherwise K = 0
+    and N = M + K.
+
+
+% 26 U.S.C. 152(c) — us:statutes/26/152/c
+the text of "26 USC 152(c)(1)(B)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(1)(D)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(3)(A)(i)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(3)(A)(ii)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(2)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(3)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(1)(E), 6013" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(4)(B)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(1)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(4)" is at "sources/us/statutes/26/152/c.yaml".
+
+the text of "26 USC 152(c)(1), 152(c)(4)" is at "sources/us/statutes/26/152/c.yaml".
+
+the abode fraction threshold is a number N if
+    N = 1 / 2.
+
+the support fraction threshold is a number N if
+    N = 1 / 2.
+
+the child age limit is 19, as stated in "26 USC 152(c)(3)(A)(i)".
+
+the student age limit is 24, as stated in "26 USC 152(c)(3)(A)(ii)".
+
+rule qualifying_child_relationship_1 with provenance "26 USC 152(c)(2)":
+a person is qualifying child relationship if
+    the individual of the person is child of taxpayer or descendant of such child.
+
+rule qualifying_child_relationship_2 with provenance "26 USC 152(c)(2)":
+a person is qualifying child relationship if
+    the individual of the person is sibling stepsibling or descendant of such relative.
+
+rule age_requirements_met_1 with provenance "26 USC 152(c)(3)":
+a person is age requirements met if
+    the individual of the person is permanently and totally disabled.
+
+rule age_requirements_met_2 with provenance "26 USC 152(c)(3)":
+a person is age requirements met if
+    the individual of the person is younger than taxpayer
+    and the individual age at close of calendar year of the person is a number N
+    and the child age limit is a number M
+    and N < M.
+
+rule age_requirements_met_3 with provenance "26 USC 152(c)(3)":
+a person is age requirements met if
+    the individual of the person is younger than taxpayer
+    and the individual of the person is student
+    and the individual age at close of calendar year of the person is a number N
+    and the student age limit is a number M
+    and N < M.
+
+rule individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund with provenance "26 USC 152(c)(1)(E), 6013":
+a person is individual filed joint return with spouse other than only for claim of refund if
+    the filing status of the person is a code C
+    and C = 1
+    and it is not the case that the person is return filed only for claim of refund.
+
+rule parents_claiming_child_do_not_file_joint_return_together with provenance "26 USC 152(c)(4)(B)":
+a person is parents claiming child do not file joint return together if
+    the parents filing status of the person is a code C
+    and it is not the case that C = 1.
+
+rule qualifying_child_before_tiebreaker with provenance "26 USC 152(c)(1)":
+a person is qualifying child before tiebreaker if
+    the person is qualifying child relationship
+    and the individual principal place of abode with taxpayer fraction of the person is a rate R
+    and the abode fraction threshold is a number N
+    and R > N
+    and the person is age requirements met
+    and the individual own support fraction provided by individual of the person is a rate M
+    and the support fraction threshold is a number K
+    and M <= K
+    and it is not the case that the person is individual filed joint return with spouse other than only for claim of refund.
+
+rule tiebreaker_treats_individual_as_qualifying_child_of_taxpayer_1 with provenance "26 USC 152(c)(4)":
+a person is tiebreaker treats individual as qualifying child of taxpayer if
+    the person is a person
+    and it is not the case that the individual of the person may be claimed as qualifying child by two or more taxpayers.
+
+rule tiebreaker_treats_individual_as_qualifying_child_of_taxpayer_2 with provenance "26 USC 152(c)(4)":
+a person is tiebreaker treats individual as qualifying child of taxpayer if
+    the individual of the person may be claimed as qualifying child by two or more taxpayers
+    and the parents of individual of the person may claim individual but no parent claims
+    and it is not the case that the taxpayer of the person is parent of individual
+    and the person is taxpayer adjusted gross income higher than highest parent adjusted gross income.
+
+rule tiebreaker_treats_individual_as_qualifying_child_of_taxpayer_3 with provenance "26 USC 152(c)(4)":
+a person is tiebreaker treats individual as qualifying child of taxpayer if
+    the individual of the person may be claimed as qualifying child by two or more taxpayers
+    and it is not the case that the parents of individual of the person may claim individual but no parent claims
+    and the person is parents claiming child do not file joint return together
+    and the taxpayer of the person is parent of individual
+    and the person is child resided with taxpayer parent for longest period.
+
+rule tiebreaker_treats_individual_as_qualifying_child_of_taxpayer_4 with provenance "26 USC 152(c)(4)":
+a person is tiebreaker treats individual as qualifying child of taxpayer if
+    the individual of the person may be claimed as qualifying child by two or more taxpayers
+    and it is not the case that the parents of individual of the person may claim individual but no parent claims
+    and the person is parents claiming child do not file joint return together
+    and the taxpayer of the person is parent of individual
+    and the child resided with both parents same amount of time and taxpayer parent of the person has highest adjusted gross income.
+
+rule tiebreaker_treats_individual_as_qualifying_child_of_taxpayer_5 with provenance "26 USC 152(c)(4)":
+a person is tiebreaker treats individual as qualifying child of taxpayer if
+    the individual of the person may be claimed as qualifying child by two or more taxpayers
+    and it is not the case that the parents of individual of the person may claim individual but no parent claims
+    and it is not the case that the person is parents claiming child do not file joint return together
+    and the taxpayer of the person is parent of individual.
+
+rule tiebreaker_treats_individual_as_qualifying_child_of_taxpayer_6 with provenance "26 USC 152(c)(4)":
+a person is tiebreaker treats individual as qualifying child of taxpayer if
+    the individual of the person may be claimed as qualifying child by two or more taxpayers
+    and it is not the case that the parents of individual of the person may claim individual but no parent claims
+    and it is not the case that the person is parents claiming child do not file joint return together
+    and the no parent of individual of the person is claiming taxpayer
+    and the taxpayer of the person has highest adjusted gross income among claiming taxpayers.
+
+rule qualifying_child with provenance "26 USC 152(c)(1), 152(c)(4)":
+a person is qualifying child if
+    the person is qualifying child before tiebreaker
+    and the person is tiebreaker treats individual as qualifying child of taxpayer.
+
+
+% 26 U.S.C. 911(a) — us:statutes/26/911/a
+the text of "26 USC 911(a)(1)" is at "sources/us/statutes/26/911/a.yaml".
+
+the text of "26 USC 911(a)(2)" is at "sources/us/statutes/26/911/a.yaml".
+
+the text of "26 USC 911(a)" is at "sources/us/statutes/26/911/a.yaml".
+
+rule foreign_earned_income_excluded_from_gross_income with provenance "26 USC 911(a)(1)":
+the foreign earned income excluded from gross income of a person is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the individual of the person is qualified individual
+        and the person is election made for foreign earned income
+        and the foreign earned income of individual of the person is an amount M
+        and the maximum of 0 and M is N
+        otherwise the person is a person
+        and N = 0.
+
+rule housing_cost_amount_excluded_from_gross_income with provenance "26 USC 911(a)(2)":
+the housing cost amount excluded from gross income of a person is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the individual of the person is qualified individual
+        and the person is election made for housing cost amount
+        and the housing cost amount of individual of the person is an amount M
+        and the maximum of 0 and M is N
+        otherwise the person is a person
+        and N = 0.
+
+rule section_911_amount_excluded_from_gross_income with provenance "26 USC 911(a)":
+the section 911 amount excluded from gross income of a person is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the foreign earned income excluded from gross income of the person is an amount M
+    and the housing cost amount excluded from gross income of the person is an amount K
+    and N = M + K.
+
+rule section_911_amount_exempt_from_taxation with provenance "26 USC 911(a)":
+the section 911 amount exempt from taxation of a person is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the section 911 amount excluded from gross income of the person is the amount.
+
+
+% 26 U.S.C. 931 — us:statutes/26/931
+the text of "26 USC 931(c)" is at "sources/us/statutes/26/931.yaml".
+
+the text of "26 USC 931(a), 931(d)" is at "sources/us/statutes/26/931.yaml".
+
+the text of "26 USC 931(b)(1)" is at "sources/us/statutes/26/931.yaml".
+
+the text of "26 USC 931(b)(2)" is at "sources/us/statutes/26/931.yaml".
+
+rule possession_is_specified_possession_1 with provenance "26 USC 931(c)":
+the possession of a tax unit is specified possession if
+    the possession of the tax unit is guam.
+
+rule possession_is_specified_possession_2 with provenance "26 USC 931(c)":
+the possession of a tax unit is specified possession if
+    the possession of the tax unit is american samoa.
+
+rule possession_is_specified_possession_3 with provenance "26 USC 931(c)":
+the possession of a tax unit is specified possession if
+    the possession of the tax unit is northern mariana islands.
+
+rule amount_excluded_from_gross_income_under_section_931 with provenance "26 USC 931(a), 931(d)":
+the amount excluded from gross income under section 931 of a tax unit is an amount N if
+    the tax unit is bona fide resident of specified possession during entire taxable year
+    and the income derived from sources within specified possessions of the tax unit is an amount M
+    and the income effectively connected with trade or business within specified possessions of the tax unit is an amount K
+    and the amounts paid for services as employee of united states or agency of the tax unit is a value V
+    and a number P = M + K - V
+    and the maximum of 0 and P is N
+    otherwise the tax unit is a tax_unit
+    and N = 0.
+
+rule section_931_disallowed_deductions_excluding_section_151 with provenance "26 USC 931(b)(1)":
+the section 931 disallowed deductions excluding section 151 of a tax unit is an amount N if
+    the deductions other than section 151 before section 931 denial of the tax unit is an amount M
+    and the deductions properly allocable or chargeable to amounts excluded under section 931 of the tax unit is an amount K
+    and the maximum of 0 and M is a number P
+    and the maximum of 0 and K is a number Q
+    and the minimum of P and Q is N.
+
+rule deductions_other_than_section_151_allowed_after_section_931 with provenance "26 USC 931(b)(1)":
+the deductions other than section 151 allowed after section 931 of a tax unit is an amount N if
+    the deductions other than section 151 before section 931 denial of the tax unit is an amount M
+    and the section 931 disallowed deductions excluding section 151 of the tax unit is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule section_931_disallowed_credits with provenance "26 USC 931(b)(2)":
+the section 931 disallowed credits of a tax unit is an amount N if
+    the credits before section 931 denial of the tax unit is a value V
+    and the credits properly allocable or chargeable to amounts excluded under section 931 of the tax unit is a value M
+    and the maximum of 0 and V is a number K
+    and the maximum of 0 and M is a number P
+    and the minimum of K and P is N.
+
+rule credits_allowed_after_section_931 with provenance "26 USC 931(b)(2)":
+the credits allowed after section 931 of a tax unit is an amount N if
+    the credits before section 931 denial of the tax unit is a value V
+    and the section 931 disallowed credits of the tax unit is an amount M
+    and a number K = V - M
+    and the maximum of 0 and K is N.
+
+
+% 26 U.S.C. 933 — us:statutes/26/933
+the text of "26 USC 933(2)" is at "sources/us/statutes/26/933.yaml".
+
+the text of "26 USC 933(1)" is at "sources/us/statutes/26/933.yaml".
+
+the text of "26 USC 933(1), 933(2)" is at "sources/us/statutes/26/933.yaml".
+
+the puerto rico residence before change minimum years is 2, as stated in "26 USC 933(2)".
+
+rule entire_year_puerto_rico_source_income_excluded with provenance "26 USC 933(1)":
+the entire year puerto rico source income excluded of a tax unit is an amount N if
+    the individual of the tax unit is bona fide resident of puerto rico during entire taxable year
+    and the income derived from sources within puerto rico of the tax unit is an amount M
+    and the amounts received for services performed as employee of united states or agency of the tax unit is a value V
+    and a number K = M - V
+    and the maximum of 0 and K is N
+    otherwise the tax unit is a tax_unit
+    and N = 0.
+
+rule change_year_puerto_rico_source_income_excluded with provenance "26 USC 933(2)":
+the change year puerto rico source income excluded of a tax unit is an amount N if
+    the individual of the tax unit is citizen of united states
+    and the tax unit is individual changes residence from puerto rico during taxable year
+    and the bona fide resident of puerto rico years before change of the tax unit is a number M
+    and the puerto rico residence before change minimum years is a number K
+    and M >= K
+    and the puerto rico source income attributable to puerto rican residence period before change of the tax unit is an amount P
+    and the amounts received for services performed as employee of united states or agency attributable to period before change of the tax unit is a value V
+    and a number Q = P - V
+    and the maximum of 0 and Q is N
+    otherwise the tax unit is a tax_unit
+    and N = 0.
+
+rule income_excluded_from_gross_income_under_section_933 with provenance "26 USC 933(1), 933(2)":
+the income excluded from gross income under section 933 of a tax unit is an amount N if
+    the entire year puerto rico source income excluded of the tax unit is an amount M
+    and the change year puerto rico source income excluded of the tax unit is an amount K
+    and N = M + K.
+
+rule section_933_disallowed_deductions_other_than_section_151 with provenance "26 USC 933(1), 933(2)":
+the section 933 disallowed deductions other than section 151 of a tax unit is an amount N if
+    the income excluded from gross income under section 933 of the tax unit is an amount M
+    and M > 0
+    and the deductions other than section 151 before section 933 denial of the tax unit is an amount K
+    and the deductions other than section 151 properly allocable or chargeable to amounts excluded under section 933 of the tax unit is an amount P
+    and the minimum of K and P is N
+    otherwise the tax unit is a tax_unit
+    and N = 0.
+
+rule section_933_disallowed_credits with provenance "26 USC 933(1), 933(2)":
+the section 933 disallowed credits of a tax unit is an amount N if
+    the income excluded from gross income under section 933 of the tax unit is an amount M
+    and M > 0
+    and the credits before section 933 denial of the tax unit is a value V
+    and the credits properly allocable or chargeable to amounts excluded under section 933 of the tax unit is a value K
+    and the minimum of V and K is N
+    otherwise the tax unit is a tax_unit
+    and N = 0.
+
+
+% 26 U.S.C. 151 — us:statutes/26/151
+the text of "26 USC 151(d)(1)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(3)(B)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(A)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(i)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(ii)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(iii)(I)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(1), 151(d)(5)(A)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(b), 151(e)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(a), 151(b), 151(c), 151(d)(5)(A), 151(e)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(ii), 151(d)(5)(C)(iv)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(iii)(II)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(iii)(I)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(v)" is at "sources/us/statutes/26/151.yaml".
+
+the text of "26 USC 151(d)(5)(C)" is at "sources/us/statutes/26/151.yaml".
+
+rule statutory_exemption_amount_base with provenance "26 USC 151(d)(1)":
+the statutory exemption amount base is 2000 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule exemption_phaseout_rate_per_increment with provenance "26 USC 151(d)(3)(B)":
+the exemption phaseout rate per increment is 0.02 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule exemption_phaseout_increment with provenance "26 USC 151(d)(3)(B)":
+the exemption phaseout increment is 2500 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule exemption_phaseout_increment_separate with provenance "26 USC 151(d)(3)(B)":
+the exemption phaseout increment separate is 1250 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule exemption_phaseout_maximum_percentage with provenance "26 USC 151(d)(3)(B)":
+the exemption phaseout maximum percentage is 1 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule post_2017_exemption_amount with provenance "26 USC 151(d)(5)(A)":
+the post 2017 exemption amount is 0 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule senior_deduction_base_amount with provenance "26 USC 151(d)(5)(C)(i)":
+the senior deduction base amount is 6000 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule senior_deduction_age_threshold with provenance "26 USC 151(d)(5)(C)(ii)":
+the senior deduction age threshold is 65 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule senior_deduction_phaseout_rate with provenance "26 USC 151(d)(5)(C)(iii)(I)":
+the senior deduction phaseout rate is 0.06 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule senior_deduction_phaseout_threshold_other with provenance "26 USC 151(d)(5)(C)(iii)(I)":
+the senior deduction phaseout threshold other is 75000 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule senior_deduction_phaseout_threshold_joint with provenance "26 USC 151(d)(5)(C)(iii)(I)":
+the senior deduction phaseout threshold joint is 150000 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule exemption_amount with provenance "26 USC 151(d)(1), 151(d)(5)(A)":
+the exemption amount of a tax unit is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is taxable year begins after exemption amount zero start
+        and the post 2017 exemption amount is the amount
+        otherwise the tax unit is a tax_unit
+        and the statutory exemption amount base is the amount.
+
+rule exemption_individual_eligible_1 with provenance "26 USC 151(b), 151(e)":
+a person is exemption individual eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is tin included on return claiming exemption
+    and the person is taxpayer.
+
+rule exemption_individual_eligible_2 with provenance "26 USC 151(b), 151(e)":
+a person is exemption individual eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is tin included on return claiming exemption
+    and the person is spouse of taxpayer
+    and it is not the case that
+        the filing status of the person is a code C
+        and C = 1
+    and the spouse of the person has no gross income for calendar year
+    and it is not the case that the spouse of the person is dependent of another taxpayer.
+
+rule section_151_exemption_deduction with provenance "26 USC 151(a), 151(b), 151(c), 151(d)(5)(A), 151(e)":
+the section 151 exemption deduction of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the taxpayer of the tax unit is individual
+        and the exemption amount of the tax unit is an amount M
+        and a number K is the count of each P such that
+            a person P is a exemption individual of the tax unit
+        and a number R is the count of each Q such that
+            a person Q is a exemption individual of the tax unit
+            and it is not the case that Q is exemption individual eligible
+        and N = M * (K - R)
+        otherwise the tax unit is a tax_unit
+        and N = 0.
+
+rule senior_deduction_qualified_individual_1 with provenance "26 USC 151(d)(5)(C)(ii), 151(d)(5)(C)(iv)":
+the senior deduction of a person qualified individual if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person qualified individual social security number included on return
+    and the age of the person is a number N
+    and the senior deduction age threshold is a number M
+    and N >= M
+    and the person is taxpayer.
+
+rule senior_deduction_qualified_individual_2 with provenance "26 USC 151(d)(5)(C)(ii), 151(d)(5)(C)(iv)":
+the senior deduction of a person qualified individual if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person qualified individual social security number included on return
+    and the age of the person is a number N
+    and the senior deduction age threshold is a number M
+    and N >= M
+    and the person is spouse of taxpayer
+    and the filing status of the person is a code C
+    and C = 1.
+
+rule senior_deduction_modified_adjusted_gross_income with provenance "26 USC 151(d)(5)(C)(iii)(II)":
+the senior deduction modified adjusted gross income of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the adjusted gross income of the tax unit is an amount M
+    and the section 911 amount excluded from gross income of the tax unit is an amount K
+    and the amount excluded from gross income under section 931 of the tax unit is an amount P
+    and the income excluded from gross income under section 933 of the tax unit is an amount Q
+    and a number R = M + K + P + Q
+    and the maximum of 0 and R is N.
+
+rule senior_deduction_phaseout_threshold with provenance "26 USC 151(d)(5)(C)(iii)(I)":
+the senior deduction phaseout threshold of a tax unit is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the filing status of the tax unit is a code C
+        and C = 1
+        and the senior deduction phaseout threshold joint is the amount
+        otherwise the tax unit is a tax_unit
+        and the senior deduction phaseout threshold other is the amount.
+
+rule senior_deduction_amount_per_qualified_individual with provenance "26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(iii)(I)":
+the senior deduction amount per qualified individual of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the senior deduction base amount is an amount M
+    and the senior deduction phaseout rate is a rate R
+    and the senior deduction modified adjusted gross income of the tax unit is an amount K
+    and the senior deduction phaseout threshold of the tax unit is an amount P
+    and a number Q = K - P
+    and the maximum of 0 and Q is a number S
+    and a number T = M - R * S
+    and the maximum of 0 and T is N.
+
+rule senior_deduction_eligible_1 with provenance "26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(v)":
+a tax unit is senior deduction eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the taxpayer of the tax unit is individual
+    and the tax unit is taxable year begins before senior deduction termination
+    and it is not the case that
+        the filing status of the tax unit is a code C
+        and C = 1
+    and it is not the case that
+        the filing status of the tax unit is a code N
+        and N = 2.
+
+rule senior_deduction_eligible_2 with provenance "26 USC 151(d)(5)(C)(i), 151(d)(5)(C)(v)":
+a tax unit is senior deduction eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the taxpayer of the tax unit is individual
+    and the tax unit is taxable year begins before senior deduction termination
+    and the filing status of the tax unit is a code C
+    and C = 1.
+
+rule senior_deduction with provenance "26 USC 151(d)(5)(C)":
+the senior deduction of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is senior deduction eligible
+        and the senior deduction amount per qualified individual of the tax unit is an amount M
+        and a number K is the count of each P such that
+            a person P is a senior deduction individual of the tax unit
+        and a number R is the count of each Q such that
+            a person Q is a senior deduction individual of the tax unit
+            and it is not the case that the senior deduction of Q qualified individual
+        and N = M * (K - R)
+        otherwise the tax unit is a tax_unit
+        and N = 0.
+
+
+% 26 U.S.C. 7703 — us:statutes/26/7703
+the text of "26 USC 7703(b)(1)" is at "sources/us/statutes/26/7703.yaml".
+
+the text of "26 USC 7703(b)(2)" is at "sources/us/statutes/26/7703.yaml".
+
+the text of "26 USC 7703(b)(3)" is at "sources/us/statutes/26/7703.yaml".
+
+the text of "26 USC 7703(a)" is at "sources/us/statutes/26/7703.yaml".
+
+the text of "26 USC 7703(b)" is at "sources/us/statutes/26/7703.yaml".
+
+the text of "26 USC 7703(a), (b)" is at "sources/us/statutes/26/7703.yaml".
+
+the child principal abode fraction threshold is a rate R if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and R = 1 / 2.
+
+the household cost fraction threshold is a rate R if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and R = 1 / 2.
+
+rule spouse_absence_period_months with provenance "26 USC 7703(b)(3)":
+the spouse absence period months is 6 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule taxpayer_married_under_general_rule_1 with provenance "26 USC 7703(a)":
+a tax unit is taxpayer married under general rule if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is spouse dies during taxable year
+    and the tax unit is taxpayer married at time of spouse death
+    and it is not the case that the tax unit is legally separated under decree of divorce or separate maintenance.
+
+rule taxpayer_married_under_general_rule_2 with provenance "26 USC 7703(a)":
+a tax unit is taxpayer married under general rule if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and it is not the case that the tax unit is spouse dies during taxable year
+    and the tax unit is taxpayer married at close of taxable year
+    and it is not the case that the tax unit is legally separated under decree of divorce or separate maintenance.
+
+rule living_apart_child_has_required_abode_and_deduction_1 with provenance "26 USC 7703(b)(1)":
+the living apart child of a person has required abode and deduction if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is child within federal tax child definition
+    and the taxpayer household of the person is child principal place of abode
+    and the child principal abode fraction of taxable year of the person is a number N
+    and the child principal abode fraction threshold is a rate R
+    and N > R
+    and the person is exemption individual eligible.
+
+rule living_apart_child_has_required_abode_and_deduction_2 with provenance "26 USC 7703(b)(1)":
+the living apart child of a person has required abode and deduction if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is child within federal tax child definition
+    and the taxpayer household of the person is child principal place of abode
+    and the child principal abode fraction of taxable year of the person is a number N
+    and the child principal abode fraction threshold is a rate R
+    and N > R
+    and the person would be entitled to child deduction but for parent release rule.
+
+rule taxpayer_not_considered_married_when_living_apart with provenance "26 USC 7703(b)":
+a tax unit is taxpayer not considered married when living apart if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is taxpayer married under general rule
+    and the taxpayer of the tax unit files separate return
+    and the tax unit is taxpayer maintains household as home
+    and a number N is the count of each P such that
+        a person P is a living apart child of the tax unit
+    and a number K is the count of each M such that
+        a person M is a living apart child of the tax unit
+        and it is not the case that the living apart child of M has required abode and deduction
+    and N - K > 0
+    and the taxpayer household cost fraction furnished of the tax unit is a rate R
+    and the household cost fraction threshold is a rate Q
+    and R > Q
+    and the spouse not member of household final month count of the tax unit is a number S
+    and the spouse absence period months is a number T
+    and S >= T.
+
+rule taxpayer_considered_married_after_living_apart_rule with provenance "26 USC 7703(a), (b)":
+a tax unit is taxpayer considered married after living apart rule if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is taxpayer married under general rule
+    and it is not the case that the tax unit is taxpayer not considered married when living apart.
+
+
+% us:policies/irs/rev-proc-2025-32/earned-income-credit
+the text of "Rev. Proc. 2025-32 section 3.06(1)" is at "sources/us/policies/irs/rev-proc-2025-32/earned-income-credit.yaml".
+
+the text of "Rev. Proc. 2025-32 section 3.06(2)" is at "sources/us/policies/irs/rev-proc-2025-32/earned-income-credit.yaml".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc earned income amounts for a child count is an amount if
+    the calculation date is a date D
+    and the eitc earned income amounts for the child count from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the eitc earned income amounts for 0 from 2026-01-01 to 9999-12-31 is 8680, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc earned income amounts for 1 from 2026-01-01 to 9999-12-31 is 13020, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc earned income amounts for 2 from 2026-01-01 to 9999-12-31 is 18290, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc earned income amounts for 3 from 2026-01-01 to 9999-12-31 is 18290, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc maximum credit amounts for a child count is an amount if
+    the calculation date is a date D
+    and the eitc maximum credit amounts for the child count from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the eitc maximum credit amounts for 0 from 2026-01-01 to 9999-12-31 is 664, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc maximum credit amounts for 1 from 2026-01-01 to 9999-12-31 is 4427, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc maximum credit amounts for 2 from 2026-01-01 to 9999-12-31 is 7316, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc maximum credit amounts for 3 from 2026-01-01 to 9999-12-31 is 8231, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc threshold phaseout amounts joint for a child count is an amount if
+    the calculation date is a date D
+    and the eitc threshold phaseout amounts joint for the child count from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the eitc threshold phaseout amounts joint for 0 from 2026-01-01 to 9999-12-31 is 18140, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc threshold phaseout amounts joint for 1 from 2026-01-01 to 9999-12-31 is 31160, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc threshold phaseout amounts joint for 2 from 2026-01-01 to 9999-12-31 is 31160, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc threshold phaseout amounts joint for 3 from 2026-01-01 to 9999-12-31 is 31160, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc completed phaseout amounts joint for a child count is an amount if
+    the calculation date is a date D
+    and the eitc completed phaseout amounts joint for the child count from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the eitc completed phaseout amounts joint for 0 from 2026-01-01 to 9999-12-31 is 26820, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc completed phaseout amounts joint for 1 from 2026-01-01 to 9999-12-31 is 58863, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc completed phaseout amounts joint for 2 from 2026-01-01 to 9999-12-31 is 65899, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc completed phaseout amounts joint for 3 from 2026-01-01 to 9999-12-31 is 70244, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc threshold phaseout amounts other for a child count is an amount if
+    the calculation date is a date D
+    and the eitc threshold phaseout amounts other for the child count from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the eitc threshold phaseout amounts other for 0 from 2026-01-01 to 9999-12-31 is 10860, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc threshold phaseout amounts other for 1 from 2026-01-01 to 9999-12-31 is 23890, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc threshold phaseout amounts other for 2 from 2026-01-01 to 9999-12-31 is 23890, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc threshold phaseout amounts other for 3 from 2026-01-01 to 9999-12-31 is 23890, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc completed phaseout amounts other for a child count is an amount if
+    the calculation date is a date D
+    and the eitc completed phaseout amounts other for the child count from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the eitc completed phaseout amounts other for 0 from 2026-01-01 to 9999-12-31 is 19540, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc completed phaseout amounts other for 1 from 2026-01-01 to 9999-12-31 is 51593, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc completed phaseout amounts other for 2 from 2026-01-01 to 9999-12-31 is 58629, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+the eitc completed phaseout amounts other for 3 from 2026-01-01 to 9999-12-31 is 62974, as stated in "Rev. Proc. 2025-32 section 3.06(1)".
+
+rule eitc_maximum_investment_income with provenance "Rev. Proc. 2025-32 section 3.06(2)":
+the eitc maximum investment income is 12200 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+
+% 26 U.S.C. 32 — us:statutes/26/32
+the text of "26 USC 32(b)(1)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(c)(1)(A)(ii)(II)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(c)(3), 26 USC 152(c)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(c)(3)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(b)(1), 32(c)(3)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(b)(2), 32(j)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(a)(2)(A), 32(b)(1), 32(b)(2)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(a)(2)(B)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(a)(1)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(a)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(c)(1)(A)-(D), 32(d), 32(e), 32(k)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(c)(1)(E), 26 USC 32(m)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(i), 32(j)" is at "sources/us/statutes/26/32.yaml".
+
+the text of "26 USC 32(a), 32(c)(1)(E), 32(i), 32(k)" is at "sources/us/statutes/26/32.yaml".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc phase in rates for a child count is a rate if
+    the calculation date is a date D
+    and the eitc phase in rates for the child count from a date N to a date M is the rate
+    and N <= D
+    and D <= M.
+
+the eitc phase in rates for 0 from 2026-01-01 to 9999-12-31 is 0.0765, as stated in "26 USC 32(b)(1)".
+
+the eitc phase in rates for 1 from 2026-01-01 to 9999-12-31 is 0.34, as stated in "26 USC 32(b)(1)".
+
+the eitc phase in rates for 2 from 2026-01-01 to 9999-12-31 is 0.4, as stated in "26 USC 32(b)(1)".
+
+the eitc phase in rates for 3 from 2026-01-01 to 9999-12-31 is 0.45, as stated in "26 USC 32(b)(1)".
+
+% The row in force on the calculation date, of the table's dated versions below.
+the eitc phase out rates for a child count is a rate if
+    the calculation date is a date D
+    and the eitc phase out rates for the child count from a date N to a date M is the rate
+    and N <= D
+    and D <= M.
+
+the eitc phase out rates for 0 from 2026-01-01 to 9999-12-31 is 0.0765, as stated in "26 USC 32(b)(1)".
+
+the eitc phase out rates for 1 from 2026-01-01 to 9999-12-31 is 0.1598, as stated in "26 USC 32(b)(1)".
+
+the eitc phase out rates for 2 from 2026-01-01 to 9999-12-31 is 0.2106, as stated in "26 USC 32(b)(1)".
+
+the eitc phase out rates for 3 from 2026-01-01 to 9999-12-31 is 0.2106, as stated in "26 USC 32(b)(1)".
+
+rule eitc_childless_minimum_age with provenance "26 USC 32(c)(1)(A)(ii)(II)":
+the eitc childless minimum age is 25 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule eitc_childless_age_ceiling_exclusive with provenance "26 USC 32(c)(1)(A)(ii)(II)":
+the eitc childless age ceiling exclusive is 65 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule eitc_qualifying_child_base with provenance "26 USC 32(c)(3), 26 USC 152(c)":
+a person is eitc qualifying child base if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is qualifying child relationship
+    and the individual principal place of abode with taxpayer fraction of the person is a rate R
+    and the abode fraction threshold is a number N
+    and R > N
+    and the person is age requirements met
+    and it is not the case that the person is individual filed joint return with spouse other than only for claim of refund
+    and the person is tiebreaker treats individual as qualifying child of taxpayer.
+
+rule eitc_qualifying_child_1 with provenance "26 USC 32(c)(3)":
+a person is eitc qualifying child if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is eitc qualifying child base
+    and the qualifying child principal place of abode of the person is in united states
+    and the person is qualifying child name age and tin included on return
+    and it is not the case that the qualifying child marital status of the person requires section 151 entitlement.
+
+rule eitc_qualifying_child_2 with provenance "26 USC 32(c)(3)":
+a person is eitc qualifying child if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the person is eitc qualifying child base
+    and the qualifying child principal place of abode of the person is in united states
+    and the person is qualifying child name age and tin included on return
+    and the taxpayer entitled to section 151 deduction for child or of the person would be but for section 152 e.
+
+rule eitc_child_count with provenance "26 USC 32(b)(1), 32(c)(3)":
+the eitc child count of a tax unit is a number N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is a tax_unit
+    and a number M is the count of each P such that
+        a person P is a qualifying child of the tax unit
+    and a number Q is the count of each K such that
+        a person K is a qualifying child of the tax unit
+        and it is not the case that K is eitc qualifying child
+    and N = M - Q.
+
+rule eitc_capped_child_count with provenance "26 USC 32(b)(1)":
+the eitc capped child count of a tax unit is a number N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc child count of the tax unit is a number M
+    and the minimum of M and 3 is N.
+
+rule eitc_phase_in_rate with provenance "26 USC 32(b)(1)":
+the eitc phase in rate of a tax unit is a rate if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc capped child count of the tax unit is a number N
+        and N = 0
+        and the eitc phase in rates for 0 is the rate
+        otherwise the eitc capped child count of the tax unit is a number M
+        and M = 1
+        and the eitc phase in rates for 1 is the rate
+        otherwise the eitc capped child count of the tax unit is a number K
+        and K = 2
+        and the eitc phase in rates for 2 is the rate
+        otherwise the eitc capped child count of the tax unit is a number P
+        and P = 3
+        and the eitc phase in rates for 3 is the rate.
+
+rule eitc_phase_out_rate with provenance "26 USC 32(b)(1)":
+the eitc phase out rate of a tax unit is a rate if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc capped child count of the tax unit is a number N
+        and N = 0
+        and the eitc phase out rates for 0 is the rate
+        otherwise the eitc capped child count of the tax unit is a number M
+        and M = 1
+        and the eitc phase out rates for 1 is the rate
+        otherwise the eitc capped child count of the tax unit is a number K
+        and K = 2
+        and the eitc phase out rates for 2 is the rate
+        otherwise the eitc capped child count of the tax unit is a number P
+        and P = 3
+        and the eitc phase out rates for 3 is the rate.
+
+rule eitc_earned_income_amount with provenance "26 USC 32(b)(2), 32(j)":
+the eitc earned income amount of a tax unit is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc capped child count of the tax unit is a number N
+        and N = 0
+        and the eitc earned income amounts for 0 is the amount
+        otherwise the eitc capped child count of the tax unit is a number M
+        and M = 1
+        and the eitc earned income amounts for 1 is the amount
+        otherwise the eitc capped child count of the tax unit is a number K
+        and K = 2
+        and the eitc earned income amounts for 2 is the amount
+        otherwise the eitc capped child count of the tax unit is a number P
+        and P = 3
+        and the eitc earned income amounts for 3 is the amount.
+
+rule eitc_maximum with provenance "26 USC 32(a)(2)(A), 32(b)(1), 32(b)(2)":
+the eitc maximum of a tax unit is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc capped child count of the tax unit is a number N
+        and N = 0
+        and the eitc maximum credit amounts for 0 is the amount
+        otherwise the eitc capped child count of the tax unit is a number M
+        and M = 1
+        and the eitc maximum credit amounts for 1 is the amount
+        otherwise the eitc capped child count of the tax unit is a number K
+        and K = 2
+        and the eitc maximum credit amounts for 2 is the amount
+        otherwise the eitc capped child count of the tax unit is a number P
+        and P = 3
+        and the eitc maximum credit amounts for 3 is the amount.
+
+rule eitc_phase_out_start with provenance "26 USC 32(b)(2), 32(j)":
+the eitc phase out start of a tax unit is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the filing status of the tax unit is a code C
+        and C = 1
+        and the eitc capped child count of the tax unit is a number N
+        and N = 0
+        and the eitc threshold phaseout amounts joint for 0 is the amount
+        otherwise the filing status of the tax unit is C
+        and C = 1
+        and the eitc capped child count of the tax unit is a number M
+        and M = 1
+        and the eitc threshold phaseout amounts joint for 1 is the amount
+        otherwise the filing status of the tax unit is C
+        and C = 1
+        and the eitc capped child count of the tax unit is a number K
+        and K = 2
+        and the eitc threshold phaseout amounts joint for 2 is the amount
+        otherwise the filing status of the tax unit is C
+        and C = 1
+        and the eitc capped child count of the tax unit is a number P
+        and P = 3
+        and the eitc threshold phaseout amounts joint for 3 is the amount
+        otherwise the eitc capped child count of the tax unit is a number Q
+        and Q = 0
+        and the eitc threshold phaseout amounts other for 0 is the amount
+        otherwise the eitc capped child count of the tax unit is a number R
+        and R = 1
+        and the eitc threshold phaseout amounts other for 1 is the amount
+        otherwise the eitc capped child count of the tax unit is a number S
+        and S = 2
+        and the eitc threshold phaseout amounts other for 2 is the amount
+        otherwise the eitc capped child count of the tax unit is a number T
+        and T = 3
+        and the eitc threshold phaseout amounts other for 3 is the amount.
+
+rule eitc_phase_out_income with provenance "26 USC 32(a)(2)(B)":
+the eitc phase out income of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the adjusted gross income of the tax unit is an amount M
+    and the earned income of the tax unit is an amount K
+    and the maximum of M and K is N.
+
+rule eitc_phased_in with provenance "26 USC 32(a)(1)":
+the eitc phased in of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the earned income of the tax unit is an amount M
+        and the eitc earned income amount of the tax unit is an amount K
+        and M >= K
+        and the eitc maximum of the tax unit is N
+        otherwise the eitc phase in rate of the tax unit is a rate R
+        and the earned income of the tax unit is an amount P
+        and the eitc earned income amount of the tax unit is an amount Q
+        and the maximum of 0 and P is a number S
+        and the minimum of S and Q is a number T
+        and N = R * T.
+
+rule eitc_reduction with provenance "26 USC 32(a)(2)(B)":
+the eitc reduction of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc phase out rate of the tax unit is a rate R
+    and the eitc phase out income of the tax unit is an amount M
+    and the eitc phase out start of the tax unit is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is a number Q
+    and N = R * Q.
+
+rule eitc_before_eligibility with provenance "26 USC 32(a)":
+the eitc before eligibility of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc phased in of the tax unit is an amount M
+    and the eitc maximum of the tax unit is an amount K
+    and the eitc reduction of the tax unit is an amount P
+    and a number Q = K - P
+    and the minimum of M and Q is a number R
+    and the maximum of 0 and R is N.
+
+rule eitc_childless_age_eligible with provenance "26 USC 32(c)(1)(A)(ii)(II)":
+a person is eitc childless age eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the age of the person is a number N
+    and the eitc childless minimum age is a number M
+    and N >= M
+    and the age of the person is a number K
+    and the eitc childless age ceiling exclusive is a number P
+    and K < P.
+
+rule eitc_demographic_eligible with provenance "26 USC 32(c)(1)(A)-(D), 32(d), 32(e), 32(k)":
+a tax unit is eitc demographic eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc child count of the tax unit is a number N
+        and N > 0
+        or the tax unit is childless taxpayer principal place of abode in united states more than half year
+            and the tax unit is childless taxpayer or spouse age eligible for eitc
+            and it is not the case that the taxpayer of the tax unit is dependent for section 151 to another taxpayer
+    and it is not the case that the taxpayer of the tax unit is qualifying child of another taxpayer
+    and it is not the case that the taxpayer of the tax unit claims section 911 benefits
+    and the tax unit is taxpayer treated as resident by section 6013 g or h election
+        or it is not the case that the taxpayer of the tax unit is nonresident alien for any portion of year
+    and the filing status of the tax unit is a code C
+        and C = 1
+        or it is not the case that the tax unit is taxpayer married under general rule
+        or the tax unit satisfies eitc separated spouse rules
+    and the taxable year of the tax unit is full 12 months
+        or the tax unit is taxable year closed by reason of taxpayer death
+    and it is not the case that the eitc disallowance period of the tax unit applies
+    and it is not the case that the tax unit is prior deficiency denial without required eligibility information.
+
+rule eitc_identification_requirements_satisfied_1 with provenance "26 USC 32(c)(1)(E), 26 USC 32(m)":
+a tax unit is eitc identification requirements satisfied if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the taxpayer of the tax unit includes required social security number on return
+    and it is not the case that the tax unit is taxpayer married under general rule.
+
+rule eitc_identification_requirements_satisfied_2 with provenance "26 USC 32(c)(1)(E), 26 USC 32(m)":
+a tax unit is eitc identification requirements satisfied if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the taxpayer of the tax unit includes required social security number on return
+    and the spouse of the tax unit includes required social security number on return.
+
+rule eitc_investment_income_eligible with provenance "26 USC 32(i), 32(j)":
+a tax unit is eitc investment income eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the eitc relevant investment income of the tax unit is an amount N
+    and the eitc maximum investment income is an amount M
+    and N <= M.
+
+rule eitc_allowed with provenance "26 USC 32(a), 32(c)(1)(E), 32(i), 32(k)":
+a tax unit is eitc allowed if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is eitc demographic eligible
+    and the tax unit is eitc identification requirements satisfied
+    and the tax unit is eitc investment income eligible.
+
+rule eitc with provenance "26 USC 32(a), 32(c)(1)(E), 32(i), 32(k)":
+the eitc of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is eitc allowed
+        and the eitc before eligibility of the tax unit is N
+        otherwise the tax unit is a tax_unit
+        and N = 0.
+
+
+% 26 U.S.C. 24(d) — us:statutes/26/24/d
+the text of "26 USC 24(d)(1)(B)(i)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(1)(B)(ii)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(2)(A)(ii)-(iii)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(2)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(1)(B)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(1)(A)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(3)" is at "sources/us/statutes/26/24/d.yaml".
+
+the text of "26 USC 24(d)(1)" is at "sources/us/statutes/26/24/d.yaml".
+
+rule ctc_refundable_phase_in_rate with provenance "26 USC 24(d)(1)(B)(i)":
+the ctc refundable phase in rate is 0.15 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule ctc_refundable_phase_in_threshold with provenance "26 USC 24(d)(1)(B)(i)":
+the ctc refundable phase in threshold is 3000 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule ctc_refundable_min_children_for_ss_excess with provenance "26 USC 24(d)(1)(B)(ii)":
+the ctc refundable min children for ss excess is 3 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule ctc_social_security_half_share with provenance "26 USC 24(d)(2)(A)(ii)-(iii)":
+the ctc social security half share is 0.5 if
+    the calculation date is a date D
+    and 2026-01-01 <= D.
+
+rule ctc_phase_in_earned_income_base with provenance "26 USC 24(d)(1)(B)(i)":
+the ctc phase in earned income base of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the earned income before section 112 election of the tax unit is an amount M
+    and the amount excluded from gross income by reason of section 112 of the tax unit is an amount K
+    and N = M + K.
+
+rule ctc_phase_in_relevant_earnings with provenance "26 USC 24(d)(1)(B)(i)":
+the ctc phase in relevant earnings of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the ctc refundable phase in rate is a rate R
+    and the ctc phase in earned income base of the tax unit is an amount M
+    and the ctc refundable phase in threshold is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is a number Q
+    and N = R * Q.
+
+rule ctc_social_security_tax with provenance "26 USC 24(d)(2)":
+the ctc social security tax of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the employee 3101 3201 a taxes of the tax unit is a value V
+    and the american employer foreign affiliate equivalent 3121 l taxes of the tax unit is a value M
+    and the ctc social security half share is a rate R
+    and the self employment 1401 taxes of the tax unit is a value K
+    and the railroad 3211 a taxes of the tax unit is a value P
+    and the special refund social security taxes under 6413 c of the tax unit is a value Q
+    and a number S = V + M + R * K + R * P - Q
+    and the maximum of 0 and S is N.
+
+rule ctc_social_security_excess with provenance "26 USC 24(d)(1)(B)(ii)":
+the ctc social security excess of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the qualifying children count of the tax unit is a number M
+        and the ctc refundable min children for ss excess is a number K
+        and M >= K
+        and the ctc social security tax of the tax unit is an amount P
+        and the eitc of the tax unit is an amount Q
+        and a number R = P - Q
+        and the maximum of 0 and R is N
+        otherwise the tax unit is a tax_unit
+        and N = 0.
+
+rule ctc_refundable_limitation_increase_amount with provenance "26 USC 24(d)(1)(B)":
+the ctc refundable limitation increase amount of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the ctc phase in relevant earnings of the tax unit is an amount M
+    and the ctc social security excess of the tax unit is an amount K
+    and the maximum of M and K is N.
+
+rule ctc_refundable_tax_increase with provenance "26 USC 24(d)(1)(B)":
+the ctc refundable tax increase of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the aggregate subpart c credits with increased 26 a limit of the tax unit is a value V
+    and the aggregate subpart c credits without subsection of the tax unit is a value M
+    and a number K = V - M
+    and the maximum of 0 and K is N.
+
+rule ctc_refundable_cap with provenance "26 USC 24(d)(1)(A)":
+the ctc refundable cap of a tax unit is an amount if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the ctc credit without subsection and 26 a limit of the tax unit is the amount.
+
+rule ctc_refundable_foreign_income_eligible with provenance "26 USC 24(d)(3)":
+a tax unit is ctc refundable foreign income eligible if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is a tax_unit
+    and it is not the case that the tax unit elects foreign earned income exclusion under 911.
+
+rule refundable_ctc with provenance "26 USC 24(d)(1)":
+the refundable ctc of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the tax unit is ctc refundable foreign income eligible
+        and the ctc refundable cap of the tax unit is an amount M
+        and the ctc refundable limitation increase amount of the tax unit is an amount K
+        and the ctc refundable tax increase of the tax unit is an amount P
+        and the minimum of K and P is a number Q
+        and the minimum of M and Q is N
+        otherwise the tax unit is a tax_unit
+        and N = 0.
+
+rule non_refundable_ctc with provenance "26 USC 24(d)(1)":
+the non refundable ctc of a tax unit is an amount N if
+    the calculation date is a date D
+    and 2026-01-01 <= D
+    and the ctc credit without subsection and 26 a limit of the tax unit is an amount M
+    and the refundable ctc of the tax unit is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+scenario two_children_earned_income_phase_in_refundable_amount is, as stated in "sources/us/statutes/26/24/d.test.yaml" at case 1:
+    tax_unit_1 is a tax_unit.
+    the calculation date is 2026-01-01.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 0.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    the filing status of person_1 is 0.
+    the filing status of tax_unit_1 is 0.
+    the taxpayer of tax_unit_1 is individual.
+    the aggregate subpart c credits with increased 26 a limit of tax_unit_1 is 2550.
+    the aggregate subpart c credits without subsection of tax_unit_1 is 0.
+    the american employer foreign affiliate equivalent 3121 l taxes of tax_unit_1 is 0.
+    the ctc credit without subsection and 26 a limit of tax_unit_1 is 4000.
+    the employee 3101 3201 a taxes of tax_unit_1 is 0.
+    the qualifying children count of tax_unit_1 is 2.
+    the railroad 3211 a taxes of tax_unit_1 is 0.
+    the self employment 1401 taxes of tax_unit_1 is 0.
+    the special refund social security taxes under 6413 c of tax_unit_1 is 0.
+    the adjusted gross income of tax_unit_1 is 0.
+    the eitc relevant investment income of tax_unit_1 is 0.
+    the taxable year of tax_unit_1 is full 12 months.
+    the employee compensation includible in gross income of tax_unit_1 is 20000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 0.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    q_ctc_phase_in_earned_income_base expects answers ["the ctc phase in earned income base of tax_unit_1 is 20000"].
+    q_ctc_phase_in_relevant_earnings expects answers ["the ctc phase in relevant earnings of tax_unit_1 is 2550"].
+    q_ctc_refundable_cap expects answers ["the ctc refundable cap of tax_unit_1 is 4000"].
+    q_ctc_refundable_foreign_income_eligible expects answers ["tax_unit_1 is ctc refundable foreign income eligible"].
+    q_ctc_refundable_limitation_increase_amount expects answers ["the ctc refundable limitation increase amount of tax_unit_1 is 2550"].
+    q_ctc_refundable_min_children_for_ss_excess expects answers ["the ctc refundable min children for ss excess is 3"].
+    q_ctc_refundable_phase_in_rate expects answers ["the ctc refundable phase in rate is 0.15"].
+    q_ctc_refundable_phase_in_threshold expects answers ["the ctc refundable phase in threshold is 3000"].
+    q_ctc_refundable_tax_increase expects answers ["the ctc refundable tax increase of tax_unit_1 is 2550"].
+    q_ctc_social_security_excess expects answers ["the ctc social security excess of tax_unit_1 is 0"].
+    q_ctc_social_security_half_share expects answers ["the ctc social security half share is 0.5"].
+    q_ctc_social_security_tax expects answers ["the ctc social security tax of tax_unit_1 is 0"].
+    q_non_refundable_ctc expects answers ["the non refundable ctc of tax_unit_1 is 1450"].
+    q_refundable_ctc expects answers ["the refundable ctc of tax_unit_1 is 2550"].
+
+scenario three_children_social_security_excess_is_greater_than_earned_income_phase_in is, as stated in "sources/us/statutes/26/24/d.test.yaml" at case 2:
+    tax_unit_1 is a tax_unit.
+    the calculation date is 2026-01-01.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 0.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    the filing status of person_1 is 0.
+    the filing status of tax_unit_1 is 0.
+    the taxpayer of tax_unit_1 is individual.
+    the aggregate subpart c credits with increased 26 a limit of tax_unit_1 is 3000.
+    the aggregate subpart c credits without subsection of tax_unit_1 is 0.
+    the american employer foreign affiliate equivalent 3121 l taxes of tax_unit_1 is 400.
+    the ctc credit without subsection and 26 a limit of tax_unit_1 is 5000.
+    the employee 3101 3201 a taxes of tax_unit_1 is 2000.
+    the qualifying children count of tax_unit_1 is 3.
+    the railroad 3211 a taxes of tax_unit_1 is 400.
+    the self employment 1401 taxes of tax_unit_1 is 1000.
+    the special refund social security taxes under 6413 c of tax_unit_1 is 100.
+    the adjusted gross income of tax_unit_1 is 0.
+    the eitc relevant investment income of tax_unit_1 is 0.
+    the taxable year of tax_unit_1 is full 12 months.
+    the employee compensation includible in gross income of tax_unit_1 is 1000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 0.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    q_ctc_phase_in_earned_income_base expects answers ["the ctc phase in earned income base of tax_unit_1 is 1000"].
+    q_ctc_phase_in_relevant_earnings expects answers ["the ctc phase in relevant earnings of tax_unit_1 is 0"].
+    q_ctc_refundable_cap expects answers ["the ctc refundable cap of tax_unit_1 is 5000"].
+    q_ctc_refundable_foreign_income_eligible expects answers ["tax_unit_1 is ctc refundable foreign income eligible"].
+    q_ctc_refundable_limitation_increase_amount expects answers ["the ctc refundable limitation increase amount of tax_unit_1 is 3000"].
+    q_ctc_refundable_tax_increase expects answers ["the ctc refundable tax increase of tax_unit_1 is 3000"].
+    q_ctc_social_security_excess expects answers ["the ctc social security excess of tax_unit_1 is 3000"].
+    q_ctc_social_security_tax expects answers ["the ctc social security tax of tax_unit_1 is 3000"].
+    q_non_refundable_ctc expects answers ["the non refundable ctc of tax_unit_1 is 2000"].
+    q_refundable_ctc expects answers ["the refundable ctc of tax_unit_1 is 3000"].
+
+scenario section_112_excluded_amount_counts_as_earned_income is, as stated in "sources/us/statutes/26/24/d.test.yaml" at case 3:
+    tax_unit_1 is a tax_unit.
+    the calculation date is 2026-01-01.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 3000.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    tax_unit_1 is member below grade of commissioned officer in armed forces.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    tax_unit_1 is served in combat zone during month.
+    the filing status of person_1 is 0.
+    the filing status of tax_unit_1 is 0.
+    the taxpayer of tax_unit_1 is individual.
+    the aggregate subpart c credits with increased 26 a limit of tax_unit_1 is 300.
+    the aggregate subpart c credits without subsection of tax_unit_1 is 0.
+    the american employer foreign affiliate equivalent 3121 l taxes of tax_unit_1 is 0.
+    the ctc credit without subsection and 26 a limit of tax_unit_1 is 2000.
+    the employee 3101 3201 a taxes of tax_unit_1 is 0.
+    the qualifying children count of tax_unit_1 is 1.
+    the railroad 3211 a taxes of tax_unit_1 is 0.
+    the self employment 1401 taxes of tax_unit_1 is 0.
+    the special refund social security taxes under 6413 c of tax_unit_1 is 0.
+    the adjusted gross income of tax_unit_1 is 0.
+    the eitc relevant investment income of tax_unit_1 is 0.
+    the taxable year of tax_unit_1 is full 12 months.
+    the employee compensation includible in gross income of tax_unit_1 is 2000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 0.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    q_ctc_phase_in_earned_income_base expects answers ["the ctc phase in earned income base of tax_unit_1 is 5000"].
+    q_ctc_phase_in_relevant_earnings expects answers ["the ctc phase in relevant earnings of tax_unit_1 is 300"].
+    q_ctc_refundable_foreign_income_eligible expects answers ["tax_unit_1 is ctc refundable foreign income eligible"].
+    q_non_refundable_ctc expects answers ["the non refundable ctc of tax_unit_1 is 1700"].
+    q_refundable_ctc expects answers ["the refundable ctc of tax_unit_1 is 300"].
+
+scenario section_911_foreign_earned_income_exclusion_exception_denies_refundable_credit is, as stated in "sources/us/statutes/26/24/d.test.yaml" at case 4:
+    tax_unit_1 is a tax_unit.
+    the calculation date is 2026-01-01.
+    the active service compensation as commissioned officer excluding pensions and retirement pay of tax_unit_1 is 0.
+    the active service compensation as enlisted member excluding pensions and retirement pay of tax_unit_1 is 0.
+    the armed forces missing status active service compensation of tax_unit_1 is 0.
+    the civilian employee missing status active service compensation of tax_unit_1 is 0.
+    the maximum enlisted amount for commissioned officer months of tax_unit_1 is 0.
+    the months beginning after combatant activities termination of tax_unit_1 is 0.
+    the filing status of person_1 is 0.
+    the filing status of tax_unit_1 is 0.
+    the taxpayer of tax_unit_1 is individual.
+    the aggregate subpart c credits with increased 26 a limit of tax_unit_1 is 2550.
+    the aggregate subpart c credits without subsection of tax_unit_1 is 0.
+    the american employer foreign affiliate equivalent 3121 l taxes of tax_unit_1 is 0.
+    the ctc credit without subsection and 26 a limit of tax_unit_1 is 4000.
+    tax_unit_1 elects foreign earned income exclusion under 911.
+    the employee 3101 3201 a taxes of tax_unit_1 is 0.
+    the qualifying children count of tax_unit_1 is 2.
+    the railroad 3211 a taxes of tax_unit_1 is 0.
+    the self employment 1401 taxes of tax_unit_1 is 0.
+    the special refund social security taxes under 6413 c of tax_unit_1 is 0.
+    the adjusted gross income of tax_unit_1 is 0.
+    the eitc relevant investment income of tax_unit_1 is 0.
+    the taxable year of tax_unit_1 is full 12 months.
+    the employee compensation includible in gross income of tax_unit_1 is 20000.
+    the net earnings from self employment after self employment tax deduction of tax_unit_1 is 0.
+    the nonresident alien income not connected with united states business of tax_unit_1 is 0.
+    the penal institution service compensation of tax_unit_1 is 0.
+    the pension or annuity amount of tax_unit_1 is 0.
+    the subsidized state work activity service compensation of tax_unit_1 is 0.
+    q_ctc_refundable_foreign_income_eligible expects answers [].
+    q_non_refundable_ctc expects answers ["the non refundable ctc of tax_unit_1 is 4000"].
+    q_refundable_ctc expects answers ["the refundable ctc of tax_unit_1 is 0"].
+
+query q_ctc_phase_in_earned_income_base is:
+    the ctc phase in earned income base of which tax unit is which amount.
+
+query q_ctc_phase_in_earned_income_base is:
+    the ctc phase in earned income base of which tax unit is which amount.
+
+query q_ctc_phase_in_earned_income_base is:
+    the ctc phase in earned income base of which tax unit is which amount.
+
+query q_ctc_phase_in_relevant_earnings is:
+    the ctc phase in relevant earnings of which tax unit is which amount.
+
+query q_ctc_phase_in_relevant_earnings is:
+    the ctc phase in relevant earnings of which tax unit is which amount.
+
+query q_ctc_phase_in_relevant_earnings is:
+    the ctc phase in relevant earnings of which tax unit is which amount.
+
+query q_ctc_refundable_cap is:
+    the ctc refundable cap of which tax unit is which amount.
+
+query q_ctc_refundable_cap is:
+    the ctc refundable cap of which tax unit is which amount.
+
+query q_ctc_refundable_foreign_income_eligible is:
+    which tax unit is ctc refundable foreign income eligible.
+
+query q_ctc_refundable_foreign_income_eligible is:
+    which tax unit is ctc refundable foreign income eligible.
+
+query q_ctc_refundable_foreign_income_eligible is:
+    which tax unit is ctc refundable foreign income eligible.
+
+query q_ctc_refundable_foreign_income_eligible is:
+    which tax unit is ctc refundable foreign income eligible.
+
+query q_ctc_refundable_limitation_increase_amount is:
+    the ctc refundable limitation increase amount of which tax unit is which amount.
+
+query q_ctc_refundable_limitation_increase_amount is:
+    the ctc refundable limitation increase amount of which tax unit is which amount.
+
+query q_ctc_refundable_min_children_for_ss_excess is:
+    the ctc refundable min children for ss excess is which number.
+
+query q_ctc_refundable_phase_in_rate is:
+    the ctc refundable phase in rate is which rate.
+
+query q_ctc_refundable_phase_in_threshold is:
+    the ctc refundable phase in threshold is which amount.
+
+query q_ctc_refundable_tax_increase is:
+    the ctc refundable tax increase of which tax unit is which amount.
+
+query q_ctc_refundable_tax_increase is:
+    the ctc refundable tax increase of which tax unit is which amount.
+
+query q_ctc_social_security_excess is:
+    the ctc social security excess of which tax unit is which amount.
+
+query q_ctc_social_security_excess is:
+    the ctc social security excess of which tax unit is which amount.
+
+query q_ctc_social_security_half_share is:
+    the ctc social security half share is which rate.
+
+query q_ctc_social_security_tax is:
+    the ctc social security tax of which tax unit is which amount.
+
+query q_ctc_social_security_tax is:
+    the ctc social security tax of which tax unit is which amount.
+
+query q_non_refundable_ctc is:
+    the non refundable ctc of which tax unit is which amount.
+
+query q_non_refundable_ctc is:
+    the non refundable ctc of which tax unit is which amount.
+
+query q_non_refundable_ctc is:
+    the non refundable ctc of which tax unit is which amount.
+
+query q_non_refundable_ctc is:
+    the non refundable ctc of which tax unit is which amount.
+
+query q_refundable_ctc is:
+    the refundable ctc of which tax unit is which amount.
+
+query q_refundable_ctc is:
+    the refundable ctc of which tax unit is which amount.
+
+query q_refundable_ctc is:
+    the refundable ctc of which tax unit is which amount.
+
+query q_refundable_ctc is:
+    the refundable ctc of which tax unit is which amount.
+

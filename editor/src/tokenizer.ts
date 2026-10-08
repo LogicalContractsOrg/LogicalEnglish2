@@ -141,6 +141,7 @@ export function tokenize(text: string): Token[] {
             continue;
         }
 
+<<<<<<< HEAD
         // Word. May contain a single apostrophe (e.g. "employers'", "don't") when
         // that apostrophe is lone — no matching quote before the end of the line —
         // so it does not start a string. Mirrors the Prolog tokenizer.
@@ -155,6 +156,20 @@ export function tokenize(text: string): Token[] {
                     const tail = text.substring(end).match(/^[a-zA-Z0-9_]*/);
                     if (tail) end += tail[0].length;
                 }
+=======
+        // Word: letters of any language. An apostrophe directly after a letter
+        // belongs to the word (a possessive, "employers'"; a contraction,
+        // "don't"; a French elision, "l'autre"): it never opens a string. At most
+        // one per word; the typographic apostrophe counts too. Mirrors the
+        // Prolog tokenizer.
+        const wordMatch = text.substring(i).match(/^\p{L}[\p{L}\p{N}_]*/u);
+        if (wordMatch) {
+            let end = i + wordMatch[0].length;
+            if (text[end] === "'" || text[end] === "\u2019") {
+                end++; // absorb the apostrophe
+                const tail = text.substring(end).match(/^[\p{L}\p{N}_]*/u);
+                if (tail) end += tail[0].length;
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             }
             tokens.push({ type: TokenType.Word, value: text.substring(i, end), start, end });
             i = end;

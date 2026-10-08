@@ -1,0 +1,72 @@
+- name: resident_citizen_age_65_qualifies
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 65
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: true
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+  output:
+    us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual: holds
+- name: blind_resident_lawful_permanent_resident_qualifies_under_alien_branch
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 40
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: true
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: true
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+  output:
+    us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual: holds
+- name: child_citizen_living_with_armed_forces_parent_abroad_qualifies
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 10
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: true
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: false
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: true
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : true
+  output:
+    us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual: holds
+- name: neither_age_blind_nor_disabled_does_not_qualify_even_with_resident_citizen_status
+  period: 2026-01
+  input:
+    us:statutes/42/1382c/a/1#input.individual_age_years: 64
+    us:statutes/42/1382c/a/1#input.blind_as_determined_under_paragraph_2: false
+    us:statutes/42/1382c/a/1#input.disabled_as_determined_under_paragraph_3: false
+    us:statutes/42/1382c/a/1#input.resident_of_united_states: true
+    us:statutes/42/1382c/a/1#input.citizen_of_united_states: true
+    us:statutes/42/1382c/a/1#input.alien_lawfully_admitted_for_permanent_residence: false
+    us:statutes/42/1382c/a/1#input.alien_otherwise_permanently_residing_in_united_states_under_color_of_law: false
+    us:statutes/42/1382c/a/1#input.alien_lawfully_present_due_to_section_1182_d_5_application: false
+    us:statutes/42/1382c/a/1#input.child_citizen_of_united_states: false
+    ? us:statutes/42/1382c/a/1#input.living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+    : false
+  output:
+    us:statutes/42/1382c/a/1#aged_blind_or_disabled_individual: not_holds
+- name: oracle_parameter_aged_age_threshold_years
+  period:
+    period_kind: tax_year
+    start: '1974-01-01'
+    end: '1974-12-31'
+  input: {}
+  output:
+    us:statutes/42/1382c/a/1#aged_age_threshold_years: 65

@@ -1,0 +1,80 @@
+- name: no_income_or_categorical_basis
+  period: 2008-10
+  input:
+    ? us:statutes/7/2014/a#input.household_income_and_other_financial_resources_are_substantial_limiting_factor_in_permitting_more_nutritious_diet
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act
+    : false
+    us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_or_local_general_assistance_program: false
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_uses_income_criteria_comparable_to_or_more_restrictive_than_subsection_c_2
+    : false
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_is_not_limited_to_one_time_emergency_payments_unavailable_for_more_than_one_consecutive_month
+    : false
+  output:
+    us:statutes/7/2014/a#household_meets_social_security_act_benefit_criterion: not_holds
+    us:statutes/7/2014/a#household_meets_qualifying_general_assistance_benefit_criterion: not_holds
+    us:statutes/7/2014/a#household_has_snap_participation_basis_from_income_or_categorical_benefits: not_holds
+- name: substantial_limiting_factor_basis
+  period: 2008-10
+  input:
+    ? us:statutes/7/2014/a#input.household_income_and_other_financial_resources_are_substantial_limiting_factor_in_permitting_more_nutritious_diet
+    : true
+    ? us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act
+    : false
+    us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_or_local_general_assistance_program: false
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_uses_income_criteria_comparable_to_or_more_restrictive_than_subsection_c_2
+    : false
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_is_not_limited_to_one_time_emergency_payments_unavailable_for_more_than_one_consecutive_month
+    : false
+  output:
+    us:statutes/7/2014/a#household_meets_social_security_act_benefit_criterion: not_holds
+    us:statutes/7/2014/a#household_meets_qualifying_general_assistance_benefit_criterion: not_holds
+    us:statutes/7/2014/a#household_has_snap_participation_basis_from_income_or_categorical_benefits: holds
+- name: supplemental_security_income_categorical_basis
+  period: 2008-10
+  input:
+    ? us:statutes/7/2014/a#input.household_income_and_other_financial_resources_are_substantial_limiting_factor_in_permitting_more_nutritious_diet
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act
+    : true
+    ? us:statutes/7/2014/a#input.each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act
+    : false
+    us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_or_local_general_assistance_program: false
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_uses_income_criteria_comparable_to_or_more_restrictive_than_subsection_c_2
+    : false
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_is_not_limited_to_one_time_emergency_payments_unavailable_for_more_than_one_consecutive_month
+    : false
+  output:
+    us:statutes/7/2014/a#household_meets_social_security_act_benefit_criterion: holds
+    us:statutes/7/2014/a#household_meets_qualifying_general_assistance_benefit_criterion: not_holds
+    us:statutes/7/2014/a#household_has_snap_participation_basis_from_income_or_categorical_benefits: holds
+- name: qualifying_general_assistance_categorical_basis
+  period: 2008-10
+  input:
+    ? us:statutes/7/2014/a#input.household_income_and_other_financial_resources_are_substantial_limiting_factor_in_permitting_more_nutritious_diet
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act
+    : false
+    ? us:statutes/7/2014/a#input.each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act
+    : false
+    us:statutes/7/2014/a#input.each_household_member_receives_benefits_under_state_or_local_general_assistance_program: true
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_uses_income_criteria_comparable_to_or_more_restrictive_than_subsection_c_2
+    : true
+    ? us:statutes/7/2014/a#input.state_or_local_general_assistance_program_is_not_limited_to_one_time_emergency_payments_unavailable_for_more_than_one_consecutive_month
+    : true
+  output:
+    us:statutes/7/2014/a#household_meets_social_security_act_benefit_criterion: not_holds
+    us:statutes/7/2014/a#household_meets_qualifying_general_assistance_benefit_criterion: holds
+    us:statutes/7/2014/a#household_has_snap_participation_basis_from_income_or_categorical_benefits: holds

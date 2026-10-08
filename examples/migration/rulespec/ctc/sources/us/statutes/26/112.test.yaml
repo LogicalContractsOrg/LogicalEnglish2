@@ -1,0 +1,89 @@
+- name: enlisted_combat_zone_compensation_excluded
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/112#input.member_below_grade_of_commissioned_officer_in_armed_forces: true
+    us:statutes/26/112#input.served_in_combat_zone_during_month: true
+    us:statutes/26/112#input.hospitalized_resulting_from_combat_zone_wounds_disease_or_injury: false
+    us:statutes/26/112#input.months_beginning_after_combatant_activities_termination: 0
+    us:statutes/26/112#input.vietnam_combat_zone_hospitalization_month_after_january_1978: false
+    us:statutes/26/112#input.active_service_compensation_as_enlisted_member_excluding_pensions_and_retirement_pay: 5000
+    us:statutes/26/112#input.commissioned_officer_in_armed_forces_excluding_commissioned_warrant_officer: false
+    us:statutes/26/112#input.active_service_compensation_as_commissioned_officer_excluding_pensions_and_retirement_pay: 0
+    us:statutes/26/112#input.maximum_enlisted_amount_for_commissioned_officer_months: 0
+    us:statutes/26/112#input.armed_forces_member_in_missing_status_during_vietnam_conflict_as_result_of_conflict: false
+    us:statutes/26/112#input.officially_absent_from_post_of_duty_without_authority: false
+    us:statutes/26/112#input.armed_forces_missing_status_active_service_compensation: 0
+    us:statutes/26/112#input.civilian_employee_in_missing_status_during_vietnam_conflict_as_result_of_conflict: false
+    us:statutes/26/112#input.civilian_employee_missing_status_active_service_compensation: 0
+  output:
+    us:statutes/26/112#hospitalization_after_combat_zone_termination_limit_years: 2
+    us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112: 5000
+- name: commissioned_officer_exclusion_limited_to_maximum_enlisted_amount
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/112#input.member_below_grade_of_commissioned_officer_in_armed_forces: false
+    us:statutes/26/112#input.served_in_combat_zone_during_month: true
+    us:statutes/26/112#input.hospitalized_resulting_from_combat_zone_wounds_disease_or_injury: false
+    us:statutes/26/112#input.months_beginning_after_combatant_activities_termination: 0
+    us:statutes/26/112#input.vietnam_combat_zone_hospitalization_month_after_january_1978: false
+    us:statutes/26/112#input.active_service_compensation_as_enlisted_member_excluding_pensions_and_retirement_pay: 0
+    us:statutes/26/112#input.commissioned_officer_in_armed_forces_excluding_commissioned_warrant_officer: true
+    us:statutes/26/112#input.active_service_compensation_as_commissioned_officer_excluding_pensions_and_retirement_pay: 9000
+    us:statutes/26/112#input.maximum_enlisted_amount_for_commissioned_officer_months: 7000
+    us:statutes/26/112#input.armed_forces_member_in_missing_status_during_vietnam_conflict_as_result_of_conflict: false
+    us:statutes/26/112#input.officially_absent_from_post_of_duty_without_authority: false
+    us:statutes/26/112#input.armed_forces_missing_status_active_service_compensation: 0
+    us:statutes/26/112#input.civilian_employee_in_missing_status_during_vietnam_conflict_as_result_of_conflict: false
+    us:statutes/26/112#input.civilian_employee_missing_status_active_service_compensation: 0
+  output:
+    us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112: 7000
+- name: hospitalization_after_two_year_limit_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/112#input.member_below_grade_of_commissioned_officer_in_armed_forces: true
+    us:statutes/26/112#input.served_in_combat_zone_during_month: false
+    us:statutes/26/112#input.hospitalized_resulting_from_combat_zone_wounds_disease_or_injury: true
+    us:statutes/26/112#input.months_beginning_after_combatant_activities_termination: 3
+    us:statutes/26/112#input.vietnam_combat_zone_hospitalization_month_after_january_1978: false
+    us:statutes/26/112#input.active_service_compensation_as_enlisted_member_excluding_pensions_and_retirement_pay: 5000
+    us:statutes/26/112#input.commissioned_officer_in_armed_forces_excluding_commissioned_warrant_officer: false
+    us:statutes/26/112#input.active_service_compensation_as_commissioned_officer_excluding_pensions_and_retirement_pay: 0
+    us:statutes/26/112#input.maximum_enlisted_amount_for_commissioned_officer_months: 0
+    us:statutes/26/112#input.armed_forces_member_in_missing_status_during_vietnam_conflict_as_result_of_conflict: false
+    us:statutes/26/112#input.officially_absent_from_post_of_duty_without_authority: false
+    us:statutes/26/112#input.armed_forces_missing_status_active_service_compensation: 0
+    us:statutes/26/112#input.civilian_employee_in_missing_status_during_vietnam_conflict_as_result_of_conflict: false
+    us:statutes/26/112#input.civilian_employee_missing_status_active_service_compensation: 0
+  output:
+    us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112: 0
+- name: missing_status_exclusions_with_military_awol_exception
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/112#input.member_below_grade_of_commissioned_officer_in_armed_forces: false
+    us:statutes/26/112#input.served_in_combat_zone_during_month: false
+    us:statutes/26/112#input.hospitalized_resulting_from_combat_zone_wounds_disease_or_injury: false
+    us:statutes/26/112#input.months_beginning_after_combatant_activities_termination: 0
+    us:statutes/26/112#input.vietnam_combat_zone_hospitalization_month_after_january_1978: false
+    us:statutes/26/112#input.active_service_compensation_as_enlisted_member_excluding_pensions_and_retirement_pay: 0
+    us:statutes/26/112#input.commissioned_officer_in_armed_forces_excluding_commissioned_warrant_officer: false
+    us:statutes/26/112#input.active_service_compensation_as_commissioned_officer_excluding_pensions_and_retirement_pay: 0
+    us:statutes/26/112#input.maximum_enlisted_amount_for_commissioned_officer_months: 0
+    us:statutes/26/112#input.armed_forces_member_in_missing_status_during_vietnam_conflict_as_result_of_conflict: true
+    us:statutes/26/112#input.officially_absent_from_post_of_duty_without_authority: true
+    us:statutes/26/112#input.armed_forces_missing_status_active_service_compensation: 6000
+    us:statutes/26/112#input.civilian_employee_in_missing_status_during_vietnam_conflict_as_result_of_conflict: true
+    us:statutes/26/112#input.civilian_employee_missing_status_active_service_compensation: 4000
+  output:
+    us:statutes/26/112#amount_excluded_from_gross_income_by_reason_of_section_112: 4000

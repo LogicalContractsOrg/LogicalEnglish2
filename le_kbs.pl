@@ -48,6 +48,10 @@
 :- use_module(tokenizer).
 :- use_module(le_system_templates).
 :- use_module(le_i18n).
+<<<<<<< HEAD
+=======
+:- use_module(le_writer, []).   % the articles and elisions of an explanation in the program's language
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 :- use_module(reasoner).
 :- use_module(le_verifier, [verify/2, verify/3, find_in_body/2]).
 :- use_module(le_provenance).
@@ -517,6 +521,10 @@ load_common_sync(NewModule, ParseGoal, Sections, ErrorMsg, Options) :-
 % Verifier issues that are errors (the rest are warnings).
 error_issue_type(missing_template).
 error_issue_type(judged_with_rules).
+<<<<<<< HEAD
+=======
+error_issue_type(builtin_template).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 error_issue_type(service_undeclared).
 % a view that names what the program does not have (le_views.pl)
 error_issue_type(view_unknown_sentence).
@@ -837,7 +845,13 @@ resolve_resource(Resource, Base, Kind, Id) :-
     (   sub_atom(Full, _, 3, 0, '.pl')
     ->  ( is_url(Full) -> Kind = pl_url(Full) ; Kind = pl_file(Full) ),
         Id = Full
+<<<<<<< HEAD
     ;   atom_concat(Full, '.le', WithExt),
+=======
+    ;   (   sub_atom(Full, _, 3, 0, '.le') -> WithExt = Full    % `temporal.le`, as language.md §14 allows
+        ;   atom_concat(Full, '.le', WithExt)
+        ),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ( is_url(Full) -> Kind = le_url(WithExt) ; Kind = le_file(WithExt) ),
         Id = WithExt
     ).
@@ -1821,7 +1835,11 @@ postprocess_why(success(Goal0, Ref, Children), SM, success(Goal, Range, LE, Chil
     ( Goal0 = le_at(Goal, _, _) -> true; Goal = Goal0),
     ( SM:le_kb_module_fact(KB) -> true; KB = none),
     ( (SM:le_source_info(Ref, Start, End, _); (KB \== none, KB:le_source_info(Ref, Start, End, _))) -> Range0 = range(Start, End); Range0 = Ref),
+<<<<<<< HEAD
     ( (KB \== none, item_to_instance_ranged(KB, Goal, Range0, Tokens)) -> canonical_string(Tokens, LE0); term_string(Goal, LE0)),
+=======
+    ( (KB \== none, item_to_instance_ranged(KB, Goal, Range0, Tokens)) -> display_string(Tokens, LE0); term_string(Goal, LE0)),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     why_annotation(SM, KB, Goal, Ref, LE0, LE),
     % A condition the user explicitly assumed in THIS scenario ("it is unknown
     % whether …", e.g. the Assume checkbox) is shown as an assumption (unknown /
@@ -1854,7 +1872,11 @@ postprocess_why(failure(Goal0, Children), SM, failure(Goal, Range, LE, ChildrenO
     ( Goal0 = le_at(Goal, Start, End) -> Range = range(Start, End)
     ; Goal = Goal0, ( find_first_range(Goal, SM, KB, Range) -> true ; Range = none )
     ),
+<<<<<<< HEAD
     ( (KB \== none, item_to_instance_ranged(KB, Goal, Range, Tokens)) -> canonical_string(Tokens, LE); term_string(Goal, LE)),
+=======
+    ( (KB \== none, item_to_instance_ranged(KB, Goal, Range, Tokens)) -> display_string(Tokens, LE); term_string(Goal, LE)),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     postprocess_why_children(SM, Children, ChildrenOut).
 
 postprocess_why(Whys, SM, WhysOut) :-
@@ -2142,6 +2164,23 @@ canonical_string(Instance, String) :-
         atom_string(Atom, String)
     ).
 
+<<<<<<< HEAD
+=======
+%!  display_string(+Instance, -String) is det.
+%
+%   canonical_string/2 as a speaker of the active language writes it: in a
+%   language with elisions (languages.csv), "il ne est pas vrai que" is "il
+%   n'est pas vrai que" (le_writer:elide_text/3). For the sentences of an
+%   explanation; the parser reads both forms.
+display_string(Instance, String) :-
+    canonical_string(Instance, String0),
+    le_i18n:le_active_language(Lang),
+    (   Lang \== en, catch(le_writer:elide_text(Lang, String0, String1), _, fail)
+    ->  String = String1
+    ;   String = String0
+    ).
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  goal_string(+Instance, -String) is det.
 %
 %   An answer as a sentence that reads back as the same goal — for a client
@@ -2192,8 +2231,18 @@ token_to_atom(N, Atom) :- number(N), !, number_locale_atom(N, Atom).
 token_to_atom(S, Atom) :- string(S), !, atom_string(Atom, S).
 token_to_atom(A, Atom) :- atom(A), !, 
     ( (A \== '_', sub_atom(A, _, _, _, '_')) -> re_replace("_"/g, " ", A, Atom); Atom = A).
-token_to_atom(X, Atom) :- term_to_atom(X, Atom).
+token_to_atom(X, Atom) :- display_floats(X, Y), term_to_atom(Y, Atom).
 
+<<<<<<< HEAD
+=======
+%   An expression in an explanation (`298 - 115.94999999999999`) shows its
+%   floats as an answer does (float_digits_atom/2).
+display_floats(X, X) :- var(X), !.
+display_floats(F, G) :- float(F), !, float_digits_atom(F, A), atom_number(A, G).
+display_floats(X, X) :- \+ compound(X), !.
+display_floats(X, Y) :- X =.. [Fn|As], maplist(display_floats, As, Bs), Y =.. [Fn|Bs].
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 iso_date_atom(Y, M, D, Atom) :-
     Yi is integer(Y), Mi is integer(M), Di is integer(D),
     format(atom(Atom), '~d-~|~`0t~d~2+-~|~`0t~d~2+', [Yi, Mi, Di]).
@@ -2202,9 +2251,18 @@ iso_date_atom(Y, M, D, Atom) :-
 %
 %   Renders a number using the active language's decimal separator (English:
 %   '1.5'; Portuguese and friends: '1,5'). No thousands grouping is added, in
+<<<<<<< HEAD
 %   either language, mirroring the previous English behavior.
 number_locale_atom(N, Atom) :-
     atom_number(Atom0, N),
+=======
+%   either language, mirroring the previous English behavior. A float whose
+%   shortest digits need more than 15 significant ones is the noise of binary
+%   arithmetic (386.5 * 0.3 is 115.94999999999999): it is written with 15,
+%   as a spreadsheet shows it (115.95).
+number_locale_atom(N, Atom) :-
+    float_digits_atom(N, Atom0),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     (   le_i18n:le_active_language(Lang),
         Lang \== en,
         catch(le_i18n:language_param(Lang, decimal_sep, Dec), _, fail),
@@ -2215,6 +2273,33 @@ number_locale_atom(N, Atom) :-
     ;   Atom = Atom0
     ).
 
+<<<<<<< HEAD
+=======
+float_digits_atom(N, Atom) :-
+    atom_number(Atom0, N),
+    (   float(N),
+        format(atom(A150), '~15g', [N]),
+        \+ sub_atom(A150, _, _, _, e),
+        ( sub_atom(A150, _, _, _, '.') -> A15 = A150 ; atom_concat(A150, '.0', A15) ),
+        atom_length(A15, L15), atom_length(Atom0, L0), L15 < L0,
+        significant_digits(A15, S), S =< 12,
+        catch(atom_number(A15, F15), _, fail), F15 =\= N
+    ->  Atom = A15
+    ;   Atom = Atom0
+    ).
+
+significant_digits(A, S) :-
+    atom_codes(A, Cs0),
+    include(digit_code, Cs0, Ds0),
+    drop_leading_zeros(Ds0, Ds),
+    length(Ds, S).
+
+digit_code(C) :- code_type(C, digit).
+
+drop_leading_zeros([0'0|T], Ds) :- !, drop_leading_zeros(T, Ds).
+drop_leading_zeros(Ds, Ds).
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  item_to_instance(+KBmodule:atom, +Head:term, -WordsAndVars:list) is det.
 %
 %   Converts a Prolog term back into its Logical English token representation
@@ -2568,10 +2653,19 @@ fill_variable_name(NTs, V, Name) :-
     var(V),
     member(V1-Type, NTs),
     V1 == V, !,
+<<<<<<< HEAD
     (   atom(Type) -> 
         atom_codes(Type, [C|_]),
         ( memberchk(C, [97, 101, 105, 111, 117, 65, 69, 73, 79, 85]) -> Art = an ; Art = a ),
         format(atom(Name), "~w ~w", [Art, Type])
+=======
+    (   atom(Type)
+    ->  % in the program's language: "a date", "une date"; the system
+        % templates' type `any` is "a thing", "une chose"
+        ( Type == any, le_writer:writer_word(type_thing, Noun) -> true ; Noun = Type ),
+        le_writer:article_for(Noun, Noun, Art),
+        format(atom(Name), "~w ~w", [Art, Noun])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ;   Name = 'a variable'
     ).
 fill_variable_name(_, V, V).
@@ -3158,10 +3252,67 @@ normalize_string(string(S, _), N) :- !, normalize_string(S, N).
 normalize_string(S, N) :-
     (   number(S) -> atom_string(S, N)
     ;   (atom(S) ; string(S)) ->  
+<<<<<<< HEAD
         split_string(S, "_- ", "_- ", Words),
+=======
+        split_string(S, "_- ", "_- ", Words00),
+        unelide_words(Words00, Words0),
+        maplist(same_number_word, Words0, Words),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         atomic_list_concat(Words, ' ', Atom),
         atom_string(Atom, N)
     ;   N = S
+    ).
+<<<<<<< HEAD
+%!  run_one_test(+KBmodule:atom, +Test:term, -Result:term) is det.
+%
+%   Runs a single test case against a KB module.
+
+strip_string_wrapper(string(S, _), S) :- !.
+strip_string_wrapper(S, S).
+
+=======
+
+%   An expected answer may elide where the answer does not ("la mère
+%   d'Alice", "la mère de Alice"): each is read with the elisions and
+%   contractions of the program's language (languages.csv), or, when that
+%   is not known, with the elisions of any language that has them.
+unelide_words(Words0, Words) :-
+    (   catch(le_i18n:le_active_language(L), _, fail),
+        catch(le_i18n:language_param(L, elisions, Els), _, fail), Els \== []
+    ->  le_i18n:language_param(L, contractions, Cons)
+    ;   findall(E, ( le_i18n:known_language(L), le_i18n:language_param(L, elisions, Es), member(E, Es) ), Els),
+        Cons = []
+    ),
+    (   Els == [], Cons == []
+    ->  Words = Words0
+    ;   foldl(unelide_word(Els, Cons), Words0, Parts, []),
+        Words = Parts
+    ).
+
+unelide_word(Els, Cons, W, Out0, Out) :-
+    atom_string(A, W), downcase_atom(A, Al),
+    (   memberchk(Al-Ws, Cons)
+    ->  maplist([X, Y]>>atom_string(X, Y), Ws, Ss), append(Ss, Out, Out0)
+    ;   sub_atom(A, B, 1, After, '\''), B > 0,
+        sub_atom(A, 0, B, _, P0), downcase_atom(P0, P), memberchk(P-Full, Els)
+    ->  atom_string(Full, FS),
+        (   After =:= 0 -> Out0 = [FS|Out]
+        ;   sub_atom(A, _, After, 0, R), atom_string(R, RS), Out0 = [FS, RS|Out]
+        )
+    ;   Out0 = [W|Out]
+    ).
+
+%   A number in an answer is compared as a number: 30 and 30.0 are one
+%   answer, as are 1.5 and 1.50 (a translated program computes in floats
+%   what its source computed in exact decimals).
+same_number_word(W0, W) :-
+    (   catch(number_string(X, W0), _, fail)
+    ->  (   float(X), X =:= truncate(X), abs(X) < 1.0e15
+        ->  I is truncate(X), number_string(I, W)
+        ;   number_string(X, W)
+        )
+    ;   W = W0
     ).
 %!  run_one_test(+KBmodule:atom, +Test:term, -Result:term) is det.
 %
@@ -3170,6 +3321,7 @@ normalize_string(S, N) :-
 strip_string_wrapper(string(S, _), S) :- !.
 strip_string_wrapper(S, S).
 
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  read_tests(+Stream, -Tests:list) is det.
 %
 %   DEPRECATED. Reads expected/4 facts from a legacy `<file>.le.tests` sibling.
@@ -3310,7 +3462,16 @@ runTestsFor(LEFile, Result) :-
         ( current_predicate(KBmodule:le_expected/4) -> findall(test(Q, S, A, U), KBmodule:le_expected(Q, S, A, U), EmbeddedTests); EmbeddedTests = []),
         ( current_predicate(KBmodule:le_expected_changes/3) -> findall(test_changes(Q, S, Sets), KBmodule:le_expected_changes(Q, S, Sets), ChangeTests) ; ChangeTests = [] ),
         append([LegacyTests, EmbeddedTests, ChangeTests], AllTests),
+<<<<<<< HEAD
         maplist(run_one_test(KBmodule), AllTests, TestResults),
+=======
+        %  the tests compare answers and unknowns, never the explanation of
+        %  a failure: not building those makes a large program's tests fast
+        current_prolog_flag(le_failure_explanations, FE),
+        setup_call_cleanup(set_prolog_flag(le_failure_explanations, false),
+                           maplist(run_one_test(KBmodule), AllTests, TestResults),
+                           set_prolog_flag(le_failure_explanations, FE)),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         Result = test_file(LEFile, TestResults)
         ;   
         Result = test_file(LEFile, [error(load, LEFile, 'Failed to load or timeout loading LE file')])

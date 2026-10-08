@@ -46,6 +46,17 @@ The server is responsible for resolving designators, dependency edges, and type 
 ## Opening
 The graph opens in its own browser tab from **Misc → View Source Graph** (or the editor's context menu). It talks to the editor over a BroadcastChannel for state, theme, and caret/selection sync.
 
+<<<<<<< HEAD
+=======
+The graph can only draw a program the server holds. When it has nothing to draw it says why, in a message over the graph area (`#graph-status`), instead of staying blank:
+- the editor has not loaded the program yet (`init-state` with `isLoaded: false`), or the server no longer has the session (the `graph` operation answers `session_expired`, after a restart or the idle-session reaper): the graph sends the editor `request-load`; the editor loads the program (dropping its stale session first) and answers `module-loaded`, on which the graph refreshes, or `load-failed` with the reason;
+- the server could not build the graph (`error` in the reply), or the server could not be reached;
+- the program has no templates, rules, facts, scenarios or queries;
+- no editor tab answered `request-state` within a few seconds (the page was opened by hand, not from an editor).
+
+Every node and edge id is unique (`le_graph:unique_by_id/2`): Cytoscape rejects a second element with an id it already has, so a duplicate (two `; undefined` templates both asserted `le_unknown/1` under the source id `template_unknown`) would be lost.
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 ## Interaction
 - **Click node** → editor reveals and highlights `[start, end]` range; node gets `.focused`.
 - **Editor caret move** → graph focuses node whose source range contains the offset.

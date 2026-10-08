@@ -1,0 +1,150 @@
+{
+  "counts": {"approximated":0,"encoded":10,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/7/2014/d#irregular_income_quarter_cap",
+      "in_program":"rs_irregular_income_quarter_cap",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2014/d#irregular_income_excluded_from_snap_income",
+      "in_program":"rs_irregular_income_excluded_from_snap_income",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2014/d#student_child_income_age_limit",
+      "in_program":"rs_student_child_income_age_limit",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income",
+      "in_program":"rs_student_child_earned_income_excluded_from_snap_income",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input income_received_too_infrequently_or_irregularly_to_be_reasonably_anticipated",
+      "in_program":"rs_income_received_too_infrequently_or_irregularly_to_be_reasonably_anticipated",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input irregular_income_amount_in_certification_period",
+      "in_program":"rs_irregular_income_amount_in_certification_period",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_child_member_of_household",
+      "in_program":"rs_person_is_child_member_of_household",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_elementary_or_secondary_school_student",
+      "in_program":"rs_person_is_elementary_or_secondary_school_student",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_age",
+      "in_program":"rs_person_age",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input child_earned_income_amount",
+      "in_program":"rs_child_earned_income_amount",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":8,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_irregular_income_excluded_from_snap_income",
+	"result":"pass",
+	"scenario":"irregular_income_exclusion_caps_at_quarter_limit"
+      },
+      {
+	"detail":"",
+	"query":"q_irregular_income_quarter_cap",
+	"result":"pass",
+	"scenario":"irregular_income_exclusion_caps_at_quarter_limit"
+      },
+      {
+	"detail":"",
+	"query":"q_irregular_income_excluded_from_snap_income",
+	"result":"pass",
+	"scenario":"irregular_income_not_excluded_without_irregularity_condition"
+      },
+      {
+	"detail":"",
+	"query":"q_student_child_earned_income_excluded_from_snap_income",
+	"result":"pass",
+	"scenario":"student_child_earned_income_excluded_at_age_limit"
+      },
+      {
+	"detail":"",
+	"query":"q_student_child_income_age_limit",
+	"result":"pass",
+	"scenario":"student_child_earned_income_excluded_at_age_limit"
+      },
+      {
+	"detail":"",
+	"query":"q_student_child_earned_income_excluded_from_snap_income",
+	"result":"pass",
+	"scenario":"student_child_earned_income_not_excluded_over_age_limit"
+      },
+      {
+	"detail":"",
+	"query":"q_student_child_earned_income_excluded_from_snap_income",
+	"result":"pass",
+	"scenario":"student_income_not_excluded_if_not_household_child"
+      },
+      {
+	"detail":"",
+	"query":"q_student_child_earned_income_excluded_from_snap_income",
+	"result":"pass",
+	"scenario":"student_income_not_excluded_if_not_student"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/7/2014/d.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_7_2014_d",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":6
+}

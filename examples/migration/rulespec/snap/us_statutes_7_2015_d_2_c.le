@@ -1,0 +1,391 @@
+% 7 U.S.C. 2015(d)(2)(C)
+% RuleSpec module us:statutes/7/2015/d/2/C (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 1 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the student under age exception threshold years is *a number*.
+    the student older age exception threshold years is *a number*.
+    the snap employment and training career technical program max years is *a number*.
+    the student minimum employment hours per week is *a number*.
+    the student parent young child age threshold years is *a number*.
+    the student parent older child lower age threshold years is *a number*.
+    the student parent older child upper age threshold years is *a number*.
+    the student single parent child age threshold years is *a number*.
+    the student age exception of *a person* applies.
+    the snap employment and training course condition of *a person* applies.
+    the student assignment or placement exception of *a person* applies.
+    the student work exception of *a person* applies.
+    the student parent child care exception of *a person* applies.
+    the student single parent exception of *a person* applies.
+    the student exception of *a person* applies.
+    *a person* is student ineligible for snap participation.
+    the bona fide student half time enrollment exemption of *a person* applies.
+    *a person* is higher education student ineligible for snap participation.
+    the person age years of *a person* is *a number*; scenario element.
+    the program of study of *a person* is part of career and technical education; scenario element.
+    the program of study may be completed in years of *a person* is *a number*; scenario element.
+    the program of study of *a person* is at institution of higher education; scenario element.
+    *a person* is program of study limited to remedial courses basic adult education literacy or english as second language; scenario element.
+    *a person* is person assigned to or placed in ihe through or in compliance with wioa title i program; scenario element.
+    *a person* is person assigned to or placed in ihe through or in compliance with snap employment and training program; scenario element.
+    *a person* is person assigned to or placed in ihe through or in compliance with trade adjustment assistance program under 19 usc 2296; scenario element.
+    *a person* is person assigned to or placed in ihe through or in compliance with other state or local government employment and training program; scenario element.
+    *a person* is secretary determined other state or local government employment and training program appropriate; scenario element.
+    the employed hours per week of *a person* is *a value*; scenario element.
+    *a person* participates in state or federally financed work study program during regular school year; scenario element.
+    *a person* is parent with responsibility for care of dependent child; scenario element.
+    the dependent child age years of *a person* is *a number*; scenario element.
+    *a person* is adequate child care not available to enable individual to attend class and satisfy paragraph 4; scenario element.
+    *a person* is enrolled full time in institution of higher education as determined by institution; scenario element.
+    *a person* is single parent with responsibility for care of dependent child; scenario element.
+    *a person* is not physically or mentally fit; scenario element.
+    *a person* is person receiving benefits under state program funded under part_a title iv social security act; scenario element.
+    *a person* is person enrolled as result of participation in work incentive program under title iv social security act or successor; scenario element.
+    *a person* is member of household otherwise eligible to participate under this section; scenario element.
+    *a person* is enrolled at least half time in institution of higher education; scenario element.
+    *a person* is person otherwise required to comply with paragraph 1 requirements; scenario element.
+    *a person* is bona fide student enrolled at least half time in recognized school or training program; scenario element.
+    *a person* is bona fide student enrolled at least half time in institution of higher education; scenario element.
+
+the knowledge base us_statutes_7_2015_d_2_c includes:
+
+
+% 7 U.S.C. 2015(e) — us:statutes/7/2015/e
+the text of "7 U.S.C. 2015(e)(1)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(3)(B)(i)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(4)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(5)(A)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(5)(B)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(8)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(3)(B)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(3)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(5)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)(1)-(8)" is at "sources/us/statutes/7/2015/e.yaml".
+
+the text of "7 U.S.C. 2015(e)" is at "sources/us/statutes/7/2015/e.yaml".
+
+rule student_under_age_exception_threshold_years with provenance "7 U.S.C. 2015(e)(1)":
+the student under age exception threshold years is 18 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_older_age_exception_threshold_years with provenance "7 U.S.C. 2015(e)(1)":
+the student older age exception threshold years is 50 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule snap_employment_and_training_career_technical_program_max_years with provenance "7 U.S.C. 2015(e)(3)(B)(i)":
+the snap employment and training career technical program max years is 4 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_minimum_employment_hours_per_week with provenance "7 U.S.C. 2015(e)(4)":
+the student minimum employment hours per week is 20 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_parent_young_child_age_threshold_years with provenance "7 U.S.C. 2015(e)(5)(A)":
+the student parent young child age threshold years is 6 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_parent_older_child_lower_age_threshold_years with provenance "7 U.S.C. 2015(e)(5)(B)":
+the student parent older child lower age threshold years is 5 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_parent_older_child_upper_age_threshold_years with provenance "7 U.S.C. 2015(e)(5)(B)":
+the student parent older child upper age threshold years is 12 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_single_parent_child_age_threshold_years with provenance "7 U.S.C. 2015(e)(8)":
+the student single parent child age threshold years is 12 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule student_age_exception_applies_1 with provenance "7 U.S.C. 2015(e)(1)":
+the student age exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person age years of the person is a number N
+    and the student under age exception threshold years is a number M
+    and N < M.
+
+rule student_age_exception_applies_2 with provenance "7 U.S.C. 2015(e)(1)":
+the student age exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person age years of the person is a number N
+    and the student older age exception threshold years is a number M
+    and N >= M.
+
+rule snap_employment_and_training_course_condition_applies_1 with provenance "7 U.S.C. 2015(e)(3)(B)":
+the snap employment and training course condition of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the program of study of the person is part of career and technical education
+    and the program of study may be completed in years of the person is a number N
+    and the snap employment and training career technical program max years is a number M
+    and N <= M
+    and the program of study of the person is at institution of higher education.
+
+rule snap_employment_and_training_course_condition_applies_2 with provenance "7 U.S.C. 2015(e)(3)(B)":
+the snap employment and training course condition of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is program of study limited to remedial courses basic adult education literacy or english as second language.
+
+rule student_assignment_or_placement_exception_applies_1 with provenance "7 U.S.C. 2015(e)(3)":
+the student assignment or placement exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person assigned to or placed in ihe through or in compliance with wioa title i program.
+
+rule student_assignment_or_placement_exception_applies_2 with provenance "7 U.S.C. 2015(e)(3)":
+the student assignment or placement exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person assigned to or placed in ihe through or in compliance with snap employment and training program
+    and the snap employment and training course condition of the person applies.
+
+rule student_assignment_or_placement_exception_applies_3 with provenance "7 U.S.C. 2015(e)(3)":
+the student assignment or placement exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person assigned to or placed in ihe through or in compliance with trade adjustment assistance program under 19 usc 2296.
+
+rule student_assignment_or_placement_exception_applies_4 with provenance "7 U.S.C. 2015(e)(3)":
+the student assignment or placement exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person assigned to or placed in ihe through or in compliance with other state or local government employment and training program
+    and the person is secretary determined other state or local government employment and training program appropriate.
+
+rule student_work_exception_applies_1 with provenance "7 U.S.C. 2015(e)(4)":
+the student work exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the employed hours per week of the person is a value V
+    and the student minimum employment hours per week is a number N
+    and V >= N.
+
+rule student_work_exception_applies_2 with provenance "7 U.S.C. 2015(e)(4)":
+the student work exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person participates in state or federally financed work study program during regular school year.
+
+rule student_parent_child_care_exception_applies_1 with provenance "7 U.S.C. 2015(e)(5)":
+the student parent child care exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is parent with responsibility for care of dependent child
+    and the dependent child age years of the person is a number N
+    and the student parent young child age threshold years is a number M
+    and N < M.
+
+rule student_parent_child_care_exception_applies_2 with provenance "7 U.S.C. 2015(e)(5)":
+the student parent child care exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is parent with responsibility for care of dependent child
+    and the dependent child age years of the person is a number N
+    and the student parent older child lower age threshold years is a number M
+    and N > M
+    and the dependent child age years of the person is a number K
+    and the student parent older child upper age threshold years is a number P
+    and K < P
+    and the person is adequate child care not available to enable individual to attend class and satisfy paragraph 4.
+
+rule student_single_parent_exception_applies with provenance "7 U.S.C. 2015(e)(8)":
+the student single parent exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is enrolled full time in institution of higher education as determined by institution
+    and the person is single parent with responsibility for care of dependent child
+    and the dependent child age years of the person is a number N
+    and the student single parent child age threshold years is a number M
+    and N < M.
+
+rule student_exception_applies_1 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the student age exception of the person applies.
+
+rule student_exception_applies_2 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is not physically or mentally fit.
+
+rule student_exception_applies_3 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the student assignment or placement exception of the person applies.
+
+rule student_exception_applies_4 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the student work exception of the person applies.
+
+rule student_exception_applies_5 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the student parent child care exception of the person applies.
+
+rule student_exception_applies_6 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person receiving benefits under state program funded under part_a title iv social security act.
+
+rule student_exception_applies_7 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person enrolled as result of participation in work incentive program under title iv social security act or successor.
+
+rule student_exception_applies_8 with provenance "7 U.S.C. 2015(e)(1)-(8)":
+the student exception of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the student single parent exception of the person applies.
+
+rule student_ineligible_for_snap_participation with provenance "7 U.S.C. 2015(e)":
+a person is student ineligible for snap participation if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is member of household otherwise eligible to participate under this section
+    and the person is enrolled at least half time in institution of higher education
+    and it is not the case that the student exception of the person applies.
+
+
+% 7 U.S.C. 2015(d)(2)(C) — us:statutes/7/2015/d/2/C
+the text of "7 U.S.C. 2015(d)(2)(C)" is at "sources/us/statutes/7/2015/d/2/C.yaml".
+
+rule bona_fide_student_half_time_enrollment_exemption_applies_1 with provenance "7 U.S.C. 2015(d)(2)(C)":
+the bona fide student half time enrollment exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is bona fide student enrolled at least half time in recognized school or training program.
+
+rule bona_fide_student_half_time_enrollment_exemption_applies_2 with provenance "7 U.S.C. 2015(d)(2)(C)":
+the bona fide student half time enrollment exemption of a person applies if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is bona fide student enrolled at least half time in institution of higher education.
+
+rule higher_education_student_ineligible_for_snap_participation with provenance "7 U.S.C. 2015(d)(2)(C)":
+a person is higher education student ineligible for snap participation if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is person otherwise required to comply with paragraph 1 requirements
+    and the person is bona fide student enrolled at least half time in institution of higher education
+    and the person is student ineligible for snap participation.
+
+scenario recognized_school_or_training_student_is_exempt is, as stated in "sources/us/statutes/7/2015/d/2/C.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is bona fide student enrolled at least half time in recognized school or training program.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the dependent child age years of person_1 is 17.
+    the employed hours per week of person_1 is 0.
+    the person age years of person_1 is 25.
+    person_1 is member of household otherwise eligible to participate under this section.
+    the program of study may be completed in years of person_1 is 5.
+    q_bona_fide_student_half_time_enrollment_exemption_applies expects answers ["the bona fide student half time enrollment exemption of person_1 applies"].
+    q_higher_education_student_ineligible_for_snap_participation expects answers [].
+
+scenario higher_education_student_with_no_subsection_e_exception_is_ineligible is, as stated in "sources/us/statutes/7/2015/d/2/C.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is bona fide student enrolled at least half time in institution of higher education.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the dependent child age years of person_1 is 17.
+    the employed hours per week of person_1 is 0.
+    the person age years of person_1 is 25.
+    person_1 is enrolled at least half time in institution of higher education.
+    person_1 is member of household otherwise eligible to participate under this section.
+    the program of study of person_1 is at institution of higher education.
+    the program of study may be completed in years of person_1 is 5.
+    q_bona_fide_student_half_time_enrollment_exemption_applies expects answers ["the bona fide student half time enrollment exemption of person_1 applies"].
+    q_higher_education_student_ineligible_for_snap_participation expects answers ["person_1 is higher education student ineligible for snap participation"].
+
+scenario higher_education_student_meeting_subsection_e_exception_is_not_ineligible_under_exception_clause is, as stated in "sources/us/statutes/7/2015/d/2/C.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is bona fide student enrolled at least half time in institution of higher education.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the dependent child age years of person_1 is 17.
+    the employed hours per week of person_1 is 0.
+    the person age years of person_1 is 17.
+    person_1 is enrolled at least half time in institution of higher education.
+    person_1 is member of household otherwise eligible to participate under this section.
+    the program of study of person_1 is at institution of higher education.
+    the program of study may be completed in years of person_1 is 5.
+    q_bona_fide_student_half_time_enrollment_exemption_applies expects answers ["the bona fide student half time enrollment exemption of person_1 applies"].
+    q_higher_education_student_ineligible_for_snap_participation expects answers [].
+
+scenario no_bona_fide_half_time_student_status_no_branch_exemption is, as stated in "sources/us/statutes/7/2015/d/2/C.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    person_1 is person otherwise required to comply with paragraph 1 requirements.
+    the dependent child age years of person_1 is 17.
+    the employed hours per week of person_1 is 0.
+    the person age years of person_1 is 25.
+    person_1 is member of household otherwise eligible to participate under this section.
+    the program of study may be completed in years of person_1 is 5.
+    q_bona_fide_student_half_time_enrollment_exemption_applies expects answers [].
+    q_higher_education_student_ineligible_for_snap_participation expects answers [].
+
+query q_bona_fide_student_half_time_enrollment_exemption_applies is:
+    the bona fide student half time enrollment exemption of which person applies.
+
+query q_bona_fide_student_half_time_enrollment_exemption_applies is:
+    the bona fide student half time enrollment exemption of which person applies.
+
+query q_bona_fide_student_half_time_enrollment_exemption_applies is:
+    the bona fide student half time enrollment exemption of which person applies.
+
+query q_bona_fide_student_half_time_enrollment_exemption_applies is:
+    the bona fide student half time enrollment exemption of which person applies.
+
+query q_higher_education_student_ineligible_for_snap_participation is:
+    which person is higher education student ineligible for snap participation.
+
+query q_higher_education_student_ineligible_for_snap_participation is:
+    which person is higher education student ineligible for snap participation.
+
+query q_higher_education_student_ineligible_for_snap_participation is:
+    which person is higher education student ineligible for snap participation.
+
+query q_higher_education_student_ineligible_for_snap_participation is:
+    which person is higher education student ineligible for snap participation.
+

@@ -1,0 +1,16 @@
+- name: earned_income_deduction_is_twenty_percent
+  period: 2026-01
+  input:
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 1000
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 0
+  output:
+    us:statutes/7/2014/e/2#snap_earned_income_subject_to_deduction: 1000
+    us:statutes/7/2014/e/2#snap_earned_income_deduction: 200
+- name: work_supplementation_income_is_excluded
+  period: 2026-01
+  input:
+    us:statutes/7/2014/e/2#input.snap_countable_earned_income: 1000
+    us:statutes/7/2014/e/2#input.work_supplementation_earned_income: 250
+  output:
+    us:statutes/7/2014/e/2#snap_earned_income_subject_to_deduction: 750
+    us:statutes/7/2014/e/2#snap_earned_income_deduction: 150

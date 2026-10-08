@@ -1,0 +1,171 @@
+Job caj_61ad03bd-c006-11f1-bff6-6ecba305ecba created in contract_jobs/caj_61ad03bd-c006-11f1-bff6-6ecba305ecba
+── Stage 0: Ingest & segment
+Materials assembled (44 sections, 1 schedule file(s), 17 cases, 4 held out)
+Note: 13 development cases means 13 scenarios in every draft reply — if a draft comes back cut off, raise the completion-token cap or narrow the target section
+Calibration: completion-token limit auto-set to 65536 (largest the provider accepts, up to 65536)
+Effort estimate: 26296 tokens of materials per call, ~60 LLM calls, roughly 45 min with a mid-speed model (budget: 120 min)
+Cost estimate: about $36.95 for the whole job (upper estimate, 59267 tokens in / 13148 out per call; prices from the LiteLLM table)
+── Stage 1: Vocabulary & architectures
+Vocabulary sample 1/5 (temperature 0.05)
+LLM reply (vocabulary): 39200 chars
+Vocabulary sample 2/5 (temperature 0.25)
+LLM reply (vocabulary): 33730 chars
+Vocabulary sample 3/5 (temperature 0.45)
+LLM reply (vocabulary): 33220 chars
+Vocabulary sample 4/5 (temperature 0.65)
+LLM reply (vocabulary): 37411 chars
+Vocabulary sample 5/5 (temperature 0.85)
+LLM reply (vocabulary): 34821 chars
+Merging 5 vocabulary samples (consensus)
+LLM reply (vocabulary_merge): 27018 chars
+Architecture sketch 1/3 (entitlement-style: decision = qualifies for a cover/right AND NOT excluded AND conditions met; exceptions as positive rules defeated by negation as failure)
+LLM reply (architecture): 40124 chars
+Architecture sketch 2/3 (obligation-style: model duties and breaches first; the decision predicates ask whether an obligation was breached and with what consequence)
+LLM reply (architecture): 37293 chars
+Architecture sketch 3/3 (computation-style: model the amount cascade first (limits, deductions, aggregations) and hang the qualitative tests off it)
+LLM reply (architecture): 37548 chars
+── Stage 2: Drafting & repairing branches
+Branch 1: drafted and repaired by gpt-5.6-sol
+Branch 2: drafted and repaired by Qwen/Qwen3.8-2.4T-A95B
+Branch 2: completion-token limit for Qwen/Qwen3.8-2.4T-A95B set to 65536
+LLM call (draft(2)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM reply (draft(1)): 110292 chars
+Branch 1: draft extracted (110283 chars)
+Branch 1 iteration 0: 1 errors, 111 warnings, 0/13 tests passing
+LLM reply (repair(1,0)): 2247 chars
+Branch 1 repair 0: applied 7 edit(s), 0 did not match
+Branch 1 iteration 1: 1 errors, 112 warnings, 0/13 tests passing
+Branch 1: iteration 1 ranks worse than the best so far; continuing from the best version
+LLM reply (repair(1,1)): 4870 chars
+Branch 1 repair 1: applied 5 edit(s), 0 did not match
+Branch 1 iteration 2: 0 errors, 111 warnings, 0/13 tests passing
+LLM reply (repair(1,2)): 7719 chars
+Branch 1 repair 2: applied 12 edit(s), 0 did not match
+Branch 1 iteration 3: 0 errors, 94 warnings, 5/14 tests passing
+LLM reply (repair(1,3)): 5872 chars
+Branch 1 repair 3: applied 11 edit(s), 0 did not match
+Branch 1 iteration 4: 0 errors, 92 warnings, 0/14 tests passing
+Branch 1: iteration 4 ranks worse than the best so far; continuing from the best version
+LLM reply (repair(1,4)): 6080 chars
+Branch 1 repair 4: applied 12 edit(s), 0 did not match
+Branch 1 iteration 5: 0 errors, 78 warnings, 13/14 tests passing
+LLM reply (repair(1,5)): 8812 chars
+Branch 1 repair 5: applied 6 edit(s), 0 did not match
+Branch 1 iteration 6: 0 errors, 64 warnings, 14/14 tests passing
+Branch 1: loads clean and every test passes, but 2 modelling warning(s) remain (data no rule reads, rules no query reaches); repairing on
+LLM reply (repair(1,6)): 4111 chars
+Branch 1 repair 6: applied 4 edit(s), 0 did not match
+LLM call (draft(2)): Qwen/Qwen3.8-2.4T-A95B went silent for the whole timeout; retrying with minimal reasoning
+Auto-tuning: all subsequent calls use minimal reasoning
+Branch 1 iteration 7: 0 errors, 55 warnings, 19/19 tests passing
+Branch 1 polish 0: 55 warning(s) to clean up
+LLM reply (polish(1,0)): 11829 chars
+Branch 1 polish 0: applied 14 edit(s), 0 did not match (55 warning(s) gone, 0 left)
+Branch 1: writing scenarios for 4 held-out case(s)
+LLM reply (holdout(1,1)): 3499 chars
+LLM reply (holdout(1,2)): 2884 chars
+LLM reply (holdout(1,3)): 3002 chars
+LLM reply (holdout(1,4)): 2568 chars
+Branch 1 held-out: 22 passed, 6 failed
+Branch 3: drafted and repaired by gpt-5.6-sol
+LLM reply (draft(2)): 98911 chars
+Branch 2: draft extracted (98902 chars)
+Branch 2 iteration 0: 5 errors, 123 warnings, 0/13 tests passing
+LLM reply (draft(3)): 114883 chars
+Branch 3: draft extracted (114874 chars)
+Branch 3 iteration 0: 1 errors, 126 warnings, 3/26 tests passing
+LLM call (repair(3,0)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (repair(3,0)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM reply (repair(3,0)): 10404 chars
+Branch 3 repair 0: applied 12 edit(s), 0 did not match
+Branch 3 iteration 1: 0 errors, 117 warnings, 4/26 tests passing
+LLM call (repair(3,1)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (repair(3,1)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (repair(3,1)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (repair(3,1)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: repair call failed; trying once more with a shorter feedback
+LLM call (repair(3,1)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (repair(3,1)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (repair(3,1)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (repair(3,1)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: repair call failed; keeping the best iteration
+Branch 3 polish 0: 95 warning(s) to clean up
+LLM call (polish(3,0)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (polish(3,0)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (polish(3,0)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (polish(3,0)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: polish call failed; keeping the verified program
+Branch 3: writing scenarios for 4 held-out case(s)
+LLM call (holdout(3,1)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (holdout(3,1)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (holdout(3,1)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (holdout(3,1)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: held-out case 1 skipped (llm_failed(holdout(3,1),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+LLM call (holdout(3,2)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (holdout(3,2)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (holdout(3,2)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (holdout(3,2)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: held-out case 2 skipped (llm_failed(holdout(3,2),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+LLM call (holdout(3,3)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (holdout(3,3)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (holdout(3,3)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (holdout(3,3)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: held-out case 3 skipped (llm_failed(holdout(3,3),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+LLM call (holdout(3,4)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 900s)
+LLM call (holdout(3,4)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 900s)
+LLM call (holdout(3,4)) failed transiently (attempt 3 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call failed (holdout(3,4)) after 4 attempts: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 3: held-out case 4 skipped (llm_failed(holdout(3,4),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+Branch 3: no held-out scenario could be written; keeping the repaired program, unscored on the held-out cases
+LLM reply (repair(2,0)): 108644 chars
+Branch 2 repair 0: applied 39 edit(s), 20 did not match, 1 unterminated edit block(s) ignored
+LLM call (draft(2)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 20s (next attempt waits at most 900s)
+LLM call (draft(2)): Qwen/Qwen3.8-2.4T-A95B went silent for the whole timeout; retrying with minimal reasoning
+LLM call (draft(2)): still silent; cutting the completion budget from 65536 to 16384 tokens for the rest of the job
+LLM reply (draft(2)): 71995 chars
+Branch 2: WARNING — the draft reply was cut off mid-program (unterminated code fence). Raise the completion-token cap, or narrow the target section.
+Branch 2: draft extracted (71989 chars)
+Branch 2 iteration 0: 15 errors, 168 warnings, 0/0 tests passing
+LLM reply (repair(2,0)): 71890 chars
+Branch 2 repair 0: reply was cut off mid-program (unterminated code fence, 70930 of 71989 chars); text unchanged
+Branch 2: removed 1 duplicate declaration(s) (0 template(s), 1 rule(s)/fact(s))
+Branch 2 iteration 1: 15 errors, 167 warnings, 0/0 tests passing
+LLM reply (repair(2,1)): 28292 chars
+Branch 2 repair 1: applied 7 edit(s), 0 did not match, 1 unterminated edit block(s) ignored
+Branch 2: removed 1 duplicate declaration(s) (0 template(s), 1 rule(s)/fact(s))
+Branch 2 iteration 2: 11 errors, 154 warnings, 9/14 tests passing
+LLM reply (repair(2,2)): 24280 chars
+Branch 2 repair 2: applied 9 edit(s), 0 did not match
+Branch 2 iteration 3: 1 errors, 128 warnings, 15/26 tests passing
+LLM call (repair(2,3)) failed transiently (attempt 1 of 2: error); retrying in 3s (next attempt waits at most 412s)
+LLM reply (repair(2,3)): 68475 chars
+Branch 2 repair 3: applied 12 edit(s), 0 did not match
+Branch 2 iteration 4: 0 errors, 125 warnings, 15/26 tests passing
+LLM call (repair(2,4)) failed transiently (attempt 1 of 4: HTTP 429); retrying in 3s (next attempt waits at most 192s)
+LLM reply (repair(2,4)): 11205 chars
+Branch 2 repair 4: applied 10 edit(s), 0 did not match
+Branch 2 iteration 5: 0 errors, 114 warnings, 18/26 tests passing
+LLM reply (repair(2,5)): 11830 chars
+Branch 2 repair 5: applied 12 edit(s), 1 did not match, 1 unterminated edit block(s) ignored
+Branch 2 iteration 6: 3 errors, 114 warnings, 20/26 tests passing
+Branch 2: iteration 6 ranks worse than the best so far; continuing from the best version
+LLM call (repair(2,6)) failed transiently (attempt 1 of 2: error); retrying in 3s (next attempt waits at most 120s)
+LLM call (repair(2,6)) failed transiently (attempt 2 of 4: HTTP 429); retrying in 8s (next attempt waits at most 120s)
+LLM call failed (repair(2,6)) and the 120-minute budget is exhausted, so it was not retried: error(llm_http_error(error(timeout_error(read,<stream>(0x55de455c3400)),context(read_util:read_line_to_codes/2,_2436424))),context(llm_client,"HTTP request failed"))
+Branch 2: repair call failed; keeping the best iteration
+Branch 2: budget exhausted, 112 warning(s) left unpolished
+Branch 2: writing scenarios for 4 held-out case(s)
+LLM call failed (holdout(2,1)) and the 120-minute budget is exhausted, so it was not retried: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 2: held-out case 1 skipped (llm_failed(holdout(2,1),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+LLM call failed (holdout(2,2)) and the 120-minute budget is exhausted, so it was not retried: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 2: held-out case 2 skipped (llm_failed(holdout(2,2),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+LLM call failed (holdout(2,3)) and the 120-minute budget is exhausted, so it was not retried: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 2: held-out case 3 skipped (llm_failed(holdout(2,3),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+LLM call failed (holdout(2,4)) and the 120-minute budget is exhausted, so it was not retried: error(llm_api_error(429,#{error: #{code:"credit_balance_exhausted",message:"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.",param:null,type:"insufficient_quota"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))
+Branch 2: held-out case 4 skipped (llm_failed(holdout(2,4),"error(llm_api_error(429,#{error: #{code:\"credit_balance_exhausted\",message:\"You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.\",param:null,type:\"insufficient_quota\"}}),context(llm_client,'API returned HTTP 429: #{error: #{code:credit_balance_exhausted,message:You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.,param:null,type:insufficient_quota}}'))"))
+Branch 2: no held-out scenario could be written; keeping the repaired program, unscored on the held-out cases
+── Stage 6: Selection, interrogation & ledger
+Winner: branch 1 (0 errors, 6 warnings, 41/47 tests passing; held-out: 22/28)
+Interrogation skipped: budget exhausted
+Paraphrase check skipped: budget exhausted
+Delivered program: 0 errors, 6 warnings, 41/47 tests passing

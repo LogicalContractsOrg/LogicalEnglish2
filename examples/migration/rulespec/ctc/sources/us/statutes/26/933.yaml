@@ -1,0 +1,185 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/933
+  summary: |-
+    The following items shall not be included in gross income and shall be exempt from taxation under this subtitle:
+
+    (1) Resident of Puerto Rico for entire taxable year In the case of an individual who is a bona fide resident of Puerto Rico during the entire taxable year, income derived from sources within Puerto Rico (except amounts received for services performed as an employee of the United States or any agency thereof); but such individual shall not be allowed as a deduction from his gross income any deductions (other than the deduction under section 151, relating to personal exemptions), or any credit, properly allocable to or chargeable against amounts excluded from gross income under this paragraph.
+
+    (2) Taxable year of change of residence from Puerto Rico In the case of an individual citizen of the United States who has been a bona fide resident of Puerto Rico for a period of at least 2 years before the date on which he changes his residence from Puerto Rico, income derived from sources therein (except amounts received for services performed as an employee of the United States or any agency thereof) which is attributable to that part of such period of Puerto Rican residence before such date; but such individual shall not be allowed as a deduction from his gross income any deductions (other than the deduction for personal exemptions under section 151), or any credit, properly allocable to or chargeable against amounts excluded from gross income under this paragraph.
+rules:
+  - name: puerto_rico_residence_before_change_minimum_years
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 933(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "has been a bona fide resident of Puerto Rico for a period of at least 2 years before the date on which he changes his residence from Puerto Rico"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          2
+
+  - name: entire_year_puerto_rico_source_income_excluded
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 933(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "In the case of an individual who is a bona fide resident of Puerto Rico during the entire taxable year"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "income derived from sources within Puerto Rico (except amounts received for services performed as an employee of the United States or any agency thereof)"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          if individual_is_bona_fide_resident_of_puerto_rico_during_entire_taxable_year:
+              max(
+                  0,
+                  income_derived_from_sources_within_puerto_rico
+                  - amounts_received_for_services_performed_as_employee_of_united_states_or_agency
+              )
+          else:
+              0
+
+  - name: change_year_puerto_rico_source_income_excluded
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 933(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "In the case of an individual citizen of the United States who has been a bona fide resident of Puerto Rico for a period of at least 2 years before the date on which he changes his residence from Puerto Rico"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "income derived from sources therein (except amounts received for services performed as an employee of the United States or any agency thereof) which is attributable to that part of such period of Puerto Rican residence before such date"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          if individual_is_citizen_of_united_states
+             and individual_changes_residence_from_puerto_rico_during_taxable_year
+             and bona_fide_resident_of_puerto_rico_years_before_change >= puerto_rico_residence_before_change_minimum_years:
+              max(
+                  0,
+                  puerto_rico_source_income_attributable_to_puerto_rican_residence_period_before_change
+                  - amounts_received_for_services_performed_as_employee_of_united_states_or_agency_attributable_to_period_before_change
+              )
+          else:
+              0
+
+  - name: income_excluded_from_gross_income_under_section_933
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 933(1), 933(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "The following items shall not be included in gross income and shall be exempt from taxation under this subtitle"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/933#entire_year_puerto_rico_source_income_excluded
+              output: entire_year_puerto_rico_source_income_excluded
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/933#change_year_puerto_rico_source_income_excluded
+              output: change_year_puerto_rico_source_income_excluded
+              hash: sha256:local
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          entire_year_puerto_rico_source_income_excluded
+          + change_year_puerto_rico_source_income_excluded
+
+  - name: section_933_disallowed_deductions_other_than_section_151
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 933(1), 933(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "shall not be allowed as a deduction from his gross income any deductions (other than the deduction under section 151, relating to personal exemptions), or any credit, properly allocable to or chargeable against amounts excluded from gross income under this paragraph"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "shall not be allowed as a deduction from his gross income any deductions (other than the deduction for personal exemptions under section 151), or any credit, properly allocable to or chargeable against amounts excluded from gross income under this paragraph"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          if income_excluded_from_gross_income_under_section_933 > 0:
+              min(
+                  deductions_other_than_section_151_before_section_933_denial,
+                  deductions_other_than_section_151_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933
+              )
+          else:
+              0
+
+  - name: section_933_disallowed_credits
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 933(1), 933(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/933
+              excerpt: "or any credit, properly allocable to or chargeable against amounts excluded from gross income under this paragraph"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          if income_excluded_from_gross_income_under_section_933 > 0:
+              min(
+                  credits_before_section_933_denial,
+                  credits_properly_allocable_or_chargeable_to_amounts_excluded_under_section_933
+              )
+          else:
+              0

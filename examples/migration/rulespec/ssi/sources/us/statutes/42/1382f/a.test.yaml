@@ -1,0 +1,52 @@
+- name: prior_rounding_carryover_and_subchapter_ii_percentage_apply
+  period: 2026-01
+  input:
+    us:statutes/42/1382f/a#input.dollar_amount_in_effect_for_month: 1200
+    us:statutes/42/1382f/a#input.unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding: 1207
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0.1
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0.08
+  output:
+    us:statutes/42/1382f/a#prior_rounding_carryover_increase: 7
+    us:statutes/42/1382f/a#amount_after_paragraph_1_increase: 1207
+    us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage: 0.1
+    us:statutes/42/1382f/a#amount_after_subsection_a_increase: 1320
+- name: cpi_percentage_used_when_wage_basis_increase_and_cpi_is_greater
+  period: 2026-01
+  input:
+    us:statutes/42/1382f/a#input.dollar_amount_in_effect_for_month: 1200
+    us:statutes/42/1382f/a#input.unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding: 1190
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0.05
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: true
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0.08
+  output:
+    us:statutes/42/1382f/a#prior_rounding_carryover_increase: 0
+    us:statutes/42/1382f/a#amount_after_paragraph_1_increase: 1200
+    us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage: 0.08
+    us:statutes/42/1382f/a#amount_after_subsection_a_increase: 1296
+- name: branch_specific_section_1382_b_1_amount_uses_own_prior_rounding_inputs
+  period: 2026-01
+  input:
+    us:statutes/42/1382f/a#input.section_1382_b_1_dollar_amount_in_effect_for_month: 1200
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 1207
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0.1
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: false
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0.08
+  output:
+    us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_1_amount: 7
+    us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage: 0.1
+    us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_1: 1320
+- name: branch_specific_section_1382_b_2_amount_uses_wage_basis_cpi_when_greater
+  period: 2026-01
+  input:
+    us:statutes/42/1382f/a#input.section_1382_b_2_dollar_amount_in_effect_for_month: 1200
+    ? us:statutes/42/1382f/a#input.unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding
+    : 1190
+    us:statutes/42/1382f/a#input.subchapter_ii_benefit_increase_percentage_for_month: 0.05
+    us:statutes/42/1382f/a#input.subchapter_ii_increase_was_determined_on_wage_increase_percentage: true
+    us:statutes/42/1382f/a#input.cpi_basis_subchapter_ii_increase_percentage_for_month: 0.08
+  output:
+    us:statutes/42/1382f/a#prior_rounding_carryover_increase_for_section_1382_b_2_amount: 0
+    us:statutes/42/1382f/a#subsection_a_applicable_increase_percentage: 0.08
+    us:statutes/42/1382f/a#amount_determined_under_section_1382f_for_section_1382_b_2: 1296

@@ -1,0 +1,40 @@
+- name: dependent_child_under_age_six_care_responsibility_exempts_person
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/B#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child: true
+    us:statutes/7/2015/d/2/B#input.dependent_child_age_years: 5
+    ? us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person
+    : false
+  output:
+    us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies: holds
+- name: incapacitated_person_care_responsibility_exempts_person
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/B#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child: false
+    us:statutes/7/2015/d/2/B#input.dependent_child_age_years: 10
+    ? us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person
+    : true
+  output:
+    us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies: holds
+- name: dependent_child_age_six_or_older_and_no_incapacitated_person_no_exemption
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/B#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child: true
+    us:statutes/7/2015/d/2/B#input.dependent_child_age_years: 6
+    ? us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person
+    : false
+  output:
+    us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies: not_holds
+- name: person_not_otherwise_required_has_no_exemption_under_this_branch
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/B#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: false
+    us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child: true
+    us:statutes/7/2015/d/2/B#input.dependent_child_age_years: 5
+    ? us:statutes/7/2015/d/2/B#input.person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person
+    : false
+  output:
+    us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies: not_holds

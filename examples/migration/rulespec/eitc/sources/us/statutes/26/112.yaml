@@ -1,0 +1,116 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/112
+  summary: |-
+    (a) Enlisted personnel Gross income does not include compensation received for active service as a member below the grade of commissioned officer in the Armed Forces of the United States for any month during any part of which such member— (1) served in a combat zone, or (2) was hospitalized as a result of wounds, disease, or injury incurred while serving in a combat zone; but this paragraph shall not apply for any month beginning more than 2 years after the date of the termination of combatant activities in such zone. With respect to service in the combat zone designated for purposes of the Vietnam conflict, paragraph (2) shall not apply to any month after January 1978.
+
+    (b) Commissioned officers Gross income does not include so much of the compensation as does not exceed the maximum enlisted amount received for active service as a commissioned officer in the Armed Forces of the United States for any month during any part of which such officer— (1) served in a combat zone, or (2) was hospitalized as a result of wounds, disease, or injury incurred while serving in a combat zone; but this paragraph shall not apply for any month beginning more than 2 years after the date of the termination of combatant activities in such zone. With respect to service in the combat zone designated for purposes of the Vietnam conflict, paragraph (2) shall not apply to any month after January 1978.
+
+    (c) Definitions For purposes of this section— (1) The term “commissioned officer” does not include a commissioned warrant officer. (2) The term “combat zone” means any area which the President of the United States by Executive Order designates, for purposes of this section or corresponding provisions of prior income tax laws, as an area in which Armed Forces of the United States are or have engaged in combat. (3) Service is performed in a combat zone only if performed on or after the date designated by the President by Executive Order as the date of the commencing of combatant activities in such zone, and on or before the date designated by the President by Executive Order as the date of the termination of combatant activities in such zone. (4) The term “compensation” does not include pensions and retirement pay. (5) The term “maximum enlisted amount” means, for any month, the sum of— (A) the highest rate of basic pay payable for such month to any enlisted member of the Armed Forces of the United States at the highest pay grade applicable to enlisted members, and (B) in the case of an officer entitled to special pay under section 310, or paragraph (1) or (3) of section 351(a), of title 37, United States Code, for such month, the amount of such special pay payable to such officer for such month.
+
+    (d) Prisoners of war, etc. (1) Members of the Armed Forces Gross income does not include compensation received for active service as a member of the Armed Forces of the United States for any month during any part of which such member is in a missing status (as defined in section 551(2) of title 37 , United States Code) during the Vietnam conflict as a result of such conflict, other than a period with respect to which it is officially determined under section 552(c) of such title 37 that he is officially absent from his post of duty without authority. (2) Civilian employees Gross income does not include compensation received for active service as an employee for any month during any part of which such employee is in a missing status during the Vietnam conflict as a result of such conflict. For purposes of this paragraph, the terms “active service”, “employee”, and “missing status” have the respective meanings given to such terms by section 5561 of title 5 of the United States Code. (3) Period of conflict For purposes of this subsection, the Vietnam conflict began February 28, 1961 , and ends on the date designated by the President by Executive order as the date of the termination of combatant activities in Vietnam. For purposes of this subsection, an individual is in a missing status as a result of the Vietnam conflict if immediately before such status began he was performing service in Vietnam or was performing service in Southeast Asia in direct support of military operations in Vietnam.
+rules:
+  - name: hospitalization_after_combat_zone_termination_limit_years
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 112(a), 112(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "this paragraph shall not apply for any month beginning more than 2 years after the date of the termination of combatant activities in such zone"
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          2
+
+  - name: amount_excluded_from_gross_income_by_reason_of_section_112
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 112(a), 26 USC 112(b), 26 USC 112(c), 26 USC 112(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "Gross income does not include compensation received for active service as a member below the grade of commissioned officer in the Armed Forces of the United States for any month during any part of which such member— (1) served in a combat zone, or (2) was hospitalized as a result of wounds, disease, or injury incurred while serving in a combat zone"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "Gross income does not include so much of the compensation as does not exceed the maximum enlisted amount received for active service as a commissioned officer in the Armed Forces of the United States for any month during any part of which such officer— (1) served in a combat zone, or (2) was hospitalized as a result of wounds, disease, or injury incurred while serving in a combat zone"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "but this paragraph shall not apply for any month beginning more than 2 years after the date of the termination of combatant activities in such zone. With respect to service in the combat zone designated for purposes of the Vietnam conflict, paragraph (2) shall not apply to any month after January 1978."
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "The term “commissioned officer” does not include a commissioned warrant officer."
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "The term “compensation” does not include pensions and retirement pay."
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "Gross income does not include compensation received for active service as a member of the Armed Forces of the United States for any month during any part of which such member is in a missing status ... during the Vietnam conflict as a result of such conflict, other than a period with respect to which it is officially determined ... that he is officially absent from his post of duty without authority."
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/112
+              excerpt: "Gross income does not include compensation received for active service as an employee for any month during any part of which such employee is in a missing status during the Vietnam conflict as a result of such conflict."
+    versions:
+      - effective_from: '1990-01-01'
+        formula: |-
+          (if member_below_grade_of_commissioned_officer_in_armed_forces
+              and (
+                  served_in_combat_zone_during_month
+                  or (
+                      hospitalized_resulting_from_combat_zone_wounds_disease_or_injury
+                      and months_beginning_after_combatant_activities_termination <= hospitalization_after_combat_zone_termination_limit_years
+                      and not vietnam_combat_zone_hospitalization_month_after_january_1978
+                  )
+              ):
+              active_service_compensation_as_enlisted_member_excluding_pensions_and_retirement_pay
+           else:
+              0)
+          + (if commissioned_officer_in_armed_forces_excluding_commissioned_warrant_officer
+              and (
+                  served_in_combat_zone_during_month
+                  or (
+                      hospitalized_resulting_from_combat_zone_wounds_disease_or_injury
+                      and months_beginning_after_combatant_activities_termination <= hospitalization_after_combat_zone_termination_limit_years
+                      and not vietnam_combat_zone_hospitalization_month_after_january_1978
+                  )
+              ):
+              min(
+                  active_service_compensation_as_commissioned_officer_excluding_pensions_and_retirement_pay,
+                  maximum_enlisted_amount_for_commissioned_officer_months
+              )
+           else:
+              0)
+          + (if armed_forces_member_in_missing_status_during_vietnam_conflict_as_result_of_conflict
+              and not officially_absent_from_post_of_duty_without_authority:
+              armed_forces_missing_status_active_service_compensation
+           else:
+              0)
+          + (if civilian_employee_in_missing_status_during_vietnam_conflict_as_result_of_conflict:
+              civilian_employee_missing_status_active_service_compensation
+           else:
+              0)

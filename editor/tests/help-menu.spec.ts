@@ -10,6 +10,10 @@ test.describe('Help menu', () => {
         { text: 'Using this editor (manual)', href: '/docs/user/guide/editor' },
         { text: 'Logical English in other languages', href: '/docs/user/guide/languages' },
         { text: 'Signing in and licences', href: '/docs/user/guide/accounts' },
+<<<<<<< HEAD
+=======
+        { text: 'Privacy notice', href: '/docs/user/privacy' },
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         { text: 'Logical English syntax (reference)', href: '/docs/user/reference/language' },
         { text: 'Other systems: import and export', href: '/docs/user/integrations/index' },
         { text: 'Search the documentation…', href: '/docs/search' },
