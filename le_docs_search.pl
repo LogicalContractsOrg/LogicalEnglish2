@@ -18,7 +18,13 @@
 :- module(le_docs_search, [
     docs_search/4,              % +Root, +Query, +Options, -Hits
     docs_search_material/4,     % +Root, +Question, +Options, -Text
+<<<<<<< HEAD
     docs_search_answer/4        % +Root, +Query, +Options, -Text
+=======
+    docs_search_answer/4,       % +Root, +Query, +Options, -Text
+    words/2,                    % +Text, -Words: folded, stemmed (the examples' search reads them too)
+    parse_query/3               % +Query, -Terms, -Phrases
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 ]).
 
 :- use_module(library(lists)).
@@ -226,10 +232,19 @@ fold_word(Codes, Stem) :-
     atom_codes(A, Folded),
     stem(A, Stem).
 
+<<<<<<< HEAD
+=======
+%   ASCII first and without a table: this runs once per character of every
+%   document, and of every example program (le_examples_search.pl).
+fold_code(C, F) :-
+    C < 128, !,
+    ( C >= 0'A, C =< 0'Z -> F is C + 32 ; F = C ).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 fold_code(C, F) :-
     (   accent(C, B) -> F0 = B ; F0 = C ),
     (   code_type(F0, upper(L)) -> F = L ; F = F0 ).
 
+<<<<<<< HEAD
 accent(C, B) :-
     char_code(Ch, C),
     accent_char(Ch, BCh), !,
@@ -240,6 +255,20 @@ accent_char(Ch, B) :-
                            u-"ùúûüÙÚÛÜ", c-"çÇ", n-"ñÑ", y-"ýÿÝ"]),
     sub_atom(Accented, _, 1, _, Ch), !,
     B = Base.
+=======
+:- dynamic accent_code/2.
+accent(C, B) :-
+    (   accent_code(_, _) -> true
+    ;   forall(( accent_pairs(Pairs), member(Base-Accented, Pairs), atom_codes(Base, [BC]),
+                 string_code(_, Accented, AC) ),
+               assertz(accent_code(AC, BC)))
+    ),
+    accent_code(C, B), !.
+
+accent_pairs([a-"àáâãäåÀÁÂÃÄÅ", e-"èéêëÈÉÊË", i-"ìíîïÌÍÎÏ", o-"òóôõöÒÓÔÕÖ",
+              u-"ùúûüÙÚÛÜ", c-"çÇ", n-"ñÑ", y-"ýÿÝ"]).
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 stem(W, S) :-
     atom_length(W, L),

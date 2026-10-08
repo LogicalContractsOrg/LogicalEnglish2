@@ -1,0 +1,722 @@
+% us:policies/usda/snap/fy-2024-cola/income-eligibility-standards
+% RuleSpec module us:policies/usda/snap/fy-2024-cola/income-eligibility-standards (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the contiguous states count is *a number*.
+    the snap net income limit 100 percent fpl 48 states dc table for *a household size* is *an amount*.
+    the snap net income limit 100 percent fpl 48 states dc additional member is *an amount*.
+    the snap net income limit 100 percent fpl alaska table for *a household size* is *an amount*.
+    the snap net income limit 100 percent fpl alaska additional member is *an amount*.
+    the snap net income limit 100 percent fpl hawaii table for *a household size* is *an amount*.
+    the snap net income limit 100 percent fpl hawaii additional member is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc table for *a household size* is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc additional member is *an amount*.
+    the snap gross income limit 130 percent fpl alaska table for *a household size* is *an amount*.
+    the snap gross income limit 130 percent fpl alaska additional member is *an amount*.
+    the snap gross income limit 130 percent fpl hawaii table for *a household size* is *an amount*.
+    the snap gross income limit 130 percent fpl hawaii additional member is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc table for *a household size* is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc additional member is *an amount*.
+    the snap gross income limit 165 percent fpl alaska table for *a household size* is *an amount*.
+    the snap gross income limit 165 percent fpl alaska additional member is *an amount*.
+    the snap gross income limit 165 percent fpl hawaii table for *a household size* is *an amount*.
+    the snap gross income limit 165 percent fpl hawaii additional member is *an amount*.
+    the net income poverty level ratio is *a rate*.
+    the gross income poverty level ratio is *a rate*.
+    the elderly disabled separate household gross income poverty level ratio is *a rate*.
+    the snap net income limit 100 percent fpl 48 states dc of *a household* is *an amount*.
+    the snap net income limit 100 percent fpl alaska of *a household* is *an amount*.
+    the snap net income limit 100 percent fpl hawaii of *a household* is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc of *a household* is *an amount*.
+    the snap gross income limit 130 percent fpl alaska of *a household* is *an amount*.
+    the snap gross income limit 130 percent fpl hawaii of *a household* is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc of *a household* is *an amount*.
+    the snap gross income limit 165 percent fpl alaska of *a household* is *an amount*.
+    the snap gross income limit 165 percent fpl hawaii of *a household* is *an amount*.
+    the household size of *a household* is *a number*; scenario element.
+    the snap net income limit 100 percent fpl 48 states dc table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap net income limit 100 percent fpl alaska table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap net income limit 100 percent fpl hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap gross income limit 130 percent fpl 48 states dc table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap gross income limit 130 percent fpl alaska table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap gross income limit 130 percent fpl hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap gross income limit 165 percent fpl 48 states dc table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap gross income limit 165 percent fpl alaska table for *a household size* from *a first date* to *a last date* is *an amount*.
+    the snap gross income limit 165 percent fpl hawaii table for *a household size* from *a first date* to *a last date* is *an amount*.
+
+the knowledge base us_policies_usda_snap_fy_2024_cola_income_eligibility_standards includes:
+
+
+% us:policies/usda/snap/fy-2024-cola/income-eligibility-standards
+the text of "Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, Alaska column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, Hawaii column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, Alaska column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, Hawaii column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, Alaska column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, Hawaii column" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level)" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level)" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+the text of "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)" is at "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.yaml".
+
+rule contiguous_states_count with provenance "Household Size 48 States, DC, Guam, Virgin Islands Alaska Hawaii":
+the contiguous states count is 48 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap net income limit 100 percent fpl 48 states dc table for a household size is an amount if
+    the calculation date is a date D
+    and the snap net income limit 100 percent fpl 48 states dc table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap net income limit 100 percent fpl 48 states dc table for 1 from 2023-10-01 to 2024-09-30 is 1215, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 2 from 2023-10-01 to 2024-09-30 is 1644, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 3 from 2023-10-01 to 2024-09-30 is 2072, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 4 from 2023-10-01 to 2024-09-30 is 2500, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 5 from 2023-10-01 to 2024-09-30 is 2929, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 6 from 2023-10-01 to 2024-09-30 is 3357, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 7 from 2023-10-01 to 2024-09-30 is 3785, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap net income limit 100 percent fpl 48 states dc table for 8 from 2023-10-01 to 2024-09-30 is 4214, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+rule snap_net_income_limit_100_percent_fpl_48_states_dc_additional_member with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column":
+the snap net income limit 100 percent fpl 48 states dc additional member is 429 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap net income limit 100 percent fpl alaska table for a household size is an amount if
+    the calculation date is a date D
+    and the snap net income limit 100 percent fpl alaska table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap net income limit 100 percent fpl alaska table for 1 from 2023-10-01 to 2024-09-30 is 1518, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 2 from 2023-10-01 to 2024-09-30 is 2054, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 3 from 2023-10-01 to 2024-09-30 is 2590, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 4 from 2023-10-01 to 2024-09-30 is 3125, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 5 from 2023-10-01 to 2024-09-30 is 3661, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 6 from 2023-10-01 to 2024-09-30 is 4197, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 7 from 2023-10-01 to 2024-09-30 is 4733, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+the snap net income limit 100 percent fpl alaska table for 8 from 2023-10-01 to 2024-09-30 is 5269, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column".
+
+rule snap_net_income_limit_100_percent_fpl_alaska_additional_member with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, Alaska column":
+the snap net income limit 100 percent fpl alaska additional member is 536 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap net income limit 100 percent fpl hawaii table for a household size is an amount if
+    the calculation date is a date D
+    and the snap net income limit 100 percent fpl hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap net income limit 100 percent fpl hawaii table for 1 from 2023-10-01 to 2024-09-30 is 1398, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 2 from 2023-10-01 to 2024-09-30 is 1890, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 3 from 2023-10-01 to 2024-09-30 is 2383, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 4 from 2023-10-01 to 2024-09-30 is 2875, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 5 from 2023-10-01 to 2024-09-30 is 3368, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 6 from 2023-10-01 to 2024-09-30 is 3860, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 7 from 2023-10-01 to 2024-09-30 is 4353, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+the snap net income limit 100 percent fpl hawaii table for 8 from 2023-10-01 to 2024-09-30 is 4845, as stated in "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column".
+
+rule snap_net_income_limit_100_percent_fpl_hawaii_additional_member with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), each additional person, Hawaii column":
+the snap net income limit 100 percent fpl hawaii additional member is 493 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap gross income limit 130 percent fpl 48 states dc table for a household size is an amount if
+    the calculation date is a date D
+    and the snap gross income limit 130 percent fpl 48 states dc table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap gross income limit 130 percent fpl 48 states dc table for 1 from 2023-10-01 to 2024-09-30 is 1580, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 2 from 2023-10-01 to 2024-09-30 is 2137, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 3 from 2023-10-01 to 2024-09-30 is 2694, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 4 from 2023-10-01 to 2024-09-30 is 3250, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 5 from 2023-10-01 to 2024-09-30 is 3807, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 6 from 2023-10-01 to 2024-09-30 is 4364, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 7 from 2023-10-01 to 2024-09-30 is 4921, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 130 percent fpl 48 states dc table for 8 from 2023-10-01 to 2024-09-30 is 5478, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+rule snap_gross_income_limit_130_percent_fpl_48_states_dc_additional_member with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column":
+the snap gross income limit 130 percent fpl 48 states dc additional member is 557 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap gross income limit 130 percent fpl alaska table for a household size is an amount if
+    the calculation date is a date D
+    and the snap gross income limit 130 percent fpl alaska table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap gross income limit 130 percent fpl alaska table for 1 from 2023-10-01 to 2024-09-30 is 1973, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 2 from 2023-10-01 to 2024-09-30 is 2670, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 3 from 2023-10-01 to 2024-09-30 is 3366, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 4 from 2023-10-01 to 2024-09-30 is 4063, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 5 from 2023-10-01 to 2024-09-30 is 4760, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 6 from 2023-10-01 to 2024-09-30 is 5456, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 7 from 2023-10-01 to 2024-09-30 is 6153, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 130 percent fpl alaska table for 8 from 2023-10-01 to 2024-09-30 is 6849, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column".
+
+rule snap_gross_income_limit_130_percent_fpl_alaska_additional_member with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, Alaska column":
+the snap gross income limit 130 percent fpl alaska additional member is 697 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap gross income limit 130 percent fpl hawaii table for a household size is an amount if
+    the calculation date is a date D
+    and the snap gross income limit 130 percent fpl hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap gross income limit 130 percent fpl hawaii table for 1 from 2023-10-01 to 2024-09-30 is 1817, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 2 from 2023-10-01 to 2024-09-30 is 2457, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 3 from 2023-10-01 to 2024-09-30 is 3098, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 4 from 2023-10-01 to 2024-09-30 is 3738, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 5 from 2023-10-01 to 2024-09-30 is 4378, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 6 from 2023-10-01 to 2024-09-30 is 5018, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 7 from 2023-10-01 to 2024-09-30 is 5659, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 130 percent fpl hawaii table for 8 from 2023-10-01 to 2024-09-30 is 6299, as stated in "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column".
+
+rule snap_gross_income_limit_130_percent_fpl_hawaii_additional_member with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), each additional person, Hawaii column":
+the snap gross income limit 130 percent fpl hawaii additional member is 641 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap gross income limit 165 percent fpl 48 states dc table for a household size is an amount if
+    the calculation date is a date D
+    and the snap gross income limit 165 percent fpl 48 states dc table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap gross income limit 165 percent fpl 48 states dc table for 1 from 2023-10-01 to 2024-09-30 is 2005, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 2 from 2023-10-01 to 2024-09-30 is 2712, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 3 from 2023-10-01 to 2024-09-30 is 3419, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 4 from 2023-10-01 to 2024-09-30 is 4125, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 5 from 2023-10-01 to 2024-09-30 is 4832, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 6 from 2023-10-01 to 2024-09-30 is 5539, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 7 from 2023-10-01 to 2024-09-30 is 6246, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+the snap gross income limit 165 percent fpl 48 states dc table for 8 from 2023-10-01 to 2024-09-30 is 6952, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column".
+
+rule snap_gross_income_limit_165_percent_fpl_48_states_dc_additional_member with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, 48 States, DC, Guam, Virgin Islands column":
+the snap gross income limit 165 percent fpl 48 states dc additional member is 707 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap gross income limit 165 percent fpl alaska table for a household size is an amount if
+    the calculation date is a date D
+    and the snap gross income limit 165 percent fpl alaska table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap gross income limit 165 percent fpl alaska table for 1 from 2023-10-01 to 2024-09-30 is 2504, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 2 from 2023-10-01 to 2024-09-30 is 3388, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 3 from 2023-10-01 to 2024-09-30 is 4273, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 4 from 2023-10-01 to 2024-09-30 is 5157, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 5 from 2023-10-01 to 2024-09-30 is 6041, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 6 from 2023-10-01 to 2024-09-30 is 6925, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 7 from 2023-10-01 to 2024-09-30 is 7809, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+the snap gross income limit 165 percent fpl alaska table for 8 from 2023-10-01 to 2024-09-30 is 8693, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column".
+
+rule snap_gross_income_limit_165_percent_fpl_alaska_additional_member with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, Alaska column":
+the snap gross income limit 165 percent fpl alaska additional member is 885 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+% The row in force on the calculation date, of the table's dated versions below.
+the snap gross income limit 165 percent fpl hawaii table for a household size is an amount if
+    the calculation date is a date D
+    and the snap gross income limit 165 percent fpl hawaii table for the household size from a date N to a date M is the amount
+    and N <= D
+    and D <= M.
+
+the snap gross income limit 165 percent fpl hawaii table for 1 from 2023-10-01 to 2024-09-30 is 2306, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 2 from 2023-10-01 to 2024-09-30 is 3119, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 3 from 2023-10-01 to 2024-09-30 is 3932, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 4 from 2023-10-01 to 2024-09-30 is 4744, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 5 from 2023-10-01 to 2024-09-30 is 5557, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 6 from 2023-10-01 to 2024-09-30 is 6369, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 7 from 2023-10-01 to 2024-09-30 is 7182, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+the snap gross income limit 165 percent fpl hawaii table for 8 from 2023-10-01 to 2024-09-30 is 7995, as stated in "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column".
+
+rule snap_gross_income_limit_165_percent_fpl_hawaii_additional_member with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), each additional person, Hawaii column":
+the snap gross income limit 165 percent fpl hawaii additional member is 813 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+rule net_income_poverty_level_ratio with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level)":
+the net income poverty level ratio is 1 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+rule gross_income_poverty_level_ratio with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level)":
+the gross income poverty level ratio is 1.3 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+rule elderly_disabled_separate_household_gross_income_poverty_level_ratio with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level)":
+the elderly disabled separate household gross income poverty level ratio is 1.65 if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30.
+
+rule snap_net_income_limit_100_percent_fpl_48_states_dc with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column":
+the snap net income limit 100 percent fpl 48 states dc of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap net income limit 100 percent fpl 48 states dc table for P is an amount Q
+    and the snap net income limit 100 percent fpl 48 states dc additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_net_income_limit_100_percent_fpl_alaska with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Alaska column":
+the snap net income limit 100 percent fpl alaska of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap net income limit 100 percent fpl alaska table for P is an amount Q
+    and the snap net income limit 100 percent fpl alaska additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_net_income_limit_100_percent_fpl_hawaii with provenance "Net Monthly Income Eligibility Standards (100 Percent of Poverty Level), Hawaii column":
+the snap net income limit 100 percent fpl hawaii of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap net income limit 100 percent fpl hawaii table for P is an amount Q
+    and the snap net income limit 100 percent fpl hawaii additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_gross_income_limit_130_percent_fpl_48_states_dc with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column":
+the snap gross income limit 130 percent fpl 48 states dc of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 130 percent fpl 48 states dc table for P is an amount Q
+    and the snap gross income limit 130 percent fpl 48 states dc additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_gross_income_limit_130_percent_fpl_alaska with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Alaska column":
+the snap gross income limit 130 percent fpl alaska of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 130 percent fpl alaska table for P is an amount Q
+    and the snap gross income limit 130 percent fpl alaska additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_gross_income_limit_130_percent_fpl_hawaii with provenance "Gross Monthly Income Eligibility Standards (130 Percent of Poverty Level), Hawaii column":
+the snap gross income limit 130 percent fpl hawaii of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 130 percent fpl hawaii table for P is an amount Q
+    and the snap gross income limit 130 percent fpl hawaii additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_gross_income_limit_165_percent_fpl_48_states_dc with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), 48 States, DC, Guam, Virgin Islands column":
+the snap gross income limit 165 percent fpl 48 states dc of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 165 percent fpl 48 states dc table for P is an amount Q
+    and the snap gross income limit 165 percent fpl 48 states dc additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_gross_income_limit_165_percent_fpl_alaska with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Alaska column":
+the snap gross income limit 165 percent fpl alaska of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 165 percent fpl alaska table for P is an amount Q
+    and the snap gross income limit 165 percent fpl alaska additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+rule snap_gross_income_limit_165_percent_fpl_hawaii with provenance "Gross Monthly Income Eligibility Standards for Households Where Elderly Disabled Are a Separate Household (165 Percent of Poverty Level), Hawaii column":
+the snap gross income limit 165 percent fpl hawaii of a household is an amount N if
+    the calculation date is a date D
+    and 2023-10-01 <= D
+    and D <= 2024-09-30
+    and the household size of the household is a number M
+    and the minimum of M and 8 is a number K
+    and the maximum of K and 1 is a number P
+    and the snap gross income limit 165 percent fpl hawaii table for P is an amount Q
+    and the snap gross income limit 165 percent fpl hawaii additional member is an amount R
+    and a number S = M - 8
+    and the maximum of S and 0 is a number T
+    and N = Q + T * R.
+
+scenario fy2024_required_direct_tables_size_1 is, as stated in "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2023-10-01.
+    the household size of household_1 is 1.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 1580"].
+    q_snap_gross_income_limit_130_percent_fpl_alaska expects answers ["the snap gross income limit 130 percent fpl alaska of household_1 is 1973"].
+    q_snap_gross_income_limit_130_percent_fpl_hawaii expects answers ["the snap gross income limit 130 percent fpl hawaii of household_1 is 1817"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 2005"].
+    q_snap_gross_income_limit_165_percent_fpl_alaska expects answers ["the snap gross income limit 165 percent fpl alaska of household_1 is 2504"].
+    q_snap_gross_income_limit_165_percent_fpl_hawaii expects answers ["the snap gross income limit 165 percent fpl hawaii of household_1 is 2306"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 1215"].
+    q_snap_net_income_limit_100_percent_fpl_alaska expects answers ["the snap net income limit 100 percent fpl alaska of household_1 is 1518"].
+    q_snap_net_income_limit_100_percent_fpl_hawaii expects answers ["the snap net income limit 100 percent fpl hawaii of household_1 is 1398"].
+
+scenario fy2024_required_direct_tables_size_8 is, as stated in "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2024-09-01.
+    the household size of household_1 is 8.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 5478"].
+    q_snap_gross_income_limit_130_percent_fpl_alaska expects answers ["the snap gross income limit 130 percent fpl alaska of household_1 is 6849"].
+    q_snap_gross_income_limit_130_percent_fpl_hawaii expects answers ["the snap gross income limit 130 percent fpl hawaii of household_1 is 6299"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 6952"].
+    q_snap_gross_income_limit_165_percent_fpl_alaska expects answers ["the snap gross income limit 165 percent fpl alaska of household_1 is 8693"].
+    q_snap_gross_income_limit_165_percent_fpl_hawaii expects answers ["the snap gross income limit 165 percent fpl hawaii of household_1 is 7995"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 4214"].
+    q_snap_net_income_limit_100_percent_fpl_alaska expects answers ["the snap net income limit 100 percent fpl alaska of household_1 is 5269"].
+    q_snap_net_income_limit_100_percent_fpl_hawaii expects answers ["the snap net income limit 100 percent fpl hawaii of household_1 is 4845"].
+
+scenario fy2024_required_all_derived_at_start is, as stated in "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.test.yaml" at case 3:
+    household_1 is a household.
+    the calculation date is 2023-10-01.
+    the household size of household_1 is 1.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 1580"].
+    q_snap_gross_income_limit_130_percent_fpl_alaska expects answers ["the snap gross income limit 130 percent fpl alaska of household_1 is 1973"].
+    q_snap_gross_income_limit_130_percent_fpl_hawaii expects answers ["the snap gross income limit 130 percent fpl hawaii of household_1 is 1817"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 2005"].
+    q_snap_gross_income_limit_165_percent_fpl_alaska expects answers ["the snap gross income limit 165 percent fpl alaska of household_1 is 2504"].
+    q_snap_gross_income_limit_165_percent_fpl_hawaii expects answers ["the snap gross income limit 165 percent fpl hawaii of household_1 is 2306"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 1215"].
+    q_snap_net_income_limit_100_percent_fpl_alaska expects answers ["the snap net income limit 100 percent fpl alaska of household_1 is 1518"].
+    q_snap_net_income_limit_100_percent_fpl_hawaii expects answers ["the snap net income limit 100 percent fpl hawaii of household_1 is 1398"].
+
+scenario fy2024_required_all_derived_at_end is, as stated in "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.test.yaml" at case 4:
+    household_1 is a household.
+    the calculation date is 2024-09-01.
+    the household size of household_1 is 8.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 5478"].
+    q_snap_gross_income_limit_130_percent_fpl_alaska expects answers ["the snap gross income limit 130 percent fpl alaska of household_1 is 6849"].
+    q_snap_gross_income_limit_130_percent_fpl_hawaii expects answers ["the snap gross income limit 130 percent fpl hawaii of household_1 is 6299"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 6952"].
+    q_snap_gross_income_limit_165_percent_fpl_alaska expects answers ["the snap gross income limit 165 percent fpl alaska of household_1 is 8693"].
+    q_snap_gross_income_limit_165_percent_fpl_hawaii expects answers ["the snap gross income limit 165 percent fpl hawaii of household_1 is 7995"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 4214"].
+    q_snap_net_income_limit_100_percent_fpl_alaska expects answers ["the snap net income limit 100 percent fpl alaska of household_1 is 5269"].
+    q_snap_net_income_limit_100_percent_fpl_hawaii expects answers ["the snap net income limit 100 percent fpl hawaii of household_1 is 4845"].
+
+scenario income_standards_for_nine_person_household is, as stated in "sources/us/policies/usda/snap/fy-2024-cola/income-eligibility-standards.test.yaml" at case 5:
+    household_1 is a household.
+    the calculation date is 2024-01-01.
+    the household size of household_1 is 9.
+    q_snap_gross_income_limit_130_percent_fpl_48_states_dc expects answers ["the snap gross income limit 130 percent fpl 48 states dc of household_1 is 6035"].
+    q_snap_gross_income_limit_130_percent_fpl_alaska expects answers ["the snap gross income limit 130 percent fpl alaska of household_1 is 7546"].
+    q_snap_gross_income_limit_130_percent_fpl_hawaii expects answers ["the snap gross income limit 130 percent fpl hawaii of household_1 is 6940"].
+    q_snap_gross_income_limit_165_percent_fpl_48_states_dc expects answers ["the snap gross income limit 165 percent fpl 48 states dc of household_1 is 7659"].
+    q_snap_gross_income_limit_165_percent_fpl_alaska expects answers ["the snap gross income limit 165 percent fpl alaska of household_1 is 9578"].
+    q_snap_gross_income_limit_165_percent_fpl_hawaii expects answers ["the snap gross income limit 165 percent fpl hawaii of household_1 is 8808"].
+    q_snap_net_income_limit_100_percent_fpl_48_states_dc expects answers ["the snap net income limit 100 percent fpl 48 states dc of household_1 is 4643"].
+    q_snap_net_income_limit_100_percent_fpl_alaska expects answers ["the snap net income limit 100 percent fpl alaska of household_1 is 5805"].
+    q_snap_net_income_limit_100_percent_fpl_hawaii expects answers ["the snap net income limit 100 percent fpl hawaii of household_1 is 5338"].
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_48_states_dc is:
+    the snap gross income limit 130 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_alaska is:
+    the snap gross income limit 130 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_alaska is:
+    the snap gross income limit 130 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_alaska is:
+    the snap gross income limit 130 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_alaska is:
+    the snap gross income limit 130 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_alaska is:
+    the snap gross income limit 130 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_hawaii is:
+    the snap gross income limit 130 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_hawaii is:
+    the snap gross income limit 130 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_hawaii is:
+    the snap gross income limit 130 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_hawaii is:
+    the snap gross income limit 130 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_130_percent_fpl_hawaii is:
+    the snap gross income limit 130 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_48_states_dc is:
+    the snap gross income limit 165 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_alaska is:
+    the snap gross income limit 165 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_alaska is:
+    the snap gross income limit 165 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_alaska is:
+    the snap gross income limit 165 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_alaska is:
+    the snap gross income limit 165 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_alaska is:
+    the snap gross income limit 165 percent fpl alaska of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_hawaii is:
+    the snap gross income limit 165 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_hawaii is:
+    the snap gross income limit 165 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_hawaii is:
+    the snap gross income limit 165 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_hawaii is:
+    the snap gross income limit 165 percent fpl hawaii of which household is which amount.
+
+query q_snap_gross_income_limit_165_percent_fpl_hawaii is:
+    the snap gross income limit 165 percent fpl hawaii of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_48_states_dc is:
+    the snap net income limit 100 percent fpl 48 states dc of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_alaska is:
+    the snap net income limit 100 percent fpl alaska of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_alaska is:
+    the snap net income limit 100 percent fpl alaska of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_alaska is:
+    the snap net income limit 100 percent fpl alaska of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_alaska is:
+    the snap net income limit 100 percent fpl alaska of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_alaska is:
+    the snap net income limit 100 percent fpl alaska of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_hawaii is:
+    the snap net income limit 100 percent fpl hawaii of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_hawaii is:
+    the snap net income limit 100 percent fpl hawaii of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_hawaii is:
+    the snap net income limit 100 percent fpl hawaii of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_hawaii is:
+    the snap net income limit 100 percent fpl hawaii of which household is which amount.
+
+query q_snap_net_income_limit_100_percent_fpl_hawaii is:
+    the snap net income limit 100 percent fpl hawaii of which household is which amount.
+

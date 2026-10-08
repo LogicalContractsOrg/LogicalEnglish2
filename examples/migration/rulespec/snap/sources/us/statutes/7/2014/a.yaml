@@ -1,0 +1,81 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+  summary: Participation in SNAP is limited to households whose incomes and other
+    financial resources are a substantial limiting factor in obtaining a more nutritious
+    diet. Households in which each member receives specified title IV-A, SSI, or aged,
+    blind, or disabled assistance benefits, or qualifying State or local general assistance,
+    shall be eligible subject to the cited exceptions.
+  deferred_outputs:
+  - output: us:statutes/7/2014/a#household_eligible_for_snap_participation
+    reason: Final SNAP participation eligibility under 7 U.S.C. 2014(a) remains subject
+      to cited exceptions and cross-references, including 7 U.S.C. 2015(b), 2015(d)(2),
+      2015(g), 2015(r), 2025(e)(1), and 2012(m)(4). Copied context does not provide
+      complete executable coverage for all of those dependencies, and the available
+      7 U.S.C. 2014(g) resource computation is itself deferred.
+    blocked_by:
+    - us:statutes/7/2014/g#countable_household_financial_resources
+rules:
+- name: household_meets_social_security_act_benefit_criterion
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: 7 U.S.C. 2014(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2014
+  versions:
+  - effective_from: '2008-10-01'
+    formula: 'each_household_member_receives_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act
+
+      or each_household_member_receives_supplemental_security_income_benefits_under_title_xvi_social_security_act
+
+      or each_household_member_receives_aid_to_aged_blind_or_disabled_under_title_i_x_xiv_or_xvi_social_security_act'
+- name: household_meets_qualifying_general_assistance_benefit_criterion
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: 7 U.S.C. 2014(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2014
+  versions:
+  - effective_from: '2008-10-01'
+    formula: 'each_household_member_receives_benefits_under_state_or_local_general_assistance_program
+
+      and state_or_local_general_assistance_program_uses_income_criteria_comparable_to_or_more_restrictive_than_subsection_c_2
+
+      and state_or_local_general_assistance_program_is_not_limited_to_one_time_emergency_payments_unavailable_for_more_than_one_consecutive_month'
+- name: household_has_snap_participation_basis_from_income_or_categorical_benefits
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: 7 U.S.C. 2014(a)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/statute/7/2014
+  versions:
+  - effective_from: '2008-10-01'
+    formula: 'household_income_and_other_financial_resources_are_substantial_limiting_factor_in_permitting_more_nutritious_diet
+
+      or household_meets_social_security_act_benefit_criterion
+
+      or household_meets_qualifying_general_assistance_benefit_criterion'

@@ -1,0 +1,130 @@
+% 7 U.S.C. 2014(e)(6)(A)
+% RuleSpec module us:statutes/7/2014/e/6/A (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 2 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the snap earned income deduction rate is *a rate*.
+    the snap earned income subject to deduction of *a household* is *an amount*.
+    the snap earned income deduction of *a household* is *an amount*.
+    the snap net income pre shelter of *a household* is *an amount*.
+    the snap net income of *a household* is *an amount*.
+    the snap countable earned income of *a household* is *an amount*; scenario element.
+    the work supplementation earned income of *a household* is *an amount*; scenario element.
+    the snap monthly household income of *a household* is *an amount*; scenario element.
+    the snap standard deduction of *a household* is *an amount*; scenario element.
+    the dependent care deduction of *a household* is *an amount*; scenario element.
+    the child support deduction of *a household* is *an amount*; scenario element.
+    the medical deduction of *a household* is *an amount*; scenario element.
+    the snap excess shelter deduction of *a household* is *an amount*; scenario element.
+
+the knowledge base us_statutes_7_2014_e_6_a includes:
+
+
+% 7 U.S.C. 2014(e)(2)(B) — us:statutes/7/2014/e/2/B
+the text of "7 USC 2014(e)(2)(B)" is at "sources/us/statutes/7/2014/e/2/B.yaml".
+
+rule snap_earned_income_deduction_rate with provenance "7 USC 2014(e)(2)(B)":
+the snap earned income deduction rate is 0.2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+
+% 7 U.S.C. 2014(e)(2) — us:statutes/7/2014/e/2
+the text of "7 USC 2014(e)(2)" is at "sources/us/statutes/7/2014/e/2.yaml".
+
+rule snap_earned_income_subject_to_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income subject to deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap countable earned income of the household is an amount M
+    and the work supplementation earned income of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule snap_earned_income_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap earned income subject to deduction of the household is an amount M
+    and the snap earned income deduction rate is a rate R
+    and N = M * R.
+
+
+% 7 U.S.C. 2014(e)(6)(A) — us:statutes/7/2014/e/6/A
+the text of "7 USC 2014(e)(6)(A)" is at "sources/us/statutes/7/2014/e/6/A.yaml".
+
+the text of "7 USC 2014(d) and (e)" is at "sources/us/statutes/7/2014/e/6/A.yaml".
+
+rule snap_net_income_pre_shelter with provenance "7 USC 2014(e)(6)(A)":
+the snap net income pre shelter of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap monthly household income of the household is an amount M
+    and the snap standard deduction of the household is an amount K
+    and the snap earned income deduction of the household is an amount P
+    and the dependent care deduction of the household is an amount Q
+    and the child support deduction of the household is an amount R
+    and the medical deduction of the household is an amount S
+    and a number T = M - K - P - Q - R - S
+    and the maximum of 0 and T is N.
+
+rule snap_net_income with provenance "7 USC 2014(d) and (e)":
+the snap net income of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income pre shelter of the household is an amount M
+    and the snap excess shelter deduction of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+scenario pre_shelter_net_income_subtracts_applicable_non_shelter_deductions is, as stated in "sources/us/statutes/7/2014/e/6/A.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the snap standard deduction of household_1 is 209.
+    the snap countable earned income of household_1 is 1000.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 204.5.
+    the snap monthly household income of household_1 is 1000.
+    q_snap_net_income expects answers ["the snap net income of household_1 is 386.5"].
+    q_snap_net_income_pre_shelter expects answers ["the snap net income pre shelter of household_1 is 591"].
+
+scenario deductions_cannot_reduce_snap_net_income_below_zero is, as stated in "sources/us/statutes/7/2014/e/6/A.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the snap standard deduction of household_1 is 209.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 50.
+    the snap monthly household income of household_1 is 100.
+    q_snap_net_income expects answers ["the snap net income of household_1 is 0"].
+    q_snap_net_income_pre_shelter expects answers ["the snap net income pre shelter of household_1 is 0"].
+
+query q_snap_net_income is:
+    the snap net income of which household is which amount.
+
+query q_snap_net_income is:
+    the snap net income of which household is which amount.
+
+query q_snap_net_income_pre_shelter is:
+    the snap net income pre shelter of which household is which amount.
+
+query q_snap_net_income_pre_shelter is:
+    the snap net income pre shelter of which household is which amount.
+

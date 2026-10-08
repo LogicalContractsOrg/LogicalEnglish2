@@ -1,0 +1,478 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  summary: |-
+    USDA SNAP FY 2026 cost-of-living adjustments set maximum monthly
+    allotments for the 48 states and the District of Columbia effective
+    October 1, 2025 through September 30, 2026. The maximum allotments are
+    298, 546, 785, 994, 1183, 1421, 1571, and 1789 for household sizes 1
+    through 8, plus 218 for each additional person. The same table sets
+    Alaska Urban amounts of 385, 707, 1015, 1285, 1529, 1838, 2031, and
+    2314, plus 282; Alaska Rural 1 amounts of 491, 901, 1295, 1639, 1950,
+    2344, 2590, and 2950, plus 360; Alaska Rural 2 amounts of 598, 1097,
+    1576, 1995, 2374, 2853, 3152, and 3591, plus 438; Guam amounts of
+    439, 806, 1157, 1465, 1743, 2095, 2315, and 2637, plus 322; Hawaii
+    amounts of 506, 929, 1334, 1689, 2010, 2415, 2668, and 3040, plus
+    371; and Virgin Islands amounts of 383, 703, 1009, 1278, 1521, 1827,
+    2019, and 2300, plus 281.
+  source_verification:
+    corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+    values:
+      snap_maximum_allotment_table:
+        1: 298
+        2: 546
+        3: 785
+        4: 994
+        5: 1183
+        6: 1421
+        7: 1571
+        8: 1789
+      snap_maximum_allotment_additional_member: 218
+      snap_maximum_allotment_alaska_urban_table:
+        1: 385
+        2: 707
+        3: 1015
+        4: 1285
+        5: 1529
+        6: 1838
+        7: 2031
+        8: 2314
+      snap_maximum_allotment_alaska_urban_additional_member: 282
+      snap_maximum_allotment_alaska_rural_1_table:
+        1: 491
+        2: 901
+        3: 1295
+        4: 1639
+        5: 1950
+        6: 2344
+        7: 2590
+        8: 2950
+      snap_maximum_allotment_alaska_rural_1_additional_member: 360
+      snap_maximum_allotment_alaska_rural_2_table:
+        1: 598
+        2: 1097
+        3: 1576
+        4: 1995
+        5: 2374
+        6: 2853
+        7: 3152
+        8: 3591
+      snap_maximum_allotment_alaska_rural_2_additional_member: 438
+      snap_maximum_allotment_guam_table:
+        1: 439
+        2: 806
+        3: 1157
+        4: 1465
+        5: 1743
+        6: 2095
+        7: 2315
+        8: 2637
+      snap_maximum_allotment_guam_additional_member: 322
+      snap_maximum_allotment_hawaii_table:
+        1: 506
+        2: 929
+        3: 1334
+        4: 1689
+        5: 2010
+        6: 2415
+        7: 2668
+        8: 3040
+      snap_maximum_allotment_hawaii_additional_member: 371
+      snap_maximum_allotment_virgin_islands_table:
+        1: 383
+        2: 703
+        3: 1009
+        4: 1278
+        5: 1521
+        6: 1827
+        7: 2019
+        8: 2300
+      snap_maximum_allotment_virgin_islands_additional_member: 281
+  source_claims:
+    - claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+rules:
+  - name: snap_maximum_allotment_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: 48_states_dc
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 298
+          2: 546
+          3: 785
+          4: 994
+          5: 1183
+          6: 1421
+          7: 1571
+          8: 1789
+  - name: snap_maximum_allotment_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '218'
+  - name: snap_maximum_allotment
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: |-
+          snap_maximum_allotment_table[max(min(household_size, 8), 1)]
+          + (max(household_size - 8, 0) * snap_maximum_allotment_additional_member)
+  - name: snap_one_person_thrifty_food_plan_cost
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_table
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: snap_maximum_allotment_table[1]
+  - name: snap_maximum_allotment_alaska_urban_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_alaska_urban_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: alaska_urban
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 385
+          2: 707
+          3: 1015
+          4: 1285
+          5: 1529
+          6: 1838
+          7: 2031
+          8: 2314
+  - name: snap_maximum_allotment_alaska_urban_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_alaska_urban_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '282'
+  - name: snap_maximum_allotment_alaska_rural_1_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_alaska_rural_1_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: alaska_rural_1
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 491
+          2: 901
+          3: 1295
+          4: 1639
+          5: 1950
+          6: 2344
+          7: 2590
+          8: 2950
+  - name: snap_maximum_allotment_alaska_rural_1_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_alaska_rural_1_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '360'
+  - name: snap_maximum_allotment_alaska_rural_2_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_alaska_rural_2_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: alaska_rural_2
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 598
+          2: 1097
+          3: 1576
+          4: 1995
+          5: 2374
+          6: 2853
+          7: 3152
+          8: 3591
+  - name: snap_maximum_allotment_alaska_rural_2_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_alaska_rural_2_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '438'
+  - name: snap_maximum_allotment_guam_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_guam_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: guam
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 439
+          2: 806
+          3: 1157
+          4: 1465
+          5: 1743
+          6: 2095
+          7: 2315
+          8: 2637
+  - name: snap_maximum_allotment_guam_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_guam_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '322'
+  - name: snap_maximum_allotment_hawaii_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_hawaii_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: hawaii
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 506
+          2: 929
+          3: 1334
+          4: 1689
+          5: 2010
+          6: 2415
+          7: 2668
+          8: 3040
+  - name: snap_maximum_allotment_hawaii_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_hawaii_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '371'
+  - name: snap_maximum_allotment_virgin_islands_table
+    kind: parameter
+    dtype: Money
+    unit: USD
+    indexed_by: household_size
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_virgin_islands_table
+              table:
+                header: Maximum Monthly Allotment
+                row_key: household_size
+                column_key: virgin_islands
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        values:
+          1: 383
+          2: 703
+          3: 1009
+          4: 1278
+          5: 1521
+          6: 1827
+          7: 2019
+          8: 2300
+  - name: snap_maximum_allotment_virgin_islands_additional_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: USDA SNAP FY 2026 maximum allotments and deductions
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/guidance/usda/fns/snap-fy2026-cola/page-1
+              value_key: snap_maximum_allotment_virgin_islands_additional_member
+            claim:
+              id: claims:us/guidance/usda/fns/snap-fy2026-cola/page-1#sets-maximum-allotments
+    versions:
+      - effective_from: '2025-10-01'
+        formula: '281'

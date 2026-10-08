@@ -1,0 +1,255 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2015/f
+    source_sha256: 239cc65999d115055d13b7b3a72ef1a4c83da4fdbab9ab71d0ea33536d2b96c2
+  summary: No otherwise eligible household member may participate unless the individual
+    is a United States resident and is within one of the statuses in paragraphs (2)(A)
+    through (D). The income, less an optional pro rata share, and financial resources
+    of an individual rendered ineligible are considered for household eligibility
+    and allotment.
+rules:
+- name: qualifying_immigration_or_nationality_status_for_snap_participation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: 7 U.S.C. 2015(f)(2)(A)-(D)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].effective_from
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-obbb-alien-eligibility-implementation-memo/page-3
+          excerpt: Section 10108 of the OBBB was effective upon enactment, July 4,
+            2025.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: (A) a citizen or national of the United States
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: (B) an alien lawfully admitted for permanent residence as an immigrant
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: excluding, among others, alien visitors, tourists, diplomats, and
+            students who enter the United States temporarily
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: (C) an alien who has been granted the status of Cuban and Haitian
+            entrant
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: (D) an individual who lawfully resides in the United States in
+            accordance with a Compact of Free Association
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation
+          output: citizenship_or_nationality_qualifies_for_snap_participation
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-07-04'
+    formula: 'citizenship_or_nationality_qualifies_for_snap_participation
+
+      or person_is_alien_lawfully_admitted_for_permanent_residence_as_immigrant
+
+      or person_has_been_granted_status_of_cuban_and_haitian_entrant
+
+      or person_lawfully_resides_in_united_states_in_accordance_with_compact_of_free_association'
+- name: citizenship_or_nationality_qualifies_for_snap_participation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: 7 U.S.C. 2015(f)(2)(A)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].effective_from
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-obbb-alien-eligibility-implementation-memo/page-3
+          excerpt: Section 10108 of the OBBB was effective upon enactment, July 4,
+            2025.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: a citizen or national of the United States
+  versions:
+  - effective_from: '2025-07-04'
+    formula: 'person_is_citizen_of_united_states
+
+      or person_is_national_of_united_states'
+- name: individual_ineligible_for_snap_participation_due_to_residence_or_status
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: 7 U.S.C. 2015(f)(1)-(2)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].effective_from
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-obbb-alien-eligibility-implementation-memo/page-3
+          excerpt: Section 10108 of the OBBB was effective upon enactment, July 4,
+            2025.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: No individual who is a member of a household otherwise eligible
+            to participate
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: (1) a resident of the United States; and
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: (2) either—
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation
+          output: qualifying_immigration_or_nationality_status_for_snap_participation
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-07-04'
+    formula: 'person_is_member_of_household_otherwise_eligible_to_participate_under_this_section
+
+      and
+
+      (not person_is_resident_of_united_states
+
+      or not qualifying_immigration_or_nationality_status_for_snap_participation)'
+- name: individual_income_considered_for_household_eligibility_and_allotment
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: USD
+  period: Month
+  source: 7 U.S.C. 2015(f)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].effective_from
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-obbb-alien-eligibility-implementation-memo/page-3
+          excerpt: Section 10108 of the OBBB was effective upon enactment, July 4,
+            2025.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: The income (less, at State option, a pro rata share) and financial
+            resources of the individual rendered ineligible
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status
+          output: individual_ineligible_for_snap_participation_due_to_residence_or_status
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-07-04'
+    formula: "if individual_ineligible_for_snap_participation_due_to_residence_or_status:\n\
+      \  max(0, individual_income - (if state_exercises_income_pro_rata_share_option:\
+      \ income_pro_rata_share else: 0))\nelse: 0"
+- name: individual_financial_resources_considered_for_household_eligibility_and_allotment
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: USD
+  period: Month
+  source: 7 U.S.C. 2015(f)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].effective_from
+        kind: effective_period
+        source:
+          corpus_citation_path: us/guidance/usda/fns/snap-obbb-alien-eligibility-implementation-memo/page-3
+          excerpt: Section 10108 of the OBBB was effective upon enactment, July 4,
+            2025.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: us/statute/7/2015/f
+          excerpt: The income (less, at State option, a pro rata share) and financial
+            resources of the individual rendered ineligible
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status
+          output: individual_ineligible_for_snap_participation_due_to_residence_or_status
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-07-04'
+    formula: "if individual_ineligible_for_snap_participation_due_to_residence_or_status:\n\
+      \  max(0, individual_financial_resources)\nelse: 0"
+inputs:
+- name: person_is_member_of_household_otherwise_eligible_to_participate_under_this_section
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_resident_of_united_states
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_citizen_of_united_states
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_national_of_united_states
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_alien_lawfully_admitted_for_permanent_residence_as_immigrant
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_been_granted_status_of_cuban_and_haitian_entrant
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_lawfully_resides_in_united_states_in_accordance_with_compact_of_free_association
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: individual_income
+  entity: Person
+  dtype: Money
+  unit: USD
+  period: Month
+- name: state_exercises_income_pro_rata_share_option
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: income_pro_rata_share
+  entity: Person
+  dtype: Money
+  unit: USD
+  period: Month
+- name: individual_financial_resources
+  entity: Person
+  dtype: Money
+  unit: USD
+  period: Month

@@ -1,0 +1,174 @@
+{
+  "counts": {"approximated":0,"encoded":16,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/42/1382b/a#alaska_native_stock_inalienability_exclusion_period_years",
+      "in_program":"rs_alaska_native_stock_inalienability_exclusion_period_years",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#assistance_resource_exclusion_period_months",
+      "in_program":"rs_assistance_resource_exclusion_period_months",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#prior_underpayment_resource_exclusion_period_months",
+      "in_program":"rs_prior_underpayment_resource_exclusion_period_months",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#post_receipt_resource_exclusion_period_months",
+      "in_program":"rs_post_receipt_resource_exclusion_period_months",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#qualifying_gift_child_age_ceiling_years",
+      "in_program":"rs_qualifying_gift_child_age_ceiling_years",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#annual_cash_gift_resource_exclusion_cap",
+      "in_program":"rs_annual_cash_gift_resource_exclusion_cap",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#life_insurance_face_value_disregard_threshold",
+      "in_program":"rs_life_insurance_face_value_disregard_threshold",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#life_insurance_policy_counted_resource_value",
+      "in_program":"rs_life_insurance_policy_counted_resource_value",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/42/1382b/a#qualifying_cash_gift_excluded_resource_amount",
+      "in_program":"rs_qualifying_cash_gift_excluded_resource_amount",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input total_face_value_of_all_life_insurance_policies_on_same_person",
+      "in_program":"rs_total_face_value_of_all_life_insurance_policies_on_same_person",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input cash_surrender_value",
+      "in_program":"rs_cash_surrender_value",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input individual_age_years",
+      "in_program":"rs_individual_age_years",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input individual_has_life_threatening_condition",
+      "in_program":"rs_individual_has_life_threatening_condition",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input gift_from_organization_described_in_section_501_c_3_exempt_under_section_501_a",
+      "in_program":"rs_gift_from_organization_described_in_section_501_c_3_exempt_under_section_501_a",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input gift_is_cash",
+      "in_program":"rs_gift_is_cash",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input cash_gift_amount",
+      "in_program":"rs_cash_gift_amount",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":4,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_life_insurance_policy_counted_resource_value",
+	"result":"pass",
+	"scenario":"life_insurance_policy_disregarded_when_total_face_value_at_threshold"
+      },
+      {
+	"detail":"",
+	"query":"q_life_insurance_policy_counted_resource_value",
+	"result":"pass",
+	"scenario":"life_insurance_policy_counted_at_cash_surrender_value_when_total_face_value_exceeds_threshold"
+      },
+      {
+	"detail":"",
+	"query":"q_qualifying_cash_gift_excluded_resource_amount",
+	"result":"pass",
+	"scenario":"qualifying_cash_gift_excluded_up_to_annual_cap"
+      },
+      {
+	"detail":"",
+	"query":"q_qualifying_cash_gift_excluded_resource_amount",
+	"result":"pass",
+	"scenario":"cash_gift_not_excluded_when_child_age_condition_fails"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/42/1382b/a.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_42_1382b_a",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}

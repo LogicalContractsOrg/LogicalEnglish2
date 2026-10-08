@@ -1,0 +1,349 @@
+% 42 U.S.C. 1382(a)(1)
+% RuleSpec module us:statutes/42/1382/a/1 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 3 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the aged age threshold years is *a number*.
+    *a person* is aged blind or disabled individual.
+    the resource limit amount for paragraph 1 B i and paragraph 2 B is *an amount*.
+    the resource limit amount for paragraph 1 B ii is *an amount*.
+    the couple or living with spouse resource limit of *a person* is *an amount*.
+    the individual no spouse resource limit of *a person* is *an amount*.
+    the annual rounding multiple is *an amount*.
+    the prior rounding carryover increase of *a statutory dollar amount* is *an amount*.
+    the amount after paragraph 1 increase of *a statutory dollar amount* is *an amount*.
+    the subsection_a applicable increase percentage of *a statutory dollar amount* is *a rate*.
+    the amount after subsection_a increase of *a statutory dollar amount* is *an amount*.
+    the prior rounding carryover increase for section 1382 b 1 amount of *a statutory dollar amount* is *an amount*.
+    the amount determined under section 1382f for section 1382 b 1 of *a statutory dollar amount* is *an amount*.
+    the prior rounding carryover increase for section 1382 b 2 amount of *a statutory dollar amount* is *an amount*.
+    the amount determined under section 1382f for section 1382 b 2 of *a statutory dollar amount* is *an amount*.
+    the individual annual income base limit is *an amount*.
+    the applicable individual annual income limit of *a person* is *an amount*.
+    *a person* is eligible individual.
+    the individual age years of *a person* is *a number*; scenario element.
+    *a person* is blind as determined under paragraph 2; scenario element.
+    *a person* is disabled as determined under paragraph 3; scenario element.
+    *a person* is resident of united states; scenario element.
+    *a person* is citizen of united states; scenario element.
+    *a person* is alien lawfully admitted for permanent residence; scenario element.
+    *a person* is alien otherwise permanently residing in united states under color of law; scenario element.
+    *a person* is alien lawfully present due to section 1182 d 5 application; scenario element.
+    *a person* is child citizen of united states; scenario element.
+    *a person* is living with parent member of armed forces assigned to permanent duty ashore outside united states; scenario element.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the subchapter ii increase of *a statutory dollar amount* was determined on wage increase percentage; scenario element.
+    the subchapter ii benefit increase percentage for month of *a statutory dollar amount* is *a number*; scenario element.
+    the cpi basis subchapter ii increase percentage for month of *a statutory dollar amount* is *a number*; scenario element.
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the section 1382 b 1 dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of *a statutory dollar amount* is *a number*; scenario element.
+    the section 1382 b 2 dollar amount in effect for month of *a statutory dollar amount* is *a number*; scenario element.
+    the individual of *a person* has eligible spouse; scenario element.
+    the annual income other than excluded pursuant to section 1382a b of *a person* is *an amount*; scenario element.
+    the individual of *a person* has spouse with whom living; scenario element.
+    the resources other than excluded pursuant to section 1382b_a of *a person* is *an amount*; scenario element.
+
+the knowledge base us_statutes_42_1382_a_1 includes:
+
+
+% 42 U.S.C. 1382c(a)(1) — us:statutes/42/1382c/a/1
+the text of "42 USC 1382c(a)(1)(A)" is at "sources/us/statutes/42/1382c/a/1.yaml".
+
+the text of "42 USC 1382c(a)(1)" is at "sources/us/statutes/42/1382c/a/1.yaml".
+
+the aged age threshold years is 65, as stated in "42 USC 1382c(a)(1)(A)".
+
+rule aged_blind_or_disabled_individual with provenance "42 USC 1382c(a)(1)":
+a person is aged blind or disabled individual if
+    the individual age years of the person is a number N
+    and the aged age threshold years is a number M
+    and N >= M
+    or the person is blind as determined under paragraph 2
+    or the person is disabled as determined under paragraph 3
+    and the person is resident of united states
+        and the person is citizen of united states
+            or the person is alien lawfully admitted for permanent residence
+            or the person is alien otherwise permanently residing in united states under color of law
+            or the person is alien lawfully present due to section 1182 d 5 application
+        or the person is child citizen of united states
+            and the person is living with parent member of armed forces assigned to permanent duty ashore outside united states.
+
+
+% 42 U.S.C. 1382(a)(3) — us:statutes/42/1382/a/3
+the text of "42 USC 1382(a)(3)(A)" is at "sources/us/statutes/42/1382/a/3.yaml".
+
+the text of "42 USC 1382(a)(3)(B)" is at "sources/us/statutes/42/1382/a/3.yaml".
+
+rule resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B with provenance "42 USC 1382(a)(3)(A)":
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2250 if
+    the calculation date is a date D
+    and 1974-01-01 <= D
+    and D < 1985-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B with provenance "42 USC 1382(a)(3)(A)":
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2400 if
+    the calculation date is a date D
+    and 1985-01-01 <= D
+    and D < 1986-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B with provenance "42 USC 1382(a)(3)(A)":
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2550 if
+    the calculation date is a date D
+    and 1986-01-01 <= D
+    and D < 1987-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B with provenance "42 USC 1382(a)(3)(A)":
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2700 if
+    the calculation date is a date D
+    and 1987-01-01 <= D
+    and D < 1988-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B with provenance "42 USC 1382(a)(3)(A)":
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 2850 if
+    the calculation date is a date D
+    and 1988-01-01 <= D
+    and D < 1989-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B with provenance "42 USC 1382(a)(3)(A)":
+the resource limit amount for paragraph 1 B i and paragraph 2 B is 3000 if
+    the calculation date is a date D
+    and 1989-01-01 <= D.
+
+rule resource_limit_amount_for_paragraph_1_B_ii with provenance "42 USC 1382(a)(3)(B)":
+the resource limit amount for paragraph 1 B ii is 1500 if
+    the calculation date is a date D
+    and 1974-01-01 <= D
+    and D < 1985-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_ii with provenance "42 USC 1382(a)(3)(B)":
+the resource limit amount for paragraph 1 B ii is 1600 if
+    the calculation date is a date D
+    and 1985-01-01 <= D
+    and D < 1986-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_ii with provenance "42 USC 1382(a)(3)(B)":
+the resource limit amount for paragraph 1 B ii is 1700 if
+    the calculation date is a date D
+    and 1986-01-01 <= D
+    and D < 1987-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_ii with provenance "42 USC 1382(a)(3)(B)":
+the resource limit amount for paragraph 1 B ii is 1800 if
+    the calculation date is a date D
+    and 1987-01-01 <= D
+    and D < 1988-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_ii with provenance "42 USC 1382(a)(3)(B)":
+the resource limit amount for paragraph 1 B ii is 1900 if
+    the calculation date is a date D
+    and 1988-01-01 <= D
+    and D < 1989-01-01.
+
+rule resource_limit_amount_for_paragraph_1_B_ii with provenance "42 USC 1382(a)(3)(B)":
+the resource limit amount for paragraph 1 B ii is 2000 if
+    the calculation date is a date D
+    and 1989-01-01 <= D.
+
+rule couple_or_living_with_spouse_resource_limit with provenance "42 USC 1382(a)(3)(A)":
+the couple or living with spouse resource limit of a person is an amount if
+    the person is a person
+    and the resource limit amount for paragraph 1 B i and paragraph 2 B is the amount.
+
+rule individual_no_spouse_resource_limit with provenance "42 USC 1382(a)(3)(B)":
+the individual no spouse resource limit of a person is an amount if
+    the person is a person
+    and the resource limit amount for paragraph 1 B ii is the amount.
+
+
+% 42 U.S.C. 1382f(a) — us:statutes/42/1382f/a
+the text of "42 USC 1382f(a)(2)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the text of "42 USC 1382f(a)(1)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the text of "42 USC 1382f(a)(1)-(2)" is at "sources/us/statutes/42/1382f/a.yaml".
+
+the annual rounding multiple is 12, as stated in "42 USC 1382f(a)(2)".
+
+rule prior_rounding_carryover_increase with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase of a statutory dollar amount is an amount N if
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_after_paragraph_1_increase with provenance "42 USC 1382f(a)(1)":
+the amount after paragraph 1 increase of a statutory dollar amount is an amount N if
+    the dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase of the statutory dollar amount is an amount K
+    and N = M + K.
+
+rule subsection_a_applicable_increase_percentage with provenance "42 USC 1382f(a)(2)":
+the subsection_a applicable increase percentage of a statutory dollar amount is a rate R if
+    the subchapter ii increase of the statutory dollar amount was determined on wage increase percentage
+    and the subchapter ii benefit increase percentage for month of the statutory dollar amount is a number N
+    and the cpi basis subchapter ii increase percentage for month of the statutory dollar amount is a number M
+    and the maximum of N and M is R
+    otherwise the subchapter ii benefit increase percentage for month of the statutory dollar amount is R.
+
+rule amount_after_subsection_a_increase with provenance "42 USC 1382f(a)(2)":
+the amount after subsection_a increase of a statutory dollar amount is an amount N if
+    the amount after paragraph 1 increase of the statutory dollar amount is an amount M
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount K
+    and N = floor(M * (1 + R) / K) * K.
+
+rule prior_rounding_carryover_increase_for_section_1382_b_1_amount with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase for section 1382 b 1 amount of a statutory dollar amount is an amount N if
+    the unrounded section 1382 b 1 dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the section 1382 b 1 dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_determined_under_section_1382f_for_section_1382_b_1 with provenance "42 USC 1382f(a)(1)-(2)":
+the amount determined under section 1382 f for section 1382 b 1 of a statutory dollar amount is an amount N if
+    the section 1382 b 1 dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase for section 1382 b 1 amount of the statutory dollar amount is an amount K
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount P
+    and N = floor((M + K) * (1 + R) / P) * P.
+
+rule prior_rounding_carryover_increase_for_section_1382_b_2_amount with provenance "42 USC 1382f(a)(1)":
+the prior rounding carryover increase for section 1382 b 2 amount of a statutory dollar amount is an amount N if
+    the unrounded section 1382 b 2 dollar amount that would have been in effect for month but for prior rounding of the statutory dollar amount is a number M
+    and the section 1382 b 2 dollar amount in effect for month of the statutory dollar amount is a number K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule amount_determined_under_section_1382f_for_section_1382_b_2 with provenance "42 USC 1382f(a)(1)-(2)":
+the amount determined under section 1382 f for section 1382 b 2 of a statutory dollar amount is an amount N if
+    the section 1382 b 2 dollar amount in effect for month of the statutory dollar amount is a number M
+    and the prior rounding carryover increase for section 1382 b 2 amount of the statutory dollar amount is an amount K
+    and the subsection_a applicable increase percentage of the statutory dollar amount is a rate R
+    and the annual rounding multiple is an amount P
+    and N = floor((M + K) * (1 + R) / P) * P.
+
+
+% 42 U.S.C. 1382(a)(1) — us:statutes/42/1382/a/1
+the text of "42 USC 1382(a)(1)(A)" is at "sources/us/statutes/42/1382/a/1.yaml".
+
+the text of "42 USC 1382(a)(1)" is at "sources/us/statutes/42/1382/a/1.yaml".
+
+the individual annual income base limit is 1752, as stated in "42 USC 1382(a)(1)(A)".
+
+rule applicable_individual_annual_income_limit with provenance "42 USC 1382(a)(1)(A)":
+the applicable individual annual income limit of a person is an amount N if
+    the individual annual income base limit is an amount M
+    and the amount after subsection_a increase of the person is an amount K
+    and the maximum of M and K is N.
+
+rule eligible_individual_1 with provenance "42 USC 1382(a)(1)":
+a person is eligible individual if
+    the person is aged blind or disabled individual
+    and it is not the case that the individual of the person has eligible spouse
+    and the annual income other than excluded pursuant to section 1382 a b of the person is an amount N
+    and the applicable individual annual income limit of the person is an amount M
+    and N <= M
+    and the individual of the person has spouse with whom living
+    and the resources other than excluded pursuant to section 1382 b_a of the person is an amount K
+    and the couple or living with spouse resource limit of the person is an amount P
+    and K <= P.
+
+rule eligible_individual_2 with provenance "42 USC 1382(a)(1)":
+a person is eligible individual if
+    the person is aged blind or disabled individual
+    and it is not the case that the individual of the person has eligible spouse
+    and the annual income other than excluded pursuant to section 1382 a b of the person is an amount N
+    and the applicable individual annual income limit of the person is an amount M
+    and N <= M
+    and it is not the case that the individual of the person has spouse with whom living
+    and the resources other than excluded pursuant to section 1382 b_a of the person is an amount K
+    and the individual no spouse resource limit of the person is an amount P
+    and K <= P.
+
+scenario aged_citizen_no_eligible_spouse_income_and_resources_within_limits_qualifies is, as stated in "sources/us/statutes/42/1382/a/1.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the annual income other than excluded pursuant to section 1382 a b of person_1 is 1800.
+    the resources other than excluded pursuant to section 1382 b_a of person_1 is 2000.
+    person_1 is citizen of united states.
+    the individual age years of person_1 is 65.
+    person_1 is resident of united states.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the dollar amount in effect for month of person_1 is 1800.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of person_1 is 1800.
+    q_applicable_individual_annual_income_limit expects answers ["the applicable individual annual income limit of person_1 is 1800"].
+    q_eligible_individual expects answers ["person_1 is eligible individual"].
+
+scenario individual_with_eligible_spouse_does_not_qualify is, as stated in "sources/us/statutes/42/1382/a/1.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the annual income other than excluded pursuant to section 1382 a b of person_1 is 1800.
+    the individual of person_1 has eligible spouse.
+    the resources other than excluded pursuant to section 1382 b_a of person_1 is 2000.
+    person_1 is citizen of united states.
+    the individual age years of person_1 is 65.
+    person_1 is resident of united states.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the dollar amount in effect for month of person_1 is 1800.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of person_1 is 1800.
+    q_eligible_individual expects answers [].
+
+scenario income_above_applicable_limit_does_not_qualify is, as stated in "sources/us/statutes/42/1382/a/1.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the annual income other than excluded pursuant to section 1382 a b of person_1 is 1801.
+    the resources other than excluded pursuant to section 1382 b_a of person_1 is 2000.
+    person_1 is citizen of united states.
+    the individual age years of person_1 is 65.
+    person_1 is resident of united states.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the dollar amount in effect for month of person_1 is 1800.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of person_1 is 1800.
+    q_eligible_individual expects answers [].
+
+scenario living_with_spouse_uses_couple_resource_limit is, as stated in "sources/us/statutes/42/1382/a/1.test.yaml" at case 4:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the annual income other than excluded pursuant to section 1382 a b of person_1 is 1800.
+    the individual of person_1 has spouse with whom living.
+    the resources other than excluded pursuant to section 1382 b_a of person_1 is 3000.
+    person_1 is citizen of united states.
+    the individual age years of person_1 is 65.
+    person_1 is resident of united states.
+    the cpi basis subchapter ii increase percentage for month of person_1 is 0.
+    the dollar amount in effect for month of person_1 is 1800.
+    the subchapter ii benefit increase percentage for month of person_1 is 0.
+    the unrounded dollar amount that would have been in effect for month but for prior rounding of person_1 is 1800.
+    q_eligible_individual expects answers ["person_1 is eligible individual"].
+
+query q_applicable_individual_annual_income_limit is:
+    the applicable individual annual income limit of which person is which amount.
+
+query q_eligible_individual is:
+    which person is eligible individual.
+
+query q_eligible_individual is:
+    which person is eligible individual.
+
+query q_eligible_individual is:
+    which person is eligible individual.
+
+query q_eligible_individual is:
+    which person is eligible individual.
+

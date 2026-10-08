@@ -72,7 +72,11 @@ async function openDrill(page: any): Promise<any> {
         await page.click('#menu-open-server');
         await expect(item).toBeVisible({ timeout: 5000 });
     }).toPass();
+<<<<<<< HEAD
     await item.click();
+=======
+    await item.dblclick();   // a click selects and previews; a double click opens
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     await expect(page.locator('#filename-display')).toHaveText('citizenship.le');
     await expect(async () => {
         expect(await page.locator('#scenario-select option').count()).toBeGreaterThan(1);

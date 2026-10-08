@@ -1,0 +1,26 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2012
+  summary: |-
+    (m)(4) In no event shall any individual or group of individuals constitute a household if they reside in an institution or boarding house, or else live with others and pay compensation to the others for meals.
+rules:
+  - name: individual_or_group_shall_not_constitute_household
+    kind: derived
+    entity: Household
+    dtype: Judgment
+    period: Month
+    source: 7 U.S.C. 2012(m)(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2012
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          individual_or_group_resides_in_institution or individual_or_group_resides_in_boarding_house or (individual_or_group_lives_with_others and individual_or_group_pays_compensation_to_others_for_meals)

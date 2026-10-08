@@ -1,6 +1,10 @@
 # Other systems: importing and exporting
 
+<<<<<<< HEAD
 *Kind: integration guide · Audience: users · Status: current (2026-09-29)*
+=======
+*Kind: integration guide · Audience: users · Status: current (2026-10-05)*
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 The editor opens the files of other rule and contract systems as Logical
 English (LE). The editor also writes some Logical English programs in another
@@ -61,6 +65,12 @@ flowchart LR
   end
 
   subgraph both["Both ways"]
+<<<<<<< HEAD
+=======
+    RS["Axiom RuleSpec"]
+    OF["OpenFisca · PolicyEngine"]
+    CA["Catala"]
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     SC["s(CASP) · Prolog · LE1"]
     LR["LegalRuleML"]
     MS["Bitcoin Miniscript"]
@@ -83,6 +93,12 @@ flowchart LR
   DR -- "decision services" --> LE
   DR -- "stateful rules" --> LPS
 
+<<<<<<< HEAD
+=======
+  LE <--> RS
+  LE <--> OF
+  LE <--> CA
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   LE <--> SC
   LE <--> LR
   LE <--> MS
@@ -96,6 +112,12 @@ flowchart LR
   click BX "blawx" "Blawx and Logical English"
   click EP "epilog" "Epilog and Logical English"
   click L4 "l4" "L4 and Logical English"
+<<<<<<< HEAD
+=======
+  click RS "rulespec" "Axiom RuleSpec and Logical English"
+  click OF "openfisca" "OpenFisca, PolicyEngine and Logical English"
+  click CA "catala" "Catala and Logical English"
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
   click SC "scasp" "s(CASP), Prolog and LE1"
   click LR "legalruleml" "LegalRuleML and Logical English"
   click MS "miniscript" "Bitcoin Miniscript and Logical English"
@@ -114,6 +136,12 @@ reads (PDDL, Inform 7):
 
 | System | Ways | Document |
 |---|---|---|
+<<<<<<< HEAD
+=======
+| Axiom RuleSpec module (United States statutes, regulations and policies as YAML) | import, export | [Axiom RuleSpec](rulespec.md) |
+| OpenFisca or PolicyEngine model (Python variables, YAML parameters and tests) | import, export | [OpenFisca and PolicyEngine](openfisca.md) |
+| Catala program (English or French), with its test scopes | import, export | [Catala](catala.md) |
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 | Bitcoin Miniscript policy or descriptor | import, export | [Bitcoin Miniscript](miniscript.md) |
 | LegalRuleML (OASIS) | import, export | [LegalRuleML](legalruleml.md) |
 | s(CASP), Prolog, LE1's s(CASP) translations | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |
@@ -301,6 +329,12 @@ twin comes with its ledger, its source's tests written as scenarios, and its
 - `migration/l4/…`: L4's examples and courses, their rules, and the history
   views of their contracts;
 - `migration/legalruleml/…`: the examples of the LegalRuleML specification;
+<<<<<<< HEAD
+=======
+- `migration/rulespec/…`: United States benefit and tax rules from Axiom's
+  RuleSpec corpus (SNAP food assistance, the Child Tax Credit, the Earned
+  Income Tax Credit, Supplemental Security Income);
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 - `migration/miniscript/…`: Bitcoin spending policies, each with a custody
   view, flip queries for lost keys, and scenarios confirmed by a recorded
   run on the public Tape network;

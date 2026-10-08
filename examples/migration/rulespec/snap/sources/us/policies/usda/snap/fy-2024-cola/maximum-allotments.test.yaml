@@ -1,0 +1,32 @@
+- name: maximum_allotment_for_one_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#input.household_size: 1
+  output:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_table: 291
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment: 291
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_one_person_thrifty_food_plan_cost: 291
+- name: maximum_allotment_for_four_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#input.household_size: 4
+  output:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_table: 973
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment: 973
+- name: maximum_allotment_adds_each_additional_person
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#input.household_size: 10
+  output:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment: 2189
+- name: regional_maximum_allotment_parameters_for_two_person_household
+  period: 2024-01
+  input:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#input.household_size: 2
+  output:
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_alaska_urban_table: 686
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_1_table: 875
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_2_table: 1065
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_guam_table: 788
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_hawaii_table: 967
+    us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_virgin_islands_table: 688

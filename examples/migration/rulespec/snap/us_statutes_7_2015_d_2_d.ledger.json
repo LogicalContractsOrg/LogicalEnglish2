@@ -1,0 +1,64 @@
+{
+  "counts": {"approximated":0,"encoded":3,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies",
+      "in_program":"rs_treatment_and_rehabilitation_program_participation_exemption_applies",
+      "kind":"derived",
+      "mapping":"derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "in_program":"rs_person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program",
+      "in_program":"rs_person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":3,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_treatment_and_rehabilitation_program_participation_exemption_applies",
+	"result":"pass",
+	"scenario":"regular_participant_in_treatment_and_rehabilitation_program_exemption_applies"
+      },
+      {
+	"detail":"",
+	"query":"q_treatment_and_rehabilitation_program_participation_exemption_applies",
+	"result":"pass",
+	"scenario":"not_regular_participant_in_treatment_and_rehabilitation_program_no_exemption"
+      },
+      {
+	"detail":"",
+	"query":"q_treatment_and_rehabilitation_program_participation_exemption_applies",
+	"result":"pass",
+	"scenario":"person_not_otherwise_required_has_no_exemption_under_this_branch"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/7/2015/d/2/D.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_7_2015_d_2_d",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":3
+}

@@ -1,0 +1,80 @@
+format: rulespec/v1
+module:
+  summary: Scopes of catala-examples, lowered for the twin builder.
+  title: Catala scope(s) QualifiedEmployeeDiscount
+rules:
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Money
+  kind: derived
+  name: aggregate_cost
+  overridable: true
+  source: (1) Qualified employee discount
+  source_document: sources/us_tax_code/section_132.catala_en
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (is_services): 0)'
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Money
+  kind: input
+  name: customer_price
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Text
+  kind: input
+  name: discount_type
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Money
+  kind: derived
+  name: employee_discount
+  source: (3) Employee discount defined
+  source_document: sources/us_tax_code/section_132.catala_en
+  versions:
+  - effective_from: 1900-01-01
+    formula: (customer_price - employee_price)
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Money
+  kind: input
+  name: employee_price
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: QualifiedEmployeeDiscount
+  dtype: Decimal
+  kind: derived
+  name: gross_profit_percentage
+  source: (1) Qualified employee discount; (A) In general
+  source_document: sources/us_tax_code/section_132.catala_en
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (is_services): 0 elif (is_property): ((customer_price - aggregate_cost)
+      / customer_price))'
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Judgment
+  kind: derived
+  name: is_property
+  source: Section 132
+  source_document: sources/us_tax_code/section_132.catala_en
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(match discount_type: ''Property'' => true ''Services'' => false)'
+- catala_scope: QualifiedEmployeeDiscount
+  dtype: Judgment
+  kind: derived
+  name: is_services
+  source: Section 132
+  source_document: sources/us_tax_code/section_132.catala_en
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(match discount_type: ''Property'' => false ''Services'' => true)'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: QualifiedEmployeeDiscount
+  dtype: Money
+  kind: derived
+  name: qualified_employee_discount
+  source: (1) Qualified employee discount
+  source_document: sources/us_tax_code/section_132.catala_en
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (is_property): (if (employee_discount > round((customer_price *
+      gross_profit_percentage), 2)): round((customer_price * gross_profit_percentage),
+      2) else: employee_discount) elif (is_services): (if (employee_discount > round((customer_price
+      * 0.2), 2)): round((customer_price * 0.2), 2) else: employee_discount))'

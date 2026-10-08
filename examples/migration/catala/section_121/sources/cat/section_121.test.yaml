@@ -1,0 +1,71 @@
+- input:
+    cat:section_121#individuals.Period:
+    - cat:section_121#input.is_in_section121_single_person_property_ownage: true
+      cat:section_121#input.is_in_section121_single_person_property_usage_as_principal_residence: true
+      cat:section_121#input.section121_single_person_begin: 2017-01-01
+      cat:section_121#input.section121_single_person_end: 2021-01-01
+    cat:section_121#input.section121_single_person_date_of_sale_or_exchange: 2021-01-01
+    cat:section_121#input.section121_single_person_gain_from_sale_or_exchange_of_property: 350000
+    cat:section_121#input.section121_single_person_other_section_121a_sale: NoOtherSaleWhereSection121aApplied
+  name: Test1
+  output:
+    cat:section_121#section121_single_person_requirements_met: true
+- input:
+    cat:section_121#individuals.Period:
+    - cat:section_121#input.is_in_section121_single_person_property_ownage: true
+      cat:section_121#input.section121_single_person_begin: 2017-01-01
+      cat:section_121#input.section121_single_person_end: 2021-01-01
+    - cat:section_121#input.is_in_section121_single_person_property_usage_as_principal_residence: true
+      cat:section_121#input.section121_single_person_begin: 2019-01-01
+      cat:section_121#input.section121_single_person_end: 2020-01-01
+    cat:section_121#input.section121_single_person_date_of_sale_or_exchange: 2021-01-01
+    cat:section_121#input.section121_single_person_gain_from_sale_or_exchange_of_property: 350000
+    cat:section_121#input.section121_single_person_other_section_121a_sale: NoOtherSaleWhereSection121aApplied
+  name: Test2
+  output:
+    cat:section_121#section121_single_person_requirements_met: false
+- input:
+    cat:section_121#individuals.Period:
+    - cat:section_121#input.is_in_section121_single_person_property_ownage: true
+      cat:section_121#input.section121_single_person_begin: 2017-01-01
+      cat:section_121#input.section121_single_person_end: 2021-01-01
+    - cat:section_121#input.is_in_section121_single_person_property_usage_as_principal_residence: true
+      cat:section_121#input.section121_single_person_begin: 2015-01-01
+      cat:section_121#input.section121_single_person_end: 2017-01-02
+    cat:section_121#input.section121_single_person_date_of_sale_or_exchange: 2021-01-01
+    cat:section_121#input.section121_single_person_gain_from_sale_or_exchange_of_property: 350000
+    cat:section_121#input.section121_single_person_other_section_121a_sale: NoOtherSaleWhereSection121aApplied
+  name: Test3
+  output:
+    cat:section_121#section121_single_person_requirements_met: false
+- input:
+    cat:section_121#individuals.Period:
+    - cat:section_121#input.is_in_section121_single_person_property_ownage: true
+      cat:section_121#input.section121_single_person_begin: 2017-01-01
+      cat:section_121#input.section121_single_person_end: 2021-01-01
+    - cat:section_121#input.is_in_section121_single_person_property_usage_as_principal_residence: true
+      cat:section_121#input.section121_single_person_begin: 2015-01-01
+      cat:section_121#input.section121_single_person_end: 2017-01-02
+    - cat:section_121#input.is_in_section121_single_person_property_usage_as_principal_residence: true
+      cat:section_121#input.section121_single_person_begin: 2019-01-01
+      cat:section_121#input.section121_single_person_end: 2020-01-01
+    cat:section_121#input.section121_single_person_date_of_sale_or_exchange: 2021-01-01
+    cat:section_121#input.section121_single_person_gain_from_sale_or_exchange_of_property: 350000
+    cat:section_121#input.section121_single_person_other_section_121a_sale: NoOtherSaleWhereSection121aApplied
+  name: Test4
+  output:
+    cat:section_121#section121_single_person_requirements_met: true
+- input:
+    cat:section_121#input.section121_two_persons_date_of_sale_or_exchange: 2021-01-01
+    cat:section_121#input.section121_two_persons_gain_from_sale_or_exchange_of_property: 350000
+    cat:section_121#input.section121_two_persons_return_date: 2021-01-01
+  name: Test5
+  output:
+    cat:section_121#section121_two_persons_income_excluded_from_gross_income: 250000
+- input:
+    cat:section_121#input.section121_two_persons_date_of_sale_or_exchange: 2021-01-01
+    cat:section_121#input.section121_two_persons_gain_from_sale_or_exchange_of_property: 350000
+    cat:section_121#input.section121_two_persons_return_date: 2021-01-01
+  name: Test6
+  output:
+    cat:section_121#section121_two_persons_income_excluded_from_gross_income: 350000

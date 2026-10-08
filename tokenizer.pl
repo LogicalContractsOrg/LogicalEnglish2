@@ -42,6 +42,30 @@ tokenize(String, Tokens) :-
 %   thousands separator groups exactly three digits ("1.234.567"), never
 %   clashing with the sentence-final full stop (which is not digit-digit).
 tokenize(String, DecSep, ThouSep, Tokens) :-
+<<<<<<< HEAD
+=======
+    tokenize(String, DecSep, ThouSep, none, Tokens).
+
+%!  tokenize(+String, +DecimalSep, +ThousandsSep, +Lang, -Tokens) is det.
+%
+%   As tokenize/4, for a program in language Lang: a word the language elides
+%   (languages.csv, `elisions`: French "l'autre", "d'une", "qu'il") is read as
+%   its full form followed by the next word ("le autre", "de une", "que il"),
+%   and a contraction (`contractions`: "au", "du", "aux") as its two words
+%   ("à le", "de le", "à les"), so that a template and a sentence match
+%   whichever way each is written.
+tokenize(String, DecSep, ThouSep, Lang, Tokens) :-
+    tokenize_codes(String, DecSep, ThouSep, Tokens0),
+    (   Lang \== none,
+        catch(le_i18n:language_param(Lang, elisions, Elisions), _, fail),
+        catch(le_i18n:language_param(Lang, contractions, Contractions), _, fail),
+        ( Elisions \== [] ; Contractions \== [] )
+    ->  elide(Tokens0, Elisions, Contractions, Tokens)
+    ;   Tokens = Tokens0
+    ).
+
+tokenize_codes(String, DecSep, ThouSep, Tokens) :-
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     atom_codes(DecSep, [DecCode]),
     atom_codes(ThouSep, [ThouCode]),
     string_codes(String, Codes),
@@ -80,15 +104,64 @@ unary_minus_position(Prev, S) :-
 
 %!  tokenize_lang(+String, -Tokens) is det.
 %
+<<<<<<< HEAD
 %   Tokenizes with the number locale of the ACTIVE language (le_i18n).
+=======
+%   Tokenizes with the number locale and the elisions of the ACTIVE language
+%   (le_i18n).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 tokenize_lang(String, Tokens) :-
     (   catch(le_i18n:le_active_language(Lang), _, fail),
         catch(le_i18n:language_param(Lang, decimal_sep, Dec), _, fail),
         catch(le_i18n:language_param(Lang, thousands_sep, Thou), _, fail),
         Dec \== '', Thou \== ''
+<<<<<<< HEAD
     ->  tokenize(String, Dec, Thou, Tokens)
     ;   tokenize(String, Tokens)
     ).
+=======
+    ->  tokenize(String, Dec, Thou, Lang, Tokens)
+    ;   tokenize(String, Tokens)
+    ).
+
+%!  elide(+Tokens0, +Elisions, +Contractions, -Tokens) is det.
+%
+%   Elisions: Short-Full pairs (l-le, d-de, qu-que), the short form without
+%   its apostrophe; a word "l'autre" becomes le and autre, a word "d'" before
+%   a template's `*` becomes de. Contractions: Short-Words pairs (au-[à,le]).
+%   A capital stays on the first word ("L'autre" → Le autre). The split
+%   tokens share the original's place in the text.
+elide([], _, _, []).
+elide([word(W, loc(S, E))|Ts], Els, Cons, Out) :-
+    atom_codes(W, Cs),
+    downcase_atom(W, Wl),
+    (   memberchk(Wl-[F0|Rest], Cons)                   % au, du, s'il: whole words first
+    ->  same_case(W, F0, F), M is min(E, S + 1),
+        findall(word(X, loc(M, E)), member(X, Rest), RTs),
+        append([word(F, loc(S, M))|RTs], Out1, Out),
+        elide(Ts, Els, Cons, Out1)
+    ;   append(PCs, [39|RCs], Cs), PCs \== [],
+        atom_codes(P0, PCs), downcase_atom(P0, P), memberchk(P-Full0, Els)
+    ->  same_case(P0, Full0, Full), length(PCs, PL), M is S + PL + 1,
+        (   RCs == []
+        ->  Out = [word(Full, loc(S, M))|Out1]
+        ;   atom_codes(R, RCs), Out = [word(Full, loc(S, M)), word(R, loc(M, E))|Out1]
+        ),
+        elide(Ts, Els, Cons, Out1)
+    ;   Out = [word(W, loc(S, E))|Out1],
+        elide(Ts, Els, Cons, Out1)
+    ).
+elide([T|Ts], Els, Cons, [T|Out]) :-
+    elide(Ts, Els, Cons, Out).
+
+%   Full, with a capital when Short had one.
+same_case(Short, Full0, Full) :-
+    (   sub_atom(Short, 0, 1, _, C), upcase_atom(C, C), \+ downcase_atom(C, C)
+    ->  sub_atom(Full0, 0, 1, _, F), sub_atom(Full0, 1, _, 0, Rest),
+        upcase_atom(F, FU), atom_concat(FU, Rest, Full)
+    ;   Full = Full0
+    ).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 %!  tokens_to_string(+Tokens:list, -String:string) is det.
 %
@@ -99,6 +172,19 @@ tokens_to_string([T|Ts],String) :-
     ( arg(2, T, loc(Start, _)) -> true ; Start = 0 ),
     tokens_to_string_([T|Ts],Start,Strings),
     atomic_list_concat(Strings,String).
+
+%!  leading_zeros_width(+N, +Begin, +End, -Width) is semidet.
+%
+%   The number N was written in the span Begin-End with leading zeros (`01`,
+%   `007`): Width is the number of digits written. A span that is as long as
+%   N written with thousands separators (`1,000`) is not.
+leading_zeros_width(N, Begin, End, Width) :-
+    integer(N), N >= 0, integer(Begin), integer(End),
+    Width is End - Begin,
+    format(atom(A), '~d', [N]),
+    atom_length(A, L),
+    Width > L,
+    Width =\= L + (L - 1) // 3.
 
 % tokens_to_string_(Tokens,EndPositionOfPrevious,Strings)
 tokens_to_string_([],_,[]).
@@ -117,6 +203,14 @@ tokens_to_string_([T|Tokens],LastEnd,[S|Strings]) :-
                 Advance_ = Advance
             ; arg(1,T,X) -> 
                 ( X = date(Y,M,D) -> format(string(S_), "~w-~|~`0t~w~2+-~|~`0t~w~2+", [Y,M,D])
+<<<<<<< HEAD
+=======
+                  % a number written with leading zeros keeps them: the `01`
+                  % of the claim reference SYN-01-C1 (see le_grammar's
+                  % name_part_word/2)
+                ; leading_zeros_width(X, Begin, NewEnd, Len)
+                  -> format(string(S_), '~|~`0t~d~*+', [X, Len])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
                 ; (atom(X); string(X); number(X)) -> S_=X
                 ; term_string(X, S_)
                 ),
@@ -331,12 +425,23 @@ word_char(C) :- code_type(C, csym), !.
 word_char(C) :- code_type(C, alnum).
 
 word_remainder([C|Cs]) --> [C], { word_char(C) }, !, word_remainder(Cs).
+<<<<<<< HEAD
 % A lone apostrophe (no matching quote before the end of the line) attaches to the
 % word, so templates may contain possessives/contractions, e.g. "employers'",
 % "don't". At most one apostrophe per word; a quote that has a partner ahead on
 % the line is left alone, so it still opens a string constant. (Code 39 = ').
 word_remainder([39|Cs]) -->
     [39], peek_rest(After), { \+ quote_before_eol(After) }, !,
+=======
+% An apostrophe directly after a letter belongs to the word: a possessive or a
+% contraction ("employers'", "don't"), or a French or Italian elision ("l'autre",
+% "d'une", split by elide/3). It never opens a string constant: a string opens
+% at a quote that starts a token ("the name is 'Bob'"). At most one apostrophe
+% per word, so a second quote stays available to close a string. The
+% typographic apostrophe (U+2019) is read as the plain one. (Code 39 = '.)
+word_remainder([39|Cs]) -->
+    ( [39] ; [8217] ), !,
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     word_remainder_no_quote(Cs).
 word_remainder([])     --> [].
 

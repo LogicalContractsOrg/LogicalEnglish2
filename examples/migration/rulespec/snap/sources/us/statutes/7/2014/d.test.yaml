@@ -1,0 +1,52 @@
+- name: irregular_income_exclusion_caps_at_quarter_limit
+  period: 2026-01
+  input:
+    us:statutes/7/2014/d#input.income_received_too_infrequently_or_irregularly_to_be_reasonably_anticipated: true
+    us:statutes/7/2014/d#input.irregular_income_amount_in_certification_period: 45
+  output:
+    us:statutes/7/2014/d#irregular_income_quarter_cap: 30
+    us:statutes/7/2014/d#irregular_income_excluded_from_snap_income: 30
+- name: irregular_income_not_excluded_without_irregularity_condition
+  period: 2026-01
+  input:
+    us:statutes/7/2014/d#input.income_received_too_infrequently_or_irregularly_to_be_reasonably_anticipated: false
+    us:statutes/7/2014/d#input.irregular_income_amount_in_certification_period: 20
+  output:
+    us:statutes/7/2014/d#irregular_income_excluded_from_snap_income: 0
+- name: student_child_earned_income_excluded_at_age_limit
+  period: 2026-01
+  input:
+    us:statutes/7/2014/d#input.person_is_child_member_of_household: true
+    us:statutes/7/2014/d#input.person_is_elementary_or_secondary_school_student: true
+    us:statutes/7/2014/d#input.person_age: 17
+    us:statutes/7/2014/d#input.child_earned_income_amount: 240
+  output:
+    us:statutes/7/2014/d#student_child_income_age_limit: 17
+    us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income: 240
+- name: student_child_earned_income_not_excluded_over_age_limit
+  period: 2026-01
+  input:
+    us:statutes/7/2014/d#input.person_is_child_member_of_household: true
+    us:statutes/7/2014/d#input.person_is_elementary_or_secondary_school_student: true
+    us:statutes/7/2014/d#input.person_age: 18
+    us:statutes/7/2014/d#input.child_earned_income_amount: 240
+  output:
+    us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income: 0
+- name: student_income_not_excluded_if_not_household_child
+  period: 2026-01
+  input:
+    us:statutes/7/2014/d#input.person_is_child_member_of_household: false
+    us:statutes/7/2014/d#input.person_is_elementary_or_secondary_school_student: true
+    us:statutes/7/2014/d#input.person_age: 16
+    us:statutes/7/2014/d#input.child_earned_income_amount: 200
+  output:
+    us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income: 0
+- name: student_income_not_excluded_if_not_student
+  period: 2026-01
+  input:
+    us:statutes/7/2014/d#input.person_is_child_member_of_household: true
+    us:statutes/7/2014/d#input.person_is_elementary_or_secondary_school_student: false
+    us:statutes/7/2014/d#input.person_age: 16
+    us:statutes/7/2014/d#input.child_earned_income_amount: 200
+  output:
+    us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income: 0

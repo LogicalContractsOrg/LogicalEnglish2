@@ -59,6 +59,10 @@ with no technical training.
 **Project documents** (`project/`): [plans](project/plans/), [papers](project/papers/), [research](project/research/), [archive](project/archive/).
 
 The LLM features read documents by path — the language reference in
+<<<<<<< HEAD
 particular (`le_assistant_light.pl`, `le_contract_assistant.pl`,
+=======
+particular (`le_assistant_light.pl`, lpsPlus's `contract_assistant/le_contract_assistant.pl`,
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 `AGENTS_LE_template*.md`, `llm/mcp.pl`): move one only together with them.
 `vibeCodingNotes.md` is private notes, not served and not in the image.

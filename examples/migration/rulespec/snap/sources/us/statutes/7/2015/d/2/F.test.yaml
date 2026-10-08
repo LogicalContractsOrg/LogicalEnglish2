@@ -1,0 +1,40 @@
+- name: youth_between_sixteen_and_eighteen_not_head_of_household_exempt
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/F#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/F#input.person_age_years: 16
+    us:statutes/7/2015/d/2/F#input.person_is_snap_household_head: false
+    us:statutes/7/2015/d/2/F#input.person_is_attending_school_at_least_half_time: false
+    us:statutes/7/2015/d/2/F#input.person_is_enrolled_in_employment_training_program_at_least_half_time: false
+  output:
+    us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies: holds
+- name: youth_head_of_household_attending_school_at_least_half_time_exempt
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/F#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/F#input.person_age_years: 17
+    us:statutes/7/2015/d/2/F#input.person_is_snap_household_head: true
+    us:statutes/7/2015/d/2/F#input.person_is_attending_school_at_least_half_time: true
+    us:statutes/7/2015/d/2/F#input.person_is_enrolled_in_employment_training_program_at_least_half_time: false
+  output:
+    us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies: holds
+- name: youth_head_of_household_enrolled_in_employment_training_at_least_half_time_exempt
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/F#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/F#input.person_age_years: 17
+    us:statutes/7/2015/d/2/F#input.person_is_snap_household_head: true
+    us:statutes/7/2015/d/2/F#input.person_is_attending_school_at_least_half_time: false
+    us:statutes/7/2015/d/2/F#input.person_is_enrolled_in_employment_training_program_at_least_half_time: true
+  output:
+    us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies: holds
+- name: age_eighteen_not_within_youth_exemption_no_exemption
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/F#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/F#input.person_age_years: 18
+    us:statutes/7/2015/d/2/F#input.person_is_snap_household_head: false
+    us:statutes/7/2015/d/2/F#input.person_is_attending_school_at_least_half_time: true
+    us:statutes/7/2015/d/2/F#input.person_is_enrolled_in_employment_training_program_at_least_half_time: true
+  output:
+    us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies: not_holds

@@ -1,0 +1,316 @@
+- name: public_institution_inmate_is_ineligible_absent_exceptions
+  period: 2024-01
+  input:
+    us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_throughout_month: true
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: false
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 20
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month: false
+    us:statutes/42/1382/e/1#input.months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period: 0
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 4
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+  output:
+    us:statutes/42/1382/e/1#qualifying_publicly_operated_community_residence: not_holds
+    us:statutes/42/1382/e/1#inmate_of_public_institution_for_subparagraph_a: holds
+    us:statutes/42/1382/e/1#public_emergency_shelter_eligibility_exception_applies: not_holds
+    us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies: not_holds
+    us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies: not_holds
+    us:statutes/42/1382/e/1#public_institution_inmate_ineligible_for_month: holds
+- name: public_emergency_shelter_exception_blocks_public_institution_ineligibility
+  period: 2024-01
+  input:
+    us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_throughout_month: true
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: false
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 20
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month: true
+    us:statutes/42/1382/e/1#input.months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period: 5
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 4
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+  output:
+    us:statutes/42/1382/e/1#public_emergency_shelter_eligibility_exception_applies: holds
+    us:statutes/42/1382/e/1#public_institution_inmate_ineligible_for_month: not_holds
+- name: medical_facility_couple_one_spouse_in_facility_amount
+  period: 2024-01
+  input:
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : true
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: true
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 4
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+    us:statutes/42/1382/e/1#input.individual_has_eligible_spouse: true
+    us:statutes/42/1382/e/1#input.spouse_is_in_medical_treatment_facility_throughout_month: false
+    us:statutes/42/1382/e/1#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 60
+    us:statutes/42/1382/e/1#input.spouse_income_not_excluded_pursuant_to_section_1382a_b: 200
+    us:statutes/42/1382/e/1#input.combined_income_not_excluded_pursuant_to_section_1382a_b: 260
+  output:
+    us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies: not_holds
+    us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies: not_holds
+    us:statutes/42/1382/e/1#medical_facility_annual_benefit_payable: 1852
+- name: timely_inmate_reporting_payment_reduced_for_duplicate_agreement
+  period: 2024-01
+  input:
+    us:statutes/42/1382/e/1#input.institution_has_agreement_to_report_inmates_to_commissioner: true
+    ? us:statutes/42/1382/e/1#input.individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement
+    : true
+    ? us:statutes/42/1382/e/1#input.commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information
+    : true
+    us:statutes/42/1382/e/1#input.days_after_inmate_entry_when_information_furnished: 10
+    us:statutes/42/1382/e/1#input.commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual: true
+  output:
+    us:statutes/42/1382/e/1#inmate_reporting_payment_to_institution: 200
+- name: auto_zero_medical_facility_annual_benefit_payable
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/e/1#input.benefit_rate_applicable_in_month_prior_to_first_full_month_in_institution_or_facility: 0
+    us:statutes/42/1382/e/1#input.combined_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual: false
+    ? us:statutes/42/1382/e/1#input.commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information
+    : false
+    us:statutes/42/1382/e/1#input.days_after_inmate_entry_when_information_furnished: 0
+    us:statutes/42/1382/e/1#input.individual_has_eligible_spouse: false
+    us:statutes/42/1382/e/1#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 0
+    ? us:statutes/42/1382/e/1#input.individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement
+    : false
+    us:statutes/42/1382/e/1#input.institution_has_agreement_to_report_inmates_to_commissioner: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 4
+    us:statutes/42/1382/e/1#input.months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period: 0
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: false
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: false
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 0
+    us:statutes/42/1382/e/1#input.spouse_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.spouse_is_in_medical_treatment_facility_throughout_month: false
+  output:
+    us:statutes/42/1382/e/1#medical_facility_annual_benefit_payable: 0
+- name: auto_zero_temporary_institutionalization_benefit_payable_at_prior_month_rate
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/e/1#input.benefit_rate_applicable_in_month_prior_to_first_full_month_in_institution_or_facility: 0
+    us:statutes/42/1382/e/1#input.combined_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual: false
+    ? us:statutes/42/1382/e/1#input.commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information
+    : false
+    us:statutes/42/1382/e/1#input.days_after_inmate_entry_when_information_furnished: 0
+    us:statutes/42/1382/e/1#input.individual_has_eligible_spouse: false
+    us:statutes/42/1382/e/1#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 0
+    ? us:statutes/42/1382/e/1#input.individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement
+    : false
+    us:statutes/42/1382/e/1#input.institution_has_agreement_to_report_inmates_to_commissioner: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 4
+    us:statutes/42/1382/e/1#input.months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period: 0
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: false
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: false
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 0
+    us:statutes/42/1382/e/1#input.spouse_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.spouse_is_in_medical_treatment_facility_throughout_month: false
+  output:
+    us:statutes/42/1382/e/1#temporary_institutionalization_benefit_payable_at_prior_month_rate: 0
+- name: auto_zero_inmate_reporting_payment_to_institution
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/e/1#input.benefit_rate_applicable_in_month_prior_to_first_full_month_in_institution_or_facility: 0
+    us:statutes/42/1382/e/1#input.combined_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual: false
+    ? us:statutes/42/1382/e/1#input.commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information
+    : false
+    us:statutes/42/1382/e/1#input.days_after_inmate_entry_when_information_furnished: 91
+    us:statutes/42/1382/e/1#input.individual_has_eligible_spouse: false
+    us:statutes/42/1382/e/1#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 0
+    ? us:statutes/42/1382/e/1#input.individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement
+    : false
+    us:statutes/42/1382/e/1#input.institution_has_agreement_to_report_inmates_to_commissioner: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 0
+    us:statutes/42/1382/e/1#input.months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period: 0
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: false
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: false
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 0
+    us:statutes/42/1382/e/1#input.spouse_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.spouse_is_in_medical_treatment_facility_throughout_month: false
+  output:
+    us:statutes/42/1382/e/1#inmate_reporting_payment_to_institution: 0
+- name: auto_output_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/e/1#input.benefit_rate_applicable_in_month_prior_to_first_full_month_in_institution_or_facility: 0
+    us:statutes/42/1382/e/1#input.combined_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual: false
+    ? us:statutes/42/1382/e/1#input.commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information
+    : false
+    us:statutes/42/1382/e/1#input.days_after_inmate_entry_when_information_furnished: 0
+    us:statutes/42/1382/e/1#input.individual_has_eligible_spouse: false
+    us:statutes/42/1382/e/1#input.individual_income_not_excluded_pursuant_to_section_1382a_b: 0
+    ? us:statutes/42/1382/e/1#input.individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement
+    : false
+    us:statutes/42/1382/e/1#input.institution_has_agreement_to_report_inmates_to_commissioner: false
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : false
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : false
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 0
+    us:statutes/42/1382/e/1#input.months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period: 0
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : false
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: false
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : false
+    us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month: false
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: false
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: false
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: false
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: false
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 0
+    us:statutes/42/1382/e/1#input.spouse_income_not_excluded_pursuant_to_section_1382a_b: 0
+    us:statutes/42/1382/e/1#input.spouse_is_in_medical_treatment_facility_throughout_month: false
+  output:
+    us:statutes/42/1382/e/1#not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test: not_holds
+- name: auto_positive_qualifying_publicly_operated_community_residence
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/e/1#input.residence_is_publicly_operated_community_residence: true
+    us:statutes/42/1382/e/1#input.residence_number_of_residents: 0
+  output:
+    us:statutes/42/1382/e/1#qualifying_publicly_operated_community_residence: holds
+- name: auto_positive_retained_benefit_institutional_month_eligibility_applies
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : true
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : true
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: true
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : true
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: true
+  output:
+    us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies: holds
+- name: auto_positive_temporary_institutionalization_exception_applies
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/42/1382/e/1#input.month_number_in_continuous_institutionalization_period: 0
+    ? us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month
+    : true
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : true
+    us:statutes/42/1382/e/1#input.person_needs_to_maintain_home_or_living_arrangement_expenses_for_return: true
+    us:statutes/42/1382/e/1#input.physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit: true
+  output:
+    us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies: holds
+- name: auto_positive_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    ? us:statutes/42/1382/e/1#input.institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e
+    : true
+    ? us:statutes/42/1382/e/1#input.month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status
+    : true
+    us:statutes/42/1382/e/1#input.person_is_in_medical_treatment_facility_throughout_month: true
+    ? us:statutes/42/1382/e/1#input.person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month
+    : true
+    us:statutes/42/1382/e/1#input.person_was_eligible_under_section_1382h_a_or_b_for_preceding_month: true
+  output:
+    us:statutes/42/1382/e/1#not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test: holds

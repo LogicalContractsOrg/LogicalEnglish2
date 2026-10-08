@@ -1,0 +1,24 @@
+- name: regular_participant_in_treatment_and_rehabilitation_program_exemption_applies
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/D#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    ? us:statutes/7/2015/d/2/D#input.person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program
+    : true
+  output:
+    us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies: holds
+- name: not_regular_participant_in_treatment_and_rehabilitation_program_no_exemption
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/D#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    ? us:statutes/7/2015/d/2/D#input.person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program
+    : false
+  output:
+    us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies: not_holds
+- name: person_not_otherwise_required_has_no_exemption_under_this_branch
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/D#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: false
+    ? us:statutes/7/2015/d/2/D#input.person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program
+    : true
+  output:
+    us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies: not_holds

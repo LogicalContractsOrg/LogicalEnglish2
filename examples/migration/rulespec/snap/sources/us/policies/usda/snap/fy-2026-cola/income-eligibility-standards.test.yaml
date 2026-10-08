@@ -1,0 +1,30 @@
+- name: income_standards_for_one_person_household
+  period: 2026-01
+  input:
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#input.household_size: 1
+  output:
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc_table: 1305
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc: 1305
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc_table: 1696
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc: 1696
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc_table: 2152
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc: 2152
+- name: income_standards_for_eight_person_household
+  period: 2026-01
+  input:
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#input.household_size: 8
+  output:
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc_table: 4513
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc: 4513
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc_table: 5867
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc: 5867
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc_table: 7446
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc: 7446
+- name: income_standards_add_each_additional_person
+  period: 2026-01
+  input:
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#input.household_size: 9
+  output:
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc: 4972
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc: 6463
+    us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc: 8203

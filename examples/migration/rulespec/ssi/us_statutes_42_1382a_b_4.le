@@ -1,0 +1,242 @@
+% 42 U.S.C. 1382a(b)(4)
+% RuleSpec module us:statutes/42/1382a/b/4 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the annual earned income initial exclusion limit is *an amount*.
+    the earned income remainder exclusion rate is *a rate*.
+    the blind branch earned income excluded of *a person* is *an amount*.
+    the blind branch earning expenses excluded of *a person* is *an amount*.
+    the blind branch self support plan other income excluded of *a person* is *an amount*.
+    the disabled branch earned income excluded of *a person* is *an amount*.
+    the disabled branch self support plan other income excluded of *a person* is *an amount*.
+    the age sixty five branch earned income excluded of *a person* is *an amount*.
+    the individual or spouse of *a person* satisfies blind branch status condition; scenario element.
+    the earned income not excluded by preceding paragraphs of *a person* is *an amount*; scenario element.
+    the expenses reasonably attributable to earning income of *a person* is *an amount*; scenario element.
+    the individual of *a person* has commissioner approved plan for achieving self support; scenario element.
+    the other income amount necessary for fulfillment of self support plan of *a person* is *an amount*; scenario element.
+    the individual or spouse of *a person* satisfies disabled not blind branch status condition; scenario element.
+    the disability work expense amount necessary and within commissioner limits of *a person* is *an amount*; scenario element.
+    the individual or spouse of *a person* has attained age sixty five and is not included under subparagraph_a or b; scenario element.
+
+the knowledge base us_statutes_42_1382a_b_4 includes:
+
+
+% 42 U.S.C. 1382a(b)(4) — us:statutes/42/1382a/b/4
+the text of "42 USC 1382a(b)(4)(A)(i), (B)(i), (C)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(A)(i), (B)(iii), (C)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(A)(i)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(A)(ii)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(A)(iii)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(B)(i)-(iii)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(B)(iv)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the text of "42 USC 1382a(b)(4)(C)" is at "sources/us/statutes/42/1382a/b/4.yaml".
+
+the annual earned income initial exclusion limit is 780, as stated in "42 USC 1382a(b)(4)(A)(i), (B)(i), (C)".
+
+the earned income remainder exclusion rate is a rate R if
+    R = 1 / 2.
+
+rule blind_branch_earned_income_excluded with provenance "42 USC 1382a(b)(4)(A)(i)":
+the blind branch earned income excluded of a person is an amount N if
+    the individual or spouse of the person satisfies blind branch status condition
+    and the earned income not excluded by preceding paragraphs of the person is an amount M
+    and the annual earned income initial exclusion limit is an amount K
+    and the earned income remainder exclusion rate is a rate R
+    and the maximum of 0 and M is a number P
+    and the minimum of P and K is a number Q
+    and a number S = M - K
+    and the maximum of 0 and S is a number T
+    and N = Q + R * T
+    otherwise the person is a person
+    and N = 0.
+
+rule blind_branch_earning_expenses_excluded with provenance "42 USC 1382a(b)(4)(A)(ii)":
+the blind branch earning expenses excluded of a person is an amount N if
+    the individual or spouse of the person satisfies blind branch status condition
+    and the expenses reasonably attributable to earning income of the person is an amount M
+    and the maximum of 0 and M is N
+    otherwise the person is a person
+    and N = 0.
+
+rule blind_branch_self_support_plan_other_income_excluded with provenance "42 USC 1382a(b)(4)(A)(iii)":
+the blind branch self support plan other income excluded of a person is an amount N if
+    the individual or spouse of the person satisfies blind branch status condition
+    and the individual of the person has commissioner approved plan for achieving self support
+    and the other income amount necessary for fulfillment of self support plan of the person is an amount M
+    and the maximum of 0 and M is N
+    otherwise the person is a person
+    and N = 0.
+
+rule disabled_branch_earned_income_excluded with provenance "42 USC 1382a(b)(4)(B)(i)-(iii)":
+the disabled branch earned income excluded of a person is an amount N if
+    the individual or spouse of the person satisfies disabled not blind branch status condition
+    and the earned income not excluded by preceding paragraphs of the person is an amount M
+    and the annual earned income initial exclusion limit is an amount K
+    and the disability work expense amount necessary and within commissioner limits of the person is an amount P
+    and the earned income remainder exclusion rate is a rate R
+    and the maximum of 0 and M is a number Q
+    and the minimum of Q and K is a number S
+    and a number T = M - S
+    and the maximum of 0 and T is a number U
+    and the maximum of 0 and P is a number V
+    and the minimum of U and V is a number W
+    and a number X = M - S - W
+    and the maximum of 0 and X is a number Y
+    and N = S + W + R * Y
+    otherwise the person is a person
+    and N = 0.
+
+rule disabled_branch_self_support_plan_other_income_excluded with provenance "42 USC 1382a(b)(4)(B)(iv)":
+the disabled branch self support plan other income excluded of a person is an amount N if
+    the individual or spouse of the person satisfies disabled not blind branch status condition
+    and the individual of the person has commissioner approved plan for achieving self support
+    and the other income amount necessary for fulfillment of self support plan of the person is an amount M
+    and the maximum of 0 and M is N
+    otherwise the person is a person
+    and N = 0.
+
+rule age_sixty_five_branch_earned_income_excluded with provenance "42 USC 1382a(b)(4)(C)":
+the age sixty five branch earned income excluded of a person is an amount N if
+    the individual or spouse of the person has attained age sixty five and is not included under subparagraph_a or b
+    and the earned income not excluded by preceding paragraphs of the person is an amount M
+    and the annual earned income initial exclusion limit is an amount K
+    and the earned income remainder exclusion rate is a rate R
+    and the maximum of 0 and M is a number P
+    and the minimum of P and K is a number Q
+    and a number S = M - K
+    and the maximum of 0 and S is a number T
+    and N = Q + R * T
+    otherwise the person is a person
+    and N = 0.
+
+scenario blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income is, as stated in "sources/us/statutes/42/1382a/b/4.test.yaml" at case 1:
+    person_1 is a person.
+    the disability work expense amount necessary and within commissioner limits of person_1 is 200.
+    the earned income not excluded by preceding paragraphs of person_1 is 1780.
+    the expenses reasonably attributable to earning income of person_1 is 300.
+    the individual of person_1 has commissioner approved plan for achieving self support.
+    the individual or spouse of person_1 satisfies blind branch status condition.
+    the other income amount necessary for fulfillment of self support plan of person_1 is 400.
+    q_age_sixty_five_branch_earned_income_excluded expects answers ["the age sixty five branch earned income excluded of person_1 is 0"].
+    q_blind_branch_earned_income_excluded expects answers ["the blind branch earned income excluded of person_1 is 1280"].
+    q_blind_branch_earning_expenses_excluded expects answers ["the blind branch earning expenses excluded of person_1 is 300"].
+    q_blind_branch_self_support_plan_other_income_excluded expects answers ["the blind branch self support plan other income excluded of person_1 is 400"].
+    q_disabled_branch_earned_income_excluded expects answers ["the disabled branch earned income excluded of person_1 is 0"].
+    q_disabled_branch_self_support_plan_other_income_excluded expects answers ["the disabled branch self support plan other income excluded of person_1 is 0"].
+
+scenario disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining is, as stated in "sources/us/statutes/42/1382a/b/4.test.yaml" at case 2:
+    person_1 is a person.
+    the disability work expense amount necessary and within commissioner limits of person_1 is 200.
+    the earned income not excluded by preceding paragraphs of person_1 is 1780.
+    the expenses reasonably attributable to earning income of person_1 is 300.
+    the individual of person_1 has commissioner approved plan for achieving self support.
+    the individual or spouse of person_1 satisfies disabled not blind branch status condition.
+    the other income amount necessary for fulfillment of self support plan of person_1 is 400.
+    q_age_sixty_five_branch_earned_income_excluded expects answers ["the age sixty five branch earned income excluded of person_1 is 0"].
+    q_blind_branch_earned_income_excluded expects answers ["the blind branch earned income excluded of person_1 is 0"].
+    q_blind_branch_earning_expenses_excluded expects answers ["the blind branch earning expenses excluded of person_1 is 0"].
+    q_blind_branch_self_support_plan_other_income_excluded expects answers ["the blind branch self support plan other income excluded of person_1 is 0"].
+    q_disabled_branch_earned_income_excluded expects answers ["the disabled branch earned income excluded of person_1 is 1380"].
+    q_disabled_branch_self_support_plan_other_income_excluded expects answers ["the disabled branch self support plan other income excluded of person_1 is 400"].
+
+scenario age_sixty_five_branch_excludes_initial_amount_and_half_remainder is, as stated in "sources/us/statutes/42/1382a/b/4.test.yaml" at case 3:
+    person_1 is a person.
+    the disability work expense amount necessary and within commissioner limits of person_1 is 200.
+    the earned income not excluded by preceding paragraphs of person_1 is 1780.
+    the expenses reasonably attributable to earning income of person_1 is 300.
+    the individual or spouse of person_1 has attained age sixty five and is not included under subparagraph_a or b.
+    the other income amount necessary for fulfillment of self support plan of person_1 is 400.
+    q_age_sixty_five_branch_earned_income_excluded expects answers ["the age sixty five branch earned income excluded of person_1 is 1280"].
+    q_blind_branch_earned_income_excluded expects answers ["the blind branch earned income excluded of person_1 is 0"].
+    q_blind_branch_earning_expenses_excluded expects answers ["the blind branch earning expenses excluded of person_1 is 0"].
+    q_blind_branch_self_support_plan_other_income_excluded expects answers ["the blind branch self support plan other income excluded of person_1 is 0"].
+    q_disabled_branch_earned_income_excluded expects answers ["the disabled branch earned income excluded of person_1 is 0"].
+    q_disabled_branch_self_support_plan_other_income_excluded expects answers ["the disabled branch self support plan other income excluded of person_1 is 0"].
+
+scenario oracle_parameter_annual_earned_income_initial_exclusion_limit is, as stated in "sources/us/statutes/42/1382a/b/4.test.yaml" at case 4:
+    person_1 is a person.
+    q_annual_earned_income_initial_exclusion_limit expects answers ["the annual earned income initial exclusion limit is 780"].
+
+scenario oracle_parameter_earned_income_remainder_exclusion_rate is, as stated in "sources/us/statutes/42/1382a/b/4.test.yaml" at case 5:
+    person_1 is a person.
+    q_earned_income_remainder_exclusion_rate expects answers ["the earned income remainder exclusion rate is 0.5"].
+
+query q_age_sixty_five_branch_earned_income_excluded is:
+    the age sixty five branch earned income excluded of which person is which amount.
+
+query q_age_sixty_five_branch_earned_income_excluded is:
+    the age sixty five branch earned income excluded of which person is which amount.
+
+query q_age_sixty_five_branch_earned_income_excluded is:
+    the age sixty five branch earned income excluded of which person is which amount.
+
+query q_annual_earned_income_initial_exclusion_limit is:
+    the annual earned income initial exclusion limit is which amount.
+
+query q_blind_branch_earned_income_excluded is:
+    the blind branch earned income excluded of which person is which amount.
+
+query q_blind_branch_earned_income_excluded is:
+    the blind branch earned income excluded of which person is which amount.
+
+query q_blind_branch_earned_income_excluded is:
+    the blind branch earned income excluded of which person is which amount.
+
+query q_blind_branch_earning_expenses_excluded is:
+    the blind branch earning expenses excluded of which person is which amount.
+
+query q_blind_branch_earning_expenses_excluded is:
+    the blind branch earning expenses excluded of which person is which amount.
+
+query q_blind_branch_earning_expenses_excluded is:
+    the blind branch earning expenses excluded of which person is which amount.
+
+query q_blind_branch_self_support_plan_other_income_excluded is:
+    the blind branch self support plan other income excluded of which person is which amount.
+
+query q_blind_branch_self_support_plan_other_income_excluded is:
+    the blind branch self support plan other income excluded of which person is which amount.
+
+query q_blind_branch_self_support_plan_other_income_excluded is:
+    the blind branch self support plan other income excluded of which person is which amount.
+
+query q_disabled_branch_earned_income_excluded is:
+    the disabled branch earned income excluded of which person is which amount.
+
+query q_disabled_branch_earned_income_excluded is:
+    the disabled branch earned income excluded of which person is which amount.
+
+query q_disabled_branch_earned_income_excluded is:
+    the disabled branch earned income excluded of which person is which amount.
+
+query q_disabled_branch_self_support_plan_other_income_excluded is:
+    the disabled branch self support plan other income excluded of which person is which amount.
+
+query q_disabled_branch_self_support_plan_other_income_excluded is:
+    the disabled branch self support plan other income excluded of which person is which amount.
+
+query q_disabled_branch_self_support_plan_other_income_excluded is:
+    the disabled branch self support plan other income excluded of which person is which amount.
+
+query q_earned_income_remainder_exclusion_rate is:
+    the earned income remainder exclusion rate is which rate.
+

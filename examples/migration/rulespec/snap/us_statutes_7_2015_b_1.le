@@ -1,0 +1,357 @@
+% 7 U.S.C. 2015(b)(1)
+% RuleSpec module us:statutes/7/2015/b/1 (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 0 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the first determination disqualification period years is *a number*.
+    the second determination disqualification period years is *a number*.
+    the first determination occasion number is *a number*.
+    the second determination occasion number is *a number*.
+    the third determination occasion number is *a number*.
+    the controlled substance first finding occasion number is *a number*.
+    the controlled substance second finding occasion number is *a number*.
+    the firearms ammunition or explosives first finding occasion number is *a number*.
+    the section 2024 item value permanent disqualification threshold is *an amount*.
+    *a person* is intentional program violation determination.
+    *a person* is ineligible for one year.
+    *a person* is ineligible for two years.
+    *a person* is permanently ineligible.
+    *a person* is ineligible for further participation.
+    *a household* is household barred from increased benefits due to member disqualification.
+    *a person* is found by state or federal court or administrative agency; scenario element.
+    *a person* is intentionally made false or misleading statement or misrepresented concealed or withheld facts; scenario element.
+    *a person* is intentionally committed act constituting violation of chapter regulations or state statute; scenario element.
+    the act of *a person* was for purpose of using presenting transferring acquiring receiving or possessing program benefits; scenario element.
+    the determination occasion number of *a person* is *a number*; scenario element.
+    *a person* is federal state or local court finding of trading controlled substance for benefits; scenario element.
+    the controlled substance trading finding occasion number of *a person* is *a number*; scenario element.
+    *a person* is federal state or local court finding of trading firearms ammunition or explosives for benefits; scenario element.
+    the firearms ammunition or explosives trading finding occasion number of *a person* is *a number*; scenario element.
+    *a person* is convicted of offense under 7 usc 2024 b or c involving item covered by 7 usc 2024 b or c; scenario element.
+    the section 2024 item value of *a person* is *an amount*; scenario element.
+    *a household* has member disqualified under this subsection during period of ineligibility; scenario element.
+
+the knowledge base us_statutes_7_2015_b_1 includes:
+
+
+% 7 U.S.C. 2015(b)(1) — us:statutes/7/2015/b/1
+the text of "7 U.S.C. 2015(b)(1)(i)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(ii)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(ii)(I)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(iii)(I)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(ii)(II)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(iii)(II)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(iii)(III)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(iii)(IV)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+the text of "7 U.S.C. 2015(b)(1)(iii)" is at "sources/us/statutes/7/2015/b/1.yaml".
+
+rule first_determination_disqualification_period_years with provenance "7 U.S.C. 2015(b)(1)(i)":
+the first determination disqualification period years is 1 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule second_determination_disqualification_period_years with provenance "7 U.S.C. 2015(b)(1)(ii)":
+the second determination disqualification period years is 2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule first_determination_occasion_number with provenance "7 U.S.C. 2015(b)(1)(i)":
+the first determination occasion number is 1 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule second_determination_occasion_number with provenance "7 U.S.C. 2015(b)(1)(ii)(I)":
+the second determination occasion number is 2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule third_determination_occasion_number with provenance "7 U.S.C. 2015(b)(1)(iii)(I)":
+the third determination occasion number is 3 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule controlled_substance_first_finding_occasion_number with provenance "7 U.S.C. 2015(b)(1)(ii)(II)":
+the controlled substance first finding occasion number is 1 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule controlled_substance_second_finding_occasion_number with provenance "7 U.S.C. 2015(b)(1)(iii)(II)":
+the controlled substance second finding occasion number is 2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule firearms_ammunition_or_explosives_first_finding_occasion_number with provenance "7 U.S.C. 2015(b)(1)(iii)(III)":
+the firearms ammunition or explosives first finding occasion number is 1 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule section_2024_item_value_permanent_disqualification_threshold with provenance "7 U.S.C. 2015(b)(1)(iii)(IV)":
+the section 2024 item value permanent disqualification threshold is 500 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule intentional_program_violation_determination_1 with provenance "7 U.S.C. 2015(b)(1)":
+a person is intentional program violation determination if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is found by state or federal court or administrative agency
+    and the person is intentionally made false or misleading statement or misrepresented concealed or withheld facts
+    and the act of the person was for purpose of using presenting transferring acquiring receiving or possessing program benefits.
+
+rule intentional_program_violation_determination_2 with provenance "7 U.S.C. 2015(b)(1)":
+a person is intentional program violation determination if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is found by state or federal court or administrative agency
+    and the person is intentionally committed act constituting violation of chapter regulations or state statute
+    and the act of the person was for purpose of using presenting transferring acquiring receiving or possessing program benefits.
+
+rule ineligible_for_one_year with provenance "7 U.S.C. 2015(b)(1)(i)":
+a person is ineligible for one year if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is intentional program violation determination
+    and the determination occasion number of the person is a number N
+    and the first determination occasion number is a number M
+    and N = M.
+
+rule ineligible_for_two_years_1 with provenance "7 U.S.C. 2015(b)(1)(ii)":
+a person is ineligible for two years if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is intentional program violation determination
+    and the determination occasion number of the person is a number N
+    and the second determination occasion number is a number M
+    and N = M.
+
+rule ineligible_for_two_years_2 with provenance "7 U.S.C. 2015(b)(1)(ii)":
+a person is ineligible for two years if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is federal state or local court finding of trading controlled substance for benefits
+    and the controlled substance trading finding occasion number of the person is a number N
+    and the controlled substance first finding occasion number is a number M
+    and N = M.
+
+rule permanently_ineligible_1 with provenance "7 U.S.C. 2015(b)(1)(iii)":
+a person is permanently ineligible if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is intentional program violation determination
+    and the determination occasion number of the person is a number N
+    and the third determination occasion number is a number M
+    and N >= M.
+
+rule permanently_ineligible_2 with provenance "7 U.S.C. 2015(b)(1)(iii)":
+a person is permanently ineligible if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is federal state or local court finding of trading controlled substance for benefits
+    and the controlled substance trading finding occasion number of the person is a number N
+    and the controlled substance second finding occasion number is a number M
+    and N >= M.
+
+rule permanently_ineligible_3 with provenance "7 U.S.C. 2015(b)(1)(iii)":
+a person is permanently ineligible if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is federal state or local court finding of trading firearms ammunition or explosives for benefits
+    and the firearms ammunition or explosives trading finding occasion number of the person is a number N
+    and the firearms ammunition or explosives first finding occasion number is a number M
+    and N >= M.
+
+rule permanently_ineligible_4 with provenance "7 U.S.C. 2015(b)(1)(iii)":
+a person is permanently ineligible if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is convicted of offense under 7 usc 2024 b or c involving item covered by 7 usc 2024 b or c
+    and the section 2024 item value of the person is an amount N
+    and the section 2024 item value permanent disqualification threshold is an amount M
+    and N >= M.
+
+rule ineligible_for_further_participation_1 with provenance "7 U.S.C. 2015(b)(1)":
+a person is ineligible for further participation if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is ineligible for one year.
+
+rule ineligible_for_further_participation_2 with provenance "7 U.S.C. 2015(b)(1)":
+a person is ineligible for further participation if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is ineligible for two years.
+
+rule ineligible_for_further_participation_3 with provenance "7 U.S.C. 2015(b)(1)":
+a person is ineligible for further participation if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the person is permanently ineligible.
+
+rule household_barred_from_increased_benefits_due_to_member_disqualification with provenance "7 U.S.C. 2015(b)(1)":
+a household is household barred from increased benefits due to member disqualification if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household has member disqualified under this subsection during period of ineligibility.
+
+scenario first_intentional_program_violation_causes_one_year_ineligibility is, as stated in "sources/us/statutes/7/2015/b/1.test.yaml" at case 1:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the act of person_1 was for purpose of using presenting transferring acquiring receiving or possessing program benefits.
+    the controlled substance trading finding occasion number of person_1 is 0.
+    the determination occasion number of person_1 is 1.
+    the firearms ammunition or explosives trading finding occasion number of person_1 is 0.
+    person_1 is found by state or federal court or administrative agency.
+    person_1 is intentionally made false or misleading statement or misrepresented concealed or withheld facts.
+    the section 2024 item value of person_1 is 0.
+    q_controlled_substance_first_finding_occasion_number expects answers ["the controlled substance first finding occasion number is 1"].
+    q_controlled_substance_second_finding_occasion_number expects answers ["the controlled substance second finding occasion number is 2"].
+    q_firearms_ammunition_or_explosives_first_finding_occasion_number expects answers ["the firearms ammunition or explosives first finding occasion number is 1"].
+    q_first_determination_disqualification_period_years expects answers ["the first determination disqualification period years is 1"].
+    q_first_determination_occasion_number expects answers ["the first determination occasion number is 1"].
+    q_second_determination_disqualification_period_years expects answers ["the second determination disqualification period years is 2"].
+    q_second_determination_occasion_number expects answers ["the second determination occasion number is 2"].
+    q_section_2024_item_value_permanent_disqualification_threshold expects answers ["the section 2024 item value permanent disqualification threshold is 500"].
+    q_third_determination_occasion_number expects answers ["the third determination occasion number is 3"].
+
+scenario first_controlled_substance_trading_finding_causes_two_year_ineligibility is, as stated in "sources/us/statutes/7/2015/b/1.test.yaml" at case 2:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the controlled substance trading finding occasion number of person_1 is 1.
+    the determination occasion number of person_1 is 0.
+    person_1 is federal state or local court finding of trading controlled substance for benefits.
+    the firearms ammunition or explosives trading finding occasion number of person_1 is 0.
+    the section 2024 item value of person_1 is 0.
+    q_ineligible_for_further_participation expects answers ["person_1 is ineligible for further participation"].
+    q_ineligible_for_one_year expects answers [].
+    q_ineligible_for_two_years expects answers ["person_1 is ineligible for two years"].
+    q_intentional_program_violation_determination expects answers [].
+    q_permanently_ineligible expects answers [].
+
+scenario first_firearms_ammunition_or_explosives_trading_finding_causes_permanent_ineligibility is, as stated in "sources/us/statutes/7/2015/b/1.test.yaml" at case 3:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the controlled substance trading finding occasion number of person_1 is 0.
+    the determination occasion number of person_1 is 0.
+    person_1 is federal state or local court finding of trading firearms ammunition or explosives for benefits.
+    the firearms ammunition or explosives trading finding occasion number of person_1 is 1.
+    the section 2024 item value of person_1 is 0.
+    q_ineligible_for_further_participation expects answers ["person_1 is ineligible for further participation"].
+    q_ineligible_for_one_year expects answers [].
+    q_ineligible_for_two_years expects answers [].
+    q_intentional_program_violation_determination expects answers [].
+    q_permanently_ineligible expects answers ["person_1 is permanently ineligible"].
+
+scenario household_cannot_receive_increased_benefits_due_to_member_disqualification is, as stated in "sources/us/statutes/7/2015/b/1.test.yaml" at case 4:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    household_1 has member disqualified under this subsection during period of ineligibility.
+    q_household_barred_from_increased_benefits_due_to_member_disqualification expects answers ["household_1 is household barred from increased benefits due to member disqualification"].
+
+scenario auto_positive_intentional_program_violation_determination is, as stated in "sources/us/statutes/7/2015/b/1.test.yaml" at case 5:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the act of person_1 was for purpose of using presenting transferring acquiring receiving or possessing program benefits.
+    person_1 is found by state or federal court or administrative agency.
+    person_1 is intentionally committed act constituting violation of chapter regulations or state statute.
+    person_1 is intentionally made false or misleading statement or misrepresented concealed or withheld facts.
+    q_intentional_program_violation_determination expects answers ["person_1 is intentional program violation determination"].
+
+scenario auto_positive_ineligible_for_one_year is, as stated in "sources/us/statutes/7/2015/b/1.test.yaml" at case 6:
+    person_1 is a person.
+    the calculation date is 2026-01-01.
+    the act of person_1 was for purpose of using presenting transferring acquiring receiving or possessing program benefits.
+    the controlled substance trading finding occasion number of person_1 is 0.
+    the determination occasion number of person_1 is 1.
+    the firearms ammunition or explosives trading finding occasion number of person_1 is 0.
+    person_1 is found by state or federal court or administrative agency.
+    person_1 is intentionally made false or misleading statement or misrepresented concealed or withheld facts.
+    the section 2024 item value of person_1 is 0.
+    q_ineligible_for_one_year expects answers ["person_1 is ineligible for one year"].
+
+query q_controlled_substance_first_finding_occasion_number is:
+    the controlled substance first finding occasion number is which number.
+
+query q_controlled_substance_second_finding_occasion_number is:
+    the controlled substance second finding occasion number is which number.
+
+query q_firearms_ammunition_or_explosives_first_finding_occasion_number is:
+    the firearms ammunition or explosives first finding occasion number is which number.
+
+query q_first_determination_disqualification_period_years is:
+    the first determination disqualification period years is which number.
+
+query q_first_determination_occasion_number is:
+    the first determination occasion number is which number.
+
+query q_household_barred_from_increased_benefits_due_to_member_disqualification is:
+    which household is household barred from increased benefits due to member disqualification.
+
+query q_ineligible_for_further_participation is:
+    which person is ineligible for further participation.
+
+query q_ineligible_for_further_participation is:
+    which person is ineligible for further participation.
+
+query q_ineligible_for_one_year is:
+    which person is ineligible for one year.
+
+query q_ineligible_for_one_year is:
+    which person is ineligible for one year.
+
+query q_ineligible_for_one_year is:
+    which person is ineligible for one year.
+
+query q_ineligible_for_two_years is:
+    which person is ineligible for two years.
+
+query q_ineligible_for_two_years is:
+    which person is ineligible for two years.
+
+query q_intentional_program_violation_determination is:
+    which person is intentional program violation determination.
+
+query q_intentional_program_violation_determination is:
+    which person is intentional program violation determination.
+
+query q_intentional_program_violation_determination is:
+    which person is intentional program violation determination.
+
+query q_permanently_ineligible is:
+    which person is permanently ineligible.
+
+query q_permanently_ineligible is:
+    which person is permanently ineligible.
+
+query q_second_determination_disqualification_period_years is:
+    the second determination disqualification period years is which number.
+
+query q_second_determination_occasion_number is:
+    the second determination occasion number is which number.
+
+query q_section_2024_item_value_permanent_disqualification_threshold is:
+    the section 2024 item value permanent disqualification threshold is which amount.
+
+query q_third_determination_occasion_number is:
+    the third determination occasion number is which number.
+

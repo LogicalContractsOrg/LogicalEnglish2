@@ -1,0 +1,92 @@
+% bmaf — jumeau des champs d'application Catala BaseMensuelleAllocationsFamiliales (catala-examples, Apache-2.0), avec les tests de leurs fichiers.
+% Traduit par lpsPlus migration/catala (roadmap.md §5.4, phase 3c).
+%
+% AVERTISSEMENT. Ce programme a été écrit par un traducteur à partir d'un
+% programme d'un autre système. Il est fourni « tel quel », sans garantie
+% d'aucune sorte, expresse ou implicite, y compris toute garantie d'exactitude,
+% d'exhaustivité ou d'adéquation à un usage particulier. La traduction peut être
+% erronée : vérifiez-la par rapport à sa source avant de vous y fier. Ce n'est
+% pas un conseil juridique, fiscal, d'assurance, financier ou professionnel
+% d'aucune autre sorte. Ses auteurs déclinent toute responsabilité pour toute
+% perte ou tout dommage résultant de son utilisation.
+
+la langue cible est: prolog.
+
+les modèles sont:
+    la date courante est *une date*; élément de scénario.
+    le montant est *un montant*.
+
+la base de connaissances cat_bmaf comprend:
+
+
+% Catala scope(s) BaseMensuelleAllocationsFamiliales — cat:bmaf
+le texte de "Instruction ministérielle N°DSS/SD2B/2019/65 du 25 mars 2019 relative à la revalorisation au 1er avril 2019 des prestations familiales servies en métropole; Instruction interministérielle no DSS/SD2B/2020/33 du 18 février 2020 relative à la revalorisation au 1er avril 2020 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à La Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte; Instruction interministérielle n°DSS/2B/2021/65 du 19 mars 2021 relative à la revalorisation au 1er avril 2021 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte; Instruction interministérielle n°DSS/2B/2022/82 du 28 mars 2022 relative à la revalorisation au 1er avril 2022 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte; Instruction interministérielle N° DSS/2B/2023/41 du 24 mars 2023 relative à la revalorisation au 1er avril 2023 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte" est à "sources/base_mensuelle_allocations_familiales/Bmaf.catala_fr".
+
+règle montant avec pour source "Instruction ministérielle N°DSS/SD2B/2019/65 du 25 mars 2019 relative à la revalorisation au 1er avril 2019 des prestations familiales servies en métropole; Instruction interministérielle no DSS/SD2B/2020/33 du 18 février 2020 relative à la revalorisation au 1er avril 2020 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à La Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte; Instruction interministérielle n°DSS/2B/2021/65 du 19 mars 2021 relative à la revalorisation au 1er avril 2021 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte; Instruction interministérielle n°DSS/2B/2022/82 du 28 mars 2022 relative à la revalorisation au 1er avril 2022 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte; Instruction interministérielle N° DSS/2B/2023/41 du 24 mars 2023 relative à la revalorisation au 1er avril 2023 des prestations familiales servies en métropole, en Guadeloupe, en Guyane, en Martinique, à la Réunion, à Saint-Barthélemy, à Saint-Martin et dans le département de Mayotte":
+le montant est un montant M si
+    la date courante est une date D
+    et D >= 2019-04-01
+    et la date courante est une date N
+    et N < 2020-04-01
+    et M = 413,16
+    sinon la date courante est une date K
+    et K >= 2020-04-01
+    et la date courante est une date P
+    et P < 2021-04-01
+    et M = 414,4
+    sinon la date courante est une date Q
+    et Q >= 2021-04-01
+    et la date courante est une date R
+    et R < 2022-04-01
+    et M = 414,81
+    sinon la date courante est une date S
+    et S >= 2022-04-01
+    et la date courante est une date T
+    et T < 2023-04-01
+    et M = 422,28
+    sinon la date courante est une date U
+    et U >= 2023-04-01
+    et M = 445,93.
+
+scénario Gen1 est, comme indiqué dans "sources/cat/bmaf.test.yaml" à cas 1:
+    la date courante est 2019-06-15.
+    q_montant attend les réponses ["le montant est 413,16"].
+
+scénario Gen2 est, comme indiqué dans "sources/cat/bmaf.test.yaml" à cas 2:
+    la date courante est 2020-06-15.
+    q_montant attend les réponses ["le montant est 414,4"].
+
+scénario Gen3 est, comme indiqué dans "sources/cat/bmaf.test.yaml" à cas 3:
+    la date courante est 2021-06-15.
+    q_montant attend les réponses ["le montant est 414,81"].
+
+scénario Gen4 est, comme indiqué dans "sources/cat/bmaf.test.yaml" à cas 4:
+    la date courante est 2022-06-15.
+    q_montant attend les réponses ["le montant est 422,28"].
+
+scénario Gen5 est, comme indiqué dans "sources/cat/bmaf.test.yaml" à cas 5:
+    la date courante est 2023-06-15.
+    q_montant attend les réponses ["le montant est 445,93"].
+
+scénario Gen6 est, comme indiqué dans "sources/cat/bmaf.test.yaml" à cas 6:
+    la date courante est 2024-06-15.
+    q_montant attend les réponses ["le montant est 445,93"].
+
+requête q_montant est:
+    le montant est quel montant.
+
+requête q_montant est:
+    le montant est quel montant.
+
+requête q_montant est:
+    le montant est quel montant.
+
+requête q_montant est:
+    le montant est quel montant.
+
+requête q_montant est:
+    le montant est quel montant.
+
+requête q_montant est:
+    le montant est quel montant.
+

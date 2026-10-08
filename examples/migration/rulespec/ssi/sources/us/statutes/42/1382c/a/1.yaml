@@ -1,0 +1,88 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/42/1382c/a/1
+  summary: |-
+    For purposes of this subchapter, “aged, blind, or disabled individual” means an individual who is 65 or older, blind under paragraph (2), or disabled under paragraph (3), and who satisfies either the United States residence/citizenship-or-alien-status branch or the child-citizen-with-Armed-Forces-parent-abroad branch.
+rules:
+  - name: aged_age_threshold_years
+    kind: parameter
+    dtype: Count
+    source: 42 USC 1382c(a)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/42/1382c/a/1
+              excerpt: "65 years of age or older"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          65
+
+  - name: aged_blind_or_disabled_individual
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: 42 USC 1382c(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/42/1382c/a/1
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/42/1382c/a/1#aged_age_threshold_years
+              output: aged_age_threshold_years
+              hash: sha256:local
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382c/a/1
+              excerpt: "is blind (as determined under paragraph (2)), or is disabled (as determined under paragraph (3))"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382c/a/1
+              excerpt: "is a resident of the United States"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382c/a/1
+              excerpt: "a citizen ... an alien lawfully admitted for permanent residence or otherwise permanently residing in the United States under color of law"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/42/1382c/a/1
+              excerpt: "a child who is a citizen of the United States ... living with a parent ... member of the Armed Forces ... assigned to permanent duty ashore outside the United States"
+    versions:
+      - effective_from: '1974-01-01'
+        formula: |-
+          (
+            individual_age_years >= aged_age_threshold_years
+            or blind_as_determined_under_paragraph_2
+            or disabled_as_determined_under_paragraph_3
+          )
+          and (
+            (
+              resident_of_united_states
+              and (
+                citizen_of_united_states
+                or alien_lawfully_admitted_for_permanent_residence
+                or alien_otherwise_permanently_residing_in_united_states_under_color_of_law
+                or alien_lawfully_present_due_to_section_1182_d_5_application
+              )
+            )
+            or (
+              child_citizen_of_united_states
+              and living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states
+            )
+          )

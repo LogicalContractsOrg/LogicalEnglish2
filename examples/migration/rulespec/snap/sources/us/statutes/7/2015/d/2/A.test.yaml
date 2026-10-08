@@ -1,0 +1,48 @@
+- name: title_iv_work_registration_compliance_exemption_applies
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/A#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_title_iv_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.complying_with_title_iv_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_federal_state_unemployment_compensation_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.complying_with_federal_state_unemployment_compensation_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.person_fails_to_comply_with_any_work_requirement_to_which_person_is_subject: false
+  output:
+    us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies: holds
+    us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure: not_holds
+- name: unemployment_compensation_work_registration_compliance_exemption_applies
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/A#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_title_iv_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.complying_with_title_iv_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_federal_state_unemployment_compensation_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.complying_with_federal_state_unemployment_compensation_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.person_fails_to_comply_with_any_work_requirement_to_which_person_is_subject: false
+  output:
+    us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies: holds
+    us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure: not_holds
+- name: noncompliance_with_subject_work_requirement_counts_as_paragraph_1_failure
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/A#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: true
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_title_iv_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.complying_with_title_iv_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_federal_state_unemployment_compensation_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.complying_with_federal_state_unemployment_compensation_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.person_fails_to_comply_with_any_work_requirement_to_which_person_is_subject: true
+  output:
+    us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies: not_holds
+    us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure: holds
+- name: person_not_otherwise_required_has_no_branch_exemption_or_failure_treatment
+  period: 2026-01
+  input:
+    us:statutes/7/2015/d/2/A#input.person_otherwise_required_to_comply_with_paragraph_1_requirements: false
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_title_iv_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.complying_with_title_iv_work_registration_requirement: true
+    us:statutes/7/2015/d/2/A#input.currently_subject_to_federal_state_unemployment_compensation_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.complying_with_federal_state_unemployment_compensation_work_registration_requirement: false
+    us:statutes/7/2015/d/2/A#input.person_fails_to_comply_with_any_work_requirement_to_which_person_is_subject: true
+  output:
+    us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies: not_holds
+    us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure: not_holds

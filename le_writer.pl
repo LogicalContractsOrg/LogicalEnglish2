@@ -306,7 +306,11 @@ write_program_(Header, Items, Text) :-
     kb_name(Header, KBName),
     extensions_mode(Header, Ext),
     Ctx = ctx(Dicts, Ext, Target),
+<<<<<<< HEAD
     with_output_to(string(Text),
+=======
+    with_output_to(string(Text0),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ( write_header(Header, Target, KBName),
           write_templates(Ctx, Items),
           write_constants(Items),
@@ -314,7 +318,100 @@ write_program_(Header, Items, Text) :-
           write_kb(Ctx, KBName, Items),
           write_scenarios(Ctx, Items),
           write_queries(Ctx, Items),
+<<<<<<< HEAD
           write_views(Items) )).
+=======
+          write_views(Items) )),
+    le_i18n:le_active_language(Lang),
+    elide_text(Lang, Text0, Text).
+
+%!  elide_text(+Lang, +Text0, -Text) is det.
+%
+%   The text as a speaker of Lang writes it: in a language with elisions
+%   (languages.csv), a word that elides before a vowel does ("de une" →
+%   "d'une", "la autre" → "l'autre", "de *une personne*" → "d'*une
+%   personne*"), and a contraction is written as one word ("à le marché" →
+%   "au marché", "si il" → "s'il"). The parser reads both forms
+%   (tokenizer:elide/4); text inside double quotes is left as it is.
+elide_text(Lang, Text0, Text) :-
+    (   catch(le_i18n:language_param(Lang, elisions, Els), _, fail), Els \== []
+    ->  le_i18n:language_param(Lang, contractions, Cons),
+        split_string(Text0, "\"", "", Parts0),
+        elide_parts(Parts0, outside, Els, Cons, Parts),
+        atomic_list_concat(Parts, '"', A), atom_string(A, Text)
+    ;   Text = Text0
+    ).
+
+elide_parts([], _, _, _, []).
+elide_parts([P0|Ps0], Where, Els, Cons, [P|Ps]) :-
+    (   Where == outside -> elide_words(P0, Els, Cons, P), Next = inside
+    ;   P = P0, Next = outside
+    ),
+    elide_parts(Ps0, Next, Els, Cons, Ps).
+
+%   Word by word, keeping the spacing: a short form joins the next word.
+elide_words(S0, Els, Cons, S) :-
+    split_string(S0, " ", "", Ws0),
+    elide_list(Ws0, Els, Cons, Ws),
+    atomic_list_concat(Ws, ' ', S).
+
+elide_list([W1, W2|Ws0], Els, Cons, [CS|Ws]) :-       % à le marché → au marché, si il → s'il
+    lower_atom(W1, A), lower_atom(W2, B),
+    member(C-[A, B], Cons),
+    (   vowel_start(W2) -> true                         % (s'il: the second word is the vowel)
+    ;   sub_atom(B, _, 1, 0, s) -> true                 % (aux: before any word)
+    ;   Ws0 = [W3|_], consonant_start(W3)               % (au, du: before a consonant, not h)
+    ),
+    !,
+    cased(W1, C, CS),
+    elide_list(Ws0, Els, Cons, Ws).
+elide_list([W1, W2|Ws0], Els, Cons, Ws) :-             % de une → d'une, la autre → l'autre
+    lower_atom(W1, A), elidable(A, Els, Short), vowel_start(W2), !,
+    cased(W1, Short, Sh),
+    string_concat(Sh, "'", E0), string_concat(E0, W2, E),
+    elide_list([E|Ws0], Els, Cons, Ws).
+elide_list([W|Ws0], Els, Cons, [W|Ws]) :- !, elide_list(Ws0, Els, Cons, Ws).
+elide_list([], _, _, []).
+
+lower_atom(W, A) :- string_lower(W, L), atom_string(A, L).
+
+%   The short form of a word that elides: the full form of an elision (de →
+%   d), or a definite article one letter longer than the short form of the
+%   article (la → l, as le → l).
+elidable(A, Els, Short) :-
+    member(Short-Full, Els),
+    (   A == Full -> true
+    ;   le_i18n:class_member(definite_article, Full), le_i18n:class_member(definite_article, A),
+        atom_length(Short, SL), atom_length(A, L), L =:= SL + 1, sub_atom(A, 0, SL, _, Short)
+    ), !.
+
+%   Short, with a capital when W had one.
+cased(W, Short, S) :-
+    atom_string(Short, S0),
+    (   sub_string(W, 0, 1, _, F), string_upper(F, F), \+ string_lower(F, F)
+    ->  sub_string(S0, 0, 1, _, F1), sub_string(S0, 1, _, 0, R), string_upper(F1, FU), string_concat(FU, R, S)
+    ;   S = S0
+    ).
+
+%   A word that starts with a consonant other than h (which may be mute:
+%   "à l'hôtel").
+consonant_start(W) :-
+    string_codes(W, Cs0),
+    ( Cs0 = [0'*|Cs] -> true ; Cs = Cs0 ),
+    Cs = [C|_], code_type(C, alpha), \+ vowel_start(W),
+    char_code(Ch, C), downcase_atom(Ch, L), L \== h.
+
+%   A word that starts with a vowel, or a template's place that does
+%   (`*une personne*`); not h, which may be aspirated.
+vowel_start(W) :-
+    string_codes(W, Cs0),
+    ( Cs0 = [0'*|Cs] -> true ; Cs = Cs0 ),
+    Cs = [C|_], code_type(C, alpha),
+    char_code(Ch, C), downcase_atom(Ch, L),
+    sub_atom('aeiouyàâäéèêëîïôöùûüœæ', _, 1, _, L), !.
+
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 kb_name(Header, Name) :- ( memberchk(kb(Name), Header) -> true ; Name = program ).
 
@@ -687,16 +784,39 @@ write_document_facts(Name, Opts) :-
     render_constant(Name, NT),
     (   option(url(U), Opts)
     ->  render_string(U, UT),
+<<<<<<< HEAD
         format("~w is published at ~w.~n", [NT, UT])
+=======
+        sys_sentence(le_published_at, [NT, UT], S1), format("~w.~n", [S1])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ;   true
     ),
     (   option(text(P), Opts)
     ->  render_string(P, PT),
+<<<<<<< HEAD
         format("the text of ~w is at ~w.~n", [NT, PT])
+=======
+        sys_sentence(le_text_at, [NT, PT], S2), format("~w.~n", [S2])
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ;   true
     ),
     nl.
 
+<<<<<<< HEAD
+=======
+%   A system template's sentence in the active language
+%   (system_templates.csv: its first wording), the slots filled with Args.
+sys_sentence(F, Args, Text) :-
+    (   le_i18n:system_template_row(F, _, Parts) -> true
+    ;   le_i18n:system_template_row(en, F, _, Parts)
+    ),
+    maplist(sys_part(Args), Parts, Words),
+    atomic_list_concat(Words, ' ', Text).
+
+sys_part(Args, slot(N), W) :- !, nth1(N, Args, W).
+sys_part(_, W, W).
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 		 /*******************************
 		 *        RULES AND FACTS       *
 		 *******************************/
@@ -1113,7 +1233,17 @@ seq(Ctx, St, B, Nodes) :-
     seq(Ctx, St, and(and(L, RL), RR), Nodes).
 seq(Ctx, St, B, Nodes) :-
     binary_conn(B, Op, L, R), !,
+<<<<<<< HEAD
     seq(Ctx, St, L, NL),
+=======
+    %  A cascade on the left of a connective is one group, as on its right:
+    %  spread into the connective's own lines, `(A otherwise B) and C` would
+    %  read back as `A otherwise (B and C)`.
+    (   ( otherwise_pattern(L, _, _) ; L = otherwise([_, _|_]) )
+    ->  single(Ctx, St, L, NL0), NL = [NL0]
+    ;   seq(Ctx, St, L, NL)
+    ),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     single(Ctx, St, R, NR),
     set_op(NR, Op, NR1),
     append(NL, [NR1], Nodes).
@@ -1141,7 +1271,13 @@ single(Ctx, St, B, Node) :-
     compound_single(Ctx, St, B, Node).
 single(Ctx, St, not(G), Node) :- !,
     kw(not_the_case, NTC),
+<<<<<<< HEAD
     (   line_goal(G)
+=======
+    %  A negation of a negation is a block: on one line, `it is not the case
+    %  that it is not the case that X` reads as the generic "is" sentence.
+    (   line_goal(G), \+ G = not(_)
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ->  goal_text(Ctx, St, G, GT),
         format(atom(T), '~w ~w', [NTC, GT]),
         Node = node(none, T, [])
@@ -1567,8 +1703,13 @@ system_arg_type(le_is_days_after(A, B, C), V, T) :-
 system_arg_type(le_is_months_after(A, B, C), V, T) :-
     ( A == V -> K = type_date ; B == V -> K = type_number ; C == V -> K = type_date ),
     writer_word(K, T).
+<<<<<<< HEAD
 system_arg_type(agg(_, _, _, R), V, T) :-
     R == V, writer_word(type_number, T).
+=======
+system_arg_type(agg(Op, _, _, R), V, T) :-
+    R == V, ( Op == list -> writer_word(type_list, T) ; writer_word(type_number, T) ).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 clean_type(T0, T) :-
     (   atom(T0), T0 \== any, T0 \== expr, T0 \== ''
@@ -2489,7 +2630,11 @@ kb_templates(KB, Items) :-
 wv_derives(WV, F) :-
     include(functor_part, WV, Parts),
     Parts \== [],
+<<<<<<< HEAD
     atomic_list_concat(Parts, '_', F).
+=======
+    le_grammar:template_functor(Parts, F).
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 functor_part(X) :- atom(X), \+ le_grammar:is_punct(X).
 functor_part(X) :- number(X).

@@ -1,0 +1,86 @@
+{
+  "counts": {"approximated":0,"encoded":5,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/7/2014/e/2/B#snap_earned_income_deduction_rate",
+      "in_program":"rs_snap_earned_income_deduction_rate",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2014/e/2#snap_earned_income_subject_to_deduction",
+      "in_program":"rs_snap_earned_income_subject_to_deduction",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2014/e/2#snap_earned_income_deduction",
+      "in_program":"rs_snap_earned_income_deduction",
+      "kind":"derived",
+      "mapping":"derived value -> a rule, the formula's names as conditions, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input snap_countable_earned_income",
+      "in_program":"rs_snap_countable_earned_income",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input work_supplementation_earned_income",
+      "in_program":"rs_work_supplementation_earned_income",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":4,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_snap_earned_income_deduction",
+	"result":"pass",
+	"scenario":"earned_income_deduction_is_twenty_percent"
+      },
+      {
+	"detail":"",
+	"query":"q_snap_earned_income_subject_to_deduction",
+	"result":"pass",
+	"scenario":"earned_income_deduction_is_twenty_percent"
+      },
+      {
+	"detail":"",
+	"query":"q_snap_earned_income_deduction",
+	"result":"pass",
+	"scenario":"work_supplementation_income_is_excluded"
+      },
+      {
+	"detail":"",
+	"query":"q_snap_earned_income_subject_to_deduction",
+	"result":"pass",
+	"scenario":"work_supplementation_income_is_excluded"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/7/2014/e/2/B.yaml", "sources/us/statutes/7/2014/e/2.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_7_2014_e_2",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":2
+}

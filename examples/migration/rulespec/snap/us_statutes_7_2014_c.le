@@ -1,0 +1,300 @@
+% 7 U.S.C. 2014(c)
+% RuleSpec module us:statutes/7/2014/c (Axiom Foundation, rulespec-us, CC-BY-4.0), with the 3 module(s) it imports.
+% Translated by lpsPlus migration/rulespec (roadmap.md §5.10, Phase 3a).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the calculation date is *a date*; scenario element.
+    the snap earned income deduction rate is *a rate*.
+    the snap earned income subject to deduction of *a household* is *an amount*.
+    the snap earned income deduction of *a household* is *an amount*.
+    the snap net income pre shelter of *a household* is *an amount*.
+    the snap net income of *a household* is *an amount*.
+    the snap gross income excess rate over poverty line is *a rate*.
+    the snap income standard poverty line with territory cap of *a household* is *an amount*.
+    the snap net income of *a household* exceeds poverty line.
+    *a household* fails gross income standard.
+    *a household* is household ineligible to participate due to income standards.
+    the snap countable earned income of *a household* is *an amount*; scenario element.
+    the work supplementation earned income of *a household* is *an amount*; scenario element.
+    the snap monthly household income of *a household* is *an amount*; scenario element.
+    the snap standard deduction of *a household* is *an amount*; scenario element.
+    the dependent care deduction of *a household* is *an amount*; scenario element.
+    the child support deduction of *a household* is *an amount*; scenario element.
+    the medical deduction of *a household* is *an amount*; scenario element.
+    the snap excess shelter deduction of *a household* is *an amount*; scenario element.
+    *a household* is in virgin islands or guam; scenario element.
+    the poverty line under 42 usc 9902 2 for household area of *a household* is *a code*; scenario element.
+    the poverty line under 42 usc 9902 2 for forty eight contiguous states and dc of *a household* is *a value*; scenario element.
+    *a household* includes elderly or disabled member; scenario element.
+    the snap total gross income of *a household* is *an amount*; scenario element.
+
+the knowledge base us_statutes_7_2014_c includes:
+
+
+% 7 U.S.C. 2014(e)(2)(B) — us:statutes/7/2014/e/2/B
+the text of "7 USC 2014(e)(2)(B)" is at "sources/us/statutes/7/2014/e/2/B.yaml".
+
+rule snap_earned_income_deduction_rate with provenance "7 USC 2014(e)(2)(B)":
+the snap earned income deduction rate is 0.2 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+
+% 7 U.S.C. 2014(e)(2) — us:statutes/7/2014/e/2
+the text of "7 USC 2014(e)(2)" is at "sources/us/statutes/7/2014/e/2.yaml".
+
+rule snap_earned_income_subject_to_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income subject to deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap countable earned income of the household is an amount M
+    and the work supplementation earned income of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+rule snap_earned_income_deduction with provenance "7 USC 2014(e)(2)":
+the snap earned income deduction of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap earned income subject to deduction of the household is an amount M
+    and the snap earned income deduction rate is a rate R
+    and N = M * R.
+
+
+% 7 U.S.C. 2014(e)(6)(A) — us:statutes/7/2014/e/6/A
+the text of "7 USC 2014(e)(6)(A)" is at "sources/us/statutes/7/2014/e/6/A.yaml".
+
+the text of "7 USC 2014(d) and (e)" is at "sources/us/statutes/7/2014/e/6/A.yaml".
+
+rule snap_net_income_pre_shelter with provenance "7 USC 2014(e)(6)(A)":
+the snap net income pre shelter of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap monthly household income of the household is an amount M
+    and the snap standard deduction of the household is an amount K
+    and the snap earned income deduction of the household is an amount P
+    and the dependent care deduction of the household is an amount Q
+    and the child support deduction of the household is an amount R
+    and the medical deduction of the household is an amount S
+    and a number T = M - K - P - Q - R - S
+    and the maximum of 0 and T is N.
+
+rule snap_net_income with provenance "7 USC 2014(d) and (e)":
+the snap net income of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income pre shelter of the household is an amount M
+    and the snap excess shelter deduction of the household is an amount K
+    and a number P = M - K
+    and the maximum of 0 and P is N.
+
+
+% 7 U.S.C. 2014(c) — us:statutes/7/2014/c
+the text of "7 USC 2014(c)(2)" is at "sources/us/statutes/7/2014/c.yaml".
+
+the text of "7 USC 2014(c)" is at "sources/us/statutes/7/2014/c.yaml".
+
+the text of "7 USC 2014(c)(1)" is at "sources/us/statutes/7/2014/c.yaml".
+
+rule snap_gross_income_excess_rate_over_poverty_line with provenance "7 USC 2014(c)(2)":
+the snap gross income excess rate over poverty line is 0.3 if
+    the calculation date is a date D
+    and 2008-10-01 <= D.
+
+rule snap_income_standard_poverty_line_with_territory_cap with provenance "7 USC 2014(c)":
+the snap income standard poverty line with territory cap of a household is an amount N if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household is in virgin islands or guam
+        and the poverty line under 42 usc 9902 2 for household area of the household is a code C
+        and the poverty line under 42 usc 9902 2 for forty eight contiguous states and dc of the household is a value V
+        and the minimum of C and V is N
+        otherwise the poverty line under 42 usc 9902 2 for household area of the household is N.
+
+rule snap_net_income_exceeds_poverty_line with provenance "7 USC 2014(c)(1)":
+the snap net income of a household exceeds poverty line if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income of the household is an amount N
+    and the snap income standard poverty line with territory cap of the household is an amount M
+    and N > M.
+
+rule household_fails_gross_income_standard with provenance "7 USC 2014(c)(2)":
+a household fails gross income standard if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and it is not the case that the household includes elderly or disabled member
+    and the snap total gross income of the household is an amount N
+    and the snap income standard poverty line with territory cap of the household is an amount M
+    and the snap gross income excess rate over poverty line is a rate R
+    and N > M * (1 + R).
+
+rule household_ineligible_to_participate_due_to_income_standards_1 with provenance "7 USC 2014(c)":
+a household is household ineligible to participate due to income standards if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the snap net income of the household exceeds poverty line.
+
+rule household_ineligible_to_participate_due_to_income_standards_2 with provenance "7 USC 2014(c)":
+a household is household ineligible to participate due to income standards if
+    the calculation date is a date D
+    and 2008-10-01 <= D
+    and the household fails gross income standard.
+
+scenario net_income_above_poverty_line_makes_household_ineligible is, as stated in "sources/us/statutes/7/2014/c.test.yaml" at case 1:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the poverty line under 42 usc 9902 2 for forty eight contiguous states and dc of household_1 is 1000.
+    the poverty line under 42 usc 9902 2 for household area of household_1 is 1000.
+    the snap total gross income of household_1 is 1200.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 0.
+    the snap monthly household income of household_1 is 1400.
+    the snap standard deduction of household_1 is 300.
+    % The test file also gives us:regulations/7-cfr/273/10#snap_total_gross_income the value 1400; the twin keeps the input's own key.
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_household_fails_gross_income_standard expects answers ["household_1 fails gross income standard"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_household_ineligible_to_participate_due_to_income_standards expects answers ["household_1 is household ineligible to participate due to income standards"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_gross_income_excess_rate_over_poverty_line expects answers ["the snap gross income excess rate over poverty line is 0.3"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_income_standard_poverty_line_with_territory_cap expects answers ["the snap income standard poverty line with territory cap of household_1 is 1000"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_net_income_exceeds_poverty_line expects answers ["the snap net income of household_1 exceeds poverty line"].
+
+scenario non_elderly_disabled_household_fails_gross_income_standard is, as stated in "sources/us/statutes/7/2014/c.test.yaml" at case 2:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    the poverty line under 42 usc 9902 2 for forty eight contiguous states and dc of household_1 is 1000.
+    the poverty line under 42 usc 9902 2 for household area of household_1 is 1000.
+    the snap total gross income of household_1 is 1400.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 0.
+    the snap monthly household income of household_1 is 1200.
+    the snap standard deduction of household_1 is 300.
+    % The test file also gives us:regulations/7-cfr/273/10#snap_total_gross_income the value 1200; the twin keeps the input's own key.
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_household_fails_gross_income_standard expects answers [].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_household_ineligible_to_participate_due_to_income_standards expects answers [].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_income_standard_poverty_line_with_territory_cap expects answers ["the snap income standard poverty line with territory cap of household_1 is 1000"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_net_income_exceeds_poverty_line expects answers [].
+
+scenario elderly_or_disabled_member_removes_gross_income_standard_failure is, as stated in "sources/us/statutes/7/2014/c.test.yaml" at case 3:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    household_1 includes elderly or disabled member.
+    the poverty line under 42 usc 9902 2 for forty eight contiguous states and dc of household_1 is 1000.
+    the poverty line under 42 usc 9902 2 for household area of household_1 is 1000.
+    the snap total gross income of household_1 is 1400.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 0.
+    the snap monthly household income of household_1 is 1200.
+    the snap standard deduction of household_1 is 300.
+    % The test file also gives us:regulations/7-cfr/273/10#snap_total_gross_income the value 1200; the twin keeps the input's own key.
+    q_household_fails_gross_income_standard expects answers [].
+    q_household_ineligible_to_participate_due_to_income_standards expects answers [].
+    q_snap_income_standard_poverty_line_with_territory_cap expects answers ["the snap income standard poverty line with territory cap of household_1 is 1000"].
+    q_snap_net_income_exceeds_poverty_line expects answers [].
+
+scenario virgin_islands_or_guam_standard_is_capped_to_contiguous_states_standard is, as stated in "sources/us/statutes/7/2014/c.test.yaml" at case 4:
+    household_1 is a household.
+    the calculation date is 2026-01-01.
+    household_1 is in virgin islands or guam.
+    the poverty line under 42 usc 9902 2 for forty eight contiguous states and dc of household_1 is 1000.
+    the poverty line under 42 usc 9902 2 for household area of household_1 is 1200.
+    the snap total gross income of household_1 is 1200.
+    the snap countable earned income of household_1 is 0.
+    the work supplementation earned income of household_1 is 0.
+    the child support deduction of household_1 is 0.
+    the dependent care deduction of household_1 is 0.
+    the medical deduction of household_1 is 0.
+    the snap excess shelter deduction of household_1 is 0.
+    the snap monthly household income of household_1 is 1400.
+    the snap standard deduction of household_1 is 300.
+    % The test file also gives us:regulations/7-cfr/273/10#snap_total_gross_income the value 1400; the twin keeps the input's own key.
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_household_fails_gross_income_standard expects answers ["household_1 fails gross income standard"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_household_ineligible_to_participate_due_to_income_standards expects answers ["household_1 is household ineligible to participate due to income standards"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_income_standard_poverty_line_with_territory_cap expects answers ["the snap income standard poverty line with territory cap of household_1 is 1000"].
+    % pending — the engine does not reproduce this case of the test file (fail):
+    % q_snap_net_income_exceeds_poverty_line expects answers ["the snap net income of household_1 exceeds poverty line"].
+
+query q_household_fails_gross_income_standard is:
+    which household fails gross income standard.
+
+query q_household_fails_gross_income_standard is:
+    which household fails gross income standard.
+
+query q_household_fails_gross_income_standard is:
+    which household fails gross income standard.
+
+query q_household_fails_gross_income_standard is:
+    which household fails gross income standard.
+
+query q_household_ineligible_to_participate_due_to_income_standards is:
+    which household is household ineligible to participate due to income standards.
+
+query q_household_ineligible_to_participate_due_to_income_standards is:
+    which household is household ineligible to participate due to income standards.
+
+query q_household_ineligible_to_participate_due_to_income_standards is:
+    which household is household ineligible to participate due to income standards.
+
+query q_household_ineligible_to_participate_due_to_income_standards is:
+    which household is household ineligible to participate due to income standards.
+
+query q_snap_gross_income_excess_rate_over_poverty_line is:
+    the snap gross income excess rate over poverty line is which rate.
+
+query q_snap_income_standard_poverty_line_with_territory_cap is:
+    the snap income standard poverty line with territory cap of which household is which amount.
+
+query q_snap_income_standard_poverty_line_with_territory_cap is:
+    the snap income standard poverty line with territory cap of which household is which amount.
+
+query q_snap_income_standard_poverty_line_with_territory_cap is:
+    the snap income standard poverty line with territory cap of which household is which amount.
+
+query q_snap_income_standard_poverty_line_with_territory_cap is:
+    the snap income standard poverty line with territory cap of which household is which amount.
+
+query q_snap_net_income_exceeds_poverty_line is:
+    the snap net income of which household exceeds poverty line.
+
+query q_snap_net_income_exceeds_poverty_line is:
+    the snap net income of which household exceeds poverty line.
+
+query q_snap_net_income_exceeds_poverty_line is:
+    the snap net income of which household exceeds poverty line.
+
+query q_snap_net_income_exceeds_poverty_line is:
+    the snap net income of which household exceeds poverty line.
+

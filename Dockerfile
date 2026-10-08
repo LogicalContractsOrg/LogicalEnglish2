@@ -19,8 +19,15 @@ FROM swipl:latest
 # Install Node.js, git, opencode, and make. `make` is needed by the s(CASP)
 # pack's build step below (its Makefile drives SWI-Prolog itself — it compiles a
 # scasp CLI/qlf, no C toolchain — but pack_install fails outright if make is
+<<<<<<< HEAD
 # absent).
 RUN apt-get update && apt-get install -y curl git gnupg make && \
+=======
+# absent). poppler-utils is pdftotext, with which the Contract Assistant reads a
+# wording that comes as a PDF (lpsPlus contract_assistant/le_contract_assistant.pl,
+# ensure_text_file/5, vendored by vendor_lpsplus.sh).
+RUN apt-get update && apt-get install -y curl git gnupg make poppler-utils && \
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g opencode-ai mcp-remote && \
@@ -62,6 +69,13 @@ ENV OPENCODE_DANGEROUSLY_SKIP_PERMISSIONS=true
 # Build the editor
 RUN cd editor && npm install --legacy-peer-deps && npm run build
 
+<<<<<<< HEAD
+=======
+# The examples' search index (le_examples_search.pl), written now so that the
+# first search on the server reads it in milliseconds instead of building it.
+RUN swipl -q -g "use_module(le_api), le_examples_search:write_index" -t halt
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 ARG BUILD_INFO="unknown"
 RUN echo "${BUILD_INFO}" > build_info.txt
 

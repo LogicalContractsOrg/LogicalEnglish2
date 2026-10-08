@@ -1,0 +1,199 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/7/2014
+  summary: |-
+    Households otherwise eligible for SNAP are ineligible if resources exceed "$2,000" or, for a household that consists of or includes an elderly or disabled member, "$3,000"; beginning on October 1, 2008, those amounts are adjusted and rounded down to the nearest "$250 increment." Financial resources include certain licensed vehicles above "$4,650" subject to vehicle exclusions and State alternative vehicle allowance standards, and paragraphs (3) through (8) exclude specified burial, self-sufficiency, farm, inaccessible, retirement, and education resources.
+  deferred_outputs:
+    - output: us:statutes/7/2014/g#countable_household_financial_resources
+      reason: Full household countable financial resources under 7 USC 2014(g) depend on Secretary-prescribed inclusions and exclusions across paragraphs (2) through (8), including optional State exclusions and category classifications for retirement and education accounts that this module does not model.
+    - output: us:statutes/7/2014/g#excluded_self_sufficiency_resources
+      reason: Paragraph (3) partly depends on participation in a pilot project under 7 USC 2025(h)(1)(F), and no copied RuleSpec target encodes that cited provision.
+rules:
+  - name: snap_household_resource_limit_base_amount
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 7 USC 2014(g)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'resources exceed $2,000'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          2000
+
+  - name: snap_household_resource_limit_base_amount_with_elderly_or_disabled_member
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 7 USC 2014(g)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'includes an elderly or disabled member, if its resources exceed $3,000'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          3000
+
+  - name: allowable_financial_resources_rounding_increment
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 7 USC 2014(g)(1)(B)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'rounded down to the nearest $250 increment'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          250
+
+  - name: statutory_household_resource_limit_base_amount
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(g)(1)(A)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'resources exceed $2,000 ... includes an elderly or disabled member ... exceed $3,000'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          if household_includes_elderly_or_disabled_member: snap_household_resource_limit_base_amount_with_elderly_or_disabled_member else: snap_household_resource_limit_base_amount
+
+  - name: next_annual_household_resource_limit_amount
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(g)(1)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].effective_from
+            kind: effective_period
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'Beginning on October 1, 2008'
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'shall be adjusted and rounded down to the nearest $250 increment'
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'Each adjustment ... shall be based on the unrounded amount for the prior 12-month period'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          floor((prior_unrounded_household_resource_limit_amount * (1 + consumer_price_index_change_for_12_month_period_ending_preceding_june)) / allowable_financial_resources_rounding_increment) * allowable_financial_resources_rounding_increment
+
+  - name: licensed_vehicle_resource_fair_market_value_threshold
+    kind: parameter
+    dtype: Money
+    unit: USD
+    source: 7 USC 2014(g)(2)(B)(iv)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'fair market value of the vehicle exceeds $4,650'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          4650
+
+  - name: vehicle_excluded_from_financial_resources_under_vehicle_exceptions
+    kind: derived
+    entity: Asset
+    dtype: Judgment
+    period: Month
+    source: 7 USC 2014(g)(2)(C)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'used to produce earned income'
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'necessary for the transportation of a physically disabled household member'
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'carry fuel for heating or water for home use and provides the primary source of fuel or water'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          vehicle_used_to_produce_earned_income
+          or vehicle_necessary_for_transport_of_physically_disabled_household_member
+          or (
+            vehicle_depended_on_to_carry_household_fuel_or_water
+            and vehicle_provides_household_primary_source_of_fuel_or_water
+          )
+
+  - name: licensed_vehicle_countable_resource_amount_under_default_rule
+    kind: derived
+    entity: Asset
+    dtype: Money
+    period: Month
+    unit: USD
+    source: 7 USC 2014(g)(2)(B)(iv); 7 USC 2014(g)(2)(C); 7 USC 2014(g)(2)(D)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'any licensed vehicle that is used for household transportation or to obtain or continue employment to the extent that the fair market value of the vehicle exceeds $4,650'
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'shall not be included in financial resources under this paragraph if the vehicle is'
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/7/2014
+              excerpt: 'in lieu of applying subparagraph (B)(iv), the State agency may elect to apply the State vehicle allowance standards'
+    versions:
+      - effective_from: '2008-10-01'
+        formula: |-
+          if asset_is_licensed_vehicle and asset_is_used_for_household_transportation_or_to_obtain_or_continue_employment and not vehicle_excluded_from_financial_resources_under_vehicle_exceptions and not state_vehicle_allowance_standards_apply_in_lieu_of_default_vehicle_rule and asset_fair_market_value > licensed_vehicle_resource_fair_market_value_threshold: asset_fair_market_value - licensed_vehicle_resource_fair_market_value_threshold else: 0

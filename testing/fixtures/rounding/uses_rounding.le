@@ -1,0 +1,57 @@
+the target language is: prolog.
+
+the knowledge base r includes these resources:
+    rounding.
+
+the templates are:
+    the case *a name* is *a number*.
+    the result of *a name* is *a result*.
+    the even result of *a name* is *a result*.
+    the down result of *a name* is *a result*.
+    the up result of *a name* is *a result*.
+    the nickel result of *a name* is *a result*.
+
+the knowledge base r includes:
+
+the result of a name is a result
+    if the case the name is a number
+    and the rounding of the number to 2 decimals half up is the result.
+
+the even result of a name is a result
+    if the case the name is a number
+    and the rounding of the number to 0 decimals half even is the result.
+
+the down result of a name is a result
+    if the case the name is a number
+    and the rounding of the number down to 2 decimals is the result.
+
+the up result of a name is a result
+    if the case the name is a number
+    and the rounding of the number up to 2 decimals is the result.
+
+the nickel result of a name is a result
+    if the case the name is a number
+    and the rounding of the number to the nearest 0.05 is the result.
+
+scenario one is:
+    the case a is 2.675.
+    the case b is -2.675.
+    the case c is 2.5.
+    the case d is 3.5.
+    the case e is 1.001.
+    q expects answers ["the result of a is 2.68", "the result of b is -2.68", "the result of c is 2.5", "the result of d is 3.5", "the result of e is 1"].
+    ev expects answers ["the even result of a is 3", "the even result of b is -3", "the even result of c is 2", "the even result of d is 4", "the even result of e is 1"].
+    dn expects answers ["the down result of a is 2.67", "the down result of b is -2.68", "the down result of c is 2.5", "the down result of d is 3.5", "the down result of e is 1"].
+    up expects answers ["the up result of a is 2.68", "the up result of b is -2.67", "the up result of c is 2.5", "the up result of d is 3.5", "the up result of e is 1.01"].
+    ni expects answers ["the nickel result of a is 2.7", "the nickel result of b is -2.7", "the nickel result of c is 2.5", "the nickel result of d is 3.5", "the nickel result of e is 1"].
+
+query q is:
+    the result of which name is which result.
+query ev is:
+    the even result of which name is which result.
+query dn is:
+    the down result of which name is which result.
+query up is:
+    the up result of which name is which result.
+query ni is:
+    the nickel result of which name is which result.

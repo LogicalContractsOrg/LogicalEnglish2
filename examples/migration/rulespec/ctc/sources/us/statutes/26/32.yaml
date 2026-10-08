@@ -1,0 +1,706 @@
+format: rulespec/v1
+imports:
+  - us:statutes/26/32/c/2
+  - us:statutes/26/152/c
+  - us:statutes/26/152/c#individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund
+  - us:statutes/26/7703#taxpayer_married_under_general_rule
+  - us:policies/irs/rev-proc-2025-32/earned-income-credit
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: us/statute/26/32
+  deferred_outputs:
+    - output: us:statutes/26/32/f#eitc_table_based_credit_determination
+      blocked_by:
+        - us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts
+      reason: >-
+        Subsection (f) directs the Secretary to prescribe earned-income-credit
+        tables for taxpayers with income brackets, while this module computes
+        the credit from the statutory rates and annual IRS revenue-procedure
+        parameters rather than materializing each table row.
+    - output: us:statutes/26/32/l#eitc_disregarded_for_means_tested_programs
+      reason: >-
+        Subsection (l) coordinates the earned income credit with housing,
+        Social Security Act, Food and Nutrition Act, and other federal or
+        federally assisted means-tested program eligibility and benefit
+        determinations. That cross-program disregard belongs in the affected
+        program modules rather than the tax-credit amount calculation.
+    - output: us:statutes/26/32/n#temporary_childless_eitc_special_rules
+      reason: >-
+        Subsection (n) provides temporary special rules for individuals without
+        qualifying children only for taxable years beginning after December 31,
+        2020, and before January 1, 2022. This 2026-current-law module does not
+        materialize the expired temporary regime.
+  summary: |-
+    (a) Allowance of credit (1) In general In the case of an eligible individual, there shall be allowed as a credit against the tax imposed by this subtitle for the taxable year an amount equal to the credit percentage of so much of the taxpayer’s earned income for the taxable year as does not exceed the earned income amount. (2) Limitation The amount of the credit allowable to a taxpayer under paragraph (1) for any taxable year shall not exceed the excess (if any) of— (A) the credit percentage of the earned income amount, over (B) the phaseout percentage of so much of the adjusted gross income (or, if greater, the earned income) of the taxpayer for the taxable year as exceeds the phaseout amount.
+    (b) Percentages and amounts For purposes of subsection (a)— (1) Percentages The credit percentage and the phaseout percentage shall be determined as follows: 1 qualifying child: 34 and 15.98; 2 qualifying children: 40 and 21.06; 3 or more qualifying children: 45 and 21.06; No qualifying children: 7.65 and 7.65. (2) Amounts (A) In general Subject to subparagraph (B), the earned income amount and the phaseout amount shall be determined as follows: 1 qualifying child: $6,330 and $11,610; 2 or more qualifying children: $8,890 and $11,610; No qualifying children: $4,220 and $5,280. (B) Joint returns In the case of a joint return filed by an eligible individual and such individual’s spouse, the phaseout amount determined under subparagraph (A) shall be increased by $5,000.
+    (c) Definitions and special rules For purposes of this section— (1) Eligible individual means an individual with a qualifying child, or another individual without a qualifying child whose principal place of abode is in the United States for more than one-half of the taxable year, who has attained age 25 but not 65 before year end, and who is not another taxpayer’s dependent. An individual who is the qualifying child of a taxpayer is not eligible. An individual claiming section 911 benefits is not eligible. A nonresident alien is not eligible unless treated as a resident by section 6013(g) or (h). No credit is allowed without required taxpayer identification numbers. (2) Earned income means includible wages, salaries, tips, and other employee compensation, plus net earnings from self-employment determined with regard to section 164(f), with stated exclusions and a section 112 election. (3) Qualifying child means a qualifying child under section 152(c), with stated modifications, United States abode, marital, and identification requirements. (4) Armed Forces extended active duty abroad is treated as United States abode for specified purposes.
+    (d) Married individuals generally must file a joint return, with a separated-spouse rule. (e) Except for a taxable year closed by death, no credit is allowable for a taxable year of less than 12 months. (i) No credit is allowed if disqualified income exceeds $10,000, with disqualified income defined. (j) Dollar amounts in subsections (b)(2) and (i)(1) are inflation adjusted. (k) No credit is allowed during fraud, reckless, or intentional-disregard disallowance periods, and certain prior deficiency denials require eligibility information. (m) Taxpayer identification number means a qualifying Social Security number issued on or before the return due date for purposes of subsections (c)(1)(E) and (c)(3)(D). (n) For taxable years beginning after December 31, 2020, and before January 1, 2022, special childless EITC age, rate, and amount rules apply.
+rules:
+  - name: qualifying_child_of_tax_unit
+    kind: data_relation
+    data_relation:
+      predicate: qualifying_child_of_tax_unit
+      arity: 2
+      arguments:
+        - TaxUnit
+        - Person
+
+  - name: eitc_phase_in_rates
+    kind: parameter
+    dtype: Rate
+    indexed_by: qualifying_child_count
+    source: 26 USC 32(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage and phaseout percentage table"
+              table:
+                header: "credit percentage and phaseout percentage table"
+                row_key: "qualifying child count"
+                column_key: "credit percentage"
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 0.0765
+          1: 0.34
+          2: 0.40
+          3: 0.45
+
+  - name: eitc_phase_out_rates
+    kind: parameter
+    dtype: Rate
+    indexed_by: qualifying_child_count
+    source: 26 USC 32(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage and phaseout percentage table"
+              table:
+                header: "credit percentage and phaseout percentage table"
+                row_key: "qualifying child count"
+                column_key: "phaseout percentage"
+    versions:
+      - effective_from: '2026-01-01'
+        values:
+          0: 0.0765
+          1: 0.1598
+          2: 0.2106
+          3: 0.2106
+
+  - name: eitc_childless_minimum_age
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 32(c)(1)(A)(ii)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "has attained age 25 but not attained age 65 before the close of the taxable year"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          25
+
+  - name: eitc_childless_age_ceiling_exclusive
+    kind: parameter
+    dtype: Integer
+    source: 26 USC 32(c)(1)(A)(ii)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "has attained age 25 but not attained age 65 before the close of the taxable year"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          65
+
+  - name: eitc_qualifying_child_base
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(c)(3), 26 USC 152(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/152/c#qualifying_child_relationship
+              output: qualifying_child_relationship
+              hash: sha256:6b4df92c453619173f7c6c8b4f06e38ebb84b63521b2f53c30f49acf7d4d79bb
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/152/c#abode_fraction_threshold
+              output: abode_fraction_threshold
+              hash: sha256:6b4df92c453619173f7c6c8b4f06e38ebb84b63521b2f53c30f49acf7d4d79bb
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/152/c#age_requirements_met
+              output: age_requirements_met
+              hash: sha256:6b4df92c453619173f7c6c8b4f06e38ebb84b63521b2f53c30f49acf7d4d79bb
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/152/c#tiebreaker_treats_individual_as_qualifying_child_of_taxpayer
+              output: tiebreaker_treats_individual_as_qualifying_child_of_taxpayer
+              hash: sha256:6b4df92c453619173f7c6c8b4f06e38ebb84b63521b2f53c30f49acf7d4d79bb
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/152/c#individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund
+              output: individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund
+              hash: sha256:6b4df92c453619173f7c6c8b4f06e38ebb84b63521b2f53c30f49acf7d4d79bb
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "qualifying child ... as defined in section 152(c), determined without regard to paragraph (1)(D) thereof and section 152(e)"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          qualifying_child_relationship
+          and individual_principal_place_of_abode_with_taxpayer_fraction > abode_fraction_threshold
+          and age_requirements_met
+          and not individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund
+          and tiebreaker_treats_individual_as_qualifying_child_of_taxpayer
+
+  - name: eitc_qualifying_child
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(c)(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "The term “qualifying child” means a qualifying child of the taxpayer (as defined in section 152(c), determined without regard to paragraph (1)(D) thereof and section 152(e))."
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "The term “qualifying child” shall not include an individual who is married as of the close of the taxpayer’s taxable year unless the taxpayer is entitled to a deduction under section 151 for such taxable year with respect to such individual (or would be so entitled but for section 152(e))."
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "A qualifying child shall not be taken into account under subsection (b) unless the taxpayer includes the name, age, and TIN of the qualifying child on the return of tax for the taxable year."
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          eitc_qualifying_child_base
+          and qualifying_child_principal_place_of_abode_is_in_united_states
+          and qualifying_child_name_age_and_tin_included_on_return
+          and (
+              not qualifying_child_marital_status_requires_section_151_entitlement
+              or taxpayer_entitled_to_section_151_deduction_for_child_or_would_be_but_for_section_152_e
+          )
+
+  - name: eitc_child_count
+    kind: derived
+    entity: TaxUnit
+    dtype: Integer
+    period: Year
+    source: 26 USC 32(b)(1), 32(c)(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage and phaseout percentage table"
+              text: "In the case of an eligible individual with: 1 qualifying child; 2 qualifying children; 3 or more qualifying children; No qualifying children."
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          count_where(qualifying_child_of_tax_unit, eitc_qualifying_child)
+
+  - name: eitc_capped_child_count
+    kind: derived
+    entity: TaxUnit
+    dtype: Integer
+    period: Year
+    source: 26 USC 32(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: table_cell
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage and phaseout percentage table"
+              table:
+                header: "credit percentage and phaseout percentage table"
+                row: "3 or more qualifying children"
+                column: "credit percentage and phaseout percentage"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          min(eitc_child_count, 3)
+
+  - name: eitc_phase_in_rate
+    kind: derived
+    entity: TaxUnit
+    dtype: Rate
+    period: Year
+    source: 26 USC 32(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage and phaseout percentage table"
+              table:
+                header: "credit percentage and phaseout percentage table"
+                row_key: "qualifying child count"
+                column_key: "credit percentage"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          match eitc_capped_child_count:
+              0 => eitc_phase_in_rates[0]
+              1 => eitc_phase_in_rates[1]
+              2 => eitc_phase_in_rates[2]
+              3 => eitc_phase_in_rates[3]
+
+  - name: eitc_phase_out_rate
+    kind: derived
+    entity: TaxUnit
+    dtype: Rate
+    period: Year
+    source: 26 USC 32(b)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter_table
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage and phaseout percentage table"
+              table:
+                header: "credit percentage and phaseout percentage table"
+                row_key: "qualifying child count"
+                column_key: "phaseout percentage"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          match eitc_capped_child_count:
+              0 => eitc_phase_out_rates[0]
+              1 => eitc_phase_out_rates[1]
+              2 => eitc_phase_out_rates[2]
+              3 => eitc_phase_out_rates[3]
+
+  - name: eitc_earned_income_amount
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(b)(2), 32(j)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_earned_income_amounts
+              output: eitc_earned_income_amounts
+              hash: sha256:299a7bc8a73cfb7dfad5d49fb82fca8fa29bf1b18c09e91180ebc5b3975fad7b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "dollar amounts in subsections (b)(2) and (i)(1) shall be increased"
+              text: "each of the dollar amounts in subsections (b)(2) and (i)(1) shall be increased"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          match eitc_capped_child_count:
+              0 => eitc_earned_income_amounts[0]
+              1 => eitc_earned_income_amounts[1]
+              2 => eitc_earned_income_amounts[2]
+              3 => eitc_earned_income_amounts[3]
+
+  - name: eitc_maximum
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(a)(2)(A), 32(b)(1), 32(b)(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_credit_amounts
+              output: eitc_maximum_credit_amounts
+              hash: sha256:299a7bc8a73cfb7dfad5d49fb82fca8fa29bf1b18c09e91180ebc5b3975fad7b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage of the earned income amount"
+              text: "the credit percentage of the earned income amount"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          match eitc_capped_child_count:
+              0 => eitc_maximum_credit_amounts[0]
+              1 => eitc_maximum_credit_amounts[1]
+              2 => eitc_maximum_credit_amounts[2]
+              3 => eitc_maximum_credit_amounts[3]
+
+  - name: eitc_phase_out_start
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(b)(2), 32(j)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_joint
+              output: eitc_threshold_phaseout_amounts_joint
+              hash: sha256:299a7bc8a73cfb7dfad5d49fb82fca8fa29bf1b18c09e91180ebc5b3975fad7b
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_threshold_phaseout_amounts_other
+              output: eitc_threshold_phaseout_amounts_other
+              hash: sha256:299a7bc8a73cfb7dfad5d49fb82fca8fa29bf1b18c09e91180ebc5b3975fad7b
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "phaseout amount determined under subparagraph (A) shall be increased by $5,000"
+              text: "In the case of a joint return filed by an eligible individual and such individual’s spouse, the phaseout amount determined under subparagraph (A) shall be increased by $5,000."
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if filing_status == 1:
+              match eitc_capped_child_count:
+                  0 => eitc_threshold_phaseout_amounts_joint[0]
+                  1 => eitc_threshold_phaseout_amounts_joint[1]
+                  2 => eitc_threshold_phaseout_amounts_joint[2]
+                  3 => eitc_threshold_phaseout_amounts_joint[3]
+          else:
+              match eitc_capped_child_count:
+                  0 => eitc_threshold_phaseout_amounts_other[0]
+                  1 => eitc_threshold_phaseout_amounts_other[1]
+                  2 => eitc_threshold_phaseout_amounts_other[2]
+                  3 => eitc_threshold_phaseout_amounts_other[3]
+
+  - name: eitc_phase_out_income
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(a)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "adjusted gross income (or, if greater, the earned income)"
+              text: "adjusted gross income (or, if greater, the earned income)"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(adjusted_gross_income, earned_income)
+
+  - name: eitc_phased_in
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(a)(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "credit percentage of so much of the taxpayer’s earned income for the taxable year as does not exceed the earned income amount"
+              text: "an amount equal to the credit percentage of so much of the taxpayer’s earned income for the taxable year as does not exceed the earned income amount"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if earned_income >= eitc_earned_income_amount: eitc_maximum else: eitc_phase_in_rate * min(max(0, earned_income), eitc_earned_income_amount)
+
+  - name: eitc_reduction
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(a)(2)(B)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "phaseout percentage of so much of the adjusted gross income (or, if greater, the earned income) of the taxpayer"
+              text: "the phaseout percentage of so much of the adjusted gross income (or, if greater, the earned income) of the taxpayer for the taxable year as exceeds the phaseout amount"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          eitc_phase_out_rate * max(0, eitc_phase_out_income - eitc_phase_out_start)
+
+  - name: eitc_before_eligibility
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "shall not exceed the excess (if any) of the credit percentage of the earned income amount, over the phaseout percentage"
+              text: "shall not exceed the excess (if any) of the credit percentage of the earned income amount, over the phaseout percentage"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(0, min(eitc_phased_in, eitc_maximum - eitc_reduction))
+
+  - name: eitc_childless_age_eligible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(c)(1)(A)(ii)(II)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/32
+              text: "has attained age 25 but not attained age 65 before the close of the taxable year"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          age >= eitc_childless_minimum_age
+          and age < eitc_childless_age_ceiling_exclusive
+
+  - name: eitc_demographic_eligible
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(c)(1)(A)-(D), 32(d), 32(e), 32(k)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "eligible individual with a qualifying child for the taxable year"
+              text: "The term “eligible individual” means any individual who has a qualifying child for the taxable year, or any other individual who does not have a qualifying child for the taxable year, if..."
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "eligible individual does not include an individual who claims the benefits of section 911"
+              text: "The term “eligible individual” does not include any individual who claims the benefits of section 911"
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "eligible individual shall not include any individual who is a nonresident alien individual"
+              text: "The term “eligible individual” shall not include any individual who is a nonresident alien individual for any portion of the taxable year unless..."
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/7703#taxpayer_married_under_general_rule
+              output: taxpayer_married_under_general_rule
+              hash: sha256:f5985ef078c17b2e45080a53e9f2689633ab3c8664c324f28735bfa0c118db68
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          (
+              eitc_child_count > 0
+              or (
+                  childless_taxpayer_principal_place_of_abode_in_united_states_more_than_half_year
+                  and childless_taxpayer_or_spouse_age_eligible_for_eitc
+                  and not taxpayer_is_dependent_for_section_151_to_another_taxpayer
+              )
+          )
+          and not taxpayer_is_qualifying_child_of_another_taxpayer
+          and not taxpayer_claims_section_911_benefits
+          and (
+              not taxpayer_is_nonresident_alien_for_any_portion_of_year
+              or taxpayer_treated_as_resident_by_section_6013_g_or_h_election
+          )
+          and (
+              filing_status == 1
+              or not taxpayer_married_under_general_rule
+              or satisfies_eitc_separated_spouse_rules
+          )
+          and (
+              taxable_year_is_full_12_months
+              or taxable_year_closed_by_reason_of_taxpayer_death
+          )
+          and not eitc_disallowance_period_applies
+          and not prior_deficiency_denial_without_required_eligibility_information
+
+  - name: eitc_identification_requirements_satisfied
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(c)(1)(E), 26 USC 32(m)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "No credit shall be allowed under this section"
+              text: "No credit shall be allowed under this section to an eligible individual who does not include on the return of tax for the taxable year such individual’s taxpayer identification number, and if the individual is married, the taxpayer identification number of such individual’s spouse."
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "taxpayer identification number means a social security number issued to an individual by the Social Security Administration"
+              text: "a taxpayer identification number means a social security number issued to an individual by the Social Security Administration ... on or before the due date"
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:statutes/26/7703#taxpayer_married_under_general_rule
+              output: taxpayer_married_under_general_rule
+              hash: sha256:f5985ef078c17b2e45080a53e9f2689633ab3c8664c324f28735bfa0c118db68
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          taxpayer_includes_required_social_security_number_on_return
+          and (
+              not taxpayer_married_under_general_rule
+              or spouse_includes_required_social_security_number_on_return
+          )
+
+  - name: eitc_investment_income_eligible
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(i), 32(j)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: import
+            import:
+              target: us:policies/irs/rev-proc-2025-32/earned-income-credit#eitc_maximum_investment_income
+              output: eitc_maximum_investment_income
+              hash: sha256:299a7bc8a73cfb7dfad5d49fb82fca8fa29bf1b18c09e91180ebc5b3975fad7b
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "No credit shall be allowed under subsection (a) for the taxable year"
+              text: "No credit shall be allowed under subsection (a) for the taxable year if the aggregate amount of disqualified income of the taxpayer for the taxable year exceeds $10,000."
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          eitc_relevant_investment_income <= eitc_maximum_investment_income
+
+  - name: eitc_allowed
+    kind: derived
+    entity: TaxUnit
+    dtype: Judgment
+    period: Year
+    source: 26 USC 32(a), 32(c)(1)(E), 32(i), 32(k)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "there shall be allowed as a credit against the tax imposed by this subtitle for the taxable year"
+              text: "In the case of an eligible individual, there shall be allowed as a credit..."
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "No credit shall be allowed"
+              text: "No credit shall be allowed..."
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          eitc_demographic_eligible
+          and eitc_identification_requirements_satisfied
+          and eitc_investment_income_eligible
+
+  - name: eitc
+    kind: derived
+    entity: TaxUnit
+    dtype: Money
+    period: Year
+    unit: USD
+    source: 26 USC 32(a), 32(c)(1)(E), 32(i), 32(k)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "there shall be allowed as a credit"
+              text: "there shall be allowed as a credit ... an amount equal to..."
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: us/statute/26/32
+              excerpt: "No credit shall be allowed"
+              text: "No credit shall be allowed..."
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if eitc_allowed: eitc_before_eligibility else: 0

@@ -93,7 +93,11 @@ explain(Goal, SessionModule, Unknowns, Whys) :-
             Unknowns = Unknowns2
             ;
             Unknowns = [],
+<<<<<<< HEAD
             findall(W, (called(0, CID, _), build_failure_tree(CID, Ws), member(W, Ws)), Whys)
+=======
+            findall(W, (called(0, CID, _), failure_tree(CID, Ws), member(W, Ws)), Whys)
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ),
         ( memo_exit(Memo), le_kbs:clear_kb_module )
     ).
@@ -194,18 +198,45 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
     is_aggregate(Aggregate, Type, VarTerm, Goal, ResultTerm), !,
     D1 is D + 1,
     extract_var(VarTerm, Var),
+<<<<<<< HEAD
     findall(agg(Var, Us1, Whys),
             ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, Whys),
               \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
             ),
             Solutions),
+=======
+    %  a caller that wants answers only (le_failure_explanations off) keeps
+    %  no explanation of each solution: nested aggregates over many items
+    %  (a basket's constituents in a trade report) otherwise multiply them
+    %  past any memory
+    (   failure_explanations
+    ->  findall(agg(Var, Us1, Whys),
+                ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, Whys),
+                  \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
+                ),
+                Solutions)
+    ;   findall(agg(Var, Us1, []),
+                ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, _),
+                  \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
+                ),
+                Solutions)
+    ),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     (   Solutions == [] ->
         % Goal failed, build failure tree for the goal
         % We need to ensure the failure is recorded under MyID
         next_id(GoalID),
         ( (MyID \== none, ground(Goal)) -> assertz(called(MyID, GoalID, Goal)); true),
+<<<<<<< HEAD
         ( solve(Goal, SM, KM, Anc, D1, GoalID, [], _) -> true ; true ),
         build_failure_tree(GoalID, WhysGoal),
+=======
+        (   failure_explanations
+        ->  ( solve(Goal, SM, KM, Anc, D1, GoalID, [], _) -> true ; true ),
+            build_failure_tree(GoalID, WhysGoal)
+        ;   WhysGoal = []
+        ),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         List = [], Us = []
     ;   maplist(agg_value, Solutions, List),
         maplist(agg_whys, Solutions, WhysList),
@@ -270,7 +301,11 @@ solve_real_actual(forall(Cond, Cons), SM, KM, Anc, D, MyID, Us,
     (   Cases == [] ->
             % Vacuously true: no matching cases. Explain the condition's FAILURE
             % so it renders as a (red) negative branch under the header.
+<<<<<<< HEAD
             build_failure_tree(CondID, CondFailWhys),
+=======
+            failure_tree(CondID, CondFailWhys),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
             ( CondFailWhys = [CondWhy] -> true ; CondWhy = failure(Cond, CondFailWhys) ),
             CaseChildren = [CondWhy],
             Us = []
@@ -308,7 +343,11 @@ solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negat
         fail
     ;   % Goal has no proof at all: not(Goal) succeeds.
         Us = [],
+<<<<<<< HEAD
         build_failure_tree(GoalID, FailureTrees),
+=======
+        failure_tree(GoalID, FailureTrees),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         assertz(success_in_not(GoalID, FailureTrees))
     ).
 
@@ -476,6 +515,7 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
           \+ ( ground(G), \+ \+ solve(G, SM, KM, [le_unknown(G)|Anc], D1, none, [], _) ),
           solve(UnkBody, SM, KM, [le_unknown(G)|Anc], D1, MyID, [], _) ->  
             Us = [G], WhysBody = [], Ref = unknown
+<<<<<<< HEAD
     ).
 
 %!  in_ancestors(+G, +Anc) is semidet.
@@ -1369,7 +1409,932 @@ solve_rule_body(Body, SM, KM, Anc, D, MyID, Ref, Us, WhysBody) :-
         assertz(called_clause(MyID, ClauseID, Ref)),
         solve(Body, SM, KM, Anc, D, ClauseID, Us, WhysBody)
     ;   solve(Body, SM, KM, Anc, D, MyID, Us, WhysBody)
+=======
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ).
+
+%!  in_ancestors(+G, +Anc) is semidet.
+%
+%   The loop check: G is the same condition — a variant, equal up to the
+%   names of its variables — as one already being proved further up, as
+%   that one was when its proof began. A condition that merely unifies with
+%   an ancestor is not a loop: a rule about the obligation started on one
+%   date may ask about the obligation started on an earlier, still unknown
+%   date (docs/migration/l4.md of lpsPlus, trap 6). Until 29 September 2026
+%   the check was member/2, which refused any ancestor that unifies with G.
+%
+%   The comparison is with the ancestor's snapshot (ancestor_frame/2), not
+%   with the ancestor as it is now: the ancestor's variables are bound as
+%   its proof goes on, and `the obligation starts on _` asked again under
+%   an ancestor that was `the obligation starts on _` when it was asked
+%   would no longer look the same, and the proof would descend for ever.
+%   Both sides are compared without their type constraints (when/2 goals):
+%   =@= tells a constrained variable from a plain one, and the same
+%   condition asked twice carries its constraints on different variables.
+in_ancestors(G, Anc) :-
+    copy_term(G, Plain, _),
+    ancestor_variant(Plain, Anc, Above),
+    !,
+    note_loop_cut(Above).
+
+%!  ancestor_unifies(+G, +Anc) is semidet.
+%
+%   The older loop check, kept for the goals it guards besides rule
+%   conclusions — an assumption under way (le_unknown/1), an opposite, a
+%   step of the ontology: some ancestor unifies with G.
+ancestor_unifies(G, Anc) :-
+    ancestor_unifying(G, Anc, Above),
+    !,
+    note_loop_cut(Above).
+
+ancestor_variant(G, [A|T], Above) :-
+    (   A = '$le_goal'(_, Snapshot), Snapshot =@= G
+    ->  Above = T
+    ;   ancestor_variant(G, T, Above)
+    ).
+
+%!  ancestor_frame(+G, -Frame) is det.
+%
+%   What a rule's conclusion puts on the ancestor list: the goal itself,
+%   whose bindings the proof goes on to fill in (what the debugger shows,
+%   what the other loop checks compare with), and a snapshot of it as it
+%   was when its proof began, without the type constraints (what
+%   in_ancestors/2 compares with).
+ancestor_frame(G, '$le_goal'(G, Snapshot)) :-
+    copy_term(G, Snapshot, _).
+
+%!  live_ancestors(+Anc, -Goals) is det.
+%
+%   The ancestor list as goals, for the debugger.
+live_ancestors([], []).
+live_ancestors([A|T], [G|Gs]) :-
+    ( A = '$le_goal'(G, _) -> true ; G = A ),
+    live_ancestors(T, Gs).
+
+
+ancestor_unifying(G, [A0|T], Above) :-
+    ( A0 = '$le_goal'(A, _) -> true ; A = A0 ),
+    (   \+ A \= G -> Above = T ; ancestor_unifying(G, T, Above) ).
+
+%!  note_loop_cut(+Above) is det.
+%
+%   A loop check has just refused a condition because of an ancestor, Above
+%   being the ancestors further up than that one. While a memorable call is
+%   computed (memo_solve/8), the global variable le_loop_floor holds the
+%   fewest ancestors any such refusal left above it, so that the call can
+%   tell whether a refusal reached above the call itself: its answers then
+%   depend on where the call was made, and are not remembered (trap 7 of
+%   lpsPlus's docs/migration/l4.md). Outside a memorable call the variable is
+%   `none` and nothing is noted.
+note_loop_cut(Above) :-
+    (   nb_current(le_loop_floor, Floor), Floor \== none
+    ->  length(Above, N),
+        ( N < Floor -> nb_setval(le_loop_floor, N) ; true )
+    ;   true
+    ).
+
+% ── Memoization of `; memorable` templates ──────────────────────────────────
+%
+%   docs/user/reference/language.md §2.4. A program marks a template
+%   `; memorable` when the same call on it is made many times in a query —
+%   the repeated sub-proofs that the explanation's redundancy detection
+%   (group_variant_whys/2, le_api:mark_cross_tree_repeats/2) finds after the
+%   fact. The reasoner then does the work once: the FIRST call of each
+%   distinct call (distinct up to variable renaming — a variant, not merely a
+%   unifiable term) computes EVERY answer of the call, each with its
+%   unknowns and its explanation, and the later variant calls of the same
+%   query replay them. Only a completed call is replayed: while a call is
+%   being computed (memo_active/2) a recursive variant of it inside the
+%   computation is solved as usual, so that the loop check on the ancestor
+%   list decides recursion exactly as it does without the marker.
+%
+%   The cache lives for ONE query (memo_enter/1 at i/4 and explain/4): a
+%   session's facts change between queries (a scenario is set, a fact
+%   asserted, a flip query tries changes), and an entry computed under other
+%   facts would be a wrong answer with a confident explanation. Within a
+%   query each nested proof — a why-not attempt, a section check, a flip,
+%   the constraint checks of consistent_assumptions/4 — gets a generation of
+%   its own (with_saved_reasoner_state/1), and entries of other generations
+%   are never consulted: those proofs run under other assumptions or other
+%   facts. A scoped proof (`according to`, §17.5) is part of the key.
+%
+%   Answers are indexed by the hash of the call (variant_sha1/2 on a copy
+%   without attributes), one clause per answer (memo_answer/6), so a replay
+%   copies one answer at a time; the type constraints the answer's free
+%   variables carried (when/2 goals) are stored beside it and re-attached.
+%   memo_alias/2 lets a replayed call's failure explanation — and the
+%   exhausted alternatives of a replayed choice point — be read from the
+%   records of the call that did the work (failure_children/2).
+%
+%   Not memoized: a call made while a variant of it is still active (above),
+%   a call whose computation met the loop check on one of the call's own
+%   ancestors (its answers are those of that place only: note_loop_cut/1),
+%   and every literal of a template without the marker. The verifier warns
+%   about a memorable call under a negation (a negation stops at the first
+%   answer, the memorable call computes them all) and about a memorable
+%   predicate whose rules run an embedded `prolog` goal (which could change
+%   state under the cached answers).
+
+%!  memorable_goal(+G, +SM, +KM) is semidet.
+%
+%   G is a literal of a template marked `; memorable` in the knowledge base
+%   (or the session, when it is the program itself).
+memorable_goal(G, SM, KM) :-
+    (   compound(G) -> functor(G, F, A) ; atom(G), F = G, A = 0 ),
+    (   KM \== none, current_predicate(KM:le_memorable/2)
+    ->  KM:le_memorable(F, A)
+    ;   current_predicate(SM:le_memorable/2),
+        SM:le_memorable(F, A)
+    ), !.
+
+%!  memo_solve(+G, +SM, +KM, +Anc, +D, +MyID, -Us, -Whys) is nondet.
+memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
+    memo_generation(Gen),
+    memo_key(G, Key),
+    (   memo_done(Key, Gen, FirstID)
+    ->  memo_count(hits),
+        ( le_kbs:do_log -> format('Memo hit: ~p~n', [G]) ; true ),
+        % The replayed call answers from the records of the first: its
+        % failure explanation, or why its choice point had no other answer.
+        ( MyID == FirstID -> true ; assertz(memo_alias(MyID, FirstID)) ),
+        memo_replay(Key, Gen, G, Us, Whys)
+    ;   memo_active(Key, Gen)
+    ->  % A variant of a call still being computed (recursion through the
+        % memorable predicate): answered from the answers the computation
+        % has found so far (memo_fixpoint/10), which is repeated until it
+        % finds no new one. A memorable call inside it remembers what it
+        % proves from these provisional answers only until the next round,
+        % which forgets it (forget_records_from/1).
+        memo_count(provisional),
+        ( memo_consumed(Key, Gen) -> true ; assertz(memo_consumed(Key, Gen)) ),
+        memo_provisional(Key, Gen, Provisional),
+        member(answer(G, Us, Whys, Constraints), Provisional),
+        maplist(call, Constraints)
+    ;   memo_count(misses),
+        %   The loop floor (note_loop_cut/1): a refusal inside this call that
+        %   leaves fewer ancestors above it than the call has was caused by
+        %   an ancestor of the call, outside it — the answers are then those
+        %   of this place only, and are returned without being remembered.
+        length(Anc, Outside),
+        ( nb_current(le_loop_floor, Saved) -> true ; Saved = none ),
+        flag(le_memo_birth, Start, Start),
+        setup_call_cleanup(
+            assertz(memo_active(Key, Gen)),
+            memo_fixpoint(G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Answers0-Floor),
+            ( retractall(memo_active(Key, Gen)),
+              retractall(memo_provisional(Key, Gen, _)),
+              retractall(memo_consumed(Key, Gen)),
+              restore_loop_floor(Saved) )),
+        %  the answers are a set: the same answer proved in two ways is
+        %  given once, with its first proof
+        distinct_memo_answers(Answers0, Answers),
+        (   Floor < Outside
+        ->  memo_count(unremembered),
+            % the memorable calls inside it may rest on its answers
+            forget_memos_from(Start),
+            ( Saved == none -> true ; Low is min(Saved, Floor), nb_setval(le_loop_floor, Low) ),
+            member(answer(G, Us, Whys), Answers)
+        ;   forall(member(Answer, Answers),
+                   ( copy_term(Answer, answer(G2, Us2, Whys2), Constraints),
+                     assertz(memo_answer(Key, Gen, G2, Us2, Whys2, Constraints)) )),
+            assertz(memo_done(Key, Gen, MyID)),
+            flag(le_memo_birth, Birth, Birth + 1),
+            assertz(memo_birth(Key, Gen, Birth)),
+            memo_replay(Key, Gen, G, Us, Whys)
+        )
+    ).
+
+%   distinct_memo_answers(+Answers, -Distinct): one answer(G, Us, Whys) for
+%   each variant of G and its unknowns Us, the first.
+distinct_memo_answers(As, Ds) :- distinct_memo_answers(As, [], Ds).
+distinct_memo_answers([], _, []).
+distinct_memo_answers([A|As], Seen, Ds) :-
+    A = answer(G, Us, _),
+    (   memberchk_variant(G-Us, Seen)
+    ->  Ds = Ds1, Seen1 = Seen
+    ;   Ds = [A|Ds1], Seen1 = [G-Us|Seen]
+    ),
+    distinct_memo_answers(As, Seen1, Ds1).
+
+memberchk_variant(X, L) :- member(Y, L), Y =@= X, !.
+
+%!  memo_fixpoint(+G, +SM, +KM, +Anc, +D, +MyID, +Key, +Gen, +Outside, -Result) is det.
+%
+%   Every answer of the memorable call G, with the loop floor the last round
+%   reached (Result = Answers-Floor). A round proves G with the answers of
+%   the round before standing for the recursive variants of G inside it (none
+%   in the first round). Where no recursive variant was asked, one round is
+%   all there is. Otherwise the rounds go on until a round finds no answer
+%   the one before did not — the least fixpoint, for a program without
+%   negation through the recursion — or until memo_max_rounds/1 rounds,
+%   after which the answers are not remembered (the floor is lowered).
+%   What a round other than the last recorded for the explanations
+%   (called/3 and the rest, from the first identifier it used) is removed,
+%   so that the explanation is the last round's.
+%
+%   With it a recursion through a value not yet known — the obligation that
+%   started on some date, asked while proving the obligation that started
+%   on some date — finds all its answers, which a depth-first proof with a
+%   loop check cannot (lpsPlus docs/migration/l4.md, trap 6).
+memo_fixpoint(G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Result) :-
+    memo_max_rounds(Max),
+    memo_rounds(1, Max, [], G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Result).
+
+memo_max_rounds(200).
+
+memo_rounds(Round, Max, Previous, G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Result) :-
+    retractall(memo_provisional(Key, Gen, _)),
+    assertz(memo_provisional(Key, Gen, Previous)),
+    retractall(memo_consumed(Key, Gen)),
+    counter(Start),
+    flag(le_memo_birth, Births, Births),
+    nb_setval(le_loop_floor, Outside),
+    findall(answer(G, Us1, Whys1),
+            solve_literal(G, SM, KM, Anc, D, MyID, Us1, Whys1),
+            Answers),
+    nb_getval(le_loop_floor, Floor0),
+    (   \+ memo_consumed(Key, Gen)
+    ->  Result = Answers-Floor0
+    ;   maplist(stored_answer, Answers, Stored0),
+        distinct_answers(Stored0, Stored),
+        (   same_answers(Stored, Previous)
+        ->  Result = Answers-Floor0
+        ;   Round >= Max
+        ->  Floor is min(Floor0, Outside - 1),
+            Result = Answers-Floor
+        ;   forget_records_from(Start),
+            forget_memos_from(Births),
+            Round1 is Round + 1,
+            memo_rounds(Round1, Max, Stored, G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Result)
+        )
+    ).
+
+%   An answer as the provisional answers hold it: without the type
+%   constraints, which are kept beside it and re-attached when it is used.
+stored_answer(answer(G, Us, Whys), answer(G2, Us2, Whys2, Constraints)) :-
+    copy_term(answer(G, Us, Whys), answer(G2, Us2, Whys2), Constraints).
+
+%   One answer per conclusion and unknowns, the first found: a recursion
+%   through a cycle proves the same conclusion in ever more ways, and the
+%   next round needs each conclusion once.
+distinct_answers([], []).
+distinct_answers([A|As], [A|Ds]) :-
+    A = answer(G, Us, _, _),
+    exclude(same_conclusion(G-Us), As, Rest),
+    distinct_answers(Rest, Ds).
+
+same_conclusion(GU, answer(G, Us, _, _)) :-
+    GU =@= G-Us.
+
+%   Two rounds found the same answers: each answer of one (its conclusion and
+%   its unknowns, not its explanation) is a variant of an answer of the
+%   other.
+same_answers(As, Bs) :-
+    length(As, N), length(Bs, N),
+    forall(member(answer(G, Us, _, _), As),
+           ( member(answer(G2, Us2, _, _), Bs), G-Us =@= G2-Us2 )),
+    forall(member(answer(G, Us, _, _), Bs),
+           ( member(answer(G2, Us2, _, _), As), G-Us =@= G2-Us2 )).
+
+%   The records of the explanation made from identifier Start on.
+forget_records_from(Start) :-
+    forall(( called(P, ID, X), ID >= Start ), retract(called(P, ID, X))),
+    forall(( called_clause(ID, C, Ref), ID >= Start ), retract(called_clause(ID, C, Ref))),
+    forall(( succeeded(ID), ID >= Start ), retract(succeeded(ID))),
+    forall(( success_in_not(ID, W), ID >= Start ), retract(success_in_not(ID, W))),
+    forall(( solved_binding(ID, B), ID >= Start ), retract(solved_binding(ID, B))),
+    forall(( memo_alias(ID, F), ID >= Start ), retract(memo_alias(ID, F))).
+
+%   The memorable calls remembered since birth number Start (memo_birth/3,
+%   numbered in the order they were remembered, whatever identifier the
+%   call ran under) are forgotten.
+forget_memos_from(Start) :-
+    forall(( memo_birth(K, Gn, B), B >= Start ),
+           ( retract(memo_birth(K, Gn, B)),
+             forall(retract(memo_done(K, Gn, First)),
+                    retractall(memo_alias(_, First))),
+             retractall(memo_answer(K, Gn, _, _, _, _)) )).
+
+%   The loop floor of the enclosing memorable call, if any, is put back once
+%   this one is done; a refusal inside this call is inside that one too, and
+%   is carried up where it reached above this call (memo_solve/8).
+restore_loop_floor(Saved) :-
+    nb_setval(le_loop_floor, Saved).
+
+memo_replay(Key, Gen, G, Us, Whys) :-
+    memo_answer(Key, Gen, G, Us, Whys, Constraints),
+    maplist(call, Constraints).
+
+%   The key of a call: its shape up to variable renaming, together with the
+%   scope of the proof it is made in (a scoped proof admits fewer facts).
+%   copy_term/3 leaves the type constraints of the variables behind, which
+%   variant_sha1/2 cannot hash and which are not part of what the call asks.
+memo_key(G, Key) :-
+    current_scope(Scope),
+    copy_term(G-Scope, Plain, _),
+    variant_sha1(Plain, Key).
+
+%   memo_enter(-Saved) / memo_exit(+Saved): the cache of a query. The
+%   outermost i/4 or explain/4 of a thread starts with an empty cache; each
+%   call (nested ones included: a query run inside a service or a test of a
+%   test) gets a generation of its own, restored on exit.
+memo_enter(saved(Depth, OldGen)) :-
+    ( memo_depth(Depth) -> true ; Depth = 0 ),
+    ( Depth =:= 0 -> clear_memo ; true ),
+    Depth1 is Depth + 1,
+    retractall(memo_depth(_)), assertz(memo_depth(Depth1)),
+    ( memo_generation(OldGen) -> true ; OldGen = 0 ),
+    new_memo_generation.
+
+memo_exit(saved(Depth, OldGen)) :-
+    retractall(memo_depth(_)), assertz(memo_depth(Depth)),
+    set_memo_generation(OldGen).
+
+new_memo_generation :-
+    ( retract(memo_gen_counter(N)) -> true ; N = 0 ),
+    N1 is N + 1,
+    assertz(memo_gen_counter(N1)),
+    set_memo_generation(N1).
+
+set_memo_generation(Gen) :-
+    retractall(memo_generation(_)),
+    assertz(memo_generation(Gen)).
+
+clear_memo :-
+    retractall(memo_done(_, _, _)),
+    retractall(memo_active(_, _)),
+    retractall(memo_answer(_, _, _, _, _, _)),
+    retractall(memo_alias(_, _)),
+    retractall(memo_provisional(_, _, _)),
+    retractall(memo_consumed(_, _)),
+    retractall(memo_birth(_, _, _)),
+    retractall(memo_stat(_, _)).
+
+memo_count(Kind) :-
+    ( retract(memo_stat(Kind, N)) -> N1 is N + 1 ; N1 = 1 ),
+    assertz(memo_stat(Kind, N1)).
+
+%!  memo_statistics(-Hits:integer, -Misses:integer) is det.
+%
+%   Of the last query of this thread: the memorable calls replayed from the
+%   cache, and those that had to be computed (each distinct call once).
+memo_statistics(Hits, Misses) :-
+    ( memo_stat(hits, Hits) -> true ; Hits = 0 ),
+    ( memo_stat(misses, Misses) -> true ; Misses = 0 ).
+
+%!  goal_attempt(+Goal, +SM, +KM, -Result) is det.
+%
+%   Attempts Goal in session SM WITHOUT disturbing a proof in progress (the
+%   bookkeeping of the enclosing i/4 is saved and restored). Result is
+%   `succeeded` when Goal has a proof (definite or conditional), otherwise
+%   failed(Calls), Calls being every goal the attempt tried, as G-Status with
+%   Status `succeeded`, `failed`, or `moot` (failed under a goal that
+%   succeeded by another clause) — le_at/3 wrappers removed.
+goal_attempt(Goal, SM, KM, Result) :-
+    goal_attempt(Goal, SM, KM, Result, _).
+
+%!  goal_attempt(+Goal, +SM, +KM, -Result, -CallerRefs) is det.
+%
+%   As goal_attempt/4; CallerRefs are the clause references of the rules
+%   whose bodies called a goal that failed with every ancestor failed — the
+%   rules the failure is chargeable to (a section blames its own rules, not
+%   the rules of the predicates they consult).
+goal_attempt(Goal, SM, KM, Result, CallerRefs) :-
+    with_saved_reasoner_state(goal_attempt_(Goal, SM, KM, Result, CallerRefs)).
+
+goal_attempt_(Goal, SM, KM, Result, CallerRefs) :-
+    (   solve(Goal, SM, KM, [], 0, 0, _, _)
+    ->  Result = succeeded, CallerRefs = []
+    ;   findall(Ref,
+                ( called(P, ID, _),
+                  \+ succeeded(ID), \+ success_in_not(ID, _),
+                  \+ ancestor_succeeded(ID),
+                  called_clause(P, _, Ref) ),
+                Refs0),
+        sort(Refs0, CallerRefs),
+        findall(G-St,
+                ( called(_, ID, G0), strip_le_at(G0, G),
+                  (   ( succeeded(ID) ; success_in_not(ID, _) )
+                  ->  St = succeeded
+                  ;   ancestor_succeeded(ID)
+                  ->  St = moot
+                  ;   St = failed
+                  ) ),
+                Calls),
+        Result = failed(Calls)
+    ).
+
+% A failed goal under a goal that succeeded by another clause (the other
+% alternatives of a criterion, the other rows of a choice) did not make the
+% attempt fail: its status is `moot`, so that a failure is blamed on the
+% goals whose every ancestor failed too.
+ancestor_succeeded(ID) :-
+    called(Parent, ID, _),
+    Parent \== none,
+    (   ( succeeded(Parent) ; success_in_not(Parent, _) )
+    ->  true
+    ;   ancestor_succeeded(Parent)
+    ).
+
+%!  with_saved_reasoner_state(:Goal) is semidet.
+%
+%   Runs Goal (once) on a fresh copy of the reasoner's per-thread proof
+%   bookkeeping, restoring the enclosing proof's afterwards — also the KB
+%   module i/4 set, which a nested i/4 clears on exit.
+:- meta_predicate with_saved_reasoner_state(0).
+with_saved_reasoner_state(Goal) :-
+    findall(called(A, B, C), called(A, B, C), Called),
+    findall(called_clause(A, B, C), called_clause(A, B, C), CalledClause),
+    findall(success_in_not(A, B), success_in_not(A, B), SIN),
+    findall(succeeded(A), succeeded(A), Succ),
+    findall(solved_binding(A, B), solved_binding(A, B), SB),
+    findall(counter(A), counter(A), Ctr),
+    findall(memo_alias(A, B), memo_alias(A, B), Aliases),
+    ( le_kbs:le_kb_module(KBM) -> true ; KBM = none ),
+    % The nested proof has a memo generation of its own: what it computes
+    % (under its own assumptions or facts) is not replayed outside it, nor
+    % the enclosing proof's entries inside it.
+    ( memo_generation(OldGen) -> true ; OldGen = 0 ),
+    setup_call_cleanup(
+        ( clear_reasoner_state, init_counter, new_memo_generation ),
+        once(Goal),
+        ( clear_reasoner_state,
+          forall(member(T, Called), assertz(T)),
+          forall(member(T, CalledClause), assertz(T)),
+          forall(member(T, SIN), assertz(T)),
+          forall(member(T, Succ), assertz(T)),
+          forall(member(T, SB), assertz(T)),
+          forall(member(T, Aliases), assertz(T)),
+          retractall(counter(_)), forall(member(T, Ctr), assertz(T)),
+          set_memo_generation(OldGen),
+          ( KBM == none -> le_kbs:clear_kb_module ; le_kbs:set_kb_module(KBM) ) )).
+
+clear_reasoner_state :-
+    retractall(called(_, _, _)),
+    retractall(called_clause(_, _, _)),
+    retractall(success_in_not(_, _)),
+    retractall(succeeded(_)),
+    retractall(solved_binding(_, _)),
+    retractall(memo_alias(_, _)).
+
+current_scope(Scope) :-
+    ( nb_current(le_scope, S), S \== [] -> Scope = S ; Scope = none ).
+
+%!  admissible_clause(+Ref, +Goal, +SM, +KM, +MyID) is semidet.
+%
+%   Outside a scoped proof every clause may be used. Inside one, a clause of
+%   the knowledge base may (it is part of the rules, not of the evidence); a
+%   session clause — a scenario fact — only when its provenance source is
+%   admissible under the scope. A session clause with no provenance is not.
+%   A rejected fact is recorded under the goal (MyID), so that a failure
+%   explanation says whose evidence it was and why it did not count.
+admissible_clause(Ref, Goal, SM, KM, MyID) :-
+    current_scope(Current),
+    (   Current == none
+    ->  true
+    ;   \+ clause_property(Ref, module(SM))
+    ->  true
+    ;   Current = scope(Scope),
+        (   catch(le_provenance:clause_provenance(SM, KM, Ref, Goal, Prov), _, fail)
+        ->  le_provenance:prov_effective_source(Prov, Source)
+        ;   Source = none
+        ),
+        (   Source \== none,
+            admissible_under(Source, Scope, SM, KM)
+        ->  true
+        ;   ( MyID \== none, ground(Goal)
+            ->  next_id(RejID),
+                Rej = le_inadmissible(Goal, Source, Scope),
+                (   catch(SM:le_source_info(Ref, S, E, _), _, fail)
+                ->  assertz(called(MyID, RejID, le_at(Rej, S, E)))     % points at the fact
+                ;   assertz(called(MyID, RejID, Rej))
+                )
+            ;   true
+            ),
+            fail
+        )
+    ).
+
+%!  admissible_under(+Source, +Scope, +SM, +KM) is semidet.
+%
+%   A source is admissible under its own name, and under any scope the
+%   program says it is: "<source> is admissible under <scope>" (a built-in
+%   template), established — outside any scope — from the rules and facts.
+admissible_under(Source, Scope, _, _) :-
+    var(Scope), !,
+    Scope = Source.                       % "according to a party": whose evidence
+admissible_under(Source, Scope, _, _) :-
+    same_constant(Source, Scope), !.
+admissible_under(Source, Scope, SM, KM) :-
+    admissibility_functor(KM, SM, F),
+    Goal =.. [F, Source, Scope],
+    with_scope(none,
+        \+ \+ solve(Goal, SM, KM, [], 0, none, [], _)), !.
+
+same_constant(A, B) :- A == B, !.
+same_constant(A, B) :- ( atom(A) ; string(A) ), ( atom(B) ; string(B) ),
+    atom_string(A, S), atom_string(B, S).
+
+% le_admissible_under/2, or a user template spelled the same way (declaring it
+% again is harmless).
+admissibility_functor(_, _, le_admissible_under).
+admissibility_functor(KM, SM, F) :-
+    ( KM \== none -> M = KM ; M = SM ),
+    le_i18n:system_template_row(le_admissible_under, _, Parts),
+    include(atom, Parts, Words),
+    current_predicate(M:le_dict/1),
+    M:le_dict(Dict), arg(1, Dict, [F, _, _]), F \== le_admissible_under,
+    arg(3, Dict, WV), include(atom, WV, Words2), Words2 == Words.
+
+:- meta_predicate with_scope(+, 0).
+with_scope(Scope, Goal) :-
+    current_scope(Old),
+    setup_call_cleanup(b_setval(le_scope, Scope), Goal, b_setval(le_scope, Old)).
+
+% One solution of an aggregation goal: the aggregated value, the unknowns that
+% solution assumed, and its derivation.
+agg_value(agg(V, _, _), V).
+agg_unknowns(agg(_, Us, _), Us).
+agg_whys(agg(_, _, Whys), Whys).
+
+%!  remove_variant_duplicates(+Us0:list, -Us:list) is det.
+%
+%   Us0 without repeats, first occurrence kept. One assumption relied on by
+%   several aggregated terms — a single unclassified receipt feeding two sums —
+%   is reported once. sort/2 would do it, but it would also reorder the list;
+%   unknowns read best in the order the proof met them.
+remove_variant_duplicates([], []).
+remove_variant_duplicates([U|Us0], [U|Us]) :-
+    exclude(=@=(U), Us0, Rest),
+    remove_variant_duplicates(Rest, Us).
+
+%!  consistent_assumptions(+Us0:list, -Us:list, +SM, +KM) is semidet.
+%
+%   The consistency condition of abductive logic programming, checked on each
+%   answer as it is found: the case, with the assumptions Us0 of the answer
+%   taken as true, must break no integrity constraint of the program (`it
+%   must not be true that …`, le_constraint/1 clauses) — a constraint being
+%   broken when its conditions have a proof that assumes nothing more.
+%
+%   A broken constraint can sometimes be kept by assuming more: when its proof
+%   needs `it is not the case that G` and G could be assumed (an `; unknown`
+%   template), G is assumed too and every constraint checked again — as an
+%   abductive proof procedure (and s(CASP)) does. Us is then Us0 followed by
+%   what was added. Otherwise the answer is rejected; the rejection is
+%   remembered (rejected_assumptions/2) so that a caller can say why. When the
+%   answer assumed nothing, the facts themselves break the constraint: the
+%   case is inconsistent, and nothing follows from it
+%   (case_breaks_constraint/5).
+%
+%   The variables of Us0 are existential (something is assumed of some
+%   value): they are frozen to fresh constants for the check.
+consistent_assumptions(Us0, Us, SM, KM) :-
+    (   \+ has_constraints(SM, KM)
+    ->  Us = Us0
+    ;   copy_term(Us0, Frozen0),
+        term_variables(Us0, Vs),
+        numbervars(Frozen0, 0, NV, [functor_name('$le_assumed')]),
+        repair_assumptions(Frozen0, SM, KM, NV, 0, Frozen, Outcome),
+        (   Outcome == ok
+        ->  append(Frozen0, Added0, Frozen),
+            unfreeze(Added0, Vs, Added),
+            append(Us0, Added, Us)
+        ;   Outcome = broken(ID, _, _),
+            assertz(rejected_assumptions(Us0, ID)),
+            fail
+        )
+    ).
+
+%!  consistent_assumptions(+Us, +SM, +KM) is semidet.
+%
+%   As consistent_assumptions/4, when adding assumptions is not wanted: Us
+%   must keep every constraint as it is.
+consistent_assumptions(Us, SM, KM) :-
+    consistent_assumptions(Us, Us1, SM, KM),
+    length(Us, N), length(Us1, N).
+
+%!  case_breaks_constraint(+SM, +KM, -ID, -Ref, -Whys) is semidet.
+%
+%   True when the case is inconsistent: its facts break an integrity
+%   constraint, and no assumption mends it. ID and Ref name the constraint,
+%   Whys proves its conditions. i/4 answers nothing from such a case (every
+%   answer fails consistent_assumptions/4); explain/4 gives this proof as the
+%   reason.
+case_breaks_constraint(SM, KM, ID, Ref, Whys) :-
+    has_constraints(SM, KM),
+    repair_assumptions([], SM, KM, 0, 0, _, broken(ID, Ref, Whys)).
+
+has_constraints(SM, KM) :-
+    catch(get_clause(le_constraint(_), SM, KM, _, _), _, fail), !.
+
+%   At most this many assumptions are added to keep the constraints.
+max_added_assumptions(20).
+
+repair_assumptions(As, SM, KM, NV, N, Out, Outcome) :-
+    (   with_saved_reasoner_state(broken_constraint(As, SM, KM, ID, Ref, Whys))
+    ->  (   max_added_assumptions(Max), N < Max,
+            repair_candidate(Whys, SM, KM, G0),
+            copy_term(G0, G),
+            numbervars(G, NV, NV1, [functor_name('$le_assumed')]),
+            \+ ( member(A, As), A =@= G )
+        ->  append(As, [G], As1),
+            N1 is N + 1,
+            repair_assumptions(As1, SM, KM, NV1, N1, Out, Outcome)
+        ;   Out = As, Outcome = broken(ID, Ref, Whys)
+        )
+    ;   Out = As, Outcome = ok
+    ).
+
+broken_constraint(Assumed, SM, KM, ID, Ref, Whys) :-
+    setup_call_cleanup(
+        assertz(checking_assumptions(Assumed)),
+        (   catch(get_clause(le_constraint(ID), SM, KM, Body, Ref), _, fail),
+            solve(Body, SM, KM, [], 0, none, [], Whys)
+        ),
+        retractall(checking_assumptions(_))), !.
+
+%   A negation the broken proof needed, of something that could be assumed:
+%   assuming it breaks that proof.
+repair_candidate(Whys, SM, KM, G) :-
+    sub_term(S, Whys), compound(S), S = success(not(G0), _, _),   % negation, or its range
+    strip_positions_goal(G0, G),
+    callable(G), G \= (_, _), G \= (_ ; _), G \= not(_),
+    \+ \+ catch(get_clause(le_unknown(G), SM, KM, _, _), _, fail),
+    \+ SM:le_neg(le_unknown(G)).
+
+strip_positions_goal(le_at(G0, _, _), G) :- !, strip_positions_goal(G0, G).
+strip_positions_goal(G, G).
+
+%   Frozen assumptions back to terms of the answer: '$le_assumed'(I) is the
+%   I-th variable of the answer's assumptions, or a new variable past them.
+unfreeze(Terms, Vs, Out) :-
+    length(Vs, NVs),
+    unfreeze_(Terms, Vs, NVs, _Extra, Out).
+
+unfreeze_(T, Vs, NVs, Extra, V) :-
+    compound(T), T = '$le_assumed'(I), integer(I), !,
+    (   I < NVs
+    ->  nth0(I, Vs, V)
+    ;   K is I - NVs, extra_var(K, Extra, V)
+    ).
+unfreeze_(T, Vs, NVs, Extra, O) :-
+    compound(T), !,
+    T =.. [F|As], unfreeze_list(As, Vs, NVs, Extra, Bs), O =.. [F|Bs].
+unfreeze_(T, _, _, _, T).
+
+unfreeze_list([], _, _, _, []).
+unfreeze_list([A|As], Vs, NVs, Extra, [B|Bs]) :-
+    unfreeze_(A, Vs, NVs, Extra, B),
+    unfreeze_list(As, Vs, NVs, Extra, Bs).
+
+extra_var(K, Extra, V) :- memberchk(K-V, Extra), !.
+
+%!  rejected_assumption_sets(-Sets:list) is det.
+%
+%   The assumption sets consistent_assumptions/3 rejected since the last
+%   clear_rejected_assumptions/0 in this thread, as Us-ConstraintID pairs.
+rejected_assumption_sets(Sets) :-
+    findall(Us-ID, rejected_assumptions(Us, ID), Sets).
+
+clear_rejected_assumptions :- retractall(rejected_assumptions(_, _)).
+
+%!  definitely_provable(+Goal, +SM, +KM, +D) is semidet.
+%
+%   True when Goal has a proof that assumes nothing. Used to discard an
+%   assumption-based solution when the same goal is also established outright
+%   (the "definite proof wins" rule, applied per aggregated term).
+definitely_provable(Goal, SM, KM, D) :-
+    \+ \+ solve(Goal, SM, KM, [], D, none, [], _).
+
+% forall_case_nodes(+Case, -Nodes): explanation nodes for one universal case — a
+% "for case <condition>" node and an "it is true that <consequent>" node, each
+% carrying that instance's derivation. A case that rests on an assumption is not
+% a separate node shape: the assumed literal already sits in the condition's own
+% derivation with an `unknown` ref, which is what marks it as assumed.
+forall_case_nodes(ok(Cond, WhysCond, Cons, WhysCons, _Us),
+        [success(for_case(CondGoal), CondRef, CondChildren),
+         success(it_is_true_that(ConsGoal), ConsRef, ConsChildren)]) :-
+    unwrap_le_at(Cond, CondGoal),
+    unwrap_le_at(Cons, ConsGoal),
+    case_proof(WhysCond, CondRef, CondChildren),
+    case_proof(WhysCons, ConsRef, ConsChildren).
+
+unwrap_le_at(le_at(G, _, _), G) :- !.
+unwrap_le_at(G, G).
+
+% case_proof(+Whys, -Ref, -Children): how to attach a single case's derivation to
+% its "for case"/"it is true that" node. When the derivation is a single node, the
+% node already restates the instance, so lift its source ref and children (a plain
+% fact then shows as just the one line); otherwise keep the derivation as children.
+case_proof([success(_, Ref, GrandChildren)], Ref, GrandChildren) :- !.
+case_proof(Whys, universal_case, Whys).
+
+% Both lookups go through the functor indexes (le_dict_fa/3, le_dict_opposite/3
+% — see assert_le_dict/3 in le_kbs): every le_dict/1 clause carries the same
+% first-argument key, so asking it for one template used to walk the whole
+% templates section, once per literal the verifier checks.
+has_opposite(G, SM, KM, OppG) :-
+    ( KM \== none -> M = KM ; M = SM ),
+    functor(G, F, A),
+    (   dict_by_functor(M, F, A, dict([F|Args], _, _, _, Opposite, _, _)), nonvar(Opposite) ->
+        % G is the main predicate
+        G =.. [F | GArgs],
+        copy_term(dict(Args, Opposite), dict(GArgs, OppG))
+    ;   dict_by_opposite(M, F, A, dict(FA, _, _, _, Opposite, _, _)), nonvar(Opposite) ->
+        % G is the opposite predicate
+        Opposite =.. [F | OppArgs],
+        G =.. [F | GArgs],
+        OppArgs = GArgs,
+        FA = [MainF | MainArgs],
+        OppG =.. [MainF | MainArgs]
+    ;   fail
+    ).
+
+is_type_compatible(SM, KM, G) :-
+    ( KM \== none -> M = KM ; M = SM ),
+    functor(G, F, N),
+    findall(FormalArgs-NTs, candidate_dict(M, F, N, FormalArgs, NTs), Candidates),
+    (   Candidates == [] -> true
+    ;   G =.. [F|ActualArgs],
+        args_compatible_any(Candidates, ActualArgs, M, SM, KM)
+    ).
+
+% candidate_dict(+M, +F, +N, -FormalArgs, -NTs): every declared template whose
+% predicate is F/N. Both the full dict/7 and the short dict/3 form are searched,
+% as before.
+candidate_dict(M, F, N, FormalArgs, NTs) :-
+    (   dict_by_functor(M, F, N, dict([F|FormalArgs], NTs, _, _, _, _, _))
+    ;   dict_by_functor(M, F, N, dict([F|FormalArgs], NTs, _))
+    ).
+
+%!  dict_by_functor(+M, +F, +A, ?Dict) is nondet.
+%!  dict_by_opposite(+M, +F, +A, ?Dict) is nondet.
+%
+%   Templates by the predicate they declare, and by the predicate their
+%   `opposite:` declares. The indexes are written when the template is asserted
+%   (assert_le_dict/3); a KB loaded before they existed — or by a path that
+%   never built them — falls back to the scan, so nothing depends on them
+%   being there.
+dict_by_functor(M, F, A, Dict) :-
+    (   current_predicate(M:le_dict_fa/3)
+    ->  M:le_dict_fa(F, A, Dict)
+    ;   M:le_dict(Dict), arg(1, Dict, [F|Args]), length(Args, A)
+    ).
+
+dict_by_opposite(M, F, A, Dict) :-
+    (   current_predicate(M:le_dict_opposite/3)
+    ->  M:le_dict_opposite(F, A, Dict)
+    ;   M:le_dict(Dict), Dict = dict(_, _, _, _, Opposite, _, _),
+        nonvar(Opposite), functor(Opposite, F, A)
+    ).
+
+%!  args_compatible_any(+Candidates, +ActualArgs, +M, +SM, +KM) is semidet.
+%
+%   Several templates can share one functor and arity with DIFFERENT argument
+%   types — "*a payment* is part of *a claim*" and "*a loss* is part of *a
+%   claim*" both compile to is_part_of/2. Committing to the first declared one
+%   (as this used to) silently made every other unusable: a scenario fact stated
+%   through the second template was rejected by the first template's types, so a
+%   fact sitting right there in the session could not be proved. The goal is
+%   acceptable if ANY declared template accepts it.
+%
+%   With one candidate nothing changes — the per-argument `when(nonvar(...))`
+%   checks are attached exactly as before, so an argument is constrained the
+%   moment it binds. A disjunction cannot be decided argument by argument, so
+%   with several candidates the whole check waits until the arguments are
+%   ground and then tries each template in turn. That defers rejection rather
+%   than tightening it, which matches the deliberate leniency of this check.
+args_compatible_any([FormalArgs-NTs], ActualArgs, M, SM, KM) :- !,
+    check_args_compatibility(FormalArgs, ActualArgs, NTs, M, SM, KM).
+args_compatible_any(Candidates, ActualArgs, M, SM, KM) :-
+    when(ground(ActualArgs),
+         once(( member(FormalArgs-NTs, Candidates),
+                check_args_compatibility(FormalArgs, ActualArgs, NTs, M, SM, KM) ))).
+
+check_args_compatibility([], [], _, _, _, _).
+check_args_compatibility([FA|FAs], [AA|AAs], NTs, M, SM, KM) :-
+    ( member(FA_-FormalType, NTs), FA_==FA, FormalType \== any ->
+        % Goal-level check: lenient — only constrains TYPE-valued arguments (for
+        % taxonomy reasoning). Instance arguments are NOT constrained here, since
+        % this fires for every goal and an instance may legitimately fill a role
+        % slot (e.g. a company acting as an 'affiliate'). Per-rule discrimination
+        % between same-functor templates is done by the head le_type_check goals
+        % at ambiguous positions (see head_var_type_checks/4 in le_grammar).
+        when(nonvar(AA), once(type_value_ok(AA, FormalType, SM, KM)))
+    ; true
+    ),
+    check_args_compatibility(FAs, AAs, NTs, M, SM, KM).
+
+% Like type_arg_ok/4 but only constrains TYPE-valued arguments (no instances).
+type_value_ok(_AA, any, _SM, _KM) :- !.
+type_value_ok(_AA, FormalType, _SM, _KM) :- universal_type(FormalType), !.
+type_value_ok(AA, FormalType, SM, KM) :-
+    ( is_type_value(AA, SM, KM), grounded_type(FormalType, SM, KM)
+    -> type_compatible(AA, FormalType, SM, KM)
+    ; true
+    ).
+
+%!  type_arg_ok(+Arg, +FormalType, +SM, +KM) is semidet.
+%
+%   True when the bound Arg is acceptable in a slot declared as FormalType. It is
+%   lenient by design — it only REJECTS on a clear conflict:
+%    * universal types (thing/object/…) and 'any' accept anything;
+%    * if Arg is itself a TYPE, require it to be a sub-type of FormalType, but
+%      only when FormalType is grounded (so a generic placeholder type like
+%      *super* in "*sub* isa *super*" does not reject a real type value);
+%    * if Arg is an INSTANCE with a known type (an is_a fact, e.g.
+%      "this payment is a payment"), require it to be of type FormalType — so a
+%      payment is rejected for an 'amount' slot;
+%    * otherwise (no known type) accept.
+type_arg_ok(_Arg, any, _SM, _KM) :- !.
+type_arg_ok(_Arg, FormalType, _SM, _KM) :- universal_type(FormalType), !.
+type_arg_ok(Arg, FormalType, SM, KM) :-
+    (   is_type_value(Arg, SM, KM)
+    ->  ( grounded_type(FormalType, SM, KM) -> type_compatible(Arg, FormalType, SM, KM) ; true )
+    ;   instance_has_type(Arg, SM, KM)
+    ->  type_compatible(Arg, FormalType, SM, KM)
+    ;   true
+    ).
+
+universal_type(T) :- memberchk(T, [thing, object, entity, asset, element]).
+
+% (current_predicate/1 first: calling an undefined le_type/1 sends every call
+% through the autoloader's library search before the error is caught — a
+% quarter of a query's time in a large program.)
+is_type_value(Arg, SM, KM) :-
+    ( current_predicate(SM:le_type/1), catch(SM:le_type(Arg), _, fail) -> true
+    ; KM \== none, current_predicate(KM:le_type/1), catch(KM:le_type(Arg), _, fail)
+    ).
+
+instance_has_type(Arg, SM, KM) :-
+    ( has_is_a_fact(SM, Arg) -> true
+    ; KM \== none, has_is_a_fact(KM, Arg)
+    ).
+
+has_is_a_fact(Mod, Arg) :-
+    current_predicate(Mod:is_a/2),
+    catch(clause(Mod:is_a(Arg, _), true), _, fail).
+
+% Arg satisfies FormalType via is_a facts in either the session or the KB module.
+type_compatible(Arg, FormalType, SM, KM) :-
+    ( is_a_simple(Arg, FormalType, SM) -> true
+    ; KM \== none, is_a_simple(Arg, FormalType, KM)
+    ).
+
+% grounded_type(+Type, +SM, +KM): Type actually participates in the ontology —
+% something is a Type, or Type is a something — in the session or KB module.
+grounded_type(Type, SM, KM) :-
+    ( has_is_a_edge(SM, Type) -> true
+    ; KM \== none, has_is_a_edge(KM, Type) -> true
+    ).
+
+has_is_a_edge(Mod, Type) :-
+    current_predicate(Mod:is_a/2),
+    ( catch(clause(Mod:is_a(_, Type), _), _, fail) -> true
+    ; catch(clause(Mod:is_a(Type, _), _), _, fail)
+    ).
+
+is_a_simple(X, Z, _) :- X == Z, !.
+is_a_simple(X, Z, M) :- M:clause(is_a(X, Z), true), !.
+is_a_simple(X, Z, M) :- M:clause(is_a(X, Y), true), Y \== Z, is_a_simple(Y, Z, M).
+% A qualified/named type ("first person", "person X") is satisfied by its
+% head-noun type ("person"), so that *a first person* and *a second person* are
+% accepted as values of type person.
+is_a_simple(X, Z, M) :- atom(Z), le_grammar:head_noun_type(Z, HZ), HZ \== Z, is_a_simple(X, HZ, M).
+
+%!  detailed_failures_on(+SM) is semidet.
+%   True when the session has requested detailed (per-rule) failure explanations.
+detailed_failures_on(SM) :-
+    current_predicate(SM:detailed_failures/0),     % else each call autoloads
+    catch(SM:detailed_failures, _, fail).
+
+%!  solve_rule_body(+Body, +SM, +KM, +Anc, +D, +MyID, +Ref, -Us, -WhysBody)
+%   Solves the body of a clause Ref under goal MyID. When detailed failures are
+%   enabled and Body is a real rule body (not a fact's `true`), the body's
+%   subgoals are solved under a FRESH clause id, recorded as
+%   called_clause(MyID, ClauseID, Ref), so build_failure_tree/2 can group the
+%   subgoal failures under a "failed rule" node. Otherwise (default) the body is
+%   solved directly under MyID, exactly as before.
+solve_rule_body(Body, SM, KM, Anc, D, MyID, Ref, Us, WhysBody) :-
+    (   Body \== true, detailed_failures_on(SM)
+    ->  next_id(ClauseID),
+        assertz(called_clause(MyID, ClauseID, Ref)),
+        solve(Body, SM, KM, Anc, D, ClauseID, Us, WhysBody)
+    ;   solve(Body, SM, KM, Anc, D, MyID, Us, WhysBody)
+    ).
+
+%   failure_tree(+ID, -Whys): the explanation of a failure, when failures
+%   are explained (flag le_failure_explanations, default true). A caller that
+%   wants answers only (the test runner) turns it off: a negation that holds
+%   otherwise records why its condition failed, which on a large program
+%   (a translated regulation full of tests) is most of the work. Off, an
+%   aggregate keeps no explanation of its solutions either.
+:- create_prolog_flag(le_failure_explanations, true, [type(boolean), keep(true)]).
+
+failure_explanations :- current_prolog_flag(le_failure_explanations, true).
+
+failure_tree(ID, Whys) :-
+    (   failure_explanations -> build_failure_tree(ID, Whys) ; Whys = [] ).
 
 % build_failure_tree(+ID, -Whys)
 % Reconstructs a list of "juicy" failure trees of all calls made under ID. When
@@ -1636,14 +2601,24 @@ call_reasoner_built_in(le_assign(X, Y), _) :-
     ;   le_compare_operand(Y, YV), number(YV) -> XV =:= YV
     ;   Y = XV
     ).
+<<<<<<< HEAD
 call_reasoner_built_in(le_assign(X, Y), _) :- !,
+=======
+call_reasoner_built_in(le_assign(X, Y0), _) :- !,
+    le_snap_rounding(Y0, Y),
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ( number(Y) -> X = Y
     ; catch(X is Y, _, (
         (var(X) -> true ; true), % debug point
         X = Y
       ))
     ).
+<<<<<<< HEAD
 call_reasoner_built_in(le_is(X, Y), _) :- !, ( number(Y) -> X is Y; catch(X is Y, _, X = Y)).
+=======
+call_reasoner_built_in(le_is(X, Y0), _) :- !, le_snap_rounding(Y0, Y), ( number(Y) -> X is Y; catch(X is Y, _, X = Y)).
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 call_reasoner_built_in(le_is_in(X, Y), _) :- !, is_list(Y), member(X, Y).
 call_reasoner_built_in(le_ge(X, Y), _) :- !, le_compare(>=, X, Y).
 call_reasoner_built_in(le_le(X, Y), _) :- !, le_compare(=<, X, Y).
@@ -1656,6 +2631,29 @@ call_reasoner_built_in(le_maximum(X, Y, Z), _) :- !, le_maximum(X, Y, Z).
 call_reasoner_built_in(equal_to(X, Y), _) :- !, equal_to(X, Y).
 call_reasoner_built_in(G, _) :- call(G).
 
+<<<<<<< HEAD
+=======
+%!  le_snap_rounding(+Expr, -Expr1) is det.
+%
+%   floor, ceiling and truncate of a value that is a whole number but for
+%   the noise of binary floating point (1920 * 1.025 / 12 is
+%   163.99999999999997, not 164) round that whole number, as the decimal
+%   arithmetic of the rules' sources does: an argument within a billionth
+%   (relative) of a whole number is taken as that number. Everything else is
+%   left as it is.
+le_snap_rounding(E, E) :- \+ compound(E), !.
+le_snap_rounding(E0, E) :-
+    E0 =.. [F, A0], memberchk(F, [floor, ceiling, truncate]), !,
+    le_snap_rounding(A0, A),
+    (   ground(A), catch(V is A, _, fail), float(V),
+        R is round(V), abs(V - R) =< 1.0e-9 * max(1.0, abs(V))
+    ->  E =.. [F, R]
+    ;   E =.. [F, A]
+    ).
+le_snap_rounding(E0, E) :-
+    E0 =.. [F|As0], maplist(le_snap_rounding, As0, As), E =.. [F|As].
+
+>>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 le_compare(Op, X0, Y0) :-
     le_compare_operand(X0, X), le_compare_operand(Y0, Y),
     number(X), number(Y), !,

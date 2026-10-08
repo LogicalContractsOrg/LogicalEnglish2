@@ -1,0 +1,94 @@
+{
+  "counts": {"approximated":0,"encoded":6,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/7/2015/d/2/E#minimum_employment_hours_per_week",
+      "in_program":"rs_minimum_employment_hours_per_week",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies",
+      "in_program":"rs_employment_or_earnings_exemption_applies",
+      "kind":"derived",
+      "mapping":"derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "in_program":"rs_person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input employed_hours_per_week",
+      "in_program":"rs_employed_hours_per_week",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input weekly_earnings",
+      "in_program":"rs_weekly_earnings",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input minimum_hourly_rate_under_fair_labor_standards_act",
+      "in_program":"rs_minimum_hourly_rate_under_fair_labor_standards_act",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":4,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_employment_or_earnings_exemption_applies",
+	"result":"pass",
+	"scenario":"employed_minimum_thirty_hours_per_week_exemption_applies"
+      },
+      {
+	"detail":"",
+	"query":"q_employment_or_earnings_exemption_applies",
+	"result":"pass",
+	"scenario":"weekly_earnings_equal_flsa_rate_times_thirty_hours_exemption_applies"
+      },
+      {
+	"detail":"",
+	"query":"q_employment_or_earnings_exemption_applies",
+	"result":"pass",
+	"scenario":"insufficient_hours_and_earnings_no_exemption"
+      },
+      {
+	"detail":"",
+	"query":"q_employment_or_earnings_exemption_applies",
+	"result":"pass",
+	"scenario":"person_not_otherwise_required_has_no_exemption_under_this_branch"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/7/2015/d/2/E.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_7_2015_d_2_e",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}

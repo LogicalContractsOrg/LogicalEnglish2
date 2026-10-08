@@ -1,0 +1,168 @@
+- name: under_19_child_qualifies_without_competing_claimants
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/152/c#input.individual_is_child_of_taxpayer_or_descendant_of_such_child: true
+    us:statutes/26/152/c#input.individual_is_sibling_stepsibling_or_descendant_of_such_relative: false
+    us:statutes/26/152/c#input.individual_principal_place_of_abode_with_taxpayer_fraction: 0.75
+    us:statutes/26/152/c#input.individual_is_permanently_and_totally_disabled: false
+    us:statutes/26/152/c#input.individual_is_younger_than_taxpayer: true
+    us:statutes/26/152/c#input.individual_age_at_close_of_calendar_year: 18
+    us:statutes/26/152/c#input.individual_is_student: false
+    us:statutes/26/152/c#input.individual_own_support_fraction_provided_by_individual: 0.5
+    us:statutes/26/152/c#input.filing_status: 0
+    us:statutes/26/152/c#input.return_filed_only_for_claim_of_refund: false
+    us:statutes/26/152/c#input.individual_may_be_claimed_as_qualifying_child_by_two_or_more_taxpayers: false
+    us:statutes/26/152/c#input.parents_of_individual_may_claim_individual_but_no_parent_claims: false
+    us:statutes/26/152/c#input.taxpayer_is_parent_of_individual: true
+    us:statutes/26/152/c#input.taxpayer_adjusted_gross_income_higher_than_highest_parent_adjusted_gross_income: false
+    us:statutes/26/152/c#input.parents_filing_status: 1
+    us:statutes/26/152/c#input.child_resided_with_taxpayer_parent_for_longest_period: false
+    ? us:statutes/26/152/c#input.child_resided_with_both_parents_same_amount_of_time_and_taxpayer_parent_has_highest_adjusted_gross_income
+    : false
+    us:statutes/26/152/c#input.no_parent_of_individual_is_a_claiming_taxpayer: false
+    us:statutes/26/152/c#input.taxpayer_has_highest_adjusted_gross_income_among_claiming_taxpayers: false
+  output:
+    us:statutes/26/152/c#qualifying_child_relationship: holds
+    us:statutes/26/152/c#age_requirements_met: holds
+    us:statutes/26/152/c#individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund: not_holds
+    us:statutes/26/152/c#parents_claiming_child_do_not_file_joint_return_together: not_holds
+    us:statutes/26/152/c#qualifying_child_before_tiebreaker: holds
+    us:statutes/26/152/c#tiebreaker_treats_individual_as_qualifying_child_of_taxpayer: holds
+    us:statutes/26/152/c#qualifying_child: holds
+- name: under_19_child_qualifies_without_competing_claimants_scalar_outputs
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/152/c#input.individual_is_child_of_taxpayer_or_descendant_of_such_child: true
+    us:statutes/26/152/c#input.individual_is_sibling_stepsibling_or_descendant_of_such_relative: false
+    us:statutes/26/152/c#input.individual_principal_place_of_abode_with_taxpayer_fraction: 0.75
+    us:statutes/26/152/c#input.individual_is_permanently_and_totally_disabled: false
+    us:statutes/26/152/c#input.individual_is_younger_than_taxpayer: true
+    us:statutes/26/152/c#input.individual_age_at_close_of_calendar_year: 18
+    us:statutes/26/152/c#input.individual_is_student: false
+    us:statutes/26/152/c#input.individual_own_support_fraction_provided_by_individual: 0.5
+    us:statutes/26/152/c#input.filing_status: 0
+    us:statutes/26/152/c#input.return_filed_only_for_claim_of_refund: false
+    us:statutes/26/152/c#input.individual_may_be_claimed_as_qualifying_child_by_two_or_more_taxpayers: false
+    us:statutes/26/152/c#input.parents_of_individual_may_claim_individual_but_no_parent_claims: false
+    us:statutes/26/152/c#input.taxpayer_is_parent_of_individual: true
+    us:statutes/26/152/c#input.taxpayer_adjusted_gross_income_higher_than_highest_parent_adjusted_gross_income: false
+    us:statutes/26/152/c#input.parents_filing_status: 1
+    us:statutes/26/152/c#input.child_resided_with_taxpayer_parent_for_longest_period: false
+    ? us:statutes/26/152/c#input.child_resided_with_both_parents_same_amount_of_time_and_taxpayer_parent_has_highest_adjusted_gross_income
+    : false
+    us:statutes/26/152/c#input.no_parent_of_individual_is_a_claiming_taxpayer: false
+    us:statutes/26/152/c#input.taxpayer_has_highest_adjusted_gross_income_among_claiming_taxpayers: false
+  output:
+    us:statutes/26/152/c#abode_fraction_threshold: 0.5
+    us:statutes/26/152/c#support_fraction_threshold: 0.5
+    us:statutes/26/152/c#child_age_limit: 19
+    us:statutes/26/152/c#student_age_limit: 24
+- name: own_support_over_one_half_prevents_qualifying_child
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/152/c#input.individual_is_child_of_taxpayer_or_descendant_of_such_child: true
+    us:statutes/26/152/c#input.individual_is_sibling_stepsibling_or_descendant_of_such_relative: false
+    us:statutes/26/152/c#input.individual_principal_place_of_abode_with_taxpayer_fraction: 0.75
+    us:statutes/26/152/c#input.individual_is_permanently_and_totally_disabled: false
+    us:statutes/26/152/c#input.individual_is_younger_than_taxpayer: true
+    us:statutes/26/152/c#input.individual_age_at_close_of_calendar_year: 18
+    us:statutes/26/152/c#input.individual_is_student: false
+    us:statutes/26/152/c#input.individual_own_support_fraction_provided_by_individual: 0.6
+    us:statutes/26/152/c#input.filing_status: 0
+    us:statutes/26/152/c#input.return_filed_only_for_claim_of_refund: false
+    us:statutes/26/152/c#input.individual_may_be_claimed_as_qualifying_child_by_two_or_more_taxpayers: false
+    us:statutes/26/152/c#input.parents_of_individual_may_claim_individual_but_no_parent_claims: false
+    us:statutes/26/152/c#input.taxpayer_is_parent_of_individual: true
+    us:statutes/26/152/c#input.taxpayer_adjusted_gross_income_higher_than_highest_parent_adjusted_gross_income: false
+    us:statutes/26/152/c#input.parents_filing_status: 1
+    us:statutes/26/152/c#input.child_resided_with_taxpayer_parent_for_longest_period: false
+    ? us:statutes/26/152/c#input.child_resided_with_both_parents_same_amount_of_time_and_taxpayer_parent_has_highest_adjusted_gross_income
+    : false
+    us:statutes/26/152/c#input.no_parent_of_individual_is_a_claiming_taxpayer: false
+    us:statutes/26/152/c#input.taxpayer_has_highest_adjusted_gross_income_among_claiming_taxpayers: false
+  output:
+    us:statutes/26/152/c#qualifying_child_relationship: holds
+    us:statutes/26/152/c#age_requirements_met: holds
+    us:statutes/26/152/c#qualifying_child_before_tiebreaker: not_holds
+    us:statutes/26/152/c#tiebreaker_treats_individual_as_qualifying_child_of_taxpayer: holds
+    us:statutes/26/152/c#qualifying_child: not_holds
+- name: joint_return_other_than_refund_claim_prevents_qualifying_child
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/152/c#input.individual_is_child_of_taxpayer_or_descendant_of_such_child: true
+    us:statutes/26/152/c#input.individual_is_sibling_stepsibling_or_descendant_of_such_relative: false
+    us:statutes/26/152/c#input.individual_principal_place_of_abode_with_taxpayer_fraction: 0.75
+    us:statutes/26/152/c#input.individual_is_permanently_and_totally_disabled: false
+    us:statutes/26/152/c#input.individual_is_younger_than_taxpayer: true
+    us:statutes/26/152/c#input.individual_age_at_close_of_calendar_year: 18
+    us:statutes/26/152/c#input.individual_is_student: false
+    us:statutes/26/152/c#input.individual_own_support_fraction_provided_by_individual: 0.5
+    us:statutes/26/152/c#input.filing_status: 1
+    us:statutes/26/152/c#input.return_filed_only_for_claim_of_refund: false
+    us:statutes/26/152/c#input.individual_may_be_claimed_as_qualifying_child_by_two_or_more_taxpayers: false
+    us:statutes/26/152/c#input.parents_of_individual_may_claim_individual_but_no_parent_claims: false
+    us:statutes/26/152/c#input.taxpayer_is_parent_of_individual: true
+    us:statutes/26/152/c#input.taxpayer_adjusted_gross_income_higher_than_highest_parent_adjusted_gross_income: false
+    us:statutes/26/152/c#input.parents_filing_status: 1
+    us:statutes/26/152/c#input.child_resided_with_taxpayer_parent_for_longest_period: false
+    ? us:statutes/26/152/c#input.child_resided_with_both_parents_same_amount_of_time_and_taxpayer_parent_has_highest_adjusted_gross_income
+    : false
+    us:statutes/26/152/c#input.no_parent_of_individual_is_a_claiming_taxpayer: false
+    us:statutes/26/152/c#input.taxpayer_has_highest_adjusted_gross_income_among_claiming_taxpayers: false
+  output:
+    us:statutes/26/152/c#individual_filed_joint_return_with_spouse_other_than_only_for_claim_of_refund: holds
+    us:statutes/26/152/c#qualifying_child_before_tiebreaker: not_holds
+    us:statutes/26/152/c#qualifying_child: not_holds
+- name: disabled_individual_meets_age_rule_and_no_parent_claiming_tiebreaker
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/152/c#input.individual_is_child_of_taxpayer_or_descendant_of_such_child: false
+    us:statutes/26/152/c#input.individual_is_sibling_stepsibling_or_descendant_of_such_relative: true
+    us:statutes/26/152/c#input.individual_principal_place_of_abode_with_taxpayer_fraction: 0.8
+    us:statutes/26/152/c#input.individual_is_permanently_and_totally_disabled: true
+    us:statutes/26/152/c#input.individual_is_younger_than_taxpayer: false
+    us:statutes/26/152/c#input.individual_age_at_close_of_calendar_year: 30
+    us:statutes/26/152/c#input.individual_is_student: false
+    us:statutes/26/152/c#input.individual_own_support_fraction_provided_by_individual: 0.25
+    us:statutes/26/152/c#input.filing_status: 0
+    us:statutes/26/152/c#input.return_filed_only_for_claim_of_refund: false
+    us:statutes/26/152/c#input.individual_may_be_claimed_as_qualifying_child_by_two_or_more_taxpayers: true
+    us:statutes/26/152/c#input.parents_of_individual_may_claim_individual_but_no_parent_claims: true
+    us:statutes/26/152/c#input.taxpayer_is_parent_of_individual: false
+    us:statutes/26/152/c#input.taxpayer_adjusted_gross_income_higher_than_highest_parent_adjusted_gross_income: true
+    us:statutes/26/152/c#input.parents_filing_status: 1
+    us:statutes/26/152/c#input.child_resided_with_taxpayer_parent_for_longest_period: false
+    ? us:statutes/26/152/c#input.child_resided_with_both_parents_same_amount_of_time_and_taxpayer_parent_has_highest_adjusted_gross_income
+    : false
+    us:statutes/26/152/c#input.no_parent_of_individual_is_a_claiming_taxpayer: false
+    us:statutes/26/152/c#input.taxpayer_has_highest_adjusted_gross_income_among_claiming_taxpayers: false
+  output:
+    us:statutes/26/152/c#qualifying_child_relationship: holds
+    us:statutes/26/152/c#age_requirements_met: holds
+    us:statutes/26/152/c#qualifying_child_before_tiebreaker: holds
+    us:statutes/26/152/c#tiebreaker_treats_individual_as_qualifying_child_of_taxpayer: holds
+    us:statutes/26/152/c#qualifying_child: holds
+- name: auto_positive_parents_claiming_child_do_not_file_joint_return_together
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    us:statutes/26/152/c#input.parents_filing_status: 999999
+  output:
+    us:statutes/26/152/c#parents_claiming_child_do_not_file_joint_return_together: holds

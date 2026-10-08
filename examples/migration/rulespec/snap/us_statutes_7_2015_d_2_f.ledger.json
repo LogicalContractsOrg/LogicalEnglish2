@@ -1,0 +1,110 @@
+{
+  "counts": {"approximated":0,"encoded":8,"residue":0},
+  "entries": [
+    {
+      "element":"us:statutes/7/2015/d/2/F#youth_exemption_lower_age_years",
+      "in_program":"rs_youth_exemption_lower_age_years",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2015/d/2/F#youth_exemption_upper_age_years",
+      "in_program":"rs_youth_exemption_upper_age_years",
+      "kind":"parameter",
+      "mapping":"parameter -> a fact, cited, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies",
+      "in_program":"rs_youth_work_requirement_exemption_applies",
+      "kind":"derived",
+      "mapping":"derived judgment -> a rule concluding a sentence, 1 version(s) guarded by the calculation date",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "in_program":"rs_person_otherwise_required_to_comply_with_paragraph_1_requirements",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_age_years",
+      "in_program":"rs_person_age_years",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_snap_household_head",
+      "in_program":"rs_person_is_snap_household_head",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_attending_school_at_least_half_time",
+      "in_program":"rs_person_is_attending_school_at_least_half_time",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"input person_is_enrolled_in_employment_training_program_at_least_half_time",
+      "in_program":"rs_person_is_enrolled_in_employment_training_program_at_least_half_time",
+      "kind":"input",
+      "mapping":"a name no rule defines -> a fact the scenario states",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":4,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_youth_work_requirement_exemption_applies",
+	"result":"pass",
+	"scenario":"youth_between_sixteen_and_eighteen_not_head_of_household_exempt"
+      },
+      {
+	"detail":"",
+	"query":"q_youth_work_requirement_exemption_applies",
+	"result":"pass",
+	"scenario":"youth_head_of_household_attending_school_at_least_half_time_exempt"
+      },
+      {
+	"detail":"",
+	"query":"q_youth_work_requirement_exemption_applies",
+	"result":"pass",
+	"scenario":"youth_head_of_household_enrolled_in_employment_training_at_least_half_time_exempt"
+      },
+      {
+	"detail":"",
+	"query":"q_youth_work_requirement_exemption_applies",
+	"result":"pass",
+	"scenario":"age_eighteen_not_within_youth_exemption_no_exemption"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["sources/us/statutes/7/2015/d/2/F.yaml" ],
+    "date":"2026-10-07",
+    "licence":"CC-BY-4.0 (rulespec-us, Axiom Foundation)",
+    "program":"us_statutes_7_2015_d_2_f",
+    "source":"Axiom RuleSpec",
+    "translator":"lpsPlus migration/rulespec"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}
