@@ -30,12 +30,8 @@
     query_time_limit/2,         % +RequestDict, -Seconds
     folder_blurb/2,             % +Dir, -HtmlBlurb   (the landing page's, too)
     library_copy/2,             % +Dir, -Base        (llm/mcp.pl asks for this)
-<<<<<<< HEAD
-    api_user/2                  % -Email, -Roles
-=======
     api_user/2,                 % -Email, -Roles
     contract_assistant_installed/0
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ]).
 
 :- use_module(library(assoc)).
@@ -56,12 +52,6 @@
 :- use_module(le_scasp).
 :- use_module(le_lps).
 :- use_module(le_assistant).
-<<<<<<< HEAD
-:- use_module(le_contract_assistant).
-:- use_module(llm/llm_client, [llm_list_models/1]).
-:- use_module(nl_to_le, [english_to_le/8]).
-:- use_module(restricted_paths).
-=======
 :- use_module(le_plus).
 %  The LE Contract Assistant is part of the licensed Logical English
 %  Translators, and lives in the private lpsPlus repository
@@ -76,7 +66,6 @@
 :- use_module(nl_to_le, [english_to_le/8]).
 :- use_module(restricted_paths).
 :- use_module(le_examples_search).
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 :- use_module(le_telemetry).
 :- use_module(le_entitlements).
 
@@ -145,10 +134,7 @@ handle_operation(Dict, Response) :-
     get_dict(operation, Dict, Op),
     (   Op == "examples" -> handle_examples(Dict, Response)
         ; Op == "list_examples" -> handle_list_examples(Dict, Response)
-<<<<<<< HEAD
-=======
         ; Op == "search_examples" -> handle_search_examples(Dict, Response)
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ; Op == "answer" -> handle_answer(Dict, Response)
         ; Op == "explain" -> handle_explain(Dict, Response)
         ; Op == "load" -> 
@@ -195,19 +181,11 @@ handle_operation(Dict, Response) :-
             )
         ; Op == "assistant_status" -> handle_assistant_status(Dict, Response)
         ; Op == "assistant_interrupt" -> handle_assistant_interrupt(Dict, Response)
-<<<<<<< HEAD
-        ; Op == "contract_start" -> handle_contract_start(Dict, Response)
-        ; Op == "contract_status" -> handle_contract_status(Dict, Response)
-        ; Op == "contract_result" -> handle_contract_result(Dict, Response)
-        ; Op == "contract_interrupt" -> handle_contract_interrupt(Dict, Response)
-        ; Op == "contract_cost_estimate" -> handle_contract_estimate(Dict, Response)
-=======
         ; contract_operation(Op, Handler) ->
             (   contract_assistant_refusal(Refusal)
             ->  Response = Refusal
             ;   call(le_contract_assistant:Handler, Dict, Response)
             )
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
         ; Op == "list_models" -> handle_list_models(Dict, Response)
         ; Op == "nl_to_le" -> handle_nl_to_le(Dict, Response)
         ; Op == "importForeign" -> handle_import_foreign(Dict, Response)
@@ -219,8 +197,6 @@ handle_operation(Dict, Response) :-
         ; Response = _{error: "Unknown operation"}
     ).
 
-<<<<<<< HEAD
-=======
 %   The Contract Assistant's operations. They belong to the Logical English
 %   Translators licence (capability `contract_assistant`, le_entitlements.pl).
 contract_operation("contract_start", handle_contract_start).
@@ -247,7 +223,6 @@ contract_assistant_refusal(_{error: Msg, unlicensed: true}) :-
 contract_assistant_installed :-
     current_predicate(le_contract_assistant:handle_contract_start/2).
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 handle_graph(Dict, Response) :-
     get_dict(sessionModule, Dict, SMStr),
     atom_string(SM, SMStr),
@@ -327,8 +302,6 @@ handle_list_examples(_Dict, Response) :-
     example_folders(Examples, Folders),
     Response = _{examples: Examples, folders: Folders}.
 
-<<<<<<< HEAD
-=======
 %!  handle_search_examples(+Dict, -Response) is det.
 %
 %   The examples' search (le_examples_search.pl): {query, scope} in, {hits}
@@ -371,7 +344,6 @@ every_example(Name, File) :-
     le_kbs:le_example_relpath(Name, Rel),
     atom_concat(Rel, '.le', File).
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %!  example_folders(+Examples:list, -Folders:list) is det.
 %
 %   The folders the example names pass through ('domains/', 'domains/tax/',
@@ -1033,12 +1005,9 @@ handle_answering_query(Dict, Reply) :-
     atom_string(SM, SMStr),
     le_kbs:note_session_use(SM),
     ( SM:le_kb_module_fact(KB) -> true; KB = none),
-<<<<<<< HEAD
-=======
     %  the answers and their explanations in the program's language
     %  (Français Logique: "il n'est pas vrai que", 7,66)
     le_kbs:ensure_kb_language(KB),
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     
     % Handle Scenario
     (   get_dict(customScenario, Dict, CustomScenario), CustomScenario \== null ->

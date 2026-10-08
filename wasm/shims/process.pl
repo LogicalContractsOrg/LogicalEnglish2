@@ -2,11 +2,7 @@
 
     A browser tab cannot start a program. Two modules import this library and
     both mean the same thing by it: the LE Assistant (le_assistant.pl) and the
-<<<<<<< HEAD
-    Contract Assistant (le_contract_assistant.pl) run `opencode` as a child
-=======
     Contract Assistant (lpsPlus's le_contract_assistant.pl, never in this build) run `opencode` as a child
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     process and read its output.
 
     Neither can work here, and neither should pretend to. The refusal is an

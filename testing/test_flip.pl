@@ -139,8 +139,6 @@ query flip is:
     call_cleanup(change_sets(KB, s, flip, S2), set_prolog_flag(le_flip_max_changes, 3)),
     S2 == [].
 
-<<<<<<< HEAD
-=======
 % A called goal with an open place ("for all cases in which bob is a parent of
 % an other dragon") is filled with the individuals the scenario names, so the
 % flip can propose a fact the attempt never asked for in full.
@@ -151,5 +149,4 @@ test(open_place_filled_with_the_scenarios_individuals) :-
     change_sets(KB, colourless, alice_happy, A),
     A == [["remove: alice is a parent of bob"]].
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 :- end_tests(flip).

@@ -35,11 +35,8 @@ verify(KB, Issues) :-
 verify(KB, Options, Issues) :-
     ensure_kb_language(KB),
     nb_setval(le_query_reachable, none),       % computed once per verification
-<<<<<<< HEAD
-=======
     nb_setval(le_body_functors, none),         % likewise (template_used/3)
     nb_setval(le_template_used, none),
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     %  the budget is this verification's: a test run after it (runTestsFor,
     %  in the same thread) has none
     setup_call_cleanup(
@@ -84,11 +81,8 @@ check_issue(KB, _, Issue) :- facts_rules_ratio(KB, Issue).
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), failed_test(KB, Issue).
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), tests_not_run(KB, Issue).
 check_issue(KB, _, Issue) :- redefined_system_template(KB, Issue).
-<<<<<<< HEAD
-=======
 check_issue(KB, _, Issue) :- builtin_template(KB, Issue).
 check_issue(KB, _, Issue) :- unbound_aggregate_variable(KB, Issue).
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
@@ -300,11 +294,6 @@ quote_not_found(KB, Issue) :-
     memberchk(Doc-(Address-Norm), Texts),
     \+ le_provenance:quote_in_normalized(Quote, Norm),
     le_i18n:le_msg(quote_not_found_desc, [quote-Quote, document-Doc, where-What], Description),
-<<<<<<< HEAD
-    le_i18n:le_msg(quote_not_found_fix, [address-Address], Fix),
-    Issue = issue(quote_not_found, Description, Fix, Start, End).
-
-=======
     le_i18n:le_msg(quote_not_found_fix, [address-Address], Fix0),
     (   closest_passage(Quote, Norm, Passage)
     ->  le_i18n:le_msg(quote_not_found_closest, [passage-Passage], Closest),
@@ -346,7 +335,6 @@ passage_words(Text, Words) :-
 
 content_word(W) :- string_length(W, N), N > 3.
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 quoted_citation(KB, Doc, Quote, Start, End, What) :-
     current_predicate(KB:le_fact_provenance/4),
     KB:le_fact_provenance(Start, End, _, prov(_, doc(Doc, _), Loc, _)),
@@ -1036,11 +1024,6 @@ template_prefix(Label, Prefix) :-
 
 %!  template_used(+KB, +F, +A) is semidet.
 %
-<<<<<<< HEAD
-%   Anywhere at all: as the head of a rule or fact, inside any rule body,
-%   inside a scenario's facts, or inside a query.
-template_used(KB, F, A) :-
-=======
 %   (Remembered for the rest of the verification: shadowing_templates/3 asks
 %   again for every pair of templates.)
 template_used(KB, F, A) :-
@@ -1056,14 +1039,10 @@ template_used(KB, F, A) :-
 %   Anywhere at all: as the head of a rule or fact, inside any rule body,
 %   inside a scenario's facts, or inside a query.
 template_used_(KB, F, A) :-
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     functor(Head, F, A),
     current_predicate(KB:F/A),
     le_kbs:kb_own_predicate(KB, Head),
     clause(KB:Head, _), !.
-<<<<<<< HEAD
-template_used(KB, F, A) :-
-=======
 template_used_(KB, F, A) :-
     body_functors(KB, Used),
     get_assoc(F/A, Used, _), !.
@@ -1081,53 +1060,11 @@ template_used_(KB, F, A) :-
 %   `*a party* is obliged that *a sentence*`: "y is obliged that x is a rel4"
 %   uses `*a thing* is a rel4` as much as a condition would.
 template_used_(KB, F, A) :-
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     current_predicate(KB:Other/OA),
     \+ is_system_predicate(Other/OA),
     functor(H, Other, OA),
     le_kbs:kb_own_predicate(KB, H),
     clause(KB:H, Body),
-<<<<<<< HEAD
-    find_in_body(Body, Literal),
-    functor(Literal, F, A), !.
-%   Used by an LPS sentence. An `lps`-target program's rules are not Prolog
-%   clauses — they are le_lps_item/3 payloads handed to the LPS2 engine — so
-%   the clause-walking cases above find nothing and every template in a
-%   perfectly ordinary LPS program is reported as dead vocabulary.
-template_used(KB, F, A) :-
-    current_predicate(KB:le_lps_item/3),
-    KB:le_lps_item(_, Payload, _),
-    contains_literal(Payload, F, A), !.
-template_used(KB, F, A) :-
-    safe_scenario_fact(KB, F, A), !.
-template_used(KB, F, A) :-
-    current_predicate(KB:query_info/3),
-    KB:query_info(_, Goal, _),
-    find_in_body(Goal, Literal),
-    functor(Literal, F, A), !.
-%   Used inside an embedded sentence, the argument of a template such as
-%   `*a party* is obliged that *a sentence*`: "y is obliged that x is a rel4"
-%   uses `*a thing* is a rel4` as much as a condition would.
-template_used(KB, F, A) :-
-    current_predicate(KB:Other/OA),
-    \+ is_system_predicate(Other/OA),
-    functor(H, Other, OA),
-    le_kbs:kb_own_predicate(KB, H),
-    clause(KB:H, Body),
-    ( embeds_literal(H, F, A) ; find_in_body(Body, L), embeds_literal(L, F, A) ), !.
-template_used(KB, F, A) :-
-    current_predicate(KB:scenario/2),
-    KB:scenario(_, Facts),
-    member(Item, Facts),
-    ( Item = fact_with_source(Fact, _, _) -> true ; Fact = Item ),
-    embeds_literal(Fact, F, A), !.
-template_used(KB, F, A) :-
-    current_predicate(KB:query_info/3),
-    KB:query_info(_, Goal, _),
-    find_in_body(Goal, L),
-    embeds_literal(L, F, A), !.
-
-=======
     ( embeds_literal(H, F, A) ; find_in_body(Body, L), embeds_literal(L, F, A) ), !.
 template_used_(KB, F, A) :-
     current_predicate(KB:scenario/2),
@@ -1165,7 +1102,6 @@ body_functors(KB, Used) :-
         nb_setval(le_body_functors, KB-Used)
     ).
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 %   F/A is inside one of Literal's arguments (not Literal itself).
 embeds_literal(Literal, F, A) :-
     compound(Literal),
@@ -1482,8 +1418,6 @@ tests_not_run(KB, issue(tests_not_run, Description, Fix, 0, 0)) :-
     le_i18n:le_msg(tests_not_run_desc, [count-N, total-Total, seconds-Budget], Description),
     le_i18n:le_msg(tests_not_run_fix, [], Fix).
 
-<<<<<<< HEAD
-=======
 % --- An aggregate over a thing the rule has not yet named ---
 % "the capped amount for a claim component is an amount P if P is the max of
 % each V such that the payable benefit for the claim component is V": nothing
@@ -1554,7 +1488,6 @@ prolog_reserved_functor(F, 1) :- memberchk(F, [not, call, \+]).
 le_system_template_functor(F, N) :-
     le_system_template(dict([F|As], _, _)), length(As, N), !.
 
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 % --- 7. Redefined system template ---
 redefined_system_template(KB, issue(redefined_system_template, Description, Fix, Start, End)) :-
     current_predicate(KB:le_dict/1),

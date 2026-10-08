@@ -21,10 +21,6 @@ kb_graph(KB, _{nodes: Nodes, edges: Edges}) :-
     collect_edges(KB, Nodes, Edges).
 
 %!  collect_nodes(+KBModule:atom, -Nodes:list) is det.
-<<<<<<< HEAD
-collect_nodes(KB, Nodes) :-
-    findall(Node, node(KB, Node), Nodes).
-=======
 %
 %   Every node id is unique: Cytoscape refuses a second element with the
 %   id of one it already has, so a duplicate would be lost.
@@ -61,7 +57,6 @@ bookkeeping_clause(Head) :-
     ;   F == le_expected
     ;   le_kbs:is_system_predicate(F/A)
     ).
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 % Template Nodes
 node(KB, _{data: _{id: TID, type: "template", label: Label, functor: F, arity: Arity,
@@ -83,18 +78,11 @@ node(KB, _{data: Data}) :-
     KB:le_source_info(Ref, Start, End, RID),
     \+ member(RID, [template, ontology, session_fact, none]),
     ( catch(clause(KB:Head, Body, Ref), _, fail) -> true ; Head = unknown, Body = true ),
-<<<<<<< HEAD
-    % Exclude bookkeeping facts: le_kb/1 and the expected-answer test records
-    % (le_expected of ANY arity — matching only /3 used to leak the /4 records
-    % into the graph as bogus "le_expected(...)" fact nodes).
-    \+ (Body == true, ( Head = le_kb(_) ; functor(Head, le_expected, _) )),
-=======
     % Exclude the compiler's bookkeeping clauses (bookkeeping_clause/1): for
     % instance each `; undefined` template asserts an le_unknown/1 fact under
     % the same source id, `template_unknown`, and two of them made two nodes
     % with one id, which Cytoscape rejects.
     \+ ( Head \= scenario(_, _), Head \= query_info(_, _, _), bookkeeping_clause(Head) ),
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     ( Head = scenario(SName, _) -> 
         format(atom(SID), 'scenario_~w', [SName]),
         Data = _{id: SID, type: "scenario", label: SName, source: _{start: Start, end: End}}
@@ -154,17 +142,11 @@ flatten_hierarchy([Node|Rest], [Node|Flat]) :-
     flatten_hierarchy(Rest, RestFlat),
     append(ChildrenFlat, RestFlat, Flat).
 
-<<<<<<< HEAD
-% Edges
-collect_edges(KB, Nodes, Edges) :-
-    findall(Edge, edge(KB, Nodes, Edge), Edges).
-=======
 % Edges. A rule whose body has two literals of one template (`a situation has
 % factor a factor` twice, say) yields the same "uses" edge twice; one is kept.
 collect_edges(KB, Nodes, Edges) :-
     findall(Edge, edge(KB, Nodes, Edge), Edges0),
     unique_by_id(Edges0, Edges).
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 
 edge(KB, Nodes, _{data: _{id: EID, source: RID, target: TID, type: Type}}) :-
     member(Node, Nodes),

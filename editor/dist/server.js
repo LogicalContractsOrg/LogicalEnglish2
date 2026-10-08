@@ -8723,8 +8723,6 @@ var keywords = {
         "unknowns"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "and",
@@ -8732,7 +8730,6 @@ var keywords = {
         "unknowns"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "rule"
@@ -9185,14 +9182,11 @@ var keywords = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "list"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "is",
@@ -10263,8 +10257,6 @@ var keywords = {
         "desconhecidos"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "e",
@@ -10272,7 +10264,6 @@ var keywords = {
         "desconhecidos"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "regra"
@@ -10912,14 +10903,11 @@ var keywords = {
         "m\xE1x"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "\xE9",
@@ -12119,8 +12107,6 @@ var keywords = {
         "desconocidos"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "y",
@@ -12128,7 +12114,6 @@ var keywords = {
         "desconocidos"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "regla"
@@ -12776,14 +12761,11 @@ var keywords = {
         "m\xE1x"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "es",
@@ -13910,8 +13892,6 @@ var keywords = {
         "inconnus"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "et",
@@ -13924,7 +13904,6 @@ var keywords = {
         "inconnus"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "r\xE8gle"
@@ -14522,14 +14501,11 @@ var keywords = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "liste"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "est",
@@ -15656,8 +15632,6 @@ var keywords = {
         "sconosciute"
       ]
     ],
-<<<<<<< HEAD
-=======
     "and_any_unknowns": [
       [
         "e",
@@ -15670,7 +15644,6 @@ var keywords = {
         "sconosciuto"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "rule": [
       [
         "regola"
@@ -16329,14 +16302,11 @@ var keywords = {
         "max"
       ]
     ],
-<<<<<<< HEAD
-=======
     "list": [
       [
         "lista"
       ]
     ],
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
     "is_the": [
       [
         "\xE8",
@@ -17406,21 +17376,10 @@ function tokenize(text) {
     const wordMatch = text.substring(i).match(/^\p{L}[\p{L}\p{N}_]*/u);
     if (wordMatch) {
       let end = i + wordMatch[0].length;
-<<<<<<< HEAD
-      if (text[end] === "'") {
-        const nextQuote = text.indexOf("'", end + 1);
-        const lineEnd = lineEndFrom(text, end);
-        if (nextQuote === -1 || nextQuote >= lineEnd) {
-          end++;
-          const tail = text.substring(end).match(/^[a-zA-Z0-9_]*/);
-          if (tail) end += tail[0].length;
-        }
-=======
       if (text[end] === "'" || text[end] === "\u2019") {
         end++;
         const tail = text.substring(end).match(/^[\p{L}\p{N}_]*/u);
         if (tail) end += tail[0].length;
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
       }
       tokens.push({ type: 1 /* Word */, value: text.substring(i, end), start, end });
       i = end;

@@ -112,8 +112,6 @@ if [ "$run_unit" -eq 1 ]; then
       record "unit (plunit)" FAIL
     fi
   fi
-<<<<<<< HEAD
-=======
   # The LE Contract Assistant lives in the private lpsPlus repository
   # (contract_assistant/). Where a checkout is found (the order of le_plus.pl),
   # its tests run too, in a process of their own; otherwise they are skipped.
@@ -136,7 +134,6 @@ if [ "$run_unit" -eq 1 ]; then
     if [ "$ca_ok" -eq 1 ]; then record "unit (lpsPlus contract assistant)" PASS
     else record "unit (lpsPlus contract assistant)" FAIL; fi
   fi
->>>>>>> 92331814ad247a300fe820fd74fe6908f2b1611f
 fi
 
 # --- le: Logical English example tests --------------------------------------
