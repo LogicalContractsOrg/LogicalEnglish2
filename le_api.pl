@@ -96,11 +96,16 @@ prolog:message(le_api_info(Msg)) -->
 %
 %   How long an operation may run. A query answers within query_time_limit/2
 %   itself (run_interruptible_query/4 replies `timedOut`), so its outer limit
-%   only backs that one up; every other operation keeps the dispatcher's
-%   usual 300 seconds.
+%   only backs that one up; loading a program and exporting it have 900
+%   seconds; every other operation keeps the dispatcher's usual 300.
 operation_time_limit(Dict, Limit) :-
     (   get_dict(operation, Dict, "answeringQuery")
     ->  query_time_limit(Dict, QL), Limit is QL + 60
+    ;   get_dict(operation, Dict, Op), memberchk(Op, ["load", "exportForeign"])
+    ->  %  a translated regulation of tens of thousands of lines loads in
+        %  minutes, and an export may run the program on another system's
+        %  engine (Rune: DRR's, four minutes when it starts)
+        Limit = 900
     ;   Limit = 300
     ).
 

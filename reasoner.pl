@@ -1493,11 +1493,19 @@ choice_failure_children(CID, Kids) :-
 % call-time record (called/3) freezes a choice point before unification fills it
 % in (e.g. "a creature is a parent of bob"); this captures the solved form (e.g.
 % "alice is a parent of bob") so a failure explanation can show the binding the
-% explored path actually used. Stored per distinct solution.
+% explored path actually used. Stored per distinct solution, up to two:
+% choice_binding/3 only asks whether there was exactly one, and a goal with
+% many solutions (one alternative of a long `or`, retried after each later
+% failure) otherwise made every success scan all the earlier ones. Not
+% recorded at all when failures are not explained.
 note_solved(CID, Goal) :-
-    ( solved_binding(CID, Existing), Existing =@= Goal
-    -> true
-    ;  assertz(solved_binding(CID, Goal)) ).
+    (   \+ failure_explanations
+    ->  true
+    ;   findall(E, limit(2, solved_binding(CID, E)), Es),
+        ( Es = [_, _] ; member(E1, Es), E1 =@= Goal )
+    ->  true
+    ;   assertz(solved_binding(CID, Goal))
+    ).
 
 % choice_binding(+CID, +CallGoal, -Shown): if the succeeded choice point had a
 % UNIQUE solution on the explored path, show it with that binding; otherwise keep

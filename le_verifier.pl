@@ -1662,9 +1662,9 @@ embedded_template_instance(KB, Arg) :-
 %   user templates; system templates live in le_system_templates).
 user_template_functor(KB, F, A) :-
     current_predicate(KB:le_dict/1),
-    clause(KB:le_dict(Dict), true),
-    dict_fa_wv(Dict, [F|Args], _),
-    length(Args, A), !.
+    dict_fa_wv(Dict, [F|Args], _),          % (the functor bound before the
+    clause(KB:le_dict(Dict), true),         % lookup, so that it is indexed:
+    length(Args, A), !.                     % a scan per literal was quadratic)
 
 % dict_fa_wv(+Dict, -FunctorArgs, -WordsAndVars): destructure the stored le_dict
 % across its historical layouts. FunctorArgs and WordsAndVars share variables.
@@ -1681,8 +1681,8 @@ dict_fa_wv(dict(FA, _, WV), FA, WV).
 %   embedded literal is its intended value (see le_grammar:is_meta_prev/1).
 template_meta_slot(KB, F, A, I) :-
     current_predicate(KB:le_dict/1),
-    clause(KB:le_dict(Dict), true),
     dict_fa_wv(Dict, [F|Args], WV),
+    clause(KB:le_dict(Dict), true),
     length(Args, A),
     nth1(I, Args, V),
     append(_, [PrevWord, Slot | _], WV),
