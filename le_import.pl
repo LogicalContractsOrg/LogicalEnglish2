@@ -36,6 +36,16 @@
     resolves there: the program's includes and the documents it cites are
     found beside it, exactly as for an example.
 
+    The upload is also kept INSIDE the program, as one big comment at the end
+    of the `.le` (embed_originals/2): a text file that was translated is
+    appended line by line, under a line that names it. The copy beside the
+    program, in `sources/`, is forgotten with the upload's directory after a
+    day, and a program the reader saves to their own disk takes nothing with
+    it but its own text; the comment is how a translation stays readable
+    against the file it came from. Only text is carried — a comment can hold
+    nothing else — and only as much as max_embedded_bytes/1 allows, with a
+    line naming whatever was left out.
+
     When no translator accepts a text file, or the one that claimed it
     fails outright, the result is still a program: the file's text as a TODO
     comment, with the reason.
@@ -119,6 +129,7 @@
 :- use_module(library(readutil)).
 :- use_module(library(zip)).
 :- use_module(library(base64)).
+:- use_module(le_i18n).           % the messages the comments and the fallbacks say
 
 :- multifile importer/6.
 :- dynamic importer/6.
@@ -180,7 +191,8 @@ import_upload(FileName0, Content, Reply, Options) :-
               E, ( error_text(E, Msg), Outcome = failed(Msg) )),
         keep_originals(Input, OutDir),
         (   Outcome = ok(LEFile, Notes)
-        ->  imported_reply(Id, OutDir, LEFile, Title, Notes, Reply)
+        ->  embed_originals(Input, LEFile),
+            imported_reply(Id, OutDir, LEFile, Title, Notes, Reply)
         ;   Outcome = failed(Why),
             fallback(Id, OutDir, Stem, Input, Title, Why, Reply)
         )
@@ -215,6 +227,150 @@ keep_originals(Input, OutDir) :-
         file_base_name(Input, B), atomic_list_concat([SDir, '/', B], To),
         catch(copy_file(Input, To), _, true)
     ).
+
+%!  embed_originals(+Input, +LEFile) is det.
+%
+%   The upload kept INSIDE the program it became: the text of every file
+%   that was uploaded, appended to the `.le` as one big comment.
+%
+%   The copy in `sources/` beside the program (keep_originals/2) is what the
+%   editors show as "the original this was converted from", and it does not
+%   last: the upload's directory is forgotten after a day
+%   (forget_old_uploads/1), and a program the reader saves to their own disk
+%   takes nothing but its own text with it. A program that carries its
+%   original in a comment can still be read against the file it came from a
+%   year later, wherever it has travelled.
+%
+%   Only text is carried, since a comment can hold nothing else: a binary
+%   upload (an archive, a PDF, a spreadsheet) is left out, and so is text
+%   beyond the budget of max_embedded_bytes/1, with a line that names the
+%   files left out. Every line is prefixed with `% `, so no sequence in the
+%   original can end the comment early (which `/* ... */` would allow).
+%   Nothing here knows any source system: it is the same for every
+%   translator (docs/dev/migration.md).
+%
+%   It never fails and never throws: the translation is what was asked for,
+%   and a comment that could not be written is worth no more than a comment.
+embed_originals(Input, LEFile) :-
+    (   catch(embed_originals_(Input, LEFile), _, fail)
+    ->  true
+    ;   true
+    ).
+
+embed_originals_(Input, LEFile) :-
+    exists_file(LEFile),
+    upload_texts(Input, Texts, Omitted),
+    Texts \== [],
+    %  `once`, so that the writing is finished — and the stream therefore
+    %  closed — before this returns: a goal that leaves a choice point keeps
+    %  setup_call_cleanup/3's cleanup pending, and the text would reach the
+    %  file only when the process ends, long after the caller read it.
+    setup_call_cleanup(
+        open(LEFile, append, Out, [encoding(utf8)]),
+        once(write_originals(Out, Texts, Omitted)),
+        close(Out)).
+
+write_originals(Out, Texts, Omitted) :-
+    le_i18n:le_msg(import_original_kept, [], Kept),
+    format(Out, "~n~n% ~`=t~70|~n", []),
+    comment_lines(Out, Kept),
+    forall(member(Name-Text, Texts), write_original(Out, Name, Text)),
+    (   Omitted == []
+    ->  true
+    ;   atomic_list_concat(Omitted, ', ', Names),
+        le_i18n:le_msg(import_original_omitted, [files-Names], Left),
+        format(Out, "%~n", []),
+        comment_lines(Out, Left)
+    ),
+    format(Out, "% ~`=t~70|~n", []).
+
+write_original(Out, Name, Text) :-
+    le_i18n:le_msg(import_original_begins, [file-Name], Begins),
+    le_i18n:le_msg(import_original_ends, [file-Name], Ends),
+    format(Out, "%~n% ~w~n%~n", [Begins]),
+    split_string(Text, "\n", "\r", Ls0),
+    trim_trailing_blanks(Ls0, Ls),
+    forall(member(L, Ls),
+           ( L == "" -> format(Out, "%~n", []) ; format(Out, "% ~w~n", [L]) )),
+    format(Out, "%~n% ~w~n", [Ends]).
+
+%   The blank lines a text ends with, dropped: they would read as a gap
+%   between the original and the line that says where it ends.
+trim_trailing_blanks(Ls0, Ls) :-
+    reverse(Ls0, R0),
+    drop_blanks(R0, R),
+    reverse(R, Ls).
+
+drop_blanks([L|Ls], R) :- L == "", !, drop_blanks(Ls, R).
+drop_blanks(Ls, Ls).
+
+%   A paragraph as comment lines of about 76 characters, so that it reads in
+%   an editor that does not wrap.
+comment_lines(Out, Text) :-
+    atom_string(Text, S),
+    split_string(S, " ", " ", Words0),
+    exclude(==(""), Words0, Words),
+    comment_words(Out, Words, []).
+
+comment_words(Out, [], Acc) :-
+    ( Acc == [] -> true ; reverse(Acc, Ws), atomic_list_concat(Ws, ' ', L), format(Out, "% ~w~n", [L]) ).
+comment_words(Out, [W|Ws], Acc) :-
+    reverse([W|Acc], Try), atomic_list_concat(Try, ' ', L), string_length(L, N),
+    (   N > 74, Acc \== []
+    ->  reverse(Acc, Done), atomic_list_concat(Done, ' ', DL), format(Out, "% ~w~n", [DL]),
+        comment_words(Out, [W|Ws], [])
+    ;   comment_words(Out, Ws, [W|Acc])
+    ).
+
+%!  max_embedded_bytes(-N) is det.
+%
+%   How much of an upload a program carries in its comment. A translation is
+%   read, and a program whose comment is ten times its own rules is not.
+max_embedded_bytes(400000).
+
+%!  upload_texts(+Input, -Texts:list(Name-Text), -Omitted:list(atom)) is det.
+%
+%   The text files of the upload, by name, within the budget; Omitted names
+%   those that did not fit, and the files that are not text.
+upload_texts(Input, Texts, Omitted) :-
+    (   exists_file(Input)
+    ->  Files = [Input]
+    ;   exists_directory(Input)
+    ->  findall(F, ( directory_member(Input, F, [recursive(true)]), exists_file(F) ), Fs0),
+        msort(Fs0, Files)
+    ;   Files = []
+    ),
+    max_embedded_bytes(Max),
+    upload_texts_(Files, Max, Texts, Omitted).
+
+upload_texts_([], _, [], []).
+upload_texts_([F|Fs], Left, Texts, Omitted) :-
+    file_base_name(F, Name),
+    (   upload_text(F, Text), string_length(Text, N), N =< Left
+    ->  Left1 is Left - N,
+        Texts = [Name-Text|Texts1], Omitted = Omitted1
+    ;   Left1 = Left, Texts = Texts1, Omitted = [Name|Omitted1]
+    ),
+    upload_texts_(Fs, Left1, Texts1, Omitted1).
+
+%   Text, as a comment can only hold text. Asked of the content, so that a
+%   translator's own extension needs no row in a table here: the bytes are
+%   read first, and a file holding a zero byte, or more than one control
+%   byte in a hundred, is not text — which is also why the bytes are looked
+%   at before the characters, since reading an image as UTF-8 says so on the
+%   server's console instead of here.
+upload_text(File, Text) :-
+    catch(read_file_to_string(File, Raw, [encoding(octet)]), _, fail),
+    string_codes(Raw, Bytes),
+    \+ memberchk(0, Bytes),
+    include(control_byte, Bytes, Controls),
+    length(Bytes, N), length(Controls, C), N > 0, C * 100 =< N,
+    catch(read_file_to_string(File, Text, [encoding(utf8)]), _, fail).
+
+%   A byte no text has, the three a text does have — tab, newline, carriage
+%   return — excepted.
+control_byte(B) :- B < 32, \+ memberchk(B, [9, 10, 13]).
+control_byte(127).
 
 %   A file name from the client is a name, not a path.
 safe_name(Name) :-

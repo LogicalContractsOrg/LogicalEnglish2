@@ -158,7 +158,9 @@ in [editor/README.md](../../editor/README.md).
   which starts its own server on port 3000. `testing/fixtures/` holds the
   programs the tests load.
 - **Deployment**: `Dockerfile` (base `swipl:latest`, plus Node 20, `opencode-ai`
-  and `mcp-remote`, the `scasp` pack, and an editor build),
+  and `mcp-remote`, the `scasp` pack, an editor build, and — for the Solidity
+  translator, which runs the Solidity compiler as a JavaScript library — an
+  `npm ci` inside `vendor/lpsplus/migration/solidity`),
   `buildPush.sh` (builds from a dereferenced copy of the tree, then
   `fly deploy --local-only`), `fly.toml`.
 - **Sibling repositories**: InsurLE2 (`le_extensions.pl` and the examples of

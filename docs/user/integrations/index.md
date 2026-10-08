@@ -183,6 +183,16 @@ cites, are kept in that folder too, so citations and **Show the Original**
 keep working while you work on the program. Save the program if you want to
 keep it for longer.
 
+The program also carries the file you uploaded **inside itself**, as one long
+comment at the end: the text of the file, line by line, under a line that
+names it. A comment is text the system does not read as rules, so the comment
+changes nothing about what the program does. It is there so that the
+translation and the file it was made from stay together: the folder on the
+server is forgotten after a day, and a program you save to your own computer
+takes nothing with it but its own text. A file that is not text — a PDF, an
+archive, a spreadsheet — cannot be put in a comment, and the comment names it
+instead of carrying it. So does a file too long to carry.
+
 ### What could not be translated
 
 A translator never gives up on the whole file because of one fragment it
@@ -215,7 +225,9 @@ migration twins among the examples keep their originals there too. When there
 is a single file, the file opens straight away. When there are several, the
 editor lists them first and you pick one. A program with no `sources/` folder
 tells you that no original is kept. Files that are not text (PDF, images,
-archives) are not listed, because the viewer shows text only.
+archives) are not listed, because the viewer shows text only. The copy inside
+the program, described above, is the one that survives: scroll to the end of a
+program that was opened from another system's file, and the file is there.
 
 A program can also cite one of those files as the text of a document
 (`the text of the policy file is at "sources/…"`). In an explanation of an

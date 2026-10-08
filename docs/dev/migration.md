@@ -79,6 +79,22 @@ reads the same folder for a program opened from its server. The editor's
 example list does not descend into a `sources/` folder: it holds originals,
 not programs.
 
+**The originals again: inside the program, as a comment.** A twin in the
+examples has its `sources/` folder for good, but an upload does not: the
+directory `le_import.pl` puts it in is forgotten after a day
+(`forget_old_uploads/1`), and a program the reader saves to their own disk
+takes nothing with it but its own text. So every uploaded *text* file is also
+appended to the program it became, as one big comment at the end
+(`le_import:embed_originals/2`), under a line that names it. Every line of it
+starts with a per cent sign, which is why a line-comment and not `/* … */`:
+nothing inside the original — a `*/` in the source above all — can end the
+comment early and let the original be read as rules. The whole of it is one
+place, `le_import.pl`, so every translator gets it and none of them knows
+about it. A file that is not text (asked of the bytes, not of the name) and
+text beyond `max_embedded_bytes/1` are named in the comment instead of being
+carried, and a comment that cannot be written is never the reason an import
+fails. Tests: `testing/test_embedded_originals.pl`.
+
 **The other way: exporting (`exporter/6`).** `File > Export to Another
 System…` in the editor (and the LPS2 IDE's Misc ▸ Export to another
 system…, through `le_service:le_export/4`) writes the loaded program in
