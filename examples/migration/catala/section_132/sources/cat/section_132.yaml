@@ -54,7 +54,7 @@ rules:
   source_document: sources/us_tax_code/section_132.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: '(match discount_type: ''Property'' => true ''Services'' => false)'
+    formula: ((discount_type == 'Property'))
 - catala_scope: QualifiedEmployeeDiscount
   dtype: Judgment
   kind: derived
@@ -63,7 +63,7 @@ rules:
   source_document: sources/us_tax_code/section_132.catala_en
   versions:
   - effective_from: 1900-01-01
-    formula: '(match discount_type: ''Property'' => false ''Services'' => true)'
+    formula: ((discount_type == 'Services'))
 - approximated: where two of its definitions at one level both apply, Catala stops
     with a conflict; the twin takes the first
   catala_scope: QualifiedEmployeeDiscount

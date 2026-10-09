@@ -1,0 +1,35 @@
+the target language is: prolog.
+
+% Two numbers are equal by value: 1.0 = 1 and 1.0 is equal to 1 (language.md
+% §7), whether the value was stated with a decimal point or not.
+
+the templates are:
+    the x is *a number*.
+    the case holds.
+    the other case holds.
+
+the knowledge base numeric_equality includes:
+
+the case holds if
+    the x is a number K
+    and K = 1.
+
+the other case holds if
+    the x is a number K
+    and K is equal to 1.
+
+query one is:
+    the case holds.
+
+query two is:
+    the other case holds.
+
+scenario decimal_point is:
+    the x is 1.0.
+    one expects answers ["the case holds"].
+    two expects answers ["the other case holds"].
+
+scenario different is:
+    the x is 1.5.
+    one expects answers [].
+    two expects answers [].

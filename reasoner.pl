@@ -1690,7 +1690,7 @@ call_reasoner_built_in(le_assign(X, Y), _) :-
     ).
 call_reasoner_built_in(le_assign(X, Y0), _) :- !,
     le_snap_rounding(Y0, Y),
-    ( number(Y) -> X = Y
+    ( number(Y) -> ( number(X) -> X =:= Y ; X = Y )      % (two numbers compared by value: 1.0 = 1)
     ; catch(X is Y, _, (
         (var(X) -> true ; true), % debug point
         X = Y
@@ -1759,7 +1759,9 @@ le_arithmetic_operand(X, V) :-
 %   evaluated first (`N mod 3 is equal to 2`), numbers then compared by value;
 %   anything else is equal when it unifies, as before.
 le_equal_values(X0, Y0) :-
-    (   ( le_arithmetic_operand(X0, _) ; le_arithmetic_operand(Y0, _) )
+    (   number(X0), number(Y0)
+    ->  X0 =:= Y0                                   % (1.0 is equal to 1)
+    ;   ( le_arithmetic_operand(X0, _) ; le_arithmetic_operand(Y0, _) )
     ->  le_compare_operand(X0, X), le_compare_operand(Y0, Y),
         (   number(X), number(Y) -> X =:= Y ; X = Y )
     ;   X0 = Y0
