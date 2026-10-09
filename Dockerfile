@@ -47,6 +47,15 @@ COPY *.pl ./
 # formats are offered (le_plus.pl).
 COPY vendor/ ./vendor/
 ENV LPS_PLUS_DIR=/app/vendor/lpsplus
+# The Solidity door (File ▸ Open of a `.sol`) runs solcjs against
+# OpenZeppelin's sources: npm packages, gitignored in lpsPlus and so not
+# vendored, installed here for this image's platform. Without them a `.sol`
+# opens as a TODO comment (9 October 2026), so the build checks they load.
+RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
+      cd vendor/lpsplus/migration/solidity && \
+      npm ci --omit=dev --no-audit --no-fund && \
+      node -e "require('solc'); require.resolve('@openzeppelin/contracts/package.json')" ; \
+    fi
 # i18n CSV dictionaries: read by le_i18n.pl at load time AND by the editor
 # build below (scripts/gen-i18n.cjs generates the TS tables from them)
 COPY i18n/ ./i18n/
