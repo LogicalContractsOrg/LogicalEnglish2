@@ -2,7 +2,7 @@
 
 Source: Catala (catala-examples) — sources/cat/prestations_familiales.yaml
 Translator: lpsPlus migration/catala
-Date: 2026-10-07
+Date: 2026-10-09
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 
 ## Summary
