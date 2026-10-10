@@ -232,7 +232,8 @@ write_template(KB, Term) :-
 		format(atom(Def), '; ~w by default', [VT])
 	    ;   Def = ''
 	    ),
-	    format('    ~w~w~w.~n', [Line, Known, Def])
+	    synonyms_text(KB, Derived/N, Syn),
+	    format('    ~w~w~w~w.~n', [Line, Known, Syn, Def])
 	;   format('    % no template for ~w/~w~n', [F, N])
 	).
 
@@ -245,6 +246,21 @@ template_words(KB, F/N, Derived/N, Words) :-
 	),
 	dict_of(KB, Derived/N, dict_wv(WV, NTs)),
 	slot_words(WV, NTs, Words).
+
+%   `; synonym <template>` for every further wording of F/N, in the order
+%   the dictionary holds them. Without it the written document cannot use a
+%   synonym -- and render_update/6 may need one.
+synonyms_text(KB, F/N, Text) :-
+	findall(S,
+		( current_predicate(KB:le_dict/1),
+		  KB:le_dict(D),
+		  D =.. [dict, [F|Args], NTs, WV|_],
+		  length(Args, N),
+		  slot_words(WV, NTs, Words),
+		  words_text(Words, W),
+		  format(atom(S), '; synonym ~w', [W]) ),
+		All),
+	(   All = [_|Syns] -> atomic_list_concat(Syns, Text) ; Text = '' ).
 
 dict_of(KB, F/N, dict_wv(WV, NTs)) :-
 	current_predicate(KB:le_dict/1),
@@ -608,12 +624,23 @@ select_update_goal(Conds, New, Expr, Rest) :-
 render_update(KB, Ns, Fluent, Old, Expr, S) :-
 	%  Old is mentioned inside the literal, so its name is taken before.
 	next_name_of(Ns, Old, OldName),
-	render(KB, Ns, Fluent, FS),
-	expr_text(Ns, Expr, ES),
 	%  The literal is written with its Old slot in place; the relative
-	%  clause re-states it, which is what the parser splits on.
-	replace_last(FS, OldName, Prefix),
-	format(atom(S), '~w that is ~w becomes ~w', [Prefix, OldName, ES]).
+	%  clause re-states it, which is what the parser splits on. The reader
+	%  takes `<literal> that is <name> becomes` back only as `<literal> is
+	%  <name>`, so a wording -- the template or one of its synonyms -- that
+	%  ends in `is <Old>` is preferred: `the heading of the vehicle at a
+	%  place that is a direction becomes ...`.
+	rename_in(KB, Fluent, Fluent1),
+	(   wording(KB, Ns, Fluent1, FS),
+	    replace_last(FS, OldName, Prefix), Prefix \== FS
+	->  Name = OldName
+	;   %  No wording does: Old's slot stays in the literal, and the
+	    %  relative clause is its second mention, with the definite name.
+	    render(KB, Ns, Fluent, Prefix),
+	    next_name_of(Ns, Old, Name)
+	),
+	expr_text(Ns, Expr, ES),
+	format(atom(S), '~w that is ~w becomes ~w', [Prefix, Name, ES]).
 
 %   "the reward is a number" -> "the reward" (the parser puts the copula back)
 replace_last(FS, OldName, Prefix) :-
@@ -723,6 +750,7 @@ expr_text(_, T, S) :- number(T), !, format(atom(S), '~w', [T]).
 expr_text(Ns, T, S) :- arith(T), !, expr_operand(Ns, T, S).
 expr_text(Ns, T, S) :- arith_function(T), !, expr_operand(Ns, T, S).
 expr_text(_, T, S) :- string(T), !, format(atom(S), '"~w"', [T]).    % a string stays one
+expr_text(Ns, T, S) :- is_list(T), !, list_text(Ns, T, S).
 expr_text(_, T, S) :- format(atom(S), '~w', [T]).
 
 arith(T) :- compound(T), T =.. [Op, _, _], memberchk(Op, [+, -, *, /, //, mod]).
@@ -797,6 +825,24 @@ render(KB, Names, Goal0, S) :-
 	    raw_goal(Goal1)
 	).
 
+%!  wording(+KB, +Names, +Goal, -Sentence) is nondet.
+%
+%   Goal (already renamed) in the words of each of its templates in turn:
+%   the template first, then its synonyms.
+wording(KB, Names, Goal, S) :-
+	compound(Goal), Goal =.. [F|Args], length(Args, N),
+	current_predicate(KB:le_dict/1),
+	KB:le_dict(D0),
+	D0 =.. [dict, [F|DArgs0], _, WV0|_],
+	length(DArgs0, N),
+	copy_term(DArgs0-WV0, DArgs-WV),
+	maplist(arg_text(Names), Args, Texts),
+	DArgs = Texts,
+	maplist(token_text, WV, Words),
+	exclude(==(''), Words, Words1),
+	words_text(Words1, S),
+	S \== ''.
+
 %   A goal written as Prolog because no template says it in English: fine
 %   for Prolog's own built-ins (LE reads them), but anything else is not
 %   Logical English — le_lps_check/3 counts those (while it runs, the list
@@ -817,10 +863,19 @@ dict_args(KB, F/N, DArgs, WV) :-
 	length(DArgs, N), !.
 
 arg_text(Ns, A, T) :- var(A), !, name_of(Ns, A, T).
+arg_text(Ns, A, T) :- is_list(A), !, list_text(Ns, A, T).
 arg_text(_, A, T) :- string(A), !, format(atom(T), '"~w"', [A]).   % a string stays one
 arg_text(_, A, T) :-                   % a constant LE would read as a word of its own (`a`)
 	atom(A), lone_keyword(A), !, format(atom(T), '"~w"', [A]).
 arg_text(_, A, T) :- format(atom(T), '~w', [A]).
+
+%   A list in LE's own brackets, each element written as an argument is:
+%   `[[the direction, the street], []]`. Written with `~w`, its variables
+%   came out as Prolog's `_123`, which LE reads back as a constant.
+list_text(Ns, L, T) :-
+	maplist(arg_text(Ns), L, Ts),
+	atomic_list_concat(Ts, ', ', In),
+	format(atom(T), '[~w]', [In]).
 
 lone_keyword(A) :-
 	(   le_i18n:class_member(article_narrow, A) ; le_i18n:class_member(definite_article, A)

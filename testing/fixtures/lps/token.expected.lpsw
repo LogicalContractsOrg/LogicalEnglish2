@@ -15,7 +15,7 @@ observe([transfer_from(carol,1,alice,dan)],7).
 the_value_of_the_unlimited_allowance_is(1000000).
 updated(happens(transfer(A,B,C),D,E),balance(A,F),F-G,[G is F-B]).
 updated(happens(transfer(A,B,C),D,E),balance(C,F),F-G,[G is F+B]).
-updated(happens(approve(A,B,C),D,E),allowance(A,B,F),F-G,[G is C]).
+updated(happens(approve(A,B,C),D,E),allowance(A,B,F),F-C,[]).
 updated(happens(transfer_from(A,B,C,D),E,F),allowance(C,A,G),G-H,[holds(allowance(C,A,I),E),the_value_of_the_unlimited_allowance_is(J),I\=J,H is G-B]).
 updated(happens(transfer_from(A,B,C,D),E,F),balance(C,G),G-H,[H is G-B]).
 updated(happens(transfer_from(A,B,C,D),E,F),balance(D,G),G-H,[H is G+B]).
