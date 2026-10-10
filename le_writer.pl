@@ -100,6 +100,7 @@
 :- use_module(tokenizer).
 
 :- dynamic issue_sink/1.
+:- dynamic block_sink/1.         % the hoisting pass's record (hoist_blocks/3)
 :- dynamic writer_word/3.        % writer_word(Key, Lang, Word): i18n/writer_words.csv
 
 :- dynamic writer_dir/1.
@@ -153,6 +154,11 @@ le_write(program(Header, Items), Text, Issues) :-
 note(Severity, Code, Fmt-Args) :- !,
     format(string(Msg), Fmt, Args),
     note(Severity, Code, Msg).
+note(_, _, _) :-
+    %  The hoisting pass writes each rule once to see what it would make of
+    %  it, and throws the text away: what it finds there is found again when
+    %  the rule is written for good.
+    nb_current(le_writer_quiet, true), !.
 note(Severity, Code, Msg) :-
     (   retract(issue_sink(L))
     ->  asserta(issue_sink([issue(Severity, Code, Msg)|L]))
@@ -300,11 +306,15 @@ write_program(Header, Items, Text) :-
     option(language(Lang), Header, en),
     le_i18n:with_le_language(Lang, le_writer:write_program_(Header, Items, Text)).
 
-write_program_(Header, Items, Text) :-
-    ir_dicts(program(Header, Items), Dicts),
+write_program_(Header, Items0, Text) :-
     option(target(Target), Header, prolog),
     kb_name(Header, KBName),
     extensions_mode(Header, Ext),
+    %  A group core LE cannot open with a plain condition of its own becomes
+    %  a rule of its own before anything is written, so that its judgment is
+    %  among the templates (hoist_blocks/4).
+    hoist_blocks(Ext, Target, Items0, Items),
+    ir_dicts(program(Header, Items), Dicts),
     Ctx = ctx(Dicts, Ext, Target),
     with_output_to(string(Text0),
         ( write_header(Header, Target, KBName),
@@ -802,39 +812,61 @@ sys_part(_, W, W).
 		 *        RULES AND FACTS       *
 		 *******************************/
 
+%   A rule whose body the hoisting pass has already prepared (hoist_blocks/3)
+%   carries `prepared(Hints)` among its options: its body is the body the
+%   writer itself would have made of it, with the groups it named as
+%   judgment rules of their own taken out, so the preparation below is not
+%   run a second time (it would have nothing left to do, and the type hints
+%   its `le_type_check` goals carried are gone from the prepared body).
+write_rule(Ctx, Head, Body, Opts) :-
+    memberchk(prepared(Hints), Opts), !,
+    b_setval(le_writer_hints, Hints),
+    write_rule_body(Ctx, Head, Body, Opts).
 write_rule(Ctx, Head, Body0, Opts) :-
+    prepare_rule(Ctx, Head, Body0, H, B, Hints),
+    b_setval(le_writer_hints, Hints),
+    write_rule_body(Ctx, H, B, Opts).
+
+%!  prepare_rule(+Ctx, +Head, +Body0, -Head1, -Body, -Hints) is det.
+%
+%   The rule as the writer writes it: its `@` provenance marks stripped, its
+%   body simplified, its globals named and the values its functions ask for
+%   compacted into the condition that uses them, with the type hints the
+%   `le_type_check` goals of the body carry (Hints), which the naming reads.
+prepare_rule(Ctx, Head, Body0, H, B, Hints) :-
     strip_at(Body0, Body1),
     type_hints(Body1, Hints0),
     simplify_body(Body1, Body),
     (   Body == true
-    ->  write_fact(Ctx, Head, Opts)
+    ->  H = Head, B = true, Hints = Hints0
     ;   copy_term(Head-Body-Hints0, H-B1-Hints),
         name_globals(Ctx, B1, B2),
-        compact_functions(Ctx, H, B2, B3), simplify_body(B3, B),
-        b_setval(le_writer_hints, Hints),
-        %  Compaction can empty a body outright: a rule whose only condition
-        %  asked a function for the value its head states — "the label of
-        %  thimble is our currency." That is a fact, not "... if true".
-        (   B == true
-        ->  write_fact(Ctx, H, Opts)
-        ;   forall(member(comment(C), Opts), write_comment_block(0, C)),
-            write_rule_label(Opts),
-            clause_naming(Ctx, rule, H, B, St),
-            render_head(Ctx, St, H, HT),
-            kw(if, If),
-            St = st(_, _, M, _), arg(1, M, Before),
-            (   option(numbered(true), Opts),
-                Ctx = ctx(_, true, _),           % a numbered outline needs the extensions
-                numbered_body(Ctx, St, B, Lines)
-            ->  format("~w ~w:~n", [HT, If]),
-                forall(member(L, Lines), format("~w~n", [L]))
-            ;   setarg(1, M, Before),            % a failed numbered attempt mentioned nothing
-                body_nodes(Ctx, St, B, Nodes),
-                format("~w ~w~n", [HT, If]),
-                write_nodes(Nodes, 4, last)
-            ),
-            nl
-        )
+        compact_functions(Ctx, H, B2, B3), simplify_body(B3, B)
+    ).
+
+write_rule_body(Ctx, H, B, Opts) :-
+    %  Compaction can empty a body outright: a rule whose only condition
+    %  asked a function for the value its head states — "the label of
+    %  thimble is our currency." That is a fact, not "... if true".
+    (   B == true
+    ->  write_fact(Ctx, H, Opts)
+    ;   forall(member(comment(C), Opts), write_comment_block(0, C)),
+        write_rule_label(Opts),
+        clause_naming(Ctx, rule, H, B, St),
+        render_head(Ctx, St, H, HT),
+        kw(if, If),
+        St = st(_, _, M, _), arg(1, M, Before),
+        (   option(numbered(true), Opts),
+            Ctx = ctx(_, true, _),           % a numbered outline needs the extensions
+            numbered_body(Ctx, St, B, Lines)
+        ->  format("~w ~w:~n", [HT, If]),
+            forall(member(L, Lines), format("~w~n", [L]))
+        ;   setarg(1, M, Before),            % a failed numbered attempt mentioned nothing
+            body_nodes(Ctx, St, B, Nodes),
+            format("~w ~w~n", [HT, If]),
+            write_nodes(Nodes, 4, last)
+        ),
+        nl
     ).
 
 %   An integrity constraint of a timeless program (le_summary.md §3.3):
@@ -1404,6 +1436,7 @@ step_node(Ctx, St, Op-R, Node) :-
 %   `either` block for a disjunction), from the InsurLE extensions.
 block_single(ctx(D, Ext, T), St, B, Node) :-
     (   Ext == true -> true
+    ;   collect_block(B)                 % the hoisting pass is running: record it
     ;   note(warning, needs_extensions,
              "a nested group opening with a negation, a universal or an aggregate is written as an 'all of'/'either' block, which needs le_extensions.pl"-[])
     ),
@@ -1423,6 +1456,318 @@ or_alternatives(B, Alts) :-
     ->  or_alternatives(L, AL), or_alternatives(R, AR), append(AL, AR, Alts)
     ;   Alts = [B]
     ).
+
+		 /*******************************
+		 *   A GROUP AS A RULE OF ITS OWN *
+		 *******************************/
+
+%!  hoist_blocks(+Ext, +Target, +Items0, -Items) is det.
+%
+%   Core Logical English writes a nested group as one of the group's own
+%   conditions with the rest nested under it (core_single/4). When the group
+%   leads with a condition that needs lines of its own — a negation, a
+%   universal, an aggregate — and no plain condition of the group may be
+%   moved in front of it, there is no condition to open the group with, and
+%   the writer's last resort is an `all of` block of the InsurLE extensions
+%   (block_single/4). Core LE does not read that block: the program stops
+%   parsing, and a twin written that way answers nothing while reporting no
+%   error of its own. It cost `universal_credit` 39 of its 146 answers and
+%   left the housing allowance's two eligibility twins with no answers at
+%   all (lpsPlus/migration/openfisca/README.md, lpsPlus/migration/catala/
+%   README.md, 9 October 2026).
+%
+%   This pass gives such a group a name instead: the group becomes a rule of
+%   its own, whose head is a judgment about the variables the group shares
+%   with the rest of the rule, and the group's place in the rule becomes one
+%   condition, that judgment. The body of a rule is a list of sibling
+%   conditions, where a leading negation is no trouble, so the group is
+%   written in core LE there. Nothing is lost: the judgment holds exactly
+%   when the group does.
+%
+%   A group named this way may hold another such group, so the pass runs
+%   again on what it wrote, up to four times.
+hoist_blocks(Ext, Target, Items0, Items) :-
+    (   Ext == true                      % the blocks are read: nothing to name
+    ->  Items = Items0
+    ;   catch(hoist_rounds(4, Ext, Target, Items0, Items1), _, fail),
+        is_list(Items1)
+    ->  Items = Items1
+    ;   Items = Items0                   % whatever went wrong, write as before
+    ).
+
+hoist_rounds(N, Ext, Target, Items0, Items) :-
+    hoist_rounds(N, Ext, Target, Items0, Items, 1, _).
+
+hoist_rounds(0, _, _, Items, Items, K, K) :- !.
+hoist_rounds(N, Ext, Target, Items0, Items, K0, K) :-
+    quiet(hoist_round(Ext, Target, Items0, Items1, K0, K1)),
+    (   K1 == K0                         % nothing named
+    ->  Items = Items1, K = K0
+    ;   N1 is N - 1,
+        hoist_rounds(N1, Ext, Target, Items1, Items, K1, K)
+    ).
+
+%   The pass writes each rule once to find out what the writer would make of
+%   it, and throws that text away: what it says about the rule is said again
+%   when the rule is written for good.
+quiet(Goal) :-
+    setup_call_cleanup(b_setval(le_writer_quiet, true),
+                       ( call(Goal) -> true ; true ),
+                       b_setval(le_writer_quiet, false)).
+
+hoist_round(Ext, Target, Items0, Items, K0, K) :-
+    ir_dicts(program([], Items0), Dicts),
+    Ctx = ctx(Dicts, Ext, Target),
+    hoist_items(Ctx, Items0, K0, K, Items).
+
+hoist_items(_, [], K, K, []).
+hoist_items(Ctx, [I0|Is0], K0, K, Items) :-
+    (   catch(hoist_item(Ctx, I0, K0, K1, New), _, fail)
+    ->  true
+    ;   New = [I0], K1 = K0
+    ),
+    hoist_items(Ctx, Is0, K1, K, Rest),
+    append(New, Rest, Items).
+
+rule_parts(rule(H, B), H, B, []).
+rule_parts(rule(H, B, Opts), H, B, Opts).
+
+%   One rule: the groups it would write as blocks, each named as a rule.
+hoist_item(Ctx, Item0, K0, K, [Main|Extra]) :-
+    rule_parts(Item0, H0, B0, Opts0),
+    (   memberchk(prepared(Hints), Opts0)
+    ->  H = H0, B = B0
+    ;   prepare_rule(Ctx, H0, B0, H, B, Hints)
+    ),
+    B \== true,
+    may_need_a_block(B),
+    probe_blocks(Ctx, H, B, Hints, Groups0),
+    outermost_groups(Groups0, Groups),
+    Groups \== [],
+    hoist_each(Ctx, Groups, H, B, B1, Hints, K0, K, Extra),
+    Extra \== [],
+    exclude(prepared_option, Opts0, Opts1),
+    copy_term(rule(H, B1, [prepared(Hints)|Opts1]), Main).
+
+prepared_option(prepared(_)).
+
+%   A group becomes a block only where the condition that would open it needs
+%   lines of its own — a negation, a universal, an aggregate, a scope. A body
+%   with none of those is written as it stands, and is not written twice to
+%   find that out.
+may_need_a_block(B) :-
+    compound(B),
+    (   needs_lines(B) -> true
+    ;   B =.. [_|As], member(A, As), may_need_a_block(A)
+    ), !.
+
+needs_lines(not(_)).
+needs_lines(forall(_, _)).
+needs_lines(agg(_, _, _, _)).
+needs_lines(according_to(_, _)).
+
+%!  probe_blocks(+Ctx, +Head, +Body, +Hints, -Groups) is det.
+%
+%   Groups are the subterms of Body the writer would write as `all of` /
+%   `either` blocks: it writes the rule with a sink in place, which
+%   block_single/4 records into. Writing binds nothing, so each group
+%   recorded is the very subterm of Body, which is what the naming below
+%   replaces.
+probe_blocks(Ctx, H, B, Hints, Groups) :-
+    S = sink([]),
+    setup_call_cleanup(
+        b_setval(le_writer_block_sink, S),
+        (   b_setval(le_writer_hints, Hints),
+            catch(( clause_naming(Ctx, rule, H, B, St),
+                    with_output_to(string(_),
+                        ( render_head(Ctx, St, H, _),
+                          body_nodes(Ctx, St, B, _) )) ),
+                  _, true)
+        ),
+        b_setval(le_writer_block_sink, none)),
+    arg(1, S, L), reverse(L, Groups).
+
+collect_block(B) :-
+    catch(b_getval(le_writer_block_sink, S), _, fail),
+    compound(S), S = sink(L),
+    setarg(1, S, [B|L]).
+
+%   A group inside a group the pass is about to name is left to the round
+%   that reads the rule the outer group becomes.
+%   The groups are the very subterms of the body, which is what the naming
+%   replaces: nothing here may copy them (findall would).
+outermost_groups(Gs0, Gs) :-
+    outermost_(Gs0, Gs0, Gs1),
+    distinct_eq(Gs1, Gs).
+
+outermost_([], _, []).
+outermost_([G|Gs], All, Out) :-
+    (   inside_another(G, All)
+    ->  Out = Out1
+    ;   Out = [G|Out1]
+    ),
+    outermost_(Gs, All, Out1).
+
+inside_another(G, Gs) :-
+    member(G2, Gs), \+ G2 == G, contains_eq(G2, G), !.
+
+contains_eq(T, S) :-
+    compound(T), T =.. [_|As],
+    (   member(A, As), A == S
+    ->  true
+    ;   member(A, As), contains_eq(A, S)
+    ), !.
+
+distinct_eq([], []).
+distinct_eq([X|Xs0], [X|Xs]) :-
+    exclude(==(X), Xs0, Xs1),
+    distinct_eq(Xs1, Xs).
+
+hoist_each(_, [], _, B, B, _, K, K, []).
+hoist_each(Ctx, [G|Gs], H, B0, B, Hints, K0, K, Items) :-
+    (   hoist_one(Ctx, G, H, B0, B1, Hints, K0, TItem, RItem)
+    ->  K1 is K0 + 1, Items0 = [TItem, RItem]
+    ;   B1 = B0, K1 = K0, Items0 = []
+    ),
+    hoist_each(Ctx, Gs, H, B1, B, Hints, K1, K, Items1),
+    append(Items0, Items1, Items).
+
+%   One group: its template, its rule, and the body with the group replaced
+%   by the judgment the template declares. The judgment's places are the
+%   variables the group shares with the rest of the rule — the ones a reader
+%   of the group needs to know, and the ones the group may bind for the
+%   conditions after it.
+hoist_one(Ctx, G, H, B0, B, Hints, K, template(F, Text, []), Rule) :-
+    replace_eq(B0, G, '$hole', BHole),
+    term_variables(H-BHole, OutVs),
+    term_variables(G, GVs),
+    shared_vars(GVs, OutVs, Args),
+    length(Args, N),
+    format(atom(F), 'le_group_~w', [K]),
+    Head =.. [F|Args],
+    group_template_text(Ctx, H, K, Args, H-B0, Text),
+    template_text_dict(Text, dict([_|Places], _, _)),
+    length(Places, N),                   % the text says what the judgment is
+    replace_eq(B0, G, Head, B),
+    copy_term(rule(Head, G, [prepared(Hints)]), Rule).
+
+%   The variables of a group a reader of the group needs: the ones the rest
+%   of the rule shares with it.
+shared_vars([], _, []).
+shared_vars([V|Vs], OutVs, Args) :-
+    (   member(O, OutVs), O == V
+    ->  Args = [V|As]
+    ;   Args = As
+    ),
+    shared_vars(Vs, OutVs, As).
+
+replace_eq(T, Old, New, R) :- T == Old, !, R = New.
+replace_eq(T, Old, New, R) :-
+    compound(T), \+ is_dict(T), !,
+    T =.. [F|As],
+    replace_eq_args(As, Old, New, Bs),
+    R =.. [F|Bs].
+replace_eq(T, _, _, T).
+
+replace_eq_args([], _, _, []).
+replace_eq_args([A|As], Old, New, [B|Bs]) :-
+    replace_eq(A, Old, New, B),
+    replace_eq_args(As, Old, New, Bs).
+
+%!  group_template_text(+Ctx, +Head, +K, +Args, +Term, -Text) is det.
+%
+%   `condition 3 of the income tax holds for *a tax household* and *an
+%   amount*`, in the language the program is written in (i18n/
+%   writer_words.csv: group_rule, group_rule_named, group_rule_for). The
+%   name is the first words of the rule's own sentence, so that a reader
+%   sees which rule the condition belongs to.
+group_template_text(Ctx, H, K, Args, Term, Text) :-
+    maplist(group_place(Ctx, Term), Args, Places),
+    (   group_name(Ctx, H, Name)
+    ->  writer_word(group_rule_named, Pat0),
+        sys_template_text(Pat0, [K, Name], Opening)
+    ;   writer_word(group_rule, Pat1),
+        sys_template_text(Pat1, [K], Opening)
+    ),
+    (   Places == []
+    ->  Text = Opening
+    ;   writer_word(group_rule_for, For),
+        kw(and, And),
+        join_with(Places, And, PT),
+        format(string(Text), "~w ~w ~w", [Opening, For, PT])
+    ).
+
+%   `{1}`, `{2}`: the places of a writer_words pattern.
+sys_template_text(Pat, Args, Text) :-
+    to_text(Pat, P),
+    foldl(fill_place, Args, 1-P, _-Text).
+
+fill_place(A, I-S0, I1-S) :-
+    format(atom(Mark), '{~w}', [I]),
+    format(atom(AT), '~w', [A]),
+    atomic_list_concat(Parts, Mark, S0),
+    atomic_list_concat(Parts, AT, S),
+    I1 is I + 1.
+
+join_with([X], _, X) :- !.
+join_with([X|Xs], And, T) :-
+    join_with(Xs, And, T0),
+    format(atom(T), '~w ~w ~w', [X, And, T0]).
+
+%   One place of the judgment: the type of the variable, with its article,
+%   as the writer would name it in a sentence (`*an amount*`).
+group_place(Ctx, Term, V, Place) :-
+    var_type(Ctx, Term, V, Type),
+    article_for(Type, Type, Art),
+    format(atom(Place), '*~w ~w*', [Art, Type]).
+
+%   The rule's name: the words of its sentence before its first place, with
+%   a trailing preposition dropped (`the income tax of` → `the income tax`)
+%   and any word that would end a template instance joined to its
+%   neighbour (a template may not contain `if`, `unless`, `either`, ...).
+group_name(ctx(Dicts, _, _), H, Name) :-
+    nonvar(H), lookup_td_for(Dicts, H, td(_, _, _, _, _, _, Text)),
+    atom_string(Text, S),
+    split_string(S, "*", "", [First|_]),
+    split_string(First, " ", " \t", Ws0),
+    exclude(==(""), Ws0, Ws1),
+    Ws1 \== [],
+    maplist([X, A]>>atom_string(A, X), Ws1, Ws2),
+    drop_trailing_particle(Ws2, Ws3),
+    Ws3 \== [],
+    template_safe_words(Ws3, Ws),
+    atomic_list_concat(Ws, ' ', Name).
+
+drop_trailing_particle(Ws0, Ws) :-
+    append(Ws, [Last], Ws0),
+    (   writer_word(group_rule_of, Of), downcase_atom(Last, L), L == Of
+    ->  true
+    ;   sub_atom(Last, _, 1, 0, '''')    % an elided preposition: `d'`, `l'`
+    ), !.
+drop_trailing_particle(Ws, Ws).
+
+%   A template may not contain a word that ends a template instance in the
+%   language it is written in (le_grammar's truncators: `if`, `only if`,
+%   `unless`, `either`, `any of`, `all of`, `expects`): LE cuts the template
+%   off there. Such a word is joined to the one after it, or to the one
+%   before when it is last.
+template_safe_words(Ws0, Ws) :- template_safe_(Ws0, [], Ws).
+
+template_safe_([], Acc, Ws) :- reverse(Acc, Ws).
+template_safe_([W|Ws], Acc, Out) :-
+    (   \+ truncating_word(W)
+    ->  template_safe_(Ws, [W|Acc], Out)
+    ;   Ws = [N|Rest]
+    ->  atomic_list_concat([W, N], '_', WN), template_safe_([WN|Rest], Acc, Out)
+    ;   Acc = [P|As]
+    ->  atomic_list_concat([P, W], '_', PW), template_safe_([], [PW|As], Out)
+    ;   atom_concat(W, '_', W2), template_safe_([], [W2|Acc], Out)
+    ).
+
+truncating_word(W) :-
+    downcase_atom(W, L),
+    member(Key, [if, only_if, unless, and_unless, either, any_of, all_of, expects]),
+    catch(le_i18n:kw_synonym_words(Key, [L]), _, fail), !.
 
 %   Goals that are written on one line with nothing nested under them.
 line_goal(G) :- var(G), !, fail.
@@ -1819,6 +2164,14 @@ pick_id(Type, Taken, Used, Id) :-
     id_pool(Pool),
     (   member(Id, [First|Pool]), ok_id(Id, Taken, Used) -> true
     ;   member(A, Pool), member(B, Pool), atom_concat(A, B, Id), ok_id(Id, Taken, Used) -> true
+    ;   %  A rule with more variables of one type than two letters can name:
+        %  `aides_logement`'s ceiling on a monthly payment is one rule of 912
+        %  variables (the whole table of ceilings, inlined), and without a
+        %  third letter the naming ran out, so the rule was not written at
+        %  all — the twin then had no ceiling and gave the uncapped amount
+        %  (migration/catala/README.md, 10 October 2026).
+        member(A, Pool), member(B, Pool), member(C, Pool),
+        atomic_list_concat([A, B, C], Id), ok_id(Id, Taken, Used)
     ).
 
 id_pool(['N','M','K','P','Q','R','S','T','U','V','W','X','Y','Z','B','C','D','E','F','G','H','J','L']).
@@ -1936,6 +2289,7 @@ system_words(le_is, [X, Y], [arg(X), is, arg(Y)]).
 system_words(le_known, [X], [arg(X), is, known]).
 system_words(known, [X], [arg(X), is, known]).
 system_words(le_is_in, [X, L], [arg(X), is, in, arg(L)]).
+system_words(le_starts_with, [X, Y], [arg(X), starts, with, arg(Y)]).
 system_words(in, [X, L], [arg(X), is, in, arg(L)]).
 system_words(le_is_days_after, [A, N, B], [arg(A), is, arg(N), days, after, arg(B)]).
 system_words(le_is_months_after, [A, N, B], [arg(A), is, arg(N), months, after, arg(B)]).

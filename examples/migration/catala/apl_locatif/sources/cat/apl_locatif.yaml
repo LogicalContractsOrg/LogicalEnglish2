@@ -1,0 +1,1332 @@
+format: rulespec/v1
+module:
+  summary: Scopes of catala-examples, lowered for the twin builder.
+  title: Catala scope(s) CalculAidePersonnaliséeLogementLocatif
+rules:
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  must:
+  - (plafond_dégressivité_d823_16 >= round((plafond_loyer_d823_16_2 * 2.5), 2))
+  - ((fraction_l832_3 >= 0.9) and (fraction_l832_3 <= 0.98))
+  - (not (logement_est_chambre and colocation))
+  - (nombre_personnes_à_charge >= 0)
+  - (date_courante >= date("2020-10-01"))
+  name: abattement_forfaitaire_d823_17
+  source: Article 15 | LEGIARTI000050931814; Article 46 | LEGIARTI000052233795; Article
+    47 | LEGIARTI000050931796; Article 46 | LEGIARTI000050286587 [archive]; Article
+    15 | LEGIARTI000048656246 [archive]; Article 46 | LEGIARTI000048656243; Article
+    47 | LEGIARTI000048656240; Article 46 | LEGIARTI000048109272 [archive]; Article
+    46 | LEGIARTI000046834756 [archive]; Article 15 | LEGIARTI000046126962 [archive];
+    Article 46 | LEGIARTI000046206183 [archive]; Article 47 | LEGIARTI000046126954
+    [archive]; Article 15 | LEGIARTI000046834762 [archive]; Article 47 | LEGIARTI000046834753
+    [archive]; Article 15 | LEGIARTI000045011468 [archive]; Article 46 | LEGIARTI000045011463
+    [archive]; Article 46 | LEGIARTI000044137389 [archive]; Article 46 | LEGIARTI000042378415
+    [archive]; Article 47 | LEGIARTI000043044380 [archive]; Article 15 | LEGIARTI000041489192
+    [archive]; Article 46 | LEGIARTI000041489188 [archive]; Article 47 | LEGIARTI000041489186
+    [archive]; Article 46 | LEGIARTI000050931798 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2021-01-01")) and (date_courante < date("2022-01-01")))
+      and (résidence == ''Mayotte'')): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 4274 ''Couple'' => 6122)
+      else: (if (nombre_personnes_à_charge == 1): 6990 else: (if (nombre_personnes_à_charge
+      == 2): 7432 else: (if (nombre_personnes_à_charge == 3): 7854 else: (if (nombre_personnes_à_charge
+      == 4): 8283 else: (if (nombre_personnes_à_charge == 5): 8711 else: 9139))))))
+      elif (((date_courante >= date("2020-01-01")) and (date_courante < date("2021-01-01")))
+      and (résidence == ''Mayotte'')): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 3960 ''Couple'' => 5673)
+      else: (if (nombre_personnes_à_charge == 1): 6396 else: (if (nombre_personnes_à_charge
+      == 2): 6849 else: (if (nombre_personnes_à_charge == 3): 7386 else: (if (nombre_personnes_à_charge
+      == 4): 7935 else: (if (nombre_personnes_à_charge == 5): 8484 else: 9032))))))
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge == 1))): 7584 elif (((date_courante >= date("2020-10-01"))
+      and (date_courante < date("2021-10-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge == 1))): 7584
+      elif ((date_courante >= date("2025-10-01")) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge == 1))): 8656
+      elif ((date_courante >= date("2025-01-01")) and ((résidence == ''SaintPierreEtMiquelon''))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 5507 ''Couple'' => 7889) else: (if (nombre_personnes_à_charge
+      == 1): 9410 else: (if (nombre_personnes_à_charge == 2): 9623 else: (if (nombre_personnes_à_charge
+      == 3): 9990 else: (if (nombre_personnes_à_charge == 4): 10363 else: (if (nombre_personnes_à_charge
+      == 5): 10730 else: (if (nombre_personnes_à_charge == 6): 11101 else: (11101
+      + round((365 * (nombre_personnes_à_charge - 6)), 2))))))))) elif (((date_courante
+      >= date("2024-10-01")) and (date_courante < date("2025-01-01"))) and (((résidence
+      == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence == ''Martinique'')
+      or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge
+      == 1))): 8574 elif (((date_courante >= date("2024-01-01")) and (date_courante
+      < date("2024-10-01"))) and (((résidence == ''Guadeloupe'') or (résidence ==
+      ''Guyane'') or (résidence == ''Martinique'') or (résidence == ''LaRéunion'')
+      or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'') or (résidence
+      == ''SaintMartin'')) and (nombre_personnes_à_charge == 1))): 8574 elif (((date_courante
+      >= date("2024-01-01")) and (date_courante < date("2025-01-01"))) and ((résidence
+      == ''SaintPierreEtMiquelon''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 5335 ''Couple'' => 7643)
+      else: (if (nombre_personnes_à_charge == 1): 9116 else: (if (nombre_personnes_à_charge
+      == 2): 9322 else: (if (nombre_personnes_à_charge == 3): 9678 else: (if (nombre_personnes_à_charge
+      == 4): 10039 else: (if (nombre_personnes_à_charge == 5): 10395 else: (if (nombre_personnes_à_charge
+      == 6): 10754 else: (10754 + round((354 * (nombre_personnes_à_charge - 6)), 2)))))))))
+      elif (((date_courante >= date("2023-10-01")) and (date_courante <= date("2023-12-31")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge == 1))): 8181 elif (((date_courante >= date("2023-01-01"))
+      and (date_courante < date("2023-10-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge == 1))): 8181
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge == 1))): 8051 elif (((date_courante >= date("2022-07-01"))
+      and (date_courante < date("2023-01-01"))) and ((résidence == ''SaintPierreEtMiquelon''))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 4870 ''Couple'' => 6977) else: (if (nombre_personnes_à_charge
+      == 1): 8322 else: (if (nombre_personnes_à_charge == 2): 8509 else: (if (nombre_personnes_à_charge
+      == 3): 8834 else: (if (nombre_personnes_à_charge == 4): 9163 else: (if (nombre_personnes_à_charge
+      == 5): 9488 else: (if (nombre_personnes_à_charge == 6): 9816 else: (9816 + round((323
+      * (nombre_personnes_à_charge - 6)), 2))))))))) elif (((date_courante >= date("2023-01-01"))
+      and (date_courante <= date("2023-12-31"))) and ((résidence == ''SaintPierreEtMiquelon''))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 5272 ''Couple'' => 7552) else: (if (nombre_personnes_à_charge
+      == 1): 9008 else: (if (nombre_personnes_à_charge == 2): 9211 else: (if (nombre_personnes_à_charge
+      == 3): 9563 else: (if (nombre_personnes_à_charge == 4): 9919 else: (if (nombre_personnes_à_charge
+      == 5): 10271 else: (if (nombre_personnes_à_charge == 6): 10626 else: (10626
+      + round((350 * (nombre_personnes_à_charge - 6)), 2))))))))) elif (((date_courante
+      >= date("2022-01-01")) and (date_courante < date("2022-07-01"))) and (((résidence
+      == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence == ''Martinique'')
+      or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge
+      == 1))): 7742 elif (((date_courante >= date("2020-01-01")) and (date_courante
+      < date("2020-10-01"))) and (((résidence == ''Guadeloupe'') or (résidence ==
+      ''Guyane'') or (résidence == ''Martinique'') or (résidence == ''LaRéunion'')
+      or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'') or (résidence
+      == ''SaintMartin'')) and (nombre_personnes_à_charge == 1))): 7584 elif (((date_courante
+      >= date("2025-01-01")) and (date_courante < date("2025-10-01"))) and (((résidence
+      == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence == ''Martinique'')
+      or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge
+      == 1))): 8656 elif ((date_courante >= date("2025-01-01"))): (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 5235 ''Couple''
+      => 7501) else: (if (nombre_personnes_à_charge == 1): 8947 else: (if (nombre_personnes_à_charge
+      == 2): 9148 else: (if (nombre_personnes_à_charge == 3): 9498 else: (if (nombre_personnes_à_charge
+      == 4): 9851 else: (if (nombre_personnes_à_charge == 5): 10202 else: (if (nombre_personnes_à_charge
+      == 6): 10554 else: (10554 + round((346 * multiplicateur_majoration_r0), 2)))))))))
+      elif (((date_courante >= date("2024-01-01")) and (date_courante < date("2025-01-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 5186 ''Couple'' => 7430) else: (if (nombre_personnes_à_charge
+      == 1): 8862 else: (if (nombre_personnes_à_charge == 2): 9061 else: (if (nombre_personnes_à_charge
+      == 3): 9408 else: (if (nombre_personnes_à_charge == 4): 9758 else: (if (nombre_personnes_à_charge
+      == 5): 10105 else: (if (nombre_personnes_à_charge == 6): 10454 else: (10454
+      + round((343 * multiplicateur_majoration_r0), 2))))))))) elif (((date_courante
+      >= date("2022-07-01")) and (date_courante <= date("2022-12-31")))): (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 4870 ''Couple''
+      => 6977) else: (if (nombre_personnes_à_charge == 1): 8322 else: (if (nombre_personnes_à_charge
+      == 2): 8509 else: (if (nombre_personnes_à_charge == 3): 8834 else: (if (nombre_personnes_à_charge
+      == 4): 9163 else: (if (nombre_personnes_à_charge == 5): 9488 else: (if (nombre_personnes_à_charge
+      == 6): 9816 else: (9816 + round((323 * multiplicateur_majoration_r0), 2)))))))))
+      elif (((date_courante >= date("2023-01-01")) and (date_courante <= date("2023-12-31")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 4949 ''Couple'' => 7090) else: (if (nombre_personnes_à_charge
+      == 1): 8456 else: (if (nombre_personnes_à_charge == 2): 8646 else: (if (nombre_personnes_à_charge
+      == 3): 8977 else: (if (nombre_personnes_à_charge == 4): 9311 else: (if (nombre_personnes_à_charge
+      == 5): 9642 else: (if (nombre_personnes_à_charge == 6): 9975 else: (9975 + round((328
+      * multiplicateur_majoration_r0), 2))))))))) elif (((date_courante >= date("2022-01-01"))
+      and (date_courante < date("2022-07-01")))): (if (nombre_personnes_à_charge ==
+      0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 4683 ''Couple''
+      => 6709) else: (if (nombre_personnes_à_charge == 1): 8002 else: (if (nombre_personnes_à_charge
+      == 2): 8192 else: (if (nombre_personnes_à_charge == 3): 8495 else: (if (nombre_personnes_à_charge
+      == 4): 8811 else: (if (nombre_personnes_à_charge == 5): 9124 else: (if (nombre_personnes_à_charge
+      == 6): 9439 else: (9439 + round((311 * multiplicateur_majoration_r0), 2)))))))))
+      elif (((date_courante < date("2022-01-01")) and (date_courante >= date("2020-01-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 4588 ''Couple'' => 6572) else: (if (nombre_personnes_à_charge
+      == 1): 7839 else: (if (nombre_personnes_à_charge == 2): 8015 else: (if (nombre_personnes_à_charge
+      == 3): 8322 else: (if (nombre_personnes_à_charge == 4): 8631 else: (if (nombre_personnes_à_charge
+      == 5): 8938 else: (if (nombre_personnes_à_charge == 6): 9246 else: (9246 + round((305
+      * (nombre_personnes_à_charge - 6)), 2))))))))))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: aide_finale_après_traitement
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (round(((traitement_aide_finale_de_aide_finale_formule_initiale
+      - contributions_sociales_montant_de_valeur_112) - 0.5)) >= 0): round(((traitement_aide_finale_de_aide_finale_formule_initiale
+      - contributions_sociales_montant_de_valeur_112) - 0.5)) else: 0)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: aide_finale_formule_initiale
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((loyer_éligible + montant_forfaitaire_charges_d823_16) - participation_personnelle)
+      < 0): 0 else: ((loyer_éligible + montant_forfaitaire_charges_d823_16) - participation_personnelle))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Judgment
+  kind: input
+  name: bénéficiaire_aide_adulte_ou_enfant_handicapés
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Judgment
+  kind: input
+  name: colocation
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Date
+  kind: derived
+  name: contributions_sociales_date_courante
+  source: Secteur locatif
+  source_document: sources/aides_logement/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: date_courante
+- catala_scope: ContributionsSocialesAidesPersonnelleLogement
+  dtype: Judgment
+  kind: derived
+  name: contributions_sociales_exonéré_csg
+  source: Article L136-1-3 | LEGIARTI000045232415
+  source_document: sources/aides_logement/code_sécurité_sociale.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: !!str true
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Text
+  kind: derived
+  name: contributions_sociales_lieu
+  source: Secteur locatif
+  source_document: sources/aides_logement/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: résidence
+- catala_scope: ContributionsSocialesAidesPersonnelleLogement
+  dtype: Money
+  kind: derived
+  name: contributions_sociales_montant_de_valeur_112
+  source: Article 14 | LEGIARTI000038834962; Article LO6414-1 | LEGIARTI000006394300
+  source_document: sources/aides_logement/autres_sources.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((contributions_sociales_date_courante >= date("2007-02-22")) and
+      (contributions_sociales_lieu == ''SaintPierreEtMiquelon''))): 0 elif ((contributions_sociales_date_courante
+      >= date("2018-09-01"))): round((traitement_aide_finale_de_aide_finale_formule_initiale
+      * contributions_sociales_taux_crds), 2))'
+- catala_scope: ContributionsSocialesAidesPersonnelleLogement
+  dtype: Money
+  kind: derived
+  name: contributions_sociales_montant_de_valeur_7375
+  source: Article 14 | LEGIARTI000038834962; Article LO6414-1 | LEGIARTI000006394300
+  source_document: sources/aides_logement/autres_sources.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((contributions_sociales_date_courante >= date("2007-02-22")) and
+      (contributions_sociales_lieu == ''SaintPierreEtMiquelon''))): 0 elif ((contributions_sociales_date_courante
+      >= date("2018-09-01"))): round((traitement_aide_finale_minoration_forfaitaire_de_aide_finale_formule_initiale
+      * contributions_sociales_taux_crds), 2))'
+- catala_scope: ContributionsSocialesAidesPersonnelleLogement
+  dtype: Decimal
+  kind: derived
+  name: contributions_sociales_taux_crds
+  source: Article 19 | LEGIARTI000041466982
+  source_document: sources/aides_logement/autres_sources.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((contributions_sociales_date_courante >= date("2020-01-01"))):
+      0.005)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Date
+  kind: input
+  name: date_courante
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: fraction_l832_3
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: !!str 0.98
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Judgment
+  kind: input
+  name: logement_est_chambre
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Judgment
+  kind: input
+  name: logement_meublé_d842_2
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: loyer_principal
+  source: Article D842-2 | LEGIARTI000038878685
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if logement_meublé_d842_2: round((loyer_principal_base * (2.0 / 3.0)),
+      2) else: loyer_principal_base)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: input
+  name: loyer_principal_base
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: loyer_référence
+  source: Article 14 | LEGIARTI000052233852; Article 14 | LEGIARTI000048109301 [archive];
+    Article 14 | LEGIARTI000046206208 [archive]; Article 14 | LEGIARTI000044137420
+    [archive]; Article 14 | LEGIARTI000042378440 [archive]; Article 14 | LEGIARTI000050286630
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 290.34 ''Couple''
+      => 355.38) else: (399.89 + round((58.21 * multiplicateur_majoration_loyer_référence),
+      2))) elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 278.28 ''Couple'' => 340.62) else: (383.28 + round((55.79
+      * multiplicateur_majoration_loyer_référence), 2))) elif (((date_courante >=
+      date("2022-07-01")) and (date_courante < date("2023-10-01")))): (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 268.87 ''Couple''
+      => 329.1) else: (370.32 + round((53.9 * multiplicateur_majoration_loyer_référence),
+      2))) elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 259.78 ''Couple'' => 317.97) else: (357.8 + round((52.08
+      * multiplicateur_majoration_loyer_référence), 2))) elif (((date_courante >=
+      date("2020-10-01")) and (date_courante < date("2021-10-01")))): (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 258.69 ''Couple''
+      => 316.64) else: (356.3 + round((51.86 * multiplicateur_majoration_loyer_référence),
+      2))) elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 287.35 ''Couple'' => 351.72) else: (395.77 + round((57.61
+      * multiplicateur_majoration_loyer_référence), 2))))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: loyer_éligible
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (loyer_principal > plafond_loyer_d823_16_2): plafond_loyer_d823_16_2
+      else: loyer_principal)'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: montant_forfaitaire_charges_d823_16
+  source: Article 9 | LEGIARTI000052233864; Article 16 | LEGIARTI000052233845; Article
+    46 | LEGIARTI000052233795; Article 9 | LEGIARTI000048109307 [archive]; Article
+    16 | LEGIARTI000048109298 [archive]; Article 46 | LEGIARTI000050286587 [archive];
+    Article 46 | LEGIARTI000048656243; Article 46 | LEGIARTI000048109272 [archive];
+    Article 46 | LEGIARTI000046834756 [archive]; Article 9 | LEGIARTI000046206211
+    [archive]; Article 16 | LEGIARTI000046206205 [archive]; Article 46 | LEGIARTI000046206183
+    [archive]; Article 46 | LEGIARTI000045011463 [archive]; Article 9 | LEGIARTI000044137426
+    [archive]; Article 16 | LEGIARTI000044137417 [archive]; Article 46 | LEGIARTI000044137389
+    [archive]; Article 9 | LEGIARTI000042378444 [archive]; Article 16 | LEGIARTI000042378438
+    [archive]; Article 46 | LEGIARTI000042378415 [archive]; Article 46 | LEGIARTI000041489188
+    [archive]; Article 9 | LEGIARTI000050286639 [archive]; Article 16 | LEGIARTI000050286625
+    [archive]; Article 46 | LEGIARTI000050931798 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01")) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and colocation)): ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 20.93 ''Couple'' => 40.68) + round((10.47 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      colocation)): ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 20.71
+      ''Couple'' => 40.26) + round((10.36 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2024-01-01")) and (date_courante < date("2024-10-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      colocation)): ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 20.06
+      ''Couple'' => 38.99) + round((10.03 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2023-10-01")) and (date_courante <= date("2023-12-31")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      colocation)): ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 20.06
+      ''Couple'' => 38.99) + round((10.03 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2023-01-01")) and (date_courante < date("2023-10-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      colocation)): ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 19.38
+      ''Couple'' => 37.67) + round((9.69 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-01-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (((match situation_familiale_calcul_apl: ''PersonneSeule'' => 19.38 ''Couple''
+      => 37.67) + round((9.69 * nombre_personnes_à_charge), 2)) > ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 19.38 ''Couple'' => 37.67) + round((9.69 * 6.0), 2))):
+      ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 19.38 ''Couple''
+      => 37.67) + round((9.69 * 6.0), 2)) else: ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 19.38 ''Couple'' => 37.67) + round((9.69 * nombre_personnes_à_charge),
+      2))) elif (((date_courante >= date("2022-01-01")) and (date_courante < date("2022-07-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (((match situation_familiale_calcul_apl: ''PersonneSeule'' => 18.72 ''Couple''
+      => 36.4) + round((9.36 * nombre_personnes_à_charge), 2)) > ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 18.72 ''Couple'' => 36.4) + round((9.36 * 6.0), 2))): ((match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 18.72 ''Couple'' => 36.4)
+      + round((9.36 * 6.0), 2)) else: ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 18.72 ''Couple'' => 36.4) + round((9.36 * nombre_personnes_à_charge), 2)))
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-01-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (((match situation_familiale_calcul_apl: ''PersonneSeule'' => 18.72 ''Couple''
+      => 36.4) + round((9.36 * nombre_personnes_à_charge), 2)) > ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 18.72 ''Couple'' => 36.4) + round((9.36 * 6.0), 2))): ((match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 18.72 ''Couple'' => 36.4)
+      + round((9.36 * 6.0), 2)) else: ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 18.72 ''Couple'' => 36.4) + round((9.36 * nombre_personnes_à_charge), 2)))
+      elif (((date_courante >= date("2020-10-01")) and (date_courante < date("2021-10-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (((match situation_familiale_calcul_apl: ''PersonneSeule'' => 18.64 ''Couple''
+      => 36.25) + round((9.32 * nombre_personnes_à_charge), 2)) > ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 18.64 ''Couple'' => 36.25) + round((9.32 * 6.0), 2))):
+      ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 18.64 ''Couple''
+      => 36.25) + round((9.32 * 6.0), 2)) else: ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 18.64 ''Couple'' => 36.25) + round((9.32 * nombre_personnes_à_charge),
+      2))) elif (((date_courante >= date("2020-01-01")) and (date_courante < date("2020-10-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (((match situation_familiale_calcul_apl: ''PersonneSeule'' => 18.58 ''Couple''
+      => 36.14) + round((9.29 * nombre_personnes_à_charge), 2)) > ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 18.58 ''Couple'' => 36.14) + round((9.29 * 6.0), 2))):
+      ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 18.58 ''Couple''
+      => 36.14) + round((9.29 * 6.0), 2)) else: ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 18.58 ''Couple'' => 36.14) + round((9.29 * nombre_personnes_à_charge),
+      2))) elif (((date_courante >= date("2025-01-01")) and (date_courante < date("2025-10-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      colocation)): ((match situation_familiale_calcul_apl: ''PersonneSeule'' => 20.71
+      ''Couple'' => 40.26) + round((10.36 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2025-10-01")) and colocation)): ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 30.29 ''Couple'' => 60.59) + round((13.74 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2023-10-01")) and ((date_courante < date("2024-10-01"))
+      and colocation))): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 29.03 ''Couple'' => 58.08) + round((13.17 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2022-07-01")) and ((date_courante < date("2023-10-01"))
+      and colocation))): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 28.05 ''Couple'' => 56.12) + round((12.72 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2021-10-01")) and ((date_courante < date("2022-07-01"))
+      and colocation))): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 27.1 ''Couple'' => 54.22) + round((12.29 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante < date("2021-10-01")) and ((date_courante >= date("2020-10-01"))
+      and colocation))): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 26.99 ''Couple'' => 53.99) + round((12.24 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2024-10-01")) and ((date_courante < date("2025-10-01"))
+      and colocation))): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 29.98 ''Couple'' => 59.97) + round((13.6 * multiplicateur_majoration_charges_d823_16),
+      2)) elif ((date_courante >= date("2025-10-01")) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (40.68 + round((10.47 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-01-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (40.26
+      + round((10.36 * multiplicateur_majoration_charges_d823_16), 2)) elif (((date_courante
+      >= date("2024-01-01")) and (date_courante < date("2024-10-01"))) and ((résidence
+      == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence == ''Martinique'')
+      or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (38.99 + round((10.03
+      * multiplicateur_majoration_charges_d823_16), 2)) elif (((date_courante >= date("2023-10-01"))
+      and (date_courante <= date("2023-12-31"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (38.99 + round((10.03 * multiplicateur_majoration_charges_d823_16),
+      2)) elif (((date_courante >= date("2023-01-01")) and (date_courante < date("2023-10-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (37.67
+      + round((9.69 * multiplicateur_majoration_charges_d823_16), 2)) elif (((date_courante
+      >= date("2022-07-01")) and (date_courante < date("2023-01-01"))) and ((résidence
+      == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence == ''Martinique'')
+      or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if ((37.67 + round((9.69
+      * nombre_personnes_à_charge), 2)) > (37.67 + round((9.69 * 6.0), 2))): (37.67
+      + round((9.69 * 6.0), 2)) else: (37.67 + round((9.69 * nombre_personnes_à_charge),
+      2))) elif (((date_courante >= date("2022-01-01")) and (date_courante < date("2022-07-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      ((36.4 + round((9.36 * nombre_personnes_à_charge), 2)) > (36.4 + round((9.36
+      * 6.0), 2))): (36.4 + round((9.36 * 6.0), 2)) else: (36.4 + round((9.36 * nombre_personnes_à_charge),
+      2))) elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-01-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      ((36.4 + round((9.36 * nombre_personnes_à_charge), 2)) > (36.4 + round((9.36
+      * 6.0), 2))): (36.4 + round((9.36 * 6.0), 2)) else: (36.4 + round((9.36 * nombre_personnes_à_charge),
+      2))) elif (((date_courante >= date("2020-10-01")) and (date_courante < date("2021-10-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      ((36.25 + round((9.32 * nombre_personnes_à_charge), 2)) > (36.25 + round((9.32
+      * 6.0), 2))): (36.25 + round((9.32 * 6.0), 2)) else: (36.25 + round((9.32 *
+      nombre_personnes_à_charge), 2))) elif (((date_courante >= date("2020-01-01"))
+      and (date_courante < date("2020-10-01"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if ((36.14 + round((9.29 * nombre_personnes_à_charge),
+      2)) > (36.14 + round((9.29 * 6.0), 2))): (36.14 + round((9.29 * 6.0), 2)) else:
+      (36.14 + round((9.29 * nombre_personnes_à_charge), 2))) elif (((date_courante
+      >= date("2025-01-01")) and (date_courante < date("2025-10-01"))) and ((résidence
+      == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence == ''Martinique'')
+      or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence
+      == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (40.26 + round((10.36
+      * multiplicateur_majoration_charges_d823_16), 2)) elif ((date_courante >= date("2025-10-01"))):
+      (60.59 + round((13.74 * multiplicateur_majoration_charges_d823_16), 2)) elif
+      (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))):
+      (58.08 + round((13.17 * multiplicateur_majoration_charges_d823_16), 2)) elif
+      (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))):
+      (56.12 + round((12.72 * multiplicateur_majoration_charges_d823_16), 2)) elif
+      (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))):
+      (54.22 + round((12.29 * multiplicateur_majoration_charges_d823_16), 2)) elif
+      (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))):
+      (53.99 + round((12.24 * multiplicateur_majoration_charges_d823_16), 2)) elif
+      (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))):
+      (59.97 + round((13.6 * multiplicateur_majoration_charges_d823_16), 2)))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: montant_forfaitaire_d823_16
+  source: Article 11 | LEGIARTI000039160747
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 5)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: montant_minimal_aide_d823_16
+  source: Article 12 | LEGIARTI000039160749
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): (match type_aide: ''AidePersonnaliséeLogement''
+      => 0 ''AllocationLogementFamiliale'' => 10 ''AllocationLogementSociale'' =>
+      10))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: multiplicateur_majoration_charges_d823_16
+  source: Article 9 | LEGIARTI000052233864; Article 9 | LEGIARTI000048109307 [archive];
+    Article 9 | LEGIARTI000046206211 [archive]; Article 9 | LEGIARTI000044137426 [archive];
+    Article 9 | LEGIARTI000042378444 [archive]; Article 9 | LEGIARTI000050286639 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): nombre_personnes_à_charge
+      elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))):
+      nombre_personnes_à_charge elif (((date_courante >= date("2022-07-01")) and (date_courante
+      < date("2023-10-01")))): nombre_personnes_à_charge elif (((date_courante >=
+      date("2021-10-01")) and (date_courante < date("2022-07-01")))): nombre_personnes_à_charge
+      elif (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))):
+      nombre_personnes_à_charge elif (((date_courante >= date("2024-10-01")) and (date_courante
+      < date("2025-10-01")))): nombre_personnes_à_charge)'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: multiplicateur_majoration_loyer_référence
+  source: Article 14 | LEGIARTI000052233852; Article 14 | LEGIARTI000048109301 [archive];
+    Article 14 | LEGIARTI000046206208 [archive]; Article 46 | LEGIARTI000046206183
+    [archive]; Article 46 | LEGIARTI000045011463 [archive]; Article 14 | LEGIARTI000044137420
+    [archive]; Article 46 | LEGIARTI000044137389 [archive]; Article 14 | LEGIARTI000042378440
+    [archive]; Article 46 | LEGIARTI000042378415 [archive]; Article 46 | LEGIARTI000041489188
+    [archive]; Article 14 | LEGIARTI000050286630 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 5.0 elif (((date_courante >= date("2022-01-01"))
+      and (date_courante < date("2022-07-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge >= 6))): 5.0
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 5.0 elif (((date_courante >= date("2020-10-01"))
+      and (date_courante < date("2021-10-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge >= 6))): 5.0
+      elif (((date_courante >= date("2020-01-01")) and (date_courante < date("2020-10-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 5.0 elif ((date_courante >= date("2025-10-01"))):
+      (nombre_personnes_à_charge - 1) elif (((date_courante >= date("2023-10-01"))
+      and (date_courante < date("2024-10-01")))): (nombre_personnes_à_charge - 1)
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))):
+      (nombre_personnes_à_charge - 1) elif (((date_courante >= date("2021-10-01"))
+      and (date_courante < date("2022-07-01")))): (nombre_personnes_à_charge - 1)
+      elif (((date_courante >= date("2020-10-01")) and (date_courante < date("2021-10-01")))):
+      (nombre_personnes_à_charge - 1) elif (((date_courante >= date("2024-10-01"))
+      and (date_courante < date("2025-10-01")))): (nombre_personnes_à_charge - 1))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: multiplicateur_majoration_plafond_loyer_d823_16_2
+  source: Article 7 | LEGIARTI000052233874; Article 7 | LEGIARTI000048109313; Article
+    7 | LEGIARTI000046206217 [archive]; Article 46 | LEGIARTI000046206183 [archive];
+    Article 46 | LEGIARTI000045011463 [archive]; Article 7 | LEGIARTI000044137432
+    [archive]; Article 16 | LEGIARTI000044137417 [archive]; Article 46 | LEGIARTI000044137389
+    [archive]; Article 7 | LEGIARTI000042378448 [archive]; Article 16 | LEGIARTI000042378438
+    [archive]; Article 46 | LEGIARTI000042378415 [archive]; Article 46 | LEGIARTI000041489188
+    [archive]; Article 7 | LEGIARTI000050286647 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 5.0 elif (((date_courante >= date("2022-01-01"))
+      and (date_courante < date("2022-07-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge >= 6))): 5.0
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 5.0 elif (((date_courante >= date("2020-10-01"))
+      and (date_courante < date("2021-10-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge >= 6))): 5.0
+      elif (((date_courante >= date("2020-01-01")) and (date_courante < date("2020-10-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 5.0 elif ((date_courante >= date("2025-10-01"))):
+      (nombre_personnes_à_charge - 1) elif (((date_courante >= date("2023-10-01"))
+      and (date_courante < date("2024-10-01")))): (nombre_personnes_à_charge - 1)
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))):
+      (nombre_personnes_à_charge - 1) elif (((date_courante >= date("2021-10-01"))
+      and (date_courante < date("2022-07-01")))): (nombre_personnes_à_charge - 1)
+      elif (((date_courante >= date("2021-10-01")) and ((date_courante < date("2022-07-01"))
+      and colocation))): (nombre_personnes_à_charge - 1) elif (((date_courante < date("2021-10-01"))
+      and (date_courante >= date("2020-10-01")))): (nombre_personnes_à_charge - 1)
+      elif (((date_courante < date("2021-10-01")) and ((date_courante >= date("2020-10-01"))
+      and colocation))): (nombre_personnes_à_charge - 1) elif (((date_courante >=
+      date("2024-10-01")) and (date_courante < date("2025-10-01")))): (nombre_personnes_à_charge
+      - 1))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: multiplicateur_majoration_r0
+  source: Article 15 | LEGIARTI000050931814; Article 15 | LEGIARTI000048656246 [archive];
+    Article 15 | LEGIARTI000046126962 [archive]; Article 46 | LEGIARTI000046206183
+    [archive]; Article 15 | LEGIARTI000046834762 [archive]; Article 15 | LEGIARTI000045011468
+    [archive]; Article 46 | LEGIARTI000045011463 [archive]; Article 46 | LEGIARTI000044137389
+    [archive]; Article 46 | LEGIARTI000042378415 [archive]; Article 15 | LEGIARTI000041489192
+    [archive]; Article 46 | LEGIARTI000041489188 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 0.0 elif (((date_courante >= date("2022-01-01"))
+      and (date_courante < date("2022-07-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge >= 6))): 0.0
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-01-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 0.0 elif (((date_courante >= date("2020-10-01"))
+      and (date_courante < date("2021-10-01"))) and (((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin'')) and (nombre_personnes_à_charge >= 6))): 0.0
+      elif (((date_courante >= date("2020-01-01")) and (date_courante < date("2020-10-01")))
+      and (((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin'')) and
+      (nombre_personnes_à_charge >= 6))): 0.0 elif ((date_courante >= date("2025-01-01"))):
+      (nombre_personnes_à_charge - 6) elif (((date_courante >= date("2024-01-01"))
+      and (date_courante < date("2025-01-01")))): (nombre_personnes_à_charge - 6)
+      elif (((date_courante >= date("2022-07-01")) and (date_courante <= date("2022-12-31")))):
+      (nombre_personnes_à_charge - 6) elif (((date_courante >= date("2023-01-01"))
+      and (date_courante <= date("2023-12-31")))): (nombre_personnes_à_charge - 6)
+      elif (((date_courante >= date("2022-01-01")) and (date_courante < date("2022-07-01")))):
+      (nombre_personnes_à_charge - 6) elif (((date_courante < date("2022-01-01"))
+      and (date_courante >= date("2020-01-01")))): (nombre_personnes_à_charge - 6))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Integer
+  kind: input
+  name: nombre_personnes_à_charge
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: participation_minimale
+  source: Article 13 | LEGIARTI000052233857; Article 13 | LEGIARTI000048109304 [archive];
+    Article 13 | LEGIARTI000046206225 [archive]; Article 13 | LEGIARTI000044137423
+    [archive]; Article 13 | LEGIARTI000042378442 [archive]; Article 13 | LEGIARTI000050286634
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): (if (round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) >= 39.56): round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) else: 39.56) elif (((date_courante
+      >= date("2023-10-01")) and (date_courante < date("2024-10-01")))): (if (round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) >= 37.91): round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) else: 37.91) elif (((date_courante
+      >= date("2022-07-01")) and (date_courante < date("2023-10-01")))): (if (round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) >= 36.63): round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) else: 36.63) elif (((date_courante
+      >= date("2021-10-01")) and (date_courante < date("2022-07-01")))): (if (round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) >= 35.39): round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) else: 35.39) elif (((date_courante
+      < date("2021-10-01")) and (date_courante >= date("2020-10-01")))): (if (round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) >= 35.24): round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) else: 35.24) elif (((date_courante
+      >= date("2024-10-01")) and (date_courante < date("2025-10-01")))): (if (round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) >= 39.15): round(((loyer_éligible
+      + montant_forfaitaire_charges_d823_16) * 0.085), 2) else: 39.15))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: participation_personnelle
+  source: Article D823-17 | LEGIARTI000041419255
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(participation_minimale + (if (round(((ressources_ménage_arrondies -
+      abattement_forfaitaire_d823_17) * taux_prise_compte_ressources), 2) < 0): 0
+      else: round(((ressources_ménage_arrondies - abattement_forfaitaire_d823_17)
+      * taux_prise_compte_ressources), 2)))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: plafond_dégressivité_d823_16
+  source: Article 10 | LEGIARTI000039160745
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): (match zone: ''Zone1''
+      => round((plafond_loyer_d823_16_2 * 3.4), 2) ''Zone2'' => round((plafond_loyer_d823_16_2
+      * 2.5), 2) ''Zone3'' => round((plafond_loyer_d823_16_2 * 2.5), 2)))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: plafond_loyer_d823_16_2
+  source: Article 7 | LEGIARTI000052233874; Article 8 | LEGIARTI000052233869; Article
+    16 | LEGIARTI000052233845; Article 7 | LEGIARTI000048109313; Article 8 | LEGIARTI000048109310
+    [archive]; Article 16 | LEGIARTI000048109298 [archive]; Article 7 | LEGIARTI000046206217
+    [archive]; Article 8 | LEGIARTI000046206214 [archive]; Article 16 | LEGIARTI000046206205
+    [archive]; Article 7 | LEGIARTI000044137432 [archive]; Article 8 | LEGIARTI000044137429
+    [archive]; Article 16 | LEGIARTI000044137417 [archive]; Article 7 | LEGIARTI000042378448
+    [archive]; Article 8 | LEGIARTI000042378446 [archive]; Article 16 | LEGIARTI000042378438
+    [archive]; Article 7 | LEGIARTI000050286647 [archive]; Article 8 | LEGIARTI000050286643
+    [archive]; Article 16 | LEGIARTI000050286625 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((date_courante >= date("2025-10-01")) and logement_est_chambre)
+      and âgées_ou_handicap_adultes_hébergées_onéreux_particuliers): (match zone:
+      ''Zone1'' => 249.86 ''Zone2'' => 217.76 ''Zone3'' => 204.09) elif (((date_courante
+      >= date("2023-10-01")) and ((date_courante < date("2024-10-01")) and logement_est_chambre))
+      and âgées_ou_handicap_adultes_hébergées_onéreux_particuliers): (match zone:
+      ''Zone1'' => 239.48 ''Zone2'' => 208.71 ''Zone3'' => 195.62) elif (((date_courante
+      >= date("2022-07-01")) and ((date_courante < date("2023-10-01")) and logement_est_chambre))
+      and âgées_ou_handicap_adultes_hébergées_onéreux_particuliers): (match zone:
+      ''Zone1'' => 231.38 ''Zone2'' => 201.65 ''Zone3'' => 189) elif (((date_courante
+      >= date("2021-10-01")) and ((date_courante < date("2022-07-01")) and logement_est_chambre))
+      and âgées_ou_handicap_adultes_hébergées_onéreux_particuliers): (match zone:
+      ''Zone1'' => 223.55 ''Zone2'' => 194.84 ''Zone3'' => 182.61) elif (((date_courante
+      < date("2021-10-01")) and ((date_courante >= date("2020-10-01")) and logement_est_chambre))
+      and âgées_ou_handicap_adultes_hébergées_onéreux_particuliers): (match zone:
+      ''Zone1'' => 222.62 ''Zone2'' => 194.02 ''Zone3'' => 181.85) elif (((date_courante
+      >= date("2024-10-01")) and (logement_est_chambre and (date_courante < date("2025-10-01"))))
+      and âgées_ou_handicap_adultes_hébergées_onéreux_particuliers): (match zone:
+      ''Zone1'' => 247.28 ''Zone2'' => 215.51 ''Zone3'' => 201.99) elif (((date_courante
+      >= date("2025-10-01")) and logement_est_chambre)): (match zone: ''Zone1'' =>
+      299.83 ''Zone2'' => 261.31 ''Zone3'' => 244.91) elif (((date_courante >= date("2023-10-01"))
+      and ((date_courante < date("2024-10-01")) and logement_est_chambre))): (match
+      zone: ''Zone1'' => 287.37 ''Zone2'' => 250.45 ''Zone3'' => 234.74) elif (((date_courante
+      >= date("2022-07-01")) and ((date_courante < date("2023-10-01")) and logement_est_chambre))):
+      (match zone: ''Zone1'' => 277.65 ''Zone2'' => 241.98 ''Zone3'' => 226.8) elif
+      (((date_courante >= date("2021-10-01")) and ((date_courante < date("2022-07-01"))
+      and logement_est_chambre))): (match zone: ''Zone1'' => 268.26 ''Zone2'' => 233.8
+      ''Zone3'' => 219.13) elif (((date_courante < date("2021-10-01")) and ((date_courante
+      >= date("2020-10-01")) and logement_est_chambre))): (match zone: ''Zone1'' =>
+      267.14 ''Zone2'' => 232.82 ''Zone3'' => 218.21) elif (((date_courante >= date("2024-10-01"))
+      and (logement_est_chambre and (date_courante < date("2025-10-01"))))): (match
+      zone: ''Zone1'' => 296.74 ''Zone2'' => 258.62 ''Zone3'' => 242.39) elif (((date_courante
+      >= date("2025-10-01")) and colocation) and ((situation_familiale_calcul_apl
+      == ''PersonneSeule'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 249.86 ''Zone2'' => 217.76 ''Zone3'' => 204.09) elif (((date_courante >=
+      date("2025-10-01")) and colocation) and ((situation_familiale_calcul_apl ==
+      ''Couple'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1'' =>
+      301.34 ''Zone2'' => 266.54 ''Zone3'' => 247.41) elif (((date_courante >= date("2025-10-01"))
+      and colocation) and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1''
+      => (340.58 + round((49.42 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2)) ''Zone2'' => (299.92 + round((43.66 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2)) ''Zone3'' => (277.41 + round((39.76 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2023-10-01")) and ((date_courante < date("2024-10-01"))
+      and colocation)) and ((situation_familiale_calcul_apl == ''PersonneSeule'')
+      and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1'' => 239.48 ''Zone2''
+      => 208.71 ''Zone3'' => 195.62) elif (((date_courante >= date("2023-10-01"))
+      and ((date_courante < date("2024-10-01")) and colocation)) and ((situation_familiale_calcul_apl
+      == ''Couple'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 288.82 ''Zone2'' => 255.47 ''Zone3'' => 237.13) elif (((date_courante >=
+      date("2023-10-01")) and ((date_courante < date("2024-10-01")) and colocation))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (326.43 + round((47.36
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (287.46
+      + round((41.84 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (265.88 + round((38.11 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2022-07-01")) and ((date_courante < date("2023-10-01"))
+      and colocation)) and ((situation_familiale_calcul_apl == ''PersonneSeule'')
+      and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1'' => 231.38 ''Zone2''
+      => 201.65 ''Zone3'' => 189) elif (((date_courante >= date("2022-07-01")) and
+      ((date_courante < date("2023-10-01")) and colocation)) and ((situation_familiale_calcul_apl
+      == ''Couple'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 279.05 ''Zone2'' => 246.83 ''Zone3'' => 229.11) elif (((date_courante >=
+      date("2022-07-01")) and ((date_courante < date("2023-10-01")) and colocation))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (315.39 + round((45.76
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (277.74
+      + round((40.43 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (256.89 + round((36.82 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2021-10-01")) and ((date_courante < date("2022-07-01"))
+      and colocation)) and ((situation_familiale_calcul_apl == ''PersonneSeule'')
+      and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1'' => 223.55 ''Zone2''
+      => 194.84 ''Zone3'' => 182.61) elif (((date_courante >= date("2021-10-01"))
+      and ((date_courante < date("2022-07-01")) and colocation)) and ((situation_familiale_calcul_apl
+      == ''Couple'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 269.62 ''Zone2'' => 238.48 ''Zone3'' => 221.36) elif (((date_courante >=
+      date("2021-10-01")) and ((date_courante < date("2022-07-01")) and colocation))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (304.73 + round((44.21
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (268.35
+      + round((39.06 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (248.21 + round((35.57 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante < date("2021-10-01")) and ((date_courante >= date("2020-10-01"))
+      and colocation)) and ((situation_familiale_calcul_apl == ''PersonneSeule'')
+      and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1'' => 222.62 ''Zone2''
+      => 194.02 ''Zone3'' => 181.85) elif (((date_courante < date("2021-10-01")) and
+      ((date_courante >= date("2020-10-01")) and colocation)) and ((situation_familiale_calcul_apl
+      == ''Couple'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 268.49 ''Zone2'' => 237.48 ''Zone3'' => 220.44) elif (((date_courante < date("2021-10-01"))
+      and ((date_courante >= date("2020-10-01")) and colocation)) and (nombre_personnes_à_charge
+      >= 1)): (match zone: ''Zone1'' => (303.45 + round((44.03 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2)) ''Zone2'' => (267.23 + round((38.9 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2)) ''Zone3'' => (247.17 + round((35.42 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2024-10-01")) and ((date_courante < date("2025-10-01"))
+      and colocation)) and ((situation_familiale_calcul_apl == ''PersonneSeule'')
+      and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1'' => 247.28 ''Zone2''
+      => 215.51 ''Zone3'' => 201.99) elif (((date_courante >= date("2024-10-01"))
+      and ((date_courante < date("2025-10-01")) and colocation)) and ((situation_familiale_calcul_apl
+      == ''Couple'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 298.23 ''Zone2'' => 263.79 ''Zone3'' => 244.86) elif (((date_courante >=
+      date("2024-10-01")) and ((date_courante < date("2025-10-01")) and colocation))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (337.07 + round((48.91
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (296.83
+      + round((43.21 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (274.55 + round((39.35 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif ((date_courante >= date("2025-10-01")) and ((situation_familiale_calcul_apl
+      == ''PersonneSeule'') and (nombre_personnes_à_charge == 0))): (match zone: ''Zone1''
+      => 333.14 ''Zone2'' => 290.34 ''Zone3'' => 272.12) elif ((date_courante >= date("2025-10-01"))
+      and ((situation_familiale_calcul_apl == ''Couple'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 401.78 ''Zone2'' => 355.38 ''Zone3'' => 329.88)
+      elif ((date_courante >= date("2025-10-01")) and (nombre_personnes_à_charge >=
+      1)): (match zone: ''Zone1'' => (454.1 + round((65.89 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2)) ''Zone2'' => (399.89 + round((58.21 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2)) ''Zone3'' => (369.88 + round((53.01 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))
+      and ((situation_familiale_calcul_apl == ''PersonneSeule'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 319.3 ''Zone2'' => 278.28 ''Zone3'' => 260.82)
+      elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))
+      and ((situation_familiale_calcul_apl == ''Couple'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 385.09 ''Zone2'' => 340.62 ''Zone3'' => 316.17)
+      elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (435.24 + round((63.15
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (383.28
+      + round((55.79 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (354.51 + round((50.81 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))
+      and ((situation_familiale_calcul_apl == ''PersonneSeule'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 308.5 ''Zone2'' => 268.87 ''Zone3'' => 252)
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))
+      and ((situation_familiale_calcul_apl == ''Couple'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 372.07 ''Zone2'' => 329.1 ''Zone3'' => 305.48)
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (420.52 + round((61.01
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (370.32
+      + round((53.9 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (342.52 + round((49.09 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))
+      and ((situation_familiale_calcul_apl == ''PersonneSeule'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 298.07 ''Zone2'' => 259.78 ''Zone3'' => 243.48)
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))
+      and ((situation_familiale_calcul_apl == ''Couple'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 359.49 ''Zone2'' => 317.97 ''Zone3'' => 295.15)
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (406.3 + round((58.95
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (357.8
+      + round((52.08 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (330.94 + round((47.43 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))
+      and ((situation_familiale_calcul_apl == ''PersonneSeule'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 296.82 ''Zone2'' => 258.59 ''Zone3'' => 242.46)
+      elif (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))
+      and ((situation_familiale_calcul_apl == ''Couple'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 357.99 ''Zone2'' => 316.64 ''Zone3'' => 293.92)
+      elif (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (404.6 + round((58.7
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (356.3
+      + round((51.86 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (329.56 + round((47.23 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))) elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))
+      and ((situation_familiale_calcul_apl == ''PersonneSeule'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 329.71 ''Zone2'' => 287.35 ''Zone3'' => 269.32)
+      elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))
+      and ((situation_familiale_calcul_apl == ''Couple'') and (nombre_personnes_à_charge
+      == 0))): (match zone: ''Zone1'' => 397.64 ''Zone2'' => 351.72 ''Zone3'' => 326.48)
+      elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))
+      and (nombre_personnes_à_charge >= 1)): (match zone: ''Zone1'' => (449.43 + round((65.21
+      * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone2'' => (395.77
+      + round((57.61 * multiplicateur_majoration_plafond_loyer_d823_16_2), 2)) ''Zone3''
+      => (366.07 + round((52.47 * multiplicateur_majoration_plafond_loyer_d823_16_2),
+      2))))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  name: plafond_suppression_d823_16
+  source: Article 10 | LEGIARTI000039160745
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): (match zone: ''Zone1''
+      => round((plafond_loyer_d823_16_2 * 4.0), 2) ''Zone2'' => round((plafond_loyer_d823_16_2
+      * 3.1), 2) ''Zone3'' => round((plafond_loyer_d823_16_2 * 3.1), 2)))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: rapport_loyers
+  source: Article 14 | LEGIARTI000052233852; Article 14 | LEGIARTI000048109301 [archive];
+    Article 14 | LEGIARTI000046206208 [archive]; Article 14 | LEGIARTI000044137420
+    [archive]; Article 14 | LEGIARTI000042378440 [archive]; Article 14 | LEGIARTI000050286630
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): (round(((loyer_éligible
+      / loyer_référence) * 10000.0)) / 10000.0) elif (((date_courante >= date("2023-10-01"))
+      and (date_courante < date("2024-10-01")))): (round(((loyer_éligible / loyer_référence)
+      * 10000.0)) / 10000.0) elif (((date_courante >= date("2022-07-01")) and (date_courante
+      < date("2023-10-01")))): (round(((loyer_éligible / loyer_référence) * 10000.0))
+      / 10000.0) elif (((date_courante >= date("2021-10-01")) and (date_courante <
+      date("2022-07-01")))): (round(((loyer_éligible / loyer_référence) * 10000.0))
+      / 10000.0) elif (((date_courante >= date("2020-10-01")) and (date_courante <
+      date("2021-10-01")))): (round(((loyer_éligible / loyer_référence) * 10000.0))
+      / 10000.0) elif (((date_courante >= date("2024-10-01")) and (date_courante <
+      date("2025-10-01")))): (round(((loyer_éligible / loyer_référence) * 10000.0))
+      / 10000.0))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: input
+  name: ressources_ménage_arrondies
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: input
+  name: réduction_loyer_solidarité
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Text
+  kind: input
+  name: résidence
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Text
+  kind: input
+  name: situation_familiale_calcul_apl
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: taux_composition_familiale
+  source: Article 14 | LEGIARTI000052233852; Article 46 | LEGIARTI000052233795; Article
+    14 | LEGIARTI000048109301 [archive]; Article 46 | LEGIARTI000050286587 [archive];
+    Article 46 | LEGIARTI000048656243; Article 46 | LEGIARTI000048109272 [archive];
+    Article 46 | LEGIARTI000046834756 [archive]; Article 14 | LEGIARTI000046206208
+    [archive]; Article 46 | LEGIARTI000046206183 [archive]; Article 46 | LEGIARTI000045011463
+    [archive]; Article 14 | LEGIARTI000044137420 [archive]; Article 46 | LEGIARTI000044137389
+    [archive]; Article 14 | LEGIARTI000042378440 [archive]; Article 46 | LEGIARTI000042378415
+    [archive]; Article 46 | LEGIARTI000041489188 [archive]; Article 14 | LEGIARTI000050286630
+    [archive]; Article 46 | LEGIARTI000050931798 [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01")) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 0.0281 ''Couple'' => 0.029900000000000003)
+      else: (if (nombre_personnes_à_charge == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 2): 0.0217 else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: (if (nombre_personnes_à_charge == 6): 0.016200000000000003 else: (if (nombre_personnes_à_charge
+      == 7): 0.0167 else: (0.0167 - (0.0006 * (nombre_personnes_à_charge - 7)))))))))))
+      elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-01-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 0.0281 ''Couple'' => 0.029900000000000003) else: (if (nombre_personnes_à_charge
+      == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge == 2): 0.0217
+      else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: (if (nombre_personnes_à_charge == 6): 0.016200000000000003 else: (if (nombre_personnes_à_charge
+      == 7): 0.0167 else: (0.0167 - (0.0006 * (nombre_personnes_à_charge - 7)))))))))))
+      elif (((date_courante >= date("2024-01-01")) and (date_courante < date("2024-10-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 0.0281 ''Couple'' => 0.029900000000000003) else: (if (nombre_personnes_à_charge
+      == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge == 2): 0.0217
+      else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: (if (nombre_personnes_à_charge == 6): 0.016200000000000003 else: (if (nombre_personnes_à_charge
+      == 7): 0.0167 else: (0.0167 - (0.0006 * (nombre_personnes_à_charge - 7)))))))))))
+      elif (((date_courante >= date("2023-10-01")) and (date_courante <= date("2023-12-31")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 0.0281 ''Couple'' => 0.029900000000000003) else: (if (nombre_personnes_à_charge
+      == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge == 2): 0.0217
+      else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: (if (nombre_personnes_à_charge == 6): 0.016200000000000003 else: (if (nombre_personnes_à_charge
+      == 7): 0.0167 else: (0.0167 - (0.0006 * (nombre_personnes_à_charge - 7)))))))))))
+      elif (((date_courante >= date("2023-01-01")) and (date_courante < date("2023-10-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 0.0281 ''Couple'' => 0.029900000000000003) else: (if (nombre_personnes_à_charge
+      == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge == 2): 0.0217
+      else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: (if (nombre_personnes_à_charge == 6): 0.016200000000000003 else: (if (nombre_personnes_à_charge
+      == 7): 0.0167 else: (0.0167 - (0.0006 * (nombre_personnes_à_charge - 7)))))))))))
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-01-01")))
+      and ((résidence == ''Guadeloupe'') or (résidence == ''Guyane'') or (résidence
+      == ''Martinique'') or (résidence == ''LaRéunion'') or (résidence == ''Mayotte'')
+      or (résidence == ''SaintBarthélemy'') or (résidence == ''SaintMartin''))): (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 0.0281 ''Couple'' => 0.029900000000000003) else: (if (nombre_personnes_à_charge
+      == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge == 2): 0.0217
+      else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: 0.016200000000000003)))))) elif (((date_courante >= date("2022-01-01"))
+      and (date_courante < date("2022-07-01"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 0.0281 ''Couple'' => 0.029900000000000003)
+      else: (if (nombre_personnes_à_charge == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 2): 0.0217 else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: 0.016200000000000003)))))) elif (((date_courante >= date("2021-10-01"))
+      and (date_courante < date("2022-01-01"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 0.0281 ''Couple'' => 0.029900000000000003)
+      else: (if (nombre_personnes_à_charge == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 2): 0.0217 else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: 0.016200000000000003)))))) elif (((date_courante >= date("2020-10-01"))
+      and (date_courante < date("2021-10-01"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 0.0281 ''Couple'' => 0.029900000000000003)
+      else: (if (nombre_personnes_à_charge == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 2): 0.0217 else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: 0.016200000000000003)))))) elif (((date_courante >= date("2020-01-01"))
+      and (date_courante < date("2020-10-01"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 0.0281 ''Couple'' => 0.029900000000000003)
+      else: (if (nombre_personnes_à_charge == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 2): 0.0217 else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: 0.016200000000000003)))))) elif (((date_courante >= date("2025-01-01"))
+      and (date_courante < date("2025-10-01"))) and ((résidence == ''Guadeloupe'')
+      or (résidence == ''Guyane'') or (résidence == ''Martinique'') or (résidence
+      == ''LaRéunion'') or (résidence == ''Mayotte'') or (résidence == ''SaintBarthélemy'')
+      or (résidence == ''SaintMartin''))): (if (nombre_personnes_à_charge == 0): (match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 0.0281 ''Couple'' => 0.029900000000000003)
+      else: (if (nombre_personnes_à_charge == 1): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 2): 0.0217 else: (if (nombre_personnes_à_charge == 3): 0.0194 else: (if (nombre_personnes_à_charge
+      == 4): 0.018000000000000002 else: (if (nombre_personnes_à_charge == 5): 0.0169
+      else: (if (nombre_personnes_à_charge == 6): 0.016200000000000003 else: (if (nombre_personnes_à_charge
+      == 7): 0.0167 else: (0.0167 - (0.0006 * (nombre_personnes_à_charge - 7)))))))))))
+      elif ((date_courante >= date("2025-10-01"))): (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 0.028300000000000002
+      ''Couple'' => 0.0315) else: (if (nombre_personnes_à_charge == 1): 0.027000000000000003
+      else: (if (nombre_personnes_à_charge == 2): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 3): 0.020099999999999996 else: (if (nombre_personnes_à_charge == 4): 0.018500000000000003
+      else: (if (nombre_personnes_à_charge == 5): 0.0179 else: (if (nombre_personnes_à_charge
+      == 6): 0.0173 else: (0.0173 - (0.0006 * (nombre_personnes_à_charge - 6))))))))))
+      elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 0.028300000000000002 ''Couple'' => 0.0315) else: (if (nombre_personnes_à_charge
+      == 1): 0.027000000000000003 else: (if (nombre_personnes_à_charge == 2): 0.023799999999999998
+      else: (if (nombre_personnes_à_charge == 3): 0.020099999999999996 else: (if (nombre_personnes_à_charge
+      == 4): 0.018500000000000003 else: (if (nombre_personnes_à_charge == 5): 0.0179
+      else: (if (nombre_personnes_à_charge == 6): 0.0173 else: (0.0173 - (0.0006 *
+      (nombre_personnes_à_charge - 6)))))))))) elif (((date_courante >= date("2022-07-01"))
+      and (date_courante < date("2023-10-01")))): (if (nombre_personnes_à_charge ==
+      0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 0.028300000000000002
+      ''Couple'' => 0.0315) else: (if (nombre_personnes_à_charge == 1): 0.027000000000000003
+      else: (if (nombre_personnes_à_charge == 2): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 3): 0.020099999999999996 else: (if (nombre_personnes_à_charge == 4): 0.018500000000000003
+      else: (if (nombre_personnes_à_charge == 5): 0.0179 else: (if (nombre_personnes_à_charge
+      == 6): 0.0173 else: (0.0173 - (0.0006 * (nombre_personnes_à_charge - 6))))))))))
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 0.028300000000000002 ''Couple'' => 0.0315) else: (if (nombre_personnes_à_charge
+      == 1): 0.027000000000000003 else: (if (nombre_personnes_à_charge == 2): 0.023799999999999998
+      else: (if (nombre_personnes_à_charge == 3): 0.020099999999999996 else: (if (nombre_personnes_à_charge
+      == 4): 0.018500000000000003 else: (if (nombre_personnes_à_charge == 5): 0.0179
+      else: (if (nombre_personnes_à_charge == 6): 0.0173 else: (0.0173 - (0.0006 *
+      (nombre_personnes_à_charge - 6)))))))))) elif (((date_courante >= date("2020-10-01"))
+      and (date_courante < date("2021-10-01")))): (if (nombre_personnes_à_charge ==
+      0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 0.028300000000000002
+      ''Couple'' => 0.0315) else: (if (nombre_personnes_à_charge == 1): 0.027000000000000003
+      else: (if (nombre_personnes_à_charge == 2): 0.023799999999999998 else: (if (nombre_personnes_à_charge
+      == 3): 0.020099999999999996 else: (if (nombre_personnes_à_charge == 4): 0.018500000000000003
+      else: (if (nombre_personnes_à_charge == 5): 0.0179 else: (if (nombre_personnes_à_charge
+      == 6): 0.0173 else: (0.0173 - (0.0006 * (nombre_personnes_à_charge - 6))))))))))
+      elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))):
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 0.028300000000000002 ''Couple'' => 0.0315) else: (if (nombre_personnes_à_charge
+      == 1): 0.027000000000000003 else: (if (nombre_personnes_à_charge == 2): 0.023799999999999998
+      else: (if (nombre_personnes_à_charge == 3): 0.020099999999999996 else: (if (nombre_personnes_à_charge
+      == 4): 0.018500000000000003 else: (if (nombre_personnes_à_charge == 5): 0.0179
+      else: (if (nombre_personnes_à_charge == 6): 0.0173 else: (0.0173 - (0.0006 *
+      (nombre_personnes_à_charge - 6)))))))))))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: taux_loyer_éligible
+  source: Article 14 | LEGIARTI000052233852; Article 14 | LEGIARTI000048109301 [archive];
+    Article 14 | LEGIARTI000046206208 [archive]; Article 14 | LEGIARTI000044137420
+    [archive]; Article 14 | LEGIARTI000042378440 [archive]; Article 14 | LEGIARTI000050286630
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): (round((taux_loyer_éligible_formule
+      * 100000.0)) / 100000.0) elif (((date_courante >= date("2023-10-01")) and (date_courante
+      < date("2024-10-01")))): (round((taux_loyer_éligible_formule * 100000.0)) /
+      100000.0) elif (((date_courante >= date("2022-07-01")) and (date_courante <
+      date("2023-10-01")))): (round((taux_loyer_éligible_formule * 100000.0)) / 100000.0)
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))):
+      (round((taux_loyer_éligible_formule * 100000.0)) / 100000.0) elif (((date_courante
+      >= date("2020-10-01")) and (date_courante < date("2021-10-01")))): (round((taux_loyer_éligible_formule
+      * 100000.0)) / 100000.0) elif (((date_courante >= date("2024-10-01")) and (date_courante
+      < date("2025-10-01")))): (round((taux_loyer_éligible_formule * 100000.0)) /
+      100000.0))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: taux_loyer_éligible_formule
+  source: Article 14 | LEGIARTI000052233852; Article 14 | LEGIARTI000048109301 [archive];
+    Article 14 | LEGIARTI000046206208 [archive]; Article 14 | LEGIARTI000044137420
+    [archive]; Article 14 | LEGIARTI000042378440 [archive]; Article 14 | LEGIARTI000050286630
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): (if (rapport_loyers < 0.45):
+      0 else: (if ((rapport_loyers >= 0.45) and (rapport_loyers < 0.75)): (0.0045000000000000005
+      * (rapport_loyers - 0.45)) else: (if (rapport_loyers >= 0.75): ((0.0045000000000000005
+      * 0.3) + (0.0068000000000000005 * (rapport_loyers - 0.75))) else: 0.0))) elif
+      (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))):
+      (if (rapport_loyers < 0.45): 0 else: (if ((rapport_loyers >= 0.45) and (rapport_loyers
+      < 0.75)): (0.0045000000000000005 * (rapport_loyers - 0.45)) else: (if (rapport_loyers
+      >= 0.75): ((0.0045000000000000005 * 0.3) + (0.0068000000000000005 * (rapport_loyers
+      - 0.75))) else: 0.0))) elif (((date_courante >= date("2022-07-01")) and (date_courante
+      < date("2023-10-01")))): (if (rapport_loyers < 0.45): 0 else: (if ((rapport_loyers
+      >= 0.45) and (rapport_loyers < 0.75)): (0.0045000000000000005 * (rapport_loyers
+      - 0.45)) else: (if (rapport_loyers >= 0.75): ((0.0045000000000000005 * 0.3)
+      + (0.0068000000000000005 * (rapport_loyers - 0.75))) else: 0.0))) elif (((date_courante
+      >= date("2021-10-01")) and (date_courante < date("2022-07-01")))): (if (rapport_loyers
+      < 0.45): 0 else: (if ((rapport_loyers >= 0.45) and (rapport_loyers < 0.75)):
+      (0.0045000000000000005 * (rapport_loyers - 0.45)) else: (if (rapport_loyers
+      >= 0.75): ((0.0045000000000000005 * 0.3) + (0.0068000000000000005 * (rapport_loyers
+      - 0.75))) else: 0.0))) elif (((date_courante >= date("2020-10-01")) and (date_courante
+      < date("2021-10-01")))): (if (rapport_loyers < 0.45): 0 else: (if ((rapport_loyers
+      >= 0.45) and (rapport_loyers < 0.75)): (0.0045000000000000005 * (rapport_loyers
+      - 0.45)) else: (if (rapport_loyers >= 0.75): ((0.0045000000000000005 * 0.3)
+      + (0.0068000000000000005 * (rapport_loyers - 0.75))) else: 0.0))) elif (((date_courante
+      >= date("2024-10-01")) and (date_courante < date("2025-10-01")))): (if (rapport_loyers
+      < 0.45): 0 else: (if ((rapport_loyers >= 0.45) and (rapport_loyers < 0.75)):
+      (0.0045000000000000005 * (rapport_loyers - 0.45)) else: (if (rapport_loyers
+      >= 0.75): ((0.0045000000000000005 * 0.3) + (0.0068000000000000005 * (rapport_loyers
+      - 0.75))) else: 0.0))))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Decimal
+  kind: derived
+  name: taux_prise_compte_ressources
+  source: Article D823-17 | LEGIARTI000041419255
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: (taux_composition_familiale + taux_loyer_éligible)
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  memorable: true
+  name: traitement_aide_finale_contributions_sociales_arrondi_de_aide_finale_formule_initiale
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((round(((traitement_aide_finale_minoration_forfaitaire_de_aide_finale_formule_initiale
+      - contributions_sociales_montant_de_valeur_7375) - 0.5)) + contributions_sociales_montant_de_valeur_7375)
+      >= 0): (round(((traitement_aide_finale_minoration_forfaitaire_de_aide_finale_formule_initiale
+      - contributions_sociales_montant_de_valeur_7375) - 0.5)) + contributions_sociales_montant_de_valeur_7375)
+      else: 0)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  memorable: true
+  name: traitement_aide_finale_de_aide_finale_formule_initiale
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (traitement_aide_finale_montée_en_charge_saint_pierre_miquelon_de_aide_finale_formule_initiale
+      < montant_minimal_aide_d823_16): 0 else: traitement_aide_finale_montée_en_charge_saint_pierre_miquelon_de_aide_finale_formule_initiale)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  memorable: true
+  name: traitement_aide_finale_diminué_de_aide_finale_formule_initiale
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (bénéficiaire_aide_adulte_ou_enfant_handicapés): aide_finale_formule_initiale
+      else: (if (loyer_principal > plafond_suppression_d823_16): 0 else: (if (loyer_principal
+      > plafond_dégressivité_d823_16): (aide_finale_formule_initiale - round((aide_finale_formule_initiale
+      * ((loyer_principal - plafond_dégressivité_d823_16) / (plafond_suppression_d823_16
+      - plafond_dégressivité_d823_16))), 2)) else: aide_finale_formule_initiale)))'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  memorable: true
+  name: traitement_aide_finale_minoration_forfaitaire_de_aide_finale_formule_initiale
+  source: Article D823-16 | LEGIARTI000038878905
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((traitement_aide_finale_diminué_de_aide_finale_formule_initiale
+      - montant_forfaitaire_d823_16) >= 0): (traitement_aide_finale_diminué_de_aide_finale_formule_initiale
+      - montant_forfaitaire_d823_16) else: 0)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  memorable: true
+  name: traitement_aide_finale_montée_en_charge_saint_pierre_miquelon_de_aide_finale_formule_initiale
+  source: Article 7 | JORFARTI000044547643
+  source_document: sources/aides_logement/autres_sources.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((résidence == ''SaintPierreEtMiquelon'') and ((date_courante >=
+      date("2022-01-01")) and (date_courante <= date("2025-12-31")))): round((traitement_aide_finale_réduction_loyer_solidarité_de_aide_finale_formule_initiale
+      * (1.0 - ((2026 - (whole_years(date("1900-01-01"), date_courante) + 1900)) /
+      8.0))), 2) else: traitement_aide_finale_réduction_loyer_solidarité_de_aide_finale_formule_initiale)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Money
+  kind: derived
+  memorable: true
+  name: traitement_aide_finale_réduction_loyer_solidarité_de_aide_finale_formule_initiale
+  source: Article L832-3 | LEGIARTI000038814872
+  source_document: sources/aides_logement/code_construction_legislatif.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((traitement_aide_finale_contributions_sociales_arrondi_de_aide_finale_formule_initiale
+      - round((réduction_loyer_solidarité * fraction_l832_3), 2)) >= 0): (traitement_aide_finale_contributions_sociales_arrondi_de_aide_finale_formule_initiale
+      - round((réduction_loyer_solidarité * fraction_l832_3), 2)) else: 0)'
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Text
+  kind: input
+  name: type_aide
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Text
+  kind: input
+  name: zone
+- catala_scope: CalculAidePersonnaliséeLogementLocatif
+  dtype: Judgment
+  kind: input
+  name: âgées_ou_handicap_adultes_hébergées_onéreux_particuliers

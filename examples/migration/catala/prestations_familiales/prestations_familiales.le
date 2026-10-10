@@ -26,6 +26,7 @@ les modèles sont:
     le smic date courante est *une date*.
     le smic résidence est *un code*.
     l'âge l512 3 2 est *un nombre*.
+    l'âge l512 3 2 donné est *un nombre*; élément de scénario.
 
 la base de connaissances cat_prestations_familiales comprend:
 
@@ -242,7 +243,8 @@ le smic résidence est un code si
 
 règle âge_l512_3_2 avec pour source "Article R512-2|LEGIARTI000006750602":
 le âge l512 3 2 est un nombre N si
-    N = 240.
+    l'âge l512 3 2 donné est N
+    sinon N = 240.
 
 scénario Test1_droit_ouvert_enfant1 est, comme indiqué dans "sources/cat/prestations_familiales.test.yaml" à cas 1:
     enfant_prestations_familiales_1 est un enfant_prestations_familiales.

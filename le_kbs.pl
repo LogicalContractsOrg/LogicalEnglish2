@@ -3214,7 +3214,8 @@ normalize_string(S, N) :-
     ;   (atom(S) ; string(S)) ->  
         split_string(S, "_- ", "_- ", Words00),
         unelide_words(Words00, Words0),
-        maplist(same_number_word, Words0, Words),
+        maplist(same_number_word, Words0, Words1),
+        maplist(same_article_word, Words1, Words),
         atomic_list_concat(Words, ' ', Atom),
         atom_string(Atom, N)
     ;   N = S
@@ -3249,6 +3250,28 @@ unelide_word(Els, Cons, W, Out0, Out) :-
         )
     ;   Out0 = [W|Out]
     ).
+
+%   Which article of a class an answer uses is a matter of reading, not of
+%   meaning: the parser accepts every article of the class, and a language
+%   with elisions loses the gender on the way through the text —
+%   *l'équivalence*, written with the feminine article, is read back as *le
+%   équivalence*, since `l'` has one expansion. So an article compares equal
+%   to every other article of its own language.
+same_article_word(W0, W) :-
+    atom_string(A0, W0), downcase_atom(A0, A),
+    (   current_predicate(le_writer:writer_word/3),
+        article_key(Key),
+        (   catch(le_i18n:le_active_language(L), _, fail)
+        ->  le_writer:writer_word(Key, L, A1)
+        ;   le_writer:writer_word(Key, _, A1)
+        ),
+        downcase_atom(A1, A)
+    ->  W = "#article"
+    ;   W = W0
+    ).
+
+article_key(definite_m).    article_key(definite_f).
+article_key(indefinite_m).  article_key(indefinite_f).
 
 %   A number in an answer is compared as a number: 30 and 30.0 are one
 %   answer, as are 1.5 and 1.50 (a translated program computes in floats

@@ -21,6 +21,7 @@ the templates are:
     the case is property.
     the case is services.
     the qualified employee discount is *an amount*.
+    the aggregate cost given is *an amount*; scenario element.
 
 the knowledge base cat_section_132 includes:
 
@@ -36,7 +37,8 @@ the text of "Section 132" is at "sources/us_tax_code/section_132.catala_en".
 
 rule aggregate_cost with provenance "(1) Qualified employee discount":
 the aggregate cost is an amount N if
-    the case is services
+    the aggregate cost given is N
+    otherwise the case is services
     and N = 0.
 
 rule employee_discount with provenance "(3) Employee discount defined":
@@ -61,11 +63,8 @@ the case is property if
 
 rule is_services with provenance "Section 132":
 the case is services if
-    it is not the case that
-        the discount type is a text
-        and the text is equal to "Property"
-    and the discount type is a second text
-    and the second text is equal to "Services".
+    the discount type is a text
+    and the text is equal to "Services".
 
 rule qualified_employee_discount with provenance "(1) Qualified employee discount":
 the qualified employee discount is an amount N if
@@ -89,7 +88,7 @@ the qualified employee discount is an amount N if
     and the employee discount is N.
 
 scenario TestSection132_1 is, as stated in "sources/cat/section_132.test.yaml" at case 1:
-    the aggregate cost is 900.
+    the aggregate cost given is 900.
     the customer price is 1500.
     the discount type is "Property".
     the employee price is 1000.
@@ -98,7 +97,7 @@ scenario TestSection132_1 is, as stated in "sources/cat/section_132.test.yaml" a
     q_qualified_employee_discount expects answers ["the qualified employee discount is 500"].
 
 scenario TestSection132_2 is, as stated in "sources/cat/section_132.test.yaml" at case 2:
-    the aggregate cost is 1200.
+    the aggregate cost given is 1200.
     the customer price is 1500.
     the discount type is "Property".
     the employee price is 1000.

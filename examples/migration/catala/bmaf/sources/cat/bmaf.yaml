@@ -12,6 +12,8 @@ rules:
   catala_scope: BaseMensuelleAllocationsFamiliales
   dtype: Money
   kind: derived
+  must:
+  - (date_courante >= date("2019-04-01"))
   name: montant
   source: Instruction ministérielle N°DSS/SD2B/2019/65 du 25 mars 2019 relative à
     la revalorisation au 1er avril 2019 des prestations familiales servies en métropole;
