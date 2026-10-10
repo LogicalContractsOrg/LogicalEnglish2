@@ -68,6 +68,10 @@ test(the_operation_limits) :-
     le_api:operation_time_limit(_{operation: "answeringQuery"}, L1),
     le_api:operation_time_limit(_{operation: "answeringQuery", debug: true}, L2),
     le_api:operation_time_limit(_{operation: "load"}, L3),
-    assertion(L1 == 300), assertion(L2 == 3660), assertion(L3 == 300).
+    le_api:operation_time_limit(_{operation: "exportForeign"}, L4),
+    le_api:operation_time_limit(_{operation: "examples"}, L5),
+    assertion(L1 == 300), assertion(L2 == 3660),
+    assertion(L3 == 900), assertion(L4 == 900),     % a translated regulation loads in minutes
+    assertion(L5 == 300).
 
 :- end_tests(query_time_limit).

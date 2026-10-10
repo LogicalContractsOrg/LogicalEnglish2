@@ -9,6 +9,7 @@ gives, so running them checks the translation.
 
 ## Start here
 - [Blawx](blawx/) — Acts encoded in Blawx, a visual tool for legal rules.
+- [Catala](catala/) — tax and benefit law written in Catala, in English and in French (Français Logique), the rental calculation of the French housing allowance among them.
 - [LegalRuleML](legalruleml/) — the examples of the OASIS LegalRuleML standard: duties, permissions, prohibitions.
 - [Miniscript](miniscript/) — Bitcoin spending policies: who can spend a coin, and when.
 - [OIPA](oipa/) — insurance transactions of Oracle Insurance Policy Administration, on two plans we wrote.

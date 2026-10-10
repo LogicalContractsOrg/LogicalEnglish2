@@ -894,14 +894,47 @@ resource_range_info(Start, End, Info) :-
     LStart is Start - Base,
     ( integer(End), End >= Start -> LEnd is End - Base ; LEnd = LStart ),
     (   le_resource_base_text(Base, Text),
-        catch(sub_string(Text, 0, LStart, _, Before), _, fail)
-    ->  split_string(Before, "\n", "", Lines), length(Lines, Line)
+        string_length(Text, TLen), LStart =< TLen
+    ->  resource_line_starts(Base, Text, Starts),
+        line_at(Starts, LStart, Line)
     ;   Line = 1
     ),
     ( example_name_for_file(Id, Example) -> true ; Example = null ),
     file_base_name(Id, Name),
     Info = _{resource: Name, resourcePath: Id, resourceExample: Example,
              resourceLine: Line, resourceStart: LStart, resourceEnd: LEnd}.
+
+%   The offsets at which the lines of an included resource start, worked
+%   out once per resource text: a program that includes a translated
+%   regulation has thousands of warnings located in it, and splitting the
+%   text before each one made the load quadratic in its size.
+:- dynamic le_resource_line_starts/3.
+
+resource_line_starts(Base, Text, Starts) :-
+    string_length(Text, Len),
+    (   le_resource_line_starts(Base, Len, Starts0)
+    ->  Starts = Starts0
+    ;   split_string(Text, "\n", "", Parts),
+        foldl([P, O0-L0, O-[O|L0]]>>(string_length(P, N), O is O0 + N + 1), Parts, 0-[0], _-Rev),
+        Rev = [_|Rev1], reverse(Rev1, Os),          % (the offset after the last line dropped)
+        Starts0 =.. [s|Os],
+        retractall(le_resource_line_starts(Base, _, _)),
+        assertz(le_resource_line_starts(Base, Len, Starts0)),
+        Starts = Starts0
+    ).
+
+%   line_at(+Starts, +Offset, -Line): the line (1-based) holding Offset.
+line_at(Starts, Offset, Line) :-
+    functor(Starts, _, N),
+    line_search(Starts, Offset, 1, N, Line).
+line_search(Starts, Offset, Lo, Hi, Line) :-
+    (   Lo >= Hi
+    ->  Line = Lo
+    ;   Mid is (Lo + Hi + 1) // 2, arg(Mid, Starts, S),
+        (   S =< Offset -> line_search(Starts, Offset, Mid, Hi, Line)
+        ;   Hi1 is Mid - 1, line_search(Starts, Offset, Lo, Hi1, Line)
+        )
+    ).
 
 %!  example_name_for_file(+File, -Name) is semidet.
 %
@@ -963,10 +996,30 @@ local_resource_allowed(Abs, Base) :-
     ( is_url(Base) -> working_directory(BaseDir, BaseDir) ; BaseDir = Base ),
     (   sub_atom(Abs, 0, _, _, BaseDir)
     ->  true
+    ;   under_directory(Abs, BaseDir)
+    ->  true
     ;   working_directory(CWD, CWD),
         sub_atom(Abs, 0, _, _, CWD),
         catch(restricted_paths:is_path_allowed(Abs, []), _, fail)
     ).
+
+%   under_directory(+File, +Dir): File lies in Dir's tree, Dir and the
+%   file's folders compared as folders on disk, not as text. A program
+%   opened through a symbolic link (examples/moreExamples/lpsPlus ->
+%   ../../../lpsPlus/examples) has its includes resolved to the link's
+%   target, and the text of the two paths then differs.
+under_directory(File, Dir) :-
+    \+ is_url(File),
+    absolute_file_name(Dir, AbsDir, [file_type(directory), file_errors(fail)]),
+    file_directory_name(File, D0),
+    folder_or_ancestor(D0, D),
+    exists_directory(D),
+    same_file(D, AbsDir), !.
+
+folder_or_ancestor(D, D).
+folder_or_ancestor(D0, D) :-
+    file_directory_name(D0, D1), D1 \== D0,
+    folder_or_ancestor(D1, D).
 
 fetch_resource_kind(le_url(URL), _Id, Resource, M, Sections) :-
     catch(fetch_url(URL, Text), FetchErr, true),
