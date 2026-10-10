@@ -93,10 +93,11 @@ dated from 1 January 2024, so from January to October 2024 two amounts
 apply. Catala stops there, and that case is left out of the twin, with
 Catala's reason.
 
-Two other differences remain. A *context* variable (a value the scope
-computes unless its caller gives one) gives both values when a scenario
-states one; and the assertions a Catala program states about its own
-values are not yet checked by the twin.
+A *context* variable is a value the scope works out unless its caller or
+a test gives one. In the program it becomes a rule with two parts: first
+the value the scenario gives (*the gain cap given is …*), otherwise the
+scope's own definition. One difference remains: the assertions a Catala
+program states about its own values are not yet checked by the program.
 
 ## What is left for a person to translate
 
@@ -108,10 +109,20 @@ individual for each element, with a fact that says which list it is in; a
 sum over the list becomes a sum over those individuals. A duration becomes a
 number of months added to a date, or a number of days between two dates.
 
-Some of Catala has no translation yet: values that change over a period
-(*states*), enumerations that carry a value, a list kept inside a
-structure's field, combining a list step by step (a *fold*), and structures
-built inside a definition. Such a definition is kept in the program as a *residue* block:
+A value defined in steps (Catala's *states*) becomes one rule per step,
+each step reading the one before it; the last step has the value's own
+name. A structure, such as a person's details, and an enumeration whose
+cases carry a value, such as the kind of tax return with the people it
+names, become one fact for each detail: *the return type is "JointReturn"*,
+and the details of that case under its name. A value that is a structure
+(*person 1* chosen from the kind of return) becomes one rule for each of its
+details. A function of an amount, such as the treatment of the final
+housing allowance, becomes one rule for each amount it is applied to,
+named after it: *le traitement aide finale de aide finale formule
+initiale*.
+
+Some of Catala has no translation yet: combining a list step by step (a
+*fold*), and lists built inside a definition. Such a definition is kept in the program as a *residue* block:
 its Catala text, the reason it was not translated, and the sentence a
 translation must conclude. The scenarios that depend on it are left out of
 the program and counted in the program's ledger, the record of what was
@@ -129,7 +140,10 @@ becomes a test scope that Catala's `clerk test` runs. Numbers are written as
 decimals: Catala distinguishes money, decimals and whole numbers, and Logical
 English does not. A program that Catala cannot express is refused, with the
 reasons: sums or counts over the things related to a case, values with
-dates, rounding up or down.
+dates, rounding up or down. A rule about a child is written as a Catala
+definition that depends on a child: the child's details become a
+structure, and each scenario asks the definition about the child it
+describes. A number of months added to a date becomes a Catala duration.
 
 ## The examples
 
@@ -141,12 +155,16 @@ The examples in `examples/migration/catala` come from Catala's own examples
 | United States tax code, section 132 (qualified employee discounts) | English | its 3 tests: 8 of 8 answers |
 | The French minimum wage (SMIC), 2019 to 2024 | French | 29 cases made from its dates and regions, checked against Catala's interpreter |
 | The monthly base of French family allowances, 2019 to 2024 | French | 6 cases, the same way |
-| United States tax code, section 121 (sale of a principal residence) | English | the scope for one person whole, and its 4 tests pass; the scopes for two persons partly residue (lists inside a person's details, the kind of tax return, merging periods) |
+| United States tax code, section 121 (sale of a principal residence) | English | whole: its 6 tests, for one person and for two, pass |
 | French family benefits, eligibility | French | whole: its test, about four children, becomes four scenarios, and all pass |
+| French housing allowance (*aides au logement*, the CNAF's programme): the rental calculation (`apl_locatif`) | French | whole: its 9 tests, 49 answers, all pass |
 
-Written back to Catala, the first three pass every test on Catala's
-interpreter. A program that still holds residue blocks is not written back,
-and neither, yet, is a rule about a child.
+Written back to Catala, section 132, the minimum wage, the monthly base and
+the family benefits pass every test on Catala's interpreter. Section 121 is
+not written back yet: its sums over lists of periods have no Catala form in
+the exporter. The housing allowance is not written back either: two of its
+rules are cascades inside cascades that the exporter does not read yet. A
+program that still holds residue blocks is not written back.
 
 ## See also
 

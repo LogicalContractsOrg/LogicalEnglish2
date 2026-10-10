@@ -47,23 +47,15 @@ COPY *.pl ./
 # formats are offered (le_plus.pl).
 COPY vendor/ ./vendor/
 ENV LPS_PLUS_DIR=/app/vendor/lpsplus
-
-# The Solidity translator's own dependencies, installed INSIDE the image: the
-# Solidity compiler (solc, pinned by migration/solidity/package-lock.json),
-# which the front end runs with `node` to get a contract's typed syntax tree,
-# and the OpenZeppelin contracts an uploaded token imports
-# (`@openzeppelin/contracts/token/ERC20/ERC20.sol`). vendor_lpsplus.sh cannot
-# bring them: it copies only the files git knows about, and `node_modules/` is
-# gitignored — and a developer's `node_modules` holds binaries built for the
-# developer's platform, so copying it into an image is a correctness bug.
-# Without it, File ▸ Open of a `.sol` file fails on the server while it works
-# on a developer's machine. An image built without lpsPlus has no such
-# directory, and the `if` leaves it alone.
+# The Solidity door (File ▸ Open of a `.sol`) runs solcjs against
+# OpenZeppelin's sources: npm packages, gitignored in lpsPlus and so not
+# vendored, installed here for this image's platform. Without them a `.sol`
+# opens as a TODO comment (9 October 2026), so the build checks they load.
 RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
-      cd vendor/lpsplus/migration/solidity && npm ci --omit=dev --no-audit --no-fund && \
-      node -e "require('solc'); console.log('solc ready')" ; \
-    else echo "no vendor/lpsplus/migration/solidity: this image will not open Solidity contracts" ; fi
-
+      cd vendor/lpsplus/migration/solidity && \
+      npm ci --omit=dev --no-audit --no-fund && \
+      node -e "require('solc'); require.resolve('@openzeppelin/contracts/package.json')" ; \
+    fi
 # i18n CSV dictionaries: read by le_i18n.pl at load time AND by the editor
 # build below (scripts/gen-i18n.cjs generates the TS tables from them)
 COPY i18n/ ./i18n/

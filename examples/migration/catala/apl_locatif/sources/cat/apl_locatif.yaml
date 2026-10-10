@@ -8,12 +8,6 @@ rules:
   catala_scope: CalculAidePersonnaliséeLogementLocatif
   dtype: Money
   kind: derived
-  must:
-  - (plafond_dégressivité_d823_16 >= round((plafond_loyer_d823_16_2 * 2.5), 2))
-  - ((fraction_l832_3 >= 0.9) and (fraction_l832_3 <= 0.98))
-  - (not (logement_est_chambre and colocation))
-  - (nombre_personnes_à_charge >= 0)
-  - (date_courante >= date("2020-10-01"))
   name: abattement_forfaitaire_d823_17
   source: Article 15 | LEGIARTI000050931814; Article 46 | LEGIARTI000052233795; Article
     47 | LEGIARTI000050931796; Article 46 | LEGIARTI000050286587 [archive]; Article
