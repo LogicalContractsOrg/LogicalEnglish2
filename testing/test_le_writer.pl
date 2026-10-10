@@ -287,15 +287,41 @@ test(negation_first_group_is_core_le) :-
     text_results(Text, Results),
     assertion(all_pass(Results)).
 
-test(aggregate_first_group_keeps_the_block) :-
+%   A group whose first condition is an aggregate whose result the condition
+%   after it reads cannot be opened by a plain condition of its own: core LE
+%   has no shape for it where it stands, so it becomes a rule of its own and
+%   its place becomes that rule's judgment (hoist_blocks/4). The `all of`
+%   block of the extensions, which core LE cannot read, is gone, and so is
+%   the remark that went with it.
+test(aggregate_first_group_becomes_a_rule) :-
     IR = program([kb(auto)], [
+        template(value, "the value of *a vehicle* is *a number*", [undefined]),
+        template(big, "*a vehicle* is big", [undefined]),
+        template(ok, "the fleet of *a vehicle* is large", []),
+        rule(ok(V), or(big(V), and(agg(count, X, value(X, _), N),
+                                   and(N > 2, value(V, _)))), []),
+        scenario(three, [fact(value(car, 1)), fact(value(van, 2)), fact(value(bus, 3)),
+                         expects(q, [ok(car), ok(van), ok(bus)])], []),
+        query(q, ok(_))]),
+    le_write(IR, Text, Issues),
+    assertion(Issues == []),
+    assertion(\+ sub_string(Text, _, _, _, "all of")),
+    assertion(sub_string(Text, _, _, _, "condition 1 of the fleet holds for *a vehicle*")),
+    text_errors(Text, Errors),
+    assertion(Errors == []),
+    text_results(Text, Results),
+    assertion(all_pass(Results)).
+
+%   The same group in a program that has the extensions: the block stays,
+%   with the remark that it needs them.
+test(aggregate_first_group_keeps_the_block_with_extensions) :-
+    IR = program([kb(auto), extensions(true)], [
         template(value, "the value of *a vehicle* is *a number*", [undefined]),
         template(big, "*a vehicle* is big", [undefined]),
         template(size, "the fleet size of *a vehicle* is *a number*", []),
         rule(size(V, N), or(and(big(V), N = 1), and(agg(count, X, value(X, _), N), N > 2)), [])]),
-    le_write(IR, Text, Issues),
-    assertion(sub_string(Text, _, _, _, "or all of\n        N is the count of each")),
-    assertion(memberchk(issue(warning, needs_extensions, _), Issues)).
+    le_write(IR, Text, _),
+    assertion(sub_string(Text, _, _, _, "or all of\n        N is the count of each")).
 
 test(scenario_header_with_a_locator_keeps_its_lines) :-
     le_write(program([kb(x)], [template(p, "*a thing* is p", [undefined]),

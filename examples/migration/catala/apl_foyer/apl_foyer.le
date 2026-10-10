@@ -1,0 +1,1607 @@
+% apl_foyer — jumeau des champs d'application Catala CalculAidePersonnaliséeLogementFoyer (catala-examples, Apache-2.0), avec les tests de leurs fichiers.
+% Traduit par lpsPlus migration/catala (roadmap.md §5.4, phase 3c).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+la langue cible est: prolog.
+
+les modèles sont:
+    l'aide finale formule initiale est *un montant*.
+    la condition calcul nombre parts condition 2 du 832 25 est remplie.
+    le calcul nombre parts date courante est *une date*.
+    la condition calcul nombre parts limitation majoration personnes à charge est remplie.
+    le calcul nombre parts n nombre parts d832 25 est *un nombre*.
+    le calcul nombre parts n nombre parts d832 25 base est *un nombre*.
+    le calcul nombre parts n nombre parts d832 25 majoration est *un nombre*.
+    le calcul nombre parts nombre personnes à charge est *un nombre*.
+    le calcul nombre parts situation familiale calcul apl est *un code*.
+    la condition calcul équivalence loyer minimale condition 2 du 832 25 est remplie.
+    le calcul équivalence loyer minimale date courante est *une date*.
+    le calcul équivalence loyer minimale montant est *un montant*.
+    le calcul équivalence loyer minimale montant forfaitaire d832 26 est *un montant*.
+    le calcul équivalence loyer minimale n nombre parts d832 25 est *un nombre*.
+    le calcul équivalence loyer minimale ressources ménage arrondies est *un montant*.
+    le coefficient multiplicateur d832 25 est *un montant*.
+    le coefficient prise en charge d832 25 est *un nombre*.
+    le coefficient prise en charge d832 25 coeff arrondi est *un nombre*.
+    le coefficient prise en charge d832 25 formule est *un nombre*.
+    le coefficient r d832 25 est *un montant*.
+    la condition condition 2 du 832 25 est remplie.
+    le contributions sociales date courante est *une date*.
+    la condition contributions sociales exonéré csg est remplie.
+    le contributions sociales lieu est *un code*.
+    le contributions sociales taux crds est *un nombre*.
+    la date conventionnement est *une date*; élément de scénario.
+    la date courante est *une date*; élément de scénario.
+    *un tranche revenu* remplit la condition is in calcul équivalence loyer minimale tranches revenus d832 26.
+    *un tranche revenu décimal* remplit la condition is in calcul équivalence loyer minimale tranches revenus d832 26 multipliées.
+    la condition limitation majoration personnes à charge est remplie.
+    la condition logement foyer jeunes travailleurs est remplie; élément de scénario.
+    le montant forfaitaire d832 24 est *un montant*.
+    le montant forfaitaire d832 27 est *un montant*.
+    le montant minimal aide d823 24 est *un montant*.
+    le n nombre parts d832 25 est *un nombre*.
+    le nombre personnes à charge est *un nombre*; élément de scénario.
+    le plafond équivalence loyer éligible est *un montant*.
+    la redevance est *un montant*; élément de scénario.
+    le ressources ménage arrondies est *un montant*; élément de scénario.
+    la résidence est *un code*; élément de scénario.
+    la situation familiale calcul apl est *un code*; élément de scénario.
+    le type logement foyer est *un code*; élément de scénario.
+    le zone est *un code*; élément de scénario.
+    l'équivalence loyer minimale est *un montant*.
+    l'équivalence loyer éligible est *un montant*.
+    le n nombre parts d832 25 donné est *un nombre*; élément de scénario.
+
+la base de connaissances cat_apl_foyer comprend:
+
+
+% Catala scope(s) CalculAidePersonnaliséeLogementFoyer — cat:apl_foyer
+le texte de "Article D832-24 | LEGIARTI000038878712" est à "sources/aides_logement/code_construction_reglementaire.catala_fr".
+
+le texte de "Article D832-25 | LEGIARTI000047401364" est à "sources/aides_logement/code_construction_reglementaire.catala_fr".
+
+le texte de "Article D861-8 | LEGIARTI000038878583 [archive]" est à "sources/aides_logement/code_construction_reglementaire.catala_fr".
+
+le texte de "Article D832-25 | LEGIARTI000047401364; Article D861-8 | LEGIARTI000038878583 [archive]" est à "sources/aides_logement/code_construction_reglementaire.catala_fr".
+
+le texte de "Secteur logement-foyer" est à "sources/aides_logement/prologue.catala_fr".
+
+le texte de "Article D832-26 | LEGIARTI000047401357" est à "sources/aides_logement/code_construction_reglementaire.catala_fr".
+
+le texte de "Article 31 | LEGIARTI000046126968" est à "sources/aides_logement/arrete_2019-09-27.catala_fr".
+
+le texte de "Article 30 | LEGIARTI000039160785" est à "sources/aides_logement/arrete_2019-09-27.catala_fr".
+
+le texte de "Article D832-25 | LEGIARTI000047401364; Article D861-21 | LEGIARTI000047399895" est à "sources/aides_logement/code_construction_reglementaire.catala_fr".
+
+le texte de "Article L136-1-3 | LEGIARTI000045232415" est à "sources/aides_logement/code_sécurité_sociale.catala_fr".
+
+le texte de "Article 19 | LEGIARTI000041466982" est à "sources/aides_logement/autres_sources.catala_fr".
+
+le texte de "" est à "sources/cat/apl_foyer.yaml".
+
+le texte de "Article 28 | LEGIARTI000039160781" est à "sources/aides_logement/arrete_2019-09-27.catala_fr".
+
+le texte de "Article 32 | LEGIARTI000039160687" est à "sources/aides_logement/arrete_2019-09-27.catala_fr".
+
+le texte de "Article 29 | LEGIARTI000039160783" est à "sources/aides_logement/arrete_2019-09-27.catala_fr".
+
+le texte de "Article 27 | LEGIARTI000052233830; Article 27 | LEGIARTI000048109287 [archive]; Article 27 | LEGIARTI000046206199 [archive]; Article 27 | LEGIARTI000044137406 [archive]; Article 27 | LEGIARTI000042378428 [archive]; Article 27 | LEGIARTI000050286612 [archive]" est à "sources/aides_logement/arrete_2019-09-27.catala_fr".
+
+règle aide_finale_formule_initiale avec pour source "Article D832-24 | LEGIARTI000038878712":
+la aide finale formule initiale est un montant M si
+    l'équivalence loyer éligible est un montant N
+    et l'équivalence loyer minimale est un montant K
+    et le coefficient prise en charge d832 25 est un nombre P
+    et round((N - K) * P * 100) / 100 < 0
+    et M = 0
+    sinon l'équivalence loyer éligible est un montant Q
+    et l'équivalence loyer minimale est un montant R
+    et le coefficient prise en charge d832 25 est un nombre S
+    et M = round((Q - R) * S * 100) / 100.
+
+règle calcul_nombre_parts_condition_2_du_832_25 avec pour source "Article D832-25 | LEGIARTI000047401364":
+la condition calcul nombre parts condition 2 du 832 25 est remplie si
+    la condition condition 2 du 832 25 est remplie.
+
+règle calcul_nombre_parts_date_courante avec pour source "Article D832-25 | LEGIARTI000047401364":
+le calcul nombre parts date courante est une date si
+    la date courante est la date.
+
+règle calcul_nombre_parts_limitation_majoration_personnes_à_charge avec pour source "Article D861-8 | LEGIARTI000038878583 [archive]":
+la condition calcul nombre parts limitation majoration personnes à charge est remplie si
+    la date courante est une date D
+    et D >= 2019-09-01
+    et la date courante est une date N
+    et N < 2023-04-05
+    et la condition limitation majoration personnes à charge est remplie.
+
+règle calcul_nombre_parts_n_nombre_parts_d832_25 avec pour source "Article D832-25 | LEGIARTI000047401364":
+le calcul nombre parts n nombre parts d832 25 est un nombre M si
+    le calcul nombre parts n nombre parts d832 25 base est un nombre K
+    et le calcul nombre parts n nombre parts d832 25 majoration est un nombre P
+    et M = K + P.
+
+règle calcul_nombre_parts_n_nombre_parts_d832_25_base avec pour source "Article D832-25 | LEGIARTI000047401364":
+le calcul nombre parts n nombre parts d832 25 base est un nombre M si
+    la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et le calcul nombre parts nombre personnes à charge est un nombre K
+    et K = 0
+    et le calcul nombre parts situation familiale calcul apl est un code
+    et le code est égal à "PersonneSeule"
+    et M = 1,2
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et le calcul nombre parts nombre personnes à charge est K
+    et K = 0
+    et le calcul nombre parts situation familiale calcul apl est un deuxième code
+    et le deuxième code est égal à "Couple"
+    et M = 1,5
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et le calcul nombre parts nombre personnes à charge est un nombre P
+    et P = 1
+    et M = 2,5
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et le calcul nombre parts nombre personnes à charge est un nombre Q
+    et Q = 2
+    et M = 3,0
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et le calcul nombre parts nombre personnes à charge est un nombre R
+    et R = 3
+    et M = 3,7
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et M = 4,3
+    sinon le calcul nombre parts nombre personnes à charge est un nombre S
+    et S = 0
+    et le calcul nombre parts situation familiale calcul apl est un troisième code
+    et le troisième code est égal à "PersonneSeule"
+    et M = 1,4
+    sinon le calcul nombre parts nombre personnes à charge est S
+    et S = 0
+    et le calcul nombre parts situation familiale calcul apl est un quatrième code
+    et le quatrième code est égal à "Couple"
+    et M = 1,8
+    sinon le calcul nombre parts nombre personnes à charge est un nombre T
+    et T = 1
+    et M = 2,5
+    sinon le calcul nombre parts nombre personnes à charge est un nombre U
+    et U = 2
+    et M = 3,0
+    sinon le calcul nombre parts nombre personnes à charge est un nombre V
+    et V = 3
+    et M = 3,7
+    sinon M = 4,3.
+
+règle calcul_nombre_parts_n_nombre_parts_d832_25_majoration avec pour source "Article D832-25 | LEGIARTI000047401364; Article D861-8 | LEGIARTI000038878583 [archive]":
+le calcul nombre parts n nombre parts d832 25 majoration est un nombre M si
+    le calcul nombre parts date courante est une date D
+    et D >= 2019-09-01
+    et le calcul nombre parts date courante est une date K
+    et K < 2023-04-05
+    et la condition calcul nombre parts limitation majoration personnes à charge est remplie
+    et le calcul nombre parts nombre personnes à charge est un nombre P
+    et P > 6
+    et M = 1,0
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et le calcul nombre parts nombre personnes à charge est un nombre Q
+    et Q > 4
+    et le calcul nombre parts nombre personnes à charge est un nombre R
+    et M = 0,5 * (R - 4)
+    sinon la condition calcul nombre parts condition 2 du 832 25 est remplie
+    et M = 0,0
+    sinon le calcul nombre parts nombre personnes à charge est un nombre S
+    et S > 4
+    et le calcul nombre parts nombre personnes à charge est un nombre T
+    et M = 0,5 * (T - 4)
+    sinon M = 0,0.
+
+règle calcul_nombre_parts_nombre_personnes_à_charge avec pour source "Article D832-25 | LEGIARTI000047401364":
+le calcul nombre parts nombre personnes à charge est un nombre si
+    le nombre personnes à charge est le nombre.
+
+règle calcul_nombre_parts_situation_familiale_calcul_apl avec pour source "Article D832-25 | LEGIARTI000047401364":
+le calcul nombre parts situation familiale calcul apl est un code si
+    la situation familiale calcul apl est le code.
+
+règle calcul_équivalence_loyer_minimale_condition_2_du_832_25 avec pour source "Article D832-24 | LEGIARTI000038878712":
+la condition calcul équivalence loyer minimale condition 2 du 832 25 est remplie si
+    la condition condition 2 du 832 25 est remplie.
+
+règle calcul_équivalence_loyer_minimale_date_courante avec pour source "Secteur logement-foyer":
+le calcul équivalence loyer minimale date courante est une date si
+    la date courante est la date.
+
+% RESIDUE r1 BEGIN: cat:apl_foyer#calcul_équivalence_loyer_minimale_montant
+% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
+% Non traduit : a function call.
+% Conclusion attendue : le calcul équivalence loyer minimale montant est *un montant*.
+%   Catala:
+%   |   définition montant égal à
+%   |     soit ressources_ménage_arrondies égal à
+%   |       décimal de ressources_ménage_arrondies
+%   |     dans
+%   |     argent de
+%   |       (
+%   |         (
+%   |           (
+%   |             Décimal.somme de
+%   |               (
+%   |                 transforme chaque tranche parmi tranches_revenus_d832_26_multipliées en
+%   |                   (
+%   |                     si ressources_ménage_arrondies <= tranche.bas alors 0,0
+%   |                     sinon
+%   |                       selon tranche.haut sous forme
+%   |                       -- LimiteTrancheDécimal.Revenu contenu tranche_haut :
+%   |                         (
+%   |                           si ressources_ménage_arrondies >= tranche_haut alors
+%   |                             (tranche_haut - tranche.bas)
+%   |                             * tranche.taux
+%   |                           sinon
+%   |                             (ressources_ménage_arrondies - tranche.bas)
+%   |                             * tranche.taux
+%   |                         )
+%   |                       -- LimiteTrancheDécimal.Infini :
+%   |                         (ressources_ménage_arrondies - tranche.bas)
+%   |                         * tranche.taux
+%   |                   )
+%   |               )
+%   |           )
+%   |           + décimal de montant_forfaitaire_d832_26
+%   |             * n_nombre_parts_d832_25
+%   |         )
+%   |         / 12,0
+%   |       )
+%   |   exception
+% RESIDUE r1 END
+
+règle calcul_équivalence_loyer_minimale_montant_forfaitaire_d832_26 avec pour source "Article 31 | LEGIARTI000046126968":
+le calcul équivalence loyer minimale montant forfaitaire d832 26 est un montant M si
+    le calcul équivalence loyer minimale date courante est une date D
+    et D > 2019-10-01
+    et la condition calcul équivalence loyer minimale condition 2 du 832 25 est remplie
+    et M = 76,32
+    sinon le calcul équivalence loyer minimale date courante est D
+    et D > 2019-10-01
+    et M = 45,57.
+
+règle calcul_équivalence_loyer_minimale_n_nombre_parts_d832_25 avec pour source "Article D832-24 | LEGIARTI000038878712":
+le calcul équivalence loyer minimale n nombre parts d832 25 est un nombre si
+    le n nombre parts d832 25 est le nombre.
+
+règle calcul_équivalence_loyer_minimale_ressources_ménage_arrondies avec pour source "Article D832-24 | LEGIARTI000038878712":
+le calcul équivalence loyer minimale ressources ménage arrondies est un montant si
+    le ressources ménage arrondies est le montant.
+
+règle coefficient_multiplicateur_d832_25 avec pour source "Article 30 | LEGIARTI000039160785":
+le coefficient multiplicateur d832 25 est un montant M si
+    la date courante est une date D
+    et D >= 2019-10-01
+    et la condition condition 2 du 832 25 est remplie
+    et M = 21420,91
+    sinon la date courante est D
+    et D >= 2019-10-01
+    et M = 13393,4.
+
+règle coefficient_prise_en_charge_d832_25 avec pour source "Article D832-25 | LEGIARTI000047401364":
+le coefficient prise en charge d832 25 est un nombre N si
+    la condition condition 2 du 832 25 est remplie
+    et le coefficient prise en charge d832 25 coeff arrondi est un nombre M
+    et M >= 0,9
+    et N = 0,9
+    sinon la condition condition 2 du 832 25 est remplie
+    et le coefficient prise en charge d832 25 coeff arrondi est N
+    sinon le coefficient prise en charge d832 25 coeff arrondi est un nombre K
+    et K >= 0,95
+    et N = 0,95
+    sinon le coefficient prise en charge d832 25 coeff arrondi est N.
+
+règle coefficient_prise_en_charge_d832_25_coeff_arrondi avec pour source "Article D832-25 | LEGIARTI000047401364":
+le coefficient prise en charge d832 25 coeff arrondi est un nombre N si
+    la condition condition 2 du 832 25 est remplie
+    et le coefficient prise en charge d832 25 formule est un nombre M
+    et N = round((M - 0,005) * 100,0) / 100,0
+    sinon le coefficient prise en charge d832 25 formule est un nombre K
+    et N = round((K - 0,005) * 100,0) / 100,0.
+
+règle coefficient_prise_en_charge_d832_25_formule avec pour source "Article D832-25 | LEGIARTI000047401364":
+le coefficient prise en charge d832 25 formule est un nombre M si
+    la condition condition 2 du 832 25 est remplie
+    et le ressources ménage arrondies est un montant K
+    et le coefficient multiplicateur d832 25 est un montant P
+    et le n nombre parts d832 25 est un nombre Q
+    et M = 0,9 - K / (round(P * Q * 100) / 100)
+    sinon le ressources ménage arrondies est un montant S
+        et le coefficient r d832 25 est un montant T
+        et le n nombre parts d832 25 est un nombre U
+        et S - round(T * U * 100) / 100 < 0
+        et une chose C = 0
+        sinon le ressources ménage arrondies est un montant V
+        et le coefficient r d832 25 est un montant W
+        et le n nombre parts d832 25 est un nombre X
+        et C = V - round(W * X * 100) / 100
+    et le coefficient multiplicateur d832 25 est un montant Y
+    et le n nombre parts d832 25 est un nombre Z
+    et M = 0,95 - C / (round(Y * Z * 100) / 100).
+
+règle coefficient_r_d832_25 avec pour source "Article 30 | LEGIARTI000039160785":
+le coefficient r d832 25 est un montant M si
+    la date courante est une date D
+    et D >= 2019-10-01
+    et M = 1217,26.
+
+règle condition_2_du_832_25_1 avec pour source "Article D832-25 | LEGIARTI000047401364; Article D861-21 | LEGIARTI000047399895":
+la condition condition 2 du 832 25 est remplie si
+    il n'est pas vrai que
+        la date courante est une date D
+        et D >= 2023-04-05
+    et la condition logement foyer jeunes travailleurs est remplie
+    et la date conventionnement est une date N
+    et N >= 1990-09-30.
+
+règle condition_2_du_832_25_2 avec pour source "Article D832-25 | LEGIARTI000047401364; Article D861-21 | LEGIARTI000047399895":
+la condition condition 2 du 832 25 est remplie si
+    il n'est pas vrai que
+        la date courante est une date D
+        et D >= 2023-04-05
+    et le type logement foyer est un code
+    et le code est égal à "RésidenceSociale"
+    et la date conventionnement est une date N
+    et N >= 1994-12-31.
+
+règle condition_2_du_832_25_3 avec pour source "Article D832-25 | LEGIARTI000047401364; Article D861-21 | LEGIARTI000047399895":
+la condition condition 2 du 832 25 est remplie si
+    il n'est pas vrai que
+        la résidence est un code
+        et le code est dans ["Guadeloupe", "Guyane", "Martinique", "LaRéunion", "Mayotte"]
+    et la condition logement foyer jeunes travailleurs est remplie
+    et la date conventionnement est une date D
+    et D >= 1990-09-30.
+
+règle condition_2_du_832_25_4 avec pour source "Article D832-25 | LEGIARTI000047401364; Article D861-21 | LEGIARTI000047399895":
+la condition condition 2 du 832 25 est remplie si
+    il n'est pas vrai que
+        la résidence est un code
+        et le code est dans ["Guadeloupe", "Guyane", "Martinique", "LaRéunion", "Mayotte"]
+    et le type logement foyer est un deuxième code
+    et le deuxième code est égal à "RésidenceSociale"
+    et la date conventionnement est une date D
+    et D >= 1994-12-31.
+
+règle contributions_sociales_date_courante avec pour source "Secteur logement-foyer":
+le contributions sociales date courante est une date si
+    la date courante est la date.
+
+la condition contributions sociales exonéré csg est remplie, comme indiqué dans "Article L136-1-3 | LEGIARTI000045232415".
+
+règle contributions_sociales_lieu avec pour source "Secteur logement-foyer":
+le contributions sociales lieu est un code si
+    la résidence est le code.
+
+règle contributions_sociales_taux_crds avec pour source "Article 19 | LEGIARTI000041466982":
+le contributions sociales taux crds est un nombre N si
+    le contributions sociales date courante est une date D
+    et D >= 2020-01-01
+    et N = 0,005.
+
+% RESIDUE r2 BEGIN: cat:apl_foyer#is_in_calcul_équivalence_loyer_minimale_tranches_revenus_d832_26
+% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
+% Non traduit : a list.
+% Conclusion attendue : *un tranche revenu* remplit la condition is in calcul équivalence loyer minimale tranches revenus d832 26.
+%   Catala:
+%   |   définition tranches_revenus_d832_26 égal à
+%   |     [
+%   |       TrancheRevenu {
+%   |         -- haut: LimiteTranche.Revenu contenu 1948,10€
+%   |         -- bas: 0€
+%   |         -- taux: 4%
+%   |       };
+%   |       TrancheRevenu {
+%   |         -- haut: LimiteTranche.Revenu contenu 2678,71€
+%   |         -- bas: 1948,10€
+%   |         -- taux: 10,40%
+%   |       };
+%   |       TrancheRevenu {
+%   |         -- haut: LimiteTranche.Revenu contenu 3896,18€
+%   |         -- bas: 2678,71€
+%   |         -- taux: 21,60%
+%   |       };
+%   |       TrancheRevenu {
+%   |         -- haut: LimiteTranche.Revenu contenu 5 357,44€
+%   |         -- bas: 3896,18€
+%   |         -- taux: 26,40%
+%   |       };
+%   |       TrancheRevenu {
+%   |         -- haut: LimiteTranche.Revenu contenu 6 331,29€
+%   |         -- bas: 5 357,44€
+%   |         -- taux: 32%
+%   |       };
+%   |       TrancheRevenu {
+%   |         -- haut: LimiteTranche.Infini
+%   |         -- bas: 6 331,29€
+%   |         -- taux: 48%
+%   |       };
+%   |     ]
+%   |   exception
+% RESIDUE r2 END
+
+% RESIDUE r3 BEGIN: cat:apl_foyer#is_in_calcul_équivalence_loyer_minimale_tranches_revenus_d832_26_multipliées
+% TODO: traduire à la main le fragment ci-dessous, ou avec le Contract Assistant (mode residue) ; il n'a pas été traduit automatiquement
+% Non traduit : a list transformed.
+% Conclusion attendue : *un tranche revenu décimal* remplit la condition is in calcul équivalence loyer minimale tranches revenus d832 26 multipliées.
+%   Catala:
+%   |   définition tranches_revenus_d832_26_multipliées égal à
+%   |     transforme chaque tranche parmi tranches_revenus_d832_26 en
+%   |       TrancheRevenuDécimal {
+%   |         -- haut:
+%   |           (
+%   |             selon tranche.haut sous forme
+%   |             -- LimiteTranche.Infini : LimiteTrancheDécimal.Infini
+%   |             -- LimiteTranche.Revenu contenu tranche_haut :
+%   |               LimiteTrancheDécimal.Revenu contenu ((décimal de tranche_haut) * n_nombre_parts_d832_25)
+%   |           )
+%   |         -- bas:
+%   |           décimal de tranche.bas
+%   |           * n_nombre_parts_d832_25
+%   |         -- taux: tranche.taux
+%   |       }
+%   | 
+% RESIDUE r3 END
+
+règle montant_forfaitaire_d832_24 avec pour source "Article 28 | LEGIARTI000039160781":
+le montant forfaitaire d832 24 est un montant M si
+    la date courante est une date D
+    et D >= 2019-10-01
+    et M = 5.
+
+règle montant_forfaitaire_d832_27 avec pour source "Article 32 | LEGIARTI000039160687":
+le montant forfaitaire d832 27 est un montant M si
+    la date courante est une date D
+    et D >= 2019-10-01
+    et la condition condition 2 du 832 25 est remplie
+    et M = 15
+    sinon la date courante est D
+    et D >= 2019-10-01
+    et M = 26,68.
+
+règle montant_minimal_aide_d823_24 avec pour source "Article 29 | LEGIARTI000039160783":
+le montant minimal aide d823 24 est un montant M si
+    la date courante est une date D
+    et D >= 2019-10-01
+    et M = 10.
+
+règle n_nombre_parts_d832_25 avec pour source "Article D832-25 | LEGIARTI000047401364":
+le n nombre parts d832 25 est un nombre si
+    le n nombre parts d832 25 donné est le nombre
+    sinon le calcul nombre parts n nombre parts d832 25 est le nombre.
+
+règle plafond_équivalence_loyer_éligible avec pour source "Article 27 | LEGIARTI000052233830; Article 27 | LEGIARTI000048109287 [archive]; Article 27 | LEGIARTI000046206199 [archive]; Article 27 | LEGIARTI000044137406 [archive]; Article 27 | LEGIARTI000042378428 [archive]; Article 27 | LEGIARTI000050286612 [archive]":
+le plafond équivalence loyer éligible est un montant M si
+    la date courante est une date D
+    et D >= 2025-10-01
+    et le zone est un code
+    et le code est égal à "Zone1"
+    et le nombre personnes à charge est un nombre N
+    et N = 0
+    et la situation familiale calcul apl est un deuxième code
+    et le deuxième code est égal à "PersonneSeule"
+    et M = 498,81
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le code
+    et le code est égal à "Zone1"
+    et le nombre personnes à charge est N
+    et N = 0
+    et la situation familiale calcul apl est un troisième code
+    et le troisième code est égal à "Couple"
+    et M = 584,76
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le code
+    et le code est égal à "Zone1"
+    et le nombre personnes à charge est un nombre K
+    et K = 1
+    et M = 623,52
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le code
+    et le code est égal à "Zone1"
+    et le nombre personnes à charge est un nombre P
+    et P = 2
+    et M = 667,29
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le code
+    et le code est égal à "Zone1"
+    et le nombre personnes à charge est un nombre Q
+    et Q = 3
+    et M = 711,21
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le code
+    et le code est égal à "Zone1"
+    et le nombre personnes à charge est un nombre R
+    et M = 767,12 + round(79,57 * (R - 4) * 100) / 100
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est un quatrième code
+    et le quatrième code est égal à "Zone2"
+    et le nombre personnes à charge est un nombre S
+    et S = 0
+    et la situation familiale calcul apl est un cinquième code
+    et le cinquième code est égal à "PersonneSeule"
+    et M = 456,15
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le quatrième code
+    et le quatrième code est égal à "Zone2"
+    et le nombre personnes à charge est S
+    et S = 0
+    et la situation familiale calcul apl est un sixième code
+    et le sixième code est égal à "Couple"
+    et M = 532,35
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le quatrième code
+    et le quatrième code est égal à "Zone2"
+    et le nombre personnes à charge est un nombre T
+    et T = 1
+    et M = 567,63
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le quatrième code
+    et le quatrième code est égal à "Zone2"
+    et le nombre personnes à charge est un nombre U
+    et U = 2
+    et M = 607,61
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le quatrième code
+    et le quatrième code est égal à "Zone2"
+    et le nombre personnes à charge est un nombre V
+    et V = 3
+    et M = 647,44
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est le quatrième code
+    et le quatrième code est égal à "Zone2"
+    et le nombre personnes à charge est un nombre W
+    et M = 689,89 + round(71,91 * (W - 4) * 100) / 100
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est un code C
+    et C est égal à "Zone3"
+    et le nombre personnes à charge est un nombre X
+    et X = 0
+    et la situation familiale calcul apl est un code Y
+    et Y est égal à "PersonneSeule"
+    et M = 432,98
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est C
+    et C est égal à "Zone3"
+    et le nombre personnes à charge est X
+    et X = 0
+    et la situation familiale calcul apl est un code Z
+    et Z est égal à "Couple"
+    et M = 503,57
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est C
+    et C est égal à "Zone3"
+    et le nombre personnes à charge est un nombre B
+    et B = 1
+    et M = 534,26
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est C
+    et C est égal à "Zone3"
+    et le nombre personnes à charge est un nombre E
+    et E = 2
+    et M = 569,52
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est C
+    et C est égal à "Zone3"
+    et le nombre personnes à charge est un nombre F
+    et F = 3
+    et M = 604,76
+    sinon la date courante est D
+    et D >= 2025-10-01
+    et le zone est C
+    et C est égal à "Zone3"
+    et le nombre personnes à charge est un nombre G
+    et M = 644,41 + round(66,74 * (G - 4) * 100) / 100
+    sinon la date courante est une date H
+    et H >= 2023-10-01
+    et la date courante est une date J
+    et J < 2024-10-01
+    et le zone est un code L
+    et L est égal à "Zone1"
+    et le nombre personnes à charge est un nombre NN
+    et NN = 0
+    et la situation familiale calcul apl est un code NM
+    et NM est égal à "PersonneSeule"
+    et M = 478,09
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est L
+    et L est égal à "Zone1"
+    et le nombre personnes à charge est NN
+    et NN = 0
+    et la situation familiale calcul apl est un code NK
+    et NK est égal à "Couple"
+    et M = 560,47
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est L
+    et L est égal à "Zone1"
+    et le nombre personnes à charge est un nombre NP
+    et NP = 1
+    et M = 597,62
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est L
+    et L est égal à "Zone1"
+    et le nombre personnes à charge est un nombre NQ
+    et NQ = 2
+    et M = 639,57
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est L
+    et L est égal à "Zone1"
+    et le nombre personnes à charge est un nombre NR
+    et NR = 3
+    et M = 681,67
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est L
+    et L est égal à "Zone1"
+    et le nombre personnes à charge est un nombre NS
+    et M = 735,25 + round(76,26 * (NS - 4) * 100) / 100
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est un code NT
+    et NT est égal à "Zone2"
+    et le nombre personnes à charge est un nombre NU
+    et NU = 0
+    et la situation familiale calcul apl est un code NV
+    et NV est égal à "PersonneSeule"
+    et M = 437,2
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NT
+    et NT est égal à "Zone2"
+    et le nombre personnes à charge est NU
+    et NU = 0
+    et la situation familiale calcul apl est un code NW
+    et NW est égal à "Couple"
+    et M = 510,24
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NT
+    et NT est égal à "Zone2"
+    et le nombre personnes à charge est un nombre NX
+    et NX = 1
+    et M = 544,05
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NT
+    et NT est égal à "Zone2"
+    et le nombre personnes à charge est un nombre NY
+    et NY = 2
+    et M = 582,37
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NT
+    et NT est égal à "Zone2"
+    et le nombre personnes à charge est un nombre NZ
+    et NZ = 3
+    et M = 620,55
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NT
+    et NT est égal à "Zone2"
+    et le nombre personnes à charge est un nombre NB
+    et M = 661,23 + round(68,92 * (NB - 4) * 100) / 100
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est un code NC
+    et NC est égal à "Zone3"
+    et le nombre personnes à charge est un nombre ND
+    et ND = 0
+    et la situation familiale calcul apl est un code NE
+    et N'est égal à "PersonneSeule"
+    et M = 414,99
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NC
+    et NC est égal à "Zone3"
+    et le nombre personnes à charge est ND
+    et ND = 0
+    et la situation familiale calcul apl est un code NF
+    et NF est égal à "Couple"
+    et M = 482,66
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NC
+    et NC est égal à "Zone3"
+    et le nombre personnes à charge est un nombre NG
+    et NG = 1
+    et M = 512,07
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NC
+    et NC est égal à "Zone3"
+    et le nombre personnes à charge est un nombre NH
+    et NH = 2
+    et M = 545,86
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NC
+    et NC est égal à "Zone3"
+    et le nombre personnes à charge est un nombre NJ
+    et NJ = 3
+    et M = 579,64
+    sinon la date courante est H
+    et H >= 2023-10-01
+    et la date courante est J
+    et J < 2024-10-01
+    et le zone est NC
+    et NC est égal à "Zone3"
+    et le nombre personnes à charge est un nombre NL
+    et M = 617,64 + round(63,96 * (NL - 4) * 100) / 100
+    sinon la date courante est une date MN
+    et MN >= 2022-07-01
+    et la date courante est une date MM
+    et MM < 2023-10-01
+    et le zone est un code MK
+    et MK est égal à "Zone1"
+    et le nombre personnes à charge est un nombre MP
+    et MP = 0
+    et la situation familiale calcul apl est un code MQ
+    et MQ est égal à "PersonneSeule"
+    et M = 461,92
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MK
+    et MK est égal à "Zone1"
+    et le nombre personnes à charge est MP
+    et MP = 0
+    et la situation familiale calcul apl est un code MR
+    et MR est égal à "Couple"
+    et M = 541,52
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MK
+    et MK est égal à "Zone1"
+    et le nombre personnes à charge est un nombre MS
+    et MS = 1
+    et M = 577,41
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MK
+    et MK est égal à "Zone1"
+    et le nombre personnes à charge est un nombre MT
+    et MT = 2
+    et M = 617,94
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MK
+    et MK est égal à "Zone1"
+    et le nombre personnes à charge est un nombre MU
+    et MU = 3
+    et M = 658,62
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MK
+    et MK est égal à "Zone1"
+    et le nombre personnes à charge est un nombre MV
+    et M = 710,39 + round(73,68 * (MV - 4) * 100) / 100
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est un code MW
+    et MW est égal à "Zone2"
+    et le nombre personnes à charge est un nombre MX
+    et MX = 0
+    et la situation familiale calcul apl est un code MY
+    et MY est égal à "PersonneSeule"
+    et M = 422,42
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MW
+    et MW est égal à "Zone2"
+    et le nombre personnes à charge est MX
+    et MX = 0
+    et la situation familiale calcul apl est un code MZ
+    et MZ est égal à "Couple"
+    et M = 492,99
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MW
+    et MW est égal à "Zone2"
+    et le nombre personnes à charge est un nombre MB
+    et MB = 1
+    et M = 525,65
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MW
+    et MW est égal à "Zone2"
+    et le nombre personnes à charge est un nombre MC
+    et MC = 2
+    et M = 562,68
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MW
+    et MW est égal à "Zone2"
+    et le nombre personnes à charge est un nombre MD
+    et MD = 3
+    et M = 599,57
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MW
+    et MW est égal à "Zone2"
+    et le nombre personnes à charge est un nombre ME
+    et M = 638,87 + round(66,59 * (ME - 4) * 100) / 100
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est un code MF
+    et MF est égal à "Zone3"
+    et le nombre personnes à charge est un nombre MG
+    et MG = 0
+    et la situation familiale calcul apl est un code MH
+    et MH est égal à "PersonneSeule"
+    et M = 400,96
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MF
+    et MF est égal à "Zone3"
+    et le nombre personnes à charge est MG
+    et MG = 0
+    et la situation familiale calcul apl est un code MJ
+    et MJ est égal à "Couple"
+    et M = 466,34
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MF
+    et MF est égal à "Zone3"
+    et le nombre personnes à charge est un nombre ML
+    et ML = 1
+    et M = 494,75
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MF
+    et MF est égal à "Zone3"
+    et le nombre personnes à charge est un nombre KN
+    et KN = 2
+    et M = 527,4
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MF
+    et MF est égal à "Zone3"
+    et le nombre personnes à charge est un nombre KM
+    et KM = 3
+    et M = 560,04
+    sinon la date courante est MN
+    et MN >= 2022-07-01
+    et la date courante est MM
+    et MM < 2023-10-01
+    et le zone est MF
+    et MF est égal à "Zone3"
+    et le nombre personnes à charge est un nombre KK
+    et M = 596,75 + round(61,8 * (KK - 4) * 100) / 100
+    sinon la date courante est une date KP
+    et KP >= 2021-10-01
+    et la date courante est une date KQ
+    et KQ < 2022-07-01
+    et le zone est un code KR
+    et KR est égal à "Zone1"
+    et le nombre personnes à charge est un nombre KS
+    et KS = 0
+    et la situation familiale calcul apl est un code KT
+    et KT est égal à "PersonneSeule"
+    et M = 446,3
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KR
+    et KR est égal à "Zone1"
+    et le nombre personnes à charge est KS
+    et KS = 0
+    et la situation familiale calcul apl est un code KU
+    et KU est égal à "Couple"
+    et M = 523,21
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KR
+    et KR est égal à "Zone1"
+    et le nombre personnes à charge est un nombre KV
+    et KV = 1
+    et M = 557,88
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KR
+    et KR est égal à "Zone1"
+    et le nombre personnes à charge est un nombre KW
+    et KW = 2
+    et M = 597,04
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KR
+    et KR est égal à "Zone1"
+    et le nombre personnes à charge est un nombre KX
+    et KX = 3
+    et M = 636,35
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KR
+    et KR est égal à "Zone1"
+    et le nombre personnes à charge est un nombre KY
+    et M = 686,37 + round(71,19 * (KY - 4) * 100) / 100
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est un code KZ
+    et KZ est égal à "Zone2"
+    et le nombre personnes à charge est un nombre KB
+    et KB = 0
+    et la situation familiale calcul apl est un code KC
+    et KC est égal à "PersonneSeule"
+    et M = 408,14
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KZ
+    et KZ est égal à "Zone2"
+    et le nombre personnes à charge est KB
+    et KB = 0
+    et la situation familiale calcul apl est un code KD
+    et KD est égal à "Couple"
+    et M = 476,32
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KZ
+    et KZ est égal à "Zone2"
+    et le nombre personnes à charge est un nombre KE
+    et KE = 1
+    et M = 507,87
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KZ
+    et KZ est égal à "Zone2"
+    et le nombre personnes à charge est un nombre KF
+    et KF = 2
+    et M = 543,65
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KZ
+    et KZ est égal à "Zone2"
+    et le nombre personnes à charge est un nombre KG
+    et KG = 3
+    et M = 579,29
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KZ
+    et KZ est égal à "Zone2"
+    et le nombre personnes à charge est un nombre KH
+    et M = 617,27 + round(64,34 * (KH - 4) * 100) / 100
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est un code KJ
+    et KJ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre KL
+    et KL = 0
+    et la situation familiale calcul apl est un code PN
+    et PN est égal à "PersonneSeule"
+    et M = 387,4
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KJ
+    et KJ est égal à "Zone3"
+    et le nombre personnes à charge est KL
+    et KL = 0
+    et la situation familiale calcul apl est un code PM
+    et PM est égal à "Couple"
+    et M = 450,57
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KJ
+    et KJ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre PK
+    et PK = 1
+    et M = 478,02
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KJ
+    et KJ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre PP
+    et PP = 2
+    et M = 509,57
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KJ
+    et KJ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre PQ
+    et PQ = 3
+    et M = 541,1
+    sinon la date courante est KP
+    et KP >= 2021-10-01
+    et la date courante est KQ
+    et KQ < 2022-07-01
+    et le zone est KJ
+    et KJ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre PR
+    et M = 576,57 + round(59,71 * (PR - 4) * 100) / 100
+    sinon la date courante est une date PS
+    et PS < 2021-10-01
+    et la date courante est une date PT
+    et PT >= 2020-10-01
+    et le zone est un code PU
+    et PU est égal à "Zone1"
+    et le nombre personnes à charge est un nombre PV
+    et PV = 0
+    et la situation familiale calcul apl est un code PW
+    et PW est égal à "PersonneSeule"
+    et M = 444,43
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PU
+    et PU est égal à "Zone1"
+    et le nombre personnes à charge est PV
+    et PV = 0
+    et la situation familiale calcul apl est un code PX
+    et PX est égal à "Couple"
+    et M = 521,01
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PU
+    et PU est égal à "Zone1"
+    et le nombre personnes à charge est un nombre PY
+    et PY = 1
+    et M = 555,55
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PU
+    et PU est égal à "Zone1"
+    et le nombre personnes à charge est un nombre PZ
+    et PZ = 2
+    et M = 594,54
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PU
+    et PU est égal à "Zone1"
+    et le nombre personnes à charge est un nombre PB
+    et PB = 3
+    et M = 633,69
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PU
+    et PU est égal à "Zone1"
+    et le nombre personnes à charge est un nombre PC
+    et M = 683,5 + round(70,89 * (PC - 4) * 100) / 100
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est un code PD
+    et PD est égal à "Zone2"
+    et le nombre personnes à charge est un nombre PE
+    et PE = 0
+    et la situation familiale calcul apl est un code PF
+    et PF est égal à "PersonneSeule"
+    et M = 406,43
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PD
+    et PD est égal à "Zone2"
+    et le nombre personnes à charge est PE
+    et PE = 0
+    et la situation familiale calcul apl est un code PG
+    et PG est égal à "Couple"
+    et M = 474,33
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PD
+    et PD est égal à "Zone2"
+    et le nombre personnes à charge est un nombre PH
+    et PH = 1
+    et M = 505,75
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PD
+    et PD est égal à "Zone2"
+    et le nombre personnes à charge est un nombre PJ
+    et PJ = 2
+    et M = 541,38
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PD
+    et PD est égal à "Zone2"
+    et le nombre personnes à charge est un nombre PL
+    et PL = 3
+    et M = 576,87
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est PD
+    et PD est égal à "Zone2"
+    et le nombre personnes à charge est un nombre QN
+    et M = 614,69 + round(64,07 * (QN - 4) * 100) / 100
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est un code QM
+    et QM est égal à "Zone3"
+    et le nombre personnes à charge est un nombre QK
+    et QK = 0
+    et la situation familiale calcul apl est un code QP
+    et QP est égal à "PersonneSeule"
+    et M = 385,78
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est QM
+    et QM est égal à "Zone3"
+    et le nombre personnes à charge est QK
+    et QK = 0
+    et la situation familiale calcul apl est un code QQ
+    et QQ est égal à "Couple"
+    et M = 448,69
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est QM
+    et QM est égal à "Zone3"
+    et le nombre personnes à charge est un nombre QR
+    et QR = 1
+    et M = 476,02
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est QM
+    et QM est égal à "Zone3"
+    et le nombre personnes à charge est un nombre QS
+    et QS = 2
+    et M = 507,44
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est QM
+    et QM est égal à "Zone3"
+    et le nombre personnes à charge est un nombre QT
+    et QT = 3
+    et M = 538,84
+    sinon la date courante est PS
+    et PS < 2021-10-01
+    et la date courante est PT
+    et PT >= 2020-10-01
+    et le zone est QM
+    et QM est égal à "Zone3"
+    et le nombre personnes à charge est un nombre QU
+    et M = 574,16 + round(59,46 * (QU - 4) * 100) / 100
+    sinon la date courante est une date QV
+    et QV >= 2024-10-01
+    et la date courante est une date QW
+    et QW < 2025-10-01
+    et le zone est un code QX
+    et QX est égal à "Zone1"
+    et le nombre personnes à charge est un nombre QY
+    et QY = 0
+    et la situation familiale calcul apl est un code QZ
+    et QZ est égal à "PersonneSeule"
+    et M = 493,68
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QX
+    et QX est égal à "Zone1"
+    et le nombre personnes à charge est QY
+    et QY = 0
+    et la situation familiale calcul apl est un code QB
+    et QB est égal à "Couple"
+    et M = 578,74
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QX
+    et QX est égal à "Zone1"
+    et le nombre personnes à charge est un nombre QC
+    et QC = 1
+    et M = 617,1
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QX
+    et QX est égal à "Zone1"
+    et le nombre personnes à charge est un nombre QD
+    et QD = 2
+    et M = 660,42
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QX
+    et QX est égal à "Zone1"
+    et le nombre personnes à charge est un nombre QE
+    et QE = 3
+    et M = 703,89
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QX
+    et QX est égal à "Zone1"
+    et le nombre personnes à charge est un nombre QF
+    et M = 759,22 + round(78,75 * (QF - 4) * 100) / 100
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est un code QG
+    et QG est égal à "Zone2"
+    et le nombre personnes à charge est un nombre QH
+    et QH = 0
+    et la situation familiale calcul apl est un code QJ
+    et QJ est égal à "PersonneSeule"
+    et M = 451,45
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QG
+    et QG est égal à "Zone2"
+    et le nombre personnes à charge est QH
+    et QH = 0
+    et la situation familiale calcul apl est un code QL
+    et QL est égal à "Couple"
+    et M = 526,87
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QG
+    et QG est égal à "Zone2"
+    et le nombre personnes à charge est un nombre RN
+    et RN = 1
+    et M = 561,79
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QG
+    et QG est égal à "Zone2"
+    et le nombre personnes à charge est un nombre RM
+    et RM = 2
+    et M = 601,36
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QG
+    et QG est égal à "Zone2"
+    et le nombre personnes à charge est un nombre RK
+    et RK = 3
+    et M = 640,78
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est QG
+    et QG est égal à "Zone2"
+    et le nombre personnes à charge est un nombre RP
+    et M = 682,79 + round(71,17 * (RP - 4) * 100) / 100
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est un code RQ
+    et RQ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre RR
+    et RR = 0
+    et la situation familiale calcul apl est un code RS
+    et RS est égal à "PersonneSeule"
+    et M = 428,52
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est RQ
+    et RQ est égal à "Zone3"
+    et le nombre personnes à charge est RR
+    et RR = 0
+    et la situation familiale calcul apl est un code RT
+    et RT est égal à "Couple"
+    et M = 498,39
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est RQ
+    et RQ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre RU
+    et RU = 1
+    et M = 528,76
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est RQ
+    et RQ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre RV
+    et RV = 2
+    et M = 563,55
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est RQ
+    et RQ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre RW
+    et RW = 3
+    et M = 598,54
+    sinon la date courante est QV
+    et QV >= 2024-10-01
+    et la date courante est QW
+    et QW < 2025-10-01
+    et le zone est RQ
+    et RQ est égal à "Zone3"
+    et le nombre personnes à charge est un nombre RX
+    et M = 637,78 + round(66,05 * (RX - 4) * 100) / 100.
+
+règle équivalence_loyer_minimale avec pour source "Article D832-24 | LEGIARTI000038878712":
+la équivalence loyer minimale est un montant si
+    le calcul équivalence loyer minimale montant est le montant.
+
+règle équivalence_loyer_éligible avec pour source "Article D832-24 | LEGIARTI000038878712":
+la équivalence loyer éligible est un montant si
+    la redevance est un montant M
+    et le plafond équivalence loyer éligible est un montant N
+    et M >= N
+    et le plafond équivalence loyer éligible est le montant
+    sinon la redevance est le montant.
+
+scénario CasTest1 est, comme indiqué dans "sources/cat/apl_foyer.test.yaml" à cas 1:
+    la date conventionnement est 2022-01-01.
+    la date courante est 2022-04-23.
+    le nombre personnes à charge est 0.
+    la redevance est 360.
+    le ressources ménage arrondies est 15000.
+    la résidence est "Métropole".
+    la situation familiale calcul apl est "Couple".
+    le type logement foyer est "Autre".
+    le zone est "Zone3".
+    q_coefficient_multiplicateur_d832_25 attend les réponses ["le coefficient multiplicateur d832 25 est 13393,4"].
+    q_coefficient_prise_en_charge_d832_25 attend les réponses ["le coefficient prise en charge d832 25 est 0,41"].
+    q_coefficient_r_d832_25 attend les réponses ["le coefficient r d832 25 est 1217,26"].
+    q_n_nombre_parts_d832_25 attend les réponses ["le n nombre parts d832 25 est 1,8"].
+    q_plafond_équivalence_loyer_éligible attend les réponses ["le plafond équivalence loyer éligible est 450,57"].
+    % pending — waits for residue r1:
+    % q_équivalence_loyer_minimale attend les réponses ["la équivalence loyer minimale est 318,13"].
+
+scénario CasTest3 est, comme indiqué dans "sources/cat/apl_foyer.test.yaml" à cas 2:
+    la date conventionnement est 2020-01-01.
+    la date courante est 2021-09-15.
+    le nombre personnes à charge est 0.
+    la redevance est 350.
+    le ressources ménage arrondies est 7500.
+    la résidence est "Métropole".
+    la situation familiale calcul apl est "PersonneSeule".
+    le type logement foyer est "Autre".
+    le zone est "Zone1".
+    q_coefficient_prise_en_charge_d832_25 attend les réponses ["le coefficient prise en charge d832 25 est 0,64"].
+    q_plafond_équivalence_loyer_éligible attend les réponses ["le plafond équivalence loyer éligible est 444,43"].
+    % pending — waits for residue r1:
+    % q_équivalence_loyer_minimale attend les réponses ["la équivalence loyer minimale est 98,95"].
+    q_équivalence_loyer_éligible attend les réponses ["la équivalence loyer éligible est 350"].
+
+scénario CasTest4 est, comme indiqué dans "sources/cat/apl_foyer.test.yaml" à cas 3:
+    la date conventionnement est 2020-01-01.
+    la date courante est 2022-05-01.
+    le nombre personnes à charge est 0.
+    la redevance est 350.
+    le ressources ménage arrondies est 7500.
+    la résidence est "Métropole".
+    la situation familiale calcul apl est "PersonneSeule".
+    le type logement foyer est "Autre".
+    le zone est "Zone1".
+    q_coefficient_prise_en_charge_d832_25 attend les réponses ["le coefficient prise en charge d832 25 est 0,64"].
+    q_plafond_équivalence_loyer_éligible attend les réponses ["le plafond équivalence loyer éligible est 446,3"].
+    % pending — waits for residue r1:
+    % q_équivalence_loyer_minimale attend les réponses ["la équivalence loyer minimale est 98,95"].
+    q_équivalence_loyer_éligible attend les réponses ["la équivalence loyer éligible est 350"].
+
+scénario CasTest5 est, comme indiqué dans "sources/cat/apl_foyer.test.yaml" à cas 4:
+    la date conventionnement est 2020-01-01.
+    la date courante est 2022-05-01.
+    le nombre personnes à charge est 0.
+    la redevance est 350.
+    le ressources ménage arrondies est 7500.
+    la résidence est "Métropole".
+    la situation familiale calcul apl est "PersonneSeule".
+    le type logement foyer est "RésidenceSociale".
+    le zone est "Zone1".
+    q_coefficient_prise_en_charge_d832_25 attend les réponses ["le coefficient prise en charge d832 25 est 0,6"].
+    q_plafond_équivalence_loyer_éligible attend les réponses ["le plafond équivalence loyer éligible est 446,3"].
+    % pending — waits for residue r1:
+    % q_équivalence_loyer_minimale attend les réponses ["la équivalence loyer minimale est 124,64"].
+    q_équivalence_loyer_éligible attend les réponses ["la équivalence loyer éligible est 350"].
+
+requête q_coefficient_multiplicateur_d832_25 est:
+    le coefficient multiplicateur d832 25 est quel montant.
+
+requête q_coefficient_prise_en_charge_d832_25 est:
+    le coefficient prise en charge d832 25 est quel nombre.
+
+requête q_coefficient_prise_en_charge_d832_25 est:
+    le coefficient prise en charge d832 25 est quel nombre.
+
+requête q_coefficient_prise_en_charge_d832_25 est:
+    le coefficient prise en charge d832 25 est quel nombre.
+
+requête q_coefficient_prise_en_charge_d832_25 est:
+    le coefficient prise en charge d832 25 est quel nombre.
+
+requête q_coefficient_r_d832_25 est:
+    le coefficient r d832 25 est quel montant.
+
+requête q_n_nombre_parts_d832_25 est:
+    le n nombre parts d832 25 est quel nombre.
+
+requête q_plafond_équivalence_loyer_éligible est:
+    le plafond équivalence loyer éligible est quel montant.
+
+requête q_plafond_équivalence_loyer_éligible est:
+    le plafond équivalence loyer éligible est quel montant.
+
+requête q_plafond_équivalence_loyer_éligible est:
+    le plafond équivalence loyer éligible est quel montant.
+
+requête q_plafond_équivalence_loyer_éligible est:
+    le plafond équivalence loyer éligible est quel montant.
+
+requête q_équivalence_loyer_minimale est:
+    l'équivalence loyer minimale est quel montant.
+
+requête q_équivalence_loyer_minimale est:
+    l'équivalence loyer minimale est quel montant.
+
+requête q_équivalence_loyer_minimale est:
+    l'équivalence loyer minimale est quel montant.
+
+requête q_équivalence_loyer_minimale est:
+    l'équivalence loyer minimale est quel montant.
+
+requête q_équivalence_loyer_éligible est:
+    l'équivalence loyer éligible est quel montant.
+
+requête q_équivalence_loyer_éligible est:
+    l'équivalence loyer éligible est quel montant.
+
+requête q_équivalence_loyer_éligible est:
+    l'équivalence loyer éligible est quel montant.
+

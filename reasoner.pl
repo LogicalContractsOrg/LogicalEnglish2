@@ -1640,6 +1640,7 @@ is_built_in(le_is_months_after(_, _, _)).
 is_built_in(le_minimum(_, _, _)).
 is_built_in(le_maximum(_, _, _)).
 is_built_in(le_is_in(_, _)).
+is_built_in(le_starts_with(_, _)).
 is_built_in(equal_to(_, _)).
 
 call_reasoner_built_in(prolog_call(G), SM) :- !,
@@ -1691,6 +1692,12 @@ call_reasoner_built_in(le_assign(X, Y0), _) :- !,
 call_reasoner_built_in(le_is(X, Y0), _) :- !, le_snap_rounding(Y0, Y), ( number(Y) -> X is Y; catch(X is Y, _, X = Y)).
 
 call_reasoner_built_in(le_is_in(X, Y), _) :- !, is_list(Y), member(X, Y).
+%   A text whose first characters are another text: `the commune code starts
+%   with "971"`. Both must be known; a number is read as its own text, so a
+%   code written without quotes still answers.
+call_reasoner_built_in(le_starts_with(X, Y), _) :- !,
+    le_text_value(X, XT), le_text_value(Y, YT),
+    sub_atom(XT, 0, _, _, YT).
 call_reasoner_built_in(le_ge(X, Y), _) :- !, le_compare(>=, X, Y).
 call_reasoner_built_in(le_le(X, Y), _) :- !, le_compare(=<, X, Y).
 call_reasoner_built_in(le_gt(X, Y), _) :- !, le_compare(>, X, Y).
@@ -1794,6 +1801,15 @@ le_is_days_after(Later, Count, Before) :-
     le_date_stamp(Later, LaterStamp),
     le_date_stamp(Before, BeforeStamp),
     Count is round(LaterStamp - BeforeStamp) div 86400. % using negative number to indicate reserve order 
+
+%!  le_text_value(+Value, -Text) is semidet.
+%
+%   A value as the text it reads as: an atom or string as itself, a number as
+%   the digits that write it (an INSEE commune code may arrive either way).
+le_text_value(V, _) :- var(V), !, fail.
+le_text_value(V, T) :- atom(V), !, T = V.
+le_text_value(V, T) :- string(V), !, atom_string(T, V).
+le_text_value(V, T) :- number(V), !, format(atom(T), '~w', [V]).
 
 %!  le_is_months_after(?Later, ?Count, ?Before) is semidet.
 %

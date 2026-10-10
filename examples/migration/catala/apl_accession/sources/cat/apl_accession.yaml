@@ -1,0 +1,1436 @@
+format: rulespec/v1
+module:
+  summary: Scopes of catala-examples, lowered for the twin builder.
+  title: Catala scope(s) CalculAidePersonnaliséeLogementAccessionPropriété
+rules:
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  must:
+  - (date_courante >= date("2020-10-01"))
+  name: aide_finale_formule_initiale
+  source: Article D832-10 | LEGIARTI000038878746
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (round((((mensualité_éligible + montant_forfaitaire_charges_d832_10)
+      - mensualité_minimale) * coefficient_prise_en_charge_d832_10), 2) < 0): 0 else:
+      round((((mensualité_éligible + montant_forfaitaire_charges_d832_10) - mensualité_minimale)
+      * coefficient_prise_en_charge_d832_10), 2))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: ancienneté_logement
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: ancienneté_logement_Ancien
+- catala_scope: CalculNombrePartsAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: calcul_nombre_parts_n_nombre_parts_d832_11
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (calcul_nombre_parts_nombre_personnes_à_charge == 0): (match calcul_nombre_parts_situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1.4 ''Couple'' => 1.8) else: (if (calcul_nombre_parts_nombre_personnes_à_charge
+      == 1): 2.5 else: (if (calcul_nombre_parts_nombre_personnes_à_charge == 2): 3.0
+      else: (if (calcul_nombre_parts_nombre_personnes_à_charge == 3): 3.7 else: (if
+      (calcul_nombre_parts_nombre_personnes_à_charge == 4): 4.3 else: (4.3 + (0.5
+      * (calcul_nombre_parts_nombre_personnes_à_charge - 4))))))))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Integer
+  kind: derived
+  name: calcul_nombre_parts_nombre_personnes_à_charge
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: nombre_personnes_à_charge
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: derived
+  name: calcul_nombre_parts_situation_familiale_calcul_apl
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: situation_familiale_calcul_apl
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: calcul_plafond_mensualité_d832_10_3_de_date_entrée_logement
+  source: Article 17 | LEGIARTI000039160759; Article 18 | LEGIARTI000046834759
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01")) and ((date_entrée_logement
+      >= date("1992-06-30")) and ((date_entrée_logement < date("1994-11-27")) and
+      ((ancienneté_logement == ''Neuf'') and (type_prêt == ''D331_32''))))): ((match
+      zone: ''Zone1'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2085 ''Couple'' => 2515) else: (2945 + round((430 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1860 ''Couple'' => 2239) else: (2618 + round((379 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1736 ''Couple'' => 2082) else: (2428 + round((356 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_entrée_logement >= date("1992-06-30")) and ((date_entrée_logement
+      < date("1994-11-27")) and ((ancienneté_logement == ''Ancien'') and (type_prêt
+      == ''D331_32''))))): ((match zone: ''Zone1'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 1678 ''Couple''
+      => 2025) else: (2372 + round((347 * (nombre_personnes_à_charge - 1)), 2))) ''Zone2''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1496 ''Couple'' => 1801) else: (2106 + round((305 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1397 ''Couple'' => 1676) else: (1955 + round((279 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_entrée_logement >= date("1994-11-27")) and ((ancienneté_logement
+      == ''Neuf'') and (type_prêt == ''D331_32'')))): ((match zone: ''Zone1'' => (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 1840 ''Couple'' => 2200) else: (2600 + round((380 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1642 ''Couple'' => 1977) else: (2312 + round((335 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1532 ''Couple'' => 1837) else: (2142 + round((305 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_entrée_logement >= date("1994-11-27")) and ((ancienneté_logement
+      == ''Ancien'') and (type_prêt == ''D331_32'')))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1481 ''Couple'' => 1787) else: (2093 + round((306 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1320 ''Couple'' => 1589) else: (1858 + round((269 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1233 ''Couple'' => 1479) else: (1725 + round((246 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2023-01-01")) and ((date_entrée_logement >= date("1992-06-30"))
+      and ((date_entrée_logement <= date("1994-11-27")) and ((match ancienneté_logement:
+      ''Ancien'' => (ancienneté_logement_Ancien == ''Oui'') ''Neuf'' => false) and
+      (type_prêt == ''D331_63_64'')))))): round(((if (nombre_personnes_à_charge ==
+      0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 869 ''Couple''
+      => 971) else: (1073 + round((102 * (nombre_personnes_à_charge - 1)), 2))) *
+      taux_francs_vers_euros), 2) elif ((date_courante >= date("2019-10-01")) and
+      ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("1992-06-30"))
+      and ((date_entrée_logement < date("1994-11-27")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2085 ''Couple'' => 2515) else: (2945 + round((430 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1860 ''Couple'' => 2239) else: (2618 + round((379 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1736 ''Couple'' => 2082) else: (2428 + round((346 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("1992-06-30"))
+      and ((date_entrée_logement < date("1994-11-27")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1678 ''Couple'' => 2025) else: (2372 + round((347 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1496 ''Couple'' => 1801) else: (2106 + round((305 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1397 ''Couple'' => 1676) else: (1955 + round((279 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("1994-11-27"))
+      and ((date_entrée_logement < date("2000-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1981 ''Couple'' => 2390) else: (2799 + round((409 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1768 ''Couple'' => 2128) else: (2488 + round((360 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1650 ''Couple'' => 1979) else: (2308 + round((329 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("1994-11-27"))
+      and ((date_entrée_logement < date("2000-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1595 ''Couple'' => 1925) else: (2255 + round((330 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1422 ''Couple'' => 1712) else: (2002 + round((290 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1328 ''Couple'' => 1593) else: (1858 + round((265 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2000-06-30"))
+      and ((date_entrée_logement <= date("2001-06-30")) and ((ancienneté_logement
+      == ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2001 ''Couple'' => 1414) else: (1827 + round((413 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1786 ''Couple'' => 2150) else: (2514 + round((364 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1667 ''Couple'' => 1999) else: (2331 + round((332 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2000-06-30"))
+      and ((date_entrée_logement <= date("2001-06-30")) and ((ancienneté_logement
+      == ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1611 ''Couple'' => 1944) else: (2277 + round((333 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1436 ''Couple'' => 1729) else: (2022 + round((293 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1341 ''Couple'' => 1609) else: (1877 + round((268 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2001-07-01"))
+      and ((date_entrée_logement < date("2001-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2025 ''Couple'' => 2443) else: (2861 + round((418 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1807 ''Couple'' => 2175) else: (2543 + round((368 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1687 ''Couple'' => 2023) else: (2359 + round((336 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2002-01-01"))
+      and ((date_entrée_logement < date("2002-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 308.71 ''Couple'' => 372.43) else: (436.15 + round((63.72
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 275.48 ''Couple''
+      => 331.48) else: (387.68 + round((56.1 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 257.18 ''Couple'' => 308.4) else: (359.62 + round((51.22
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2001-07-01"))
+      and ((date_entrée_logement < date("2001-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1630 ''Couple'' => 1967) else: (2304 + round((337 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1453 ''Couple'' => 1750) else: (2047 + round((297 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1357 ''Couple'' => 1628) else: (1899 + round((271 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2002-01-01"))
+      and ((date_entrée_logement < date("2002-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 248.49 ''Couple'' => 299.87) else: (351.25 + round((51.38
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 221.51 ''Couple''
+      => 266.79) else: (312.07 + round((45.28 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 206.87 ''Couple'' => 248.18) else: (289.49 + round((41.31
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2002-06-30"))
+      and ((date_entrée_logement < date("2003-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 312.41 ''Couple'' => 376.89) else: (441.37 + round((64.48
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 278.79 ''Couple''
+      => 335.56) else: (392.33 + round((56.77 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 260.27 ''Couple'' => 312.1) else: (363.93 + round((51.83
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2002-06-30"))
+      and ((date_entrée_logement < date("2003-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 251.47 ''Couple'' => 303.47) else: (355.47 + round((52
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 224.17 ''Couple''
+      => 269.99) else: (315.81 + round((45.82 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 209.35 ''Couple'' => 251.16) else: (292.97 + round((41.81
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2003-06-30"))
+      and ((date_entrée_logement < date("2005-08-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 316.16 ''Couple'' => 381.41) else: (446.66 + round((65.25
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 282.14 ''Couple''
+      => 339.59) else: (397.04 + round((57.45 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 263.39 ''Couple'' => 315.84) else: (368.29 + round((52.45
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2003-06-30"))
+      and ((date_entrée_logement < date("2005-08-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 254.49 ''Couple'' => 307.11) else: (359.73 + round((52.62
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 226.86 ''Couple''
+      => 273.23) else: (319.6 + round((46.37 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 211.86 ''Couple'' => 254.17) else: (296.48 + round((42.31
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2005-08-31"))
+      and ((date_entrée_logement < date("2006-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 321.85 ''Couple'' => 388.27) else: (454.69 + round((66.42
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 287.22 ''Couple''
+      => 345.7) else: (404.18 + round((58.48 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 268.13 ''Couple'' => 321.52) else: (374.91 + round((53.39
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2005-08-31"))
+      and ((date_entrée_logement < date("2006-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 259.07 ''Couple'' => 312.64) else: (366.21 + round((53.57
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 230.94 ''Couple''
+      => 278.14) else: (325.34 + round((47.2 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 215.67 ''Couple'' => 258.74) else: (301.81 + round((43.07
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2006-12-31"))
+      and ((date_entrée_logement < date("2007-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 330.86 ''Couple'' => 399.14) else: (467.42 + round((68.28
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 295.26 ''Couple''
+      => 355.38) else: (415.5 + round((60.12 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 275.64 ''Couple'' => 330.52) else: (385.41 + round((54.88
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2006-12-31"))
+      and ((date_entrée_logement < date("2007-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 266.32 ''Couple'' => 321.39) else: (376.46 + round((55.07
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 237.41 ''Couple''
+      => 285.93) else: (334.45 + round((48.52 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 221.71 ''Couple'' => 365.98) else: (310.26 + round((44.28
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2007-12-31"))
+      and ((date_entrée_logement < date("2008-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 339.99 ''Couple'' => 410.16) else: (480.32 + round((70.16
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 303.41 ''Couple''
+      => 365.19) else: (426.97 + round((61.78 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 283.25 ''Couple'' => 339.64) else: (396.05 + round((56.39
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2007-12-31"))
+      and ((date_entrée_logement < date("2008-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 273.67 ''Couple'' => 330.26) else: (386.85 + round((56.59
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 243.96 ''Couple''
+      => 293.82) else: (343.68 + round((49.86 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 227.83 ''Couple'' => 273.32) else: (318.82 + round((45.5
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2008-12-31"))
+      and ((date_entrée_logement < date("2009-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 350.02 ''Couple'' => 422.26) else: (494.49 + round((72.23
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 312.36 ''Couple''
+      => 375.96) else: (439.57 + round((63.6 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 291.61 ''Couple'' => 349.66) else: (407.73 + round((58.05
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2008-12-31"))
+      and ((date_entrée_logement < date("2009-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 281.74 ''Couple'' => 340) else: (398.26 + round((58.26
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 251.16 ''Couple''
+      => 302.49) else: (353.82 + round((51.33 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 234.55 ''Couple'' => 281.38) else: (328.23 + round((46.84
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2009-12-31"))
+      and ((date_entrée_logement < date("2010-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 351.14 ''Couple'' => 423.61) else: (496.07 + round((72.46
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 313.36 ''Couple''
+      => 377.16) else: (440.98 + round((63.8 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 292.54 ''Couple'' => 350.78) else: (409.03 + round((58.24
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2009-12-31"))
+      and ((date_entrée_logement < date("2010-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 282.64 ''Couple'' => 341.09) else: (399.53 + round((58.45
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 251.96 ''Couple''
+      => 303.46) else: (354.95 + round((51.49 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 235.3 ''Couple'' => 282.28) else: (329.28 + round((46.99
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2010-12-31"))
+      and ((date_entrée_logement < date("2011-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 355 ''Couple'' => 428.27) else: (501.53 + round((73.26
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 316.81 ''Couple''
+      => 381.31) else: (445.83 + round((64.5 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 295.76 ''Couple'' => 354.64) else: (413.53 + round((58.88
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2010-12-31"))
+      and ((date_entrée_logement < date("2011-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 285.75 ''Couple'' => 344.84) else: (403.92 + round((59.09
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 254.73 ''Couple''
+      => 306.8) else: (358.85 + round((52.06 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 237.89 ''Couple'' => 285.39) else: (332.9 + round((47.51
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2011-12-31"))
+      and ((date_entrée_logement < date("2012-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 358.55 ''Couple'' => 432.55) else: (506.55 + round((73.99
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 319.98 ''Couple''
+      => 385.12) else: (450.29 + round((65.15 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 298.72 ''Couple'' => 358.19) else: (417.67 + round((59.47
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2011-12-31"))
+      and ((date_entrée_logement < date("2012-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 288.61 ''Couple'' => 348.29) else: (407.96 + round((59.68
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 257.28 ''Couple''
+      => 309.87) else: (362.44 + round((52.58 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 240.27 ''Couple'' => 288.24) else: (336.23 + round((47.99
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2012-12-31"))
+      and ((date_entrée_logement < date("2014-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 366.26 ''Couple'' => 441.85) else: (517.44 + round((75.58
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 326.86 ''Couple''
+      => 393.4) else: (459.97 + round((66.55 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 305.14 ''Couple'' => 365.89) else: (426.65 + round((60.75
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2012-12-31"))
+      and ((date_entrée_logement < date("2014-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 294.82 ''Couple'' => 355.78) else: (416.73 + round((60.96
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 262.81 ''Couple''
+      => 316.53) else: (370.23 + round((53.71 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 245.44 ''Couple'' => 294.44) else: (343.46 + round((49.02
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2014-09-30"))
+      and ((date_entrée_logement < date("2015-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 368.35 ''Couple'' => 444.37) else: (520.39 + round((76.01
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 328.72 ''Couple''
+      => 395.64) else: (462.59 + round((66.93 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 306.88 ''Couple'' => 367.98) else: (429.08 + round((61.1
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2014-09-30"))
+      and ((date_entrée_logement < date("2015-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 296.5 ''Couple'' => 357.81) else: (419.11 + round((61.31
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 264.31 ''Couple''
+      => 318.33) else: (372.34 + round((54.02 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 246.84 ''Couple'' => 296.12) else: (345.42 + round((49.3
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2015-09-30"))
+      and ((date_entrée_logement < date("2017-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 368.64 ''Couple'' => 444.73) else: (520.81 + round((76.07
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 328.98 ''Couple''
+      => 395.96) else: (462.96 + round((66.98 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 307.13 ''Couple'' => 368.27) else: (429.42 + round((61.15
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2015-09-30"))
+      and ((date_entrée_logement < date("2017-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 296.74 ''Couple'' => 358.1) else: (419.45 + round((61.36
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 264.52 ''Couple''
+      => 318.58) else: (372.64 + round((54.06 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 247.04 ''Couple'' => 296.36) else: (345.7 + round((49.34
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2017-09-30"))
+      and ((date_entrée_logement < date("2019-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 371.4 ''Couple'' => 448.07) else: (524.72 + round((76.64
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 331.45 ''Couple''
+      => 398.93) else: (466.43 + round((67.48 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 309.43 ''Couple'' => 371.03) else: (432.64 + round((61.61
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2017-09-30"))
+      and ((date_entrée_logement < date("2019-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 298.97 ''Couple'' => 360.79) else: (422.6 + round((61.82
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 266.5 ''Couple''
+      => 320.97) else: (375.43 + round((54.47 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 248.89 ''Couple'' => 298.58) else: (348.29 + round((49.71
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2019-09-30"))
+      and ((ancienneté_logement == ''Neuf'') and (type_prêt == ''D331_63_64''))))):
+      (match zone: ''Zone1'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 372.52 ''Couple'' => 449.41) else: (526.29 + round((76.87
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 332.44 ''Couple''
+      => 400.13) else: (467.83 + round((67.68 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 310.36 ''Couple'' => 372.15) else: (433.94 + round((61.79
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_entrée_logement >= date("2019-09-30"))
+      and ((ancienneté_logement == ''Ancien'') and (type_prêt == ''D331_63_64''))))):
+      (match zone: ''Zone1'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 299.86 ''Couple'' => 361.87) else: (423.86 + round((62.01
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 267.3 ''Couple''
+      => 321.93) else: (376.56 + round((54.63 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 249.64 ''Couple'' => 299.48) else: (349.34 + round((49.86
+      * (nombre_personnes_à_charge - 1)), 2)))))'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: calcul_plafond_mensualité_d832_10_3_de_date_signature_prêt
+  source: Article 17 | LEGIARTI000039160759; Article 18 | LEGIARTI000046834759
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01")) and ((date_signature_prêt
+      >= date("1992-06-30")) and ((date_signature_prêt < date("1994-11-27")) and ((ancienneté_logement
+      == ''Neuf'') and (type_prêt == ''D331_32''))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2085 ''Couple'' => 2515) else: (2945 + round((430 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1860 ''Couple'' => 2239) else: (2618 + round((379 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1736 ''Couple'' => 2082) else: (2428 + round((356 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_signature_prêt >= date("1992-06-30")) and ((date_signature_prêt <
+      date("1994-11-27")) and ((ancienneté_logement == ''Ancien'') and (type_prêt
+      == ''D331_32''))))): ((match zone: ''Zone1'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 1678 ''Couple''
+      => 2025) else: (2372 + round((347 * (nombre_personnes_à_charge - 1)), 2))) ''Zone2''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1496 ''Couple'' => 1801) else: (2106 + round((305 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1397 ''Couple'' => 1676) else: (1955 + round((279 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_signature_prêt >= date("1994-11-27")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_32'')))): ((match zone: ''Zone1'' => (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 1840 ''Couple'' => 2200) else: (2600 + round((380 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1642 ''Couple'' => 1977) else: (2312 + round((335 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1532 ''Couple'' => 1837) else: (2142 + round((305 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_signature_prêt >= date("1994-11-27")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_32'')))): ((match zone: ''Zone1'' => (if
+      (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 1481 ''Couple'' => 1787) else: (2093 + round((306 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1320 ''Couple'' => 1589) else: (1858 + round((269 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1233 ''Couple'' => 1479) else: (1725 + round((246 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2023-01-01")) and ((date_signature_prêt >= date("1992-06-30"))
+      and ((date_signature_prêt <= date("1994-11-27")) and ((match ancienneté_logement:
+      ''Ancien'' => (ancienneté_logement_Ancien == ''Oui'') ''Neuf'' => false) and
+      (type_prêt == ''D331_63_64'')))))): round(((if (nombre_personnes_à_charge ==
+      0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 869 ''Couple''
+      => 971) else: (1073 + round((102 * (nombre_personnes_à_charge - 1)), 2))) *
+      taux_francs_vers_euros), 2) elif ((date_courante >= date("2019-10-01")) and
+      ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("1992-06-30"))
+      and ((date_signature_prêt < date("1994-11-27")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2085 ''Couple'' => 2515) else: (2945 + round((430 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1860 ''Couple'' => 2239) else: (2618 + round((379 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1736 ''Couple'' => 2082) else: (2428 + round((346 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("1992-06-30"))
+      and ((date_signature_prêt < date("1994-11-27")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1678 ''Couple'' => 2025) else: (2372 + round((347 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1496 ''Couple'' => 1801) else: (2106 + round((305 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1397 ''Couple'' => 1676) else: (1955 + round((279 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("1994-11-27"))
+      and ((date_signature_prêt < date("2000-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1981 ''Couple'' => 2390) else: (2799 + round((409 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1768 ''Couple'' => 2128) else: (2488 + round((360 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1650 ''Couple'' => 1979) else: (2308 + round((329 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("1994-11-27"))
+      and ((date_signature_prêt < date("2000-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1595 ''Couple'' => 1925) else: (2255 + round((330 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1422 ''Couple'' => 1712) else: (2002 + round((290 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1328 ''Couple'' => 1593) else: (1858 + round((265 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2000-06-30"))
+      and ((date_signature_prêt <= date("2001-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2001 ''Couple'' => 1414) else: (1827 + round((413 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1786 ''Couple'' => 2150) else: (2514 + round((364 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1667 ''Couple'' => 1999) else: (2331 + round((332 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2000-06-30"))
+      and ((date_signature_prêt <= date("2001-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1611 ''Couple'' => 1944) else: (2277 + round((333 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1436 ''Couple'' => 1729) else: (2022 + round((293 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1341 ''Couple'' => 1609) else: (1877 + round((268 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2001-07-01"))
+      and ((date_signature_prêt < date("2001-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 2025 ''Couple'' => 2443) else: (2861 + round((418 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1807 ''Couple'' => 2175) else: (2543 + round((368 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1687 ''Couple'' => 2023) else: (2359 + round((336 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2002-01-01"))
+      and ((date_signature_prêt < date("2002-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 308.71 ''Couple'' => 372.43) else: (436.15 + round((63.72
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 275.48 ''Couple''
+      => 331.48) else: (387.68 + round((56.1 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 257.18 ''Couple'' => 308.4) else: (359.62 + round((51.22
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2001-07-01"))
+      and ((date_signature_prêt < date("2001-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): ((match zone: ''Zone1''
+      => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1630 ''Couple'' => 1967) else: (2304 + round((337 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1453 ''Couple'' => 1750) else: (2047 + round((297 * (nombre_personnes_à_charge
+      - 1)), 2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 1357 ''Couple'' => 1628) else: (1899 + round((271 * (nombre_personnes_à_charge
+      - 1)), 2)))) * taux_francs_vers_euros) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2002-01-01"))
+      and ((date_signature_prêt < date("2002-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 248.49 ''Couple'' => 299.87) else: (351.25 + round((51.38
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 221.51 ''Couple''
+      => 266.79) else: (312.07 + round((45.28 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 206.87 ''Couple'' => 248.18) else: (289.49 + round((41.31
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2002-06-30"))
+      and ((date_signature_prêt < date("2003-06-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 312.41 ''Couple'' => 376.89) else: (441.37 + round((64.48
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 278.79 ''Couple''
+      => 335.56) else: (392.33 + round((56.77 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 260.27 ''Couple'' => 312.1) else: (363.93 + round((51.83
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2002-06-30"))
+      and ((date_signature_prêt < date("2003-06-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 251.47 ''Couple'' => 303.47) else: (355.47 + round((52
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 224.17 ''Couple''
+      => 269.99) else: (315.81 + round((45.82 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 209.35 ''Couple'' => 251.16) else: (292.97 + round((41.81
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2003-06-30"))
+      and ((date_signature_prêt < date("2005-08-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 316.16 ''Couple'' => 381.41) else: (446.66 + round((65.25
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 282.14 ''Couple''
+      => 339.59) else: (397.04 + round((57.45 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 263.39 ''Couple'' => 315.84) else: (368.29 + round((52.45
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2003-06-30"))
+      and ((date_signature_prêt < date("2005-08-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 254.49 ''Couple'' => 307.11) else: (359.73 + round((52.62
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 226.86 ''Couple''
+      => 273.23) else: (319.6 + round((46.37 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 211.86 ''Couple'' => 254.17) else: (296.48 + round((42.31
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2005-08-31"))
+      and ((date_signature_prêt < date("2006-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 321.85 ''Couple'' => 388.27) else: (454.69 + round((66.42
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 287.22 ''Couple''
+      => 345.7) else: (404.18 + round((58.48 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 268.13 ''Couple'' => 321.52) else: (374.91 + round((53.39
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2005-08-31"))
+      and ((date_signature_prêt < date("2006-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 259.07 ''Couple'' => 312.64) else: (366.21 + round((53.57
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 230.94 ''Couple''
+      => 278.14) else: (325.34 + round((47.2 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 215.67 ''Couple'' => 258.74) else: (301.81 + round((43.07
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2006-12-31"))
+      and ((date_signature_prêt < date("2007-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 330.86 ''Couple'' => 399.14) else: (467.42 + round((68.28
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 295.26 ''Couple''
+      => 355.38) else: (415.5 + round((60.12 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 275.64 ''Couple'' => 330.52) else: (385.41 + round((54.88
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2006-12-31"))
+      and ((date_signature_prêt < date("2007-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 266.32 ''Couple'' => 321.39) else: (376.46 + round((55.07
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 237.41 ''Couple''
+      => 285.93) else: (334.45 + round((48.52 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 221.71 ''Couple'' => 365.98) else: (310.26 + round((44.28
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2007-12-31"))
+      and ((date_signature_prêt < date("2008-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 339.99 ''Couple'' => 410.16) else: (480.32 + round((70.16
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 303.41 ''Couple''
+      => 365.19) else: (426.97 + round((61.78 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 283.25 ''Couple'' => 339.64) else: (396.05 + round((56.39
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2007-12-31"))
+      and ((date_signature_prêt < date("2008-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 273.67 ''Couple'' => 330.26) else: (386.85 + round((56.59
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 243.96 ''Couple''
+      => 293.82) else: (343.68 + round((49.86 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 227.83 ''Couple'' => 273.32) else: (318.82 + round((45.5
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2008-12-31"))
+      and ((date_signature_prêt < date("2009-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 350.02 ''Couple'' => 422.26) else: (494.49 + round((72.23
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 312.36 ''Couple''
+      => 375.96) else: (439.57 + round((63.6 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 291.61 ''Couple'' => 349.66) else: (407.73 + round((58.05
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2008-12-31"))
+      and ((date_signature_prêt < date("2009-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 281.74 ''Couple'' => 340) else: (398.26 + round((58.26
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 251.16 ''Couple''
+      => 302.49) else: (353.82 + round((51.33 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 234.55 ''Couple'' => 281.38) else: (328.23 + round((46.84
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2009-12-31"))
+      and ((date_signature_prêt < date("2010-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 351.14 ''Couple'' => 423.61) else: (496.07 + round((72.46
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 313.36 ''Couple''
+      => 377.16) else: (440.98 + round((63.8 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 292.54 ''Couple'' => 350.78) else: (409.03 + round((58.24
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2009-12-31"))
+      and ((date_signature_prêt < date("2010-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 282.64 ''Couple'' => 341.09) else: (399.53 + round((58.45
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 251.96 ''Couple''
+      => 303.46) else: (354.95 + round((51.49 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 235.3 ''Couple'' => 282.28) else: (329.28 + round((46.99
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2010-12-31"))
+      and ((date_signature_prêt < date("2011-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 355 ''Couple'' => 428.27) else: (501.53 + round((73.26
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 316.81 ''Couple''
+      => 381.31) else: (445.83 + round((64.5 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 295.76 ''Couple'' => 354.64) else: (413.53 + round((58.88
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2010-12-31"))
+      and ((date_signature_prêt < date("2011-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 285.75 ''Couple'' => 344.84) else: (403.92 + round((59.09
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 254.73 ''Couple''
+      => 306.8) else: (358.85 + round((52.06 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 237.89 ''Couple'' => 285.39) else: (332.9 + round((47.51
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2011-12-31"))
+      and ((date_signature_prêt < date("2012-12-31")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 358.55 ''Couple'' => 432.55) else: (506.55 + round((73.99
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 319.98 ''Couple''
+      => 385.12) else: (450.29 + round((65.15 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 298.72 ''Couple'' => 358.19) else: (417.67 + round((59.47
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2011-12-31"))
+      and ((date_signature_prêt < date("2012-12-31")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 288.61 ''Couple'' => 348.29) else: (407.96 + round((59.68
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 257.28 ''Couple''
+      => 309.87) else: (362.44 + round((52.58 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 240.27 ''Couple'' => 288.24) else: (336.23 + round((47.99
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2012-12-31"))
+      and ((date_signature_prêt < date("2014-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 366.26 ''Couple'' => 441.85) else: (517.44 + round((75.58
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 326.86 ''Couple''
+      => 393.4) else: (459.97 + round((66.55 * (nombre_personnes_à_charge - 1)), 2)))
+      ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 305.14 ''Couple'' => 365.89) else: (426.65 + round((60.75
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2012-12-31"))
+      and ((date_signature_prêt < date("2014-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 294.82 ''Couple'' => 355.78) else: (416.73 + round((60.96
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 262.81 ''Couple''
+      => 316.53) else: (370.23 + round((53.71 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 245.44 ''Couple'' => 294.44) else: (343.46 + round((49.02
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2014-09-30"))
+      and ((date_signature_prêt < date("2015-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 368.35 ''Couple'' => 444.37) else: (520.39 + round((76.01
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 328.72 ''Couple''
+      => 395.64) else: (462.59 + round((66.93 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 306.88 ''Couple'' => 367.98) else: (429.08 + round((61.1
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2014-09-30"))
+      and ((date_signature_prêt < date("2015-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 296.5 ''Couple'' => 357.81) else: (419.11 + round((61.31
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 264.31 ''Couple''
+      => 318.33) else: (372.34 + round((54.02 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 246.84 ''Couple'' => 296.12) else: (345.42 + round((49.3
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2015-09-30"))
+      and ((date_signature_prêt < date("2017-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 368.64 ''Couple'' => 444.73) else: (520.81 + round((76.07
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 328.98 ''Couple''
+      => 395.96) else: (462.96 + round((66.98 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 307.13 ''Couple'' => 368.27) else: (429.42 + round((61.15
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2015-09-30"))
+      and ((date_signature_prêt < date("2017-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 296.74 ''Couple'' => 358.1) else: (419.45 + round((61.36
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 264.52 ''Couple''
+      => 318.58) else: (372.64 + round((54.06 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 247.04 ''Couple'' => 296.36) else: (345.7 + round((49.34
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2017-09-30"))
+      and ((date_signature_prêt < date("2019-09-30")) and ((ancienneté_logement ==
+      ''Neuf'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 371.4 ''Couple'' => 448.07) else: (524.72 + round((76.64
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 331.45 ''Couple''
+      => 398.93) else: (466.43 + round((67.48 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 309.43 ''Couple'' => 371.03) else: (432.64 + round((61.61
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2017-09-30"))
+      and ((date_signature_prêt < date("2019-09-30")) and ((ancienneté_logement ==
+      ''Ancien'') and (type_prêt == ''D331_63_64'')))))): (match zone: ''Zone1'' =>
+      (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 298.97 ''Couple'' => 360.79) else: (422.6 + round((61.82
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 266.5 ''Couple''
+      => 320.97) else: (375.43 + round((54.47 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 248.89 ''Couple'' => 298.58) else: (348.29 + round((49.71
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2019-09-30"))
+      and ((ancienneté_logement == ''Neuf'') and (type_prêt == ''D331_63_64''))))):
+      (match zone: ''Zone1'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 372.52 ''Couple'' => 449.41) else: (526.29 + round((76.87
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 332.44 ''Couple''
+      => 400.13) else: (467.83 + round((67.68 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 310.36 ''Couple'' => 372.15) else: (433.94 + round((61.79
+      * (nombre_personnes_à_charge - 1)), 2)))) elif ((date_courante >= date("2019-10-01"))
+      and ((date_courante >= date("2020-10-01")) and ((date_signature_prêt >= date("2019-09-30"))
+      and ((ancienneté_logement == ''Ancien'') and (type_prêt == ''D331_63_64''))))):
+      (match zone: ''Zone1'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 299.86 ''Couple'' => 361.87) else: (423.86 + round((62.01
+      * (nombre_personnes_à_charge - 1)), 2))) ''Zone2'' => (if (nombre_personnes_à_charge
+      == 0): (match situation_familiale_calcul_apl: ''PersonneSeule'' => 267.3 ''Couple''
+      => 321.93) else: (376.56 + round((54.63 * (nombre_personnes_à_charge - 1)),
+      2))) ''Zone3'' => (if (nombre_personnes_à_charge == 0): (match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 249.64 ''Couple'' => 299.48) else: (349.34 + round((49.86
+      * (nombre_personnes_à_charge - 1)), 2)))))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Judgment
+  kind: derived
+  name: calcul_équivalence_loyer_minimale_condition_2_du_832_25
+  source: Article D832-15 | LEGIARTI000047401375
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: !!str false
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Date
+  kind: derived
+  name: calcul_équivalence_loyer_minimale_date_courante
+  source: Secteur accession à la propriété
+  source_document: sources/aides_logement/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: date_courante
+- catala_scope: CalculÉquivalenceLoyerMinimale
+  catala_source: "  définition montant égal à\n    soit ressources_ménage_arrondies
+    égal à\n      décimal de ressources_ménage_arrondies\n    dans\n    argent de\n
+    \     (\n        (\n          (\n            Décimal.somme de\n              (\n
+    \               transforme chaque tranche parmi tranches_revenus_d832_26_multipliées
+    en\n                  (\n                    si ressources_ménage_arrondies <=
+    tranche.bas alors 0,0\n                    sinon\n                      selon
+    tranche.haut sous forme\n                      -- LimiteTrancheDécimal.Revenu
+    contenu tranche_haut :\n                        (\n                          si
+    ressources_ménage_arrondies >= tranche_haut alors\n                            (tranche_haut
+    - tranche.bas)\n                            * tranche.taux\n                          sinon\n
+    \                           (ressources_ménage_arrondies - tranche.bas)\n                            *
+    tranche.taux\n                        )\n                      -- LimiteTrancheDécimal.Infini
+    :\n                        (ressources_ménage_arrondies - tranche.bas)\n                        *
+    tranche.taux\n                  )\n              )\n          )\n          + décimal
+    de montant_forfaitaire_d832_26\n            * n_nombre_parts_d832_25\n        )\n
+    \       / 12,0\n      )\n  exception"
+  dtype: Money
+  kind: derived
+  name: calcul_équivalence_loyer_minimale_montant
+  residue_reason: a function call
+  source: Article D832-26 | LEGIARTI000047401357
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: 0
+- catala_scope: CalculÉquivalenceLoyerMinimale
+  dtype: Money
+  kind: derived
+  name: calcul_équivalence_loyer_minimale_montant_forfaitaire_d832_26
+  source: Article 31 | LEGIARTI000046126968
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((calcul_équivalence_loyer_minimale_date_courante > date("2019-10-01"))):
+      (if calcul_équivalence_loyer_minimale_condition_2_du_832_25: 76.32 else: 45.57))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: calcul_équivalence_loyer_minimale_n_nombre_parts_d832_25
+  source: Article D832-15 | LEGIARTI000047401375
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: n_nombre_parts_d832_11
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: calcul_équivalence_loyer_minimale_ressources_ménage_arrondies
+  source: Article D832-15 | LEGIARTI000047401375
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: ressources_ménage_arrondies
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: coefficient_multiplicateur_d832_11
+  source: Article 22 | LEGIARTI000039160769
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 22111.33)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: coefficient_multiplicateur_d832_17_3
+  source: Article 25 | LEGIARTI000039160775
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): (match ancienneté_logement:
+      ''Neuf'' => (if (date_signature_prêt <= date("1998-10-01")): 0.0226 else: 0.0234)
+      ''Ancien'' => (match ancienneté_logement_Ancien: ''Oui'' => 0.0172 ''Non'' =>
+      (if (date_signature_prêt <= date("1998-10-01")): 0.0226 else: 0.0234))))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: coefficient_multiplicateur_d832_18
+  source: Article 26 | LEGIARTI000039160777
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 16.25)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: coefficient_prise_en_charge_d832_10
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (coefficient_prise_en_charge_d832_10_coeff_arrondi >= 0.95): 0.95
+      else: coefficient_prise_en_charge_d832_10_coeff_arrondi)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: coefficient_prise_en_charge_d832_10_coeff_arrondi
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: (round(((coefficient_prise_en_charge_d832_10_formule - 0.005) * 100.0))
+      / 100.0)
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: coefficient_prise_en_charge_d832_10_formule
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: (0.95 - (ressources_ménage_arrondies / round((coefficient_multiplicateur_d832_11
+      * n_nombre_parts_d832_11), 2)))
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Date
+  kind: derived
+  name: contributions_sociales_date_courante
+  source: Secteur accession à la propriété
+  source_document: sources/aides_logement/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: date_courante
+- catala_scope: ContributionsSocialesAidesPersonnelleLogement
+  dtype: Judgment
+  kind: derived
+  name: contributions_sociales_exonéré_csg
+  source: Article L136-1-3 | LEGIARTI000045232415
+  source_document: sources/aides_logement/code_sécurité_sociale.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: !!str true
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: derived
+  name: contributions_sociales_lieu
+  source: Secteur accession à la propriété
+  source_document: sources/aides_logement/prologue.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: résidence
+- catala_scope: ContributionsSocialesAidesPersonnelleLogement
+  dtype: Decimal
+  kind: derived
+  name: contributions_sociales_taux_crds
+  source: Article 19 | LEGIARTI000041466982
+  source_document: sources/aides_logement/autres_sources.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((contributions_sociales_date_courante >= date("2020-01-01"))):
+      0.005)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Judgment
+  kind: input
+  name: copropriété
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Date
+  kind: input
+  name: date_courante
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Date
+  kind: input
+  name: date_entrée_logement
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Date
+  kind: input
+  name: date_signature_prêt
+- catala_scope: CalculÉquivalenceLoyerMinimale
+  catala_source: "  définition tranches_revenus_d832_26 égal à\n    [\n      TrancheRevenu
+    {\n        -- haut: LimiteTranche.Revenu contenu 1948,10€\n        -- bas: 0€\n
+    \       -- taux: 4%\n      };\n      TrancheRevenu {\n        -- haut: LimiteTranche.Revenu
+    contenu 2678,71€\n        -- bas: 1948,10€\n        -- taux: 10,40%\n      };\n
+    \     TrancheRevenu {\n        -- haut: LimiteTranche.Revenu contenu 3896,18€\n
+    \       -- bas: 2678,71€\n        -- taux: 21,60%\n      };\n      TrancheRevenu
+    {\n        -- haut: LimiteTranche.Revenu contenu 5 357,44€\n        -- bas: 3896,18€\n
+    \       -- taux: 26,40%\n      };\n      TrancheRevenu {\n        -- haut: LimiteTranche.Revenu
+    contenu 6 331,29€\n        -- bas: 5 357,44€\n        -- taux: 32%\n      };\n
+    \     TrancheRevenu {\n        -- haut: LimiteTranche.Infini\n        -- bas:
+    6 331,29€\n        -- taux: 48%\n      };\n    ]\n  exception"
+  dtype: Judgment
+  entity: TrancheRevenu
+  kind: derived
+  name: is_in_calcul_équivalence_loyer_minimale_tranches_revenus_d832_26
+  residue_reason: a list
+  source: Article 31 | LEGIARTI000046126968
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: 0
+- catala_scope: CalculÉquivalenceLoyerMinimale
+  catala_source: "  définition tranches_revenus_d832_26_multipliées égal à\n    transforme
+    chaque tranche parmi tranches_revenus_d832_26 en\n      TrancheRevenuDécimal {\n
+    \       -- haut:\n          (\n            selon tranche.haut sous forme\n            --
+    LimiteTranche.Infini : LimiteTrancheDécimal.Infini\n            -- LimiteTranche.Revenu
+    contenu tranche_haut :\n              LimiteTrancheDécimal.Revenu contenu ((décimal
+    de tranche_haut) * n_nombre_parts_d832_25)\n          )\n        -- bas:\n          décimal
+    de tranche.bas\n          * n_nombre_parts_d832_25\n        -- taux: tranche.taux\n
+    \     }\n"
+  dtype: Judgment
+  entity: TrancheRevenuDécimal
+  kind: derived
+  name: is_in_calcul_équivalence_loyer_minimale_tranches_revenus_d832_26_multipliées
+  residue_reason: a list transformed
+  source: Article D832-26 | LEGIARTI000047401357
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: 0
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Judgment
+  kind: input
+  name: local_habité_première_fois_bénéficiaire
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: mensualité_minimale
+  source: Article D832-15 | LEGIARTI000047401375
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (((type_travaux_logement == ''TravauxPourAcquisitionD832_15_1'')
+      or (type_travaux_logement == ''PasDeTravaux''))): round((((if (ressources_ménage_arrondies
+      >= (montant_limite_tranches_d832_15_1 * n_nombre_parts_d832_11)): ((ressources_ménage_arrondies
+      - (montant_limite_tranches_d832_15_1 * n_nombre_parts_d832_11)) * taux_tranche_supérieure_d832_15_1)
+      else: 0.0) + (if (ressources_ménage_arrondies <= (montant_limite_tranches_d832_15_1
+      * n_nombre_parts_d832_11)): (ressources_ménage_arrondies * taux_tranche_inférieure_d832_15_1)
+      else: ((montant_limite_tranches_d832_15_1 * n_nombre_parts_d832_11) * taux_tranche_inférieure_d832_15_1)))
+      / 12.0), 2) elif ((type_travaux_logement == ''TravauxSurLogementDéjàAcquisD832_15_2'')):
+      calcul_équivalence_loyer_minimale_montant)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: input
+  name: mensualité_principale
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: mensualité_éligible
+  source: Article D832-10 | LEGIARTI000038878746
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (mensualité_principale > plafond_mensualité_d832_10_3): plafond_mensualité_d832_10_3
+      else: mensualité_principale)'
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: montant_forfaitaire_charges_d832_10
+  source: Article 19 | LEGIARTI000052233840; Article 24 | LEGIARTI000052233835; Article
+    19 | LEGIARTI000048109293 [archive]; Article 24 | LEGIARTI000048109290 [archive];
+    Article 19 | LEGIARTI000046206220 [archive]; Article 24 | LEGIARTI000046206202
+    [archive]; Article 19 | LEGIARTI000044137412 [archive]; Article 24 | LEGIARTI000044137409
+    [archive]; Article 19 | LEGIARTI000042378432 [archive]; Article 24 | LEGIARTI000042378430
+    [archive]; Article 19 | LEGIARTI000050286620 [archive]; Article 24 | LEGIARTI000050286616
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01")) and copropriété): ((match
+      situation_familiale_calcul_apl: ''PersonneSeule'' => 30.29 ''Couple'' => 60.59)
+      + round((13.74 * nombre_personnes_à_charge), 2)) elif (((date_courante >= date("2023-10-01"))
+      and (date_courante < date("2024-10-01"))) and copropriété): ((match situation_familiale_calcul_apl:
+      ''PersonneSeule'' => 29.03 ''Couple'' => 58.08) + round((13.17 * nombre_personnes_à_charge),
+      2)) elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))
+      and copropriété): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 28.05 ''Couple'' => 56.12) + round((12.72 * nombre_personnes_à_charge), 2))
+      elif (((date_courante >= date("2021-10-01")) and (date_courante < date("2022-07-01")))
+      and copropriété): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 27.1 ''Couple'' => 54.22) + round((12.29 * nombre_personnes_à_charge), 2))
+      elif (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))
+      and copropriété): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 26.99 ''Couple'' => 53.99) + round((12.24 * nombre_personnes_à_charge), 2))
+      elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))
+      and copropriété): ((match situation_familiale_calcul_apl: ''PersonneSeule''
+      => 29.98 ''Couple'' => 59.97) + round((13.6 * nombre_personnes_à_charge), 2))
+      elif ((date_courante >= date("2025-10-01"))): (60.59 + round((13.74 * nombre_personnes_à_charge),
+      2)) elif (((date_courante >= date("2023-10-01")) and (date_courante < date("2024-10-01")))):
+      (58.08 + round((13.17 * nombre_personnes_à_charge), 2)) elif (((date_courante
+      >= date("2022-07-01")) and (date_courante < date("2023-10-01")))): (56.12 +
+      round((12.72 * nombre_personnes_à_charge), 2)) elif (((date_courante >= date("2021-10-01"))
+      and (date_courante < date("2022-07-01")))): (54.22 + round((12.29 * nombre_personnes_à_charge),
+      2)) elif (((date_courante < date("2021-10-01")) and (date_courante >= date("2020-10-01")))):
+      (53.99 + round((12.24 * nombre_personnes_à_charge), 2)) elif (((date_courante
+      >= date("2024-10-01")) and (date_courante < date("2025-10-01")))): (59.97 +
+      round((13.6 * nombre_personnes_à_charge), 2)))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: montant_forfaitaire_d832_10
+  source: Article 20 | LEGIARTI000039160765
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 5)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: montant_limite_tranches_d832_15_1
+  source: Article 23 | LEGIARTI000039160771
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 5600.85)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: montant_minimal_aide_d832_10
+  source: Article 21 | LEGIARTI000039160767
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 10)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: n_nombre_parts_d832_11
+  source: Article D832-11 | LEGIARTI000047401383
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: calcul_nombre_parts_n_nombre_parts_d832_11
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Integer
+  kind: input
+  name: nombre_personnes_à_charge
+- approximated: where two of its definitions at one level both apply, Catala stops
+    with a conflict; the twin takes the first
+  catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: plafond_mensualité_d832_10_3
+  source: Article 24 | LEGIARTI000052233835; Article 24 | LEGIARTI000048109290 [archive];
+    Article 24 | LEGIARTI000046206202 [archive]; Article 24 | LEGIARTI000044137409
+    [archive]; Article 24 | LEGIARTI000042378430 [archive]; Article 24 | LEGIARTI000050286616
+    [archive]
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2025-10-01"))): (if copropriété: round((plafond_mensualité_d832_10_3_base
+      * 0.75), 2) else: plafond_mensualité_d832_10_3_base) elif (((date_courante >=
+      date("2023-10-01")) and (date_courante < date("2024-10-01")))): (if copropriété:
+      round((plafond_mensualité_d832_10_3_base * 0.75), 2) else: plafond_mensualité_d832_10_3_base)
+      elif (((date_courante >= date("2022-07-01")) and (date_courante < date("2023-10-01")))):
+      (if copropriété: round((plafond_mensualité_d832_10_3_base * 0.75), 2) else:
+      plafond_mensualité_d832_10_3_base) elif (((date_courante >= date("2021-10-01"))
+      and (date_courante < date("2022-07-01")))): (if copropriété: round((plafond_mensualité_d832_10_3_base
+      * 0.75), 2) else: plafond_mensualité_d832_10_3_base) elif (((date_courante <
+      date("2021-10-01")) and (date_courante >= date("2020-10-01")))): (if copropriété:
+      round((plafond_mensualité_d832_10_3_base * 0.75), 2) else: plafond_mensualité_d832_10_3_base)
+      elif (((date_courante >= date("2024-10-01")) and (date_courante < date("2025-10-01")))):
+      (if copropriété: round((plafond_mensualité_d832_10_3_base * 0.75), 2) else:
+      plafond_mensualité_d832_10_3_base))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: plafond_mensualité_d832_10_3_base
+  source: Article D832-14 | LEGIARTI000038878738
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (local_habité_première_fois_bénéficiaire): (if (calcul_plafond_mensualité_d832_10_3_de_date_signature_prêt
+      < calcul_plafond_mensualité_d832_10_3_de_date_entrée_logement): calcul_plafond_mensualité_d832_10_3_de_date_entrée_logement
+      else: calcul_plafond_mensualité_d832_10_3_de_date_signature_prêt) else: calcul_plafond_mensualité_d832_10_3_de_date_signature_prêt)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: input
+  name: ressources_ménage_arrondies
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Money
+  kind: derived
+  name: ressources_ménage_avec_d832_18
+  source: Article D832-18 | LEGIARTI000038878730
+  source_document: sources/aides_logement/code_construction_reglementaire.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if (situation_r822_11_13_17): ressources_ménage_arrondies else: (if
+      (ressources_ménage_arrondies <= round((mensualité_principale * coefficient_multiplicateur_d832_18),
+      2)): round((mensualité_principale * coefficient_multiplicateur_d832_18), 2)
+      else: ressources_ménage_arrondies))'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: résidence
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: situation_familiale_calcul_apl
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Judgment
+  kind: input
+  name: situation_r822_11_13_17
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: taux_francs_vers_euros
+  source: Article premier
+  source_document: sources/aides_logement/autres_sources.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: (1.0 / 6.55957)
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: taux_tranche_inférieure_d832_15_1
+  source: Article 23 | LEGIARTI000039160771
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 0.20800000000000002)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Decimal
+  kind: derived
+  name: taux_tranche_supérieure_d832_15_1
+  source: Article 23 | LEGIARTI000039160771
+  source_document: sources/aides_logement/arrete_2019-09-27.catala_fr
+  versions:
+  - effective_from: 1900-01-01
+    formula: '(if ((date_courante >= date("2019-10-01"))): 0.41600000000000004)'
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: type_prêt
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: type_travaux_logement
+- catala_scope: CalculAidePersonnaliséeLogementAccessionPropriété
+  dtype: Text
+  kind: input
+  name: zone
