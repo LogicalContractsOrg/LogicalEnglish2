@@ -479,6 +479,21 @@ test(residue_dependent_expectations_are_pending) :-
     le_migration:ledger_markdown(migration([], IR, [], Tests), none, MD),
     assertion(sub_string(MD, _, _, _, "1 further expectation(s) are pending")).
 
+%   The walk through the rules follows chains of any length and stops at a
+%   cycle: a query two rules away from the residue waits for it, a query
+%   whose rules call each other without reaching it does not.
+test(pending_through_chains_and_cycles) :-
+    IR = program([kb(x)], [
+        residue(r1, [title("the premium plugin"), concludes([premium])]),
+        rule(a(P, X), and(b(P, X), c(P, _)), []),
+        rule(b(P, X), and(a(P, X), premium(P, X)), []),
+        rule(c(P, X), d(P, X), []),
+        rule(d(P, X), c(P, X), []),
+        query(qa, a(_, _)), query(qc, c(_, _))]),
+    Tests = [test(t1, "tests.json", 'case 1', [], [expects(qa, []), expects(qc, [])])],
+    le_migration:migration_pending(migration([], IR, [], Tests), migration(_, _, _, [test(_, _, _, _, Es)])),
+    assertion(Es = [pending(_, expects(qa, [])), expects(qc, [])]).
+
 %   A residue that names its conclusion carries it in a `concludes:` line,
 %   the one the Contract Assistant's residue mode checks the fill against.
 test(residue_conclusion_line) :-

@@ -548,8 +548,7 @@ process_section_acc(scenario(Name, Content0, Start, End), M) :-
     partition(is_table_done_item, Content0, TableItems, Content),
     forall(member(TableItem, TableItems), process_section_acc(TableItem, M)),
     partition(is_expected_item, Content, ExpectedItems, FactItems),
-    findall(D, M:le_dict(D), Dicts),
-    le_grammar:prepare_templates(Dicts, AllTemplates),
+    prepared_templates(M, AllTemplates),
     maplist(item_to_term_with_source(M, AllTemplates), FactItems, Terms),
     assertz(M:scenario(Name, Terms), Ref),
     assertz(M:le_source_info(Ref, Start, End, Name)),
@@ -563,12 +562,31 @@ process_section_acc(scenario(Name, Content0, Start, End), M) :-
     )).
 
 process_section_acc(query(Name, Content, Start, End), M) :-
-    findall(D, M:le_dict(D), Dicts),
-    le_grammar:prepare_templates(Dicts, AllTemplates),
+    prepared_templates(M, AllTemplates),
     maplist(item_to_term(AllTemplates, M), Content, Terms),
     list_to_conj(Terms, Goal),
     assertz(M:query_info(Name, Goal, Content), Ref),
     assertz(M:le_source_info(Ref, Start, End, Name)).
+
+%   The module's templates, prepared for matching (le_grammar:
+%   prepare_templates/2). Every scenario and every query needs them, and
+%   preparing sorts them all: prepared once per set of templates, and
+%   copied for each use, since matching a sentence binds a template's
+%   variables. The key names the set: the module, how many templates it
+%   has, and the first and last of their clauses, which a reload replaces.
+%   (A twin of 2,600 templates and 434 scenarios spent minutes here.)
+prepared_templates(M, AllTemplates) :-
+    (   predicate_property(M:le_dict(_), number_of_clauses(N)), N > 0,
+        nth_clause(M:le_dict(_), 1, R1), nth_clause(M:le_dict(_), N, RN)
+    ->  Key = k(M, N, R1, RN)
+    ;   Key = none
+    ),
+    (   Key \== none, nb_current(le_prepared_templates, Key-Cached)
+    ->  copy_term(Cached, AllTemplates)
+    ;   findall(D, M:le_dict(D), Dicts),
+        le_grammar:prepare_templates(Dicts, AllTemplates),
+        (   Key \== none -> nb_setval(le_prepared_templates, Key-AllTemplates) ; true )
+    ).
 
 
 
@@ -3330,13 +3348,26 @@ article_key(indefinite_m).  article_key(indefinite_f).
 %   answer, as are 1.5 and 1.50 (a translated program computes in floats
 %   what its source computed in exact decimals).
 same_number_word(W0, W) :-
-    (   catch(number_string(X, W0), _, fail)
+    (   (   catch(number_string(X, W0), _, fail)
+        ;   decimal_comma_number(W0, X)
+        )
     ->  (   float(X), X =:= truncate(X), abs(X) < 1.0e15
         ->  I is truncate(X), number_string(I, W)
         ;   number_string(X, W)
         )
     ;   W = W0
     ).
+%   A number written with the decimal comma of the program's language
+%   ("500,0" in French, the way an answer is shown there): the same number
+%   as "500", as a number written with a point is.
+decimal_comma_number(W0, X) :-
+    catch(le_i18n:le_active_language(L), _, fail),
+    catch(le_i18n:language_param(L, decimal_sep, ','), _, fail),
+    split_string(W0, ",", "", [I, F]),
+    I \== "", F \== "",
+    atomic_list_concat([I, '.', F], A),
+    catch(atom_number(A, X), _, fail).
+
 %!  run_one_test(+KBmodule:atom, +Test:term, -Result:term) is det.
 %
 %   Runs a single test case against a KB module.
@@ -3744,7 +3775,7 @@ run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUn
             (   catch(call_with_time_limit(TestLimit, 
                     findall(S-ActualUnknownStrings, 
                         (
-                            reasoner:i(FullGoal, SM, ActualUnknownsList, _Why), 
+                            reasoner:without_explanations(reasoner:i(FullGoal, SM, ActualUnknownsList, _Why)), 
                             maplist(item_to_instance(KBmodule), Items, Instances), 
                             flatten(Instances, TemplateInstance), 
                             canonical_string(TemplateInstance, Atom), 
@@ -3793,7 +3824,7 @@ run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUn
                 (   catch(call_with_time_limit(TestLimit, 
                         findall(S-ActualUnknownStrings, 
                             (
-                                reasoner:i(FullGoal, SM, ActualUnknownsList, _Why), 
+                                reasoner:without_explanations(reasoner:i(FullGoal, SM, ActualUnknownsList, _Why)), 
                                 item_to_instance(KBmodule, FullGoal, TemplateInstance), 
                                 canonical_string(TemplateInstance, Atom), 
                                 atom_string(Atom, S), 

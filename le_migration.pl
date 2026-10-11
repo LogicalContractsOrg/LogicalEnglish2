@@ -62,6 +62,8 @@
   ]).
 
 :- use_module(library(lists)).
+:- use_module(library(pairs)).
+:- use_module(library(rbtrees)).
 :- use_module(library(apply)).
 :- use_module(library(option)).
 :- use_module(library(http/json)).
@@ -175,8 +177,9 @@ migration_pending(migration(Meta, IR, Ledger, Tests0), migration(Meta, IR, Ledge
     (   Rs == []
     ->  Tests = Tests0
     ;   rule_graph(Items, Graph),
-        findall(Q-Id, ( member(query(Q, B), Items), member(Id-Fs, Rs),
-                        body_functors(B, QFs), reaches_any(Graph, QFs, Fs) ), Waits),
+        findall(Q-Id, ( member(query(Q, B), Items), body_functors(B, QFs),
+                        reachable(Graph, QFs, Seen),
+                        member(Id-Fs, Rs), once(( member(T, Fs), rb_lookup(T, _, Seen) )) ), Waits),
         maplist(pending_test(Waits), Tests0, Tests)
     ).
 
@@ -191,13 +194,16 @@ pending_expectation(Waits, E0, E) :-
         E = pending(Why, E0)
     ;   E = E0.
 
-%   F-[Callee, ...] for each rule head functor (several rules merge).
+%   A red-black tree from each rule head functor to its callees (several
+%   rules merge). A tree, not a list: a twin of a whole tax code has
+%   thousands of rules, and every query walks the graph.
 rule_graph(Items, Graph) :-
     findall(F-Cs, ( ( member(rule(H, B, _), Items) ; member(rule(H, B), Items) ),
-                    callable(H), functor(H, F, _), body_functors(B, Cs) ), Pairs),
-    findall(F-All, ( member(F-_, Pairs), findall(C, ( member(F-Cs, Pairs), member(C, Cs) ), All0),
-                     sort(All0, All) ), Graph0),
-    sort(Graph0, Graph).
+                    callable(H), functor(H, F, _), body_functors(B, Cs) ), Pairs0),
+    keysort(Pairs0, Pairs),
+    group_pairs_by_key(Pairs, Groups),
+    findall(F-All, ( member(F-Css, Groups), append(Css, All0), sort(All0, All) ), Graph0),
+    list_to_rbtree(Graph0, Graph).
 
 body_functors(B, Fs) :-
     findall(F, ( sub_term(G, B), compound(G), \+ connective(G), functor(G, F, _) ), Fs0),
@@ -207,18 +213,21 @@ body_functors(B, Fs) :-
 connective(G) :- functor(G, F, N), memberchk(F/N, [and/2, or/2, not/1, (',')/2, (;)/2, (\+)/1,
                                                    forall/2, agg/4, otherwise/1, according_to/2]).
 
-reaches_any(_Graph, Starts, Targets) :-
-    member(T, Targets), memberchk(T, Starts), !.
-reaches_any(Graph, Starts, Targets) :-
-    reach(Graph, Starts, [], Seen),
-    member(T, Targets), memberchk(T, Seen), !.
+%   Seen: the functors Starts reach through Graph, Starts among them, as a
+%   red-black tree. Computed once per query, then checked against every
+%   residue block: walking the graph once per (query, block) pair, over
+%   lists, never finished on the income-tax twin of openfisca-france.
+reachable(Graph, Starts, Seen) :-
+    rb_new(Seen0),
+    reach(Starts, Graph, Seen0, Seen).
 
-reach(_, [], Seen, Seen).
-reach(Graph, [F|Fs], Seen0, Seen) :-
-    (   memberchk(F, Seen0) -> reach(Graph, Fs, Seen0, Seen)
-    ;   ( memberchk(F-Cs, Graph) -> true ; Cs = [] ),
-        append(Fs, Cs, Next),
-        reach(Graph, Next, [F|Seen0], Seen)
+reach([], _, Seen, Seen).
+reach([F|Fs], Graph, Seen0, Seen) :-
+    (   rb_lookup(F, _, Seen0)
+    ->  reach(Fs, Graph, Seen0, Seen)
+    ;   rb_insert_new(Seen0, F, true, Seen1),
+        ( rb_lookup(F, Cs, Graph) -> append(Cs, Fs, Next) ; Next = Fs ),
+        reach(Next, Graph, Seen1, Seen)
     ).
 
 pending_count(Tests, N) :-
@@ -359,13 +368,26 @@ meta_value(V0, V) :- json_text(V0, V).
 %   fidelity(Passed, Failed, Errors, Rows), Rows of row(Scenario, Query,
 %   pass|fail|error, Detail).
 migration_fidelity(File, Tests, fidelity(P, F, E, Rows)) :-
-    le_kbs:runTestsFor(File, test_file(_, Results)),
+    tests_of_file(File, Results),
     findall(S, ( member(test(Id, _, _, _, _), Tests), scenario_name(Id, S) ), Names),
     include(result_of_tests(Names), Results, Mine),
     maplist(result_row, Mine, Rows),
     aggregate_all(count, member(row(_, _, pass, _), Rows), P),
     aggregate_all(count, member(row(_, _, fail, _), Rows), F),
     aggregate_all(count, member(row(_, _, error, _), Rows), E).
+
+%   The program's tests run in a thread of their own, with stacks of their
+%   own: the caller holds the whole migration (its rules, ledger and tests)
+%   on its stacks, and the twin of a tax code (85,000 lines) ran out of
+%   stack while it was being read for its tests, which then counted none.
+tests_of_file(File, Results) :-
+    thread_create(( le_kbs:runTestsFor(File, test_file(_, Rs)) -> thread_exit(results(Rs)) ; thread_exit(none) ),
+                  Id, []),
+    thread_join(Id, Status),
+    (   Status = exited(results(Results)) -> true
+    ;   Status = exception(Ex) -> throw(Ex)
+    ;   Results = []
+    ).
 
 result_of_tests(Names, R) :-
     result_scenario(R, S),

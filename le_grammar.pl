@@ -112,7 +112,11 @@ parse_le_text(Text, Doc, M) :-
 % exact spelling matters — the document and locator of a provenance trailer
 % ("as stated in C-549/07 at paragraph 11") — can be read back verbatim rather
 % than rebuilt from tokens (the tokenizer reads "07" as the number 7).
-:- thread_local current_source_text/1.
+%   It is kept in a global variable of the thread, not in a clause: reading
+%   a clause copies its term, and the whole text was copied at each trailer
+%   read back (a quarter of the parse of an 85,000-line program).
+current_source_text(Text) :-
+    nb_current(le_source_text, t(Text)).
 
 %!  with_source_text(+Text, :Goal) is semidet.
 %
@@ -120,12 +124,11 @@ parse_le_text(Text, Doc, M) :-
 %   afterwards: an included resource is parsed by a nested call.
 :- meta_predicate with_source_text(+, 0).
 with_source_text(Text, Goal) :-
-    findall(T, current_source_text(T), Saved),
+    (   nb_current(le_source_text, Saved) -> true ; Saved = none ),
     setup_call_cleanup(
-        ( retractall(current_source_text(_)), assertz(current_source_text(Text)) ),
+        nb_setval(le_source_text, t(Text)),
         Goal,
-        ( retractall(current_source_text(_)),
-          forall(member(T, Saved), assertz(current_source_text(T))) )).
+        nb_setval(le_source_text, Saved)).
 
 % Included resources. Each .le resource of a load is parsed with its offsets
 % moved into a range of its own — a multiple of resource_offset_unit that
@@ -206,7 +209,7 @@ parse_le_text(Text, Doc) :-
 %   with that locale.
 tokenize_for_language(Text, Tokens) :-
     tokenize(Text, Tokens0),
-    (   le_i18n:detect_language_tokens(Tokens0, Lang),
+    (   once(le_i18n:detect_language_tokens(Tokens0, Lang)),
         le_i18n:language_param(Lang, decimal_sep, Dec),
         le_i18n:language_param(Lang, thousands_sep, Thou),
         Dec \== '', Thou \== '',
@@ -2707,6 +2710,18 @@ second_pass(Sections, NewSections, M) :-
     findall(SystemDict, le_system_template(SystemDict), SystemDicts),
     append(UserDicts, SystemDicts, AllDicts),
     prepare_templates(AllDicts, SortedDicts),
+    %  The extensions remember whether a list of templates has a
+    %  prepositional one, a backtrackable note: asked here, outside the
+    %  literals' alternatives, it stays for every condition the pass reads,
+    %  instead of a pass over every template at each (40% of the parse of
+    %  an 85,000-line program).
+    (   current_predicate(le_extensions:prepositional_answer/2)
+    ->  ignore(le_extensions:prepositional_answer(SortedDicts, _))
+    ;   true
+    ),
+    %  Likewise the templates that define global names: a condition that
+    %  names none failed, and undid the note with it (check_global_abbreviation/5).
+    global_templates(SortedDicts, _),
     % Collect types from templates
     forall(member(dict(_, NTs, _, _, _, _, _, _, _, _), SortedDicts),
            forall(member(_-Type, NTs),

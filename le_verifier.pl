@@ -391,6 +391,11 @@ memorable_under_negation(KB, issue(memorable_under_negation, Description, Fix, S
     negated_goal(Body, Goal, NegRange),
     find_in_body(Goal, Lit),
     memorable_literal(KB, Lit, F, A),
+    %  the same call made outside a negation too keeps the caching: so does
+    %  every `otherwise`, which reads `A otherwise B` as A, or not A and B
+    %  (a twin of a tax code had 9,398 such warnings, all false, and spent two
+    %  minutes of its load writing them)
+    \+ positive_call(Body, F, A),
     memorable_label(KB, F, A, Label),
     le_i18n:le_msg(memorable_under_negation_desc, [name-Label], Description),
     le_i18n:le_msg(memorable_under_negation_fix, [name-Label], Fix),
@@ -451,6 +456,28 @@ negated_goal(Agg, G, R) :-
     compound(Agg), Agg =.. [Type, _, B, _],
     memberchk(Type, [sum, count, min, max, average]), !,
     negated_goal(B, G, R).
+
+%   Body calls F/A outside any negation.
+positive_call(Body, F, A) :-
+    positive_literal(Body, L), callable(L), functor(L, F, A), !.
+
+positive_literal(V, _) :- var(V), !, fail.
+positive_literal(le_at(B, _, _), L) :- !, positive_literal(B, L).
+positive_literal(not(_), _) :- !, fail.
+positive_literal(\+(_), _) :- !, fail.
+positive_literal(forall(_, _), _) :- !, fail.
+positive_literal((A, B), L) :- !, ( positive_literal(A, L) ; positive_literal(B, L) ).
+positive_literal(and(A, B), L) :- !, ( positive_literal(A, L) ; positive_literal(B, L) ).
+positive_literal((A ; B), L) :- !, ( positive_literal(A, L) ; positive_literal(B, L) ).
+positive_literal(or(A, B), L) :- !, ( positive_literal(A, L) ; positive_literal(B, L) ).
+positive_literal((C -> T ; E), L) :- !, ( positive_literal(C, L) ; positive_literal(T, L) ; positive_literal(E, L) ).
+positive_literal(once(B), L) :- !, positive_literal(B, L).
+positive_literal(le_scoped(B, _), L) :- !, positive_literal(B, L).
+positive_literal(Agg, L) :-
+    compound(Agg), Agg =.. [Type, _, B, _],
+    memberchk(Type, [sum, count, min, max, average]), !,
+    positive_literal(B, L).
+positive_literal(L, L).
 
 body_has_prolog_goal(Body) :-
     sub_term(T, Body), compound(T), T = prolog_call(_), !.
@@ -885,13 +912,33 @@ prolog_resource_predicate(KB, F, A) :-
     current_predicate(Cache:F/A), !.
 
 safe_scenario_fact(KB, F, A) :-
+    scenario_functors(KB, FAs),
+    get_assoc(F/A, FAs, _).
+
+%   The predicates the scenarios of KB state, found once for a set of
+%   scenarios: asked of every condition of every rule, a pass over every
+%   scenario's facts each time took most of a minute on a twin of 434
+%   scenarios. The key names the set: the module, how many scenarios it has,
+%   and the first and last of their clauses, which a reload replaces.
+scenario_functors(KB, FAs) :-
     current_predicate(KB:scenario/2),
-    clause(KB:scenario(_, Facts), _),
-    member(FactItem, Facts),
-    ( FactItem = fact_with_source(Fact0, _, _) -> true ; Fact0 = FactItem ),
-    % a rule stated in a scenario defines its head's predicate
-    ( Fact0 = (Fact :- _) -> true ; Fact = Fact0 ),
-    functor(Fact, F, A).
+    predicate_property(KB:scenario(_, _), number_of_clauses(N)), N > 0,
+    nth_clause(KB:scenario(_, _), 1, R1), nth_clause(KB:scenario(_, _), N, RN),
+    Key = k(KB, N, R1, RN),
+    (   nb_current(le_scenario_functors, Key-FAs0)
+    ->  FAs = FAs0
+    ;   findall(F/A-true,
+                ( clause(KB:scenario(_, Facts), _),
+                  member(FactItem, Facts),
+                  ( FactItem = fact_with_source(Fact0, _, _) -> true ; Fact0 = FactItem ),
+                  % a rule stated in a scenario defines its head's predicate
+                  ( Fact0 = (Fact :- _) -> true ; Fact = Fact0 ),
+                  callable(Fact), functor(Fact, F, A) ),
+                Pairs0),
+        sort(Pairs0, Pairs),
+        list_to_assoc(Pairs, FAs),
+        nb_setval(le_scenario_functors, Key-FAs)
+    ).
 
 is_built_in_literal(L) :- reasoner:is_built_in(L).
 is_built_in_literal(says_that(_, _)).
@@ -1193,20 +1240,12 @@ template_data(KB, F, A, scenario(Name), Start, End) :-
 %   Something READS F/A: a rule condition, a query, or an LPS sentence. Note
 %   the asymmetry with template_used/3 — a fact or a rule HEAD is a use of the
 %   template but not a consumer of its facts, which is the whole point here.
+%   A condition of a rule or a query names it: the set body_functors/2
+%   computes once per verification (a pass over every rule per template
+%   took half a minute on a twin of 2,600 templates).
 template_consumed(KB, F, A) :-
-    current_predicate(KB:Other/OA),
-    \+ is_system_predicate(Other/OA),
-    functor(H, Other, OA),
-    le_kbs:kb_own_predicate(KB, H),
-    clause(KB:H, Body),
-    Body \== true,
-    find_in_body(Body, Literal),
-    functor(Literal, F, A), !.
-template_consumed(KB, F, A) :-
-    current_predicate(KB:query_info/3),
-    KB:query_info(_, Goal, _),
-    find_in_body(Goal, Literal),
-    functor(Literal, F, A), !.
+    body_functors(KB, Used),
+    get_assoc(F/A, Used, _), !.
 %   A sentence the program talks about (`the lender is obliged that the
 %   lender pays ...`, a place holding a literal) is read when the program
 %   asks whether a sentence is the case (le_holds/1, lib/deontic.le's
@@ -1738,22 +1777,50 @@ prolog:message(Type - [Msg]) -->
 
 %!  slot_values(+KB, +F, +A, +I, -Values:list) is det.
 slot_values(KB, F, A, I, Values) :-
-    findall(V, slot_value(KB, F, A, I, V), Vs0),
-    exclude(number, Vs0, Vs1),
-    sort(Vs1, Values).
+    slot_values_typed(KB, F, A, I, Vs0),
+    exclude(number, Vs0, Values).
 
 % The same, numbers included (what the rules compare a place with, of every
 % type: the check of a number written as text needs the numbers).
+%   Where the values come from is found first, and each source read once: a
+%   variable every condition of a rule shares (the period of a tax rule) led
+%   to the same facts from each of thousands of rules, and the check of a
+%   twin of a tax code took more than ten minutes.
 slot_values_typed(KB, F, A, I, Values) :-
-    findall(V, slot_value(KB, F, A, I, V), Vs0),
+    findall(Src, slot_source(KB, F, A, I, Src), Srcs0),
+    sort(Srcs0, Srcs),
+    findall(V, ( member(Src, Srcs), source_value(KB, Src, V) ), Vs0),
     sort(Vs0, Values).
 
 slot_value(KB, F, A, I, V) :-
+    slot_source(KB, F, A, I, Src),
+    source_value(KB, Src, V).
+
+source_value(_, value(V), V) :- !.
+source_value(KB, Src, V) :-
+    (   rule_index(KB, _)
+    ->  term_hash(Src, H),                  % (the first argument: indexed)
+        (   source_memo(H, KB, Src, Vs) -> true
+        ;   findall(V0, source_value_(KB, Src, V0), Vs0), sort(Vs0, Vs),
+            assertz(source_memo(H, KB, Src, Vs))
+        ),
+        member(V, Vs)
+    ;   source_value_(KB, Src, V)
+    ).
+
+source_value_(KB, facts(F2, A2, J), V) :- fact_argument(KB, F2, A2, J, V).
+source_value_(KB, head(HF, HA, K), V) :- head_argument_value(KB, HF, HA, K, V).
+
+%   The values of each source, while an index of the rules lives
+%   (with_rule_index/2): many slots share their sources.
+:- thread_local source_memo/4.
+
+slot_source(KB, F, A, I, Src) :-
     rule_calling(KB, F/A, Head, Body),
     find_in_body(Body, Lit),
     functor(Lit, F, A),
     arg(I, Lit, Arg),
-    (   atomic(Arg), Arg \== [] -> V = Arg
+    (   atomic(Arg), Arg \== [] -> Src = value(Arg)
     ;   var(Arg),
         (   find_in_body(Body, Lit2), Lit2 \== Lit, compound(Lit2),
             functor(Lit2, F2, A2), \+ sub_atom(F2, 0, _, _, le_),
@@ -1761,25 +1828,32 @@ slot_value(KB, F, A, I, V) :-
             % a taxonomy test ("the cover is an exposure") reads a type, not
             % a value of the place
             F2 \== is_a,
-            fact_argument(KB, F2, A2, J, V)
+            Src = facts(F2, A2, J)
         ;   % "the construction is in [woven, nonwoven, felt]"
             find_in_body(Body, le_is_in(Arg0, List)), Arg0 == Arg,
-            is_list(List), member(V, List), atomic(V)
+            is_list(List), member(V, List), atomic(V),
+            Src = value(V)
         ;   compound(Head), arg(K, Head, HArg), HArg == Arg,
             functor(Head, HF, HA),
-            head_argument_value(KB, HF, HA, K, V)
+            Src = head(HF, HA, K)
         )
     ).
 
 % The rules whose conditions mention F/A. Within with_rule_index/2 they come
 % from an index built once (the editor asks for every placeholder of every
 % template at each load); otherwise from a pass over the rules.
-:- thread_local rule_index/2.
+%   The index lives in a global variable of the thread, not in a clause:
+%   reading a clause copies its term, and a copy of the index of a program
+%   of 2,600 rules at each of thousands of reads took the verifier of such a
+%   program more than ten minutes.
+rule_index(KB, Index) :-
+    nb_current(le_rule_index, KB-Index).
 
 rule_calling(KB, FA, Head, Body) :-
     (   rule_index(KB, Index)
     ->  get_assoc(FA, Index, Rules),
-        member(Head-Body, Rules)
+        member(Rule, Rules),
+        copy_term(Rule, Head-Body)          % (fresh variables, as a clause gives)
     ;   kb_rule(KB, Head, Body),
         once(( find_in_body(Body, Lit), functor(Lit, F, A), F/A == FA ))
     ).
@@ -1796,7 +1870,10 @@ with_rule_index(KB, Goal) :-
     keysort(Pairs0, Pairs),
     group_pairs_by_key(Pairs, Grouped),
     list_to_assoc(Grouped, Index),
-    setup_call_cleanup(asserta(rule_index(KB, Index), Ref), Goal, erase(Ref)).
+    (   nb_current(le_rule_index, Outer) -> true ; Outer = none ),
+    setup_call_cleanup(( retractall(source_memo(_, KB, _, _)), nb_setval(le_rule_index, KB-Index) ),
+                       Goal,
+                       ( nb_setval(le_rule_index, Outer), retractall(source_memo(_, KB, _, _)) )).
 
 %!  read_by_a_rule(+KB, +F, +A) is semidet.
 %

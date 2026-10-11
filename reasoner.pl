@@ -674,7 +674,8 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
             ( Saved == none -> true ; Low is min(Saved, Floor), nb_setval(le_loop_floor, Low) ),
             member(answer(G, Us, Whys), Answers)
         ;   forall(member(Answer, Answers),
-                   ( copy_term(Answer, answer(G2, Us2, Whys2), Constraints),
+                   ( copy_term(Answer, answer(G2, Us2, Whys20), Constraints),
+                     ( explanations_kept -> Whys2 = Whys20 ; Whys2 = [] ),
                      assertz(memo_answer(Key, Gen, G2, Us2, Whys2, Constraints)) )),
             assertz(memo_done(Key, Gen, MyID)),
             flag(le_memo_birth, Birth, Birth + 1),
@@ -799,6 +800,22 @@ forget_memos_from(Start) :-
 %   is carried up where it reached above this call (memo_solve/8).
 restore_loop_floor(Saved) :-
     nb_setval(le_loop_floor, Saved).
+
+%!  without_explanations(:Goal) is nondet.
+%
+%   Runs Goal (a query by i/4 whose explanation the caller does not read: a
+%   test's) with memorable answers remembered without their explanations.
+%   A replayed answer copies its explanation, and an income tax worked out
+%   through hundreds of memorable values copied each value's whole proof at
+%   every use: 1.4 GB for one value of openfisca-france's tax, which then
+%   had no answer at all.
+:- meta_predicate without_explanations(0).
+without_explanations(Goal) :-
+    (   nb_current(le_memo_whys, Saved) -> true ; Saved = true ),
+    setup_call_cleanup(nb_setval(le_memo_whys, false), Goal, nb_setval(le_memo_whys, Saved)).
+
+explanations_kept :-
+    \+ nb_current(le_memo_whys, false).
 
 memo_replay(Key, Gen, G, Us, Whys) :-
     memo_answer(Key, Gen, G, Us, Whys, Constraints),
@@ -1909,8 +1926,12 @@ is_aggregate(Term, Type, VarTerm, Goal, ResultTerm) :-
 % answer 0 when no moment qualified (docs/user/reference/language.md §5).
 apply_aggregate(sum, List, Sum) :- (List == [] -> Sum = 0 ; sum_list(List, Sum)).
 apply_aggregate(count, List, Count) :- length(List, Count).
-apply_aggregate(min, List, Min) :- List \== [], min_list(List, Min).
-apply_aggregate(max, List, Max) :- List \== [], max_list(List, Max).
+%   Of values that are not all numbers (a state's code, the same for every
+%   member of a household), the least and the greatest in the standard
+%   order of terms: max_list/2 read a text of one letter as its character
+%   code and stopped at a text of two ("CA", PolicyEngine's SNAP).
+apply_aggregate(min, List, Min) :- List \== [], ( maplist(number, List) -> min_list(List, Min) ; min_member(Min, List) ).
+apply_aggregate(max, List, Max) :- List \== [], ( maplist(number, List) -> max_list(List, Max) ; max_member(Max, List) ).
 apply_aggregate(average, List, Avg) :-
     List \== [],
     sum_list(List, Sum), length(List, Count), Avg is Sum / Count.

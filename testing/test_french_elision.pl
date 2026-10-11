@@ -38,6 +38,11 @@ test(writer_elides) :-
     le_writer:elide_text(fr, "la mère de une autre personne va à le marché si il pleut \"de une\"", T),
     T == "la mère d'une autre personne va au marché s'il pleut \"de une\"".
 
+%   A variable named like a word that elides (NE, LE) is left as it is.
+test(writer_keeps_variables) :-
+    le_writer:elide_text(fr, "le maximum de 0 et NE est un nombre et LE est A", T),
+    T == "le maximum de 0 et NE est un nombre et LE est A".
+
 test(writer_leaves_h_alone) :-
     le_writer:elide_text(fr, "à le hôtel", T),
     T == "à le hôtel".
@@ -47,6 +52,22 @@ test(expected_answer_with_elision) :-
         ( le_kbs:normalize_string("Alice est la mère d'Émile", A),
           le_kbs:normalize_string("Alice est la mère de Émile", B) )),
     A == B.
+
+%   An answer shown with the decimal comma ("500,0") is the number an
+%   expectation writes without decimals ("500").
+test(expected_answer_with_decimal_comma) :-
+    le_i18n:with_le_language(fr,
+        ( le_kbs:normalize_string("le montant de a est 500,0", A),
+          le_kbs:normalize_string("le montant de a est 500", B),
+          le_kbs:normalize_string("le montant de a est 27,5", C),
+          le_kbs:normalize_string("le montant de a est 27", D) )),
+    A == B, C \== D.
+
+%   Tokenizing leaves nothing to backtrack into: a choice point per word
+%   kept a long French program's whole text alive and ran it out of stack.
+test(tokenize_is_deterministic) :-
+    tokenizer:tokenize("l'autre va au marché d'une ville s'il pleut, 1,5 fois.", ',', '.', fr, Ts),
+    memberchk(word(le, _), Ts), memberchk(word(autre, _), Ts).
 
 test(template_beginning_with_le) :-
     le_grammar:template_functor([le, taux, de, est], F),

@@ -69,7 +69,10 @@ tokenize_codes(String, DecSep, ThouSep, Tokens) :-
     setup_call_cleanup(
         ( retractall(current_num_seps(_, _)),
           assertz(current_num_seps(DecCode, ThouCode)) ),
-        phrase(tokens(0, 1, Tokens0), Codes),
+        %  the first tokenization is the one: the alternatives the grammar
+        %  leaves open held every code of the text alive (a French program
+        %  of 85,000 lines ran out of stack while it was being parsed)
+        once(phrase(tokens(0, 1, Tokens0), Codes)),
         retractall(current_num_seps(_, _))
     ),
     negative_numbers(Tokens0, none, Tokens).
@@ -119,8 +122,19 @@ tokenize_lang(String, Tokens) :-
 %   a template's `*` becomes de. Contractions: Short-Words pairs (au-[à,le]).
 %   A capital stays on the first word ("L'autre" → Le autre). The split
 %   tokens share the original's place in the text.
+%   One clause for every token, the word's case a branch of it: a word also
+%   matched a second clause for any token, which left a choice point per
+%   word, kept every frame alive, and ran a French program of 85,000 lines
+%   (the income-tax twin of openfisca-france) out of stack.
 elide([], _, _, []).
-elide([word(W, loc(S, E))|Ts], Els, Cons, Out) :-
+elide([T|Ts], Els, Cons, Out) :-
+    (   T = word(_, _)
+    ->  elide_word(T, Ts, Els, Cons, Out)
+    ;   Out = [T|Out1],
+        elide(Ts, Els, Cons, Out1)
+    ).
+
+elide_word(word(W, loc(S, E)), Ts, Els, Cons, Out) :-
     atom_codes(W, Cs),
     downcase_atom(W, Wl),
     (   memberchk(Wl-[F0|Rest], Cons)                   % au, du, s'il: whole words first
@@ -139,8 +153,6 @@ elide([word(W, loc(S, E))|Ts], Els, Cons, Out) :-
     ;   Out = [word(W, loc(S, E))|Out1],
         elide(Ts, Els, Cons, Out1)
     ).
-elide([T|Ts], Els, Cons, [T|Out]) :-
-    elide(Ts, Els, Cons, Out).
 
 %   Full, with a capital when Short had one.
 same_case(Short, Full0, Full) :-

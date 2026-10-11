@@ -359,6 +359,7 @@ elide_words(S0, Els, Cons, S) :-
     atomic_list_concat(Ws, ' ', S).
 
 elide_list([W1, W2|Ws0], Els, Cons, [CS|Ws]) :-       % à le marché → au marché, si il → s'il
+    \+ variable_word(W1), \+ variable_word(W2),
     lower_atom(W1, A), lower_atom(W2, B),
     member(C-[A, B], Cons),
     (   vowel_start(W2) -> true                         % (s'il: the second word is the vowel)
@@ -369,6 +370,7 @@ elide_list([W1, W2|Ws0], Els, Cons, [CS|Ws]) :-       % à le marché → au mar
     cased(W1, C, CS),
     elide_list(Ws0, Els, Cons, Ws).
 elide_list([W1, W2|Ws0], Els, Cons, Ws) :-             % de une → d'une, la autre → l'autre
+    \+ variable_word(W1),
     lower_atom(W1, A), elidable(A, Els, Short), vowel_start(W2), !,
     cased(W1, Short, Sh),
     string_concat(Sh, "'", E0), string_concat(E0, W2, E),
@@ -377,6 +379,13 @@ elide_list([W|Ws0], Els, Cons, [W|Ws]) :- !, elide_list(Ws0, Els, Cons, Ws).
 elide_list([], _, _, []).
 
 lower_atom(W, A) :- string_lower(W, L), atom_string(A, L).
+
+%   A variable the writer named (NE, LE, DE): capitals only, two letters or
+%   more. Elided as a word, `et NE est` became `et N'est`, and the rule read
+%   another variable (openfisca-france's income tax: no deficit, no income).
+variable_word(W) :-
+    string_length(W, N), N >= 2,
+    string_upper(W, W), string_lower(W, L), L \== W.
 
 %   The short form of a word that elides: the full form of an elision (de →
 %   d), or a definite article one letter longer than the short form of the
@@ -2758,11 +2767,20 @@ scenario_literal_text(Ctx, F, T) :-
 
 %   An expected answer: a string as given, or a ground literal rendered.
 answer_text(_, A, T) :- string(A), !, render_string(A, T).
+%   The answer to a query of several sentences: each, joined by `and`, as
+%   the answer is shown (a twin asks a value of the period the case is
+%   about: `the calculation period is 2014 and the rfr ... for 2014 is ...`).
 answer_text(Ctx, A, T) :-
     setup_call_cleanup(b_setval(le_writer_answer, true),
-                       scenario_literal_text(Ctx, A, T0),
+                       answer_sentences(Ctx, A, T0),
                        b_setval(le_writer_answer, false)),
     render_string(T0, T).
+
+answer_sentences(Ctx, and(A, B), T) :- !,
+    answer_sentences(Ctx, A, TA), answer_sentences(Ctx, B, TB),
+    kw(and, K), format(atom(T), '~w ~w ~w', [TA, K, TB]).
+answer_sentences(Ctx, A, T) :-
+    scenario_literal_text(Ctx, A, T).
 
 change_text(_, C, T) :- string(C), !, render_string(C, T).
 change_text(Ctx, add(F), T) :- !, scenario_literal_text(Ctx, F, T0), format(atom(T1), 'add: ~w', [T0]), render_string(T1, T).

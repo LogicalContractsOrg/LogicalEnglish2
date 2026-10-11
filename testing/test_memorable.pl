@@ -87,6 +87,14 @@ test(the_cache_is_used) :-
     assertion(Misses > 0),
     assertion(Hits > Misses).
 
+%   A caller that does not read the explanation (a test) has the same
+%   answers with the memorable answers kept without theirs.
+test(same_answers_without_explanations, [forall(member(Q, [ancestors, relatives, count, everybody]))]) :-
+    kb(family_relatives, KB),
+    answers(KB, tudors, Q, With, _),
+    reasoner:without_explanations(test_memorable:answers(KB, tudors, Q, Without, _)),
+    assertion(With == Without).
+
 test(the_lattice_counts) :-
     kb(lattice_paths, KB),
     answers(KB, grids, square, [A], _),
