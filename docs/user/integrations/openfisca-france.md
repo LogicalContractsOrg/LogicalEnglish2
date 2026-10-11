@@ -126,17 +126,17 @@ moteur d'OpenFisca-France donne pour ce cas.
 | `rsa` | le RSA et la prime d'activité | **36 sur 40** (12 octobre 2026) : les 4 autres attendent le forfait logement de la prime d'activité, qui n'est pas encore traduit |
 
 Pour l'impôt sur le revenu, sur les tests du calculateur de
-l'administration fiscale et ceux du modèle (434 cas, mesure du 11 octobre
+l'administration fiscale et ceux du modèle (434 cas, mesure du 12 octobre
 2026) :
 
 | Valeur demandée | Accord | Désaccord |
 |---|---|---|
 | le nombre de parts du foyer fiscal (`nbptr`) | 363 | 0 |
-| le revenu fiscal de référence (`rfr`) | 349 | 3 |
+| le revenu fiscal de référence (`rfr`) | 351 | 1 |
 | le revenu brut global (`rbg`) | 321 | 0 |
-| le revenu net imposable (`rni`) | 249 | 2 |
-| l'impôt avant crédits (`iai`) | 77 | 219 |
-| les réductions d'impôt | 30 | 112 |
+| le revenu net imposable (`rni`) | 251 | 0 |
+| l'impôt avant crédits (`iai`) | 172 | 124 |
+| les réductions d'impôt | 90 | 53 |
 
 ## Deux codages des aides au logement comparés
 
@@ -188,11 +188,12 @@ loyer plafond qu'OpenFisca-France.
 - **Le RSA lui-même.** Le montant de base du RSA lit un paramètre que le
   modèle n'a plus pour les années de ses tests. La plupart des cas du RSA
   attendent donc cette partie, qui n'est pas traduite.
-- **L'impôt lui-même.** L'impôt avant crédits et les réductions ne
-  répondent pas dans 286 cas ; les retracer demande une machine de plus de
-  8 Go de mémoire. La réduction Duflot-Pinel-Denormandie donnait 0 dans 10
-  cas, à cause d'une erreur du traducteur, corrigée le 11 octobre ; le
-  jumeau reste à reconstruire pour le vérifier.
+- **L'impôt lui-même.** Sur 1 948 réponses vérifiées, 1 755 sont
+  d'accord avec le moteur. Dans 170 des 193 autres, le jumeau ne répond
+  pas, le plus souvent pour l'impôt avant crédits et les réductions. La
+  réduction Duflot-Pinel-Denormandie est juste dans 105 réponses sur 119.
+  La contribution exceptionnelle sur les hauts revenus diffère encore dans
+  6 cas.
 
 ## Voir aussi
 
