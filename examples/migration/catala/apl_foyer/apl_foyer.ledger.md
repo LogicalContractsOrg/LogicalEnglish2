@@ -2,7 +2,7 @@
 
 Source: Catala (catala-examples) — sources/cat/apl_foyer.yaml
 Translator: lpsPlus migration/catala
-Date: 2026-10-10
+Date: 2026-10-11
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 
 ## Summary

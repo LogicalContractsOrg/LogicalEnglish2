@@ -182,9 +182,16 @@ migration_pending(migration(Meta, IR, Ledger, Tests0), migration(Meta, IR, Ledge
         %  (the refinement walks the waiting pairs again for each set of
         %  given values; on a tax twin, hundreds of cases each giving a
         %  different set, that took hours: it is left out there, and those
-        %  expectations wait as before)
-        length(Tests0, NT), length(Waits, NW),
-        ( NT * NW =< 20000 -> Overrides = Overrides0 ; Overrides = [] ),
+        %  expectations wait as before. The work is the sets of given
+        %  values, times the waiting pairs, times the rules a walk may
+        %  visit: the RSA's 207 cases share few sets, and a bound on the
+        %  cases alone had left 205 of them out.)
+        length(Waits, NW), rb_size(Graph, NG),
+        (   Overrides0 == [] -> Overrides = []
+        ;   findall(Cut, ( member(T, Tests0), test_cut(Overrides0, T, Cut), Cut \== [] ), Cuts0),
+            sort(Cuts0, Cuts), length(Cuts, NC),
+            ( NC * NW * NG =< 50000000 -> Overrides = Overrides0 ; Overrides = [] )
+        ),
         empty_assoc(Memo0),
         foldl(pending_test(Items, Graph, Rs, Overrides, Waits), Tests0, Tests, Memo0, _)
     ).
@@ -210,7 +217,8 @@ still_waits(Items, Graph, Rs, Cut, Q-Id) :-
     reaches(QFs, Graph, Cut, Targets, Seen0).
 
 reaches([F|Fs], Graph, Cut, Targets, Seen0) :-
-    (   ord_memberchk(F, Targets) -> true
+    (   ord_memberchk(F, Cut) -> reaches(Fs, Graph, Cut, Targets, Seen0)   % (the case gives it)
+    ;   ord_memberchk(F, Targets) -> true
     ;   rb_lookup(F, _, Seen0) -> reaches(Fs, Graph, Cut, Targets, Seen0)
     ;   rb_insert_new(Seen0, F, true, Seen1),
         ( \+ ord_memberchk(F, Cut), rb_lookup(F, Cs, Graph) -> append(Cs, Fs, Next) ; Next = Fs ),
@@ -220,11 +228,26 @@ reaches([F|Fs], Graph, Cut, Targets, Seen0) :-
 %   A rule whose first alternative is the value a case gives (an
 %   `overridable` rule: the given value, otherwise the rule's own, as a
 %   Catala `context` variable): Head functor - the given value's functor.
+%   Also a rule that only reads another value, for what a residue block
+%   concludes (a twin's rule for the given value of a variable left as
+%   residue): a case that gives that value has the conclusion without the
+%   block.
 overrides(Items, Pairs) :-
     findall(F-G, ( ( member(rule(H, B, _), Items) ; member(rule(H, B), Items) ),
                    callable(H), override_given(B, Given), compound(Given), \+ connective(Given),
                    functor(H, F, _), functor(Given, G, _), F \== G ), Pairs0),
-    sort(Pairs0, Pairs).
+    findall(F-G, ( ( member(rule(H, B, _), Items) ; member(rule(H, B), Items) ),
+                   callable(H), functor(H, F, _), residue_conclusion(Items, F),
+                   only_reads(B, Given), functor(Given, G, _), F \== G ), Pairs1),
+    append(Pairs0, Pairs1, Pairs2),
+    sort(Pairs2, Pairs).
+
+residue_conclusion(Items, F) :-
+    member(residue(_, Opts), Items), memberchk(concludes(Fs), Opts), memberchk(F, Fs), !.
+
+%   (a type guard first: `the person is an individu and ...`)
+only_reads(and(T, B), G) :- !, compound(T), functor(T, is_a, 2), only_reads(B, G).
+only_reads(G, G) :- compound(G), \+ connective(G), \+ functor(G, is_a, 2).
 
 %   (under the guard of a dated version of the rule, too)
 override_given(otherwise([Given|_]), Given) :- !.
@@ -237,17 +260,21 @@ override_given(and(_, B), Given) :- override_given(B, Given).
 %   (one walk per set of given values: the cases of a tax twin mostly give
 %   the same ones)
 pending_test(Items, Graph, Rs, Overrides, Waits0, test(I, D, L, F, E0), test(I, D, L, F, E), Memo0, Memo) :-
-    (   Overrides == []
-    ->  Cut = []
-    ;   findall(G, ( sub_term(T, F), compound(T), functor(T, G, _) ), Gs0), sort(Gs0, Gs),
-        findall(H, ( member(H-G, Overrides), ord_memberchk(G, Gs) ), Cut0),
-        sort(Cut0, Cut)
-    ),
+    test_cut(Overrides, test(I, D, L, F, E0), Cut),
     (   ( Cut == [] ; Waits0 == [] ) -> Waits = Waits0, Memo = Memo0
     ;   get_assoc(Cut, Memo0, Waits) -> Memo = Memo0
     ;   still_waiting(Items, Graph, Rs, Cut, Waits0, Waits), put_assoc(Cut, Memo0, Waits, Memo)
     ),
     maplist(pending_expectation(Waits), E0, E).
+
+%   The rules a test's given values override: where its walks stop.
+test_cut(Overrides, test(_, _, _, F, _), Cut) :-
+    (   Overrides == []
+    ->  Cut = []
+    ;   findall(G, ( sub_term(T, F), compound(T), functor(T, G, _) ), Gs0), sort(Gs0, Gs),
+        findall(H, ( member(H-G, Overrides), ord_memberchk(G, Gs) ), Cut0),
+        sort(Cut0, Cut)
+    ).
 
 pending_expectation(Waits, E0, E) :-
     (   E0 = expects(Q, _) ; E0 = expects(Q, _, _) ),

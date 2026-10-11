@@ -494,6 +494,41 @@ test(pending_through_chains_and_cycles) :-
     le_migration:migration_pending(migration([], IR, [], Tests), migration(_, _, _, [test(_, _, _, _, Es)])),
     assertion(Es = [pending(_, expects(qa, [])), expects(qc, [])]).
 
+%   A case that gives the value of an overridable rule does not wait for the
+%   residue behind that rule; a case that does not give it still waits. Many
+%   cases sharing one set of given values are walked once (the RSA's 207
+%   cases had been left waiting by a bound on the number of cases).
+test(given_value_stops_the_walk) :-
+    %  (70 queries of 301 cases: more than the 20,000 pairs the bound allowed)
+    findall(query(Q, total(_, _)), ( between(1, 69, I), atom_concat(q, I, Q) ), Qs),
+    append([residue(r1, [title("the premium plugin"), concludes([premium_calc])]),
+            rule(premium(P, X), otherwise([premium_given(P, X), premium_calc(P, X)]), []),
+            rule(total(P, T), and(premium(P, A), T is A + 5), []),
+            query(totals, total(_, _))], Qs, Items),
+    IR = program([kb(x)], Items),
+    numlist(1, 300, Ns),
+    findall(test(N, "tests.json", 'case', [premium_given(p1, 100)], [expects(totals, [total(p1, 105)])]),
+            member(N, Ns), Given),
+    Tests = [test(t0, "tests.json", 'case 0', [], [expects(totals, [])])|Given],
+    le_migration:migration_pending(migration([], IR, [], Tests), migration(_, _, _, Out)),
+    Out = [test(_, _, _, _, E0), test(_, _, _, _, E1)|_],
+    assertion(E0 = [pending(_, _)]),
+    assertion(E1 = [expects(totals, _)]),
+    assertion(\+ ( member(test(_, _, _, _, Es), Out), Es \== E0, member(pending(_, _), Es) )).
+
+%   A value left as residue that a case may give: its rule reads the given
+%   value, and a case that gives it does not wait for the block.
+test(given_value_of_a_residue) :-
+    IR = program([kb(x)], [
+        residue(r1, [title("the allowance"), concludes([allowance])]),
+        rule(allowance(P, X), and(is_a(P, person), allowance_given(P, X)), []),
+        rule(income(P, T), and(allowance(P, A), T is A + 5), []),
+        query(incomes, income(_, _))]),
+    Tests = [test(t0, "tests.json", 'case 0', [], [expects(incomes, [])]),
+             test(t1, "tests.json", 'case 1', [allowance_given(p1, 100)], [expects(incomes, [income(p1, 105)])])],
+    le_migration:migration_pending(migration([], IR, [], Tests), migration(_, _, _, Out)),
+    assertion(Out = [test(_, _, _, _, [pending(_, _)]), test(_, _, _, _, [expects(incomes, _)])]).
+
 %   A residue that names its conclusion carries it in a `concludes:` line,
 %   the one the Contract Assistant's residue mode checks the fill against.
 test(residue_conclusion_line) :-

@@ -2,7 +2,7 @@
 
 Source: Catala (catala-examples) — sources/cat/apl_locatif.yaml
 Translator: lpsPlus migration/catala
-Date: 2026-10-09
+Date: 2026-10-11
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 
 ## Summary

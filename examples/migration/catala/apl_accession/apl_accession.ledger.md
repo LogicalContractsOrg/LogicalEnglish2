@@ -2,7 +2,7 @@
 
 Source: Catala (catala-examples) — sources/cat/apl_accession.yaml
 Translator: lpsPlus migration/catala
-Date: 2026-10-10
+Date: 2026-10-11
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 
 ## Summary
@@ -14,7 +14,7 @@ Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 | residue | 3 |
 | **total** | 53 |
 
-Fidelity: **6 of 8** source test expectation(s) reproduced (75%); 2 fail, 0 could not be run.
+Fidelity: **8 of 8** source test expectation(s) reproduced (100%).
 
 **8 further expectation(s) are pending** (waits for residue r1): they are written as comments in their scenarios, and are not counted above. Each is restored when what it waits for is done.
 
@@ -91,9 +91,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Exemple1 | q_coefficient_prise_en_charge_d832_10 | pass |  |
 | Exemple1 | q_mensualité_éligible | pass |  |
 | Exemple2 | q_coefficient_prise_en_charge_d832_10 | pass |  |
-| Exemple2 | q_mensualité_éligible | fail | expected [la mensualité éligible est 399,2], got [la mensualité éligible est 300,47701297493586] |
+| Exemple2 | q_mensualité_éligible | pass |  |
 | Exemple3 | q_coefficient_prise_en_charge_d832_10 | pass |  |
 | Exemple3 | q_mensualité_éligible | pass |  |
 | Exemple4 | q_coefficient_prise_en_charge_d832_10 | pass |  |
-| Exemple4 | q_mensualité_éligible | fail | expected [la mensualité éligible est 399,2], got [la mensualité éligible est 300,47701297493586] |
+| Exemple4 | q_mensualité_éligible | pass |  |
 

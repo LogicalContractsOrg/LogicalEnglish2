@@ -121,9 +121,9 @@ moteur d'OpenFisca-France donne pour ce cas.
 | Jumeau | Ce qu'il couvre | Réponses vérifiées |
 |---|---|---|
 | `impot_revenu` | l'impôt sur le revenu : parts, revenu brut global, revenu net imposable, revenu fiscal de référence, impôt, réductions | voir le tableau ci-dessous |
-| `aides_logement` | les aides au logement (APL, ALF, ALS) : loyer plafond, charges, participation personnelle, montant | **39 sur 39** (11 octobre 2026) |
+| `aides_logement` | les aides au logement (APL, ALF, ALS) : loyer plafond, charges, participation personnelle, montant | **50 sur 50** (12 octobre 2026) |
 | `aides_logement_croise` | les mêmes règles, sur 36 situations écrites pour la comparaison avec Catala | **216 sur 216** |
-| `rsa` | le RSA et la prime d'activité | **16 sur 40** : le revenu d'activité de la prime d'activité ne répond pas encore |
+| `rsa` | le RSA et la prime d'activité | **36 sur 40** (12 octobre 2026) : les 4 autres attendent le forfait logement de la prime d'activité, qui n'est pas encore traduit |
 
 Pour l'impôt sur le revenu, sur les tests du calculateur de
 l'administration fiscale et ceux du modèle (434 cas, mesure du 11 octobre
@@ -154,10 +154,10 @@ valeurs que les deux codages nomment.
 
 | Valeur | Les deux jumeaux d'accord | Désaccord | Sans réponse d'un des deux |
 |---|---|---|---|
-| le loyer plafond | 35 | 0 | 1 |
+| le loyer plafond | 36 | 0 | 0 |
 | le forfait de charges | 36 | 0 | 0 |
 | le taux de composition familiale | 36 | 0 | 0 |
-| la participation minimale (P0) | 18 | 18 | 0 |
+| la participation minimale (P0) | 19 | 17 | 0 |
 | la participation personnelle | 0 | 36 | 0 |
 
 **Tous les désaccords ont la même cause, qui est dans les sources.** Le
@@ -170,9 +170,13 @@ personnelle, 52,4969 € contre 48,65 € + 3,84 € = 52,49 €. Chaque jumeau 
 la valeur de sa propre source. L'écart est d'un ou deux centimes ; il peut
 faire changer d'un euro une aide que la loi arrondit à l'euro.
 
-Une situation reste à éclaircir : en mars 2024, pour une personne seule en
-zone 3, le jumeau de la CNAF ne donne pas de loyer plafond. Il faut
-regarder ce que l'interpréteur de Catala lui-même répond.
+Une situation restait sans loyer plafond (une personne seule en zone 3, en
+mars 2024). La cause était une erreur du traducteur, pas de la loi. En
+français, « me est » s'écrit « m'est ». Le traducteur appliquait cette règle
+à un nom de valeur écrit en capitales, ME, et la règle lisait alors une
+autre valeur. Le traducteur ne raccourcit plus un mot en capitales. Depuis
+le 12 octobre 2026, le jumeau de la CNAF donne pour cette situation le même
+loyer plafond qu'OpenFisca-France.
 
 ## Ce qui reste à traduire
 
@@ -181,13 +185,9 @@ regarder ce que l'interpréteur de Catala lui-même répond.
   zone*), *le pensions alimentaires versees* (pour *les pensions*), sans les
   accents. Les mots propres au traducteur sont parfois encore en anglais
   (*member part of*, *counts for*, *step*).
-- **Plusieurs groupes du même genre dans un cas.** Un cas où une famille
-  vit avec un enfant qui fait sa propre déclaration a deux foyers fiscaux.
-  Le jumeau ne sait pas encore écrire un tel scénario : 11 cas des aides au
-  logement et 33 cas du RSA attendent pour cette raison.
-- **Une année glissante.** Depuis 2021, les aides au logement lisent les
-  ressources des douze derniers mois (une année qui ne commence pas en
-  janvier). Le jumeau ne sait pas encore nommer une telle période.
+- **Le RSA lui-même.** Le montant de base du RSA lit un paramètre que le
+  modèle n'a plus pour les années de ses tests. La plupart des cas du RSA
+  attendent donc cette partie, qui n'est pas traduite.
 - **L'impôt lui-même.** L'impôt avant crédits et les réductions ne
   répondent pas dans 286 cas ; les retracer demande une machine de plus de
   8 Go de mémoire. La réduction Duflot-Pinel-Denormandie donnait 0 dans 10
