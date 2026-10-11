@@ -129,6 +129,9 @@ same condition, who come before it.
 ## See also
 
 - [Other systems: importing and exporting](index.md)
+- [OpenFisca-France et Français Logique](openfisca-france.md): France's
+  model as twins in Français Logique, and its housing allowance compared
+  with the CNAF's Catala programme (in French)
 - [Axiom RuleSpec and Logical English](rulespec.md): the same benefit rules
   written by the Axiom Foundation
 - OpenFisca: https://openfisca.org · PolicyEngine: https://policyengine.org

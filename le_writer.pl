@@ -1230,16 +1230,22 @@ body_nodes(Ctx, St, Body, Nodes) :-
     seq(Ctx, St, Body, Nodes).
 
 %   seq: a list of sibling nodes that folds to the body.
+%   Each alternative of an `otherwise` cascade starts from the variables
+%   mentioned before the cascade: one an earlier alternative named is not
+%   bound in this one (that alternative failed), so it is introduced again
+%   and no condition is moved in front of the one that binds it
+%   (rotate_front/3). An alternative that tested `P - R > 0` before counting
+%   P and R, because the first alternative had counted them, answered
+%   wrongly (openfisca-france's rent ceiling). After the cascade, a variable
+%   any alternative named counts as mentioned.
 seq(Ctx, St, B, Nodes) :-
     otherwise_pattern(B, A, Alt), !,
-    seq(Ctx, St, A, NA),
-    seq(Ctx, St, Alt, NB),
+    alternatives_seq(Ctx, St, A, Alt, NA, NB),
     set_first_op(NB, otherwise, NB1),
     append(NA, NB1, Nodes).
 seq(Ctx, St, otherwise([A]), Nodes) :- !, seq(Ctx, St, A, Nodes).
 seq(Ctx, St, otherwise([A|As]), Nodes) :- !,
-    seq(Ctx, St, A, NA),
-    seq(Ctx, St, otherwise(As), NB),
+    alternatives_seq(Ctx, St, A, otherwise(As), NA, NB),
     set_first_op(NB, otherwise, NB1),
     append(NA, NB1, Nodes).
 %   `A and (B and C)` is `(A and B) and C`: a conjunction under a conjunction
@@ -1275,6 +1281,19 @@ binary_conn((L ; R), or, L, R) :- \+ L = (_ -> _).
 
 set_op(node(_, T, C), Op, node(Op, T, C)).
 set_first_op([N|Ns], Op, [N1|Ns]) :- set_op(N, Op, N1).
+
+%   (alternatives_seq/6: see seq/4's first clauses)
+alternatives_seq(Ctx, St, A, Alt, NA, NB) :-
+    St = st(_, _, M, _), arg(1, M, M0),
+    seq(Ctx, St, A, NA),
+    arg(1, M, M1), setarg(1, M, M0),
+    seq(Ctx, St, Alt, NB),
+    %  (the variables the first alternative added: each list extends M0 at
+    %  its front, so they are M1's first elements; appending the whole of M1
+    %  doubled M0 at every nested cascade)
+    arg(1, M, M2),
+    length(M1, L1), length(M0, L0), K is L1 - L0, length(New1, K), append(New1, _, M1),
+    append(New1, M2, M12), setarg(1, M, M12).
 
 %   The `A otherwise B` pattern as LE compiles it:
 %   or(A, and(not(Guard), B)), with Guard the conditions of A.

@@ -177,13 +177,76 @@ migration_pending(migration(Meta, IR, Ledger, Tests0), migration(Meta, IR, Ledge
     (   Rs == []
     ->  Tests = Tests0
     ;   rule_graph(Items, Graph),
-        findall(Q-Id, ( member(query(Q, B), Items), body_functors(B, QFs),
-                        reachable(Graph, QFs, Seen),
-                        member(Id-Fs, Rs), once(( member(T, Fs), rb_lookup(T, _, Seen) )) ), Waits),
-        maplist(pending_test(Waits), Tests0, Tests)
+        query_waits(Items, Graph, Rs, [], Waits),
+        overrides(Items, Overrides0),
+        %  (the refinement walks the waiting pairs again for each set of
+        %  given values; on a tax twin, hundreds of cases each giving a
+        %  different set, that took hours: it is left out there, and those
+        %  expectations wait as before)
+        length(Tests0, NT), length(Waits, NW),
+        ( NT * NW =< 20000 -> Overrides = Overrides0 ; Overrides = [] ),
+        empty_assoc(Memo0),
+        foldl(pending_test(Items, Graph, Rs, Overrides, Waits), Tests0, Tests, Memo0, _)
     ).
 
-pending_test(Waits, test(I, D, L, F, E0), test(I, D, L, F, E)) :-
+query_waits(Items, Graph, Rs, Cut, Waits) :-
+    findall(Q-Id, ( member(query(Q, B), Items), body_functors(B, QFs),
+                    reachable(Graph, QFs, Cut, Seen),
+                    member(Id-Fs, Rs), once(( member(T, Fs), rb_lookup(T, _, Seen) )) ), Waits).
+
+%   The pairs of Waits0 (a query, a residue block it reaches) that still
+%   hold when the walk stops at Cut: only those pairs are walked again, and
+%   each walk stops at the block's first conclusion it meets. (Walking
+%   every query again for every case made a tax twin's build take hours:
+%   its cases give different sets of values.)
+still_waiting(Items, Graph, Rs, Cut, Waits0, Waits) :-
+    include(still_waits(Items, Graph, Rs, Cut), Waits0, Waits).
+
+still_waits(Items, Graph, Rs, Cut, Q-Id) :-
+    once(member(query(Q, B), Items)), body_functors(B, QFs),
+    memberchk(Id-Fs, Rs),
+    list_to_ord_set(Fs, Targets),
+    rb_new(Seen0),
+    reaches(QFs, Graph, Cut, Targets, Seen0).
+
+reaches([F|Fs], Graph, Cut, Targets, Seen0) :-
+    (   ord_memberchk(F, Targets) -> true
+    ;   rb_lookup(F, _, Seen0) -> reaches(Fs, Graph, Cut, Targets, Seen0)
+    ;   rb_insert_new(Seen0, F, true, Seen1),
+        ( \+ ord_memberchk(F, Cut), rb_lookup(F, Cs, Graph) -> append(Cs, Fs, Next) ; Next = Fs ),
+        reaches(Next, Graph, Cut, Targets, Seen1)
+    ).
+
+%   A rule whose first alternative is the value a case gives (an
+%   `overridable` rule: the given value, otherwise the rule's own, as a
+%   Catala `context` variable): Head functor - the given value's functor.
+overrides(Items, Pairs) :-
+    findall(F-G, ( ( member(rule(H, B, _), Items) ; member(rule(H, B), Items) ),
+                   callable(H), override_given(B, Given), compound(Given), \+ connective(Given),
+                   functor(H, F, _), functor(Given, G, _), F \== G ), Pairs0),
+    sort(Pairs0, Pairs).
+
+%   (under the guard of a dated version of the rule, too)
+override_given(otherwise([Given|_]), Given) :- !.
+override_given(and(_, B), Given) :- override_given(B, Given).
+
+%   A case that gives such a value does not wait for the residue behind
+%   the rule it overrides: the walk stops at that rule (the housing
+%   allowance's resources, which every case of the cross-check gives,
+%   hid the personal participation that reads them).
+%   (one walk per set of given values: the cases of a tax twin mostly give
+%   the same ones)
+pending_test(Items, Graph, Rs, Overrides, Waits0, test(I, D, L, F, E0), test(I, D, L, F, E), Memo0, Memo) :-
+    (   Overrides == []
+    ->  Cut = []
+    ;   findall(G, ( sub_term(T, F), compound(T), functor(T, G, _) ), Gs0), sort(Gs0, Gs),
+        findall(H, ( member(H-G, Overrides), ord_memberchk(G, Gs) ), Cut0),
+        sort(Cut0, Cut)
+    ),
+    (   ( Cut == [] ; Waits0 == [] ) -> Waits = Waits0, Memo = Memo0
+    ;   get_assoc(Cut, Memo0, Waits) -> Memo = Memo0
+    ;   still_waiting(Items, Graph, Rs, Cut, Waits0, Waits), put_assoc(Cut, Memo0, Waits, Memo)
+    ),
     maplist(pending_expectation(Waits), E0, E).
 
 pending_expectation(Waits, E0, E) :-
@@ -217,17 +280,18 @@ connective(G) :- functor(G, F, N), memberchk(F/N, [and/2, or/2, not/1, (',')/2, 
 %   red-black tree. Computed once per query, then checked against every
 %   residue block: walking the graph once per (query, block) pair, over
 %   lists, never finished on the income-tax twin of openfisca-france.
-reachable(Graph, Starts, Seen) :-
+%   Cut: functors reached but not followed (a value the case gives).
+reachable(Graph, Starts, Cut, Seen) :-
     rb_new(Seen0),
-    reach(Starts, Graph, Seen0, Seen).
+    reach(Starts, Graph, Cut, Seen0, Seen).
 
-reach([], _, Seen, Seen).
-reach([F|Fs], Graph, Seen0, Seen) :-
+reach([], _, _, Seen, Seen).
+reach([F|Fs], Graph, Cut, Seen0, Seen) :-
     (   rb_lookup(F, _, Seen0)
-    ->  reach(Fs, Graph, Seen0, Seen)
+    ->  reach(Fs, Graph, Cut, Seen0, Seen)
     ;   rb_insert_new(Seen0, F, true, Seen1),
-        ( rb_lookup(F, Cs, Graph) -> append(Cs, Fs, Next) ; Next = Fs ),
-        reach(Next, Graph, Seen1, Seen)
+        ( \+ memberchk(F, Cut), rb_lookup(F, Cs, Graph) -> append(Cs, Fs, Next) ; Next = Fs ),
+        reach(Next, Graph, Cut, Seen1, Seen)
     ).
 
 pending_count(Tests, N) :-
