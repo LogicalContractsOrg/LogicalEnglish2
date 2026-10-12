@@ -188,7 +188,7 @@ loyer plafond qu'OpenFisca-France.
 - **Le RSA lui-même.** Le montant de base du RSA lit un paramètre que le
   modèle n'a plus pour les années de ses tests. La plupart des cas du RSA
   attendent donc cette partie, qui n'est pas traduite.
-- **L'impôt lui-même.** Sur 1 948 réponses vérifiées, 1 925 sont
+- **L'impôt lui-même.** Sur 1 948 réponses vérifiées, 1 934 sont
   d'accord avec le moteur, et le jumeau répond à toutes. La réduction
   Duflot-Pinel-Denormandie est juste dans les 119 réponses. Restent
   6 écarts d'un euro (un arrondi), la contribution exceptionnelle sur les
