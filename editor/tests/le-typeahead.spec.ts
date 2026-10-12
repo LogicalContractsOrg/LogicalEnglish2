@@ -45,6 +45,30 @@ test.describe('le-typeahead', () => {
         expect(first('    the person is gre').snippet).toBe('greater than ${1:V2}');
     });
 
+    test('"the" in a rule body offers whole sentences, the first place written as "the <noun>"', () => {
+        const items = smartCompletions('    a person is rich if the', 'body', T, S);
+        const snippets = items.map(i => i.snippet);
+        expect(snippets).toContain('${1:the person} is a parent of ${2:a child}');
+        expect(snippets).toContain('${1:the person} is happy');
+        expect(snippets).toContain('the assets of ${1:a company} are ${2:an amount}');
+        const it = items.find(i => i.snippet === '${1:the person} is happy')!;
+        expect(it.replaceStart).toBe('    a person is rich if '.length);
+        expect(snippets.some(s => s.includes('V1') || s.includes('V2'))).toBe(false);
+    });
+
+    test('"the pe" narrows the sentences to those whose first place is a person', () => {
+        const items = smartCompletions('    a person is rich if the pe', 'body', T, S);
+        expect(items.length).toBeGreaterThan(0);
+        expect(items.every(i => i.snippet.startsWith('${1:the person}'))).toBe(true);
+    });
+
+    test('"the person " offers the rest of every template that starts with a place', () => {
+        const labels = smartCompletions('    a person is rich if the person ', 'body', T, S).map(i => i.label);
+        expect(labels).toContain('*a person* is happy');
+        expect(labels).toContain('*a person* is a parent of *a child*');
+        expect(labels).not.toContain('*V1* is *V2*');
+    });
+
     test('a complete condition is followed by "and" and "or"', () => {
         const items = smartCompletions('    bob is a parent of carol ', 'body', T, S);
         expect(items.map(i => i.label)).toEqual(['and', 'or']);

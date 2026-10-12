@@ -1,17 +1,16 @@
 // src/le-typeahead.ts
 var ARTICLES = /* @__PURE__ */ new Set(["a", "an"]);
+var CONNECTIVE = /* @__PURE__ */ new Set(["if", "and", "or", "unless", "then", "when"]);
 var BOUNDARY = /(?:^|[\s,])(?:if|and|or|that|unless|then|when)\s+|,\s*/gi;
 var DECLARATION_HEADING = /^(?:the\s+)?(?:templates|predicates|fluents|events|actions|prolog events|ontology)\b.*:\s*$|^(?:os|as|los|las|les|i|le)\s+\S+.*:\s*$/i;
 function templateTokens(label) {
   const out = [];
   for (const part of label.split(/(\*[^*]+\*)/)) {
-    if (!part)
-      continue;
+    if (!part) continue;
     if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
       out.push({ place: part.slice(1, -1).trim() });
     } else {
-      for (const w of words(part))
-        out.push({ word: w });
+      for (const w of words(part)) out.push({ word: w });
     }
   }
   return out;
@@ -30,19 +29,24 @@ function ends(T, W) {
       out.push({ next: ti, fixed });
       return;
     }
-    if (ti >= T.length)
-      return;
+    if (ti >= T.length) return;
     const t2 = T[ti];
     if ("word" in t2) {
-      if (same(W[wi], t2.word))
-        go(ti + 1, wi + 1, fixed + 1);
+      if (same(W[wi], t2.word)) go(ti + 1, wi + 1, fixed + 1);
       return;
     }
-    for (let k = 1; wi + k <= W.length; k++)
-      go(ti + 1, wi + k, fixed);
+    for (let k = 1; wi + k <= W.length && !CONNECTIVE.has(W[wi + k - 1].toLowerCase()); k++) go(ti + 1, wi + k, fixed);
   };
   go(0, 0, 0);
   return out;
+}
+function thePlace(place) {
+  const w = place.trim().split(/\s+/);
+  if (w.length > 1 && (ARTICLES.has(w[0].toLowerCase()) || w[0].toLowerCase() === "the")) w[0] = "the";
+  return w.join(" ");
+}
+function sameNoun(W, place) {
+  return W.length > 1 && W.slice(1).join(" ").toLowerCase() === thePlace(place).split(" ").slice(1).join(" ").toLowerCase();
 }
 function escapeSnippet(s) {
   return s.replace(/[\\$}]/g, (m) => "\\" + m);
@@ -64,19 +68,16 @@ function remainder(T, from) {
   return { snippet: join(snip), plain: join(plain) };
 }
 function zoneOf(linesAbove, line) {
-  if (!/^\s/.test(line))
-    return "top";
+  if (!/^\s/.test(line)) return "top";
   for (let i = linesAbove.length - 1; i >= 0; i--) {
     const l = linesAbove[i];
-    if (!l.trim() || /^\s/.test(l) || /^\s*%/.test(l))
-      continue;
+    if (!l.trim() || /^\s/.test(l) || /^\s*%/.test(l)) continue;
     return DECLARATION_HEADING.test(l.trim()) ? "templates" : "body";
   }
   return "body";
 }
 function smartCompletions(lineBefore, zone, templates, sections, explicit = false) {
-  if (zone === "templates")
-    return [];
+  if (zone === "templates") return [];
   if (zone === "top") {
     const typed = lineBefore.trimStart();
     const start2 = lineBefore.length - typed.length;
@@ -94,13 +95,12 @@ function smartCompletions(lineBefore, zone, templates, sections, explicit = fals
   const starts = [indent];
   BOUNDARY.lastIndex = 0;
   for (let m; (m = BOUNDARY.exec(lineBefore)) !== null; ) {
-    if (m.index + m[0].length > indent)
-      starts.push(m.index + m[0].length);
-    if (m[0].length === 0)
-      BOUNDARY.lastIndex++;
+    if (m.index + m[0].length > indent) starts.push(m.index + m[0].length);
+    if (m[0].length === 0) BOUNDARY.lastIndex++;
   }
   const tried = starts.slice(-4).reverse();
   const best = /* @__PURE__ */ new Map();
+  const placeOnly = [];
   let complete = false;
   for (const tpl of templates) {
     const T = templateTokens(tpl.label);
@@ -110,11 +110,29 @@ function smartCompletions(lineBefore, zone, templates, sections, explicit = fals
       const all = words(fragment);
       const partial = endsInSpace ? "" : all.pop() ?? "";
       const W = all;
+      if (partial && "place" in T[0] && !tpl.system) {
+        const first = thePlace(T[0].place);
+        const typed = [...W, partial].join(" ").toLowerCase();
+        if (first.toLowerCase().startsWith(typed)) {
+          const r = remainder([{ place: first }, ...T.slice(1)], 0);
+          const item = {
+            label: tpl.label,
+            snippet: r.snippet,
+            filterText: r.plain,
+            replaceStart: from,
+            detail: "template",
+            score: W.length > 0 ? 0.75 : 0.25,
+            kind: "template"
+          };
+          const prev = best.get(tpl.label);
+          if (!prev || item.score > prev.score) best.set(tpl.label, item);
+        }
+      }
       for (const e of ends(T, W)) {
         let item = null;
         if (partial) {
           const t2 = T[e.next];
-          if (t2 && "word" in t2 && t2.word.toLowerCase().startsWith(partial.toLowerCase()) && t2.word.toLowerCase() !== partial.toLowerCase()) {
+          if (t2 && "word" in t2 && t2.word.toLowerCase().startsWith(partial.toLowerCase())) {
             const r = remainder(T, e.next);
             item = {
               label: tpl.label,
@@ -140,18 +158,35 @@ function smartCompletions(lineBefore, zone, templates, sections, explicit = fals
           };
         } else if (e.next === T.length && e.fixed > 0 && W.length > 0) {
           complete = true;
-        }
-        if (!item)
+        } else if (e.fixed === 0 && W.length > 0 && W.length <= 3 && e.next === 1 && T[1] && "word" in T[1]) {
+          const r = remainder(T, 1);
+          const p = T[0];
+          placeOnly.push({
+            label: tpl.label,
+            snippet: r.snippet,
+            filterText: "",
+            replaceStart: lineBefore.length,
+            detail: tpl.system ? "built-in template" : "template",
+            score: sameNoun(W, p.place) ? 0.5 : 0,
+            kind: "template"
+          });
           continue;
+        }
+        if (!item) continue;
         if (tpl.system) {
-          if (item.score < 2)
-            continue;
+          if (item.score < 2) continue;
           item.score -= 0.5;
         }
         const prev = best.get(tpl.label);
-        if (!prev || item.score > prev.score)
-          best.set(tpl.label, item);
+        if (!prev || item.score > prev.score) best.set(tpl.label, item);
       }
+    }
+  }
+  if (!complete && ![...best.values()].some((i) => i.score >= 1)) {
+    for (const item of placeOnly) {
+      if (item.detail === "built-in template") continue;
+      const prev = best.get(item.label);
+      if (!prev || item.score > prev.score) best.set(item.label, item);
     }
   }
   const items = [...best.values()].sort((a, b) => b.score - a.score || a.label.length - b.label.length);
@@ -11696,14 +11731,12 @@ function browserUiLang() {
   }
   for (const p of prefs) {
     const code = (p || "").toLowerCase().split("-")[0];
-    if (isLanguage(code))
-      return code;
+    if (isLanguage(code)) return code;
   }
   return "en";
 }
 function setUiLang(code) {
-  if (!isLanguage(code))
-    return;
+  if (!isLanguage(code)) return;
   try {
     localStorage.setItem(STORAGE_KEY, code);
   } catch (e) {
@@ -11715,8 +11748,7 @@ function setUiLang(code) {
 }
 var cachedLang = null;
 function uiLang() {
-  if (cachedLang)
-    return cachedLang;
+  if (cachedLang) return cachedLang;
   let stored = null;
   try {
     stored = localStorage.getItem(STORAGE_KEY);
@@ -11733,8 +11765,7 @@ function uiLang() {
 function uiLanguageName(code) {
   try {
     const n = new Intl.DisplayNames([code], { type: "language" }).of(code);
-    if (n && n !== code)
-      return n.charAt(0).toLocaleUpperCase(code) + n.slice(1);
+    if (n && n !== code) return n.charAt(0).toLocaleUpperCase(code) + n.slice(1);
   } catch (e) {
   }
   return code;
@@ -11744,8 +11775,7 @@ function languageList() {
 }
 function t(key) {
   const lang = uiLang();
-  if (lang === "en")
-    return key;
+  if (lang === "en") return key;
   const cat = uiCatalog[lang];
   return cat && cat[key] || key;
 }
@@ -11757,8 +11787,7 @@ function detectProgramLanguage(text) {
     let s = line.trim();
     if (inBlockComment) {
       const end = s.indexOf("*/");
-      if (end === -1)
-        continue;
+      if (end === -1) continue;
       s = s.slice(end + 2).trim();
       inBlockComment = false;
     }
@@ -11770,15 +11799,13 @@ function detectProgramLanguage(text) {
       }
       s = s.slice(end + 2).trim();
     }
-    if (!s || s.startsWith("%"))
-      continue;
+    if (!s || s.startsWith("%")) continue;
     firstStatement = s;
     break;
   }
   const norm = firstStatement.toLowerCase().replace(/\s+/g, " ");
   for (const info of languages) {
-    if (info.opener && norm.startsWith(info.opener.toLowerCase()))
-      return info.code;
+    if (info.opener && norm.startsWith(info.opener.toLowerCase())) return info.code;
   }
   return "en";
 }
@@ -11790,8 +11817,7 @@ function detectTargetLanguage(text) {
     let s = line.trim();
     if (inBlockComment) {
       const end = s.indexOf("*/");
-      if (end === -1)
-        continue;
+      if (end === -1) continue;
       s = s.slice(end + 2).trim();
       inBlockComment = false;
     }
@@ -11803,8 +11829,7 @@ function detectTargetLanguage(text) {
       }
       s = s.slice(end + 2).trim();
     }
-    if (!s || s.startsWith("%"))
-      continue;
+    if (!s || s.startsWith("%")) continue;
     firstStatement = s;
     break;
   }
@@ -11850,52 +11875,46 @@ function translateFirstTextNode(el) {
       const trimmed = raw.trim();
       if (trimmed) {
         const tr = t(trimmed);
-        if (tr !== trimmed)
-          node.textContent = raw.replace(trimmed, tr);
+        if (tr !== trimmed) node.textContent = raw.replace(trimmed, tr);
         return;
       }
     }
   }
 }
 function applyI18nDom(root = document) {
-  if (uiLang() === "en")
-    return;
+  if (uiLang() === "en") return;
   root.querySelectorAll(AUTO_SELECTOR).forEach((el) => translateFirstTextNode(el));
   root.querySelectorAll("[title]").forEach((el) => {
     const v = el.getAttribute("title");
     if (v) {
       const tr = t(v.trim());
-      if (tr !== v.trim())
-        el.setAttribute("title", tr);
+      if (tr !== v.trim()) el.setAttribute("title", tr);
     }
   });
   root.querySelectorAll("[placeholder]").forEach((el) => {
     const v = el.getAttribute("placeholder");
     if (v) {
       const tr = t(v.trim());
-      if (tr !== v.trim())
-        el.setAttribute("placeholder", tr);
+      if (tr !== v.trim()) el.setAttribute("placeholder", tr);
     }
   });
 }
 function installLeApiLang() {
-  if (uiLang() === "en")
-    return;
+  if (uiLang() === "en") return;
   const origFetch = window.fetch.bind(window);
-  window.fetch = (input, init) => {
+  window.fetch = ((input, init) => {
     try {
       const url = typeof input === "string" ? input : input.url ?? String(input);
       if (/^\/(leapi|query|verify|list_examples|example_details)\b/.test(url) && !/[?&]lang=/.test(url)) {
         const sep = url.includes("?") ? "&" : "?";
         const newUrl = `${url}${sep}lang=${encodeURIComponent(uiLang())}`;
-        if (typeof input === "string")
-          return origFetch(newUrl, init);
+        if (typeof input === "string") return origFetch(newUrl, init);
         return origFetch(new Request(newUrl, input), init);
       }
     } catch (e) {
     }
     return origFetch(input, init);
-  };
+  });
 }
 
 // src/le-language.ts
@@ -11935,8 +11954,7 @@ function phraseRe(words3) {
 function alt(table, keys) {
   const phrases = [];
   for (const key of keys) {
-    for (const syn of table[key] ?? [])
-      phrases.push(syn);
+    for (const syn of table[key] ?? []) phrases.push(syn);
   }
   phrases.sort((a, b) => b.join(" ").length - a.join(" ").length);
   return phrases.map(phraseRe).join("|");
@@ -11945,8 +11963,7 @@ function words2(table, keys) {
   const ws = /* @__PURE__ */ new Set();
   for (const key of keys) {
     for (const syn of table[key] ?? []) {
-      if (syn.length === 1)
-        ws.add(syn[0]);
+      if (syn.length === 1) ws.add(syn[0]);
     }
   }
   return [...ws].sort((a, b) => b.length - a.length).map(esc).join("|");
@@ -12132,8 +12149,7 @@ async function decompressFromParam(value) {
 }
 function fragmentParam() {
   const hash = window.location.hash;
-  if (!hash)
-    return null;
+  if (!hash) return null;
   return new URLSearchParams(hash.slice(1)).get(PARAM);
 }
 async function buildShareUrl(programText) {
@@ -12162,7 +12178,7 @@ var qrcode = function(typeNumber, errorCorrectionLevel) {
   const _this = {};
   const makeImpl = function(test, maskPattern) {
     _moduleCount = _typeNumber * 4 + 17;
-    _modules = function(moduleCount) {
+    _modules = (function(moduleCount) {
       const modules = new Array(moduleCount);
       for (let row = 0; row < moduleCount; row += 1) {
         modules[row] = new Array(moduleCount);
@@ -12171,7 +12187,7 @@ var qrcode = function(typeNumber, errorCorrectionLevel) {
         }
       }
       return modules;
-    }(_moduleCount);
+    })(_moduleCount);
     setupPositionProbePattern(0, 0);
     setupPositionProbePattern(_moduleCount - 7, 0);
     setupPositionProbePattern(0, _moduleCount - 7);
@@ -12188,11 +12204,9 @@ var qrcode = function(typeNumber, errorCorrectionLevel) {
   };
   const setupPositionProbePattern = function(row, col) {
     for (let r = -1; r <= 7; r += 1) {
-      if (row + r <= -1 || _moduleCount <= row + r)
-        continue;
+      if (row + r <= -1 || _moduleCount <= row + r) continue;
       for (let c = -1; c <= 7; c += 1) {
-        if (col + c <= -1 || _moduleCount <= col + c)
-          continue;
+        if (col + c <= -1 || _moduleCount <= col + c) continue;
         if (0 <= r && r <= 6 && (c == 0 || c == 6) || 0 <= c && c <= 6 && (r == 0 || r == 6) || 2 <= r && r <= 4 && 2 <= c && c <= 4) {
           _modules[row + r][col + c] = true;
         } else {
@@ -12292,8 +12306,7 @@ var qrcode = function(typeNumber, errorCorrectionLevel) {
     let byteIndex = 0;
     const maskFunc = QRUtil.getMaskFunction(maskPattern);
     for (let col = _moduleCount - 1; col > 0; col -= 2) {
-      if (col == 6)
-        col -= 1;
+      if (col == 6) col -= 1;
       while (true) {
         for (let c = 0; c < 2; c += 1) {
           if (_modules[row][col - c] == null) {
@@ -12690,20 +12703,18 @@ qrcode.stringToBytes = function(s) {
   return bytes;
 };
 qrcode.createStringToBytes = function(unicodeData, numChars) {
-  const unicodeMap = function() {
+  const unicodeMap = (function() {
     const bin = base64DecodeInputStream(unicodeData);
     const read = function() {
       const b = bin.read();
-      if (b == -1)
-        throw "eof";
+      if (b == -1) throw "eof";
       return b;
     };
     let count = 0;
     const unicodeMap2 = {};
     while (true) {
       const b0 = bin.read();
-      if (b0 == -1)
-        break;
+      if (b0 == -1) break;
       const b1 = read();
       const b2 = read();
       const b3 = read();
@@ -12716,7 +12727,7 @@ qrcode.createStringToBytes = function(unicodeData, numChars) {
       throw count + " != " + numChars;
     }
     return unicodeMap2;
-  }();
+  })();
   const unknownChar = "?".charCodeAt(0);
   return function(s) {
     const bytes = [];
@@ -12763,7 +12774,7 @@ var QRMaskPattern = {
   PATTERN110: 6,
   PATTERN111: 7
 };
-var QRUtil = function() {
+var QRUtil = (function() {
   const PATTERN_POSITION_TABLE = [
     [],
     [6, 18],
@@ -12956,14 +12967,10 @@ var QRUtil = function() {
     for (let row = 0; row < moduleCount - 1; row += 1) {
       for (let col = 0; col < moduleCount - 1; col += 1) {
         let count = 0;
-        if (qrcode2.isDark(row, col))
-          count += 1;
-        if (qrcode2.isDark(row + 1, col))
-          count += 1;
-        if (qrcode2.isDark(row, col + 1))
-          count += 1;
-        if (qrcode2.isDark(row + 1, col + 1))
-          count += 1;
+        if (qrcode2.isDark(row, col)) count += 1;
+        if (qrcode2.isDark(row + 1, col)) count += 1;
+        if (qrcode2.isDark(row, col + 1)) count += 1;
+        if (qrcode2.isDark(row + 1, col + 1)) count += 1;
         if (count == 0 || count == 4) {
           lostPoint += 3;
         }
@@ -12996,8 +13003,8 @@ var QRUtil = function() {
     return lostPoint;
   };
   return _this;
-}();
-var QRMath = function() {
+})();
+var QRMath = (function() {
   const EXP_TABLE = new Array(256);
   const LOG_TABLE = new Array(256);
   for (let i = 0; i < 8; i += 1) {
@@ -13026,12 +13033,12 @@ var QRMath = function() {
     return EXP_TABLE[n];
   };
   return _this;
-}();
+})();
 var qrPolynomial = function(num, shift) {
   if (typeof num.length == "undefined") {
     throw num.length + "/" + shift;
   }
-  const _num = function() {
+  const _num = (function() {
     let offset = 0;
     while (offset < num.length && num[offset] == 0) {
       offset += 1;
@@ -13041,7 +13048,7 @@ var qrPolynomial = function(num, shift) {
       _num2[i] = num[i + offset];
     }
     return _num2;
-  }();
+  })();
   const _this = {};
   _this.getAt = function(index) {
     return _num[index];
@@ -13074,7 +13081,7 @@ var qrPolynomial = function(num, shift) {
   };
   return _this;
 };
-var QRRSBlock = function() {
+var QRRSBlock = (function() {
   const RS_BLOCK_TABLE = [
     // L
     // M
@@ -13320,7 +13327,7 @@ var QRRSBlock = function() {
     return list;
   };
   return _this;
-}();
+})();
 var qrBitBuffer = function() {
   const _buffer = [];
   let _length = 0;
@@ -13470,12 +13477,12 @@ var qrKanji = function(data) {
   const _mode = QRMode.MODE_KANJI;
   const _data = data;
   const stringToBytes2 = qrcode.stringToBytes;
-  !function(c, code) {
+  !(function(c, code) {
     const test = stringToBytes2(c);
     if (test.length != 2 || (test[0] << 8 | test[1]) != code) {
       throw "sjis not supported.";
     }
-  }("\u53CB", 38726);
+  })("\u53CB", 38726);
   const _bytes = stringToBytes2(data);
   const _this = {};
   _this.getMode = function() {
@@ -13795,10 +13802,7 @@ var stringToBytes = qrcode.stringToBytes;
 // src/le-templates.ts
 function kwAltFor(langs, key) {
   const phrases = /* @__PURE__ */ new Set();
-  for (const l of langs)
-    for (const p of kwPhrases(l, key))
-      if (p)
-        phrases.add(p);
+  for (const l of langs) for (const p of kwPhrases(l, key)) if (p) phrases.add(p);
   return [...phrases].sort((a, b) => b.length - a.length).map((p) => escapeRegex(p).replace(/\s+/g, "\\s+")).join("|");
 }
 function kwAlt(source, key) {
@@ -13824,8 +13828,7 @@ function scanBlocks(source, headerRe) {
   }
   for (let i = 0; i < lines.length; i++) {
     const m = lines[i].match(headerRe);
-    if (!m)
-      continue;
+    if (!m) continue;
     const name = m[1].trim();
     const provenance = (m[2] || "").trim();
     const start2 = offsets[i];
@@ -13873,10 +13876,8 @@ function stripInlineComment(line) {
   let inStr = false;
   for (let i = 0; i < line.length; i++) {
     const c = line[i];
-    if (c === '"')
-      inStr = !inStr;
-    else if (c === "%" && !inStr)
-      return line.slice(0, i);
+    if (c === '"') inStr = !inStr;
+    else if (c === "%" && !inStr) return line.slice(0, i);
   }
   return line;
 }
@@ -13885,29 +13886,25 @@ function splitFacts(bodyLines) {
   let cur = "";
   for (const raw of bodyLines) {
     const t2 = stripInlineComment(raw).trim();
-    if (t2 === "")
-      continue;
+    if (t2 === "") continue;
     cur = cur ? cur + " " + t2 : t2;
     if (t2.endsWith(".")) {
       facts.push(cur.replace(/\.\s*$/, "").trim());
       cur = "";
     }
   }
-  if (cur.trim())
-    facts.push(cur.replace(/\.\s*$/, "").trim());
+  if (cur.trim()) facts.push(cur.replace(/\.\s*$/, "").trim());
   return facts;
 }
 
 // src/key-event-guard.ts
 function installKeyEventGuard() {
   const w = window;
-  if (w.__leKeyEventGuard)
-    return;
+  if (w.__leKeyEventGuard) return;
   w.__leKeyEventGuard = true;
   for (const type of ["keydown", "keyup", "keypress"]) {
     window.addEventListener(type, (e) => {
-      if (!(e instanceof KeyboardEvent))
-        e.stopImmediatePropagation();
+      if (!(e instanceof KeyboardEvent)) e.stopImmediatePropagation();
     }, true);
   }
 }
@@ -13928,8 +13925,7 @@ function explanationToMermaid(why) {
     }
     const cls = node?.type === "failure" ? "failure" : node?.type === "unknown" ? "unknown" : "success";
     lines.push(`    ${id}["${esc2(label)}"]:::${cls}`);
-    if (parentId)
-      lines.push(`    ${parentId} --> ${id}`);
+    if (parentId) lines.push(`    ${parentId} --> ${id}`);
     (node?.children ?? []).forEach((child) => emit(child, id));
   };
   (Array.isArray(why) ? why : [why]).forEach((w) => emit(w, null));
@@ -13962,11 +13958,9 @@ function openIncludedResource(info) {
   url.search = "";
   url.hash = "";
   url.searchParams.set("example", info.resourceExample);
-  if (info.resourceLine)
-    url.searchParams.set("line", String(info.resourceLine));
+  if (info.resourceLine) url.searchParams.set("line", String(info.resourceLine));
   const theme = new URLSearchParams(window.location.search).get("theme");
-  if (theme)
-    url.searchParams.set("theme", theme);
+  if (theme) url.searchParams.set("theme", theme);
   window.open(url.toString(), "_blank");
 }
 
@@ -13974,19 +13968,14 @@ function openIncludedResource(info) {
 var TOKEN = "myToken123";
 function provenanceSummary(p, rule) {
   const parts = [];
-  if (rule)
-    parts.push(`${t("rule")} ${rule}`);
-  if (p.document)
-    parts.push(p.document + (p.locator ? ` \u2014 ${p.locator}` : ""));
-  if (p.source)
-    parts.push(`${t("according to")} ${p.source}`);
-  if (p.rationale)
-    parts.push(`${t("because")} ${p.rationale}`);
+  if (rule) parts.push(`${t("rule")} ${rule}`);
+  if (p.document) parts.push(p.document + (p.locator ? ` \u2014 ${p.locator}` : ""));
+  if (p.source) parts.push(`${t("according to")} ${p.source}`);
+  if (p.rationale) parts.push(`${t("because")} ${p.rationale}`);
   return parts.join("\n");
 }
 function originalUrl(p) {
-  if (!p.url)
-    return null;
+  if (!p.url) return null;
   const lines = p.locator ? locatorLines(p.locator) : null;
   if (lines && !p.url.includes("#") && /\/blob\//.test(p.url)) {
     return `${p.url}#L${lines[0]}${lines[1] !== lines[0] ? `-L${lines[1]}` : ""}`;
@@ -13998,8 +13987,7 @@ function originalUrl(p) {
 }
 function locatorLines(locator) {
   const m = /^\s*(?:lines?|linhas?|l[ií]neas?|lignes?|riga|righe)\s+(\d+)(?:\s*(?:to|a|à|al|-|–)\s*(\d+))?\s*$/i.exec(locator || "");
-  if (!m)
-    return null;
+  if (!m) return null;
   const a = parseInt(m[1], 10), b = m[2] ? parseInt(m[2], 10) : a;
   return a > 0 && b >= a ? [a, b] : null;
 }
@@ -14007,8 +13995,7 @@ function lineSpan(text, lines) {
   let start2 = 0, line = 1;
   while (line < lines[0]) {
     const nl = text.indexOf("\n", start2);
-    if (nl < 0)
-      return null;
+    if (nl < 0) return null;
     start2 = nl + 1;
     line++;
   }
@@ -14044,20 +14031,16 @@ function findQuote(text, quote) {
   }
   const hay = norm.join("");
   const needle = quote.replace(/\s+/g, " ").trim();
-  if (!needle)
-    return null;
+  if (!needle) return null;
   let at = hay.indexOf(needle);
-  if (at < 0)
-    at = hay.toLowerCase().indexOf(needle.toLowerCase());
-  if (at < 0)
-    return null;
+  if (at < 0) at = hay.toLowerCase().indexOf(needle.toLowerCase());
+  if (at < 0) return null;
   const start2 = map[at];
   const end = map[at + needle.length - 1] + 1;
   return [start2, end];
 }
 function ensureStyles() {
-  if (document.getElementById("source-viewer-styles"))
-    return;
+  if (document.getElementById("source-viewer-styles")) return;
   const style = document.createElement("style");
   style.id = "source-viewer-styles";
   style.textContent = `
@@ -14115,8 +14098,7 @@ function openSourceViewer(p, rule, ctx = {}) {
   const meta = document.createElement("div");
   meta.className = "sv-meta";
   const addMeta = (label, value) => {
-    if (!value)
-      return;
+    if (!value) return;
     const row = document.createElement("div");
     const l = document.createElement("span");
     l.className = "sv-label";
@@ -14164,14 +14146,12 @@ function openSourceViewer(p, rule, ctx = {}) {
     document.removeEventListener("keydown", onKey);
   };
   const onKey = (e) => {
-    if (e.key === "Escape")
-      done();
+    if (e.key === "Escape") done();
   };
   document.addEventListener("keydown", onKey);
   close.addEventListener("click", done);
   overlay.addEventListener("click", (e) => {
-    if (e.target === overlay)
-      done();
+    if (e.target === overlay) done();
   });
   if (!p.text && typeof p.content !== "string") {
     status.textContent = p.document ? `${t("The program does not say where the text of this document is")}: the text of ${p.document} is at "\u2026".` : "";
@@ -14209,8 +14189,7 @@ function openSourceViewer(p, rule, ctx = {}) {
 var activeView = null;
 var menusWired = false;
 function wireMenus(m) {
-  if (menusWired)
-    return;
+  if (menusWired) return;
   menusWired = true;
   document.addEventListener("click", () => {
     m.answerContextMenu.style.display = "none";
@@ -14229,8 +14208,7 @@ function wireMenus(m) {
   });
   m.menuCopyAnswer.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (activeView && activeView.currentAnswerToCopy)
-      navigator.clipboard.writeText(activeView.currentAnswerToCopy);
+    if (activeView && activeView.currentAnswerToCopy) navigator.clipboard.writeText(activeView.currentAnswerToCopy);
     m.answerContextMenu.style.display = "none";
   });
   m.menuBentoBox?.addEventListener("click", (e) => {
@@ -14293,8 +14271,7 @@ var ExplanationView = class {
     this.m = opts.menus;
     wireMenus(opts.menus);
     opts.explanationTitle?.addEventListener("contextmenu", (e) => {
-      if (!this.lastWhy || !this.o.explanationTree.isConnected)
-        return;
+      if (!this.lastWhy || !this.o.explanationTree.isConnected) return;
       e.preventDefault();
       activeView = this;
       this.m.menuShowStrongest.style.display = this.currentStrongestPath ? "" : "none";
@@ -14316,8 +14293,7 @@ var ExplanationView = class {
     this.setStrongestReason();
   }
   rerender() {
-    if (this.lastWhy)
-      this.renderExplanation(this.lastWhy);
+    if (this.lastWhy) this.renderExplanation(this.lastWhy);
   }
   // e.g. after a preference change
   showMessage(text) {
@@ -14337,8 +14313,7 @@ var ExplanationView = class {
   // e.g. when the view comes back on screen.
   refreshTitle() {
     const el = this.o.explanationTitle;
-    if (!el)
-      return;
+    if (!el) return;
     const r = this.currentStrongestReason;
     if (r) {
       el.title = `Important reason: ${r}`;
@@ -14350,31 +14325,25 @@ var ExplanationView = class {
   }
   // Open the Explanation Drill for the current answer's explanation.
   openDrill() {
-    if (this.lastWhy)
-      this.o.onOpenDrill?.(this.lastWhy);
+    if (this.lastWhy) this.o.onOpenDrill?.(this.lastWhy);
   }
   // Expand the tree to the strongest-reason node, open it one level, and flash it.
   showStrongestReason() {
-    if (!this.currentStrongestPath)
-      return;
+    if (!this.currentStrongestPath) return;
     const container = this.pathToContainer.get(this.currentStrongestPath);
-    if (!container)
-      return;
+    if (!container) return;
     this.expandOneLevel(container);
     this.revealAndHighlight(container);
   }
   // Open a node's immediate children (one level), if it has any.
   expandOneLevel(container) {
     const children = container.querySelector(":scope > .tree-children");
-    if (!children)
-      return;
+    if (!children) return;
     children.style.display = "block";
     const toggle = container.querySelector(":scope > .tree-label > .tree-toggle");
-    if (toggle)
-      toggle.textContent = t("-");
+    if (toggle) toggle.textContent = t("-");
     const path = container.dataset.path;
-    if (path)
-      this.currentExpansion?.set(path, true);
+    if (path) this.currentExpansion?.set(path, true);
   }
   // Render the answer list of an `answeringQuery` response and auto-select one.
   // Handles the success (results), failure (why), interrupted and error cases.
@@ -14426,8 +14395,7 @@ var ExplanationView = class {
         });
         item.addEventListener("contextmenu", (e) => this.answerMenu(e, result.answer, result.why));
         answersList.appendChild(item);
-        if (index === target)
-          item.click();
+        if (index === target) item.click();
       });
     } else if (res && res.why) {
       const item = document.createElement("div");
@@ -14466,16 +14434,14 @@ var ExplanationView = class {
     this.currentAnswerToCopy = answer;
     this.currentMenuWhy = why ?? null;
     const bento = this.m.menuBentoBox;
-    if (bento)
-      bento.style.display = this.o.onOpenBento && why ? "block" : "none";
+    if (bento) bento.style.display = this.o.onOpenBento && why ? "block" : "none";
     this.m.answerContextMenu.style.display = "block";
     this.m.answerContextMenu.style.left = `${e.clientX}px`;
     this.m.answerContextMenu.style.top = `${e.clientY}px`;
   }
   // Open the Bento Box window for the right-clicked answer's explanation.
   openBento() {
-    if (this.currentMenuWhy)
-      this.o.onOpenBento?.(this.currentMenuWhy, this.currentAnswerToCopy);
+    if (this.currentMenuWhy) this.o.onOpenBento?.(this.currentMenuWhy, this.currentAnswerToCopy);
   }
   // --- Unknown-goal tooltip --------------------------------------------------
   attachAnswerTooltip(item, unknowns) {
@@ -14496,8 +14462,7 @@ var ExplanationView = class {
       this.positionTooltip(e);
     });
     item.addEventListener("mousemove", (e) => {
-      if (tip.style.display === "block")
-        this.positionTooltip(e);
+      if (tip.style.display === "block") this.positionTooltip(e);
     });
     item.addEventListener("mouseleave", () => {
       tip.style.display = "none";
@@ -14508,21 +14473,17 @@ var ExplanationView = class {
     const offset = 12;
     let x = e.clientX + offset, y = e.clientY + offset;
     const rect = tip.getBoundingClientRect();
-    if (x + rect.width > window.innerWidth)
-      x = e.clientX - rect.width - offset;
-    if (y + rect.height > window.innerHeight)
-      y = e.clientY - rect.height - offset;
+    if (x + rect.width > window.innerWidth) x = e.clientX - rect.width - offset;
+    if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - offset;
     tip.style.left = `${Math.max(0, x)}px`;
     tip.style.top = `${Math.max(0, y)}px`;
   }
   // --- Patch-scenario context-menu actions (Scenario Variations only) --------
   patchCurrentNode() {
-    if (this.currentMenuNode)
-      this.o.onPatchScenario?.(this.currentMenuNode);
+    if (this.currentMenuNode) this.o.onPatchScenario?.(this.currentMenuNode);
   }
   assumeCurrentNode() {
-    if (this.currentMenuNode)
-      this.o.onAssumeFact?.(this.currentMenuNode);
+    if (this.currentMenuNode) this.o.onAssumeFact?.(this.currentMenuNode);
   }
   // Show/label the node-specific menu items for the right-clicked node (or hide
   // them when there is no node, e.g. a background right-click). "Patch scenario"
@@ -14544,25 +14505,21 @@ var ExplanationView = class {
     const patch = this.m.menuPatchScenario;
     if (patch) {
       patch.style.display = showPatch ? "block" : "none";
-      if (showPatch)
-        patch.textContent = patchLabel;
+      if (showPatch) patch.textContent = patchLabel;
     }
     const showAssume = !!(node && isFailure && this.o.onAssumeFact && (this.o.canAddScenarioFact ? this.o.canAddScenarioFact(node) : true));
     const assume = this.m.menuAssumeFact;
-    if (assume)
-      assume.style.display = showAssume ? "block" : "none";
+    if (assume) assume.style.display = showAssume ? "block" : "none";
   }
   // --- Copy / navigate context-menu actions ----------------------------------
   gotoOriginal() {
     if (this.currentRepeatedOf) {
       const target = this.pathToContainer.get(this.currentRepeatedOf);
-      if (target)
-        this.revealAndHighlight(target);
+      if (target) this.revealAndHighlight(target);
     }
   }
   copyExplanation() {
-    if (!this.lastWhy)
-      return;
+    if (!this.lastWhy) return;
     const text = this.explanationToText(this.lastWhy, 0, "");
     const html = this.explanationToHtml(this.lastWhy, 0, "");
     try {
@@ -14577,46 +14534,37 @@ var ExplanationView = class {
   // Copy the current explanation as a Mermaid flowchart (text), pasteable
   // into GitHub, Obsidian, docs and chats that render Mermaid.
   copyExplanationMermaid() {
-    if (!this.lastWhy)
-      return;
+    if (!this.lastWhy) return;
     navigator.clipboard.writeText(explanationToMermaid(this.lastWhy));
   }
   explanationToText(node, depth = 0, prefix = "") {
-    if (Array.isArray(node))
-      return node.map((n, i) => this.explanationToText(n, depth, (i + 1).toString())).join("");
+    if (Array.isArray(node)) return node.map((n, i) => this.explanationToText(n, depth, (i + 1).toString())).join("");
     const indent = "  ".repeat(depth);
     let text = node && typeof node === "object" ? node.literal ?? "" : node;
-    if (node.type === "failure")
-      text = `${this.failedNodePrefix()}${text}`;
+    if (node.type === "failure") text = `${this.failedNodePrefix()}${text}`;
     if (node.repeated) {
       const c = node.repeatedCount;
       text = typeof c === "number" && c > 1 ? `${text} [${c} repeated sub-explanations]` : `${text} [Repeated sub-explanation]`;
     }
-    if (this.hierarchical() && prefix && depth > 0)
-      text = `${prefix} ${text}`;
+    if (this.hierarchical() && prefix && depth > 0) text = `${prefix} ${text}`;
     let result = `${indent}${text}
 `;
-    if (node.children)
-      node.children.forEach((child, i) => result += this.explanationToText(child, depth + 1, prefix ? `${prefix}.${i + 1}` : `${i + 1}`));
+    if (node.children) node.children.forEach((child, i) => result += this.explanationToText(child, depth + 1, prefix ? `${prefix}.${i + 1}` : `${i + 1}`));
     return result;
   }
   explanationToHtml(node, depth = 0, prefix = "") {
-    if (Array.isArray(node))
-      return node.map((n, i) => this.explanationToHtml(n, depth, (i + 1).toString())).join("");
+    if (Array.isArray(node)) return node.map((n, i) => this.explanationToHtml(n, depth, (i + 1).toString())).join("");
     const indent = "&nbsp;&nbsp;".repeat(depth);
     let text = node && typeof node === "object" ? node.literal ?? "" : node;
-    if (node.type === "failure")
-      text = `${this.failedNodePrefix()}${text}`;
+    if (node.type === "failure") text = `${this.failedNodePrefix()}${text}`;
     if (node.repeated) {
       const c = node.repeatedCount;
       text = typeof c === "number" && c > 1 ? `${text} [${c} repeated sub-explanations]` : `${text} [Repeated sub-explanation]`;
     }
-    if (this.hierarchical() && prefix && depth > 0)
-      text = `${prefix} ${text}`;
+    if (this.hierarchical() && prefix && depth > 0) text = `${prefix} ${text}`;
     const color = node.type === "failure" ? "#f48771" : node.type === "unknown" ? "#e2b93d" : "#89d185";
     let result = `<div style="color: ${color}; font-family: monospace; white-space: nowrap;">${indent}${text}</div>`;
-    if (node.children)
-      node.children.forEach((child, i) => result += this.explanationToHtml(child, depth + 1, prefix ? `${prefix}.${i + 1}` : `${i + 1}`));
+    if (node.children) node.children.forEach((child, i) => result += this.explanationToHtml(child, depth + 1, prefix ? `${prefix}.${i + 1}` : `${i + 1}`));
     return result;
   }
   revealAndHighlight(container) {
@@ -14628,11 +14576,9 @@ var ExplanationView = class {
         parent.style.display = "block";
         const ownerLabel = parent.previousElementSibling;
         const toggle = ownerLabel?.querySelector(".tree-toggle");
-        if (toggle)
-          toggle.textContent = t("-");
+        if (toggle) toggle.textContent = t("-");
         const ownerPath = parent.parentElement?.dataset.path;
-        if (ownerPath)
-          this.currentExpansion?.set(ownerPath, true);
+        if (ownerPath) this.currentExpansion?.set(ownerPath, true);
       }
       el = el.parentElement;
     }
@@ -14651,8 +14597,7 @@ var ExplanationView = class {
     tree.innerHTML = "";
     this.pathToContainer = /* @__PURE__ */ new Map();
     this.fullByLiteral = /* @__PURE__ */ new Map();
-    if (!why)
-      return;
+    if (!why) return;
     let expansion;
     if (why !== null && typeof why === "object") {
       expansion = this.expansionStore.get(why) || /* @__PURE__ */ new Map();
@@ -14675,11 +14620,9 @@ var ExplanationView = class {
     };
     const repeatedLabels = [];
     const navTargetFor = (node, prefix) => {
-      if (!node || !node.repeated)
-        return null;
+      if (!node || !node.repeated) return null;
       let target = null;
-      if (typeof node.repeatedOf === "string")
-        target = node.repeatedOf;
+      if (typeof node.repeatedOf === "string") target = node.repeatedOf;
       else if ((!node.children || node.children.length === 0) && typeof node.literal === "string") {
         target = this.fullByLiteral.get(node.literal) ?? null;
       }
@@ -14697,12 +14640,9 @@ var ExplanationView = class {
         this.fullByLiteral.set(node.literal, prefix);
       }
       const titleParts = [];
-      if (node.type === "failure")
-        titleParts.push("Failed: this condition could not be proven");
-      else if (node.type === "unknown")
-        titleParts.push('Unknown: could not be proven true or false, but was assumed true because it matches an "unknown" template');
-      else
-        titleParts.push(node.naf === true ? "Succeeded: this negative condition holds (the inner statement could not be proven)" : "Succeeded: this condition was proven");
+      if (node.type === "failure") titleParts.push("Failed: this condition could not be proven");
+      else if (node.type === "unknown") titleParts.push('Unknown: could not be proven true or false, but was assumed true because it matches an "unknown" template');
+      else titleParts.push(node.naf === true ? "Succeeded: this negative condition holds (the inner statement could not be proven)" : "Succeeded: this condition was proven");
       if (node.repeated) {
         label.classList.add("repeated");
         repeatedLabels.push({ label, node, prefix });
@@ -14721,8 +14661,7 @@ var ExplanationView = class {
       const textEl = document.createElement("span");
       textEl.className = "tree-text";
       let labelText = node && typeof node === "object" ? node.literal ?? "" : node;
-      if (this.hierarchical() && prefix && depth > 0)
-        labelText = `${prefix} ${labelText}`;
+      if (this.hierarchical() && prefix && depth > 0) labelText = `${prefix} ${labelText}`;
       textEl.textContent = labelText;
       label.appendChild(textEl);
       label.addEventListener("contextmenu", (e) => {
@@ -14738,13 +14677,11 @@ var ExplanationView = class {
       });
       if (node.start !== void 0 && node.end !== void 0) {
         const foreign = isForeignOffset(node.start);
-        if (foreign && node.resource)
-          textEl.title = describeResourceRange(node);
+        if (foreign && node.resource) textEl.title = describeResourceRange(node);
         textEl.addEventListener("click", (e) => {
           e.stopPropagation();
           if (foreign) {
-            if (node.resource)
-              openIncludedResource(node);
+            if (node.resource) openIncludedResource(node);
           } else {
             this.o.onNavigate?.(node.start, node.end);
           }
@@ -14780,10 +14717,8 @@ ${provenanceSummary(node.provenance, node.rule)}`;
       }
       return container;
     };
-    if (Array.isArray(why))
-      why.forEach((w, index) => tree.appendChild(createNode(w, 0, (index + 1).toString())));
-    else
-      tree.appendChild(createNode(why, 0, "1"));
+    if (Array.isArray(why)) why.forEach((w, index) => tree.appendChild(createNode(w, 0, (index + 1).toString())));
+    else tree.appendChild(createNode(why, 0, "1"));
     for (const { label, node, prefix } of repeatedLabels) {
       if (navTargetFor(node, prefix)) {
         label.classList.add("navigable");
@@ -14795,8 +14730,7 @@ ${provenanceSummary(node.provenance, node.rule)}`;
 
 // src/editor-tabs.ts
 function ensureStyles2() {
-  if (document.getElementById("editor-tabs-styles"))
-    return;
+  if (document.getElementById("editor-tabs-styles")) return;
   const style = document.createElement("style");
   style.id = "editor-tabs-styles";
   style.textContent = `
@@ -14836,6 +14770,8 @@ var TabBar = class {
     this.o = o;
     ensureStyles2();
   }
+  el;
+  o;
   render(tabs, activeId) {
     this.el.innerHTML = "";
     for (const tab of tabs) {
@@ -14869,8 +14805,7 @@ ${this.o.programTitle}` : "");
       });
       tabEl.append(icon, title, close);
       this.el.appendChild(tabEl);
-      if (tab.id === activeId)
-        setTimeout(() => this.reveal(tabEl), 0);
+      if (tab.id === activeId) setTimeout(() => this.reveal(tabEl), 0);
     }
     const plus = document.createElement("div");
     plus.className = "le-tab-new";
@@ -14884,10 +14819,8 @@ ${this.o.programTitle}` : "");
   reveal(tabEl) {
     const strip = this.el.getBoundingClientRect();
     const r = tabEl.getBoundingClientRect();
-    if (r.left < strip.left)
-      this.el.scrollLeft -= strip.left - r.left;
-    else if (r.right > strip.right)
-      this.el.scrollLeft += r.right - strip.right;
+    if (r.left < strip.left) this.el.scrollLeft -= strip.left - r.left;
+    else if (r.right > strip.right) this.el.scrollLeft += r.right - strip.right;
   }
 };
 
@@ -14910,8 +14843,7 @@ function docQueryAt(model, position, selection, languageId) {
   const column = selection && !selection.isEmpty() ? selection.startColumn : position.column;
   const first = Math.max(1, lineNo - 400);
   const lines = [];
-  for (let i = first; i <= lineNo; i++)
-    lines.push(model.getLineContent(i));
+  for (let i = first; i <= lineNo; i++) lines.push(model.getLineContent(i));
   let tokens = [];
   try {
     tokens = monaco.editor.tokenize(lines.join("\n"), languageId)[lines.length - 1] ?? [];
@@ -14924,11 +14856,9 @@ function docQueryAt(model, position, selection, languageId) {
     const end = i + 1 < tokens.length ? tokens[i + 1].offset : text.length;
     if (column - 1 >= start2 && column - 1 <= end) {
       const tokText = text.slice(start2, end);
-      if (tokText.trim() === "")
-        continue;
+      if (tokText.trim() === "") continue;
       token = { type: String(tokens[i].type).replace(/\.le$/, "").replace(new RegExp(`\\.${languageId}$`), ""), text: tokText.trim() };
-      if (column - 1 < end)
-        break;
+      if (column - 1 < end) break;
     }
   }
   if (selected && (!token || selected.length > token.text.length || !token.text.includes(selected))) {
@@ -14941,17 +14871,14 @@ function docQueryAt(model, position, selection, languageId) {
   if (!/^(comment|string)/i.test(token.type)) {
     const at = (re) => {
       for (const m of text.matchAll(re)) {
-        if (column - 1 >= m.index && column - 1 <= m.index + m[0].length)
-          return m[0];
+        if (column - 1 >= m.index && column - 1 <= m.index + m[0].length) return m[0];
       }
       return null;
     };
     const date = at(/\d{4}-\d{2}-\d{2}(?:T[\d:]+)?/g);
-    if (date)
-      return { q: "dates", about: t("Documentation for \u201C{w}\u201D, {what}").replace("{w}", date).replace("{what}", t("a date")), word: date };
+    if (date) return { q: "dates", about: t("Documentation for \u201C{w}\u201D, {what}").replace("{w}", date).replace("{what}", t("a date")), word: date };
     const num = at(/(?<![\p{L}_])\d+(?:[.,]\d+)?(?![\p{L}_])/gu);
-    if (num)
-      return { q: "numbers", about: t("Documentation for \u201C{w}\u201D, {what}").replace("{w}", num).replace("{what}", t("a number")), word: num };
+    if (num) return { q: "numbers", about: t("Documentation for \u201C{w}\u201D, {what}").replace("{w}", num).replace("{what}", t("a number")), word: num };
   }
   const word = selected || (/^comment/i.test(token.type) ? token.text.replace(/^%\s*/, "").slice(0, 40) : token.text.replace(/[:.]$/, "").replace(/^\*|\*$/g, ""));
   if (/^keyword/i.test(token.type)) {
@@ -14995,8 +14922,7 @@ function issueDocLink(type, text) {
 }
 function fillUiLanguageMenu() {
   const host = document.getElementById("menu-ui-languages");
-  if (!host)
-    return;
+  if (!host) return;
   const current = uiLang();
   host.innerHTML = "";
   for (const info of languageList()) {
@@ -15011,8 +14937,7 @@ function fillUiLanguageMenu() {
     check.style.visibility = info.code === current ? "visible" : "hidden";
     item.append(check, uiLanguageName(info.code));
     item.addEventListener("click", () => {
-      if (info.code === uiLang())
-        return;
+      if (info.code === uiLang()) return;
       setUiLang(info.code);
       window.location.reload();
     });
@@ -15021,17 +14946,14 @@ function fillUiLanguageMenu() {
 }
 async function fillHelpMenu() {
   const box = document.getElementById("help-docs");
-  if (!box)
-    return;
+  if (!box) return;
   try {
     const resp = await fetch("/docs/user/nav.json");
-    if (!resp.ok)
-      return;
+    if (!resp.ok) return;
     const nav = await resp.json();
     for (const section of nav.sections) {
       for (const item of section.items) {
-        if (!item.menu)
-          continue;
+        if (!item.menu) continue;
         const path = item.translations?.[uiLang()] ?? item.path;
         const a = document.createElement("a");
         a.className = "dropdown-item";
@@ -15078,8 +15000,7 @@ async function start() {
     provideCodeActions: (model, range, context, token) => {
       const actions = context.markers.filter((m) => m.source === "LE Verifier").map((m) => {
         const fix = issueFixes.get(getMarkerKey(m));
-        if (!fix)
-          return null;
+        if (!fix) return null;
         const text = model.getValue();
         const match = text.match(/the[ \t]+(predicates|templates|fluents|events)[ \t]+are:/i);
         let insertRange;
@@ -15230,8 +15151,7 @@ async function start() {
   fetch("/build_info").then((res) => res.json()).then((data) => {
     if (data.build_info) {
       const titleEl = document.getElementById("editor-title");
-      if (titleEl)
-        titleEl.title = `Build: ${data.build_info}`;
+      if (titleEl) titleEl.title = `Build: ${data.build_info}`;
     }
   }).catch((err) => console.error("Failed to fetch build info", err));
   const container = document.getElementById("container");
@@ -15299,8 +15219,7 @@ async function start() {
   });
   window.selectRange = (start2, end, info) => {
     if (isForeignOffset(start2)) {
-      if (info && info.resource)
-        openIncludedResource(info);
+      if (info && info.resource) openIncludedResource(info);
       return;
     }
     showProgramInEditor();
@@ -15403,8 +15322,7 @@ async function start() {
     contextMenuOrder: 0.5,
     run: (ed) => {
       const query = docQueryAt(ed.getModel(), ed.getPosition(), ed.getSelection(), "le");
-      if (query)
-        openDocQuery(query);
+      if (query) openDocQuery(query);
     }
   });
   editor.addAction({
@@ -15522,8 +15440,7 @@ ${err}`, "See s(CASP)");
       let data = await ask();
       if (data && data.session_expired) {
         isLoaded = false;
-        if (!await loadModule())
-          return null;
+        if (!await loadModule()) return null;
         data = await ask();
       }
       if (data.error) {
@@ -15543,8 +15460,7 @@ ${err}`, "See s(CASP)");
   }
   async function foldPredicateRules(ed, fold) {
     const data = await predicateAtCursor(ed);
-    if (!data)
-      return;
+    if (!data) return;
     const lines = ruleHeadLines(ed, data);
     if (lines.length === 0) {
       alert(t("No rules for") + ` "${data.le}"`);
@@ -15559,11 +15475,9 @@ ${err}`, "See s(CASP)");
     const toToggle = [];
     for (const line of lines) {
       const region = foldingModel.getRegionAtLine(line);
-      if (region && region.isCollapsed !== fold)
-        toToggle.push(region);
+      if (region && region.isCollapsed !== fold) toToggle.push(region);
     }
-    if (toToggle.length > 0)
-      foldingModel.toggleCollapseState(toToggle);
+    if (toToggle.length > 0) foldingModel.toggleCollapseState(toToggle);
   }
   editor.addAction({
     id: "le-fold-predicate-rules",
@@ -15587,14 +15501,11 @@ ${err}`, "See s(CASP)");
   const JUMP_HISTORY_MAX = 50;
   function rememberJumpOrigin(ed) {
     const position = ed.getPosition();
-    if (!position)
-      return;
+    if (!position) return;
     const last = jumpHistory[jumpHistory.length - 1];
-    if (last && last.doc === activeDoc && last.lineNumber === position.lineNumber && last.column === position.column)
-      return;
+    if (last && last.doc === activeDoc && last.lineNumber === position.lineNumber && last.column === position.column) return;
     jumpHistory.push({ lineNumber: position.lineNumber, column: position.column, doc: activeDoc });
-    if (jumpHistory.length > JUMP_HISTORY_MAX)
-      jumpHistory.shift();
+    if (jumpHistory.length > JUMP_HISTORY_MAX) jumpHistory.shift();
   }
   function jumpToLine(ed, lineNumber, column = 1) {
     rememberJumpOrigin(ed);
@@ -15608,8 +15519,7 @@ ${err}`, "See s(CASP)");
     setTimeout(() => ed.deltaDecorations(decorations, []), 1200);
   }
   function resourceNameAt(model, position) {
-    if (!model || !position)
-      return null;
+    if (!model || !position) return null;
     const lang = detectProgramLanguage(model.getValue());
     const phrases = (key) => [...kwPhrases(lang, key), ...kwPhrases("en", key)].filter(Boolean).map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"));
     const includes = new RegExp(`(?:${phrases("resources_include").join("|")})\\s*:`, "i");
@@ -15620,22 +15530,18 @@ ${err}`, "See s(CASP)");
     const own = includes.exec(line) || extendsKw.exec(line);
     if (own) {
       from = own.index + own[0].length;
-      if (col < from)
-        return null;
+      if (col < from) return null;
     } else {
       for (let n = position.lineNumber - 1; n >= 1 && n >= position.lineNumber - 200; n--) {
         const l = model.getLineContent(n);
-        if (/\.\s*(%.*)?$/.test(l) || l.trim() === "")
-          return null;
+        if (/\.\s*(%.*)?$/.test(l) || l.trim() === "") return null;
         if (includes.test(l)) {
           from = 0;
           break;
         }
-        if (/:\s*$/.test(l))
-          return null;
+        if (/:\s*$/.test(l)) return null;
       }
-      if (from < 0)
-        return null;
+      if (from < 0) return null;
     }
     const text = line.replace(/%.*$/, "");
     let start2 = from;
@@ -15696,16 +15602,14 @@ ${err}`, "See s(CASP)");
         return;
       }
       adoptActiveAsProgram();
-      if (!isLoaded)
-        await loadModule();
+      if (!isLoaded) await loadModule();
       const here = ed.getPosition();
       if (here && ed.getModel().getDecorationsInRange(new monaco.Range(here.lineNumber, here.column, here.lineNumber, here.column)).some((d) => d.options.description === "le-citation")) {
         await ed.getAction("le-show-original-text")?.run();
         return;
       }
       const data = await predicateAtCursor(ed);
-      if (!data)
-        return;
+      if (!data) return;
       const model = ed.getModel();
       const local = (data.rules || []).filter((r) => !isForeignOffset(r.start));
       const first = local.length > 0 ? local[0] : data.template && !isForeignOffset(data.template.start) ? data.template : data.rules && data.rules.length > 0 ? data.rules[0] : data.template;
@@ -15726,14 +15630,12 @@ ${err}`, "See s(CASP)");
   const occurrencesList = document.getElementById("occurrences-list");
   const occurrencesSubtitle = document.getElementById("occurrences-subtitle");
   const closeOccurrences = () => {
-    if (occurrencesModal)
-      occurrencesModal.style.display = "none";
+    if (occurrencesModal) occurrencesModal.style.display = "none";
   };
   document.getElementById("occurrences-close")?.addEventListener("click", closeOccurrences);
   document.getElementById("occurrences-cancel")?.addEventListener("click", closeOccurrences);
   occurrencesModal?.addEventListener("click", (e) => {
-    if (e.target === occurrencesModal)
-      closeOccurrences();
+    if (e.target === occurrencesModal) closeOccurrences();
   });
   function leWords(text) {
     return text.toLowerCase().split(/[^0-9a-zà-öø-ÿA-ZÀ-ÖØ-Þ_]+/).filter((w) => w.length > 0);
@@ -15742,11 +15644,9 @@ ${err}`, "See s(CASP)");
     const first = model.getPositionAt(occ.start).lineNumber;
     const last = Math.min(model.getPositionAt(occ.end).lineNumber, model.getLineCount());
     const searches = occ.kind === "condition" || occ.kind === "query";
-    if (!searches || last <= first)
-      return first;
+    if (!searches || last <= first) return first;
     const words3 = leWords(occ.text || "");
-    if (words3.length === 0)
-      return first;
+    if (words3.length === 0) return first;
     let best = first, bestScore = 0;
     for (let line = first + 1; line <= last; line++) {
       const lineWords = new Set(leWords(model.getLineContent(line)));
@@ -15767,18 +15667,15 @@ ${err}`, "See s(CASP)");
     query: "query"
   };
   function showOccurrences(ed, data) {
-    if (!occurrencesModal || !occurrencesList)
-      return;
+    if (!occurrencesModal || !occurrencesList) return;
     const model = ed.getModel();
     const rows = [];
     const seen = /* @__PURE__ */ new Set();
     for (const occ of data.occurrences || []) {
-      if (isForeignOffset(occ.start))
-        continue;
+      if (isForeignOffset(occ.start)) continue;
       const line = occurrenceLine(model, occ);
       const key = `${line}|${occ.kind}|${occ.text}`;
-      if (seen.has(key))
-        continue;
+      if (seen.has(key)) continue;
       seen.add(key);
       rows.push({ occ, line });
     }
@@ -15817,17 +15714,14 @@ ${err}`, "See s(CASP)");
     occurrencesModal.style.display = "flex";
   }
   document.addEventListener("keydown", (e) => {
-    if (!occurrencesModal || occurrencesModal.style.display !== "flex")
-      return;
+    if (!occurrencesModal || occurrencesModal.style.display !== "flex") return;
     if (e.key === "Escape") {
       closeOccurrences();
       return;
     }
-    if (!occurrencesList)
-      return;
+    if (!occurrencesList) return;
     const items = Array.from(occurrencesList.querySelectorAll(".occurrence-row"));
-    if (items.length === 0)
-      return;
+    if (items.length === 0) return;
     const current = items.findIndex((i) => i.classList.contains("selected"));
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
@@ -15851,12 +15745,9 @@ ${err}`, "See s(CASP)");
     contextMenuOrder: 2.3,
     run: (ed) => {
       let target = jumpHistory.pop();
-      while (target && !docs.includes(target.doc))
-        target = jumpHistory.pop();
-      if (!target)
-        return;
-      if (target.doc !== activeDoc)
-        activateDoc(target.doc, false);
+      while (target && !docs.includes(target.doc)) target = jumpHistory.pop();
+      if (!target) return;
+      if (target.doc !== activeDoc) activateDoc(target.doc, false);
       const model = ed.getModel();
       const lineNumber = Math.min(target.lineNumber, model.getLineCount());
       ed.revealLineInCenter(lineNumber);
@@ -15872,8 +15763,7 @@ ${err}`, "See s(CASP)");
     contextMenuOrder: 2.2,
     run: async (ed) => {
       const data = await predicateAtCursor(ed, "predicateOccurrences");
-      if (!data)
-        return;
+      if (!data) return;
       if (!data.occurrences || data.occurrences.length === 0) {
         alert(t("No occurrences found for") + ` "${data.le}"`);
         return;
@@ -15884,8 +15774,7 @@ ${err}`, "See s(CASP)");
   const CITATION = "le-citation";
   const citationDecorations = /* @__PURE__ */ new WeakMap();
   editor.onContextMenu(() => {
-    if (activeDoc === panelDoc && !isLoaded && !isLoading)
-      loadModule();
+    if (activeDoc === panelDoc && !isLoaded && !isLoading) loadModule();
   });
   const setCitations = (model, spans) => {
     const decorations = spans.map(([start2, end]) => {
@@ -15911,8 +15800,7 @@ ${err}`, "See s(CASP)");
       return;
     }
     adoptActiveAsProgram();
-    if (!isLoaded)
-      await loadModule();
+    if (!isLoaded) await loadModule();
     let data = null;
     if (sessionModule) {
       try {
@@ -16003,8 +15891,7 @@ ${err}`, "See s(CASP)");
     document.body.style.userSelect = "none";
   };
   document.addEventListener("mousemove", (e) => {
-    if (!isDraggingProlog)
-      return;
+    if (!isDraggingProlog) return;
     const dx = e.clientX - prologStartX;
     const dy = e.clientY - prologStartY;
     prologPanel.style.left = `${prologStartLeft + dx}px`;
@@ -16034,8 +15921,7 @@ ${err}`, "See s(CASP)");
   const urlError = document.getElementById("new-from-url-error");
   const urlLoadBtn = document.getElementById("new-from-url-load");
   const closeUrlModal = () => {
-    if (urlModal)
-      urlModal.style.display = "none";
+    if (urlModal) urlModal.style.display = "none";
   };
   const showUrlError = (msg) => {
     if (urlError) {
@@ -16044,10 +15930,8 @@ ${err}`, "See s(CASP)");
     }
   };
   document.getElementById("menu-new-from-url")?.addEventListener("click", () => {
-    if (urlError)
-      urlError.style.display = "none";
-    if (urlModal)
-      urlModal.style.display = "flex";
+    if (urlError) urlError.style.display = "none";
+    if (urlModal) urlModal.style.display = "flex";
     urlInput?.focus();
     urlInput?.select();
   });
@@ -16056,18 +15940,15 @@ ${err}`, "See s(CASP)");
   const QR_URL_MAX = 1500;
   const qrModal = document.getElementById("qr-modal");
   const closeQrModal = () => {
-    if (qrModal)
-      qrModal.style.display = "none";
+    if (qrModal) qrModal.style.display = "none";
   };
   document.getElementById("qr-modal-close")?.addEventListener("click", closeQrModal);
   qrModal?.addEventListener("click", (e) => {
-    if (e.target === qrModal)
-      closeQrModal();
+    if (e.target === qrModal) closeQrModal();
   });
   document.getElementById("qr-copy-url")?.addEventListener("click", () => {
     const u = document.getElementById("qr-url")?.textContent || "";
-    if (u)
-      navigator.clipboard.writeText(u);
+    if (u) navigator.clipboard.writeText(u);
   });
   document.getElementById("menu-qr-code")?.addEventListener("click", async () => {
     const url = await buildShareUrl(programText());
@@ -16083,10 +15964,8 @@ ${err}`, "See s(CASP)");
     qr.make();
     document.getElementById("qr-image").src = qr.createDataURL(4, 8);
     const urlEl = document.getElementById("qr-url");
-    if (urlEl)
-      urlEl.textContent = url;
-    if (qrModal)
-      qrModal.style.display = "flex";
+    if (urlEl) urlEl.textContent = url;
+    if (qrModal) qrModal.style.display = "flex";
   });
   const loadFromUrl = async () => {
     const raw = (urlInput?.value || "").trim();
@@ -16104,12 +15983,10 @@ ${err}`, "See s(CASP)");
     const prevLabel = urlLoadBtn.textContent;
     urlLoadBtn.disabled = true;
     urlLoadBtn.textContent = t("Loading\u2026");
-    if (urlError)
-      urlError.style.display = "none";
+    if (urlError) urlError.style.display = "none";
     try {
       const resp = await fetch(raw, { redirect: "follow" });
-      if (!resp.ok)
-        throw new Error(`server returned ${resp.status} ${resp.statusText}`);
+      if (!resp.ok) throw new Error(`server returned ${resp.status} ${resp.statusText}`);
       const content = await resp.text();
       const seg = url.pathname.split("/").filter(Boolean).pop() || "document.le";
       await openDocument(content, {
@@ -16138,8 +16015,7 @@ ${err}`, "See s(CASP)");
   const fileInput = document.getElementById("file-input");
   let importFormats = null;
   const loadImportFormats = async () => {
-    if (importFormats)
-      return importFormats;
+    if (importFormats) return importFormats;
     try {
       const r = await fetch("/leapi", {
         method: "POST",
@@ -16164,10 +16040,8 @@ ${err}`, "See s(CASP)");
   };
   const importForeignFile = async (file) => {
     const body = { token: "myToken123", operation: "importForeign", name: file.name };
-    if (isBinaryUpload(file.name))
-      body.base64 = toBase64(await file.arrayBuffer());
-    else
-      body.text = await file.text();
+    if (isBinaryUpload(file.name)) body.base64 = toBase64(await file.arrayBuffer());
+    else body.text = await file.text();
     document.body.style.cursor = "progress";
     try {
       const r = await fetch("/leapi", {
@@ -16224,8 +16098,7 @@ ${err}`, "See s(CASP)");
       alert(t("This server has no translator from another system."));
       return;
     }
-    if (fileInput)
-      fileInput.accept = (onlyForeign ? foreign : [".le", ...foreign]).join(",");
+    if (fileInput) fileInput.accept = (onlyForeign ? foreign : [".le", ...foreign]).join(",");
     if ("showOpenFilePicker" in window) {
       try {
         const types = onlyForeign ? [] : [{
@@ -16243,8 +16116,7 @@ ${err}`, "See s(CASP)");
         await openPickedFile(file, isLeFile(file.name) ? handle : void 0);
         return;
       } catch (err) {
-        if (err.name === "AbortError")
-          return;
+        if (err.name === "AbortError") return;
         console.error("File System Access API failed, falling back to input", err);
       }
     }
@@ -16254,8 +16126,7 @@ ${err}`, "See s(CASP)");
   document.getElementById("menu-import")?.addEventListener("click", () => pickAndOpen(true));
   loadImportFormats().then((formats) => {
     const item = document.getElementById("menu-import");
-    if (!item)
-      return;
+    if (!item) return;
     if (formats.length === 0) {
       item.style.display = "none";
       return;
@@ -16281,8 +16152,7 @@ ${err}`, "See s(CASP)");
     }
     const ctx = { source: doc.example || "", base: doc.baseUrl || "" };
     if (files.length === 0) {
-      if (!note)
-        alert(t("No original is kept for this program: it was not converted from another system's files (there is no sources folder beside it)."));
+      if (!note) alert(t("No original is kept for this program: it was not converted from another system's files (there is no sources folder beside it)."));
       return false;
     }
     showOriginalsList(files.map((f) => ({ document: f.replace(/^sources\//, ""), text: f })), ctx, note);
@@ -16329,8 +16199,7 @@ ${err}`, "See s(CASP)");
     }
     overlay.appendChild(box);
     overlay.onclick = (e) => {
-      if (e.target === overlay)
-        overlay.remove();
+      if (e.target === overlay) overlay.remove();
     };
     document.body.appendChild(overlay);
   }
@@ -16357,16 +16226,14 @@ ${err}`, "See s(CASP)");
       document.removeEventListener("keydown", onKey);
     };
     const onKey = (e) => {
-      if (e.key === "Escape")
-        done();
+      if (e.key === "Escape") done();
     };
     close.onclick = done;
     actions.appendChild(close);
     box.append(h, p, actions);
     overlay.appendChild(box);
     overlay.onclick = (e) => {
-      if (e.target === overlay)
-        done();
+      if (e.target === overlay) done();
     };
     document.addEventListener("keydown", onKey);
     document.body.appendChild(overlay);
@@ -16410,8 +16277,7 @@ ${err}`, "See s(CASP)");
     box.appendChild(close);
     overlay.appendChild(box);
     overlay.onclick = (e) => {
-      if (e.target === overlay)
-        overlay.remove();
+      if (e.target === overlay) overlay.remove();
     };
     document.body.appendChild(overlay);
     return { overlay, box };
@@ -16548,8 +16414,7 @@ ${err}`, "See s(CASP)");
   document.getElementById("menu-export")?.addEventListener("click", () => exportToAnotherSystem(activeDoc));
   fileInput?.addEventListener("change", (e) => {
     const file = e.target.files?.[0];
-    if (!file)
-      return;
+    if (!file) return;
     openPickedFile(file);
     fileInput.value = "";
   });
@@ -16589,8 +16454,7 @@ ${err}`, "See s(CASP)");
         refreshTabs();
         return;
       } catch (err) {
-        if (err.name === "AbortError")
-          return;
+        if (err.name === "AbortError") return;
         console.error("File System Access API failed, falling back to download", err);
       }
     }
@@ -16609,18 +16473,15 @@ ${err}`, "See s(CASP)");
   const modalClose = document.getElementById("modal-close");
   const modalCancel = document.getElementById("modal-cancel");
   const closeModal = () => {
-    if (modalOverlay)
-      modalOverlay.style.display = "none";
+    if (modalOverlay) modalOverlay.style.display = "none";
   };
   modalClose?.addEventListener("click", closeModal);
   modalCancel?.addEventListener("click", closeModal);
   modalOverlay?.addEventListener("click", (e) => {
-    if (e.target === modalOverlay)
-      closeModal();
+    if (e.target === modalOverlay) closeModal();
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modalOverlay && modalOverlay.style.display !== "none")
-      closeModal();
+    if (e.key === "Escape" && modalOverlay && modalOverlay.style.display !== "none") closeModal();
   });
   const examplePanelRoot = document.getElementById("example-search");
   let exampleTree = null;
@@ -16662,21 +16523,18 @@ ${err}`, "See s(CASP)");
     return root;
   };
   const exampleRows = (query) => {
-    if (!exampleTree)
-      return [];
+    if (!exampleTree) return [];
     const f = query.toLowerCase();
     const matches = (name) => !f || name.toLowerCase().includes(f);
     const count = (folder) => folder.items.filter((x) => matches(x.name)).length + folder.folders.reduce((n, sub) => n + count(sub), 0);
     const out = [];
     const walk = (folder, depth) => {
       for (const x of folder.items) {
-        if (matches(x.name))
-          out.push({ kind: "item", name: x.name, label: x.label, depth });
+        if (matches(x.name)) out.push({ kind: "item", name: x.name, label: x.label, depth });
       }
       for (const sub of folder.folders) {
         const n = count(sub);
-        if (n === 0)
-          continue;
+        if (n === 0) continue;
         const open = f ? true : exampleFolderOpen(sub.path);
         out.push({
           kind: "folder",
@@ -16687,8 +16545,7 @@ ${err}`, "See s(CASP)");
           open,
           toggle: () => localStorage.setItem("le-examples-open." + sub.path, String(!open))
         });
-        if (open)
-          walk(sub, depth + 1);
+        if (open) walk(sub, depth + 1);
       }
     };
     walk(exampleTree, 0);
@@ -16703,8 +16560,7 @@ ${err}`, "See s(CASP)");
     return r.json();
   };
   const mountExamplePanel = (query, scope) => {
-    if (!examplePanelRoot || !window.ExamplesSearch)
-      return;
+    if (!examplePanelRoot || !window.ExamplesSearch) return;
     examplePanel = window.ExamplesSearch.mount({
       root: examplePanelRoot,
       t,
@@ -16716,8 +16572,7 @@ ${err}`, "See s(CASP)");
       hint: t("Loading examples..."),
       search: async (q, s) => {
         const data = await leapi({ operation: "search_examples", query: q, scope: s });
-        if (!Array.isArray(data.hits))
-          throw new Error(data.error || t("The search failed."));
+        if (!Array.isArray(data.hits)) throw new Error(data.error || t("The search failed."));
         return data.hits;
       },
       preview: async (name) => {
@@ -16731,8 +16586,7 @@ ${err}`, "See s(CASP)");
     });
   };
   async function openExamplesPicker(query, scope) {
-    if (modalOverlay)
-      modalOverlay.style.display = "flex";
+    if (modalOverlay) modalOverlay.style.display = "flex";
     exampleTree = null;
     mountExamplePanel(query, scope);
     examplePanel?.focus();
@@ -16756,8 +16610,7 @@ ${err}`, "See s(CASP)");
   {
     const p = new URLSearchParams(window.location.search);
     const q = p.get("examples");
-    if (q !== null)
-      openExamplesPicker(q, p.get("scope") || void 0);
+    if (q !== null) openExamplesPicker(q, p.get("scope") || void 0);
   }
   async function loadExampleFromServer(name) {
     try {
@@ -16891,8 +16744,7 @@ ${err}`, "See s(CASP)");
             input.disabled = false;
             input.placeholder = "";
             const note = input.parentElement?.querySelector(".server-key-note");
-            if (note)
-              note.remove();
+            if (note) note.remove();
           }
         });
       }
@@ -16916,8 +16768,7 @@ ${err}`, "See s(CASP)");
     }
   };
   const closeApiKeysModal = () => {
-    if (apiKeysModal)
-      apiKeysModal.style.display = "none";
+    if (apiKeysModal) apiKeysModal.style.display = "none";
   };
   document.getElementById("menu-api-keys")?.addEventListener("click", openApiKeysModal);
   apiKeysClose?.addEventListener("click", closeApiKeysModal);
@@ -16931,10 +16782,8 @@ ${err}`, "See s(CASP)");
     localStorage.setItem("le-assistant-model", modelSelect.value);
     if (assistantMaxStepsInput) {
       let val = parseInt(assistantMaxStepsInput.value, 10);
-      if (isNaN(val) || val < 1)
-        val = 1;
-      if (val > 50)
-        val = 50;
+      if (isNaN(val) || val < 1) val = 1;
+      if (val > 50) val = 50;
       localStorage.setItem("le-assistant-max-steps", val.toString());
     }
     closeApiKeysModal();
@@ -16950,18 +16799,14 @@ ${err}`, "See s(CASP)");
   const openExplanationsModal = () => {
     if (explanationsModal && failedPrefixInput) {
       failedPrefixInput.value = failedNodePrefix;
-      if (detailedFailuresInput)
-        detailedFailuresInput.checked = detailedFailures;
-      if (hideRepeatedInput)
-        hideRepeatedInput.checked = hideRepeatedExplanations;
-      if (largerReasonsInput)
-        largerReasonsInput.checked = largerImportantReasons;
+      if (detailedFailuresInput) detailedFailuresInput.checked = detailedFailures;
+      if (hideRepeatedInput) hideRepeatedInput.checked = hideRepeatedExplanations;
+      if (largerReasonsInput) largerReasonsInput.checked = largerImportantReasons;
       explanationsModal.style.display = "flex";
     }
   };
   const closeExplanationsModal = () => {
-    if (explanationsModal)
-      explanationsModal.style.display = "none";
+    if (explanationsModal) explanationsModal.style.display = "none";
   };
   document.getElementById("menu-explanations")?.addEventListener("click", openExplanationsModal);
   explanationsClose?.addEventListener("click", closeExplanationsModal);
@@ -17014,17 +16859,14 @@ ${err}`, "See s(CASP)");
     } else if (type === "request-state") {
       sendStateToGraph();
     } else if (type === "request-load") {
-      if (data && data.expired)
-        isLoaded = false;
+      if (data && data.expired) isLoaded = false;
       loadModule().then((ok) => {
-        if (!ok)
-          graphChannel.postMessage({ type: "load-failed", data: { error: lastLoadError } });
+        if (!ok) graphChannel.postMessage({ type: "load-failed", data: { error: lastLoadError } });
       });
     }
   };
   editor.onDidChangeCursorPosition((e) => {
-    if (activeDoc !== panelDoc)
-      return;
+    if (activeDoc !== panelDoc) return;
     const model = editor.getModel();
     const offset = model.getOffsetAt(e.position);
     graphChannel.postMessage({
@@ -17053,13 +16895,11 @@ ${err}`, "See s(CASP)");
   function openExecutive(doc, view) {
     const p = new URLSearchParams();
     const name = doc.example || String(doc.fileName || "").replace(/\.le$/, "");
-    if (name)
-      p.set("program", name);
+    if (name) p.set("program", name);
     try {
       const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
       const keys = Object.keys(localStorage).filter((k) => k.startsWith("le-exec-text:")).sort();
-      for (const k of keys.slice(0, Math.max(0, keys.length - 4)))
-        localStorage.removeItem(k);
+      for (const k of keys.slice(0, Math.max(0, keys.length - 4))) localStorage.removeItem(k);
       localStorage.setItem("le-exec-text:" + id, JSON.stringify({
         le: doc.model.getValue(),
         source: doc.example || "",
@@ -17068,14 +16908,11 @@ ${err}`, "See s(CASP)");
       p.set("text", id);
     } catch {
     }
-    if (view)
-      p.set("view", view);
+    if (view) p.set("view", view);
     else {
       const scenario = scenarioSelect.value, query = querySelect.value;
-      if (scenario && scenario !== "___custom___")
-        p.set("scenario", scenario);
-      if (query && query !== "___custom___")
-        p.set("query", query);
+      if (scenario && scenario !== "___custom___") p.set("scenario", scenario);
+      if (query && query !== "___custom___") p.set("query", query);
     }
     window.open("/executive?" + p.toString(), "_blank");
   }
@@ -17087,8 +16924,7 @@ ${err}`, "See s(CASP)");
     try {
       const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
       const keys = Object.keys(localStorage).filter((k) => k.startsWith("le-lps-text:")).sort();
-      for (const k of keys.slice(0, Math.max(0, keys.length - 4)))
-        localStorage.removeItem(k);
+      for (const k of keys.slice(0, Math.max(0, keys.length - 4))) localStorage.removeItem(k);
       localStorage.setItem("le-lps-text:" + id, JSON.stringify({
         le: doc.model.getValue(),
         source: doc.example || "",
@@ -17111,16 +16947,14 @@ ${err}`, "See s(CASP)");
         source: doc.model.getValue(),
         name: String(doc.fileName || "program.le").split("/").pop()
       };
-      if (token)
-        body.token = token;
+      if (token) body.token = token;
       const r = await fetch(LPS_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
         signal: ctrl.signal
       });
-      if (!r.ok)
-        return null;
+      if (!r.ok) return null;
       const d = await r.json();
       return d && d.ok && typeof d.source === "string" ? d.source : null;
     } catch {
@@ -17192,8 +17026,7 @@ ${err}`, "See s(CASP)");
     scroller.style.cssText = "overflow:auto;flex:1";
     box.appendChild(scroller);
     overlay.addEventListener("click", (e) => {
-      if (e.target === overlay)
-        overlay.remove();
+      if (e.target === overlay) overlay.remove();
     });
     document.body.appendChild(overlay);
     document.body.style.cursor = "progress";
@@ -17234,8 +17067,7 @@ ${err}`, "See s(CASP)");
       }
       table.appendChild(hr);
       for (const r of tests) {
-        if (cb.checked && r.status === "pass")
-          continue;
+        if (cb.checked && r.status === "pass") continue;
         const tr = document.createElement("tr");
         tr.style.cursor = "pointer";
         tr.title = t("Select this scenario and query in the query panel");
@@ -17254,10 +17086,8 @@ ${err}`, "See s(CASP)");
           tr.appendChild(td);
         });
         tr.addEventListener("click", () => {
-          if ([...scenarioSelect.options].some((o) => o.value === r.scenario))
-            scenarioSelect.value = r.scenario;
-          if ([...querySelect.options].some((o) => o.value === r.query))
-            querySelect.value = r.query;
+          if ([...scenarioSelect.options].some((o) => o.value === r.scenario)) scenarioSelect.value = r.scenario;
+          if ([...querySelect.options].some((o) => o.value === r.query)) querySelect.value = r.query;
           scenarioSelect.dispatchEvent(new Event("change"));
           querySelect.dispatchEvent(new Event("change"));
           overlay.remove();
@@ -17291,22 +17121,18 @@ ${err}`, "See s(CASP)");
   let enginePickerMode = localStorage.getItem("le-engine-picker-mode") === "nonprolog" ? "nonprolog" : "always";
   let currentTargetLanguage = "prolog";
   function applyEnginePickerVisibility() {
-    if (!engineControl)
-      return;
+    if (!engineControl) return;
     const active = engineSelect ? engineSelect.value : "prolog";
     const show = enginePickerMode === "always" || currentTargetLanguage !== "prolog" || active !== "prolog";
     engineControl.style.display = show ? "" : "none";
     const lpsStrip = document.getElementById("lps-strip");
-    if (lpsStrip)
-      lpsStrip.style.display = currentTargetLanguage === "lps" ? "flex" : "none";
+    if (lpsStrip) lpsStrip.style.display = currentTargetLanguage === "lps" ? "flex" : "none";
   }
   function updateEnginePickerChecks() {
     const a = document.getElementById("engine-always-check");
     const n = document.getElementById("engine-nonprolog-check");
-    if (a)
-      a.style.visibility = enginePickerMode === "always" ? "visible" : "hidden";
-    if (n)
-      n.style.visibility = enginePickerMode === "nonprolog" ? "visible" : "hidden";
+    if (a) a.style.visibility = enginePickerMode === "always" ? "visible" : "hidden";
+    if (n) n.style.visibility = enginePickerMode === "nonprolog" ? "visible" : "hidden";
   }
   function setEnginePickerMode(mode) {
     enginePickerMode = mode;
@@ -17337,19 +17163,13 @@ ${err}`, "See s(CASP)");
     const url = new URL(window.location.href);
     const sc = scenarioSelect.value;
     const q = querySelect.value;
-    if (sc && sc !== "___custom___")
-      url.searchParams.set("scenario", sc);
-    else
-      url.searchParams.delete("scenario");
-    if (q && q !== "___custom___")
-      url.searchParams.set("query", q);
-    else
-      url.searchParams.delete("query");
+    if (sc && sc !== "___custom___") url.searchParams.set("scenario", sc);
+    else url.searchParams.delete("scenario");
+    if (q && q !== "___custom___") url.searchParams.set("query", q);
+    else url.searchParams.delete("query");
     const eng = engineSelect ? engineSelect.value : "prolog";
-    if (eng && eng !== "prolog")
-      url.searchParams.set("engine", eng);
-    else
-      url.searchParams.delete("engine");
+    if (eng && eng !== "prolog") url.searchParams.set("engine", eng);
+    else url.searchParams.delete("engine");
     url.searchParams.delete("answer");
     window.history.replaceState({}, "", url.toString());
   }
@@ -17379,8 +17199,7 @@ ${err}`, "See s(CASP)");
   const kbModuleDisplay = document.getElementById("kb-module-display");
   const sessionModuleDisplay = document.getElementById("session-module-display");
   const updateQueryButtonState = () => {
-    if (!btnQuery)
-      return;
+    if (!btnQuery) return;
     const markers = monaco.editor.getModelMarkers({ owner: "le-verifier", resource: programModel().uri });
     const hasErrors = markers.some((m) => m.severity === monaco.MarkerSeverity.Error);
     const scenarioSelected = true;
@@ -17394,18 +17213,15 @@ ${err}`, "See s(CASP)");
         btnTrace.title = "Trace is only available with the Prolog engine; use the s(CASP) explanation tree instead.";
       }
     }
-    if (scaspEngine && !disabled)
-      return;
+    if (scaspEngine && !disabled) return;
     if (hasErrors) {
       const title = "Cannot query while there are errors in the document";
       btnQuery.title = title;
-      if (btnTrace)
-        btnTrace.title = title;
+      if (btnTrace) btnTrace.title = title;
     } else if (!querySelected) {
       const title = "Please select a query";
       btnQuery.title = title;
-      if (btnTrace)
-        btnTrace.title = title;
+      if (btnTrace) btnTrace.title = title;
     } else {
       const selectedOption = querySelect.options[querySelect.selectedIndex];
       if (selectedOption && selectedOption.dataset.template) {
@@ -17413,13 +17229,11 @@ ${err}`, "See s(CASP)");
       } else {
         btnQuery.title = "";
       }
-      if (btnTrace)
-        btnTrace.title = "";
+      if (btnTrace) btnTrace.title = "";
     }
   };
   const updateMarkers = (issues, model = programModel()) => {
-    if (!model)
-      return;
+    if (!model) return;
     issueFixes.clear();
     const includeSection = (includedResources || []).find((r) => !isForeignOffset(r.start));
     const markers = issues.map((issue) => {
@@ -17451,10 +17265,8 @@ ${err}`, "See s(CASP)");
   let loadGen = 0;
   const queryTab = document.getElementById("query-tab");
   const loadModule = () => {
-    if (isLoaded)
-      return Promise.resolve(true);
-    if (isLoading && loadPromise)
-      return loadPromise;
+    if (isLoaded) return Promise.resolve(true);
+    if (isLoading && loadPromise) return loadPromise;
     const gen = ++loadGen;
     isLoading = true;
     queryTab?.classList.add("le-loading");
@@ -17487,8 +17299,7 @@ ${err}`, "See s(CASP)");
         })
       });
       const res = await response.json();
-      if (gen !== loadGen)
-        return false;
+      if (gen !== loadGen) return false;
       if (res && res.sessionModule) {
         sessionModule = res.sessionModule;
         isLoaded = true;
@@ -17569,8 +17380,7 @@ ${err}`, "See s(CASP)");
         return false;
       }
     } catch (err) {
-      if (gen !== loadGen)
-        return false;
+      if (gen !== loadGen) return false;
       lastLoadError = "Error connecting to server.";
       resultsDisplay.textContent = lastLoadError;
       console.error(err);
@@ -17595,8 +17405,7 @@ ${err}`, "See s(CASP)");
     const close = () => overlay.remove();
     btn.addEventListener("click", close);
     overlay.addEventListener("click", (e) => {
-      if (e.target === overlay)
-        close();
+      if (e.target === overlay) close();
     });
     box.appendChild(h);
     box.appendChild(p);
@@ -17607,8 +17416,7 @@ ${err}`, "See s(CASP)");
   }
   function selectIfPresent(select, value) {
     const opt = Array.from(select.options).find((o) => o.value === value);
-    if (!opt)
-      return false;
+    if (!opt) return false;
     select.value = value;
     select.dispatchEvent(new Event("change"));
     return true;
@@ -17617,8 +17425,7 @@ ${err}`, "See s(CASP)");
     const p = new URLSearchParams(window.location.search);
     const scenarioParam = p.get("scenario");
     const queryParam = p.get("query");
-    if (!scenarioParam && !queryParam || !(p.get("example") || p.get("text")))
-      return;
+    if (!scenarioParam && !queryParam || !(p.get("example") || p.get("text"))) return;
     const ok = await loadModule();
     if (!ok) {
       showModal("Could not load the document." + (lastLoadError ? "\n\n" + lastLoadError : ""), "Cannot select scenario/query");
@@ -17664,16 +17471,13 @@ ${err}`, "See s(CASP)");
     }
   }
   scenarioSelect.addEventListener("mouseenter", () => {
-    if (!isLoaded && !isLoading)
-      loadModule();
+    if (!isLoaded && !isLoading) loadModule();
   });
   querySelect.addEventListener("mouseenter", () => {
-    if (!isLoaded && !isLoading)
-      loadModule();
+    if (!isLoaded && !isLoading) loadModule();
   });
   const openPickerAfterLoad = async (select, e) => {
-    if (isLoaded)
-      return;
+    if (isLoaded) return;
     e.preventDefault();
     document.body.classList.add("le-busy");
     let ok = false;
@@ -17682,8 +17486,7 @@ ${err}`, "See s(CASP)");
     } finally {
       document.body.classList.remove("le-busy");
     }
-    if (!ok)
-      return;
+    if (!ok) return;
     select.focus();
     try {
       select.showPicker?.();
@@ -17705,8 +17508,7 @@ ${err}`, "See s(CASP)");
     document.body.style.cursor = "ns-resize";
   });
   document.addEventListener("mousemove", (e) => {
-    if (!isResizing)
-      return;
+    if (!isResizing) return;
     const offsetTop = e.clientY;
     const windowHeight = window.innerHeight;
     const headerHeight = container.getBoundingClientRect().top;
@@ -17730,8 +17532,7 @@ ${err}`, "See s(CASP)");
     document.body.style.cursor = "ew-resize";
   });
   document.addEventListener("mousemove", (e) => {
-    if (!isResizingResults)
-      return;
+    if (!isResizingResults) return;
     const resultsArea = document.getElementById("results-area");
     const rect = resultsArea.getBoundingClientRect();
     const offsetLeft = e.clientX - rect.left;
@@ -17742,8 +17543,7 @@ ${err}`, "See s(CASP)");
   });
   document.addEventListener("mouseup", () => {
     isResizingResults = false;
-    if (!isResizing)
-      document.body.style.cursor = "default";
+    if (!isResizing) document.body.style.cursor = "default";
   });
   let answersList = document.getElementById("answers-list");
   let explanationTree = document.getElementById("explanation-tree");
@@ -17826,14 +17626,12 @@ ${err}`, "See s(CASP)");
   let breakpointDecorations = [];
   const modelBreakpoints = (model) => {
     const key = model.uri.toString();
-    if (!breakpointLines.has(key))
-      breakpointLines.set(key, /* @__PURE__ */ new Set());
+    if (!breakpointLines.has(key)) breakpointLines.set(key, /* @__PURE__ */ new Set());
     return breakpointLines.get(key);
   };
   const renderBreakpoints = () => {
     const model = editor.getModel();
-    if (!model)
-      return;
+    if (!model) return;
     breakpointDecorations = editor.deltaDecorations(
       breakpointDecorations,
       [...modelBreakpoints(model)].filter((l) => l <= model.getLineCount()).map((line) => ({
@@ -17844,8 +17642,7 @@ ${err}`, "See s(CASP)");
   };
   const sendBreakpoints = () => {
     const model = programModel();
-    if (!model)
-      return;
+    if (!model) return;
     const lines = [...modelBreakpoints(model)].filter((l) => l <= model.getLineCount()).sort((a, b) => a - b);
     sendDapRequest("setBreakpoints", {
       source: { path: model.uri.toString() },
@@ -17857,21 +17654,17 @@ ${err}`, "See s(CASP)");
     });
   };
   editor.onMouseDown((e) => {
-    if (e.target.type !== monaco.editor.MouseTargetType.GUTTER_GLYPH_MARGIN || !e.target.position)
-      return;
+    if (e.target.type !== monaco.editor.MouseTargetType.GUTTER_GLYPH_MARGIN || !e.target.position) return;
     const bps = modelBreakpoints(editor.getModel());
     const line = e.target.position.lineNumber;
-    if (bps.has(line))
-      bps.delete(line);
-    else
-      bps.add(line);
+    if (bps.has(line)) bps.delete(line);
+    else bps.add(line);
     renderBreakpoints();
     sendBreakpoints();
   });
   editor.onDidChangeModel(() => renderBreakpoints());
   const sendDapRequest = (command, args = {}) => {
-    if (!dapSocket || dapSocket.readyState !== WebSocket.OPEN)
-      return;
+    if (!dapSocket || dapSocket.readyState !== WebSocket.OPEN) return;
     const request = {
       seq: dapSeq++,
       type: "request",
@@ -17884,8 +17677,7 @@ ${err}`, "See s(CASP)");
   const startTrace = async () => {
     if (!isLoaded) {
       const success = await loadModule();
-      if (!success)
-        return;
+      if (!success) return;
     }
     const scenario = scenarioSelect.value;
     const query = querySelect.value;
@@ -17898,8 +17690,7 @@ ${err}`, "See s(CASP)");
     setDebugButtons(true);
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const wsUrl = `${protocol}//${window.location.host}/dap?sessionModule=${sessionModule}`;
-    if (dapSocket)
-      dapSocket.close();
+    if (dapSocket) dapSocket.close();
     dapSocket = new WebSocket(wsUrl);
     dapSocket.onopen = () => {
       debugStatus.textContent = t("Debugger connected. Initializing...");
@@ -17944,8 +17735,7 @@ ${err}`, "See s(CASP)");
         if (msg.command === "stackTrace") {
           debugFrames = msg.body.stackFrames || [];
           renderStack(debugFrames);
-          if (debugFrames.length > 0)
-            selectFrame(debugFrames[0].id);
+          if (debugFrames.length > 0) selectFrame(debugFrames[0].id);
         } else if (msg.command === "scopes") {
           if (msg.body.scopes && msg.body.scopes.length > 0) {
             sendDapRequest("variables", { variablesReference: msg.body.scopes[0].variablesReference });
@@ -17970,8 +17760,7 @@ ${err}`, "See s(CASP)");
       const div = document.createElement("div");
       div.className = "stack-frame";
       div.dataset.frameId = String(f.id);
-      if (f.id === 1)
-        div.classList.add("executing");
+      if (f.id === 1) div.classList.add("executing");
       const pos = f.offset !== void 0 && !isForeignOffset(f.offset) ? model.getPositionAt(f.offset) : { lineNumber: 1, column: 1 };
       const nameSpan = document.createElement("span");
       nameSpan.className = "stack-frame-name";
@@ -18014,8 +17803,7 @@ ${err}`, "See s(CASP)");
     document.querySelectorAll(".stack-frame").forEach((el) => {
       el.classList.toggle("selected", el.dataset.frameId === String(frameId));
     });
-    if (f)
-      highlightFrameRange(f);
+    if (f) highlightFrameRange(f);
     sendDapRequest("scopes", { frameId });
   };
   const renderVariables = (vars) => {
@@ -18049,11 +17837,9 @@ ${err}`, "See s(CASP)");
   debugStep.onclick = () => sendDapRequest("stepIn", { threadId: 1 });
   debugNext.onclick = () => sendDapRequest("next", { threadId: 1 });
   window.addEventListener("keydown", (e) => {
-    if (debugPanel.style.display === "none" || debugStep.disabled)
-      return;
+    if (debugPanel.style.display === "none" || debugStep.disabled) return;
     const button = e.key === "F5" ? debugContinue : e.key === "F10" ? debugNext : e.key === "F11" ? debugStep : null;
-    if (!button)
-      return;
+    if (!button) return;
     e.preventDefault();
     button.click();
   });
@@ -18083,8 +17869,7 @@ ${err}`, "See s(CASP)");
     document.body.style.userSelect = "none";
   };
   document.addEventListener("mousemove", (e) => {
-    if (!isDraggingDebug)
-      return;
+    if (!isDraggingDebug) return;
     const dx = e.clientX - debugStartX;
     const dy = e.clientY - debugStartY;
     debugPanel.style.left = `${debugStartLeft + dx}px`;
@@ -18126,8 +17911,7 @@ ${err}`, "See s(CASP)");
   btnQuery.addEventListener("click", async () => {
     if (!isLoaded) {
       const success = await loadModule();
-      if (!success)
-        return;
+      if (!success) return;
     }
     const scenario = scenarioSelect.value;
     const query = querySelect.value;
@@ -18198,12 +17982,9 @@ ${err}`, "See s(CASP)");
       const nResults = res && res.results ? res.results.length : 0;
       let target = 0;
       if (wantAnswer !== null) {
-        if (nResults > 0 && wantAnswer >= 0 && wantAnswer < nResults)
-          target = wantAnswer;
-        else if (nResults > 0)
-          showModal(`Answer ${wantAnswer + 1} does not exist \u2014 the query has ${nResults} answer(s) in this scenario.`, "No such answer");
-        else if (res && res.why)
-          showModal("The query has no answers (it is false in this scenario), so there is no answer to select.", "No such answer");
+        if (nResults > 0 && wantAnswer >= 0 && wantAnswer < nResults) target = wantAnswer;
+        else if (nResults > 0) showModal(`Answer ${wantAnswer + 1} does not exist \u2014 the query has ${nResults} answer(s) in this scenario.`, "No such answer");
+        else if (res && res.why) showModal("The query has no answers (it is false in this scenario), so there is no answer to select.", "No such answer");
       }
       view.showResults(res, target);
     } catch (err) {
@@ -18221,22 +18002,18 @@ ${err}`, "See s(CASP)");
     return kwPhrases(lang, key)[0] || kwPhrases("en", key)[0] || "";
   };
   const closeFlip = () => {
-    if (flipModal)
-      flipModal.style.display = "none";
+    if (flipModal) flipModal.style.display = "none";
   };
   document.getElementById("flip-close")?.addEventListener("click", closeFlip);
   document.getElementById("flip-cancel")?.addEventListener("click", closeFlip);
   flipModal?.addEventListener("click", (e) => {
-    if (e.target === flipModal)
-      closeFlip();
+    if (e.target === flipModal) closeFlip();
   });
   document.getElementById("btn-flip")?.addEventListener("click", async () => {
-    if (!flipModal || !flipGoal || !flipNot)
-      return;
+    if (!flipModal || !flipGoal || !flipNot) return;
     if (!isLoaded) {
       const ok = await loadModule();
-      if (!ok)
-        return;
+      if (!ok) return;
     }
     const opener = flipPhrase("flip_query");
     const notWords = flipPhrase("not_the_case");
@@ -18264,11 +18041,9 @@ ${err}`, "See s(CASP)");
     flipGoal.focus();
   });
   document.getElementById("flip-run")?.addEventListener("click", () => {
-    if (!flipGoal || !flipNot)
-      return;
+    if (!flipGoal || !flipNot) return;
     const goal = flipGoal.value.trim().replace(/\.$/, "");
-    if (!goal)
-      return;
+    if (!goal) return;
     const text = `${flipPhrase("flip_query")} ${flipNot.checked ? flipPhrase("not_the_case") + " " : ""}${goal}`;
     querySelect.value = "___custom___";
     customQueryContainer.style.display = "flex";
@@ -18282,8 +18057,7 @@ ${err}`, "See s(CASP)");
   btnProofGame.addEventListener("click", async () => {
     if (!isLoaded) {
       const success = await loadModule();
-      if (!success)
-        return;
+      if (!success) return;
     }
     const scenario = scenarioSelect.value;
     const query = querySelect.value;
@@ -18406,15 +18180,13 @@ ${err}`, "See s(CASP)");
           endPos.lineNumber,
           endPos.column
         ));
-        if (!event.data.noFocus)
-          editor.focus();
+        if (!event.data.noFocus) editor.focus();
       }
     }
   });
   document.getElementById("menu-scenario-editor")?.addEventListener("click", async () => {
     adoptActiveAsProgram();
-    if (!isLoaded)
-      await loadModule();
+    if (!isLoaded) await loadModule();
     const data = {
       source: programText(),
       // the templates of included resources (from the last load), and
@@ -18436,8 +18208,7 @@ ${err}`, "See s(CASP)");
   document.getElementById("btn-variations")?.addEventListener("click", async () => {
     if (!isLoaded) {
       const ok = await loadModule();
-      if (!ok)
-        return;
+      if (!ok) return;
     }
     const data = {
       source: programText(),
@@ -18457,12 +18228,10 @@ ${err}`, "See s(CASP)");
   });
   scenarioChannel.onmessage = (event) => {
     const msg = event.data;
-    if (!msg || msg.type !== "insert-scenario" || typeof msg.blockText !== "string")
-      return;
+    if (!msg || msg.type !== "insert-scenario" || typeof msg.blockText !== "string") return;
     showProgramInEditor();
     const model = editor.getModel();
-    if (!model)
-      return;
+    if (!model) return;
     const source = editor.getValue();
     const blocks = parseScenarioBlocks(source);
     const target = msg.replaceName ? blocks.find((b) => b.name === msg.replaceName) : null;
@@ -18491,12 +18260,10 @@ ${err}`, "See s(CASP)");
   };
   queryChannel.onmessage = (event) => {
     const msg = event.data;
-    if (!msg || msg.type !== "insert-query" || typeof msg.blockText !== "string")
-      return;
+    if (!msg || msg.type !== "insert-query" || typeof msg.blockText !== "string") return;
     showProgramInEditor();
     const model = editor.getModel();
-    if (!model)
-      return;
+    if (!model) return;
     const source = editor.getValue();
     const blocks = parseQueryBlocks(source);
     const target = msg.replaceName ? blocks.find((b) => b.name === msg.replaceName) : null;
@@ -18569,8 +18336,7 @@ ${err}`, "See s(CASP)");
         content.textContent = text;
       }
     } else {
-      if (role === "assistant")
-        console.warn("LE Assistant: marked library not found on window");
+      if (role === "assistant") console.warn("LE Assistant: marked library not found on window");
       content.textContent = text;
     }
     msg.appendChild(content);
@@ -18605,8 +18371,7 @@ ${err}`, "See s(CASP)");
   let currentJobId = null;
   const handleAssistantSend = async () => {
     const command = assistantInput.value.trim();
-    if (!command)
-      return;
+    if (!command) return;
     const selectedModel = localStorage.getItem("le-assistant-model") || "";
     if (!selectedModel) {
       addChatMessage("assistant", "Warning: No assistant model selected. Please go to **Misc > API Keys...** to select one.");
@@ -18726,8 +18491,7 @@ ${err}`, "See s(CASP)");
     }
   };
   const handleAssistantInterrupt = async () => {
-    if (!currentJobId)
-      return;
+    if (!currentJobId) return;
     const duration = assistantStartTime ? Math.round((Date.now() - assistantStartTime) / 1e3) : 0;
     try {
       const response = await fetch("/leapi", {
@@ -18815,19 +18579,16 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
   });
   btnAssistantInterrupt.addEventListener("click", handleAssistantInterrupt);
   assistantInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter")
-      handleAssistantSend();
+    if (e.key === "Enter") handleAssistantSend();
   });
   const tabBar = new TabBar(document.getElementById("editor-tabs"), {
     onSelect: (id) => {
       const d = docs.find((x) => x.id === id);
-      if (d)
-        activateDoc(d, true);
+      if (d) activateDoc(d, true);
     },
     onClose: (id) => {
       const d = docs.find((x) => x.id === id);
-      if (d)
-        closeDoc(d);
+      if (d) closeDoc(d);
     },
     onNew: () => newTab(),
     newTitle: t("New tab"),
@@ -18841,21 +18602,18 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
       dirty: d.dirty,
       program: d === panelDoc && d !== activeDoc
     })), activeDoc.id);
-    if (filenameDisplay)
-      filenameDisplay.textContent = activeDoc.fileName;
+    if (filenameDisplay) filenameDisplay.textContent = activeDoc.fileName;
     updateSaveMenu();
   }
   function setDirty(doc, dirty) {
-    if (doc.dirty === dirty)
-      return;
+    if (doc.dirty === dirty) return;
     doc.dirty = dirty;
     refreshTabs();
   }
   function docChanged(doc) {
     setDirty(doc, true);
     lspChange(doc);
-    if (doc === activeDoc)
-      syncEditorLanguage(doc.model.getValue());
+    if (doc === activeDoc) syncEditorLanguage(doc.model.getValue());
     if (doc === panelDoc) {
       if (isLoaded) {
         isLoaded = false;
@@ -18863,11 +18621,9 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
         querySelect.innerHTML = `<option value="">${t("Select a query...")}</option>`;
       }
       refreshEnginePickerTarget();
-      if (loadTimeout)
-        clearTimeout(loadTimeout);
+      if (loadTimeout) clearTimeout(loadTimeout);
       loadTimeout = setTimeout(() => {
-        if (!isLoaded && !isLoading)
-          loadModule();
+        if (!isLoaded && !isLoading) loadModule();
       }, 1500);
       doc.textInUrl = true;
       const url = new URL(window.location.href);
@@ -18884,19 +18640,15 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
       activeDoc.viewState = editor.saveViewState();
       activeDoc = doc;
       editor.setModel(doc.model);
-      if (doc.viewState)
-        editor.restoreViewState(doc.viewState);
+      if (doc.viewState) editor.restoreViewState(doc.viewState);
       syncEditorLanguage(doc.model.getValue());
     }
-    if (takePanels && doc !== panelDoc)
-      switchPanel(doc);
+    if (takePanels && doc !== panelDoc) switchPanel(doc);
     refreshTabs();
-    if (focus)
-      editor.focus();
+    if (focus) editor.focus();
   }
   function showProgramInEditor() {
-    if (activeDoc !== panelDoc)
-      activateDoc(panelDoc, false, false);
+    if (activeDoc !== panelDoc) activateDoc(panelDoc, false, false);
   }
   function adoptActiveAsProgram() {
     if (activeDoc !== panelDoc) {
@@ -18936,8 +18688,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
     };
   }
   function swapElement(current, next) {
-    if (current === next)
-      return next;
+    if (current === next) return next;
     const id = current.id;
     current.replaceWith(next);
     current.removeAttribute("id");
@@ -18974,8 +18725,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
     scenarioSelect.value = p ? p.scenario : "";
     querySelect.innerHTML = p ? p.queryOptions : emptyQueries;
     querySelect.value = p ? p.query : "";
-    if (engineSelect)
-      engineSelect.value = p ? p.engine : "prolog";
+    if (engineSelect) engineSelect.value = p ? p.engine : "prolog";
     customScenarioText.value = p ? p.customScenario : "";
     customQueryText.value = p ? p.customQuery : "";
     customScenarioContainer.style.display = scenarioSelect.value === "___custom___" ? "flex" : "none";
@@ -18993,8 +18743,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
       nextAnswers = document.createElement("div");
       nextTree = document.createElement("div");
       nextHistory = document.createElement("div");
-      if (assistantGreeting)
-        nextHistory.appendChild(assistantGreeting.cloneNode(true));
+      if (assistantGreeting) nextHistory.appendChild(assistantGreeting.cloneNode(true));
       explView = makeExplanationView(nextAnswers, nextTree);
     }
     answersList = swapElement(answersList, nextAnswers);
@@ -19002,17 +18751,14 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
     assistantHistory = swapElement(assistantHistory, nextHistory);
     explView.refreshTitle();
     if (p) {
-      if (answersList.parentElement)
-        answersList.parentElement.scrollTop = p.answersScroll;
-      if (explanationTree.parentElement)
-        explanationTree.parentElement.scrollTop = p.explanationScroll;
+      if (answersList.parentElement) answersList.parentElement.scrollTop = p.answersScroll;
+      if (explanationTree.parentElement) explanationTree.parentElement.scrollTop = p.explanationScroll;
     }
     syncUrlForPanel();
     refreshEnginePickerTarget();
     updateQueryButtonState();
     sendStateToGraph();
-    if (!isLoaded)
-      loadModule();
+    if (!isLoaded) loadModule();
   }
   function syncUrlForPanel() {
     const url = new URL(window.location.href);
@@ -19020,12 +18766,9 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
       url.searchParams.delete(k);
     }
     const doc = panelDoc;
-    if (doc.example)
-      url.searchParams.set("example", doc.example);
-    if (doc.textInUrl)
-      url.searchParams.set("text", doc.model.getValue());
-    if (!doc.example && doc.fileName !== "document.le")
-      url.searchParams.set("filename", doc.fileName);
+    if (doc.example) url.searchParams.set("example", doc.example);
+    if (doc.textInUrl) url.searchParams.set("text", doc.model.getValue());
+    if (!doc.example && doc.fileName !== "document.le") url.searchParams.set("filename", doc.fileName);
     url.hash = doc.textInUrl ? "" : doc.hash;
     window.history.replaceState({}, "", url.toString());
     updateUrlSelection();
@@ -19050,14 +18793,11 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
   }
   async function findOpenDocument(props) {
     for (const d of docs) {
-      if (props.example && d.example === props.example && !d.baseUrl && d.fileName === props.fileName)
-        return d;
-      if (props.baseUrl && d.baseUrl === props.baseUrl && d.fileName === props.fileName)
-        return d;
+      if (props.example && d.example === props.example && !d.baseUrl && d.fileName === props.fileName) return d;
+      if (props.baseUrl && d.baseUrl === props.baseUrl && d.fileName === props.fileName) return d;
       if (props.fileHandle && d.fileHandle) {
         try {
-          if (await d.fileHandle.isSameEntry(props.fileHandle))
-            return d;
+          if (await d.fileHandle.isSameEntry(props.fileHandle)) return d;
         } catch {
         }
       }
@@ -19069,8 +18809,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
   }
   function replaceActiveDocument(text, props) {
     const doc = activeDoc;
-    if (doc !== panelDoc)
-      switchPanel(doc);
+    if (doc !== panelDoc) switchPanel(doc);
     doc.fileName = props.fileName;
     doc.fileHandle = props.fileHandle ?? null;
     doc.baseUrl = props.baseUrl ?? null;
@@ -19097,10 +18836,8 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
     return doc;
   }
   function closeDoc(doc) {
-    if (doc.dirty && !confirm(t("You have unsaved changes. Close this tab anyway?")))
-      return;
-    if (docs.length === 1)
-      newTab();
+    if (doc.dirty && !confirm(t("You have unsaved changes. Close this tab anyway?"))) return;
+    if (docs.length === 1) newTab();
     const i = docs.indexOf(doc);
     if (doc === activeDoc) {
       const next = docs[i + 1] || docs[i - 1];
@@ -19190,8 +18927,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
         message: d.message
       }));
       const target = monaco.editor.getModel(monaco.Uri.parse(message.params.uri));
-      if (target)
-        monaco.editor.setModelMarkers(target, "le", markers);
+      if (target) monaco.editor.setModelMarkers(target, "le", markers);
     }
   };
   function sendRequest(method, params2) {
@@ -19228,8 +18964,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
   const includedResourceNames = (text) => {
     const lang = detectProgramLanguage(text);
     const phrases = [...kwPhrases(lang, "resources_include"), ...kwPhrases("en", "resources_include")].filter(Boolean).map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"));
-    if (phrases.length === 0)
-      return [];
+    if (phrases.length === 0) return [];
     const header = new RegExp(`(?:${phrases.join("|")})\\s*:`, "gi");
     const names = [];
     let m;
@@ -19239,13 +18974,11 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
       for (const raw of rest.split("\n")) {
         const l = raw.replace(/%.*$/, "");
         lines.push(l);
-        if (/\.\s*$/.test(l))
-          break;
+        if (/\.\s*$/.test(l)) break;
       }
       for (const part of lines.join(" ").split(",")) {
         const name = part.trim().replace(/[.:]\s*$/, "").trim();
-        if (name && !/\s/.test(name))
-          names.push(name);
+        if (name && !/\s/.test(name)) names.push(name);
       }
     }
     return names;
@@ -19280,29 +19013,24 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
     const uri = doc.model.uri.toString();
     clearTimeout(includedTimers.get(uri));
     includedTimers.set(uri, setTimeout(async () => {
-      if (doc.model.isDisposed())
-        return;
+      if (doc.model.isDisposed()) return;
       const names = includedResourceNames(doc.model.getValue());
       const key = `${doc.example || ""}|${doc.baseUrl || ""}|${names.join(",")}`;
-      if (includedKey.get(uri) === key)
-        return;
+      if (includedKey.get(uri) === key) return;
       includedKey.set(uri, key);
       const texts = [];
       const visited = /* @__PURE__ */ new Set();
       const walk = async (ns, source, base, depth) => {
         for (const n of ns) {
           const r = await fetchResourceText(n, source, base);
-          if (!r || visited.has(`${r.source}|${r.base}|${n}`))
-            continue;
+          if (!r || visited.has(`${r.source}|${r.base}|${n}`)) continue;
           visited.add(`${r.source}|${r.base}|${n}`);
           texts.push(r.text);
-          if (depth < 3)
-            await walk(includedResourceNames(r.text), r.source, r.base, depth + 1);
+          if (depth < 3) await walk(includedResourceNames(r.text), r.source, r.base, depth + 1);
         }
       };
       await walk(names, doc.example || "", doc.baseUrl || "", 1);
-      if (includedKey.get(uri) !== key)
-        return;
+      if (includedKey.get(uri) !== key) return;
       sendNotification("le/includedTexts", { uri, texts });
       semanticTokensChanged.fire(void 0);
     }, 400));
@@ -19344,12 +19072,18 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
       return null;
     }
   });
+  document.querySelectorAll(".menu-item").forEach((menu) => {
+    menu.addEventListener("click", (e) => {
+      const item = e.target.closest(".dropdown-item");
+      if (item && !item.classList.contains("has-submenu")) menu.classList.add("menu-closed");
+    });
+    menu.addEventListener("mouseleave", () => menu.classList.remove("menu-closed"));
+  });
   let smartEditing = localStorage.getItem("le-smart-editing") === "true";
   let smartProvider = null;
   const smartEditingCheck = document.getElementById("smart-editing-check");
   function applySmartEditing() {
-    if (smartEditingCheck)
-      smartEditingCheck.style.visibility = smartEditing ? "visible" : "hidden";
+    if (smartEditingCheck) smartEditingCheck.style.visibility = smartEditing ? "visible" : "hidden";
     if (smartEditing && !smartProvider) {
       smartProvider = monaco.languages.registerCompletionItemProvider("le", {
         triggerCharacters: [" "],
@@ -19357,17 +19091,15 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
           const line = model.getLineContent(position.lineNumber);
           const lineBefore = line.substring(0, position.column - 1);
           const above = [];
-          for (let n = Math.max(1, position.lineNumber - 400); n < position.lineNumber; n++)
-            above.push(model.getLineContent(n));
+          for (let n = Math.max(1, position.lineNumber - 400); n < position.lineNumber; n++) above.push(model.getLineContent(n));
           const zone = zoneOf(above, line);
-          if (zone === "templates")
-            return { suggestions: [] };
+          if (zone === "templates") return { suggestions: [] };
           const res = await sendRequest("textDocument/completion", {
             textDocument: { uri: model.uri.toString() },
             position: { line: position.lineNumber - 1, character: position.column - 1 }
           });
           const all = res ? Array.isArray(res) ? res : res.items : [];
-          const templates = all.filter((i) => i.detail === "User Template" || i.detail === "System Template").map((i) => ({ label: String(i.label), system: i.detail === "System Template" }));
+          const templates = all.filter((i) => i.detail === "User Template" || i.detail === "Included Template" || i.detail === "System Template").map((i) => ({ label: String(i.label), system: i.detail === "System Template" }));
           const sections = all.filter((i) => i.kind === 14 && /:$/.test(String(i.label))).map((i) => String(i.label));
           const explicit = context && context.triggerKind === monaco.languages.CompletionTriggerKind.Invoke;
           const items = smartCompletions(lineBefore, zone, templates, sections, explicit);

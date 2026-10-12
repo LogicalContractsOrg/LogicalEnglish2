@@ -22,7 +22,12 @@
         being written, not used;
       - anywhere else (rules, scenarios, queries): the rest of a sentence,
         matched from the last `if`, `and`, `or`, `that`, `unless` or comma;
-        and, once a sentence is complete, `and` and `or`.
+        and, once a sentence is complete, `and` and `or`. Most templates
+        start with a place, so the first words of a sentence are read as
+        that place too: `the` or `the pe` offers whole sentences
+        ("the person is a parent of ‹a child›"), and `the person ` offers the
+        rest of every template that starts with a place, those whose place
+        is a person first, when no template matches the words more closely.
 
     Everything here is pure (no Monaco, no server), so it is tested on its
     own: tests/le-typeahead.spec.ts.
@@ -48,6 +53,7 @@ export interface SmartTemplate {
 type Tok = { word: string } | { place: string };
 
 const ARTICLES = new Set(['a', 'an']);
+const CONNECTIVE = new Set(['if', 'and', 'or', 'unless', 'then', 'when']);
 //  Where a sentence starts inside a line: after one of these words, or a comma.
 const BOUNDARY = /(?:^|[\s,])(?:if|and|or|that|unless|then|when)\s+|,\s*/gi;
 const DECLARATION_HEADING = /^(?:the\s+)?(?:templates|predicates|fluents|events|actions|prolog events|ontology)\b.*:\s*$|^(?:os|as|los|las|les|i|le)\s+\S+.*:\s*$/i;
@@ -89,11 +95,24 @@ function ends(T: Tok[], W: string[]): End[] {
             if (same(W[wi], t.word)) go(ti + 1, wi + 1, fixed + 1);
             return;
         }
-        //  A place takes one word or more: every length is tried.
-        for (let k = 1; wi + k <= W.length; k++) go(ti + 1, wi + k, fixed);
+        //  A place takes one word or more: every length is tried. It never
+        //  takes a connective ("if", "and"…), which starts another sentence.
+        for (let k = 1; wi + k <= W.length && !CONNECTIVE.has(W[wi + k - 1].toLowerCase()); k++) go(ti + 1, wi + k, fixed);
     };
     go(0, 0, 0);
     return out;
+}
+
+//  A place as a rule refers to it: "a person" → "the person".
+function thePlace(place: string): string {
+    const w = place.trim().split(/\s+/);
+    if (w.length > 1 && (ARTICLES.has(w[0].toLowerCase()) || w[0].toLowerCase() === 'the')) w[0] = 'the';
+    return w.join(' ');
+}
+
+//  "the person" (or "a person") typed for the place "a person".
+function sameNoun(W: string[], place: string): boolean {
+    return W.length > 1 && W.slice(1).join(' ').toLowerCase() === thePlace(place).split(' ').slice(1).join(' ').toLowerCase();
 }
 
 function escapeSnippet(s: string): string {
@@ -157,6 +176,7 @@ export function smartCompletions(lineBefore: string, zone: Zone, templates: Smar
     const tried = starts.slice(-4).reverse();
 
     const best = new Map<string, SmartItem>();
+    const placeOnly: SmartItem[] = [];
     let complete = false;
     for (const tpl of templates) {
         const T = templateTokens(tpl.label);
@@ -166,12 +186,25 @@ export function smartCompletions(lineBefore: string, zone: Zone, templates: Smar
             const all = words(fragment);
             const partial = endsInSpace ? '' : (all.pop() ?? '');
             const W = all;
+            //  The first place being typed ("the", "the pe"): the whole
+            //  sentence, its first place written as "the <noun>".
+            if (partial && 'place' in T[0] && !tpl.system) {
+                const first = thePlace(T[0].place);
+                const typed = [...W, partial].join(' ').toLowerCase();
+                if (first.toLowerCase().startsWith(typed)) {
+                    const r = remainder([{ place: first }, ...T.slice(1)], 0);
+                    const item: SmartItem = { label: tpl.label, snippet: r.snippet, filterText: r.plain,
+                                              replaceStart: from, detail: 'template',
+                                              score: W.length > 0 ? 0.75 : 0.25, kind: 'template' };
+                    const prev = best.get(tpl.label);
+                    if (!prev || item.score > prev.score) best.set(tpl.label, item);
+                }
+            }
             for (const e of ends(T, W)) {
                 let item: SmartItem | null = null;
                 if (partial) {
                     const t = T[e.next];
-                    if (t && 'word' in t && t.word.toLowerCase().startsWith(partial.toLowerCase())
-                        && t.word.toLowerCase() !== partial.toLowerCase()) {
+                    if (t && 'word' in t && t.word.toLowerCase().startsWith(partial.toLowerCase())) {
                         const r = remainder(T, e.next);
                         item = { label: tpl.label, snippet: r.snippet, filterText: r.plain,
                                  replaceStart: lineBefore.length - partial.length,
@@ -187,6 +220,18 @@ export function smartCompletions(lineBefore: string, zone: Zone, templates: Smar
                              score: e.fixed, kind: 'template' };
                 } else if (e.next === T.length && e.fixed > 0 && W.length > 0) {
                     complete = true;
+                } else if (e.fixed === 0 && W.length > 0 && W.length <= 3 && e.next === 1
+                           && T[1] && 'word' in T[1]) {
+                    //  The words typed so far are the template's first place
+                    //  ("the person ", "alice "): the rest of the sentence, if
+                    //  nothing reads them more closely (below).
+                    const r = remainder(T, 1);
+                    const p = T[0] as { place: string };
+                    placeOnly.push({ label: tpl.label, snippet: r.snippet, filterText: '',
+                                     replaceStart: lineBefore.length,
+                                     detail: tpl.system ? 'built-in template' : 'template',
+                                     score: sameNoun(W, p.place) ? 0.5 : 0, kind: 'template' });
+                    continue;
                 }
                 if (!item) continue;
                 //  A built-in template counts only when the text has more of it
@@ -195,6 +240,13 @@ export function smartCompletions(lineBefore: string, zone: Zone, templates: Smar
                 const prev = best.get(tpl.label);
                 if (!prev || item.score > prev.score) best.set(tpl.label, item);
             }
+        }
+    }
+    if (!complete && ![...best.values()].some(i => i.score >= 1)) {
+        for (const item of placeOnly) {
+            if (item.detail === 'built-in template') continue;
+            const prev = best.get(item.label);
+            if (!prev || item.score > prev.score) best.set(item.label, item);
         }
     }
     const items = [...best.values()].sort((a, b) => b.score - a.score || a.label.length - b.label.length);

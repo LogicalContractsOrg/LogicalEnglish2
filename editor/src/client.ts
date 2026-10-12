@@ -4766,6 +4766,17 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         }
     });
 
+    // A menu opens on hover (index.html's CSS), so it stayed open after an
+    // item was chosen: a click on an item closes it until the pointer leaves
+    // the menu bar entry. An item that opens a submenu is not a choice.
+    document.querySelectorAll('.menu-item').forEach(menu => {
+        menu.addEventListener('click', (e: Event) => {
+            const item = (e.target as HTMLElement).closest('.dropdown-item');
+            if (item && !item.classList.contains('has-submenu')) menu.classList.add('menu-closed');
+        });
+        menu.addEventListener('mouseleave', () => menu.classList.remove('menu-closed'));
+    });
+
     // --- Smart editing (Misc menu) -------------------------------------------
     // Off (the default): no provider of ours, so Monaco offers its own word
     // completion and nothing else. On: the rest of a sentence from the
@@ -4794,7 +4805,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                     });
                     const all: any[] = res ? (Array.isArray(res) ? res : res.items) : [];
                     const templates: SmartTemplate[] = all
-                        .filter(i => i.detail === 'User Template' || i.detail === 'System Template')
+                        .filter(i => i.detail === 'User Template' || i.detail === 'Included Template' || i.detail === 'System Template')
                         .map(i => ({ label: String(i.label), system: i.detail === 'System Template' }));
                     const sections = all.filter(i => i.kind === 14 && /:$/.test(String(i.label))).map(i => String(i.label));
                     const explicit = context && context.triggerKind === monaco.languages.CompletionTriggerKind.Invoke;

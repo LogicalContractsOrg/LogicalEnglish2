@@ -46,3 +46,34 @@ test('Smart editing is off by default, and offers the rest of a sentence when on
     await page.keyboard.press('Enter');
     await expect(page.locator('.monaco-editor .view-lines')).toContainText('carol is a parent of a child');
 });
+
+test('"the" in a rule body offers the program\'s templates', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('le-smart-editing', 'true'));
+    await page.goto('index.html?text=' + encodeURIComponent(PROG));
+    await page.waitForSelector('.monaco-editor');
+    // the end of the rule (line 6), then a new condition
+    await page.locator('.monaco-editor').first().click();
+    await page.keyboard.press('ControlOrMeta+Home');
+    for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('End');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.type(' and the', { delay: 30 });
+    await expect(suggestion(page, 'is happy')).toHaveCount(1);
+    await page.keyboard.press('Escape');
+});
+
+test('choosing Smart editing closes the Misc menu', async ({ page }) => {
+    await page.goto('index.html');
+    await page.waitForSelector('.monaco-editor');
+    const item = page.locator('#menu-smart-editing');
+    const menu = page.locator('.menu-item', { has: item });
+    await menu.hover();
+    await expect(item).toBeVisible();
+    await item.click();
+    await expect(item).toBeHidden();
+    await expect(page.locator('#smart-editing-check')).toHaveCSS('visibility', 'visible');
+    // it opens again at the next hover
+    await page.mouse.move(600, 500);
+    await menu.hover();
+    await expect(item).toBeVisible();
+});

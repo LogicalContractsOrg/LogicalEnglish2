@@ -174,6 +174,11 @@
         .menu-item:hover .dropdown {
             display: block;
         }
+        /* A menu closes once one of its items is chosen, and opens again at
+           the next hover (client.ts). */
+        .menu-item.menu-closed .dropdown {
+            display: none;
+        }
         .dropdown-item {
             padding: 8px 15px;
             cursor: pointer;
