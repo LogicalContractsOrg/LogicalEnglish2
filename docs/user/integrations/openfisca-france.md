@@ -135,8 +135,8 @@ l'administration fiscale et ceux du modèle (434 cas, mesure du 12 octobre
 | le revenu fiscal de référence (`rfr`) | 351 | 1 |
 | le revenu brut global (`rbg`) | 321 | 0 |
 | le revenu net imposable (`rni`) | 251 | 0 |
-| l'impôt avant crédits (`iai`) | 172 | 124 |
-| les réductions d'impôt | 90 | 53 |
+| l'impôt avant crédits (`iai`) | 293 | 3 |
+| les réductions d'impôt | 139 | 4 |
 
 ## Deux codages des aides au logement comparés
 
@@ -188,12 +188,12 @@ loyer plafond qu'OpenFisca-France.
 - **Le RSA lui-même.** Le montant de base du RSA lit un paramètre que le
   modèle n'a plus pour les années de ses tests. La plupart des cas du RSA
   attendent donc cette partie, qui n'est pas traduite.
-- **L'impôt lui-même.** Sur 1 948 réponses vérifiées, 1 755 sont
-  d'accord avec le moteur. Dans 170 des 193 autres, le jumeau ne répond
-  pas, le plus souvent pour l'impôt avant crédits et les réductions. La
-  réduction Duflot-Pinel-Denormandie est juste dans 105 réponses sur 119.
-  La contribution exceptionnelle sur les hauts revenus diffère encore dans
-  6 cas.
+- **L'impôt lui-même.** Sur 1 948 réponses vérifiées, 1 925 sont
+  d'accord avec le moteur, et le jumeau répond à toutes. La réduction
+  Duflot-Pinel-Denormandie est juste dans les 119 réponses. Restent
+  6 écarts d'un euro (un arrondi), la contribution exceptionnelle sur les
+  hauts revenus dans 9 réponses, et la réduction pour cotisations
+  syndicales, qui vaut un douzième de la bonne valeur dans 8 réponses.
 
 ## Voir aussi
 
