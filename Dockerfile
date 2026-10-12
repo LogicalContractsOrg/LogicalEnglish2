@@ -56,6 +56,14 @@ RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
       npm ci --omit=dev --no-audit --no-fund && \
       node -e "require('solc'); require.resolve('@openzeppelin/contracts/package.json')" ; \
     fi
+# The sheet engine (services/sheet): Formualizer, an Excel formula engine
+# compiled to WebAssembly, run by Node. It answers the sheet: services
+# address (language.md §17.6) and evaluates workbooks for the spreadsheet
+# importer; its npm packages are gitignored, so installed here, and the build
+# checks they load.
+COPY services/ ./services/
+RUN cd services/sheet && npm ci --omit=dev --no-audit --no-fund && \
+    node --no-warnings -e "import('./sheet_engine.mjs').then(m => m.init())"
 # i18n CSV dictionaries: read by le_i18n.pl at load time AND by the editor
 # build below (scripts/gen-i18n.cjs generates the TS tables from them)
 COPY i18n/ ./i18n/

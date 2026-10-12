@@ -52,6 +52,7 @@ flowchart LR
     BX["Blawx"]
     EP["Epilog"]
     L4["L4"]
+    XL["Excel workbooks"]
   end
 
   subgraph core["Logical English"]
@@ -84,6 +85,8 @@ flowchart LR
   EP -- "games" --> LPS
   L4 -- "rules" --> LE
   L4 -- "contracts" --> LPS
+  XL -- "formulas as rules" --> LE
+  LE -. "asks, as a service" .-> XL
   DR -- "decision services" --> LE
   DR -- "stateful rules" --> LPS
 
@@ -105,6 +108,7 @@ flowchart LR
   click EP "epilog" "Epilog and Logical English"
   click L4 "l4" "L4 and Logical English"
   click RS "rulespec" "Axiom RuleSpec and Logical English"
+  click XL "spreadsheets" "Spreadsheets and Logical English"
   click OF "openfisca" "OpenFisca, PolicyEngine and Logical English"
   click CA "catala" "Catala and Logical English"
   click RU "rune" "Rune and Logical English"
@@ -127,6 +131,7 @@ reads (PDDL, Inform 7):
 | System | Ways | Document |
 |---|---|---|
 | Axiom RuleSpec module (United States statutes, regulations and policies as YAML) | import, export | [Axiom RuleSpec](rulespec.md) |
+| Excel workbook (.xlsx, .xlsm): formulas, lookup tables, the workbook's own answers | import; asked as a service | [Spreadsheets](spreadsheets.md) |
 | OpenFisca or PolicyEngine model (Python variables, YAML parameters and tests) | import, export | [OpenFisca and PolicyEngine](openfisca.md) |
 | Catala program (English or French), with its test scopes | import, export | [Catala](catala.md) |
 | Rune file: ISDA's Digital Regulatory Reporting, the Common Domain Model, or a model of your own | import, export (run on DRR's engine) | [Rune](rune.md) |

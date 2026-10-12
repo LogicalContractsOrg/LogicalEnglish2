@@ -138,6 +138,11 @@ fi
 
 # --- le: Logical English example tests --------------------------------------
 if [ "$run_le" -eq 1 ]; then
+  # The programs that ask a spreadsheet (the sheet: services address) need the
+  # sheet engine's two npm packages: installed once, when Node is there.
+  if [ ! -d services/sheet/node_modules ] && command -v npm >/dev/null 2>&1; then
+    (cd services/sheet && npm ci --no-audit --no-fund >/dev/null 2>&1) || echo "services/sheet: npm ci failed; programs that ask a spreadsheet will answer with unknowns"
+  fi
   if [ "$le_suite" = "core" ]; then
     hr; echo "[le] Logical English example tests — CORE (this repository alone)"; hr
   else

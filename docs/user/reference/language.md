@@ -1343,7 +1343,7 @@ the templates are:
 ```
 - **Declaration**: write `the knowledge base <name> includes these services:`
   and then `<name> at <address> as a <kind>` for each service, separated by
-  commas and ending with a full stop. An address takes one of three forms. With
+  commas and ending with a full stop. A service's name is one word. An address takes one of four forms. With
   `http(s)://...` the system sends the question to that address as JSON, and
   the reply reads `{"answers": [[arg, ...], ...], "rationale": "..."}`. With
   `llm:<model>` the system asks a large language model through
@@ -1351,7 +1351,9 @@ the templates are:
   for example — giving it the template and the arguments already known. With
   `stub:matcher` or `stub:judge` the system asks a stand-in used for testing,
   which always answers the same way; the LE server offers these at
-  `/test_services/<name>`.
+  `/test_services/<name>`. With `sheet:<workbook>` (or
+  `sheet:<workbook>#<output>`) the system asks a spreadsheet beside the
+  program (*A spreadsheet as a service*, below).
 - **`; via service <name>`** (a template addition): that service answers the
   questions asked of the template. The **last** argument may be unknown, and
   the service fills it in. Every other argument must already have a value when
@@ -1385,6 +1387,31 @@ the templates are:
   is vehicle, according to service matcher, as stated in cache at <hash>.`). A
   program that carries those facts runs without the service and without the
   kept answers, which is what makes a run reproducible.
+- **A spreadsheet as a service.** A workbook (an Excel `.xlsx` or `.xlsm`
+  file) in the program's folder can answer a template without being
+  translated: the authority's own calculator, say. Beside the workbook, a
+  *manifest* says which cells are its inputs and which its outputs: a file
+  named like the workbook, ending in `.sheetport.yaml` (Formualizer's
+  SheetPort format; the spreadsheet importer drafts one). The template's
+  known arguments fill the manifest's input cells, in the order the manifest
+  lists them; the workbook is worked out with its clock fixed; and the value
+  of the output cell that the address names after `#` (or the only output)
+  is the answer:
+  ```le
+  the knowledge base vitamin d bmi includes these services:
+      bmi at sheet:sources/bmi/adult_bmi.xlsx#icd10_code as a calculator.
+
+  the templates are:
+      the ICD10 code of the BMI of *a number* kg and *a number* cm is *a code*; via service bmi.
+  ```
+  The explanation credits the workbook (`according to service bmi, because
+  "adult_bmi.xlsx computed icd10_code from weight_kg = 118, height_cm = 170"`).
+  The workbook must be inside the program's folder; a changed workbook is a
+  new version, so an answer kept from the old one is not reused. Asking a
+  spreadsheet needs Node and the sheet engine's packages on the server (`npm
+  ci` in `services/sheet`); where they are missing, and in the editions that
+  run in the browser, the question becomes an unknown. See
+  `examples/regulatory/medicare/vitamin_d_bmi.le`.
 - The verifier reports `service_undeclared` as an error where `; via service
   X` names a service X the program does not declare, and where a built-in
   semantic template is used with no semantic matcher declared.

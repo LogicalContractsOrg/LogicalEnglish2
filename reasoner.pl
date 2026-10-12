@@ -1709,12 +1709,10 @@ call_reasoner_built_in(le_assign(X, Y), _) :-
 call_reasoner_built_in(le_assign(X, Y0), _) :- !,
     le_snap_rounding(Y0, Y),
     ( number(Y) -> ( number(X) -> X =:= Y ; X = Y )      % (two numbers compared by value: 1.0 = 1)
-    ; catch(X is Y, _, (
-        (var(X) -> true ; true), % debug point
-        X = Y
-      ))
+    ; catch(X is Y, E, le_assign_fallback(E, X, Y))
     ).
-call_reasoner_built_in(le_is(X, Y0), _) :- !, le_snap_rounding(Y0, Y), ( number(Y) -> X is Y; catch(X is Y, _, X = Y)).
+call_reasoner_built_in(le_is(X, Y0), _) :- !, le_snap_rounding(Y0, Y), ( number(Y) -> X is Y; catch(X is Y, E, le_assign_fallback(E, X, Y))).
+
 
 call_reasoner_built_in(le_is_in(X, Y), _) :- !, is_list(Y), member(X, Y).
 %   A text whose first characters are another text: `the commune code starts
@@ -1733,6 +1731,13 @@ call_reasoner_built_in(le_minimum(X, Y, Z), _) :- !, le_minimum(X, Y, Z).
 call_reasoner_built_in(le_maximum(X, Y, Z), _) :- !, le_maximum(X, Y, Z).
 call_reasoner_built_in(equal_to(X, Y), _) :- !, equal_to(X, Y).
 call_reasoner_built_in(G, _) :- call(G).
+
+%   A formula that cannot be evaluated: a value that is not arithmetic (a
+%   name, a list, a term) is assigned as it stands; arithmetic that fails
+%   (a division by zero, an undefined result) gives no value, rather than the
+%   formula itself as an answer.
+le_assign_fallback(error(evaluation_error(_), _), _, _) :- !, fail.
+le_assign_fallback(_, X, Y) :- X = Y.
 
 %!  le_snap_rounding(+Expr, -Expr1) is det.
 %

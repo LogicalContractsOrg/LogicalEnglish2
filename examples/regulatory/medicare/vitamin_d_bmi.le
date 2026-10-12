@@ -1,0 +1,76 @@
+% A rule that asks a spreadsheet: the body mass index (BMI) of a beneficiary,
+% and its ICD-10-CM code, computed by a workbook declared as a service
+% (language.md §17.6, the sheet: address), feeding the Vitamin D Assay
+% Testing policy (vitamin_d.le).
+%
+% CGS's article A56798 lists, among the diagnoses that support a vitamin D
+% test, the adult BMI codes Z68.30 to Z68.45 (a BMI of 30 or more). The
+% record gives the beneficiary's weight and height; the workbook
+% sources/bmi/adult_bmi.xlsx computes the BMI (weight in kilograms divided by
+% the height in metres squared, rounded to one decimal, as the CDC defines
+% it) and looks its code up in its table of Z68 codes. The workbook is not
+% translated: the rule asks it, through the manifest beside it
+% (adult_bmi.sheetport.yaml), and the answer is credited to it in the
+% explanation. The workbook was made for this example from the CDC's
+% published formula; the CDC's own BMI workbooks could equally be declared,
+% with a manifest naming their cells.
+%
+% Running it needs Node and the sheet engine's packages (npm ci in
+% services/sheet). Without them the service answers nothing, and the
+% diagnosis stays unknown: the query answers on that condition.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied. It is not an
+% official reading of the Medicare texts it cites, not a coverage or payment
+% decision of CMS or of any Medicare contractor, and not medical, legal,
+% billing or insurance advice.
+
+the target language is: prolog.
+
+the knowledge base vitamin d bmi includes these resources:
+    vitamin_d.
+
+the knowledge base vitamin d bmi includes these services:
+    bmi at sheet:sources/bmi/adult_bmi.xlsx#icd10_code as a calculator.
+
+the templates are:
+    *a beneficiary* weighs *a number* kg; undefined.
+    the height of *a beneficiary* is *a number* cm; undefined.
+    the ICD10 code of the BMI of *a number* kg and *a number* cm is *a code*; via service bmi.
+
+the knowledge base vitamin d bmi includes:
+
+the diagnosis code of a beneficiary is a code
+    if the beneficiary weighs a number kg
+    and the height of the beneficiary is an other number cm
+    and the ICD10 code of the BMI of the number kg and the other number cm is the code.
+
+query rn is:
+    which claim is reasonable and necessary.
+
+query code is:
+    the diagnosis code of which beneficiary is which code.
+
+% 118 kg and 170 cm: a BMI of 40.8, code Z68.41, which CGS lists.
+scenario obesity_class_three is:
+    claim 1 is for the vitamin D assay.
+    the HCPCS code of the vitamin D assay is "82306".
+    the vitamin D assay is furnished to Ann.
+    the date of service of claim 1 is 2026-06-01.
+    the jurisdiction of claim 1 is cgs.
+    Ann weighs 118 kg.
+    the height of Ann is 170 cm.
+    code expects answers ["the diagnosis code of Ann is Z68.41"].
+    rn expects answers ["claim 1 is reasonable and necessary"].
+
+% 72 kg and 175 cm: a BMI of 23.5, code Z68.23, which no table lists.
+scenario healthy_weight is:
+    claim 1 is for the vitamin D assay.
+    the HCPCS code of the vitamin D assay is "82306".
+    the vitamin D assay is furnished to Ben.
+    the date of service of claim 1 is 2026-06-01.
+    the jurisdiction of claim 1 is cgs.
+    Ben weighs 72 kg.
+    the height of Ben is 175 cm.
+    code expects answers ["the diagnosis code of Ben is Z68.23"].
+    rn expects answers [].

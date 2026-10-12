@@ -31,6 +31,13 @@
                       JSON shape
       stub:<name>     the in-process test stubs below (also served over HTTP at
                       /test_services/<name> by the LE server)
+      sheet:<workbook>[#<port>]
+                      a spreadsheet beside the program, evaluated by
+                      services/sheet/sheet_service.mjs (Formualizer, under
+                      Node): the template's known arguments fill the input
+                      ports of the SheetPort manifest beside the workbook
+                      (<workbook>.sheetport.yaml), in order, and the answer
+                      is the output port named after `#` (or the only one)
 
     The three built-in semantic templates (`*a text* is semantically similar
     to *a second text*`, `the best match of *a text* among *a list* is *an
@@ -49,6 +56,7 @@
 ]).
 
 :- use_module(library(sha)).
+:- use_module(library(process)).
 :- if(exists_source(library(json))).
 :- use_module(library(json)).
 :- else.
@@ -117,7 +125,7 @@ service_source(Name, Source) :-
 %   and Ref = service(Name, Hash). When the service cannot be reached and
 %   nothing is cached, Goal is returned as an unknown (Us = [Goal], Ref =
 %   unknown).
-service_call(Goal, service(Name, Address, Kind), SM, KM, Us, Ref, Rationale) :-
+service_call(Goal, service(Name, Address0, Kind), SM, KM, Us, Ref, Rationale) :-
     Goal =.. [F|Args],
     append(Inputs, [_Last], Args),
     (   ground(Inputs) -> true
@@ -125,6 +133,7 @@ service_call(Goal, service(Name, Address, Kind), SM, KM, Us, Ref, Rationale) :-
                     context(le_services, 'a service is called with its inputs known')))
     ),
     template_text(KM, Goal, TemplateText),
+    resolve_address(KM, Address0, Address),
     canonical_request(Name, Address, Kind, F, TemplateText, Args, Request, Hash),
     (   session_cached(SM, Hash, Result) -> true
     ;   persistent_cached(Hash, Address, Result0) -> Result = Result0, remember(SM, Hash, Result)
@@ -199,7 +208,34 @@ canonical_value(A, S) :- ( atom(A) ; string(A) ), !,
 canonical_value(T, S) :- term_string(T, S).
 
 service_version(Address, Version) :-
-    (   atom_concat('llm:', Model, Address) -> Version = Model ; Version = Address ).
+    (   atom_concat('llm:', Model, Address) -> Version = Model
+    ;   sheet_address(Address, File, _), exists_file(File)
+    ->  %  the workbook as it is now: an answer kept from an older one is refused
+        time_file(File, T), size_file(File, Sz),
+        format(atom(Version), '~w@~w/~w', [Address, T, Sz])
+    ;   Version = Address
+    ).
+
+%   sheet:<path>[#<port>] relative to the program's folder, made absolute:
+%   the workbook must be inside that folder.
+resolve_address(KM, Address0, Address) :-
+    (   atom_concat('sheet:', Rest, Address0), \+ sub_atom(Rest, 0, 1, _, '/')
+    ->  ( sub_atom(Rest, B, 1, _, '#') -> sub_atom(Rest, 0, B, _, Rel), sub_atom(Rest, B, _, 0, Frag) ; Rel = Rest, Frag = '' ),
+        (   catch(KM:le_program_base(Base), _, fail), atom(Base),
+            absolute_file_name(Base, BaseAbs, [file_type(directory), file_errors(fail)]),
+            absolute_file_name(Rel, File, [relative_to(BaseAbs)]),
+            atom_concat(BaseAbs, '/', Prefix), sub_atom(File, 0, _, _, Prefix)
+        ->  atomic_list_concat(['sheet:', File, Frag], Address)
+        ;   Address = Address0
+        )
+    ;   Address = Address0
+    ).
+
+sheet_address(Address, File, Port) :-
+    atom_concat('sheet:', Rest, Address),
+    (   sub_atom(Rest, B, 1, A, '#') -> sub_atom(Rest, 0, B, _, File), sub_atom(Rest, _, A, 0, Port)
+    ;   File = Rest, Port = null
+    ).
 
 % The template's surface with its slots starred: what the service is asked.
 template_text(KM, Goal, Text) :-
@@ -269,6 +305,9 @@ backend(Address, Request, Reply) :-
     atom_concat('llm:', Model, Address), !,
     llm_backend(Model, Request, Reply).
 backend(Address, Request, Reply) :-
+    sheet_address(Address, File, Port), !,
+    sheet_backend(File, Port, Request, Reply).
+backend(Address, Request, Reply) :-
     ( sub_atom(Address, 0, _, _, 'http://') ; sub_atom(Address, 0, _, _, 'https://') ), !,
     le_kbs:le_network_allowed,
     setup_call_cleanup(
@@ -278,6 +317,26 @@ backend(Address, Request, Reply) :-
         close(In)).
 backend(Address, _, _) :-
     throw(error(le_service_error(unknown_address(Address)), _)).
+
+%   The workbook evaluated by services/sheet/sheet_service.mjs under Node,
+%   given the request's known arguments in order (all but the last).
+sheet_backend(File, Port, Request, Reply) :-
+    (   is_absolute_file_name(File), exists_file(File) -> true
+    ;   throw(error(le_service_error(no_workbook(File)), _))
+    ),
+    sheet_service_script(Script),
+    get_dict(args, Request, Args), append(Inputs, [_], Args),
+    Req = _{workbook: File, port: Port, inputs: Inputs},
+    setup_call_cleanup(
+        process_create(path(node), ['--no-warnings', Script], [stdin(pipe(In)), stdout(pipe(Out)), stderr(null), process(P)]),
+        ( set_stream(In, encoding(utf8)), json_write_dict(In, Req, [width(0)]), close(In),
+          set_stream(Out, encoding(utf8)), json_read_dict(Out, Reply0) ),
+        ( close(Out, [force(true)]), process_wait(P, _) )),
+    (   get_dict(error, Reply0, E) -> Reply = error(E) ; Reply = Reply0 ).
+
+sheet_service_script(Script) :-
+    module_property(le_services, file(F)), file_directory_name(F, D),
+    atomic_list_concat([D, '/services/sheet/sheet_service.mjs'], Script).
 
 reply_answers(Reply, Request, answers(Tuples, Rationale)) :-
     is_dict(Reply),
