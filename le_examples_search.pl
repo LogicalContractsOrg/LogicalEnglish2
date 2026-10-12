@@ -42,6 +42,7 @@
 :- use_module(library(apply)).
 :- use_module(library(pairs)).
 :- use_module(library(ordsets)).
+:- use_module(library(aggregate)).
 :- use_module(library(readutil)).
 :- use_module(le_docs_search, [words/2, parse_query/3]).
 :- use_module(restricted_paths).
@@ -61,19 +62,21 @@ examples_search(Query, Options, Hits) :-
     (   Terms == [], Phrases == []
     ->  Hits = []
     ;   index(index(N, DF, Entries)),
-        maplist(term_weight(N, DF), Terms, Weights),
-        pairs_keys_values(TW, Terms, Weights),
+        maplist(term_info(N, DF), Terms, TI),
+        findall(T-W, member(t(T, W, _), TI), TW),
         scope_fields(Scope, Fields),
-        findall(Score-Hit,
+        findall(k(Score, Short)-Hit,
                 ( member(E, Entries),
                   E = ex(_, File, _, _, _, _, _),
                   is_path_allowed(File, Roles),
-                  entry_hit(E, Fields, TW, Phrases, Score, Hit) ),
+                  entry_hit(E, Fields, TI, Phrases, Score, Hit),
+                  %  on a tie, the shorter name first: the one nearest the words typed
+                  E = ex(EName, _, _, _, _, _, _), atom_length(EName, NL), Short is -NL ),
                 Scored0),
         keysort(Scored0, Scored1), reverse(Scored1, Scored),
         take(Limit, Scored, Taken),
         findall(_{name: Name, title: Title, field: Field, snippet: Snippet, score: S},
-                ( member(S-hit(Name, File, Title, Field, TLines), Taken),
+                ( member(k(S, _)-hit(Name, File, Title, Field, TLines), Taken),
                   snippet(Field, TW, Phrases, Title, TLines, File, Snippet) ),
                 Hits)
     ).
@@ -87,9 +90,24 @@ take(N, [X|Xs], [X|Ys]) :- N1 is N - 1, take(N1, Xs, Ys).
 
 %   A word's weight: rare among the examples counts for more, as in the
 %   documentation's search.
-term_weight(N, DF, Term, W) :-
-    ( memberchk(Term-D, DF) -> true ; D = 0 ),
+term_info(N, DF, Term, t(Term, W, Prefixed)) :-
+    prefixed_words(DF, Term, Prefixed),
+    (   memberchk(Term-D0, DF) -> D = D0
+    ;   Prefixed \== []
+    ->  aggregate_all(max(C), ( member(X, Prefixed), memberchk(X-C, DF) ), D)
+    ;   D = 0
+    ),
     W is log(1 + N / (D + 1)).
+
+%   A word of the query may be the start of a word, as it is while the
+%   word is being typed ("citiz" for "citizenship"): the words of the
+%   examples it begins, from three letters on. A whole word still scores
+%   more than a word it begins (term_scores/7).
+prefixed_words(DF, Term, Prefixed) :-
+    (   atom_length(Term, L), L >= 3
+    ->  findall(X, ( member(X-_, DF), X \== Term, sub_atom(X, 0, _, _, Term) ), Prefixed)
+    ;   Prefixed = []
+    ).
 
 %   The fields a scope searches, each with its boost.
 scope_fields(name,      [name-3]).
@@ -111,8 +129,11 @@ entry_hit(ex(Name, File, Title, FW, TW, XW, TLines), Fields, Terms, Phrases, Sco
     best_field(BestFields, Field).
 
 term_scores([], _, _, _, _, [], []).
-term_scores([T-W|Ts], Fields, FW, TW, XW, Scores, Bests) :-
-    findall(B-F, ( member(F-B, Fields), field_set(F, FW, TW, XW, Set), ord_memberchk(T, Set) ), BFs),
+term_scores([t(T, W, Prefixed)|Ts], Fields, FW, TW, XW, Scores, Bests) :-
+    findall(B-F, ( member(F-B0, Fields), field_set(F, FW, TW, XW, Set),
+                   (   ord_memberchk(T, Set) -> B = B0
+                   ;   ord_intersect(Prefixed, Set) -> B is B0 / 2
+                   ) ), BFs),
     (   BFs == []
     ->  Scores = Scores1, Bests = Bests1          % the term is missing: no hit (checked by length)
     ;   max_member(B-F, BFs),
@@ -161,12 +182,15 @@ first_line_with(Terms, Phrases, Lines, Snippet) :-
     append(Ws0, Ws1, Ws),
     (   member(Line, Lines),
         words(Line, LW),
-        member(W, Ws), memberchk(W, LW)
+        member(W, Ws), line_has(W, LW)
     ->  normalize_space(string(S0), Line),
         ( string_length(S0, L), L > 160 -> sub_string(S0, 0, 157, _, S1), string_concat(S1, "…", Snippet)
         ; Snippet = S0 )
     ;   Snippet = ""
     ).
+
+line_has(W, LW) :- memberchk(W, LW), !.
+line_has(W, LW) :- atom_length(W, L), L >= 3, member(X, LW), sub_atom(X, 0, _, _, W), !.
 
 file_text(File, Text) :-
     catch(read_file_to_string(File, Text, [encoding(utf8)]), _, Text = "").

@@ -1,11 +1,13 @@
 // src/key-event-guard.ts
 function installKeyEventGuard() {
   const w = window;
-  if (w.__leKeyEventGuard) return;
+  if (w.__leKeyEventGuard)
+    return;
   w.__leKeyEventGuard = true;
   for (const type of ["keydown", "keyup", "keypress"]) {
     window.addEventListener(type, (e) => {
-      if (!(e instanceof KeyboardEvent)) e.stopImmediatePropagation();
+      if (!(e instanceof KeyboardEvent))
+        e.stopImmediatePropagation();
     }, true);
   }
 }
@@ -5224,6 +5226,10 @@ var keywords = {
         "la",
         "taxonomie",
         "est"
+      ],
+      [
+        "l'ontologie",
+        "est"
       ]
     ],
     "predicates": [
@@ -5325,6 +5331,13 @@ var keywords = {
         "au",
         "contrat",
         "sont"
+      ],
+      [
+        "les",
+        "annexes",
+        "du",
+        "contrat",
+        "sont"
       ]
     ],
     "guard": [
@@ -5380,6 +5393,10 @@ var keywords = {
         "sont"
       ],
       [
+        "l'ontologie",
+        "est"
+      ],
+      [
         "la",
         "langue",
         "cible"
@@ -5431,10 +5448,19 @@ var keywords = {
     ],
     "answers": [
       [
+        "les",
+        "r\xE9ponses"
+      ],
+      [
         "r\xE9ponses"
       ]
     ],
     "and_unknowns": [
+      [
+        "et",
+        "les",
+        "inconnues"
+      ],
       [
         "et",
         "inconnues"
@@ -5445,6 +5471,14 @@ var keywords = {
       ]
     ],
     "and_any_unknowns": [
+      [
+        "et",
+        "quelles",
+        "que",
+        "soient",
+        "les",
+        "inconnues"
+      ],
       [
         "et",
         "toutes",
@@ -5478,22 +5512,11 @@ var keywords = {
     ],
     "unless": [
       [
-        "\xE0",
-        "moins",
-        "que"
-      ],
-      [
         "sauf",
         "si"
       ]
     ],
     "and_unless": [
-      [
-        "et",
-        "\xE0",
-        "moins",
-        "que"
-      ],
       [
         "et",
         "sauf",
@@ -5514,6 +5537,12 @@ var keywords = {
       [
         "une",
         "des",
+        "conditions",
+        "suivantes"
+      ],
+      [
+        "une",
+        "des",
         "suivantes"
       ],
       [
@@ -5523,6 +5552,13 @@ var keywords = {
       ]
     ],
     "any_of": [
+      [
+        "l'une",
+        "quelconque",
+        "des",
+        "conditions",
+        "suivantes"
+      ],
       [
         "une",
         "quelconque",
@@ -5540,6 +5576,12 @@ var keywords = {
       [
         "toutes",
         "les",
+        "conditions",
+        "suivantes"
+      ],
+      [
+        "toutes",
+        "les",
         "suivantes"
       ],
       [
@@ -5549,6 +5591,14 @@ var keywords = {
       ]
     ],
     "at_least_one_of": [
+      [
+        "au",
+        "moins",
+        "une",
+        "des",
+        "conditions",
+        "suivantes"
+      ],
       [
         "au",
         "moins",
@@ -5588,6 +5638,13 @@ var keywords = {
     "not_the_case": [
       [
         "il",
+        "n'est",
+        "pas",
+        "vrai",
+        "que"
+      ],
+      [
+        "il",
         "est",
         "exclu",
         "que"
@@ -5606,14 +5663,20 @@ var keywords = {
         "les",
         "cas",
         "o\xF9"
+      ],
+      [
+        "dans",
+        "tous",
+        "les",
+        "cas",
+        "o\xF9"
       ]
     ],
     "it_the_case": [
       [
         "il",
         "est",
-        "le",
-        "cas",
+        "av\xE9r\xE9",
         "que"
       ]
     ],
@@ -5696,10 +5759,16 @@ var keywords = {
         "suppos\xE9e"
       ],
       [
+        "pr\xE9sum\xE9e"
+      ],
+      [
         "inconnu"
       ],
       [
         "suppos\xE9"
+      ],
+      [
+        "pr\xE9sum\xE9"
       ]
     ],
     "undefined": [
@@ -5879,6 +5948,9 @@ var keywords = {
         "second"
       ],
       [
+        "nouvel"
+      ],
+      [
         "actuel"
       ],
       [
@@ -6026,10 +6098,10 @@ var keywords = {
     ],
     "count": [
       [
-        "compte"
+        "nombre"
       ],
       [
-        "nombre"
+        "compte"
       ]
     ],
     "average": [
@@ -6076,6 +6148,10 @@ var keywords = {
     ],
     "such_that": [
       [
+        "telles",
+        "que"
+      ],
+      [
         "telle",
         "que"
       ],
@@ -6089,6 +6165,11 @@ var keywords = {
       ]
     ],
     "assuming": [
+      [
+        "en",
+        "supposant",
+        "que"
+      ],
       [
         "en",
         "supposant"
@@ -6124,6 +6205,12 @@ var keywords = {
         "\xE9taient"
       ],
       [
+        "depuis"
+      ],
+      [
+        "envers"
+      ],
+      [
         "entre"
       ],
       [
@@ -6131,6 +6218,15 @@ var keywords = {
       ],
       [
         "comme"
+      ],
+      [
+        "apr\xE8s"
+      ],
+      [
+        "avant"
+      ],
+      [
+        "selon"
       ],
       [
         "dans"
@@ -6146,6 +6242,15 @@ var keywords = {
       ],
       [
         "sous"
+      ],
+      [
+        "chez"
+      ],
+      [
+        "sans"
+      ],
+      [
+        "vers"
       ],
       [
         "une"
@@ -6197,6 +6302,9 @@ var keywords = {
       ],
       [
         "ou"
+      ],
+      [
+        "\xE0"
       ]
     ],
     "image": [
@@ -6359,6 +6467,12 @@ var keywords = {
         "\xE9valuatif"
       ],
       [
+        "appr\xE9ci\xE9e"
+      ],
+      [
+        "appr\xE9ci\xE9"
+      ],
+      [
         "jug\xE9e"
       ],
       [
@@ -6366,9 +6480,6 @@ var keywords = {
       ]
     ],
     "according_to": [
-      [
-        "suivant"
-      ],
       [
         "selon"
       ]
@@ -6382,13 +6493,15 @@ var keywords = {
     ],
     "at_locator": [
       [
-        "au"
-      ],
-      [
         "\xE0"
       ]
     ],
     "because": [
+      [
+        "au",
+        "motif",
+        "que"
+      ],
       [
         "parce",
         "que"
@@ -6398,6 +6511,11 @@ var keywords = {
       ]
     ],
     "with_provenance": [
+      [
+        "avec",
+        "pour",
+        "source"
+      ],
       [
         "avec",
         "provenance"
@@ -6481,6 +6599,9 @@ var keywords = {
     ],
     "section_remedy": [
       [
+        "cons\xE9quences"
+      ],
+      [
         "r\xE9paration"
       ],
       [
@@ -6555,6 +6676,10 @@ var keywords = {
       ]
     ],
     "changes": [
+      [
+        "les",
+        "changements"
+      ],
       [
         "changements"
       ]
@@ -6705,6 +6830,12 @@ var keywords = {
       [
         "le",
         "r\xE9sultat",
+        "indique",
+        "si"
+      ],
+      [
+        "le",
+        "r\xE9sultat",
         "est",
         "si"
       ]
@@ -6806,6 +6937,11 @@ var keywords = {
         "sont",
         "list\xE9es",
         "comme"
+      ],
+      [
+        "sont",
+        "list\xE9s",
+        "comme"
       ]
     ],
     "view_flagged": [
@@ -6891,6 +7027,11 @@ var keywords = {
       [
         "le",
         "brouillon",
+        "dit"
+      ],
+      [
+        "le",
+        "projet",
         "dit"
       ]
     ],
@@ -8790,7 +8931,8 @@ function phraseRe(words2) {
 function alt(table, keys) {
   const phrases = [];
   for (const key of keys) {
-    for (const syn of table[key] ?? []) phrases.push(syn);
+    for (const syn of table[key] ?? [])
+      phrases.push(syn);
   }
   phrases.sort((a, b) => b.join(" ").length - a.join(" ").length);
   return phrases.map(phraseRe).join("|");
@@ -8799,7 +8941,8 @@ function words(table, keys) {
   const ws = /* @__PURE__ */ new Set();
   for (const key of keys) {
     for (const syn of table[key] ?? []) {
-      if (syn.length === 1) ws.add(syn[0]);
+      if (syn.length === 1)
+        ws.add(syn[0]);
     }
   }
   return [...ws].sort((a, b) => b.length - a.length).map(esc).join("|");
@@ -9080,7 +9223,8 @@ async function post(base, body) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body)
   });
-  if (!r.ok) throw new Error(`${base}: HTTP ${r.status}`);
+  if (!r.ok)
+    throw new Error(`${base}: HTTP ${r.status}`);
   return await r.json();
 }
 var leApi = (body) => post(LE_BASE, { ...body, token: LE_TOKEN });
@@ -9181,7 +9325,8 @@ var setStatus = (t) => {
 };
 function clearMarkers() {
   const model = state.editor?.getModel();
-  if (model) monaco.editor.setModelMarkers(model, "lps", []);
+  if (model)
+    monaco.editor.setModelMarkers(model, "lps", []);
   $("diags").replaceChildren();
 }
 function showIssues(issues) {
@@ -9218,29 +9363,36 @@ function addMarkers(items) {
     const div = document.createElement("div");
     div.className = "diag " + i.severity;
     div.textContent = `${i.origin} ${i.severity}${i.line ? ` (line ${i.line})` : ""}: ${i.message}`;
-    if (i.line > 0) div.addEventListener("click", () => {
-      state.editor.revealLineInCenter(i.line);
-      state.editor.setPosition({ lineNumber: i.line, column: i.col + 1 });
-      state.editor.focus();
-    });
+    if (i.line > 0)
+      div.addEventListener("click", () => {
+        state.editor.revealLineInCenter(i.line);
+        state.editor.setPosition({ lineNumber: i.line, column: i.col + 1 });
+        state.editor.focus();
+      });
     $("diags").appendChild(div);
   }
 }
 var el = (tag, attrs = {}, kids = []) => {
   const e = document.createElement(tag);
   for (const k in attrs) {
-    if (k === "text") e.textContent = attrs[k];
-    else if (k === "class") e.className = attrs[k];
-    else e.setAttribute(k, attrs[k]);
+    if (k === "text")
+      e.textContent = attrs[k];
+    else if (k === "class")
+      e.className = attrs[k];
+    else
+      e.setAttribute(k, attrs[k]);
   }
-  for (const kid of kids) e.append(kid);
+  for (const kid of kids)
+    e.append(kid);
   return e;
 };
 var svgNs = "http://www.w3.org/2000/svg";
 var ns = (tag, attrs = {}, text) => {
   const e = document.createElementNS(svgNs, tag);
-  for (const k in attrs) e.setAttribute(k, String(attrs[k]));
-  if (text !== void 0) e.textContent = text;
+  for (const k in attrs)
+    e.setAttribute(k, String(attrs[k]));
+  if (text !== void 0)
+    e.textContent = text;
   return e;
 };
 async function renderTimeline() {
@@ -9286,12 +9438,13 @@ async function renderChanges() {
     el("th", { text: "causal law" })
   ]));
   const rows = (mark, list) => {
-    for (const c of list) tbl.appendChild(el("tr", {}, [
-      el("td", { text: mark }),
-      el("td", { class: "mono", text: c.fluent }),
-      el("td", { class: "mono", text: c.action }),
-      el("td", { class: "mono", text: c.source })
-    ]));
+    for (const c of list)
+      tbl.appendChild(el("tr", {}, [
+        el("td", { text: mark }),
+        el("td", { class: "mono", text: c.fluent }),
+        el("td", { class: "mono", text: c.action }),
+        el("td", { class: "mono", text: c.source })
+      ]));
   };
   rows("+", r.initiated);
   rows("\u2212", r.terminated);
@@ -9318,22 +9471,26 @@ async function renderAutomaton() {
   for (let pass = 0; pass < r.states.length; pass++) {
     let moved = false;
     for (const e of r.transitions) {
-      if (e.from === e.to) continue;
+      if (e.from === e.to)
+        continue;
       const d = depth.get(e.from) + 1;
       if (d > depth.get(e.to)) {
         depth.set(e.to, d);
         moved = true;
       }
     }
-    if (!moved) break;
+    if (!moved)
+      break;
   }
   const W = 240, pos = /* @__PURE__ */ new Map();
   let y = 20;
   const byDepth = [];
-  for (const s of r.states) (byDepth[depth.get(s.id)] ||= []).push(s);
+  for (const s of r.states)
+    (byDepth[depth.get(s.id)] ||= []).push(s);
   let cols = 1;
   byDepth.forEach((row) => {
-    if (!row) return;
+    if (!row)
+      return;
     cols = Math.max(cols, row.length);
     let h = 0;
     row.forEach((s, i) => {
@@ -9355,7 +9512,8 @@ async function renderAutomaton() {
   let lane = 0;
   for (const e of r.transitions) {
     const a = pos.get(e.from), b = pos.get(e.to);
-    if (!a || !b) continue;
+    if (!a || !b)
+      continue;
     const colour = e.kind === "event" ? "#E19735" : "forestgreen";
     const mark = e.kind === "event" ? "a-ev" : "a-ac";
     let d, lx, ly;
@@ -9461,7 +9619,8 @@ function boot() {
   $("run").addEventListener("click", compileAndRun);
   $("cycle").addEventListener("input", () => {
     $("cyclab").textContent = `cycle ${$("cycle").value}`;
-    if (activePane() === "changes") renderChanges();
+    if (activePane() === "changes")
+      renderChanges();
   });
   $("absnum").addEventListener("change", renderAutomaton);
   $("nonrefl").addEventListener("change", renderAutomaton);
@@ -9480,7 +9639,8 @@ function boot() {
         state.editor.getModel().setValue(String(h.le ?? ""));
         state.source = String(h.source ?? "");
         state.base = String(h.base ?? "");
-        if (h.name) document.title = `${h.name} \u2014 Logical English \u2192 LPS`;
+        if (h.name)
+          document.title = `${h.name} \u2014 Logical English \u2192 LPS`;
         compileAndRun();
       }
     } catch {

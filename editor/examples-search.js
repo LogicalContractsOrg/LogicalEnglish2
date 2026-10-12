@@ -54,7 +54,7 @@
         ".exs-bar input { flex: 1 1 auto; min-width: 0; font: inherit; padding: 6px 8px; box-sizing: border-box; }",
         ".exs-bar select { font: inherit; padding: 5px 6px; }",
         ".exs-list { flex: 1 1 auto; min-height: 120px; max-height: 50vh; overflow-y: auto; border: 1px solid rgba(127,127,127,.3); border-radius: 4px; padding: 4px 0; }",
-        ".exs-list[hidden], .exs-foot[hidden] { display: none; }",
+        ".exs-list[hidden], .exs-foot[hidden], .exs-foot button[hidden] { display: none; }",
         ".exs.exs-results-only .exs-list { min-height: 0; }",
         ".exs-row { display: flex; flex-direction: column; gap: 2px; padding: 5px 10px; cursor: pointer; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.35; }",
         ".exs-row:hover { background: rgba(127,127,127,.15); }",
@@ -66,6 +66,8 @@
         ".exs-folder.open::before { content: '\\25BE'; }",
         ".exs-folder .exs-blurb { font-weight: 400; font-size: 12px; opacity: .75; }",
         ".exs-empty { padding: 20px; text-align: center; opacity: .6; }",
+        ".exs-list.exs-list-empty { min-height: 0; border: none; padding: 0; }",
+        ".exs-list.exs-list-empty .exs-empty { padding: 2px 4px; text-align: left; }",
         ".exs-preview { margin: 0; max-height: 32vh; overflow: auto; font-size: 12px; line-height: 1.4; padding: 8px 10px; border: 1px solid rgba(127,127,127,.3); border-radius: 4px; white-space: pre; }",
         ".exs-preview:empty { display: none; }",
         ".exs-foot { display: flex; gap: 10px; align-items: center; justify-content: flex-end; }",
@@ -234,6 +236,11 @@
                 }
             }
             list.replaceChildren.apply(list, out);
+            /*  Nothing to choose from: one line of text, not an empty box
+                with a button that cannot be pressed. */
+            list.classList.toggle("exs-list-empty", rows.length === 0);
+            openBtn.hidden = rows.length === 0;
+            if (rows.length === 0) preview.textContent = "";
             if (rows.length > 0 && (q || hits)) select_(0);
         }
 

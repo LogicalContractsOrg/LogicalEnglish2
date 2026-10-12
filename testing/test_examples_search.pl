@@ -20,6 +20,20 @@ test(by_name) :-
     assertion(memberchk('domains/other/flying_dragon', Names)),
     assertion(memberchk(happy_dragon, Names)).
 
+%   A word being typed is the start of a word: "citiz" finds the citizenship
+%   programs, the one named exactly so first on a tie, and the line shown
+%   has the word. Two letters are not enough to match a start.
+test(word_being_typed) :-
+    examples_search("citiz", [], Hits),
+    names(Hits, Names),
+    assertion(Names = [citizenship|_]),
+    assertion(memberchk('migration/l4/british_citizen_act/british_citizen_act', Names)),
+    examples_search("citizenship", [], Whole),
+    Whole = [W|_], Hits = [P|_],
+    assertion(W.score > P.score),
+    examples_search("ci", [], None),
+    assertion(None == []).
+
 %   A template search finds the programs that declare the template, with the
 %   template's own line as the snippet, and not the ones that merely mention
 %   the words in a comment.

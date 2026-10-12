@@ -263,6 +263,13 @@ var keywords = {
         "unknowns"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "and",
+        "any",
+        "unknowns"
+      ]
+    ],
     "rule": [
       [
         "rule"
@@ -713,6 +720,11 @@ var keywords = {
       ],
       [
         "max"
+      ]
+    ],
+    "list": [
+      [
+        "list"
       ]
     ],
     "is_the": [
@@ -1785,6 +1797,13 @@ var keywords = {
         "desconhecidos"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "e",
+        "quaisquer",
+        "desconhecidos"
+      ]
+    ],
     "rule": [
       [
         "regra"
@@ -2422,6 +2441,11 @@ var keywords = {
       ],
       [
         "m\xE1x"
+      ]
+    ],
+    "list": [
+      [
+        "lista"
       ]
     ],
     "is_the": [
@@ -3623,6 +3647,13 @@ var keywords = {
         "desconocidos"
       ]
     ],
+    "and_any_unknowns": [
+      [
+        "y",
+        "cualesquiera",
+        "desconocidos"
+      ]
+    ],
     "rule": [
       [
         "regla"
@@ -4268,6 +4299,11 @@ var keywords = {
       ],
       [
         "m\xE1x"
+      ]
+    ],
+    "list": [
+      [
+        "lista"
       ]
     ],
     "is_the": [
@@ -5176,6 +5212,10 @@ var keywords = {
         "la",
         "taxonomie",
         "est"
+      ],
+      [
+        "l'ontologie",
+        "est"
       ]
     ],
     "predicates": [
@@ -5277,6 +5317,13 @@ var keywords = {
         "au",
         "contrat",
         "sont"
+      ],
+      [
+        "les",
+        "annexes",
+        "du",
+        "contrat",
+        "sont"
       ]
     ],
     "guard": [
@@ -5332,6 +5379,10 @@ var keywords = {
         "sont"
       ],
       [
+        "l'ontologie",
+        "est"
+      ],
+      [
         "la",
         "langue",
         "cible"
@@ -5383,16 +5434,45 @@ var keywords = {
     ],
     "answers": [
       [
+        "les",
+        "r\xE9ponses"
+      ],
+      [
         "r\xE9ponses"
       ]
     ],
     "and_unknowns": [
       [
         "et",
+        "les",
         "inconnues"
       ],
       [
         "et",
+        "inconnues"
+      ],
+      [
+        "et",
+        "inconnus"
+      ]
+    ],
+    "and_any_unknowns": [
+      [
+        "et",
+        "quelles",
+        "que",
+        "soient",
+        "les",
+        "inconnues"
+      ],
+      [
+        "et",
+        "toutes",
+        "inconnues"
+      ],
+      [
+        "et",
+        "tous",
         "inconnus"
       ]
     ],
@@ -5418,22 +5498,11 @@ var keywords = {
     ],
     "unless": [
       [
-        "\xE0",
-        "moins",
-        "que"
-      ],
-      [
         "sauf",
         "si"
       ]
     ],
     "and_unless": [
-      [
-        "et",
-        "\xE0",
-        "moins",
-        "que"
-      ],
       [
         "et",
         "sauf",
@@ -5454,6 +5523,12 @@ var keywords = {
       [
         "une",
         "des",
+        "conditions",
+        "suivantes"
+      ],
+      [
+        "une",
+        "des",
         "suivantes"
       ],
       [
@@ -5463,6 +5538,13 @@ var keywords = {
       ]
     ],
     "any_of": [
+      [
+        "l'une",
+        "quelconque",
+        "des",
+        "conditions",
+        "suivantes"
+      ],
       [
         "une",
         "quelconque",
@@ -5480,6 +5562,12 @@ var keywords = {
       [
         "toutes",
         "les",
+        "conditions",
+        "suivantes"
+      ],
+      [
+        "toutes",
+        "les",
         "suivantes"
       ],
       [
@@ -5489,6 +5577,14 @@ var keywords = {
       ]
     ],
     "at_least_one_of": [
+      [
+        "au",
+        "moins",
+        "une",
+        "des",
+        "conditions",
+        "suivantes"
+      ],
       [
         "au",
         "moins",
@@ -5528,6 +5624,13 @@ var keywords = {
     "not_the_case": [
       [
         "il",
+        "n'est",
+        "pas",
+        "vrai",
+        "que"
+      ],
+      [
+        "il",
         "est",
         "exclu",
         "que"
@@ -5546,14 +5649,20 @@ var keywords = {
         "les",
         "cas",
         "o\xF9"
+      ],
+      [
+        "dans",
+        "tous",
+        "les",
+        "cas",
+        "o\xF9"
       ]
     ],
     "it_the_case": [
       [
         "il",
         "est",
-        "le",
-        "cas",
+        "av\xE9r\xE9",
         "que"
       ]
     ],
@@ -5636,10 +5745,16 @@ var keywords = {
         "suppos\xE9e"
       ],
       [
+        "pr\xE9sum\xE9e"
+      ],
+      [
         "inconnu"
       ],
       [
         "suppos\xE9"
+      ],
+      [
+        "pr\xE9sum\xE9"
       ]
     ],
     "undefined": [
@@ -5819,6 +5934,9 @@ var keywords = {
         "second"
       ],
       [
+        "nouvel"
+      ],
+      [
         "actuel"
       ],
       [
@@ -5966,10 +6084,10 @@ var keywords = {
     ],
     "count": [
       [
-        "compte"
+        "nombre"
       ],
       [
-        "nombre"
+        "compte"
       ]
     ],
     "average": [
@@ -5993,6 +6111,11 @@ var keywords = {
         "max"
       ]
     ],
+    "list": [
+      [
+        "liste"
+      ]
+    ],
     "is_the": [
       [
         "est",
@@ -6011,6 +6134,10 @@ var keywords = {
     ],
     "such_that": [
       [
+        "telles",
+        "que"
+      ],
+      [
         "telle",
         "que"
       ],
@@ -6024,6 +6151,11 @@ var keywords = {
       ]
     ],
     "assuming": [
+      [
+        "en",
+        "supposant",
+        "que"
+      ],
       [
         "en",
         "supposant"
@@ -6059,6 +6191,12 @@ var keywords = {
         "\xE9taient"
       ],
       [
+        "depuis"
+      ],
+      [
+        "envers"
+      ],
+      [
         "entre"
       ],
       [
@@ -6066,6 +6204,15 @@ var keywords = {
       ],
       [
         "comme"
+      ],
+      [
+        "apr\xE8s"
+      ],
+      [
+        "avant"
+      ],
+      [
+        "selon"
       ],
       [
         "dans"
@@ -6081,6 +6228,15 @@ var keywords = {
       ],
       [
         "sous"
+      ],
+      [
+        "chez"
+      ],
+      [
+        "sans"
+      ],
+      [
+        "vers"
       ],
       [
         "une"
@@ -6132,6 +6288,9 @@ var keywords = {
       ],
       [
         "ou"
+      ],
+      [
+        "\xE0"
       ]
     ],
     "image": [
@@ -6294,6 +6453,12 @@ var keywords = {
         "\xE9valuatif"
       ],
       [
+        "appr\xE9ci\xE9e"
+      ],
+      [
+        "appr\xE9ci\xE9"
+      ],
+      [
         "jug\xE9e"
       ],
       [
@@ -6301,9 +6466,6 @@ var keywords = {
       ]
     ],
     "according_to": [
-      [
-        "suivant"
-      ],
       [
         "selon"
       ]
@@ -6317,13 +6479,15 @@ var keywords = {
     ],
     "at_locator": [
       [
-        "au"
-      ],
-      [
         "\xE0"
       ]
     ],
     "because": [
+      [
+        "au",
+        "motif",
+        "que"
+      ],
       [
         "parce",
         "que"
@@ -6333,6 +6497,11 @@ var keywords = {
       ]
     ],
     "with_provenance": [
+      [
+        "avec",
+        "pour",
+        "source"
+      ],
       [
         "avec",
         "provenance"
@@ -6416,6 +6585,9 @@ var keywords = {
     ],
     "section_remedy": [
       [
+        "cons\xE9quences"
+      ],
+      [
         "r\xE9paration"
       ],
       [
@@ -6490,6 +6662,10 @@ var keywords = {
       ]
     ],
     "changes": [
+      [
+        "les",
+        "changements"
+      ],
       [
         "changements"
       ]
@@ -6640,6 +6816,12 @@ var keywords = {
       [
         "le",
         "r\xE9sultat",
+        "indique",
+        "si"
+      ],
+      [
+        "le",
+        "r\xE9sultat",
         "est",
         "si"
       ]
@@ -6741,6 +6923,11 @@ var keywords = {
         "sont",
         "list\xE9es",
         "comme"
+      ],
+      [
+        "sont",
+        "list\xE9s",
+        "comme"
       ]
     ],
     "view_flagged": [
@@ -6826,6 +7013,11 @@ var keywords = {
       [
         "le",
         "brouillon",
+        "dit"
+      ],
+      [
+        "le",
+        "projet",
         "dit"
       ]
     ],
@@ -7117,6 +7309,18 @@ var keywords = {
       [
         "e",
         "sconosciute"
+      ]
+    ],
+    "and_any_unknowns": [
+      [
+        "e",
+        "qualsiasi",
+        "sconosciuto"
+      ],
+      [
+        "e",
+        "qualunque",
+        "sconosciuto"
       ]
     ],
     "rule": [
@@ -7775,6 +7979,11 @@ var keywords = {
       ],
       [
         "max"
+      ]
+    ],
+    "list": [
+      [
+        "lista"
       ]
     ],
     "is_the": [
@@ -9264,7 +9473,43 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copiar o endere\xE7o web desta pasta",
     "(guide)": "(guia)",
     "Logical English in other languages": "Logical English noutras l\xEDnguas",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escrever programas em portugu\xEAs, espanhol, franc\xEAs ou italiano, e escolher o idioma dos menus."
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escrever programas em portugu\xEAs, espanhol, franc\xEAs ou italiano, e escolher o idioma dos menus.",
+    "About this folder": "Sobre esta pasta",
+    "Copy the web address of this README": "Copiar o endere\xE7o web deste README",
+    "Sign in with Google": "Iniciar sess\xE3o com Google",
+    "Sign in with GitHub": "Iniciar sess\xE3o com GitHub",
+    "Or, with an account we created for you:": "Ou, com uma conta que cri\xE1mos para si:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Qualquer pessoa pode iniciar sess\xE3o com Google ou GitHub. Uma licen\xE7a fica associada ao endere\xE7o de email da conta.",
+    "Signing in is not available on this server.": "Este servidor n\xE3o oferece in\xEDcio de sess\xE3o.",
+    "Search the examples": "Pesquisar os exemplos",
+    "search \u2014 a few words, or a phrase in quotes": "pesquisa \u2014 algumas palavras, ou uma frase entre aspas",
+    "in names": "nos nomes",
+    "in templates": "nos modelos",
+    "in the text": "no texto",
+    "everywhere": "em todo o lado",
+    "No example matches the search.": "Nenhum exemplo corresponde \xE0 pesquisa.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Onde pesquisar: os nomes dos programas, os seus modelos (as sec\xE7\xF5es de declara\xE7\xF5es), o texto completo, ou os tr\xEAs",
+    "Open": "Abrir",
+    "Type a few words to search the examples.": "Escreva algumas palavras para pesquisar os exemplos.",
+    "The search failed.": "A pesquisa falhou.",
+    "Waiting for the editor...": "\xC0 espera do editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Nenhum editor respondeu. Abra o grafo do programa a partir do editor: Diversos > Ver grafo do programa.",
+    "Loading the program...": "A carregar o programa...",
+    "The server no longer has the program loaded. Loading it again...": "O servidor j\xE1 n\xE3o tem o programa carregado. A carreg\xE1-lo de novo...",
+    "The server could not build the graph: ": "O servidor n\xE3o conseguiu construir o grafo: ",
+    "unexpected reply": "resposta inesperada",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "O programa n\xE3o tem nada para mostrar: nem modelos, nem regras, nem factos, nem cen\xE1rios, nem consultas.",
+    "Could not reach the server to build the graph.": "N\xE3o foi poss\xEDvel contactar o servidor para construir o grafo.",
+    "The program could not be loaded: ": "N\xE3o foi poss\xEDvel carregar o programa: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "O LE Contract Assistant faz parte da licen\xE7a Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Escreve o primeiro rascunho de um programa em Logical English a partir de um contrato, das suas condi\xE7\xF5es particulares e dos seus casos.",
+    "Sign in with an account that holds the licence": "Inicie sess\xE3o com uma conta que tenha a licen\xE7a",
+    "Write to support@logicalcontracts.com to ask for one.": "Escreva para support@logicalcontracts.com para pedir uma.",
+    "The LE Contract Assistant is not installed on this server.": "O LE Contract Assistant n\xE3o est\xE1 instalado neste servidor.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Faz parte dos Logical English Translators, um produto licenciado da Logical Contracts.",
+    "Smart editing": "Edi\xE7\xE3o inteligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cen\xE1rio ou uma consulta, prop\xF5e o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os t\xEDtulos das sec\xE7\xF5es. Desligada: o editor prop\xF5e apenas as palavras que j\xE1 est\xE3o no documento."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -9876,7 +10121,43 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copiar la direcci\xF3n web de esta carpeta",
     "(guide)": "(gu\xEDa)",
     "Logical English in other languages": "Logical English en otros idiomas",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escribir programas en portugu\xE9s, espa\xF1ol, franc\xE9s o italiano, y elegir el idioma de los men\xFAs."
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escribir programas en portugu\xE9s, espa\xF1ol, franc\xE9s o italiano, y elegir el idioma de los men\xFAs.",
+    "About this folder": "Acerca de esta carpeta",
+    "Copy the web address of this README": "Copiar la direcci\xF3n web de este README",
+    "Sign in with Google": "Iniciar sesi\xF3n con Google",
+    "Sign in with GitHub": "Iniciar sesi\xF3n con GitHub",
+    "Or, with an account we created for you:": "O, con una cuenta que creamos para usted:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Cualquier persona puede iniciar sesi\xF3n con Google o GitHub. Una licencia queda asociada a la direcci\xF3n de correo de la cuenta.",
+    "Signing in is not available on this server.": "Este servidor no ofrece inicio de sesi\xF3n.",
+    "Search the examples": "Buscar en los ejemplos",
+    "search \u2014 a few words, or a phrase in quotes": "b\xFAsqueda \u2014 unas palabras, o una frase entre comillas",
+    "in names": "en los nombres",
+    "in templates": "en las plantillas",
+    "in the text": "en el texto",
+    "everywhere": "en todas partes",
+    "No example matches the search.": "Ning\xFAn ejemplo coincide con la b\xFAsqueda.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "D\xF3nde buscar: los nombres de los programas, sus plantillas (las secciones de declaraciones), el texto completo, o los tres",
+    "Open": "Abrir",
+    "Type a few words to search the examples.": "Escriba unas palabras para buscar en los ejemplos.",
+    "The search failed.": "La b\xFAsqueda fall\xF3.",
+    "Waiting for the editor...": "Esperando al editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Ning\xFAn editor respondi\xF3. Abra el grafo del programa desde el editor: Varios > Ver grafo del programa.",
+    "Loading the program...": "Cargando el programa...",
+    "The server no longer has the program loaded. Loading it again...": "El servidor ya no tiene el programa cargado. Carg\xE1ndolo de nuevo...",
+    "The server could not build the graph: ": "El servidor no pudo construir el grafo: ",
+    "unexpected reply": "respuesta inesperada",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "El programa no tiene nada que mostrar: ni plantillas, ni reglas, ni hechos, ni escenarios, ni consultas.",
+    "Could not reach the server to build the graph.": "No se pudo contactar con el servidor para construir el grafo.",
+    "The program could not be loaded: ": "No se pudo cargar el programa: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "El LE Contract Assistant forma parte de la licencia Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Escribe el primer borrador de un programa en Logical English a partir de un contrato, sus condiciones particulares y sus casos.",
+    "Sign in with an account that holds the licence": "Inicie sesi\xF3n con una cuenta que tenga la licencia",
+    "Write to support@logicalcontracts.com to ask for one.": "Escriba a support@logicalcontracts.com para pedir una.",
+    "The LE Contract Assistant is not installed on this server.": "El LE Contract Assistant no est\xE1 instalado en este servidor.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Forma parte de los Logical English Translators, un producto con licencia de Logical Contracts.",
+    "Smart editing": "Edici\xF3n inteligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los t\xEDtulos de las secciones. Desactivada: el editor propone solo las palabras que ya est\xE1n en el documento."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -10488,7 +10769,43 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copier l'adresse web de ce dossier",
     "(guide)": "(guide)",
     "Logical English in other languages": "Logical English dans d'autres langues",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "\xC9crire des programmes en portugais, espagnol, fran\xE7ais ou italien, et choisir la langue des menus."
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "\xC9crire des programmes en portugais, espagnol, fran\xE7ais ou italien, et choisir la langue des menus.",
+    "About this folder": "\xC0 propos de ce dossier",
+    "Copy the web address of this README": "Copier l'adresse web de ce README",
+    "Sign in with Google": "Se connecter avec Google",
+    "Sign in with GitHub": "Se connecter avec GitHub",
+    "Or, with an account we created for you:": "Ou, avec un compte que nous avons cr\xE9\xE9 pour vous :",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Tout le monde peut se connecter avec Google ou GitHub. Une licence est attach\xE9e \xE0 l'adresse e-mail du compte.",
+    "Signing in is not available on this server.": "Ce serveur ne propose pas de connexion.",
+    "Search the examples": "Chercher dans les exemples",
+    "search \u2014 a few words, or a phrase in quotes": "recherche \u2014 quelques mots, ou une phrase entre guillemets",
+    "in names": "dans les noms",
+    "in templates": "dans les mod\xE8les",
+    "in the text": "dans le texte",
+    "everywhere": "partout",
+    "No example matches the search.": "Aucun exemple ne correspond \xE0 la recherche.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "O\xF9 chercher : les noms des programmes, leurs mod\xE8les (les sections de d\xE9clarations), le texte entier, ou les trois",
+    "Open": "Ouvrir",
+    "Type a few words to search the examples.": "Tapez quelques mots pour chercher dans les exemples.",
+    "The search failed.": "La recherche a \xE9chou\xE9.",
+    "Waiting for the editor...": "En attente de l'\xE9diteur...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Aucun \xE9diteur n'a r\xE9pondu. Ouvrez le graphe du programme depuis l'\xE9diteur : Divers > Voir le graphe du programme.",
+    "Loading the program...": "Chargement du programme...",
+    "The server no longer has the program loaded. Loading it again...": "Le serveur n'a plus le programme charg\xE9. Nouveau chargement...",
+    "The server could not build the graph: ": "Le serveur n'a pas pu construire le graphe : ",
+    "unexpected reply": "r\xE9ponse inattendue",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Le programme n'a rien \xE0 montrer : ni mod\xE8les, ni r\xE8gles, ni faits, ni sc\xE9narios, ni requ\xEAtes.",
+    "Could not reach the server to build the graph.": "Impossible de joindre le serveur pour construire le graphe.",
+    "The program could not be loaded: ": "Le programme n'a pas pu \xEAtre charg\xE9 : ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "Le LE Contract Assistant fait partie de la licence Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Il r\xE9dige la premi\xE8re version d'un programme en Logical English \xE0 partir d'un contrat, de ses conditions particuli\xE8res et de ses cas.",
+    "Sign in with an account that holds the licence": "Connectez-vous avec un compte qui d\xE9tient la licence",
+    "Write to support@logicalcontracts.com to ask for one.": "\xC9crivez \xE0 support@logicalcontracts.com pour en demander une.",
+    "The LE Contract Assistant is not installed on this server.": "Le LE Contract Assistant n'est pas install\xE9 sur ce serveur.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Il fait partie des Logical English Translators, un produit sous licence de Logical Contracts.",
+    "Smart editing": "\xC9dition intelligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous \xE9crivez une r\xE8gle, un sc\xE9nario ou une requ\xEAte, propose la suite de la phrase d'apr\xE8s les mod\xE8les du programme (Tab passe d'une place \xE0 la suivante) et, dans la marge, les titres des sections. D\xE9sactiv\xE9e : l'\xE9diteur ne propose que les mots d\xE9j\xE0 pr\xE9sents dans le document."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11100,7 +11417,43 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copia l'indirizzo web di questa cartella",
     "(guide)": "(guida)",
     "Logical English in other languages": "Logical English in altre lingue",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese o italiano, e scegliere la lingua dei menu."
+    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese o italiano, e scegliere la lingua dei menu.",
+    "About this folder": "Informazioni su questa cartella",
+    "Copy the web address of this README": "Copia l'indirizzo web di questo README",
+    "Sign in with Google": "Accedi con Google",
+    "Sign in with GitHub": "Accedi con GitHub",
+    "Or, with an account we created for you:": "Oppure, con un account che abbiamo creato per lei:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Chiunque pu\xF2 accedere con Google o GitHub. Una licenza \xE8 associata all'indirizzo email dell'account.",
+    "Signing in is not available on this server.": "Questo server non offre l'accesso.",
+    "Search the examples": "Cerca negli esempi",
+    "search \u2014 a few words, or a phrase in quotes": "ricerca \u2014 alcune parole, o una frase tra virgolette",
+    "in names": "nei nomi",
+    "in templates": "nei modelli",
+    "in the text": "nel testo",
+    "everywhere": "ovunque",
+    "No example matches the search.": "Nessun esempio corrisponde alla ricerca.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Dove cercare: i nomi dei programmi, i loro modelli (le sezioni di dichiarazioni), il testo intero, o tutti e tre",
+    "Open": "Apri",
+    "Type a few words to search the examples.": "Digita alcune parole per cercare negli esempi.",
+    "The search failed.": "La ricerca non \xE8 riuscita.",
+    "Waiting for the editor...": "In attesa dell'editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Nessun editor ha risposto. Apra il grafo del programma dall'editor: Varie > Visualizza grafo del programma.",
+    "Loading the program...": "Caricamento del programma...",
+    "The server no longer has the program loaded. Loading it again...": "Il server non ha pi\xF9 il programma caricato. Nuovo caricamento...",
+    "The server could not build the graph: ": "Il server non \xE8 riuscito a costruire il grafo: ",
+    "unexpected reply": "risposta inattesa",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Il programma non ha nulla da mostrare: n\xE9 modelli, n\xE9 regole, n\xE9 fatti, n\xE9 scenari, n\xE9 interrogazioni.",
+    "Could not reach the server to build the graph.": "Impossibile raggiungere il server per costruire il grafo.",
+    "The program could not be loaded: ": "Non \xE8 stato possibile caricare il programma: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "Il LE Contract Assistant fa parte della licenza Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Scrive la prima bozza di un programma in Logical English a partire da un contratto, dalle sue condizioni particolari e dai suoi casi.",
+    "Sign in with an account that holds the licence": "Acceda con un account che detiene la licenza",
+    "Write to support@logicalcontracts.com to ask for one.": "Scriva a support@logicalcontracts.com per richiederne una.",
+    "The LE Contract Assistant is not installed on this server.": "Il LE Contract Assistant non \xE8 installato su questo server.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Fa parte dei Logical English Translators, un prodotto in licenza di Logical Contracts.",
+    "Smart editing": "Modifica intelligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole gi\xE0 presenti nel documento."
   }
 };
 var languages = [
@@ -11138,7 +11491,7 @@ var languages = [
     "decimalSep": ",",
     "thousandsSep": ".",
     "listSep": ",",
-    "status": "draft"
+    "status": "pilot"
   },
   {
     "code": "it",

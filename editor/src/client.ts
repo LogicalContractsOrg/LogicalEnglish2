@@ -1,3 +1,4 @@
+import { smartCompletions, zoneOf, SmartTemplate } from './le-typeahead';
 import { leLanguageConfiguration, leMonarchTokens, buildLeMonarchTokens } from './le-language';
 import { t, applyI18nDom, installLeApiLang, detectProgramLanguage, detectTargetLanguage, targetLanguageStatement, uiLang, setUiLang, uiLanguageName, languageList } from './i18n';
 
@@ -4765,79 +4766,66 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         }
     });
 
-    monaco.languages.registerCompletionItemProvider('le', {
-        triggerCharacters: [' ', '*'],
-        provideCompletionItems: async (model: any, position: any) => {
-            const res: any = await sendRequest('textDocument/completion', {
-                textDocument: { uri: model.uri.toString() },
-                position: { line: position.lineNumber - 1, character: position.column - 1 }
+    // --- Smart editing (Misc menu) -------------------------------------------
+    // Off (the default): no provider of ours, so Monaco offers its own word
+    // completion and nothing else. On: the rest of a sentence from the
+    // program's templates, the section headings at the margin, and `and` /
+    // `or` after a complete condition (le-typeahead.ts). Persisted in
+    // localStorage. The templates come from the language server, which knows
+    // the program's own, the included ones and the built-in ones.
+    let smartEditing = localStorage.getItem('le-smart-editing') === 'true';
+    let smartProvider: any = null;
+    const smartEditingCheck = document.getElementById('smart-editing-check');
+    function applySmartEditing() {
+        if (smartEditingCheck) smartEditingCheck.style.visibility = smartEditing ? 'visible' : 'hidden';
+        if (smartEditing && !smartProvider) {
+            smartProvider = monaco.languages.registerCompletionItemProvider('le', {
+                triggerCharacters: [' '],
+                provideCompletionItems: async (model: any, position: any, context: any) => {
+                    const line = model.getLineContent(position.lineNumber);
+                    const lineBefore = line.substring(0, position.column - 1);
+                    const above: string[] = [];
+                    for (let n = Math.max(1, position.lineNumber - 400); n < position.lineNumber; n++) above.push(model.getLineContent(n));
+                    const zone = zoneOf(above, line);
+                    if (zone === 'templates') return { suggestions: [] };
+                    const res: any = await sendRequest('textDocument/completion', {
+                        textDocument: { uri: model.uri.toString() },
+                        position: { line: position.lineNumber - 1, character: position.column - 1 }
+                    });
+                    const all: any[] = res ? (Array.isArray(res) ? res : res.items) : [];
+                    const templates: SmartTemplate[] = all
+                        .filter(i => i.detail === 'User Template' || i.detail === 'System Template')
+                        .map(i => ({ label: String(i.label), system: i.detail === 'System Template' }));
+                    const sections = all.filter(i => i.kind === 14 && /:$/.test(String(i.label))).map(i => String(i.label));
+                    const explicit = context && context.triggerKind === monaco.languages.CompletionTriggerKind.Invoke;
+                    const items = smartCompletions(lineBefore, zone, templates, sections, explicit);
+                    const K = monaco.languages.CompletionItemKind;
+                    return {
+                        incomplete: true,   // ask again at the next key: what fits depends on the whole line
+                        suggestions: items.map((it, i) => ({
+                            label: it.label,
+                            kind: it.kind === 'section' ? K.Module : it.kind === 'connective' ? K.Keyword : K.Snippet,
+                            insertText: it.snippet,
+                            insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                            filterText: it.filterText,
+                            sortText: String(i).padStart(4, '0'),
+                            detail: it.detail,
+                            range: { startLineNumber: position.lineNumber, startColumn: it.replaceStart + 1,
+                                     endLineNumber: position.lineNumber, endColumn: position.column }
+                        }))
+                    };
+                }
             });
-            if (res) {
-                const items = Array.isArray(res) ? res : res.items;
-                const lineContent = model.getLineContent(position.lineNumber);
-                const textBefore = lineContent.substring(0, position.column - 1);
-                const articles = ['a', 'an', 'the', 'some'];
-                
-                return {
-                    suggestions: items.map((item: any) => {
-                        const label = item.label;
-                        const templateText = String(item.insertText || label).replace(/\*/g, '');
-                        const wordsBefore = textBefore.split(/(\s+)/);
-                        const wordsTemplate = templateText.split(/(\s+)/);
-                        const cleanWordsBefore = wordsBefore.filter(w => w.trim().length > 0);
-                        const cleanWordsTemplate = wordsTemplate.filter(w => w.trim().length > 0);
-                        
-                        let overlapCleanWords = 0;
-                        for (let n = 1; n <= Math.min(cleanWordsBefore.length, cleanWordsTemplate.length); n++) {
-                            let match = true;
-                            for (let i = 0; i < n; i++) {
-                                const wBefore = cleanWordsBefore[cleanWordsBefore.length - n + i].toLowerCase();
-                                const wTemplate = cleanWordsTemplate[i].toLowerCase();
-                                if (wBefore === wTemplate || (articles.includes(wBefore) && articles.includes(wTemplate)) || (i === n - 1 && wTemplate.startsWith(wBefore))) {
-                                    continue;
-                                }
-                                match = false;
-                                break;
-                            }
-                            if (match) overlapCleanWords = n;
-                        }
-
-                        let range;
-                        let insertText = templateText;
-                        if (overlapCleanWords > 0) {
-                            const overlapSequence = cleanWordsBefore.slice(cleanWordsBefore.length - overlapCleanWords);
-                            let searchIdx = textBefore.length;
-                            for (let i = overlapSequence.length - 1; i >= 0; i--) {
-                                searchIdx = textBefore.toLowerCase().lastIndexOf(overlapSequence[i].toLowerCase(), searchIdx - 1);
-                            }
-                            if (searchIdx !== -1) {
-                                range = { startLineNumber: position.lineNumber, startColumn: searchIdx + 1, endLineNumber: position.lineNumber, endColumn: position.column };
-                                const keptText = textBefore.substring(searchIdx);
-                                let templateOverlapEndIdx = 0;
-                                let templateWordsFound = 0;
-                                while (templateWordsFound < overlapCleanWords && templateOverlapEndIdx < templateText.length) {
-                                    const remainingTemplate = templateText.substring(templateOverlapEndIdx);
-                                    const nextWordMatch = remainingTemplate.match(/\S+/);
-                                    if (nextWordMatch) {
-                                        templateOverlapEndIdx += nextWordMatch.index! + nextWordMatch[0].length;
-                                        templateWordsFound++;
-                                    } else break;
-                                }
-                                insertText = keptText + templateText.substring(templateOverlapEndIdx);
-                            } else {
-                                const word = model.getWordUntilPosition(position);
-                                range = { startLineNumber: position.lineNumber, startColumn: word.startColumn, endLineNumber: position.lineNumber, endColumn: word.endColumn };
-                            }
-                        } else {
-                            const word = model.getWordUntilPosition(position);
-                            range = { startLineNumber: position.lineNumber, startColumn: word.startColumn, endLineNumber: position.lineNumber, endColumn: word.endColumn };
-                        }
-                        return { label, kind: item.kind !== undefined ? item.kind - 1 : 1, insertText, detail: item.detail, range };
-                    })
-                };
-            }
-            return { suggestions: [] };
+        } else if (!smartEditing && smartProvider) {
+            smartProvider.dispose();
+            smartProvider = null;
         }
+    }
+    applySmartEditing();
+    document.getElementById('menu-smart-editing')?.addEventListener('click', () => {
+        smartEditing = !smartEditing;
+        localStorage.setItem('le-smart-editing', smartEditing.toString());
+        applySmartEditing();
     });
 
     monaco.languages.registerFoldingRangeProvider('le', {

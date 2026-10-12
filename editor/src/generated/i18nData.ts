@@ -5218,6 +5218,10 @@ export const keywords: Record<string, KeywordTable> = {
         "la",
         "taxonomie",
         "est"
+      ],
+      [
+        "l'ontologie",
+        "est"
       ]
     ],
     "predicates": [
@@ -5319,6 +5323,13 @@ export const keywords: Record<string, KeywordTable> = {
         "au",
         "contrat",
         "sont"
+      ],
+      [
+        "les",
+        "annexes",
+        "du",
+        "contrat",
+        "sont"
       ]
     ],
     "guard": [
@@ -5374,6 +5385,10 @@ export const keywords: Record<string, KeywordTable> = {
         "sont"
       ],
       [
+        "l'ontologie",
+        "est"
+      ],
+      [
         "la",
         "langue",
         "cible"
@@ -5425,10 +5440,19 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "answers": [
       [
+        "les",
+        "réponses"
+      ],
+      [
         "réponses"
       ]
     ],
     "and_unknowns": [
+      [
+        "et",
+        "les",
+        "inconnues"
+      ],
       [
         "et",
         "inconnues"
@@ -5439,6 +5463,14 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "and_any_unknowns": [
+      [
+        "et",
+        "quelles",
+        "que",
+        "soient",
+        "les",
+        "inconnues"
+      ],
       [
         "et",
         "toutes",
@@ -5472,22 +5504,11 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "unless": [
       [
-        "à",
-        "moins",
-        "que"
-      ],
-      [
         "sauf",
         "si"
       ]
     ],
     "and_unless": [
-      [
-        "et",
-        "à",
-        "moins",
-        "que"
-      ],
       [
         "et",
         "sauf",
@@ -5508,6 +5529,12 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "une",
         "des",
+        "conditions",
+        "suivantes"
+      ],
+      [
+        "une",
+        "des",
         "suivantes"
       ],
       [
@@ -5517,6 +5544,13 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "any_of": [
+      [
+        "l'une",
+        "quelconque",
+        "des",
+        "conditions",
+        "suivantes"
+      ],
       [
         "une",
         "quelconque",
@@ -5534,6 +5568,12 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "toutes",
         "les",
+        "conditions",
+        "suivantes"
+      ],
+      [
+        "toutes",
+        "les",
         "suivantes"
       ],
       [
@@ -5543,6 +5583,14 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "at_least_one_of": [
+      [
+        "au",
+        "moins",
+        "une",
+        "des",
+        "conditions",
+        "suivantes"
+      ],
       [
         "au",
         "moins",
@@ -5582,6 +5630,13 @@ export const keywords: Record<string, KeywordTable> = {
     "not_the_case": [
       [
         "il",
+        "n'est",
+        "pas",
+        "vrai",
+        "que"
+      ],
+      [
+        "il",
         "est",
         "exclu",
         "que"
@@ -5600,14 +5655,20 @@ export const keywords: Record<string, KeywordTable> = {
         "les",
         "cas",
         "où"
+      ],
+      [
+        "dans",
+        "tous",
+        "les",
+        "cas",
+        "où"
       ]
     ],
     "it_the_case": [
       [
         "il",
         "est",
-        "le",
-        "cas",
+        "avéré",
         "que"
       ]
     ],
@@ -5690,10 +5751,16 @@ export const keywords: Record<string, KeywordTable> = {
         "supposée"
       ],
       [
+        "présumée"
+      ],
+      [
         "inconnu"
       ],
       [
         "supposé"
+      ],
+      [
+        "présumé"
       ]
     ],
     "undefined": [
@@ -5873,6 +5940,9 @@ export const keywords: Record<string, KeywordTable> = {
         "second"
       ],
       [
+        "nouvel"
+      ],
+      [
         "actuel"
       ],
       [
@@ -6020,10 +6090,10 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "count": [
       [
-        "compte"
+        "nombre"
       ],
       [
-        "nombre"
+        "compte"
       ]
     ],
     "average": [
@@ -6070,6 +6140,10 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "such_that": [
       [
+        "telles",
+        "que"
+      ],
+      [
         "telle",
         "que"
       ],
@@ -6083,6 +6157,11 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "assuming": [
+      [
+        "en",
+        "supposant",
+        "que"
+      ],
       [
         "en",
         "supposant"
@@ -6118,6 +6197,12 @@ export const keywords: Record<string, KeywordTable> = {
         "étaient"
       ],
       [
+        "depuis"
+      ],
+      [
+        "envers"
+      ],
+      [
         "entre"
       ],
       [
@@ -6125,6 +6210,15 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "comme"
+      ],
+      [
+        "après"
+      ],
+      [
+        "avant"
+      ],
+      [
+        "selon"
       ],
       [
         "dans"
@@ -6140,6 +6234,15 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "sous"
+      ],
+      [
+        "chez"
+      ],
+      [
+        "sans"
+      ],
+      [
+        "vers"
       ],
       [
         "une"
@@ -6191,6 +6294,9 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "ou"
+      ],
+      [
+        "à"
       ]
     ],
     "image": [
@@ -6353,6 +6459,12 @@ export const keywords: Record<string, KeywordTable> = {
         "évaluatif"
       ],
       [
+        "appréciée"
+      ],
+      [
+        "apprécié"
+      ],
+      [
         "jugée"
       ],
       [
@@ -6360,9 +6472,6 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "according_to": [
-      [
-        "suivant"
-      ],
       [
         "selon"
       ]
@@ -6376,13 +6485,15 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "at_locator": [
       [
-        "au"
-      ],
-      [
         "à"
       ]
     ],
     "because": [
+      [
+        "au",
+        "motif",
+        "que"
+      ],
       [
         "parce",
         "que"
@@ -6392,6 +6503,11 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "with_provenance": [
+      [
+        "avec",
+        "pour",
+        "source"
+      ],
       [
         "avec",
         "provenance"
@@ -6475,6 +6591,9 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "section_remedy": [
       [
+        "conséquences"
+      ],
+      [
         "réparation"
       ],
       [
@@ -6549,6 +6668,10 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "changes": [
+      [
+        "les",
+        "changements"
+      ],
       [
         "changements"
       ]
@@ -6699,6 +6822,12 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "le",
         "résultat",
+        "indique",
+        "si"
+      ],
+      [
+        "le",
+        "résultat",
         "est",
         "si"
       ]
@@ -6800,6 +6929,11 @@ export const keywords: Record<string, KeywordTable> = {
         "sont",
         "listées",
         "comme"
+      ],
+      [
+        "sont",
+        "listés",
+        "comme"
       ]
     ],
     "view_flagged": [
@@ -6885,6 +7019,11 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "le",
         "brouillon",
+        "dit"
+      ],
+      [
+        "le",
+        "projet",
         "dit"
       ]
     ],
@@ -9549,7 +9688,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "unexpected reply": "resposta inesperada",
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "O programa não tem nada para mostrar: nem modelos, nem regras, nem factos, nem cenários, nem consultas.",
     "Could not reach the server to build the graph.": "Não foi possível contactar o servidor para construir o grafo.",
-    "The program could not be loaded: ": "Não foi possível carregar o programa: "
+    "The program could not be loaded: ": "Não foi possível carregar o programa: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "O LE Contract Assistant faz parte da licença Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Escreve o primeiro rascunho de um programa em Logical English a partir de um contrato, das suas condições particulares e dos seus casos.",
+    "Sign in with an account that holds the licence": "Inicie sessão com uma conta que tenha a licença",
+    "Write to support@logicalcontracts.com to ask for one.": "Escreva para support@logicalcontracts.com para pedir uma.",
+    "The LE Contract Assistant is not installed on this server.": "O LE Contract Assistant não está instalado neste servidor.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Faz parte dos Logical English Translators, um produto licenciado da Logical Contracts.",
+    "Smart editing": "Edição inteligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cenário ou uma consulta, propõe o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os títulos das secções. Desligada: o editor propõe apenas as palavras que já estão no documento."
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -10188,7 +10336,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "unexpected reply": "respuesta inesperada",
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "El programa no tiene nada que mostrar: ni plantillas, ni reglas, ni hechos, ni escenarios, ni consultas.",
     "Could not reach the server to build the graph.": "No se pudo contactar con el servidor para construir el grafo.",
-    "The program could not be loaded: ": "No se pudo cargar el programa: "
+    "The program could not be loaded: ": "No se pudo cargar el programa: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "El LE Contract Assistant forma parte de la licencia Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Escribe el primer borrador de un programa en Logical English a partir de un contrato, sus condiciones particulares y sus casos.",
+    "Sign in with an account that holds the licence": "Inicie sesión con una cuenta que tenga la licencia",
+    "Write to support@logicalcontracts.com to ask for one.": "Escriba a support@logicalcontracts.com para pedir una.",
+    "The LE Contract Assistant is not installed on this server.": "El LE Contract Assistant no está instalado en este servidor.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Forma parte de los Logical English Translators, un producto con licencia de Logical Contracts.",
+    "Smart editing": "Edición inteligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los títulos de las secciones. Desactivada: el editor propone solo las palabras que ya están en el documento."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -10827,7 +10984,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "unexpected reply": "réponse inattendue",
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Le programme n'a rien à montrer : ni modèles, ni règles, ni faits, ni scénarios, ni requêtes.",
     "Could not reach the server to build the graph.": "Impossible de joindre le serveur pour construire le graphe.",
-    "The program could not be loaded: ": "Le programme n'a pas pu être chargé : "
+    "The program could not be loaded: ": "Le programme n'a pas pu être chargé : ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "Le LE Contract Assistant fait partie de la licence Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Il rédige la première version d'un programme en Logical English à partir d'un contrat, de ses conditions particulières et de ses cas.",
+    "Sign in with an account that holds the licence": "Connectez-vous avec un compte qui détient la licence",
+    "Write to support@logicalcontracts.com to ask for one.": "Écrivez à support@logicalcontracts.com pour en demander une.",
+    "The LE Contract Assistant is not installed on this server.": "Le LE Contract Assistant n'est pas installé sur ce serveur.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Il fait partie des Logical English Translators, un produit sous licence de Logical Contracts.",
+    "Smart editing": "Édition intelligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous écrivez une règle, un scénario ou une requête, propose la suite de la phrase d'après les modèles du programme (Tab passe d'une place à la suivante) et, dans la marge, les titres des sections. Désactivée : l'éditeur ne propose que les mots déjà présents dans le document."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11466,7 +11632,16 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "unexpected reply": "risposta inattesa",
     "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Il programma non ha nulla da mostrare: né modelli, né regole, né fatti, né scenari, né interrogazioni.",
     "Could not reach the server to build the graph.": "Impossibile raggiungere il server per costruire il grafo.",
-    "The program could not be loaded: ": "Non è stato possibile caricare il programma: "
+    "The program could not be loaded: ": "Non è stato possibile caricare il programma: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant is part of the Logical English Translators licence.": "Il LE Contract Assistant fa parte della licenza Logical English Translators.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Scrive la prima bozza di un programma in Logical English a partire da un contratto, dalle sue condizioni particolari e dai suoi casi.",
+    "Sign in with an account that holds the licence": "Acceda con un account che detiene la licenza",
+    "Write to support@logicalcontracts.com to ask for one.": "Scriva a support@logicalcontracts.com per richiederne una.",
+    "The LE Contract Assistant is not installed on this server.": "Il LE Contract Assistant non è installato su questo server.",
+    "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Fa parte dei Logical English Translators, un prodotto in licenza di Logical Contracts.",
+    "Smart editing": "Modifica intelligente",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole già presenti nel documento."
   }
 } as const;
 
@@ -11516,7 +11691,7 @@ export const languages: LanguageInfo[] = [
     "decimalSep": ",",
     "thousandsSep": ".",
     "listSep": ",",
-    "status": "draft"
+    "status": "pilot"
   },
   {
     "code": "it",
