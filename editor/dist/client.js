@@ -16029,7 +16029,7 @@ ${err}`, "See s(CASP)");
     return importFormats;
   };
   const isLeFile = (name) => /\.le$/i.test(name);
-  const isBinaryUpload = (name) => /\.(zip|xlsx|docx)$/i.test(name);
+  const isBinaryUpload = (name) => /\.(zip|xlsx|xlsm|xls|ods|docx)$/i.test(name);
   const toBase64 = (buf) => {
     const bytes = new Uint8Array(buf);
     let bin = "";

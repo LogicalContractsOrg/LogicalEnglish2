@@ -1394,7 +1394,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         return importFormats!;
     };
     const isLeFile = (name: string) => /\.le$/i.test(name);
-    const isBinaryUpload = (name: string) => /\.(zip|xlsx|docx)$/i.test(name);
+    const isBinaryUpload = (name: string) => /\.(zip|xlsx|xlsm|xls|ods|docx)$/i.test(name);
     const toBase64 = (buf: ArrayBuffer) => {
         const bytes = new Uint8Array(buf);
         let bin = '';

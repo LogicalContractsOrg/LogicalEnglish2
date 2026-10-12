@@ -4605,6 +4605,12 @@ parse_node(Tokens, Children, Templates, VMIn, VMOut, Logic) :-
     (   Tokens = [word(prolog, _)|Rest], Children == [] ->
         resolve_prolog_tokens(Rest, Templates, VMIn, VMOut, Goal),
         Logic = prolog_call(Goal)
+    ;   % A `prolog` line with lines nested under it carries them as any
+        % condition does (the writer anchors an `otherwise` cascade under the
+        % condition before it, which may be a goal of Prolog).
+        Tokens = [word(prolog, _)|Rest],
+        resolve_prolog_tokens(Rest, Templates, VMIn, VM1, Goal) ->
+        fold_nodes(prolog_call(Goal), Children, Templates, VM1, VMOut, Logic)
     ;   parse_node_extension(Tokens, Children, Templates, VMIn, VMOut, Logic) -> 
         ( le_kbs:do_log -> print_message(informational,'  Extension succeeded: ~w~n' - [Logic]); true),
         true
