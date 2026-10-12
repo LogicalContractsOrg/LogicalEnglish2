@@ -191,9 +191,9 @@ loyer plafond qu'OpenFisca-France.
 - **L'impôt lui-même.** Sur 1 948 réponses vérifiées, 1 934 sont
   d'accord avec le moteur, et le jumeau répond à toutes. La réduction
   Duflot-Pinel-Denormandie est juste dans les 119 réponses. Restent
-  6 écarts d'un euro (un arrondi), la contribution exceptionnelle sur les
-  hauts revenus dans 9 réponses, et la réduction pour cotisations
-  syndicales, qui vaut un douzième de la bonne valeur dans 8 réponses.
+  6 écarts d'un euro, qui viennent des arrondis du moteur lui-même, 5 sur
+  les cotisations syndicales, et 3 sur la contribution exceptionnelle sur
+  les hauts revenus de 2026.
 
 ## Voir aussi
 
