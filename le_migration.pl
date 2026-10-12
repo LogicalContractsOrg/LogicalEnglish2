@@ -267,14 +267,23 @@ pending_test(Items, Graph, Rs, Overrides, Waits0, test(I, D, L, F, E0), test(I, 
     ),
     maplist(pending_expectation(Waits), E0, E).
 
-%   The rules a test's given values override: where its walks stop.
-test_cut(Overrides, test(_, _, _, F, _), Cut) :-
+%   The rules a test's given values override: where its walks stop. A rule
+%   whose value the test itself expects is overridden only when a given
+%   value is for that same thing (the same family, the same month): the
+%   RSA's cases give `ppa_fictive` for the months before, and expect it for
+%   their own month, which the given values do not give.
+test_cut(Overrides, test(_, _, _, F, E), Cut) :-
     (   Overrides == []
     ->  Cut = []
     ;   findall(G, ( sub_term(T, F), compound(T), functor(T, G, _) ), Gs0), sort(Gs0, Gs),
-        findall(H, ( member(H-G, Overrides), ord_memberchk(G, Gs) ), Cut0),
+        findall(H, ( member(H-G, Overrides), ord_memberchk(G, Gs), \+ expected_not_given(H, G, F, E) ), Cut0),
         sort(Cut0, Cut)
     ).
+
+expected_not_given(H, G, F, E) :-
+    sub_term(A, E), compound(A), functor(A, H, N), N >= 2,
+    A =.. [_|AArgs], append(Key, [_], AArgs),
+    \+ ( sub_term(T, F), compound(T), functor(T, G, N), T =.. [_|TArgs], append(Key, [_], TArgs) ), !.
 
 pending_expectation(Waits, E0, E) :-
     (   E0 = expects(Q, _) ; E0 = expects(Q, _, _) ),

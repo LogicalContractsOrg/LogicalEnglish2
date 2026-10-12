@@ -529,6 +529,17 @@ test(given_value_of_a_residue) :-
     le_migration:migration_pending(migration([], IR, [], Tests), migration(_, _, _, Out)),
     assertion(Out = [test(_, _, _, _, [pending(_, _)]), test(_, _, _, _, [expects(incomes, _)])]).
 
+%   A value given for other months does not give the one a case expects.
+test(given_for_another_period_still_waits) :-
+    IR = program([kb(x)], [
+        residue(r1, [title("the housing part"), concludes([housing])]),
+        rule(fictive(F, P, X), otherwise([fictive_given(F, P, X), and(housing(F, H), X is H + 1)]), []),
+        query(fictives, fictive(_, _, _))]),
+    Tests = [test(t1, "tests.json", 'case 1', [fictive_given(f1, m9, 5)], [expects(fictives, [fictive(f1, m10, 7)])]),
+             test(t2, "tests.json", 'case 2', [fictive_given(f1, m10, 7)], [expects(fictives, [fictive(f1, m10, 7)])])],
+    le_migration:migration_pending(migration([], IR, [], Tests), migration(_, _, _, Out)),
+    assertion(Out = [test(_, _, _, _, [pending(_, _)]), test(_, _, _, _, [expects(fictives, _)])]).
+
 %   A residue that names its conclusion carries it in a `concludes:` line,
 %   the one the Contract Assistant's residue mode checks the fill against.
 test(residue_conclusion_line) :-

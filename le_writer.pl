@@ -353,10 +353,17 @@ elide_parts([P0|Ps0], Where, Els, Cons, [P|Ps]) :-
     elide_parts(Ps0, Next, Els, Cons, Ps).
 
 %   Word by word, keeping the spacing: a short form joins the next word.
+%   Line by line: the first word of a line (a rule's conclusion, `la aide
+%   logement ... si`) had been read with the line before it and never elided.
 elide_words(S0, Els, Cons, S) :-
-    split_string(S0, " ", "", Ws0),
+    split_string(S0, "\n", "", Ls0),
+    maplist(elide_line(Els, Cons), Ls0, Ls),
+    atomic_list_concat(Ls, '\n', S).
+
+elide_line(Els, Cons, L0, L) :-
+    split_string(L0, " ", "", Ws0),
     elide_list(Ws0, Els, Cons, Ws),
-    atomic_list_concat(Ws, ' ', S).
+    atomic_list_concat(Ws, ' ', L).
 
 elide_list([W1, W2|Ws0], Els, Cons, [CS|Ws]) :-       % à le marché → au marché, si il → s'il
     \+ variable_word(W1), \+ variable_word(W2),

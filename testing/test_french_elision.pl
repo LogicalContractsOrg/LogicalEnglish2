@@ -43,6 +43,11 @@ test(writer_keeps_variables) :-
     le_writer:elide_text(fr, "le maximum de 0 et NE est un nombre et LE est A", T),
     T == "le maximum de 0 et NE est un nombre et LE est A".
 
+%   The first word of a line elides too (a rule's conclusion).
+test(writer_elides_at_line_start) :-
+    le_i18n:with_le_language(fr, le_writer:elide_text(fr, "règle r:\nla aide de une famille est un montant si\n    la autre est A", T)),
+    T == "règle r:\nl'aide d'une famille est un montant si\n    l'autre est A".
+
 test(writer_leaves_h_alone) :-
     le_writer:elide_text(fr, "à le hôtel", T),
     T == "à le hôtel".

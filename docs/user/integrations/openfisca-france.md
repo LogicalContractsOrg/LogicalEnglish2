@@ -123,7 +123,7 @@ moteur d'OpenFisca-France donne pour ce cas.
 | `impot_revenu` | l'impôt sur le revenu : parts, revenu brut global, revenu net imposable, revenu fiscal de référence, impôt, réductions | voir le tableau ci-dessous |
 | `aides_logement` | les aides au logement (APL, ALF, ALS) : loyer plafond, charges, participation personnelle, montant | **50 sur 50** (12 octobre 2026) |
 | `aides_logement_croise` | les mêmes règles, sur 36 situations écrites pour la comparaison avec Catala | **216 sur 216** |
-| `rsa` | le RSA et la prime d'activité | **36 sur 40** (12 octobre 2026) : les 4 autres attendent le forfait logement de la prime d'activité, qui n'est pas encore traduit |
+| `rsa` | le RSA et la prime d'activité | **28 sur 28** (12 octobre 2026) ; 12 autres réponses attendent des parties qui ne sont pas encore traduites, comme le forfait logement de la prime d'activité |
 
 Pour l'impôt sur le revenu, sur les tests du calculateur de
 l'administration fiscale et ceux du modèle (434 cas, mesure du 12 octobre
