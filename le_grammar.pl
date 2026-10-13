@@ -526,6 +526,21 @@ section(view(Name, Rows, Start, End)) -->
         ( last(Rows, row(_, _, End0)) -> End = End0 ; End = HEnd )
     }.
 
+% section(service_cells(...)) parses the cells of a service whose address is a
+% workbook (docs/user/reference/language.md §17.6): "the cells of service <name>
+% are:" and its sentences, each an instance of a template the service backs
+% with cell references in its places ("the tax on "B2" is "B7"."). Like a
+% view, the lines are kept as tokens and read by le_sheet_cells.pl against the
+% whole program.
+section(service_cells(Name, Rows, Start, End)) -->
+    any_indent, kw_start(cells_open, Start),
+    cells_name_tokens(NameTokens), { NameTokens \== [] },
+    kw(cells_are), t(punctuation(':', loc(_, HEnd))),
+    table_rows(Rows),
+    {   reconstruct_name(NameTokens, Name),
+        ( last(Rows, row(_, _, End0)) -> End = End0 ; End = HEnd )
+    }.
+
 % section(ontology(...)) parses an ontology section.
 section(ontology(Content, Start, End)) -->
     any_indent, kw_start(ontology, Start), t(punctuation(':', _)),
@@ -747,6 +762,20 @@ view_header_ -->
     kw(view_open), section_name_tokens(NameTokens), { NameTokens \== [] },
     kw(marker_is), t(punctuation(':', _)), !.
 
+% A header of the cells of a service ahead (non-consuming).
+cells_header_ahead(S, S) :-
+    cells_header_(S, _).
+
+cells_header_ -->
+    kw(cells_open), cells_name_tokens(NameTokens), { NameTokens \== [] },
+    kw(cells_are), t(punctuation(':', _)), !.
+
+cells_name_tokens([T|Ts]) -->
+    \+ kw(cells_are), \+ t(punctuation(':', _)), \+ t(punctuation('.', _)),
+    t(T), !,
+    cells_name_tokens(Ts).
+cells_name_tokens([]) --> [].
+
 % le_allowed_target(?Target) enumerates the execution backends a program may
 % declare via the target-language opener line (kept out of the section/3 DCG
 % clauses so they stay contiguous).
@@ -862,6 +891,7 @@ section_opener --> { lps_target }, ( kw(lps_max_time) ; kw(lps_max_real_time) ; 
 section_opener --> kw(provenance_required).
 section_opener --> table_header_ahead.
 section_opener --> view_header_ahead.
+section_opener --> cells_header_ahead.
 
 % "the contract" opens a header only as `the contract <name> states that:`,
 % which has a colon before its full stop. A sentence that starts with the same
@@ -2869,6 +2899,9 @@ second_pass_section(Templates, M, Table, Done) :-
 second_pass_section(_Templates, M, view(Name, Rows, Start, End), view_done(Name, Start, End)) :-
     !,
     le_views:record_view_source(M, Name, Rows, Start, End).
+second_pass_section(_Templates, M, service_cells(Name, Rows, Start, End), service_cells_done(Name, Start, End)) :-
+    !,
+    le_sheet_cells:record_cells_source(M, Name, Rows, Start, End).
 second_pass_section(_, _, S, S). % Keep other sections as is
 
 %!  compile_table_item(+Templates, +M, +Scope, +Table, -Done) is det.

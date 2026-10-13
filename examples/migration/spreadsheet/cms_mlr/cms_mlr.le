@@ -24517,3 +24517,100 @@ query q_6_mini_med_plans_large_x7_h11 is:
 query q_9_student_health_plans_individual_x7_k11 is:
     the 9 student health plans individual total amount of rebates is which number.
 
+
+% ASKING THE WORKBOOK ITSELF. Instead of this translation, a program can ask
+% the workbook (sources/cms_mlr_2025.xlsm) for its answers: declare it as a service, give a
+% template to each answer it needs, and say which cells answer the template
+% (Logical English 2, docs/user/integrations/spreadsheets.md). A draft, to
+% copy out of the comment, keeping the answers needed and rewording them:
+%
+%   the knowledge base cms_mlr service includes these services:
+%       workbook at sheet:sources/cms_mlr_2025.xlsm as a calculator.
+%
+%   the cells of service workbook are:
+%       (a sentence of each template, with the cell of each place in quotes)
+%
+%   The cells the import read as inputs:
+%       "'Company Information'!C12" business in state of
+%       "'Company Information'!C15" federal tax exempt
+%       "'PY Rebate Liability'!C5" 9 mlr numerator medical loss ratio
+%       "'PY Rebate Liability'!D5" 9 mlr numerator for 2 health
+%       "'PY Rebate Liability'!E5" 9 mlr numerator for 3 health
+%       "'PY Rebate Liability'!G5" 9 mlr numerator for 5 health
+%       "'PY Rebate Liability'!H5" 9 mlr numerator for 6 health
+%       "'PY Rebate Liability'!I5" 9 mlr numerator for 7 health
+%       "'PY Rebate Liability'!K5" 9 mlr numerator for 9 health
+%       "'PY Rebate Liability'!L5" 9 mlr numerator for 10 health
+%       "'PY Rebate Liability'!M5" 9 mlr numerator for 11 health
+%       "'PY Rebate Liability'!O5" 9 mlr numerator for 13 mini
+%       "'PY Rebate Liability'!P5" 9 mlr numerator for 14 mini
+%       "'PY Rebate Liability'!Q5" 9 mlr numerator for 15 mini
+%       "'PY Rebate Liability'!S5" 9 mlr numerator for 17 mini
+%       "'PY Rebate Liability'!T5" 9 mlr numerator for 18 mini
+%       "'PY Rebate Liability'!U5" 9 mlr numerator for 19 mini
+%       "'PY Rebate Liability'!W5" 9 mlr numerator for 21 mini
+%       "'PY Rebate Liability'!X5" 9 mlr numerator for 22 mini
+%       "'PY Rebate Liability'!Y5" 9 mlr numerator for 23 mini
+%       "'PY Rebate Liability'!AI5" 9 mlr numerator for 33 student
+%       "'PY Rebate Liability'!AJ5" 9 mlr numerator for 34 student
+%       "'PY Rebate Liability'!AK5" 9 mlr numerator for 35 student
+%       "'PY Rebate Liability'!C7" 3 mlr denominator medical loss ratio
+%       "'PY Rebate Liability'!D7" 3 mlr denominator for 2 health
+%       "'PY Rebate Liability'!E7" 3 mlr denominator for 3 health
+%       "'PY Rebate Liability'!G7" 3 mlr denominator for 5 health
+%       "'PY Rebate Liability'!H7" 3 mlr denominator for 6 health
+%       "'PY Rebate Liability'!I7" 3 mlr denominator for 7 health
+%       "'PY Rebate Liability'!K7" 3 mlr denominator for 9 health
+%       "'PY Rebate Liability'!L7" 3 mlr denominator for 10 health
+%       "'PY Rebate Liability'!M7" 3 mlr denominator for 11 health
+%       "'PY Rebate Liability'!O7" 3 mlr denominator for 13 mini
+%       "'PY Rebate Liability'!P7" 3 mlr denominator for 14 mini
+%       "'PY Rebate Liability'!Q7" 3 mlr denominator for 15 mini
+%       "'PY Rebate Liability'!S7" 3 mlr denominator for 17 mini
+%       "'PY Rebate Liability'!T7" 3 mlr denominator for 18 mini
+%       "'PY Rebate Liability'!U7" 3 mlr denominator for 19 mini
+%       "'PY Rebate Liability'!W7" 3 mlr denominator for 21 mini
+%       "'PY Rebate Liability'!X7" 3 mlr denominator for 22 mini
+%       and 1557 more
+%   and as answers:
+%       "'Pt 1 Summary of Data'!D5" 1 total direct premium earned
+%       "'Pt 1 Summary of Data'!F5" 3 health insurance individual dual 1
+%       "'Pt 1 Summary of Data'!I5" 6 health insurance small group 1
+%       "'Pt 1 Summary of Data'!K5" 8 health insurance small group 1
+%       "'Pt 1 Summary of Data'!N5" 11 health insurance large group 1
+%       "'Pt 1 Summary of Data'!P5" 13 health insurance large group 1
+%       "'Pt 1 Summary of Data'!S5" 16 mini med individual total 1
+%       "'Pt 1 Summary of Data'!U5" 18 mini med individual dual 1
+%       "'Pt 1 Summary of Data'!V5" 19 mini med small group 1
+%       "'Pt 1 Summary of Data'!X5" 21 mini med small group 1
+%       "'Pt 1 Summary of Data'!Y5" 22 mini med large group 1
+%       "'Pt 1 Summary of Data'!AA5" 24 mini med large group 1
+%       "'Pt 1 Summary of Data'!AB5" 25 expat small group total 1
+%       "'Pt 1 Summary of Data'!AG5" 30 expat large group total 1
+%       "'Pt 1 Summary of Data'!AL5" 35 student health individual total 1
+%       "'Pt 1 Summary of Data'!AN5" 37 student health individual dual 1
+%       "'Pt 1 Summary of Data'!AQ5" 40 government program plans total 1
+%       "'Pt 1 Summary of Data'!AR5" 41 other health business total 1
+%       "'Pt 1 Summary of Data'!AS5" 42 medicare mlr business total 1
+%       "'Pt 1 Summary of Data'!D12" 1 total incurred claims
+%       "'Pt 1 Summary of Data'!F12" 3 health insurance individual dual 1
+%       "'Pt 1 Summary of Data'!I12" 6 health insurance small group 1
+%       "'Pt 1 Summary of Data'!K12" 8 health insurance small group 1
+%       "'Pt 1 Summary of Data'!N12" 11 health insurance large group 1
+%       "'Pt 1 Summary of Data'!P12" 13 health insurance large group 1
+%       "'Pt 1 Summary of Data'!S12" 16 mini med individual total 1
+%       "'Pt 1 Summary of Data'!U12" 18 mini med individual dual 1
+%       "'Pt 1 Summary of Data'!V12" 19 mini med small group 1
+%       "'Pt 1 Summary of Data'!X12" 21 mini med small group 1
+%       "'Pt 1 Summary of Data'!Y12" 22 mini med large group 1
+%       "'Pt 1 Summary of Data'!AA12" 24 mini med large group 1
+%       "'Pt 1 Summary of Data'!AB12" 25 expat small group total 1
+%       "'Pt 1 Summary of Data'!AG12" 30 expat large group total 1
+%       "'Pt 1 Summary of Data'!AL12" 35 student health individual total 1
+%       "'Pt 1 Summary of Data'!AN12" 37 student health individual dual 1
+%       "'Pt 1 Summary of Data'!AQ12" 40 government program plans total 1
+%       "'Pt 1 Summary of Data'!AR12" 41 other health business total 1
+%       "'Pt 1 Summary of Data'!AS12" 42 medicare mlr business total 1
+%       "'Pt 1 Summary of Data'!D22" pt 1 ln 4 10 fee
+%       "'Pt 1 Summary of Data'!F22" 3 health insurance individual dual pt
+%       and 89 more

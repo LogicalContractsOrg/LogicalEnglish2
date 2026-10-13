@@ -1,6 +1,6 @@
 # Spreadsheets and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-10-12)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-13)*
 
 Many rules live in spreadsheets. A tax office publishes a calculator, a legal
 aid group a benefit worksheet, a court a child support form. Each is an
@@ -180,12 +180,13 @@ say, or a workbook too large to review. A program can then leave the
 workbook as it is and ask it for an answer whenever a rule needs one. LE
 calls an outside source of answers a **service** (§17.6 of the
 [language reference](../reference/language.md#176-services-and-semantic-predicates-over-text)).
-A workbook becomes a service in four steps. The example is Oklahoma's child
-support computation: given the number of children and each parent's gross
-monthly income, the workbook works out each parent's base monthly
-obligation.
+Everything needed is written in the program itself, in Logical English: no
+other file is needed besides the workbook. It takes five steps. The example
+is Oklahoma's child support computation: given the number of children and
+each parent's gross monthly income, the workbook works out each parent's
+base monthly obligation.
 
-### Step 1. Put the workbook beside the program
+### Step 1. Put the workbook in the program's folder
 
 The workbook must be in the program's folder on the LE server, or in a
 folder under it. Here the program is `ok_child_support_service.le` and the
@@ -194,123 +195,93 @@ anywhere else: LE refuses a workbook outside the program's folder. A
 program typed into the editor without a folder of its own cannot ask a
 workbook.
 
-### Step 2. Write the manifest beside the workbook
-
-Yes, one more file is needed. A workbook does not say which of its cells are
-questions and which are answers, so a small text file says it: the
-**manifest**. It sits in the same folder as the workbook, with the
-workbook's name and the ending `.sheetport.yaml` in place of `.xlsx` or
-`.xlsm`; here, `sources/ok_child_support.sheetport.yaml`. Its format is
-SheetPort, the format of the spreadsheet engine LE uses, written in YAML, a
-common format for structured text:
-
-```yaml
-spec: fio
-spec_version: "0.3.0"
-manifest:
-  id: ok-child-support
-  name: "Oklahoma child support computation"
-  workbook:
-    uri: "file://ok_child_support.xlsm"
-    locale: en-US
-    date_system: 1900
-ports:
-  - id: children
-    dir: in
-    shape: scalar
-    location: { a1: "'Child Support Comp Entry'!B4" }
-    schema: { type: number }
-  - id: father_income
-    dir: in
-    shape: scalar
-    location: { a1: "'Child Support Comp Entry'!C5" }
-    schema: { type: number }
-  - id: mother_income
-    dir: in
-    shape: scalar
-    location: { a1: "'Child Support Comp Entry'!D5" }
-    schema: { type: number }
-  - id: father_base_obligation
-    dir: out
-    shape: scalar
-    location: { a1: "'Child Support Comp Entry'!C17" }
-    schema: { type: number }
-```
-
-The first eight lines are the same for every workbook, except for three
-values: `id`, a short name of 3 to 64 lowercase letters, digits and hyphens
-(`ok-child-support`; no spaces and no underscores); `name`, any title; and
-`uri`, which names the workbook file. Then comes the list of **ports**. A
-port is one cell the service uses:
-
-- `id` names the port;
-- `dir: in` is a cell LE fills in before the workbook is worked out (a
-  question), `dir: out` a cell LE reads afterwards (an answer);
-- `location` is the cell, written as in Excel: the sheet's name in single
-  quotes, an exclamation mark, the cell;
-- `schema` says what the cell holds: `number`, or `string` for a text;
-- `shape: scalar` says the port is one cell.
-
-Every cell the manifest does not name keeps the value saved in the
-workbook.
-
-**The order of the input ports matters**: LE fills them, in the order they
-are listed, with the values the template gives, in the order the template
-gives them (step 4).
-
-The manifest need not be written from nothing. Opening the workbook with
-**File ▸ Open…** (with the Logical English Translators) writes a draft of it
-beside the copy of the workbook, in the `sources` folder, listing every
-input and output the translator found; **File ▸ Show the Original…** opens
-it. Keep the ports the question needs, give them clear names, and put the
-input ports in the right order.
-
-### Step 3. Declare the service
+### Step 2. Declare the service
 
 ```le
 the knowledge base ok child support service includes these services:
-    father at sheet:sources/ok_child_support.xlsm#father_base_obligation as a calculator.
+    oklahoma at sheet:sources/ok_child_support.xlsm as a calculator.
 ```
 
-The line reads: *the service called `father` is at the address
-`sheet:sources/ok_child_support.xlsm#father_base_obligation`, and it is a
-calculator.* Piece by piece:
+The line reads: *the service called `oklahoma` is at the address
+`sheet:sources/ok_child_support.xlsm`, and it is a calculator.* Piece by
+piece:
 
 | Piece | Meaning |
 |---|---|
-| `father` | the service's name, one word, which templates use to name it |
+| `oklahoma` | the service's name, one word, which the rest of the program uses to name it |
 | `at` | the address follows |
 | `sheet:` | the kind of address: a workbook (other services have addresses starting with `https://` or `llm:`) |
 | `sources/ok_child_support.xlsm` | the workbook, given from the program's folder |
-| `#father_base_obligation` | the output port (step 2) whose cell is the answer. When the manifest has only one output port, `#` and the name may be left out |
 | `as a calculator` | the kind of service, a word or two of description. Only the kind `semantic matcher` means something to LE; any other is a description for the reader |
 
-A workbook can be declared several times, once for each answer it gives.
-The Oklahoma example declares a second service, `mother at
-sheet:sources/ok_child_support.xlsm#mother_base_obligation`, for the other
-parent's obligation. Several declarations are separated by commas, and the
-last one ends with a full stop.
+When a program declares several services, they are separated by commas, and
+the last one ends with a full stop.
 
-### Step 4. Write a template the service answers, and use it
+### Step 3. Write a template for each answer
+
+A **template** is the pattern of a sentence, with a place, written
+`*a number*` or `*an amount*`, for each value. A template the workbook
+answers ends with `; via service` and the service's name:
 
 ```le
 the templates are:
-    the father's base obligation for *a number* children with incomes *an amount* and *an amount* is *an amount*; via service father.
+    the father's base obligation for *a number* children with incomes *an amount* and *an amount* is *an amount*; via service oklahoma.
+    the mother's base obligation for *a number* children with incomes *an amount* and *an amount* is *an amount*; via service oklahoma.
 ```
 
-`; via service father` says that the service `father` answers this
-template. Its places are matched to the manifest's ports:
+Every place but the last is a question the program gives the workbook. The
+last place is the answer the workbook gives back. One workbook can answer
+several templates, as here.
 
-- every place but the last is an input: the first value fills the first
-  input port (`children`), the second the second (`father_income`), the
-  third the third (`mother_income`). So the template must have as many
-  places before the last as the manifest has input ports;
-- the last place is the answer, the value of the output port the address
-  names.
+### Step 4. Say which cells answer each template
 
-A rule then uses the template like any other. It must know every input
-value by the time it asks; a question with an input still unknown stops the
-query with an error, because a workbook cannot be worked out backwards:
+A workbook does not say which of its cells are questions and which are
+answers. The program says it, in a section of its own:
+
+```le
+the cells of service oklahoma are:
+    the sheet is "Child Support Comp Entry".
+    the father's base obligation for "B4" children with incomes "C5" and "D5" is "C17".
+    the mother's base obligation for "B4" children with incomes "C5" and "D5" is "D17".
+```
+
+Each sentence after the first is the template of step 3 written once more,
+with a **cell reference** in each place instead of a value: `"B4"` is the
+cell in column B, row 4. The sentence reads: *to answer this template,
+write the number of children into B4, the father's income into C5 and the
+mother's into D5, work the workbook out, and read the answer in C17.*
+
+- **`the sheet is "..."`** names the sheet (the tab of the workbook) the
+  cells are on. Without it, the cells are on the workbook's first sheet. A
+  cell on another sheet names its sheet itself, as in Excel: the sheet's
+  name in single quotes, an exclamation mark, the cell, such as
+  `"'Rates 2026'!B4"`.
+- **`the cell "..." is ...`** gives a cell the same value for every
+  question: `the cell "B30" is "monthly".` writes the text `monthly` into
+  B30 each time, and `the cell "B31" is 12.` the number 12.
+- Every cell the section does not name keeps the value saved in the
+  workbook.
+- The cell references are written in double quotes. Without the quotes,
+  LE would read `B4` as a name of its own.
+
+The verifier checks the section as soon as the program is loaded. It
+reports, at the line concerned: a sentence that is not an instance of a
+template the service answers, a place that holds something other than a
+cell reference, a template the service answers with no sentence saying
+which cells answer it, and a workbook that is not where the address says.
+
+Opening the workbook with **File ▸ Open…** (with the Logical English
+Translators) writes a draft of steps 2 to 4 at the end of the twin, as a
+comment: the service line, a template for each answer the translator found,
+and the section of cells, followed by the list of every input and answer
+cell with its label. Copy the lines out of the comment, keep the answers
+needed, and give each template clearer words.
+
+### Step 5. Use the template in a rule
+
+A rule uses the template like any other. It must know every value of a
+question by the time it asks; a question with a value still unknown stops
+the query with an error, because a workbook cannot be worked out backwards:
 
 ```le
 the base monthly obligation of the father in a case is an amount
@@ -322,22 +293,23 @@ the base monthly obligation of the father in a case is an amount
 
 For two children and incomes of 5,000 and 3,000, the answer is 814.38,
 worked out by the workbook. The explanation credits it: *according to
-service father, because ok_child_support.xlsm computed
-father_base_obligation from children = 2, father_income = 5000,
-mother_income = 3000*.
+service oklahoma, because ok_child_support.xlsm computed C17 from B4 = 2,
+C5 = 5000, D5 = 3000*.
 
 ### What else to know
 
 - LE asks the workbook once for each different question in a session, and
   keeps the answer (§17.6). A changed workbook counts as a new one, so an
-  answer kept from the old one is not reused.
-- The workbook is worked out with its clock fixed, so a formula such as
-  `TODAY()` gives the same answer each time.
-- When the workbook cannot be asked — no workbook or no manifest where the
-  address says, a value of the wrong type for a port (a text where the
-  manifest says `number`), a template with the wrong number of places, an
-  error in the answer cell — the question is answered as **unknown**, and
-  the query still answers on that condition. The server's log says why.
+  answer kept from the old one is not reused. A change to the section of
+  cells counts as a new question too.
+- A date the program gives is written into its cell as a date, as Excel
+  reads a date typed into a cell. A formula such as `TODAY()` reads the day
+  the workbook is worked out; a formula such as `RAND()` gives the same
+  value each time.
+- When the workbook cannot be worked out — no workbook where the address
+  says, a sheet the workbook does not have, an error such as `#VALUE!` in
+  the answer cell — the question is answered as **unknown**, and the query
+  still answers on that condition. The server's log says why.
 - Asking a workbook needs a server with the spreadsheet engine installed
   (Node and the packages of `services/sheet`). In the editions of LE that
   run entirely in the browser, the question is answered as unknown.

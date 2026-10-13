@@ -15,6 +15,7 @@
 :- use_module(le_scasp, []).
 :- use_module(le_documents, []).
 :- use_module(le_views, []).
+:- use_module(le_sheet_cells, []).
 :- use_module(library(ordsets)).
 :- use_module(library(assoc)).
 :- use_module(library(isub)).
@@ -97,6 +98,7 @@ check_issue(KB, _, Issue) :- quote_not_found(KB, Issue).
 check_issue(KB, _, Issue) :- unread_value(KB, Issue).
 check_issue(KB, _, Issue) :- mistyped_value(KB, Issue).
 check_issue(KB, _, Issue) :- le_views:view_issue(KB, Issue).
+check_issue(KB, _, Issue) :- le_sheet_cells:cells_issue(KB, Issue).
 check_issue(KB, _, Issue) :- memorable_under_negation(KB, Issue).
 check_issue(KB, _, Issue) :- memorable_calls_prolog(KB, Issue).
 

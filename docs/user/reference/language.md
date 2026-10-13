@@ -1351,9 +1351,9 @@ the templates are:
   for example — giving it the template and the arguments already known. With
   `stub:matcher` or `stub:judge` the system asks a stand-in used for testing,
   which always answers the same way; the LE server offers these at
-  `/test_services/<name>`. With `sheet:<workbook>` (or
-  `sheet:<workbook>#<output>`) the system asks a spreadsheet beside the
-  program (*A spreadsheet as a service*, below).
+  `/test_services/<name>`. With `sheet:<workbook>` the system asks a
+  spreadsheet in the program's folder (*A spreadsheet as a service*,
+  below).
 - **`; via service <name>`** (a template addition): that service answers the
   questions asked of the template. The **last** argument may be unknown, and
   the service fills it in. Every other argument must already have a value when
@@ -1389,29 +1389,48 @@ the templates are:
   kept answers, which is what makes a run reproducible.
 - **A spreadsheet as a service.** A workbook (an Excel `.xlsx` or `.xlsm`
   file) in the program's folder can answer a template without being
-  translated: the authority's own calculator, say. Beside the workbook, a
-  *manifest* says which cells are its inputs and which its outputs: a file
-  named like the workbook, ending in `.sheetport.yaml` (Formualizer's
-  SheetPort format; the spreadsheet importer drafts one). The template's
-  known arguments fill the manifest's input cells, in the order the manifest
-  lists them; the workbook is worked out with its clock fixed; and the value
-  of the output cell that the address names after `#` (or the only output)
-  is the answer:
+  translated: the authority's own calculator, say. A section of the program,
+  `the cells of service <name> are:`, says which cells answer each template.
+  Each of its sentences is an instance of a template the service answers,
+  with a cell reference in double quotes in each place. The values a
+  question gives for the first places are written into those cells, the
+  workbook is worked out, and the cell of the last place holds the answer:
   ```le
   the knowledge base vitamin d bmi includes these services:
-      bmi at sheet:sources/bmi/adult_bmi.xlsx#icd10_code as a calculator.
+      bmi at sheet:sources/bmi/adult_bmi.xlsx as a calculator.
 
   the templates are:
       the ICD10 code of the BMI of *a number* kg and *a number* cm is *a code*; via service bmi.
+
+  the cells of service bmi are:
+      the sheet is "BMI".
+      the ICD10 code of the BMI of "B1" kg and "B2" cm is "B4".
   ```
-  The explanation credits the workbook (`according to service bmi, because
-  "adult_bmi.xlsx computed icd10_code from weight_kg = 118, height_cm = 170"`).
-  The workbook must be inside the program's folder; a changed workbook is a
-  new version, so an answer kept from the old one is not reused. Asking a
-  spreadsheet needs Node and the sheet engine's packages on the server (`npm
-  ci` in `services/sheet`); where they are missing, and in the editions that
-  run in the browser, the question becomes an unknown. See
-  `examples/regulatory/medicare/vitamin_d_bmi.le`.
+  Two other sentences may appear in the section. `the sheet is "<name>"`
+  names the sheet of the cells that do not name their own (a cell of
+  another sheet is written as in Excel, `"'Rates 2026'!B4"`); without it,
+  the cells are on the workbook's first sheet. `the cell "<cell>" is
+  <value>.` gives a cell the same text or number for every question. Every
+  other cell keeps the value saved in the workbook. The section's phrases
+  are keywords of the program's language (`as células do serviço bmi são:`,
+  `a folha é`, `a célula`, in Portuguese). The explanation credits the
+  workbook (`according to service bmi, because "adult_bmi.xlsx computed B4
+  from B1 = 118, B2 = 170"`). The workbook must be inside the program's
+  folder; a changed workbook is a new version, so an answer kept from the
+  old one is not reused. Asking a spreadsheet needs Node and the sheet
+  engine's packages on the server (`npm ci` in `services/sheet`); where
+  they are missing, and in the editions that run in the browser, the
+  question becomes an unknown. The verifier reports as errors a sentence of
+  the section it cannot read (`cells_unknown_sentence`), one about a
+  template the service does not answer (`cells_not_backed`), a place that is
+  not a cell reference (`cells_not_a_cell`), two sentences for one template
+  (`cells_twice`), a section for a service that is not a workbook
+  (`cells_unknown_service`), a template a workbook answers with no sentence
+  for it (`cells_missing`) and an address with a `#` (`sheet_address_port`,
+  the form of an earlier version); it warns of a workbook that is not where
+  the address says (`sheet_no_workbook`). See
+  `examples/regulatory/medicare/vitamin_d_bmi.le` and
+  [Spreadsheets](../integrations/spreadsheets.md#asking-a-workbook-instead).
 - The verifier reports `service_undeclared` as an error where `; via service
   X` names a service X the program does not declare, and where a built-in
   semantic template is used with no semantic matcher declared.

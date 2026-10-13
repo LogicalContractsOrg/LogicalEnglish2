@@ -54,6 +54,7 @@
 :- use_module(le_provenance).
 :- use_module(le_tables).
 :- use_module(le_views, []).   % views (§17.10); called qualified
+:- use_module(le_sheet_cells, []).   % the cells of a workbook service (§17.6)
 :- use_module(le_sections).
 :- use_module(le_services).
 :- use_module(le_flip).
@@ -527,6 +528,14 @@ error_issue_type(view_unknown_query).
 error_issue_type(view_unknown_scenario).
 error_issue_type(view_bad_question).
 error_issue_type(view_duplicate_name).
+% the cells of a workbook service that cannot be read (le_sheet_cells.pl)
+error_issue_type(cells_unknown_sentence).
+error_issue_type(cells_not_backed).
+error_issue_type(cells_not_a_cell).
+error_issue_type(cells_twice).
+error_issue_type(cells_unknown_service).
+error_issue_type(cells_missing).
+error_issue_type(sheet_address_port).
 
 process_section(S, M) :-
     ( do_log -> print_message(informational,'Processing section: ~w' - [S]); true),
@@ -673,6 +682,8 @@ process_section_acc(table_done(Key, Start, End), M) :-
 
 % A view (le_views.pl): its sentences were recorded by the second pass.
 process_section_acc(view_done(_, _, _), _M).
+% The cells of a workbook service (le_sheet_cells.pl): recorded by the second pass.
+process_section_acc(service_cells_done(_, _, _), _M).
 
 % "the knowledge base kb includes these services: ..." (le_services.pl).
 process_section_acc(services(_, Services, _, _), M) :-
@@ -3122,6 +3133,10 @@ is_system_predicate(le_table_row/6).
 is_system_predicate(le_table_row_citation/6).
 % Views (le_views.pl): the sentences of each view, as tokens.
 is_system_predicate(le_view_source/4).
+% The cells of a workbook service (le_sheet_cells.pl): the sentences, and
+% their reading, made when a goal first asks the workbook.
+is_system_predicate(le_sheet_cells_source/4).
+is_system_predicate(le_sheet_cells_compiled/3).
 
 %!  kb_own_predicate(+M:atom, +Head:callable) is semidet.
 %

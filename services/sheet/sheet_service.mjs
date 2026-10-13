@@ -1,54 +1,64 @@
 // A workbook as an LE service: the `sheet:` address of le_services.pl.
 //
 //   the knowledge base k includes these services:
-//       child support at sheet:ok_child_support.xlsm#support as a calculator.
+//       child support at sheet:ok_child_support.xlsm as a calculator.
 //   the templates are:
 //       the support of *a first income* and *a second income* is *an amount*; via service child support.
+//   the cells of service child support are:
+//       the sheet is "Entry".
+//       the support of "C5" and "D5" is "C17".
 //
-// The binding between the template and the cells is a SheetPort manifest
-// (Formualizer's description of a sheet's typed inputs and outputs) beside
-// the workbook: <workbook without extension>.sheetport.yaml. The template's
-// known arguments fill the manifest's `in` ports in the order the manifest
-// lists them; the answer is the `out` port the address names after `#`, or
-// the manifest's only `out` port. The workbook is evaluated with its clock
-// fixed (freezeVolatile), so the same question has the same answer.
+// The program says which cells answer the template (le_sheet_cells.pl): the
+// template's known arguments are written into the cells of its first places,
+// the workbook is recalculated, and the answer is the cell of its last place.
+// `the cell "B30" is "monthly".` gives a cell a value for every question.
 //
 //   node sheet_service.mjs < request.json > reply.json
-//   request: {"workbook": path, "port": name|null, "inputs": [value, ...]}
+//   request: {"workbook": path,
+//             "cells": {"sheet": name|null, "inputs": [ref, ...], "output": ref,
+//                       "fixed": [[ref, value], ...]},
+//             "inputs": [value, ...]}
 //   reply:   {"answers": [[value]], "rationale": "..."} | {"error": "..."}
 //
-// The same answer() runs in a browser, given the workbook's and the
-// manifest's bytes.
+// The same answer() runs in a browser, given the workbook's bytes.
 
 import fs from 'fs';
 import path from 'path';
-import { SheetPortSession } from 'formualizer';
-import { openWorkbook, plainValue } from './sheet_engine.mjs';
+import { openWorkbook, evaluate, parseCellRef, excelSerial } from './sheet_engine.mjs';
 
-export function manifestPath(workbook) {
-    return workbook.replace(/\.(xlsx|xlsm)$/i, '') + '.sheetport.yaml';
+// A value as a cell holds it: a date LE sends as text ("2026-03-15") is a
+// date in the workbook, as Excel reads one typed into a cell.
+function cellValue(v) {
+    if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
+        const [y, m, d] = v.split('-').map(Number);
+        return excelSerial(new Date(Date.UTC(y, m - 1, d)));
+    }
+    return v;
 }
 
-// answer({bytes, manifestYaml, port, inputs, name}) -> {answers, rationale} | {error}
-export async function answer({ bytes, manifestYaml, port, inputs, name }) {
+// answer({bytes, cells, inputs, name}) -> {answers, rationale} | {error}
+export async function answer({ bytes, cells, inputs, name }) {
+    const refs = cells.inputs || [];
+    if (inputs.length !== refs.length)
+        return { error: `the template gives ${inputs.length} value(s); the program names ${refs.length} input cell(s) (${refs.join(', ')})` };
     const book = await openWorkbook(bytes);
-    const session = SheetPortSession.fromManifestYaml(manifestYaml, book.wb);
-    const ports = session.describePorts();
-    const list = Array.isArray(ports) ? ports : (ports.ports || []);
-    const ins = list.filter(p => (p.dir || p.direction) === 'in');
-    const outs = list.filter(p => (p.dir || p.direction) === 'out');
-    if (inputs.length !== ins.length)
-        return { error: `the template gives ${inputs.length} value(s); the manifest's sheet takes ${ins.length} (${ins.map(p => p.id).join(', ')})` };
-    const out = port ? outs.find(p => p.id === port) : (outs.length === 1 ? outs[0] : null);
-    if (!out) return { error: port ? `the manifest has no output port ${port}` : `the manifest has ${outs.length} output ports: name one after # in the address` };
-    const updates = {};
-    ins.forEach((p, i) => { updates[p.id] = inputs[i]; });
-    session.writeInputs(updates);
-    const res = session.evaluateOnce({ freezeVolatile: true });
-    const v = plainValue(res[out.id]);
-    if (v && typeof v === 'object' && !Array.isArray(v)) return { error: `the sheet shows ${v.error || JSON.stringify(v)} for ${out.id}` };
-    const given = ins.map((p, i) => `${p.id} = ${inputs[i]}`).join(', ');
-    return { answers: [[v]], rationale: `${name || 'the workbook'} computed ${out.id} from ${given}` };
+    const sheets = book.parts.sheets.filter(s => !s.isChart).map(s => s.name);
+    const sheet = cells.sheet || sheets[0];
+    if (!sheets.includes(sheet)) return { error: `the workbook has no sheet "${sheet}" (it has ${sheets.map(s => `"${s}"`).join(', ')})` };
+    const all = [...(cells.fixed || []).map(([r]) => r), ...refs, cells.output];
+    for (const r of all) {
+        let s;
+        try { s = parseCellRef(r, sheet).sheet; } catch (e) { return { error: `"${r}" is not a cell reference` }; }
+        if (!sheets.includes(s)) return { error: `the workbook has no sheet "${s}", which "${r}" names` };
+    }
+    const values = {};
+    for (const [r, v] of cells.fixed || []) values[r] = cellValue(v);
+    refs.forEach((r, i) => { values[r] = cellValue(inputs[i]); });
+    const res = evaluate(book, values, [cells.output], sheet);
+    const v = res[cells.output];
+    if (v && typeof v === 'object' && !Array.isArray(v)) return { error: `the sheet shows ${v.error || JSON.stringify(v)} in ${cells.output}` };
+    const given = refs.map((r, i) => `${r} = ${inputs[i]}`).join(', ');
+    return { answers: [[v]], rationale: `${name || 'the workbook'} computed ${cells.output} from ${given}` };
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname);
@@ -56,14 +66,12 @@ if (isMain) {
     let reply;
     try {
         const req = JSON.parse(fs.readFileSync(0, 'utf8'));
-        const mf = manifestPath(req.workbook);
         if (!fs.existsSync(req.workbook)) reply = { error: `no workbook at ${req.workbook}` };
-        else if (!fs.existsSync(mf)) reply = { error: `no SheetPort manifest at ${mf}` };
-        else reply = await answer({ bytes: fs.readFileSync(req.workbook), manifestYaml: fs.readFileSync(mf, 'utf8'),
-                                    port: req.port || null, inputs: req.inputs || [], name: path.basename(req.workbook) });
+        else if (!req.cells || !req.cells.output) reply = { error: 'the request does not say which cells answer the template' };
+        else reply = await answer({ bytes: fs.readFileSync(req.workbook), cells: req.cells,
+                                    inputs: req.inputs || [], name: path.basename(req.workbook) });
     } catch (e) {
-        const d = e && (e.details || e.issues);
-        reply = { error: String(e && e.message || e) + (Array.isArray(d) ? ': ' + d.map(x => `${x.path}: ${x.message}`).join('; ') : '') };
+        reply = { error: String(e && e.message || e) };
     }
     process.stdout.write(JSON.stringify(reply));
 }

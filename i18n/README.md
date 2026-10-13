@@ -37,6 +37,9 @@ When no opener matches, the program is parsed as English (decision O-1).
   Category `view` holds the sentence phrases of views (docs/user/reference/language.md
   §17.10): each view sentence is a sequence of these phrases and its
   arguments.
+  Category `service_cells` holds the phrases of the section that says which
+  cells of a workbook answer a template (`the cells of service <name> are:`,
+  `the sheet is`, `the cell`; docs/user/reference/language.md §17.6).
 - **`system_templates.csv`** — surface phrases of the built-in predicates
   (`is equal to` / `é igual a`, …). `{1}`, `{2}`, … mark the argument slots;
   synonyms with `|` as above. Symbolic operators (`>=`, `=` …) are

@@ -9,11 +9,12 @@
 % sources/bmi/adult_bmi.xlsx computes the BMI (weight in kilograms divided by
 % the height in metres squared, rounded to one decimal, as the CDC defines
 % it) and looks its code up in its table of Z68 codes. The workbook is not
-% translated: the rule asks it, through the manifest beside it
-% (adult_bmi.sheetport.yaml), and the answer is credited to it in the
-% explanation. The workbook was made for this example from the CDC's
-% published formula; the CDC's own BMI workbooks could equally be declared,
-% with a manifest naming their cells.
+% translated: the rule asks it, and the answer is credited to it in the
+% explanation. The section "the cells of service bmi" says which cells the
+% question fills (the weight in B1, the height in B2) and which cell holds
+% the answer (the code in B4). The workbook was made for this example from
+% the CDC's published formula; the CDC's own BMI workbooks could equally be
+% declared, with a section naming their cells.
 %
 % Running it needs Node and the sheet engine's packages (npm ci in
 % services/sheet). Without them the service answers nothing, and the
@@ -31,12 +32,16 @@ the knowledge base vitamin d bmi includes these resources:
     vitamin_d.
 
 the knowledge base vitamin d bmi includes these services:
-    bmi at sheet:sources/bmi/adult_bmi.xlsx#icd10_code as a calculator.
+    bmi at sheet:sources/bmi/adult_bmi.xlsx as a calculator.
 
 the templates are:
     *a beneficiary* weighs *a number* kg; undefined.
     the height of *a beneficiary* is *a number* cm; undefined.
     the ICD10 code of the BMI of *a number* kg and *a number* cm is *a code*; via service bmi.
+
+the cells of service bmi are:
+    the sheet is "BMI".
+    the ICD10 code of the BMI of "B1" kg and "B2" cm is "B4".
 
 the knowledge base vitamin d bmi includes:
 

@@ -1530,6 +1530,32 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "reads"
       ]
+    ],
+    "cells_open": [
+      [
+        "the",
+        "cells",
+        "of",
+        "service"
+      ]
+    ],
+    "cells_are": [
+      [
+        "are"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "the",
+        "sheet",
+        "is"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "the",
+        "cell"
+      ]
     ]
   },
   "pt": {
@@ -3382,6 +3408,32 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "diz"
       ]
+    ],
+    "cells_open": [
+      [
+        "as",
+        "células",
+        "do",
+        "serviço"
+      ]
+    ],
+    "cells_are": [
+      [
+        "são"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "a",
+        "folha",
+        "é"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "a",
+        "célula"
+      ]
     ]
   },
   "es": {
@@ -5154,6 +5206,32 @@ export const keywords: Record<string, KeywordTable> = {
     "view_reads": [
       [
         "dice"
+      ]
+    ],
+    "cells_open": [
+      [
+        "las",
+        "celdas",
+        "del",
+        "servicio"
+      ]
+    ],
+    "cells_are": [
+      [
+        "son"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "la",
+        "hoja",
+        "es"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "celda"
       ]
     ]
   },
@@ -7043,6 +7121,32 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "dit"
       ]
+    ],
+    "cells_open": [
+      [
+        "les",
+        "cellules",
+        "du",
+        "service"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sont"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "la",
+        "feuille",
+        "est"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "cellule"
+      ]
     ]
   },
   "it": {
@@ -8862,6 +8966,32 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "dice"
       ]
+    ],
+    "cells_open": [
+      [
+        "le",
+        "celle",
+        "del",
+        "servizio"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sono"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "il",
+        "foglio",
+        "è"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "cella"
+      ]
     ]
   }
 } as const;
@@ -9043,7 +9173,11 @@ export const keywordCategories: Record<string, string> = {
   "view_draft": "view",
   "view_flip_keeps": "view",
   "view_section": "view",
-  "view_reads": "view"
+  "view_reads": "view",
+  "cells_open": "service_cells",
+  "cells_are": "service_cells",
+  "cells_sheet": "service_cells",
+  "cells_cell": "service_cells"
 } as const;
 
 /** UI chrome strings per language, keyed by the canonical English string. */
