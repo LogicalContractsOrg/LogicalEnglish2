@@ -32,6 +32,7 @@ service, offer it. Asking a workbook is part of LE itself.
 - [What the twin holds](#what-the-twin-holds)
 - [Where the expected answers come from](#where-the-expected-answers-come-from)
 - [Where Excel and Logical English differ](#where-excel-and-logical-english-differ)
+- [Large workbooks](#large-workbooks)
 - [Asking a workbook instead](#asking-a-workbook-instead)
 - [What is not supported yet](#what-is-not-supported-yet)
 - [See also](#see-also)
@@ -51,9 +52,9 @@ the templates are:
     the income is *a number*; scenario element.
     the rate is *a number*; memorable.
     the tax is *a number*; memorable.
-    the income from for *a key* is *a value* under table income_from.
+    the rate for *a key* is *a value* under table rate.
 
-the table income_from is, with first match, with provenance "tax.xlsx" at Brackets A2 to B4:
+the table rate is, with first match, with provenance "tax.xlsx" at Brackets A2 to B4:
     row | key                  | value
     r1  | >= 0 and < 12000     | 0
     r2  | >= 12000 and < 50000 | 0.2
@@ -73,7 +74,9 @@ the tax is a number N if
 
 Each rule keeps its formula above it as a comment, so a reader can check
 one against the other. The words of each template come from the label
-beside the cell.
+beside the cell, and a table is named after the column it returns. The
+addition `memorable` tells LE to work a value out once in each question,
+however many rules read it.
 
 ## How to open a workbook
 
@@ -99,6 +102,10 @@ A workbook in the older Excel format (`.xls`) or in the OpenDocument format
 | A column of copies of one formula, one row per employee, say | One rule for every row. The row is the first place of the template, as in `the withholding of *a row* is *an amount*`, and a scenario names the rows it fills, such as `row_7` |
 | A formula the translator cannot read | A block marked `RESIDUE`, which keeps the formula. The Contract Assistant can translate such blocks |
 
+A cell formatted as a date becomes a date in the twin (`2026-03-15`), and
+date arithmetic uses LE's own sentences: `EDATE(B4,2)`, two months after a
+date, becomes `… is 2 months after …`.
+
 The program is written in the language of the workbook's labels: a
 Portuguese calculator becomes a program in Portuguese LE. Each import also
 writes a **ledger**, a list of every formula, table, input and constant,
@@ -117,6 +124,14 @@ computed.
   inputs: values just below, on and just above the limits the formulas test,
   and values at random. The workbook is worked out for each case by a
   spreadsheet engine inside LE, and its outputs become the expected answers.
+- **Examples the publisher filled in.** Some authorities publish their
+  template with worked examples: the same workbook, filled in for a typical
+  case. Each example can become a scenario of its own, its saved values the
+  expected answers.
+
+The generated cases stay realistic: a percentage is drawn between 0 and
+100%, a count among small numbers, a date within about a year of the date
+in the file.
 
 Where the workbook shows an error instead of a value, such as `#N/A`, there
 is no correct value, so nothing is expected; the scenario says so in a
@@ -136,6 +151,16 @@ ledger names every place where it could not do so exactly.
   them exactly: *approximated*.
 - When the branch an `IF` chooses shows an error, Excel shows the error. The
   twin goes on to the next branch instead: *approximated*.
+
+## Large workbooks
+
+For a workbook of thousands of formulas the translator can be told which
+cells hold the answers, and it translates only what those cells need. The
+import also says when it took an implausible number of cells as inputs —
+empty cells that formulas read, in a workbook that does not mark which cells
+a person fills in — so that the inputs can be named instead. These two
+choices are options of the translator, available to whoever runs it (see
+the developer guide of the Logical English Translators).
 
 ## Asking a workbook instead
 
@@ -171,8 +196,16 @@ the [language reference](../reference/language.md#176-services-and-semantic-pred
 - Macros, the programs some workbooks run when a button is pressed: they
   are not read. A workbook whose rules live in macros becomes a twin with
   little in it.
-- Some functions: text functions such as `CONCATENATE` and `TEXT`, date
-  functions, `INDIRECT`, `OFFSET` and array formulas become residue blocks.
+- Some functions: text functions such as `CONCATENATE` and `TEXT`,
+  `TODAY`, `EOMONTH`, `INDIRECT`, `OFFSET` and array formulas become residue
+  blocks. (`IF`, `AND`, `OR`, `CHOOSE`, the lookups, `SUM`, `SUMIF`,
+  `COUNTIF` and their plural forms over up to 400 cells, `MIN`, `MAX`,
+  `ROUND` and its kin, `EDATE`, `YEAR`, `MONTH`, `DAY` and date arithmetic
+  are read.)
+- A very large model, such as the European Union's template for the carbon
+  border adjustment, with tens of thousands of formulas: name the cells
+  that hold the answers (see below), and the twin holds only what they
+  need.
 - Rules written as sentences in cells, as some regulators publish them, are
   planned separately.
 - Writing an LE program back as a workbook is not offered.

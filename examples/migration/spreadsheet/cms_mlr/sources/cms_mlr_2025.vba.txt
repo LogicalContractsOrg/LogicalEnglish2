@@ -1,0 +1,674 @@
+' ===== Module1.bas =====
+Sub CopyPasteFromCalculator()
+'
+' CopyPasteFromCalculator Macro
+' This macro:   opens the HIOS template indicated by the user, if not already open;
+'               copies MLR data entered and calculated in the Pt 1, Pt 2, Pt 3, and Pt 4 tabs of this workbook;
+'               pastes MLR data into the corresponding sections of Pt 1, Pt 2, Pt 3, Pt 4, and Pt 5 of the HIOS template.
+'               The HIOS template must reside in the same directory as this macro workbook.
+'
+
+    Dim userFolder As String
+    Dim userFilename As String
+    Dim userFilepath As String
+    Dim userFile As Workbook
+    Dim calcFile As Workbook
+    
+    Set calcFile = ThisWorkbook
+        
+    userFolder = ThisWorkbook.Path & "\"
+    userFilename = ThisWorkbook.Sheets("Start Here").Range("B23")
+    
+    'check if HIOS template is open
+    Set userFile = Nothing
+    On Error Resume Next
+    Set userFile = Workbooks(userFilename)
+    On Error GoTo 0
+        
+    'if HIOS template is not open, check if it exists
+    If userFile Is Nothing Then
+        userFilepath = ""
+        On Error Resume Next
+        userFilepath = Dir(userFolder & userFilename)
+        On Error GoTo 0
+        'if HIOS template does not exist, alert user and abort
+        If userFilepath = "" Then
+            MsgBox "Destination HIOS template file not found." & vbNewLine & "Please verify that the template filename is correct, and that both this file and the HIOS template file are in the same directory.", vbCritical
+            Exit Sub
+        'if HIOS template exists, open it and proceed
+        Else
+            userFilepath = userFolder & userFilename
+            Set userFile = Workbooks.Open(userFilepath)
+        End If
+    End If
+    
+    'copy issue state from HIOS template to MLR Calculator
+    userFile.Sheets("Company Information").Range("C12").Copy
+    calcFile.Sheets("Company Information").Range("C12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    'copy FIT-exempt status from HIOS template to MLR Calculator
+    userFile.Sheets("Company Information").Range("C15").Copy
+    calcFile.Sheets("Company Information").Range("C15").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    
+    'calculate Part 1, copy from MLR Calculator and paste into HIOS template
+    calcFile.Sheets("Pt 2 Premium and Claims").Calculate
+    calcFile.Sheets("Pt 1 Summary of Data").Activate
+    calcFile.Sheets("Pt 1 Summary of Data").Calculate
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D5:AS10").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D5:AS10").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D12:AS22").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D12:AS22").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D25:AT28").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D25:AT28").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D30:AT32").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D30:AT32").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D34:AT35").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D34:AT35").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D37:AT42").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D37:AT42").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D44:AT47").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D44:AT47").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D49:AT53").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D49:AT53").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("AT54:AT54").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("AT54:AT54").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("D56:AT60").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("D56:AT60").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 1 Summary of Data").Range("AU61:AU62").Copy
+    userFile.Sheets("Pt 1 Summary of Data").Range("AU61:AU62").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    'clear calculated cells from Expat columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB5:AK5").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB12:AK12").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB22:AK22").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB60:AK60").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL5:AP5").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL12:AP12").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL22:AP22").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL60:AP60").ClearContents
+    'End If
+    
+    
+    'calculate Part 2, copy from MLR Calculator and paste into HIOS template
+    calcFile.Sheets("Pt 2 Premium and Claims").Activate
+    calcFile.Sheets("Pt 2 Premium and Claims").Calculate
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D5:AS7").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D5:AS7").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D9:AS20").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D9:AS20").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D23:AS24").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D23:AS24").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D26:AS28").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D26:AS28").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D30:AS32").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D30:AS32").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D34:AS36").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D34:AS36").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D38:AS39").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D38:AS39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D41:AS43").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D41:AS43").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D45:AS47").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D45:AS47").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("D49:AS59").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("D49:AS59").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 2 Premium and Claims").Range("AT57:AT58").Copy
+    userFile.Sheets("Pt 2 Premium and Claims").Range("AT57:AT58").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    'clear calculated cells from Expat columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 2 Premium and Claims").Range("AB54:AK55").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 2 Premium and Claims").Range("AL54:AP55").ClearContents
+    'End If
+    
+    
+    'calculate Part 3, copy from MLR Calculator and paste into HIOS template
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Activate
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Calculate
+    
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C5:AL13").Copy
+    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C5:AL13").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C15:AL17").Copy
+    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C15:AL17").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C19:AL23").Copy
+    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C19:AL23").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C25:AL27").Copy
+    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C25:AL27").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C29:AL36").Copy
+    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C29:AL36").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C39:AK40").Copy
+    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C39:AK40").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    '2/18/2022 disabled the section that wipes the 0.8% warning in Part 3 Line 1.3
+    'clear QIA warning in Part 3 Line 1.3 from HIOS template
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("E7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("E7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("E7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("E7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("I7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("I7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("M7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("M7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("Q7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("Q7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("U7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("U7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("Y7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("Y7").ClearContents
+'    End If
+'
+'    If userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK7") = "Check Pt 1 Ln 4.6" Then
+'        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK7").ClearContents
+'    End If
+
+    'clear all calculated columns except Student Health on HIOS template, if GT template
+    If userFile.Sheets("Company Information").Range("C12") = "Grand Total" Then
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C5:Z13").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C15:Z17").ClearContents
+        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C20:Z23").ClearContents
+        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C25:Z27").ClearContents
+        userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C29:Z30").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C41:Z42").ClearContents
+    End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK6:AL7").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI13:AL13").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK15:AL16").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI17:AL17").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK20:AL20").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AL22:AL23").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI27:AL29").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI31:AL38").ClearContents
+    'End If
+    
+
+    'calculate Part 4, copy from MLR Calculator and paste into HIOS template
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Activate
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Calculate
+    
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Range("C4:K4").Copy
+    userFile.Sheets("Pt 4 Rebate Disbursement").Range("C4:K4").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Range("C6:K9").Copy
+    userFile.Sheets("Pt 4 Rebate Disbursement").Range("C6:K9").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Range("C11:K15").Copy
+    userFile.Sheets("Pt 4 Rebate Disbursement").Range("C11:K15").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Range("C17:K23").Copy
+    userFile.Sheets("Pt 4 Rebate Disbursement").Range("C17:K23").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Range("C24:C24").Copy
+    userFile.Sheets("Pt 4 Rebate Disbursement").Range("C24:C24").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 4 Rebate Disbursement").Range("C25:C25").Copy
+    userFile.Sheets("Pt 4 Rebate Disbursement").Range("C25:C25").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    'clear calculated cells from Expat columns on HIOS template, on both State and GT templates
+    'userFile.Sheets("Pt 4 Rebate Disbursement").Range("I4:J4").ClearContents
+    'userFile.Sheets("Pt 4 Rebate Disbursement").Range("I6:J9").ClearContents
+    'userFile.Sheets("Pt 4 Rebate Disbursement").Range("I11:J14").ClearContents
+    'userFile.Sheets("Pt 4 Rebate Disbursement").Range("I16:J22").ClearContents
+    
+    'clear calculated cells from all columns except Student Health on HIOS template, if GT template
+    'If userFile.Sheets("Company Information").Range("C12") = "Grand Total" Then
+        'userFile.Sheets("Pt 4 Rebate Disbursement").Range("C4:H4").ClearContents
+        'userFile.Sheets("Pt 4 Rebate Disbursement").Range("C11:H11").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 4 Rebate Disbursement").Range("K4:K4").ClearContents
+    '    userFile.Sheets("Pt 4 Rebate Disbursement").Range("K7:K9").ClearContents
+    '    userFile.Sheets("Pt 4 Rebate Disbursement").Range("K11:K14").ClearContents
+    '    userFile.Sheets("Pt 4 Rebate Disbursement").Range("K16:K22").ClearContents
+    'End If
+
+
+    'copy Part 5 from MLR Calculator and paste into HIOS template
+    calcFile.Sheets("Pt 5 Additional Responses").Activate
+    
+    calcFile.Sheets("Pt 5 Additional Responses").Range("C4").Copy
+    userFile.Sheets("Pt 5 Additional Responses").Range("C4").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    calcFile.Sheets("Pt 5 Additional Responses").Range("B8:B18").Copy
+    userFile.Sheets("Pt 5 Additional Responses").Range("B8:B18").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 5 Additional Responses").Range("B22:B32").Copy
+    userFile.Sheets("Pt 5 Additional Responses").Range("B22:B32").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 5 Additional Responses").Range("B36:C46").Copy
+    userFile.Sheets("Pt 5 Additional Responses").Range("B36:C46").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 5 Additional Responses").Range("B50:C59").Copy
+    userFile.Sheets("Pt 5 Additional Responses").Range("B50:C59").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    calcFile.Sheets("Pt 5 Additional Responses").Range("B62:B64").Copy
+    userFile.Sheets("Pt 5 Additional Responses").Range("B62:B64").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+
+    'cancel last copied range selection and display completion message
+    calcFile.Sheets("Pt 5 Additional Responses").Range("B62:B64").ClearOutline
+    calcFile.Sheets("Start Here").Activate
+    Range("A1").Select
+    MsgBox "Calculation for " & calcFile.Sheets("Company Information").Range("C12").Value & " complete." & vbNewLine & "Data have been copied to Parts 1-5 of the destination HIOS template." & vbNewLine & "Please review the destination HIOS template before saving."
+    
+End Sub
+
+' ===== Module2.bas =====
+Sub CopyPasteToCalculator()
+'
+' CopyPasteToCalculator Macro
+' This macro:   opens the HIOS template indicated by the user, if not already open;
+'               copies MLR data entered and calculated in the Pt 1, Pt 2, Pt 3, and Pt 4 tabs of the HIOS template;
+'               pastes MLR data into the corresponding sections of Pt 1, Pt 2, Pt 3, Pt 4 of the Calculator.
+'               The HIOS template must reside in the same directory as this macro workbook.
+'
+
+    Dim userFolder As String
+    Dim userFilename As String
+    Dim userFilepath As String
+    Dim MLRtemplate As Workbook
+    Dim Calculator As Workbook
+    
+    Set Calculator = ThisWorkbook
+        
+    userFolder = ThisWorkbook.Path & "\"
+    userFilename = ThisWorkbook.Sheets("Start Here").Range("B23")
+    
+    'check if HIOS template is open
+    Set MLRtemplate = Nothing
+    On Error Resume Next
+    Set MLRtemplate = Workbooks(userFilename)
+    On Error GoTo 0
+        
+    'if HIOS template is not open, check if it exists
+    If MLRtemplate Is Nothing Then
+        userFilepath = ""
+        On Error Resume Next
+        userFilepath = Dir(userFolder & userFilename)
+        On Error GoTo 0
+        'if HIOS template does not exist, alert user and abort
+        If userFilepath = "" Then
+            MsgBox "Destination HIOS template file not found." & vbNewLine & "Please verify that the template filename is correct, and that both this file and the HIOS template file are in the same directory.", vbCritical
+            Exit Sub
+        'if HIOS template exists, open it and proceed
+        Else
+            userFilepath = userFolder & userFilename
+            Set MLRtemplate = Workbooks.Open(userFilepath)
+        End If
+    End If
+    
+    'copy company info from HIOS template to MLR Calculator
+    MLRtemplate.Sheets("Company Information").Range("C4:C19").Copy
+    Calculator.Sheets("Company Information").Range("C4:C19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    
+    'copy Part 1 from HIOS template and paste into MLR Calculator
+    Calculator.Sheets("Pt 1 Summary of Data").Activate
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D6:AS10").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D6:AS10").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+        
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D13:AS21").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D13:AS21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D25:AT28").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D25:AT28").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D30:AT32").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D30:AT32").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D34:AT35").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D34:AT35").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    '2/16/2022 fixed to not copy Pt 1 Ln 4.6 (line 42)
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D37:AT41").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D37:AT41").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+        
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D44:AT47").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D44:AT47").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D49:AT53").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D49:AT53").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("AT54:AT54").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("AT54:AT54").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("D56:AT59").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("D56:AT59").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 1 Summary of Data").Range("AU61:AU62").Copy
+    Calculator.Sheets("Pt 1 Summary of Data").Range("AU61:AU62").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    'clear calculated cells from Expat columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB5:AK5").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB12:AK12").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB22:AK22").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AB60:AK60").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL5:AP5").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL12:AP12").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL22:AP22").ClearContents
+    '    userFile.Sheets("Pt 1 Summary of Data").Range("AL60:AP60").ClearContents
+    'End If
+    
+    
+    'copy Part 2 from HIOS template and paste into MLR Calculator
+    Calculator.Sheets("Pt 2 Premium and Claims").Activate
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D5:AS7").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D5:AS7").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D9:AS20").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D9:AS20").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D23:AS24").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D23:AS24").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D26:AS28").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D26:AS28").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D30:AS32").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D30:AS32").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D34:AS36").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D34:AS36").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D38:AS39").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D38:AS39").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D41:AS43").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D41:AS43").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D45:AS47").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D45:AS47").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D49:AS54").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D49:AS54").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 2 Premium and Claims").Range("D57:AT59").Copy
+    Calculator.Sheets("Pt 2 Premium and Claims").Range("D57:AT59").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    'clear calculated cells from Expat columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 2 Premium and Claims").Range("AB54:AK55").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 2 Premium and Claims").Range("AL54:AP55").ClearContents
+    'End If
+    
+    
+    'copy Part 3 from HIOS template and paste into MLR Calculator
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Activate
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("C5:D12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("C5:D12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("G5:H12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("G5:H12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("K5:L12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("K5:L12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("O5:P12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("O5:P12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("S5:T12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("S5:T12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("W5:X12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("W5:X12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI5:AJ12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI5:AJ12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    '2/16/2022 added to copy Pt 3 Ln 1.8 shared savings in Column CY
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("E12:E12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("E12:E12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("I12:I12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("I12:I12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("M12:M12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("M12:M12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("Q12:Q12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("Q12:Q12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("U12:U12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("U12:U12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("Y12:Y12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("Y12:Y12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK12:AK12").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK12:AK12").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    '2/16/2022 end
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("C15:D16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("C15:D16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("G15:H16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("G15:H16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("K15:L16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("K15:L16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("O15:P16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("O15:P16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("S15:T16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("S15:T16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("W15:X16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("W15:X16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI15:AJ16").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI15:AJ16").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("C19:D19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("C19:D19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("F21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("F21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("G19:H19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("G19:H19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("J21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("J21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("K19:L19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("K19:L19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("N21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("N21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("O19:P19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("O19:P19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("R21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("R21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("S19:T19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("S19:T19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("V21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("V21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("W19:X19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("W19:X19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("Z21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("Z21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI19:AJ19").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI19:AJ19").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("AL21").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("AL21").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+            
+    MLRtemplate.Sheets("Pt 3 MLR and Rebate Calculation").Range("C39:AK40").Copy
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Range("C39:AK40").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    'clear all columns except Student Health on HIOS template, if GT template
+    'If userFile.Sheets("Company Information").Range("C12") = "Grand Total" Then
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C5:Z13").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C15:Z17").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C19:Z23").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C25:Z29").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C31:Z38").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("C41:Z42").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If userFile.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK6:AL7").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI13:AL13").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK15:AL16").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI17:AL17").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AK19:AL20").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AL22:AL23").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI27:AL29").ClearContents
+    '    userFile.Sheets("Pt 3 MLR and Rebate Calculation").Range("AI31:AL38").ClearContents
+    'End If
+
+
+    'calculate Parts 2, 1, then 3
+    Calculator.Sheets("Pt 2 Premium and Claims").Activate
+    Calculator.Sheets("Pt 2 Premium and Claims").Calculate
+    Calculator.Sheets("Pt 1 Summary of Data").Activate
+    Calculator.Sheets("Pt 1 Summary of Data").Calculate
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Activate
+    Calculator.Sheets("Pt 3 MLR and Rebate Calculation").Calculate
+
+
+    'copy Part 4 from HIOS template and paste into MLR Calculator
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Activate
+
+    MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("C6:K9").Copy
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Range("C6:K9").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("C12:K15").Copy
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Range("C12:K15").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("C17:K23").Copy
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Range("C17:K23").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("C24:C24").Copy
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Range("C24:C24").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("C25:C25").Copy
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Range("C25:C25").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    'clear calculated cells from Expat columns on HIOS template, on both State and GT templates
+    'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("I4:J4").ClearContents
+    'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("I6:J9").ClearContents
+    'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("I11:J14").ClearContents
+    'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("I16:J22").ClearContents
+    
+    'clear calculated cells from all columns except Student Health on HIOS template, if GT template
+    'If userFile.Sheets("Company Information").Range("C12") = "Grand Total" Then
+        'userFile.Sheets("Pt 4 Rebate Disbursement").Range("C4:H4").ClearContents
+        'userFile.Sheets("Pt 4 Rebate Disbursement").Range("C11:H11").ClearContents
+    'End If
+    
+    'clear calculated cells from Student Health columns on HIOS template, if not GT template
+    'If MLRtemplate.Sheets("Company Information").Range("C12") <> "Grand Total" Then
+        'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("K4:K4").ClearContents
+        'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("K6:K9").ClearContents
+        'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("K11:K14").ClearContents
+        'MLRtemplate.Sheets("Pt 4 Rebate Disbursement").Range("K16:K22").ClearContents
+    'End If
+
+    Calculator.Sheets("Pt 4 Rebate Disbursement").Calculate
+
+
+    'copy Part 5 from HIOS template and paste into MLR Calculator
+    Calculator.Sheets("Pt 5 Additional Responses").Activate
+    
+    MLRtemplate.Sheets("Pt 5 Additional Responses").Range("C4").Copy
+    Calculator.Sheets("Pt 5 Additional Responses").Range("C4").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    
+    MLRtemplate.Sheets("Pt 5 Additional Responses").Range("B8:B18").Copy
+    Calculator.Sheets("Pt 5 Additional Responses").Range("B8:B18").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 5 Additional Responses").Range("B22:B32").Copy
+    Calculator.Sheets("Pt 5 Additional Responses").Range("B22:B32").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 5 Additional Responses").Range("B36:C46").Copy
+    Calculator.Sheets("Pt 5 Additional Responses").Range("B36:C46").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 5 Additional Responses").Range("B50:C59").Copy
+    Calculator.Sheets("Pt 5 Additional Responses").Range("B50:C59").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+    MLRtemplate.Sheets("Pt 5 Additional Responses").Range("B62:B64").Copy
+    Calculator.Sheets("Pt 5 Additional Responses").Range("B62:B64").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+
+
+    'cancel last copied range selection and display completion message
+    Calculator.Sheets("Pt 5 Additional Responses").Range("B62:B64").ClearOutline
+    Calculator.Sheets("Start Here").Activate
+    Range("A1").Select
+    MsgBox "Calculation for " & Calculator.Sheets("Company Information").Range("C12").Value & " complete." & vbNewLine & "Data have been copied to Parts 1-5 of the Calculator."
+    
+End Sub
+
