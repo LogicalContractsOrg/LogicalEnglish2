@@ -42,6 +42,7 @@ with no technical training.
   acts: *the editor checks the document*, rather than *the document is
   checked*.
 - **Spell out an abbreviation the first time each document uses it.**
+- **Documents should be self-contained.** Notations and concepts should be clearly explained, or references given to documents explaining them.
 - The names of the ideas these systems teach — a fluent, an event, a template,
   a scenario, a reactive rule — are part of the language being taught. Use
   them freely, and define each one at first use or in the glossary.
