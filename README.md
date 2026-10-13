@@ -217,7 +217,7 @@ All software in this repository is licensed under the **[Apache License 2.0](LIC
 
 **Copyright holders by country:**
 - LodgeIT (AU)
-- AORA Law, Axiome (UK)
+- Axiome Partners, AORA Law (UK)
 - AINexus (USA)
 - Bob Kowalski (UK)
 - Miguel Calejo (PT)
