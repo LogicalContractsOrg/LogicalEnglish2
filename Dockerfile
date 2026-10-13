@@ -23,7 +23,7 @@ FROM swipl:latest
 # wording that comes as a PDF (lpsPlus contract_assistant/le_contract_assistant.pl,
 # ensure_text_file/5, vendored by vendor_lpsplus.sh).
 RUN apt-get update && apt-get install -y curl git gnupg make poppler-utils && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g opencode-ai mcp-remote && \
     rm -rf /var/lib/apt/lists/*
@@ -60,7 +60,8 @@ RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
 # compiled to WebAssembly, run by Node. It answers the sheet: services
 # address (language.md §17.6) and evaluates workbooks for the spreadsheet
 # importer; its npm packages are gitignored, so installed here, and the build
-# checks they load.
+# checks they load. Formualizer imports its .wasm file as a module, which Node
+# 20 refuses (ERR_UNKNOWN_FILE_EXTENSION) and Node 22 accepts: hence setup_22.x.
 COPY services/ ./services/
 RUN cd services/sheet && npm ci --omit=dev --no-audit --no-fund && \
     node --no-warnings -e "import('./sheet_engine.mjs').then(m => m.init())"
