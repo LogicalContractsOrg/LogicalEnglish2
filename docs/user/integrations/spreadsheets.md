@@ -62,6 +62,11 @@ the table rate is, with first match, with provenance "tax.xlsx" at Brackets A2 t
 
 the knowledge base tax includes:
 
+% Calc!B2: =VLOOKUP(B1,Brackets!A2:B4,2,TRUE)
+the rate is a number if
+    the income is a second number
+    and the rate for the second number is the number under table rate.
+
 % Calc!B3: =IF(B1<12000,0,ROUND(B1*B2,2))
 the tax is a number N if
     the income is a number M
@@ -71,6 +76,12 @@ the tax is a number N if
         and the rate is a number P
         and N = round(K * P * 100 * (1 + 0.000000000001)) / 100.
 ```
+
+Two templates are about the rate, and they are not the same. `the rate is
+*a number*` is cell B2: the rate of this case, which the rule for the tax
+reads. `the rate for *a key* is *a value* under table rate` is the table of
+bands, which gives the rate for any income; the rule for B2 asks it for the
+rate of the case's income.
 
 Each rule keeps its formula above it as a comment, so a reader can check
 one against the other. The words of each template come from the label
