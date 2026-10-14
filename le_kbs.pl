@@ -3319,8 +3319,10 @@ normalize_string(S, N) :-
 %   is not known, with the elisions of any language that has them.
 unelide_words(Words0, Words) :-
     (   catch(le_i18n:le_active_language(L), _, fail),
-        catch(le_i18n:language_param(L, elisions, Els), _, fail), Els \== []
-    ->  le_i18n:language_param(L, contractions, Cons)
+        catch(le_i18n:language_param(L, elisions, Els), _, fail),
+        catch(le_i18n:language_param(L, contractions, Cons), _, fail),
+        ( Els \== [] ; Cons \== [] )                   % Portuguese: contractions only
+    ->  true
     ;   findall(E, ( le_i18n:known_language(L), le_i18n:language_param(L, elisions, Es), member(E, Es) ), Els),
         Cons = []
     ),

@@ -268,7 +268,7 @@ shown_values(Values, Shown) :-
     ;   atomic_list_concat(Values, ', ', Shown)
     ).
 
-% --- Quoted locators (docs/user/reference/language.md §15.5, §17.1) ---
+% --- Quotations, `confer "..."` (docs/user/reference/language.md §15.5, §17.1) ---
 % A fact or rule cites a passage of a document ("as stated in <document> at
 % "<quotation>"") and the program says where the document's text is, in a
 % file beside it ("the text of <document> is at "sources/x.txt""): the

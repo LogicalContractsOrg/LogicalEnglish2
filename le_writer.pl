@@ -334,11 +334,15 @@ write_program_(Header, Items0, Text) :-
 %   (languages.csv), a word that elides before a vowel does ("de une" →
 %   "d'une", "la autre" → "l'autre", "de *une personne*" → "d'*une
 %   personne*"), and a contraction is written as one word ("à le marché" →
-%   "au marché", "si il" → "s'il"). The parser reads both forms
+%   "au marché", "si il" → "s'il"). A language with contractions and no
+%   elisions (Portuguese) contracts always: "de o requerente" → "do
+%   requerente". The parser reads both forms
 %   (tokenizer:elide/4); text inside double quotes is left as it is.
 elide_text(Lang, Text0, Text) :-
-    (   catch(le_i18n:language_param(Lang, elisions, Els), _, fail), Els \== []
-    ->  le_i18n:language_param(Lang, contractions, Cons),
+    (   catch(le_i18n:language_param(Lang, elisions, Els), _, fail),
+        catch(le_i18n:language_param(Lang, contractions, Cons), _, fail),
+        ( Els \== [] ; Cons \== [] )
+    ->  true,
         split_string(Text0, "\"", "", Parts0),
         elide_parts(Parts0, outside, Els, Cons, Parts),
         atomic_list_concat(Parts, '"', A), atom_string(A, Text)
@@ -366,10 +370,11 @@ elide_line(Els, Cons, L0, L) :-
     atomic_list_concat(Ws, ' ', L).
 
 elide_list([W1, W2|Ws0], Els, Cons, [CS|Ws]) :-       % à le marché → au marché, si il → s'il
-    \+ variable_word(W1), \+ variable_word(W2),
+    \+ variable_word(W1), \+ variable_word(W2), \+ capital_word(W2),
     lower_atom(W1, A), lower_atom(W2, B),
     member(C-[A, B], Cons),
-    (   vowel_start(W2) -> true                         % (s'il: the second word is the vowel)
+    (   Els == [] -> true                               % Portuguese: "de o" is always "do"
+    ;   vowel_start(W2) -> true                         % (s'il: the second word is the vowel)
     ;   sub_atom(B, _, 1, 0, s) -> true                 % (aux: before any word)
     ;   Ws0 = [W3|_], consonant_start(W3)               % (au, du: before a consonant, not h)
     ),
@@ -392,6 +397,11 @@ lower_atom(W, A) :- string_lower(W, L), atom_string(A, L).
 %   another variable (openfisca-france's income tax: no deficit, no income).
 variable_word(W) :-
     string_length(W, N), N >= 2,
+    string_upper(W, W), string_lower(W, L), L \== W.
+
+%   A word written in capitals, one letter or more: a variable (A, NE), never
+%   an article. "o máximo de A e J" had become "o máximo da e J".
+capital_word(W) :-
     string_upper(W, W), string_lower(W, L), L \== W.
 
 %   The short form of a word that elides: the full form of an elision (de →
@@ -1228,10 +1238,11 @@ opposite_text(Ctx, St, H, T) :-
 
 %   A body is written as a tree of lines, the shape le_grammar reads back:
 %   node(Op, Text, Children), Op the connective the line opens with (none |
-%   and | or | otherwise). Siblings fold left to right with their own
+%   and | or | otherwise). Siblings fold from the top with their own
 %   connectives; a line's children fold onto that line's literal — so
-%   and(a, or(b, c)) is `a` / `and b` / `    or c`, and or(and(a, b), c) is
-%   `a` / `and b` / `or c` (le_grammar:fold_nodes/6).
+%   and(a, or(b, c)) is `a` / `and b` / `    or c`, or(and(a, b), c) is
+%   `a` / `and b` / `or c`, and and(or(a, b), c) is `a` / `    or b` /
+%   `and c` (le_grammar:fold_nodes/6).
 
 body_nodes(Ctx, St, Body, Nodes) :-
     seq(Ctx, St, Body, Nodes).
@@ -1271,7 +1282,12 @@ seq(Ctx, St, B, Nodes) :-
     %  A cascade on the left of a connective is one group, as on its right:
     %  spread into the connective's own lines, `(A otherwise B) and C` would
     %  read back as `A otherwise (B and C)`.
-    (   ( otherwise_pattern(L, _, _) ; L = otherwise([_, _|_]) )
+    %  And a disjunction on the left of `and` is one group too, written with
+    %  its alternative indented (`a` / `    or b` / `and c`): read top to
+    %  bottom, `a` / `or b` / `and c` means the same, but a reader may take it
+    %  for `a or (b and c)`, and the verifier warns of it (or_then_and).
+    (   ( otherwise_pattern(L, _, _) ; L = otherwise([_, _|_])
+        ; Op == and, top_connective(L, or) )
     ->  single(Ctx, St, L, NL0), NL = [NL0]
     ;   seq(Ctx, St, L, NL)
     ),

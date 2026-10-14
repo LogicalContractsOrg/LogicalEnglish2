@@ -215,6 +215,7 @@ tokenize_for_language(Text, Tokens) :-
         Dec \== '', Thou \== '',
         (   \+ (Dec == '.', Thou == ',')
         ;   le_i18n:language_param(Lang, elisions, Els), Els \== []
+        ;   le_i18n:language_param(Lang, contractions, Cons), Cons \== []
         )
     ->  tokenizer:tokenize(Text, Dec, Thou, Lang, Tokens)     % (its number locale and elisions)
     ;   Tokens = Tokens0
@@ -306,6 +307,14 @@ rule_provenance_tokens([T|Ts]) --> [T], { \+ T = punctuation(':', _) }, !,
     rule_provenance_tokens(Ts).
 rule_provenance_tokens([]) --> [].
 
+% After a rule's label: the rule, or a fact (label_fact).
+labelled_item(ID, rule(Head, Body, Indent, Start, End, ID)) -->
+    rule_after_label(Head, Body, Indent, Start, End), !.
+labelled_item(ID, label_fact(Head, Start, End, ID)) -->
+    template_instance(Head),
+    { Head = [First|_], get_token_start(First, Start) },
+    any_indent, t(punctuation('.', loc(_, End))).
+
 rule_after_label(Head, Body, Indent, Start, End) -->
     template_instance(Head),
     { Head = [First|_], get_token_start(First, Start) },
@@ -325,6 +334,7 @@ rule_after_label(Head, Body, Indent, Start, End) -->
 
 is_rule_item(rule(_, _, _, _, _, _)).
 is_rule_item(rule_prov(_, _)).
+is_rule_item(label_fact(_, _, _, _)).
 is_rule_item(fact(_, _, _)).
 
 % ---------------------------------------------------------------------------
@@ -1043,6 +1053,7 @@ kb_content(MinTableIndent, Content, End) -->
     { ( Content = [] -> End = 0; last(Content, Last), get_item_end(Last, End)) }.
 
 get_item_end(rule(_, _, _, _, End, _), End) :- !.
+get_item_end(label_fact(_, _, End, _), End) :- !.
 % A labelled rule with provenance ends where its rule does: the item's last
 % argument is the provenance's token list, not a position.
 get_item_end(rule_prov(Rule, _), End) :- !, get_item_end(Rule, End).
@@ -1217,16 +1228,21 @@ kb_item(lps_setting(Key, Value, Start, End)) -->
 % The provenance is either a quoted string (a URL, or any citation) or the
 % trailers of a fact (§17.1: according to / as stated in ... at ... /
 % because "..."), read in the second pass; Rule is the ordinary rule item.
-kb_item(rule_prov(rule(Head, Body, Indent, Start, End, ID), ProvTokens)) -->
+% A label may also stand before a fact ("rule ias with provenance the order:
+% the value of the index is 537.13."): the item is then label_fact(Head, Start,
+% End, ID), compiled as the fact, under the label's name, with the label's
+% provenance. Until 14 October 2026 the section did not parse, and the whole
+% knowledge base was lost with it (unknown_section).
+kb_item(rule_prov(Item, ProvTokens)) -->
     kw(rule), (t(word(ID)) | t(number(ID))), kw(with_provenance), !,
     rule_provenance_tokens(ProvTokens), { ProvTokens \== [] },
     t(punctuation(':')),
-    rule_after_label(Head, Body, Indent, Start, End).
+    labelled_item(ID, Item).
 
 % kb_item(rule(Head, Body, Indent, Start, End, ID)) parses a Logical English rule (Head if Body).
-kb_item(rule(Head, Body, Indent, Start, End, ID)) -->
+kb_item(Item) -->
     kw(rule), !, (t(word(ID)) | t(number(ID))), t(punctuation(':')),
-    rule_after_label(Head, Body, Indent, Start, End).
+    labelled_item(ID, Item).
 
 kb_item(rule(Head, Body, Indent, Start, End, ID)) -->
     template_instance(Head),
@@ -2986,8 +3002,11 @@ second_pass_scenario_item_with_module(Templates, M, Item, NewItem) :-
     compile_table_item(Templates, M, Scope, Item, NewItem).
 second_pass_scenario_item_with_module(Templates, M, rule_prov(Rule, ProvTokens), NewItem) :- !,
     second_pass_scenario_item_with_module(Templates, M, Rule, NewItem),
-    Rule = rule(_, _, _, Start, End, ID),
+    labelled_item_span(Rule, Start, End, ID),
     le_provenance:record_rule_provenance(M, ID, ProvTokens, Start, End).
+second_pass_scenario_item_with_module(Templates, M, label_fact(Head, Start, End, ID), NewItem) :- !,
+    second_pass_scenario_item_with_module(Templates, M, fact(Head, Start, End), Item0),
+    named_clause(Item0, ID, NewItem).
 second_pass_scenario_item_with_module(Templates, M, fact(Head, Start, End), NewItem) :-
     le_provenance:default_provenance(Default), !,
     % a fact with no trailers of its own takes the scenario's provenance
@@ -3020,8 +3039,11 @@ second_pass_item_with_module(Templates, M, rule_prov(Rule, ProvTokens), NewItem)
     % A rule whose label carries provenance: compile the rule as any other,
     % then record the provenance against its label.
     second_pass_item_with_module(Templates, M, Rule, NewItem),
-    Rule = rule(_, _, _, Start, End, ID),
+    labelled_item_span(Rule, Start, End, ID),
     le_provenance:record_rule_provenance(M, ID, ProvTokens, Start, End).
+second_pass_item_with_module(Templates, M, label_fact(Head, Start, End, ID), NewItem) :- !,
+    second_pass_item_with_module(Templates, M, fact(Head, Start, End), Item0),
+    named_clause(Item0, ID, NewItem).
 second_pass_item_with_module(Templates, M, Item, NewItem) :-
     ( second_pass_item_extension(Templates, Item, NewItem, M) -> true
     ; second_pass_item(Templates, Item, NewItem, M)
@@ -3093,6 +3115,15 @@ second_pass_item(Templates, rule(Head, Body0, Indent, Start, End, ID), NewItem, 
     ),
     rule_body_wrapper(Body1, CleanTokens, Wrapper),
     second_pass_item(Templates, rule(Head, Body1, Indent, Start, End, ID), NewItem, M).
+
+% The source range and the name of a labelled rule or a labelled fact.
+labelled_item_span(rule(_, _, _, Start, End, ID), Start, End, ID).
+labelled_item_span(label_fact(_, Start, End, ID), Start, End, ID).
+
+% A compiled fact under its label's name (le_source_element/3, the rule's
+% provenance), in place of the rule_<Start> a fact is otherwise given.
+named_clause(clause(H, B, S, E, _), ID, clause(H, B, S, E, ID)) :- !.
+named_clause(Item, _, Item).
 
 % rule_body_wrapper(?Body, ?Tokens, ?Wrapper): a rule body is its token list,
 % possibly inside an only_if/unless/numbered wrapper. Bidirectional, so the
@@ -4375,7 +4406,34 @@ hierarchy_to_logic(Nodes0, Templates, VMIn, VMOut, Logic) :-
     adopt_orphan_forall_markers(Nodes0, [node(_, Tokens, Children)|RestNodes]),
     strip_op(Tokens, _Op, RestTokens),
     parse_node(RestTokens, Children, Templates, VMIn, VM1, FirstLogic),
+    warn_or_then_and(RestNodes),
     fold_nodes(FirstLogic, RestNodes, Templates, VM1, VMOut, Logic).
+
+% Sibling lines are folded from the top, each with its own connective (language.md
+% §4), so "a / or b / and c" means (a or b) and c. A reader may take it for
+% a or (b and c), and before 14 October 2026 nothing said which one was meant:
+% warn when an "or" line is followed, at the same level and before any
+% "otherwise", by an "and" line (or a line with no connective, which also means
+% "and"). Indenting either line says which is meant, and
+% silences the warning. (The warning is asserted once per position: a body may
+% be parsed more than once.)
+warn_or_then_and(Nodes) :-
+    (   append(_, [node(_, OrTokens, _)|After], Nodes),
+        \+ otherwise_line(OrTokens, _),
+        strip_leading_op(OrTokens, OrOp, _), OrOp == or, !,
+        append(Between, [node(_, AndTokens, _)|_], After),
+        \+ ( member(node(_, T, _), Between), otherwise_line(T, _) ),
+        \+ otherwise_line(AndTokens, _),
+        strip_leading_op(AndTokens, AndOp, _), AndOp == and, !,
+        tokens_range(OrTokens, Start, _),
+        tokens_range(AndTokens, _, End),
+        le_kbs:current_compiling_module(M), M \== (-),
+        \+ catch(M:le_issue(warning, or_then_and, _, _, Start, End), _, fail)
+    ->  le_i18n:le_msg(or_then_and_desc, [], Desc),
+        le_i18n:le_msg(or_then_and_fix, [], Fix),
+        assertz(M:le_issue(warning, or_then_and, Desc, Fix, Start, End))
+    ;   true
+    ).
 
 %!  adopt_orphan_forall_markers(+Nodes:list, -Nodes1:list) is det.
 %
@@ -4448,6 +4506,7 @@ fold_nodes(Acc, [node(_, Tokens, Children)|Rest], Templates, VMIn, VMOut, Logic)
     parse_node(RestTokens, Children, Templates, VMIn, VM1, ChildLogic),
     NewAcc =.. [Op, Acc, ChildLogic],
     fold_nodes(NewAcc, Rest, Templates, VM1, VMOut, Logic).
+
 
 % scope_line(+Tokens, -ScopeTokens): the line is "according to <scope>".
 scope_line(Tokens, ScopeTokens) :-

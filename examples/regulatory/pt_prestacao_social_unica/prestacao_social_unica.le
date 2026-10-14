@@ -1,0 +1,1306 @@
+% A prestação social única (PSU) em Português Lógico: quem a pode receber, o
+% agregado familiar, a condição de recursos e o montante.
+%
+% Fonte: Decreto-Lei n.º 166/2026, de 13 de agosto (Diário da República,
+% 1.ª série, n.º 156), que produz efeitos a 31 de dezembro de 2026,
+% https://diariodarepublica.pt/dr/detalhe/decreto-lei/166-2026-1156670556
+% (o texto está ao lado deste programa, em decreto_lei_166_2026.txt e .pdf).
+% O valor do IAS (indexante dos apoios sociais) para 2026, 537,13 euros, vem
+% da Portaria n.º 480-A/2025/1, de 30 de dezembro.
+%
+% COMO FOI FEITO. Escrito à mão, com um agente de IA, a partir do texto
+% publicado; não verificado contra o sistema da Segurança Social. Cada regra
+% cita o artigo, o número e a alínea de onde vem. As respostas esperadas dos
+% cenários foram calculadas à parte, à mão, a partir do texto do decreto, e só
+% depois comparadas com as respostas do programa.
+%
+% COMO LER.
+% - Os dados de um caso (o requerente, as pessoas com quem vive, os seus
+%   rendimentos e bens) são elementos de cenário: modelos marcados
+%   "; indefinido". Os rendimentos entram já mensais quando o decreto os conta
+%   ao mês (trabalho, pensões, prestações) e anuais quando o decreto os conta
+%   ao ano (capitais, prédios, subsídios de férias e de Natal).
+% - Uma tabela do decreto cujas linhas se tentam por ordem é uma cascata
+%   "caso contrário".
+% - Cada montante que o programa apresenta é arredondado ao cêntimo (meio
+%   cêntimo para cima). O decreto não fala de arredondamentos: é uma escolha
+%   deste programa.
+%
+% O QUE FICA DE FORA: o procedimento (requerimento, prazos, prova, decisão,
+% renovação, arts. 30.º a 33.º), os deveres e o acompanhamento (arts. 19.º e
+% 21.º a 23.º, 34.º a 36.º), a suspensão, revisão e cessação (arts. 37.º a
+% 39.º), as sanções (arts. 42.º a 44.º), as alterações a outras leis (arts.
+% 45.º a 56.º) e o regime transitório (arts. 57.º a 61.º). O README.md diz
+% porquê, e onde a leitura do decreto teve de escolher.
+
+a linguagem alvo é: prolog.
+
+os modelos são:
+
+% ---------------------------------------------------------------- o requerente e as pessoas com quem vive (arts. 4.º e 5.º)
+
+*uma pessoa* requer a prestação social única; indefinido.
+a idade de *uma pessoa* é *um número*; indefinido.
+*uma pessoa* atingiu a idade normal de acesso à pensão de velhice; indefinido.
+*uma pessoa* está em acolhimento como órfão menor; indefinido.
+*uma pessoa* vive em economia comum com *um requerente*; indefinido.
+*uma pessoa* é cônjuge de *um requerente*; indefinido.
+*uma pessoa* vive em união de facto com *um requerente*; indefinido.
+*uma pessoa* é parente de *um requerente* no grau *um número*; indefinido.
+*uma pessoa* está à guarda de *um requerente*; indefinido.
+*uma pessoa* tem vínculo contratual de habitação com *um requerente*; indefinido.
+*uma pessoa* vive com *um requerente* para finalidades transitórias; indefinido.
+
+% ---------------------------------------------------------------- residência e outras condições gerais (arts. 8.º e 9.º)
+
+*uma pessoa* tem domicílio habitual em território nacional; indefinido.
+*uma pessoa* tem nacionalidade portuguesa; indefinido.
+*uma pessoa* tem nacionalidade de Estado com livre circulação de pessoas; indefinido.
+*uma pessoa* tem título válido de residência há *um número* meses; indefinido.
+*uma pessoa* tem o estatuto de refugiado; indefinido.
+*uma pessoa* tem o estatuto de apátrida; indefinido.
+*uma pessoa* cessou contrato de trabalho por sua iniciativa há *um número* meses; indefinido.
+*uma pessoa* tem o estatuto de vítima de violência doméstica; indefinido.
+*uma pessoa* está em reclusão; indefinido.
+a libertação previsível de *uma pessoa* é dentro de *um número* dias; indefinido.
+*uma pessoa* beneficia de apoios do regime de asilo; indefinido.
+*uma pessoa* autorizou o acesso à informação relevante; indefinido.
+
+% ---------------------------------------------------------------- condições específicas e dispensa (arts. 18.º e 20.º)
+
+*uma pessoa* está a trabalhar; indefinido.
+*uma pessoa* tem inscrição num centro de emprego com condições para o trabalho; indefinido.
+*uma pessoa* tem disponibilidade ativa para emprego conveniente; indefinido.
+*uma pessoa* tem disponibilidade para atividades de solidariedade social; indefinido.
+*uma pessoa* tem disponibilidade para horas adicionais de solidariedade social; indefinido.
+*uma pessoa* está em incapacidade temporária para o trabalho; indefinido.
+*uma pessoa* é titular de pensão de velhice antecipada; indefinido.
+*uma pessoa* é titular de pensão de invalidez absoluta; indefinido.
+*uma pessoa* é titular de pensão por incapacidade permanente absoluta; indefinido.
+o grau de incapacidade de *uma pessoa* é *um número*; indefinido.
+*uma pessoa* tem incompatibilidade reconhecida com atividades de solidariedade social; indefinido.
+*uma pessoa* frequenta ensino nas condições do abono de família; indefinido.
+*uma pessoa* tem o estatuto de cuidador informal principal; indefinido.
+
+% ---------------------------------------------------------------- rendimentos (arts. 10.º a 17.º)
+
+o rendimento ilíquido mensal de trabalho dependente de *uma pessoa* é *um montante*; indefinido.
+as contribuições mensais de trabalho dependente de *uma pessoa* são *um montante*; indefinido.
+a retenção mensal de IRS de *uma pessoa* é *um montante*; indefinido.
+os subsídios anuais de trabalho dependente de *uma pessoa* são *um montante*; indefinido.
+*uma pessoa* é jovem em trabalho de férias escolares; indefinido.
+o montante mensal de atividades ocupacionais de *uma pessoa* é *um montante*; indefinido.
+o rendimento relevante trimestral de trabalho independente de *uma pessoa* é *um montante*; indefinido.
+as contribuições mensais de trabalho independente de *uma pessoa* são *um montante*; indefinido.
+os rendimentos de capitais do ano anterior de *uma pessoa* são *um montante*; indefinido.
+o valor do património mobiliário de *uma pessoa* é *um montante*; indefinido.
+a taxa EURIBOR de referência é *um número*; indefinido.
+*uma pessoa* tem a propriedade de *um imóvel*; indefinido.
+o valor patrimonial de *um imóvel* é *um montante*; indefinido.
+a renda anual de *um imóvel* é *um montante*; indefinido.
+*um imóvel* é habitação permanente do agregado; indefinido.
+o valor mensal das pensões de *uma pessoa* é *um montante*; indefinido.
+os subsídios anuais das pensões de *uma pessoa* são *um montante*; indefinido.
+*uma pessoa* recebe *uma prestação* no valor mensal de *um montante*; indefinido.
+o tipo de *uma prestação* é *um tipo*; indefinido.
+*uma prestação* é de base não contributiva; indefinido.
+*uma pessoa* paga renda de habitação social de *um montante*; indefinido.
+o valor mediano das rendas por metro quadrado é *um número*; indefinido.
+o valor mensal de outros apoios à habitação de *uma pessoa* é *um montante*; indefinido.
+o valor dos bens móveis sujeitos a registo de *uma pessoa* é *um montante*; indefinido.
+*uma pessoa* é alegado agressor de *um requerente*; indefinido.
+
+% ---------------------------------------------------------------- majorações (arts. 26.º e 27.º)
+
+*uma pessoa* tem inscrição no regime geral de segurança social; indefinido.
+*uma pessoa* está em licença parental sem subsídio por falta de prazo de garantia; indefinido.
+*uma pessoa* está em desemprego involuntário; indefinido.
+*uma pessoa* não cumpriu o prazo de garantia do subsídio de desemprego; indefinido.
+*uma pessoa* esgotou o subsídio de desemprego; indefinido.
+o número de dias de trabalho com registo de remunerações de *uma pessoa* no ano anterior ao desemprego é *um número*; indefinido.
+*um requerente* recebe a prestação há mais de seis meses; indefinido.
+
+% ---------------------------------------------------------------- o que as regras decidem
+
+o valor do IAS é *um montante*.
+o valor de referência da prestação social única é *um montante*.
+*uma pessoa* pertence ao agregado familiar de *um requerente*.
+*uma pessoa* integra o agregado familiar de *um requerente*.
+*uma pessoa* conta como familiar de *um requerente*.
+*uma pessoa* é residente em território nacional.
+*uma pessoa* está em idade ativa.
+*uma pessoa* está dispensada das condições específicas.
+*uma pessoa* cumpre as condições específicas.
+o requerimento de *um requerente* falha na condição *uma condição*.
+*um requerente* cumpre as condições de atribuição.
+o rendimento mensal do trabalho de *uma pessoa* é *um montante*.
+o rendimento de trabalho dependente contado de *uma pessoa* é *um montante*.
+a base do incentivo ao trabalho de *uma pessoa* é *um montante*.
+a parte do trabalho de *uma pessoa* contada para *um requerente* é *um montante*.
+a parte do incentivo de *uma pessoa* contada para *um requerente* é *um montante*.
+o rendimento mensal de pensões do agregado de *um requerente* é *um montante*.
+*uma prestação* fica fora dos rendimentos.
+o rendimento mensal de prestações sociais do agregado de *um requerente* é *um montante*.
+a renda de referência é *um montante*.
+o apoio mensal à habitação do agregado de *um requerente* é *um montante*.
+o rendimento predial anual de *um imóvel* é *um montante*.
+o rendimento mensal predial do agregado de *um requerente* é *um montante*.
+o património mobiliário do agregado de *um requerente* é *um montante*.
+os ativos financeiros do agregado de *um requerente* relevam.
+a taxa de juro de referência é *um número*.
+o rendimento mensal de capitais do agregado de *um requerente* é *um montante*.
+o total dos rendimentos do agregado de *um requerente* é *um montante*.
+os bens móveis sujeitos a registo do agregado de *um requerente* valem *um montante*.
+o número de adultos do agregado de *um requerente* é *um número*.
+o número de menores do agregado de *um requerente* é *um número*.
+o número de adultos equivalentes do agregado de *um requerente* é *um número*.
+o montante base da prestação social única de *um requerente* é *um montante*.
+a componente de incentivo ao trabalho de *um requerente* é *um montante*.
+o montante global da prestação social única de *um requerente* é *um montante*.
+a ponderação de *uma pessoa* no agregado de *um requerente* é *um número*.
+a majoração por parentalidade de *uma pessoa* no agregado de *um requerente* é *um montante*.
+a majoração por parentalidade de *um requerente* é *um montante*.
+*uma pessoa* dá direito à majoração por desemprego.
+a majoração por desemprego de *um requerente* é *um montante*.
+a majoração de *um requerente* é *um montante*.
+os apoios não contributivos do agregado de *um requerente* somam *um montante*.
+o teto disponível de *um requerente* é *um montante*.
+o montante calculado da prestação social única de *um requerente* é *um montante*.
+o montante mensal da prestação social única de *um requerente* é *um montante*.
+*um requerente* tem direito à prestação social única.
+o requerimento de *um requerente* é indeferido por *um motivo*.
+
+a base de conhecimento psu inclui:
+
+o Decreto-Lei 166/2026 está publicado em "https://diariodarepublica.pt/dr/detalhe/decreto-lei/166-2026-1156670556".
+o texto do Decreto-Lei 166/2026 está em "decreto_lei_166_2026.txt".
+a Portaria 480-A/2025/1 está publicada em "https://diariodarepublica.pt/dr/detalhe/portaria/480-a-2025-1".
+
+% ================================================================ valores de referência (art. 7.º; Portaria 480-A/2025/1)
+
+% Um facto com rótulo não é aceite (README.md): o valor fica no corpo de uma regra.
+regra ias_2026 com proveniência a Portaria 480-A/2025/1:
+o valor do IAS é um montante
+    se o montante = 537,13.
+
+regra valor_de_referencia com proveniência o Decreto-Lei 166/2026 em "artigo 7.º",
+    confira "O valor de referência da PSU corresponde a 50 % do valor do indexante dos apoios sociais (IAS)":
+o valor de referência da prestação social única é um montante
+    se o valor do IAS é um I
+    e o montante = I * 50 / 100.
+
+% ================================================================ quem está abrangido (art. 4.º)
+
+regra ambito_pessoal_idade com proveniência o Decreto-Lei 166/2026 em "artigo 4.º, n.os 1 e 2",
+    confira "as pessoas com idade igual ou superior a 18 anos":
+o requerimento de um requerente falha na condição idade
+    se o requerente requer a prestação social única
+    e a idade do requerente é um N
+    e N < 18
+    e não é o caso que
+        o requerente está em acolhimento como órfão menor.
+
+% ================================================================ o agregado familiar (art. 5.º)
+
+regra agregado_proprio com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1",
+    confira "para além do requerente ou titular, integram o respetivo agregado familiar":
+uma pessoa pertence ao agregado familiar de um requerente
+    se o requerente requer a prestação social única
+    e a pessoa é igual ao requerente.
+
+regra agregado_membros com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1",
+    confira "integram o respetivo agregado familiar as seguintes pessoas":
+uma pessoa pertence ao agregado familiar de um requerente
+    se a pessoa integra o agregado familiar do requerente.
+
+regra agregado_economia_comum com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.os 1, 2 e 8",
+    confira "as seguintes pessoas que com ele vivam em economia comum":
+uma pessoa integra o agregado familiar de um requerente
+    se o requerente requer a prestação social única
+    e a pessoa vive em economia comum com o requerente
+    e a pessoa conta como familiar do requerente
+    e não é o caso que
+        a pessoa tem vínculo contratual de habitação com o requerente
+    e não é o caso que
+        a pessoa vive com o requerente para finalidades transitórias.
+
+regra familiar_conjuge com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1, alínea a), e n.º 5",
+    confira "Cônjuge ou unido de facto":
+uma pessoa conta como familiar de um requerente
+    se a pessoa é cônjuge do requerente.
+
+regra familiar_uniao_de_facto com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1, alínea a), e n.º 5",
+    confira "a relação familiar resultante de situação de união de facto":
+uma pessoa conta como familiar de um requerente
+    se a pessoa vive em união de facto com o requerente.
+
+% Os n.os 1, alíneas b) a d), só valem para um requerente abaixo da idade normal
+% de acesso à pensão de velhice: acima dela, o agregado é o requerente e o
+% cônjuge ou unido de facto (n.º 5).
+regra familiar_parente_maior com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1, alínea b), e n.º 5",
+    confira "Parentes e afins maiores, em linha reta e em linha colateral, até ao 3.º grau":
+uma pessoa conta como familiar de um requerente
+    se a pessoa é parente do requerente no grau um G
+    e G <= 3
+    e a idade da pessoa é um N
+    e N >= 18
+    e não é o caso que
+        o requerente atingiu a idade normal de acesso à pensão de velhice.
+
+regra familiar_parente_menor com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1, alínea c), e n.º 5",
+    confira "Parentes e afins menores em linha reta e em linha colateral":
+uma pessoa conta como familiar de um requerente
+    se a pessoa é parente do requerente no grau um G
+    e a idade da pessoa é um N
+    e N < 18
+    e não é o caso que
+        o requerente atingiu a idade normal de acesso à pensão de velhice.
+
+regra familiar_confiado com proveniência o Decreto-Lei 166/2026 em "artigo 5.º, n.º 1, alínea d), e n.º 5",
+    confira "Adotados e tutelados pelo requerente ou titular":
+uma pessoa conta como familiar de um requerente
+    se a pessoa está à guarda do requerente
+    e não é o caso que
+        o requerente atingiu a idade normal de acesso à pensão de velhice.
+
+% ================================================================ condições gerais (art. 8.º) e residência (art. 9.º)
+
+regra residencia_nacional com proveniência o Decreto-Lei 166/2026 em "artigo 9.º, alínea a)",
+    confira "Cidadãos nacionais":
+uma pessoa é residente em território nacional
+    se a pessoa tem domicílio habitual em território nacional
+    e a pessoa tem nacionalidade portuguesa.
+
+regra residencia_livre_circulacao com proveniência o Decreto-Lei 166/2026 em "artigo 9.º, alínea b)",
+    confira "acordo de livre circulação de pessoas com a União Europeia":
+uma pessoa é residente em território nacional
+    se a pessoa tem domicílio habitual em território nacional
+    e a pessoa tem nacionalidade de Estado com livre circulação de pessoas.
+
+regra residencia_titulo com proveniência o Decreto-Lei 166/2026 em "artigo 9.º, alínea c)",
+    confira "com título válido de residência pelo menos durante um ano":
+uma pessoa é residente em território nacional
+    se a pessoa tem domicílio habitual em território nacional
+    e a pessoa tem título válido de residência há um N meses
+    e N >= 12.
+
+regra residencia_refugiado com proveniência o Decreto-Lei 166/2026 em "artigo 9.º, alínea d)",
+    confira "Refugiados e apátridas reconhecidos nos termos da lei":
+uma pessoa é residente em território nacional
+    se a pessoa tem domicílio habitual em território nacional
+    e a pessoa tem o estatuto de refugiado.
+
+regra residencia_apatrida com proveniência o Decreto-Lei 166/2026 em "artigo 9.º, alínea d)",
+    confira "Refugiados e apátridas reconhecidos nos termos da lei":
+uma pessoa é residente em território nacional
+    se a pessoa tem domicílio habitual em território nacional
+    e a pessoa tem o estatuto de apátrida.
+
+regra condicao_residencia com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea a)",
+    confira "Residir em território nacional":
+o requerimento de um requerente falha na condição residência
+    se o requerente requer a prestação social única
+    e não é o caso que
+        o requerente é residente em território nacional.
+
+regra condicao_rendimentos com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea b)",
+    confira "Os rendimentos do requerente e do seu agregado familiar serem inferiores ao valor da PSU":
+o requerimento de um requerente falha na condição rendimentos
+    se o requerente requer a prestação social única
+    e o total dos rendimentos do agregado do requerente é um R
+    e o montante base da prestação social única do requerente é um B
+    e R >= B.
+
+regra condicao_patrimonio com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea c)",
+    confira "O valor do património mobiliário do requerente e do seu agregado familiar não ser superior a 60":
+o requerimento de um requerente falha na condição património_mobiliário
+    se o requerente requer a prestação social única
+    e o património mobiliário do agregado do requerente é um P
+    e o valor do IAS é um I
+    e P > 60 * I.
+
+regra condicao_bens_moveis com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea d)",
+    confira "O valor dos bens móveis sujeitos a registo do requerente e do seu agregado familiar não ser":
+o requerimento de um requerente falha na condição bens_móveis_sujeitos_a_registo
+    se o requerente requer a prestação social única
+    e os bens móveis sujeitos a registo do agregado do requerente valem um V
+    e o valor do IAS é um I
+    e V > 60 * I.
+
+regra condicao_cessacao_contrato com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea e)",
+    confira "salvo se ao requerente tiver sido reconhecido o estatuto de vítima de violência doméstica":
+o requerimento de um requerente falha na condição cessação_do_contrato_de_trabalho
+    se o requerente requer a prestação social única
+    e o requerente cessou contrato de trabalho por sua iniciativa há um N meses
+    e N < 12
+    e não é o caso que
+        o requerente tem o estatuto de vítima de violência doméstica.
+
+regra condicao_prisao com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea f)",
+    confira "salvo nos 45 dias anteriores à data previsível de libertação":
+o requerimento de um requerente falha na condição prisão
+    se o requerente requer a prestação social única
+    e o requerente está em reclusão
+    e não é o caso que
+        a libertação previsível do requerente é dentro de um D dias
+        e D <= 45.
+
+regra condicao_asilo com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea g)",
+    confira "Não beneficiar de apoios sociais atribuídos no âmbito do regime de concessão do estatuto de":
+o requerimento de um requerente falha na condição asilo
+    se o requerente requer a prestação social única
+    e o requerente beneficia de apoios do regime de asilo.
+
+regra condicao_autorizacao com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 2",
+    confira "a aceder a todas as informações relevantes":
+o requerimento de um requerente falha na condição autorização_de_acesso
+    se o requerente requer a prestação social única
+    e uma pessoa pertence ao agregado familiar do requerente
+    e não é o caso que
+        a pessoa autorizou o acesso à informação relevante.
+
+% ================================================================ condições específicas (art. 18.º) e dispensa (art. 20.º)
+
+regra idade_ativa com proveniência o Decreto-Lei 166/2026 em "artigo 18.º, n.º 1",
+    confira "com idade igual ou superior a 18 anos e inferior à idade normal de pensão de velhice":
+uma pessoa está em idade ativa
+    se a idade da pessoa é um N
+    e N >= 18
+    e não é o caso que
+        a pessoa atingiu a idade normal de acesso à pensão de velhice.
+
+regra condicoes_especificas_cumpridas com proveniência o Decreto-Lei 166/2026 em "artigo 18.º, n.º 1, alíneas a) a c)",
+    confira "Estar inscrito num centro de emprego como candidato a emprego e reunir as condições para o trabalho":
+uma pessoa cumpre as condições específicas
+    se a pessoa tem inscrição num centro de emprego com condições para o trabalho
+    e a pessoa tem disponibilidade ativa para emprego conveniente
+    e a pessoa tem disponibilidade para atividades de solidariedade social.
+
+regra condicao_especifica com proveniência o Decreto-Lei 166/2026 em "artigo 18.º, n.º 1",
+    confira "que não se encontrem a trabalhar, o direito à PSU depende ainda da verificação":
+o requerimento de um requerente falha na condição condições_específicas
+    se o requerente requer a prestação social única
+    e uma pessoa pertence ao agregado familiar do requerente
+    e a pessoa está em idade ativa
+    e não é o caso que
+        a pessoa está a trabalhar
+    e não é o caso que
+        a pessoa está dispensada das condições específicas
+    e não é o caso que
+        a pessoa cumpre as condições específicas.
+
+regra condicao_horas_adicionais com proveniência o Decreto-Lei 166/2026 em "artigo 18.º, n.º 2",
+    confira "com idade compreendida entre os 18 e os 25 anos":
+o requerimento de um requerente falha na condição horas_adicionais
+    se o requerente requer a prestação social única
+    e uma pessoa pertence ao agregado familiar do requerente
+    e a idade da pessoa é um N
+    e N >= 18
+    e N < 26
+    e não é o caso que
+        a pessoa está a trabalhar
+    e não é o caso que
+        a pessoa está dispensada das condições específicas
+    e não é o caso que
+        a pessoa tem disponibilidade para horas adicionais de solidariedade social.
+
+regra dispensa_incapacidade_temporaria com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea a)",
+    confira "Incapacidade temporária para o trabalho, pelo tempo em que se mantiver essa incapacidade":
+uma pessoa está dispensada das condições específicas
+    se a pessoa está em incapacidade temporária para o trabalho.
+
+regra dispensa_velhice_antecipada com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea b)",
+    confira "Titularidade de pensão de velhice antecipada":
+uma pessoa está dispensada das condições específicas
+    se a pessoa é titular de pensão de velhice antecipada.
+
+regra dispensa_invalidez_absoluta com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea b)",
+    confira "pensão de invalidez absoluta":
+uma pessoa está dispensada das condições específicas
+    se a pessoa é titular de pensão de invalidez absoluta.
+
+regra dispensa_incapacidade_permanente com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea c)",
+    confira "Titularidade de pensão por incapacidade permanente absoluta":
+uma pessoa está dispensada das condições específicas
+    se a pessoa é titular de pensão por incapacidade permanente absoluta.
+
+regra dispensa_deficiencia_80 com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea d)",
+    confira "Deficiência com grau de incapacidade igual ou superior a 80 %":
+uma pessoa está dispensada das condições específicas
+    se o grau de incapacidade da pessoa é um G
+    e G >= 80.
+
+regra dispensa_deficiencia_60 com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea e)",
+    confira "Deficiência com grau de incapacidade igual ou superior a 60 % e inferior a 80 %":
+uma pessoa está dispensada das condições específicas
+    se o grau de incapacidade da pessoa é um G
+    e G >= 60
+    e G < 80
+    e a pessoa tem incompatibilidade reconhecida com atividades de solidariedade social.
+
+regra dispensa_ensino com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea f)",
+    confira "Frequência de instituição de ensino":
+uma pessoa está dispensada das condições específicas
+    se a pessoa frequenta ensino nas condições do abono de família.
+
+regra dispensa_cuidador com proveniência o Decreto-Lei 166/2026 em "artigo 20.º, n.º 1, alínea g)",
+    confira "Ser cuidador informal principal":
+uma pessoa está dispensada das condições específicas
+    se a pessoa tem o estatuto de cuidador informal principal.
+
+regra condicoes_de_atribuicao com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, e artigo 31.º, n.º 4",
+    confira "O direito à PSU depende da verificação cumulativa":
+um requerente cumpre as condições de atribuição
+    se o requerente requer a prestação social única
+    e não é o caso que
+        o requerimento do requerente falha na condição uma condição.
+
+% ================================================================ rendimentos de trabalho (arts. 11.º, 12.º e 28.º, n.º 3)
+
+% O rendimento de trabalho dependente é o rendimento médio dos três meses
+% anteriores ao requerimento (art. 11.º, n.º 3), já sem os rendimentos das
+% alíneas a) e b) desse número. Os subsídios de férias e de Natal entram em
+% duodécimos (n.º 4).
+regra trabalho_dependente com proveniência o Decreto-Lei 166/2026 em "artigo 11.º, n.os 1 a 4",
+    confira "com exclusão dos rendimentos de trabalho dependente auferidos por jovens":
+o rendimento de trabalho dependente contado de uma pessoa é um montante
+    se a pessoa é jovem em trabalho de férias escolares
+    e o montante = 0
+    caso contrário um G é a soma de cada V1 tal que
+        o rendimento ilíquido mensal de trabalho dependente da pessoa é V1
+    e um C é a soma de cada V2 tal que
+        as contribuições mensais de trabalho dependente da pessoa são V2
+    e um T é a soma de cada V3 tal que
+        a retenção mensal de IRS da pessoa é V3
+    e um S é a soma de cada V4 tal que
+        os subsídios anuais de trabalho dependente da pessoa são V4
+    e o montante = G - C - T + S / 12.
+
+regra trabalho_total com proveniência o Decreto-Lei 166/2026 em "artigo 10.º, n.º 1, alíneas a) e b), artigo 11.º, n.º 5, e artigo 12.º, n.º 2",
+    confira "da declaração trimestral do período imediatamente anterior ao da data de apresentação do requerimento, mensualizado":
+o rendimento mensal do trabalho de uma pessoa é um montante
+    se o rendimento de trabalho dependente contado da pessoa é um D
+    e um Q é a soma de cada V1 tal que
+        o rendimento relevante trimestral de trabalho independente da pessoa é V1
+    e um O é a soma de cada V2 tal que
+        o montante mensal de atividades ocupacionais da pessoa é V2
+    e o montante = D + Q / 3 + O.
+
+% Para a componente de incentivo ao trabalho só se deduzem as contribuições
+% obrigatórias (art. 28.º, n.º 3), e não a retenção de IRS (art. 11.º, n.º 2).
+regra base_do_incentivo com proveniência o Decreto-Lei 166/2026 em "artigo 28.º, n.º 3",
+    confira "são deduzidos os montantes referentes às contribuições obrigatórias":
+a base do incentivo ao trabalho de uma pessoa é um montante
+    se o rendimento mensal do trabalho da pessoa é um W
+    e um T é a soma de cada V1 tal que
+        a retenção mensal de IRS da pessoa é V1
+    e um CI é a soma de cada V2 tal que
+        as contribuições mensais de trabalho independente da pessoa são V2
+    e o montante = W + T - CI
+    e não é o caso que
+        a pessoa é jovem em trabalho de férias escolares
+    caso contrário um W2 é a soma de cada V3 tal que
+        o rendimento relevante trimestral de trabalho independente da pessoa é V3
+    e um CI2 é a soma de cada V4 tal que
+        as contribuições mensais de trabalho independente da pessoa são V4
+    e um O2 é a soma de cada V5 tal que
+        o montante mensal de atividades ocupacionais da pessoa é V5
+    e o montante = W2 / 3 - CI2 + O2.
+
+% Os rendimentos de trabalho do alegado agressor não contam para a vítima de
+% violência doméstica, se ele fizer parte do mesmo agregado (art. 10.º, n.º 2).
+regra trabalho_contado com proveniência o Decreto-Lei 166/2026 em "artigo 10.º, n.º 2",
+    confira "não são considerados quaisquer rendimentos do trabalho do alegado agressor":
+a parte do trabalho de uma pessoa contada para um requerente é um montante
+    se o requerente tem o estatuto de vítima de violência doméstica
+    e a pessoa é alegado agressor do requerente
+    e o montante = 0
+    caso contrário o rendimento mensal do trabalho da pessoa é o montante.
+
+regra incentivo_contado com proveniência o Decreto-Lei 166/2026 em "artigo 10.º, n.º 2, e artigo 28.º, n.º 2",
+    confira "se este fizer parte do mesmo agregado familiar":
+a parte do incentivo de uma pessoa contada para um requerente é um montante
+    se o requerente tem o estatuto de vítima de violência doméstica
+    e a pessoa é alegado agressor do requerente
+    e o montante = 0
+    caso contrário a base do incentivo ao trabalho da pessoa é o montante.
+
+% ================================================================ pensões e prestações sociais (arts. 15.º e 16.º)
+
+% O valor mensal das pensões é o que está a ser pago, sem retroativos e sem os
+% complementos regionais de pensão (art. 15.º, n.os 3 e 4); inclui as pensões
+% de alimentos (n.º 1, alínea d), e n.º 2).
+regra pensoes com proveniência o Decreto-Lei 166/2026 em "artigo 15.º, n.os 1, 4 e 5",
+    confira "Consideram-se rendimentos de pensões o valor mensal global das pensões":
+o rendimento mensal de pensões do agregado de um requerente é um montante
+    se o requerente requer a prestação social única
+    e um P é a soma de cada V1 tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e o valor mensal das pensões da pessoa é V1
+    e um S é a soma de cada V2 tal que
+        uma segunda pessoa pertence ao agregado familiar do requerente
+        e os subsídios anuais das pensões da segunda pessoa são V2
+    e o montante = P + S / 12.
+
+regra prestacoes_excluidas com proveniência o Decreto-Lei 166/2026 em "artigo 16.º, n.º 1",
+    confira "com exceção das prestações por encargos familiares, encargos no domínio da deficiência":
+uma prestação fica fora dos rendimentos
+    se o tipo da prestação é um tipo
+    e o tipo está em [encargos_familiares, deficiência, dependência].
+
+regra prestacoes_sociais com proveniência o Decreto-Lei 166/2026 em "artigo 16.º, n.os 1 e 2",
+    confira "todas as prestações, subsídios ou apoios sociais atribuídos de forma continuada":
+o rendimento mensal de prestações sociais do agregado de um requerente é um montante
+    se o requerente requer a prestação social única
+    e o montante é a soma de cada valor tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e a pessoa recebe uma prestação no valor mensal do valor
+        e não é o caso que
+            a prestação fica fora dos rendimentos.
+
+% ================================================================ apoios à habitação (art. 17.º)
+
+regra renda_de_referencia com proveniência o Decreto-Lei 166/2026 em "artigo 17.º, n.º 3",
+    confira "aplicado à área de referência de 112,50":
+a renda de referência é um montante
+    se o valor mediano das rendas por metro quadrado é um MR
+    e o montante = MR * 112,5 / 3.
+
+regra apoio_habitacao com proveniência o Decreto-Lei 166/2026 em "artigo 17.º, n.os 1 e 2",
+    confira "corresponde a 50 % da diferença entre a renda de referência e a renda paga pelo":
+o apoio mensal à habitação do agregado de um requerente é um montante
+    se o requerente requer a prestação social única
+    e um SOC é a soma de cada V1 tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e a pessoa paga renda de habitação social de um RP
+        e a renda de referência é um RR
+        e RR > RP
+        e V1 = (RR - RP) * 50 / 100
+    e um O é a soma de cada V2 tal que
+        uma segunda pessoa pertence ao agregado familiar do requerente
+        e o valor mensal de outros apoios à habitação da segunda pessoa é V2
+    e o montante = SOC + O.
+
+% ================================================================ rendimentos prediais (art. 14.º)
+
+% O valor patrimonial é o valor mais elevado da caderneta predial, da certidão
+% de teor matricial ou do título de aquisição (n.º 2).
+regra predial_habitacao_permanente com proveniência o Decreto-Lei 166/2026 em "artigo 14.º, n.º 3",
+    confira "salvo se o seu valor patrimonial for superior a 450 vezes":
+o rendimento predial anual de um imóvel é um montante
+    se o imóvel é habitação permanente do agregado
+    e o valor patrimonial do imóvel é um VP
+    e o valor do IAS é um I
+    e VP > 450 * I
+    e o montante = (VP - 450 * I) * 5 / 100
+    caso contrário o imóvel é habitação permanente do agregado
+    e o montante = 0
+    caso contrário o valor patrimonial do imóvel é um VP2
+    e um R é a soma de cada V1 tal que
+        a renda anual do imóvel é V1
+    e um X = VP2 * 5 / 100
+    e o máximo de R e X é o montante.
+
+regra predial_pessoa com proveniência o Decreto-Lei 166/2026 em "artigo 14.º, n.os 1, 2 e 4",
+    confira "devendo ser mensualizados":
+o rendimento mensal predial do agregado de um requerente é um montante
+    se o requerente requer a prestação social única
+    e um A é a soma de cada V tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e a pessoa tem a propriedade de um imóvel
+        e o rendimento predial anual do imóvel é V
+    e o montante = A / 12.
+
+% ================================================================ rendimentos de capitais e património (arts. 8.º e 13.º)
+
+regra patrimonio_agregado com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea c)",
+    confira "O valor do património mobiliário do requerente e do seu agregado familiar":
+o património mobiliário do agregado de um requerente é um montante
+    se o requerente requer a prestação social única
+    e o montante é a soma de cada valor tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e o valor do património mobiliário da pessoa é o valor.
+
+regra bens_moveis_agregado com proveniência o Decreto-Lei 166/2026 em "artigo 8.º, n.º 1, alínea d)",
+    confira "bens móveis sujeitos a registo do requerente e do seu agregado familiar":
+os bens móveis sujeitos a registo do agregado de um requerente valem um montante
+    se o requerente requer a prestação social única
+    e o montante é a soma de cada valor tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e o valor dos bens móveis sujeitos a registo da pessoa é o valor.
+
+regra ativos_relevam com proveniência o Decreto-Lei 166/2026 em "artigo 13.º, n.º 6",
+    confira "apenas relevam os ativos financeiros que, na sua totalidade, excedam 15 vezes o valor do IAS":
+os ativos financeiros do agregado de um requerente relevam
+    se o património mobiliário do agregado do requerente é um P
+    e o valor do IAS é um I
+    e P > 15 * I.
+
+regra taxa_de_juro com proveniência o Decreto-Lei 166/2026 em "artigo 13.º, n.º 3",
+    confira "acrescida de 1 ponto percentual, com o valor mínimo de 3 % de taxa de juro anual nominal":
+a taxa de juro de referência é um número
+    se a taxa EURIBOR de referência é um E
+    e um E1 = E + 1
+    e o máximo de E1 e 3 é o número.
+
+regra capitais com proveniência o Decreto-Lei 166/2026 em "artigo 13.º, n.os 1, 2, 4 e 6",
+    confira "considera-se como rendimento o montante resultante da aplicação daquela taxa":
+o rendimento mensal de capitais do agregado de um requerente é um montante
+    se os ativos financeiros do agregado do requerente relevam
+    e o património mobiliário do agregado do requerente é um P
+    e a taxa de juro de referência é um TX
+    e um A é a soma de cada V tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e os rendimentos de capitais do ano anterior da pessoa são V
+    e um J = P * TX / 100
+    e o máximo de A e J é um M
+    e o montante = M / 12
+    caso contrário o requerente requer a prestação social única
+    e o montante = 0.
+
+% ================================================================ o total dos rendimentos (art. 10.º)
+
+regra total_rendimentos com proveniência o Decreto-Lei 166/2026 em "artigo 10.º, n.º 1",
+    confira "considera-se a totalidade dos seguintes rendimentos do requerente ou do titular da prestação e do seu":
+o total dos rendimentos do agregado de um requerente é um montante
+    se o requerente requer a prestação social única
+    e um W é a soma de cada V1 tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e a parte do trabalho da pessoa contada para o requerente é V1
+    e o rendimento mensal de pensões do agregado do requerente é um PE
+    e o apoio mensal à habitação do agregado do requerente é um H
+    e o rendimento mensal de prestações sociais do agregado do requerente é um PS
+    e o rendimento mensal predial do agregado do requerente é um PR
+    e o rendimento mensal de capitais do agregado do requerente é um K
+    e o montante = round((W + PE + PS + H + PR + K) * 100 + 0,000001) / 100.
+
+% ================================================================ montante base (art. 24.º)
+
+regra adultos com proveniência o Decreto-Lei 166/2026 em "artigo 24.º, n.º 2, alínea b)",
+    confira "0,7 por cada indivíduo maior":
+o número de adultos do agregado de um requerente é um número
+    se o requerente requer a prestação social única
+    e o número é a contagem de cada pessoa tal que
+        a pessoa integra o agregado familiar do requerente
+        e a idade da pessoa é um N
+        e N >= 18.
+
+regra menores com proveniência o Decreto-Lei 166/2026 em "artigo 24.º, n.º 2, alínea c)",
+    confira "0,5 por cada indivíduo menor":
+o número de menores do agregado de um requerente é um número
+    se o requerente requer a prestação social única
+    e o número é a contagem de cada pessoa tal que
+        a pessoa integra o agregado familiar do requerente
+        e a idade da pessoa é um N
+        e N < 18.
+
+regra adultos_equivalentes com proveniência o Decreto-Lei 166/2026 em "artigo 24.º, n.º 2",
+    confira "1 pelo requerente ou titular":
+o número de adultos equivalentes do agregado de um requerente é um número
+    se o número de adultos do agregado do requerente é um NA
+    e o número de menores do agregado do requerente é um NM
+    e o número = (10 + 7 * NA + 5 * NM) / 10.
+
+regra montante_base com proveniência o Decreto-Lei 166/2026 em "artigo 24.º, n.º 1",
+    confira "PSUbase = VRP × AE":
+o montante base da prestação social única de um requerente é um montante
+    se o valor de referência da prestação social única é um VRP
+    e o número de adultos equivalentes do agregado do requerente é um AE
+    e o montante = round(VRP * AE * 100 + 0,000001) / 100.
+
+% ================================================================ componente de incentivo ao trabalho (art. 28.º)
+
+regra componente_incentivo com proveniência o Decreto-Lei 166/2026 em "artigo 28.º, n.º 2",
+    confira "Da totalidade desses rendimentos, até ao limite de 20 % do valor do IAS":
+a componente de incentivo ao trabalho de um requerente é um montante
+    se o requerente requer a prestação social única
+    e um W é a soma de cada V tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e a parte do incentivo da pessoa contada para o requerente é V
+    e o valor do IAS é um I
+    e W > I * 20 / 100
+    e o montante = round((I * 20 / 100 + (W - I * 20 / 100) * 50 / 100) * 100 + 0,000001) / 100
+    caso contrário o requerente requer a prestação social única
+    e um W2 é a soma de cada V2 tal que
+        uma segunda pessoa pertence ao agregado familiar do requerente
+        e a parte do incentivo da segunda pessoa contada para o requerente é V2
+    e o montante = round(W2 * 100 + 0,000001) / 100.
+
+% ================================================================ montante global (art. 25.º)
+
+regra montante_global com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.º 1",
+    confira "PSUglobal = (PSUbase + CIT) - R":
+o montante global da prestação social única de um requerente é um montante
+    se o montante base da prestação social única do requerente é um B
+    e a componente de incentivo ao trabalho do requerente é um CIT
+    e o total dos rendimentos do agregado do requerente é um R
+    e o montante = round((B + CIT - R) * 100 + 0,000001) / 100.
+
+% ================================================================ majoração por parentalidade (art. 26.º)
+
+regra ponderacao com proveniência o Decreto-Lei 166/2026 em "artigo 26.º, n.º 2, e artigo 24.º, n.º 2",
+    confira "relativa ao beneficiário da majoração":
+a ponderação de uma pessoa no agregado de um requerente é um número
+    se a pessoa é igual ao requerente
+    e o número = 1
+    caso contrário a idade da pessoa é um N
+    e N >= 18
+    e o número = 7 / 10
+    caso contrário o número = 5 / 10.
+
+regra majoracao_parentalidade_pessoa com proveniência o Decreto-Lei 166/2026 em "artigo 26.º, n.os 1 e 2",
+    confira "A majoração referida no número anterior corresponde à diferença entre 80 % do IAS":
+a majoração por parentalidade de uma pessoa no agregado de um requerente é um montante
+    se a pessoa pertence ao agregado familiar do requerente
+    e a pessoa tem inscrição no regime geral de segurança social
+    e a pessoa está em licença parental sem subsídio por falta de prazo de garantia
+    e a ponderação da pessoa no agregado do requerente é um PD
+    e o valor do IAS é um I
+    e o valor de referência da prestação social única é um VRP
+    e o montante = round((I * 80 / 100 - PD * VRP) * 100 + 0,000001) / 100.
+
+regra majoracao_parentalidade com proveniência o Decreto-Lei 166/2026 em "artigo 26.º, n.º 1",
+    confira "não tenha direito ao subsídio parental inicial":
+a majoração por parentalidade de um requerente é um montante
+    se o requerente requer a prestação social única
+    e o montante é a soma de cada valor tal que
+        a majoração por parentalidade de uma pessoa no agregado do requerente é o valor.
+
+% ================================================================ majoração por desemprego (art. 27.º)
+
+regra desemprego_beneficiario_esgotou com proveniência o Decreto-Lei 166/2026 em "artigo 27.º, n.º 1",
+    confira "por ter esgotado os períodos de concessão do subsídio de desemprego":
+uma pessoa dá direito à majoração por desemprego
+    se a pessoa tem inscrição no regime geral de segurança social
+    e a pessoa está em desemprego involuntário
+    e a pessoa esgotou o subsídio de desemprego.
+
+regra desemprego_beneficiario_prazo com proveniência o Decreto-Lei 166/2026 em "artigo 27.º, n.os 1 e 3",
+    confira "prazo de garantia de 120 dias de trabalho por conta de outrem":
+uma pessoa dá direito à majoração por desemprego
+    se a pessoa tem inscrição no regime geral de segurança social
+    e a pessoa está em desemprego involuntário
+    e a pessoa não cumpriu o prazo de garantia do subsídio de desemprego
+    e o número de dias de trabalho com registo de remunerações da pessoa no ano anterior ao desemprego é um D
+    e D >= 120.
+
+regra majoracao_desemprego com proveniência o Decreto-Lei 166/2026 em "artigo 27.º, n.os 1, 2 e 4",
+    confira "correspondente à diferença entre 80 % do IAS e o montante global da PSU":
+a majoração por desemprego de um requerente é um montante
+    se o requerente requer a prestação social única
+    e uma pessoa pertence ao agregado familiar do requerente
+    e a pessoa dá direito à majoração por desemprego
+    e não é o caso que
+        o requerente recebe a prestação há mais de seis meses
+    e o montante global da prestação social única do requerente é um G
+    e o valor do IAS é um I
+    e G < I * 80 / 100
+    e o montante = round((I * 80 / 100 - G) * 100 + 0,000001) / 100
+    caso contrário o requerente requer a prestação social única
+    e o montante = 0.
+
+% O n.º 2 do art. 25.º acrescenta "uma majoração por parentalidade ou uma
+% majoração por desemprego". O decreto não diz qual vale quando o agregado
+% tem direito às duas: este programa dá a mais alta (README.md).
+regra majoracao com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.º 2",
+    confira "acresce uma majoração por parentalidade ou uma majoração por desemprego":
+a majoração de um requerente é um montante
+    se a majoração por parentalidade do requerente é um MP
+    e a majoração por desemprego do requerente é um MD
+    e o máximo de MP e MD é o montante.
+
+% ================================================================ teto e montante mínimo (art. 25.º, n.os 3 e 5)
+
+regra apoios_nao_contributivos com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.º 3",
+    confira "excluindo as prestações por encargos no domínio da deficiência e da dependência":
+os apoios não contributivos do agregado de um requerente somam um montante
+    se o requerente requer a prestação social única
+    e o montante é a soma de cada valor tal que
+        uma pessoa pertence ao agregado familiar do requerente
+        e a pessoa recebe uma prestação no valor mensal do valor
+        e a prestação é de base não contributiva
+        e o tipo da prestação é um tipo
+        e não é o caso que
+            o tipo está em [deficiência, dependência].
+
+regra teto com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.º 3",
+    confira "o qual corresponde a seis vezes o valor do IAS":
+o teto disponível de um requerente é um montante
+    se os apoios não contributivos do agregado do requerente somam um A
+    e o valor do IAS é um I
+    e o montante = round((6 * I - A) * 100 + 0,000001) / 100.
+
+regra montante_calculado com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.os 1 a 3",
+    confira "não pode ser superior ao teto máximo dos apoios de base não contributiva":
+o montante calculado da prestação social única de um requerente é um montante
+    se o montante global da prestação social única do requerente é um G
+    e a majoração do requerente é um M
+    e o teto disponível do requerente é um T
+    e um GM = G + M
+    e o mínimo de GM e T é um F
+    e o montante = round(F * 100 + 0,000001) / 100.
+
+regra montante_mensal com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.º 5",
+    confira "Caso o valor mensal global da PSU seja inferior a 10":
+o montante mensal da prestação social única de um requerente é um montante
+    se o requerente cumpre as condições de atribuição
+    e o montante calculado da prestação social única do requerente é o montante
+    e o montante >= 10.
+
+regra direito com proveniência o Decreto-Lei 166/2026 em "artigo 3.º e artigo 8.º, n.º 1",
+    confira "Considera-se falta ou insuficiência de recursos económicos":
+um requerente tem direito à prestação social única
+    se o montante mensal da prestação social única do requerente é um montante.
+
+regra indeferido_condicao com proveniência o Decreto-Lei 166/2026 em "artigo 31.º, n.º 4",
+    confira "O requerimento da PSU deve ser indeferido quando não esteja preenchida qualquer das":
+o requerimento de um requerente é indeferido por um motivo
+    se o requerimento do requerente falha na condição o motivo.
+
+regra indeferido_montante_minimo com proveniência o Decreto-Lei 166/2026 em "artigo 25.º, n.º 5",
+    confira "não há lugar à atribuição da prestação":
+o requerimento de um requerente é indeferido por montante_inferior_a_10_euros
+    se o requerente cumpre as condições de atribuição
+    e o montante calculado da prestação social única do requerente é um M
+    e M < 10.
+
+% ================================================================ cenários
+%
+% As respostas esperadas foram calculadas à mão a partir do decreto, antes de
+% correr o programa (README.md, "Como foi verificado"). IAS = 537,13 euros;
+% valor de referência = 268,565; 20 % do IAS = 107,426; 80 % do IAS = 429,704;
+% 60 vezes o IAS = 32.227,80; 6 vezes o IAS = 3.222,78.
+
+% Uma pessoa sozinha, sem rendimentos, inscrita no centro de emprego.
+% AE = 1; base = 268,57; rendimentos 0; PSU = 268,57.
+cenário sozinho é:
+    ana requer a prestação social única.
+    a idade de ana é 40.
+    ana tem domicílio habitual em território nacional.
+    ana tem nacionalidade portuguesa.
+    ana autorizou o acesso à informação relevante.
+    ana tem inscrição num centro de emprego com condições para o trabalho.
+    ana tem disponibilidade ativa para emprego conveniente.
+    ana tem disponibilidade para atividades de solidariedade social.
+    direito espera respostas ["ana tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de ana é 268,57"].
+    base espera respostas ["o montante base da prestação social única de ana é 268,57"].
+    adultos_equivalentes espera respostas ["o número de adultos equivalentes do agregado de ana é 1"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de ana é 0"].
+    indeferimento espera respostas [].
+
+% Um casal com dois filhos; a mulher trabalha a tempo parcial.
+% Trabalho: 500 - 55 + 890 / 12 = 519,17. Abono de família 100 (fica fora dos
+% rendimentos, art. 16.º). AE = 2,7; base = 725,13; CIT = 107,426 + 50 % de
+% (519,1667 - 107,426) = 313,30; PSU = 725,13 + 313,30 - 519,17 = 519,26.
+cenário casal_com_filhos é:
+    bruno requer a prestação social única.
+    a idade de bruno é 41.
+    bruno tem domicílio habitual em território nacional.
+    bruno tem nacionalidade portuguesa.
+    bruno autorizou o acesso à informação relevante.
+    bruno tem inscrição num centro de emprego com condições para o trabalho.
+    bruno tem disponibilidade ativa para emprego conveniente.
+    bruno tem disponibilidade para atividades de solidariedade social.
+    bruno recebe abono_bruno no valor mensal de 100.
+    o tipo de abono_bruno é encargos_familiares.
+    abono_bruno é de base não contributiva.
+    carla vive em economia comum com bruno.
+    carla é cônjuge de bruno.
+    a idade de carla é 39.
+    carla autorizou o acesso à informação relevante.
+    carla está a trabalhar.
+    o rendimento ilíquido mensal de trabalho dependente de carla é 500.
+    as contribuições mensais de trabalho dependente de carla são 55.
+    os subsídios anuais de trabalho dependente de carla são 890.
+    duarte vive em economia comum com bruno.
+    duarte é parente de bruno no grau 1.
+    a idade de duarte é 8.
+    duarte autorizou o acesso à informação relevante.
+    eva vive em economia comum com bruno.
+    eva é parente de bruno no grau 1.
+    a idade de eva é 12.
+    eva autorizou o acesso à informação relevante.
+    direito espera respostas ["bruno tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de bruno é 519,26"].
+    base espera respostas ["o montante base da prestação social única de bruno é 725,13"].
+    adultos_equivalentes espera respostas ["o número de adultos equivalentes do agregado de bruno é 2,7"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de bruno é 519,17"].
+    incentivo espera respostas ["a componente de incentivo ao trabalho de bruno é 313,3"].
+    agregado espera respostas ["bruno pertence ao agregado familiar de bruno", "carla pertence ao agregado familiar de bruno", "duarte pertence ao agregado familiar de bruno", "eva pertence ao agregado familiar de bruno"].
+    indeferimento espera respostas [].
+
+% Uma pensão de invalidez absoluta de 400 euros, paga 14 vezes por ano:
+% 400 + 800 / 12 = 466,67, acima da base de 268,57: indeferido (art. 8.º,
+% n.º 1, alínea b)). A pensão de invalidez absoluta dispensa as condições
+% específicas (art. 20.º, n.º 1, alínea b)).
+cenário rendimentos_excessivos é:
+    filipe requer a prestação social única.
+    a idade de filipe é 60.
+    filipe tem domicílio habitual em território nacional.
+    filipe tem nacionalidade portuguesa.
+    filipe autorizou o acesso à informação relevante.
+    filipe é titular de pensão de invalidez absoluta.
+    o valor mensal das pensões de filipe é 400.
+    os subsídios anuais das pensões de filipe são 800.
+    direito espera respostas [].
+    montante espera respostas [].
+    base espera respostas ["o montante base da prestação social única de filipe é 268,57"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de filipe é 466,67"].
+    indeferimento espera respostas ["o requerimento de filipe é indeferido por rendimentos"].
+
+% Depósitos de 40.000 euros, acima de 60 vezes o IAS (32.227,80): indeferido
+% (art. 8.º, n.º 1, alínea c)). O carro (5.000) fica abaixo do limite da
+% alínea d). Rendimento de capitais: 3,2 % (EURIBOR 2,2 + 1) de 40.000 =
+% 1.280 por ano, mais do que os 200 de juros recebidos: 106,67 por mês.
+cenário patrimonio_excessivo é:
+    gabriela requer a prestação social única.
+    a idade de gabriela é 50.
+    gabriela tem domicílio habitual em território nacional.
+    gabriela tem nacionalidade portuguesa.
+    gabriela autorizou o acesso à informação relevante.
+    gabriela tem inscrição num centro de emprego com condições para o trabalho.
+    gabriela tem disponibilidade ativa para emprego conveniente.
+    gabriela tem disponibilidade para atividades de solidariedade social.
+    o valor do património mobiliário de gabriela é 40000.
+    os rendimentos de capitais do ano anterior de gabriela são 200.
+    a taxa EURIBOR de referência é 2,2.
+    o valor dos bens móveis sujeitos a registo de gabriela é 5000.
+    direito espera respostas [].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de gabriela é 106,67"].
+    indeferimento espera respostas ["o requerimento de gabriela é indeferido por património_mobiliário"].
+    montante espera respostas [].
+
+% Um requerente acima da idade normal de acesso à pensão de velhice vive com a mulher e um filho
+% adulto: o agregado é só ele e a mulher (art. 5.º, n.º 5). A pensão da mulher,
+% 300 x 14 / 12 = 350. AE = 1,7; base = 456,56; PSU = 106,56.
+cenário idoso é:
+    henrique requer a prestação social única.
+    a idade de henrique é 70.
+    henrique atingiu a idade normal de acesso à pensão de velhice.
+    henrique tem domicílio habitual em território nacional.
+    henrique tem nacionalidade portuguesa.
+    henrique autorizou o acesso à informação relevante.
+    isabel vive em economia comum com henrique.
+    isabel é cônjuge de henrique.
+    a idade de isabel é 68.
+    isabel atingiu a idade normal de acesso à pensão de velhice.
+    isabel autorizou o acesso à informação relevante.
+    o valor mensal das pensões de isabel é 300.
+    os subsídios anuais das pensões de isabel são 600.
+    joão vive em economia comum com henrique.
+    joão é parente de henrique no grau 1.
+    a idade de joão é 40.
+    joão está a trabalhar.
+    o rendimento ilíquido mensal de trabalho dependente de joão é 1500.
+    direito espera respostas ["henrique tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de henrique é 106,56"].
+    adultos_equivalentes espera respostas ["o número de adultos equivalentes do agregado de henrique é 1,7"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de henrique é 350"].
+    agregado espera respostas ["henrique pertence ao agregado familiar de henrique", "isabel pertence ao agregado familiar de henrique"].
+    indeferimento espera respostas [].
+
+% A filha de 20 anos não trabalha, não estuda e não tem disponibilidade para as
+% horas adicionais de solidariedade social: indeferido (art. 18.º, n.º 2).
+cenário jovem_sem_disponibilidade é:
+    laura requer a prestação social única.
+    a idade de laura é 45.
+    laura tem domicílio habitual em território nacional.
+    laura tem nacionalidade portuguesa.
+    laura autorizou o acesso à informação relevante.
+    laura tem inscrição num centro de emprego com condições para o trabalho.
+    laura tem disponibilidade ativa para emprego conveniente.
+    laura tem disponibilidade para atividades de solidariedade social.
+    marta vive em economia comum com laura.
+    marta é parente de laura no grau 1.
+    a idade de marta é 20.
+    marta autorizou o acesso à informação relevante.
+    marta tem inscrição num centro de emprego com condições para o trabalho.
+    marta tem disponibilidade ativa para emprego conveniente.
+    marta tem disponibilidade para atividades de solidariedade social.
+    direito espera respostas [].
+    base espera respostas ["o montante base da prestação social única de laura é 456,56"].
+    adultos_equivalentes espera respostas ["o número de adultos equivalentes do agregado de laura é 1,7"].
+    indeferimento espera respostas ["o requerimento de laura é indeferido por horas_adicionais"].
+    montante espera respostas [].
+
+% Desempregado sem subsídio de desemprego por não ter o prazo de garantia,
+% com 150 dias de trabalho nos 12 meses anteriores (art. 27.º, n.º 3).
+% Majoração = 429,704 - 268,57 = 161,13; PSU = 268,57 + 161,13 = 429,70.
+cenário majoracao_desemprego é:
+    nuno requer a prestação social única.
+    a idade de nuno é 35.
+    nuno tem domicílio habitual em território nacional.
+    nuno tem nacionalidade portuguesa.
+    nuno autorizou o acesso à informação relevante.
+    nuno tem inscrição num centro de emprego com condições para o trabalho.
+    nuno tem disponibilidade ativa para emprego conveniente.
+    nuno tem disponibilidade para atividades de solidariedade social.
+    nuno tem inscrição no regime geral de segurança social.
+    nuno está em desemprego involuntário.
+    nuno não cumpriu o prazo de garantia do subsídio de desemprego.
+    o número de dias de trabalho com registo de remunerações de nuno no ano anterior ao desemprego é 150.
+    direito espera respostas ["nuno tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de nuno é 429,7"].
+    global espera respostas ["o montante global da prestação social única de nuno é 268,57"].
+    majoração espera respostas ["a majoração de nuno é 161,13"].
+    indeferimento espera respostas [].
+
+% Mãe em licença parental sem subsídio parental (sem prazo de garantia), com o
+% companheiro a trabalhar e um bebé. Trabalho do companheiro: 400 - 44 +
+% 712 / 12 = 415,33. AE = 2,2; base = 590,84; CIT = 261,38; global = 436,89;
+% majoração = 429,704 - 1 x 268,565 = 161,14; PSU = 598,03.
+cenário majoracao_parentalidade é:
+    olga requer a prestação social única.
+    a idade de olga é 30.
+    olga tem domicílio habitual em território nacional.
+    olga tem nacionalidade portuguesa.
+    olga autorizou o acesso à informação relevante.
+    olga tem inscrição num centro de emprego com condições para o trabalho.
+    olga tem disponibilidade ativa para emprego conveniente.
+    olga tem disponibilidade para atividades de solidariedade social.
+    olga tem inscrição no regime geral de segurança social.
+    olga está em licença parental sem subsídio por falta de prazo de garantia.
+    paulo vive em economia comum com olga.
+    paulo vive em união de facto com olga.
+    a idade de paulo é 32.
+    paulo autorizou o acesso à informação relevante.
+    paulo está a trabalhar.
+    o rendimento ilíquido mensal de trabalho dependente de paulo é 400.
+    as contribuições mensais de trabalho dependente de paulo são 44.
+    os subsídios anuais de trabalho dependente de paulo são 712.
+    rita vive em economia comum com olga.
+    rita é parente de olga no grau 1.
+    a idade de rita é 0.
+    rita autorizou o acesso à informação relevante.
+    direito espera respostas ["olga tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de olga é 598,03"].
+    base espera respostas ["o montante base da prestação social única de olga é 590,84"].
+    incentivo espera respostas ["a componente de incentivo ao trabalho de olga é 261,38"].
+    global espera respostas ["o montante global da prestação social única de olga é 436,89"].
+    majoração espera respostas ["a majoração de olga é 161,14"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de olga é 415,33"].
+
+% Habitação social com renda de 50 euros, mediana de 9 euros por metro
+% quadrado: renda de referência 337,5; apoio = 50 % x 287,5 = 143,75. Um
+% terreno de 27.800 euros sem renda: 5 % ao ano, 115,83 por mês. Rendimentos
+% 259,58, abaixo da base (268,57), mas a PSU seria 8,99, menos de 10 euros:
+% não há lugar à prestação (art. 25.º, n.º 5).
+cenário habitacao_e_imoveis é:
+    sara requer a prestação social única.
+    a idade de sara é 50.
+    sara tem domicílio habitual em território nacional.
+    sara tem nacionalidade portuguesa.
+    sara autorizou o acesso à informação relevante.
+    sara tem inscrição num centro de emprego com condições para o trabalho.
+    sara tem disponibilidade ativa para emprego conveniente.
+    sara tem disponibilidade para atividades de solidariedade social.
+    sara paga renda de habitação social de 50.
+    o valor mediano das rendas por metro quadrado é 9.
+    sara tem a propriedade de terreno_rústico.
+    o valor patrimonial de terreno_rústico é 27800.
+    direito espera respostas [].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de sara é 259,58"].
+    global espera respostas ["o montante global da prestação social única de sara é 8,99"].
+    indeferimento espera respostas ["o requerimento de sara é indeferido por montante_inferior_a_10_euros"].
+    montante espera respostas [].
+
+% Um casal com dez filhos e 1.500 euros de abono de família. AE = 6,7; base =
+% 1.799,39. O teto é 6 x 537,13 = 3.222,78 para todos os apoios não
+% contributivos do agregado: menos o abono, 1.722,78 (art. 25.º, n.º 3).
+cenário teto_maximo é:
+    tiago requer a prestação social única.
+    a idade de tiago é 40.
+    tiago tem domicílio habitual em território nacional.
+    tiago tem nacionalidade portuguesa.
+    tiago autorizou o acesso à informação relevante.
+    tiago tem inscrição num centro de emprego com condições para o trabalho.
+    tiago tem disponibilidade ativa para emprego conveniente.
+    tiago tem disponibilidade para atividades de solidariedade social.
+    tiago recebe abono_tiago no valor mensal de 1500.
+    o tipo de abono_tiago é encargos_familiares.
+    abono_tiago é de base não contributiva.
+    úrsula vive em economia comum com tiago.
+    úrsula é cônjuge de tiago.
+    a idade de úrsula é 38.
+    úrsula autorizou o acesso à informação relevante.
+    úrsula tem inscrição num centro de emprego com condições para o trabalho.
+    úrsula tem disponibilidade ativa para emprego conveniente.
+    úrsula tem disponibilidade para atividades de solidariedade social.
+    filho1 vive em economia comum com tiago.
+    filho1 é parente de tiago no grau 1.
+    a idade de filho1 é 16.
+    filho1 autorizou o acesso à informação relevante.
+    filho2 vive em economia comum com tiago.
+    filho2 é parente de tiago no grau 1.
+    a idade de filho2 é 15.
+    filho2 autorizou o acesso à informação relevante.
+    filho3 vive em economia comum com tiago.
+    filho3 é parente de tiago no grau 1.
+    a idade de filho3 é 13.
+    filho3 autorizou o acesso à informação relevante.
+    filho4 vive em economia comum com tiago.
+    filho4 é parente de tiago no grau 1.
+    a idade de filho4 é 12.
+    filho4 autorizou o acesso à informação relevante.
+    filho5 vive em economia comum com tiago.
+    filho5 é parente de tiago no grau 1.
+    a idade de filho5 é 10.
+    filho5 autorizou o acesso à informação relevante.
+    filho6 vive em economia comum com tiago.
+    filho6 é parente de tiago no grau 1.
+    a idade de filho6 é 8.
+    filho6 autorizou o acesso à informação relevante.
+    filho7 vive em economia comum com tiago.
+    filho7 é parente de tiago no grau 1.
+    a idade de filho7 é 6.
+    filho7 autorizou o acesso à informação relevante.
+    filho8 vive em economia comum com tiago.
+    filho8 é parente de tiago no grau 1.
+    a idade de filho8 é 4.
+    filho8 autorizou o acesso à informação relevante.
+    filho9 vive em economia comum com tiago.
+    filho9 é parente de tiago no grau 1.
+    a idade de filho9 é 2.
+    filho9 autorizou o acesso à informação relevante.
+    filho10 vive em economia comum com tiago.
+    filho10 é parente de tiago no grau 1.
+    a idade de filho10 é 1.
+    filho10 autorizou o acesso à informação relevante.
+    direito espera respostas ["tiago tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de tiago é 1722,78"].
+    base espera respostas ["o montante base da prestação social única de tiago é 1799,39"].
+    adultos_equivalentes espera respostas ["o número de adultos equivalentes do agregado de tiago é 6,7"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de tiago é 0"].
+    indeferimento espera respostas [].
+
+% Um cidadão brasileiro com título de residência há 8 meses (menos de um ano,
+% art. 9.º, alínea c)) que se despediu há 5 meses (art. 8.º, n.º 1, alínea e)):
+% indeferido por duas condições.
+cenário sem_residencia é:
+    vítor requer a prestação social única.
+    a idade de vítor é 38.
+    vítor tem domicílio habitual em território nacional.
+    vítor tem título válido de residência há 8 meses.
+    vítor cessou contrato de trabalho por sua iniciativa há 5 meses.
+    vítor autorizou o acesso à informação relevante.
+    vítor tem inscrição num centro de emprego com condições para o trabalho.
+    vítor tem disponibilidade ativa para emprego conveniente.
+    vítor tem disponibilidade para atividades de solidariedade social.
+    direito espera respostas [].
+    indeferimento espera respostas ["o requerimento de vítor é indeferido por residência", "o requerimento de vítor é indeferido por cessação_do_contrato_de_trabalho"].
+    base espera respostas ["o montante base da prestação social única de vítor é 268,57"].
+    montante espera respostas [].
+
+% Vítima de violência doméstica que deixou o emprego há 3 meses (a exceção da
+% alínea e) do n.º 1 do art. 8.º). O marido, alegado agressor, trabalha: os
+% seus rendimentos de trabalho não contam (art. 10.º, n.º 2). AE = 2,2;
+% base = 590,84; rendimentos 0; PSU = 590,84.
+cenário vitima_violencia_domestica é:
+    xana requer a prestação social única.
+    a idade de xana é 33.
+    xana tem domicílio habitual em território nacional.
+    xana tem nacionalidade portuguesa.
+    xana autorizou o acesso à informação relevante.
+    xana tem o estatuto de vítima de violência doméstica.
+    xana cessou contrato de trabalho por sua iniciativa há 3 meses.
+    xana tem inscrição num centro de emprego com condições para o trabalho.
+    xana tem disponibilidade ativa para emprego conveniente.
+    xana tem disponibilidade para atividades de solidariedade social.
+    zeca vive em economia comum com xana.
+    zeca é cônjuge de xana.
+    a idade de zeca é 35.
+    zeca autorizou o acesso à informação relevante.
+    zeca é alegado agressor de xana.
+    zeca está a trabalhar.
+    o rendimento ilíquido mensal de trabalho dependente de zeca é 1400.
+    as contribuições mensais de trabalho dependente de zeca são 154.
+    a retenção mensal de IRS de zeca é 46.
+    os subsídios anuais de trabalho dependente de zeca são 2400.
+    yuri vive em economia comum com xana.
+    yuri é parente de xana no grau 1.
+    a idade de yuri é 5.
+    yuri autorizou o acesso à informação relevante.
+    direito espera respostas ["xana tem direito à prestação social única"].
+    montante espera respostas ["o montante mensal da prestação social única de xana é 590,84"].
+    rendimentos espera respostas ["o total dos rendimentos do agregado de xana é 0"].
+    incentivo espera respostas ["a componente de incentivo ao trabalho de xana é 0"].
+    adultos_equivalentes espera respostas ["o número de adultos equivalentes do agregado de xana é 2,2"].
+    indeferimento espera respostas [].
+
+% ================================================================ consultas
+
+consulta direito é:
+    qual requerente tem direito à prestação social única.
+
+consulta montante é:
+    o montante mensal da prestação social única de qual requerente é qual montante.
+
+consulta indeferimento é:
+    o requerimento de qual requerente é indeferido por qual motivo.
+
+consulta base é:
+    o montante base da prestação social única de qual requerente é qual montante.
+
+consulta adultos_equivalentes é:
+    o número de adultos equivalentes do agregado de qual requerente é qual número.
+
+consulta rendimentos é:
+    o total dos rendimentos do agregado de qual requerente é qual montante.
+
+consulta incentivo é:
+    a componente de incentivo ao trabalho de qual requerente é qual montante.
+
+consulta global é:
+    o montante global da prestação social única de qual requerente é qual montante.
+
+consulta majoração é:
+    a majoração de qual requerente é qual montante.
+
+consulta agregado é:
+    qual pessoa pertence ao agregado familiar de qual requerente.
+
+% ================================================================ a vista do técnico da Segurança Social
+
+a vista balcão da segurança social é:
+    o título é "Prestação social única: análise do requerimento".
+    o caso é um cenário.
+    os factos sobre "o requerente" são
+        uma pessoa requer a prestação social única,
+        a idade de uma pessoa é um número,
+        uma pessoa tem domicílio habitual em território nacional,
+        uma pessoa tem nacionalidade portuguesa,
+        uma pessoa tem título válido de residência há um número meses,
+        uma pessoa cessou contrato de trabalho por sua iniciativa há um número meses,
+        uma pessoa tem o estatuto de vítima de violência doméstica,
+        uma pessoa autorizou o acesso à informação relevante.
+    os factos sobre "o agregado familiar" são
+        uma pessoa vive em economia comum com um requerente,
+        uma pessoa é cônjuge de um requerente,
+        uma pessoa vive em união de facto com um requerente,
+        uma pessoa é parente de um requerente no grau um número.
+    os factos sobre "o emprego" são
+        uma pessoa está a trabalhar,
+        uma pessoa tem inscrição num centro de emprego com condições para o trabalho,
+        uma pessoa tem disponibilidade ativa para emprego conveniente,
+        uma pessoa tem disponibilidade para atividades de solidariedade social,
+        uma pessoa tem disponibilidade para horas adicionais de solidariedade social.
+    os factos sobre "os rendimentos e os bens" são
+        o rendimento ilíquido mensal de trabalho dependente de uma pessoa é um montante,
+        as contribuições mensais de trabalho dependente de uma pessoa são um montante,
+        os subsídios anuais de trabalho dependente de uma pessoa são um montante,
+        o valor mensal das pensões de uma pessoa é um montante,
+        os subsídios anuais das pensões de uma pessoa são um montante,
+        o valor do património mobiliário de uma pessoa é um montante,
+        o valor dos bens móveis sujeitos a registo de uma pessoa é um montante.
+    os outros factos podem ser acrescentados.
+    o resultado é a resposta à consulta montante, encabeçado pelo montante, em euros.
+    o caso é assinalado como "Indeferido" quando a consulta indeferimento tem uma resposta.
+    as respostas a "o requerimento de qual requerente é indeferido por qual motivo" são listadas como "Motivos de indeferimento".
+    o resultado mostra as suas citações.
+    o resultado mostra as suas razões.
+    o resultado pergunta o que falta.
+    os números são mostrados com 2 casas decimais.
+    os casos são listados com os seus resultados.
+    o rascunho diz "A prestação social única foi deferida, no montante de {the result} euros por mês.\n\nFundamentos:\n{the citations}" quando se verifica.
+    o rascunho diz "O requerimento não pode ser deferido. Não cumpre:\n{the reasons}\n\nFalta saber, se aplicável:\n{the missing}" quando não se verifica.

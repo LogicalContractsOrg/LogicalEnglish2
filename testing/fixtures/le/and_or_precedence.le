@@ -1,0 +1,43 @@
+% Lines at the same level are read from the top, each with its own
+% connective: "A / or B / and C" means (A or B) and C, and the verifier warns
+% of it (or_then_and). An "and" that belongs to one alternative only is
+% indented under it ("high"); a disjunction that an "and" must cover has its
+% alternative indented under its first line ("registered high scorer").
+the target language is: prolog.
+
+the templates are:
+    the a of *a person* is *a number*; undefined.
+    the b of *a person* is *a number*; undefined.
+    *a person* is registered; undefined.
+    *a person* is high.
+    *a person* is a registered high scorer.
+
+the knowledge base and_or_precedence includes:
+
+a person is high
+    if the a of the person is a number H1
+    and H1 >= 80
+    or the b of the person is a number H2
+        and H2 >= 80.
+
+a person is a registered high scorer
+    if the a of the person is a number A1
+        or the b of the person is a number A1
+    and A1 >= 80
+    and the person is registered.
+
+scenario s is:
+    the a of ann is 90.
+    the b of bob is 90.
+    the a of cat is 50.
+    the b of cat is 85.
+    ann is registered.
+    cat is registered.
+    high expects answers ["ann is high", "bob is high", "cat is high"].
+    scorer expects answers ["ann is a registered high scorer", "cat is a registered high scorer"].
+
+query high is:
+    which person is high.
+
+query scorer is:
+    which person is a registered high scorer.

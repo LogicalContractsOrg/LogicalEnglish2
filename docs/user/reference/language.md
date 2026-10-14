@@ -441,6 +441,26 @@ constraint of this kind.
 ## 4. Logical Operators
 - **And:** `and` (or new line with same indentation)
 - **Or:** `or`; grouped alternatives `either`, `any of`, `all of` ([extensions.md](extensions.md) §15.4)
+- **Which binds first:** lines at the same indentation are read from the
+  top, each joined to everything above it by its own connective. So
+  ```le
+  a person is eligible
+      if the person is a resident
+      or the person is a citizen
+      and the person is an adult.
+  ```
+  means (resident or citizen) and adult: the `and` line applies to both
+  alternatives above it. A reader may take it for resident or (citizen and
+  adult), so the verifier warns whenever an `or` line is followed by an `and`
+  line at the same indentation. Indentation says which meaning is intended,
+  and silences the warning:
+  - for resident or (citizen and adult), indent the `and` line under the `or`
+    line it belongs to;
+  - for (resident or citizen) and adult, indent the `or` line under the line
+    it is an alternative to, and keep the `and` line where it is.
+
+  An `and` line followed by an `or` line raises no warning: `a` / `and b` /
+  `or c` means (a and b) or c, as most readers expect.
 - **Otherwise:** a line opening with `otherwise` starts a new alternative, which applies only when all the earlier alternatives fail (§17.2).
 - **According to:** `<condition> according to <source>` proves the condition from that source's evidence only (§17.5).
 - **Negation:** `it is not the case that` or `not the case that`
@@ -982,7 +1002,9 @@ a common format for data passed between programs, or the text of the page where
 the reply is a web page; it does not read a PDF. Neither fact needs a
 provenance of its own. With the two facts in place:
 - the verifier checks a **quotation** — `confer "a zipper garage at the top of
-  the collar"`, or a quoted locator `at "..."` — against the document's text,
+  the collar"` — against the document's text (a locator written in quotes,
+  `at "section 4, paragraph a)"`, is a place, not a quotation, and is not
+  looked for),
   where that text is a file beside the program. It ignores differences of white
   space, of no-break spaces and of letter case, and warns `quote_not_found`
   where it cannot find the passage;

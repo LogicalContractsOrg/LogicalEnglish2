@@ -376,6 +376,9 @@ test(citizenship) :- roundtrips('examples/moreExamples/citizenship.le').
 test(otherwise_and_tables) :- roundtrips('examples/regulatory/otherwise_table.le').
 test(tables_in_a_scenario) :- roundtrips('examples/regulatory/scenario_table.le').
 test(provenance_views_scoped) :- roundtrips('examples/regulatory/eu261_integration.le').
+% (a or b) and c is written with its alternative indented, so that it reads
+% back the same and raises no or_then_and warning.
+test(and_or_precedence) :- roundtrips('testing/fixtures/le/and_or_precedence.le').
 test(aggregates) :- roundtrips('examples/moreExamples/domains/tax/sbpp_0.le').
 test(portuguese) :- roundtrips('examples/pt/desconhecidos.le').
 test(numbering, [condition(current_module(le_extensions))]) :-

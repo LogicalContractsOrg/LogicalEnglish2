@@ -320,4 +320,59 @@ test(forall_marker_at_if_indent_answers,
     le_kbs:destroySession(SM),
     assertion(Ps == [alice]).
 
+% --- 7. An "or" line followed by an "and" line at the same level ---
+% Lines are read from the top, so "a / or b / and c" is (a or b) and c; a
+% reader may take it for a or (b and c), and until 14 October 2026 nothing
+% said so. Indenting the "and" under the "or" says the other meaning.
+
+or_then_and_text(Indent, Text) :-
+    format(string(Text), "the target language is: prolog.
+
+the templates are:
+    *a person* is high.
+    *a person* is tall.
+    *a person* is rich.
+    *a person* is known.
+
+the knowledge base orthenand includes:
+
+a person is high
+    if the person is tall
+    or the person is rich
+~wand the person is known.
+
+scenario one is:
+    bob is tall.
+    cat is rich.
+    cat is known.
+
+query one is:
+    which person is high.
+", [Indent]).
+
+test(or_then_and_is_reported,
+     [setup((or_then_and_text("    ", T), setup_le_text(orthenand, T, Path))),
+      cleanup(delete_file(Path))]) :-
+    le_kbs:load(Path, M, [skip_tests]),
+    assertion(M:le_issue(warning, or_then_and, _, _, _, _)),
+    % ... and it keeps its meaning, (tall or rich) and known: only cat
+    le_kbs:createSession(M, SM),
+    le_kbs:setScenarion(SM, one),
+    findall(P, reasoner:i(is_high(P), SM, _, _), Ps0),
+    le_kbs:destroySession(SM),
+    sort(Ps0, Ps),
+    assertion(Ps == [cat]).
+
+test(indented_and_is_not_reported,
+     [setup((or_then_and_text("        ", T), setup_le_text(orthenand2, T, Path))),
+      cleanup(delete_file(Path))]) :-
+    le_kbs:load(Path, M, [skip_tests]),
+    assertion(\+ M:le_issue(_, or_then_and, _, _, _, _)),
+    le_kbs:createSession(M, SM),
+    le_kbs:setScenarion(SM, one),
+    findall(P, reasoner:i(is_high(P), SM, _, _), Ps0),
+    le_kbs:destroySession(SM),
+    sort(Ps0, Ps),
+    assertion(Ps == [bob, cat]).
+
 :- end_tests(silent_diagnostics).

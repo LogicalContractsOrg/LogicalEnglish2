@@ -1,0 +1,1105 @@
+% The civil legal aid means test of England and Wales, as the Legal Aid Agency
+% applies it on 14 October 2026, written in Logical English from the published
+% regulations, the Lord Chancellor's guidance and the eligibility keycard.
+%
+% Sources (copies of their text are in sources/, beside this program):
+% - The Civil Legal Aid (Financial Resources and Payment for Services)
+%   Regulations 2013 (S.I. 2013/480), the version in force from 22 July 2026
+%   (last amended by S.I. 2026/861), https://www.legislation.gov.uk/uksi/2013/480.
+% - The Criminal and Civil Legal Aid (Amendment) Regulations 2025 (S.I. 2025/750),
+%   which removed regulations 44 and 45 (contributions) from 27 June 2025.
+% - Legal Aid Agency, civil legal aid eligibility keycard 62 (April 2026): the
+%   limits and the fixed allowances from 6 April 2026.
+% - Lord Chancellor's guidance on determining financial eligibility for
+%   certificated work (May 2025), and for controlled work and family mediation
+%   (May 2025).
+% - Legal Aid Agency, Means Assessment Guidance, version 16.0 (August 2026),
+%   Appendices 1, 11 and 15.
+% Each rule names the regulation, the paragraph of the guidance, or the row of
+% the keycard it was written from.
+%
+% Contains public sector information licensed under the Open Government
+% Licence v3.0 (https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+% This program is an adaptation of that information. It is not published or
+% endorsed by the Legal Aid Agency or the Ministry of Justice. It is provided
+% "as is", without warranty, and is not legal advice.
+%
+% HOW IT WAS MADE. Written by hand, with an AI agent, from the texts above. It
+% is NOT checked against the Legal Aid Agency's own systems. The expected
+% answers of the scenarios were worked out by hand from the texts before the
+% program was run (README.md says how).
+%
+% WHICH VERSION. The means test in force on 14 October 2026:
+% - The limits have not changed since April 2013 and are those of keycard 62:
+%   gross income £2,657 a month (plus £222 for the fifth and each further
+%   child), disposable income £733 a month, disposable capital £8,000 (£3,000
+%   for some immigration matters). The proposals of the Means Test Review for
+%   new limits have not been made law by that date. The parts of the Review
+%   that are law are here: children applying for representation are not means
+%   tested (from 3 August 2023, regulation 5(1)(ba)), and the disregards of
+%   November 2024 (regulations 24, 39(3) and 40).
+% - CONTRIBUTIONS ARE SUSPENDED. Regulation 44 (contributions) was removed
+%   from 27 June 2025 after the Legal Aid Agency's cyber incident, and in
+%   August 2026 the Agency still "will complete means assessments on new cases
+%   but not request contributions" (Means Assessment Guidance, Appendix 15).
+%   Keycard 62 still prints the old contribution bands. So this program gives
+%   two answers for each contribution: the contribution the bands would set
+%   (regulation 44 as it was until 26 June 2025, keycard 62 step six), and the
+%   contribution payable, which is nil.
+%
+% HOW TO READ IT. All amounts are monthly, in pounds. A scenario states the
+% client, the form of civil legal services applied for, the people in the
+% household, each income received, each payment made, and each piece of
+% capital. The program works out the gross income, the disposable income and
+% the disposable capital, compares them with the limits, and gives the result
+% with the regulation it rests on.
+
+the target language is: prolog.
+
+the templates are:
+
+% ---------------------------------------------------------------- the case (stated by a scenario)
+
+*a client* is a client; undefined.
+*a client* applies for *a service*; undefined.
+the age of *a person* is *a number*; undefined.
+*a partner* is the partner of *a client*; undefined.
+*a client* has a contrary interest to the partner in the dispute; undefined.
+*a dependant* is a dependent child of *a client*; undefined.
+*a dependant* is a dependent relative of *a client*; undefined.
+*a client* receives child benefit for *a dependant*; undefined.
+*a client* is properly in receipt directly or indirectly of *a benefit*; undefined.
+*a client* receives asylum support under section 4 or 95 of the Immigration and Asylum Act 1999; undefined.
+the matter of *a client* is an immigration or asylum matter; undefined.
+the matter of *a client* is an immigration matter with the lower capital limit; undefined.
+*a person* receives *an amount* a month as *a kind of income*; undefined.
+*a person* pays *an amount* a month in income tax and national insurance; undefined.
+*a person* pays *an amount* a month for childcare while away at work or study; undefined.
+*a person* pays *an amount* a month as maintenance to someone outside the household; undefined.
+*a person* pays *an amount* a month under a criminal legal aid contribution order; undefined.
+*a client* is a householder; undefined.
+the monthly rent or mortgage payment of *a client* is *an amount*; undefined.
+the reasonable monthly accommodation cost of *a client* is *an amount*; undefined.
+*a person* holds *an amount* as *a kind of capital*; undefined.
+*a client* owns *a property*; undefined.
+the value of *a property* is *an amount*; undefined.
+the outstanding mortgage on *a property* is *an amount*; undefined.
+the share of *a client* in *a property* is *a fraction*; undefined.
+*a property* is the main dwelling of *a client*; undefined.
+*a property* is the subject matter of the dispute; undefined.
+the likely maximum cost of the case of *a client* is *an amount*; undefined.
+
+% ---------------------------------------------------------------- tables (keycard 62, the regulations)
+
+the work category of *a service* is *a category* under table work_categories.
+the treatment of *a kind of income* is *a treatment* under table income_treatment.
+the treatment of *a kind of capital* is *a capital treatment* under table capital_treatment.
+the keycard 62 figure for *a figure* is *an amount* under table keycard_62.
+the keycard 62 dependants allowance for an age of *a number* is *an amount* under table dependants_allowances.
+the pensioner capital disregard for a monthly disposable income of *a number* is *an amount* under table pensioner_disregard.
+
+% ---------------------------------------------------------------- what the rules decide
+
+*a number* rounded to the penny is *a rounded number*.
+the work category of *a client* is *a category*; memorable.
+*a person* is counted with *a client*; memorable.
+*a client* is passported.
+*a client* has a partner or a dependant.
+*a dependant* is a dependant of *a client*.
+the gross income of *a client* is *an amount*; memorable.
+the number of children with child benefit of *a client* is *a number*.
+the gross income limit of *a client* is *an amount*.
+the tax and national insurance of *a client* is *an amount*.
+the employment expenses of *a client* is *an amount*.
+the partner allowance of *a client* is *an amount*.
+the own income of *a dependant* is *an amount*.
+the reduced allowance for *a dependant* is *an amount*.
+the dependants allowances of *a client* is *an amount*.
+the maintenance paid by *a client* is *an amount*.
+the childcare costs allowed to *a client* is *an amount*.
+the criminal legal aid contributions of *a client* is *an amount*.
+the housing benefit of *a client* is *an amount*.
+the housing costs before the cap of *a client* is *an amount*.
+the housing costs of *a client* is *an amount*.
+the income from capital of *a client* is *an amount*.
+the income left after deductions of *a client* is *an amount*; memorable.
+the disposable income of *a client* is *an amount*; memorable.
+the disposable income excluding income from capital of *a client* is *an amount*.
+the liquid capital of *a client* is *an amount*.
+the sale value factor for *a client* is *a number*.
+the mortgage taken into account on *a property* is *an amount*.
+the share taken into account of *a client* in *a property* is *a fraction*.
+the equity of *a property* for *a client* is *an amount*; memorable.
+the equity in property of *a client* is *an amount*.
+the dispute disregard on the main dwelling of *a client* is *an amount*; memorable.
+the dispute disregard on other property of *a client* is *an amount*.
+the main dwelling disregard of *a client* is *an amount*.
+*a client* has a counted person aged 60 or over.
+the pensioner disregard of *a client* is *an amount*.
+the disposable capital of *a client* is *an amount*; memorable.
+the capital limit of *a client* is *an amount*.
+the means test result of *a client* is *a result* under *a provision*; memorable.
+*a client* is financially eligible.
+*a client* applies for contributory work.
+the contribution band amount for a disposable income of *a number* is *an amount*.
+the assessed monthly income contribution of *a client* is *an amount*.
+the assessed capital contribution of *a client* is *an amount*.
+the monthly income contribution payable by *a client* is *an amount*.
+the capital contribution payable by *a client* is *an amount*.
+
+the knowledge base civil_legal_aid_means includes:
+
+% ================================================================ the documents
+
+CLA Financial Resources Regulations 2013 is published at "https://www.legislation.gov.uk/uksi/2013/480".
+the text of CLA Financial Resources Regulations 2013 is at "sources/financial_resources_regulations_2013.txt".
+SI 2025 750 is published at "https://www.legislation.gov.uk/uksi/2025/750/made".
+the text of SI 2025 750 is at "sources/si_2025_750.txt".
+LAA keycard 62 is published at "https://assets.publishing.service.gov.uk/media/69d611b485ac94fabd46253f/LAA_civil_legal_aid_eligibility_keycard_62.pdf".
+the text of LAA keycard 62 is at "sources/keycard_62.txt".
+LC guidance certificated work 2025 is published at "https://assets.publishing.service.gov.uk/media/684ff4a09d538361ad2da71b/Lord_Chancellor_s_guide_to_determining_financial_eligibility__Certificated_.pdf".
+the text of LC guidance certificated work 2025 is at "sources/lc_guidance_certificated_may_2025.txt".
+LC guidance controlled work 2025 is published at "https://assets.publishing.service.gov.uk/media/684ff44229fb1002010c4e6c/LC_s_guidance_on_determining_financial_eligibility__controlled_and_mediation_.pdf".
+the text of LC guidance controlled work 2025 is at "sources/lc_guidance_controlled_may_2025.txt".
+LAA Means Assessment Guidance 2026 is published at "https://assets.publishing.service.gov.uk/media/6a73246eab347c55ff763979/Means_Assessment_Guidance_August_2026.pdf".
+the text of LAA Means Assessment Guidance 2026 is at "sources/means_assessment_guidance_august_2026_extract.txt".
+
+% ================================================================ tables
+
+% Certificated work is decided by the Legal Aid Agency; controlled work and
+% family mediation by the provider (keycard 62, parts I and II; the Means
+% Testing page of GOV.UK). "controlled legal representation" is legal
+% representation before the First-tier Tribunal (immigration and asylum, and
+% mental health), which is controlled work.
+the table work_categories is, with first match, with provenance LAA keycard 62 at parts I and II:
+    row | service                            | category
+    lr  | "legal representation"             | "certificated"
+    fhh | "family help (higher)"             | "certificated"
+    clr | "controlled legal representation"  | "controlled"
+    lh  | "legal help"                       | "controlled"
+    hac | "help at court"                    | "controlled"
+    fhl | "family help (lower)"              | "controlled"
+    fm  | "family mediation"                 | "controlled"
+
+% How each kind of income is treated. Income is gross (regulation 21); the
+% payments listed in regulation 24(1) are disregarded from gross and
+% disposable income; housing benefit is left out of gross income (regulation
+% 7(1)(b)) and taken off the rent instead (regulation 28(3)(a)). Kinds not
+% listed count in full. Only the commonest disregards are listed here.
+the table income_treatment is, with first match, with provenance CLA Financial Resources Regulations 2013 at regulations 7, 21, 24 and 27:
+    row  | kind of income                         | treatment
+    w    | "wages"                                | "employment"
+    se   | "self-employment profits"              | "self-employment"
+    sl   | "student loan"                         | "study"
+    sg   | "student grant"                        | "study"
+    hb   | "housing benefit"                      | "housing benefit"
+    si   | "savings interest"                     | "income from capital"
+    dv   | "dividends"                            | "income from capital"
+    dla  | "disability living allowance"          | "disregarded"
+    aa   | "attendance allowance"                 | "disregarded"
+    caa  | "constant attendance allowance"        | "disregarded"
+    ca   | "carer's allowance"                    | "disregarded"
+    sda  | "severe disablement allowance"         | "disregarded"
+    pip  | "personal independence payment"        | "disregarded"
+    afip | "armed forces independence payment"    | "disregarded"
+    any  | any                                    | "counted"
+
+% How each kind of capital is treated: every resource of a capital nature
+% counts (regulation 30), except the payments disregarded by regulation 40(1).
+% Only some of them are listed here.
+the table capital_treatment is, with first match, with provenance CLA Financial Resources Regulations 2013 at regulations 30 and 40:
+    row | kind of capital                               | capital treatment
+    wc  | "Windrush compensation"                       | "disregarded"
+    ib  | "infected blood compensation"                 | "disregarded"
+    vd  | "vaccine damage payment"                      | "disregarded"
+    ar  | "benefit arrears received in the last two years" | "disregarded"
+    mj  | "miscarriage of justice compensation"         | "disregarded"
+    any | any                                           | "counted"
+
+% The limits and fixed allowances from 6 April 2026 (keycard 62, summary
+% tables 1 and 2 and the table of fixed rate allowances); the last two rows
+% are the thresholds of the suspended contributions (step six of part II, and
+% Appendix 1 of the Means Assessment Guidance).
+the table keycard_62 is, with first match, with provenance LAA keycard 62, confer "Main eligibility limits from 6 April 2026":
+    row | figure                                   | amount | confer
+    gi  | "gross income limit"                     | 2657   | "Gross income not to exceed: £2,657 per month."
+    cu  | "gross income uplift per further child"  | 222    | "Add £222 to the base gross income cap shown above for the 5th and each subsequent child dependant."
+    di  | "disposable income limit"                | 733    | "Disposable income not to exceed: £733 per month."
+    dc  | "capital limit"                          | 8000   | "£ 8,000 [All other forms of civil legal services]"
+    dci | "capital limit for immigration matters"  | 3000   | "£3,000 [Legal Representation in respect of an immigration matter set out in regulation 8(3)]"
+    ee  | "employment expenses"                    | 45     | "Employment Expenses (employees only)"
+    pa  | "partner allowance"                      | 237.25 | "Partner £237.25"
+    hc  | "housing cap"                            | 545    | "Housing cap (for those without a partner or dependants) £545"
+    li  | "lower income limit for contributions"   | 315    | "A £316 to £465"
+    lc  | "lower capital limit for contributions"  | 3000   |
+
+% The fixed allowance for a dependent child or relative, by age at the start
+% of the month of calculation (regulation 25(2)(b); keycard 62). The two rates
+% are the same since April 2003.
+the table dependants_allowances is, with first match, with provenance LAA keycard 62, confer "Fixed rate allowances from 6 April 2026":
+    row  | number | amount | confer
+    u16  | <= 15  | 381.86 | "Dependent child / relative aged 15 or under £381.86"
+    o16  | >= 16  | 381.86 | "Dependent child / relative aged 16 or over £381.86"
+
+% Regulation 41, Table 1. The bands are written in whole pounds; an income
+% between two bands (say £25.50) is read as falling in the higher one.
+the table pensioner_disregard is, with first match, with provenance CLA Financial Resources Regulations 2013 at regulation 41 Table 1:
+    row | number  | amount
+    b1  | <= 25   | 100000
+    b2  | <= 50   | 90000
+    b3  | <= 75   | 80000
+    b4  | <= 100  | 70000
+    b5  | <= 125  | 60000
+    b6  | <= 150  | 50000
+    b7  | <= 175  | 40000
+    b8  | <= 200  | 30000
+    b9  | <= 225  | 20000
+    b10 | < 315   | 10000
+
+% ================================================================ arithmetic
+
+rule penny with provenance LAA Means Assessment Guidance 2026 at Appendix 11:
+a number A rounded to the penny is a number R
+    if R = round(A * 100) / 100.
+
+% ================================================================ whose resources (regulation 16)
+
+rule work_category with provenance LAA keycard 62 at parts I and II:
+the work category of a client is a category
+    if the client applies for a service
+    and the work category of the service is the category under table work_categories.
+
+rule counted_client with provenance CLA Financial Resources Regulations 2013 at regulation 16(6):
+a client is counted with the client
+    if the client is a client.
+
+rule counted_partner with provenance CLA Financial Resources Regulations 2013 at regulation 16(1) and (2),
+        confer "the resources of the individual's partner must be treated as the individual's resources":
+a partner is counted with a client
+    if the partner is the partner of the client
+    and it is not the case that
+        the client has a contrary interest to the partner in the dispute.
+
+rule dependant_child with provenance CLA Financial Resources Regulations 2013 at regulation 25(2)(b):
+a dependant is a dependant of a client
+    if the dependant is a dependent child of the client.
+
+rule dependant_relative with provenance CLA Financial Resources Regulations 2013 at regulation 25(2)(b):
+a dependant is a dependant of a client
+    if the dependant is a dependent relative of the client.
+
+rule partner_or_dependant_partner with provenance CLA Financial Resources Regulations 2013 at regulation 28(7):
+a client has a partner or a dependant
+    if a partner is the partner of the client.
+
+rule partner_or_dependant_dependant with provenance CLA Financial Resources Regulations 2013 at regulation 28(7):
+a client has a partner or a dependant
+    if a dependant is a dependant of the client.
+
+% ================================================================ passporting (regulations 5 and 6)
+
+rule passporting_benefit with provenance CLA Financial Resources Regulations 2013 at regulation 6(2),
+        confer "the Director must determine that the individual's financial resources are such that the individual is eligible for all forms of civil legal services without paying (where applicable) any contributions":
+a client is passported
+    if the client is properly in receipt directly or indirectly of a benefit
+    and the benefit is in ["universal credit", "income support", "income-based jobseeker's allowance", "income-related employment and support allowance", "guarantee credit"].
+
+% ================================================================ gross income (regulation 7)
+
+rule gross_income with provenance CLA Financial Resources Regulations 2013 at regulation 7(1),
+        confer "gross income” means income under regulation 21 before any deductions are made":
+the gross income of a client is an amount
+    if the client is a client
+    and it is not the case that
+        the client is passported
+    and a number S is the sum of each X such that
+        a person is counted with the client
+        and the person receives X a month as a kind of income
+        and the treatment of the kind of income is a treatment under table income_treatment
+        and the treatment is different from "disregarded"
+        and the treatment is different from "housing benefit"
+    and S rounded to the penny is the amount.
+
+rule children_with_child_benefit with provenance CLA Financial Resources Regulations 2013 at regulation 7(5):
+the number of children with child benefit of a client is a number
+    if the client is a client
+    and the number is the count of each dependant such that
+        the client receives child benefit for the dependant
+        and the dependant is a dependent child of the client.
+
+rule gross_income_limit with provenance CLA Financial Resources Regulations 2013 at regulation 7(4) and (5),
+        confer "the sum referred to in paragraph (4) must be increased by £222 in respect of the fifth and each subsequent child":
+the gross income limit of a client is an amount
+    if the number of children with child benefit of the client is a number N
+    and the keycard 62 figure for "gross income limit" is a number L under table keycard_62
+    and the keycard 62 figure for "gross income uplift per further child" is a number U under table keycard_62
+    and a number E = N - 4
+    and the maximum of 0 and E is a number F
+    and the amount = L + U * F.
+
+% ================================================================ disposable income (regulations 23 to 29)
+
+rule tax_and_ni with provenance CLA Financial Resources Regulations 2013 at regulation 23(2) and (3),
+        confer "any income tax and national insurance contribution paid on that income in respect of the period of calculation must be deducted":
+the tax and national insurance of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person pays X a month in income tax and national insurance.
+
+% £45 for each counted person who earns a wage or salary (certificated
+% guidance 5.4.1; controlled guidance 6.5).
+rule employment_expenses with provenance LC guidance certificated work 2025 at paragraph 5.4.1,
+        confer "a deduction of £45 for work related expenses should be made in respect of each person so assessed":
+the employment expenses of a client is an amount
+    if the client is a client
+    and the keycard 62 figure for "employment expenses" is a number E under table keycard_62
+    and a number N is the count of each person such that
+        the person is counted with the client
+        and the person receives a wage a month as "wages"
+    and the amount = E * N.
+
+% The partner allowance is deducted even where the partner has a contrary
+% interest, so long as they are not separated (certificated guidance 5.6.2).
+rule partner_allowance with provenance LC guidance certificated work 2025 at paragraph 5.6.2,
+        confer "the allowance is still deducted where the individual has a contrary interest to his or her partner":
+the partner allowance of a client is an amount
+    if a partner is the partner of the client
+    and the keycard 62 figure for "partner allowance" is the amount under table keycard_62
+    otherwise the client is a client
+    and the amount = 0.
+
+rule own_income_of_dependant with provenance CLA Financial Resources Regulations 2013 at regulation 25(3):
+the own income of a dependant is an amount
+    if a client is a client
+    and the dependant is a dependant of the client
+    and the amount is the sum of each X such that
+        the dependant receives X a month as a kind of income.
+
+% The allowance is reduced by the dependant's own income (regulation 25(3);
+% certificated guidance 5.6.7(b)); any excess is not the client's income.
+rule reduced_allowance with provenance CLA Financial Resources Regulations 2013 at regulation 25(2) and (3):
+the reduced allowance for a dependant is an amount
+    if the age of the dependant is a number A
+    and the keycard 62 dependants allowance for an age of A is a number R under table dependants_allowances
+    and the own income of the dependant is a number I
+    and a number E = R - I
+    and the maximum of 0 and E is the amount.
+
+rule dependants_allowances with provenance CLA Financial Resources Regulations 2013 at regulation 25(2)(b),
+        confer "in respect of the maintenance of any dependent child or dependent relative of the individual, where such persons are members of the individual's household":
+the dependants allowances of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a dependant is a dependant of the client
+        and the reduced allowance for the dependant is X.
+
+rule maintenance_paid with provenance CLA Financial Resources Regulations 2013 at regulation 26,
+        confer "who is not a member of the individual's household, a reasonable amount must be deducted in respect of such payments":
+the maintenance paid by a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person pays X a month as maintenance to someone outside the household.
+
+% Childcare is allowed to a person who works, is self-employed, or has
+% study-related income (regulation 27(1)(b), (2) and (3)).
+rule childcare with provenance CLA Financial Resources Regulations 2013 at regulation 27(1)(b), (2) and (3):
+the childcare costs allowed to a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person pays X a month for childcare while away at work or study
+        and the person receives an income a month as a kind of income
+        and the treatment of the kind of income is a treatment under table income_treatment
+        and the treatment is in ["employment", "self-employment", "study"].
+
+rule criminal_contributions with provenance CLA Financial Resources Regulations 2013 at regulation 29,
+        confer "any amounts due under a contribution order made under the Criminal Legal Aid (Contribution Orders) Regulations 2013 must be deducted":
+the criminal legal aid contributions of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person pays X a month under a criminal legal aid contribution order.
+
+rule housing_benefit with provenance CLA Financial Resources Regulations 2013 at regulation 28(3)(a):
+the housing benefit of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person receives X a month as a kind of income
+        and the treatment of the kind of income is "housing benefit" under table income_treatment.
+
+% A householder deducts the rent or mortgage instalment, less housing benefit
+% (regulation 28(2) and (3)); anyone else a reasonable amount for their
+% accommodation (regulation 28(6)).
+rule housing_costs_before_cap with provenance CLA Financial Resources Regulations 2013 at regulation 28(2), (3) and (6),
+        confer "the net rent payable by the individual in respect of their main or only dwelling must be deducted":
+the housing costs before the cap of a client is an amount
+    if the client is a householder
+    and the monthly rent or mortgage payment of the client is a number P
+    and the housing benefit of the client is a number B
+    and a number N = P - B
+    and the maximum of 0 and N is the amount
+    otherwise the reasonable monthly accommodation cost of the client is the amount
+    otherwise the client is a client
+    and the amount = 0.
+
+rule housing_costs with provenance CLA Financial Resources Regulations 2013 at regulation 28(7),
+        confer "If no deduction has been made under regulation 25(2), the maximum amount to be deducted under paragraph (2) or (4) or, as the case may be, (6), must be £545":
+the housing costs of a client is an amount
+    if the client has a partner or a dependant
+    and the housing costs before the cap of the client is the amount
+    otherwise the housing costs before the cap of the client is a number H
+    and the keycard 62 figure for "housing cap" is a number C under table keycard_62
+    and the minimum of H and C is the amount.
+
+rule income_from_capital with provenance CLA Financial Resources Regulations 2013 at regulation 41(1)(b):
+the income from capital of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person receives X a month as a kind of income
+        and the treatment of the kind of income is "income from capital" under table income_treatment.
+
+rule income_left with provenance LAA keycard 62 at part II step four,
+        confer "Other deductions can be made for: income tax; national insurance; maintenance paid; housing costs":
+the income left after deductions of a client is an amount
+    if the gross income of the client is a number G
+    and the tax and national insurance of the client is a number T
+    and the employment expenses of the client is a number E
+    and the partner allowance of the client is a number P
+    and the dependants allowances of the client is a number D
+    and the maintenance paid by the client is a number M
+    and the childcare costs allowed to the client is a number C
+    and the criminal legal aid contributions of the client is a number K
+    and the housing costs of the client is a number H
+    and the amount = G - T - E - P - D - M - C - K - H.
+
+% A disposable income below nothing is taken as nil.
+rule disposable_income with provenance CLA Financial Resources Regulations 2013 at regulations 23 to 29:
+the disposable income of a client is an amount
+    if the income left after deductions of the client is a number L
+    and the maximum of 0 and L is a number N
+    and N rounded to the penny is the amount.
+
+rule disposable_income_excluding_capital_income with provenance CLA Financial Resources Regulations 2013 at regulation 41(1)(b),
+        confer "the monthly disposable income (excluding any net income derived from capital) of the individual":
+the disposable income excluding income from capital of a client is an amount
+    if the income left after deductions of the client is a number L
+    and the income from capital of the client is a number I
+    and a number E = L - I
+    and the maximum of 0 and E is a number N
+    and N rounded to the penny is the amount.
+
+% ================================================================ disposable capital (regulations 30 to 41)
+
+rule liquid_capital with provenance CLA Financial Resources Regulations 2013 at regulations 30 and 40(1),
+        confer "the amount or value of every resource of a capital nature belonging to the individual on the date on which the application is made must be included":
+the liquid capital of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        a person is counted with the client
+        and the person holds X as a kind of capital
+        and the treatment of the kind of capital is "counted" under table capital_treatment.
+
+% Certificated work takes 3 per cent off the value of a property for the
+% costs of selling it (certificated guidance 6.4.8); the controlled work
+% guidance does not (controlled guidance 7.3).
+rule sale_value_factor with provenance LC guidance certificated work 2025 at paragraph 6.4.8,
+        confer "Deduct 3 per cent from this figure to reflect notional sale costs":
+the sale value factor for a client is a number
+    if the work category of the client is "certificated"
+    and the number = 0.97
+    otherwise the client is a client
+    and the number = 1.
+
+rule mortgage_taken_into_account with provenance CLA Financial Resources Regulations 2013 at regulation 37,
+        confer "after deducting...the amount of any debt secured by a mortgage or charge on the property":
+the mortgage taken into account on a property is an amount
+    if the outstanding mortgage on the property is the amount
+    otherwise the value of the property is a value
+    and the amount = 0.
+
+% A share not stated is the whole; a property owned with someone whose means
+% are not counted is shared equally unless a share is stated (regulation 35;
+% certificated guidance 6.6.3).
+rule share_taken_into_account with provenance CLA Financial Resources Regulations 2013 at regulation 35:
+the share taken into account of a client in a property is a fraction
+    if the share of the client in the property is the fraction
+    otherwise the client owns the property
+    and the fraction = 1.
+
+rule equity_of_property with provenance LC guidance certificated work 2025 at paragraph 6.6.3,
+        confer "The resulting figure is multiplied by the individual’s percentage share of the property to give the individual’s share of the net equity":
+the equity of a property for a client is an amount
+    if the client owns the property
+    and the value of the property is a number V
+    and the sale value factor for the client is a number F
+    and the mortgage taken into account on the property is a number M
+    and the share taken into account of the client in the property is a number S
+    and a number E = V * F - M
+    and the maximum of 0 and E is a number N
+    and the amount = N * S.
+
+rule equity_in_property with provenance CLA Financial Resources Regulations 2013 at regulation 37:
+the equity in property of a client is an amount
+    if the client is a client
+    and the amount is the sum of each X such that
+        the client owns a property
+        and the equity of the property for the client is X.
+
+% Regulation 38: up to £100,000 of the subject matter of the dispute is
+% disregarded, the client's interest in the main dwelling first.
+rule dispute_disregard_main_dwelling with provenance CLA Financial Resources Regulations 2013 at regulation 38(2) and (3),
+        confer "the Director must disregard the value of the individual's interests in their main or only dwelling first":
+the dispute disregard on the main dwelling of a client is an amount
+    if the client owns a property
+    and the property is the main dwelling of the client
+    and the property is the subject matter of the dispute
+    and the equity of the property for the client is a number E
+    and the minimum of E and 100000 is the amount
+    otherwise the client is a client
+    and the amount = 0.
+
+rule dispute_disregard_other_property with provenance CLA Financial Resources Regulations 2013 at regulation 38(1) and (2),
+        confer "The total amount to be disregarded under this regulation must not exceed £100,000":
+the dispute disregard on other property of a client is an amount
+    if the dispute disregard on the main dwelling of the client is a number D
+    and a number O is the sum of each X such that
+        the client owns a property
+        and the property is the subject matter of the dispute
+        and it is not the case that
+            the property is the main dwelling of the client
+        and the equity of the property for the client is X
+    and a number R = 100000 - D
+    and the minimum of O and R is the amount.
+
+rule main_dwelling_disregard with provenance CLA Financial Resources Regulations 2013 at regulation 39(1) and (2),
+        confer "the value (after the application of regulations 37 and 38) of the individual's interest (if any) in the main or only dwelling in which the individual resides must be disregarded":
+the main dwelling disregard of a client is an amount
+    if the client owns a property
+    and the property is the main dwelling of the client
+    and the equity of the property for the client is a number E
+    and the dispute disregard on the main dwelling of the client is a number D
+    and a number R = E - D
+    and the minimum of R and 100000 is the amount
+    otherwise the client is a client
+    and the amount = 0.
+
+rule counted_person_aged_60 with provenance LC guidance certificated work 2025 at paragraph 7.5.1,
+        confer "where either the individual or partner is aged 60 years or over at the start of the calculation period":
+a client has a counted person aged 60 or over
+    if a person is counted with the client
+    and the age of the person is a number A
+    and A >= 60.
+
+rule pensioner_disregard with provenance CLA Financial Resources Regulations 2013 at regulation 41,
+        confer "an individual who is properly in receipt, directly or indirectly, of a benefit listed in regulation 6(2) or (3) is deemed to have a monthly disposable income of nil":
+the pensioner disregard of a client is an amount
+    if the client has a counted person aged 60 or over
+    and the client is passported
+    and the amount = 100000
+    otherwise the client has a counted person aged 60 or over
+    and the disposable income excluding income from capital of the client is a number D
+    and D < 315
+    and the pensioner capital disregard for a monthly disposable income of D is the amount under table pensioner_disregard
+    otherwise the client is a client
+    and the amount = 0.
+
+rule disposable_capital with provenance CLA Financial Resources Regulations 2013 at regulations 30 to 41:
+the disposable capital of a client is an amount
+    if the liquid capital of the client is a number L
+    and the equity in property of the client is a number P
+    and the dispute disregard on the main dwelling of the client is a number D
+    and the dispute disregard on other property of the client is a number O
+    and the main dwelling disregard of the client is a number H
+    and the pensioner disregard of the client is a number R
+    and a number E = L + P - D - O - H - R
+    and the maximum of 0 and E is a number N
+    and N rounded to the penny is the amount.
+
+% ================================================================ the limits (regulations 5 to 8)
+
+rule capital_limit with provenance CLA Financial Resources Regulations 2013 at regulation 8(2) and (3),
+        confer "the individual's disposable capital does not exceed £3,000":
+the capital limit of a client is an amount
+    if the matter of the client is an immigration matter with the lower capital limit
+    and the client applies for a service
+    and the service is in ["legal representation", "controlled legal representation"]
+    and the keycard 62 figure for "capital limit for immigration matters" is the amount under table keycard_62
+    otherwise the client is a client
+    and the keycard 62 figure for "capital limit" is the amount under table keycard_62.
+
+% The determination, tried in the order of the keycard's step by step guide:
+% the exceptions first, then passporting, then the gross income, the
+% disposable income and the disposable capital.
+rule means_test_result with provenance LAA keycard 62 at part II step by step guide,
+        confer "STEP BY STEP GUIDE for licensed work":
+the means test result of a client is a result under a provision
+    if the work category of the client is "certificated"
+    and the age of the client is a number A
+    and A < 18
+    and the result is "eligible without a means test"
+    and the provision is "regulation 5(1)(ba)"
+    otherwise the client receives asylum support under section 4 or 95 of the Immigration and Asylum Act 1999
+    and the matter of the client is an immigration or asylum matter
+    and the result is "eligible: passported on income and capital by asylum support"
+    and the provision is "regulation 6(1)"
+    otherwise the client is passported
+    and the disposable capital of the client is a number C1
+    and C1 > 8000
+    and the result is "not eligible: disposable capital over the limit"
+    and the provision is "regulation 6(4)(a)"
+    otherwise the client is passported
+    and the result is "eligible: passported on income"
+    and the provision is "regulation 6(2)"
+    otherwise the gross income of the client is a number G
+    and the gross income limit of the client is a number GL
+    and G > GL
+    and the result is "not eligible: gross income over the limit"
+    and the provision is "regulation 7(4)"
+    otherwise the disposable income of the client is a number D
+    and the keycard 62 figure for "disposable income limit" is a number DL under table keycard_62
+    and D > DL
+    and the result is "not eligible: disposable income over the limit"
+    and the provision is "regulation 8(2)"
+    otherwise the disposable capital of the client is a number C2
+    and the capital limit of the client is a number CL
+    and C2 > CL
+    and the result is "not eligible: disposable capital over the limit"
+    and the provision is "regulation 8(2) and (3)"
+    otherwise the client is a client
+    and the result is "eligible"
+    and the provision is "regulation 8(2) and (3)".
+
+rule financially_eligible with provenance CLA Financial Resources Regulations 2013 at regulations 5, 6 and 8:
+a client is financially eligible
+    if the means test result of the client is a result under a provision
+    and the result is in ["eligible", "eligible without a means test", "eligible: passported on income and capital by asylum support", "eligible: passported on income"].
+
+% ================================================================ contributions (suspended)
+
+% Contributions were only ever due for certificated work: legal
+% representation (other than before the Immigration and Asylum Chambers) and
+% family help (higher). Controlled work and family mediation are
+% non-contributory (controlled guidance 3.2).
+rule contributory_work with provenance CLA Financial Resources Regulations 2013 at regulation 44(2)(a) as in force until 26 June 2025:
+a client applies for contributory work
+    if the work category of the client is "certificated"
+    and it is not the case that
+        the matter of the client is an immigration or asylum matter.
+
+rule contribution_bands with provenance LAA keycard 62 at part II step six,
+        confer "Contributions may be payable as a condition of the substantive grant of funding as set out in the table below":
+the contribution band amount for a disposable income of a number D is an amount
+    if D <= 315
+    and the amount = 0
+    otherwise D <= 465
+    and a number A = 0.35 * (D - 311)
+    and A rounded to the penny is the amount
+    otherwise D <= 616
+    and a number B = 53.90 + 0.45 * (D - 465)
+    and B rounded to the penny is the amount
+    otherwise D > 616
+    and a number C = 121.85 + 0.70 * (D - 616)
+    and C rounded to the penny is the amount.
+
+% The income contribution the bands would set: only for a client found
+% eligible on the full means test (a passported client pays none, regulation
+% 6(2)).
+rule assessed_income_contribution with provenance LAA Means Assessment Guidance 2026 at Appendix 11 step six,
+        confer "Passported clients are deemed to have income below the threshold for paying income contributions":
+the assessed monthly income contribution of a client is an amount
+    if the client applies for contributory work
+    and the means test result of the client is "eligible" under a provision
+    and the disposable income of the client is a number D
+    and the contribution band amount for a disposable income of D is the amount
+    otherwise the client is a client
+    and the amount = 0.
+
+% The capital contribution the rules would set: the capital over £3,000, or
+% the likely maximum cost of the case if that is less.
+rule assessed_capital_contribution with provenance LAA Means Assessment Guidance 2026 at Appendix 11,
+        confer "is required to pay a contribution of either the capital exceeding that sum or the likely maximum costs of the funded service whichever is the lesser":
+the assessed capital contribution of a client is an amount
+    if the client applies for contributory work
+    and the means test result of the client is a result under a provision
+    and the result is in ["eligible", "eligible: passported on income"]
+    and the disposable capital of the client is a number K
+    and the keycard 62 figure for "lower capital limit for contributions" is a number T under table keycard_62
+    and K > T
+    and the likely maximum cost of the case of the client is a number M
+    and a number X = K - T
+    and the minimum of X and M is the amount
+    otherwise the client applies for contributory work
+    and the means test result of the client is a second result under a second provision
+    and the second result is in ["eligible", "eligible: passported on income"]
+    and the disposable capital of the client is a number K2
+    and the keycard 62 figure for "lower capital limit for contributions" is a number T2 under table keycard_62
+    and K2 > T2
+    and the amount = K2 - T2
+    otherwise the client is a client
+    and the amount = 0.
+
+rule income_contribution_suspended with provenance LAA Means Assessment Guidance 2026 at Appendix 15,
+        confer "Civil income and capital contributions remain temporarily waived":
+the monthly income contribution payable by a client is an amount
+    if the client is a client
+    and the amount = 0.
+
+rule capital_contribution_suspended with provenance SI 2025 750 at regulation 3(9),
+        confer "Omit regulations 44 (contributions) and 45 (contributions where more than one certificate in force)":
+the capital contribution payable by a client is an amount
+    if the client is a client
+    and the amount = 0.
+
+% ================================================================ the caseworker's view
+
+the view means assessment is:
+    the title is "Civil legal aid means assessment (rules in force on 14 October 2026)".
+    the case is a scenario.
+    the facts about "the application" are
+        a client is a client,
+        a client applies for a service,
+        the age of a person is a number,
+        the matter of a client is an immigration or asylum matter,
+        the matter of a client is an immigration matter with the lower capital limit,
+        the likely maximum cost of the case of a client is an amount.
+    the facts about "the household" are
+        a partner is the partner of a client,
+        a client has a contrary interest to the partner in the dispute,
+        a dependant is a dependent child of a client,
+        a dependant is a dependent relative of a client,
+        a client receives child benefit for a dependant.
+    the facts about "benefits that passport" are
+        a client is properly in receipt directly or indirectly of a benefit,
+        a client receives asylum support under section 4 or 95 of the Immigration and Asylum Act 1999.
+    the facts about "income and outgoings (monthly)" are
+        a person receives an amount a month as a kind of income,
+        a person pays an amount a month in income tax and national insurance,
+        a person pays an amount a month for childcare while away at work or study,
+        a person pays an amount a month as maintenance to someone outside the household,
+        a person pays an amount a month under a criminal legal aid contribution order,
+        a client is a householder,
+        the monthly rent or mortgage payment of a client is an amount,
+        the reasonable monthly accommodation cost of a client is an amount.
+    the facts about "capital" are
+        a person holds an amount as a kind of capital,
+        a client owns a property,
+        the value of a property is an amount,
+        the outstanding mortgage on a property is an amount,
+        the share of a client in a property is a fraction,
+        a property is the main dwelling of a client,
+        a property is the subject matter of the dispute.
+    the result is the answer to query result, headed by the result.
+    the result shows its citations.
+    the result shows its reasons.
+    the answers to "the gross income of which client is which amount" are listed as "Gross income (a month)".
+    the answers to "the gross income limit of which client is which amount" are listed as "Gross income limit".
+    the answers to "the disposable income of which client is which amount" are listed as "Disposable income (a month)".
+    the answers to "the disposable capital of which client is which amount" are listed as "Disposable capital".
+    the answers to "the assessed monthly income contribution of which client is which amount" are listed as "Income contribution the bands would set (suspended)".
+    the answers to "the assessed capital contribution of which client is which amount" are listed as "Capital contribution the rules would set (suspended)".
+    the answers to "the monthly income contribution payable by which client is which amount" are listed as "Income contribution payable".
+    the answers to "the capital contribution payable by which client is which amount" are listed as "Capital contribution payable".
+    the numbers are shown with 2 decimals.
+    the result can be flipped.
+    the flip keeps a client is a client, a client applies for a service, the age of a person is a number.
+    the cases are listed with their results.
+
+% ================================================================ scenarios
+
+% 1. A client on Universal Credit: passported on income; capital still tested.
+scenario passported_universal_credit is:
+    ann is a client.
+    ann applies for "legal representation".
+    the age of ann is 34.
+    ann is properly in receipt directly or indirectly of "universal credit".
+    ann receives 900 a month as "wages".
+    ann holds 2500 as "savings".
+    result expects answers ["the means test result of ann is eligible: passported on income under regulation 6(2)"].
+    eligible expects answers ["ann is financially eligible"].
+    gross_income expects answers [].
+    disposable_income expects answers [].
+    disposable_capital expects answers ["the disposable capital of ann is 2500"].
+    income_contribution expects answers ["the assessed monthly income contribution of ann is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of ann is 0"].
+
+% 2. A child applying for legal representation: no means test since 2023.
+scenario child_applicant is:
+    ben is a client.
+    ben applies for "legal representation".
+    the age of ben is 15.
+    ben receives 300 a month as "wages".
+    ben holds 20000 as "savings".
+    result expects answers ["the means test result of ben is eligible without a means test under regulation 5(1)(ba)"].
+    eligible expects answers ["ben is financially eligible"].
+    gross_income expects answers ["the gross income of ben is 300"].
+    disposable_income expects answers ["the disposable income of ben is 255"].
+    disposable_capital expects answers ["the disposable capital of ben is 20000"].
+    income_contribution expects answers ["the assessed monthly income contribution of ben is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of ben is 0"].
+
+% 3. Under the gross income limit, over the disposable income limit.
+scenario over_disposable_income is:
+    carl is a client.
+    carl applies for "legal representation".
+    the age of carl is 41.
+    carl receives 2600 a month as "wages".
+    carl pays 500 a month in income tax and national insurance.
+    carl is a householder.
+    the monthly rent or mortgage payment of carl is 900.
+    carl holds 1000 as "savings".
+    result expects answers ["the means test result of carl is not eligible: disposable income over the limit under regulation 8(2)"].
+    eligible expects answers [].
+    gross_income expects answers ["the gross income of carl is 2600"].
+    disposable_income expects answers ["the disposable income of carl is 1510"].
+    disposable_capital expects answers ["the disposable capital of carl is 1000"].
+    income_contribution expects answers ["the assessed monthly income contribution of carl is 0"].
+
+% 4. A couple with a child, eligible with nothing to pay even under the bands.
+scenario eligible_no_contribution is:
+    dana is a client.
+    dana applies for "family help (higher)".
+    the age of dana is 29.
+    ed is the partner of dana.
+    the age of ed is 31.
+    fay is a dependent child of dana.
+    the age of fay is 4.
+    dana receives child benefit for fay.
+    dana receives 1500 a month as "wages".
+    dana pays 110 a month in income tax and national insurance.
+    dana receives 117.22 a month as "child benefit".
+    dana receives 300 a month as "housing benefit".
+    dana pays 200 a month for childcare while away at work or study.
+    ed receives 500 a month as "self-employment profits".
+    ed receives 400 a month as "carer's allowance".
+    dana is a householder.
+    the monthly rent or mortgage payment of dana is 1150.
+    dana holds 1500 as "savings".
+    ed holds 800 as "savings".
+    result expects answers ["the means test result of dana is eligible under regulation 8(2) and (3)"].
+    eligible expects answers ["dana is financially eligible"].
+    gross_income expects answers ["the gross income of dana is 2117.22"].
+    disposable_income expects answers ["the disposable income of dana is 293.11"].
+    disposable_capital expects answers ["the disposable capital of dana is 2300"].
+    income_contribution expects answers ["the assessed monthly income contribution of dana is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of dana is 0"].
+
+% 5. Eligible, with disposable income in band B of the suspended contributions.
+scenario eligible_with_income_contribution is:
+    gita is a client.
+    gita applies for "legal representation".
+    the age of gita is 45.
+    gita receives 2000 a month as "wages".
+    gita pays 300 a month in income tax and national insurance.
+    gita pays 400 a month as maintenance to someone outside the household.
+    gita pays 170 a month under a criminal legal aid contribution order.
+    gita is a householder.
+    the monthly rent or mortgage payment of gita is 700.
+    gita holds 2000 as "savings".
+    result expects answers ["the means test result of gita is eligible under regulation 8(2) and (3)"].
+    gross_income expects answers ["the gross income of gita is 2000"].
+    disposable_income expects answers ["the disposable income of gita is 540"].
+    disposable_capital expects answers ["the disposable capital of gita is 2000"].
+    income_contribution expects answers ["the assessed monthly income contribution of gita is 87.65"].
+    income_contribution_payable expects answers ["the monthly income contribution payable by gita is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of gita is 0"].
+
+% 6. Eligible, with capital over £3,000: the capital contribution is the
+% likely cost of the case, which is less than the capital over £3,000.
+scenario eligible_with_capital_contribution is:
+    hana is a client.
+    hana applies for "family help (higher)".
+    the age of hana is 52.
+    hana receives 650 a month as "wages".
+    the reasonable monthly accommodation cost of hana is 300.
+    hana holds 6200 as "savings".
+    the likely maximum cost of the case of hana is 2500.
+    result expects answers ["the means test result of hana is eligible under regulation 8(2) and (3)"].
+    gross_income expects answers ["the gross income of hana is 650"].
+    disposable_income expects answers ["the disposable income of hana is 305"].
+    disposable_capital expects answers ["the disposable capital of hana is 6200"].
+    income_contribution expects answers ["the assessed monthly income contribution of hana is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of hana is 2500"].
+    capital_contribution_payable expects answers ["the capital contribution payable by hana is 0"].
+
+% 7. Passported on income, but over the capital limit; a Windrush payment is
+% disregarded.
+scenario passported_over_capital is:
+    ivan is a client.
+    ivan applies for "legal representation".
+    the age of ivan is 38.
+    ivan is properly in receipt directly or indirectly of "universal credit".
+    ivan holds 9000 as "savings".
+    ivan holds 20000 as "Windrush compensation".
+    result expects answers ["the means test result of ivan is not eligible: disposable capital over the limit under regulation 6(4)(a)"].
+    eligible expects answers [].
+    disposable_capital expects answers ["the disposable capital of ivan is 9000"].
+    income_contribution expects answers ["the assessed monthly income contribution of ivan is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of ivan is 0"].
+
+% 8. A pensioner with a low income keeps savings and a home thanks to the
+% pensioner's capital disregard.
+scenario pensioner_disregard is:
+    jean is a client.
+    jean applies for "legal representation".
+    the age of jean is 67.
+    jean receives 320 a month as "state pension".
+    jean receives 60 a month as "savings interest".
+    jean is a householder.
+    the monthly rent or mortgage payment of jean is 230.
+    jean owns jean_home.
+    jean_home is the main dwelling of jean.
+    the value of jean_home is 150000.
+    the outstanding mortgage on jean_home is 30000.
+    jean holds 45000 as "savings".
+    result expects answers ["the means test result of jean is eligible under regulation 8(2) and (3)"].
+    gross_income expects answers ["the gross income of jean is 380"].
+    disposable_income expects answers ["the disposable income of jean is 150"].
+    pensioner_disregard expects answers ["the pensioner disregard of jean is 70000"].
+    disposable_capital expects answers ["the disposable capital of jean is 0"].
+    income_contribution expects answers ["the assessed monthly income contribution of jean is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of jean is 0"].
+
+% 9. A homeowning couple, certificated work: 3 per cent off for sale costs.
+scenario homeowner_certificated is:
+    lena is a client.
+    lena applies for "legal representation".
+    the age of lena is 44.
+    max is the partner of lena.
+    the age of max is 46.
+    lena receives 1300 a month as "wages".
+    lena pays 70 a month in income tax and national insurance.
+    max receives 900 a month as "wages".
+    max pays 20 a month in income tax and national insurance.
+    lena is a householder.
+    the monthly rent or mortgage payment of lena is 1052.75.
+    lena owns lena_home.
+    lena_home is the main dwelling of lena.
+    the value of lena_home is 230000.
+    the outstanding mortgage on lena_home is 120000.
+    lena holds 1000 as "savings".
+    result expects answers ["the means test result of lena is eligible under regulation 8(2) and (3)"].
+    gross_income expects answers ["the gross income of lena is 2200"].
+    disposable_income expects answers ["the disposable income of lena is 730"].
+    disposable_capital expects answers ["the disposable capital of lena is 4100"].
+    income_contribution expects answers ["the assessed monthly income contribution of lena is 201.65"].
+    capital_contribution expects answers ["the assessed capital contribution of lena is 1100"].
+
+% 10. The same household asking for legal help (controlled work): no
+% allowance for sale costs, so the capital is over the limit.
+scenario homeowner_controlled is:
+    lena is a client.
+    lena applies for "legal help".
+    the age of lena is 44.
+    max is the partner of lena.
+    the age of max is 46.
+    lena receives 1300 a month as "wages".
+    lena pays 70 a month in income tax and national insurance.
+    max receives 900 a month as "wages".
+    max pays 20 a month in income tax and national insurance.
+    lena is a householder.
+    the monthly rent or mortgage payment of lena is 1052.75.
+    lena owns lena_home.
+    lena_home is the main dwelling of lena.
+    the value of lena_home is 230000.
+    the outstanding mortgage on lena_home is 120000.
+    lena holds 1000 as "savings".
+    result expects answers ["the means test result of lena is not eligible: disposable capital over the limit under regulation 8(2) and (3)"].
+    eligible expects answers [].
+    disposable_income expects answers ["the disposable income of lena is 730"].
+    disposable_capital expects answers ["the disposable capital of lena is 11000"].
+    income_contribution expects answers ["the assessed monthly income contribution of lena is 0"].
+    capital_contribution expects answers ["the assessed capital contribution of lena is 0"].
+
+% 11. A half share in a disputed home, with a partner on the other side:
+% the partner's income is left out, the dispute disregard and the home
+% disregard together cover the equity (certificated guidance 7.1, example 1).
+scenario disputed_home is:
+    mia is a client.
+    mia applies for "legal representation".
+    the age of mia is 39.
+    ned is the partner of mia.
+    the age of ned is 41.
+    mia has a contrary interest to the partner in the dispute.
+    mia receives 1700 a month as "wages".
+    mia pays 141.75 a month in income tax and national insurance.
+    ned receives 2500 a month as "wages".
+    mia is a householder.
+    the monthly rent or mortgage payment of mia is 600.
+    mia owns mia_home.
+    mia_home is the main dwelling of mia.
+    mia_home is the subject matter of the dispute.
+    the value of mia_home is 500000.
+    the outstanding mortgage on mia_home is 150000.
+    the share of mia in mia_home is 0.5.
+    mia holds 2000 as "savings".
+    result expects answers ["the means test result of mia is eligible under regulation 8(2) and (3)"].
+    gross_income expects answers ["the gross income of mia is 1700"].
+    disposable_income expects answers ["the disposable income of mia is 676"].
+    disposable_capital expects answers ["the disposable capital of mia is 2000"].
+    income_contribution expects answers ["the assessed monthly income contribution of mia is 163.85"].
+    capital_contribution expects answers ["the assessed capital contribution of mia is 0"].
+
+% 12. Five children: the gross income limit rises by £222, but the
+% household is still over it.
+scenario large_family_over_gross is:
+    olga is a client.
+    olga applies for "legal representation".
+    the age of olga is 36.
+    pete is the partner of olga.
+    the age of pete is 37.
+    child_1 is a dependent child of olga.
+    child_2 is a dependent child of olga.
+    child_3 is a dependent child of olga.
+    child_4 is a dependent child of olga.
+    child_5 is a dependent child of olga.
+    the age of child_1 is 2.
+    the age of child_2 is 5.
+    the age of child_3 is 8.
+    the age of child_4 is 11.
+    the age of child_5 is 14.
+    olga receives child benefit for child_1.
+    olga receives child benefit for child_2.
+    olga receives child benefit for child_3.
+    olga receives child benefit for child_4.
+    olga receives child benefit for child_5.
+    olga receives 427.48 a month as "child benefit".
+    pete receives 2500 a month as "wages".
+    pete pays 300 a month in income tax and national insurance.
+    olga is a householder.
+    the monthly rent or mortgage payment of olga is 1200.
+    olga holds 500 as "savings".
+    result expects answers ["the means test result of olga is not eligible: gross income over the limit under regulation 7(4)"].
+    eligible expects answers [].
+    gross_income expects answers ["the gross income of olga is 2927.48"].
+    gross_income_limit expects answers ["the gross income limit of olga is 2879"].
+    disposable_income expects answers ["the disposable income of olga is 0"].
+    disposable_capital expects answers ["the disposable capital of olga is 500"].
+
+% ================================================================ queries
+
+query result is:
+    the means test result of which client is which result under which provision.
+query eligible is:
+    which client is financially eligible.
+query gross_income is:
+    the gross income of which client is which amount.
+query gross_income_limit is:
+    the gross income limit of which client is which amount.
+query disposable_income is:
+    the disposable income of which client is which amount.
+query disposable_capital is:
+    the disposable capital of which client is which amount.
+query pensioner_disregard is:
+    the pensioner disregard of which client is which amount.
+query income_contribution is:
+    the assessed monthly income contribution of which client is which amount.
+query capital_contribution is:
+    the assessed capital contribution of which client is which amount.
+query income_contribution_payable is:
+    the monthly income contribution payable by which client is which amount.
+query capital_contribution_payable is:
+    the capital contribution payable by which client is which amount.

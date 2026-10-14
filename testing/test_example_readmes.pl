@@ -65,12 +65,24 @@ test(scenarios_and_queries_exist, [forall(( readme_link(File, Target, Query), Qu
     forall(( member(P, Params), atomic_list_concat([K, V0], '=', P),
              memberchk(K, [scenario, query]) ),
            (   uri_encoded(query_value, V, V0),
-               format(string(Re), "\\b~w\\s+~w\\b", [K, V]),
+               keyword_alternatives(K, Alts),
+               format(string(Re), "(?:^|\\s)(?:~w)\\s+~w\\b", [Alts, V]),
                (   re_match(Re, Program)
                ->  true
                ;   format(user_error, "~w: ~w has no ~w ~w~n", [File, Target, K, V]), fail
                )
            )).
+
+%   The words that open a scenario or a query in every language of the
+%   dictionary (i18n/keywords.csv: scenario, cenário, escenario, ...), as
+%   alternatives of a regular expression: a Portuguese program's
+%   `cenário casal_com_filhos é:` is named by `?scenario=casal_com_filhos`.
+keyword_alternatives(K, Alts) :-
+    csv_read_file('i18n/keywords.csv', [_|Rows], [convert(false), match_arity(false)]),
+    findall(W, ( member(R, Rows), R =.. [_, _, K|Cells], member(Cell, Cells),
+                 atomic_list_concat(Parts, '|', Cell), member(W, Parts), W \== '' ), Ws),
+    sort(Ws, Sorted),
+    atomic_list_concat(Sorted, '|', Alts).
 
 %   The landing page shows the first line of a README as the folder's title,
 %   so it is a heading.

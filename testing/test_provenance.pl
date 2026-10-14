@@ -324,7 +324,7 @@ the knowledge base cited includes:
 the benefit act is published at \"https://example.org/act.html\".
 the text of the benefit act is at \"sources/act.txt\".
 
-rule s2 with provenance as stated in the benefit act at \"a resident is eligible\",
+rule s2 with provenance as stated in the benefit act, confer \"a resident is eligible\",
         because \"section 2\":
 a person is eligible
     if the person is resident.
@@ -351,7 +351,7 @@ test(rule_label_provenance) :-
 
 % The editor's view of a provenance: the published address and the text
 % address come from "<document> is published at" / "the text of <document>
-% is at"; a quoted locator is the quotation.
+% is at"; `confer "..."` is the quotation.
 test(provenance_dict_addresses) :-
     cited_program(P),
     load_text(P, KB),
@@ -631,5 +631,72 @@ query q is:
     Res.why = [Root|_],
     Root.children = [Child|_],
     assertion(Child.literal == "Bob has a pet, as stated in the register at page 2").
+
+% A locator written in quotes, for its punctuation (`at "section 4, paragraph
+% a)"`), is a place, not a quotation: it is stored without its quotes and not
+% looked for in the document's text. Until 14 October 2026 it was checked as a
+% quotation, and the verifier warned quote_not_found.
+test(quoted_locator_is_not_a_quotation, [setup(resource_dir(Dir)), cleanup(delete_directory_and_contents(Dir))]) :-
+    directory_file_path(Dir, 'act.txt', Act),
+    write_file(Act, "Section 4. A person who pays is a customer."),
+    directory_file_path(Dir, 'loc.le', File),
+    write_file(File, "the target language is: prolog.
+the templates are:
+    *a person* pays; undefined.
+    *a person* is a customer.
+the knowledge base q includes:
+the text of the act is at \"act.txt\".
+
+rule customer with provenance the act at \"section 4, paragraph a)\":
+a person is a customer if the person pays.
+
+rule customer_quoted with provenance the act, confer \"a person who never pays\":
+a person is a customer if the person pays.
+
+scenario s is:
+    ann pays.
+query q is:
+    which person is a customer.
+"),
+    load(File, KB),
+    KB:le_rule_provenance(customer, prov(none, _, "section 4, paragraph a)", none)),
+    findall(D, KB:le_issue(warning, quote_not_found, D, _, _, _), Ds),
+    assertion(Ds = [_]),                         % only the wrong quotation
+    Ds = [D1], assertion(sub_string(D1, _, _, _, "never pays")).
+
+% A label before a fact: the fact is compiled under the label's name, with the
+% label's provenance, and the rest of the knowledge base is read as before.
+% Until 14 October 2026 the section did not parse (unknown_section) and the
+% knowledge base was lost (found writing Portugal's Prestação Social Única).
+test(labelled_fact, [nondet]) :-
+    load_text("the target language is: prolog.
+the templates are:
+    the value of the index is *a number*.
+    *a person* earns *an amount*; undefined.
+    *a person* is entitled.
+the knowledge base l includes:
+
+rule ias with provenance the order, confer \"537,13 euros\":
+the value of the index is 537.13.
+
+rule plain:
+the value of the index is 1000.
+
+a person is entitled
+    if the person earns an amount
+    and the value of the index is a number
+    and the amount < the number.
+
+scenario s is:
+    ann earns 400.
+    bob earns 800.
+query q is:
+    which person is entitled.
+", KB),
+    \+ KB:le_issue(error, unknown_section, _, _, _, _),
+    KB:le_rule_provenance(ias, prov(none, doc('the order', _), "\"537,13 euros\"", none)),
+    answers(KB, s, q, As),                      % ann twice: under each fact
+    sort(As, Sorted),
+    assertion(Sorted == ["ann is entitled"-[], "bob is entitled"-[]]).
 
 :- end_tests(provenance).

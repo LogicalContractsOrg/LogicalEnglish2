@@ -13,6 +13,9 @@ language reference, §17; two large models apply them all to real regulation.
 - [customs/](customs/) — customs classification of goods under the US tariff, on published rulings.
 - [medicare/](medicare/) — Medicare coverage of medical equipment, on claims and appeal decisions.
 - [dfe_funding/](dfe_funding/) — the funding rules of England's Department for Education for students aged 16 to 19, all of them, written from the rule documents of its Oracle Intelligent Advisor rulebase as the Department publishes them, and checked against a second, independent reading.
+- [medicaid_community_engagement/](medicaid_community_engagement/medicaid_community_engagement.le?scenario=renewal_short&query=decision) — the US Medicaid work requirement of 1 January 2027 (42 CFR 435.551–560), each rule citing its paragraph, with a caseworker's screen.
+- [uk_civil_legal_aid_means/](uk_civil_legal_aid_means/civil_legal_aid_means.le?scenario=pensioner_disregard&query=result) — the civil legal aid means test of England and Wales as in force in October 2026, from the regulations, the Lord Chancellor's guidance and the threshold card.
+- [pt_prestacao_social_unica/](pt_prestacao_social_unica/prestacao_social_unica.le?scenario=casal_com_filhos&query=montante) — Portugal's single social benefit (Decreto-Lei 166/2026), its means test and amounts, in Português Lógico.
 - [fema/](fema/) — an experiment: the US flood insurance policy for dwellings, drafted by the LE Contract Assistant from its web address, three schedules and seventeen claims, with the one rule we wrote by hand.
 
 ## Try this

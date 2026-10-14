@@ -218,7 +218,7 @@ light_provenance(Tokens, Prov) :-
     ;   split_locator(DocPart, DocToks, LocToks),
         document_parts(DocToks, Const, Text),
         D = doc(Const, Text),
-        ( LocToks == [] -> L0 = none ; locator_text(LocToks, L0) )
+        ( LocToks == [] -> L0 = none ; at_locator_text(LocToks, L0) )
     ),
     (   TrailerToks == []
     ->  Prov = prov(none, D, L0, none)
@@ -303,7 +303,8 @@ plain_space(C0, C) :-
     ;   C = C0
     ).
 
-% The text inside a quoted locator: the passage it quotes.
+% The text inside a quotation (a `confer "..."` stored with its quotes): the
+% passage it quotes.
 quoted_text(Loc, Quote) :-
     string_concat("\"", Rest, Loc),
     string_concat(Quote, "\"", Rest).
@@ -395,7 +396,7 @@ apply_trailer(Group, prov(S0, D0, L0, R0), prov(S, D, L, R)) :-
         DocToks \== [],
         document_parts(DocToks, DocConst, DocText),
         D = doc(DocConst, DocText),
-        ( LocToks == [] -> L = L0 ; locator_text(LocToks, L) ),
+        ( LocToks == [] -> L = L0 ; at_locator_text(LocToks, L) ),
         S = S0, R = R0
     ;   trailer_body(confer, Group, Rest)
     ->  % confer "<passage>": the passage of the document (quoted locator)
@@ -437,10 +438,23 @@ document_parts(Toks, Const, Text) :-
     token_constant(Toks, Const),
     verbatim(Toks, Text).
 
-% A locator is its verbatim text — a quoted locator (a quotation of the
-% passage) keeps its quotes, which is how provenance_dict/4 knows it is one.
+% A locator is its verbatim text. A quotation (`confer "..."`), stored in the
+% locator's place, keeps its quotes, which is how provenance_dict/4 knows it
+% is one.
 locator_text(Toks, Text) :-
     verbatim(Toks, Text).
+
+%   The locator after "at" ("at section 4", "at \"artigo 9.º, alínea a)\""):
+%   a locator written in quotes, for its punctuation, is stored without
+%   them. Quotes are what marks a quotation (`confer "..."`, above), and a
+%   quoted locator kept its quotes until 14 October 2026, so the verifier
+%   looked for "artigo 9.º, alínea a)" in the document's text and reported
+%   quote_not_found.
+at_locator_text([Tok], Text) :-
+    token_string(Tok, S), !,
+    ( string(S) -> Text = S ; atom_string(S, Text) ).
+at_locator_text(Toks, Text) :-
+    locator_text(Toks, Text).
 
 token_string(string(S, _), S).
 token_string(doubleQuoteString(S, _), S).

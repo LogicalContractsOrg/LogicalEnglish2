@@ -1,0 +1,1148 @@
+% The Medicaid community engagement requirement (the "work requirement"),
+% written in Logical English from the federal interim final rule with comment
+% period of 1 June 2026, as published in the Federal Register on 3 June 2026.
+%
+% Source: Centers for Medicare & Medicaid Services, "Medicaid Program;
+% Community Engagement Requirement for Certain Individuals", interim final
+% rule with comment period, 91 FR 33348 (3 June 2026), document 2026-11094,
+% https://www.federalregister.gov/documents/2026/06/03/2026-11094/medicaid-program-community-engagement-requirement-for-certain-individuals
+% It adds 42 CFR 435.550 to 435.563, which carry out section 1902(xx) of the
+% Social Security Act, added by section 71119 of Public Law 119-21 (4 July
+% 2025). Each rule below names the paragraph of 42 CFR part 435 it encodes
+% and, where the preamble of the rule gives it, the subsection of section
+% 1902(xx) behind it.
+%
+% The rule is a work of the United States federal government and is in the
+% public domain. This program is provided "as is", without warranty of any
+% kind. It is not legal advice and is not checked against any State's
+% eligibility system.
+%
+% HOW IT WAS MADE. Written by hand, with an AI agent, from the regulation
+% text of the rule (the amended 42 CFR part 435). The expected answers of the
+% scenarios were worked out by hand from that text before the program was run
+% (README.md says how).
+%
+% HOW TO READ IT.
+% - A month is written as the date of its first day: 2027-03-01 is March 2027.
+% - A case is decided at an application (the State checks 1 to 3 months
+%   before the month of application) or at a renewal (the State checks 1 or
+%   more months between the latest determination and the renewal).
+% - The choices the rule leaves to each State are facts of a scenario: how
+%   many months it checks, whether it converts income into hours of work,
+%   whether it offers the short-term hardship exception, its list of
+%   conditions for medical frailty, a minimum time in drug or alcohol
+%   treatment, an earlier start date or a good faith exemption.
+% - What the rule leaves to evidence (the hours, the income, a person's
+%   status) are facts too. How a State verifies them (42 CFR 435.557) and the
+%   notices it sends (435.558, 435.561) are procedure, and are not rules here,
+%   except that a failed check leads to a notice of noncompliance.
+
+the target language is: prolog.
+
+the knowledge base medicaid_community_engagement includes these resources:
+    temporal.
+
+the constants are:
+    the federal minimum wage is 7.25.
+
+the templates are:
+
+% ---------------------------------------------------------------- the person and the eligibility group (435.119, 435.551)
+
+the date of birth of *a person* is *a date*; undefined.
+*a person* is eligible for the adult group; undefined.
+*a person* is eligible under a demonstration that provides minimum essential coverage; undefined.
+*a person* is otherwise eligible under the State plan; undefined.
+*a person* is pregnant in *a month*; undefined.
+*a person* is entitled to postpartum medical assistance in *a month*; undefined.
+*a person* is entitled to or enrolled in Medicare in *a month*; undefined.
+*a person* is described in a mandatory coverage group in *a month*; undefined.
+
+% ---------------------------------------------------------------- the decision and the State's choices (435.556, 435.559, 435.560)
+
+*a person* applies for Medicaid in *a month*; undefined.
+*a person* has a renewal due in *a month*; undefined.
+the latest determination of *a person* took effect in *a month*; undefined.
+the State checks *a number* months before an application; undefined.
+the State checks *a number* months at a renewal; undefined.
+the State implements the requirement early from *a date*; undefined.
+the State has a good faith exemption until *a date*; undefined.
+
+% ---------------------------------------------------------------- activities and income in a month (435.552)
+
+the hours of work of *a person* in *a month* is *a number*; undefined.
+the hours of community service of *a person* in *a month* is *a number*; undefined.
+the hours in a work program of *a person* in *a month* is *a number*; undefined.
+the enrolment status of *a person* in an educational program in *a month* is *a status*; undefined.
+the credit hours of *a person* in *a month* is *a number*; undefined.
+the class hours of *a person* in *a month* is *a number*; undefined.
+the monthly income of *a person* in *a month* is *an amount*; undefined.
+*a person* is a seasonal worker; undefined.
+the State converts income into hours of work; undefined.
+
+% ---------------------------------------------------------------- the specified excluded individuals (435.554)
+
+*a person* was in foster care and enrolled in Medicaid on turning 18; undefined.
+*a person* is a member of a federally recognized tribe; undefined.
+*a person* is otherwise an Indian as Medicaid cost sharing defines one; undefined.
+*a person* is the legal parent of *a dependant*; undefined.
+*a person* provides care to *a dependant*; undefined.
+*a person* is the court appointed guardian of *a dependant*; undefined.
+*a person* is a relative of *a dependant* of the kind a caretaker relative is; undefined.
+*a person* lives with *a dependant*; undefined.
+*a person* assumes primary responsibility for the care of *a dependant*; undefined.
+*a person* has a significant relationship with *a dependant*; undefined.
+*a person* gives regular assistance that is not solely incidental to *a dependant*; undefined.
+the hours of assistance by *a person* to *a dependant* in *a month* is *a number*; undefined.
+*a dependant* relies on another individual for care; undefined.
+*a dependant* has a disability as the Americans with Disabilities Act defines it; undefined.
+the VA disability rating of *a person* is *a number*; undefined.
+*a person* has a condition that significantly impairs the ability to comply; undefined.
+*a person* is blind or disabled as section 1614 defines it; undefined.
+*a person* has a substance use disorder; undefined.
+the years in recovery of *a person* is *a number*; undefined.
+*a person* has a disabling mental disorder; undefined.
+*a person* has a disability that significantly impairs an activity of daily living; undefined.
+*a person* has a serious or complex medical condition; undefined.
+*a person* has the diagnosis *a diagnosis*; undefined.
+the State's medical frailty list includes *a diagnosis*; undefined.
+*a person* complies with the TANF work requirements in *a month*; undefined.
+*a person* is a member of a household that receives SNAP in *a month*; undefined.
+*a person* is exempt from the SNAP work requirements in *a month*; undefined.
+*a person* participates in a drug addiction or alcoholic treatment program in *a month*; undefined.
+the hours of treatment of *a person* in *a month* is *a number*; undefined.
+the State's minimum hours of treatment is *a number*; undefined.
+*a person* is an inmate of a public institution in *a month*; undefined.
+
+% ---------------------------------------------------------------- short-term hardship, at State option (435.555)
+
+the State has elected the short-term hardship exception; undefined.
+*a person* receives inpatient care in *a month*; undefined.
+*a person* requests a hardship exception for *a month*; undefined.
+*a person* resides in *a county*; undefined.
+*a county* has a declared emergency or disaster in *a month*; undefined.
+the unemployment rate of *a county* in *a month* is *a number*; undefined.
+the national unemployment rate in *a month* is *a number*; undefined.
+CMS approves an unemployment hardship for *a county* in *a month*; undefined.
+*a person* travels outside the community for medical treatment in *a month*; undefined.
+*a dependant* is a minor child living with *a person*; undefined.
+*a dependant* is a tax dependent of *a person*; undefined.
+*a person* travels with *a dependant* in *a month*; undefined.
+*a person* takes leave from community engagement for *a dependant* in *a month*; undefined.
+
+% ---------------------------------------------------------------- what the rules decide
+
+the income threshold is *an amount*.
+the age of *a person* in *a month* is *a number*.
+*a person* is an applicable individual in *a month*.
+*a person* is subject to the requirement.
+*a person* is excluded from the requirement because *a reason*.
+*a person* is a specified excluded individual in *a month* because *a reason*.
+*a person* is a specified excluded individual in *a month*.
+*a dependant* is a dependent child in *a month*.
+*a dependant* is a dependent child or a disabled individual in *a month*.
+*a person* is a parent, guardian, caretaker relative or family caregiver of *a dependant* in *a month*.
+*a person* is a family caregiver of *a dependant* in *a month*.
+*a person* is medically frail.
+*a person* meets a medical frailty category.
+*a person* is in treatment for the purpose of the exclusion in *a month*.
+*a person* demonstrates community engagement in *a month* because *a reason*.
+*a person* engages in one qualifying activity enough in *a month*.
+*a person* is enrolled at least half-time in *a month*.
+the work hours counted for *a person* in *a month* is *a number*.
+the community service hours counted for *a person* in *a month* is *a number*.
+the work program hours counted for *a person* in *a month* is *a number*.
+the education hours counted for *a person* in *a month* is *a number*.
+the combined hours of *a person* in *a month* is *a number*.
+the average monthly income of *a person* before *a month* is *an amount*.
+*a person* is deemed to have demonstrated community engagement in *a month* because *a reason*.
+*a person* was an inmate in the three months before *a month*.
+*a person* has a short-term hardship in *a month* because *a reason*.
+*a dependant* is a dependant of *a person* for a hardship.
+*a person* meets the requirement in *a month* because *a reason*.
+*a person* meets the requirement in *a month*.
+*a person* is assessed for *a month*.
+*a month* is a month before the application of *a person*.
+*a month* is in the renewal period of *a person*.
+*a person* falls short in *a month*.
+the number of months met by *a person* in the renewal period is *a number*.
+the decision month of *a person* is *a month*.
+the implementation date is *a date*.
+the requirement is not yet in force in *a month*.
+*a person* is not subject to the requirement in *a month*.
+*a person* satisfies the requirement for the decision in *a month*.
+the outcome for *a person* in *a month* is *an outcome*.
+the decision for *a person* is *an outcome*.
+
+the knowledge base medicaid_community_engagement includes:
+
+the community engagement rule is published at "https://www.federalregister.gov/documents/2026/06/03/2026-11094/medicaid-program-community-engagement-requirement-for-certain-individuals".
+
+% ================================================================ helpers
+
+% The applicable federal minimum wage times 80 hours: $7.25 x 80 = $580 in 2026.
+rule income_threshold with provenance the community engagement rule at "42 CFR 435.552(f)(1)":
+the income threshold is an amount T
+    if the value of the federal minimum wage is a wage W
+    and T = W * 80.
+
+the age of a person in a month is a number N
+    if the date of birth of the person is a birth date
+    and the age on the month of someone born on the birth date is N.
+
+% ================================================================ who is an applicable individual (435.551, 435.119(d), 435.554(b))
+
+rule applicable_individual with provenance the community engagement rule at "42 CFR 435.551; section 1902(xx)(9)(A)(i)":
+a person is an applicable individual in a month
+    if the person is eligible for the adult group
+    and it is not the case that
+        the person is a specified excluded individual in the month.
+
+rule applicable_individual_demonstration with provenance the community engagement rule at "42 CFR 435.551(b)":
+a person is an applicable individual in a month
+    if the person is eligible under a demonstration that provides minimum essential coverage
+    and the age of the person in the month is a number A
+    and A >= 19
+    and A < 65
+    and it is not the case that
+        the person is pregnant in the month
+    and it is not the case that
+        the person is entitled to or enrolled in Medicare in the month
+    and it is not the case that
+        the person is otherwise eligible under the State plan
+    and it is not the case that
+        the person is a specified excluded individual in the month.
+
+% ================================================================ specified excluded individuals (435.554(c))
+
+rule excluded_individual:
+a person is a specified excluded individual in a month
+    if the person is a specified excluded individual in the month because a reason.
+
+rule excluded_foster_care with provenance the community engagement rule at "42 CFR 435.554(c)(1); section 1902(xx)(9)(A)(ii)(I)":
+a person is a specified excluded individual in a month because "a former foster care youth under 26"
+    if the person was in foster care and enrolled in Medicaid on turning 18
+    and the age of the person in the month is a number A
+    and A < 26.
+
+rule excluded_indian with provenance the community engagement rule at "42 CFR 435.554(c)(2); section 1902(xx)(9)(A)(ii)(II)":
+a person is a specified excluded individual in a month because "an Indian"
+    if the person is a member of a federally recognized tribe
+    or the person is otherwise an Indian as Medicaid cost sharing defines one.
+
+rule excluded_caregiver with provenance the community engagement rule at "42 CFR 435.554(c)(3); section 1902(xx)(9)(A)(ii)(III)":
+a person is a specified excluded individual in a month because "a parent, guardian, caretaker relative or family caregiver"
+    if the person is a parent, guardian, caretaker relative or family caregiver of a dependant in the month.
+
+rule excluded_veteran with provenance the community engagement rule at "42 CFR 435.554(c)(4); section 1902(xx)(9)(A)(ii)(IV)":
+a person is a specified excluded individual in a month because "a veteran with a total disability rating"
+    if the VA disability rating of the person is a number R
+    and R >= 100.
+
+rule excluded_medically_frail with provenance the community engagement rule at "42 CFR 435.554(c)(5); section 1902(xx)(9)(A)(ii)(V)":
+a person is a specified excluded individual in a month because "medically frail or with special medical needs"
+    if the person is medically frail.
+
+rule excluded_tanf with provenance the community engagement rule at "42 CFR 435.554(c)(6); section 1902(xx)(9)(A)(ii)(VI)(aa)":
+a person is a specified excluded individual in a month because "complying with the TANF work requirements"
+    if the person complies with the TANF work requirements in the month.
+
+rule excluded_snap with provenance the community engagement rule at "42 CFR 435.554(c)(7); section 1902(xx)(9)(A)(ii)(VI)(bb)":
+a person is a specified excluded individual in a month because "in a SNAP household and not exempt from its work requirement"
+    if the person is a member of a household that receives SNAP in the month
+    and it is not the case that
+        the person is exempt from the SNAP work requirements in the month.
+
+rule excluded_treatment with provenance the community engagement rule at "42 CFR 435.554(c)(8); section 1902(xx)(9)(A)(ii)(VII)":
+a person is a specified excluded individual in a month because "in a drug addiction or alcoholic treatment program"
+    if the person is in treatment for the purpose of the exclusion in the month.
+
+rule excluded_inmate with provenance the community engagement rule at "42 CFR 435.554(c)(9); section 1902(xx)(9)(A)(ii)(VIII)":
+a person is a specified excluded individual in a month because "an inmate of a public institution"
+    if the person is an inmate of a public institution in the month.
+
+rule excluded_pregnant with provenance the community engagement rule at "42 CFR 435.554(c)(10); section 1902(xx)(9)(A)(ii)(IX)":
+a person is a specified excluded individual in a month because "pregnant or postpartum"
+    if the person is pregnant in the month
+    or the person is entitled to postpartum medical assistance in the month.
+
+% ---------------------------------------------------------------- dependent child, disabled individual (435.554(a))
+
+rule dependent_child with provenance the community engagement rule at "42 CFR 435.554(a), dependent child":
+a dependant is a dependent child in a month
+    if the age of the dependant in the month is a number A
+    and A <= 13
+    and the dependant relies on another individual for care.
+
+rule dependent_or_disabled with provenance the community engagement rule at "42 CFR 435.554(a), disabled individual":
+a dependant is a dependent child or a disabled individual in a month
+    if the dependant is a dependent child in the month
+    or the dependant has a disability as the Americans with Disabilities Act defines it.
+
+% ---------------------------------------------------------------- parent, guardian, caretaker relative, family caregiver (435.554(a), (c)(3))
+
+rule parent with provenance the community engagement rule at "42 CFR 435.554(a), parent":
+a person is a parent, guardian, caretaker relative or family caregiver of a dependant in a month
+    if the person is the legal parent of the dependant
+    and the person provides care to the dependant
+    and the dependant is a dependent child or a disabled individual in the month.
+
+rule guardian with provenance the community engagement rule at "42 CFR 435.554(a), guardian":
+a person is a parent, guardian, caretaker relative or family caregiver of a dependant in a month
+    if the person is the court appointed guardian of the dependant
+    and the dependant is a dependent child or a disabled individual in the month.
+
+rule caretaker_relative with provenance the community engagement rule at "42 CFR 435.554(a), caretaker relative":
+a person is a parent, guardian, caretaker relative or family caregiver of a dependant in a month
+    if the person is a relative of the dependant of the kind a caretaker relative is
+    and the person lives with the dependant
+    and the person assumes primary responsibility for the care of the dependant
+    and the dependant is a dependent child or a disabled individual in the month.
+
+rule family_caregiver with provenance the community engagement rule at "42 CFR 435.554(a), family caregiver":
+a person is a parent, guardian, caretaker relative or family caregiver of a dependant in a month
+    if the person has a significant relationship with the dependant
+    and the dependant is a dependent child or a disabled individual in the month
+    and the person is a family caregiver of the dependant in the month.
+
+rule family_caregiver_resides with provenance the community engagement rule at "42 CFR 435.554(c)(3)(i)(A)":
+a person is a family caregiver of a dependant in a month
+    if the person lives with the dependant
+    and the person gives regular assistance that is not solely incidental to the dependant.
+
+rule family_caregiver_relative with provenance the community engagement rule at "42 CFR 435.554(c)(3)(i)(B)":
+a person is a family caregiver of a dependant in a month
+    if the person is a relative of the dependant of the kind a caretaker relative is
+    and the person gives regular assistance that is not solely incidental to the dependant
+    and it is not the case that
+        the person lives with the dependant.
+
+rule family_caregiver_80_hours with provenance the community engagement rule at "42 CFR 435.554(c)(3)(i)(C)":
+a person is a family caregiver of a dependant in a month
+    if the hours of assistance by the person to the dependant in the month is a number H
+    and H >= 80
+    and it is not the case that
+        the person lives with the dependant
+    and it is not the case that
+        the person is a relative of the dependant of the kind a caretaker relative is.
+
+% ---------------------------------------------------------------- medically frail (435.554(c)(5))
+
+rule medically_frail with provenance the community engagement rule at "42 CFR 435.554(c)(5)(i)":
+a person is medically frail
+    if the person has a condition that significantly impairs the ability to comply
+    and the person meets a medical frailty category.
+
+% The State's list of diseases, diagnoses, disorders and conditions
+% identifies the individuals who meet the criteria (A) to (E).
+rule medically_frail_state_list with provenance the community engagement rule at "42 CFR 435.554(c)(5)(ii)":
+a person is medically frail
+    if the person has the diagnosis a diagnosis
+    and the State's medical frailty list includes the diagnosis.
+
+rule frailty_blind_or_disabled with provenance the community engagement rule at "42 CFR 435.554(c)(5)(i)(A)":
+a person meets a medical frailty category
+    if the person is blind or disabled as section 1614 defines it.
+
+% Stable recovery means in recovery for 5 years or more.
+rule frailty_substance_use with provenance the community engagement rule at "42 CFR 435.554(c)(5)(i)(B)":
+a person meets a medical frailty category
+    if the person has a substance use disorder
+    and it is not the case that
+        the years in recovery of the person is a number Y
+        and Y >= 5.
+
+rule frailty_mental with provenance the community engagement rule at "42 CFR 435.554(c)(5)(i)(C)":
+a person meets a medical frailty category
+    if the person has a disabling mental disorder.
+
+rule frailty_daily_living with provenance the community engagement rule at "42 CFR 435.554(c)(5)(i)(D)":
+a person meets a medical frailty category
+    if the person has a disability that significantly impairs an activity of daily living.
+
+rule frailty_serious_condition with provenance the community engagement rule at "42 CFR 435.554(c)(5)(i)(E)":
+a person meets a medical frailty category
+    if the person has a serious or complex medical condition.
+
+% ---------------------------------------------------------------- drug or alcohol treatment, with the State's minimum (435.554(c)(8))
+
+rule treatment_with_state_minimum with provenance the community engagement rule at "42 CFR 435.554(c)(8)":
+a person is in treatment for the purpose of the exclusion in a month
+    if the person participates in a drug addiction or alcoholic treatment program in the month
+    and the State's minimum hours of treatment is a number N
+    and the hours of treatment of the person in the month is a number H
+    and H >= N.
+
+rule treatment_without_state_minimum with provenance the community engagement rule at "42 CFR 435.554(c)(8)":
+a person is in treatment for the purpose of the exclusion in a month
+    if the person participates in a drug addiction or alcoholic treatment program in the month
+    and it is not the case that
+        the State's minimum hours of treatment is a number.
+
+% ================================================================ demonstrating community engagement in a month (435.552)
+
+rule work_80_hours with provenance the community engagement rule at "42 CFR 435.552(a)(1); section 1902(xx)(2)(A)":
+a person demonstrates community engagement in a month because "at least 80 hours of work"
+    if the work hours counted for the person in the month is a number H
+    and H >= 80.
+
+rule community_service_80_hours with provenance the community engagement rule at "42 CFR 435.552(a)(2); section 1902(xx)(2)(B)":
+a person demonstrates community engagement in a month because "at least 80 hours of community service"
+    if the hours of community service of the person in the month is a number H
+    and H >= 80.
+
+rule work_program_80_hours with provenance the community engagement rule at "42 CFR 435.552(a)(3); section 1902(xx)(2)(C)":
+a person demonstrates community engagement in a month because "at least 80 hours in a work program"
+    if the hours in a work program of the person in the month is a number H
+    and H >= 80.
+
+rule education_half_time with provenance the community engagement rule at "42 CFR 435.552(a)(4); section 1902(xx)(2)(D)":
+a person demonstrates community engagement in a month because "enrolled in an educational program at least half-time"
+    if the person is enrolled at least half-time in the month.
+
+% A combination is cited only where no single activity reaches the mark on
+% its own, so that the reasons name what was decisive.
+rule combination_80_hours with provenance the community engagement rule at "42 CFR 435.552(a)(5) and (e); section 1902(xx)(2)(E)":
+a person demonstrates community engagement in a month because "at least 80 hours of activities combined"
+    if the combined hours of the person in the month is a number H
+    and H >= 80
+    and it is not the case that
+        the person engages in one qualifying activity enough in the month.
+
+rule monthly_income with provenance the community engagement rule at "42 CFR 435.552(a)(6) and (f); section 1902(xx)(2)(F)":
+a person demonstrates community engagement in a month because "a monthly income of at least 80 times the federal minimum wage"
+    if the monthly income of the person in the month is an amount I
+    and the income threshold is an amount T
+    and I >= T.
+
+rule seasonal_worker with provenance the community engagement rule at "42 CFR 435.552(a)(7) and (g); section 1902(xx)(2)(G)":
+a person demonstrates community engagement in a month because "a seasonal worker whose average monthly income over the 6 months before is at least 80 times the federal minimum wage"
+    if the person is a seasonal worker
+    and the average monthly income of the person before the month is an amount I
+    and the income threshold is an amount T
+    and I >= T.
+
+a person engages in one qualifying activity enough in a month
+    if the work hours counted for the person in the month is a number H
+    and H >= 80.
+
+a person engages in one qualifying activity enough in a month
+    if the hours of community service of the person in the month is a number H
+    and H >= 80.
+
+a person engages in one qualifying activity enough in a month
+    if the hours in a work program of the person in the month is a number H
+    and H >= 80.
+
+a person engages in one qualifying activity enough in a month
+    if the person is enrolled at least half-time in the month.
+
+rule enrolment_status with provenance the community engagement rule at "42 CFR 435.552(c)":
+a person is enrolled at least half-time in a month
+    if the enrolment status of the person in an educational program in the month is a status
+    and the status is in ["full-time", "half-time"].
+
+% Hours of work: the hours stated; or, at State option, where the income is
+% under the threshold and no hours are documented, the income divided by the
+% federal minimum wage; or none.
+rule work_hours with provenance the community engagement rule at "42 CFR 435.552(e)(2)":
+the work hours counted for a person in a month is a number H
+    if the hours of work of the person in the month is H
+    otherwise the person is assessed for the month
+    and the State converts income into hours of work
+    and the monthly income of the person in the month is an amount I
+    and the income threshold is an amount T
+    and I < T
+    and the value of the federal minimum wage is a wage W
+    and H = I / W
+    otherwise the person is assessed for the month
+    and H = 0.
+
+the community service hours counted for a person in a month is a number H
+    if the hours of community service of the person in the month is H
+    otherwise the person is assessed for the month
+    and H = 0.
+
+the work program hours counted for a person in a month is a number H
+    if the hours in a work program of the person in the month is H
+    otherwise the person is assessed for the month
+    and H = 0.
+
+% Only less than half-time enrolment is added to other activities: credit
+% hours x 3 x 4.33 weeks, or the class hours where the program has no
+% credit hours.
+rule education_hours with provenance the community engagement rule at "42 CFR 435.552(d) and (e)(1), (e)(3)":
+the education hours counted for a person in a month is a number H
+    if the enrolment status of the person in an educational program in the month is "less than half-time"
+    and the credit hours of the person in the month is a number C
+    and H = C * 3 * 4.33
+    otherwise the enrolment status of the person in an educational program in the month is "less than half-time"
+    and the class hours of the person in the month is H
+    otherwise the person is assessed for the month
+    and H = 0.
+
+rule combined_hours with provenance the community engagement rule at "42 CFR 435.552(e)(4)":
+the combined hours of a person in a month is a number H
+    if the work hours counted for the person in the month is a number W
+    and the community service hours counted for the person in the month is a number S
+    and the work program hours counted for the person in the month is a number P
+    and the education hours counted for the person in the month is a number E
+    and H = W + S + P + E.
+
+% The six months before the month; a month with no income stated counts as 0.
+rule average_income with provenance the community engagement rule at "42 CFR 435.552(g)":
+the average monthly income of a person before a month is an amount A
+    if the person is assessed for the month
+    and a number S is the sum of each I such that
+        a number K is in [1, 2, 3, 4, 5, 6]
+        and an earlier month is K calendar months before the month
+        and the monthly income of the person in the earlier month is I
+    and A = S / 6.
+
+% ================================================================ mandatory exceptions: deemed compliance (435.553)
+
+rule deemed_under_19 with provenance the community engagement rule at "42 CFR 435.553(a)(1); section 1902(xx)(3)(A)(i)":
+a person is deemed to have demonstrated community engagement in a month because "under the age of 19 for part or all of the month"
+    if the age of the person in the month is a number A
+    and A < 19.
+
+rule deemed_medicare with provenance the community engagement rule at "42 CFR 435.553(a)(2); section 1902(xx)(3)(A)(i)":
+a person is deemed to have demonstrated community engagement in a month because "entitled to or enrolled in Medicare"
+    if the person is entitled to or enrolled in Medicare in the month.
+
+rule deemed_mandatory_group with provenance the community engagement rule at "42 CFR 435.553(a)(3); section 1902(xx)(3)(A)(i)":
+a person is deemed to have demonstrated community engagement in a month because "described in a mandatory coverage group"
+    if the person is described in a mandatory coverage group in the month.
+
+rule deemed_excluded with provenance the community engagement rule at "42 CFR 435.553(a)(4); section 1902(xx)(3)(A)(i)":
+a person is deemed to have demonstrated community engagement in a month because a reason
+    if the person is a specified excluded individual in the month because the reason.
+
+rule deemed_recently_released with provenance the community engagement rule at "42 CFR 435.553(b); section 1902(xx)(3)(A)(ii)":
+a person is deemed to have demonstrated community engagement in a month because "an inmate of a public institution in the 3 months before"
+    if the person was an inmate in the three months before the month.
+
+a person was an inmate in the three months before a month
+    if a number K is in [1, 2, 3]
+    and an earlier month is K calendar months before the month
+    and the person is an inmate of a public institution in the earlier month.
+
+% ================================================================ optional short-term hardship (435.555)
+
+rule deemed_hardship with provenance the community engagement rule at "42 CFR 435.555(a) and (f); section 1902(xx)(3)(B)":
+a person is deemed to have demonstrated community engagement in a month because a reason
+    if the State has elected the short-term hardship exception
+    and the person has a short-term hardship in the month because the reason
+    and it is not the case that
+        the person is a specified excluded individual in the month.
+
+rule hardship_inpatient with provenance the community engagement rule at "42 CFR 435.555(d)(1)":
+a person has a short-term hardship in a month because "inpatient or similar care, on request"
+    if the person receives inpatient care in the month
+    and the person requests a hardship exception for the month.
+
+rule hardship_disaster with provenance the community engagement rule at "42 CFR 435.555(d)(2) and (e)":
+a person has a short-term hardship in a month because "a declared emergency or disaster in the county"
+    if the person resides in a county
+    and the county has a declared emergency or disaster in the month.
+
+rule hardship_unemployment with provenance the community engagement rule at "42 CFR 435.555(d)(3) and (e)":
+a person has a short-term hardship in a month because "high unemployment in the county"
+    if the person resides in a county
+    and CMS approves an unemployment hardship for the county in the month
+    and the unemployment rate of the county in the month is a number U
+    and the national unemployment rate in the month is a number N
+    and a number M = N * 1.5
+    and the minimum of 8 and M is a number L
+    and U >= L.
+
+rule hardship_travel with provenance the community engagement rule at "42 CFR 435.555(d)(4)":
+a person has a short-term hardship in a month because "travel for medical treatment, on request"
+    if the person travels outside the community for medical treatment in the month
+    and the person requests a hardship exception for the month.
+
+rule hardship_travel_dependant with provenance the community engagement rule at "42 CFR 435.555(d)(4)(i)":
+a person has a short-term hardship in a month because "a dependant's travel for medical treatment, on request"
+    if a dependant is a dependant of the person for a hardship
+    and the dependant travels outside the community for medical treatment in the month
+    and the person requests a hardship exception for the month
+    and the person travels with the dependant in the month
+        or the person takes leave from community engagement for the dependant in the month.
+
+rule hardship_dependant with provenance the community engagement rule at "42 CFR 435.555(b)(1)":
+a dependant is a dependant of a person for a hardship
+    if the dependant is a minor child living with the person
+    or the dependant is a tax dependent of the person
+    or the person is the court appointed guardian of the dependant.
+
+% ================================================================ the months a State assesses (435.556)
+
+rule meets_requirement with provenance the community engagement rule at "42 CFR 435.556(a)":
+a person meets the requirement in a month because a reason
+    if the person is assessed for the month
+    and the person demonstrates community engagement in the month because the reason
+        or the person is deemed to have demonstrated community engagement in the month because the reason.
+
+a person meets the requirement in a month
+    if the person meets the requirement in the month because a reason.
+
+a person is assessed for a month
+    if the month is a month before the application of the person
+    or the month is in the renewal period of the person.
+
+rule months_before_application with provenance the community engagement rule at "42 CFR 435.556(a)(1); section 1902(xx)(1)(A)":
+a month is a month before the application of a person
+    if the person applies for Medicaid in an application month
+    and the State checks a number N months before an application
+    and a number K is in [1, 2, 3]
+    and K <= N
+    and the month is K calendar months before the application month.
+
+rule renewal_period with provenance the community engagement rule at "42 CFR 435.556(a)(2)(i); section 1902(xx)(1)(B)":
+a month is in the renewal period of a person
+    if the latest determination of the person took effect in a first month
+    and the person has a renewal due in a renewal month
+    and the number of whole months from the first month to the renewal month is a number T
+    and a number K is in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    and K < T
+    and the month is K calendar months after the first month.
+
+a person falls short in a month
+    if the person is assessed for the month
+    and it is not the case that
+        the person meets the requirement in the month.
+
+the number of months met by a person in the renewal period is a number N
+    if the person has a renewal due in a month
+    and a number P is the count of each first month such that
+        the first month is in the renewal period of the person
+    and a number F is the count of each second month such that
+        the second month is in the renewal period of the person
+        and the person falls short in the second month
+    and N = P - F.
+
+% ================================================================ the decision
+
+the decision month of a person is a month
+    if the person applies for Medicaid in the month
+    or the person has a renewal due in the month.
+
+rule implementation_date with provenance the community engagement rule at "42 CFR 435.559(a), (b) and 435.560(c)":
+the implementation date is a date
+    if the State implements the requirement early from the date
+    otherwise the State has a good faith exemption until an end date
+    and the end date is before 2028-12-31
+    and the date is 1 days after the end date
+    otherwise the State has a good faith exemption until an end date
+    and the date is 2029-01-01
+    otherwise the date is 2027-01-01.
+
+rule not_yet_in_force with provenance the community engagement rule at "42 CFR 435.559(a) and (c)":
+the requirement is not yet in force in a month
+    if the implementation date is a date
+    and the month is before the date.
+
+rule not_subject with provenance the community engagement rule at "42 CFR 435.554(b) and 435.556(c)":
+a person is not subject to the requirement in a month
+    if the decision month of the person is the month
+    and it is not the case that
+        the person is an applicable individual in the month.
+
+rule satisfies_at_application with provenance the community engagement rule at "42 CFR 435.556(a)(1)":
+a person satisfies the requirement for the decision in a month
+    if the person applies for Medicaid in the month
+    and the State checks a number N months before an application
+    and for all cases in which
+        a first month is a month before the application of the person
+        it is the case that
+        the person meets the requirement in the first month.
+
+rule satisfies_at_renewal with provenance the community engagement rule at "42 CFR 435.556(a)(2) and (b)":
+a person satisfies the requirement for the decision in a month
+    if the person has a renewal due in the month
+    and the State checks a number N months at a renewal
+    and the number of months met by the person in the renewal period is a number M
+    and M >= N.
+
+rule outcome with provenance the community engagement rule at "42 CFR 435.556(d), 435.558(a) and 435.559":
+the outcome for a person in a month is an outcome
+    if the requirement is not yet in force in the month
+    and the outcome is "the requirement is not yet in force"
+    otherwise the person is not subject to the requirement in the month
+    and the outcome is "not an applicable individual: the requirement does not apply"
+    otherwise the person satisfies the requirement for the decision in the month
+    and the outcome is "meets the community engagement requirement"
+    otherwise the person is an applicable individual in the month
+    and the outcome is "unable to verify: notice of noncompliance, 30 days to show compliance".
+
+a person is subject to the requirement
+    if the decision month of the person is a month
+    and the person is an applicable individual in the month.
+
+rule excluded_at_decision with provenance the community engagement rule at "42 CFR 435.556(d)(1)":
+a person is excluded from the requirement because a reason
+    if the decision month of the person is a month
+    and the person is a specified excluded individual in the month because the reason.
+
+the decision for a person is an outcome
+    if the decision month of the person is a month
+    and the outcome for the person in the month is the outcome.
+
+% ================================================================ queries
+
+query decision is:
+    the decision for which person is which outcome.
+
+query applicable is:
+    which person is subject to the requirement.
+
+query exempt is:
+    which person is excluded from the requirement because which reason.
+
+query meets is:
+    which person meets the requirement in which month.
+
+query reasons is:
+    which person meets the requirement in which month because which reason.
+
+query short is:
+    which person falls short in which month.
+
+% ================================================================ the caseworker's view (language.md §17.10)
+
+the view caseworker desk is:
+    the title is "Medicaid community engagement: caseworker desk".
+    the case is a scenario.
+    the facts about "the person and the decision" are
+        a person applies for Medicaid in a month,
+        a person has a renewal due in a month,
+        the latest determination of a person took effect in a month,
+        the date of birth of a person is a date,
+        a person is eligible for the adult group,
+        a person is eligible under a demonstration that provides minimum essential coverage,
+        a person is otherwise eligible under the State plan.
+    the facts about "the State's choices" are
+        the State checks a number months before an application,
+        the State checks a number months at a renewal,
+        the State converts income into hours of work,
+        the State has elected the short-term hardship exception,
+        the State's minimum hours of treatment is a number,
+        the State's medical frailty list includes a diagnosis,
+        the State implements the requirement early from a date,
+        the State has a good faith exemption until a date.
+    the facts about "work, service, study and income, month by month" are
+        the hours of work of a person in a month is a number,
+        the hours of community service of a person in a month is a number,
+        the hours in a work program of a person in a month is a number,
+        the enrolment status of a person in an educational program in a month is a status,
+        the credit hours of a person in a month is a number,
+        the class hours of a person in a month is a number,
+        the monthly income of a person in a month is an amount,
+        a person is a seasonal worker.
+    the facts about "exclusions and exceptions" are
+        a person is pregnant in a month,
+        a person is entitled to postpartum medical assistance in a month,
+        a person is entitled to or enrolled in Medicare in a month,
+        a person is an inmate of a public institution in a month,
+        a person is a member of a federally recognized tribe,
+        a person was in foster care and enrolled in Medicaid on turning 18,
+        the VA disability rating of a person is a number,
+        a person is the legal parent of a dependant,
+        a person provides care to a dependant,
+        a dependant relies on another individual for care,
+        a person has a condition that significantly impairs the ability to comply,
+        a person has a substance use disorder,
+        the years in recovery of a person is a number,
+        a person has the diagnosis a diagnosis,
+        a person complies with the TANF work requirements in a month,
+        a person is a member of a household that receives SNAP in a month,
+        a person is exempt from the SNAP work requirements in a month,
+        a person participates in a drug addiction or alcoholic treatment program in a month,
+        the hours of treatment of a person in a month is a number.
+    the facts about "short-term hardship" are
+        a person receives inpatient care in a month,
+        a person requests a hardship exception for a month,
+        a person resides in a county,
+        a county has a declared emergency or disaster in a month,
+        the unemployment rate of a county in a month is a number,
+        the national unemployment rate in a month is a number,
+        CMS approves an unemployment hardship for a county in a month.
+    the other facts can be added.
+    the result is the answer to query decision, headed by the outcome.
+    the result shows its reasons.
+    the result shows its citations.
+    the answers to "which person is excluded from the requirement because which reason" are listed as "Exclusion found".
+    the answers to "which person meets the requirement in which month because which reason" are listed as "Months met, and why".
+    the answers to "which person falls short in which month" are listed as "Months not met".
+    the result can be flipped, as "What would change the decision".
+    the flip keeps a person applies for Medicaid in a month, a person has a renewal due in a month, the latest determination of a person took effect in a month, the date of birth of a person is a date.
+    the result is compared with scenario renewal_short.
+
+% ================================================================ scenarios
+%
+% The expected answers were worked out by hand from the regulation text
+% before the program was run (README.md, "How it was checked").
+
+% Alex works at least 80 hours in each of the 3 months before applying
+% (435.552(a)(1)); Bea earns $600 a month, at least $580 (435.552(a)(6)).
+scenario hours_and_income is:
+    the State checks 3 months before an application.
+    alex applies for Medicaid in 2027-03-01.
+    alex is eligible for the adult group.
+    the date of birth of alex is 1990-05-10.
+    the hours of work of alex in 2026-12-01 is 85.
+    the hours of work of alex in 2027-01-01 is 90.
+    the hours of work of alex in 2027-02-01 is 80.
+    bea applies for Medicaid in 2027-02-01.
+    bea is eligible for the adult group.
+    the date of birth of bea is 1985-11-20.
+    the monthly income of bea in 2026-11-01 is 600.
+    the monthly income of bea in 2026-12-01 is 600.
+    the monthly income of bea in 2027-01-01 is 600.
+    the hours of work of bea in 2027-01-01 is 30.
+    decision expects answers ["the decision for alex is meets the community engagement requirement", "the decision for bea is meets the community engagement requirement"].
+    applicable expects answers ["alex is subject to the requirement", "bea is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["alex meets the requirement in 2026-12-01", "alex meets the requirement in 2027-01-01", "alex meets the requirement in 2027-02-01", "bea meets the requirement in 2026-11-01", "bea meets the requirement in 2026-12-01", "bea meets the requirement in 2027-01-01"].
+    reasons expects answers ["alex meets the requirement in 2026-12-01 because at least 80 hours of work", "alex meets the requirement in 2027-01-01 because at least 80 hours of work", "alex meets the requirement in 2027-02-01 because at least 80 hours of work", "bea meets the requirement in 2026-11-01 because a monthly income of at least 80 times the federal minimum wage", "bea meets the requirement in 2026-12-01 because a monthly income of at least 80 times the federal minimum wage", "bea meets the requirement in 2027-01-01 because a monthly income of at least 80 times the federal minimum wage"].
+    short expects answers [].
+
+% Cal reaches 80 hours only by adding activities together (435.552(a)(5), (e)):
+% in February, 40 hours of work, 25 of community service and 2 credit hours of
+% less than half-time study (2 x 3 x 4.33 = 25.98 hours); in March, 45 hours in
+% a work program and 40 of community service.
+scenario combination is:
+    the State checks 2 months before an application.
+    cal applies for Medicaid in 2027-04-01.
+    cal is eligible for the adult group.
+    the date of birth of cal is 1996-02-14.
+    the hours of work of cal in 2027-02-01 is 40.
+    the hours of community service of cal in 2027-02-01 is 25.
+    the enrolment status of cal in an educational program in 2027-02-01 is "less than half-time".
+    the credit hours of cal in 2027-02-01 is 2.
+    the hours in a work program of cal in 2027-03-01 is 45.
+    the hours of community service of cal in 2027-03-01 is 40.
+    decision expects answers ["the decision for cal is meets the community engagement requirement"].
+    applicable expects answers ["cal is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["cal meets the requirement in 2027-02-01", "cal meets the requirement in 2027-03-01"].
+    reasons expects answers ["cal meets the requirement in 2027-02-01 because at least 80 hours of activities combined", "cal meets the requirement in 2027-03-01 because at least 80 hours of activities combined"].
+    short expects answers [].
+
+% A renewal (435.556(a)(2)(i)): Dee's latest determination took effect in
+% January 2027 and her renewal is due in July, so the months are January to
+% June. The State asks for 1 month. She is enrolled half-time from February to
+% May (435.552(a)(4)).
+scenario half_time_student is:
+    the State checks 1 months at a renewal.
+    dee has a renewal due in 2027-07-01.
+    the latest determination of dee took effect in 2027-01-01.
+    dee is eligible for the adult group.
+    the date of birth of dee is 2001-09-03.
+    the enrolment status of dee in an educational program in 2027-02-01 is "half-time".
+    the enrolment status of dee in an educational program in 2027-03-01 is "half-time".
+    the enrolment status of dee in an educational program in 2027-04-01 is "half-time".
+    the enrolment status of dee in an educational program in 2027-05-01 is "half-time".
+    decision expects answers ["the decision for dee is meets the community engagement requirement"].
+    applicable expects answers ["dee is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["dee meets the requirement in 2027-02-01", "dee meets the requirement in 2027-03-01", "dee meets the requirement in 2027-04-01", "dee meets the requirement in 2027-05-01"].
+    reasons expects answers ["dee meets the requirement in 2027-02-01 because enrolled in an educational program at least half-time", "dee meets the requirement in 2027-03-01 because enrolled in an educational program at least half-time", "dee meets the requirement in 2027-04-01 because enrolled in an educational program at least half-time", "dee meets the requirement in 2027-05-01 because enrolled in an educational program at least half-time"].
+    short expects answers ["dee falls short in 2027-01-01", "dee falls short in 2027-06-01"].
+
+% Eli and Fin had the same income: $1,500, $1,500 and $1,200 from August to
+% October 2026, nothing from November to January, $100 in February. Eli is a
+% seasonal worker: his average over the 6 months before February is $700, at
+% least $580 (435.552(a)(7), (g)). Fin is not, and fails.
+scenario seasonal_worker is:
+    the State checks 1 months before an application.
+    eli applies for Medicaid in 2027-03-01.
+    eli is eligible for the adult group.
+    the date of birth of eli is 1979-04-30.
+    eli is a seasonal worker.
+    fin applies for Medicaid in 2027-03-01.
+    fin is eligible for the adult group.
+    the date of birth of fin is 1980-07-07.
+    the monthly income of eli in 2026-08-01 is 1500.
+    the monthly income of eli in 2026-09-01 is 1500.
+    the monthly income of eli in 2026-10-01 is 1200.
+    the monthly income of eli in 2027-02-01 is 100.
+    the monthly income of fin in 2026-08-01 is 1500.
+    the monthly income of fin in 2026-09-01 is 1500.
+    the monthly income of fin in 2026-10-01 is 1200.
+    the monthly income of fin in 2027-02-01 is 100.
+    decision expects answers ["the decision for eli is meets the community engagement requirement", "the decision for fin is unable to verify: notice of noncompliance, 30 days to show compliance"].
+    applicable expects answers ["eli is subject to the requirement", "fin is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["eli meets the requirement in 2027-02-01"].
+    reasons expects answers ["eli meets the requirement in 2027-02-01 because a seasonal worker whose average monthly income over the 6 months before is at least 80 times the federal minimum wage"].
+    short expects answers ["fin falls short in 2027-02-01"].
+
+% Fay's renewal is due in July 2027; the State asks for 2 of the months from
+% January to June. She works 80 hours only in March, and earns $400 a month,
+% under $580: one month is not enough, so the State sends a notice of
+% noncompliance (435.558(a)).
+scenario renewal_short is:
+    the State checks 2 months at a renewal.
+    fay has a renewal due in 2027-07-01.
+    the latest determination of fay took effect in 2027-01-01.
+    fay is eligible for the adult group.
+    the date of birth of fay is 1992-12-01.
+    the hours of work of fay in 2027-01-01 is 60.
+    the hours of work of fay in 2027-02-01 is 70.
+    the hours of work of fay in 2027-03-01 is 85.
+    the hours of work of fay in 2027-04-01 is 40.
+    the hours of work of fay in 2027-06-01 is 50.
+    the monthly income of fay in 2027-01-01 is 400.
+    the monthly income of fay in 2027-02-01 is 400.
+    the monthly income of fay in 2027-03-01 is 400.
+    the monthly income of fay in 2027-04-01 is 400.
+    the monthly income of fay in 2027-05-01 is 400.
+    the monthly income of fay in 2027-06-01 is 400.
+    decision expects answers ["the decision for fay is unable to verify: notice of noncompliance, 30 days to show compliance"].
+    applicable expects answers ["fay is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["fay meets the requirement in 2027-03-01"].
+    reasons expects answers ["fay meets the requirement in 2027-03-01 because at least 80 hours of work"].
+    short expects answers ["fay falls short in 2027-01-01", "fay falls short in 2027-02-01", "fay falls short in 2027-04-01", "fay falls short in 2027-05-01", "fay falls short in 2027-06-01"].
+
+% The State converts income into hours of work where no hours are documented
+% (435.552(e)(2)): Gus's $435 in February is 435 / 7.25 = 60 hours, which with
+% 25 hours of community service makes 85.
+scenario income_converted is:
+    the State checks 1 months at a renewal.
+    the State converts income into hours of work.
+    gus has a renewal due in 2027-07-01.
+    the latest determination of gus took effect in 2027-01-01.
+    gus is eligible for the adult group.
+    the date of birth of gus is 1988-03-15.
+    the monthly income of gus in 2027-02-01 is 435.
+    the hours of community service of gus in 2027-02-01 is 25.
+    decision expects answers ["the decision for gus is meets the community engagement requirement"].
+    applicable expects answers ["gus is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["gus meets the requirement in 2027-02-01"].
+    reasons expects answers ["gus meets the requirement in 2027-02-01 because at least 80 hours of activities combined"].
+    short expects answers ["gus falls short in 2027-01-01", "gus falls short in 2027-03-01", "gus falls short in 2027-04-01", "gus falls short in 2027-05-01", "gus falls short in 2027-06-01"].
+
+% Hana cares for her daughter Ivy, who is 11: a parent of a dependent child,
+% 13 or under, is a specified excluded individual (435.554(c)(3)). Jo's son
+% Kai is 15, so Jo is not excluded, and Jo shows no activity.
+scenario parent is:
+    the State checks 1 months before an application.
+    hana applies for Medicaid in 2027-03-01.
+    hana is eligible for the adult group.
+    the date of birth of hana is 1990-01-20.
+    hana is the legal parent of ivy.
+    hana provides care to ivy.
+    the date of birth of ivy is 2015-06-01.
+    ivy relies on another individual for care.
+    jo applies for Medicaid in 2027-03-01.
+    jo is eligible for the adult group.
+    the date of birth of jo is 1983-10-10.
+    jo is the legal parent of kai.
+    jo provides care to kai.
+    the date of birth of kai is 2012-01-15.
+    kai relies on another individual for care.
+    ana applies for Medicaid in 2027-03-01.
+    ana is eligible for the adult group.
+    the date of birth of ana is 1968-02-02.
+    ana is the court appointed guardian of ben.
+    ben has a disability as the Americans with Disabilities Act defines it.
+    the date of birth of ben is 1962-04-04.
+    cy applies for Medicaid in 2027-03-01.
+    cy is eligible for the adult group.
+    the date of birth of cy is 1994-12-12.
+    cy has a significant relationship with dot.
+    the date of birth of dot is 2020-01-01.
+    dot relies on another individual for care.
+    the hours of assistance by cy to dot in 2027-02-01 is 85.
+    the hours of assistance by cy to dot in 2027-03-01 is 85.
+    decision expects answers ["the decision for hana is not an applicable individual: the requirement does not apply", "the decision for jo is unable to verify: notice of noncompliance, 30 days to show compliance", "the decision for ana is not an applicable individual: the requirement does not apply", "the decision for cy is not an applicable individual: the requirement does not apply"].
+    applicable expects answers ["jo is subject to the requirement"].
+    exempt expects answers ["hana is excluded from the requirement because a parent, guardian, caretaker relative or family caregiver", "ana is excluded from the requirement because a parent, guardian, caretaker relative or family caregiver", "cy is excluded from the requirement because a parent, guardian, caretaker relative or family caregiver"].
+    meets expects answers ["hana meets the requirement in 2027-02-01", "ana meets the requirement in 2027-02-01", "cy meets the requirement in 2027-02-01"].
+    reasons expects answers ["hana meets the requirement in 2027-02-01 because a parent, guardian, caretaker relative or family caregiver", "ana meets the requirement in 2027-02-01 because a parent, guardian, caretaker relative or family caregiver", "cy meets the requirement in 2027-02-01 because a parent, guardian, caretaker relative or family caregiver"].
+    short expects answers ["jo falls short in 2027-02-01"].
+
+% Ian has a substance use disorder and 2 years of recovery: medically frail
+% (435.554(c)(5)(i)(B)). Lou has 6 years of recovery, which is stable recovery,
+% so is not. Mae's diagnosis is on the State's list (435.554(c)(5)(ii)).
+scenario medically_frail is:
+    the State checks 1 months before an application.
+    the State's medical frailty list includes "cystic fibrosis".
+    ian applies for Medicaid in 2027-03-01.
+    ian is eligible for the adult group.
+    the date of birth of ian is 1987-05-05.
+    ian has a substance use disorder.
+    the years in recovery of ian is 2.
+    ian has a condition that significantly impairs the ability to comply.
+    lou applies for Medicaid in 2027-03-01.
+    lou is eligible for the adult group.
+    the date of birth of lou is 1975-08-08.
+    lou has a substance use disorder.
+    the years in recovery of lou is 6.
+    lou has a condition that significantly impairs the ability to comply.
+    mae applies for Medicaid in 2027-03-01.
+    mae is eligible for the adult group.
+    the date of birth of mae is 1999-02-02.
+    mae has the diagnosis "cystic fibrosis".
+    decision expects answers ["the decision for ian is not an applicable individual: the requirement does not apply", "the decision for lou is unable to verify: notice of noncompliance, 30 days to show compliance", "the decision for mae is not an applicable individual: the requirement does not apply"].
+    applicable expects answers ["lou is subject to the requirement"].
+    exempt expects answers ["ian is excluded from the requirement because medically frail or with special medical needs", "mae is excluded from the requirement because medically frail or with special medical needs"].
+    meets expects answers ["ian meets the requirement in 2027-02-01", "mae meets the requirement in 2027-02-01"].
+    reasons expects answers ["ian meets the requirement in 2027-02-01 because medically frail or with special medical needs", "mae meets the requirement in 2027-02-01 because medically frail or with special medical needs"].
+    short expects answers ["lou falls short in 2027-02-01"].
+
+% Kim is pregnant in the month she applies: excluded (435.554(c)(10)). Leo was
+% in jail in January 2027 and applies in April: January counts because he was
+% an inmate (435.553(a)(4)), February and March because he was one in the 3
+% months before (435.553(b)).
+scenario age_pregnancy_and_release is:
+    the State checks 3 months before an application.
+    kim applies for Medicaid in 2027-06-01.
+    kim is eligible for the adult group.
+    the date of birth of kim is 1995-03-03.
+    kim is pregnant in 2027-05-01.
+    kim is pregnant in 2027-06-01.
+    leo applies for Medicaid in 2027-04-01.
+    leo is eligible for the adult group.
+    the date of birth of leo is 1993-06-06.
+    leo is an inmate of a public institution in 2027-01-01.
+    teo applies for Medicaid in 2027-04-01.
+    teo is eligible for the adult group.
+    the date of birth of teo is 2008-03-15.
+    uli applies for Medicaid in 2027-04-01.
+    uli is eligible under a demonstration that provides minimum essential coverage.
+    the date of birth of uli is 1960-01-01.
+    uli is entitled to or enrolled in Medicare in 2027-01-01.
+    uli is entitled to or enrolled in Medicare in 2027-02-01.
+    uli is entitled to or enrolled in Medicare in 2027-03-01.
+    vic applies for Medicaid in 2027-04-01.
+    vic is eligible under a demonstration that provides minimum essential coverage.
+    the date of birth of vic is 1987-01-01.
+    the hours of work of vic in 2027-01-01 is 80.
+    the hours of work of vic in 2027-02-01 is 80.
+    the hours of work of vic in 2027-03-01 is 80.
+    decision expects answers ["the decision for kim is not an applicable individual: the requirement does not apply", "the decision for leo is meets the community engagement requirement", "the decision for teo is meets the community engagement requirement", "the decision for uli is not an applicable individual: the requirement does not apply", "the decision for vic is meets the community engagement requirement"].
+    applicable expects answers ["leo is subject to the requirement", "teo is subject to the requirement", "vic is subject to the requirement"].
+    exempt expects answers ["kim is excluded from the requirement because pregnant or postpartum"].
+    meets expects answers ["kim meets the requirement in 2027-05-01", "leo meets the requirement in 2027-01-01", "leo meets the requirement in 2027-02-01", "leo meets the requirement in 2027-03-01", "teo meets the requirement in 2027-01-01", "teo meets the requirement in 2027-02-01", "teo meets the requirement in 2027-03-01", "uli meets the requirement in 2027-01-01", "uli meets the requirement in 2027-02-01", "uli meets the requirement in 2027-03-01", "vic meets the requirement in 2027-01-01", "vic meets the requirement in 2027-02-01", "vic meets the requirement in 2027-03-01"].
+    reasons expects answers ["kim meets the requirement in 2027-05-01 because pregnant or postpartum", "leo meets the requirement in 2027-01-01 because an inmate of a public institution", "leo meets the requirement in 2027-02-01 because an inmate of a public institution in the 3 months before", "leo meets the requirement in 2027-03-01 because an inmate of a public institution in the 3 months before", "teo meets the requirement in 2027-01-01 because under the age of 19 for part or all of the month", "teo meets the requirement in 2027-02-01 because under the age of 19 for part or all of the month", "teo meets the requirement in 2027-03-01 because under the age of 19 for part or all of the month", "uli meets the requirement in 2027-01-01 because entitled to or enrolled in Medicare", "uli meets the requirement in 2027-02-01 because entitled to or enrolled in Medicare", "uli meets the requirement in 2027-03-01 because entitled to or enrolled in Medicare", "vic meets the requirement in 2027-01-01 because at least 80 hours of work", "vic meets the requirement in 2027-02-01 because at least 80 hours of work", "vic meets the requirement in 2027-03-01 because at least 80 hours of work"].
+    short expects answers ["kim falls short in 2027-03-01", "kim falls short in 2027-04-01"].
+
+% Five more exclusions (435.554(c)(1), (2), (4), (7), (8)), and two near misses:
+% Ned's SNAP household does not exclude him, because he is exempt from SNAP's
+% work requirement; Wyn's 2 hours of treatment a month are under the State's
+% minimum of 4.
+scenario other_exclusions is:
+    the State checks 1 months before an application.
+    the State's minimum hours of treatment is 4.
+    mia applies for Medicaid in 2027-03-01.
+    mia is eligible for the adult group.
+    the date of birth of mia is 1991-01-01.
+    ned applies for Medicaid in 2027-03-01.
+    ned is eligible for the adult group.
+    the date of birth of ned is 1991-02-02.
+    sam applies for Medicaid in 2027-03-01.
+    sam is eligible for the adult group.
+    the date of birth of sam is 1970-03-03.
+    tia applies for Medicaid in 2027-03-01.
+    tia is eligible for the adult group.
+    the date of birth of tia is 1998-04-04.
+    uma applies for Medicaid in 2027-03-01.
+    uma is eligible for the adult group.
+    the date of birth of uma is 2002-08-01.
+    val applies for Medicaid in 2027-03-01.
+    val is eligible for the adult group.
+    the date of birth of val is 1984-05-05.
+    wyn applies for Medicaid in 2027-03-01.
+    wyn is eligible for the adult group.
+    the date of birth of wyn is 1986-06-06.
+    mia is a member of a household that receives SNAP in 2027-02-01.
+    mia is a member of a household that receives SNAP in 2027-03-01.
+    ned is a member of a household that receives SNAP in 2027-02-01.
+    ned is a member of a household that receives SNAP in 2027-03-01.
+    ned is exempt from the SNAP work requirements in 2027-02-01.
+    ned is exempt from the SNAP work requirements in 2027-03-01.
+    the VA disability rating of sam is 100.
+    tia is a member of a federally recognized tribe.
+    uma was in foster care and enrolled in Medicaid on turning 18.
+    val participates in a drug addiction or alcoholic treatment program in 2027-02-01.
+    val participates in a drug addiction or alcoholic treatment program in 2027-03-01.
+    the hours of treatment of val in 2027-02-01 is 6.
+    the hours of treatment of val in 2027-03-01 is 6.
+    wyn participates in a drug addiction or alcoholic treatment program in 2027-02-01.
+    wyn participates in a drug addiction or alcoholic treatment program in 2027-03-01.
+    the hours of treatment of wyn in 2027-02-01 is 2.
+    the hours of treatment of wyn in 2027-03-01 is 2.
+    xia applies for Medicaid in 2027-03-01.
+    xia is eligible for the adult group.
+    the date of birth of xia is 1989-09-09.
+    xia complies with the TANF work requirements in 2027-02-01.
+    xia complies with the TANF work requirements in 2027-03-01.
+    decision expects answers ["the decision for mia is not an applicable individual: the requirement does not apply", "the decision for sam is not an applicable individual: the requirement does not apply", "the decision for tia is not an applicable individual: the requirement does not apply", "the decision for uma is not an applicable individual: the requirement does not apply", "the decision for val is not an applicable individual: the requirement does not apply", "the decision for ned is unable to verify: notice of noncompliance, 30 days to show compliance", "the decision for wyn is unable to verify: notice of noncompliance, 30 days to show compliance", "the decision for xia is not an applicable individual: the requirement does not apply"].
+    applicable expects answers ["ned is subject to the requirement", "wyn is subject to the requirement"].
+    exempt expects answers ["mia is excluded from the requirement because in a SNAP household and not exempt from its work requirement", "sam is excluded from the requirement because a veteran with a total disability rating", "tia is excluded from the requirement because an Indian", "uma is excluded from the requirement because a former foster care youth under 26", "val is excluded from the requirement because in a drug addiction or alcoholic treatment program", "xia is excluded from the requirement because complying with the TANF work requirements"].
+    meets expects answers ["mia meets the requirement in 2027-02-01", "sam meets the requirement in 2027-02-01", "tia meets the requirement in 2027-02-01", "uma meets the requirement in 2027-02-01", "val meets the requirement in 2027-02-01", "xia meets the requirement in 2027-02-01"].
+    reasons expects answers ["mia meets the requirement in 2027-02-01 because in a SNAP household and not exempt from its work requirement", "sam meets the requirement in 2027-02-01 because a veteran with a total disability rating", "tia meets the requirement in 2027-02-01 because an Indian", "uma meets the requirement in 2027-02-01 because a former foster care youth under 26", "val meets the requirement in 2027-02-01 because in a drug addiction or alcoholic treatment program", "xia meets the requirement in 2027-02-01 because complying with the TANF work requirements"].
+    short expects answers ["ned falls short in 2027-02-01", "wyn falls short in 2027-02-01"].
+
+% The State has elected the short-term hardship exception (435.555). Ola's
+% county has a declared disaster; Pat's county has 7% unemployment, at least
+% the lesser of 8% and 1.5 x 4.5% = 6.75%, approved by CMS; Quinn and Rae were
+% in hospital, but only Rae asked for the exception, which (d)(1) requires.
+scenario hardship is:
+    the State checks 1 months before an application.
+    the State has elected the short-term hardship exception.
+    ola applies for Medicaid in 2027-03-01.
+    ola is eligible for the adult group.
+    the date of birth of ola is 1990-01-01.
+    pat applies for Medicaid in 2027-03-01.
+    pat is eligible for the adult group.
+    the date of birth of pat is 1990-02-02.
+    quinn applies for Medicaid in 2027-03-01.
+    quinn is eligible for the adult group.
+    the date of birth of quinn is 1990-03-03.
+    rae applies for Medicaid in 2027-03-01.
+    rae is eligible for the adult group.
+    the date of birth of rae is 1990-04-04.
+    ola resides in harris county.
+    harris county has a declared emergency or disaster in 2027-02-01.
+    pat resides in mesa county.
+    CMS approves an unemployment hardship for mesa county in 2027-02-01.
+    the unemployment rate of mesa county in 2027-02-01 is 7.0.
+    the national unemployment rate in 2027-02-01 is 4.5.
+    quinn receives inpatient care in 2027-02-01.
+    rae receives inpatient care in 2027-02-01.
+    rae requests a hardship exception for 2027-02-01.
+    zed applies for Medicaid in 2027-03-01.
+    zed is eligible for the adult group.
+    the date of birth of zed is 1985-05-15.
+    amy is a tax dependent of zed.
+    amy travels outside the community for medical treatment in 2027-02-01.
+    zed takes leave from community engagement for amy in 2027-02-01.
+    zed requests a hardship exception for 2027-02-01.
+    decision expects answers ["the decision for ola is meets the community engagement requirement", "the decision for pat is meets the community engagement requirement", "the decision for quinn is unable to verify: notice of noncompliance, 30 days to show compliance", "the decision for rae is meets the community engagement requirement", "the decision for zed is meets the community engagement requirement"].
+    applicable expects answers ["ola is subject to the requirement", "pat is subject to the requirement", "quinn is subject to the requirement", "rae is subject to the requirement", "zed is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers ["ola meets the requirement in 2027-02-01", "pat meets the requirement in 2027-02-01", "rae meets the requirement in 2027-02-01", "zed meets the requirement in 2027-02-01"].
+    reasons expects answers ["ola meets the requirement in 2027-02-01 because a declared emergency or disaster in the county", "pat meets the requirement in 2027-02-01 because high unemployment in the county", "rae meets the requirement in 2027-02-01 because inpatient or similar care, on request", "zed meets the requirement in 2027-02-01 because a dependant's travel for medical treatment, on request"].
+    short expects answers ["quinn falls short in 2027-02-01"].
+
+% CMS has granted the State a good faith exemption until 30 June 2027
+% (435.560), so the requirement starts on 1 July 2027 and does not apply to
+% Sol's application in March.
+scenario not_yet_in_force is:
+    the State checks 1 months before an application.
+    the State has a good faith exemption until 2027-06-30.
+    sol applies for Medicaid in 2027-03-01.
+    sol is eligible for the adult group.
+    the date of birth of sol is 1990-09-09.
+    decision expects answers ["the decision for sol is the requirement is not yet in force"].
+    applicable expects answers ["sol is subject to the requirement"].
+    exempt expects answers [].
+    meets expects answers [].
+    reasons expects answers [].
+    short expects answers ["sol falls short in 2027-02-01"].
+

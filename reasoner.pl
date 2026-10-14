@@ -1806,17 +1806,28 @@ equal_to(X, X).
 %   insurance and finance wording (a limit against a repair cost, an excess
 %   against a loss), and without a template for it models write `Z = min(X, Y)`
 %   — which is not an LE expression and dies at run time with "min(A,B)/0 is
-%   not a function". Both arguments must be numbers; the result is compared
-%   when it is already bound, so the goal can also be used as a test.
-le_minimum(X, Y, Z) :-
-    number(X), number(Y),
+%   not a function". Both arguments must be numbers, or calculations that
+%   give one ("the minimum of N - 1 and 10": the argument arrives as the
+%   expression N-1, which is worked out here; until 14 October 2026 it made
+%   the goal fail, silently); the result is compared when it is already
+%   bound, so the goal can also be used as a test.
+le_minimum(X0, Y0, Z) :-
+    le_number_value(X0, X), le_number_value(Y0, Y),
     M is min(X, Y),
-    ( var(Z) -> Z = M ; number(Z), Z =:= M ).
+    ( var(Z) -> Z = M ; le_number_value(Z, ZV), ZV =:= M ).
 
-le_maximum(X, Y, Z) :-
-    number(X), number(Y),
+le_maximum(X0, Y0, Z) :-
+    le_number_value(X0, X), le_number_value(Y0, Y),
     M is max(X, Y),
-    ( var(Z) -> Z = M ; number(Z), Z =:= M ).
+    ( var(Z) -> Z = M ; le_number_value(Z, ZV), ZV =:= M ).
+
+%   A number, or a ground calculation worked out to one.
+le_number_value(X, X) :- number(X), !.
+le_number_value(E, V) :-
+    compound(E), ground(E),
+    catch(V is E, _, fail),
+    number(V).
+
 
 le_is_days_after(Later, Count, Before) :-
     nonvar(Before), nonvar(Count), !,
