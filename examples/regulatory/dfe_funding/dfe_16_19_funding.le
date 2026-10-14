@@ -1,0 +1,2888 @@
+% The Department for Education's 16 to 19 funding calculation for 2026 to 2027,
+% written in Logical English from the published rule documents: every element
+% of section 4 of the specification (pages 37-89).
+%
+% Source: Department for Education, "16 to 19 funding calculation for 2026 to
+% 2027: technical specification", version 1.00, September 2026,
+% https://www.gov.uk/government/publications/technical-specification-further-education-for-young-people
+% (a copy is beside this program). The rules there are the rule documents of
+% an Oracle Intelligent Advisor (formerly Oracle Policy Automation) rulebase,
+% printed as a PDF. Each rule below names the page it was written from.
+%
+% Contains public sector information licensed under the Open Government
+% Licence v3.0 (https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+% This program is an adaptation of that information. It is not published or
+% endorsed by the Department for Education. It is provided "as is", without
+% warranty, and is not advice.
+%
+% HOW IT WAS MADE. The Department publishes the rules as a PDF, not as a Policy
+% Modeling project, and publishes no test cases with the rulebase's answers.
+% So this program was NOT made by the Oracle Intelligent Advisor translator,
+% and it is NOT checked against Oracle Intelligent Advisor. It was written by
+% hand (with an AI agent) from the printed rules. A second, independent reading
+% of the same pages, written in Python by another agent that never saw this
+% program, was run on the same test cases, and every difference between the
+% two readings was settled against the PDF (README.md says how).
+%
+% HOW TO READ IT.
+% - The data are the records of the specification's interface agreement
+%   (pages 20-36): the provider, the postcode specialist resource reference
+%   data, the learner, the learner's learning deliveries (aims), and each
+%   delivery's funding and monitoring records (FAMs), LARS categories, LARS
+%   validities, LARS programme funding records and hours records. A value that
+%   is not stated is what the rulebase calls "unknown".
+% - A rule table of the rulebase, whose rows are tried from the top, is an
+%   `otherwise` cascade here, with its rows in the same order.
+% - Where the rulebase concludes "uncertain", a rule here concludes the word
+%   uncertain into a value marked "as computed", and the value itself is then
+%   not concluded at all: "is certain" in the rulebase is "has a value" here.
+% - ToUpper() and "contains" are two small Prolog goals (the upper case of a
+%   text, a text contains a text); everything else is Logical English.
+%
+% WHAT IS READ WITH A CHOICE (README.md lists them with the reasons): the
+% "both" group at the top of page 41 is read as joined by "or" to the groups
+% after it, as on page 42; the row of ZTPR0012 on page 86 is read with its last
+% condition inside the "for at least one" above it, as in the rows before it; a
+% TemporalFromRange and ValueAt pair (pages 62 and 81) is read as the value of
+% the record in force on the first day of the funding year.
+
+the target language is: prolog.
+
+the knowledge base dfe_16_19_funding includes these resources:
+    temporal, dfe_text.pl.
+
+the templates are:
+
+% ---------------------------------------------------------------- the provider (pages 21-24)
+
+the provider's retention factor is *a number*; undefined.
+the provider's programme weighting is *a number*; undefined.
+the provider's 16 to 18 area cost factor is *a number*; undefined.
+the provider's historic large programme proportion is *a number*; undefined.
+the provider's disadvantage proportion is *a number*; undefined.
+the provider's English and maths proportion is *a number*; undefined.
+the provider has specialist resources; undefined.
+
+% ---------------------------------------------------------------- the postcode specialist resource reference data (page 24)
+
+*a record* is a postcode specialist resource record; undefined.
+the postcode of *a record* is *a postcode*; undefined.
+the specialist resources of *a record* is *a flag*; undefined.
+the effective from date of *a record* is *a date*; undefined.
+the effective to date of *a record* is *a date*; undefined.
+
+% ---------------------------------------------------------------- the learner (pages 26-27)
+
+*a learner* is a learner; undefined.
+the date of birth of *a learner* is *a date*; undefined.
+the GCSE English grade of *a learner* is *a grade*; undefined.
+the GCSE maths grade of *a learner* is *a grade*; undefined.
+the ECF FAM code of *a learner* is *a code*; undefined.
+the EDF FAM code 1 of *a learner* is *a code*; undefined.
+the EDF FAM code 2 of *a learner* is *a code*; undefined.
+the EHC FAM code of *a learner* is *a code*; undefined.
+the HNS FAM code of *a learner* is *a code*; undefined.
+the MCF FAM code of *a learner* is *a code*; undefined.
+the NLM FAM code 1 of *a learner* is *a code*; undefined.
+the NLM FAM code 2 of *a learner* is *a code*; undefined.
+the EMH FAM code of *a learner* is *a code*; undefined.
+the MMH FAM code of *a learner* is *a code*; undefined.
+the planned learning hours of *a learner* is *a number*; undefined.
+the planned employability, enrichment and pastoral hours of *a learner* is *a number*; undefined.
+the postcode disadvantage uplift of *a learner* is *a number*; undefined.
+
+% ---------------------------------------------------------------- the learning deliveries (pages 27-33)
+
+*a learner* has *a learning delivery*; undefined.
+the learning aim reference of *a learning delivery* is *a reference*; undefined.
+the aim type of *a learning delivery* is *a number*; undefined.
+the aim sequence number of *a learning delivery* is *a number*; undefined.
+the funding model of *a learning delivery* is *a number*; undefined.
+the programme type of *a learning delivery* is *a number*; undefined.
+the learning start date of *a learning delivery* is *a date*; undefined.
+the learning planned end date of *a learning delivery* is *a date*; undefined.
+the learning actual end date of *a learning delivery* is *a date*; undefined.
+the completion status of *a learning delivery* is *a number*; undefined.
+the withdrawal reason of *a learning delivery* is *a number*; undefined.
+the learning aim reference title of *a learning delivery* is *a title*; undefined.
+the learning aim reference type of *a learning delivery* is *a type*; undefined.
+the awarding organisation code of *a learning delivery* is *a code*; undefined.
+the ESFA condition of funding type of *a learning delivery* is *a number*; undefined.
+the sector subject area tier 2 of *a learning delivery* is *a number*; undefined.
+the delivery location postcode of *a learning delivery* is *a postcode*; undefined.
+*a learning delivery* has a FAM of type *a type* with code *a code*; undefined.
+*a learning delivery* has a LARS category with reference *a number*; undefined.
+*a learning delivery* has *a LARS validity* as a LARS validity; undefined.
+the category of *a LARS validity* is *a category*; undefined.
+the validity start date of *a LARS validity* is *a date*; undefined.
+the last date for new starts of *a LARS validity* is *a date*; undefined.
+*a learning delivery* has *a funding record* as a LARS programme funding record; undefined.
+the funding band of *a funding record* is *a band*; undefined.
+the PCW of *a funding record* is *a number*; undefined.
+the programme code of *a funding record* is *a number*; undefined.
+the effective from date of *a funding record* is *a date*; undefined.
+the effective to date of *a funding record* is *a date*; undefined.
+*a learning delivery* has an hours record of type *a type* with code *a code* and amount *a number*; undefined.
+
+% ---------------------------------------------------------------- text helpers
+
+the upper case of *a text* is *an upper case text*.
+*a text* contains *a part*.
+
+% ---------------------------------------------------------------- what the rules decide
+
+the source of funding of *a learner* is *a source*; memorable.
+*a learning delivery* is direct funded.
+the funding line type of *a learner* is *a funding line type*; memorable.
+the base programme funding of *a learner* is *an amount*.
+the on programme funding of *a learner* is *an amount*.
+*a learner* has grade C or above English.
+*a learner* has grade C or above maths.
+*a learning delivery* is King's Trust TEAM.
+*a learner* has English GCSE grade D.
+*a learner* has maths GCSE grade D.
+*a learner* has English below GCSE grade D.
+*a learner* has maths below GCSE grade D.
+the rate band of *a learner* is in the T level, full-time or band 4a bands.
+*a learning delivery* is a recognised GCSE English qualification for *a learner*.
+*a learning delivery* is a recognised GCSE maths qualification for *a learner*.
+*a learning delivery* has a valid English condition of funding validity.
+*a learning delivery* has a valid maths condition of funding validity.
+*a learner* is recognised as an English exemption.
+*a learner* is recognised as a maths exemption.
+*a learner* has Functional Skills Level 2 English.
+*a learner* has Functional Skills Level 2 maths.
+*a learner* has CoF minimum hours English.
+*a learner* has CoF minimum hours maths.
+*a learner* is not required to meet the condition of funding.
+the English condition of funding status of *a learner* is *a status*; memorable.
+the maths condition of funding status of *a learner* is *a status*; memorable.
+the number of LARS validity records of *a learning delivery* is *a number*.
+the rate band of *a learner* is *a band*; memorable.
+*a learner* is HNS.
+*a learner* is EHC.
+*a learner* is under 18 or HNS.
+the national rate of *a learner* is *an amount*; memorable.
+the T level hours amount of *a learning delivery* is *a number*.
+the total planned hours of *a learner* is *a number*; memorable.
+the FTE of *a learner* is *a number*.
+the academic flag of *a learning delivery* is *a flag*; memorable.
+*a learning delivery* is an academic aim.
+the upper case awarding organisation code of *a learning delivery* is *a code*.
+*a learning delivery* is general studies or critical thinking.
+*a learning delivery* is a psychology aim.
+*a learner* is studying an academic programme.
+the new retention status of *a learner* is *a number*.
+the planned duration of *a learning delivery* is *a number*.
+the provider's historic retention factor is *a number*.
+the new programme weighting stage 1 of *a learner* is *a number*.
+the new programme weighting of *a learner* is *a number*.
+*a learning delivery* is an A level aim attracting uplift.
+the count of A level learning aims attracting uplift of *a learner* is *a number*.
+*a learner* meets the low PCW criteria.
+the programme weighting of *a learning delivery* is *a number*; memorable.
+the provider's historic programme weighting is *a number*.
+the provider's historic 16 to 18 area cost factor is *a number*.
+the provider's large programme proportion is *a number*.
+*a record* is in force on the first day of the current funding year.
+*a record* applies on the first day of the current funding year.
+*a record* is a postcode specialist resource record for *a learning delivery*.
+the count of postcode specialist resource records of *a learning delivery* is *a number*; memorable.
+*a learning delivery* has a specialist resource postcode.
+the latest learning delivery start date of *a learner* is *a date*.
+the new block 1 disadvantage uplift of *a learner* is *a number*.
+*a learner* does not have grade C or above English by year 11.
+*a learner* does not have grade C or above maths by year 11.
+the new block 2 disadvantage elements of *a learner* is *a number*.
+the provider's historic disadvantage proportion is *a number*.
+*a learner* has English GCSE grade D or below.
+*a learner* has maths GCSE grade D or below.
+*a learner* is exempt from GCSE English condition of funding due to a learning difficulty or prior attainment.
+*a learner* is exempt from GCSE maths condition of funding due to a learning difficulty or prior attainment.
+*a learner* has an English instance.
+*a learner* has a maths instance.
+the English and maths instances of *a learner* is *a number*.
+the provider's historic English and maths proportion is *a number*.
+*a learner* is a summer school student.
+*a learner* is a start.
+the qualifying period in days of *a learner* is *a number*; memorable.
+the planned number of days this funding year of *a learner* is *a number*; memorable.
+the actual number of days this funding year of *a learner* is *a number*; memorable.
+the start date of *a learner* is *a date*; memorable.
+the start date this year of *a learner* is *a date* as computed; memorable.
+the start date this year of *a learner* is *a date*.
+the planned end date of *a learner* is *a date*; memorable.
+the planned end date this year of *a learner* is *a date* as computed; memorable.
+the planned end date this year of *a learner* is *a date*.
+the adjusted actual end date of *a learning delivery* is *a date*.
+the actual end date of *a learner* is *a date*; memorable.
+the actual end date this year of *a learner* is *a date* as computed; memorable.
+the actual end date this year of *a learner* is *a date*.
+the payment period of *a learner* is *a number*.
+the age at 31 August of *a learner* is *a number*; memorable.
+*a learning delivery* counts as a start.
+*a learning delivery* is a valid start for CoF; memorable.
+the aim qualifying period in days of *a learning delivery* is *a number*.
+the planned number of days of *a learning delivery* is *a number*.
+the actual number of days of *a learning delivery* is *a number*.
+the aim planned end date this year of *a learning delivery* is *a date* as computed.
+the aim planned end date this year of *a learning delivery* is *a date*.
+*a learning delivery* is a core aim.
+*a learner* has *a learning delivery* as an ESFA 16 to 19 learning delivery.
+*a learner* has *a learning delivery* as a core aim.
+the number of core aim records of *a learner* is *a number*.
+the latest core aim start date of *a learner* is *a date*; memorable.
+the latest T level TQ core aim start date of *a learner* is *a date*; memorable.
+the latest core aim sequence number of *a learner* is *a number*; memorable.
+the latest core aim of *a learner* is a T level programme; memorable.
+*a learner* is a T level student.
+the latest programme of *a learner* is a T level.
+*a learning delivery* is an ESFA 16 to 19 T level programme aim.
+*a learner* has *a learning delivery* as an ESFA 16 to 19 T level programme aim.
+the number of ESFA 16 to 19 T level programme aim records of *a learner* is *a number*.
+the latest ESFA 16 to 19 T level programme aim start date of *a learner* is *a date*; memorable.
+the latest ESFA 16 to 19 T level programme aim sequence number of *a learner* is *a number*; memorable.
+the latest programme aim sequence number of *a learner* is *a number*.
+*a learner* is a year 3+ T level student.
+*a learner* is a 2021-2022 year or earlier T level starter.
+*a learning delivery* is an ESFA 16 to 19 T level transition programme aim.
+*a learner* has *a learning delivery* as an ESFA 16 to 19 T level transition programme aim.
+the number of ESFA 16 to 19 T level transition programme aim records of *a learner* is *a number*.
+the latest ESFA 16 to 19 T level transition programme aim start date of *a learner* is *a date*.
+the latest ESFA 16 to 19 T level transition programme aim sequence number of *a learner* is *a number*.
+the latest programme of *a learner* is a transition programme; memorable.
+*a learner* is a transition student.
+the applicable T level funding band of *a learning delivery* is *a band*.
+the T level funding band stage 1 of *a learner* is *a band*.
+the T level funding band of *a learner* is *a band*; memorable.
+the applicable T level PCW of *a learning delivery* is *a number*.
+the T level PCW stage 1 of *a learner* is *a number*.
+the T level PCW of *a learner* is *a number*.
+the T level additional hours of *a learner* is *a number*.
+*a learner* is repeating up to one full final year of T level.
+the national T level transition programme PCW of *a learner* is *a number*.
+*a learning delivery* is a T level OS aim.
+*a learner* has *a learning delivery* as a T level OS aim.
+*a learner* has *a learning delivery* as a continuing T level OS aim.
+the number of T level OS aim records of *a learner* is *a number*.
+*a learner* has a continuing T level OS aim.
+the latest T level OS aim sequence number of *a learner* is *a number*; memorable.
+the learning aim reference of the latest T level TQ of *a learner* is *a reference*.
+the learning aim reference of the latest T level OS of *a learner* is *a reference*.
+the latest T level programme aim actual end date of *a learner* is *a date*.
+the latest T level programme aim planned end date of *a learner* is *a date*.
+the latest T level programme aim start date of *a learner* is *a date*.
+
+% ---------------------------------------------------------------- parameters (pages 68-69)
+
+the first day of the current funding year is *a date*.
+the last day of the current funding year is *a date*.
+the 1st June of the current funding year is *a date*.
+the two year programme first year end date is *a date*.
+the funded hours per FTE is *a number*.
+the national rate for *a band* students is *an amount* under table national_rates.
+the learning hours threshold for *a band* students is *a number* under table hours_thresholds.
+the national PCW for *a reference* is *a number* under table national_pcw.
+
+the knowledge base dfe_16_19_funding includes:
+
+% ================================================================ parameters (pages 68-69)
+
+the first day of the current funding year is 2026-08-01.
+the last day of the current funding year is 2027-07-31.
+the 1st June of the current funding year is 2027-06-01.
+the two year programme first year end date is 2027-06-30.
+the funded hours per FTE is 640.
+
+the table national_rates is, with first match, with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 68:
+    row | band                       | amount
+    t9  | "T Level band 9"           | 15126
+    t8u | "T Level band 8 uplifted"  | 14564
+    t8  | "T Level band 8"           | 13870
+    t7u | "T Level band 7 uplifted"  | 13242
+    t7  | "T Level band 7"           | 12612
+    t6u | "T Level band 6 uplifted"  | 11484
+    t6  | "T Level band 6"           | 10936
+    t5  | "T Level band 5"           | 10512
+    ft  | "full time"                | 5256
+    p4  | "part time band 4"         | 4348
+    p3  | "part time band 3"         | 3536
+    p2  | "part time band 2"         | 2796
+    p1  | "part time band 1 per FTE" | 5256
+
+the table hours_thresholds is, with first match, with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 68:
+    row | band                       | number
+    t9  | "T Level band 9"           | 1730
+    t8u | "T Level band 8 uplifted"  | 1580
+    t8  | "T Level band 8"           | 1580
+    t7u | "T Level band 7 uplifted"  | 1380
+    t7  | "T Level band 7"           | 1380
+    t6u | "T Level band 6 uplifted"  | 1180
+    t6  | "T Level band 6"           | 1180
+    t5  | "T Level band 5"           | 580
+    ft  | "full time"                | 580
+    p4  | "part time band 4"         | 485
+    p3  | "part time band 3"         | 385
+    p2  | "part time band 2"         | 300
+    p1  | "part time band 1"         | 0
+
+the table national_pcw is, with first match, with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 68 and 69:
+    row | reference  | number
+    r1  | "ZTPR0001" | 1.58
+    r2  | "ZTPR0002" | 1.04
+    r4  | "ZTPR0004" | 1.19
+    r5  | "ZTPR0005" | 1.73
+    r6  | "ZTPR0006" | 1.21
+    r7  | "ZTPR0007" | 1.48
+    r8  | "ZTPR0008" | 1.73
+    r10 | "ZTPR0010" | 1.21
+    r11 | "ZTPR0011" | 1.0
+    r12 | "ZTPR0012" | 1.0
+
+% ================================================================ text helpers (ToUpper, "contains")
+
+% "the upper case of ..." and "... contains ..." are answered by dfe_text.pl.
+
+% ================================================================ funding elements (pages 37-38)
+
+rule source_of_funding with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 37:
+the source of funding of a learner is a source
+    if the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery has a FAM of type a type with code "107"
+    and the upper case of the type is "SOF"
+    and the source is "ESFA 16-19"
+    otherwise the learner is a learner
+    and the source is "Other".
+
+rule direct_funded with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 38:
+a learning delivery is direct funded
+    if the learning delivery has a FAM of type a type with code "320"
+    and the upper case of the type is "LDM".
+
+rule funding_line_type with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 37 and 38:
+the funding line type of a learner is a funding line type
+    if the source of funding of the learner is "ESFA 16-19"
+    and the age at 31 August of the learner is an age
+    and the age is in [14, 15]
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery is direct funded
+    and the funding line type is "14-16 Direct Funded Students"
+    otherwise the source of funding of the learner is "ESFA 16-19"
+    and the age at 31 August of the learner is a second age
+    and the second age < 19
+    and the HNS FAM code of the learner is 1
+    and the funding line type is "16-19 High Needs Students"
+    otherwise the source of funding of the learner is "ESFA 16-19"
+    and the age at 31 August of the learner is a third age
+    and the third age < 19
+    and it is not the case that the HNS FAM code of the learner is 1
+    and the funding line type is "16-19 Students (excluding High Needs Students)"
+    otherwise the source of funding of the learner is "ESFA 16-19"
+    and the age at 31 August of the learner is a fourth age
+    and the fourth age >= 19
+    and the fourth age <= 24
+    and the learner is EHC
+    and the funding line type is "19-24 Students with an EHCP"
+    otherwise the source of funding of the learner is "ESFA 16-19"
+    and the age at 31 August of the learner is a fifth age
+    and the fifth age >= 19
+    and the funding line type is "19+ Continuing Students (excluding EHCP)"
+    otherwise the learner is a learner
+    and the funding line type is "Unknown".
+
+rule base_programme_funding with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 38:
+the base programme funding of a learner is an amount
+    if the national rate of the learner is a NR
+    and the provider's historic retention factor is a RF
+    and the provider's historic programme weighting is a PW
+    and the amount = NR * RF * PW.
+
+rule on_programme_funding with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 38:
+the on programme funding of a learner is an amount
+    if the learner is a start
+    and the funding line type of the learner is a funding line type
+    and the funding line type is different from "14-16 Direct Funded Students"
+    and the base programme funding of the learner is a BPF
+    and the provider's historic disadvantage proportion is a DP
+    and the provider's large programme proportion is a LP
+    and the provider's historic English and maths proportion is a EM
+    and the provider's historic 16 to 18 area cost factor is a AC
+    and the amount = BPF * (1 + DP) * (1 + LP) * (1 + EM) * AC
+    otherwise the learner is a learner
+    and the amount = 0.
+
+% ================================================================ condition of funding (pages 39-48)
+
+rule grade_c_or_above_english with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 39:
+a learner has grade C or above English
+    if the GCSE English grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["A*", "A", "B", "C", "9", "8", "7", "6", "5", "4"].
+
+rule grade_c_or_above_english_ecf with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 39:
+a learner has grade C or above English
+    if the GCSE English grade of the learner is a grade
+    and the ECF FAM code of the learner is 3.
+
+rule grade_c_or_above_maths with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 39:
+a learner has grade C or above maths
+    if the GCSE maths grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["A*", "A", "B", "C", "9", "8", "7", "6", "5", "4"].
+
+rule grade_c_or_above_maths_mcf with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 39:
+a learner has grade C or above maths
+    if the GCSE maths grade of the learner is a grade
+    and the MCF FAM code of the learner is 3.
+
+rule kings_trust_team with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 40:
+a learning delivery is King's Trust TEAM
+    if the learning delivery is a core aim
+    and the learning delivery has a FAM of type a type with code "331"
+    and the upper case of the type is "LDM"
+    and the learning aim reference of the learning delivery is a reference
+    and the reference is in ["60023995", "60027307", "60027629", "60032121", "60032868", "60033344"]
+    and the learning delivery has a LARS validity as a LARS validity
+    and the category of the LARS validity is a category
+    and the upper case of the category is "1619_EFA"
+    and the validity start date of the LARS validity is a validity start
+    and the learning start date of the learning delivery is a start
+    and the start is after or equal to the validity start
+    and it is not the case that
+        the last date for new starts of the LARS validity is a last date
+        and the start is after the last date.
+
+rule english_grade_d with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 40:
+a learner has English GCSE grade D
+    if the GCSE English grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["D", "3"].
+
+rule maths_grade_d with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 40:
+a learner has maths GCSE grade D
+    if the GCSE maths grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["D", "3"].
+
+rule english_below_grade_d with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 40:
+a learner has English below GCSE grade D
+    if the GCSE English grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["E", "F", "G", "U", "X", "NONE", "2", "1"].
+
+rule maths_below_grade_d with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 41:
+a learner has maths below GCSE grade D
+    if the GCSE maths grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["E", "F", "G", "U", "X", "NONE", "2", "1"].
+
+% The list of rate bands that the rules of pages 41-47 repeat, row by row.
+rule tl_ft_4a_bands with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 41:
+the rate band of a learner is in the T level, full-time or band 4a bands
+    if the rate band of the learner is a band
+    and the band is in ["1730 hours (T level Band 9)", "1580 hours (T level Band 8 uplifted)", "1580 hours (T level Band 8)", "1380 hours (T level Band 7 uplifted)", "1380 hours (T level Band 7)", "1180 hours (T level Band 6 uplifted)", "1180 hours (T level Band 6)", "580 to 1179 hours (T level Band 5)", "580+ hours (Band 5)", "485+ hours (Band 4a)"].
+
+rule english_cof_validity with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 41:
+a learning delivery has a valid English condition of funding validity
+    if the number of LARS validity records of the learning delivery is a N
+    and N > 0
+    and the learning delivery has a LARS validity as a LARS validity
+    and the category of the LARS validity is a category
+    and the upper case of the category is "EFACONFUNDENGLISH"
+    and the validity start date of the LARS validity is a validity start
+    and the learning start date of the learning delivery is a start
+    and the start is after or equal to the validity start
+    and it is not the case that
+        the last date for new starts of the LARS validity is a last date
+        and the start is after the last date.
+
+rule maths_cof_validity with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 43:
+a learning delivery has a valid maths condition of funding validity
+    if the number of LARS validity records of the learning delivery is a N
+    and N > 0
+    and the learning delivery has a LARS validity as a LARS validity
+    and the category of the LARS validity is a category
+    and the upper case of the category is "EFACONFUNDMATHS"
+    and the validity start date of the LARS validity is a validity start
+    and the learning start date of the learning delivery is a start
+    and the start is after or equal to the validity start
+    and it is not the case that
+        the last date for new starts of the LARS validity is a last date
+        and the start is after the last date.
+
+% Pages 41-43 write this rule as four groups. The first ("both") is read as
+% joined to the others by "or", as in the maths rule of page 42.
+rule recognised_english_ecf with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 41:
+a learning delivery is a recognised GCSE English qualification for a learner
+    if the learner has the learning delivery
+    and the ECF FAM code of the learner is 4.
+
+rule recognised_english_validity with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 41:
+a learning delivery is a recognised GCSE English qualification for a learner
+    if the learner has the learning delivery
+    and the learning delivery is a valid start for CoF
+    and it is not the case that
+        the learner has English GCSE grade D
+        and the rate band of the learner is in the T level, full-time or band 4a bands
+    and the learning delivery has a valid English condition of funding validity.
+
+rule recognised_english_grade_d with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 41 and 42:
+a learning delivery is a recognised GCSE English qualification for a learner
+    if the learner has the learning delivery
+    and the learning delivery is a valid start for CoF
+    and the learner has English GCSE grade D
+    and the rate band of the learner is in the T level, full-time or band 4a bands
+    and the ESFA condition of funding type of the learning delivery is 1
+    and the learning delivery has a valid English condition of funding validity.
+
+rule recognised_english_team with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 42:
+a learning delivery is a recognised GCSE English qualification for a learner
+    if the learner has the learning delivery
+    and the learning delivery is a valid start for CoF
+    and it is not the case that
+        the learner has English GCSE grade D
+        and the rate band of the learner is in the T level, full-time or band 4a bands
+    and the learning delivery is King's Trust TEAM.
+
+rule recognised_maths_mcf with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 42:
+a learning delivery is a recognised GCSE maths qualification for a learner
+    if the learner has the learning delivery
+    and the MCF FAM code of the learner is 4.
+
+rule recognised_maths_validity with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 42 and 43:
+a learning delivery is a recognised GCSE maths qualification for a learner
+    if the learner has the learning delivery
+    and the learning delivery is a valid start for CoF
+    and it is not the case that
+        the learner has maths GCSE grade D
+        and the rate band of the learner is in the T level, full-time or band 4a bands
+    and the learning delivery has a valid maths condition of funding validity.
+
+rule recognised_maths_grade_d with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 43:
+a learning delivery is a recognised GCSE maths qualification for a learner
+    if the learner has the learning delivery
+    and the learning delivery is a valid start for CoF
+    and the learner has maths GCSE grade D
+    and the rate band of the learner is in the T level, full-time or band 4a bands
+    and the ESFA condition of funding type of the learning delivery is 1
+    and the learning delivery has a valid maths condition of funding validity.
+
+rule recognised_maths_team with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 43 and 44:
+a learning delivery is a recognised GCSE maths qualification for a learner
+    if the learner has the learning delivery
+    and the learning delivery is a valid start for CoF
+    and it is not the case that
+        the learner has maths GCSE grade D
+        and the rate band of the learner is in the T level, full-time or band 4a bands
+    and the learning delivery is King's Trust TEAM.
+
+rule english_exemption with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner is recognised as an English exemption
+    if the ECF FAM code of the learner is a code
+    and the code is in [1, 2].
+
+rule maths_exemption with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner is recognised as a maths exemption
+    if the MCF FAM code of the learner is a code
+    and the code is in [1, 2].
+
+rule fsl2_english with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner has Functional Skills Level 2 English
+    if the ECF FAM code of the learner is 5.
+
+rule fsl2_maths with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner has Functional Skills Level 2 maths
+    if the MCF FAM code of the learner is 5.
+
+rule cof_min_hours_english with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner has CoF minimum hours English
+    if the EMH FAM code of the learner is 1.
+
+rule cof_min_hours_maths with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner has CoF minimum hours maths
+    if the MMH FAM code of the learner is 1.
+
+rule cof_not_required_hours with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner is not required to meet the condition of funding
+    if the total planned hours of the learner is a H
+    and H <= 149.
+
+rule cof_not_required_age with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner is not required to meet the condition of funding
+    if the age at 31 August of the learner is an age
+    and the age <= 15.
+
+rule cof_not_required_t_level with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 44:
+a learner is not required to meet the condition of funding
+    if the latest programme of the learner is a T level
+    and the latest ESFA 16 to 19 T level programme aim start date of the learner is a start
+    and the start is before 2022-08-01.
+
+rule english_cof_status with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 45 and 46:
+the English condition of funding status of a learner is a status
+    if the learner is not required to meet the condition of funding
+    and the status is "Condition of Funding Does Not Apply"
+    otherwise the learner is recognised as an English exemption
+    and the status is "Exempt from the GCSE English A*-C or 9 to 4 requirement"
+    otherwise the learner has grade C or above English
+    and the learner has a learning delivery
+    and the learning delivery is a recognised GCSE English qualification for the learner
+    and the status is "Has English, Studying English"
+    otherwise the learner has grade C or above English
+    and the status is "Has English, Not Studying English"
+    otherwise the learner has English GCSE grade D
+    and the rate band of the learner is in the T level, full-time or band 4a bands
+    and it is not the case that
+        the learner has a second learning delivery
+        and the second learning delivery is a recognised GCSE English qualification for the learner
+        and the learner has CoF minimum hours English
+    and the status is "Has English GCSE Grade D or Grade 3, Not studying GCSE English"
+    otherwise the learner has English below GCSE grade D
+    and the learner has Functional Skills Level 2 English
+    and the status is "Has English below GCSE grade D or grade 3, holds English FSL2 pass"
+    otherwise it is not the case that the learner has grade C or above English
+    and the learner has a third learning delivery
+    and the third learning delivery is a recognised GCSE English qualification for the learner
+    and the learner has CoF minimum hours English
+    and the status is "Doesn't have English, Studying English"
+    otherwise the learner is a learner
+    and it is not the case that the learner has grade C or above English
+    and the status is "Doesn't have English, Not Studying English"
+    otherwise the learner is a learner
+    and the status is "".
+
+rule maths_cof_status with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 47 and 48:
+the maths condition of funding status of a learner is a status
+    if the learner is not required to meet the condition of funding
+    and the status is "Condition of Funding Does Not Apply"
+    otherwise the learner is recognised as a maths exemption
+    and the status is "Exempt from the GCSE Mathematics A*-C or 9 to 4 requirement"
+    otherwise the learner has grade C or above maths
+    and the learner has a learning delivery
+    and the learning delivery is a recognised GCSE maths qualification for the learner
+    and the status is "Has Maths, Studying Maths"
+    otherwise the learner has grade C or above maths
+    and the status is "Has Maths, Not Studying Maths"
+    otherwise the learner has maths GCSE grade D
+    and the rate band of the learner is in the T level, full-time or band 4a bands
+    and it is not the case that
+        the learner has a second learning delivery
+        and the second learning delivery is a recognised GCSE maths qualification for the learner
+        and the learner has CoF minimum hours maths
+    and the status is "Has Maths GCSE Grade D or Grade 3, Not studying GCSE Maths"
+    otherwise the learner has maths below GCSE grade D
+    and the learner has Functional Skills Level 2 maths
+    and the status is "Has Maths below GCSE grade D or grade 3, holds Maths FSL2 pass"
+    otherwise it is not the case that the learner has grade C or above maths
+    and the learner has a third learning delivery
+    and the third learning delivery is a recognised GCSE maths qualification for the learner
+    and the learner has CoF minimum hours maths
+    and the status is "Doesn't have Maths, Studying Maths"
+    otherwise the learner is a learner
+    and it is not the case that the learner has grade C or above maths
+    and the status is "Doesn't have Maths, Not Studying Maths"
+    otherwise the learner is a learner
+    and the status is "".
+
+rule number_of_lars_validities with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 48:
+the number of LARS validity records of a learning delivery is a number
+    if a learner has the learning delivery
+    and the number is the count of each LARS validity such that
+        the learning delivery has the LARS validity as a LARS validity.
+
+% ================================================================ national funding rate (pages 49-53)
+
+% The rows are tried in the order the rule table prints them.
+rule rate_band with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 50 and 51:
+the rate band of a learner is a band
+    if the learner is a T level student
+    and the T level funding band of the learner is "9"
+    and the total planned hours of the learner is a H1
+    and the learning hours threshold for "T Level band 9" students is a T1 under table hours_thresholds
+    and H1 >= T1
+    and the band is "1730 hours (T level Band 9)"
+    otherwise the learner is a T level student
+    and the T level funding band of the learner is "8 uplifted"
+    and the total planned hours of the learner is a H2
+    and the learning hours threshold for "T Level band 8 uplifted" students is a T2 under table hours_thresholds
+    and H2 >= T2
+    and the band is "1580 hours (T level Band 8 uplifted)"
+    otherwise the learner is a T level student
+    and the T level funding band of the learner is a B3
+    and B3 is in ["9", "8"]
+    and the total planned hours of the learner is a H3
+    and the learning hours threshold for "T Level band 8" students is a T3 under table hours_thresholds
+    and H3 >= T3
+    and the band is "1580 hours (T level Band 8)"
+    otherwise the learner is a T level student
+    and the T level funding band of the learner is a B4
+    and B4 is in ["8 uplifted", "7 uplifted"]
+    and the total planned hours of the learner is a H4
+    and the learning hours threshold for "T Level band 7 uplifted" students is a T4 under table hours_thresholds
+    and H4 >= T4
+    and the band is "1380 hours (T level Band 7 uplifted)"
+    otherwise the learner is a T level student
+    and the T level funding band of the learner is a B5
+    and B5 is in ["9", "8", "7"]
+    and the total planned hours of the learner is a H5
+    and the learning hours threshold for "T Level band 7" students is a T5 under table hours_thresholds
+    and H5 >= T5
+    and the band is "1380 hours (T level Band 7)"
+    otherwise the learner is a T level student
+    and the T level funding band of the learner is a B6
+    and B6 is in ["8 uplifted", "7 uplifted", "6 uplifted"]
+    and the total planned hours of the learner is a H6
+    and the learning hours threshold for "T Level band 6 uplifted" students is a T6 under table hours_thresholds
+    and H6 >= T6
+    and the band is "1180 hours (T level Band 6 uplifted)"
+    otherwise the learner is a T level student
+    and the T level funding band of the learner is a B7
+    and B7 is in ["9", "8", "7", "6"]
+    and the total planned hours of the learner is a H7
+    and the learning hours threshold for "T Level band 6" students is a T7 under table hours_thresholds
+    and H7 >= T7
+    and the band is "1180 hours (T level Band 6)"
+    otherwise the learner is a T level student
+    and the total planned hours of the learner is a H8
+    and the learning hours threshold for "T Level band 5" students is a T8 under table hours_thresholds
+    and H8 >= T8
+    and the band is "580 to 1179 hours (T level Band 5)"
+    otherwise the total planned hours of the learner is a H9
+    and the learning hours threshold for "full time" students is a T9 under table hours_thresholds
+    and H9 >= T9
+    and the learner is under 18 or HNS
+    and it is not the case that the learner is a T level student
+    and the band is "580+ hours (Band 5)"
+    otherwise the total planned hours of the learner is a H10
+    and the learning hours threshold for "part time band 4" students is a T10 under table hours_thresholds
+    and H10 >= T10
+    and the age at 31 August of the learner is a A10
+    and A10 >= 18
+    and it is not the case that the learner is HNS
+    and it is not the case that the learner is a T level student
+    and the band is "485+ hours (Band 4a)"
+    otherwise the total planned hours of the learner is a H11
+    and the learning hours threshold for "part time band 4" students is a T11 under table hours_thresholds
+    and H11 >= T11
+    and the band is "485 to 579 hours (Band 4b)"
+    otherwise the total planned hours of the learner is a H12
+    and the learning hours threshold for "part time band 3" students is a T12 under table hours_thresholds
+    and H12 >= T12
+    and the band is "385 to 484 hours (Band 3)"
+    otherwise the total planned hours of the learner is a H13
+    and the learning hours threshold for "part time band 2" students is a T13 under table hours_thresholds
+    and H13 >= T13
+    and the band is "300 to 384 hours (Band 2)"
+    otherwise the total planned hours of the learner is a H14
+    and the learning hours threshold for "part time band 1" students is a T14 under table hours_thresholds
+    and H14 >= T14
+    and the band is "Up to 299 hours (Band 1)"
+    otherwise the learner is a learner
+    and the band is "None".
+
+rule learner_is_hns with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 51:
+a learner is HNS
+    if the HNS FAM code of the learner is 1.
+
+rule learner_is_ehc with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 51:
+a learner is EHC
+    if the EHC FAM code of the learner is 1.
+
+% The "either" of the full-time row of page 51.
+rule under_18_or_hns_age with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 51:
+a learner is under 18 or HNS
+    if the age at 31 August of the learner is an age
+    and the age < 18.
+
+rule under_18_or_hns_hns with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 51:
+a learner is under 18 or HNS
+    if the learner is HNS.
+
+rule national_rate with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 52:
+the national rate of a learner is an amount
+    if the rate band of the learner is "1730 hours (T level Band 9)"
+    and the national rate for "T Level band 9" students is a R1 under table national_rates
+    and the amount = R1 / 2
+    otherwise the rate band of the learner is "1580 hours (T level Band 8 uplifted)"
+    and the national rate for "T Level band 8 uplifted" students is a R2 under table national_rates
+    and the amount = R2 / 2
+    otherwise the rate band of the learner is "1580 hours (T level Band 8)"
+    and the national rate for "T Level band 8" students is a R3 under table national_rates
+    and the amount = R3 / 2
+    otherwise the rate band of the learner is "1380 hours (T level Band 7 uplifted)"
+    and the national rate for "T Level band 7 uplifted" students is a R4 under table national_rates
+    and the amount = R4 / 2
+    otherwise the rate band of the learner is "1380 hours (T level Band 7)"
+    and the national rate for "T Level band 7" students is a R5 under table national_rates
+    and the amount = R5 / 2
+    otherwise the rate band of the learner is "1180 hours (T level Band 6 uplifted)"
+    and the national rate for "T Level band 6 uplifted" students is a R6 under table national_rates
+    and the amount = R6 / 2
+    otherwise the rate band of the learner is "1180 hours (T level Band 6)"
+    and the national rate for "T Level band 6" students is a R7 under table national_rates
+    and the amount = R7 / 2
+    otherwise the rate band of the learner is "580 to 1179 hours (T level Band 5)"
+    and the national rate for "T Level band 5" students is a R8 under table national_rates
+    and the amount = R8 / 2
+    otherwise the rate band of the learner is "580+ hours (Band 5)"
+    and the national rate for "full time" students is the amount under table national_rates
+    otherwise the rate band of the learner is a band 4
+    and the band 4 is in ["485+ hours (Band 4a)", "485 to 579 hours (Band 4b)"]
+    and the national rate for "part time band 4" students is the amount under table national_rates
+    otherwise the rate band of the learner is "385 to 484 hours (Band 3)"
+    and the national rate for "part time band 3" students is the amount under table national_rates
+    otherwise the rate band of the learner is "300 to 384 hours (Band 2)"
+    and the national rate for "part time band 2" students is the amount under table national_rates
+    otherwise the rate band of the learner is "Up to 299 hours (Band 1)"
+    and the national rate for "part time band 1 per FTE" students is a R14 under table national_rates
+    and the FTE of the learner is a F14
+    and the amount = R14 * F14
+    otherwise the learner is a learner
+    and the amount = 0.
+
+rule t_level_hours_amount with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 89:
+the T level hours amount of a learning delivery is a number
+    if the learning delivery has an hours record of type a type with code 2 and amount the number
+    and the upper case of the type is "HRS".
+
+rule total_planned_hours with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 53:
+the total planned hours of a learner is a number
+    if the latest programme of the learner is a T level
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery is an ESFA 16 to 19 T level programme aim
+    and the T level hours amount of the learning delivery is a known amount
+    and it is not the case that the learner is a 2021-2022 year or earlier T level starter
+    and the latest ESFA 16 to 19 T level programme aim sequence number of the learner is a S1
+    and the learner has a second learning delivery as an ESFA 16 to 19 T level programme aim
+    and the aim sequence number of the second learning delivery is S1
+    and the T level hours amount of the second learning delivery is the number
+    otherwise the latest programme of the learner is a T level
+    and the learner has a third learning delivery as an ESFA 16 to 19 learning delivery
+    and the third learning delivery is an ESFA 16 to 19 T level programme aim
+    and the T level hours amount of the third learning delivery is a second known amount
+    and the learner is a 2021-2022 year or earlier T level starter
+    and the latest ESFA 16 to 19 T level programme aim sequence number of the learner is a S2
+    and the learner has a fourth learning delivery as an ESFA 16 to 19 T level programme aim
+    and the aim sequence number of the fourth learning delivery is S2
+    and the T level hours amount of the fourth learning delivery is a TH
+    and the T level additional hours of the learner is a AH
+    and the number = TH + AH
+    otherwise the planned learning hours of the learner is a PLH
+    and the planned employability, enrichment and pastoral hours of the learner is a EEP
+    and the number = PLH + EEP
+    otherwise the planned learning hours of the learner is the number
+    otherwise the planned employability, enrichment and pastoral hours of the learner is the number
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule fte with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 53:
+the FTE of a learner is a number
+    if the total planned hours of the learner is a H
+    and the funded hours per FTE is a FH
+    and the number = H / FH.
+
+% ================================================================ uplifts and factors (pages 54-63)
+
+rule academic_flag with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 54:
+the academic flag of a learning delivery is a flag
+    if the learning delivery is an ESFA 16 to 19 T level programme aim
+    and the flag is false
+    otherwise the learning delivery is an ESFA 16 to 19 T level transition programme aim
+    and the flag is false
+    otherwise it is not the case that the learning aim reference type of the learning delivery is a known type
+    and the flag is false
+    otherwise the learning delivery is general studies or critical thinking
+    and the flag is false
+    otherwise the learning aim reference type of the learning delivery is a type 1
+    and the type 1 is in ["0001", "0002"]
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is a type 2
+    and the type 2 is in ["0003", "2999"]
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is "0016"
+    and the upper case awarding organisation code of the learning delivery is "IB"
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is "1401"
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is "0016"
+    and the learning aim reference of the learning delivery is a reference
+    and the reference is in ["60147830", "60147829", "60148573", "60149450"]
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is a type 3
+    and the type 3 is in ["1446", "1447"]
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is "1420"
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is a type 4
+    and the type 4 is in ["1440", "1460"]
+    and the flag is true
+    otherwise the learning aim reference type of the learning delivery is "1469"
+    and the flag is true
+    otherwise a learner has the learning delivery
+    and the flag is false.
+
+rule academic_aim with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 54:
+a learning delivery is an academic aim
+    if the academic flag of the learning delivery is true.
+
+rule upper_awarding_organisation with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 54:
+the upper case awarding organisation code of a learning delivery is a code
+    if the awarding organisation code of the learning delivery is an original code
+    and the upper case of the original code is the code.
+
+rule general_studies with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 55:
+a learning delivery is general studies or critical thinking
+    if the learning aim reference title of the learning delivery is a title
+    and the title contains "General Studies"
+    and the learning aim reference type of the learning delivery is a type
+    and the type is in ["0001", "0002"].
+
+rule critical_thinking with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 55:
+a learning delivery is general studies or critical thinking
+    if the learning aim reference title of the learning delivery is a title
+    and the title contains "Critical Thinking"
+    and the learning aim reference type of the learning delivery is a type
+    and the type is in ["0001", "0002"].
+
+rule psychology with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 55:
+a learning delivery is a psychology aim
+    if the learning aim reference title of the learning delivery is a title
+    and the title contains "Psychology".
+
+rule psychology_lower with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 55:
+a learning delivery is a psychology aim
+    if the learning aim reference title of the learning delivery is a title
+    and the title contains "psychology".
+
+rule studying_academic with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 55:
+a learner is studying an academic programme
+    if the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning delivery is an academic aim.
+
+rule new_retention_status with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 56 and 57:
+the new retention status of a learner is a number
+    if the learner is a learner
+    and it is not the case that the learner is a start
+    and the number = 0
+    otherwise the learner is studying an academic programme
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery is an academic aim
+    and the completion status of the learning delivery is a status
+    and the status is in [1, 2, 6]
+    and the number = 1
+    otherwise the learner is studying an academic programme
+    and the learner has a second learning delivery as an ESFA 16 to 19 learning delivery
+    and the second learning delivery is an academic aim
+    and the completion status of the second learning delivery is 3
+    and the withdrawal reason of the second learning delivery is a reason
+    and the reason is in [2, 7, 47]
+    and the number = 1
+    otherwise the learner is studying an academic programme
+    and the learner has a third learning delivery as an ESFA 16 to 19 learning delivery
+    and the third learning delivery is an academic aim
+    and the completion status of the third learning delivery is 3
+    and the withdrawal reason of the third learning delivery is a second reason
+    and the planned duration of the third learning delivery is a PD3
+    and PD3 >= 18
+    and the learning start date of the third learning delivery is a start
+    and the first day of the current funding year is a first day
+    and the start is after or equal to the first day
+    and the learning actual end date of the third learning delivery is an end
+    and the two year programme first year end date is a year end
+    and the end is after or equal to the year end
+    and the number = 1
+    otherwise it is not the case that the learner is studying an academic programme
+    and the latest core aim sequence number of the learner is a core sequence
+    and the learner has a fourth learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the fourth learning delivery is the core sequence
+    and the completion status of the fourth learning delivery is a second status
+    and the second status is in [1, 2, 6]
+    and the number = 1
+    otherwise it is not the case that the learner is studying an academic programme
+    and the latest core aim sequence number of the learner is a second core sequence
+    and the learner has a fifth learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the fifth learning delivery is the second core sequence
+    and the completion status of the fifth learning delivery is 3
+    and the withdrawal reason of the fifth learning delivery is a third reason
+    and the third reason is in [2, 7, 47]
+    and the number = 1
+    otherwise it is not the case that the learner is studying an academic programme
+    and the latest core aim sequence number of the learner is a third core sequence
+    and the learner has a sixth learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the sixth learning delivery is the third core sequence
+    and the completion status of the sixth learning delivery is 3
+    and the withdrawal reason of the sixth learning delivery is a fourth reason
+    and the planned duration of the sixth learning delivery is a PD6
+    and PD6 >= 18
+    and the learning start date of the sixth learning delivery is a second start
+    and the first day of the current funding year is a second first day
+    and the second start is after or equal to the second first day
+    and the learning actual end date of the sixth learning delivery is a second end
+    and the two year programme first year end date is a second year end
+    and the second end is after or equal to the second year end
+    and the number = 1
+    otherwise the learner is a learner
+    and the number = 0.5.
+
+% MonthDifference(start, planned end): the number of whole months between them.
+rule planned_duration with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 72:
+the planned duration of a learning delivery is a number
+    if the learning start date of the learning delivery is a start
+    and the learning planned end date of the learning delivery is an end
+    and the number of whole months from the start to the end is the number.
+
+rule historic_retention with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 58:
+the provider's historic retention factor is a number
+    if the provider's retention factor is the number
+    otherwise the number = 0.
+
+rule new_programme_weighting_stage_1 with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 58:
+the new programme weighting stage 1 of a learner is a number
+    if the number of core aim records of the learner is a N
+    and N > 0
+    and the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the programme weighting of the learning delivery is the number
+    otherwise the learner is a learner
+    and the number = 1.
+
+rule new_programme_weighting with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 59:
+the new programme weighting of a learner is a number
+    if the latest programme of the learner is a T level
+    and the T level PCW of the learner is the number
+    otherwise the latest programme of the learner is a transition programme
+    and the national T level transition programme PCW of the learner is the number
+    otherwise the new programme weighting stage 1 of the learner is 1
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery is King's Trust TEAM
+    and the number = 1.44
+    otherwise the new programme weighting stage 1 of the learner is the number.
+
+rule a_level_uplift with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 59:
+a learning delivery is an A level aim attracting uplift
+    if the learning delivery has a LARS category with reference 64
+    and the funding model of the learning delivery is 25.
+
+rule a_level_uplift_count with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 59:
+the count of A level learning aims attracting uplift of a learner is a number
+    if the learner is a learner
+    and the number is the count of each learning delivery such that
+        the learner has the learning delivery
+        and the learning delivery is an A level aim attracting uplift.
+
+rule low_pcw_academic with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 59:
+a learner meets the low PCW criteria
+    if the learner is studying an academic programme
+    and the count of A level learning aims attracting uplift of the learner is a N
+    and N > 1.
+
+rule low_pcw_vocational with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 59:
+a learner meets the low PCW criteria
+    if the learner is a learner
+    and it is not the case that the learner is studying an academic programme
+    and the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the sector subject area tier 2 of the learning delivery is a SSA
+    and SSA is in [1.1, 1.2].
+
+rule low_pcw_vocational_science with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 59:
+a learner meets the low PCW criteria
+    if the learner is a learner
+    and it is not the case that the learner is studying an academic programme
+    and the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the sector subject area tier 2 of the learning delivery is 2.1
+    and it is not the case that the learning delivery is a psychology aim.
+
+rule learning_delivery_programme_weighting with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 60:
+the programme weighting of a learning delivery is a number
+    if a learner has the learning delivery
+    and the learner meets the low PCW criteria
+    and the number = 1.15
+    otherwise a second learner has the learning delivery
+    and the second learner is studying an academic programme
+    and the number = 1
+    otherwise a learner has the learning delivery
+    and it is not the case that the sector subject area tier 2 of the learning delivery is a known area
+    and the number = 1
+    otherwise the sector subject area tier 2 of the learning delivery is a SSA1
+    and SSA1 is in [3.1, 3.2, 3.3]
+    and the count of postcode specialist resource records of the learning delivery is a C1
+    and C1 > 0
+    and the learning delivery has a specialist resource postcode
+    and the number = 2.09
+    otherwise the sector subject area tier 2 of the learning delivery is a SSA2
+    and SSA2 is in [3.1, 3.2, 3.3]
+    and the count of postcode specialist resource records of the learning delivery is 0
+    and the provider has specialist resources
+    and the number = 2.09
+    otherwise the sector subject area tier 2 of the learning delivery is a SSA3
+    and SSA3 is in [4.1, 4.2, 4.3, 5.2]
+    and the number = 1.73
+    otherwise the sector subject area tier 2 of the learning delivery is a SSA4
+    and SSA4 is in [3.1, 3.2, 3.3, 3.4]
+    and the number = 1.58
+    otherwise the sector subject area tier 2 of the learning delivery is a SSA5
+    and SSA5 is in [7.4, 6.1]
+    and the number = 1.44
+    otherwise the sector subject area tier 2 of the learning delivery is a SSA6
+    and SSA6 is in [5.1, 5.3, 7.1, 7.3, 9.1, 9.2, 13.1, 13.2]
+    and the number = 1.29
+    otherwise a third learner has the learning delivery
+    and the number = 1.
+
+rule historic_programme_weighting with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 61:
+the provider's historic programme weighting is a number
+    if the provider's programme weighting is the number
+    otherwise the number = 0.
+
+rule historic_area_cost with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 61:
+the provider's historic 16 to 18 area cost factor is a number
+    if the provider's 16 to 18 area cost factor is the number
+    otherwise the number = 0.
+
+rule large_programme_proportion with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 61:
+the provider's large programme proportion is a number
+    if the provider's historic large programme proportion is the number
+    otherwise the number = 0.
+
+% TemporalFromRange and ValueAt (page 81): the value of the record whose range,
+% from its effective from date up to the day after its effective to date (the
+% end not included), contains the first day of the year.
+rule record_in_force with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 62:
+a record is in force on the first day of the current funding year
+    if the effective from date of the record is a from date
+    and the first day of the current funding year is a first day
+    and the first day is after or equal to the from date
+    and it is not the case that
+        the effective to date of the record is a to date
+        and the first day is after the to date.
+
+% Page 62 tests the reference data against its "applicable effective to
+% date", the day after its effective to date, with "on or earlier than": a
+% record whose effective to date is 31 July 2026 still applies on 1 August.
+rule postcode_record_applies with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 62:
+a record applies on the first day of the current funding year
+    if the effective from date of the record is a from date
+    and the first day of the current funding year is a first day
+    and the first day is after or equal to the from date
+    and it is not the case that
+        the effective to date of the record is a to date
+        and a day after is 1 days after the to date
+        and the first day is after the day after.
+
+rule postcode_record_for_delivery with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 62:
+a record is a postcode specialist resource record for a learning delivery
+    if the record is a postcode specialist resource record
+    and the postcode of the record is a postcode
+    and the delivery location postcode of the learning delivery is the postcode
+    and the record applies on the first day of the current funding year.
+
+% As printed, the count is of the records in force on the first day of the
+% year, whatever their postcode (page 62).
+rule postcode_record_count with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 62:
+the count of postcode specialist resource records of a learning delivery is a number
+    if a learner has the learning delivery
+    and the number is the count of each record such that
+        the record is a postcode specialist resource record
+        and the record applies on the first day of the current funding year.
+
+rule specialist_resource_postcode with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 60 and 62:
+a learning delivery has a specialist resource postcode
+    if a record is a postcode specialist resource record for the learning delivery
+    and the specialist resources of the record is "Y".
+
+rule latest_delivery_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 63:
+the latest learning delivery start date of a learner is a date
+    if the learner has a learning delivery
+    and the learning start date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery
+        and the learning start date of the second learning delivery is a second date
+        and the second date is after the date.
+
+% ================================================================ disadvantage (pages 64-65)
+
+rule block_1_uplift with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 64:
+the new block 1 disadvantage uplift of a learner is a number
+    if the postcode disadvantage uplift of the learner is the number
+    otherwise the learner is a learner
+    and the number = 1.
+
+rule no_english_by_year_11 with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 64:
+a learner does not have grade C or above English by year 11
+    if the EDF FAM code 1 of the learner is 2.
+
+rule no_english_by_year_11_second with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 64:
+a learner does not have grade C or above English by year 11
+    if the EDF FAM code 2 of the learner is 2.
+
+rule no_maths_by_year_11 with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 64:
+a learner does not have grade C or above maths by year 11
+    if the EDF FAM code 1 of the learner is 1.
+
+rule no_maths_by_year_11_second with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 64:
+a learner does not have grade C or above maths by year 11
+    if the EDF FAM code 2 of the learner is 1.
+
+rule block_2_elements with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 64:
+the new block 2 disadvantage elements of a learner is a number
+    if the learner is a learner
+    and it is not the case that the learner does not have grade C or above English by year 11
+    and it is not the case that the learner does not have grade C or above maths by year 11
+    and the number = 0
+    otherwise the learner is a learner
+    and it is not the case that the learner does not have grade C or above English by year 11
+    and the number = 1
+    otherwise the learner is a learner
+    and it is not the case that the learner does not have grade C or above maths by year 11
+    and the number = 1
+    otherwise the learner is a learner
+    and the number = 2.
+
+rule historic_disadvantage with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 65:
+the provider's historic disadvantage proportion is a number
+    if the provider's disadvantage proportion is the number
+    otherwise the number = 0.
+
+% ================================================================ English and maths funding (pages 66-67)
+
+rule english_d_or_below with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 66:
+a learner has English GCSE grade D or below
+    if the GCSE English grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["D", "E", "F", "G", "U", "X", "NONE", "3", "2", "1"]
+    and it is not the case that
+        the ECF FAM code of the learner is a code
+        and the code is in [2, 3].
+
+rule maths_d_or_below with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 66:
+a learner has maths GCSE grade D or below
+    if the GCSE maths grade of the learner is a grade
+    and the upper case of the grade is an upper grade
+    and the upper grade is in ["D", "E", "F", "G", "U", "X", "NONE", "3", "2", "1"]
+    and it is not the case that
+        the MCF FAM code of the learner is a code
+        and the code is in [2, 3].
+
+rule english_exempt_ld with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 66:
+a learner is exempt from GCSE English condition of funding due to a learning difficulty or prior attainment
+    if the learner is a learner
+    and it is not the case that
+        the ECF FAM code of the learner is a code
+        and it is not the case that the code is in [1, 4, 5].
+
+rule maths_exempt_ld with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 67:
+a learner is exempt from GCSE maths condition of funding due to a learning difficulty or prior attainment
+    if the learner is a learner
+    and it is not the case that
+        the MCF FAM code of the learner is a code
+        and it is not the case that the code is in [1, 4, 5].
+
+rule english_instance with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 67:
+a learner has an English instance
+    if the learner has English GCSE grade D or below
+    and the learner is exempt from GCSE English condition of funding due to a learning difficulty or prior attainment
+    and the English condition of funding status of the learner is a status
+    and the upper case of the status is an upper status
+    and the upper status is different from "HAS ENGLISH BELOW GCSE GRADE D OR GRADE 3, HOLDS ENGLISH FSL2 PASS"
+    and the total planned hours of the learner is a H
+    and H >= 150.
+
+rule maths_instance with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 67:
+a learner has a maths instance
+    if the learner has maths GCSE grade D or below
+    and the learner is exempt from GCSE maths condition of funding due to a learning difficulty or prior attainment
+    and the maths condition of funding status of the learner is a status
+    and the upper case of the status is an upper status
+    and the upper status is different from "HAS MATHS BELOW GCSE GRADE D OR GRADE 3, HOLDS MATHS FSL2 PASS"
+    and the total planned hours of the learner is a H
+    and H >= 150.
+
+rule english_maths_instances with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 67:
+the English and maths instances of a learner is a number
+    if the learner has an English instance
+    and the learner has a maths instance
+    and the number = 2
+    otherwise the learner has an English instance
+    and the number = 1
+    otherwise the learner has a maths instance
+    and the number = 1
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule historic_english_maths with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 67:
+the provider's historic English and maths proportion is a number
+    if the provider's English and maths proportion is the number
+    otherwise the number = 0.
+
+% ================================================================ date rules (pages 69-72)
+
+rule summer_school with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 69:
+a learner is a summer school student
+    if the age at 31 August of the learner is an age
+    and the age <= 15
+    and the start date of the learner is a date
+    and the 1st June of the current funding year is a June date
+    and the date is after or equal to the June date.
+
+rule learner_is_a_start_t_level with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 69:
+a learner is a start
+    if the learner is a T level student
+    and it is not the case that the learner is a summer school student
+    and the funding line type of the learner is a funding line type
+    and the funding line type is different from "Unknown"
+    and the qualifying period in days of the learner is a QP
+    and QP > 0
+    and the actual number of days this funding year of the learner is a AD
+    and AD >= QP
+    and it is not the case that
+        the learner is a year 3+ T level student
+        and it is not the case that the learner is repeating up to one full final year of T level.
+
+rule learner_is_a_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 69:
+a learner is a start
+    if the learner is a learner
+    and it is not the case that the learner is a T level student
+    and it is not the case that the learner is a summer school student
+    and the funding line type of the learner is a funding line type
+    and the funding line type is different from "Unknown"
+    and the qualifying period in days of the learner is a QP
+    and QP > 0
+    and the actual number of days this funding year of the learner is a AD
+    and AD >= QP.
+
+rule qualifying_period with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 70:
+the qualifying period in days of a learner is a number
+    if the total planned hours of the learner is a H
+    and the learning hours threshold for "part time band 4" students is a T under table hours_thresholds
+    and H >= T
+    and the planned number of days this funding year of the learner is a PD1
+    and PD1 >= 14
+    and the number = 42
+    otherwise the planned number of days this funding year of the learner is a PD2
+    and PD2 >= 168
+    and the number = 42
+    otherwise the planned number of days this funding year of the learner is a PD3
+    and PD3 >= 14
+    and the number = 14
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule planned_days with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 70:
+the planned number of days this funding year of a learner is a number
+    if the start date this year of the learner is a start
+    and the planned end date this year of the learner is an end
+    and the end is after or equal to the start
+    and the end is a D days after the start
+    and the number = D + 1
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule actual_days with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 70:
+the actual number of days this funding year of a learner is a number
+    if the start date this year of the learner is a start
+    and the actual end date this year of the learner is an end
+    and the end is after or equal to the start
+    and the end is a D days after the start
+    and the number = D + 1
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule learner_start_date with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 70:
+the start date of a learner is a date
+    if the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning start date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as an ESFA 16 to 19 learning delivery
+        and the learning start date of the second learning delivery is a second date
+        and the second date is before the date.
+
+rule start_date_this_year_as_computed with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the start date this year of a learner is a date as computed
+    if the actual end date of the learner is an end
+    and the first day of the current funding year is a first day
+    and the end is before the first day
+    and the date = uncertain
+    otherwise the start date of the learner is a start
+    and the first day of the current funding year is a second first day
+    and the start is before the second first day
+    and the date = the second first day
+    otherwise the start date of the learner is a second start
+    and the last day of the current funding year is a last day
+    and the second start is before or equal to the last day
+    and the date = the second start.
+
+rule start_date_this_year with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the start date this year of a learner is a date
+    if the start date this year of the learner is the date as computed
+    and the date is different from uncertain.
+
+rule learner_planned_end_date with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the planned end date of a learner is a date
+    if the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning planned end date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as an ESFA 16 to 19 learning delivery
+        and the learning planned end date of the second learning delivery is a second date
+        and the second date is after the date.
+
+rule planned_end_date_this_year_as_computed with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the planned end date this year of a learner is a date as computed
+    if the start date of the learner is a start
+    and the last day of the current funding year is a last day
+    and the start is after the last day
+    and the date = uncertain
+    otherwise the planned end date of the learner is an end
+    and the last day of the current funding year is a second last day
+    and the end is after the second last day
+    and the date = the second last day
+    otherwise the planned end date of the learner is a second end
+    and the first day of the current funding year is a first day
+    and the second end is after or equal to the first day
+    and the date = the second end.
+
+rule planned_end_date_this_year with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the planned end date this year of a learner is a date
+    if the planned end date this year of the learner is the date as computed
+    and the date is different from uncertain.
+
+rule adjusted_actual_end_date with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the adjusted actual end date of a learning delivery is a date
+    if the learning actual end date of the learning delivery is the date
+    otherwise the learning planned end date of the learning delivery is the date.
+
+rule learner_actual_end_date with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 71:
+the actual end date of a learner is a date
+    if the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the adjusted actual end date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as an ESFA 16 to 19 learning delivery
+        and the adjusted actual end date of the second learning delivery is a second date
+        and the second date is after the date.
+
+rule actual_end_date_this_year_as_computed with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 72:
+the actual end date this year of a learner is a date as computed
+    if the start date of the learner is a start
+    and the last day of the current funding year is a last day
+    and the start is after the last day
+    and the date = uncertain
+    otherwise the actual end date of the learner is an end
+    and the last day of the current funding year is a second last day
+    and the end is after the second last day
+    and the date = the second last day
+    otherwise the actual end date of the learner is a second end
+    and the first day of the current funding year is a first day
+    and the second end is after or equal to the first day
+    and the date = the second end.
+
+rule actual_end_date_this_year with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 72:
+the actual end date this year of a learner is a date
+    if the actual end date this year of the learner is the date as computed
+    and the date is different from uncertain.
+
+rule payment_period with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 72:
+the payment period of a learner is a number
+    if the learner is a start
+    and the start date this year of the learner is a start date
+    and the month of the start date is a M1
+    and M1 <= 7
+    and the number = M1 + 5
+    otherwise the learner is a start
+    and the start date this year of the learner is a second start date
+    and the month of the second start date is a M2
+    and M2 >= 8
+    and the number = M2 - 7
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule learner_age with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 72:
+the age at 31 August of a learner is a number
+    if the date of birth of the learner is a birth date
+    and the age on 2026-08-31 of someone born on the birth date is the number.
+
+% ================================================================ date rules for the condition of funding (pages 73-74)
+
+rule delivery_is_a_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 73:
+a learning delivery counts as a start
+    if the aim qualifying period in days of the learning delivery is a QP
+    and QP > 0
+    and the actual number of days of the learning delivery is a AD
+    and AD >= QP.
+
+rule valid_start_for_cof with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 73:
+a learning delivery is a valid start for CoF
+    if the learning delivery counts as a start.
+
+rule delivery_qualifying_period with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 73:
+the aim qualifying period in days of a learning delivery is a number
+    if the planned number of days of the learning delivery is a PD1
+    and PD1 >= 168
+    and the number = 42
+    otherwise the planned number of days of the learning delivery is a PD2
+    and PD2 >= 14
+    and the number = 14
+    otherwise a learner has the learning delivery
+    and the number = 0.
+
+rule delivery_planned_days with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 73:
+the planned number of days of a learning delivery is a number
+    if the learning start date of the learning delivery is a start
+    and the aim planned end date this year of the learning delivery is an end
+    and the end is after or equal to the start
+    and the end is a D days after the start
+    and the number = D + 1
+    otherwise a learner has the learning delivery
+    and the number = 0.
+
+rule delivery_actual_days with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 73:
+the actual number of days of a learning delivery is a number
+    if the learning start date of the learning delivery is a start
+    and the adjusted actual end date of the learning delivery is an end
+    and the end is after or equal to the start
+    and the end is a D days after the start
+    and the number = D + 1
+    otherwise a learner has the learning delivery
+    and the number = 0.
+
+rule delivery_planned_end_this_year_as_computed with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 74:
+the aim planned end date this year of a learning delivery is a date as computed
+    if the learning start date of the learning delivery is a start
+    and the last day of the current funding year is a last day
+    and the start is after the last day
+    and the date = uncertain
+    otherwise the learning planned end date of the learning delivery is an end
+    and the last day of the current funding year is a second last day
+    and the end is after the second last day
+    and the date = the second last day
+    otherwise the learning planned end date of the learning delivery is the date.
+
+rule delivery_planned_end_this_year with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 74:
+the aim planned end date this year of a learning delivery is a date
+    if the aim planned end date this year of the learning delivery is the date as computed
+    and the date is different from uncertain.
+
+% ================================================================ ESFA 16-19 and core aim selection (pages 75-76)
+
+rule core_aim with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 75:
+a learning delivery is a core aim
+    if the aim type of the learning delivery is 5.
+
+rule learner_core_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 75:
+a learner has a learning delivery as a core aim
+    if the learner has the learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery is a core aim.
+
+rule number_of_core_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 75:
+the number of core aim records of a learner is a number
+    if the learner is a learner
+    and the number is the count of each learning delivery such that
+        the learner has the learning delivery as a core aim.
+
+rule latest_core_aim_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 75:
+the latest core aim start date of a learner is a date
+    if the learner has a learning delivery as a core aim
+    and the learning start date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as a core aim
+        and the learning start date of the second learning delivery is a second date
+        and the second date is after the date.
+
+rule latest_tq_core_aim_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 75:
+the latest T level TQ core aim start date of a learner is a date
+    if the learner is a T level student
+    and the learner has a learning delivery as a core aim
+    and the learning aim reference type of the learning delivery is "1468"
+    and the learning start date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as a core aim
+        and the learning aim reference type of the second learning delivery is "1468"
+        and the learning start date of the second learning delivery is a second date
+        and the second date is after the date.
+
+rule latest_core_aim_sequence with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 76:
+the latest core aim sequence number of a learner is a number
+    if the learner is a T level student
+    and the latest T level TQ core aim start date of the learner is a TQ date
+    and the number is the max of each sequence such that
+        the learner has a learning delivery as a core aim
+        and the learning start date of the learning delivery is the TQ date
+        and the aim sequence number of the learning delivery is the sequence
+    otherwise the latest core aim start date of the learner is a core date
+    and the number is the max of each second sequence such that
+        the learner has a second learning delivery as a core aim
+        and the learning start date of the second learning delivery is the core date
+        and the aim sequence number of the second learning delivery is the second sequence
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule esfa_learning_delivery with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 76:
+a learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    if the learner has the learning delivery
+    and the funding model of the learning delivery is 25.
+
+% ================================================================ T levels (pages 77-89)
+
+rule latest_core_aim_is_t_level with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 77:
+the latest core aim of a learner is a T level programme
+    if the latest core aim start date of the learner is a date
+    and the learner has a learning delivery as a core aim
+    and the programme type of the learning delivery is 31
+    and the learning start date of the learning delivery is the date.
+
+rule t_level_student with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 77:
+a learner is a T level student
+    if the latest core aim of the learner is a T level programme.
+
+rule latest_programme_t_level with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 77:
+the latest programme of a learner is a T level
+    if the latest core aim of the learner is a T level programme.
+
+rule t_level_programme_aim with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 77:
+a learning delivery is an ESFA 16 to 19 T level programme aim
+    if the programme type of the learning delivery is 31
+    and the aim type of the learning delivery is 1.
+
+rule learner_t_level_programme_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 77:
+a learner has a learning delivery as an ESFA 16 to 19 T level programme aim
+    if the learner has the learning delivery
+    and the learning delivery is an ESFA 16 to 19 T level programme aim
+    and the learner is a T level student.
+
+rule number_of_t_level_programme_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 77:
+the number of ESFA 16 to 19 T level programme aim records of a learner is a number
+    if the learner is a learner
+    and the number is the count of each learning delivery such that
+        the learner has the learning delivery as an ESFA 16 to 19 T level programme aim.
+
+rule latest_t_level_programme_aim_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 78:
+the latest ESFA 16 to 19 T level programme aim start date of a learner is a date
+    if the learner has a learning delivery as an ESFA 16 to 19 T level programme aim
+    and the learning start date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as an ESFA 16 to 19 T level programme aim
+        and the learning start date of the second learning delivery is a second date
+        and the second date is after the date.
+
+rule latest_t_level_programme_aim_sequence with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 78:
+the latest ESFA 16 to 19 T level programme aim sequence number of a learner is a number
+    if the latest ESFA 16 to 19 T level programme aim start date of the learner is a date
+    and the number is the max of each sequence such that
+        the learner has a learning delivery as an ESFA 16 to 19 T level programme aim
+        and the learning start date of the learning delivery is the date
+        and the aim sequence number of the learning delivery is the sequence
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule latest_programme_aim_sequence with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 78:
+the latest programme aim sequence number of a learner is a number
+    if the latest ESFA 16 to 19 T level programme aim sequence number of the learner is the number.
+
+% "earlier than the date 1 year before the first day of the current funding year"
+rule year_3_plus with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 79:
+a learner is a year 3+ T level student
+    if the latest ESFA 16 to 19 T level programme aim start date of the learner is a start
+    and the start is before 2025-08-01
+    and the learner is a T level student.
+
+rule early_t_level_starter with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 79:
+a learner is a 2021-2022 year or earlier T level starter
+    if the latest ESFA 16 to 19 T level programme aim start date of the learner is a start
+    and the start is before or equal to 2022-07-31
+    and the learner is a T level student.
+
+rule transition_programme_aim with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 79:
+a learning delivery is an ESFA 16 to 19 T level transition programme aim
+    if the programme type of the learning delivery is 30
+    and the aim type of the learning delivery is 1.
+
+rule learner_transition_programme_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 79:
+a learner has a learning delivery as an ESFA 16 to 19 T level transition programme aim
+    if the learner has the learning delivery
+    and the learning delivery is an ESFA 16 to 19 T level transition programme aim.
+
+rule number_of_transition_programme_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 79:
+the number of ESFA 16 to 19 T level transition programme aim records of a learner is a number
+    if the learner is a learner
+    and the number is the count of each learning delivery such that
+        the learner has the learning delivery as an ESFA 16 to 19 T level transition programme aim.
+
+rule latest_transition_aim_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 80:
+the latest ESFA 16 to 19 T level transition programme aim start date of a learner is a date
+    if the learner has a learning delivery as an ESFA 16 to 19 T level transition programme aim
+    and the learning start date of the learning delivery is the date
+    and it is not the case that
+        the learner has a second learning delivery as an ESFA 16 to 19 T level transition programme aim
+        and the learning start date of the second learning delivery is a second date
+        and the second date is after the date.
+
+rule latest_transition_aim_sequence with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 80:
+the latest ESFA 16 to 19 T level transition programme aim sequence number of a learner is a number
+    if the latest ESFA 16 to 19 T level transition programme aim start date of the learner is a date
+    and the number is the max of each sequence such that
+        the learner has a learning delivery as an ESFA 16 to 19 T level transition programme aim
+        and the learning start date of the learning delivery is the date
+        and the aim sequence number of the learning delivery is the sequence
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule latest_programme_transition with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 80:
+the latest programme of a learner is a transition programme
+    if the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the programme type of the learning delivery is 30.
+
+rule transition_student with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 80:
+a learner is a transition student
+    if the latest programme of the learner is a transition programme.
+
+rule applicable_t_level_funding_band with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 81:
+the applicable T level funding band of a learning delivery is a band
+    if the learning delivery has a funding record as a LARS programme funding record
+    and the funding record is in force on the first day of the current funding year
+    and the funding band of the funding record is the band.
+
+rule t_level_funding_band_stage_1 with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 81:
+the T level funding band stage 1 of a learner is a band
+    if the latest T level OS aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the applicable T level funding band of the learning delivery is the band.
+
+rule t_level_funding_band with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 81:
+the T level funding band of a learner is a band
+    if the T level funding band stage 1 of the learner is the band
+    and the band is in ["9", "8", "7", "6", "5", "8 uplifted", "7 uplifted", "6 uplifted"]
+    otherwise the learner is a T level student
+    and the band is "5"
+    otherwise the learner is a learner
+    and the band is "0".
+
+rule applicable_t_level_pcw with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 81:
+the applicable T level PCW of a learning delivery is a number
+    if the learning delivery has a funding record as a LARS programme funding record
+    and the funding record is in force on the first day of the current funding year
+    and the PCW of the funding record is the number.
+
+rule t_level_pcw_stage_1 with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 82:
+the T level PCW stage 1 of a learner is a number
+    if the latest T level OS aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the applicable T level PCW of the learning delivery is the number.
+
+rule t_level_pcw with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 82:
+the T level PCW of a learner is a number
+    if the learner is a T level student
+    and the latest T level OS aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning aim reference of the learning delivery is a reference
+    and the count of postcode specialist resource records of the learning delivery is a C1
+    and C1 > 0
+    and the learning delivery has a specialist resource postcode
+    and the learning delivery has a funding record as a LARS programme funding record
+    and the programme code of the funding record is a code
+    and the code is in [52, 56]
+    and the number = 2.09
+    otherwise the learner is a T level student
+    and the provider has specialist resources
+    and the latest T level OS aim sequence number of the learner is a second sequence
+    and the learner has a second learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the second learning delivery is the second sequence
+    and the learning aim reference of the second learning delivery is a second reference
+    and the count of postcode specialist resource records of the second learning delivery is 0
+    and the second learning delivery has a second funding record as a LARS programme funding record
+    and the programme code of the second funding record is a second code
+    and the second code is in [52, 56]
+    and the number = 2.09
+    otherwise the T level PCW stage 1 of the learner is a PCW
+    and PCW > 0
+    and the number = PCW
+    otherwise the learner is a T level student
+    and the number = 1
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule t_level_additional_hours with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 83:
+the T level additional hours of a learner is a number
+    if the learner is a 2021-2022 year or earlier T level starter
+    and the number = 40
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule repeating_final_year with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 83:
+a learner is repeating up to one full final year of T level
+    if the learner is a T level student
+    and the NLM FAM code 1 of the learner is 22.
+
+rule repeating_final_year_second with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 83:
+a learner is repeating up to one full final year of T level
+    if the learner is a T level student
+    and the NLM FAM code 2 of the learner is 22.
+
+% The ZTPR0012 row of page 86 prints its last condition outside the "for at
+% least one" above it; it is read here as inside, like the rows before it.
+rule national_transition_pcw with provenance DfE 16 to 19 funding calculation 2026 to 2027 at pages 84 to 86:
+the national T level transition programme PCW of a learner is a number
+    if the latest programme of the learner is a transition programme
+    and the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning aim reference of the learning delivery is "ZTPR0001"
+    and the count of postcode specialist resource records of the learning delivery is a C1
+    and C1 > 0
+    and the learning delivery has a specialist resource postcode
+    and the number = 2.09
+    otherwise the latest programme of the learner is a transition programme
+    and the provider has specialist resources
+    and the latest core aim sequence number of the learner is a second sequence
+    and the learner has a second learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the second learning delivery is the second sequence
+    and the learning aim reference of the second learning delivery is "ZTPR0001"
+    and the count of postcode specialist resource records of the second learning delivery is 0
+    and the number = 2.09
+    otherwise the latest programme of the learner is a transition programme
+    and the latest core aim sequence number of the learner is a third sequence
+    and the learner has a third learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the third learning delivery is the third sequence
+    and the learning aim reference of the third learning delivery is a reference
+    and the national PCW for the reference is the number under table national_pcw
+    otherwise the learner is a learner
+    and the number = 1.
+
+rule t_level_os_aim with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 87:
+a learning delivery is a T level OS aim
+    if the programme type of the learning delivery is 31
+    and the learning aim reference of the learning delivery is a reference
+    and the reference contains "ZTLOS".
+
+rule learner_t_level_os_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 87:
+a learner has a learning delivery as a T level OS aim
+    if the learner has the learning delivery as an ESFA 16 to 19 learning delivery
+    and the learning delivery is a T level OS aim
+    and the learner is a T level student.
+
+rule learner_continuing_os_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 87:
+a learner has a learning delivery as a continuing T level OS aim
+    if the learner has the learning delivery as a T level OS aim
+    and the completion status of the learning delivery is 1.
+
+rule number_of_os_aims with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 87:
+the number of T level OS aim records of a learner is a number
+    if the learner is a learner
+    and the number is the count of each learning delivery such that
+        the learner has the learning delivery as a T level OS aim.
+
+rule continuing_os_aim with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 88:
+a learner has a continuing T level OS aim
+    if the learner has a learning delivery as a continuing T level OS aim.
+
+rule latest_os_aim_sequence with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 88:
+the latest T level OS aim sequence number of a learner is a number
+    if the learner has a learning delivery as a continuing T level OS aim
+    and the learning start date of the learning delivery is a date
+    and it is not the case that
+        the learner has a second learning delivery as a continuing T level OS aim
+        and the learning start date of the second learning delivery is a second date
+        and the second date is after the date
+    and the number is the max of each sequence such that
+        the learner has a third learning delivery as a continuing T level OS aim
+        and the learning start date of the third learning delivery is the date
+        and the aim sequence number of the third learning delivery is the sequence
+    otherwise the learner has a fourth learning delivery as a T level OS aim
+    and the learning start date of the fourth learning delivery is a third date
+    and it is not the case that
+        the learner has a fifth learning delivery as a T level OS aim
+        and the learning start date of the fifth learning delivery is a fourth date
+        and the fourth date is after the third date
+    and the number is the max of each second sequence such that
+        the learner has a sixth learning delivery as a T level OS aim
+        and the learning start date of the sixth learning delivery is the third date
+        and the aim sequence number of the sixth learning delivery is the second sequence
+    otherwise the learner is a learner
+    and the number = 0.
+
+rule latest_tq_reference with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 88:
+the learning aim reference of the latest T level TQ of a learner is a reference
+    if the latest core aim of the learner is a T level programme
+    and the latest core aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning aim reference of the learning delivery is the reference.
+
+rule latest_os_reference with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 89:
+the learning aim reference of the latest T level OS of a learner is a reference
+    if the latest T level OS aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning aim reference of the learning delivery is the reference.
+
+rule latest_t_level_actual_end with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 89:
+the latest T level programme aim actual end date of a learner is a date
+    if the latest ESFA 16 to 19 T level programme aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning actual end date of the learning delivery is the date.
+
+rule latest_t_level_planned_end with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 89:
+the latest T level programme aim planned end date of a learner is a date
+    if the latest ESFA 16 to 19 T level programme aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning planned end date of the learning delivery is the date.
+
+rule latest_t_level_start with provenance DfE 16 to 19 funding calculation 2026 to 2027 at page 89:
+the latest T level programme aim start date of a learner is a date
+    if the latest ESFA 16 to 19 T level programme aim sequence number of the learner is a sequence
+    and the learner has a learning delivery as an ESFA 16 to 19 learning delivery
+    and the aim sequence number of the learning delivery is the sequence
+    and the learning start date of the learning delivery is the date.
+
+% ================================================================ scenarios
+% Eight students, each with the same made-up provider. Their expected answers
+% were checked against the independent Python reading (README.md).
+
+% A 16-year-old on a full-time vocational programme in engineering, completed.
+scenario full_time is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_sp01 is a learner.
+    the date of birth of learner_sp01 is 2010-03-15.
+    the GCSE English grade of learner_sp01 is "4".
+    the GCSE maths grade of learner_sp01 is "4".
+    the planned learning hours of learner_sp01 is 540.
+    the planned employability, enrichment and pastoral hours of learner_sp01 is 60.
+    the postcode disadvantage uplift of learner_sp01 is 1.1.
+    learner_sp01 has learner_sp01_aim_1.
+    the learning aim reference of learner_sp01_aim_1 is "60312345".
+    the aim type of learner_sp01_aim_1 is 5.
+    the aim sequence number of learner_sp01_aim_1 is 1.
+    the funding model of learner_sp01_aim_1 is 25.
+    the learning start date of learner_sp01_aim_1 is 2026-09-07.
+    the learning planned end date of learner_sp01_aim_1 is 2027-06-30.
+    the learning actual end date of learner_sp01_aim_1 is 2027-06-20.
+    the completion status of learner_sp01_aim_1 is 2.
+    the learning aim reference title of learner_sp01_aim_1 is "BTEC Level 3 Extended Diploma".
+    the learning aim reference type of learner_sp01_aim_1 is "1413".
+    the awarding organisation code of learner_sp01_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_sp01_aim_1 is 2.
+    the sector subject area tier 2 of learner_sp01_aim_1 is 4.1.
+    the delivery location postcode of learner_sp01_aim_1 is "AB1 2CD".
+    learner_sp01_aim_1 has a FAM of type "SOF" with code "107".
+    learner_sp01_aim_1 has learner_sp01_aim_1_validity_1 as a LARS validity.
+    the category of learner_sp01_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_sp01_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_sp01_aim_1_validity_1 is 2030-07-31.
+    AcadMonthPayment expects answers ["the payment period of learner sp01 is 2"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner sp01 is 287"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner sp01 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner sp01 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner sp01 is Has English, Not Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner sp01 is Has Maths, Not Studying Maths"].
+    ContinuingTLevelOSAim expects answers [].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner sp01 is 1"].
+    FullTimeEquiv expects answers ["the FTE of learner sp01 is 0.9375"].
+    FundLine expects answers ["the funding line type of learner sp01 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner sp01 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner sp01 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner sp01 is 2027-06-20"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner sp01 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner sp01 is 2027-06-30"].
+    LearnerStartDate expects answers ["the start date of learner sp01 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner sp01 is 5256"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner sp01 is 6152.36996634624"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner sp01 is 297"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner sp01 is 0"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner sp01 is 1.73"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner sp01 is 580+ hours (Band 5)"].
+    RetentNew expects answers ["the new retention status of learner sp01 is 1"].
+    StartFund expects answers ["learner sp01 is a start"].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner sp01 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner sp01 is 0"].
+    TLevelOSLearnAimRef expects answers [].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers [].
+    TLevelProgAimStartDate expects answers [].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner sp01 is 0"].
+    TLevelStudent expects answers [].
+    TLevelTQLearnAimRef expects answers [].
+    ThresholdDays expects answers ["the qualifying period in days of learner sp01 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner sp01 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% A T level student in funding band 9 with 1,730 planned hours.
+scenario t_level is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_tl01 is a learner.
+    the date of birth of learner_tl01 is 2010-01-10.
+    the GCSE English grade of learner_tl01 is "4".
+    the GCSE maths grade of learner_tl01 is "4".
+    the postcode disadvantage uplift of learner_tl01 is 1.1.
+    learner_tl01 has learner_tl01_aim_1.
+    the learning aim reference of learner_tl01_aim_1 is "ZPROG001".
+    the aim type of learner_tl01_aim_1 is 1.
+    the aim sequence number of learner_tl01_aim_1 is 1.
+    the funding model of learner_tl01_aim_1 is 25.
+    the programme type of learner_tl01_aim_1 is 31.
+    the learning start date of learner_tl01_aim_1 is 2026-09-07.
+    the learning planned end date of learner_tl01_aim_1 is 2028-06-30.
+    the completion status of learner_tl01_aim_1 is 1.
+    the learning aim reference title of learner_tl01_aim_1 is "Programme aim".
+    the learning aim reference type of learner_tl01_aim_1 is "ZZZZ".
+    the awarding organisation code of learner_tl01_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_tl01_aim_1 is 2.
+    the sector subject area tier 2 of learner_tl01_aim_1 is 4.1.
+    the delivery location postcode of learner_tl01_aim_1 is "AB1 2CD".
+    learner_tl01_aim_1 has a FAM of type "SOF" with code "107".
+    learner_tl01_aim_1 has learner_tl01_aim_1_validity_1 as a LARS validity.
+    the category of learner_tl01_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_tl01_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_tl01_aim_1_validity_1 is 2030-07-31.
+    learner_tl01_aim_1 has an hours record of type "hrs" with code 2 and amount 1730.
+    learner_tl01 has learner_tl01_aim_2.
+    the learning aim reference of learner_tl01_aim_2 is "60358294".
+    the aim type of learner_tl01_aim_2 is 5.
+    the aim sequence number of learner_tl01_aim_2 is 2.
+    the funding model of learner_tl01_aim_2 is 25.
+    the programme type of learner_tl01_aim_2 is 31.
+    the learning start date of learner_tl01_aim_2 is 2026-09-07.
+    the learning planned end date of learner_tl01_aim_2 is 2028-06-30.
+    the completion status of learner_tl01_aim_2 is 1.
+    the learning aim reference title of learner_tl01_aim_2 is "T Level Technical Qualification in Digital Production".
+    the learning aim reference type of learner_tl01_aim_2 is "1468".
+    the awarding organisation code of learner_tl01_aim_2 is "PEARSON".
+    the ESFA condition of funding type of learner_tl01_aim_2 is 2.
+    the sector subject area tier 2 of learner_tl01_aim_2 is 6.1.
+    the delivery location postcode of learner_tl01_aim_2 is "AB1 2CD".
+    learner_tl01_aim_2 has a FAM of type "SOF" with code "107".
+    learner_tl01_aim_2 has learner_tl01_aim_2_validity_1 as a LARS validity.
+    the category of learner_tl01_aim_2_validity_1 is "1619_EFA".
+    the validity start date of learner_tl01_aim_2_validity_1 is 2015-08-01.
+    the last date for new starts of learner_tl01_aim_2_validity_1 is 2030-07-31.
+    learner_tl01 has learner_tl01_aim_3.
+    the learning aim reference of learner_tl01_aim_3 is "ZTLOS001".
+    the aim type of learner_tl01_aim_3 is 3.
+    the aim sequence number of learner_tl01_aim_3 is 3.
+    the funding model of learner_tl01_aim_3 is 25.
+    the programme type of learner_tl01_aim_3 is 31.
+    the learning start date of learner_tl01_aim_3 is 2026-09-07.
+    the learning planned end date of learner_tl01_aim_3 is 2028-06-30.
+    the completion status of learner_tl01_aim_3 is 1.
+    the learning aim reference title of learner_tl01_aim_3 is "Occupational specialism".
+    the learning aim reference type of learner_tl01_aim_3 is "ZZZZ".
+    the awarding organisation code of learner_tl01_aim_3 is "PEARSON".
+    the ESFA condition of funding type of learner_tl01_aim_3 is 2.
+    the sector subject area tier 2 of learner_tl01_aim_3 is 6.1.
+    the delivery location postcode of learner_tl01_aim_3 is "AB1 2CD".
+    learner_tl01_aim_3 has a FAM of type "SOF" with code "107".
+    learner_tl01_aim_3 has learner_tl01_aim_3_validity_1 as a LARS validity.
+    the category of learner_tl01_aim_3_validity_1 is "1619_EFA".
+    the validity start date of learner_tl01_aim_3_validity_1 is 2015-08-01.
+    the last date for new starts of learner_tl01_aim_3_validity_1 is 2030-07-31.
+    learner_tl01_aim_3 has learner_tl01_aim_3_funding_1 as a LARS programme funding record.
+    the funding band of learner_tl01_aim_3_funding_1 is "9".
+    the PCW of learner_tl01_aim_3_funding_1 is 1.44.
+    the effective from date of learner_tl01_aim_3_funding_1 is 2020-08-01.
+    AcadMonthPayment expects answers ["the payment period of learner tl01 is 2"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner tl01 is 328"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner tl01 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner tl01 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner tl01 is Has English, Not Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner tl01 is Has Maths, Not Studying Maths"].
+    ContinuingTLevelOSAim expects answers ["learner tl01 has a continuing T level OS aim"].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner tl01 is 2"].
+    FullTimeEquiv expects answers ["the FTE of learner tl01 is 2.703125"].
+    FundLine expects answers ["the funding line type of learner tl01 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner tl01 is 2026-09-07", "the latest learning delivery start date of learner tl01 is 2026-09-07", "the latest learning delivery start date of learner tl01 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner tl01 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner tl01 is 2028-06-30"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner tl01 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner tl01 is 2028-06-30"].
+    LearnerStartDate expects answers ["the start date of learner tl01 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner tl01 is 7563"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner tl01 is 8852.810893355521"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner tl01 is 328"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner tl01 is 1"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner tl01 is 1.44"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner tl01 is 1730 hours (T level Band 9)"].
+    RetentNew expects answers ["the new retention status of learner tl01 is 1"].
+    StartFund expects answers ["learner tl01 is a start"].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner tl01 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner tl01 is 1"].
+    TLevelOSLearnAimRef expects answers ["the learning aim reference of the latest T level OS of learner tl01 is ZTLOS001"].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers ["the latest T level programme aim planned end date of learner tl01 is 2028-06-30"].
+    TLevelProgAimStartDate expects answers ["the latest T level programme aim start date of learner tl01 is 2026-09-07"].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner tl01 is 1"].
+    TLevelStudent expects answers ["learner tl01 is a T level student"].
+    TLevelTQLearnAimRef expects answers ["the learning aim reference of the latest T level TQ of learner tl01 is 60358294"].
+    ThresholdDays expects answers ["the qualifying period in days of learner tl01 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner tl01 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% A T level student in funding band 9 with only 1,400 hours: the band falls to band 7 (page 50).
+scenario t_level_short_of_band_9 is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_tl03 is a learner.
+    the date of birth of learner_tl03 is 2010-01-10.
+    the GCSE English grade of learner_tl03 is "4".
+    the GCSE maths grade of learner_tl03 is "4".
+    the postcode disadvantage uplift of learner_tl03 is 1.1.
+    learner_tl03 has learner_tl03_aim_1.
+    the learning aim reference of learner_tl03_aim_1 is "ZPROG001".
+    the aim type of learner_tl03_aim_1 is 1.
+    the aim sequence number of learner_tl03_aim_1 is 1.
+    the funding model of learner_tl03_aim_1 is 25.
+    the programme type of learner_tl03_aim_1 is 31.
+    the learning start date of learner_tl03_aim_1 is 2026-09-07.
+    the learning planned end date of learner_tl03_aim_1 is 2028-06-30.
+    the completion status of learner_tl03_aim_1 is 1.
+    the learning aim reference title of learner_tl03_aim_1 is "Programme aim".
+    the learning aim reference type of learner_tl03_aim_1 is "ZZZZ".
+    the awarding organisation code of learner_tl03_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_tl03_aim_1 is 2.
+    the sector subject area tier 2 of learner_tl03_aim_1 is 4.1.
+    the delivery location postcode of learner_tl03_aim_1 is "AB1 2CD".
+    learner_tl03_aim_1 has a FAM of type "SOF" with code "107".
+    learner_tl03_aim_1 has learner_tl03_aim_1_validity_1 as a LARS validity.
+    the category of learner_tl03_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_tl03_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_tl03_aim_1_validity_1 is 2030-07-31.
+    learner_tl03_aim_1 has an hours record of type "hrs" with code 2 and amount 1400.
+    learner_tl03 has learner_tl03_aim_2.
+    the learning aim reference of learner_tl03_aim_2 is "60358294".
+    the aim type of learner_tl03_aim_2 is 5.
+    the aim sequence number of learner_tl03_aim_2 is 2.
+    the funding model of learner_tl03_aim_2 is 25.
+    the programme type of learner_tl03_aim_2 is 31.
+    the learning start date of learner_tl03_aim_2 is 2026-09-07.
+    the learning planned end date of learner_tl03_aim_2 is 2028-06-30.
+    the completion status of learner_tl03_aim_2 is 1.
+    the learning aim reference title of learner_tl03_aim_2 is "T Level Technical Qualification in Digital Production".
+    the learning aim reference type of learner_tl03_aim_2 is "1468".
+    the awarding organisation code of learner_tl03_aim_2 is "PEARSON".
+    the ESFA condition of funding type of learner_tl03_aim_2 is 2.
+    the sector subject area tier 2 of learner_tl03_aim_2 is 6.1.
+    the delivery location postcode of learner_tl03_aim_2 is "AB1 2CD".
+    learner_tl03_aim_2 has a FAM of type "SOF" with code "107".
+    learner_tl03_aim_2 has learner_tl03_aim_2_validity_1 as a LARS validity.
+    the category of learner_tl03_aim_2_validity_1 is "1619_EFA".
+    the validity start date of learner_tl03_aim_2_validity_1 is 2015-08-01.
+    the last date for new starts of learner_tl03_aim_2_validity_1 is 2030-07-31.
+    learner_tl03 has learner_tl03_aim_3.
+    the learning aim reference of learner_tl03_aim_3 is "ZTLOS001".
+    the aim type of learner_tl03_aim_3 is 3.
+    the aim sequence number of learner_tl03_aim_3 is 3.
+    the funding model of learner_tl03_aim_3 is 25.
+    the programme type of learner_tl03_aim_3 is 31.
+    the learning start date of learner_tl03_aim_3 is 2026-09-07.
+    the learning planned end date of learner_tl03_aim_3 is 2028-06-30.
+    the completion status of learner_tl03_aim_3 is 1.
+    the learning aim reference title of learner_tl03_aim_3 is "Occupational specialism".
+    the learning aim reference type of learner_tl03_aim_3 is "ZZZZ".
+    the awarding organisation code of learner_tl03_aim_3 is "PEARSON".
+    the ESFA condition of funding type of learner_tl03_aim_3 is 2.
+    the sector subject area tier 2 of learner_tl03_aim_3 is 6.1.
+    the delivery location postcode of learner_tl03_aim_3 is "AB1 2CD".
+    learner_tl03_aim_3 has a FAM of type "SOF" with code "107".
+    learner_tl03_aim_3 has learner_tl03_aim_3_validity_1 as a LARS validity.
+    the category of learner_tl03_aim_3_validity_1 is "1619_EFA".
+    the validity start date of learner_tl03_aim_3_validity_1 is 2015-08-01.
+    the last date for new starts of learner_tl03_aim_3_validity_1 is 2030-07-31.
+    learner_tl03_aim_3 has learner_tl03_aim_3_funding_1 as a LARS programme funding record.
+    the funding band of learner_tl03_aim_3_funding_1 is "9".
+    the PCW of learner_tl03_aim_3_funding_1 is 1.44.
+    the effective from date of learner_tl03_aim_3_funding_1 is 2020-08-01.
+    AcadMonthPayment expects answers ["the payment period of learner tl03 is 2"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner tl03 is 328"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner tl03 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner tl03 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner tl03 is Has English, Not Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner tl03 is Has Maths, Not Studying Maths"].
+    ContinuingTLevelOSAim expects answers ["learner tl03 has a continuing T level OS aim"].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner tl03 is 2"].
+    FullTimeEquiv expects answers ["the FTE of learner tl03 is 2.1875"].
+    FundLine expects answers ["the funding line type of learner tl03 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner tl03 is 2026-09-07", "the latest learning delivery start date of learner tl03 is 2026-09-07", "the latest learning delivery start date of learner tl03 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner tl03 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner tl03 is 2028-06-30"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner tl03 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner tl03 is 2028-06-30"].
+    LearnerStartDate expects answers ["the start date of learner tl03 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner tl03 is 6306"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner tl03 is 7381.439308938241"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner tl03 is 328"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner tl03 is 1"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner tl03 is 1.44"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner tl03 is 1380 hours (T level Band 7)"].
+    RetentNew expects answers ["the new retention status of learner tl03 is 1"].
+    StartFund expects answers ["learner tl03 is a start"].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner tl03 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner tl03 is 1"].
+    TLevelOSLearnAimRef expects answers ["the learning aim reference of the latest T level OS of learner tl03 is ZTLOS001"].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers ["the latest T level programme aim planned end date of learner tl03 is 2028-06-30"].
+    TLevelProgAimStartDate expects answers ["the latest T level programme aim start date of learner tl03 is 2026-09-07"].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner tl03 is 1"].
+    TLevelStudent expects answers ["learner tl03 is a T level student"].
+    TLevelTQLearnAimRef expects answers ["the learning aim reference of the latest T level TQ of learner tl03 is 60358294"].
+    ThresholdDays expects answers ["the qualifying period in days of learner tl03 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner tl03 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% A student who leaves before the qualifying period (page 70): not a start, no funding.
+scenario early_leaver is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_rt01 is a learner.
+    the date of birth of learner_rt01 is 2010-03-15.
+    the GCSE English grade of learner_rt01 is "4".
+    the GCSE maths grade of learner_rt01 is "4".
+    the planned learning hours of learner_rt01 is 540.
+    the planned employability, enrichment and pastoral hours of learner_rt01 is 60.
+    the postcode disadvantage uplift of learner_rt01 is 1.1.
+    learner_rt01 has learner_rt01_aim_1.
+    the learning aim reference of learner_rt01_aim_1 is "60312345".
+    the aim type of learner_rt01_aim_1 is 5.
+    the aim sequence number of learner_rt01_aim_1 is 1.
+    the funding model of learner_rt01_aim_1 is 25.
+    the learning start date of learner_rt01_aim_1 is 2026-09-07.
+    the learning planned end date of learner_rt01_aim_1 is 2027-06-30.
+    the learning actual end date of learner_rt01_aim_1 is 2026-09-30.
+    the completion status of learner_rt01_aim_1 is 3.
+    the withdrawal reason of learner_rt01_aim_1 is 40.
+    the learning aim reference title of learner_rt01_aim_1 is "BTEC Level 3 Extended Diploma".
+    the learning aim reference type of learner_rt01_aim_1 is "1413".
+    the awarding organisation code of learner_rt01_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_rt01_aim_1 is 2.
+    the sector subject area tier 2 of learner_rt01_aim_1 is 4.1.
+    the delivery location postcode of learner_rt01_aim_1 is "AB1 2CD".
+    learner_rt01_aim_1 has a FAM of type "SOF" with code "107".
+    learner_rt01_aim_1 has learner_rt01_aim_1_validity_1 as a LARS validity.
+    the category of learner_rt01_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_rt01_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_rt01_aim_1_validity_1 is 2030-07-31.
+    AcadMonthPayment expects answers ["the payment period of learner rt01 is 0"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner rt01 is 24"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner rt01 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner rt01 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner rt01 is Has English, Not Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner rt01 is Has Maths, Not Studying Maths"].
+    ContinuingTLevelOSAim expects answers [].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner rt01 is 1"].
+    FullTimeEquiv expects answers ["the FTE of learner rt01 is 0.9375"].
+    FundLine expects answers ["the funding line type of learner rt01 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner rt01 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner rt01 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner rt01 is 2026-09-30"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner rt01 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner rt01 is 2027-06-30"].
+    LearnerStartDate expects answers ["the start date of learner rt01 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner rt01 is 5256"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner rt01 is 0"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner rt01 is 297"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner rt01 is 0"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner rt01 is 1.73"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner rt01 is 580+ hours (Band 5)"].
+    RetentNew expects answers ["the new retention status of learner rt01 is 0"].
+    StartFund expects answers [].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner rt01 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner rt01 is 0"].
+    TLevelOSLearnAimRef expects answers [].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers [].
+    TLevelProgAimStartDate expects answers [].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner rt01 is 0"].
+    TLevelStudent expects answers [].
+    TLevelTQLearnAimRef expects answers [].
+    ThresholdDays expects answers ["the qualifying period in days of learner rt01 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner rt01 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% An 18-year-old with high needs on 600 hours: band 5 and the high-needs funding line.
+scenario high_needs is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_sp22 is a learner.
+    the date of birth of learner_sp22 is 2008-05-01.
+    the GCSE English grade of learner_sp22 is "4".
+    the GCSE maths grade of learner_sp22 is "4".
+    the HNS FAM code of learner_sp22 is 1.
+    the planned learning hours of learner_sp22 is 560.
+    the planned employability, enrichment and pastoral hours of learner_sp22 is 40.
+    the postcode disadvantage uplift of learner_sp22 is 1.1.
+    learner_sp22 has learner_sp22_aim_1.
+    the learning aim reference of learner_sp22_aim_1 is "60312345".
+    the aim type of learner_sp22_aim_1 is 5.
+    the aim sequence number of learner_sp22_aim_1 is 1.
+    the funding model of learner_sp22_aim_1 is 25.
+    the learning start date of learner_sp22_aim_1 is 2026-09-07.
+    the learning planned end date of learner_sp22_aim_1 is 2027-06-30.
+    the completion status of learner_sp22_aim_1 is 1.
+    the learning aim reference title of learner_sp22_aim_1 is "BTEC Level 3 Extended Diploma".
+    the learning aim reference type of learner_sp22_aim_1 is "1413".
+    the awarding organisation code of learner_sp22_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_sp22_aim_1 is 2.
+    the sector subject area tier 2 of learner_sp22_aim_1 is 14.1.
+    the delivery location postcode of learner_sp22_aim_1 is "AB1 2CD".
+    learner_sp22_aim_1 has a FAM of type "SOF" with code "107".
+    learner_sp22_aim_1 has learner_sp22_aim_1_validity_1 as a LARS validity.
+    the category of learner_sp22_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_sp22_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_sp22_aim_1_validity_1 is 2030-07-31.
+    AcadMonthPayment expects answers ["the payment period of learner sp22 is 2"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner sp22 is 297"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner sp22 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner sp22 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner sp22 is Has English, Not Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner sp22 is Has Maths, Not Studying Maths"].
+    ContinuingTLevelOSAim expects answers [].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner sp22 is 1"].
+    FullTimeEquiv expects answers ["the FTE of learner sp22 is 0.9375"].
+    FundLine expects answers ["the funding line type of learner sp22 is 16-19 High Needs Students"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner sp22 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner sp22 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner sp22 is 2027-06-30"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner sp22 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner sp22 is 2027-06-30"].
+    LearnerStartDate expects answers ["the start date of learner sp22 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner sp22 is 5256"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner sp22 is 6152.36996634624"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner sp22 is 297"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner sp22 is 0"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner sp22 is 1"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner sp22 is 580+ hours (Band 5)"].
+    RetentNew expects answers ["the new retention status of learner sp22 is 1"].
+    StartFund expects answers ["learner sp22 is a start"].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner sp22 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner sp22 is 0"].
+    TLevelOSLearnAimRef expects answers [].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers [].
+    TLevelProgAimStartDate expects answers [].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner sp22 is 0"].
+    TLevelStudent expects answers [].
+    TLevelTQLearnAimRef expects answers [].
+    ThresholdDays expects answers ["the qualifying period in days of learner sp22 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner sp22 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% A student with grade 3 in English, studying GCSE English for the minimum hours (pages 41-45).
+scenario condition_of_funding is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_cf07 is a learner.
+    the date of birth of learner_cf07 is 2010-03-15.
+    the GCSE English grade of learner_cf07 is "3".
+    the GCSE maths grade of learner_cf07 is "3".
+    the EMH FAM code of learner_cf07 is 1.
+    the MMH FAM code of learner_cf07 is 1.
+    the planned learning hours of learner_cf07 is 540.
+    the planned employability, enrichment and pastoral hours of learner_cf07 is 60.
+    the postcode disadvantage uplift of learner_cf07 is 1.1.
+    learner_cf07 has learner_cf07_aim_1.
+    the learning aim reference of learner_cf07_aim_1 is "60312345".
+    the aim type of learner_cf07_aim_1 is 5.
+    the aim sequence number of learner_cf07_aim_1 is 1.
+    the funding model of learner_cf07_aim_1 is 25.
+    the learning start date of learner_cf07_aim_1 is 2026-09-07.
+    the learning planned end date of learner_cf07_aim_1 is 2027-06-30.
+    the completion status of learner_cf07_aim_1 is 1.
+    the learning aim reference title of learner_cf07_aim_1 is "BTEC Level 3 Extended Diploma".
+    the learning aim reference type of learner_cf07_aim_1 is "1413".
+    the awarding organisation code of learner_cf07_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_cf07_aim_1 is 2.
+    the sector subject area tier 2 of learner_cf07_aim_1 is 4.1.
+    the delivery location postcode of learner_cf07_aim_1 is "AB1 2CD".
+    learner_cf07_aim_1 has a FAM of type "SOF" with code "107".
+    learner_cf07_aim_1 has learner_cf07_aim_1_validity_1 as a LARS validity.
+    the category of learner_cf07_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_cf07_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_cf07_aim_1_validity_1 is 2030-07-31.
+    learner_cf07 has learner_cf07_aim_2.
+    the learning aim reference of learner_cf07_aim_2 is "60037155".
+    the aim type of learner_cf07_aim_2 is 4.
+    the aim sequence number of learner_cf07_aim_2 is 2.
+    the funding model of learner_cf07_aim_2 is 25.
+    the learning start date of learner_cf07_aim_2 is 2026-09-07.
+    the learning planned end date of learner_cf07_aim_2 is 2027-06-30.
+    the completion status of learner_cf07_aim_2 is 1.
+    the learning aim reference title of learner_cf07_aim_2 is "GCSE English Language".
+    the learning aim reference type of learner_cf07_aim_2 is "0003".
+    the awarding organisation code of learner_cf07_aim_2 is "PEARSON".
+    the ESFA condition of funding type of learner_cf07_aim_2 is 1.
+    the sector subject area tier 2 of learner_cf07_aim_2 is 12.1.
+    the delivery location postcode of learner_cf07_aim_2 is "AB1 2CD".
+    learner_cf07_aim_2 has a FAM of type "SOF" with code "107".
+    learner_cf07_aim_2 has learner_cf07_aim_2_validity_1 as a LARS validity.
+    the category of learner_cf07_aim_2_validity_1 is "1619_EFA".
+    the validity start date of learner_cf07_aim_2_validity_1 is 2015-08-01.
+    the last date for new starts of learner_cf07_aim_2_validity_1 is 2030-07-31.
+    learner_cf07_aim_2 has learner_cf07_aim_2_validity_2 as a LARS validity.
+    the category of learner_cf07_aim_2_validity_2 is "EFACONFUNDENGLISH".
+    the validity start date of learner_cf07_aim_2_validity_2 is 2015-08-01.
+    learner_cf07 has learner_cf07_aim_3.
+    the learning aim reference of learner_cf07_aim_3 is "60183337".
+    the aim type of learner_cf07_aim_3 is 4.
+    the aim sequence number of learner_cf07_aim_3 is 3.
+    the funding model of learner_cf07_aim_3 is 25.
+    the learning start date of learner_cf07_aim_3 is 2026-09-07.
+    the learning planned end date of learner_cf07_aim_3 is 2027-06-30.
+    the completion status of learner_cf07_aim_3 is 1.
+    the learning aim reference title of learner_cf07_aim_3 is "GCSE Mathematics".
+    the learning aim reference type of learner_cf07_aim_3 is "0003".
+    the awarding organisation code of learner_cf07_aim_3 is "PEARSON".
+    the ESFA condition of funding type of learner_cf07_aim_3 is 1.
+    the sector subject area tier 2 of learner_cf07_aim_3 is 2.2.
+    the delivery location postcode of learner_cf07_aim_3 is "AB1 2CD".
+    learner_cf07_aim_3 has a FAM of type "SOF" with code "107".
+    learner_cf07_aim_3 has learner_cf07_aim_3_validity_1 as a LARS validity.
+    the category of learner_cf07_aim_3_validity_1 is "1619_EFA".
+    the validity start date of learner_cf07_aim_3_validity_1 is 2015-08-01.
+    the last date for new starts of learner_cf07_aim_3_validity_1 is 2030-07-31.
+    learner_cf07_aim_3 has learner_cf07_aim_3_validity_2 as a LARS validity.
+    the category of learner_cf07_aim_3_validity_2 is "EFACONFUNDMATHS".
+    the validity start date of learner_cf07_aim_3_validity_2 is 2015-08-01.
+    the last date for new starts of learner_cf07_aim_3_validity_2 is 2030-07-31.
+    AcadMonthPayment expects answers ["the payment period of learner cf07 is 2"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner cf07 is 297"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner cf07 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner cf07 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner cf07 is Doesn't have English, Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner cf07 is Doesn't have Maths, Studying Maths"].
+    ContinuingTLevelOSAim expects answers [].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner cf07 is 1"].
+    FullTimeEquiv expects answers ["the FTE of learner cf07 is 0.9375"].
+    FundLine expects answers ["the funding line type of learner cf07 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner cf07 is 2026-09-07", "the latest learning delivery start date of learner cf07 is 2026-09-07", "the latest learning delivery start date of learner cf07 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner cf07 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner cf07 is 2027-06-30"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner cf07 is 2"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner cf07 is 2027-06-30"].
+    LearnerStartDate expects answers ["the start date of learner cf07 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner cf07 is 5256"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner cf07 is 6152.36996634624"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner cf07 is 297"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner cf07 is 0"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner cf07 is 1.73"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner cf07 is 580+ hours (Band 5)"].
+    RetentNew expects answers ["the new retention status of learner cf07 is 1"].
+    StartFund expects answers ["learner cf07 is a start"].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner cf07 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner cf07 is 0"].
+    TLevelOSLearnAimRef expects answers [].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers [].
+    TLevelProgAimStartDate expects answers [].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner cf07 is 0"].
+    TLevelStudent expects answers [].
+    TLevelTQLearnAimRef expects answers [].
+    ThresholdDays expects answers ["the qualifying period in days of learner cf07 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner cf07 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% A 15-year-old who starts in June: a summer school student (page 69).
+scenario summer_school is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_ss01 is a learner.
+    the date of birth of learner_ss01 is 2011-04-01.
+    the GCSE English grade of learner_ss01 is "4".
+    the GCSE maths grade of learner_ss01 is "4".
+    the planned learning hours of learner_ss01 is 60.
+    the planned employability, enrichment and pastoral hours of learner_ss01 is 0.
+    the postcode disadvantage uplift of learner_ss01 is 1.1.
+    learner_ss01 has learner_ss01_aim_1.
+    the learning aim reference of learner_ss01_aim_1 is "60312345".
+    the aim type of learner_ss01_aim_1 is 5.
+    the aim sequence number of learner_ss01_aim_1 is 1.
+    the funding model of learner_ss01_aim_1 is 25.
+    the learning start date of learner_ss01_aim_1 is 2027-06-15.
+    the learning planned end date of learner_ss01_aim_1 is 2027-07-20.
+    the completion status of learner_ss01_aim_1 is 1.
+    the learning aim reference title of learner_ss01_aim_1 is "BTEC Level 3 Extended Diploma".
+    the learning aim reference type of learner_ss01_aim_1 is "1413".
+    the awarding organisation code of learner_ss01_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_ss01_aim_1 is 2.
+    the sector subject area tier 2 of learner_ss01_aim_1 is 14.1.
+    the delivery location postcode of learner_ss01_aim_1 is "AB1 2CD".
+    learner_ss01_aim_1 has a FAM of type "SOF" with code "107".
+    learner_ss01_aim_1 has learner_ss01_aim_1_validity_1 as a LARS validity.
+    the category of learner_ss01_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_ss01_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_ss01_aim_1_validity_1 is 2030-07-31.
+    AcadMonthPayment expects answers ["the payment period of learner ss01 is 0"].
+    AcadProg expects answers [].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner ss01 is 36"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner ss01 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner ss01 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner ss01 is Condition of Funding Does Not Apply"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner ss01 is Condition of Funding Does Not Apply"].
+    ContinuingTLevelOSAim expects answers [].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner ss01 is 1"].
+    FullTimeEquiv expects answers ["the FTE of learner ss01 is 0.09375"].
+    FundLine expects answers ["the funding line type of learner ss01 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner ss01 is 2027-06-15"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner ss01 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner ss01 is 2027-07-20"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner ss01 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner ss01 is 2027-07-20"].
+    LearnerStartDate expects answers ["the start date of learner ss01 is 2027-06-15"].
+    NatRate expects answers ["the national rate of learner ss01 is 492.75"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner ss01 is 0"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner ss01 is 36"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner ss01 is 0"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner ss01 is 1"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner ss01 is Up to 299 hours (Band 1)"].
+    RetentNew expects answers ["the new retention status of learner ss01 is 0"].
+    StartFund expects answers [].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner ss01 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner ss01 is 0"].
+    TLevelOSLearnAimRef expects answers [].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers [].
+    TLevelProgAimStartDate expects answers [].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner ss01 is 0"].
+    TLevelStudent expects answers [].
+    TLevelTQLearnAimRef expects answers [].
+    ThresholdDays expects answers ["the qualifying period in days of learner ss01 is 14"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner ss01 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% Two science A levels: the low programme cost weighting of 1.15 (pages 59-60).
+scenario science_a_levels is:
+    the provider's retention factor is 0.92.
+    the provider's programme weighting is 1.05.
+    the provider's 16 to 18 area cost factor is 1.04.
+    the provider's historic large programme proportion is 0.01.
+    the provider's disadvantage proportion is 0.12.
+    the provider's English and maths proportion is 0.03.
+    learner_sp05 is a learner.
+    the date of birth of learner_sp05 is 2010-03-15.
+    the GCSE English grade of learner_sp05 is "4".
+    the GCSE maths grade of learner_sp05 is "4".
+    the planned learning hours of learner_sp05 is 540.
+    the planned employability, enrichment and pastoral hours of learner_sp05 is 60.
+    the postcode disadvantage uplift of learner_sp05 is 1.1.
+    learner_sp05 has learner_sp05_aim_1.
+    the learning aim reference of learner_sp05_aim_1 is "50080001".
+    the aim type of learner_sp05_aim_1 is 5.
+    the aim sequence number of learner_sp05_aim_1 is 1.
+    the funding model of learner_sp05_aim_1 is 25.
+    the learning start date of learner_sp05_aim_1 is 2026-09-07.
+    the learning planned end date of learner_sp05_aim_1 is 2028-06-30.
+    the completion status of learner_sp05_aim_1 is 1.
+    the learning aim reference title of learner_sp05_aim_1 is "A level Physics".
+    the learning aim reference type of learner_sp05_aim_1 is "0001".
+    the awarding organisation code of learner_sp05_aim_1 is "PEARSON".
+    the ESFA condition of funding type of learner_sp05_aim_1 is 2.
+    the sector subject area tier 2 of learner_sp05_aim_1 is 2.1.
+    the delivery location postcode of learner_sp05_aim_1 is "AB1 2CD".
+    learner_sp05_aim_1 has a FAM of type "SOF" with code "107".
+    learner_sp05_aim_1 has a LARS category with reference 64.
+    learner_sp05_aim_1 has learner_sp05_aim_1_validity_1 as a LARS validity.
+    the category of learner_sp05_aim_1_validity_1 is "1619_EFA".
+    the validity start date of learner_sp05_aim_1_validity_1 is 2015-08-01.
+    the last date for new starts of learner_sp05_aim_1_validity_1 is 2030-07-31.
+    learner_sp05 has learner_sp05_aim_2.
+    the learning aim reference of learner_sp05_aim_2 is "50080002".
+    the aim type of learner_sp05_aim_2 is 4.
+    the aim sequence number of learner_sp05_aim_2 is 2.
+    the funding model of learner_sp05_aim_2 is 25.
+    the learning start date of learner_sp05_aim_2 is 2026-09-07.
+    the learning planned end date of learner_sp05_aim_2 is 2028-06-30.
+    the completion status of learner_sp05_aim_2 is 1.
+    the learning aim reference title of learner_sp05_aim_2 is "A level Chemistry".
+    the learning aim reference type of learner_sp05_aim_2 is "0001".
+    the awarding organisation code of learner_sp05_aim_2 is "PEARSON".
+    the ESFA condition of funding type of learner_sp05_aim_2 is 2.
+    the sector subject area tier 2 of learner_sp05_aim_2 is 2.1.
+    the delivery location postcode of learner_sp05_aim_2 is "AB1 2CD".
+    learner_sp05_aim_2 has a FAM of type "SOF" with code "107".
+    learner_sp05_aim_2 has a LARS category with reference 64.
+    learner_sp05_aim_2 has learner_sp05_aim_2_validity_1 as a LARS validity.
+    the category of learner_sp05_aim_2_validity_1 is "1619_EFA".
+    the validity start date of learner_sp05_aim_2_validity_1 is 2015-08-01.
+    the last date for new starts of learner_sp05_aim_2_validity_1 is 2030-07-31.
+    learner_sp05 has learner_sp05_aim_3.
+    the learning aim reference of learner_sp05_aim_3 is "50080003".
+    the aim type of learner_sp05_aim_3 is 4.
+    the aim sequence number of learner_sp05_aim_3 is 3.
+    the funding model of learner_sp05_aim_3 is 25.
+    the learning start date of learner_sp05_aim_3 is 2026-09-07.
+    the learning planned end date of learner_sp05_aim_3 is 2028-06-30.
+    the completion status of learner_sp05_aim_3 is 1.
+    the learning aim reference title of learner_sp05_aim_3 is "A level Psychology".
+    the learning aim reference type of learner_sp05_aim_3 is "0001".
+    the awarding organisation code of learner_sp05_aim_3 is "PEARSON".
+    the ESFA condition of funding type of learner_sp05_aim_3 is 2.
+    the sector subject area tier 2 of learner_sp05_aim_3 is 2.1.
+    the delivery location postcode of learner_sp05_aim_3 is "AB1 2CD".
+    learner_sp05_aim_3 has a FAM of type "SOF" with code "107".
+    learner_sp05_aim_3 has learner_sp05_aim_3_validity_1 as a LARS validity.
+    the category of learner_sp05_aim_3_validity_1 is "1619_EFA".
+    the validity start date of learner_sp05_aim_3_validity_1 is 2015-08-01.
+    the last date for new starts of learner_sp05_aim_3_validity_1 is 2030-07-31.
+    AcadMonthPayment expects answers ["the payment period of learner sp05 is 2"].
+    AcadProg expects answers ["learner sp05 is studying an academic programme"].
+    ActualDaysILCurrYear expects answers ["the actual number of days this funding year of learner sp05 is 328"].
+    AreaCostFact1618Hist expects answers ["the provider's historic 16 to 18 area cost factor is 1.04"].
+    Block1DisadvUpliftNew expects answers ["the new block 1 disadvantage uplift of learner sp05 is 1.1"].
+    Block2DisadvElementsNew expects answers ["the new block 2 disadvantage elements of learner sp05 is 0"].
+    ConditionOfFundingEnglish expects answers ["the English condition of funding status of learner sp05 is Has English, Not Studying English"].
+    ConditionOfFundingMaths expects answers ["the maths condition of funding status of learner sp05 is Has Maths, Not Studying Maths"].
+    ContinuingTLevelOSAim expects answers [].
+    CoreAimSeqNumber expects answers ["the latest core aim sequence number of learner sp05 is 1"].
+    FullTimeEquiv expects answers ["the FTE of learner sp05 is 0.9375"].
+    FundLine expects answers ["the funding line type of learner sp05 is 16-19 Students (excluding High Needs Students)"].
+    LatestLearningDeliveryStartDate expects answers ["the latest learning delivery start date of learner sp05 is 2026-09-07", "the latest learning delivery start date of learner sp05 is 2026-09-07", "the latest learning delivery start date of learner sp05 is 2026-09-07"].
+    LatestTransitionAimSeqNumber expects answers ["the latest ESFA 16 to 19 T level transition programme aim sequence number of learner sp05 is 0"].
+    LatestTransitionAimStartDate expects answers [].
+    LearnerActEndDate expects answers ["the actual end date of learner sp05 is 2028-06-30"].
+    LearnerEnglishMathsInstances expects answers ["the English and maths instances of learner sp05 is 0"].
+    LearnerPlanEndDate expects answers ["the planned end date of learner sp05 is 2028-06-30"].
+    LearnerStartDate expects answers ["the start date of learner sp05 is 2026-09-07"].
+    NatRate expects answers ["the national rate of learner sp05 is 5256"].
+    NoGradeCEnglishByYear11 expects answers [].
+    NoGradeCMathsByYear11 expects answers [].
+    OnProgPayment expects answers ["the on programme funding of learner sp05 is 6152.36996634624"].
+    PlannedDaysILCurrYear expects answers ["the planned number of days this funding year of learner sp05 is 328"].
+    ProgAimSeqNumber expects answers ["the latest programme aim sequence number of learner sp05 is 0"].
+    ProgWeightHist expects answers ["the provider's historic programme weighting is 1.05"].
+    ProgWeightNew expects answers ["the new programme weighting of learner sp05 is 1.15"].
+    PrvDisadvPropnHist expects answers ["the provider's historic disadvantage proportion is 0.12"].
+    PrvHistEnglishMathsProportion expects answers ["the provider's historic English and maths proportion is 0.03"].
+    PrvHistLrgProgPropn expects answers ["the provider's large programme proportion is 0.01"].
+    PrvRetentFactHist expects answers ["the provider's historic retention factor is 0.92"].
+    RateBand expects answers ["the rate band of learner sp05 is 580+ hours (Band 5)"].
+    RetentNew expects answers ["the new retention status of learner sp05 is 1", "the new retention status of learner sp05 is 1", "the new retention status of learner sp05 is 1"].
+    StartFund expects answers ["learner sp05 is a start"].
+    TLevelAdditionalHours expects answers ["the T level additional hours of learner sp05 is 0"].
+    TLevelOSAimRecords expects answers ["the number of T level OS aim records of learner sp05 is 0"].
+    TLevelOSLearnAimRef expects answers [].
+    TLevelProgAimActEndDate expects answers [].
+    TLevelProgAimPlanEndDate expects answers [].
+    TLevelProgAimStartDate expects answers [].
+    TLevelProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level programme aim records of learner sp05 is 0"].
+    TLevelStudent expects answers [].
+    TLevelTQLearnAimRef expects answers [].
+    ThresholdDays expects answers ["the qualifying period in days of learner sp05 is 42"].
+    TransitionProgrammeAimRecords expects answers ["the number of ESFA 16 to 19 T level transition programme aim records of learner sp05 is 0"].
+    TransitionStudent expects answers [].
+    Year3ofTlevelStudyProgramme expects answers [].
+
+% ================================================================ queries
+
+% One query per output of the interface agreement (pages 34-36), named after
+% its Public Name.
+
+query OnProgPayment is:
+    the on programme funding of which learner is which amount.
+query AcadMonthPayment is:
+    the payment period of which learner is which number.
+query AcadProg is:
+    which learner is studying an academic programme.
+query ActualDaysILCurrYear is:
+    the actual number of days this funding year of which learner is which number.
+query AreaCostFact1618Hist is:
+    the provider's historic 16 to 18 area cost factor is which number.
+query Block1DisadvUpliftNew is:
+    the new block 1 disadvantage uplift of which learner is which number.
+query Block2DisadvElementsNew is:
+    the new block 2 disadvantage elements of which learner is which number.
+query ConditionOfFundingEnglish is:
+    the English condition of funding status of which learner is which status.
+query ConditionOfFundingMaths is:
+    the maths condition of funding status of which learner is which status.
+query CoreAimSeqNumber is:
+    the latest core aim sequence number of which learner is which number.
+query ProgAimSeqNumber is:
+    the latest programme aim sequence number of which learner is which number.
+query FullTimeEquiv is:
+    the FTE of which learner is which number.
+query FundLine is:
+    the funding line type of which learner is which funding line type.
+query LearnerActEndDate is:
+    the actual end date of which learner is which date.
+query LearnerPlanEndDate is:
+    the planned end date of which learner is which date.
+query LearnerStartDate is:
+    the start date of which learner is which date.
+query NatRate is:
+    the national rate of which learner is which amount.
+query PlannedDaysILCurrYear is:
+    the planned number of days this funding year of which learner is which number.
+query ProgWeightHist is:
+    the provider's historic programme weighting is which number.
+query ProgWeightNew is:
+    the new programme weighting of which learner is which number.
+query PrvDisadvPropnHist is:
+    the provider's historic disadvantage proportion is which number.
+query PrvHistLrgProgPropn is:
+    the provider's large programme proportion is which number.
+query PrvRetentFactHist is:
+    the provider's historic retention factor is which number.
+query PrvHistEnglishMathsProportion is:
+    the provider's historic English and maths proportion is which number.
+query LearnerEnglishMathsInstances is:
+    the English and maths instances of which learner is which number.
+query RateBand is:
+    the rate band of which learner is which band.
+query RetentNew is:
+    the new retention status of which learner is which number.
+query StartFund is:
+    which learner is a start.
+query ThresholdDays is:
+    the qualifying period in days of which learner is which number.
+query TLevelStudent is:
+    which learner is a T level student.
+query TransitionStudent is:
+    which learner is a transition student.
+query TLevelAdditionalHours is:
+    the T level additional hours of which learner is which number.
+query Year3ofTlevelStudyProgramme is:
+    which learner is a year 3+ T level student.
+query TLevelTQLearnAimRef is:
+    the learning aim reference of the latest T level TQ of which learner is which reference.
+query TLevelOSLearnAimRef is:
+    the learning aim reference of the latest T level OS of which learner is which reference.
+query TLevelProgAimActEndDate is:
+    the latest T level programme aim actual end date of which learner is which date.
+query TLevelProgAimPlanEndDate is:
+    the latest T level programme aim planned end date of which learner is which date.
+query TLevelProgAimStartDate is:
+    the latest T level programme aim start date of which learner is which date.
+
+% Elements of section 4 that no output of page 34-36 uses.
+
+query NoGradeCEnglishByYear11 is:
+    which learner does not have grade C or above English by year 11.
+query NoGradeCMathsByYear11 is:
+    which learner does not have grade C or above maths by year 11.
+query ContinuingTLevelOSAim is:
+    which learner has a continuing T level OS aim.
+query LatestTransitionAimStartDate is:
+    the latest ESFA 16 to 19 T level transition programme aim start date of which learner is which date.
+query LatestTransitionAimSeqNumber is:
+    the latest ESFA 16 to 19 T level transition programme aim sequence number of which learner is which number.
+query LatestLearningDeliveryStartDate is:
+    the latest learning delivery start date of which learner is which date.
+query TLevelProgrammeAimRecords is:
+    the number of ESFA 16 to 19 T level programme aim records of which learner is which number.
+query TransitionProgrammeAimRecords is:
+    the number of ESFA 16 to 19 T level transition programme aim records of which learner is which number.
+query TLevelOSAimRecords is:
+    the number of T level OS aim records of which learner is which number.

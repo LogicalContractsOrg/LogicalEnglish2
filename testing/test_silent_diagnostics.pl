@@ -103,6 +103,27 @@ query one is:
     which person is rich.
 ").
 
+% A value written in quotes is a value on purpose, however many connectives it
+% holds (a band name copied from a published rule table).
+quoted_value_text("the target language is: prolog.
+
+the templates are:
+    the band of *a learner* is *a band*.
+    *a learner* is a learner.
+
+the knowledge base quotedvalue includes:
+
+the band of a learner is a band
+    if the learner is a learner
+    and the band is \"300 to 384 hours (Band 2)\".
+
+scenario one is:
+    bob is a learner.
+
+query one is:
+    the band of bob is which band.
+").
+
 % Two templates share the functor is_part_of/2 with DIFFERENT argument types, and
 % 'bodily injury' is a TYPE (the ontology puts an instance under it) as well as
 % the name of an individual. The goal-level type check used to commit to the
@@ -250,6 +271,12 @@ test(mismatched_wording_is_reported,
 
 test(plain_value_assignment_is_not_reported,
      [setup((plain_value_text(T), setup_le_text(plainvalue, T, Path))),
+      cleanup(delete_file(Path))]) :-
+    le_kbs:load(Path, M, [skip_tests]),
+    assertion(\+ M:le_issue(_, suspicious_is, _, _, _, _)).
+
+test(quoted_value_is_not_reported,
+     [setup((quoted_value_text(T), setup_le_text(quotedvalue, T, Path))),
       cleanup(delete_file(Path))]) :-
     le_kbs:load(Path, M, [skip_tests]),
     assertion(\+ M:le_issue(_, suspicious_is, _, _, _, _)).

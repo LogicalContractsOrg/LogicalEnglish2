@@ -1309,6 +1309,42 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
         column[w].appendChild(card(w, titles[w] || w));
     }
     if (!right.children.length) grid.classList.add('two');
+    // An automatic view takes the program's first question as its result. A
+    // program with several says nothing of which matters most, so the reader
+    // picks one here; the address keeps it (?query=), and the flip, the
+    // reasons and the citations follow it.
+    if (V.automatic && R.query && cards.result) {
+        const flipPrefix = phrase('flip_query').toLowerCase();
+        const choices = queries.filter((q: any) => q.name && !(flipPrefix && String(q.le || '').toLowerCase().startsWith(flipPrefix)));
+        if (choices.length > 1) {
+            const pick = document.createElement('select');
+            pick.className = 'lv-qpick';
+            pick.style.cssText = 'margin-left:8px;max-width:60%;padding:2px 4px;border-radius:6px;border:1px solid var(--lv-border);background:var(--lv-bg);color:var(--lv-ink);font-size:12px;';
+            pick.title = t('The question this view answers: the program has several, and says nothing of which matters most');
+            for (const q of choices) {
+                const o = new Option(String(q.name), String(q.name));
+                o.title = String(q.le || '');
+                pick.appendChild(o);
+            }
+            const wantedQuery = new URLSearchParams(location.search).get('query');
+            if (wantedQuery && choices.some((q: any) => String(q.name) === wantedQuery)) R.query = wantedQuery;
+            pick.value = String(R.query);
+            pick.addEventListener('change', () => {
+                R.query = pick.value;
+                const p = new URLSearchParams(location.search);
+                p.set('query', pick.value);
+                history.replaceState(history.state, '', `${location.pathname}?${p.toString()}${location.hash}`);
+                previousAnswers = null;
+                renderWhatIf();
+                run();
+            });
+            const head = cards.result.querySelector('.lv-h') as HTMLElement;
+            const label = el('span', 'lv-na', ` ${t('Question')}:`);
+            label.style.cssText = 'margin-left:10px;font-weight:normal;';
+            head.insertBefore(pick, head.querySelector('.lv-tools'));
+            head.insertBefore(label, pick);
+        }
+    }
     renderCompare();
     renderCases();
     // a small program's cases run straight away

@@ -235,6 +235,41 @@ query q is:
     destroySession(SM),
     assertion(As == ["remove: the conviction of policy 1 is Yes"]).
 
+% ... and so does an answer about a name written with underscores, which the
+% answer shows with spaces (learner_rt01 as "learner rt01"): the flip found the
+% answer already untrue under the other name and said no change was needed.
+test(goal_string_keeps_underscores) :-
+    goal_string([the, payment, of, learner_rt01, is, 0], G),
+    assertion(G == "the payment of learner_rt01 is 0").
+
+test(flip_about_an_underscored_name, [nondet]) :-
+    load_text("the target language is: prolog.
+
+the templates are:
+    the payment of *a learner* is *an amount*.
+    *a learner* is a leaver; scenario element.
+
+the knowledge base k includes:
+
+the payment of a learner is 0 if
+    the learner is a leaver.
+
+scenario s is:
+    learner_one is a leaver.
+
+query q is:
+    the payment of which learner is which amount.
+", KB),
+    createSession(KB, SM), setScenarion(SM, s),
+    parse_custom_query(KB, "the payment of which learner is which amount", Q),
+    once(query(SM, Q, I, _, _)),
+    goal_string(I, Goal),
+    format(string(Flip), "which minimal change to the scenario makes it the case that it is not the case that ~w", [Goal]),
+    parse_custom_query(KB, Flip, F),
+    findall(A, ( query(SM, F, I2, _, _), canonical_string(I2, A) ), As),
+    destroySession(SM),
+    assertion(As == ["remove: learner one is a leaver"]).
+
 :- end_tests(program_metadata).
 
 % ---------------------------------------------------------------------------

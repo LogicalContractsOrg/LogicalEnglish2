@@ -13,6 +13,7 @@ test.describe('Help menu', () => {
         { text: 'Privacy notice', href: '/docs/user/privacy' },
         { text: 'Logical English syntax (reference)', href: '/docs/user/reference/language' },
         { text: 'Other systems: import and export', href: '/docs/user/integrations/index' },
+        { text: 'Migration Gallery', href: '/docs/user/integrations/gallery' },
         { text: 'Search the documentation…', href: '/docs/search' },
     ];
 

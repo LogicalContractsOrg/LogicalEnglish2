@@ -12,6 +12,7 @@ language reference, §17; two large models apply them all to real regulation.
 - [sections_benefit.le, the rent decision](sections_benefit.le?view=rent%20decision&scenario=not_eligible) — a decision in three sections (does the rule apply, the question, the remedy), shown as a view with a draft letter.
 - [customs/](customs/) — customs classification of goods under the US tariff, on published rulings.
 - [medicare/](medicare/) — Medicare coverage of medical equipment, on claims and appeal decisions.
+- [dfe_funding/](dfe_funding/) — the funding rules of England's Department for Education for students aged 16 to 19, all of them, written from the rule documents of its Oracle Intelligent Advisor rulebase as the Department publishes them, and checked against a second, independent reading.
 - [fema/](fema/) — an experiment: the US flood insurance policy for dwellings, drafted by the LE Contract Assistant from its web address, three schedules and seventeen claims, with the one rule we wrote by hand.
 
 ## Try this

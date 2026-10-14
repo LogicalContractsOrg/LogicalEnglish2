@@ -9831,7 +9831,8 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The LE Contract Assistant is not installed on this server.": "O LE Contract Assistant não está instalado neste servidor.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Faz parte dos Logical English Translators, um produto licenciado da Logical Contracts.",
     "Smart editing": "Edição inteligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cenário ou uma consulta, propõe o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os títulos das secções. Desligada: o editor propõe apenas as palavras que já estão no documento."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cenário ou uma consulta, propõe o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os títulos das secções. Desligada: o editor propõe apenas as palavras que já estão no documento.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "A pergunta a que esta vista responde: o programa tem várias e não diz qual importa mais"
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -10479,7 +10480,8 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The LE Contract Assistant is not installed on this server.": "El LE Contract Assistant no está instalado en este servidor.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Forma parte de los Logical English Translators, un producto con licencia de Logical Contracts.",
     "Smart editing": "Edición inteligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los títulos de las secciones. Desactivada: el editor propone solo las palabras que ya están en el documento."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los títulos de las secciones. Desactivada: el editor propone solo las palabras que ya están en el documento.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "La pregunta que responde esta vista: el programa tiene varias y no dice cuál importa más"
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11127,7 +11129,8 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The LE Contract Assistant is not installed on this server.": "Le LE Contract Assistant n'est pas installé sur ce serveur.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Il fait partie des Logical English Translators, un produit sous licence de Logical Contracts.",
     "Smart editing": "Édition intelligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous écrivez une règle, un scénario ou une requête, propose la suite de la phrase d'après les modèles du programme (Tab passe d'une place à la suivante) et, dans la marge, les titres des sections. Désactivée : l'éditeur ne propose que les mots déjà présents dans le document."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous écrivez une règle, un scénario ou une requête, propose la suite de la phrase d'après les modèles du programme (Tab passe d'une place à la suivante) et, dans la marge, les titres des sections. Désactivée : l'éditeur ne propose que les mots déjà présents dans le document.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "La question à laquelle cette vue répond : le programme en a plusieurs et ne dit pas laquelle compte le plus"
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11775,7 +11778,8 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "The LE Contract Assistant is not installed on this server.": "Il LE Contract Assistant non è installato su questo server.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Fa parte dei Logical English Translators, un prodotto in licenza di Logical Contracts.",
     "Smart editing": "Modifica intelligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole già presenti nel documento."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole già presenti nel documento.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "La domanda a cui risponde questa vista: il programma ne ha diverse e non dice quale conti di più"
   }
 } as const;
 

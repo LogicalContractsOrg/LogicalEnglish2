@@ -809,11 +809,14 @@ suspicious_is(KB, issue(suspicious_is, Description, Fix, Start, End)) :-
     le_i18n:le_msg(suspicious_is_fix, [], Fix),
     ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true; Start = 0, End = 0).
 
-% suspicious_type_phrase(+Type, -Phrase): Type is a constant (atom/string) made of
-% at least three words, one of which is a connective — i.e. it looks like an
-% absorbed predicate rather than a type name.
+% suspicious_type_phrase(+Type, -Phrase): Type is a constant atom made of at
+% least three words, one of which is a connective — i.e. it looks like an
+% absorbed predicate rather than a type name. A string is never suspicious: the
+% parser makes one only of text the author wrote in quotes ("300 to 384 hours
+% (Band 2)", a band name of a published rule table), which is a value on purpose.
 suspicious_type_phrase(Type, Phrase) :-
-    ( atom(Type) -> Phrase = Type ; string(Type) -> atom_string(Phrase, Type) ; fail ),
+    atom(Type),
+    Phrase = Type,
     atomic_list_concat(Words, ' ', Phrase),
     length(Words, N), N >= 3,
     member(W, Words), W \== '', downcase_atom(W, WL), connective_word(WL), !.

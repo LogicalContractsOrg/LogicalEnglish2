@@ -29,10 +29,8 @@ A sign-in lasts 14 days, or until you choose **Logout**.
 
 ## The two licences
 
-Signing in by itself changes nothing that you can do. What it does is tell the
-site your email address, so that the site can look up the licences that are
-attached to that address. Each licence has an expiry date. It works until the
-end of that day.
+Signing in allows the site to look up the licences that are
+attached to that email address. Each licence has an expiry date. 
 
 | Licence | What it adds |
 |---|---|
@@ -40,7 +38,7 @@ end of that day.
 | **InsurLE** | The InsurLE language extensions: a *which* in the conclusion of a rule, conditions introduced by *unless*, groups of conditions under *either*, *any of* or *all of*, and conditions numbered 1., 2., 3. It also adds InsurLE's own example programs. |
 
 A person may hold one licence, the other, or both. To obtain a licence,
-contact Logical Contracts.
+contact logicalcontracts.com.
 
 ## What you see without a licence
 

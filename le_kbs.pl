@@ -2250,7 +2250,11 @@ display_string(Instance, String) :-
 %   3901.90", "the underwriting decision for policy 1 is reject"), and read
 %   back the bare value is another constant: a number (3901.9), or a word, an
 %   atom (reject), which no string "reject" equals. Here every string value
-%   keeps its quotes ("the subheading of X is \"3901.90\"").
+%   keeps its quotes ("the subheading of X is \"3901.90\""). And a name
+%   written with underscores keeps them: canonical_string/2 shows learner_rt01
+%   as "learner rt01", which reads back as another name, so a Flip asked about
+%   "the payment period of learner rt01 is 0" found it already untrue and
+%   answered that no change was needed.
 goal_string(Instance, String) :-
     (   is_list(Instance)
     ->  maplist(quote_string_value, Instance, Tokens),
@@ -2261,6 +2265,8 @@ goal_string(Instance, String) :-
 quote_string_value(T, Q) :-
     (   string(T)
     ->  format(atom(Q), "\"~w\"", [T])
+    ;   atom(T), T \== '_', sub_atom(T, _, _, _, '_')
+    ->  Q = word(T)                     % token_to_atom/2 leaves a word as it is
     ;   Q = T
     ).
 
