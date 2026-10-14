@@ -4418,21 +4418,30 @@ hierarchy_to_logic(Nodes0, Templates, VMIn, VMOut, Logic) :-
 % silences the warning. (The warning is asserted once per position: a body may
 % be parsed more than once.)
 warn_or_then_and(Nodes) :-
-    (   append(_, [node(_, OrTokens, _)|After], Nodes),
-        \+ otherwise_line(OrTokens, _),
-        strip_leading_op(OrTokens, OrOp, _), OrOp == or, !,
-        append(Between, [node(_, AndTokens, _)|_], After),
-        \+ ( member(node(_, T, _), Between), otherwise_line(T, _) ),
-        \+ otherwise_line(AndTokens, _),
-        strip_leading_op(AndTokens, AndOp, _), AndOp == and, !,
-        tokens_range(OrTokens, Start, _),
-        tokens_range(AndTokens, _, End),
-        le_kbs:current_compiling_module(M), M \== (-),
+    (   le_kbs:current_compiling_module(M), M \== (-),
+        or_then_and(Nodes, Start, End),
         \+ catch(M:le_issue(warning, or_then_and, _, _, Start, End), _, fail)
     ->  le_i18n:le_msg(or_then_and_desc, [], Desc),
         le_i18n:le_msg(or_then_and_fix, [], Fix),
         assertz(M:le_issue(warning, or_then_and, Desc, Fix, Start, End))
     ;   true
+    ).
+
+% or_then_and(+Nodes, -Start, -End): an "or" line, then an "and" line, in one
+% linear pass; an "otherwise" line starts the search again.
+or_then_and([node(_, Tokens, _)|Rest], Start, End) :-
+    (   strip_leading_op(Tokens, Op, _), Op == or
+    ->  tokens_range(Tokens, Start, _),
+        and_after_or(Rest, Start, End)
+    ;   or_then_and(Rest, Start, End)
+    ).
+
+and_after_or([node(_, Tokens, _)|Rest], Start, End) :-
+    (   strip_leading_op(Tokens, Op, _), Op == or
+    ->  and_after_or(Rest, Start, End)
+    ;   otherwise_line(Tokens, _)
+    ->  or_then_and(Rest, Start, End)
+    ;   tokens_range(Tokens, _, End)
     ).
 
 %!  adopt_orphan_forall_markers(+Nodes:list, -Nodes1:list) is det.
