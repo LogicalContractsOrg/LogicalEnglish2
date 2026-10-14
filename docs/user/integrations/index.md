@@ -138,7 +138,7 @@ reads (PDDL, Inform 7):
 | Bitcoin Miniscript policy or descriptor | import, export | [Bitcoin Miniscript](miniscript.md) |
 | LegalRuleML (OASIS) | import, export | [LegalRuleML](legalruleml.md) |
 | s(CASP), Prolog, LE1's s(CASP) translations | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |
-| Blawx project | import | [Blawx](blawx.md) |
+| Blawx project (version 1) | import | [Blawx](blawx.md) |
 | Oracle Intelligent Advisor project or rulebase | import | [Oracle Intelligent Advisor](oia.md) |
 | Socotra product configuration | import | [Socotra](socotra.md) |
 | Oracle Insurance Policy Administration transaction | import | [OIPA](oipa.md) |

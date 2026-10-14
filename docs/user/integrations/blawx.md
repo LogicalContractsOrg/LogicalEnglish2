@@ -1,6 +1,6 @@
 # Blawx and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-09-16)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-14)*
 
 Blawx is a tool that runs in a web browser for writing law as rules a computer
 can follow, and it was written by Jason Morris of Lexpedite. An author pastes
@@ -9,6 +9,13 @@ sections. The author then encodes each section by dragging blocks together on
 the screen: categories, attributes, relationships, rules, exceptions ("section
 4 overrides section 3"), and tests. Blawx turns those blocks into s(CASP), and
 answers the tests with s(CASP).
+
+**Which versions.** The translator reads projects of **Blawx version 1**, the
+open-source release that is installed and run by its user (its last version
+is 1.6.22-alpha, of October 2023). Blawx 2 and 3, the hosted versions at
+app.blawx.dev, keep each project inside the service rather than as a file to
+export, so there is nothing yet for **File ▸ Open…** to read: projects of
+those versions are not supported.
 
 The translation goes one way only, into Logical English. **File ▸ Open…** (or
 **File ▸ Import from Another System…**) reads a Blawx project, either as a
@@ -41,7 +48,7 @@ installation.
 
 | Direction | Where (menu item) | Files | What you get | Checked against |
 |---|---|---|---|---|
-| Blawx → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | `.blawx`, `.yaml`, `.yml`, or a `.zip` holding one | the Act's rules in the words of Blawx's sentence forms, each citing its section; facts citing theirs; constraints; the project's tests and cases written from each rule as scenarios; a view; a ledger; the Act's text in `sources/` | Blawx's own answers: its reasoner, run on the project, answers every test and generated case |
+| Blawx version 1 → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | `.blawx`, `.yaml`, `.yml`, or a `.zip` holding one | the Act's rules in the words of Blawx's sentence forms, each citing its section; facts citing theirs; constraints; the project's tests and cases written from each rule as scenarios; a view; a ledger; the Act's text in `sources/` | Blawx's own answers: its reasoner, run on the project, answers every test and generated case |
 | Logical English → Blawx | none | — | — | — |
 
 ## How to use it
