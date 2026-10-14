@@ -14,6 +14,7 @@ test.describe('Help menu', () => {
         { text: 'Logical English syntax (reference)', href: '/docs/user/reference/language' },
         { text: 'Other systems: import and export', href: '/docs/user/integrations/index' },
         { text: 'Migration Gallery', href: '/docs/user/integrations/gallery' },
+        { text: 'History', href: '/docs/user/history' },
         { text: 'Search the documentation…', href: '/docs/search' },
     ];
 

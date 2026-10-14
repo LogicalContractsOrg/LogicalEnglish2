@@ -105,7 +105,7 @@ solve(G, SM, KM, Anc, D, ParentID, Us, Whys) :-
     ;   is_redundant(ParentID, G)
     ->  solve_real(G, SM, KM, Anc, D, ParentID, Us, Whys)
     ;           next_id(MyID),
-        ( ParentID \== none -> assertz(called(ParentID, MyID, G)); true),
+        ( ParentID \== none -> proof_record(called(ParentID, MyID, G)); true),
         (   SM:debug_mode
 
         ->  live_ancestors(Anc, LiveAnc),
@@ -116,14 +116,14 @@ solve(G, SM, KM, Anc, D, ParentID, Us, Whys) :-
             % first solution and make only the first answer traceable.)
             (   catch(solve_real(G, SM, KM, Anc, D, MyID, Us, Whys), E,
                       (dap_server:dap_tracer_hook(exception(E), SM, G, MyID, LiveAnc, D), throw(E)))
-            *-> (succeeded(MyID) -> true ; assertz(succeeded(MyID))),
+            *-> record_succeeded(MyID),
                 note_solved(MyID, G),
                 dap_server:dap_tracer_hook(exit, SM, G, MyID, LiveAnc, D)
             ;   dap_server:dap_tracer_hook(fail, SM, G, MyID, LiveAnc, D),
                 fail
             )
         ;   solve_real(G, SM, KM, Anc, D, MyID, Us, Whys),
-            (succeeded(MyID) -> true ; assertz(succeeded(MyID))),
+            record_succeeded(MyID),
             note_solved(MyID, G)
         )
     ).
@@ -214,7 +214,7 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
         % Goal failed, build failure tree for the goal
         % We need to ensure the failure is recorded under MyID
         next_id(GoalID),
-        ( (MyID \== none, ground(Goal)) -> assertz(called(MyID, GoalID, Goal)); true),
+        ( (MyID \== none, ground(Goal)) -> proof_record(called(MyID, GoalID, Goal)); true),
         (   failure_explanations
         ->  ( solve(Goal, SM, KM, Anc, D1, GoalID, [], _) -> true ; true ),
             build_failure_tree(GoalID, WhysGoal)
@@ -246,7 +246,7 @@ solve_real_actual(forall(Cond, Cons), SM, KM, Anc, D, MyID, Us,
         [success(for_all_cases(GeneralCond), universal, CaseChildren)]) :- !,
     D1 is D + 1,
     next_id(CondID),
-    assertz(called(MyID, CondID, Cond)),
+    proof_record(called(MyID, CondID, Cond)),
     % The condition with its universally-quantified variable(s) still free, for
     % the header line "for all cases in which <general condition>" (e.g. "a thing
     % belongs to family two"). Taken before the findall binds them per case.
@@ -305,7 +305,7 @@ solve_real_actual(forall(Cond, Cons), SM, KM, Anc, D, MyID, Us,
 solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negation, FailureTrees)]) :- !,
     D1 is D + 1,
     next_id(GoalID),
-    assertz(called(MyID, GoalID, Goal)),
+    proof_record(called(MyID, GoalID, Goal)),
     % not(Goal) fails as soon as Goal succeeds AT ALL — whether definitely or only
     % by assuming some unknowns true. An assumable success still establishes Goal,
     % so its negation must fail (it is not merely "unknown"). We therefore
@@ -318,12 +318,12 @@ solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negat
             '$goal_succeeded'(SuccWhys),
             true )
     ->  % Goal succeeded (possibly only under assumptions): not(Goal) fails.
-        assertz(success_in_not(GoalID, SuccWhys)),
+        proof_record(success_in_not(GoalID, SuccWhys)),
         fail
     ;   % Goal has no proof at all: not(Goal) succeeds.
         Us = [],
         failure_tree(GoalID, FailureTrees),
-        assertz(success_in_not(GoalID, FailureTrees))
+        proof_record(success_in_not(GoalID, FailureTrees))
     ).
 
 % True
@@ -446,7 +446,7 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
                 \+ ancestor_unifies(is_a(X, Y), Anc),
                 % Record the fact call
                 next_id(FactID),
-                ( ground(is_a(X, Y)) -> assertz(called(MyID, FactID, is_a(X, Y))) ; true ),
+                ( ground(is_a(X, Y)) -> proof_record(called(MyID, FactID, is_a(X, Y))) ; true ),
                 solve(is_a(Y, Z), SM, KM, [is_a(X, Y), is_a(X, Z)|Anc], D1, MyID, Us, WhysBody2),
                 Ref = transitivity,
                 WhysBody = [success(is_a(X, Y), Ref1, []) | WhysBody2]
@@ -896,7 +896,7 @@ goal_attempt(Goal, SM, KM, Result) :-
 %   rules the failure is chargeable to (a section blames its own rules, not
 %   the rules of the predicates they consult).
 goal_attempt(Goal, SM, KM, Result, CallerRefs) :-
-    with_saved_reasoner_state(goal_attempt_(Goal, SM, KM, Result, CallerRefs)).
+    with_proof_records(with_saved_reasoner_state(goal_attempt_(Goal, SM, KM, Result, CallerRefs))).
 
 goal_attempt_(Goal, SM, KM, Result, CallerRefs) :-
     (   solve(Goal, SM, KM, [], 0, 0, _, _)
@@ -1002,8 +1002,8 @@ admissible_clause(Ref, Goal, SM, KM, MyID) :-
             ->  next_id(RejID),
                 Rej = le_inadmissible(Goal, Source, Scope),
                 (   catch(SM:le_source_info(Ref, S, E, _), _, fail)
-                ->  assertz(called(MyID, RejID, le_at(Rej, S, E)))     % points at the fact
-                ;   assertz(called(MyID, RejID, Rej))
+                ->  proof_record(called(MyID, RejID, le_at(Rej, S, E)))     % points at the fact
+                ;   proof_record(called(MyID, RejID, Rej))
                 )
             ;   true
             ),
@@ -1414,7 +1414,7 @@ detailed_failures_on(SM) :-
 solve_rule_body(Body, SM, KM, Anc, D, MyID, Ref, Us, WhysBody) :-
     (   Body \== true, detailed_failures_on(SM)
     ->  next_id(ClauseID),
-        assertz(called_clause(MyID, ClauseID, Ref)),
+        proof_record(called_clause(MyID, ClauseID, Ref)),
         solve(Body, SM, KM, Anc, D, ClauseID, Us, WhysBody)
     ;   solve(Body, SM, KM, Anc, D, MyID, Us, WhysBody)
     ).
@@ -1428,6 +1428,41 @@ solve_rule_body(Body, SM, KM, Anc, D, MyID, Ref, Us, WhysBody) :-
 :- create_prolog_flag(le_failure_explanations, true, [type(boolean), keep(true)]).
 
 failure_explanations :- current_prolog_flag(le_failure_explanations, true).
+
+%   proof_records: whether the proof keeps its per-call records (called/3,
+%   called_clause/3, succeeded/1, success_in_not/2). Only explanations of
+%   failures and goal_attempt/5 (why a query fails, which section it fails
+%   in) read them, so a caller that wants answers only (the test runner, with
+%   le_failure_explanations off) does not keep them, unless a goal_attempt
+%   inside the proof asks for them (le_proof_records). On a large translated
+%   program the records were a third of the work: 2.7 million assertions for
+%   one query of the Catala housing-allowance twin, which made its test run
+%   longer than the test's time limit.
+proof_records :-
+    (   failure_explanations -> true
+    ;   nb_current(le_proof_records, true)
+    ).
+
+proof_record(Fact) :-
+    ( proof_records -> assertz(Fact) ; true ).
+
+%!  with_proof_records(:Goal) is semidet.
+%
+%   Runs Goal (once) with the proof's records kept, whatever
+%   le_failure_explanations says: for a caller that reads them (goal_attempt/5,
+%   the candidate changes of a flip, le_flip.pl).
+:- meta_predicate with_proof_records(0).
+with_proof_records(Goal) :-
+    (   nb_current(le_proof_records, Saved) -> true ; Saved = false ),
+    setup_call_cleanup(nb_setval(le_proof_records, true),
+                       once(Goal),
+                       nb_setval(le_proof_records, Saved)).
+
+record_succeeded(ID) :-
+    (   \+ proof_records -> true
+    ;   succeeded(ID) -> true
+    ;   assertz(succeeded(ID))
+    ).
 
 failure_tree(ID, Whys) :-
     (   failure_explanations -> build_failure_tree(ID, Whys) ; Whys = [] ).

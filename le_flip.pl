@@ -129,7 +129,8 @@ compatible(remove(F), Set) :- \+ ( member(add(G), Set), G =@= F ).
 evaluate(Goal, _SM, KM, Base, Set, Holds, Pool) :-
     retract(evaluations(N)), N1 is N + 1, assertz(evaluations(N1)),
     with_changed_session(KM, Base, Set, T,
-        reasoner:with_saved_reasoner_state(le_flip:attempt(Goal, T, KM, Base, Set, Holds, Pool))).
+        reasoner:with_proof_records(
+            reasoner:with_saved_reasoner_state(le_flip:attempt(Goal, T, KM, Base, Set, Holds, Pool)))).
 
 attempt(Goal, T, KM, Base, Set, Holds, Pool) :-
     copy_term(Goal, G),
