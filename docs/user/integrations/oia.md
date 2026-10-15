@@ -1,6 +1,6 @@
 # Oracle Intelligent Advisor and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-09-16)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-15)*
 
 Oracle Intelligent Advisor (OIA, and before that Oracle Policy Automation) is
 Oracle's product for rules about who is eligible for something and what they
@@ -16,7 +16,14 @@ view, a screen that shows the program to someone who is not reading its
 sentences. The translation goes one way only, from OIA into Logical English:
 nothing writes an OIA project back out. Start the translation with **File ▸
 Open…** or **File ▸ Import from Another System…**. The translator is part of
-the InsurLE extensions, which installations such as the hosted service have.
+the *Logical English Translators*, which installations such as the hosted
+service have, for the accounts that hold that licence.
+
+The same licence brings the **OIA adapter**: the server answers the calls that
+applications make to Oracle Intelligent Advisor — its decision services, Batch
+Assess and SOAP Assess — in Oracle's own formats, from the translated program.
+An application written for OIA then needs a new address and new credentials,
+not new code (see [The OIA adapter](#the-oia-adapter)).
 
 ## Contents
 
@@ -33,6 +40,7 @@ the InsurLE extensions, which installations such as the hosted service have.
   - [Rule tables](#rule-tables)
   - [Entities](#entities)
   - [Tests, or the analysis of the rules](#tests-or-the-analysis-of-the-rules)
+- [The OIA adapter](#the-oia-adapter)
 - [Traps](#traps)
 - [See also](#see-also)
 
@@ -40,20 +48,31 @@ the InsurLE extensions, which installations such as the hosted service have.
 
 | Direction | Where (menu item) | Files | What you get | Checked against |
 |---|---|---|---|---|
-| OIA → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | a compiled rule document (`<doc>.docx.xgen`); a deployed `rulebase.xml`, with its `rulebase.stxt`; a `.zip` of a Policy Modeling project folder or of a deployed rulebase | a program with templates, rules citing the Word document and paragraph, decision tables, scenarios, queries and an interview view; a migration ledger; the documents' paragraphs in `sources/` | the project's Excel test cases (whose results Policy Modeling records in `testResults.xml`); for a project with no test files, an evaluator of the OIA rules with OIA's own semantics |
+| OIA → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | a Word rule document (`.docx`); a `.ruletxt` file; a project exported from the Hub as JSON (a decision service or a flow); a compiled rule document (`<doc>.docx.xgen`); a deployed `rulebase.xml`, with its `rulebase.stxt`; a `.zip` of a Policy Modeling project folder or of a deployed rulebase | a program with templates, rules citing the Word document and paragraph, decision tables, scenarios, queries and an interview view; a migration ledger; the documents' paragraphs in `sources/` | the project's Excel test cases (whose results Policy Modeling records in `testResults.xml`); for a project with no test files, an evaluator of the OIA rules with OIA's own semantics |
 
 ## How to use it
 
 ### What to upload
 
-The translator reads the forms Policy Modeling produces, not the Word or Excel
-documents themselves. Upload one of these three:
+The translator reads the rules as their authors wrote them, and the forms
+Policy Modeling compiles them into. Upload one of these:
 
-- **One rule document.** Policy Modeling turns each Word or Excel rule document
-  into a file `bin/<Document>.docx.xgen`. Upload that file. The `.xgen` file
-  carries the sentences as their author wrote them, Oracle's reading of each
-  sentence (which words are the subject, and so on), the rules with their
-  levels, and the paragraphs of the document.
+- **A Word rule document** (`.docx`), as it sits in the project's `Rules`
+  folder. The translator reads its paragraphs and their styles (`OPM -
+  conclusion`, `OPM - level 1`, …) and its rule tables, as Policy Modeling
+  does; lines in the `Comment` styles are left out, as Policy Modeling leaves
+  them out. Zip the project folder instead to bring the data model
+  (`projectDataModel.xml`, which says what type each attribute has and which
+  entity it belongs to) and the test files with it.
+- **Rule text** (`.ruletxt`): the text form of Word rule documents that some
+  teams keep under version control, one file per document (zip several).
+- **A Hub project** exported as JSON: a *decision service* or a *flow* written
+  in Intelligent Advisor Hub. Its contract gives each field's name and type.
+- **One compiled rule document.** Policy Modeling turns each Word or Excel rule
+  document into a file `bin/<Document>.docx.xgen`. Upload that file. The
+  `.xgen` file carries the sentences as their author wrote them, Oracle's
+  reading of each sentence (which words are the subject, and so on), the rules
+  with their levels, and the paragraphs of the document.
 - **A deployed rulebase.** Upload `rulebase.xml`, the rulebase as published to
   the server that answers cases. If you also have
   `rulebase.stxt`, put the two in one zip: the `.stxt` file holds the sentence
@@ -61,11 +80,16 @@ documents themselves. Upload one of these three:
   question the interview asks. The editor takes an `.xml` file for a rulebase
   when the file's outermost element is `rulebase`, whatever the file is called.
 - **A whole project.** Zip the Policy Modeling project folder. The folder holds
-  the `.xprj` file, the `bin` folder with its `.xgen` files,
-  `projectDataModel.xml` (which says what type each attribute has), the Excel
-  test files and `testResults.xml`. The zip may hold the folder itself or the
-  folder's contents. Build the project in Policy Modeling before you zip it: a
-  project with no `.xgen` files in it is refused, with a message saying so.
+  the `.xprj` file, the `Rules` folder with the Word documents, the `bin`
+  folder with its `.xgen` files when the project was built,
+  `projectDataModel.xml`, the Excel test files and `testResults.xml`. The zip
+  may hold the folder itself or the folder's contents. A built project is read
+  from its `.xgen` files, which Policy Modeling checked; a project that was
+  never built is read from its Word documents.
+
+The two ways of reading agree: for the four public projects that ship both
+their Word documents and Policy Modeling's `.xgen` files, the rules read from
+Word are the rules read from Oracle's compilation, 120 of 120.
 
 The server reads the Excel test files only when it has `python3` with the
 `openpyxl` package installed. Without that package the server skips the test
@@ -137,9 +161,9 @@ which carries no Word text, the folder holds the files you uploaded.
 
 ### Examples to try
 
-Five translated OIA projects sit among the lpsPlus examples. Those examples are
-visible only on installations that have them, and only to users with access to
-them. Open one with **File ▸ Open example from server…**:
+Fifteen translated OIA projects sit among the lpsPlus examples. Those
+examples are visible only on installations that have them, and only to users
+with access to them. Open one with **File ▸ Open example from server…**:
 
 - `lpsPlus/migration/oia/warranty_claims`: three rules, the smallest;
 - `lpsPlus/migration/oia/mom_paternity_leave`: Singapore's Government Paid
@@ -149,11 +173,25 @@ them. Open one with **File ▸ Open example from server…**:
 - `lpsPlus/migration/oia/vibect`: a deployed rulebase with a 383-row rule
   table and 97 Excel test cases;
 - `lpsPlus/migration/oia/dctad`: a deployed rulebase with entities and five
-  rule tables.
+  rule tables;
+- `lpsPlus/migration/oia/loan_advisor`: Oracle's *Loan Advisor* demonstration,
+  with assets, liabilities, income sources and a schedule of 361 monthly
+  payments the rules infer one from another;
+- `lpsPlus/migration/oia/do_i_need_to_file`, `taxpayer_information` and
+  `student_benefits`: Oracle's own Hub samples (two decision services and a
+  flow);
+- `lpsPlus/migration/oia/laa_feedback_form` and `check_answers`: two
+  Ministry of Justice rulebases that build email and web page text;
+- `lpsPlus/migration/oia/simple_benefits`, `insurance_fraud_score`,
+  `aged_care_approval` and `social_services_screening`: four of Oracle's
+  documented example projects, rebuilt from their documentation, with
+  entities, `ForAll`, `Exists`, sums and dates (Simple Benefits also answers
+  the two cases Oracle's documentation publishes, as Oracle published them).
 
-Each of the five comes with its ledger and its `sources/` folder. The public
-projects the five were translated from state no licence, so these translations
-are not published anywhere else.
+Each comes with its ledger and its `sources/` folder; together they
+reproduce 953 of the 953 answers their tests expect. Several of the public
+projects state no licence, so their translations are not published anywhere
+else.
 
 ## How OIA maps to Logical English
 
@@ -176,8 +214,16 @@ are not published anywhere else.
 | `known(x)`, `unknown(x)` | for a value, `x is a value` and its negation; for a boolean, `x` or its opposite form, and the negation of that (approximated) |
 | `uncertain(x)` | `it is uncertain whether x`, a fact a test states (approximated) |
 | an `Error("…")` or `Warning` event | `the rulebase raises the error "The purchaser cannot be under 18 years of age" if …` |
-| an entity with an identifying attribute | an instance is its identifying value: `*a code* identifies the error.` |
+| an entity the case lists | an instance template after its relationship: `*a child* is one of the claimant's children`; an instance is named by its identifying value, else by its identifier in the case |
+| an entity attribute | a template with a place for the instance: `the known value of *an asset* is *a value*`, `*a child* is a teenager` |
+| `InstanceCount`, `InstanceSum`, `InstanceCountIf`, `InstanceMinimum`, `InstanceMaximum` | an aggregate: `N is the count of each P such that P is one of the payments and …` |
+| `Exists`, `ForAll` | a condition on some instance; `for all cases in which … it is the case that …` |
+| text built with `+`, `Text()`, `Contains`, `EndsWith`, `StartsWith` | the shipped `text` library (`the joining of [...] is ...`) and Logical English's own `starts with` |
+| `xy` (a power), `Minimum`, `Maximum`, `Round(x, n)`, `DayDifference`, `YearDifference` | the shipped `maths`, `rounding` and `temporal` libraries, Logical English's `the minimum of … and … is …` |
+| an entity with an identifying attribute, whose instances a table infers | an instance is its identifying value: `*a code* identifies the error.` |
 | a table that infers entity instances | a rule whose rows are alternatives (each matching row adds an instance), and a query listing them |
+| instances inferred one from another (a schedule of payments) | a walk along the chain from the first instance, each step remembered: `the payments from *a payment* are *a list*` |
+| a test case from Excel, a logged Assess request and its response, or a JSON case | a scenario with the inputs as facts and the expected values as `expects answers` |
 | an Excel test case | a scenario `as stated in "Witholding_Amount.xlsx" at test case 1:` with the inputs as facts and the expected values as `expects answers` |
 | the interview | a view: the attributes no rule concludes, asked one at a time; the top conclusion as the result |
 | a rule the translator cannot map | a `% RESIDUE` block holding the rule's XML |
@@ -223,14 +269,18 @@ See
 
 ### Entities
 
-An entity is a kind of thing the rules speak about, such as a claim or a
-decision, and each individual of that kind is an instance. The translator
-writes an instance as the value that identifies it, and writes each attribute
-of an entity as a template with a place for the instance:
-`the aggregation decision flag of a decision is a flag if the decision
-identifies the aggregation decision details and …`. A table that works out
-which instances there are, which OIA calls a relationship, adds one instance
-for each row that matches.
+An entity is a kind of thing the rules speak about, such as a child, an asset
+or a payment, and each individual of that kind is an *instance*. Each
+attribute of an entity becomes a template with a place for the instance, and
+each rule about an entity's attribute holds for each instance:
+`a child is a teenager if the child is one of the claimant's children and the
+age of the child is a number N and N >= 13 and N <= 19`. OIA's functions over
+the instances become Logical English's aggregates (`the count of each`, `the
+sum of each`) and its universal condition (`for all cases in which`). A table
+that works out which instances there are, which OIA calls a relationship, adds
+one instance for each row that matches. Instances OIA infers one from the
+previous one — the payments of a loan — are found by walking from the first,
+each step remembered, so that a schedule of 361 payments takes seconds.
 
 ### Tests, or the analysis of the rules
 
@@ -251,6 +301,27 @@ decimals, as OIA does, and writes each expected number the way Logical English
 prints numbers, so a whole number carries no decimal point (`the fee is 70`).
 A scenario written this way says `as stated in the analysis of the rules`.
 
+## The OIA adapter
+
+The server that runs the editor can also answer **Oracle Intelligent
+Advisor's own interfaces**, from the translated programs, when the
+installation has the Logical English Translators:
+
+| An application that called OIA through | Calls this server at |
+|---|---|
+| OIA's sign-in (an API client's identifier and secret) | `POST /opa-hub/api/12.2.23/auth` |
+| a decision service (one case, several, its OpenAPI description) | `POST /determinations-server/v2/<name>`, `.../batch`, `GET .../swagger.json` |
+| Batch Assess | `POST /determinations-server/batch/12.2.26/policy-models/<name>/assessor` |
+| SOAP Assess | `POST /determinations-server/assess/soap/generic/12.2/<name>` |
+
+`/oia-adapter` lists the translated programs that can answer, and their
+names. Each case's values become facts of the program, each outcome a
+question of it, and an outcome asked with a *decision report* gets the
+program's explanation. A boolean outcome the case leaves undecided is answered
+*false*, where OIA could say *unknown* (see the first trap below). The API
+clients belong to accounts that hold the licence; your administrator makes
+them.
+
 ## Traps
 
 - **Unknown is false.** OIA works with three values, not two: an input nobody
@@ -268,16 +339,15 @@ A scenario written this way says `as stated in the analysis of the rules`.
 - **Uncertain is a fact.** `uncertain(x)` becomes a template, `it is uncertain
   whether x`, which a scenario has to state as a fact. No rule ever concludes
   it.
-- **No reasoning about time.** The current date is one of the facts of the
+- **Little reasoning about time.** The current date is one of the facts of the
   case. Change points, `ValueAt`, `WhenLast` and sums over intervals are not
   translated at all, and a rule that uses any of them is left as residue.
 - **Not read:** `.tsc` test scripts, Excel sheets listing the instances of an
   entity, interview screens (`.xint` files: the view is built from the rules
-  instead), and the Word and Excel documents themselves, since the translator
-  reads only the `.xgen` files Policy Modeling makes from them. Conclusions
-  about an entity written in Word, `ForAll`, `Exists` and `InstanceCount` over
-  relationships, and inputs whose value is a relationship would all be left as
-  residue.
+  instead), `If()` used as a value, `Substring` and the other functions that
+  turn text into values, inputs whose value is a relationship between two
+  entities, and entities nested more than one level under the case: a rule
+  that uses any of them is left as residue.
 - **The words change a little.** The translator keeps each sentence as written,
   but makes it safe for Logical English to read: punctuation is dropped, `%`
   becomes `percent`, `/` becomes `or`, and any word Logical English keeps for
@@ -310,7 +380,7 @@ A scenario written this way says `as stated in the analysis of the rules`.
     [`otherwise` cascades](../reference/language.md#172-otherwise-cascades),
     [provenance trailers](../reference/language.md#171-provenance-trailers-and-judged-templates),
     [rule labels and provenance](../reference/language.md#155-rule-labels-and-provenance),
-    [the `temporal` library](../reference/language.md#142-shipped-libraries-lib),
+    [the `temporal`, `text`, `maths` and `lists` libraries](../reference/language.md#142-shipped-libraries-lib),
     [testing and expectations](../reference/language.md#12-testing-and-expectations)
   - [LE Views](../tutorials/views.md), for the interview
   - [The assistants](../guide/assistants.md#the-contract-assistant): the Contract
