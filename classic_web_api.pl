@@ -68,6 +68,21 @@
 
 accounts_available :- current_predicate(lc_accounts:lc_request_user/2).
 
+%  The OIA adapter is the private lpsPlus repository's too
+%  (`migration/oia/oia_adapter.pl`, part of the translators' product): Oracle
+%  Intelligent Advisor's own APIs — decision services, Batch Assess, SOAP
+%  Assess, its sign-in — answered by the Logical English twins of OIA
+%  projects, so that an application that called OIA calls this server
+%  unchanged. Loading it registers its routes (/determinations-server/...,
+%  /opa-hub/api/.../auth, /oia-adapter); access goes with the translators'
+%  licence, checked by the adapter for each call. Without lpsPlus the routes
+%  do not exist.
+:- (   le_plus_file('migration/oia/oia_adapter.pl', AdapterFile)
+   ->  catch(use_module(AdapterFile), E,
+             print_message(warning, format('OIA adapter not loaded: ~q', [E])))
+   ;   true
+   ).
+
 %!  request_visitor(?Email, ?Capabilities) is semidet.
 %
 %   Who the request being served is from, set for every request by
