@@ -1,0 +1,19 @@
+% lib/lists.le — building a list one item at a time, as LE templates.
+%
+% LE writes a list whole (`[1, 2, 3]`) and asks whether something is in one
+% (`*V1* is in *V2*`, language.md §7). A rule that collects things one by one
+% — the payments of a loan, from the first to the last, each from the one
+% before — also needs to put an item in front of a list it already has.
+% A library, not syntax: include it as a resource (a translator copies it
+% beside the program it writes, with lists.pl), and use its templates like
+% any other.
+
+the knowledge base lists includes these resources:
+    lists.pl.
+
+the templates are:
+    *a list* is *an item* followed by *a second list*.
+
+the knowledge base lists includes:
+
+% Every template is answered by lists.pl.

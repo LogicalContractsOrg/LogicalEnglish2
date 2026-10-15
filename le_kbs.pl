@@ -1775,7 +1775,7 @@ query(SessionModule, Goal, TemplateInstance, Unknowns, Why) :-
     ( do_log -> print_message(informational, 'Executing compound query goal: ~w' - [Goal]); true),
     reasoner:i(Goal, SessionModule, Unknowns, Why0),
     ( (KBmodule \== none, item_to_instance(KBmodule, Goal, Tokens)) -> TemplateInstance = Tokens ; TemplateInstance = [Goal] ),
-    postprocess_why(Why0, SessionModule, Why).
+    explanation_why(Why0, SessionModule, Why).
 query(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
     ensure_tokens(Template, Tokens),
     ( SessionModule:le_kb_module_fact(KBmodule) -> true ; KBmodule = none ),
@@ -1786,13 +1786,13 @@ query(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
             ( do_log -> print_message(informational, 'Named query solution found for ~w' - [QueryName]); true),
             maplist(item_to_instance(KBmodule), Items, Instances),
             flatten(Instances, TemplateInstance),
-            postprocess_why(Why0, SessionModule, Why)
+            explanation_why(Why0, SessionModule, Why)
         ; ( do_log -> print_message(informational, 'Parsing free-text query tokens: ~w' - [Tokens]); true),
             (   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance) ->
                 ( do_log -> print_message(informational, 'Executing query goal: ~w' - [Goal]); true),
                 reasoner:i(Goal, SessionModule, Unknowns, Why0),
                 ( do_log -> print_message(informational, 'Query goal solution found: ~w' - [Goal]); true),
-                postprocess_why(Why0, SessionModule, Why)
+                explanation_why(Why0, SessionModule, Why)
             ;   format(string(Error), "Query does not match any template: ~w", [Template]),
                 throw(error(le_parse_error(Error), _))
             )
@@ -1833,7 +1833,7 @@ query_explain(SessionModule, Goal, TemplateInstance, Unknowns, Why) :-
     ( SessionModule:le_kb_module_fact(KBmodule) -> true ; KBmodule = none ),
     reasoner:explain(Goal, SessionModule, Unknowns, Why0),
     ( (KBmodule \== none, item_to_instance(KBmodule, Goal, _Tokens)) -> true ; TemplateInstance = [Goal] ),
-    postprocess_why(Why0, SessionModule, Why1),
+    explanation_why(Why0, SessionModule, Why1),
     add_section_checklist(SessionModule, KBmodule, Goal, Why1, Why).
 query_explain(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
     ensure_tokens(Template, Tokens),
@@ -1842,12 +1842,12 @@ query_explain(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
             ( do_log -> print_message(informational, 'Executing named query explain ~w: ~w' - [QueryName, Goal]); true),
             reasoner:explain(Goal, SessionModule, Unknowns, Why0),
             ( (maplist(item_to_instance(KBmodule), Items, Instances), flatten(Instances, TemplateInstance)) -> true; TemplateInstance = []),
-            postprocess_why(Why0, SessionModule, Why1),
+            explanation_why(Why0, SessionModule, Why1),
             add_section_checklist(SessionModule, KBmodule, Goal, Why1, Why)
         ;   (   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance) ->
                     ( do_log -> print_message(informational, 'Executing query goal explain: ~w' - [Goal]); true),
                     reasoner:explain(Goal, SessionModule, Unknowns, Why0),
-                    postprocess_why(Why0, SessionModule, Why1),
+                    explanation_why(Why0, SessionModule, Why1),
                     add_section_checklist(SessionModule, KBmodule, Goal, Why1, Why)
                 ;   format(string(Error), "Query does not match any template: ~w", [Template]),
                     throw(error(le_parse_error(Error), _))
@@ -2737,9 +2737,26 @@ maybe_transform_value(KBmodule, Val, Transformed) :-
 %   surrounding flatten/2 in item_to_instance/3 and query/5 would otherwise
 %   splice the elements into the sentence and lose the list structure.
 render_list_value(KBmodule, List, Atom) :-
-    maplist(render_list_element(KBmodule), List, ElemAtoms),
+    (   nb_current(le_explaining, true), length(List, N), N > 12
+    ->  %  in an explanation, a long list shows its first items and how many
+        %  there are: a chain of 360 payments explains each step with the
+        %  list of the steps after it, and in full that text is quadratic
+        length(First, 10), append(First, _, List),
+        maplist(render_list_element(KBmodule), First, ElemAtoms0),
+        format(atom(More), '... (~w items in all)', [N]),
+        append(ElemAtoms0, [More], ElemAtoms)
+    ;   maplist(render_list_element(KBmodule), List, ElemAtoms)
+    ),
     atomic_list_concat(ElemAtoms, ', ', Inner),
     atomic_list_concat(['[', Inner, ']'], Atom).
+
+%   The explanation of a query's answer, written for a reader
+%   (postprocess_why/3) with long lists abbreviated (render_list_value/3).
+explanation_why(Why0, SM, Why) :-
+    ( nb_current(le_explaining, Saved) -> true ; Saved = false ),
+    setup_call_cleanup(nb_setval(le_explaining, true),
+                       postprocess_why(Why0, SM, Why),
+                       nb_setval(le_explaining, Saved)).
 
 render_list_element(KBmodule, E, A) :-
     (   is_list(E) -> render_list_value(KBmodule, E, A)
@@ -3380,6 +3397,41 @@ same_number_word(W0, W) :-
         )
     ;   W = W0
     ).
+%!  answers_match(+Expected, +Actual) is semidet.
+%
+%   The expected answers are the actual ones (both normalised and sorted):
+%   the same — or the same but for numbers, where an expected number written
+%   with decimals is matched by an actual number that rounds to it at that
+%   many decimals ("2398.2" matches 2398.2021...). A tester writes an amount
+%   to the cent, as rule systems' own test cases do (an Oracle Intelligent
+%   Advisor test compares a currency as shown); the engine's arithmetic
+%   carries every digit. A whole number, and a number in any other word, is
+%   still compared exactly.
+answers_match(E, A) :- E == A, !.
+answers_match(E, A) :-
+    length(E, N), length(A, N),
+    answers_match_(E, A).
+
+answers_match_([], []).
+answers_match_([E|Es], As) :-
+    select(A, As, As1), answer_matches(E, A), !,
+    answers_match_(Es, As1).
+
+answer_matches(E, A) :-
+    split_string(E, " ", "", EWs), split_string(A, " ", "", AWs),
+    length(EWs, N), length(AWs, N),
+    maplist(word_matches, EWs, AWs).
+
+word_matches(W, W) :- !.
+word_matches(EW, AW) :-
+    sub_string(EW, B, 1, After, "."), After > 0,
+    sub_string(EW, 0, B, _, IntPart), IntPart \== "",
+    catch(number_string(EX, EW), _, fail),
+    catch(number_string(AX, AW), _, fail),
+    D = After,
+    R is round(AX * 10^D) / 10^D,
+    abs(R - EX) < 0.5 / 10^D.
+
 %   A number written with the decimal comma of the program's language
 %   ("500,0" in French, the way an answer is shown there): the same number
 %   as "500", as a number written with a point is.
@@ -3827,7 +3879,7 @@ run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUn
                         maplist(normalize_string, SortedActualUnknowns, NormActualUnknowns),
                         sort(NormExpectedUnknowns, SortedExpectedUnknowns),
                         sort(NormActualUnknowns, SortedActualUnknownsFinal),
-                        (   SortedExpected == SortedActual, ( ExpectedUnknowns == any -> true ; SortedExpectedUnknowns == SortedActualUnknownsFinal ) -> 
+                        (   answers_match(SortedExpected, SortedActual), ( ExpectedUnknowns == any -> true ; SortedExpectedUnknowns == SortedActualUnknownsFinal ) -> 
                                 Result = pass(QueryName, ScenarioName)
                             ; 
                             maplist(strip_string_wrapper, ExpectedStrings, CleanExpected),
@@ -3874,7 +3926,7 @@ run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUn
                         maplist(normalize_string, SortedActualUnknowns, NormActualUnknowns),
                         sort(NormExpectedUnknowns, SortedExpectedUnknowns),
                         sort(NormActualUnknowns, SortedActualUnknownsFinal),
-                        (   SortedExpected == SortedActual, ( ExpectedUnknowns == any -> true ; SortedExpectedUnknowns == SortedActualUnknownsFinal ) -> Result = pass(QueryName, ScenarioName)
+                        (   answers_match(SortedExpected, SortedActual), ( ExpectedUnknowns == any -> true ; SortedExpectedUnknowns == SortedActualUnknownsFinal ) -> Result = pass(QueryName, ScenarioName)
                         ;   maplist(strip_string_wrapper, ExpectedStrings, CleanExpected),
                             maplist(strip_string_wrapper, EUList, CleanExpectedUnknowns),
                             %  as the program writes them (2021-10-09), not normalised for comparison

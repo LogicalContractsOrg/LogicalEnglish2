@@ -271,6 +271,18 @@ the templates are:
   There is one difference: the first asking works out all its answers before the
   first one is used, so a query that would have stopped early — `once`, or a
   time limit — does that work up front.
+- **Long chains.** A chain of remembered questions, each answered from the one
+  before (a loan's 360 monthly payments, each balance worked out from the
+  previous month's), is not a runaway proof: each link is proved once. The
+  limit of 100 conditions inside one another that stops a runaway proof is
+  therefore counted afresh inside each remembered question, and such chains
+  are capped instead at 5,000 remembered questions inside one another.
+- **Explanations of long chains.** What is remembered of an explanation is
+  all of it when it has at most 150 steps, and otherwise its first levels: as
+  many as keep it that small. A chain of instances that read each other would
+  otherwise make an explanation exponential in the chain's length. Every
+  link's own reasons are shown where that link is asked. In an explanation, a
+  list longer than 12 items shows its first 10 and how many there are.
 - **Per query, not per session.** The system forgets the remembered answers
   when a query starts. The facts a session holds change between queries — a
   scenario is set, a flip query tries changes — and an answer worked out under
@@ -681,6 +693,14 @@ A scenario can state the answers a query is expected to give. The test runner th
   one it stopped, once, as a `tests_not_run` warning, so that a program with
   many scenarios, or one slow test, still opens quickly. The test runner runs
   every test in full.
+- **Numbers written with decimals.** An expected number written with
+  decimals is matched by an answer whose number rounds to it at that many
+  decimals: `["the minimum monthly repayment is 2398.20"]` passes when the
+  answer is 2398.2021006110276. A tester writes an amount to the cent, as the
+  test cases of other rule systems do (Oracle Intelligent Advisor compares a
+  currency as it is shown); the system's arithmetic carries every digit. The
+  exact text is compared first, and a whole number (`2398`) is still compared
+  exactly.
 - **Example:**
   ```le
   scenario alice is:
@@ -756,6 +776,21 @@ in one directory.
   after it, so the library is part of core LE. The verifier does not report the
   library's own templates as untested in a program that includes it. See
   `testing/fixtures/temporal/uses_temporal.le`.
+- **`lib/text.le`** (+ `text.pl`) — pieces of text: `the joining of *a list*
+  is *a text*` (the list's items one after the other, a number without a
+  trailing `.0`, a date as 2026-10-15), `the text of *a value* is *a text*`,
+  `the length of *a text* is *a number*`, `*a text* contains *a part*`, `*a
+  text* ends with *a part*` (`starts with` is LE's own, §7). The rule systems
+  the translators read build messages and HTML this way (Oracle Intelligent
+  Advisor's `"Feedback for " + the parent form`, `Contains(the screen, "&")`).
+  See `testing/fixtures/libraries/uses_text_maths_lists.le` (run by
+  `testing/test_text_maths_lists_libs.pl`).
+- **`lib/maths.le`** (+ `maths.pl`) — `the power of *a number* to *an
+  exponent* is *a result*`, the power LE's expressions do not have (an
+  annuity's repayment: `the power of 1.005 to -360`).
+- **`lib/lists.le`** (+ `lists.pl`) — `*a list* is *an item* followed by *a
+  second list*`: a list built one item at a time, in either direction (the
+  payments of a loan from the first to the last, each from the one before).
 - **`lib/deontic.le`** — obligations, permissions and prohibitions (the
   deontic pattern library): `*a party* is obliged / permitted / forbidden that
   *a sentence*`, `the obligation (prohibition) of *a party* that *a sentence*

@@ -1,0 +1,57 @@
+% Uses lib/text, lib/maths and lib/lists (docs/user/reference/language.md
+% §14.2): the libraries the translators of other rule systems lean on, and
+% the comparison of an expected number written with decimals (§12).
+
+the target language is: prolog.
+
+the knowledge base uses_text_maths_lists includes these resources:
+    text.le, maths.le, lists.le.
+
+the templates are:
+    the subject for *a form* is *a text*.
+    the monthly repayment for *an amount* at *a rate* over *a number* months is *a repayment*.
+    *a name* might include HTML.
+    the countdown from *a number* is *a list*.
+
+the knowledge base uses_text_maths_lists includes:
+
+the subject for a form F is a text T if
+    the joining of ["Feedback for ", F, " (", 70.0, ")"] is T.
+
+the monthly repayment for an amount A at a rate R over a number N months is a repayment P if
+    M = R / 1200
+    and E = 0 - N
+    and the power of 1 + M to E is a result Q
+    and P = M * A / (1 - Q).
+
+a name might include HTML if
+    the name contains "&"
+    and the name ends with ";".
+
+the countdown from a number N is a list L if
+    N > 0
+    and M = N - 1
+    and the countdown from M is a second list T
+    and L is N followed by T.
+
+the countdown from a number N is a list L if
+    N = 0
+    and L is 0 followed by [].
+
+scenario libraries is:
+    the subject expects answers ["the subject for CCMS is Feedback for CCMS (70)"].
+    the repayment expects answers ["the monthly repayment for 400000 at 6 over 360 months is 2398.20"].
+    html expects answers ["amp&amp; might include HTML"].
+    countdown expects answers ["the countdown from 3 is [3, 2, 1, 0]"].
+
+query the subject is:
+    the subject for "CCMS" is which text.
+
+query the repayment is:
+    the monthly repayment for 400000 at 6 over 360 months is which repayment.
+
+query html is:
+    "amp&amp;" might include HTML.
+
+query countdown is:
+    the countdown from 3 is which list.

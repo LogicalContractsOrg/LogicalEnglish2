@@ -636,6 +636,11 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
         % The replayed call answers from the records of the first: its
         % failure explanation, or why its choice point had no other answer.
         ( MyID == FirstID -> true ; assertz(memo_alias(MyID, FirstID)) ),
+        %  The replay carries the first call's explanation, as remembered:
+        %  whole when small, its first levels when large (bounded_whys/2), so
+        %  that a chain of instances that read each other (a loan's
+        %  payments, each from the one before, read three times) does not
+        %  make an explanation exponential in the chain's length.
         memo_replay(Key, Gen, G, Us, Whys)
     ;   memo_active(Key, Gen)
     ->  % A variant of a call still being computed (recursion through the
@@ -659,7 +664,7 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
         flag(le_memo_birth, Start, Start),
         setup_call_cleanup(
             assertz(memo_active(Key, Gen)),
-            memo_fixpoint(G, SM, KM, Anc, D, MyID, Key, Gen, Outside, Answers0-Floor),
+            memo_nested(D, D1, memo_fixpoint(G, SM, KM, Anc, D1, MyID, Key, Gen, Outside, Answers0-Floor)),
             ( retractall(memo_active(Key, Gen)),
               retractall(memo_provisional(Key, Gen, _)),
               retractall(memo_consumed(Key, Gen)),
@@ -675,7 +680,7 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
             member(answer(G, Us, Whys), Answers)
         ;   forall(member(Answer, Answers),
                    ( copy_term(Answer, answer(G2, Us2, Whys20), Constraints),
-                     ( explanations_kept -> Whys2 = Whys20 ; Whys2 = [] ),
+                     ( explanations_kept -> bounded_whys(Whys20, Whys2) ; Whys2 = [] ),
                      assertz(memo_answer(Key, Gen, G2, Us2, Whys2, Constraints)) )),
             assertz(memo_done(Key, Gen, MyID)),
             flag(le_memo_birth, Birth, Birth + 1),
@@ -820,6 +825,54 @@ explanations_kept :-
 memo_replay(Key, Gen, G, Us, Whys) :-
     memo_answer(Key, Gen, G, Us, Whys, Constraints),
     maplist(call, Constraints).
+
+%   A remembered answer keeps its reasons whole when they are small (at
+%   most 150 steps), and otherwise to the deepest level that keeps them
+%   that small: a chain of memorable calls each read from the one before
+%   (360 payments) would store, at every link, the whole chain below it —
+%   quadratic in time and memory, and an explanation nobody reads. Every
+%   link's own reasons are shown where that link is asked.
+bounded_whys(Whys, Bounded) :-
+    (   whys_size_at_most(Whys, 150) -> Bounded = Whys
+    ;   member(D, [12, 8, 6, 4, 3, 2, 1]), truncate_whys(Whys, D, Bounded),
+        whys_size_at_most(Bounded, 150)
+    ->  true
+    ;   truncate_whys(Whys, 1, Bounded)
+    ).
+
+whys_size_at_most(Whys, Max) :-
+    catch(( whys_size(Whys, 0, N), N =< Max ), whys_too_big, fail).
+
+whys_size([], N, N) :- !.
+whys_size([W|Ws], N0, N) :- !, whys_size(W, N0, N1), whys_size(Ws, N1, N).
+whys_size(success(_, _, Cs), N0, N) :- !, N1 is N0 + 1, ( N1 > 100000 -> throw(whys_too_big) ; true ), whys_size(Cs, N1, N).
+whys_size(failure(_, Cs), N0, N) :- !, N1 is N0 + 1, whys_size(Cs, N1, N).
+whys_size(_, N0, N) :- N is N0 + 1.
+truncate_whys(_, 0, []) :- !.
+truncate_whys([], _, []) :- !.
+truncate_whys([W|Ws], D, [T|Ts]) :- !,
+    truncate_why(W, D, T), truncate_whys(Ws, D, Ts).
+truncate_whys(X, _, X).
+
+truncate_why(success(G, Ref, Cs), D, success(G, Ref, Ts)) :- !, D1 is D - 1, truncate_whys(Cs, D1, Ts).
+truncate_why(failure(G, Cs), D, failure(G, Ts)) :- !, D1 is D - 1, truncate_whys(Cs, D1, Ts).
+truncate_why(W, _, W).
+
+%   A memorable call is computed with a depth count of its own: the depth
+%   limit of solve_literal/8 (100 nested conditions) stops a runaway proof,
+%   and a chain of memorable calls — 360 monthly payments, each read from
+%   the one before — is no runaway: each link is proved once and
+%   remembered, and a call that recurs through itself is caught by the
+%   variant check of memo_solve/8. The chain is capped on its own,
+%   memo_max_nesting/1 memorable computations inside one another.
+memo_nested(D, D1, Goal) :-
+    ( nb_current(le_memo_nesting, N0), integer(N0) -> true ; N0 = 0 ),
+    memo_max_nesting(Max),
+    (   N0 >= Max -> D1 = D ; D1 = 0 ),
+    N1 is N0 + 1,
+    setup_call_cleanup(b_setval(le_memo_nesting, N1), Goal, b_setval(le_memo_nesting, N0)).
+
+memo_max_nesting(5000).
 
 %   The key of a call: its shape up to variable renaming, together with the
 %   scope of the proof it is made in (a scoped proof admits fewer facts).
@@ -1586,7 +1639,7 @@ combine_clause_children(RuleNodes, DirectWhys, AllWhys) :-
 % convert_why/3, rendering — operate on a small tree) and records how many times
 % each sub-explanation occurred under the same parent.
 group_variant_whys(Whys, Grouped) :-
-    (   hide_repeated_explanations
+    (   Whys = [_|T], T \== [], hide_repeated_explanations
     ->  maplist(variant_key_pair, Whys, Keyed),
         group_keyed_whys(Keyed, Grouped)
     ;   Grouped = Whys
@@ -1596,7 +1649,13 @@ group_variant_whys(Whys, Grouped) :-
 % otherwise-identical explanations coming from different rule locations), so
 % logically-identical sub-explanations collapse regardless of where in the
 % source they originated. The original W (with positions) is kept as the rep.
-variant_key_pair(W, Key-W) :- strip_le_at_deep(W, WStripped), variant_sha1(WStripped, Key).
+%   The key reads the explanation to a depth of 12 only: two explanations
+%   that agree that far are one repeated explanation. Reading every level
+%   made a chain of instances (360 payments, each explained by the one
+%   before) quadratic in time, each level hashing the whole chain below it.
+variant_key_pair(W, Key-W) :-
+    truncate_whys([W], 12, [W12]), strip_le_at_deep(W12, WStripped),
+    variant_sha1(WStripped, Key).
 
 % strip_le_at_deep(+Term, -Stripped): recursively replace every le_at(G,_,_)
 % subterm with G, dropping all embedded source positions.
