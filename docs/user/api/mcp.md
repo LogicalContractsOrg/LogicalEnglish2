@@ -1,6 +1,6 @@
 # Logical English over MCP
 
-*Kind: reference · Audience: developers · Status: current (2026-09-16)*
+*Kind: reference · Audience: developers · Status: current (2026-10-16)*
 
 The LE (Logical English) server speaks MCP, the
 [Model Context Protocol](https://modelcontextprotocol.io), which is a common
@@ -53,8 +53,12 @@ talks to this server itself. For everything else the server can do, see
 
 ## Client setup
 
-The folder `llm/settings/` holds an example settings file for each client
-below.
+For most clients one line is enough: the guide
+[Logical English in your coding assistant](../guide/coding-assistants.md)
+gives that line for Claude Code, Codex, Gemini CLI, Visual Studio Code,
+Cursor and Claude Desktop, and installs the Logical English skill (the
+instructions that tell an assistant how to use these tools) with them. The
+folder `llm/settings/` holds an example settings file for each client below.
 
 ### Claude Desktop
 
@@ -101,8 +105,11 @@ line reaches a server that is already running:
 
 ```bash
 claude mcp add logical-english -- swipl -g "use_module(llm/mcp), mcp:handle_mcp_stdio." -t halt llm/mcp.pl
-claude mcp add logical-english -- npx mcp-remote http://localhost:3050/mcp
+claude mcp add --transport http logical-english http://localhost:3050/mcp
 ```
+
+Claude Code speaks to a server over HTTP itself, so it needs no relay; the
+hosted server is added the same way, at `https://le2.logicalcontracts.com/mcp`.
 
 ### opencode (the LE Assistant)
 
@@ -127,8 +134,8 @@ files never arrived ([docs/dev/assistant.md](../../dev/assistant.md)).
 
 ## Tools
 
-A call to `tools/list` returns four tools, and a call to `tools/call` runs one
-of the four. The server sends a tool's result as a single item of content of
+A call to `tools/list` returns five tools, and a call to `tools/call` runs one
+of the five. The server sends a tool's result as a single item of content of
 type `text`, whose text is the tool's JSON reply written out. When that reply
 carries an `error` field, the server sends the error message instead and marks
 the result `isError: true`.
@@ -137,8 +144,9 @@ the result `isError: true`.
 |---|---|---|
 | `list_examples` | – | `{examples: [{name, summary}]}` |
 | `get_example_details` | `example_name` (required) | the program's text and metadata |
-| `query` | `query` (required), `example_name`, `program_text`, `scenario_name`, `facts` | `{results: [{answer, explanation}]}` |
+| `query` | `query` (required), `example_name`, `program_text`, `scenario_name`, `facts` | `{results: [{answer, explanation, case?}], notes?}` |
 | `verify` | `program_text` (required) | `{issues, test_results}` |
+| `search_documentation` | `query` (required): a few keywords | `{sections}`: the sections found, each with its link |
 
 **`list_examples`** lists the programs of `examples/moreExamples/`, of the
 extra folders (`regulatory/…`, `migration/…`, …) and of the folders of the
@@ -176,6 +184,24 @@ has no answer, the reply is `{results: [], explanation}`, holding the
 explanation of the failure, or else
 `{results: [], error: "No answer and no explanation found"}`. Facts or a query
 that the server cannot read against the templates make the tool reply `error`.
+
+When a fact given in `facts` has a variable in it (a phrase beginning with
+*a* or *an*, as in `claim 1 is for a quad cane`), the reply also carries
+`notes`, one sentence for each such fact. Such a fact is about everything of
+its kind, which is seldom what a caller means, and the answer that follows
+does not say why it went wrong.
+
+**`query`** of a case search (`which cases make it the case that …` or
+`is there a case in which …`, [the language reference](../reference/language.md)
+§17.11), given as a query's name or as text, answers one result per case. Each
+result also carries `case`: `{index, count, conditions, coveredBy, scenario,
+notes}`, where `coveredBy` lists the program's scenarios that meet the case and
+`scenario` is the text of a scenario that meets it, ready to add to the
+program. An answer that no case exists carries `case: {none: true, complete}`,
+where `complete` says whether the search covered every case.
+
+**`search_documentation`** looks for the keywords in this documentation and
+replies with the sections that hold them, each with its link on the server.
 
 **`verify`** loads `program_text` and replies with two lists. `issues` holds
 what the verifier found wrong or doubtful in the program, each one

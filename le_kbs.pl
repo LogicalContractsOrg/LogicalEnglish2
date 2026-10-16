@@ -1789,7 +1789,11 @@ query(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
             flatten(Instances, TemplateInstance),
             explanation_why(Why0, SessionModule, Why)
         ; ( do_log -> print_message(informational, 'Parsing free-text query tokens: ~w' - [Tokens]); true),
-            (   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance) ->
+            (   opener_query_goal(KBmodule, Tokens, Goal) ->
+                reasoner:i(Goal, SessionModule, Unknowns, Why0),
+                opener_query_instance(KBmodule, Goal, TemplateInstance),
+                explanation_why(Why0, SessionModule, Why)
+            ;   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance) ->
                 ( do_log -> print_message(informational, 'Executing query goal: ~w' - [Goal]); true),
                 reasoner:i(Goal, SessionModule, Unknowns, Why0),
                 ( do_log -> print_message(informational, 'Query goal solution found: ~w' - [Goal]); true),
@@ -1809,6 +1813,24 @@ parsed_goal(SessionModule, Goal) :-
     catch(SessionModule:le_kb_module_fact(KB), _, fail),
     \+ ( current_predicate(KB:query_info/3), KB:query_info(Goal, _, _) ),
     once(( KB:le_dict(D), arg(1, D, [Goal]) )).
+
+%!  opener_query_goal(+KBmodule:atom, +Tokens:list, -Goal:term) is semidet.
+%
+%   A query text that opens with the words of a flip query (§17.7) or a case
+%   search (§17.11), read as the body of a query section is read. Read as one
+%   sentence, such a text matches a template with its opener as words of the
+%   sentence ("which cases make it the case that a person ..."), and finds
+%   nothing; the editor's custom query field reads it with
+%   parse_custom_query/3, and the tools (llm/mcp.pl, le_tools.pl) come here.
+opener_query_goal(KBmodule, Tokens, Goal) :-
+    KBmodule \== none,
+    custom_query_body(KBmodule, Tokens, Goal),
+    ( Goal = le_cases(_, _, _) ; Goal = le_flip(_, _) ), !.
+
+%   The words of an answer to such a query, once it is solved (a case search's
+%   words are those of the case found).
+opener_query_instance(KBmodule, Goal, Instance) :-
+    (   item_to_instance(KBmodule, Goal, Instance) -> true ; Instance = [Goal] ).
 
 %!  parse_query_to_goal(+KBmodule:atom, +Tokens:list, -Goal:term, -Instance:list) is nondet.
 %
@@ -1845,7 +1867,9 @@ query_explain(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
             ( (maplist(item_to_instance(KBmodule), Items, Instances), flatten(Instances, TemplateInstance)) -> true; TemplateInstance = []),
             explanation_why(Why0, SessionModule, Why1),
             add_section_checklist(SessionModule, KBmodule, Goal, Why1, Why)
-        ;   (   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance) ->
+        ;   (   (   opener_query_goal(KBmodule, Tokens, Goal) -> true
+                    ;   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance)
+                    ) ->
                     ( do_log -> print_message(informational, 'Executing query goal explain: ~w' - [Goal]); true),
                     reasoner:explain(Goal, SessionModule, Unknowns, Why0),
                     explanation_why(Why0, SessionModule, Why1),

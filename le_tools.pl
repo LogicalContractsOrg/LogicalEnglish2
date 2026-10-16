@@ -160,17 +160,23 @@ le_tool_query_(Args, UserRoles, Result) :-
             ;   true
             ),
             (   nonvar(ErrorFacts) -> Result = _{error: ErrorFacts}
-            ;   catch(run_query(SM, Query, KB, Result), error(le_parse_error(Msg), _), Result = _{error: Msg})
+            ;   catch(run_query(SM, Query, KB, Result0), error(le_parse_error(Msg), _), Result0 = _{error: Msg}),
+                fact_notes(KB, Facts, Notes),
+                ( Notes == [] -> Result = Result0 ; Result = Result0.put(notes, Notes) )
             )
         ),
         le_kbs:destroySession(SM)
     ).
 
 run_query(SM, QueryStr, KB, Result) :-
-    findall(_{answer: AnswerStr, explanation: JSONWhy}, (
+    findall(Answer, (
         le_kbs:query(SM, QueryStr, Instance, _, Why),
         le_kbs:canonical_string(Instance, AnswerStr),
-        convert_why(Why, KB, JSONWhy)
+        convert_why(Why, KB, JSONWhy),
+        Answer0 = _{answer: AnswerStr, explanation: JSONWhy},
+        (   answer_case(KB, Why, Case) ->  Answer = Answer0.put(case, Case)
+        ;   Answer = Answer0
+        )
     ), Results),
     (   Results \== [] ->
         Result = _{results: Results}
@@ -181,6 +187,63 @@ run_query(SM, QueryStr, KB, Result) :-
         ;   Result = _{results: [], error: "No answer and no explanation found"}
         )
     ).
+
+%   Notes on the facts a caller gave: each fact with a variable in it. A
+%   language model writing facts from a case often writes "claim 1 is for a
+%   quad cane", which is about every quad cane, where the case named one;
+%   the answer then fails for a reason the explanation does not name.
+fact_notes(KB, Facts, Notes) :-
+    (   ( Facts == "" ; Facts == null ; KB == none )
+    ->  Notes = []
+    ;   split_string(Facts, "\n", " \t\r", Lines),
+        %   read before parsing: a sentence that matches no template is
+        %   given a template of its own as it is parsed
+        findall(F/A, ( catch(KB:le_dict(dict([F|Args], _, _, _, _, _, _)), _, fail), length(Args, A) ), Declared0),
+        sort(Declared0, Declared),
+        findall(Note,
+                ( member(Line, Lines), Line \== "",
+                  catch(le_kbs:parse_custom_facts(KB, Line, Terms), _, fail),
+                  exclude([T]>>( T = le_provenance(_, _, _, _, _) ), Terms, Facts1),
+                  fact_note_key(KB, Declared, Facts1, Key),
+                  ( string_concat(Fact, ".", Line) -> true ; Fact = Line ),
+                  le_i18n:le_msg(Key, [fact-Fact], Note0),
+                  atom_string(Note0, Note) ),
+                Notes)
+    ).
+
+%   What is worth saying about the terms one line of facts gave: a variable
+%   in a fact, or a fact no template of the program declares (a sentence
+%   that matched none becomes a relation of its own, which no rule reads).
+fact_note_key(_, _, Terms, tool_fact_has_variable) :-
+    member(T, Terms), \+ ground(T), !.
+fact_note_key(KB, Declared, Terms, tool_fact_no_template) :-
+    member(T, Terms), callable(T), T \= (_ :- _),
+    (   T = is_a(_, Kind)
+    ->  \+ known_kind(KB, Kind)
+    ;   functor(T, F, A), \+ declared_relation(Declared, F, A)
+    ), !.
+
+%   A kind the program speaks of: a type of a template's place, or a kind of
+%   its ontology.
+known_kind(KB, Kind) :-
+    (   catch(KB:le_dict(dict(_, NTs, _, _, _, _, _)), _, fail), memberchk(_-Kind, NTs)
+    ;   catch(KB:is_a(Kind, _), _, fail)
+    ;   catch(KB:is_a(_, Kind), _, fail)
+    ), !.
+
+declared_relation(Declared, F, A) :-
+    memberchk(F/A, Declared), !.
+declared_relation(_, F, A) :-
+    catch(le_system_templates:le_system_template(dict([F|Args], _, _)), _, fail),
+    length(Args, A), !.
+
+%   An answer of a case search (le_cases.pl) also carries the case: its
+%   conditions, the scenarios that cover it, and a ready-made scenario that
+%   meets it (`scenario`), as the editor's answers do (le_api.pl).
+answer_case(KB, Why, CaseJSON) :-
+    sub_term(Node, Why), compound(Node), functor(Node, success, _),
+    arg(1, Node, Head), compound(Head), Head = le_case(Case, _), nonvar(Case),
+    catch(le_cases:case_json(KB, Case, CaseJSON), _, fail), !.
 
 % --- Helpers ---
 

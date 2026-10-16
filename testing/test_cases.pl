@@ -11,6 +11,7 @@
 :- use_module(library(plunit)).
 :- use_module(library(lists)).
 :- use_module('../le_kbs').
+:- use_module('../le_tools').
 
 %   The cases of a query, each as cs(Words, CoveredBy, ScenarioText).
 cases_of(KB, Query, Cases) :-
@@ -135,5 +136,43 @@ test(answers_render_the_case) :-
     load('examples/regulatory/case_search.le', KB),
     answers(KB, ana, 'support for a student', As),
     As == ["there is no such case: the search covered every case"].
+
+%   The tools of the MCP server and the REST interface (le_tools.pl): a case
+%   search written as the query's text, its answers with the case, and the
+%   scenario of a case no scenario covers.
+test(case_search_through_the_tools) :-
+    read_file_to_string('examples/regulatory/case_search.le', Text, []),
+    le_tool_query(_{program_text: Text,
+                    query: "is there a case in which a person is eligible for rent support and the person is excluded from rent support"},
+                  R),
+    R.results = [_, A2],
+    sub_string(A2.answer, 0, _, _, "case 2 of 2"),
+    A2.case.coveredBy == [],
+    sub_string(A2.case.scenario, _, _, _, "has an income of 17500."),
+    le_tool_query(_{program_text: Text,
+                    query: "is there a case in which a person gets rent support and the person is a student"},
+                  R2),
+    R2.results = [N],
+    N.answer == "there is no such case: the search covered every case".
+
+%   A fact with a variable, as a language model writes "a person" where the
+%   case names one: the reply says so.
+test(tool_notes_a_fact_with_a_variable, [nondet]) :-
+    read_file_to_string('examples/regulatory/case_search.le', Text, []),
+    le_tool_query(_{program_text: Text, query: "which person gets rent support",
+                    facts: "a person is a resident.\nana has an income of 12000."}, R),
+    R.notes = [Note],
+    sub_string(Note, _, _, _, "'a person is a resident' has a variable"),
+    le_tool_query(_{program_text: Text, query: "which person gets rent support",
+                    facts: "ana is a resident.\nana has an income of 12000."}, R2),
+    \+ get_dict(notes, R2, _).
+
+%   A fact that matches no template: the reply says that no rule reads it.
+test(tool_notes_a_fact_with_no_template, [nondet]) :-
+    read_file_to_string('examples/regulatory/case_search.le', Text, []),
+    le_tool_query(_{program_text: Text, query: "which person gets rent support",
+                    facts: "ana is a resident.\nana is a pensioner.\nana has an income of 12000."}, R),
+    R.notes = [Note],
+    sub_string(Note, _, _, _, "'ana is a pensioner' matches no template").
 
 :- end_tests(cases).
