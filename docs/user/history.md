@@ -15,50 +15,45 @@ programs that act over time, such as contracts and processes. They did not appea
 
 > Logical English and Logic Production Systems come out of forty years of
 > research on logic programming at Imperial College London, led by Robert
-> Kowalski, one of the founders of logic programming. In 1986 his group wrote the
+> Kowalski, one of the founders of logic programming. In 1986 his group implemented a large portion of the
 > British Nationality Act as a logic program, one of the first laws ever run by
-> a computer. Logic Production Systems was first prototyped in 2013 by a student and then implemented in 2015 and 2016;
+> a computer. Logic Production Systems was first prototyped in 2013 as a student project at Imperial College, and then implemented in 2015 and 2016;
 > Logical English in 2020. Since 2017 Logical Contracts has built both
 > languages into working systems, used in projects on tax rules for LodgeIT in
 > Australia and AORA Law in the United Kingdom, on derivatives contracts with
 > D2 Legal Technology, and on insurance policies with Axiome Partners. In 2026
 > both languages were rewritten from the ground up and released as open source,
-> as Logical English 2 and LPS2, which run in a web browser and also read (convert) the
+> as Logical English (LE2) and LPS2, which run in a web browser and also read (convert) the
 > programs of seventeen other rule systems.
 
 ## Timeline
 
 ### The research behind the languages
 
-- **1972.** The first Prolog system is written in Marseille, after an exchange
-  of ideas between Alain Colmerauer's team and Robert Kowalski in Edinburgh.
-  Prolog is the first logic programming language: a program is a set of
-  sentences of logic, which the computer uses to answer questions.
+- **1972.** First version of the logic programming language Prolog, based on Robert Kowalski's procedural interpretation of Horn clauses. Developed and implemented by Alain Colmerauer's team in Marseille. Computation in Prolog uses backward reasoning with Horn clauses of the form conclusion if conditions as problem-solving procedures, to reduce goals that unify with conclusions to subgoals that match the conditions. 
   ([The Marseille-Edinburgh Connection](http://www.doc.ic.ac.uk/~rak/papers/Marseille-Edinburgh.pdf), 2024)
+- **1974.** R. Kowalski, Predicate Logic as Programming Language, Proceedings IFIP Congress, Stockholm, North Holland Publishing Co. The first full description of logic programming.
 - **1976.** M. van Emden and R. Kowalski, *The Semantics of Predicate Logic as a
-  Programming Language*, Journal of the ACM 23(4). It gives the meaning of a
-  logic program in mathematical terms.
+  Programming Language*, Journal of the ACM 23(4). This work presents the meaning of a
+  logic program in three equivalent mathematical formulations.
+- **1979.** R. Kowalski, Logic for Problem Solving, Artificial intelligence series 7, North-Holland. “An introduction to logic, the theory of problem-solving,  and computer programming.”
+Also R. Kowalski, Algorithm = Logic + Control, Argues that an algorithm can be regarded as combining a logic component, which specifies domain-specific knowledge, with a control component, which employs general-purpose strategies to use that knowledge to solve goals in the problem domain.
 - **1986.** M. Sergot, F. Sadri, R. Kowalski, F. Kriwaczek, P. Hammond and
   T. Cory, [*The British Nationality Act as a Logic Program*](http://www.doc.ic.ac.uk/~rak/papers/British%20Nationality%20Act.pdf),
-  Communications of the ACM 29(5). One of the first laws written as a program
+  Communications of the ACM 29(5). One of the first laws written as a computer program
   that a computer runs. The original program was recovered in 2026 from an old
   disk image, and runs in Logical English 2 among its examples
-  (`examples/regulatory/bna.le`).
+  (`examples/regulatory/bna.le`). 
+  Also R. Kowalski and M. Sergot, A Logic-based Calculus of Events, New Generation Computing. The Event Calculus distinction between fluents, which represent states as a database of time-varying facts, and events, which generate state transitions, is one of the foundations of LPS.
 - **1987.** First version of SWI-Prolog, by Jan Wielemaker
-- **1988.** R. Kowalski, [*The Early Years of Logic Programming*](http://www.doc.ic.ac.uk/~rak/papers/the%20early%20years.pdf),
-  Communications of the ACM 31(1).
-- **1989.** R. Kowalski, [*The Treatment of Negation in Logic Programs for Representing Legislation*](http://www.doc.ic.ac.uk/~rak/papers/negationIndian%20pension%20ruleslegislation.pdf),
-  Second International Conference on Artificial Intelligence and Law. And
-  K. Eshghi and R. Kowalski, [*Abduction Compared with Negation as Failure*](http://www.doc.ic.ac.uk/~rak/papers/ALP-NAF.pdf),
-  Sixth International Conference on Logic Programming.
+- **1988.** F. Sadri and R. Kowalski, A theorem-proving approach to database integrity, Foundations of deductive databases and logic programming, Morgan Kaufmann. The use of forward reasoning, to check the integrity of database updates, is another of the main foundations of LPS.
 - **1992.** R. Kowalski, [*Legislation as Logic Programs*](http://www.doc.ic.ac.uk/~rak/papers/law.pdf),
-  in *Logic Programming in Action*, Springer. And A. C. Kakas, R. Kowalski and
+  in *Logic Programming in Action*, Springer. Introduced an early, but unimplemented, version of Logical English as syntactic sugar for logic programs.
+Also A. C. Kakas, R. Kowalski and
   F. Toni, [*Abductive Logic Programming*](http://www.doc.ic.ac.uk/~rak/papers/abdsurv.pdf),
-  Journal of Logic and Computation 2(6). Abductive logic programming, which
-  reasons from what is observed to what may explain it, is one of the
-  foundations of LPS.
+  Journal of Logic and Computation 2(6). Abductive logic programming (ALP), combines backward reasoning, to generate candidate assumptions to solve goals, with forward reasoning, to check the integrity of assumptions. ALP is the third main foundation of LPS.
 - **2011.** R. Kowalski, *Computational Logic and Human Thinking: How to be
-  Artificially Intelligent*, Cambridge University Press.
+  Artificially Intelligent*, Cambridge University Press. The book argues that many of the advances in the development of Computational Logic for Artificial Intelligence can also be used directly by people, to improve their own human intelligence.
 - **2014.** R. Kowalski, [*History of Logic Programming*](http://www.doc.ic.ac.uk/~rak/papers/History.pdf),
   in *Computational Logic*, volume 9 of the Handbook of the History of Logic,
   Elsevier.
@@ -66,12 +61,12 @@ programs that act over time, such as contracts and processes. They did not appea
 ### Logic Production Systems, and the first implementations
 
 - **2015.** R. Kowalski and F. Sadri, [*Reactive Computing as Model Generation*](http://www.doc.ic.ac.uk/~rak/papers/LPS%20revision.pdf),
-  New Generation Computing 33(1). The first full description of LPS.
+  New Generation Computing 33(1). The first full description of LPS. LPS can be viewed as a special case of ALP, where logic programs represent an active database of states and state transitions, and integrity constraints represent goals that need to be satisfied by generating actions in response to updates which record external events. 
 - **2016.** R. Kowalski and F. Sadri, [*Programming in Logic without Logic Programming*](http://www.doc.ic.ac.uk/~rak/papers/KELPS%202015.pdf),
   Theory and Practice of Logic Programming 16(3).
 - **2016–2017.** The first full implementation of LPS by Miguel Calejo, written in SWI-Prolog and run
   in SWISH, a web site where Prolog programs are written and run in the
-  browser. It was built in CLOUT (Computational Logic for Use in Teaching), a
+  browser. It was built as part of the project CLOUT (Computational Logic for Use in Teaching), a
   project funded by Imperial College London to teach computing and logic in
   schools. Its source code is on [Bitbucket](https://bitbucket.org/lpsmasters/lps_corner).
   A second implementation, [lps.js](https://lps.js.org/), was written in
@@ -79,7 +74,7 @@ programs that act over time, such as contracts and processes. They did not appea
   listed on the [LPS site at Imperial College](http://lps.doc.ic.ac.uk).
 - **2017.** Logical Contracts extends LPS into the *Logical Contracts Server*,
   for contracts that run on their own, including on the Ethereum blockchain.
-  It came with *Formal English* by Jacinto Dávila: an LPS program could carry a specification in
+  It came with an early version of Logical English, called *Formal English* developed and implemented by Jacinto Dávila: an LPS program could carry a specification in
   English, which the server turned into rules that run, and any LPS program
   could be printed back in Formal English. Formal English was the first step towards
   Logical English. Logical Contracts showed the server at the Web Summit in
@@ -114,7 +109,7 @@ programs that act over time, such as contracts and processes. They did not appea
   on GitHub as open source, under the Apache 2.0 licence:
   [LogicalContractsOrg/LogicalEnglish](https://github.com/LogicalContractsOrg/LogicalEnglish),
   with a demonstration site at <https://logicalenglish.logicalcontracts.com/>.
-  Its copyright holders were LodgeIT, AORA Law, Robert Kowalski, Miguel Calejo
+  Its copyright holders are LodgeIT, AORA Law, Robert Kowalski, Miguel Calejo
   and Jacinto Dávila. The University of Bologna and the European University
   Institute in Florence supported its later development.
 - **2023.** Two chapters in *Prolog: The Next 50 Years*, Lecture Notes in
@@ -133,9 +128,9 @@ programs that act over time, such as contracts and processes. They did not appea
 
 - **March 2026.** M. Calejo, [*Can we vibe code financial contracts?*](https://www.jibfl.co.uk/articles/can-we-vibe-code-financial-contracts-),
   Butterworths Journal of International Banking and Financial Law, March 2026,
-  pages 162–164. How a language model and Logical English can work together to
-  turn contract wording into a program that a lawyer can read.
-- **April 2026.** Work starts on Logical English 2, a new implementation
+  pages 162–164. How an LLM and Logical English can work together to
+  turn contract wording into a program that a lawyer can read without technical training.
+- **April 2026.** Work starts on Logical English 2 (LE2), a new implementation
   written from the ground up: [LogicalContractsOrg/LogicalEnglish2](https://github.com/LogicalContractsOrg/LogicalEnglish2).
   It has its own editor in the browser, explains every answer, keeps tests
   inside the program, and works in five languages (English, Portuguese,
