@@ -307,6 +307,10 @@ export class ExplanationView {
     // button that adds a ready-made scenario for it.
     private renderCaseCard(item: HTMLElement, c: any) {
         item.classList.add('case-item');
+        // a case is read whole: its conditions wrap rather than end in "…"
+        item.style.whiteSpace = 'normal';
+        item.style.overflow = 'visible';
+        item.style.textOverflow = 'clip';
         const badge = document.createElement('span');
         badge.className = 'case-badge';
         badge.textContent = t('case {i} of {n}').replace('{i}', String(c.index)).replace('{n}', String(c.count));
@@ -333,7 +337,7 @@ export class ExplanationView {
             n.style.cssText = 'font-size:11px;opacity:0.75;margin-top:2px;';
             item.appendChild(n);
         }
-        if (this.o.onAddScenario && c.scenario) {
+        if (this.o.onAddScenario && c.scenario && covered.length === 0) {
             const btn = document.createElement('button');
             btn.className = 'case-add-scenario';
             btn.textContent = t('Add as scenario');

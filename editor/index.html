@@ -454,6 +454,9 @@
         }
         #answers-panel {
             width: 30%;
+            /* keeps its width when an explanation has a long line: the
+               explanation scrolls instead (min-width below) */
+            flex-shrink: 0;
             overflow-y: auto;
             padding: 10px;
             border-right: 1px solid var(--border-color);
@@ -472,6 +475,7 @@
         }
         #explanation-panel {
             flex-grow: 1;
+            min-width: 0;
             overflow-y: auto;
             padding: 10px;
         }
