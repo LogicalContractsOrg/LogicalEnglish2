@@ -9643,6 +9643,44 @@ var keywords = {
         "that"
       ]
     ],
+    "cases_query": [
+      [
+        "which",
+        "cases",
+        "make",
+        "it",
+        "the",
+        "case",
+        "that"
+      ],
+      [
+        "which",
+        "case",
+        "makes",
+        "it",
+        "the",
+        "case",
+        "that"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "is",
+        "there",
+        "a",
+        "case",
+        "in",
+        "which"
+      ],
+      [
+        "can",
+        "it",
+        "be",
+        "the",
+        "case",
+        "that"
+      ]
+    ],
     "changes": [
       [
         "changes"
@@ -9996,6 +10034,32 @@ var keywords = {
     "view_reads": [
       [
         "reads"
+      ]
+    ],
+    "cells_open": [
+      [
+        "the",
+        "cells",
+        "of",
+        "service"
+      ]
+    ],
+    "cells_are": [
+      [
+        "are"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "the",
+        "sheet",
+        "is"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "the",
+        "cell"
       ]
     ]
   },
@@ -11446,6 +11510,38 @@ var keywords = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "que",
+        "casos",
+        "fazem",
+        "com",
+        "que"
+      ],
+      [
+        "que",
+        "caso",
+        "faz",
+        "com",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "h\xE1",
+        "algum",
+        "caso",
+        "em",
+        "que"
+      ],
+      [
+        "pode",
+        "ser",
+        "o",
+        "caso",
+        "que"
+      ]
+    ],
     "changes": [
       [
         "altera\xE7\xF5es"
@@ -11848,6 +11944,32 @@ var keywords = {
     "view_reads": [
       [
         "diz"
+      ]
+    ],
+    "cells_open": [
+      [
+        "as",
+        "c\xE9lulas",
+        "do",
+        "servi\xE7o"
+      ]
+    ],
+    "cells_are": [
+      [
+        "s\xE3o"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "a",
+        "folha",
+        "\xE9"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "a",
+        "c\xE9lula"
       ]
     ]
   },
@@ -13270,6 +13392,36 @@ var keywords = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "qu\xE9",
+        "casos",
+        "hacen",
+        "que"
+      ],
+      [
+        "qu\xE9",
+        "caso",
+        "hace",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "hay",
+        "alg\xFAn",
+        "caso",
+        "en",
+        "que"
+      ],
+      [
+        "puede",
+        "ser",
+        "el",
+        "caso",
+        "que"
+      ]
+    ],
     "changes": [
       [
         "cambios"
@@ -13621,6 +13773,32 @@ var keywords = {
     "view_reads": [
       [
         "dice"
+      ]
+    ],
+    "cells_open": [
+      [
+        "las",
+        "celdas",
+        "del",
+        "servicio"
+      ]
+    ],
+    "cells_are": [
+      [
+        "son"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "la",
+        "hoja",
+        "es"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "celda"
       ]
     ]
   },
@@ -15134,6 +15312,36 @@ var keywords = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "quels",
+        "cas",
+        "font",
+        "que"
+      ],
+      [
+        "quel",
+        "cas",
+        "fait",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "peut-il",
+        "\xEAtre",
+        "vrai",
+        "que"
+      ],
+      [
+        "il",
+        "y",
+        "a",
+        "un",
+        "cas",
+        "o\xF9"
+      ]
+    ],
     "changes": [
       [
         "les",
@@ -15509,6 +15717,32 @@ var keywords = {
     "view_reads": [
       [
         "dit"
+      ]
+    ],
+    "cells_open": [
+      [
+        "les",
+        "cellules",
+        "du",
+        "service"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sont"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "la",
+        "feuille",
+        "est"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "cellule"
       ]
     ]
   },
@@ -16977,6 +17211,38 @@ var keywords = {
         "che"
       ]
     ],
+    "cases_query": [
+      [
+        "quali",
+        "casi",
+        "fanno",
+        "s\xEC",
+        "che"
+      ],
+      [
+        "quale",
+        "caso",
+        "fa",
+        "s\xEC",
+        "che"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "pu\xF2",
+        "essere",
+        "il",
+        "caso",
+        "che"
+      ],
+      [
+        "c'\xE8",
+        "un",
+        "caso",
+        "in",
+        "cui"
+      ]
+    ],
     "changes": [
       [
         "cambiamenti"
@@ -17328,6 +17594,32 @@ var keywords = {
     "view_reads": [
       [
         "dice"
+      ]
+    ],
+    "cells_open": [
+      [
+        "le",
+        "celle",
+        "del",
+        "servizio"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sono"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "il",
+        "foglio",
+        "\xE8"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "cella"
       ]
     ]
   }

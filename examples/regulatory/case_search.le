@@ -1,0 +1,84 @@
+% Case searches (docs/user/reference/language.md §17.11), on a small rent
+% support scheme.
+%
+% "which cases make it the case that <goal>" lists every case in which the
+% goal holds: what a scenario would have to say (and not say) for it to hold,
+% in general terms, with the scenarios of this program that meet each case.
+% A case no scenario meets is a case the program's tests never tried; its
+% answer comes with a ready-made scenario that meets it.
+%
+% "is there a case in which <goal>" looks for one case that breaks a
+% property. Here the property is that nobody is both eligible for rent
+% support and excluded from it. The scheme breaks it: a resident with an
+% income between 15000 and 20000 who has no other benefits is eligible (the
+% income limit is 20000) and excluded (the exclusion starts at 15000). The
+% answer is that case, with an income chosen inside the gap.
+
+the target language is: prolog.
+
+the templates are:
+    *a person* is eligible for rent support.
+    *a person* is excluded from rent support.
+    *a person* gets rent support.
+    *a person* is a resident.
+    *a person* has an income of *an amount*.
+    *a person* receives other benefits.
+    *a person* is a student.
+
+the knowledge base case search includes:
+
+a person gets rent support
+    if the person is eligible for rent support
+    and it is not the case that
+        the person is excluded from rent support.
+
+a person is eligible for rent support
+    if the person is a resident
+    and the person has an income of an amount
+    and the amount < 20000
+    and it is not the case that
+        the person receives other benefits.
+
+a person is excluded from rent support
+    if the person is a student.
+
+a person is excluded from rent support
+    if the person has an income of an amount
+    and the amount > 15000.
+
+scenario ana is:
+    ana is a resident.
+    ana has an income of 12000.
+    support expects answers ["ana gets rent support"].
+    support for a student expects answers ["there is no such case: the search covered every case"].
+
+scenario ben is:
+    ben is a resident.
+    ben has an income of 12000.
+    ben is a student.
+    support expects answers [].
+
+scenario cara is:
+    cara is a resident.
+    cara has an income of 9000.
+    cara receives other benefits.
+    support expects answers [].
+
+query support is:
+    which person gets rent support.
+
+query support cases is:
+    which cases make it the case that
+        a person gets rent support.
+
+query both eligible and excluded is:
+    is there a case in which
+        a person is eligible for rent support
+        and the person is excluded from rent support.
+
+% A property that holds: nobody gets rent support as a student. The answer
+% says that there is no such case, and that the search covered every case.
+query support for a student is:
+    is there a case in which
+        a person gets rent support
+        and the person is a student.

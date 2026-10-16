@@ -1176,6 +1176,44 @@ export const keywords: Record<string, KeywordTable> = {
         "that"
       ]
     ],
+    "cases_query": [
+      [
+        "which",
+        "cases",
+        "make",
+        "it",
+        "the",
+        "case",
+        "that"
+      ],
+      [
+        "which",
+        "case",
+        "makes",
+        "it",
+        "the",
+        "case",
+        "that"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "is",
+        "there",
+        "a",
+        "case",
+        "in",
+        "which"
+      ],
+      [
+        "can",
+        "it",
+        "be",
+        "the",
+        "case",
+        "that"
+      ]
+    ],
     "changes": [
       [
         "changes"
@@ -3002,6 +3040,38 @@ export const keywords: Record<string, KeywordTable> = {
         "cenário",
         "faz",
         "com",
+        "que"
+      ]
+    ],
+    "cases_query": [
+      [
+        "que",
+        "casos",
+        "fazem",
+        "com",
+        "que"
+      ],
+      [
+        "que",
+        "caso",
+        "faz",
+        "com",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "há",
+        "algum",
+        "caso",
+        "em",
+        "que"
+      ],
+      [
+        "pode",
+        "ser",
+        "o",
+        "caso",
         "que"
       ]
     ],
@@ -4852,6 +4922,36 @@ export const keywords: Record<string, KeywordTable> = {
         "al",
         "escenario",
         "hace",
+        "que"
+      ]
+    ],
+    "cases_query": [
+      [
+        "qué",
+        "casos",
+        "hacen",
+        "que"
+      ],
+      [
+        "qué",
+        "caso",
+        "hace",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "hay",
+        "algún",
+        "caso",
+        "en",
+        "que"
+      ],
+      [
+        "puede",
+        "ser",
+        "el",
+        "caso",
         "que"
       ]
     ],
@@ -6745,6 +6845,36 @@ export const keywords: Record<string, KeywordTable> = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "quels",
+        "cas",
+        "font",
+        "que"
+      ],
+      [
+        "quel",
+        "cas",
+        "fait",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "peut-il",
+        "être",
+        "vrai",
+        "que"
+      ],
+      [
+        "il",
+        "y",
+        "a",
+        "un",
+        "cas",
+        "où"
+      ]
+    ],
     "changes": [
       [
         "les",
@@ -8614,6 +8744,38 @@ export const keywords: Record<string, KeywordTable> = {
         "che"
       ]
     ],
+    "cases_query": [
+      [
+        "quali",
+        "casi",
+        "fanno",
+        "sì",
+        "che"
+      ],
+      [
+        "quale",
+        "caso",
+        "fa",
+        "sì",
+        "che"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "può",
+        "essere",
+        "il",
+        "caso",
+        "che"
+      ],
+      [
+        "c'è",
+        "un",
+        "caso",
+        "in",
+        "cui"
+      ]
+    ],
     "changes": [
       [
         "cambiamenti"
@@ -9132,6 +9294,8 @@ export const keywordCategories: Record<string, string> = {
   "via_service": "template_addition",
   "kind_semantic_matcher": "service",
   "flip_query": "query",
+  "cases_query": "query",
+  "case_exists_query": "query",
   "changes": "expect",
   "view_open": "view",
   "view_title": "view",
@@ -9832,7 +9996,12 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Faz parte dos Logical English Translators, um produto licenciado da Logical Contracts.",
     "Smart editing": "Edição inteligente",
     "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cenário ou uma consulta, propõe o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os títulos das secções. Desligada: o editor propõe apenas as palavras que já estão no documento.",
-    "The question this view answers: the program has several, and says nothing of which matters most": "A pergunta a que esta vista responde: o programa tem várias e não diz qual importa mais"
+    "The question this view answers: the program has several, and says nothing of which matters most": "A pergunta a que esta vista responde: o programa tem várias e não diz qual importa mais",
+    "case {i} of {n}": "caso {i} de {n}",
+    "covered by scenario {s}": "coberto pelo cenário {s}",
+    "no scenario covers this case": "nenhum cenário cobre este caso",
+    "Add as scenario": "Adicionar como cenário",
+    "Add to the program a scenario that meets this case": "Adicionar ao programa um cenário que cumpre este caso"
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -10481,7 +10650,12 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Forma parte de los Logical English Translators, un producto con licencia de Logical Contracts.",
     "Smart editing": "Edición inteligente",
     "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los títulos de las secciones. Desactivada: el editor propone solo las palabras que ya están en el documento.",
-    "The question this view answers: the program has several, and says nothing of which matters most": "La pregunta que responde esta vista: el programa tiene varias y no dice cuál importa más"
+    "The question this view answers: the program has several, and says nothing of which matters most": "La pregunta que responde esta vista: el programa tiene varias y no dice cuál importa más",
+    "case {i} of {n}": "caso {i} de {n}",
+    "covered by scenario {s}": "cubierto por el escenario {s}",
+    "no scenario covers this case": "ningún escenario cubre este caso",
+    "Add as scenario": "Añadir como escenario",
+    "Add to the program a scenario that meets this case": "Añadir al programa un escenario que cumple este caso"
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11130,7 +11304,12 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Il fait partie des Logical English Translators, un produit sous licence de Logical Contracts.",
     "Smart editing": "Édition intelligente",
     "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous écrivez une règle, un scénario ou une requête, propose la suite de la phrase d'après les modèles du programme (Tab passe d'une place à la suivante) et, dans la marge, les titres des sections. Désactivée : l'éditeur ne propose que les mots déjà présents dans le document.",
-    "The question this view answers: the program has several, and says nothing of which matters most": "La question à laquelle cette vue répond : le programme en a plusieurs et ne dit pas laquelle compte le plus"
+    "The question this view answers: the program has several, and says nothing of which matters most": "La question à laquelle cette vue répond : le programme en a plusieurs et ne dit pas laquelle compte le plus",
+    "case {i} of {n}": "cas {i} sur {n}",
+    "covered by scenario {s}": "couvert par le scénario {s}",
+    "no scenario covers this case": "aucun scénario ne couvre ce cas",
+    "Add as scenario": "Ajouter comme scénario",
+    "Add to the program a scenario that meets this case": "Ajouter au programme un scénario qui réalise ce cas"
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11779,7 +11958,12 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Fa parte dei Logical English Translators, un prodotto in licenza di Logical Contracts.",
     "Smart editing": "Modifica intelligente",
     "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole già presenti nel documento.",
-    "The question this view answers: the program has several, and says nothing of which matters most": "La domanda a cui risponde questa vista: il programma ne ha diverse e non dice quale conti di più"
+    "The question this view answers: the program has several, and says nothing of which matters most": "La domanda a cui risponde questa vista: il programma ne ha diverse e non dice quale conti di più",
+    "case {i} of {n}": "caso {i} di {n}",
+    "covered by scenario {s}": "coperto dallo scenario {s}",
+    "no scenario covers this case": "nessuno scenario copre questo caso",
+    "Add as scenario": "Aggiungi come scenario",
+    "Add to the program a scenario that meets this case": "Aggiungere al programma uno scenario che realizza questo caso"
   }
 } as const;
 

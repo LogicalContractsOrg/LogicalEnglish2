@@ -48,6 +48,10 @@ export interface ExplanationViewOptions {
     // on a failed node only when its literal is a real template. Absent => always show.
     canDeleteScenarioFact?: (node: any) => boolean;
     canAddScenarioFact?: (node: any) => boolean;
+    // A case search's answer (docs/user/reference/language.md §17.11) carries a
+    // ready-made scenario that meets the case: the host adds it to the program.
+    // Absent => the card shows no "Add as scenario" button.
+    onAddScenario?: (scenarioText: string) => void;
 }
 
 let activeView: ExplanationView | null = null;
@@ -239,6 +243,8 @@ export class ExplanationView {
                         a.style.cssText = 'font-size:11px;opacity:0.75;margin-top:2px;';
                         item.appendChild(a);
                     }
+                } else if (result.case && !result.case.none) {
+                    this.renderCaseCard(item, result.case);
                 } else {
                     item.textContent = result.answer;
                 }
@@ -293,6 +299,51 @@ export class ExplanationView {
         } else {
             answersList.textContent = t('No results returned.');
             this.setStrongestReason();
+        }
+    }
+
+    // One case of a case search: "case 2 of 6", its conditions, which of the
+    // program's scenarios meet it, and — for a case no scenario meets — the
+    // button that adds a ready-made scenario for it.
+    private renderCaseCard(item: HTMLElement, c: any) {
+        item.classList.add('case-item');
+        const badge = document.createElement('span');
+        badge.className = 'case-badge';
+        badge.textContent = t('case {i} of {n}').replace('{i}', String(c.index)).replace('{n}', String(c.count));
+        badge.style.cssText = 'font-size:10px;text-transform:uppercase;opacity:0.7;margin-right:6px;';
+        item.appendChild(badge);
+        item.appendChild(document.createTextNode(String(c.conditions || '')));
+        const cov = document.createElement('div');
+        cov.className = 'case-coverage';
+        const covered: string[] = Array.isArray(c.coveredBy) ? c.coveredBy : [];
+        if (covered.length > 0) {
+            cov.textContent = t('covered by scenario {s}').replace('{s}', covered.join(', '));
+            cov.style.cssText = 'font-size:11px;color:#4ec9b0;margin-top:2px;';
+        } else {
+            cov.textContent = t('no scenario covers this case');
+            cov.classList.add('uncovered');
+            cov.style.cssText = 'font-size:11px;color:#d7ba7d;margin-top:2px;';
+        }
+        item.appendChild(cov);
+        const notes: string[] = Array.isArray(c.notes) ? c.notes : [];
+        if (notes.length > 0) {
+            const n = document.createElement('div');
+            n.className = 'case-notes';
+            n.textContent = notes.join('; ');
+            n.style.cssText = 'font-size:11px;opacity:0.75;margin-top:2px;';
+            item.appendChild(n);
+        }
+        if (this.o.onAddScenario && c.scenario) {
+            const btn = document.createElement('button');
+            btn.className = 'case-add-scenario';
+            btn.textContent = t('Add as scenario');
+            btn.title = t('Add to the program a scenario that meets this case');
+            btn.style.cssText = 'font-size:11px;margin-top:4px;';
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.o.onAddScenario?.(String(c.scenario));
+            });
+            item.appendChild(btn);
         }
     }
 

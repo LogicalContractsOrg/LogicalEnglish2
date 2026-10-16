@@ -323,6 +323,9 @@ const queryChannel = new BroadcastChannel('le-query-editor');
 
         let isLoaded = false;
         let isLoading = false;
+        // The query and scenario to select again once the program has
+        // reloaded after an edit the editor made itself (Add as scenario).
+        let restoreSelection: { query: string, scenario: string } | null = null;
         let lastIssues: any[] = [];
         let lastLoadError = '';
         // Set (0-based) when an `answer` URL parameter asks the next query run to
@@ -2836,6 +2839,13 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                 anotherQueryOption.value = '___custom___';
                 anotherQueryOption.textContent = t('Another...');
                 querySelect.appendChild(anotherQueryOption);
+                if (restoreSelection) {
+                    const r = restoreSelection;
+                    restoreSelection = null;
+                    if (Array.from(querySelect.options).some(o => o.value === r.query)) querySelect.value = r.query;
+                    if (Array.from(scenarioSelect.options).some(o => o.value === r.scenario)) scenarioSelect.value = r.scenario;
+                    querySelect.dispatchEvent(new Event('change'));
+                }
                 
                 if (res.issues) {
                     updateMarkers(res.issues);
@@ -3067,6 +3077,11 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             menuShowStrongest: document.getElementById('menu-show-strongest')!,
             menuExplanationDrill: document.getElementById('menu-explanation-drill')!,
             menuBentoBox: document.getElementById('menu-bento-box') || undefined,
+        },
+        onAddScenario: (scenarioText: string) => {
+            // the query stays selected: run it again to see the case covered
+            restoreSelection = { query: querySelect.value, scenario: scenarioSelect.value };
+            applyScenarioBlock(scenarioText);
         },
         onOpenBento: (why: any, answer: string) => {
             localStorage.setItem('le_bento_box_data', JSON.stringify({ kbName: lastKb, answer, why, factImages: lastFactImages, templateImages: lastTemplateImages }));
@@ -3851,18 +3866,36 @@ const queryChannel = new BroadcastChannel('le-query-editor');
     scenarioChannel.onmessage = (event) => {
         const msg = event.data;
         if (!msg || msg.type !== 'insert-scenario' || typeof msg.blockText !== 'string') return;
+        applyScenarioBlock(msg.blockText, msg.replaceName);
+    };
+
+    // A scenario block into the program: in place of the scenario named
+    // replaceName when it still exists, otherwise after the last scenario (or
+    // at the end of the document). A new scenario whose name the program
+    // already uses gets a numbered one (`case_2_2`).
+    const applyScenarioBlock = (blockText0: string, replaceName?: string) => {
         showProgramInEditor();   // the window edits the program in the panels
         const model = editor.getModel();
         if (!model) return;
         const source = editor.getValue();
         const blocks = parseScenarioBlocks(source);
-        const target = msg.replaceName ? blocks.find(b => b.name === msg.replaceName) : null;
+        const target = replaceName ? blocks.find(b => b.name === replaceName) : null;
+        let blockText = blockText0;
+        if (!target) {
+            const m = /^(\s*\S+\s+)(\S+)(\s)/.exec(blockText);
+            if (m) {
+                const used = new Set(blocks.map(b => b.name));
+                let name = m[2], k = 2;
+                while (used.has(name)) name = `${m[2]}_${k++}`;
+                blockText = m[1] + name + blockText.slice(m[1].length + m[2].length);
+            }
+        }
 
         let startOff: number, endOff: number, text: string;
         if (target) {
             startOff = target.start;
             endOff = target.end;
-            text = msg.blockText;
+            text = blockText;
         } else {
             // Append: after the last scenario block, else at end of document.
             const last = blocks.length ? blocks[blocks.length - 1] : null;
@@ -3870,7 +3903,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             const before = source.slice(0, insertAt).replace(/\s*$/, '');
             startOff = insertAt;
             endOff = insertAt;
-            text = (before.length ? '\n\n' : '') + msg.blockText + '\n';
+            text = (before.length ? '\n\n' : '') + blockText + '\n';
         }
         const startPos = model.getPositionAt(startOff);
         const endPos = model.getPositionAt(endOff);

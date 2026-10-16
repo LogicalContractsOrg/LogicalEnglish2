@@ -46,6 +46,7 @@ This document summarises the constructs of Logical English (LE) that the system 
     - [17.8 Factors and precedent: a pattern, not syntax](#178-factors-and-precedent-a-pattern-not-syntax)
     - [17.9 Facts from a document](#179-facts-from-a-document)
     - [17.10 Views: how a screen shows a program](#1710-views-how-a-screen-shows-a-program)
+    - [17.11 Case searches: every case, and properties](#1711-case-searches-every-case-and-properties)
 
 ## 1. Document Sections
 A program is written in sections, and each section says how to read the sentences that follow it. Every section header ends with a colon `:`.
@@ -1757,3 +1758,84 @@ See the views of `examples/regulatory/eu261_integration.le` (a claims desk),
 keeps a fact, a letter for each outcome) and
 `examples/regulatory/customs/cbp_62.le` (a classification worksheet) and the
 coverage desks of `examples/regulatory/medicare/pap_cases.le` and `pmd_cases.le`.
+
+### 17.11 Case searches: every case, and properties
+```le
+query support cases is:
+    which cases make it the case that
+        a person gets rent support.
+
+query both eligible and excluded is:
+    is there a case in which
+        a person is eligible for rent support
+        and the person is excluded from rent support.
+```
+A **case** is what a scenario would have to say for a goal to hold. It lists
+the facts the scenario states, the facts it must not state, and the values
+those facts must have. A scenario tests one case. A case search looks at
+all the cases a program allows, without any scenario.
+
+- **`which cases make it the case that G`** lists every case in which G holds.
+  Each answer is one case, in general terms: *case 1 of 1: a person is a
+  resident and the person has an income of an amount and the amount is less
+  than or equal to 15000 and it is not the case that the person receives other
+  benefits and it is not the case that the person is a student*. Each answer
+  also names the program's own scenarios that meet the case, or says that no
+  scenario covers it. A case that no scenario covers is a case the program's
+  tests never tried. To list the cases in which G fails, ask about `it is not
+  the case that G`.
+- **`is there a case in which G`** looks for a case that breaks a property.
+  Write G as the situation that must never happen: *a person is eligible for
+  rent support and the person is excluded from rent support*. Each answer is a
+  case in which the situation happens. When there is none, the one answer
+  says so, and says whether the search looked at every case (*there is no such
+  case: the search covered every case*) or stopped at one of its limits. A
+  scenario can expect that answer (`… expects answers ["there is no such case:
+  the search covered every case"]`), which makes the property one of the
+  program's tests.
+- **A ready-made scenario.** Every case comes with a scenario that meets it.
+  The search chooses the individuals and the values: `person_1`, an income of
+  17500 between the bounds 15000 and 20000, a date that meets the date
+  comparisons. In the editor, a case that no scenario covers has the button
+  **Add as scenario**. The button adds that scenario to the program, under
+  the name `case_2` (or the next free name). Run the query again and the
+  case reads *covered by scenario case_2*.
+- **Which facts a case may state.** A case states facts of the
+  scenario-element templates, as a flip does (§17.7): the templates marked
+  `; undefined` or `; judged`, or, in a program that marks none, the templates
+  no rule concludes. A template whose facts the program itself states, such
+  as a table of rates, is read from those facts and never assumed. A template
+  marked `; unknown` (§3.3) may be assumed too. The program's integrity
+  constraints (`it must not be true that …`, §3.3) rule out the cases they
+  forbid.
+- **How the search works.** The search is Logical English's own reasoning,
+  run on an empty scenario. Whenever the reasoning needs a fact of a
+  scenario-element template, it assumes the fact. Whenever it needs a fact to
+  be absent (`it is not the case that …`), it records every way the fact could
+  hold, and once the case is complete it makes sure that none of them does: an
+  assumed fact the case does not state is simply absent, and a comparison
+  that would hold is replaced by its opposite (*the amount is less than or
+  equal to 15000*). A comparison on a number not known yet becomes a
+  constraint on that number. A constraint solver (SWI-Prolog's
+  `library(clpq)`) keeps the constraints, rules out the cases whose
+  constraints contradict one another, and gives each number its bounds. Date
+  comparisons are solved the same way, on days. Two facts of a template whose
+  last place holds a value (*a person has an income of an amount*) are read
+  as one fact: a person has one income. A case that a smaller case already
+  gives is not listed.
+- **What the search does not treat exactly** is said on each answer, as a
+  note: a total or count (`is the sum of each …`) or a `for all cases in which`
+  over assumed facts, a condition that could not be solved and was kept as it
+  stands, or a limit that was reached. Four Prolog settings set the limits:
+  `le_cases_max` (200 cases), `le_cases_seconds` (60 seconds),
+  `le_cases_max_negation_proofs` (40 ways of proving the goal of one `it is
+  not the case that`) and `le_cases_max_denials` (64). "Every case" means
+  every combination of the facts that the program's templates allow, within
+  those limits.
+- **Without writing the query**: like any query body, a case search may also
+  be typed into the editor's custom query field.
+
+See `examples/regulatory/case_search.le`, and the query `rn cases` of
+`examples/regulatory/medicare/aeds_cases.le` (41 cases of Medicare's coverage
+of external defibrillators, nine of them covered by the program's test
+claims).

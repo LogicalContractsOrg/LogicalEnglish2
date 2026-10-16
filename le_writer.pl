@@ -2850,10 +2850,13 @@ write_queries(Ctx, Items) :-
 write_query(Ctx, Name, Body0) :-
     kw(query, Q), kw(marker_is, Is),
     format("~w ~w ~w:~n", [Q, Name, Is]),
-    (   Body0 = flip(Goal0)
+    (   (   Body0 = flip(Goal0) -> OpenKey = flip_query
+        ;   Body0 = cases(Goal0, any) -> OpenKey = case_exists_query
+        ;   Body0 = cases(Goal0, _) -> OpenKey = cases_query
+        )
     ->  strip_at(Goal0, Goal1), simplify_body(Goal1, Goal), copy_term(Goal, G),
         clause_naming(Ctx, query, true, G, St),
-        kw(flip_query, FQ),
+        kw(OpenKey, FQ),
         format("    ~w~n", [FQ]),
         body_nodes(Ctx, St, G, Nodes),
         write_nodes(Nodes, 8, last)
@@ -3219,6 +3222,7 @@ kb_queries(KB, Items) :-
     keysort(Pairs, Sorted), pairs_values(Sorted, Items).
 
 query_goal(le_flip(G, _), flip(G)) :- !.
+query_goal(le_cases(G, Mode, _), cases(G, Mode)) :- !.
 query_goal(G, G).
 
 		 /*******************************

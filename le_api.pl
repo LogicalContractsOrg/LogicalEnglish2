@@ -1158,8 +1158,17 @@ run_answering_query(SM, Query, KB, Response) :-
     % A query can have several proofs of the SAME answer (e.g. an 'or' whose
     % branches both hold). Collect them keyed by (answer string + unknowns) and
     % keep only the first of each, so the same answer is not listed repeatedly.
-    findall((AnswerStr-UnknownsKey)-_{answer: AnswerStr, goal: GoalStr, unknowns: JSONUnknowns, why: JSONWhy, strongestReason: Reason, strongestReasonPath: ReasonPath}, (
+    findall((AnswerStr-UnknownsKey)-Answer, (
             query(SM, Query, Instance, Us, Why),
+            Answer0 = _{answer: AnswerStr, goal: GoalStr, unknowns: JSONUnknowns, why: JSONWhy, strongestReason: Reason, strongestReasonPath: ReasonPath},
+            %  a case search (le_cases.pl): the case's conditions, the
+            %  scenarios that cover it and a ready-made scenario that meets it
+            (   sub_term(Node, Why), compound(Node), functor(Node, success, _),
+                arg(1, Node, Head), compound(Head), Head = le_case(Case, _), nonvar(Case),
+                catch(le_cases:case_json(KB, Case, CaseJSON), _, fail)
+            ->  Answer = Answer0.put(case, CaseJSON)
+            ;   Answer = Answer0
+            ),
             canonical_string(Instance, AnswerStr),
             le_kbs:goal_string(Instance, GoalStr),   % the answer, reading back as itself
             convert_why_deduped(Why, KB, JSONWhy),

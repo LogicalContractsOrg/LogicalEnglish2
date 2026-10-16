@@ -1170,6 +1170,44 @@ var keywords = {
         "that"
       ]
     ],
+    "cases_query": [
+      [
+        "which",
+        "cases",
+        "make",
+        "it",
+        "the",
+        "case",
+        "that"
+      ],
+      [
+        "which",
+        "case",
+        "makes",
+        "it",
+        "the",
+        "case",
+        "that"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "is",
+        "there",
+        "a",
+        "case",
+        "in",
+        "which"
+      ],
+      [
+        "can",
+        "it",
+        "be",
+        "the",
+        "case",
+        "that"
+      ]
+    ],
     "changes": [
       [
         "changes"
@@ -1523,6 +1561,32 @@ var keywords = {
     "view_reads": [
       [
         "reads"
+      ]
+    ],
+    "cells_open": [
+      [
+        "the",
+        "cells",
+        "of",
+        "service"
+      ]
+    ],
+    "cells_are": [
+      [
+        "are"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "the",
+        "sheet",
+        "is"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "the",
+        "cell"
       ]
     ]
   },
@@ -2973,6 +3037,38 @@ var keywords = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "que",
+        "casos",
+        "fazem",
+        "com",
+        "que"
+      ],
+      [
+        "que",
+        "caso",
+        "faz",
+        "com",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "h\xE1",
+        "algum",
+        "caso",
+        "em",
+        "que"
+      ],
+      [
+        "pode",
+        "ser",
+        "o",
+        "caso",
+        "que"
+      ]
+    ],
     "changes": [
       [
         "altera\xE7\xF5es"
@@ -3375,6 +3471,32 @@ var keywords = {
     "view_reads": [
       [
         "diz"
+      ]
+    ],
+    "cells_open": [
+      [
+        "as",
+        "c\xE9lulas",
+        "do",
+        "servi\xE7o"
+      ]
+    ],
+    "cells_are": [
+      [
+        "s\xE3o"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "a",
+        "folha",
+        "\xE9"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "a",
+        "c\xE9lula"
       ]
     ]
   },
@@ -4797,6 +4919,36 @@ var keywords = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "qu\xE9",
+        "casos",
+        "hacen",
+        "que"
+      ],
+      [
+        "qu\xE9",
+        "caso",
+        "hace",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "hay",
+        "alg\xFAn",
+        "caso",
+        "en",
+        "que"
+      ],
+      [
+        "puede",
+        "ser",
+        "el",
+        "caso",
+        "que"
+      ]
+    ],
     "changes": [
       [
         "cambios"
@@ -5148,6 +5300,32 @@ var keywords = {
     "view_reads": [
       [
         "dice"
+      ]
+    ],
+    "cells_open": [
+      [
+        "las",
+        "celdas",
+        "del",
+        "servicio"
+      ]
+    ],
+    "cells_are": [
+      [
+        "son"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "la",
+        "hoja",
+        "es"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "celda"
       ]
     ]
   },
@@ -6661,6 +6839,36 @@ var keywords = {
         "que"
       ]
     ],
+    "cases_query": [
+      [
+        "quels",
+        "cas",
+        "font",
+        "que"
+      ],
+      [
+        "quel",
+        "cas",
+        "fait",
+        "que"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "peut-il",
+        "\xEAtre",
+        "vrai",
+        "que"
+      ],
+      [
+        "il",
+        "y",
+        "a",
+        "un",
+        "cas",
+        "o\xF9"
+      ]
+    ],
     "changes": [
       [
         "les",
@@ -7036,6 +7244,32 @@ var keywords = {
     "view_reads": [
       [
         "dit"
+      ]
+    ],
+    "cells_open": [
+      [
+        "les",
+        "cellules",
+        "du",
+        "service"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sont"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "la",
+        "feuille",
+        "est"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "cellule"
       ]
     ]
   },
@@ -8504,6 +8738,38 @@ var keywords = {
         "che"
       ]
     ],
+    "cases_query": [
+      [
+        "quali",
+        "casi",
+        "fanno",
+        "s\xEC",
+        "che"
+      ],
+      [
+        "quale",
+        "caso",
+        "fa",
+        "s\xEC",
+        "che"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "pu\xF2",
+        "essere",
+        "il",
+        "caso",
+        "che"
+      ],
+      [
+        "c'\xE8",
+        "un",
+        "caso",
+        "in",
+        "cui"
+      ]
+    ],
     "changes": [
       [
         "cambiamenti"
@@ -8855,6 +9121,32 @@ var keywords = {
     "view_reads": [
       [
         "dice"
+      ]
+    ],
+    "cells_open": [
+      [
+        "le",
+        "celle",
+        "del",
+        "servizio"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sono"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "il",
+        "foglio",
+        "\xE8"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "la",
+        "cella"
       ]
     ]
   }
@@ -9509,7 +9801,13 @@ var uiCatalog = {
     "The LE Contract Assistant is not installed on this server.": "O LE Contract Assistant n\xE3o est\xE1 instalado neste servidor.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Faz parte dos Logical English Translators, um produto licenciado da Logical Contracts.",
     "Smart editing": "Edi\xE7\xE3o inteligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cen\xE1rio ou uma consulta, prop\xF5e o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os t\xEDtulos das sec\xE7\xF5es. Desligada: o editor prop\xF5e apenas as palavras que j\xE1 est\xE3o no documento."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Enquanto escreve uma regra, um cen\xE1rio ou uma consulta, prop\xF5e o resto da frase a partir dos modelos do programa (Tab passa de um lugar ao seguinte) e, na margem, os t\xEDtulos das sec\xE7\xF5es. Desligada: o editor prop\xF5e apenas as palavras que j\xE1 est\xE3o no documento.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "A pergunta a que esta vista responde: o programa tem v\xE1rias e n\xE3o diz qual importa mais",
+    "case {i} of {n}": "caso {i} de {n}",
+    "covered by scenario {s}": "coberto pelo cen\xE1rio {s}",
+    "no scenario covers this case": "nenhum cen\xE1rio cobre este caso",
+    "Add as scenario": "Adicionar como cen\xE1rio",
+    "Add to the program a scenario that meets this case": "Adicionar ao programa um cen\xE1rio que cumpre este caso"
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -10157,7 +10455,13 @@ var uiCatalog = {
     "The LE Contract Assistant is not installed on this server.": "El LE Contract Assistant no est\xE1 instalado en este servidor.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Forma parte de los Logical English Translators, un producto con licencia de Logical Contracts.",
     "Smart editing": "Edici\xF3n inteligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los t\xEDtulos de las secciones. Desactivada: el editor propone solo las palabras que ya est\xE1n en el documento."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mientras escribe una regla, un escenario o una consulta, propone el resto de la frase a partir de las plantillas del programa (Tab pasa de un hueco al siguiente) y, en el margen, los t\xEDtulos de las secciones. Desactivada: el editor propone solo las palabras que ya est\xE1n en el documento.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "La pregunta que responde esta vista: el programa tiene varias y no dice cu\xE1l importa m\xE1s",
+    "case {i} of {n}": "caso {i} de {n}",
+    "covered by scenario {s}": "cubierto por el escenario {s}",
+    "no scenario covers this case": "ning\xFAn escenario cubre este caso",
+    "Add as scenario": "A\xF1adir como escenario",
+    "Add to the program a scenario that meets this case": "A\xF1adir al programa un escenario que cumple este caso"
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -10805,7 +11109,13 @@ var uiCatalog = {
     "The LE Contract Assistant is not installed on this server.": "Le LE Contract Assistant n'est pas install\xE9 sur ce serveur.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Il fait partie des Logical English Translators, un produit sous licence de Logical Contracts.",
     "Smart editing": "\xC9dition intelligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous \xE9crivez une r\xE8gle, un sc\xE9nario ou une requ\xEAte, propose la suite de la phrase d'apr\xE8s les mod\xE8les du programme (Tab passe d'une place \xE0 la suivante) et, dans la marge, les titres des sections. D\xE9sactiv\xE9e : l'\xE9diteur ne propose que les mots d\xE9j\xE0 pr\xE9sents dans le document."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Pendant que vous \xE9crivez une r\xE8gle, un sc\xE9nario ou une requ\xEAte, propose la suite de la phrase d'apr\xE8s les mod\xE8les du programme (Tab passe d'une place \xE0 la suivante) et, dans la marge, les titres des sections. D\xE9sactiv\xE9e : l'\xE9diteur ne propose que les mots d\xE9j\xE0 pr\xE9sents dans le document.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "La question \xE0 laquelle cette vue r\xE9pond : le programme en a plusieurs et ne dit pas laquelle compte le plus",
+    "case {i} of {n}": "cas {i} sur {n}",
+    "covered by scenario {s}": "couvert par le sc\xE9nario {s}",
+    "no scenario covers this case": "aucun sc\xE9nario ne couvre ce cas",
+    "Add as scenario": "Ajouter comme sc\xE9nario",
+    "Add to the program a scenario that meets this case": "Ajouter au programme un sc\xE9nario qui r\xE9alise ce cas"
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11453,7 +11763,13 @@ var uiCatalog = {
     "The LE Contract Assistant is not installed on this server.": "Il LE Contract Assistant non \xE8 installato su questo server.",
     "It is part of the Logical English Translators, a licensed product of Logical Contracts.": "Fa parte dei Logical English Translators, un prodotto in licenza di Logical Contracts.",
     "Smart editing": "Modifica intelligente",
-    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole gi\xE0 presenti nel documento."
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "Mentre scrive una regola, uno scenario o un'interrogazione, propone il resto della frase dai modelli del programma (Tab passa da un posto al successivo) e, al margine, i titoli delle sezioni. Disattivata: l'editor propone solo le parole gi\xE0 presenti nel documento.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "La domanda a cui risponde questa vista: il programma ne ha diverse e non dice quale conti di pi\xF9",
+    "case {i} of {n}": "caso {i} di {n}",
+    "covered by scenario {s}": "coperto dallo scenario {s}",
+    "no scenario covers this case": "nessuno scenario copre questo caso",
+    "Add as scenario": "Aggiungi come scenario",
+    "Add to the program a scenario that meets this case": "Aggiungere al programma uno scenario che realizza questo caso"
   }
 };
 var languages = [

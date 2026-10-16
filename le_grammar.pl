@@ -3668,6 +3668,21 @@ second_pass_scenario_item(_Templates, expected(QueryName, Answers, Unknowns, Sta
     ),
     maplist(extract_answer_string, Answers, AnswerStrings).
 
+% A case search (docs/user/reference/language.md §17.11, le_cases.pl): "which cases
+% make it the case that <goal>" (every case in which the goal holds) and "is
+% there a case in which <goal>" (one that breaks a property, or none). The goal
+% is parsed as any query body.
+second_pass_query_item(Templates, query_raw(BodyTokens, Start, End), Item, M) :-
+    exclude(is_indent_or_comment, BodyTokens, Clean),
+    member(Key-Mode, [cases_query-all, case_exists_query-any]),
+    le_i18n:kw_synonym_words(Key, Words),
+    match_word_prefix(Words, Clean, _),
+    flip_goal_tokens(BodyTokens, Words, GoalTokens),
+    GoalTokens \== [], !,
+    ( body_first_start(GoalTokens, GStart) -> true ; GStart = Start ),
+    second_pass_query_item(Templates, query_raw(GoalTokens, GStart, End), Inner, M),
+    item_goal(Inner, Goal),
+    Item = query_cases(le_cases(Goal, Mode, _Case), Inner, Start, End).
 % A flip query (docs/user/reference/language.md §17.7): "which minimal change to the
 % scenario makes it the case that <goal>". The goal is parsed as any query
 % body; the query asks le_flip/2 for the minimal change sets that make it hold.

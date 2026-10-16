@@ -17,6 +17,11 @@
 :- dynamic equal_to/2.
 :- thread_local called/3, called_clause/3, counter/1, success_in_not/2, succeeded/1, solved_binding/2.
 :- thread_local checking_assumptions/1, rejected_assumptions/2.
+% The case search of le_cases.pl ("which cases make it the case that …",
+% "is there a case in which …"): while set, the scenario-element templates of
+% KM are assumed, together with their absence and with comparisons on values
+% not yet known (le_cases:explorable/4, explore_built_in/2, explore_negation/8).
+:- thread_local exploring_cases/1.
 % Memoization of `; memorable` templates (memo_solve/8 below).
 :- thread_local memo_done/3, memo_active/2, memo_answer/6, memo_alias/2,
                 memo_generation/1, memo_gen_counter/1, memo_depth/1, memo_stat/2,
@@ -192,6 +197,7 @@ solve_real_actual(once(Goal), SM, KM, Anc, D, MyID, Us, Whys) :- !,
 % twice in the sum.
 solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggregate, WhysGoal)]) :-
     is_aggregate(Aggregate, Type, VarTerm, Goal, ResultTerm), !,
+    ( exploring_cases(_) -> le_cases:note(aggregate) ; true ),
     D1 is D + 1,
     extract_var(VarTerm, Var),
     %  a caller that wants answers only (le_failure_explanations off) keeps
@@ -228,7 +234,10 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
         append(UsLists, Us0),
         remove_variant_duplicates(Us0, Us)
     ),
-    apply_aggregate(Type, List, Result),
+    (   exploring_cases(_), \+ ground(List)
+    ->  le_cases:explore_aggregate(Type, List, Result)
+    ;   apply_aggregate(Type, List, Result)
+    ),
     extract_var(ResultTerm, Result).
 % Forall
 % The explanation states the universal once in the header (with its quantified
@@ -244,6 +253,7 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
 % the condition's FAILURE branch (red) instead.
 solve_real_actual(forall(Cond, Cons), SM, KM, Anc, D, MyID, Us,
         [success(for_all_cases(GeneralCond), universal, CaseChildren)]) :- !,
+    ( exploring_cases(_) -> le_cases:note(for_all_cases) ; true ),
     D1 is D + 1,
     next_id(CondID),
     proof_record(called(MyID, CondID, Cond)),
@@ -302,6 +312,12 @@ solve_real_actual(forall(Cond, Cons), SM, KM, Anc, D, MyID, Us,
     ).
 
 % Negation as Failure
+solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negation, [])]) :-
+    exploring_cases(_), !,
+    % A case search (le_cases.pl): it is not the case that Goal, under
+    % assumptions that deny every way Goal could hold.
+    D1 is D + 1,
+    le_cases:explore_negation(Goal, SM, KM, Anc, D1, MyID, Us).
 solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negation, FailureTrees)]) :- !,
     D1 is D + 1,
     next_id(GoalID),
@@ -338,6 +354,16 @@ solve_real_actual(le_type_check(Arg, Type), SM, KM, _Anc, _D, _MyID, [], [succes
 % policy. The explanation cites that row ("row l of table shipping"), pointing
 % at it in the source when it is an inline row. The session is passed because a
 % table written in a scenario answers only while that scenario is the case.
+solve_real_actual(le_table(Name, Args), SM, KM, _Anc, _D, _MyID, Us,
+                  [success(le_table_row(Name, RowId), RowRef, [])]) :-
+    exploring_cases(_), !,
+    % A case search (le_cases.pl): a table asked with an input not known yet
+    % is kept as a condition of the case.
+    KM \== none,
+    catch(( le_tables:table_solution(SM, KM, Name, Args, RowId, RowRange), Us = [] ),
+          error(le_table_error(_), _),
+          ( Us = ['$le_cond'(le_table(Name, Args))], RowId = open, RowRange = table_row )),
+    ( RowRange = range(_, _) -> RowRef = RowRange ; RowRef = table_row ).
 solve_real_actual(le_table(Name, Args), SM, KM, _Anc, _D, _MyID, [],
                   [success(le_table_row(Name, RowId), RowRef, [])]) :- !,
     KM \== none,
@@ -385,6 +411,16 @@ solve_real_actual(le_flip(Goal, Changes), SM, KM, _Anc, _D, _MyID, [],
     le_flip:minimal_changes(Goal, SM, KM, _Sets, Proofs),
     member(Changes-Proof, Proofs).
 
+% A case search (le_cases.pl): "which cases make it the case that Goal"
+% (Mode all) or "is there a case in which Goal" (Mode any). One solution per
+% case, explained by the proof Goal has under the case's assumptions.
+solve_real_actual(le_cases(Goal, Mode, Case), SM, KM, _Anc, _D, _MyID, [],
+                  [success(le_case(Case, Goal), cases, Proof)]) :- !,
+    KM \== none,
+    \+ exploring_cases(_),
+    le_cases:cases(Goal, Mode, SM, KM, Cases),
+    member(Case-Proof, Cases).
+
 % Literals
 solve_real_actual(le_at(Goal, Start, End), SM, KM, Anc, D, MyID, Us, Whys) :- !,
     solve(Goal, SM, KM, Anc, D, MyID, Us, Whys0),
@@ -430,7 +466,11 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
     ),
 
     (   is_built_in(G) ->
-            call_reasoner_built_in(G, SM), Us = [], Ref = built_in, WhysBody = []
+            (   exploring_cases(_), le_cases:explore_built_in(G, Us0)
+            ->  Us = Us0
+            ;   call_reasoner_built_in(G, SM), Us = []
+            ),
+            Ref = built_in, WhysBody = []
         ; G = is_a(X, Z) ->
             D1 is D + 1,
             (   X == Z -> Us = [], WhysBody = [success(G, identity, [])]
@@ -450,6 +490,11 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
                 solve(is_a(Y, Z), SM, KM, [is_a(X, Y), is_a(X, Z)|Anc], D1, MyID, Us, WhysBody2),
                 Ref = transitivity,
                 WhysBody = [success(is_a(X, Y), Ref1, []) | WhysBody2]
+            ;   % A case search: something not yet named is assumed to be of
+                % the type (le_cases.pl).
+                exploring_cases(_), var(X), atom(Z),
+                \+ ancestor_unifies(is_a(X, Z), Anc)
+            ->  Us = [is_a(X, Z)], WhysBody = [], Ref = unknown
             )
         ; get_clause(G, SM, KM, Body, Ref),
             admissible_clause(Ref, G, SM, KM, MyID),
@@ -470,6 +515,9 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
                    )
             ;   solve_rule_body(Body, SM, KM, [Frame|Anc], D1, MyID, Ref, Us, WhysBody)
             )
+        ; exploring_cases(_), le_cases:explorable(G, SM, KM, Anc) ->
+          % A case search (le_cases.pl): a scenario element is assumed.
+          le_cases:assume(G, KM, Us), WhysBody = [], Ref = unknown
         ; checking_assumptions(Assumed) ->
           % Checking a constraint (consistent_assumptions/4): what the answer
           % assumed holds, and nothing more may be assumed.
@@ -619,6 +667,7 @@ note_loop_cut(Above) :-
 %   G is a literal of a template marked `; memorable` in the knowledge base
 %   (or the session, when it is the program itself).
 memorable_goal(G, SM, KM) :-
+    \+ exploring_cases(_),            % a case search assumes; a memo would not
     (   compound(G) -> functor(G, F, A) ; atom(G), F = G, A = 0 ),
     (   KM \== none, current_predicate(KM:le_memorable/2)
     ->  KM:le_memorable(F, A)
@@ -2025,9 +2074,13 @@ is_special_ref(range(_, _)).
 extract_var(var(_, V), V) :- !.
 extract_var(V, V).
 
+%   The functor is checked first: unifying the pattern with an ordinary goal
+%   would bind its places, and a place a case search (le_cases.pl) holds a
+%   number constraint on refuses to be a list with a type error.
 is_aggregate(Term, Type, VarTerm, Goal, ResultTerm) :-
-    Term =.. [Type, [each, VarTerm], Goal, [ResultTerm]],
-    memberchk(Type, [sum, count, min, max, average, list]).
+    compound(Term), functor(Term, Type, 3),
+    memberchk(Type, [sum, count, min, max, average, list]),
+    Term =.. [Type, [each, VarTerm], Goal, [ResultTerm]].
 
 % The sum and the count of nothing are 0. The minimum, the maximum and the
 % average of nothing do not exist, so the aggregate has no answer -- as in the

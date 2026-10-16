@@ -109,7 +109,7 @@ export function buildLeMonarchTokens(lang: string): any {
         // trailers, otherwise cascades, decision tables, services, flip queries.
         'provenance_required', 'according_to', 'as_stated_in', 'because',
         'otherwise', 'table_open', 'table_loaded_from', 'first_match',
-        'all_matches', 'unique_match', 'services_include', 'flip_query',
+        'all_matches', 'unique_match', 'services_include', 'flip_query', 'cases_query', 'case_exists_query',
     ]);
     const expects = alt(T, ['expects']) && `(?:${alt(T, ['expects'])})[ \\t]+(?:${alt(T, ['answers', 'changes'])})`;
     const andOr = words(T, ['and', 'or']);

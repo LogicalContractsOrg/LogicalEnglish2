@@ -58,6 +58,7 @@
 :- use_module(le_sections).
 :- use_module(le_services).
 :- use_module(le_flip).
+:- use_module(le_cases).
 :- use_module(library(time)).      % call_with_time_limit/2; the WASM build substitutes wasm/shims/time.pl
 :- use_module(library(uuid)).
 :- use_module(library(pcre)).
@@ -2377,6 +2378,13 @@ item_to_instance(KBmodule, le_flip_changes(Changes, _Goal), Tokens) :- !,
     flip_changes_words(KBmodule, Changes, Tokens).
 item_to_instance(KBmodule, le_flip(_Goal, Changes), Tokens) :- !,   % a flip asked as a custom query
     flip_changes_words(KBmodule, Changes, Tokens).
+% A case search (le_cases.pl): its answer is the case that solution found.
+item_to_instance(KBmodule, query_cases(le_cases(_, _, Case), _, _, _), Tokens) :- !,
+    le_cases:case_words(KBmodule, Case, Tokens).
+item_to_instance(KBmodule, le_case(Case, _Goal), Tokens) :- !,
+    le_cases:case_words(KBmodule, Case, Tokens).
+item_to_instance(KBmodule, le_cases(_Goal, _Mode, Case), Tokens) :- !,   % asked as a custom query
+    le_cases:case_words(KBmodule, Case, Tokens).
 item_to_instance(KBmodule, query_body(Goal, _, _, _), Tokens) :- !,
     ( item_to_instance(KBmodule, Goal, Tokens) -> true ; term_string(Goal, S), Tokens = [S] ).
 item_to_instance(KBmodule, Head, WordsAndVars) :-
@@ -3058,6 +3066,8 @@ custom_query_body(KB, Tokens, Goal) :-
     catch(le_grammar:second_pass_query_item(Templates, query_raw(Tokens, 0, N), Item, KB), _, fail),
     (   Item = query_flip(Goal, _, _, _)
     ->  true
+    ;   Item = query_cases(Goal, _, _, _)
+    ->  true
     ;   Item = query_body(Goal, _, _, _)
     ).
 
@@ -3285,6 +3295,12 @@ item_to_le_string(query_flip(_, Inner, _, _), String) :- !,
     ( le_i18n:kw_main_words(flip_query, Words) -> atomic_list_concat(Words, ' ', Phrase) ; Phrase = '' ),
     item_to_le_string(Inner, InnerString),
     ( Phrase == '' -> String = InnerString ; format(string(String), "~w ~w", [Phrase, InnerString]) ).
+% A case search: its opening phrase, then its goal.
+item_to_le_string(query_cases(le_cases(_, Mode, _), Inner, _, _), String) :- !,
+    ( Mode == any -> Key = case_exists_query ; Key = cases_query ),
+    ( le_i18n:kw_main_words(Key, Words) -> atomic_list_concat(Words, ' ', Phrase) ; Phrase = '' ),
+    item_to_le_string(Inner, InnerString),
+    ( Phrase == '' -> String = InnerString ; format(string(String), "~w ~w", [Phrase, InnerString]) ).
 item_to_le_string(Item, String) :-
     term_string(Item, String).
 
@@ -3292,6 +3308,7 @@ item_to_term(_Templates, _M, query_clause(Head, _, _, _, _), Head) :- !.
 item_to_term(_Templates, _M, query_clause(Head, _, _, _, _, _, _, _), Head) :- !.
 item_to_term(_Templates, _M, query_body(Goal, _, _, _), Goal) :- !.
 item_to_term(_Templates, _M, query_flip(Goal, _, _, _), Goal) :- !.
+item_to_term(_Templates, _M, query_cases(Goal, _, _, _), Goal) :- !.
 item_to_term(_Templates, _M, clause(Head, true, _, _, _), Head) :- !.
 item_to_term(_Templates, _M, clause(Head, Body, _, _, _), (Head :- Body)) :- !.
 item_to_term(_Templates, _M, clause(Head, true, _, _), Head) :- !.
