@@ -1,4 +1,4 @@
-# The Migration Gallery: seventeen systems, each checked against its own engine
+# The Migration Gallery: eighteen systems, each checked against its own engine
 
 *Kind: gallery · Audience: anyone deciding whether Logical English can read their rules · Status: current (2026-10-13)*
 
@@ -9,7 +9,7 @@ keeps the other system's own tests, written as *scenarios*: sets of facts
 with the answers the other system gives. Running the scenarios checks the
 twin against the other system.
 
-This page lists the seventeen systems the translators read, what each twin
+This page lists the eighteen systems the translators read, what each twin
 was checked against, and the result. Where the twin may be published, the
 **Open** link runs it in your browser, with no account and nothing to
 install. Where it may not, because the other system's licence does not allow
@@ -17,13 +17,13 @@ it, the page says so, and the video shows the twin running.
 
 ## Contents
 
-- [The seventeen systems](#the-seventeen-systems)
+- [The eighteen systems](#the-eighteen-systems)
 - [How to read the results](#how-to-read-the-results)
 - [Try one in two minutes](#try-one-in-two-minutes)
 - [A free twin of your own program](#a-free-twin-of-your-own-program)
 - [See also](#see-also)
 
-## The seventeen systems
+## The eighteen systems
 
 "Both ways" means the editor can also write a Logical English program back
 in the other system's own format. *LE for LPS* is Logical English for
@@ -48,6 +48,7 @@ LPS2 (Logic Production Systems 2).
 | **Drools** (business rule files) | into LE and LE for LPS | a real Drools session | 5 of 5 rule bases end in Drools' own working memory | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/drools/insurance/insurance.le) | [watch](https://www.youtube.com/watch?v=sdb3BJdb5jE) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/drools) |
 | **Solidity** (Ethereum smart contracts) | both ways, as LE for LPS | the Solidity compiler and a virtual machine replaying 822 real USDC payments | 849 of 849 values agree | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/solidity/replay/usdc_window.le) | [watch](https://www.youtube.com/watch?v=xksKg0QvW6Y) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/solidity) |
 | **Daml** (contracts on the Canton network) | both ways, as LE for LPS | a Canton sandbox | 18 of 22 scripts end in exactly Daml's active contracts, the other 4 explained | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/daml/simple_iou/simple_iou.le) | [watch](https://www.youtube.com/watch?v=9Svirhcghb4) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/daml) |
+| **Ponens** (Imandra's policies for the record of an AI agent's session: ESMA, NIST, IOSCO, MISRA, DO-178C and others) | both ways, as LE for LPS | Ponens's own evaluator | 11,236 of 11,236 verdicts, over all 213 policies of 14 packs and 53 traces; written back, the same 11,236 | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/ponens/esma_mifid_ai_investment_services/esma_mifid_ai_investment_services.le) | (not yet on the channel) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/ponens) |
 | **Bitcoin Miniscript** (spending policies) | both ways | a test Bitcoin network | 361 of 361, including payments confirmed on the network | [Open](/editor/index.html?example=migration/miniscript/liana_inheritance/liana_inheritance) | [watch](https://www.youtube.com/watch?v=04Vbk13G7K4) | [guide](/docs/user/integrations/miniscript) |
 
 ## How to read the results
