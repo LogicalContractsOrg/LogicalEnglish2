@@ -45,7 +45,8 @@
 :- module(le_cases, [
     cases/5,                   % +Goal, +Mode, +SM, +KM, -Cases
     explorable/4,              % +G, +SM, +KM, +Anc
-    assume/3,                  % +G, +KM, -Us
+    assume/3,
+    rejoin/2,                  % +G, +KM, -Us
     explore_built_in/2,        % +G, -Us
     explore_negation/7,        % +Goal, +SM, +KM, +Anc, +D, +ID, -Us
     explore_aggregate/3,       % +Type, +Values, -Result
@@ -95,11 +96,14 @@ cases(Goal, _Mode, _SM, KM, Cases) :-
     search_seconds(Secs),
     le_kbs:createSession(KM, T),
     b_setval(le_case_assumed, []),
+    get_time(T0), Deadline is T0 + Secs,
+    nb_setval(le_cases_deadline, Deadline-Secs),
     setup_call_cleanup(
         assertz(reasoner:exploring_cases(KM)),
         catch(call_with_time_limit(Secs, collect(Goal, T, KM, Max, Raw)),
               time_limit_exceeded, ( note(time_limit(Secs)), Raw = [] )),
-        ( retractall(reasoner:exploring_cases(_)), le_kbs:destroySession(T) )),
+        ( retractall(reasoner:exploring_cases(_)), le_kbs:destroySession(T),
+          nb_setval(le_cases_deadline, none) )),
     length(Raw, NRaw),
     ( NRaw >= Max -> note(case_limit(Max)) ; true ),
     minimal_cases(Raw, Minimal),
@@ -115,6 +119,23 @@ cases(Goal, _Mode, _SM, KM, Cases) :-
                 Cases)
     ).
 
+%   The search's own clock. call_with_time_limit/2 raises its exception
+%   once, wherever the search happens to be, and a catch-all on the way (the
+%   reasoner has several, around goals that may raise errors) can swallow it,
+%   leaving the search to run on. So the search's hooks (assume/3,
+%   explore_negation/7, explore_built_in/2) also look at the deadline, and
+%   past it they fail: a failure goes through every catch, and prunes the
+%   rest of the search at once.
+in_time :-
+    (   nb_current(le_cases_deadline, Deadline-Secs)
+    ->  get_time(Now),
+        (   Now =< Deadline
+        ->  true
+        ;   note(time_limit(Secs)), fail
+        )
+    ;   true
+    ).
+
 %   One raw(Literals, Witness, Proof) per distinct proof of Goal on the empty
 %   scenario T, the literals in general terms (variables numbered), the
 %   witness with every place filled.
@@ -128,16 +149,55 @@ collect(Goal, T, KM, Max, Raw) :-
 collect_(Goal, T, KM, Max, Pairs) :-
     findall(Key-raw(Lits, Witness, Proof),
             limit(Max,
-                  ( copy_term(Goal, G),
-                    reasoner:solve(G, T, KM, [], 0, none, Us, Whys0),
-                    resolve_denials(Us, KM, Lits1, 200),
-                    tighten_bounds(Lits1, Lits0),
-                    consistent_case(Lits0, T, KM),
+                  ( copy_term(Goal, G0),
+                    %  the objects the query is about, named while the search
+                    %  runs (an aggregate copies the free variables of its
+                    %  condition, which would make the query's object another
+                    %  one inside it), and variables again in the case found
+                    name_owners(G0),
+                    reasoner:solve(G0, T, KM, [], 0, none, Us, Whys00),
+                    resolve_denials(Us, KM, Lits10, 200),
+                    tighten_bounds(Lits10, Lits00),
+                    consistent_case(Lits00, T, KM),
+                    unname_owners(c(Lits00, G0, Whys00), c(Lits0, G, Whys0)),
                     case_key(Lits0, Key),
                     general_literals(Lits0, Lits),
                     witness(KM, Lits0, G, Witness),
                     proof_for_display(Whys0, T, Proof) )),
             Pairs).
+
+%   name_owners(+Goal): each variable in the first place of a literal of
+%   Goal, and in no last place of one, becomes '$le_owner'(N).
+name_owners(Goal) :-
+    conj_literals(Goal, Ls),
+    findall(V, ( member(L, Ls), compound(L), arg(1, L, V), var(V) ), Owners0),
+    findall(V, ( member(L, Ls), compound(L), functor(L, _, A), A >= 2, arg(A, L, V), var(V) ), Values),
+    exclude(var_in(Values), Owners0, Owners1),
+    term_variables(Owners1, Owners),
+    foldl(owner_name, Owners, 1, _).
+
+var_in(Vs, V) :- member(W, Vs), W == V, !.
+owner_name(V, N0, N) :- V = '$le_owner'(N0), N is N0 + 1.
+
+conj_literals(G, []) :- var(G), !.
+conj_literals((A, B), Ls) :- !, conj_literals(A, LA), conj_literals(B, LB), append(LA, LB, Ls).
+conj_literals(le_cases(G, _, _), Ls) :- !, conj_literals(G, Ls).
+conj_literals(G, [G]).
+
+%   unname_owners(+Term0, -Term): Term0 with each '$le_owner'(N) a variable,
+%   the same one for the same N.
+unname_owners(T0, T) :-
+    unname(T0, T, [], _).
+
+unname(X, X, M, M) :- var(X), !.
+unname('$le_owner'(N), V, M0, M) :- !,
+    ( memberchk(N-V0, M0) -> V = V0, M = M0 ; M = [N-V|M0] ).
+unname(X, Y, M0, M) :- compound(X), !,
+    X =.. [F|As], unname_args(As, Bs, M0, M), Y =.. [F|Bs].
+unname(X, X, M, M).
+
+unname_args([], [], M, M).
+unname_args([A|As], [B|Bs], M0, M) :- unname(A, B, M0, M1), unname_args(As, Bs, M1, M).
 
 %!  tighten_bounds(+Lits0, -Lits) is det.
 %
@@ -278,15 +338,17 @@ explorable(G, _SM, KM, _Anc) :-
     ),
     \+ program_has_facts(KM, F, A).
 
-%!  assume(+G, +KM, -Us) is det.
+%!  assume(+G, +KM, -Us) is semidet.
 %
-%   G is assumed, on this branch of the search. The assumptions of the
+%   G is assumed, on this branch of the search (and nothing is, past the
+%   search's deadline: in_time/0). The assumptions of the
 %   branch are kept in a backtrackable global variable, so that a fact the
 %   branch already assumed is not assumed twice (Us = []), and a fact of a
 %   template that gives one value (one_value_each/2) takes the value already
 %   assumed for the same places — or fails, when the values cannot be the
 %   same (an item with two HCPCS codes), which prunes the branch at once.
 assume(G, KM, Us) :-
+    in_time,
     ( nb_current(le_case_assumed, A0) -> true ; A0 = [] ),
     (   member(E, A0), E == G
     ->  Us = []
@@ -294,6 +356,23 @@ assume(G, KM, Us) :-
     ->  G = E, Us = []
     ;   b_setval(le_case_assumed, [G|A0]),
         Us = [G]
+    ).
+
+%!  rejoin(+G, +KM) is det.
+%
+%   A fact an aggregate's solution assumed, joining the case after the
+%   aggregate (whose solutions are copies): the same object as one the case
+%   already assumed for the same owner, when there is one and nothing tells
+%   them apart; otherwise a fact of the case like any other.
+rejoin(G, KM) :-
+    ( nb_current(le_case_assumed, A0) -> true ; A0 = [] ),
+    (   member(E, A0), E == G
+    ->  true
+    ;   compound(G), G =.. [F|Args], append(Keys, [V], Args), Keys \== [], var(V),
+        member(E, A0), compound(E), E =.. [F|EArgs], append(EKeys, [EV], EArgs),
+        EKeys == Keys, var(EV)
+    ->  V = EV
+    ;   assume(G, KM, _)
     ).
 
 functional_twin(G, Assumed, KM, E) :-
@@ -323,6 +402,7 @@ program_has_facts(KM, F, A) :-
 %   Fails when every value is known, so that the condition is evaluated as
 %   usual.
 explore_built_in(G, Us) :-
+    in_time,
     open_condition(G),
     catch(explore_open(G, Us), error(type_error(_, _), _), Us = ['$le_cond'(G)]).
 
@@ -380,10 +460,19 @@ explore_open(G, ['$le_cond'(G)]).
 %   open. The search notes that an aggregate over assumed facts is
 %   approximate (it counts the facts the case assumed, no more).
 explore_aggregate(count, Values, N) :- !, length(Values, N).
+%   a count of things the case assumed: a case may assume as many of them as
+%   the rule needs, so the count is at least the number assumed so far (a
+%   rule that needs exactly two payouts is met by a case with two)
+explore_aggregate(count_assumed, Values, N) :- !,
+    length(Values, L),
+    note(count_assumed),
+    { N >= L }.
 explore_aggregate(sum, Values, Sum) :-
     maplist(numeric_side, Values), !,
     foldl([V, A0, A0 + V]>>true, Values, 0, Expr),
     catch({ Sum =:= Expr }, error(type_error(_, _), _), true).
+%   a list is the values themselves, those still open included
+explore_aggregate(list, Values, Values) :- !.
 explore_aggregate(_, _, _).
 
 comparison(le_ge, >=).
@@ -424,6 +513,7 @@ le_date_atom(A, date(Y, M, D)) :-
 %   resolve_denials/3 makes sure, once the whole case is known, that each
 %   one fails in it.
 explore_negation(Goal, SM, KM, Anc, D, ID, Us) :-
+    in_time,
     max_negation_proofs(MaxP),
     %  the variables a proof of Goal may bind: Goal's, and those of what the
     %  branch has assumed so far (assume/3 may unify a value with one of them)
@@ -523,6 +613,8 @@ split_assumptions([U|Us], Pos, Others, Dens) :-
     ;   U = '$le_cmp'(_) -> Pos = Pos1, Others = [U|Others1], Dens = Dens1
     ;   U = '$le_def'(_) -> Pos = Pos1, Others = [U|Others1], Dens = Dens1
     ;   U = '$le_cond'(_) -> Pos = Pos1, Others = [U|Others1], Dens = Dens1
+    ;   U = '$le_eq'(A, B)                     % a binding a nested proof made
+    ->  ( A = B -> true ; true ), Pos = Pos1, Others = Others1, Dens = Dens1
     ;   Pos = [U|Pos1], Others = Others1, Dens = Dens1
     ).
 
@@ -563,12 +655,19 @@ one_value_each(KM, Pos) :-
 
 value_place(KM, F, Args) :-
     last(Args, V),
-    (   number(V) -> true
+    (   one_value(KM, F, Args) -> true
+    ;   number(V) -> true
     ;   date_like(V) -> true
     ;   var(V), constrained(V) -> true
     ;   catch(le_flip:template_types(KM, F, Args, Pairs), _, fail),
         last(Pairs, _-T), memberchk(T, [number, date])
     ).
+
+%   A template declared `; one value` (an included file's templates are the
+%   program's own).
+one_value(KM, F, Args) :-
+    length(Args, A),
+    catch(KM:le_one_value(F, A), _, fail), !.
 
 %   A denied proof S that the case does not yet make fail: its facts match
 %   the case's (Match: S with its own variables bound accordingly), its
@@ -912,7 +1011,8 @@ mark_assumed(X, X).
 %   `is there a case in which …` with no case, that there is none and whether
 %   the search was complete.
 case_words(KM, case(I, Count, Lits, _W, Covered, Notes), Words) :- !,
-    general_text(KM, Lits, Text),
+    general_text(KM, Lits, Text0),
+    ( Text0 == '' -> le_msg(cases_no_condition, [], Text) ; Text = Text0 ),
     (   Covered == []
     ->  le_msg(cases_not_covered, [], CovText)
     ;   atomic_list_concat(Covered, ', ', Names),
@@ -942,6 +1042,7 @@ notes_text(Notes, Text) :-
     le_msg(cases_notes, [notes-Joined], Text).
 
 note_text(aggregate, T) :- !, le_msg(cases_note_aggregate, [], T).
+note_text(count_assumed, T) :- !, le_msg(cases_note_count_assumed, [], T).
 note_text(for_all_cases, T) :- !, le_msg(cases_note_forall, [], T).
 note_text(kept_as_stated, T) :- !, le_msg(cases_note_kept, [], T).
 note_text(case_limit(N), T) :- !, le_msg(cases_note_case_limit, [max-N], T).
@@ -979,6 +1080,7 @@ name_place(KM, Lits, V, V-place(Type, N)) :-
 
 literal_text(KM, Names, L, Text) :-
     (   L = def(_) -> Text = ''                 % a definition reads in its comparison
+    ;   lit_goal(L, '$le_eq'(_, _)) -> Text = ''  % a binding, not a sentence
     ;   lit_goal(L, G0),
         bind_places(Names, G0, G),
         goal_text(KM, G, S),

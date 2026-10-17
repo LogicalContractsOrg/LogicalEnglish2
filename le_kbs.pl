@@ -3184,6 +3184,7 @@ is_system_predicate(le_service_template/2).
 % `; memorable` templates (docs/user/reference/language.md §2.4): the predicates the
 % reasoner memoizes within a query (reasoner:memo_solve/8).
 is_system_predicate(le_memorable/2).
+is_system_predicate(le_one_value/2).
 % Decision tables (le_tables.pl): the table and its rows.
 is_system_predicate(le_table/6).
 is_system_predicate(le_table_row/6).

@@ -704,6 +704,10 @@ undefined_predicate(KB, issue(Type, Description, Fix, Start, End)) :-
     \+ is_scenario_element_functor(KB, FL, AL),
     % ... and for templates answered by a service at run time.
     \+ ( current_predicate(KB:le_service_template/2), KB:le_service_template(FL/AL, _) ),
+    % ... and for a template of an LE-for-LPS program renamed `; known as f`:
+    % its predicate f is defined by the program's companion .lps file
+    % (lps2 docs/user/reference/le-for-lps.md §7), which LE2 never reads.
+    \+ ( current_predicate(KB:le_lps_functor/2), KB:le_lps_functor(FL/AL, _) ),
     ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true; Start = 0, End = 0),
     % ... and for a template an included library's rules read and leaves to the
     % programs that include it (an extension point: "the policy has no

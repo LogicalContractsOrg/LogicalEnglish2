@@ -1740,6 +1740,13 @@ template_additions(Globals, Opposite, OppositeWV, Prep, Unknown, Synonyms, NTs, 
         % compiling module, like a service binding.
         { record_memorable_template(FunctorArgs) },
         template_additions(Globals, Opposite, OppositeWV, Prep, Unknown, Synonyms, NTs, FunctorArgs, TStart, TEnd)
+    ;   kw(one_value) ->
+        % "; one value" (docs/user/reference/language.md §2): the template's
+        % last place has at most one value for each value of its other places
+        % (an attribute of cardinality one). A case search (le_cases.pl) then
+        % takes two facts that give it for the same owner to be one fact.
+        { record_one_value_template(FunctorArgs) },
+        template_additions(Globals, Opposite, OppositeWV, Prep, Unknown, Synonyms, NTs, FunctorArgs, TStart, TEnd)
     ;   kw(via_service) ->
         % "; via service matcher": goals on this template are answered at run
         % time by the declared service (le_services.pl), called once per
@@ -1837,6 +1844,19 @@ record_memorable_template(FunctorArgs) :-
         (   current_predicate(M:le_memorable/2), M:le_memorable(F, A)
         ->  true
         ;   assertz(M:le_memorable(F, A))
+        )
+    ;   true
+    ).
+
+%!  record_one_value_template(+FunctorArgs) is det.
+%
+%   `; one value`: records le_one_value(F, A) in the compiling module.
+record_one_value_template(FunctorArgs) :-
+    (   le_kbs:current_compiling_module(M), M \== (-)
+    ->  FunctorArgs = [F|Args], length(Args, A),
+        (   current_predicate(M:le_one_value/2), M:le_one_value(F, A)
+        ->  true
+        ;   assertz(M:le_one_value(F, A))
         )
     ;   true
     ).

@@ -94,6 +94,7 @@ A template definition can be followed by one or more additions, each introduced 
 - `; <value> by default` — **LPS target, fluents only** (`le_lps_surface.md` §2): the value the template's last place takes wherever no fact has stored one (`the balance of *an account* is *an amount*; 0 by default`, `…; the zero address by default`). A default on any other template is reported (`default_not_lps`).
 - `; judged` — marks an **open-textured** relation, one whose instances are *decided* by a person rather than worked out from rules (synonyms `; open textured`, `; evaluative`). The system solves it as it solves `; assumable`, with one difference: once an outcome — the last argument — has been recorded for a question, no other outcome of that question is assumed. A rule concluding a judged template is an error, and an instance still undecided is shown as *judgment needed*. See §17.1.
 - `; memorable` — while a query runs, the system **remembers** the answers to this template: it works out each distinct question once, keeping its answers and their explanations, and gives the same answers again wherever that question comes up (§2.4). Remembering answers this way is called memoization. The synonyms `; memoised`, `; memoized` and `; cached` are accepted.
+- `; one value` — the template's **last place holds one value** for each choice of its other places: in *the income of a person is an amount* marked `; one value`, a person has one income. The synonym `; single valued` is accepted. Only the case search reads the marker (§17.11): it reads two facts of such a template about the same things as one fact, so a case never needs a person with two incomes, or a report with two reporting parties. Queries answer as before, and a scenario that states two values still has both. The translator of Rune (the language of ISDA's Common Domain Model) marks every attribute that Rune allows one value.
 - `; image "<address>"` — a **picture** for a sentence, shown in its place in the **Bento Box**, the editor's display of an explanation as nested boxes (see §12 of the [introduction to LE](../tutorials/intro-to-le/intro-to-le.md#12-bento-box-an-explanation-as-nested-boxes)). The address is a full web address, starting with `http://` or `https://`, in double quotes. It has no effect on what the program proves. The addition may be written in two places:
   - **On a scenario fact**, before its full stop: `pad one is a pad on step grid; image "https://…/drum.png".` The picture stands for that fact. The fact must be **concrete**, that is, have no variables.
   - **On a template with no variables** (one whose sentence has no `*…*` place): `the power is on; image "https://…/plug.png".` The picture then stands for that sentence wherever no fact carries a picture of its own.
@@ -1820,12 +1821,16 @@ all the cases a program allows, without any scenario.
   `library(clpq)`) keeps the constraints, rules out the cases whose
   constraints contradict one another, and gives each number its bounds. Date
   comparisons are solved the same way, on days. Two facts of a template whose
-  last place holds a value (*a person has an income of an amount*) are read
-  as one fact: a person has one income. A case that a smaller case already
-  gives is not listed.
+  last place holds a value (*a person has an income of an amount*), or of a
+  template marked `; one value` (§2), are read as one fact: a person has one
+  income. A case that a smaller case already gives is not listed.
+- **Totals and lists of assumed facts.** A count of facts the case assumes is
+  read as *at least* the number of facts the case shows, with a note saying
+  so. A list of them is the facts the case shows. A total is the sum of the
+  values the case shows, those not known yet included, kept as a constraint.
 - **What the search does not treat exactly** is said on each answer, as a
   note: a total or count (`is the sum of each …`) or a `for all cases in which`
-  over assumed facts, a condition that could not be solved and was kept as it
+  over assumed facts (above), a condition that could not be solved and was kept as it
   stands, or a limit that was reached. Four Prolog settings set the limits:
   `le_cases_max` (200 cases), `le_cases_seconds` (60 seconds),
   `le_cases_max_negation_proofs` (40 ways of proving the goal of one `it is

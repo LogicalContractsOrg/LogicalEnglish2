@@ -204,18 +204,22 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
     %  no explanation of each solution: nested aggregates over many items
     %  (a basket's constituents in a trade report) otherwise multiply them
     %  past any memory
+    %  in a case search, the objects the case already assumed stay the same
+    %  objects in every solution (findall/3 would copy them)
+    ( exploring_cases(_) -> case_objects_in(Goal, Outer) ; Outer = [] ),
     (   failure_explanations
-    ->  findall(agg(Var, Us1, Whys),
+    ->  findall(agg(Var, Us1, Whys)-Outer,
                 ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, Whys),
-                  \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
+                  \+ ( member(U, Us1), counted_twice(U, SM, KM, D1) )
                 ),
-                Solutions)
-    ;   findall(agg(Var, Us1, []),
+                Solutions0)
+    ;   findall(agg(Var, Us1, [])-Outer,
                 ( solve(Goal, SM, KM, Anc, D1, MyID, Us1, _),
-                  \+ ( member(U, Us1), definitely_provable(U, SM, KM, D1) )
+                  \+ ( member(U, Us1), counted_twice(U, SM, KM, D1) )
                 ),
-                Solutions)
+                Solutions0)
     ),
+    maplist(rebind_outer(Outer), Solutions0, Solutions),
     (   Solutions == [] ->
         % Goal failed, build failure tree for the goal
         % We need to ensure the failure is recorded under MyID
@@ -232,9 +236,15 @@ solve_real_actual(Aggregate, SM, KM, Anc, D, MyID, Us, [success(Aggregate, aggre
         flatten(WhysList, WhysGoal),
         maplist(agg_unknowns, Solutions, UsLists),
         append(UsLists, Us0),
-        remove_variant_duplicates(Us0, Us)
+        remove_variant_duplicates(Us0, Us),
+        %  in a case search, what the solutions assumed joins the case (a
+        %  value that has one owner, such as an instruction's reportable
+        %  information, is then the same value inside and outside)
+        ( exploring_cases(_) -> maplist(rejoin_case(KM), Us) ; true )
     ),
-    (   exploring_cases(_), \+ ground(List)
+    (   exploring_cases(_), Type == count, Us \== []
+    ->  le_cases:explore_aggregate(count_assumed, List, Result)
+    ;   exploring_cases(_), \+ ground(List)
     ->  le_cases:explore_aggregate(Type, List, Result)
     ;   apply_aggregate(Type, List, Result)
     ),
@@ -1303,6 +1313,30 @@ clear_rejected_assumptions :- retractall(rejected_assumptions(_, _)).
 %   (the "definite proof wins" rule, applied per aggregated term).
 definitely_provable(Goal, SM, KM, D) :-
     \+ \+ solve(Goal, SM, KM, [], D, none, [], _).
+
+case_objects_in(Goal, Outer) :-
+    ( nb_current(le_case_assumed, A) -> true ; A = [] ),
+    term_variables(A, AVs),
+    term_variables(Goal, GVs),
+    include(in_vars(AVs), GVs, Outer).
+
+in_vars(Vs, V) :- member(W, Vs), W == V, !.
+
+rebind_outer(Outer, S-O, S) :- ( O = Outer -> true ; true ).
+
+rejoin_case(KM, U) :-
+    (   compound(U), \+ ( functor(U, F, _), sub_atom(F, 0, _, _, '$le_') )
+    ->  ( catch(le_cases:rejoin(U, KM), _, true) -> true ; true )
+    ;   true
+    ).
+
+%   An assumption of an aggregate's solution that is also proved outright, so
+%   that the same term would be counted twice. Not in a case search: there a
+%   solution's assumptions are already in the case, and would always look
+%   proved.
+counted_twice(U, SM, KM, D) :-
+    \+ exploring_cases(_),
+    definitely_provable(U, SM, KM, D).
 
 % forall_case_nodes(+Case, -Nodes): explanation nodes for one universal case — a
 % "for case <condition>" node and an "it is true that <consequent>" node, each

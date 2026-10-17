@@ -557,6 +557,7 @@ addition_text(assumable, T)     :- kw(unknown, K), format(atom(T), '; ~w', [K]).
 addition_text(unknown, T)       :- addition_text(assumable, T).
 addition_text(judged, T)        :- kw(judged, K), format(atom(T), '; ~w', [K]).
 addition_text(memorable, T)     :- kw(memorable, K), format(atom(T), '; ~w', [K]).
+addition_text(one_value, T)     :- kw(one_value, K), format(atom(T), '; ~w', [K]).
 addition_text(prepositional, T) :- kw(prepositional, K), format(atom(T), '; ~w', [K]).
 addition_text(opposite(O), T)   :- kw(opposite, K), format(atom(T), '; ~w: ~w', [K, O]).
 addition_text(synonym(S), T)    :- kw(synonym, K), format(atom(T), '; ~w ~w', [K, S]).
@@ -3053,6 +3054,7 @@ template_additions(KB, F, N, Args, Globals, Opp, Prep, Unknown, Adds) :-
             ;   synonym_text(KB, F, N, ST), A = synonym(ST)
             ;   current_predicate(KB:le_service_template/2), KB:le_service_template(F/N, S), A = via_service(S)
             ;   current_predicate(KB:le_memorable/2), KB:le_memorable(F, N), A = memorable
+            ;   current_predicate(KB:le_one_value/2), KB:le_one_value(F, N), A = one_value
             ;   current_predicate(KB:le_lps_functor/2), KB:le_lps_functor(F/N, KA), A = known_as(KA)
             ;   current_predicate(KB:le_lps_default/2), KB:le_lps_default(F/N, DV), A = default(DV)
             ),
