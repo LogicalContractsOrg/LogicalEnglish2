@@ -11,7 +11,7 @@ systems the editor reads and writes, in which direction, and how importing and
 exporting work in general. Each system has a document of its own, linked below.
 
 Which systems a server translates depends on which translators are installed
-on it. The translators are part of the InsurLE extensions, which the hosted
+on it. The translators are part of the Logical English Translators, which the hosted
 service has. A server that runs the Logical English software alone has no
 translator at all. On such a server **File ▸ Import from Another System…** is
 hidden, **File ▸ Open…** offers only `.le` files, and **File ▸ Export to

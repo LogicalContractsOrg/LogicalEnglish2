@@ -17,8 +17,7 @@ Logical English 2 meets s(CASP) and Prolog in both directions, and the two
 directions work quite differently. Coming in, **File ▸ Open…** (or **File ▸
 Import from Another System…**) translates a `.pl`, `.scasp` or `.lp` file into
 a Logical English program; a file LE1 wrote in s(CASP) is one such file. That
-translator is part of the InsurLE extensions, so only installations that have
-the extensions, such as the hosted service, offer it. Going out there is no
+translator is part of the Logical English Translators, so only installations that have them, such as the hosted service, offer it. Going out there is no
 export menu at all, because every installation can show you the program's other
 forms directly. **See s(CASP)**, which you reach by right-clicking in the
 editor, shows the whole program written in s(CASP). The **Engine** picker

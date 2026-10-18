@@ -25,8 +25,8 @@ either file may be uploaded on its own or inside a zip. What comes out is a
 Logical English program in the Act's own words. Each rule cites the section it
 came from, the Act's text stays beside the program, and the project's tests
 become scenarios that expect the answers Blawx itself gives. Nothing writes a
-Blawx project back out. The translator is part of the InsurLE extensions, so
-only installations that have the extensions, such as the hosted service, offer
+Blawx project back out. The translator is part of the Logical English Translators, so
+only installations that have them, such as the hosted service, offer
 it. The translations of Blawx's example projects, the *twins*, come with every
 installation.
 

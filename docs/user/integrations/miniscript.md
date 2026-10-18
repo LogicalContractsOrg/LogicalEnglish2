@@ -16,8 +16,8 @@ as scenarios, flip queries for lost keys, and a *custody explainer* view.
 vocabulary back out as a policy. You get the Miniscript that sipa's compiler
 makes of the policy, the descriptor when the program states the keys, and a
 link that opens the policy in the Minsc playground. The translators are part
-of the InsurLE extensions, so they are available only on installations that
-have those extensions, such as the hosted service. The example twins are in
+of the Logical English Translators, so they are available only on installations that
+have them, such as the hosted service. The example twins are in
 every installation.
 
 ## Contents

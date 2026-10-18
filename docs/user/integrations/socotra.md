@@ -15,7 +15,7 @@ rules, the rate tables become decision tables, and the program gets a *quote
 desk* view. The translation goes one way only, from Socotra into Logical
 English; there is no exporter back to Socotra. You reach the translator
 through **File ▸ Open…** or **File ▸ Import from Another System…**. The
-translator needs the InsurLE extensions, which installations such as the
+translator needs the Logical English Translators, which installations such as the
 hosted service have.
 
 ## Contents

@@ -17,8 +17,7 @@ have operations, such as one of the games on the Epilog Games page, becomes a
 program in Logical English for LPS (Logic Production System), which runs
 forward through time. Open the Epilog file with **File ▸ Open…** or **File ▸
 Import from Another System…**. Nothing writes an Epilog file back out. The
-translator is part of the InsurLE extensions, so only installations that have
-the extensions, such as the hosted service, offer it. Running a translated game
+translator is part of the Logical English Translators, so only installations that have them, such as the hosted service, offer it. Running a translated game
 needs an LPS2 server beside the editor as well.
 
 ## Contents

@@ -16,7 +16,7 @@ citing it, with rate lookups as decision tables and a view that prices an
 activity. The translation goes one way only, from OIPA into Logical English;
 there is no exporter back to OIPA. You reach the translator through
 **File ▸ Open…** or **File ▸ Import from Another System…**. The translator
-needs the InsurLE extensions, which installations such as the hosted service
+needs the Logical English Translators, which installations such as the hosted service
 have.
 
 ## Contents

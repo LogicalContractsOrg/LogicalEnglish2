@@ -1,6 +1,6 @@
 # Rune and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-10-07)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-18)*
 
 **Rune** is a language for writing financial rules as programs that a
 computer runs: what a trade is, what happens to it over its life, and what
@@ -157,21 +157,21 @@ reports DRR's own program gives, field by field.
 
 | Report | Instructions | Field values that agree |
 |---|---|---|
-| CFTC Part 45 (United States) | 195 | 11,783 of 11,833 (99.6%) |
-| CFTC Part 43 (United States, public) | 195 | 8,040 of 8,076 (99.6%) |
-| SEC trade (United States) | 176 | 8,747 of 8,777 (99.7%) |
-| SEC PPD (United States) | 176 | 6,751 of 6,768 (99.7%) |
-| CSA trade (Canada) | 217 | 11,962 of 12,039 (99.4%) |
-| CSA PPD (Canada) | 217 | 8,451 of 8,511 (99.3%) |
-| ESMA EMIR trade (European Union) | 187 | 9,466 of 9,567 (98.9%) |
-| FCA UK EMIR trade (United Kingdom) | 154 | 7,895 of 7,985 (98.9%) |
-| ASIC trade (Australia) | 176 | 6,050 of 6,118 (98.9%) |
-| MAS trade (Singapore) | 176 | 6,556 of 6,631 (98.9%) |
-| HKMA trade (Hong Kong) | 176 | 8,288 of 8,522 (97.3%) |
-| JFSA trade (Japan) | 176 | 6,628 of 6,878 (96.4%) |
+| CFTC Part 45 (United States) | 197 | 11,910 of 11,960 (99.6%) |
+| CFTC Part 43 (United States, public) | 197 | 8,127 of 8,163 (99.6%) |
+| SEC trade (United States) | 178 | 8,858 of 8,888 (99.7%) |
+| SEC PPD (United States) | 178 | 6,838 of 6,855 (99.8%) |
+| CSA trade (Canada) | 219 | 12,084 of 12,163 (99.4%) |
+| CSA PPD (Canada) | 219 | 8,538 of 8,600 (99.3%) |
+| ESMA EMIR trade (European Union) | 189 | 9,601 of 9,675 (99.2%) |
+| FCA UK EMIR trade (United Kingdom) | 156 | 8,027 of 8,093 (99.2%) |
+| ASIC trade (Australia) | 178 | 6,148 of 6,193 (99.3%) |
+| MAS trade (Singapore) | 178 | 6,654 of 6,707 (99.2%) |
+| HKMA trade (Hong Kong) | 178 | 8,406 of 8,619 (97.5%) |
+| JFSA trade (Japan) | 178 | 6,734 of 6,963 (96.7%) |
 | The 16 margin and valuation reports of the eight regulators | 28 | 625 of 625 (100%) |
 
-In all, 101,242 of 102,330 field values agree (98.9%). A value that does
+In all, 102,550 of 103,504 field values agree (99.1%). A value that does
 not agree is one of a few kinds: a value DRR's program computes in Java
 rather than in Rune (a schedule of prices, for example), which the
 translation marks as work to do; and a few shapes of rule the translation

@@ -24,8 +24,8 @@ permissions and prohibitions. **File ▸ Export to Another System…** writes a
 Logical English program back out as a LegalRuleML document, in the shorter of
 the standard's two layouts. When the program says something LegalRuleML cannot
 say, the editor refuses to write the document and reports each problem with the
-line it is on. Both translators are part of the InsurLE extensions, so only
-installations that have the extensions, such as the hosted service, offer them.
+line it is on. Both translators are part of the Logical English Translators, so only
+installations that have them, such as the hosted service, offer them.
 The translations of the specification's own examples, called *twins*, come with
 every installation.
 
