@@ -362,6 +362,7 @@ The operation behind the editor's query panel. The request must carry a
 | `keep` | list of strings | optional: template labels whose facts a flip query leaves as they are ([language.md §17.7](../reference/language.md)) |
 | `hideRepeated` | boolean | optional, true unless set: fold away a sub-explanation that has already been shown (`false` shows every one in full) |
 | `largerImportantReasons` | boolean | optional, true unless set: when the query fails, the important reason names the three deepest failures instead of one |
+| `timeLimit` | number | optional: how many seconds the query may take, instead of 240 (from 10 to 1800). The editor's **Keep going** button sends it |
 | `debug` | boolean | optional: run the query under the debugger that is attached to the session through `/dap` |
 
 Each call replaces the facts in the session with the facts of the scenario, or
@@ -427,11 +428,23 @@ and, for each placeholder, the `values` the rules read there.
 - `{ "error": "<parse message>" }` — the server could not read the scenario or
   the query the request supplied.
 - `{ "result": "interrupted", "interrupted": true }` — `interruptQuery` stopped
-  the query.
+  the query before it found any answer. When it had found some, the reply is
+  `{ "result": "ok", "interrupted": true, "incomplete": true, "results": [...] }`:
+  the answers found so far, each as in a full reply.
 - `{ "result": "timeout", "timedOut": true, "timeLimit": <seconds>, "error": "<message>" }` —
-  the query ran out of time and was stopped. A query has 240 seconds, or 3600
-  with `debug: true`, since that time includes however long the debugger stays
-  paused. Every other operation may run for 300 seconds; past that the request
+  the query ran out of time before it found any answer, and was stopped. A
+  query has 240 seconds, or the `timeLimit` the request gives, or 3600 with
+  `debug: true`, since that time includes however long the debugger stays
+  paused. When it had found answers, the reply is
+  `{ "result": "ok", "timedOut": true, "incomplete": true, "timeLimit": <seconds>, "results": [...] }`:
+  the answers found so far. Asking again with a larger `timeLimit` may find more.
+- `"explanations": "short"` in a reply with answers says that the answers'
+  explanations leave out why each condition of the form "it is not the case
+  that ..." holds. On a large program the explanations of those conditions are
+  most of the work: the query first runs with full explanations for a quarter
+  of its time, at most 20 seconds. If that is not enough, it runs again without
+  them. The answers found in the first run keep their full explanations, and
+  later runs of the same query on the same program go without them at once. Every other operation may run for 300 seconds; past that the request
   fails with status 500.
 - `{ "results": [], "error": "Explanation failed", "result": "ok" }` — the
   query has no answer and the server could not explain why.

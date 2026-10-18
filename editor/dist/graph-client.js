@@ -139956,7 +139956,12 @@ var uiCatalog = {
     "covered by scenario {s}": "coberto pelo cen\xE1rio {s}",
     "no scenario covers this case": "nenhum cen\xE1rio cobre este caso",
     "Add as scenario": "Adicionar como cen\xE1rio",
-    "Add to the program a scenario that meets this case": "Adicionar ao programa um cen\xE1rio que cumpre este caso"
+    "Add to the program a scenario that meets this case": "Adicionar ao programa um cen\xE1rio que cumpre este caso",
+    "These are the answers found before the query was interrupted. There may be more.": "Estas s\xE3o as respostas encontradas antes de a consulta ser interrompida. Pode haver mais.",
+    "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Estas s\xE3o as respostas encontradas em {n} segundos, quando a consulta foi parada. Pode haver mais.",
+    "Keep going": "Continuar",
+    "Run the query again, with {n} seconds to find the answers.": "Correr a consulta de novo, com {n} segundos para encontrar as respostas.",
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Este programa \xE9 grande. Para responder a tempo, as explica\xE7\xF5es n\xE3o mostram porque \xE9 que cada condi\xE7\xE3o da forma "n\xE3o \xE9 o caso que ..." se verifica.'
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -140610,7 +140615,12 @@ var uiCatalog = {
     "covered by scenario {s}": "cubierto por el escenario {s}",
     "no scenario covers this case": "ning\xFAn escenario cubre este caso",
     "Add as scenario": "A\xF1adir como escenario",
-    "Add to the program a scenario that meets this case": "A\xF1adir al programa un escenario que cumple este caso"
+    "Add to the program a scenario that meets this case": "A\xF1adir al programa un escenario que cumple este caso",
+    "These are the answers found before the query was interrupted. There may be more.": "Estas son las respuestas encontradas antes de interrumpir la consulta. Puede haber m\xE1s.",
+    "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Estas son las respuestas encontradas en {n} segundos, cuando se detuvo la consulta. Puede haber m\xE1s.",
+    "Keep going": "Continuar",
+    "Run the query again, with {n} seconds to find the answers.": "Ejecutar la consulta otra vez, con {n} segundos para encontrar las respuestas.",
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Este programa es grande. Para responder a tiempo, las explicaciones no muestran por qu\xE9 se cumple cada condici\xF3n de la forma "no es el caso que ...".'
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -141264,7 +141274,12 @@ var uiCatalog = {
     "covered by scenario {s}": "couvert par le sc\xE9nario {s}",
     "no scenario covers this case": "aucun sc\xE9nario ne couvre ce cas",
     "Add as scenario": "Ajouter comme sc\xE9nario",
-    "Add to the program a scenario that meets this case": "Ajouter au programme un sc\xE9nario qui r\xE9alise ce cas"
+    "Add to the program a scenario that meets this case": "Ajouter au programme un sc\xE9nario qui r\xE9alise ce cas",
+    "These are the answers found before the query was interrupted. There may be more.": "Voici les r\xE9ponses trouv\xE9es avant l'interruption de la requ\xEAte. Il peut y en avoir d'autres.",
+    "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Voici les r\xE9ponses trouv\xE9es en {n} secondes, quand la requ\xEAte a \xE9t\xE9 arr\xEAt\xE9e. Il peut y en avoir d'autres.",
+    "Keep going": "Continuer",
+    "Run the query again, with {n} seconds to find the answers.": "Relancer la requ\xEAte, avec {n} secondes pour trouver les r\xE9ponses.",
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': "Ce programme est grand. Pour r\xE9pondre \xE0 temps, les explications ne montrent pas pourquoi chaque condition de la forme \xAB il n'est pas vrai que ... \xBB est remplie."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -141918,7 +141933,12 @@ var uiCatalog = {
     "covered by scenario {s}": "coperto dallo scenario {s}",
     "no scenario covers this case": "nessuno scenario copre questo caso",
     "Add as scenario": "Aggiungi come scenario",
-    "Add to the program a scenario that meets this case": "Aggiungere al programma uno scenario che realizza questo caso"
+    "Add to the program a scenario that meets this case": "Aggiungere al programma uno scenario che realizza questo caso",
+    "These are the answers found before the query was interrupted. There may be more.": "Queste sono le risposte trovate prima che l'interrogazione fosse interrotta. Potrebbero essercene altre.",
+    "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Queste sono le risposte trovate in {n} secondi, quando l'interrogazione \xE8 stata fermata. Potrebbero essercene altre.",
+    "Keep going": "Continua",
+    "Run the query again, with {n} seconds to find the answers.": "Eseguire di nuovo l'interrogazione, con {n} secondi per trovare le risposte.",
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Questo programma \xE8 grande. Per rispondere in tempo, le spiegazioni non mostrano perch\xE9 vale ogni condizione della forma "non \xE8 vero che ...".'
   }
 };
 var languages = [

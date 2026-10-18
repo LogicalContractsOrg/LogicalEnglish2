@@ -36,6 +36,7 @@ export interface ExplanationViewOptions {
     onNavigate?: (start: number, end: number) => void;   // a node was clicked -> reveal source
     documentContext?: () => DocumentContext;             // where the program came from (for its documents' text)
     onSelectAnswer?: (index: number) => void;            // an answer was selected (1-based)
+    onKeepGoing?: (timeLimit: number) => void;           // run the query again with more time (seconds)
     onOpenDrill?: (why: any) => void;                    // open the Explanation Drill for a `why`
     onOpenBento?: (why: any, answer: string) => void;    // open the Bento Box for an answer's `why`
     // Scenario Variations only: patch the scenario from a tree node. onPatchScenario
@@ -218,6 +219,7 @@ export class ExplanationView {
         this.m.answerTooltip.style.display = 'none';
 
         if (res && res.results && res.results.length > 0) {
+            this.renderAnswersNotice(res);
             const target = Math.min(Math.max(selectIndex, 0), res.results.length - 1);
             res.results.forEach((result: any, index: number) => {
                 const item = document.createElement('div');
@@ -299,6 +301,46 @@ export class ExplanationView {
         } else {
             answersList.textContent = t('No results returned.');
             this.setStrongestReason();
+        }
+    }
+
+    // Above the answers, when the reply says they are not the whole story: the
+    // query stopped before it found them all (its time ran out, or it was
+    // interrupted) — with a button to ask again with more time — or, on a large
+    // program, the explanations leave out why each negated condition holds
+    // (le_api.pl, run_answering_query/5).
+    private renderAnswersNotice(res: any) {
+        const notes: HTMLElement[] = [];
+        if (res.incomplete) {
+            const box = document.createElement('div');
+            box.className = 'answers-incomplete';
+            const text = document.createElement('span');
+            text.textContent = res.interrupted
+                ? t('These are the answers found before the query was interrupted. There may be more.')
+                : t('These are the answers found within {n} seconds, when the query was stopped. There may be more.')
+                    .replace('{n}', String(res.timeLimit));
+            box.appendChild(text);
+            if (this.o.onKeepGoing) {
+                const limit = Math.min(1800, Math.max(240, Number(res.timeLimit) || 240) * 2);
+                const btn = document.createElement('button');
+                btn.className = 'btn-keep-going';
+                btn.textContent = t('Keep going');
+                btn.title = t('Run the query again, with {n} seconds to find the answers.').replace('{n}', String(limit));
+                btn.style.marginLeft = '8px';
+                btn.addEventListener('click', (e) => { e.stopPropagation(); this.o.onKeepGoing?.(limit); });
+                box.appendChild(btn);
+            }
+            notes.push(box);
+        }
+        if (res.explanations === 'short') {
+            const box = document.createElement('div');
+            box.className = 'answers-short-explanations';
+            box.textContent = t('This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.');
+            notes.push(box);
+        }
+        for (const n of notes) {
+            n.style.cssText += 'font-size:11px;color:#d7ba7d;margin:2px 0 6px 0;white-space:normal;';
+            this.o.answersList.appendChild(n);
         }
     }
 

@@ -2569,6 +2569,8 @@ const queryChannel = new BroadcastChannel('le-query-editor');
     updateEnginePickerChecks();
     refreshEnginePickerTarget();
     const btnQuery = document.getElementById('btn-query') as HTMLButtonElement;
+    // The time a query may take (seconds), when "Keep going" asked for more; null: the server's default.
+    let nextQueryTimeLimit: number | null = null;
     const btnTrace = document.getElementById('btn-trace') as HTMLButtonElement;
     const resultsDisplay = document.getElementById('results-display') as HTMLPreElement;
 
@@ -3102,6 +3104,12 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         },
         failedNodePrefix: () => failedNodePrefix,
         hierarchicalNumbering: () => showHierarchicalNumbering,
+        // "Keep going" on answers a query found before its time ran out: the
+        // same query again, with more time
+        onKeepGoing: (timeLimit: number) => {
+            nextQueryTimeLimit = timeLimit;
+            document.getElementById('btn-query')?.click();
+        },
         onNavigate: (start: number, end: number) => {
             showProgramInEditor();
             const model = editor.getModel();
@@ -3504,6 +3512,9 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         // shape, so the explanation view renders it unchanged; each result is one
         // stable model (model grouping reads naturally as one answer card each).
         const engine = engineSelect ? engineSelect.value : 'prolog';
+        // (more time than the default, for this run only: "Keep going")
+        const timeLimit = nextQueryTimeLimit;
+        nextQueryTimeLimit = null;
 
         try {
             const runAnsweringQuery = () => fetch('/leapi', {
@@ -3531,7 +3542,8 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                         customQuery: customQuery,
                         detailedFailures: detailedFailures,
                         hideRepeated: hideRepeatedExplanations,
-                        largerImportantReasons: largerImportantReasons
+                        largerImportantReasons: largerImportantReasons,
+                        ...(timeLimit ? { timeLimit } : {})
                     })
             }).then(r => r.json());
 

@@ -111,11 +111,16 @@ operation_time_limit(Dict, Limit) :-
 
 %!  query_time_limit(+Dict, -Seconds) is det.
 %
-%   A query has 240 seconds; a traced one (debug: true) an hour, since its time
+%   A query has 240 seconds, or the `timeLimit` the request asks for (the
+%   editor's "Keep going" after a query stopped short: up to half an hour); a
+%   traced one (debug: true) an hour, since its time
 %   includes the pauses in which the user reads the debugger (each pause is
 %   itself bounded, dap_server:dap_command_timeout/1).
 query_time_limit(Dict, Limit) :-
-    (   get_dict(debug, Dict, true) -> Limit = 3600 ; Limit = 240 ).
+    (   get_dict(debug, Dict, true) -> Limit = 3600
+    ;   get_dict(timeLimit, Dict, L0), number(L0), L0 > 0 -> Limit is min(1800, max(10, round(L0)))
+    ;   Limit = 240
+    ).
 
 %   An operation on a session the server no longer has (the idle-session
 %   reaper reclaimed it, or the server restarted since the editor loaded the
@@ -1116,23 +1121,42 @@ run_interruptible_query(SM, Query, KB, Response) :-
 %   search too large) is stopped and replies `timedOut`, which the editor
 %   shows as such. That is the program's doing, not a server fault: it goes to
 %   Sentry, if configured, as a message, not as an error.
+%   The answers found before the query stops are not lost: each is kept as
+%   it is found (partial_answer/2), and a query stopped by its time limit or
+%   by the user replies with them, marked `incomplete`, so that the editor
+%   shows them and offers to keep going.
 run_interruptible_query(SM, Query, KB, Limit, Response) :-
     setup_call_cleanup(
-        register_query_thread(SM),
+        ( register_query_thread(SM), retractall(partial_answer(_, _)) ),
         catch(
-            call_with_time_limit(Limit, run_answering_query(SM, Query, KB, Response)),
+            call_with_time_limit(Limit, run_answering_query(SM, Query, KB, Limit, Response)),
             Ball,
             query_stopped(Ball, SM, Limit, Response)
         ),
-        unregister_query_thread(SM)
+        ( unregister_query_thread(SM), retractall(partial_answer(_, _)) )
     ).
 
-query_stopped(query_interrupted, _, _, _{result: "interrupted", interrupted: true}) :- !.
+:- thread_local partial_answer/2.   % partial_answer(Key, Answer), in the order found
+
+partial_results(Results) :-
+    findall(K-A, partial_answer(K, A), Keyed),
+    dedup_keep_first(Keyed, Results).
+
+query_stopped(query_interrupted, _, _, Response) :- !,
+    partial_results(Results),
+    (   Results == [] -> Response = _{result: "interrupted", interrupted: true}
+    ;   Response = _{result: "ok", interrupted: true, incomplete: true, results: Results, checklist: []}
+    ).
 query_stopped(time_limit_exceeded, SM, Limit, Response) :- !,
     retractall(SM:debug_mode),
     format(string(Msg), "The query did not finish within ~w seconds and was stopped.", [Limit]),
     le_telemetry:telemetry_report(message(Msg), [operation(answeringQuery)]),
-    Response = _{result: "timeout", timedOut: true, timeLimit: Limit, error: Msg}.
+    partial_results(Results),
+    (   Results == []
+    ->  Response = _{result: "timeout", timedOut: true, timeLimit: Limit, error: Msg}
+    ;   Response = _{result: "ok", timedOut: true, incomplete: true, timeLimit: Limit, message: Msg,
+                     results: Results, checklist: []}
+    ).
 query_stopped(Ball, _, _, _) :-
     throw(Ball).
 
@@ -1154,7 +1178,56 @@ handle_interrupt_query(Dict, Response) :-
     ).
 
 run_answering_query(SM, Query, KB, Response) :-
+    run_answering_query(SM, Query, KB, 240, Response).
+
+%   On a large program the explanations are most of a query's work: an
+%   answer's proof keeps, for each condition `it is not the case that ...`
+%   that holds, the tree of why its inner condition failed (reasoner.pl,
+%   failure_tree/2), and a translated regulation has thousands of them. A
+%   query of a trade report (a DRR twin) found its 64 answers in 4 seconds
+%   without those trees and in 100 with them. So the query first runs with
+%   its full explanations for a quarter of its time (at most 20 seconds); if
+%   that is not enough, it runs again without the explanations of failures,
+%   which the reply says (`explanations: "short"`), and later runs of the
+%   same query on the same program go that way at once. The answers the
+%   first run found keep their full explanations.
+:- dynamic short_explanations_query/2.   % short_explanations_query(KB, QueryKey)
+
+%   A query as an atom: its name, or its text with its variables numbered.
+query_key(Query, Key) :- copy_term(Query, Q), numbervars(Q, 0, _), term_to_atom(Q, Key).
+
+run_answering_query(SM, Query, KB, Limit, Response) :-
     print_message(informational, 'Answering query: ~w in session ~w' - [Query, SM]),
+    query_key(Query, QKey),
+    get_time(T0),
+    (   short_explanations_query(KB, QKey)
+    ->  short_answers(SM, Query, KB, KeyedResults), Short = true
+    ;   Budget is min(Limit / 2, max(5, min(20, Limit / 4))),   % (always before Limit)
+        catch(( call_with_time_limit(Budget, collect_answers(SM, Query, KB, KeyedResults)), Short = false ),
+              time_limit_exceeded,
+              Short = slow)
+    ->  (   Short == slow
+        ->  print_message(informational, 'Explaining the answers took more than ~w seconds: answering without the explanations of failures' - [Budget]),
+            %  (with a time limit of its own, the time that remains: the
+            %  caller's limit is not counted on to fire after the first one)
+            get_time(T1), Left is max(0.1, Limit - (T1 - T0)),
+            call_with_time_limit(Left, short_answers(SM, Query, KB, Keyed1)),
+            ( KB \== none -> assertz(short_explanations_query(KB, QKey)) ; true ),
+            findall(K-A, partial_answer(K, A), Keyed0),
+            append(Keyed0, Keyed1, KeyedResults)
+        ;   true
+        )
+    ),
+    finish_answering_query(SM, Query, KB, KeyedResults, Short, Response).
+
+%   The answers without the explanations of failures (le_failure_explanations off).
+short_answers(SM, Query, KB, KeyedResults) :-
+    current_prolog_flag(le_failure_explanations, Old),
+    setup_call_cleanup(set_prolog_flag(le_failure_explanations, false),
+                       collect_answers(SM, Query, KB, KeyedResults),
+                       set_prolog_flag(le_failure_explanations, Old)).
+
+collect_answers(SM, Query, KB, KeyedResults) :-
     % A query can have several proofs of the SAME answer (e.g. an 'or' whose
     % branches both hold). Collect them keyed by (answer string + unknowns) and
     % keep only the first of each, so the same answer is not listed repeatedly.
@@ -1175,15 +1248,19 @@ run_answering_query(SM, Query, KB, Response) :-
             strongest_reason(JSONWhy, KB, Reason, ReasonPath),
             convert_unknowns_to_le(KB, Us, JSONUnknowns),
             ( copy_term(Us, UsC, _), numbervars(UsC, 0, _), term_to_atom(UsC, UnknownsKey) -> true ; UnknownsKey = '?' ),
-            print_message(informational, 'Found answer: ~w' - [AnswerStr])
-        ), KeyedResults),
+            print_message(informational, 'Found answer: ~w' - [AnswerStr]),
+            assertz(partial_answer(AnswerStr-UnknownsKey, Answer))
+        ), KeyedResults).
+
+finish_answering_query(SM, Query, KB, KeyedResults, Short, Response) :-
     dedup_keep_first(KeyedResults, Results),
     ( Results \== [] -> Held = true ; Held = false ),
     answer_checklist(SM, KB, Query, Held, Checklist),
     (   Results \== [] ->  
         length(Results, Count),
         print_message(informational, 'Total answers found: ~w' - [Count]),
-        Response = _{results: Results, result: "ok", checklist: Checklist}
+        Response0 = _{results: Results, result: "ok", checklist: Checklist},
+        ( Short == false -> Response = Response0 ; Response = Response0.put(explanations, "short") )
         ;   
         % No answers, get negative explanation
         print_message(informational, 'No answers found, generating negative explanation'),
@@ -1747,11 +1824,13 @@ handle_explanation_drill(Dict, Response) :-
 
 % dedup_keep_first(+KeyedPairs, -Values): the first Value for each distinct Key,
 % preserving order.
-dedup_keep_first(Pairs, Values) :- dedup_keep_first(Pairs, [], Values).
+%   (the keys seen in a balanced tree: a query stopped after tens of
+%   thousands of answers is not answered in quadratic time)
+dedup_keep_first(Pairs, Values) :- empty_assoc(Seen), dedup_keep_first(Pairs, Seen, Values).
 dedup_keep_first([], _, []).
 dedup_keep_first([K-V|Rest], Seen, Out) :-
-    ( memberchk(K, Seen) -> Out = Out1, Seen1 = Seen
-    ; Out = [V|Out1], Seen1 = [K|Seen] ),
+    ( get_assoc(K, Seen, _) -> Out = Out1, Seen1 = Seen
+    ; Out = [V|Out1], put_assoc(K, Seen, true, Seen1) ),
     dedup_keep_first(Rest, Seen1, Out1).
 
 handle_get_game_data(Dict, _{error: "Session expired", session_expired: true}) :-

@@ -9467,6 +9467,16 @@ var keywords = {
         "cached"
       ]
     ],
+    "one_value": [
+      [
+        "single",
+        "valued"
+      ],
+      [
+        "one",
+        "value"
+      ]
+    ],
     "judged": [
       [
         "open",
@@ -11294,6 +11304,16 @@ var keywords = {
       ],
       [
         "memor\xE1vel"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "\xFAnico"
+      ],
+      [
+        "um",
+        "valor"
       ]
     ],
     "judged": [
@@ -13189,6 +13209,16 @@ var keywords = {
       ],
       [
         "memorable"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "\xFAnico"
+      ],
+      [
+        "un",
+        "valor"
       ]
     ],
     "judged": [
@@ -15094,6 +15124,16 @@ var keywords = {
       ],
       [
         "m\xE9moris\xE9"
+      ]
+    ],
+    "one_value": [
+      [
+        "valeur",
+        "unique"
+      ],
+      [
+        "une",
+        "valeur"
       ]
     ],
     "judged": [
@@ -17011,6 +17051,16 @@ var keywords = {
       ],
       [
         "memorabile"
+      ]
+    ],
+    "one_value": [
+      [
+        "valore",
+        "unico"
+      ],
+      [
+        "un",
+        "valore"
       ]
     ],
     "judged": [
