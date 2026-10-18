@@ -1107,14 +1107,22 @@ lower(KB, lps_terminate(G), Ctx, happens(terminate(F), T1, T2), Is) :- !,
 	times(Ctx1, T1, T2).
 
 %   Negation. A negated fluent is `holds(not F, T)` — LPS's own form, not a
-%   Prolog `\+`; a negated event is `happens(not E, T1, T2)`. Anything else is
-%   ordinary negation as failure.
+%   Prolog `\+`; a negated event is `happens(not E, T1, T2)`. A negated
+%   conjunction that reads the state (`it is not the case that` over several
+%   conditions, one of them a fluent or an event) is `holds(not [G1, …], T)`,
+%   which LPS evaluates as one conjunction at T (lps_query.pl); written as a
+%   Prolog `not(…)` its `holds/2` would be called as an ordinary predicate,
+%   which no program defines. Anything else is ordinary negation as failure.
 lower(KB, not(G0), Ctx, Out, Is) :- !,
 	lower(KB, G0, Ctx, Inner, Is),
 	(   Inner = holds(F, T)       -> Out = holds(not(F), T)
 	;   Inner = happens(E, T1, T2) -> Out = happens(not(E), T1, T2)
+	;   conj_goals(Inner, Gs), Gs = [_, _|_],
+	    once(( member(G, Gs), state_time(G, T) ))
+	->  Out = holds(not(Gs), T)
 	;   Out = not(Inner)
 	).
+
 
 %   Aggregates. LE gives `count([each|Elems], Goal, [Result])`; LPS evaluates a
 %   findall inside `holds/2` so that its inner goals are resolved at the right
@@ -1575,3 +1583,13 @@ le_lps_dict(Text, Provenance, Issues, _{lps: Text, provenance: P, issues: I}) :-
 		  atom_string(S0, S), atom_string(T0, T),
 		  ( atom(M0) -> atom_string(M0, M) ; M = M0 ) ),
 		I).
+
+%   (lower/5, negation.) The goals of a lowered conjunction, flattened.
+conj_goals(G, Gs) :- var(G), !, Gs = [G].
+conj_goals((A, B), Gs) :- !, conj_goals(A, As), conj_goals(B, Bs), append(As, Bs, Gs).
+conj_goals(goals(L), Gs) :- is_list(L), !, foldl([G, Acc0, Acc]>>(conj_goals(G, Gi), append(Acc0, Gi, Acc)), L, [], Gs).
+conj_goals(G, [G]).
+
+%   The time at which a goal reads the state.
+state_time(holds(_, T), T).
+state_time(happens(_, T, _), T).

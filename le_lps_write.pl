@@ -692,6 +692,13 @@ condition(KB, Ns, agg(Op, E, G, T, R), S) :- !,
 	       [RS, IsTheA, OpA, OfEachA, ES, SuchThatA, GS]),
 	T = T.
 
+%   A negated conjunction (le_lps.pl writes `it is not the case that` over
+%   several conditions as `holds(not [G1, …], T)`): its conditions on lines of
+%   their own, indented under it, each with its own time.
+condition(KB, Ns, holds(not(L), _), S) :- is_list(L), !,
+	conditions(KB, Ns, L, Gs),
+	join(Gs, '\n        and ', GS),
+	format(atom(S), 'it is not the case that\n        ~w', [GS]).
 condition(KB, Ns, holds(not(F), T), S) :- !,
 	render(KB, Ns, F, FS), state_time(Ns, T, TS),
 	format(atom(S), 'it is not the case that ~w~w', [FS, TS]).
@@ -987,6 +994,8 @@ arg_type(NTs, I, Type) :-
 %   (the negation first: a variable seen only under `not` is typed by the
 %   negated fluent's place too — `it is not the case that there is a fire in
 %   a room`, not `… in a thing`)
+sub_literal(holds(not(L), T), Out) :- is_list(L), !,
+	( member(G, L), sub_literal(G, Out) ; Out = time_slot(T) ).
 sub_literal(holds(not(F), T), Out) :- !, ( Out = F ; Out = time_slot(T) ).
 sub_literal(holds(F, T), Out) :- !, ( Out = F ; Out = time_slot(T) ; aggregate_inside(F, Out) ).
 sub_literal(happens(E, T1, T2), Out) :- !,
@@ -1225,7 +1234,7 @@ fluent_position(achieve(Fs), F) :- ( is_list(Fs) -> member(F, Fs) ; F = Fs ).
 fluent_position(initiated(_, F, _), F).
 fluent_position(terminated(_, F, _), F).
 fluent_position(updated(_, F, _, _), F).
-fluent_position(T, F) :- lps_term_literal(T, holds(F0, _)), lps_strip(holds(F0, _), F).
+fluent_position(T, F) :- lps_term_literal_x(T, holds(F0, _)), lps_strip(holds(F0, _), F).
 fluent_position(l_int(holds(F0, _), _), F) :- lps_strip(F0, F).
 
 %	Where a literal can only be something that happens. A consequent of a
@@ -1404,8 +1413,20 @@ declared_literal(D, Kind, L) :-
 
 %   Every literal the program mentions, with the time wrappers taken off.
 lps_literal(T, L) :-
-	lps_term_literal(T, L0), lps_strip(L0, L1),
+	lps_term_literal_x(T, L0), lps_strip(L0, L1),
 	callable(L1), \+ lps_builtin(L1), L = L1.
+
+%   The same, with a negated conjunction (`holds(not [G1, …], T)`, le_lps.pl)
+%   opened into its goals: each is a literal of its own, not one fluent.
+lps_term_literal_x(T, L) :-
+	lps_term_literal(T, L0),
+	negated_goal(L0, L).
+
+negated_goal(G, L) :-
+	(   nonvar(G), G = holds(not(Gs), _), is_list(Gs)
+	->  member(G1, Gs), negated_goal(G1, L)
+	;   L = G
+	).
 
 lps_term_literal(initial_state(Fs), F) :- is_list(Fs), member(F, Fs).
 lps_term_literal(achieve(Fs), F) :- ( is_list(Fs) -> member(F, Fs) ; F = Fs ).
