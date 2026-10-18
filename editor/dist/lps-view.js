@@ -12,6 +12,30 @@ function installKeyEventGuard() {
   }
 }
 
+// src/context-menu-theme.ts
+var installed = false;
+function tag(el2) {
+  if (el2.classList.contains("context-view") && !el2.closest(".monaco-editor, .monaco-diff-editor, .monaco-component")) {
+    el2.classList.add("monaco-component");
+  }
+}
+function installContextMenuTheme() {
+  if (installed || typeof document === "undefined" || !document.body)
+    return;
+  installed = true;
+  document.querySelectorAll(".context-view").forEach(tag);
+  new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      m.addedNodes.forEach((n) => {
+        if (!(n instanceof Element))
+          return;
+        tag(n);
+        n.querySelectorAll(".context-view").forEach(tag);
+      });
+    }
+  }).observe(document.body, { childList: true, subtree: true });
+}
+
 // src/generated/i18nData.ts
 var keywords = {
   "en": {
@@ -1006,6 +1030,16 @@ var keywords = {
       ],
       [
         "cached"
+      ]
+    ],
+    "one_value": [
+      [
+        "single",
+        "valued"
+      ],
+      [
+        "one",
+        "value"
       ]
     ],
     "judged": [
@@ -2835,6 +2869,16 @@ var keywords = {
       ],
       [
         "memor\xE1vel"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "\xFAnico"
+      ],
+      [
+        "um",
+        "valor"
       ]
     ],
     "judged": [
@@ -4730,6 +4774,16 @@ var keywords = {
       ],
       [
         "memorable"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "\xFAnico"
+      ],
+      [
+        "un",
+        "valor"
       ]
     ],
     "judged": [
@@ -6635,6 +6689,16 @@ var keywords = {
       ],
       [
         "m\xE9moris\xE9"
+      ]
+    ],
+    "one_value": [
+      [
+        "valeur",
+        "unique"
+      ],
+      [
+        "une",
+        "valeur"
       ]
     ],
     "judged": [
@@ -8554,6 +8618,16 @@ var keywords = {
         "memorabile"
       ]
     ],
+    "one_value": [
+      [
+        "valore",
+        "unico"
+      ],
+      [
+        "un",
+        "valore"
+      ]
+    ],
     "judged": [
       [
         "valutativo"
@@ -9541,6 +9615,7 @@ function setupEditor() {
   monaco.languages.setLanguageConfiguration("lps", lpsLanguageConfiguration);
   monaco.languages.setMonarchTokensProvider("lps", lpsMonarchTokens);
   installKeyEventGuard();
+  installContextMenuTheme();
   state.editor = monaco.editor.create($("editor"), {
     value: SAMPLE_LE,
     language: "le",
@@ -9666,8 +9741,8 @@ function addMarkers(items) {
     $("diags").appendChild(div);
   }
 }
-var el = (tag, attrs = {}, kids = []) => {
-  const e = document.createElement(tag);
+var el = (tag2, attrs = {}, kids = []) => {
+  const e = document.createElement(tag2);
   for (const k in attrs) {
     if (k === "text")
       e.textContent = attrs[k];
@@ -9681,8 +9756,8 @@ var el = (tag, attrs = {}, kids = []) => {
   return e;
 };
 var svgNs = "http://www.w3.org/2000/svg";
-var ns = (tag, attrs = {}, text) => {
-  const e = document.createElementNS(svgNs, tag);
+var ns = (tag2, attrs = {}, text) => {
+  const e = document.createElementNS(svgNs, tag2);
   for (const k in attrs)
     e.setAttribute(k, String(attrs[k]));
   if (text !== void 0)

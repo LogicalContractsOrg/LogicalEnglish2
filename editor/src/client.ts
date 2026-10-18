@@ -107,6 +107,7 @@ import qrcode from 'qrcode-generator';
 import { parseScenarioBlocks, parseQueryBlocks } from './le-templates';
 import { kwPhrases } from './i18n';
 import { installKeyEventGuard } from './key-event-guard';
+import { installContextMenuTheme } from './context-menu-theme';
 import { ExplanationView } from './explanation-view';
 import { isForeignOffset, openIncludedResource, describeResourceRange } from './resource-nav';
 import { openSourceViewer, originalUrl, Provenance } from './source-viewer';
@@ -124,6 +125,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
 
     async function start() {
         installKeyEventGuard();
+        installContextMenuTheme();
         if (typeof monaco === 'undefined') {
             console.error('Monaco not loaded');
             return;

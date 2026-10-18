@@ -34,6 +34,7 @@
 declare var monaco: any;
 
 import { installKeyEventGuard } from './key-event-guard';
+import { installContextMenuTheme } from './context-menu-theme';
 import { leLanguageConfiguration, buildLeMonarchTokens } from './le-language';
 import { lpsLanguageConfiguration, lpsMonarchTokens } from './lps-language';
 
@@ -97,6 +98,7 @@ function setupEditor() {
     monaco.languages.setMonarchTokensProvider('lps', lpsMonarchTokens);
 
     installKeyEventGuard();
+    installContextMenuTheme();
     state.editor = monaco.editor.create($('editor'), {
         value: SAMPLE_LE,
         language: 'le',

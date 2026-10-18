@@ -1219,6 +1219,16 @@ var keywords = {
         "cached"
       ]
     ],
+    "one_value": [
+      [
+        "single",
+        "valued"
+      ],
+      [
+        "one",
+        "value"
+      ]
+    ],
     "judged": [
       [
         "open",
@@ -3046,6 +3056,16 @@ var keywords = {
       ],
       [
         "memor\xE1vel"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "\xFAnico"
+      ],
+      [
+        "um",
+        "valor"
       ]
     ],
     "judged": [
@@ -4941,6 +4961,16 @@ var keywords = {
       ],
       [
         "memorable"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "\xFAnico"
+      ],
+      [
+        "un",
+        "valor"
       ]
     ],
     "judged": [
@@ -6846,6 +6876,16 @@ var keywords = {
       ],
       [
         "m\xE9moris\xE9"
+      ]
+    ],
+    "one_value": [
+      [
+        "valeur",
+        "unique"
+      ],
+      [
+        "une",
+        "valeur"
       ]
     ],
     "judged": [
@@ -8763,6 +8803,16 @@ var keywords = {
       ],
       [
         "memorabile"
+      ]
+    ],
+    "one_value": [
+      [
+        "valore",
+        "unico"
+      ],
+      [
+        "un",
+        "valore"
       ]
     ],
     "judged": [
@@ -14282,6 +14332,30 @@ function installKeyEventGuard() {
   }
 }
 
+// src/context-menu-theme.ts
+var installed = false;
+function tag(el) {
+  if (el.classList.contains("context-view") && !el.closest(".monaco-editor, .monaco-diff-editor, .monaco-component")) {
+    el.classList.add("monaco-component");
+  }
+}
+function installContextMenuTheme() {
+  if (installed || typeof document === "undefined" || !document.body)
+    return;
+  installed = true;
+  document.querySelectorAll(".context-view").forEach(tag);
+  new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      m.addedNodes.forEach((n) => {
+        if (!(n instanceof Element))
+          return;
+        tag(n);
+        n.querySelectorAll(".context-view").forEach(tag);
+      });
+    }
+  }).observe(document.body, { childList: true, subtree: true });
+}
+
 // src/mermaid-export.ts
 function esc2(label) {
   return String(label ?? "").replace(/"/g, "#quot;").replace(/\s+/g, " ").trim();
@@ -15470,6 +15544,7 @@ var scenarioChannel = new BroadcastChannel("le-scenario-editor");
 var queryChannel = new BroadcastChannel("le-query-editor");
 async function start() {
   installKeyEventGuard();
+  installContextMenuTheme();
   if (typeof monaco === "undefined") {
     console.error("Monaco not loaded");
     return;
