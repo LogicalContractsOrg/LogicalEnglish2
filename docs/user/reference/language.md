@@ -581,6 +581,7 @@ A variable phrase may carry a **name** as well as its **type**, so that several 
   - `*a first person* greets *a second person*` — two `person` arguments; see `examples/moreExamples/language/templates/named_vars.le`.
 - **All-caps id convention:** a short name at the end — a single capital letter, or a short word in capitals — is the variable's name, and the noun or nouns before it are the type. `a person X` and `a person Y` are two different variables of type `person`; likewise `a number N`, `a date D`.
 - **Genuine multi-word types** (no leading qualifier / trailing id) are kept whole, e.g. `a bodily injury` has type `bodily injury`, `a repair cost` has type `repair cost`.
+- **Five words at most.** The words after the article, not counting a leading qualifier, may be at most five: `a second final contract signatories party list` is a variable (the qualifier `second` and five words of type), while a longer phrase is read as words, a constant.
 - Where the *same* phrase appears again (`a first person` … `the first person`), it refers to the same individual, as in §2.
 
 ### 6.2 Type checking

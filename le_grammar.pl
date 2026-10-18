@@ -2157,7 +2157,9 @@ extract_var_name(Words, Name) :-
 extract_var_name(Words, Name) :-
     (   Words = [Art | Rest], Rest \== [], is_article(Art),
         \+ capital_id_not_article(Art, Rest) ->
-            length(Rest, L), L =< 5,
+            %  (at most five words of type: a qualifier that tells two
+            %  variables of one type apart, `a second`, is not one of them)
+            strip_leading_qualifiers(Rest, Core), length(Core, L), L =< 5,
             extract_id(Rest, Name)
         ; Words = [W1 | Rest], Rest \== [], le_i18n:class_member(each, W1) ->
             length(Rest, L), L =< 5,
