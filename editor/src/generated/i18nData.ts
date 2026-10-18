@@ -1000,6 +1000,16 @@ export const keywords: Record<string, KeywordTable> = {
         "cached"
       ]
     ],
+    "one_value": [
+      [
+        "single",
+        "valued"
+      ],
+      [
+        "one",
+        "value"
+      ]
+    ],
     "judged": [
       [
         "open",
@@ -2827,6 +2837,16 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "memorável"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "único"
+      ],
+      [
+        "um",
+        "valor"
       ]
     ],
     "judged": [
@@ -4722,6 +4742,16 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "memorable"
+      ]
+    ],
+    "one_value": [
+      [
+        "valor",
+        "único"
+      ],
+      [
+        "un",
+        "valor"
       ]
     ],
     "judged": [
@@ -6627,6 +6657,16 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "mémorisé"
+      ]
+    ],
+    "one_value": [
+      [
+        "valeur",
+        "unique"
+      ],
+      [
+        "une",
+        "valeur"
       ]
     ],
     "judged": [
@@ -8546,6 +8586,16 @@ export const keywords: Record<string, KeywordTable> = {
         "memorabile"
       ]
     ],
+    "one_value": [
+      [
+        "valore",
+        "unico"
+      ],
+      [
+        "un",
+        "valore"
+      ]
+    ],
     "judged": [
       [
         "valutativo"
@@ -9269,6 +9319,7 @@ export const keywordCategories: Record<string, string> = {
   "lps_of": "lps",
   "provenance_required": "section",
   "memorable": "template_addition",
+  "one_value": "template_addition",
   "judged": "template_addition",
   "according_to": "provenance",
   "as_stated_in": "provenance",
