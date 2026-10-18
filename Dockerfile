@@ -49,6 +49,10 @@ COPY *.pl ./
 # formats are offered (le_plus.pl).
 COPY vendor/ ./vendor/
 ENV LPS_PLUS_DIR=/app/vendor/lpsplus
+# Where LE2 is, for the translators that run in a child process (lpsPlus
+# migration/le2_paths.pl looks beside lpsPlus or at /work, neither of which
+# exists in this image).
+ENV LE2_DIR=/app
 # The Solidity door (File ▸ Open of a `.sol`) runs solcjs against
 # OpenZeppelin's sources: npm packages, gitignored in lpsPlus and so not
 # vendored, installed here for this image's platform. Without them a `.sol`
