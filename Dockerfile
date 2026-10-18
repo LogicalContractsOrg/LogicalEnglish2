@@ -21,8 +21,10 @@ FROM swipl:latest
 # scasp CLI/qlf, no C toolchain — but pack_install fails outright if make is
 # absent). poppler-utils is pdftotext, with which the Contract Assistant reads a
 # wording that comes as a PDF (lpsPlus contract_assistant/le_contract_assistant.pl,
-# ensure_text_file/5, vendored by vendor_lpsplus.sh).
-RUN apt-get update && apt-get install -y curl git gnupg make poppler-utils && \
+# ensure_text_file/5, vendored by vendor_lpsplus.sh). python3 runs the Rune
+# reader (lpsPlus migration/rune/parser/rosetta2json.py, standard library only)
+# when a .rosetta file is opened.
+RUN apt-get update && apt-get install -y curl git gnupg make poppler-utils python3 && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g opencode-ai mcp-remote && \
@@ -55,6 +57,14 @@ RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
       cd vendor/lpsplus/migration/solidity && \
       npm ci --omit=dev --no-audit --no-fund && \
       node -e "require('solc'); require.resolve('@openzeppelin/contracts/package.json')" ; \
+    fi
+# The Rune door (File ▸ Open of a .rosetta, or a zip of them) translates over
+# DRR 7.14.0, whose Rune files and test pack vendor_lpsplus.sh copies from
+# lpsPlus's gitignored download: without them a .rosetta opened as a TODO
+# comment (18 October 2026), so the build checks they are here.
+RUN if [ -d vendor/lpsplus/migration/rune ]; then \
+      ls vendor/lpsplus/migration/rune/.cache/drr/drr/rosetta/*.rosetta > /dev/null && \
+      python3 --version ; \
     fi
 # The sheet engine (services/sheet): Formualizer, an Excel formula engine
 # compiled to WebAssembly, run by Node. It answers the sheet: services
