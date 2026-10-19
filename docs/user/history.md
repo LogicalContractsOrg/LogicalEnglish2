@@ -131,7 +131,7 @@ Also A. C. Kakas, R. Kowalski and
   pages 162–164. How an LLM and Logical English can work together to
   turn contract wording into a program that a lawyer can read without technical training.
 - **April 2026.** Work starts on Logical English 2 (LE2), a new implementation
-  written from the ground up by Miguel Calejo with Claude Code, fully compatible with the previous versions: [LogicalContractsOrg/LogicalEnglish2](https://github.com/LogicalContractsOrg/LogicalEnglish2).
+  written from the ground up by Miguel Calejo with Claude Code, with help from Jacinto Dávila, fully compatible with the previous versions: [LogicalContractsOrg/LogicalEnglish2](https://github.com/LogicalContractsOrg/LogicalEnglish2).
   It has its own editor in the browser, explains every answer, keeps tests
   inside the program, and works in five languages (English, Portuguese,
   Spanish, French and Italian).
@@ -140,7 +140,7 @@ Also A. C. Kakas, R. Kowalski and
   [LogicalContractsOrg/lps2](https://github.com/LogicalContractsOrg/lps2). Provides multiple visualisations, and runs the programs of the first LPS.
 - **July 2026.** Preview of Logical English 2 at [Workshop of the Prolog Education Group](https://prolog-lang.org/Education/PrologEducationWS2026.html), ICLP
 - **3 October 2026.** Logical English 2 and LPS 2 launched as open source, under the
-  Apache 2.0 licence. Both systems run in the browser, with nothing to install:
+  Apache 2.0 licence. Both systems run in the browser:
   <https://le2.logicalcontracts.com> and <https://lps2.logicalcontracts.com/ide>.
 - **October 2026.** The Logical English Translators,
   which read the programs of seventeen other rule systems into Logical
