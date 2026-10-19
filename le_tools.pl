@@ -125,7 +125,29 @@ le_tool_query(Args, UserRoles, Result) :-
     catch(le_tool_query_(Args, UserRoles, Result),
           error(permission_error(access, example, Name), _),
           ( format(string(Msg), "Example '~w' requires login", [Name]),
-            Result = _{error: Msg} )).
+            Result = _{error: Msg} )),
+    !.
+le_tool_query(Args, _UserRoles, Result) :-
+    get_dict(example_name, Args, ExampleName),
+    ExampleName \== "",
+    \+ catch(example_path_for(ExampleName, [], _), _, true),
+    !,
+    unknown_example_message(ExampleName, Msg),
+    Result = _{error: Msg}.
+le_tool_query(Args, _UserRoles, _{error: Msg}) :-
+    ( get_dict(query, Args, Query) -> true ; Query = "" ),
+    format(string(Msg), "The query '~w' could not be run on this program", [Query]).
+
+%   The message for an example name that names no example: with the name
+%   meant, when the name is the example's folder (examples in folders of
+%   their own are named folder/program, as in migration/blawx/rps/rps).
+unknown_example_message(ExampleName, Msg) :-
+    (   file_base_name(ExampleName, Base),
+        atomic_list_concat([ExampleName, '/', Base], Suggestion),
+        catch(example_path_for(Suggestion, [], _), _, fail)
+    ->  format(string(Msg), "Example '~w' not found; did you mean '~w'?", [ExampleName, Suggestion])
+    ;   format(string(Msg), "Example '~w' not found; list_examples gives the names of the examples", [ExampleName])
+    ).
 
 le_tool_query_(Args, UserRoles, Result) :-
     get_dict(query, Args, Query),

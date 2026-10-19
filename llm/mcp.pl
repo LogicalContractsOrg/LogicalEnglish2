@@ -504,10 +504,22 @@ call_tool("search_documentation", Args, _{sections: Text}) :-
     directory_file_path(Root0, 'docs/user', Root),
     le_docs_search:docs_search_answer(Root, Q, [], Text).
 
+%   Reached when a tool's own clause failed, as well as for a name that is
+%   no tool: only the second is an unknown tool.
+call_tool(ToolName, _Args, Result) :-
+    mcp_tool_name(ToolName),
+    !,
+    format(user_error, "MCP Error: tool ~w failed~n", [ToolName]),
+    format(string(Msg), "The tool ~w could not answer with these arguments.", [ToolName]),
+    Result = _{error: Msg}.
 call_tool(ToolName, _Args, Result) :-
     format(user_error, "MCP Error: Unknown tool called: ~w~n", [ToolName]),
     format(string(Msg), "Unknown tool: ~w. Available tools are: list_examples, get_example_details, query, verify, search_documentation.", [ToolName]),
     Result = _{error: Msg}.
+
+mcp_tool_name(Name) :-
+    atom_string(Tool, Name),
+    memberchk(Tool, [list_examples, get_example_details, query, verify, search_documentation]).
 
 %   Read the metadata under a module reference (and retry if the module was
 %   reclaimed between load and reference) — same race as the listing above.

@@ -173,7 +173,11 @@ logs in.
 **`query`** works in four steps. First the tool loads a program — the example
 named by `example_name`, or the text given as `program_text` — into a session
 that lasts for this one call; an example reserved for licence holders answers
-`error`, as above. Second, the tool sets the scenario `scenario_name`, when the
+`error`, as above. A name that is no example's answers
+`{error: "Example '…' not found; …"}`. When the name is the folder of an
+example, the message gives the example's full name: an example kept in a
+folder of its own is named with the folder and the program, as in
+`migration/blawx/rps/rps`. Second, the tool sets the scenario `scenario_name`, when the
 call gives one. Third, the tool adds the sentences of `facts`, each of them an
 LE sentence ending in a full stop, read against the program's templates.
 Fourth, the tool runs `query`, which is either the name of a query in the
