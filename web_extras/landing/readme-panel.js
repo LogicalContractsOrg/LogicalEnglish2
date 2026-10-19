@@ -210,12 +210,17 @@
         if (panel) return;
         var st = document.createElement("style");
         st.textContent =
-            ".readme-panel{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);z-index:50;" +
-            "background:var(--readme-bg,#fff);color:inherit;border-left:1px solid rgba(128,128,128,.35);" +
+            /* (the panel paints its own background and text colour, and has a
+               layer of its own: on iPad Safari a fixed panel that scrolls its
+               content showed no background, its text over the list) */
+            ".readme-panel{position:fixed;top:0;right:0;bottom:0;width:560px;max-width:100%;z-index:50;" +
+            "background-color:#fff;background-color:var(--readme-bg,#fff);color:#1f1f1f;color:var(--readme-fg,#1f1f1f);" +
+            "-webkit-transform:translateZ(0);transform:translateZ(0);isolation:isolate;-webkit-overflow-scrolling:touch;" +
+            "border-left:1px solid rgba(128,128,128,.35);" +
             "box-shadow:-6px 0 24px rgba(0,0,0,.18);overflow-y:auto;padding:14px 22px 40px;" +
             "font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:none}" +
             ".readme-panel.open{display:block}" +
-            ".readme-panel .readme-bar{position:sticky;top:0;float:right;display:flex;gap:10px;align-items:center;background:var(--readme-bg,#fff);padding:2px 0 2px 8px}" +
+            ".readme-panel .readme-bar{position:-webkit-sticky;position:sticky;top:0;float:right;display:flex;gap:10px;align-items:center;background-color:#fff;background-color:var(--readme-bg,#fff);padding:2px 0 2px 8px}" +
             ".readme-panel .readme-close{font-size:14px;cursor:pointer;" +
             "background:inherit;border:1px solid rgba(128,128,128,.4);border-radius:4px;padding:2px 8px;color:inherit}" +
             ".readme-panel a.readme-copy{font-size:13px;text-decoration:none;opacity:.7;color:inherit}" +
@@ -231,7 +236,7 @@
             ".readme-panel a{color:#0e639c}" +
             ".readme-button{margin-left:6px;font-size:12px;cursor:pointer;opacity:.75;border:none;background:none;padding:0 2px;color:inherit}" +
             ".readme-button:hover{opacity:1;text-decoration:underline}" +
-            "@media (prefers-color-scheme: dark){.readme-panel{--readme-bg:#1e1e1e}.readme-panel a{color:#6db3ff}}";
+            "@media (prefers-color-scheme: dark){.readme-panel{--readme-bg:#1e1e1e;--readme-fg:#dddddd}.readme-panel a{color:#6db3ff}}";
         document.head.appendChild(st);
         panel = document.createElement("aside");
         panel.className = "readme-panel";
