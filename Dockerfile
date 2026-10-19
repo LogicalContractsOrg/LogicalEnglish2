@@ -65,9 +65,12 @@ RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
 # The Rune door (File ▸ Open of a .rosetta, or a zip of them) translates over
 # DRR 7.14.0, whose Rune files and test pack vendor_lpsplus.sh copies from
 # lpsPlus's gitignored download: without them a .rosetta opened as a TODO
-# comment (18 October 2026), so the build checks they are here.
+# comment (18 October 2026), so the build checks they are here; and Export ▸
+# Rune loads the model as JSON (.cache/json), without which the export was
+# refused for a missing folder (19 October 2026).
 RUN if [ -d vendor/lpsplus/migration/rune ]; then \
       ls vendor/lpsplus/migration/rune/.cache/drr/drr/rosetta/*.rosetta > /dev/null && \
+      ls vendor/lpsplus/migration/rune/.cache/json/*.json > /dev/null && \
       python3 --version ; \
     fi
 # The sheet engine (services/sheet): Formualizer, an Excel formula engine

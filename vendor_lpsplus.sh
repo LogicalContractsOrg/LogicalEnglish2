@@ -39,13 +39,14 @@ done < <(git -c safe.directory='*' -C "$PLUS" ls-files --cached --others --exclu
 # The Rune door (File ▸ Open of a .rosetta file or a zip of them) translates
 # over ISDA's DRR 7.14.0, downloaded by migration/rune/fetch_sources.sh into
 # migration/rune/.cache, which git ignores: so copied here by name. Only what
-# an import reads: DRR's Rune files, the test pack it takes scenarios from, and
-# the instructions of the CSA chain (about 40 MB). The prebuilt twins
+# an import and an export read: DRR's Rune files, the test pack it takes
+# scenarios from, the instructions of the CSA chain, and the model as JSON
+# (rosetta2json's output, which Export ▸ Rune loads) (about 60 MB). The prebuilt twins
 # (examples/migration/rune, 108 MB) are not copied: without them an upload of
 # DRR's own files is translated afresh rather than copied (rune_import_run.pl).
 RUNE_CACHE="$PLUS/migration/rune/.cache"
 if [ -d "$RUNE_CACHE/drr/drr/rosetta" ]; then
-    for d in drr/drr/rosetta drr/regulatory-reporting drr/enrich chain; do
+    for d in drr/drr/rosetta drr/regulatory-reporting drr/enrich chain json; do
         if [ -d "$RUNE_CACHE/$d" ]; then
             mkdir -p "$OUT/migration/rune/.cache/$(dirname "$d")"
             cp -R "$RUNE_CACHE/$d" "$OUT/migration/rune/.cache/$d"
