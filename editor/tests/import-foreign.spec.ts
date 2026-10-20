@@ -73,6 +73,34 @@ test.describe('Opening another system\'s file', () => {
         await openFile(page, 'vault.policy', 'or(pk(A),and(pk(B),older(144)))\n');
         await expect.poll(() => editorText(page), { timeout: 60000 }).toContain('the coin can be spent');
         await expect(page.locator('#import-report')).toContainText('translated from');
+        // The ledger: summed up in a comment at the top of the program, and
+        // opened whole from the import note.
+        const text = await editorText(page);
+        expect(text).toMatch(/^% =+\n% The ledger of this translation says how each element/);
+        expect(text).toMatch(/File\s+(% )?>\s+(% )?Show\s+(% )?the\s+(% )?Ledger\s+(% )?opens\s+(% )?it\./);
+        await page.locator('#import-report-ledger').click();
+        await expect(page.locator('#ledger-dialog')).toBeVisible({ timeout: 15000 });
+        await expect(page.locator('#ledger-dialog h1')).toContainText('Migration ledger: vault');
+        await expect(page.locator('#ledger-dialog table').first()).toBeVisible();
+        await page.keyboard.press('Escape');
+        await expect(page.locator('#ledger-dialog')).toHaveCount(0);
+    });
+
+    // File > Show the Ledger on a program that was not translated: a message.
+    test('a program that was not translated says it has no ledger', async ({ page }) => {
+        await page.goto('index.html');
+        await page.waitForSelector('.monaco-editor', { timeout: 30000 });
+        await page.evaluate(() => (document.getElementById('menu-show-ledger') as HTMLElement).click());
+        await expect(page.locator('#message-dialog')).toContainText('This program has no ledger');
+    });
+
+    // A published twin keeps its ledger beside it: File > Show the Ledger shows it.
+    test('a published twin shows its ledger', async ({ page }) => {
+        await page.goto('index.html?example=migration/rulespec/snap/us_statutes_7_2014_a');
+        await page.waitForSelector('.monaco-editor', { timeout: 30000 });
+        await expect(page.locator('#filename-display')).toContainText('us_statutes_7_2014_a', { timeout: 30000 });
+        await page.evaluate(() => (document.getElementById('menu-show-ledger') as HTMLElement).click());
+        await expect(page.locator('#ledger-dialog h1')).toContainText('Migration ledger: us_statutes_7_2014_a', { timeout: 15000 });
     });
 
     // File > Export to Another System: the way back. A program no exporter

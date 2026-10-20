@@ -124,4 +124,55 @@ test(the_program_is_complete_when_embedding_returns) :-
     assertion(After > Before),
     delete_directory_and_contents(Dir).
 
+
+%   The ledger beside a translated program, summed up in a comment at its top
+%   (le_import:prepend_ledger_summary/1): the counts, the source tests, the
+%   ledger's file; the program itself follows unchanged. No ledger, no comment.
+ledger_program(Ledger, Program) :-
+    work(Dir),
+    atomic_list_concat([Dir, '/twin.le'], LE), write_file(LE, "the target language is: prolog.\n"),
+    (   Ledger == none
+    ->  true
+    ;   atomic_list_concat([Dir, '/twin.ledger.json'], J), write_file(J, Ledger)
+    ),
+    le_import:prepend_ledger_summary(LE),
+    read_file_to_string(LE, Program, [encoding(utf8)]),
+    delete_directory_and_contents(Dir).
+
+%   The words of the comment, as one line: without the per cent signs.
+comment_text(P, N) :-
+    split_string(P, "\n", "", Ls),
+    maplist([L, W]>>( sub_string(L, 0, 2, _, "% ") -> sub_string(L, 2, _, 0, W) ; W = L ), Ls, Ws),
+    atomic_list_concat(Ws, ' ', A),
+    normalize_space(string(N), A).
+
+test(the_ledger_is_summed_up_at_the_top) :-
+    ledger_program("{\"counts\": {\"encoded\": 99, \"approximated\": 8, \"residue\": 0},
+                     \"fidelity\": {\"passed\": 55, \"failed\": 1, \"errors\": 0, \"tests\": []}}", P),
+    assertion(sub_string(P, 0, _, _, "% ====")),
+    comment_text(P, N),
+    assertion(sub_string(N, _, _, _, "99 encoded")),
+    assertion(sub_string(N, _, _, _, "8 approximated")),
+    assertion(sub_string(N, _, _, _, "0 residue")),
+    assertion(sub_string(N, _, _, _, "55 of their 56 expected answers")),
+    assertion(sub_string(N, _, _, _, "twin.ledger.md")),
+    sub_string(P, B, _, _, "the target language is: prolog."),
+    sub_string(P, 0, B, _, Header),
+    split_string(Header, "\n", "", Lines),
+    assertion(forall(member(L, Lines), ( L == "" ; sub_string(L, 0, 1, _, "%") ))).
+
+test(a_ledger_without_source_tests_says_nothing_of_them) :-
+    ledger_program("{\"counts\": {\"encoded\": 3, \"approximated\": 0, \"residue\": 1}, \"fidelity\": null}", P),
+    comment_text(P, N),
+    assertion(sub_string(N, _, _, _, "1 residue")),
+    assertion(\+ sub_string(N, _, _, _, "expected answers")).
+
+test(no_ledger_no_summary) :-
+    ledger_program(none, P),
+    assertion(P == "the target language is: prolog.\n").
+
+test(a_ledger_that_cannot_be_read_leaves_the_program_alone) :-
+    ledger_program("not json", P),
+    assertion(P == "the target language is: prolog.\n").
+
 :- end_tests(embedded_originals).

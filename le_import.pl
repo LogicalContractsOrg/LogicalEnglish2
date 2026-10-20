@@ -129,6 +129,7 @@
 :- use_module(library(readutil)).
 :- use_module(library(zip)).
 :- use_module(library(base64)).
+:- use_module(library(http/json)).
 :- use_module(le_i18n).           % the messages the comments and the fallbacks say
 
 :- multifile importer/6.
@@ -192,6 +193,7 @@ import_upload(FileName0, Content, Reply, Options) :-
         keep_originals(Input, OutDir),
         (   Outcome = ok(LEFile, Notes)
         ->  embed_originals(Input, LEFile),
+            prepend_ledger_summary(LEFile),
             imported_reply(Id, OutDir, LEFile, Title, Notes, Reply)
         ;   Outcome = failed(Why),
             fallback(Id, OutDir, Stem, Input, Title, Why, Reply)
@@ -269,6 +271,59 @@ embed_originals_(Input, LEFile) :-
         open(LEFile, append, Out, [encoding(utf8)]),
         once(write_originals(Out, Texts, Omitted)),
         close(Out)).
+
+%!  prepend_ledger_summary(+LEFile) is det.
+%
+%   The ledger of the translation (`<stem>.ledger.json` beside the program,
+%   le_migration.pl), summed up in a comment at the top of the program: how
+%   many elements of the source were encoded, approximated and left as
+%   residue, how many of the source's own test expectations the program
+%   reproduces, and the file that holds the whole ledger (the editor's File ▸
+%   Show the Ledger opens it). The whole ledger is not put in the program: it
+%   can be longer than the program, and it describes the translation, not
+%   the program the reader goes on to change. The summary travels with the
+%   program wherever it is saved; the ledger's file stays beside it on the
+%   server, and the ledger window offers to save it.
+%
+%   Like embed_originals/2, it never fails and never throws, and nothing in
+%   it knows any source system.
+prepend_ledger_summary(LEFile) :-
+    (   catch(prepend_ledger_summary_(LEFile), _, fail)
+    ->  true
+    ;   true
+    ).
+
+prepend_ledger_summary_(LEFile) :-
+    ledger_json_of(LEFile, JsonFile),
+    setup_call_cleanup(open(JsonFile, read, In, [encoding(utf8)]),
+                       json_read_dict(In, Ledger), close(In)),
+    C = Ledger.counts,
+    le_i18n:le_msg(import_ledger_summary,
+                   [encoded-C.encoded, approximated-C.approximated, residue-C.residue], Summary),
+    (   get_dict(fidelity, Ledger, F), is_dict(F)
+    ->  Total is F.passed + F.failed + F.errors,
+        le_i18n:le_msg(import_ledger_tests, [passed-F.passed, total-Total], Tests),
+        Lines0 = [Summary, Tests]
+    ;   Lines0 = [Summary]
+    ),
+    file_name_extension(Stem, _, LEFile), file_base_name(Stem, Base),
+    atom_concat(Base, '.ledger.md', MdName),
+    le_i18n:le_msg(import_ledger_where, [file-MdName], Where),
+    append(Lines0, [Where], Lines),
+    read_file_to_string(LEFile, Program, [encoding(utf8)]),
+    with_output_to(string(Header),
+                   ( format("% ~`=t~70|~n", []),
+                     forall(member(L, Lines), comment_lines(current_output, L)),
+                     format("% ~`=t~70|~n~n", []) )),
+    setup_call_cleanup(open(LEFile, write, Out, [encoding(utf8)]),
+                       ( write(Out, Header), write(Out, Program) ),
+                       close(Out)).
+
+%   The ledger written beside a program: `<stem>.ledger.json`.
+ledger_json_of(LEFile, JsonFile) :-
+    file_name_extension(Stem, _, LEFile),
+    atom_concat(Stem, '.ledger.json', JsonFile),
+    exists_file(JsonFile).
 
 write_originals(Out, Texts, Omitted) :-
     le_i18n:le_msg(import_original_kept, [], Kept),
@@ -538,8 +593,9 @@ imported_reply(Id, OutDir, LEFile, Title, Notes, Reply) :-
     format(atom(Source), 'imported/~w/~w', [Id, RelStem]),
     written_files(OutDir, Files),
     maplist(to_string, Notes, NoteStrs),
+    ( ledger_json_of(LEFile, _) -> Ledger = true ; Ledger = false ),
     Reply = _{document: Text, fileName: Base, source: Source,
-              importer: Title, notes: NoteStrs, files: Files}.
+              importer: Title, notes: NoteStrs, files: Files, ledger: Ledger}.
 
 error_text(E, S) :-
     catch(( '$messages':translate_message(E, Lines, []),

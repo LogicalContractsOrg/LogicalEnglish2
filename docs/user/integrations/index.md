@@ -200,6 +200,21 @@ the element was *encoded*, *approximated* or left as *residue*. For an approxima
 element, a note tells how its meaning changed. The ledger also tells how many of the
 tests of the source the program passes.
 
+To read the ledger, do one of these steps:
+
+1. In the note below the menu bar, click **Open the ledger**.
+2. Or, while the program is open, click **File ▸ Show the Ledger…**.
+
+The ledger opens in a window. To keep a copy of the ledger on your computer, click
+**Save the Ledger**. The published twins (refer to the gallery) also have a ledger.
+**File ▸ Show the Ledger…** opens it.
+
+The program also starts with a short summary of the ledger, as a comment. The summary
+gives the number of elements in each of the three groups, the number of expected
+answers of the source tests that the program gives, and the name of the ledger file.
+The summary stays in the program when you save it. The full ledger does not stay in
+the program, because it can be longer than the program.
+
 The server keeps the file that you uploaded, and its translation, for one day, in a
 separate folder. The server also keeps in that folder the files that the program
 includes and the documents that the program cites. Thus the citations and **Show the

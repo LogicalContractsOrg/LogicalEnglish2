@@ -95,6 +95,22 @@ text beyond `max_embedded_bytes/1` are named in the comment instead of being
 carried, and a comment that cannot be written is never the reason an import
 fails. Tests: `testing/test_embedded_originals.pl`.
 
+**The ledger: summed up in the program, shown whole by the editor.** When the
+translator wrote `<stem>.ledger.json` beside the program, `le_import.pl`
+(`prepend_ledger_summary/1`, after `embed_originals/2`) puts a short comment
+at the top of the program: the counts (encoded, approximated, residue), the
+source's test expectations the program reproduces, and the name of
+`<stem>.ledger.md`. The whole ledger is not put in the program: it can be
+longer than the program, and it describes the translation, not the program
+the reader goes on to edit. The editor shows the ledger whole: the import
+note's "Open the ledger" (the reply's `ledger: true`) and File ▸ Show the
+Ledger… ask the `ledger` operation (`le_api:handle_ledger/2`), which reads
+`<program>.ledger.md` beside the program it was opened as. The published
+twins have one too. The ledger window offers to save the file, since the
+upload's directory is forgotten after a day. Messages: `import_ledger_*` in
+`i18n/messages.csv`. Tests: `testing/test_embedded_originals.pl`, and
+`editor/tests/import-foreign.spec.ts`.
+
 **The other way: exporting (`exporter/6`).** `File > Export to Another
 System…` in the editor (and the LPS2 IDE's Misc ▸ Export to another
 system…, through `le_service:le_export/4`) writes the loaded program in

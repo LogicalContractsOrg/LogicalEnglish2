@@ -198,6 +198,13 @@ the mouse pointer on the item.
     Socotra product, and the rule documents and rulebase of an OIA project. If there
     is one file, it opens directly. If there are more files, a list of the files
     shows first. A program with no `sources/` folder tells you so.
+*   **Show the Ledger:** `File > Show the Ledger…` shows the ledger of a program that
+    the system translated from another system. The ledger is a table with one row
+    for each element of the source. Each row tells whether the element was
+    translated with its meaning unchanged (*encoded*), with a change of meaning
+    (*approximated*, with the reason), or not at all (*residue*). The ledger is the
+    file `<program>.ledger.md` adjacent to the program. To save a copy, click
+    **Save the Ledger**. A program with no ledger tells you so.
 *   **View Original Text:** `File > View Original Text` shows in the source viewer
     where the line at the cursor came from. The same item is on the menu of the
     editor when you right-click a line of a program. The editor tries four things, in

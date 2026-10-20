@@ -164,6 +164,7 @@ handle_operation(Dict, Response) :-
         ; Op == "getProlog" -> handle_get_prolog(Dict, Response)
         ; Op == "documentText" -> handle_document_text(Dict, Response)
         ; Op == "originals" -> handle_originals(Dict, Response)
+        ; Op == "ledger" -> handle_ledger(Dict, Response)
         ; Op == "resourceAt" -> handle_resource_at(Dict, Response)
         ; Op == "predicateAt" -> handle_predicate_at(Dict, Response)
         ; Op == "predicateOccurrences" -> handle_predicate_occurrences(Dict, Response)
@@ -740,6 +741,28 @@ handle_originals(Dict, _{files: Files}) :-
     load_base_of(Dict, Base),
     (   api_user(_, Roles) -> true ; Roles = [] ),
     le_original_text:original_files(Base, Roles, Files).
+
+%!  handle_ledger(+Dict, -Response) is det.
+%
+%   The ledger of a translated program, for the editor's File ▸ Show the
+%   Ledger and the import note's "Open the ledger": the file
+%   `<program>.ledger.md` beside the program (le_migration.pl writes it; a
+%   program File ▸ Import translated, and the migrations' twins, have one).
+%   `source` is the example the program was opened as. Replies
+%   {markdown, fileName}, or {markdown: null} when there is no ledger.
+handle_ledger(Dict, Response) :-
+    (   get_dict(source, Dict, Src), Src \== "", Src \== null,
+        le_example_relpath(Src, Full0),
+        file_name_extension(Stem, _, Full0),
+        atom_concat(Stem, '.ledger.md', File),
+        exists_file(File),
+        (   api_user(_, Roles) -> true ; Roles = [] ),
+        is_path_allowed(File, Roles),
+        read_file_to_string(File, Text, [encoding(utf8)])
+    ->  file_base_name(File, Name),
+        Response = _{markdown: Text, fileName: Name}
+    ;   Response = _{markdown: null}
+    ).
 
 %!  handle_resource_at(+Dict, -Response) is det.
 %

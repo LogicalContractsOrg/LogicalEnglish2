@@ -1432,7 +1432,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                       : t('Everything was translated.'),
                 ...((data.notes || []) as string[]).slice(0, 12).map((n: string) => '• ' + n),
             ];
-            showImportReport(lines);
+            showImportReport(lines, data.ledger ? () => showLedger({ example }) : undefined);
         } catch (err: any) {
             alert(`${t('Could not open')} ${file.name}: ${err.message}`);
         } finally {
@@ -1440,7 +1440,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         }
     };
     // A dismissable note under the menu bar: what was translated, and how.
-    const showImportReport = (lines: string[]) => {
+    const showImportReport = (lines: string[], openLedger?: () => void) => {
         document.getElementById('import-report')?.remove();
         const box = document.createElement('div');
         box.id = 'import-report';
@@ -1449,6 +1449,16 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             + 'color:inherit;border:1px solid #888;border-radius:6px;padding:10px 30px 10px 12px;font-size:12px;'
             + 'box-shadow:0 2px 8px rgba(0,0,0,.3);white-space:pre-wrap';
         box.textContent = lines.join('\n');
+        if (openLedger) {
+            const link = document.createElement('a');
+            link.id = 'import-report-ledger';
+            link.href = '#';
+            link.textContent = t('Open the ledger');
+            link.title = t('The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.');
+            link.style.cssText = 'display:block;margin-top:6px';
+            link.onclick = (e) => { e.preventDefault(); openLedger(); };
+            box.appendChild(link);
+        }
         const close = document.createElement('span');
         close.textContent = '×';
         close.title = t('Close');
@@ -1598,6 +1608,81 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         document.body.appendChild(overlay);
         close.focus();
     }
+    // File > Show the Ledger, and the import note's "Open the ledger": the
+    // ledger of a program translated from another system — the file
+    // <program>.ledger.md beside it (operation ledger) — shown as a page,
+    // with a button to save it (the server forgets an import after a day).
+    async function showLedger(doc: any): Promise<void> {
+        let md: string | null = null, fileName = 'ledger.md';
+        try {
+            const r = await fetch('/leapi', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: 'myToken123', operation: 'ledger', source: doc?.example || '' })
+            });
+            const data = await r.json();
+            if (typeof data.markdown === 'string') { md = data.markdown; fileName = String(data.fileName || fileName); }
+        } catch { md = null; }
+        if (md === null) {
+            messageDialog(t('Show the Ledger'), t('This program has no ledger: it was not translated from another system, or the translation was made more than a day ago and was not saved with its ledger.'));
+            return;
+        }
+        const text = md;
+        document.getElementById('ledger-dialog')?.remove();
+        const overlay = document.createElement('div');
+        overlay.id = 'ledger-dialog';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:3000;display:flex;align-items:center;justify-content:center';
+        const box = document.createElement('div');
+        box.setAttribute('role', 'dialog');
+        box.style.cssText = 'background:var(--menu-bg,#eee);color:inherit;border-radius:6px;padding:12px 16px;width:min(1000px,94vw);max-height:86vh;display:flex;flex-direction:column;font-size:13px';
+        const body = document.createElement('div');
+        body.className = 'ledger-body';
+        body.style.cssText = 'overflow:auto;flex:1';
+        const markedLib = (window as any).marked;
+        const parse = markedLib && (typeof markedLib.parse === 'function' ? markedLib.parse.bind(markedLib)
+                                   : typeof markedLib === 'function' ? markedLib : null);
+        if (parse) {
+            // The source's own words are in the ledger: no HTML of theirs is
+            // kept, and a link goes only to a web address.
+            body.innerHTML = parse(text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+            body.querySelectorAll('a').forEach(a => {
+                if (!/^https?:/i.test(a.getAttribute('href') || '')) a.removeAttribute('href');
+                else a.target = '_blank';
+            });
+            body.querySelectorAll('table').forEach(tb => {
+                (tb as HTMLElement).style.borderCollapse = 'collapse';
+                tb.querySelectorAll('td, th').forEach(c => { (c as HTMLElement).style.cssText = 'border:1px solid #999;padding:2px 6px;vertical-align:top'; });
+            });
+        } else {
+            body.style.whiteSpace = 'pre-wrap';
+            body.style.fontFamily = 'monospace';
+            body.textContent = text;
+        }
+        const actions = document.createElement('div');
+        actions.style.cssText = 'display:flex;justify-content:flex-end;gap:8px;margin-top:8px';
+        const save = document.createElement('button');
+        save.textContent = t('Save the Ledger');
+        save.title = t('Save the ledger as a file on your computer, beside the program');
+        save.onclick = () => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([text], { type: 'text/markdown' }));
+            a.download = fileName;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        };
+        const close = document.createElement('button');
+        close.textContent = t('Close');
+        const done = () => { overlay.remove(); document.removeEventListener('keydown', onKey); };
+        const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') done(); };
+        close.onclick = done;
+        actions.append(save, close);
+        box.append(body, actions);
+        overlay.appendChild(box);
+        overlay.onclick = (e) => { if (e.target === overlay) done(); };
+        document.addEventListener('keydown', onKey);
+        document.body.appendChild(overlay);
+        close.focus();
+    }
+    document.getElementById('menu-show-ledger')?.addEventListener('click', () => { showLedger(activeDoc); });
     document.getElementById('menu-show-original')?.addEventListener('click', () => { showOriginals(activeDoc); });
     // File > View Original Text: as the context menu's, at the cursor of the tab shown.
     document.getElementById('menu-view-original-text')?.addEventListener('click', () => viewOriginalText(editor));
