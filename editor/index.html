@@ -759,6 +759,29 @@
             background-color: #4fc1ff;
             color: #1e1e1e !important;
         }
+        /* A phone (a narrow screen): the page scrolls, and the panels stack.
+           The desktop layout fixes every panel to the window and scrolls each
+           one inside; on a phone the query controls filled the bottom panel,
+           the answers and the explanation were left with no height below
+           the screen, and the page itself could not scroll to them (a swipe
+           on the program only scrolls the program). */
+        @media (max-width: 760px) {
+            body, html { height: auto; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
+            #header { height: auto; min-height: 35px; flex-wrap: wrap; }
+            #header > div { gap: 10px !important; }
+            #module-info, #header > div:last-child { display: none; }
+            #menu-bar { overflow-x: auto; }
+            #container { height: 55vh !important; }
+            #resizer, #results-resizer { display: none; }
+            #bottom-panel { height: auto !important; }
+            .tab-content { height: auto; }
+            .panel-controls { flex-wrap: wrap; }
+            .control-group select { max-width: 70vw; }
+            #results-area { flex-direction: column; overflow: visible; flex-grow: 0; }
+            #answers-panel { width: auto !important; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border-color); }
+            #explanation-panel { overflow: visible; min-height: 40vh; }
+            #assistant-panel { min-height: 60vh; }
+        }
     </style>
     <!-- The examples' search panel, shared with the landing page -->
     <script src="examples-search.js"></script>
