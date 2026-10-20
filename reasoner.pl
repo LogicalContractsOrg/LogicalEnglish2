@@ -8,7 +8,7 @@
 
 :- module(reasoner, [i/4, explain/4, is_built_in/1, solve/8, goal_attempt/4, goal_attempt/5, with_saved_reasoner_state/1,
                      hide_repeated_explanations/0, set_show_repeated_explanations/1,
-                     memo_statistics/2, memorable_goal/3,
+                     memo_statistics/2, memorable_goal/3, with_shared_memo/1,
                      consistent_assumptions/3, consistent_assumptions/4, case_breaks_constraint/5, rejected_assumption_sets/1, clear_rejected_assumptions/0]).
 
 :- use_module(library(time)).
@@ -948,15 +948,38 @@ memo_key(G, Key) :-
 %   test) gets a generation of its own, restored on exit.
 memo_enter(saved(Depth, OldGen)) :-
     ( memo_depth(Depth) -> true ; Depth = 0 ),
-    ( Depth =:= 0 -> clear_memo ; true ),
     Depth1 is Depth + 1,
-    retractall(memo_depth(_)), assertz(memo_depth(Depth1)),
     ( memo_generation(OldGen) -> true ; OldGen = 0 ),
-    new_memo_generation.
+    (   Depth =:= 0, nb_current(le_memo_shared, Shared), integer(Shared)
+    ->  retractall(memo_depth(_)), assertz(memo_depth(Depth1)),
+        set_memo_generation(Shared)
+    ;   ( Depth =:= 0 -> clear_memo ; true ),
+        retractall(memo_depth(_)), assertz(memo_depth(Depth1)),
+        new_memo_generation
+    ).
 
 memo_exit(saved(Depth, OldGen)) :-
     retractall(memo_depth(_)), assertz(memo_depth(Depth)),
     set_memo_generation(OldGen).
+
+%!  with_shared_memo(:Goal) is semidet.
+%
+%   Runs Goal, a sequence of queries by i/4 about the same facts, with one
+%   memoization cache for all of them: a memorable call answered by one
+%   query is replayed in the next. The OIA adapter asks a case's outcomes
+%   this way: each outcome of a loan schedule read the 361 payments of the
+%   chain again, the second outcome as slowly as the first. Only for queries
+%   whose explanation nobody reads (without_explanations/1): an answer
+%   remembered there keeps no reasons to replay, and the identifiers of one
+%   query's explanation mean nothing in the next.
+:- meta_predicate with_shared_memo(0).
+with_shared_memo(Goal) :-
+    (   nb_current(le_memo_shared, Outer) -> true ; Outer = none ),
+    setup_call_cleanup(
+        ( clear_memo, new_memo_generation, memo_generation(Gen),
+          nb_setval(le_memo_shared, Gen) ),
+        without_explanations(once(Goal)),
+        ( nb_setval(le_memo_shared, Outer), clear_memo )).
 
 new_memo_generation :-
     ( retract(memo_gen_counter(N)) -> true ; N = 0 ),

@@ -142,6 +142,38 @@ test(the_cache_does_not_outlive_the_query) :-
     length(Before, NB), length(After, NA),
     assertion(NA =:= NB + 1).
 
+%   with_shared_memo/1 (the OIA adapter's outcomes of one case): a second
+%   query about the same facts replays what the first remembered, computes
+%   nothing again, and has the same answers.
+test(a_shared_memo_serves_the_next_query) :-
+    kb(family_relatives, KB),
+    answers(KB, tudors, relatives, Alone, _),
+    le_kbs:createSession(KB, SM),
+    le_kbs:setScenarion(SM, tudors),
+    with_shared_memo(two_queries(SM, First, Second, M1, M2)),
+    assertion(M1 > 0),
+    assertion(M2 =:= M1),
+    assertion(First == Alone),
+    assertion(Second == Alone).
+
+two_queries(SM, First, Second, M1, M2) :-
+    findall(S, ( le_kbs:query(SM, relatives, I, _, _), le_kbs:canonical_string(I, S) ), First),
+    memo_statistics(_, M1),
+    findall(S, ( le_kbs:query(SM, relatives, I, _, _), le_kbs:canonical_string(I, S) ), Second),
+    memo_statistics(_, M2).
+
+%   Once with_shared_memo/1 is done, each query has its own cache again.
+test(a_shared_memo_ends_with_its_goal) :-
+    kb(family_relatives, KB),
+    le_kbs:createSession(KB, SM),
+    le_kbs:setScenarion(SM, tudors),
+    with_shared_memo(two_queries(SM, _, _, _, _)),
+    findall(A, le_kbs:query(SM, ancestors, A, _, _), Before),
+    assertz(SM:is_a_parent_of('Arthur', 'Owen')),
+    findall(A, le_kbs:query(SM, ancestors, A, _, _), After),
+    length(Before, NB), length(After, NA),
+    assertion(NA =:= NB + 1).
+
 test(warnings_of_the_warnings_example) :-
     kb(memorable_warnings, KB),
     assertion(issue(KB, memorable_under_negation)),

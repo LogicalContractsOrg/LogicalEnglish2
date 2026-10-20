@@ -194,3 +194,4 @@ order.
 - **October 2026.** Logical Contracts offers the Logical English Translators to
   organisations. The Logical English Translators read the programs of seventeen
   other rule systems into Logical English.
+- **December 2026.** Logical Contracts team gives tutorial at [JURIX](https://www.irit.fr/jurix2026/workshops-and-tutorials/): "Logical English as a Lingua Franca for Representing and Reasoning with Legal and Business Rules".
