@@ -2,28 +2,31 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-10-13)*
 
-Many rules live in spreadsheets. A tax office publishes a calculator, a legal
-aid group a benefit worksheet, a court a child support form. Each is an
-Excel workbook: a file of cells, where some cells hold a number a person
-types in and others hold a **formula**, a small calculation such as
-`=IF(B27<=B31,"PASSED","FAILED")` that works out a value from other cells.
+Many rules are in spreadsheets. For example, a tax office publishes a calculator, a
+legal aid group publishes a benefit worksheet, and a court publishes a child support
+form. Each of these spreadsheets is an Excel workbook. A workbook is a file of cells.
+In some cells, a person types a number. Other cells contain a **formula**. A formula
+is a small calculation that finds a value from other cells, for example
+`=IF(B27<=B31,"PASSED","FAILED")`.
 
-Logical English (LE) can use such a workbook in two ways.
+Logical English (LE) can use such a workbook in two ways:
 
-- **Open it.** **File ▸ Open…** (or **File ▸ Import from Another System…**)
-  takes an Excel workbook (a file ending in `.xlsx` or `.xlsm`) and writes it
-  as an LE program: each formula becomes a rule, each table the formulas
-  look values up in becomes a decision table, and each cell a person types
-  into becomes a fact a scenario states. LE calls the result the workbook's
-  *twin*. The twin comes with scenarios whose expected answers are the
-  workbook's own: the values the workbook itself computes.
-- **Ask it.** A program can leave the workbook as it is and ask it for an
-  answer, as it would ask any outside service. The workbook stays the
-  authority, and LE credits each answer to it.
+- **Open the workbook.** **File ▸ Open…** (or **File ▸ Import from Another
+  System…**) accepts an Excel workbook (a file that ends in `.xlsx` or `.xlsm`). LE
+  then writes the workbook as an LE program. Each formula becomes a rule. Each table
+  where the formulas look up values becomes a decision table. Each cell where a
+  person types a value becomes a fact that a scenario states. (A scenario is a set
+  of facts about one case.) LE calls the result the *twin* of the workbook. The twin
+  has scenarios, and the expected answers of these scenarios come from the workbook.
+  These answers are the values that the workbook itself calculates.
+- **Ask the workbook.** A program can keep the workbook as it is and ask the workbook
+  for an answer. The program asks the workbook as it asks any outside service. The
+  workbook stays the authority, and LE gives the workbook the credit for each answer.
 
-The translator that opens workbooks is part of the Logical English
-Translators, so only installations that have them, such as the hosted
-service, offer it. Asking a workbook is part of LE itself.
+The translator that opens workbooks is a part of the Logical English Translators.
+Thus only the installations that have the translators give this function. The hosted
+service is one of these installations. The function that asks a workbook is a part of
+LE itself.
 
 ## Contents
 
@@ -39,13 +42,13 @@ service, offer it. Asking a workbook is part of LE itself.
 
 ## A small example
 
-A tax calculator has three cells that matter. B1 holds the income, which a
-person types in. B2 looks up the rate in a table of income bands on another
-sheet: `=VLOOKUP(B1,Brackets!A2:B4,2,TRUE)`. B3 works out the tax:
-`=IF(B1<12000,0,ROUND(B1*B2,2))`. The labels "Income", "Rate" and "Tax" are
-in column A, beside the cells.
+A tax calculator has three important cells. B1 contains the income, which a person
+types. B2 finds the rate in a table of income bands on a different sheet:
+`=VLOOKUP(B1,Brackets!A2:B4,2,TRUE)`. B3 calculates the tax:
+`=IF(B1<12000,0,ROUND(B1*B2,2))`. The labels "Income", "Rate" and "Tax" are in column
+A, next to the cells.
 
-Opened in LE, the workbook becomes:
+When you open the workbook in LE, the workbook becomes this program:
 
 ```le
 the templates are:
@@ -77,123 +80,127 @@ the tax is a number N if
         and N = round(K * P * 100 * (1 + 0.000000000001)) / 100.
 ```
 
-Two templates are about the rate, and they are not the same. `the rate is
-*a number*` is cell B2: the rate of this case, which the rule for the tax
-reads. `the rate for *a key* is *a value* under table rate` is the table of
-bands, which gives the rate for any income; the rule for B2 asks it for the
-rate of the case's income.
+A template is the pattern of a sentence, with slots for the values. Two templates are
+about the rate, and they are not the same. `the rate is *a number*` is cell B2. Cell
+B2 is the rate of this case, and the rule for the tax reads this rate.
+`the rate for *a key* is *a value* under table rate` is the table of bands. The table
+gives the rate for each income. The rule for B2 asks the table for the rate of the
+income of the case.
 
-Each rule keeps its formula above it as a comment, so a reader can check
-one against the other. The words of each template come from the label
-beside the cell, and a table is named after the column it returns. The
-addition `memorable` tells LE to work a value out once in each question,
-however many rules read it.
+Each rule keeps its formula above it as a comment. Thus a reader can compare the
+rule with the formula. The words of each template come from the label next to the
+cell. A table gets the name of the column that it returns. The addition `memorable`
+tells LE to calculate a value only one time in each question. This is true for any
+number of rules that read the value.
 
 ## How to open a workbook
 
-1. Choose **File ▸ Open…** and pick the workbook.
-2. LE writes the twin and opens it. The notes say how many formulas were
-   translated, and how many of the workbook's own answers the twin
-   reproduces.
-3. **File ▸ Show the Original…** lists the workbook, kept beside the twin in
-   a folder called `sources`.
+Do these steps:
 
-A workbook in the older Excel format (`.xls`) or in the OpenDocument format
-(`.ods`) is refused, with the reason: save it as `.xlsx` first.
+1. Select **File ▸ Open…**.
+2. Select the workbook.
+3. LE writes the twin and opens it. The notes tell you how many formulas LE
+   translated. The notes also tell you how many of the answers of the workbook the
+   twin gives again.
+4. Select **File ▸ Show the Original…** to see the workbook. LE keeps the workbook
+   next to the twin, in a folder with the name `sources`.
+
+LE refuses a workbook in the older Excel format (`.xls`) or in the OpenDocument
+format (`.ods`). LE gives the reason: save the workbook as `.xlsx` first.
 
 ## What the twin holds
 
 | In the workbook | In the twin |
 |---|---|
-| A cell a person types in: unlocked on a protected sheet, with a list of allowed values, or empty and used by a formula | A template marked as a scenario element: each scenario states its value |
-| Another number or text a formula uses (a rate, a limit) | A fact of the program, which says which cell it came from |
-| A range that `LOOKUP`, `VLOOKUP`, `HLOOKUP` or `INDEX` and `MATCH` look values up in | A decision table. A range of numbers searched for the nearest lower value becomes a table of bands, such as `>= 12000 and < 50000` |
-| A formula | A rule. An `IF` becomes an `otherwise` cascade: the first branch, or else the next |
-| A formula no other formula uses | An *output*: a query, and an expected answer in every scenario |
-| A column of copies of one formula, one row per employee, say | One rule for every row. The row is the first place of the template, as in `the withholding of *a row* is *an amount*`, and a scenario names the rows it fills, such as `row_7` |
-| A formula the translator cannot read | A block marked `RESIDUE`, which keeps the formula. The Contract Assistant can translate such blocks |
+| A cell where a person types a value: an unlocked cell on a protected sheet, a cell with a list of permitted values, or an empty cell that a formula uses | A template with the mark scenario element: each scenario states the value |
+| A different number or text that a formula uses (for example a rate or a limit) | A fact of the program. The fact tells the cell that it came from |
+| A range where `LOOKUP`, `VLOOKUP`, `HLOOKUP` or `INDEX` and `MATCH` look up values | A decision table. Sometimes the formula searches a range of numbers for the nearest lower value. That range becomes a table of bands, for example `>= 12000 and < 50000` |
+| A formula | A rule. An `IF` becomes an `otherwise` cascade: the first branch, or if not, the next branch |
+| A formula that no other formula uses | An *output*: a query, and an expected answer in each scenario |
+| A column of copies of one formula, for example one row for each employee | One rule for all the rows. The row is the first slot of the template, for example `the withholding of *a row* is *an amount*`. A scenario gives the names of the rows that it fills, for example `row_7` |
+| A formula that the translator cannot read | A block with the mark `RESIDUE`. The block keeps the formula. The Contract Assistant can translate such blocks |
 
-A cell formatted as a date becomes a date in the twin (`2026-03-15`), and
-date arithmetic uses LE's own sentences: `EDATE(B4,2)`, two months after a
-date, becomes `… is 2 months after …`.
+A cell with the format of a date becomes a date in the twin (`2026-03-15`). Date
+calculations use the sentences of LE. For example, `EDATE(B4,2)` means two months
+after a date. It becomes `… is 2 months after …`.
 
-The program is written in the language of the workbook's labels: a
-Portuguese calculator becomes a program in Portuguese LE. Each import also
-writes a **ledger**, a list of every formula, table, input and constant,
-each marked as translated directly, translated with a small difference
-(*approximated*), or left as residue.
+LE writes the program in the language of the labels of the workbook. For example, a
+Portuguese calculator becomes a program in Portuguese LE. Each import also writes a
+**ledger**. The ledger is a list of all the formulas, tables, inputs and constants.
+The ledger gives each item one of three marks: translated directly, translated with a
+small difference (*approximated*), or kept as residue.
 
 ## Where the expected answers come from
 
-Every expected answer in the twin is a value that the workbook itself
-computed.
+Each expected answer in the twin is a value that the workbook itself calculated.
+There are three sources:
 
-- **The values saved in the file.** The scenario `as_saved` states the
-  inputs as the file holds them, and expects the values Excel saved for the
+- **The values that the file contains.** The scenario `as_saved` states the inputs
+  as the file contains them. The scenario expects the values that Excel saved for the
   outputs.
-- **Cases the workbook computed.** Twelve more scenarios each choose new
-  inputs: values just below, on and just above the limits the formulas test,
-  and values at random. The workbook is worked out for each case by a
-  spreadsheet engine inside LE, and its outputs become the expected answers.
-- **Examples the publisher filled in.** Some authorities publish their
-  template with worked examples: the same workbook, filled in for a typical
-  case. Each example can become a scenario of its own, its saved values the
+- **Cases that the workbook calculated.** Twelve more scenarios each select new
+  inputs. Some values are just below a limit that the formulas test, some are on the
+  limit, and some are just above the limit. Other values are random. A spreadsheet
+  engine inside LE calculates the workbook for each case. The outputs become the
   expected answers.
+- **Examples that the publisher filled in.** Some authorities publish their template
+  with worked examples. A worked example is the same workbook, filled in for a
+  typical case. Each example can become a separate scenario. The values that the
+  example contains become the expected answers.
 
-The generated cases stay realistic: a percentage is drawn between 0 and
-100%, a count among small numbers, a date within about a year of the date
-in the file.
+The cases that LE makes stay realistic. A percentage is between 0 and 100%. A count
+is a small number. A date is within approximately one year of the date in the file.
 
-Where the workbook shows an error instead of a value, such as `#N/A`, there
-is no correct value, so nothing is expected; the scenario says so in a
-comment.
+Sometimes the workbook shows an error and not a value, for example `#N/A`. Then there
+is no correct value, thus the scenario expects nothing. A comment in the scenario
+tells you this.
 
 ## Where Excel and Logical English differ
 
-The twin keeps Excel's meaning where the two languages differ, and the
-ledger names every place where it could not do so exactly.
+The twin keeps the meaning of Excel where the two languages are different. The ledger
+gives each place where the twin could not keep the meaning exactly.
 
 - Where Excel shows an error, the twin gives no answer.
-- Excel reads TRUE as 1 and FALSE as 0 in arithmetic, and an empty cell as
-  0. The twin does the same.
-- Excel puts every number before every text when it compares them. The twin
-  does the same.
-- Excel compares texts without regard to capital letters. The twin compares
-  them exactly: *approximated*.
-- When the branch an `IF` chooses shows an error, Excel shows the error. The
-  twin goes on to the next branch instead: *approximated*.
+- In calculations, Excel reads TRUE as 1, FALSE as 0, and an empty cell as 0. The
+  twin does the same.
+- When Excel compares numbers and texts, it puts all numbers before all texts. The
+  twin does the same.
+- Excel compares texts and ignores capital letters. The twin compares texts exactly:
+  *approximated*.
+- Sometimes the branch that an `IF` selects shows an error. Then Excel shows the
+  error. The twin continues to the next branch: *approximated*.
 
 ## Large workbooks
 
-For a workbook of thousands of formulas the translator can be told which
-cells hold the answers, and it translates only what those cells need. The
-import also says when it took an implausible number of cells as inputs —
-empty cells that formulas read, in a workbook that does not mark which cells
-a person fills in — so that the inputs can be named instead. These two
-choices are options of the translator, available to whoever runs it (see
-the developer guide of the Logical English Translators).
+A workbook can have thousands of formulas. For such a workbook, you can tell the
+translator which cells contain the answers. The translator then translates only the
+parts that these cells need. Some workbooks do not mark the cells that a person
+fills in. In such a workbook, the translator takes the empty cells that formulas read
+as inputs. Sometimes the number of these inputs is not realistic. The import then
+tells you, so that you can give the names of the inputs. These two choices are
+options of the translator. Each person who runs the translator can use them. (Refer
+to the developer guide of the Logical English Translators.)
 
 ## Asking a workbook instead
 
-Sometimes the workbook should stay the authority: a court's own calculator,
-say, or a workbook too large to review. A program can then leave the
-workbook as it is and ask it for an answer whenever a rule needs one. LE
-calls an outside source of answers a **service** (§17.6 of the
+Sometimes the workbook must stay the authority. An example is the calculator of a
+court, or a workbook that is too large to examine. Then a program can keep the
+workbook as it is. The program asks the workbook for an answer each time a rule needs
+one. LE calls an outside source of answers a **service** (§17.6 of the
 [language reference](../reference/language.md#176-services-and-semantic-predicates-over-text)).
-Everything needed is written in the program itself, in Logical English: no
-other file is needed besides the workbook. It takes five steps. The example
-is Oklahoma's child support computation: given the number of children and
-each parent's gross monthly income, the workbook works out each parent's
-base monthly obligation.
+You write all the necessary data in the program itself, in Logical English. You need
+no other file, only the workbook. There are five steps. The example is the child
+support calculation of Oklahoma. The inputs are the number of children and the gross
+monthly income of each parent. The workbook calculates the base monthly obligation of
+each parent.
 
 ### Step 1. Put the workbook in the program's folder
 
-The workbook must be in the program's folder on the LE server, or in a
-folder under it. Here the program is `ok_child_support_service.le` and the
-workbook is `sources/ok_child_support.xlsm`. The workbook may not be
-anywhere else: LE refuses a workbook outside the program's folder. A
-program typed into the editor without a folder of its own cannot ask a
-workbook.
+The workbook must be in the folder of the program on the LE server, or in a folder
+below it. Here, the program is `ok_child_support_service.le` and the workbook is
+`sources/ok_child_support.xlsm`. The workbook cannot be in a different place. LE
+refuses a workbook outside the folder of the program. Sometimes you type a program
+into the editor, and the program has no folder. Such a program cannot ask a workbook.
 
 ### Step 2. Declare the service
 
@@ -202,26 +209,26 @@ the knowledge base ok child support service includes these services:
     oklahoma at sheet:sources/ok_child_support.xlsm as a calculator.
 ```
 
-The line reads: *the service called `oklahoma` is at the address
-`sheet:sources/ok_child_support.xlsm`, and it is a calculator.* Piece by
-piece:
+The line means: *the service with the name `oklahoma` is at the address
+`sheet:sources/ok_child_support.xlsm`, and it is a calculator.* These are the parts
+of the line:
 
 | Piece | Meaning |
 |---|---|
-| `oklahoma` | the service's name, one word, which the rest of the program uses to name it |
-| `at` | the address follows |
-| `sheet:` | the kind of address: a workbook (other services have addresses starting with `https://` or `llm:`) |
-| `sources/ok_child_support.xlsm` | the workbook, given from the program's folder |
-| `as a calculator` | the kind of service, a word or two of description. Only the kind `semantic matcher` means something to LE; any other is a description for the reader |
+| `oklahoma` | the name of the service. The name is one word. The other parts of the program use this name for the service |
+| `at` | the address comes next |
+| `sheet:` | the kind of address: a workbook (the addresses of other services start with `https://` or `llm:`) |
+| `sources/ok_child_support.xlsm` | the workbook, relative to the folder of the program |
+| `as a calculator` | the kind of service, in one or two words. Only the kind `semantic matcher` has a meaning for LE. Any other kind is a description for the reader |
 
-When a program declares several services, they are separated by commas, and
-the last one ends with a full stop.
+When a program declares more than one service, commas separate the services. The
+last service ends with a full stop.
 
 ### Step 3. Write a template for each answer
 
-A **template** is the pattern of a sentence, with a place, written
-`*a number*` or `*an amount*`, for each value. A template the workbook
-answers ends with `; via service` and the service's name:
+A **template** is the pattern of a sentence. It has a slot for each value. A slot
+has a form such as `*a number*` or `*an amount*`. A template that the workbook
+answers ends with `; via service` and the name of the service:
 
 ```le
 the templates are:
@@ -229,14 +236,14 @@ the templates are:
     the mother's base obligation for *a number* children with incomes *an amount* and *an amount* is *an amount*; via service oklahoma.
 ```
 
-Every place but the last is a question the program gives the workbook. The
-last place is the answer the workbook gives back. One workbook can answer
-several templates, as here.
+Each slot before the last slot is a question that the program gives to the workbook.
+The last slot is the answer that the workbook gives back. One workbook can answer
+more than one template, as in this example.
 
 ### Step 4. Say which cells answer each template
 
-A workbook does not say which of its cells are questions and which are
-answers. The program says it, in a section of its own:
+A workbook does not tell which of its cells are questions and which cells are
+answers. The program tells this, in a separate section:
 
 ```le
 the cells of service oklahoma are:
@@ -245,43 +252,45 @@ the cells of service oklahoma are:
     the mother's base obligation for "B4" children with incomes "C5" and "D5" is "D17".
 ```
 
-Each sentence after the first is the template of step 3 written once more,
-with a **cell reference** in each place instead of a value: `"B4"` is the
-cell in column B, row 4. The sentence reads: *to answer this template,
-write the number of children into B4, the father's income into C5 and the
-mother's into D5, work the workbook out, and read the answer in C17.*
+Each sentence after the first sentence is a template of step 3 again. But each slot
+contains a **cell reference** and not a value. For example, `"B4"` is the cell in
+column B, row 4. The sentence means: *to answer this template, write the number of
+children into B4, the income of the father into C5 and the income of the mother into
+D5. Then calculate the workbook, and read the answer in C17.*
 
-- **`the sheet is "..."`** names the sheet (the tab of the workbook) the
-  cells are on. Without it, the cells are on the workbook's first sheet. A
-  cell on another sheet names its sheet itself, as in Excel: the sheet's
-  name in single quotes, an exclamation mark, the cell, such as
-  `"'Rates 2026'!B4"`.
-- **`the cell "..." is ...`** gives a cell the same value for every
-  question: `the cell "B30" is "monthly".` writes the text `monthly` into
-  B30 each time, and `the cell "B31" is 12.` the number 12.
-- Every cell the section does not name keeps the value saved in the
-  workbook.
-- The cell references are written in double quotes. Without the quotes,
-  LE would read `B4` as a name of its own.
+- **`the sheet is "..."`** gives the name of the sheet (the tab of the workbook)
+  where the cells are. If this sentence is not there, the cells are on the first
+  sheet of the workbook. A cell on a different sheet gives the name of its sheet
+  itself, as in Excel. Write the name of the sheet in single quotes, then an
+  exclamation mark, then the cell. An example is `"'Rates 2026'!B4"`.
+- **`the cell "..." is ...`** gives a cell the same value for each question. For
+  example, `the cell "B30" is "monthly".` writes the text `monthly` into B30 each
+  time. `the cell "B31" is 12.` writes the number 12.
+- Each cell that the section does not name keeps the value that the workbook saved.
+- Write the cell references in double quotes. Without the quotes, LE reads `B4` as a
+  separate name.
 
-The verifier checks the section as soon as the program is loaded. It
-reports, at the line concerned: a sentence that is not an instance of a
-template the service answers, a place that holds something other than a
-cell reference, a template the service answers with no sentence saying
-which cells answer it, and a workbook that is not where the address says.
+The verifier examines the section immediately when you load the program. The
+verifier gives a report at the applicable line for each of these problems:
 
-Opening the workbook with **File ▸ Open…** (with the Logical English
-Translators) writes a draft of steps 2 to 4 at the end of the twin, as a
-comment: the service line, a template for each answer the translator found,
-and the section of cells, followed by the list of every input and answer
-cell with its label. Copy the lines out of the comment, keep the answers
-needed, and give each template clearer words.
+- A sentence that is not an instance of a template that the service answers.
+- A slot that contains something that is not a cell reference.
+- A template that the service answers, but no sentence tells which cells answer it.
+- A workbook that is not at the address.
+
+You can open the workbook with **File ▸ Open…** (with the Logical English
+Translators). LE then writes a draft of steps 2 to 4 at the end of the twin, as a
+comment. The draft has the service line, a template for each answer that the
+translator found, and the section of cells. After the draft, there is a list of all
+the input cells and answer cells, each with its label. Copy the lines out of the
+comment. Keep the answers that you need. Give each template clearer words.
 
 ### Step 5. Use the template in a rule
 
-A rule uses the template like any other. It must know every value of a
-question by the time it asks; a question with a value still unknown stops
-the query with an error, because a workbook cannot be worked out backwards:
+A rule uses the template as it uses any other template. The rule must know all the
+values of a question when it asks the question. If a value of a question is not yet
+known, the query stops with an error. The reason is that a workbook cannot calculate
+backwards:
 
 ```le
 the base monthly obligation of the father in a case is an amount
@@ -291,59 +300,60 @@ the base monthly obligation of the father in a case is an amount
     and the father's base obligation for the number children with incomes the first amount and the second amount is the amount.
 ```
 
-For two children and incomes of 5,000 and 3,000, the answer is 814.38,
-worked out by the workbook. The explanation credits it: *according to
+For two children and incomes of 5,000 and 3,000, the answer is 814.38. The workbook
+calculated this answer. The explanation gives the workbook the credit: *according to
 service oklahoma, because ok_child_support.xlsm computed C17 from B4 = 2,
 C5 = 5000, D5 = 3000*.
 
 ### What else to know
 
-- LE asks the workbook once for each different question in a session, and
-  keeps the answer (§17.6). A changed workbook counts as a new one, so an
-  answer kept from the old one is not reused. A change to the section of
-  cells counts as a new question too.
-- A date the program gives is written into its cell as a date, as Excel
-  reads a date typed into a cell. A formula such as `TODAY()` reads the day
-  the workbook is worked out; a formula such as `RAND()` gives the same
-  value each time.
-- When the workbook cannot be worked out — no workbook where the address
-  says, a sheet the workbook does not have, an error such as `#VALUE!` in
-  the answer cell — the question is answered as **unknown**, and the query
-  still answers on that condition. The server's log says why.
-- Asking a workbook needs a server with the spreadsheet engine installed
-  (Node and the packages of `services/sheet`). In the editions of LE that
-  run entirely in the browser, the question is answered as unknown.
+- In a session, LE asks the workbook one time for each different question. LE keeps
+  the answer (§17.6). A changed workbook is a new workbook for LE. Thus LE does not
+  use again an answer that it kept from the old workbook. A change to the section of
+  cells also makes a new question.
+- When the program gives a date, LE writes the date into its cell as a date. Excel
+  reads a date that a person types into a cell in the same way. A formula such as
+  `TODAY()` reads the day when the workbook is calculated. A formula such as `RAND()`
+  gives the same value each time.
+- Sometimes LE cannot calculate the workbook. For example, there is no workbook at
+  the address, the workbook does not have the sheet, or the answer cell shows an
+  error such as `#VALUE!`. Then the answer to the question is **unknown**, and the
+  query continues to answer on that condition. The log of the server gives the
+  reason.
+- To ask a workbook, you need a server that has the spreadsheet engine (Node and the
+  packages of `services/sheet`). Some editions of LE run fully in the browser. In
+  these editions, the answer to the question is unknown.
 
-Two complete examples: `examples/regulatory/medicare/vitamin_d_bmi.le`
-asks a small workbook for a patient's body mass index code; the Oklahoma
-example comes with the Logical English Translators.
+There are two full examples. `examples/regulatory/medicare/vitamin_d_bmi.le` asks a
+small workbook for the body mass index code of a patient. The Oklahoma example comes
+with the Logical English Translators.
 
 ## What is not supported yet
 
 - Workbooks in the `.xls` and `.ods` formats: save them as `.xlsx`.
-- Macros, the programs some workbooks run when a button is pressed: they
-  are not read. A workbook whose rules live in macros becomes a twin with
-  little in it.
-- Some functions: text functions such as `CONCATENATE` and `TEXT`,
-  `TODAY`, `EOMONTH`, `INDIRECT`, `OFFSET` and array formulas become residue
-  blocks. (`IF`, `AND`, `OR`, `CHOOSE`, the lookups, `SUM`, `SUMIF`,
-  `COUNTIF` and their plural forms over up to 400 cells, `MIN`, `MAX`,
-  `ROUND` and its kin, `EDATE`, `YEAR`, `MONTH`, `DAY` and date arithmetic
-  are read.)
-- A very large model, such as the European Union's template for the carbon
-  border adjustment, with tens of thousands of formulas: name the cells
-  that hold the answers (see below), and the twin holds only what they
-  need.
-- Rules written as sentences in cells, as some regulators publish them, are
-  planned separately.
-- Writing an LE program back as a workbook is not offered.
-- Asking a workbook needs a server with the spreadsheet engine installed. In
-  the editions of LE that run entirely in the browser, the question is
-  answered as unknown.
+- Macros: LE does not read macros. Macros are the programs that some workbooks run
+  when you click a button. A workbook with its rules in macros becomes a twin with
+  little content.
+- Some functions become residue blocks. These functions are text functions such as
+  `CONCATENATE` and `TEXT`, and also `TODAY`, `EOMONTH`, `INDIRECT`, `OFFSET` and
+  array formulas. (LE reads these functions: `IF`, `AND`, `OR`, `CHOOSE`, the
+  lookups, `SUM`, `SUMIF`, `COUNTIF` and their plural forms over a maximum of 400
+  cells, `MIN`, `MAX`, `ROUND` and the related functions, `EDATE`, `YEAR`, `MONTH`,
+  `DAY` and date calculations.)
+- A very large model, for example the template of the European Union for the carbon
+  border adjustment, with tens of thousands of formulas: give the cells that contain
+  the answers (refer to [Large workbooks](#large-workbooks)). The twin then contains
+  only the parts that these cells need.
+- Some regulators publish rules as sentences in cells. A separate plan is about such
+  rules.
+- LE cannot write an LE program back as a workbook.
+- To ask a workbook, you need a server that has the spreadsheet engine. Some
+  editions of LE run fully in the browser. In these editions, the answer to the
+  question is unknown.
 
 ## See also
 
 - [Language reference](../reference/language.md), §17.3 (decision tables),
   §17.2 (`otherwise` cascades) and §17.6 (services).
-- `examples/regulatory/medicare/vitamin_d_bmi.le`: a rule that asks a
-  workbook for a patient's body mass index code.
+- `examples/regulatory/medicare/vitamin_d_bmi.le`: a rule that asks a workbook for
+  the body mass index code of a patient.

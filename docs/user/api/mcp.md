@@ -3,16 +3,22 @@
 *Kind: reference · Audience: developers · Status: current (2026-10-16)*
 
 The LE (Logical English) server speaks MCP, the
-[Model Context Protocol](https://modelcontextprotocol.io), which is a common
-language in which one program asks another for information on behalf of an LLM
-(large language model). The Prolog file `llm/mcp.pl` holds the LE server's side
-of that conversation. A program that drives a large language model — Claude
-Desktop, Claude Code, opencode — can therefore list the example programs, read
-the templates and queries of one program, run queries and check programs for
-mistakes. The same four jobs are also offered without the Model Context
-Protocol, each at its own web address, for clients that do not speak the
-protocol: a ChatGPT action is one such client. The LE Assistant's deep mode
-talks to this server itself. For everything else the server can do, see
+[Model Context Protocol](https://modelcontextprotocol.io). MCP is a common language
+in which one program asks a different program for information for an LLM (large
+language model). The Prolog file `llm/mcp.pl` contains the part of that conversation
+that the LE server does. A program that drives a large language model can use MCP.
+Examples are Claude Desktop, Claude Code and opencode. Such a program can do these
+jobs:
+
+- list the example programs,
+- read the templates and queries of one program,
+- run queries,
+- check programs for mistakes.
+
+The server also gives the same four jobs without the Model Context Protocol, each at
+its own web address. These addresses are for clients that do not speak the protocol.
+A ChatGPT action is one such client. The deep mode of the LE Assistant talks to this
+server itself. For all the other things that the server can do, refer to
 [web-api.md](web-api.md).
 
 ## Table of Contents
@@ -30,43 +36,47 @@ talks to this server itself. For everything else the server can do, see
 
 ## Transports
 
-- **HTTP**: send each message over HTTP, the protocol of the web, to
-  `POST /mcp` on the LE server, which listens on port 3050 unless it was
-  started on another port. One request carries one
-  message written in JSON-RPC 2.0, a plain way of naming what you want and
-  passing the arguments for it in JSON (JavaScript Object Notation, a text
-  format for data). The server answers each request with one JSON reply. The
-  server never opens a channel of its own to push messages at the client, so a
-  `GET /mcp` is refused with status `405`. Start the server as
+- **HTTP**: HTTP is the protocol of the web. Send each message over HTTP to
+  `POST /mcp` on the LE server. The server listens on port 3050, if it was not
+  started on a different port. One request contains one message, written in
+  JSON-RPC 2.0. JSON-RPC 2.0 is a simple way to name what you want and to give the
+  arguments for it in JSON. JSON (JavaScript Object Notation) is a text format for
+  data. The server answers each request with one JSON reply. The server never opens
+  its own channel to send messages to the client. Thus the server refuses a
+  `GET /mcp` with status `405`. Start the server as
   [web-api.md](web-api.md#starting-the-server) describes.
-- **STDIO**: run the server as a program that reads JSON-RPC messages, one per
-  line, from its standard input, and writes each reply to its standard output:
+- **STDIO**: run the server as a program that reads JSON-RPC messages, one message
+  on each line, from its standard input. The program writes each reply to its
+  standard output:
 
   ```bash
   swipl -g "use_module(llm/mcp), mcp:handle_mcp_stdio." -t halt llm/mcp.pl
   ```
 
-  Start that program in the top folder of this repository, the folder that
-  holds the whole project. The server reads the examples and the documentation
-  by paths written relative to that folder, and finds neither from anywhere
-  else.
+  Start that program in the top folder of this repository. The top folder is the
+  folder that contains the full project. The server reads the examples and the
+  documentation through paths that start from that folder. From a different folder,
+  the server cannot find the examples or the documentation.
 
 ## Client setup
 
-For most clients one line is enough: the guide
-[Logical English in your coding assistant](../guide/coding-assistants.md)
-gives that line for Claude Code, Codex, Gemini CLI, Visual Studio Code,
-Cursor and Claude Desktop, and installs the Logical English skill (the
-instructions that tell an assistant how to use these tools) with them. The
-folder `llm/settings/` holds an example settings file for each client below.
+For most clients, one line is sufficient. The guide
+[Logical English in your coding assistant](../guide/coding-assistants.md) gives
+that line for Claude Code, Codex, Gemini CLI, Visual Studio Code, Cursor and Claude
+Desktop. The guide also installs the Logical English skill with the line. The skill
+is the set of instructions that tells an assistant how to use these tools. The
+folder `llm/settings/` contains an example settings file for each client below.
 
 ### Claude Desktop
 
-Add one of two entries to `claude_desktop_config.json`. The first entry starts
-a server of your own on the same machine, which talks through its standard
-input and output. Correct the path to `swipl` for your machine, and make the
-program start in the top folder of the repository — for instance by launching
-it through a shell that `cd`s there first:
+Add one of two entries to `claude_desktop_config.json`. The first entry starts your
+own server on the same computer. This server talks through its standard input and
+output. Do these steps:
+
+1. Correct the path to `swipl` for your computer.
+2. Make sure that the program starts in the top folder of the repository. For
+   example, start the program through a shell that changes to that folder first
+   (with `cd`).
 
 ```json
 {
@@ -79,8 +89,8 @@ it through a shell that `cd`s there first:
 }
 ```
 
-The second entry talks to a server that is already running, through
-`mcp-remote`, a small relay that carries the messages over the web
+The second entry talks to a server that already runs. It uses `mcp-remote`, a small
+relay program that sends the messages over the web
 (`llm/settings/claude_desktop_config.json`):
 
 ```json
@@ -94,51 +104,55 @@ The second entry talks to a server that is already running, through
 }
 ```
 
-A third settings file, `llm/settings/claude_desktop_config_remote.json`, points
-the relay at the hosted server instead, `https://le2.logicalcontracts.com/mcp`.
+A third settings file, `llm/settings/claude_desktop_config_remote.json`, connects
+the relay to the hosted server, `https://le2.logicalcontracts.com/mcp`.
 
 ### Claude Code
 
-Run either of these two lines in the top folder of the repository. The first
-line starts a server that talks through standard input and output; the second
-line reaches a server that is already running:
+Run one of these two lines in the top folder of the repository. The first line
+starts a server that talks through standard input and output. The second line
+connects to a server that already runs:
 
 ```bash
 claude mcp add logical-english -- swipl -g "use_module(llm/mcp), mcp:handle_mcp_stdio." -t halt llm/mcp.pl
 claude mcp add --transport http logical-english http://localhost:3050/mcp
 ```
 
-Claude Code speaks to a server over HTTP itself, so it needs no relay; the
-hosted server is added the same way, at `https://le2.logicalcontracts.com/mcp`.
+Claude Code can speak to a server over HTTP itself. Thus Claude Code needs no relay.
+You add the hosted server in the same way, at `https://le2.logicalcontracts.com/mcp`.
 
 ### opencode (the LE Assistant)
 
-The LE Assistant's deep mode runs `opencode` with settings written out from
-`llm/settings/opencode_config.json.template`. Those settings name one server on
-the same machine, reached through
+The deep mode of the LE Assistant runs `opencode` with settings that it writes from
+`llm/settings/opencode_config.json.template`. These settings name one server on the
+same computer. The settings reach that server through
 `npx mcp-remote http://127.0.0.1:3050/mcp?job=<job id>`. The `job` part of that
-address — a line `X-LE-Job` in the request does the same — tells the server
-which job each checked program belongs to. The assistant can then hand back the
-last program that passed the check, even when the agent's own edits to the
-files never arrived ([docs/dev/assistant.md](../../dev/assistant.md)).
+address tells the server the job of each checked program. A line `X-LE-Job` in the
+request does the same. Thus the assistant can give back the last program that
+passed the check. It can do this also when the edits of the agent to the files did
+not arrive ([docs/dev/assistant.md](../../dev/assistant.md)).
 
 ### ChatGPT actions
 
-1. Create a Custom GPT; under Configure, create a new action.
-2. Paste `llm/settings/chatgpt_openapi.yaml` into the Schema field. That file
+Do these steps:
+
+1. Make a Custom GPT.
+2. Under Configure, make a new action.
+3. Paste `llm/settings/chatgpt_openapi.yaml` into the Schema field. That file
    describes [the four web addresses listed below](#rest-endpoints).
-3. Set the server URL — the address of the server on the web — to an address of
-   the LE server that the outside world can reach. A server running on your own
-   machine has no such address until you open a tunnel to it, with a tool such
-   as `ngrok`.
+4. Set the server URL to an address of the LE server that the outside world can
+   reach. The server URL is the address of the server on the web.
+
+Note: A server that runs on your own computer has no such address until you open a
+tunnel to it. Use a tool such as `ngrok` to open a tunnel.
 
 ## Tools
 
-A call to `tools/list` returns five tools, and a call to `tools/call` runs one
-of the five. The server sends a tool's result as a single item of content of
-type `text`, whose text is the tool's JSON reply written out. When that reply
-carries an `error` field, the server sends the error message instead and marks
-the result `isError: true`.
+A call to `tools/list` gives five tools. A call to `tools/call` runs one of the
+five tools. The server sends the result of a tool as one item of content of type
+`text`. The text of this item is the JSON reply of the tool, written out. When that
+reply contains an `error` field, the server sends the error message instead. Then
+the server marks the result `isError: true`.
 
 | Tool | Arguments | Reply |
 |---|---|---|
@@ -148,76 +162,87 @@ the result `isError: true`.
 | `verify` | `program_text` (required) | `{issues, test_results}` |
 | `search_documentation` | `query` (required): a few keywords | `{sections}`: the sections found, each with its link |
 
-**`list_examples`** lists the programs of `examples/moreExamples/`, of the
-extra folders (`regulatory/…`, `migration/…`, …) and of the folders of the
-other languages (`pt/…`), each with a one-line summary. Folders that only
-readers holding a licence may open are left out, because a client speaking
-MCP never signs in. To write a summary the server loads the program once, and
-keeps the summary for the next listing. The server gives the whole listing 20
-seconds; when that time is up, each program still without a summary is
-described by the comment at the top of the program instead.
+**`list_examples`** lists the programs of `examples/moreExamples/`, of the extra
+folders (`regulatory/…`, `migration/…`, …) and of the folders of the other languages
+(`pt/…`). Each program has a summary of one line. The list does not contain the
+folders that only readers with a licence can open, because a client that speaks MCP
+never signs in. To write a summary, the server loads the program one time. Then the
+server keeps the summary for the next list.
 
-**`get_example_details`** loads the example the call names, names being written
-as [web-api.md](web-api.md#example-names-and-access) explains. The tool then
+The server gives 20 seconds to the full list. When that time ends, the comment at the
+top of each program without a summary describes that program instead.
+
+**`get_example_details`** loads the example that the call names. The names are
+written as [web-api.md](web-api.md#example-names-and-access) explains. Then the tool
 replies with what the server knows about that program: `kb`, `templates`,
 `template_defs`, `queries` (`{name, template, le}`), `scenarios` and `examples`
-(`{name}`), `included_resources`, `views`, and the lists of images. Those are
-the fields that the web API — the other way one program asks this server for
-something — sends back from
-[its `load` operation](web-api.md#load--load-a-program-into-a-new-session),
-minus the session, plus `program_text`, which is the program's own text. An
-example in a folder reserved for licence holders answers
-`{error: "Example '…' requires login"}`, because a client speaking MCP never
-logs in.
+(`{name}`), `included_resources`, `views`, and the lists of images.
 
-**`query`** works in four steps. First the tool loads a program — the example
-named by `example_name`, or the text given as `program_text` — into a session
-that lasts for this one call; an example reserved for licence holders answers
-`error`, as above. A name that is no example's answers
-`{error: "Example '…' not found; …"}`. When the name is the folder of an
-example, the message gives the example's full name: an example kept in a
-folder of its own is named with the folder and the program, as in
-`migration/blawx/rps/rps`. Second, the tool sets the scenario `scenario_name`, when the
-call gives one. Third, the tool adds the sentences of `facts`, each of them an
-LE sentence ending in a full stop, read against the program's templates.
-Fourth, the tool runs `query`, which is either the name of a query in the
-program or a question written in LE that fits the program's templates. Each
-answer comes back as `{answer, explanation}`, the explanation built from the
-nodes [web-api.md](web-api.md#explanation-tree-nodes) describes. When the query
-has no answer, the reply is `{results: [], explanation}`, holding the
-explanation of the failure, or else
-`{results: [], error: "No answer and no explanation found"}`. Facts or a query
-that the server cannot read against the templates make the tool reply `error`.
+These fields are the same as the fields that
+[the `load` operation](web-api.md#load--load-a-program-into-a-new-session) of the web
+API sends back, without the session, and with `program_text`. The web API is the
+other way for a program to ask this server for something. `program_text` is the text
+of the program itself. An example in a folder for licence holders only gives the
+answer `{error: "Example '…' requires login"}`, because a client that speaks MCP
+never logs in.
 
-When a fact given in `facts` has a variable in it (a phrase beginning with
-*a* or *an*, as in `claim 1 is for a quad cane`), the reply also carries
-`notes`, one sentence for each such fact. Such a fact is about everything of
-its kind, which is seldom what a caller means, and the answer that follows
-does not say why it went wrong.
+**`query`** works in four steps:
 
-**`query`** of a case search (`which cases make it the case that …` or
-`is there a case in which …`, [the language reference](../reference/language.md)
-§17.11), given as a query's name or as text, answers one result per case. Each
-result also carries `case`: `{index, count, conditions, coveredBy, scenario,
-notes}`, where `coveredBy` lists the program's scenarios that meet the case and
-`scenario` is the text of a scenario that meets it, ready to add to the
-program. An answer that no case exists carries `case: {none: true, complete}`,
-where `complete` says whether the search covered every case.
+1. The tool loads a program into a session that lasts for this one call. The program
+   is the example that `example_name` names, or the text in `program_text`.
+2. The tool sets the scenario `scenario_name`, if the call gives one.
+3. The tool adds the sentences of `facts`. Each sentence is an LE sentence that ends
+   with a full stop. The tool reads each sentence against the templates of the
+   program.
+4. The tool runs `query`. `query` is the name of a query in the program, or a
+   question written in LE that agrees with the templates of the program.
 
-**`search_documentation`** looks for the keywords in this documentation and
-replies with the sections that hold them, each with its link on the server.
+An example for licence holders only gives the answer `error`, as above. A name that
+is not the name of an example gives the answer
+`{error: "Example '…' not found; …"}`. When the name is the folder of an example,
+the message gives the full name of the example. The name of an example in its own
+folder contains the folder and the program, for example
+`migration/blawx/rps/rps`.
 
-**`verify`** loads `program_text` and replies with two lists. `issues` holds
-what the verifier found wrong or doubtful in the program, each one
-`{severity, type, message, fix, start, end}` and explained in
-[the warnings guide](../guide/warnings.md). `test_results` holds the tests
-written inside the program itself (`expects answers` and `expects changes`),
-each one `{status: "pass"|"fail"|"error", query, scenario}`. A test that fails
-also carries `expected`, `actual` and the unknowns; a test that breaks down
-carries `message`.
+Each answer comes back as `{answer, explanation}`. The explanation contains the
+nodes that [web-api.md](web-api.md#explanation-tree-nodes) describes. When the query
+has no answer, the reply is `{results: [], explanation}`, with the explanation of the
+failure. If there is no such explanation, the reply is
+`{results: [], error: "No answer and no explanation found"}`. When the server cannot
+read the facts or the query against the templates, the tool replies `error`.
 
-A server started with the flag `mcp:mcp_only_query_verify` set lists only two
-of the four tools, `query` and `verify`.
+A fact in `facts` can contain a variable. A variable is a phrase that starts with
+*a* or *an*, as in `claim 1 is for a quad cane`. Then the reply also contains
+`notes`, with one sentence for each such fact. Such a fact is about all things of its
+kind. A caller seldom means this. The answer that follows does not tell why it is
+wrong.
+
+A case search is a query `which cases make it the case that …` or
+`is there a case in which …` ([the language reference](../reference/language.md)
+§17.11). **`query`** of a case search, as the name of a query or as text, gives one
+result for each case. Each result also contains `case`:
+`{index, count, conditions, coveredBy, scenario, notes}`. `coveredBy` lists the
+scenarios of the program that meet the case. `scenario` is the text of a scenario
+that meets the case, ready to add to the program. An answer that tells that no case exists contains
+`case: {none: true, complete}`. `complete` tells whether the search covered all the
+cases.
+
+**`search_documentation`** looks for the keywords in this documentation. It replies
+with the sections that contain the keywords, each with its link on the server.
+
+**`verify`** loads `program_text` and replies with two lists:
+
+- `issues` contains the problems and the possible problems that the verifier found
+  in the program. Each issue is `{severity, type, message, fix, start, end}`.
+  [The warnings guide](../guide/warnings.md) explains the issues.
+- `test_results` contains the results of the tests written inside the program itself
+  (`expects answers` and `expects changes`). Each result is
+  `{status: "pass"|"fail"|"error", query, scenario}`. A test that fails also contains
+  `expected`, `actual` and the unknowns. A test that stops with an error contains
+  `message`.
+
+A server that starts with the flag `mcp:mcp_only_query_verify` lists only two of the
+four tools: `query` and `verify`.
 
 ## Resources
 
@@ -229,17 +254,16 @@ of the four tools, `query` and `verify`.
 
 | Prompt | Arguments | What it sets up |
 |---|---|---|
-| `use_logical_english` | `example_name` | work with one program: read its details, rewrite the user's facts and question to match its templates, call `query`, explain the result |
-| `massage_query` | `user_question`, `templates` | rewrite a question into one LE query matching the templates |
-| `massage_facts` | `user_facts`, `templates` | rewrite facts into LE facts matching the templates, one per line |
+| `use_logical_english` | `example_name` | work with one program: read its details, write the facts and question of the user again to agree with its templates, call `query`, explain the result |
+| `massage_query` | `user_question`, `templates` | write a question again as one LE query that agrees with the templates |
+| `massage_facts` | `user_facts`, `templates` | write facts again as LE facts that agree with the templates, one fact on each line |
 
 ## REST endpoints
 
-The same four tools are also reachable on the LE server without JSON-RPC, each
-at its own web address. Send the tool's arguments as a JSON object in the body
-of the request. The server answers with the tool's JSON reply; when the tool
-itself fails, that reply carries an `error` field and the status is still
-`200`.
+You can also use the same four tools on the LE server without JSON-RPC. Each tool
+has its own web address. Send the arguments of the tool as a JSON object in the body
+of the request. The server answers with the JSON reply of the tool. When the tool
+itself fails, that reply contains an `error` field, and the status is still `200`.
 
 | Endpoint | Tool |
 |---|---|
@@ -253,20 +277,20 @@ curl -s -X POST http://localhost:3050/query -H 'Content-Type: application/json' 
   -d '{"example_name":"citizenship","scenario_name":"alice","query":"one"}'
 ```
 
-These four addresses ask for no token.
+These four addresses do not ask for a token.
 
 ## Protocol details
 
-- The server answers an `initialize` message with protocol version
-  `2024-11-05`, with `tools`, `prompts` and `resources` as the three things it
-  can offer, and with `Logical English MCP Server` as its name.
-- The server accepts notifications, which are messages carrying no `id`
-  because they expect no answer. Over HTTP the server still replies
-  `{"result": "ok"}` to one.
-- A message naming a method the server does not know is answered with the
-  JSON-RPC error `-32601`, and over HTTP with status `404`. A message with no
-  `method` at all is answered with `-32600`, and with status `400`. A tool
-  that breaks down is answered with `-32603`.
-- A large language model sometimes adds stray characters to the end of a
-  tool's name, as in `query<|channel|>…`. The server cuts such a name at the
-  first `<`.
+- The server answers an `initialize` message with these items: the protocol
+  version `2024-11-05`, the three things that it can give (`tools`, `prompts` and
+  `resources`), and its name, `Logical English MCP Server`.
+- The server accepts notifications. A notification is a message without an `id`,
+  because it expects no answer. Over HTTP, the server still replies
+  `{"result": "ok"}` to a notification.
+- The server answers a message that names an unknown method with the JSON-RPC error
+  `-32601`. Over HTTP, the status is `404`. The server answers a message with no
+  `method` with `-32600`, and with the status `400`. The server answers with
+  `-32603` when a tool stops with an error.
+- A large language model sometimes adds incorrect characters to the end of the name
+  of a tool, as in `query<|channel|>…`. The server cuts such a name at the first
+  `<`.

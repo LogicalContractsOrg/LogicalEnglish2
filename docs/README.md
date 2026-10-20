@@ -47,6 +47,48 @@ with no technical training.
   a scenario, a reactive rule — are part of the language being taught. Use
   them freely, and define each one at first use or in the glossary.
 
+### Simplified Technical English
+
+Write each user document in ASD-STE100 Simplified Technical English (STE).
+STE is a controlled form of English for technical documents (refer to
+<https://en.wikipedia.org/wiki/Simplified_Technical_English>). The model is
+LE2's tutorial `docs/user/tutorials/intro-to-le/intro-to-le.md`. Obey these
+rules, together with the rules above:
+
+- **Short sentences.** Write a maximum of 20 words in a procedure, and a
+  maximum of 25 words in a description. Split a long sentence; do not remove
+  its content.
+- **Short paragraphs.** Write a maximum of six sentences in a paragraph. Give
+  each paragraph one topic.
+- **Procedures as numbered steps.** Write "Do these steps:" and then a
+  numbered list. Write one instruction in each step, with the command form of
+  the verb ("Select…", "Click…", "Run…"). Write the result of the steps in a
+  separate sentence after the list.
+- **Active voice and simple tenses.** Use the present, the simple past and the
+  simple future. Do not use an "-ing" form where a simple form is possible.
+- **One word for one meaning.** Use the same word each time. Write "Refer to"
+  for a cross-reference, "Put the mouse pointer on" for a hover, "Select" for a
+  menu item or a list, and "Click" for a button.
+- **Approved words.** When possible, use the words of the STE dictionary: *use*
+  (not *utilise*), *make sure* (not *ensure*), *can* (not *is able to*),
+  *show* (not *display*), *start* (not *launch*), *give* (not *provide*), *do*
+  (not *perform*), *tell* (not *inform*), *thus* (not *therefore*), *about*
+  (not *regarding*), *before* (not *prior to*).
+- **No contractions, idioms, jokes or phrasal verbs** (*find out* → *find*).
+  Keep the articles (*the*, *a*) that English needs.
+- **Notes and warnings** come before the step that they apply to.
+- **Words outside the STE dictionary** are permitted in three groups: the names
+  in the user interface (menus, buttons, windows, settings), always in
+  **bold** and spelled as the software spells them; the names of the ideas of
+  the languages (template, scenario, query, fluent, event, reactive rule);
+  and other technical names (Prolog, s(CASP), JSON). Define each one at first
+  use.
+- **Keep what other files depend on.** Do not change program text (code
+  blocks and inline code), screenshots, link targets, quoted text from other
+  sources, or a heading that other documents link to.
+
+## The documents
+
 **User documentation** (`user/`)
 
 - Tutorials: [Introduction to Logical English](user/tutorials/intro-to-le/intro-to-le.md), [querying a program](user/tutorials/querying-a-program.md), [LE Views](user/tutorials/views.md)

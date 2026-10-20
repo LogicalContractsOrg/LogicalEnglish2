@@ -2,20 +2,25 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-10-05)*
 
-The editor opens the files of other rule and contract systems as Logical
-English (LE). The editor also writes some Logical English programs in another
-system's format. Both translations follow fixed rules, so the same file always
-gives the same result, and no language model is involved. Each translation
-also reports what it could not carry over. This page is the map: which
-systems the editor reads and writes, in which direction, and how importing and
-exporting work in general. Each system has a document of its own, linked below.
+The editor opens the files of other rule systems and contract systems as Logical
+English (LE). The editor also writes some Logical English programs in the format of a
+different system. Both translations obey fixed rules. Thus the same file always
+gives the same result, and the translations do not use a language model. Each
+translation also tells what it could not translate.
 
-Which systems a server translates depends on which translators are installed
-on it. The translators are part of the Logical English Translators, which the hosted
-service has. A server that runs the Logical English software alone has no
-translator at all. On such a server **File ▸ Import from Another System…** is
-hidden, **File ▸ Open…** offers only `.le` files, and **File ▸ Export to
-Another System…** says that no exporter can write the program.
+This page is the map. It tells which systems the editor reads and writes, and in
+which direction. It also tells how import and export operate in general. Each system
+has its own document, with a link below.
+
+The systems that a server translates depend on the translators that are installed on
+that server. The translators are part of the Logical English Translators. The hosted
+service has the Logical English Translators. A server that runs only the Logical
+English software has no translator. On such a server:
+
+- **File ▸ Import from Another System…** is hidden.
+- **File ▸ Open…** shows only `.le` files.
+- **File ▸ Export to Another System…** tells you that no exporter can write the
+  program.
 
 ## Contents
 
@@ -32,13 +37,16 @@ Another System…** says that no exporter can write the program.
 
 ## The map
 
-Every system below has a translator. An arrow that points into Logical English
-is an importer, which reads that system's files. A double arrow means that the
-way back exists too, so the editor can also write a program in that system's
-format. **LE for LPS** is Logical English with `the target language is: lps.`:
-programs that run in time, in the LPS2 IDE (the editor of the sister system,
-LPS, or Logic Production System). The systems drawn beside LE for LPS are
-documented in LPS2. Click a system in the drawing to open its document.
+Each system below has a translator. An arrow that points into Logical English is an
+importer. An importer reads the files of that system. A double arrow tells that the
+way back also exists. Thus the editor can also write a program in the format of that
+system.
+
+**LE for LPS** is Logical English with `the target language is: lps.`. LE for LPS
+programs run in time, in the LPS2 IDE. The LPS2 IDE is the editor of the sister
+system, LPS (Logic Production System). The documents of the systems that are next to
+LE for LPS in the diagram are in LPS2. Click a system in the diagram to open its
+document.
 
 ```mermaid
 flowchart LR
@@ -122,8 +130,9 @@ flowchart LR
   click DA "https://lps2.logicalcontracts.com/docs/user/integrations/daml" "Daml and LPS (LPS2 documentation)"
 ```
 
-The LPS2 editor has a map of its own, covering the systems that only LPS2
-reads (PDDL, Inform 7):
+
+The LPS2 editor has its own map. That map shows the systems that only LPS2 reads
+(PDDL, Inform 7):
 [other systems in LPS2](https://lps2.logicalcontracts.com/docs/user/integrations/index).
 
 ## The systems
@@ -131,13 +140,13 @@ reads (PDDL, Inform 7):
 | System | Ways | Document |
 |---|---|---|
 | Axiom RuleSpec module (United States statutes, regulations and policies as YAML) | import, export | [Axiom RuleSpec](rulespec.md) |
-| Excel workbook (.xlsx, .xlsm): formulas, lookup tables, the workbook's own answers | import; asked as a service | [Spreadsheets](spreadsheets.md) |
+| Excel workbook (.xlsx, .xlsm): formulas, lookup tables, the answers of the workbook | import; asked as a service | [Spreadsheets](spreadsheets.md) |
 | OpenFisca or PolicyEngine model (Python variables, YAML parameters and tests) | import, export | [OpenFisca and PolicyEngine](openfisca.md) |
 | Catala program (English or French), with its test scopes | import, export | [Catala](catala.md) |
-| Rune file: ISDA's Digital Regulatory Reporting, the Common Domain Model, or a model of your own | import, export (run on DRR's engine) | [Rune](rune.md) |
+| Rune file: the Digital Regulatory Reporting of ISDA, the Common Domain Model, or a model of your own | import, export (run on the engine of DRR) | [Rune](rune.md) |
 | Bitcoin Miniscript policy or descriptor | import, export | [Bitcoin Miniscript](miniscript.md) |
 | LegalRuleML (OASIS) | import, export | [LegalRuleML](legalruleml.md) |
-| s(CASP), Prolog, LE1's s(CASP) translations | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |
+| s(CASP), Prolog, the s(CASP) translations of LE1 | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |
 | Blawx project (version 1) | import | [Blawx](blawx.md) |
 | Oracle Intelligent Advisor project or rulebase | import | [Oracle Intelligent Advisor](oia.md) |
 | Socotra product configuration | import | [Socotra](socotra.md) |
@@ -150,64 +159,70 @@ reads (PDDL, Inform 7):
 
 ## Opening another system's file
 
-**File ▸ Open…** takes a Logical English file (`.le`), or a file of any system
-the server has a translator for. **File ▸ Import from Another System…** does
-the same, but offers only the other systems' files. Rest the pointer on that
-menu item, and a small label (a tooltip) lists the systems this server
-translates from.
+**File ▸ Open…** opens a Logical English file (`.le`). It also opens a file of each
+system for which the server has a translator. **File ▸ Import from Another System…**
+does the same, but it shows only the files of the other systems. Put the mouse
+pointer on that menu item. A small label (a tooltip) shows the list of the systems
+that this server can translate from.
 
-The editor sends the file to the server. The server translates the file and
-opens the result in a new tab. A note under the menu bar says which translator
-did the work, how many fragments of the file could not be translated, and
-whatever else the translator has to report. For a migration, the note gives
-the counts of the translator's ledger, a record of the source explained below.
-Close the note with its `×`.
+The editor sends the file to the server. The server translates the file and opens the
+result in a new tab. A note below the menu bar tells these items:
 
-Several translators may read files whose names end the same way (`zip`, `xml`,
-`json`, `txt`). Each of those translators looks at the file, and the one that
-recognises the file translates it. A zipped project is unpacked on the server.
-An archive holding a single folder is read as that folder.
+- the translator that did the work,
+- how many parts of the file the translator could not translate,
+- all other information that the translator gives.
 
-Programs in **Logical English for LPS** (`the target language is: lps.`) run in
-time rather than answering queries. For such a program the editor shows
-**Run in LPS** and **Legal View**, and running the program needs the LPS2
-server; see
+For a migration, the note gives the counts of the ledger of the translator. The
+ledger is a record of the source (refer to the next section). To close the note,
+click its `×`.
+
+Some translators can read files with the same extension at the end of their names
+(`zip`, `xml`, `json`, `txt`). Each of those translators examines the file. The
+translator that recognises the file translates it. The server unpacks a zipped
+project. If an archive contains only one folder, the server reads it as that folder.
+
+Programs in **Logical English for LPS** (`the target language is: lps.`) run in time.
+They do not answer queries. For such a program, the editor shows **Run in LPS** and
+**Legal View**. To run the program, you need the LPS2 server. Refer to
 [the editor guide](../guide/editor.md#advanced-features).
 
 ### What you get
 
-The translation is an ordinary Logical English program. You can query the
-program, edit it, and save it with **File ▸ Save As…**. When the source file
-has tests of its own, the translator writes them as scenarios, each with an
-`expects answers` line. **Misc ▸ Run the Program's Tests…** then shows which
-of those tests the program reproduces. A migration also writes a *ledger*
-beside the program (`<name>.ledger.md`): a table with one row for each element
-of the source. Each row says whether the element was *encoded*, *approximated*
-(with a note on how its meaning changed) or left as *residue*. The ledger also
-says how many of the source's tests the program passes.
+The translation is a usual Logical English program. You can query the program, edit
+it, and save it with **File ▸ Save As…**. The source file can have its own tests.
+Then the translator writes these tests as scenarios, each with an `expects answers`
+line. **Misc ▸ Run the Program's Tests…** then shows which of those tests the program
+passes.
 
-The server keeps the file you uploaded, and its translation, for a day in a
-folder of their own. The files the program includes, and the documents it
-cites, are kept in that folder too, so citations and **Show the Original**
-keep working while you work on the program. Save the program if you want to
-keep it for longer.
+A migration also writes a *ledger* next to the program (`<name>.ledger.md`). The
+ledger is a table with one row for each element of the source. Each row tells whether
+the element was *encoded*, *approximated* or left as *residue*. For an approximated
+element, a note tells how its meaning changed. The ledger also tells how many of the
+tests of the source the program passes.
 
-The program also carries the file you uploaded **inside itself**, as one long
-comment at the end: the text of the file, line by line, under a line that
-names it. A comment is text the system does not read as rules, so the comment
-changes nothing about what the program does. It is there so that the
-translation and the file it was made from stay together: the folder on the
-server is forgotten after a day, and a program you save to your own computer
-takes nothing with it but its own text. A file that is not text — a PDF, an
-archive, a spreadsheet — cannot be put in a comment, and the comment names it
-instead of carrying it. So does a file too long to carry.
+The server keeps the file that you uploaded, and its translation, for one day, in a
+separate folder. The server also keeps in that folder the files that the program
+includes and the documents that the program cites. Thus the citations and **Show the
+Original** continue to operate while you work on the program. To keep the program for
+a longer time, save it.
+
+The program also contains the file that you uploaded **inside itself**, as one long
+comment at the end. The comment contains the text of the file, line by line, below a
+line that gives the name of the file. A comment is text that the system does not read
+as rules. Thus the comment does not change what the program does.
+
+The comment keeps the translation and its source file together. The server forgets
+the folder after one day. A program that you save to your own computer takes nothing
+with it other than its own text. A file that is not text (a PDF, an archive, a
+spreadsheet) cannot go in a comment. Then the comment gives the name of the file
+instead of its text. The same is true for a file that is too long.
 
 ### What could not be translated
 
-A translator never gives up on the whole file because of one fragment it
-cannot read. The translator writes such a fragment into the program as a
-comment, whose first line starts with `% TODO` and is followed by the fragment
-word for word. A migration marks the fragment as a *residue block*:
+A translator never stops on the full file because of one part that it cannot read.
+The translator writes such a part into the program as a comment. The first line of
+the comment starts with `% TODO`, and the part of the file follows word for word. A
+migration marks the part as a *residue block*:
 
 ```le
 % RESIDUE r3 BEGIN: the collision rating plugin
@@ -216,138 +231,144 @@ word for word. A migration marks the fragment as a *residue block*:
 % RESIDUE r3 END
 ```
 
-You can translate a residue block by hand. The Contract Assistant's
-*Migration residue* mode can also do the work: the assistant translates the
-residue blocks and nothing else, then runs the program's tests on the result ([assistants](../guide/assistants.md#the-contract-assistant)).
+You can translate a residue block by hand. The *Migration residue* mode of the
+Contract Assistant can also do the work. In this mode, the assistant translates only
+the residue blocks. Then it runs the tests of the program on the result
+([assistants](../guide/assistants.md#the-contract-assistant)).
 
-A file that no translator recognises still opens. The editor then shows a
-program that holds the file's text inside a TODO comment, together with the
-reason no translator took the file. An archive that no translator recognises
-is refused.
+A file that no translator recognises still opens. Then the editor shows a program
+that contains the text of the file inside a TODO comment. The program also gives the
+reason why no translator translated the file. The editor refuses an archive that no
+translator recognises.
 
 ## Show the Original
 
-**File ▸ Show the Original…** shows the files a program was translated from,
-in the source viewer. The files are kept, by convention, in a `sources/`
-folder beside the program. File ▸ Open puts an uploaded file there, and the
-migration twins among the examples keep their originals there too. When there
-is a single file, the file opens straight away. When there are several, the
-editor lists them first and you pick one. A program with no `sources/` folder
-tells you that no original is kept. Files that are not text (PDF, images,
-archives) are not listed, because the viewer shows text only. The copy inside
-the program, described above, is the one that survives: scroll to the end of a
-program that was opened from another system's file, and the file is there.
+**File ▸ Show the Original…** shows the source files of a program in the source
+viewer. By convention, the source files are in a `sources/` folder next to the
+program. File ▸ Open puts an uploaded file there. The migration twins among the
+examples also keep their originals there.
+
+- When there is only one file, the file opens immediately.
+- When there are some files, the editor first shows a list, and you select one file.
+- A program with no `sources/` folder tells you that it keeps no original.
+
+The list does not show files that are not text (PDF, images, archives), because the
+viewer shows only text. The copy inside the program (refer to the section above) is
+the copy that the system keeps. Go to the end of a program that you opened from the
+file of a different system. The file is there.
 
 A program can also cite one of those files as the text of a document
-(`the text of the policy file is at "sources/…"`). In an explanation of an
-answer, the § badge beside a cited step opens the passage in that text.
+(`the text of the policy file is at "sources/…"`). In the explanation of an answer,
+the § badge next to a cited step opens the passage in that text.
 
-**View Original Text** (in the File menu, and in the menu you get by
-right-clicking any line) goes to the passage of the original that the sentence
-under the cursor was made from. On a citation the command opens the cited
-passage. Elsewhere the command looks in the originals for the rule, fact,
-table, template, scenario or query under the cursor. The search follows the
-links that the translators write into the program:
+**View Original Text** goes to the passage of the original from which the translator
+made the sentence at the cursor. This command is in the File menu, and in the menu
+that opens when you right-click a line. On a citation, the command opens the cited
+passage. In other places, the command looks in the originals for the rule, fact,
+table, template, scenario or query at the cursor. The search follows the links that
+the translators write into the program:
 
-- the sentence's label: `rule ps2_tblock1:` finds the element of the source
-  whose key is `ps2-tblock1` (names are compared ignoring capital letters,
-  `_` and `-`);
-- the entries the migration ledger holds about that sentence (their
-  `in_program` is the sentence's label or its template): each entry names a
-  source element, such as `anc/2`, which is found where the source defines
-  `anc`;
-- whatever the sentence cites: the document, the anchor in the document's
-  published address, and the identifiers that locate the passage
+- The label of the sentence. For example, `rule ps2_tblock1:` finds the element of
+  the source with the key `ps2-tblock1`. The comparison of names ignores capital
+  letters, `_` and `-`.
+- The entries of the migration ledger about that sentence. (The `in_program` of
+  each such entry is the label of the sentence or its template.) Each entry names a
+  source element, for example `anc/2`. The search finds this element where the
+  source defines `anc`.
+- All that the sentence cites: the document, the anchor in the published address of
+  the document, and the identifiers that give the location of the passage
   (`at MathVariable PremiumTaxMV`).
 
-Where the source both defines something and mentions it elsewhere, the
-definition wins (`key="…"`, `id="…"`, `"name": "…"`, a clause head at the
-start of a line, `def …`). The passage highlighted is the element around the
-definition, or the block that starts on the definition's line; for a clause
-head, the clauses of the same head that follow are highlighted as well. When
-no passage is found, the originals open with a note saying so. A program that
-has neither originals nor cited text tells you that it keeps no original text.
+The source can define an element and also mention it in other places. Then the
+definition wins (`key="…"`, `id="…"`, `"name": "…"`, a clause head at the start of a
+line, `def …`). The highlighted passage is the element around the definition, or the
+block that starts on the line of the definition. For a clause head, the clauses with
+the same head that follow are also highlighted. When the search finds no passage, the
+originals open with a note that tells this. A program that has no originals and no
+cited text tells you that it keeps no original text.
 
 ## Exporting to another system
 
-**File ▸ Export to Another System…** writes the program of the tab in front in
-another system's format. The menu offers only the exporters that apply to that
-program. When one exporter applies, the export runs straight away; when
-several apply, the editor asks which one to use. The result opens in a window
-holding:
+**File ▸ Export to Another System…** writes the program of the front tab in the
+format of a different system. The menu shows only the exporters that apply to that
+program. When one exporter applies, the export starts immediately. When more than one
+exporter applies, the editor asks which exporter to use. The result opens in a
+window. The window contains these items:
 
-- the export's notes, which say what was left behind even though none of the
-  program's meaning was lost (comments, queries and expected answers, layout);
+- the notes of the export. The notes tell what the export did not keep, although the
+  program kept all of its meaning (comments, queries and expected answers, layout);
 - **Copy** and **Save…**;
-- a button for each public playground where the result can be opened, when the
-  exporter has one;
+- a button for each public playground that can open the result, when the exporter
+  has one;
 - the exported text.
 
-The exporters are Bitcoin Miniscript (for spending-policy programs), LegalRuleML
-(for ordinary rule programs) and Daml (for LE for LPS programs). For example,
-`migration/miniscript/core_2of3_multisig` is offered both Miniscript and
-LegalRuleML. The LPS2 editor has the same exporters under **Misc ▸ Export to
-another system…**, and one more of its own, **Misc ▸ Deploy as Solidity…**.
+The exporters are Bitcoin Miniscript (for spending-policy programs), LegalRuleML (for
+usual rule programs) and Daml (for LE for LPS programs). For example, the editor
+shows both Miniscript and LegalRuleML for `migration/miniscript/core_2of3_multisig`.
+The LPS2 editor has the same exporters in **Misc ▸ Export to another system…**. It
+also has one more exporter of its own, **Misc ▸ Deploy as Solidity…**.
 
 ### When an export is refused
 
-An exporter first checks whether it can write the program *faithfully*. When
-the program uses something the other system cannot express, the exporter
-**refuses** and writes nothing: a translation that quietly meant something
-else would be worse than no translation at all. A window titled *Not
-translated to …* says how many problems were found, and lists each one. When a
-problem has a place in the program, the list gives the line as a link that
-takes you there, the program's own words at that line, and what the other
-system lacks.
+An exporter first checks whether it can write the program *faithfully*. The program
+can use something that the other system cannot express. Then the exporter
+**refuses** and writes nothing. A translation that has a different meaning, without
+a warning, is worse than no translation.
 
-Two refusals you can reproduce with the examples:
+A window with the title *Not translated to …* tells how many problems the exporter
+found, and lists each problem. When a problem has a location in the program, the list
+gives these items:
 
-- `regulatory/eu261_integration` to LegalRuleML: the program has a decision
-  table, which LegalRuleML cannot state, and one rule cites a source
-  (`according to`) inside `it is not the case that`. The window gives the
-  table's line. For the second problem the window points at the `according to`
-  itself, and reports the use of `according to`: `it is not the case that` on
-  its own exports without difficulty, so the problem lies in what stands
-  inside it.
-- `migration/miniscript/core_2of3_multisig` to LegalRuleML: the program's
-  spending rule counts signatures (`a number N is the count of each K such
-  that …`), and LegalRuleML has no aggregates. The Miniscript exporter writes
-  that same program.
+- the line, as a link that takes you to that line,
+- the words of the program at that line,
+- what the other system does not have.
 
-An integrity constraint (`it must not be true that …`) is a problem for any
-system that has no constraints of its own.
+You can see two refusals with the examples:
 
-The editor refuses in the same way wherever it translates a program into
-another language. **See s(CASP)** (in the menu you get by right-clicking in
-the editor) and the s(CASP) engine show the same list when the program uses
-something s(CASP) cannot state (see [s(CASP)](../reference/scasp.md)).
+- `regulatory/eu261_integration` to LegalRuleML. The program has a decision table,
+  which LegalRuleML cannot state. Also, one rule cites a source (`according to`)
+  inside `it is not the case that`. The window gives the line of the table. For the
+  second problem, the window points at the `according to` itself, and reports the use
+  of `according to`. The export of `it is not the case that` alone has no problem.
+  Thus the problem is in what is inside it.
+- `migration/miniscript/core_2of3_multisig` to LegalRuleML. The spending rule of the
+  program counts signatures
+  (`a number N is the count of each K such that …`), and
+  LegalRuleML has no aggregates. The Miniscript exporter writes that same program.
+
+An integrity constraint (`it must not be true that …`) is a problem for each system
+that has no constraints of its own.
+
+The editor refuses in the same way in all places where it translates a program into
+a different language. **See s(CASP)** is in the menu that opens when you right-click
+in the editor. **See s(CASP)** and the s(CASP) engine show the same list when the
+program uses something that s(CASP) cannot state (refer to
+[s(CASP)](../reference/scasp.md)).
 
 ## The migration twins among the examples
 
-The translators have been run on published programs of their source systems.
-The results are called *twins*, and the twins are among the examples: open
-them with **File ▸ Open example from server…**, or from the landing page. Each
-twin comes with its ledger, its source's tests written as scenarios, and its
-`sources/` folder.
+The translators were run on published programs of their source systems. The results
+are called *twins*, and the twins are among the examples. To open a twin, select
+**File ▸ Open example from server…**, or use the landing page. Each twin has its
+ledger, the tests of its source written as scenarios, and its `sources/` folder.
 
 - `migration/blawx/…`: Blawx encodings;
-- `migration/l4/…`: L4's examples and courses, their rules, and the history
+- `migration/l4/…`: the examples and courses of L4, their rules, and the history
   views of their contracts;
 - `migration/legalruleml/…`: the examples of the LegalRuleML specification;
-- `migration/rulespec/…`: United States benefit and tax rules from Axiom's
-  RuleSpec corpus (SNAP food assistance, the Child Tax Credit, the Earned
-  Income Tax Credit, Supplemental Security Income);
-- `migration/miniscript/…`: Bitcoin spending policies, each with a custody
-  view, flip queries for lost keys, and scenarios confirmed by a recorded
-  run on the public Tape network;
-- `migration/scasp/…`: s(CASP) programs, including LE1's.
+- `migration/rulespec/…`: United States benefit rules and tax rules from the RuleSpec
+  corpus of Axiom (SNAP food assistance, the Child Tax Credit, the Earned Income Tax
+  Credit, Supplemental Security Income);
+- `migration/miniscript/…`: Bitcoin spending policies. Each policy has a custody
+  view, flip queries for lost keys, and scenarios that a recorded run on the public
+  Tape network confirmed;
+- `migration/scasp/…`: s(CASP) programs, including the programs of LE1.
 
-The twins written in Logical English for LPS (Daml, Drools, Solidity, L4's
-contracts) are
-among the examples of LPS2. The twins of Oracle Intelligent Advisor, Oracle
-Insurance Policy Administration (OIPA), Socotra and Epilog are only on
-installations that have the lpsPlus examples (under `lpsPlus/migration/`), and
-only for users with access to them.
+The twins written in Logical English for LPS (Daml, Drools, Solidity, the contracts
+of L4) are among the examples of LPS2. The twins of Oracle Intelligent Advisor,
+Oracle Insurance Policy Administration (OIPA), Socotra and Epilog are only on
+installations that have the lpsPlus examples (in `lpsPlus/migration/`). Only users
+with access to these examples can open them.
 
 ## See also
 

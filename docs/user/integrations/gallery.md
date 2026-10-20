@@ -2,18 +2,19 @@
 
 *Kind: gallery · Audience: anyone deciding whether Logical English can read their rules · Status: current (2026-10-18)*
 
-Logical English (LE) is a way of writing rules in English that a computer can
-run. A *translator* is a program that reads another system's files and writes
-the same rules in Logical English. The result is called a *twin*. Each twin
-keeps the other system's own tests, written as *scenarios*: sets of facts
-with the answers the other system gives. Running the scenarios checks the
-twin against the other system.
+Logical English (LE) is a way to write rules in English that a computer can run. A
+*translator* is a program that reads the files of a different system and writes the
+same rules in Logical English. The result is called a *twin*. Each twin keeps the
+tests of the other system, written as *scenarios*. A scenario is a set of facts,
+together with the answers that the other system gives. When you run the scenarios,
+you check the twin against the other system.
 
-This page lists the eighteen systems the translators read, what each twin
-was checked against, and the result. Where the twin may be published, the
-**Open** link runs it in your browser, with no account and nothing to
-install. Where it may not, because the other system's licence does not allow
-it, the page says so, and the video shows the twin running.
+This page lists the eighteen systems that the translators read. For each system, the
+page tells what the twin was checked against, and the result. When the twin can be
+published, the **Open** link runs the twin in your browser. You do not need an
+account, and you do not have to install software. When the licence of the other
+system does not let us publish the twin, the page tells you. Then the video shows the
+twin when it runs.
 
 ## Contents
 
@@ -25,95 +26,97 @@ it, the page says so, and the video shows the twin running.
 
 ## The eighteen systems
 
-"Both ways" means the editor can also write a Logical English program back
-in the other system's own format. *LE for LPS* is Logical English for
-programs that act over time, such as contracts; it runs in the sister editor,
-LPS2 (Logic Production Systems 2).
+"Both ways" means that the editor can also write a Logical English program back in
+the format of the other system. *LE for LPS* is Logical English for programs that act
+over time, for example contracts. LE for LPS runs in the sister editor, LPS2 (Logic
+Production Systems 2).
 
 | System | Direction | Checked against | Result | Twin | Video | Guide |
 |---|---|---|---|---|---|---|
-| **Axiom RuleSpec** (United States benefit and tax rules) | both ways | Axiom's own engine | 473 of 473; written back, 37 of 39 programs pass every case on Axiom's engine, and the other 2 are refused with reasons | [Open](/editor/index.html?example=migration/rulespec/snap/us_policies_usda_snap_fy_2024_cola_maximum_allotments) | [watch](https://www.youtube.com/watch?v=ZF593VoCCK8) | [guide](/docs/user/integrations/rulespec) |
-| **Bitcoin Miniscript** (spending policies) | both ways | a test Bitcoin network | 361 of 361, including payments confirmed on the network | [Open](/editor/index.html?example=migration/miniscript/liana_inheritance/liana_inheritance) | [watch](https://www.youtube.com/watch?v=04Vbk13G7K4) | [guide](/docs/user/integrations/miniscript) |
-| **Blawx**, version 1 (rules as code, Canada; not the hosted Blawx 2 and 3) | into LE | Blawx's own answers | 163 of 163, over 15 projects | [Open](/editor/index.html?example=migration/blawx/rps/rps) | [watch](https://www.youtube.com/watch?v=_CdWVsLthhk) | [guide](/docs/user/integrations/blawx) |
-| **Catala** (laws as programs, in English and French) | both ways, *preliminary* | Catala's own interpreter | 129 of 129 over 9 programs, 15 more waiting; written back, 42 of 42 tests pass on Catala | [Open](/editor/index.html?example=migration/catala/smic/smic) (the French minimum wage, in Français Logique) | [watch](https://www.youtube.com/watch?v=GEm6ybIKyWM) | [guide](/docs/user/integrations/catala) |
-| **Daml** (contracts on the Canton network) | both ways, as LE for LPS | a Canton sandbox | 18 of 22 scripts end in exactly Daml's active contracts, the other 4 explained | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/daml/simple_iou/simple_iou.le) | [watch](https://www.youtube.com/watch?v=9Svirhcghb4) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/daml) |
-| **Drools** (business rule files) | into LE and LE for LPS | a real Drools session | 5 of 5 rule bases end in Drools' own working memory | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/drools/insurance/insurance.le) | [watch](https://www.youtube.com/watch?v=sdb3BJdb5jE) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/drools) |
-| **Epilog** (Stanford's rule language) | into LE and LE for LPS | EpilogJS, Epilog's own engine | 17 of 17 rulesets; 70 of 74 games end in Epilog's own state | not published: no licence | [watch](https://www.youtube.com/watch?v=hqGWqiyA4So) | [guide](/docs/user/integrations/epilog) |
-| **Excel workbooks** (calculators kept in spreadsheets) | into LE | the workbook itself, recomputed | every value checked agrees: 2,588 values over 7 workbooks, 484 more waiting | [Open](/editor/index.html?example=migration/spreadsheet/cms_mlr/cms_mlr) (the United States medical loss ratio form) | [watch](https://www.youtube.com/watch?v=cVKjigqVvlo) | [guide](/docs/user/integrations/spreadsheets) |
-| **L4** (legal rules and contracts, Singapore) | into LE and LE for LPS | L4's own evaluator | 621 of 621 rule answers; 87 of 95 contract runs end where L4's do, the other 8 not translated | [Open](/editor/index.html?example=migration/l4/british_citizen_act/british_citizen_act) | [watch](https://www.youtube.com/watch?v=Rb0rHYy1Ys8) | [guide](/docs/user/integrations/l4) |
-| **LegalRuleML** (the OASIS standard for legal norms) | both ways | SPINdle, a reasoner for the standard | 68 of 68, over the standard's 12 examples | [Open](/editor/index.html?example=migration/legalruleml/ex5_section29new/ex5_section29new) | [watch](https://www.youtube.com/watch?v=oPdimQmfE4M) | [guide](/docs/user/integrations/legalruleml) |
-| **Oracle Insurance Policy Administration (OIPA)** (life and annuity transactions) | into LE | an independent calculator of OIPA's formulas | 103 of 103 values, over 6 transactions | [Open](/editor/index.html?example=migration/oipa/termlife_grace_check/termlife_grace_check) | [watch](https://www.youtube.com/watch?v=IFxy2gi_BjU) | [guide](/docs/user/integrations/oipa) |
-| **Oracle Intelligent Advisor** (rules for public services and insurance) | into LE | the projects' own test results | 475 of 476 test outcomes, over 5 public projects (the one miss is Oracle's *unknown* answer: where a test leaves a question unanswered, Oracle concludes *unknown*, while Logical English reads the missing answer as false) | the five twins are not published: the projects carry no licence. Instead, [Open](/editor/index.html?example=regulatory/dfe_funding/dfe_16_19_funding&scenario=full_time&query=OnProgPayment) the whole of England's 16 to 19 funding rulebase, which the Department for Education publishes as rule documents: written by hand from them, not translated, and checked against an independent second reading rather than Oracle's engine | [watch](https://www.youtube.com/watch?v=i4qEYqAnvUs) | [guide](/docs/user/integrations/oia) |
-| **PolicyEngine and OpenFisca** (tax and benefit models) | both ways, *preliminary* | the models' own engines | 719 of 774 of the models' own test answers over 6 models (the 55 that differ are listed in each twin's ledger); on France's own model, 2,286 of 2,302 income tax cases | not published: the models' licence would extend to the twins | [watch](https://www.youtube.com/watch?v=WgYGTqR1GJE) | [guide](/docs/user/integrations/openfisca) |
-| **Ponens** (policies for the record of an AI agent's session: ESMA, NIST, IOSCO, MISRA, DO-178C and others) | both ways, as LE for LPS | Ponens's own evaluator | 11,236 of 11,236 verdicts, over all 213 policies of 14 packs and 53 traces; written back, the same 11,236 | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/ponens/esma_mifid_ai_investment_services/esma_mifid_ai_investment_services.le) | (not yet on the channel) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/ponens) |
-| **Rune** (the derivatives industry's reporting rules, from FINOS and ISDA) | both ways | the reporting engine's own expected reports | 99.1% of 102,879 report fields; written back, 2,197 of 2,249 reports exactly as the engine gives them | not published: the rules may be shared only unchanged | (not yet on the channel) | [guide](/docs/user/integrations/rune) |
-| **s(CASP) and Prolog** (logic programs) | both ways | s(CASP) itself | 21 of 21, 2 more waiting; written back, 87 of 93 programs come back unchanged | [Open](/editor/index.html?example=migration/scasp/loanwithcure/loanwithcure) | [watch](https://www.youtube.com/watch?v=BI6TJf6TVHk) | [guide](/docs/user/integrations/scasp) |
-| **Socotra** (insurance products) | into LE | a reference run of Socotra's own scripts | 992 of 992 runnable expectations, over 17 public products | not published: no licence | [watch](https://www.youtube.com/watch?v=bNIW68EFP2c) | [guide](/docs/user/integrations/socotra) |
-| **Solidity** (Ethereum smart contracts) | both ways, as LE for LPS | the Solidity compiler and a virtual machine replaying 822 real USDC payments | 849 of 849 values agree | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/solidity/replay/usdc_window.le) | [watch](https://www.youtube.com/watch?v=xksKg0QvW6Y) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/solidity) |
+| **Axiom RuleSpec** (United States benefit and tax rules) | both ways | the engine of Axiom | 473 of 473. Written back: 37 of 39 programs pass each case on the engine of Axiom. The export refuses the other 2, and gives the reasons | [Open](/editor/index.html?example=migration/rulespec/snap/us_policies_usda_snap_fy_2024_cola_maximum_allotments) | [watch](https://www.youtube.com/watch?v=ZF593VoCCK8) | [guide](/docs/user/integrations/rulespec) |
+| **Bitcoin Miniscript** (spending policies) | both ways | a test Bitcoin network | 361 of 361. This number includes payments that the network confirmed | [Open](/editor/index.html?example=migration/miniscript/liana_inheritance/liana_inheritance) | [watch](https://www.youtube.com/watch?v=04Vbk13G7K4) | [guide](/docs/user/integrations/miniscript) |
+| **Blawx**, version 1 (rules as code, Canada; not the hosted Blawx 2 and 3) | into LE | the answers of Blawx | 163 of 163, in 15 projects | [Open](/editor/index.html?example=migration/blawx/rps/rps) | [watch](https://www.youtube.com/watch?v=_CdWVsLthhk) | [guide](/docs/user/integrations/blawx) |
+| **Catala** (laws as programs, in English and French) | both ways, *preliminary* | the interpreter of Catala | 129 of 129 in 9 programs, 15 more waiting. Written back: 42 of 42 tests pass on Catala | [Open](/editor/index.html?example=migration/catala/smic/smic) (the French minimum wage, in Français Logique) | [watch](https://www.youtube.com/watch?v=GEm6ybIKyWM) | [guide](/docs/user/integrations/catala) |
+| **Daml** (contracts on the Canton network) | both ways, as LE for LPS | a Canton sandbox | 18 of 22 scripts end with exactly the active contracts of Daml. The guide explains the other 4 | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/daml/simple_iou/simple_iou.le) | [watch](https://www.youtube.com/watch?v=9Svirhcghb4) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/daml) |
+| **Drools** (business rule files) | into LE and LE for LPS | a real Drools session | 5 of 5 rule bases end with the same working memory as Drools | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/drools/insurance/insurance.le) | [watch](https://www.youtube.com/watch?v=sdb3BJdb5jE) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/drools) |
+| **Epilog** (the rule language of Stanford) | into LE and LE for LPS | EpilogJS, the engine of Epilog | 17 of 17 rulesets. 70 of 74 games end in the same state as in Epilog | not published: no licence | [watch](https://www.youtube.com/watch?v=hqGWqiyA4So) | [guide](/docs/user/integrations/epilog) |
+| **Excel workbooks** (calculators kept in spreadsheets) | into LE | the workbook itself, calculated again | each checked value agrees: 2,588 values in 7 workbooks, 484 more waiting | [Open](/editor/index.html?example=migration/spreadsheet/cms_mlr/cms_mlr) (the United States medical loss ratio form) | [watch](https://www.youtube.com/watch?v=cVKjigqVvlo) | [guide](/docs/user/integrations/spreadsheets) |
+| **L4** (legal rules and contracts, Singapore) | into LE and LE for LPS | the evaluator of L4 | 621 of 621 rule answers. 87 of 95 contract runs end at the same point as in L4. The translator did not translate the other 8 | [Open](/editor/index.html?example=migration/l4/british_citizen_act/british_citizen_act) | [watch](https://www.youtube.com/watch?v=Rb0rHYy1Ys8) | [guide](/docs/user/integrations/l4) |
+| **LegalRuleML** (the OASIS standard for legal norms) | both ways | SPINdle, a reasoner for the standard | 68 of 68, in the 12 examples of the standard | [Open](/editor/index.html?example=migration/legalruleml/ex5_section29new/ex5_section29new) | [watch](https://www.youtube.com/watch?v=oPdimQmfE4M) | [guide](/docs/user/integrations/legalruleml) |
+| **Oracle Insurance Policy Administration (OIPA)** (life and annuity transactions) | into LE | an independent calculator of the formulas of OIPA | 103 of 103 values, in 6 transactions | [Open](/editor/index.html?example=migration/oipa/termlife_grace_check/termlife_grace_check) | [watch](https://www.youtube.com/watch?v=IFxy2gi_BjU) | [guide](/docs/user/integrations/oipa) |
+| **Oracle Intelligent Advisor** (rules for public services and insurance) | into LE | the test results of the projects | 475 of 476 test results, in 5 public projects. The one difference is the *unknown* answer of Oracle. When a test gives no answer to a question, Oracle concludes *unknown*. Logical English reads the missing answer as false | not published: the five projects have no licence. Instead, [Open](/editor/index.html?example=regulatory/dfe_funding/dfe_16_19_funding&scenario=full_time&query=OnProgPayment) the full 16 to 19 funding rulebase of England. The Department for Education publishes this rulebase as rule documents. A person wrote it by hand from these documents. It is not a translation. It was checked against an independent second reading, not against the engine of Oracle | [watch](https://www.youtube.com/watch?v=i4qEYqAnvUs) | [guide](/docs/user/integrations/oia) |
+| **PolicyEngine and OpenFisca** (tax and benefit models) | both ways, *preliminary* | the engines of the models | 719 of 774 test answers of the models, in 6 models. The ledger of each twin lists the 55 answers that are different. On the model of France: 2,286 of 2,302 income tax cases | not published: the licence of the models would apply to the twins | [watch](https://www.youtube.com/watch?v=WgYGTqR1GJE) | [guide](/docs/user/integrations/openfisca) |
+| **Ponens** (policies for the record of the session of an AI agent: ESMA, NIST, IOSCO, MISRA, DO-178C and others) | both ways, as LE for LPS | the evaluator of Ponens | 11,236 of 11,236 verdicts, in all 213 policies of 14 packs and 53 traces. Written back: the same 11,236 | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/ponens/esma_mifid_ai_investment_services/esma_mifid_ai_investment_services.le) | (not yet on the channel) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/ponens) |
+| **Rune** (the reporting rules of the derivatives industry, from FINOS and ISDA) | both ways | the expected reports of the reporting engine | 99.1% of 102,879 report fields. Written back: 2,197 of 2,249 reports are exactly the same as the reports of the engine | not published: you can share the rules only without changes | (not yet on the channel) | [guide](/docs/user/integrations/rune) |
+| **s(CASP) and Prolog** (logic programs) | both ways | s(CASP) itself | 21 of 21, 2 more waiting. Written back: 87 of 93 programs come back without changes | [Open](/editor/index.html?example=migration/scasp/loanwithcure/loanwithcure) | [watch](https://www.youtube.com/watch?v=BI6TJf6TVHk) | [guide](/docs/user/integrations/scasp) |
+| **Socotra** (insurance products) | into LE | a reference run of the scripts of Socotra | 992 of 992 expected values that can run, in 17 public products | not published: no licence | [watch](https://www.youtube.com/watch?v=bNIW68EFP2c) | [guide](/docs/user/integrations/socotra) |
+| **Solidity** (Ethereum smart contracts) | both ways, as LE for LPS | the Solidity compiler, and a virtual machine that replays 822 real USDC payments | 849 of 849 values agree | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/solidity/replay/usdc_window.le) | [watch](https://www.youtube.com/watch?v=xksKg0QvW6Y) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/solidity) |
 
 ## How to read the results
 
-- **"475 of 476"** means: the other system's own tests gave 476 answers, and
-  the twin gave the same answer to 475 of them. Each guide says what the
-  misses are.
-- **"15 more waiting"** means: 15 more of the other system's answers could
-  not be checked yet, because the parts of the program they need are not
-  translated. They are kept, as comments in the scenarios, with the reason
-  for each, and are counted neither as agreeing nor as differing.
-- **"Preliminary"** means: a good part of a large real program is still left
-  for a person to translate. The translator gives a head start, not yet a
+- **"475 of 476"** means that the tests of the other system gave 476 answers. The
+  twin gave the same answer in 475 of these cases. Each guide tells what the
+  differences are.
+- **"15 more waiting"** means that 15 more answers of the other system cannot be
+  checked yet. The parts of the program that these answers need are not translated.
+  The scenarios keep these answers as comments, with the reason for each answer. The
+  results do not count these answers as agreements or as differences.
+- **"Preliminary"** means that a large part of a large real program is still left
+  for a person to translate. The translator gives a good start, but not yet a
   finished program.
-- **"Written back"** means: the twin, or a program written in Logical English,
-  was translated back into the other system's format and run on that
-  system's own engine.
-- **A refusal is a result too.** When a program says something the other
-  system cannot express, the export refuses and names the lines, rather than
-  writing something that means something else.
-- **What was not translated is kept.** Each twin has a *ledger*: a table with
-  one row for each part of the source, saying whether that part was
-  translated, approximated (with a note on how its meaning changed), or left
-  for a person to translate. Choose **File ▸ Show the Original…** in the
-  editor to see the source beside the twin.
+- **"Written back"** means that the twin, or a program written in Logical English,
+  was translated back into the format of the other system. Then it was run on the
+  engine of that system.
+- **A refusal is also a result.** A program can say something that the other system
+  cannot express. Then the export refuses and names the lines. The export does not
+  write something with a different meaning.
+- **The twin keeps what was not translated.** Each twin has a *ledger*. The ledger is
+  a table with one row for each part of the source. Each row tells whether that part
+  was translated, approximated, or left for a person to translate. For an
+  approximation, a note tells how its meaning changed. To see the source next to the
+  twin, select **File ▸ Show the Original…** in the editor.
 
 ## Try one in two minutes
 
-LegalRuleML is the standard of OASIS (a standards body) for writing legal
-rules in XML: who is obliged, permitted or forbidden to do what. Its
-specification has an example from section 29 of Australia's National
-Consumer Credit Protection Act: no one may engage in a credit activity
-without a licence, and the penalties for doing so.
+LegalRuleML is the standard of OASIS (a standards body) to write legal rules in XML.
+XML is a text format for structured data. LegalRuleML tells who is obliged,
+permitted or forbidden to do what. Its specification has an example from section 29
+of the National Consumer Credit Protection Act of Australia. Section 29 says that no
+one can engage in a credit activity without a licence. It also gives the penalties
+for this.
+
+Do these steps:
 
 1. Open the [twin of section 29](/editor/index.html?example=migration/legalruleml/ex5_section29new/ex5_section29new&scenario=unlicensed_trader&query=obligations).
-   The link chooses the scenario `unlicensed_trader` and the query
-   `obligations` for you.
-2. Click **Query**. There are two answers: alice is obliged to pay 200 penalty
-   units, and to pay 2000 civil penalty units.
-3. Click an answer. The explanation shows why: alice engages in a credit
-   activity without a credit licence, so she breaks the prohibition, and the
-   penalty is what the Act requires when the prohibition is broken.
-4. Choose the scenario `licensed_trader` and the query `permissions`: bob, who
-   holds a licence, is permitted to engage in a credit activity.
-5. Choose **File ▸ Show the Original…**: the LegalRuleML document the twin was
-   translated from.
+   The link selects the scenario `unlicensed_trader` and the query `obligations` for
+   you.
+2. Click **Query**. Two answers appear: alice is obliged to pay 200 penalty units,
+   and alice is obliged to pay 2000 civil penalty units.
+3. Click an answer. The explanation shows the reason: alice engages in a credit
+   activity without a credit licence. Thus she breaks the prohibition. The penalty is
+   what the Act requires when a person breaks the prohibition.
+4. Select the scenario `licensed_trader` and the query `permissions`. The answer is
+   that bob, who holds a licence, is permitted to engage in a credit activity.
+5. Select **File ▸ Show the Original…**. The editor shows the LegalRuleML document
+   that the twin was translated from.
 
 ## A free twin of your own program
 
-Send us one program, rulebase or spreadsheet of yours, from any of the
-systems above. Within five working days you get back its Logical English
-twin, its ledger, and a link that runs it in the browser. It is free, and
-yours to keep. We publish nothing without your written permission. Write to
+Send us one program, rulebase or spreadsheet of yours, from one of the systems above.
+In five working days, you receive its Logical English twin, its ledger, and a link
+that runs the twin in the browser. This service is free, and you can keep the
+result. We publish nothing without your written permission. Write to
 <licensing@logicalcontracts.com>, or use the form at
 <https://logicalcontracts.com/home/contact-us/>.
 
-The translators themselves are licensed: see
-<https://logicalcontracts.com/logical-english-extensions/>. Every twin is
-provided "as is", without warranty: check a twin against its source before
-relying on it.
+The translators themselves have a licence: refer to
+<https://logicalcontracts.com/logical-english-extensions/>. Each twin is given "as
+is", without warranty. Check a twin against its source before you rely on it.
 
 ## See also
 
-- [Other systems: importing and exporting](/docs/user/integrations/index): how
-  the translators work, and the guide to each system.
+- [Other systems: importing and exporting](/docs/user/integrations/index): how the
+  translators work, and the guide to each system.
 - [Signing in, and what a licence adds](/docs/user/guide/accounts).
 - The videos, all on one channel:
   <https://www.youtube.com/@logicalcontracts>.

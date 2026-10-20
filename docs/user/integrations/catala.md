@@ -2,24 +2,26 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-10-06)*
 
-**Catala** is a programming language for laws, made at Inria, the French
-national research institute for computer science. A Catala program is
-*literate*: the text of the law and the code that says what it means sit
-side by side in one file, each piece of code under the article it
-translates. Catala has two dialects with the same meaning, English
-(`.catala_en`) and French (`.catala_fr`). The French social security
-agency for family benefits, the CNAF (Caisse nationale des allocations
-familiales), decided in June 2026 to compute its housing allowance in
-Catala.
+**Catala** is a programming language for laws. Inria made Catala. Inria is the French
+national research institute for computer science. A Catala program is *literate*.
+This means that the text of the law and the code that tells its meaning are side by
+side in one file. Each piece of code is below the article that it translates.
 
-Logical English (LE) reads a Catala program, and writes one.
-**File ▸ Open…** (or **File ▸ Import from Another System…**) takes a
-`.catala_en` or `.catala_fr` file, or a zip file of a program's files with
-its tests. The result is a Logical English program, written in French
-(*Français Logique*) when the Catala is French. **File ▸ Export to Another
-System… ▸ Catala** writes a Logical English program as Catala. The
-translator is part of the Logical English Translators, so only installations
-that have them offer it.
+Catala has two dialects with the same meaning: English (`.catala_en`) and French
+(`.catala_fr`). The CNAF (Caisse nationale des allocations familiales) is the French
+social security agency for family benefits. In June 2026, the CNAF decided to
+calculate its housing allowance in Catala.
+
+Logical English (LE) can read a Catala program, and LE can also write one. **File ▸
+Open…** (or **File ▸ Import from Another System…**) reads a `.catala_en` or
+`.catala_fr` file. It also reads a zip file of the files of a program with its tests.
+A zip file is one compressed file that contains many files. The result is a Logical
+English program. When the Catala is French, the program is written in French
+(*Français Logique*).
+
+**File ▸ Export to Another System… ▸ Catala** writes a Logical English program as
+Catala. The translator is part of the Logical English Translators. Thus only
+installations that have the Logical English Translators show this menu item.
 
 ## Contents
 
@@ -34,137 +36,159 @@ that have them offer it.
 
 ## How Catala is organised
 
-A Catala program is made of *scopes*. A scope is one calculation the law
-describes, such as the monthly minimum wage. It declares its *inputs* (the
-facts it is given, such as the date and the region), and the *outputs* it
-computes (the wage). Its *definitions* say how each output is computed, each
-under the article of the law it comes from. A scope may use another scope:
-the family benefits scope uses the minimum wage scope, for example. A *test
-scope* gives a scope its inputs and states, in *assertions*, the outputs
-the law should produce.
+A Catala program contains *scopes*. A scope is one calculation that the law
+describes, for example the monthly minimum wage. A scope declares its *inputs* and
+its *outputs*. The inputs are the facts that the scope receives, for example the
+date and the region. The outputs are the values that the scope calculates, for
+example the wage. The *definitions* of the scope tell how the scope calculates each
+output. Each definition is below the article of the law that it comes from.
+
+A scope can use a different scope. For example, the family benefits scope uses the
+minimum wage scope. A *test scope* gives the inputs to a scope. The test scope also
+states, in *assertions*, the outputs that the law must give.
 
 ## What happens when a program is opened
 
-The translator reads the Catala files as text, after Catala's own grammar;
-it does not run Catala. Each output of a scope becomes a Logical English
-rule; each input a fact that each *scenario* (the facts of one case, with
-the answers its test expects) states; each test scope a scenario. A scope
-that the program uses is copied into the program, its names led by the
-name the program gives it. The originals are kept in the program's
-`sources/` folder: **File ▸ Show the Original** shows them. Each rule cites
-the headings of the articles it translates, and the citation opens the
-Catala file under `sources/`.
+The translator reads the Catala files as text, with the grammar of Catala. The
+translator does not run Catala.
+
+- Each output of a scope becomes a Logical English rule.
+- Each input becomes a fact that each *scenario* states. A scenario is the facts of
+  one case, together with the answers that its test expects.
+- Each test scope becomes a scenario.
+
+The translator copies into the program each scope that the program uses. The names
+of a copied scope start with the name that the program gives to the scope.
+
+The program keeps the originals in its `sources/` folder. **File ▸ Show the
+Original** shows the originals. Each rule cites the headings of the articles that it
+translates. The citation opens the Catala file in `sources/`.
 
 ## How Catala becomes Logical English
 
 | In Catala | In Logical English |
 |---|---|
-| a scope's output: `output qualified_employee_discount content money` | a template: `the qualified employee discount is *an amount*` |
-| an input: `input customer_price content money` | a fact the scenario states: `the customer price is 1500.` |
-| a condition: `rule is_property under condition … consequence fulfilled` | a sentence that holds: `the case is property` |
-| `definition x under condition c consequence equals e` | a rule whose conditions are c |
-| several definitions of one output, each with its condition | one rule, its parts joined by `otherwise` |
+| an output of a scope: `output qualified_employee_discount content money` | a template: `the qualified employee discount is *an amount*` |
+| an input: `input customer_price content money` | a fact that the scenario states: `the customer price is 1500.` |
+| a condition: `rule is_property under condition … consequence fulfilled` | a sentence that is true: `the case is property` |
+| `definition x under condition c consequence equals e` | a rule with the conditions c |
+| some definitions of one output, each with its condition | one rule, with its parts joined by `otherwise` |
 | `if … then … else …`, `match … with pattern` | `otherwise` |
-| an enumeration, such as the regions of France | a code: `the résidence is "Mayotte"` |
+| an enumeration, for example the regions of France | a code: `the résidence is "Mayotte"` |
 | `résidence = Métropole ou résidence = Guadeloupe ou …` | `le code est dans ["Métropole", "Guadeloupe", …]` |
-| money, decimals, percentages, dates | numbers and dates; an amount times a rate rounded to the cent, as Catala does |
-| a scope another scope uses | its rules, copied under the user's name for it |
+| money, decimals, percentages, dates | numbers and dates. An amount multiplied by a rate is rounded to the cent, as in Catala |
+| a scope that a different scope uses | the rules of the scope, copied below the name that the user gives to it |
 
-A program in French is written in Français Logique: `le brut horaire est
-*un montant*`, `la condition … est remplie`. Français Logique writes
-French's short forms (*l'*, *d'*, *au*, *du*), and reads them either way.
+The translator writes a program in French in Français Logique: `le brut horaire est
+*un montant*`, `la condition … est remplie`. Français Logique writes the short forms
+of French (*l'*, *d'*, *au*, *du*). Français Logique reads both the short forms and
+the long forms.
 
 ## Exceptions
 
-Catala lets a definition be an *exception* to another: when the exception's
-condition holds, its value replaces the other's. The translator keeps the
-order Catala gives them: in the Logical English rule, the exception comes
-first, and the definition it is an exception to comes after `otherwise`. So
-the first part that applies gives the answer, as in Catala.
+In Catala, a definition can be an *exception* to a different definition. When the
+condition of the exception is true, the value of the exception replaces the other
+value. The translator keeps the order that Catala gives. In the Logical English rule,
+the exception comes first. The definition that has the exception comes after
+`otherwise`. Thus the first part that applies gives the answer, as in Catala.
 
-There is one difference. When two definitions at the same level both apply,
-Catala stops with an error (a *conflict*): the law, as written, gives two
-answers. Logical English takes the first. So each rule where a conflict can
-happen is marked in the program's ledger, the record of what was translated
-from what, as an approximation. The translator checks its reading of every
-exception against Catala's own. One conflict was found in Catala's own
-minimum wage example: for Mayotte, the November 2024 decree's amount is
-dated from 1 January 2024, so from January to October 2024 two amounts
-apply. Catala stops there, and that case is left out of the twin, with
-Catala's reason.
+There is one difference. Two definitions at the same level can both apply. Then
+Catala stops with an error, called a *conflict*: the law, as written, gives two
+answers. Logical English uses the first answer. Thus the ledger of the program marks
+as an approximation each rule where a conflict can occur. The ledger is the record of
+what was translated from what.
 
-A *context* variable is a value the scope works out unless its caller or
-a test gives one. In the program it becomes a rule with two parts: first
-the value the scenario gives (*the gain cap given is …*), otherwise the
-scope's own definition. One difference remains: the assertions a Catala
-program states about its own values are not yet checked by the program.
+The translator compares its reading of each exception with the reading of Catala. The
+comparison found one conflict in the minimum wage example of Catala itself. For
+Mayotte, the amount of the decree of November 2024 starts on 1 January 2024. Thus
+from January to October 2024, two amounts apply. Catala stops in that case. The twin
+does not contain that case, and it gives the reason of Catala. (A twin is the
+translation of a program from a different system.)
+
+A *context* variable is a value that the scope calculates when its caller or a test
+does not give one. In the program, a context variable becomes a rule with two parts.
+The first part is the value that the scenario gives (*the gain cap given is …*). The
+second part, after `otherwise`, is the definition of the scope. One difference stays:
+the program does not yet check the assertions that a Catala program states about its
+own values.
 
 ## What is left for a person to translate
 
-Most of Catala translates. A definition that takes a child (or any other
-structure) as its parameter becomes a rule about a child: each child is an
-individual of the program, and the child's details are facts about it. A
-list of structures, such as the periods a person owned a house, becomes one
-individual for each element, with a fact that says which list it is in; a
-sum over the list becomes a sum over those individuals. A duration becomes a
-number of months added to a date, or a number of days between two dates.
+The translator can translate most of Catala:
 
-A value defined in steps (Catala's *states*) becomes one rule per step,
-each step reading the one before it; the last step has the value's own
-name. A structure, such as a person's details, and an enumeration whose
-cases carry a value, such as the kind of tax return with the people it
-names, become one fact for each detail: *the return type is "JointReturn"*,
-and the details of that case under its name. A value that is a structure
-(*person 1* chosen from the kind of return) becomes one rule for each of its
-details. A function of an amount, such as the treatment of the final
-housing allowance, becomes one rule for each amount it is applied to,
-named after it: *le traitement aide finale de aide finale formule
-initiale*.
+- A definition can take a child (or any other structure) as its parameter. Such a
+  definition becomes a rule about a child. Each child is an individual of the
+  program, and the details of the child are facts about the child.
+- A list of structures becomes one individual for each element. An example is the
+  periods when a person owned a house. A fact tells the list that contains each
+  individual. A sum over the list becomes a sum over those individuals.
+- A duration becomes a number of months added to a date, or a number of days between
+  two dates.
+- A value that Catala defines in steps (the *states* of Catala) becomes one rule for
+  each step. Each step reads the step before it. The last step has the name of the
+  value.
+- A structure becomes one fact for each detail. An example is the details of a
+  person. An enumeration whose cases carry a value also becomes one fact for each
+  detail. An example is the kind of tax return with the persons that it names: *the
+  return type is "JointReturn"*, and the details of that case below its name.
+- A value that is a structure (*person 1* selected from the kind of return) becomes
+  one rule for each of its details.
+- A function of an amount becomes one rule for each amount that the function applies
+  to. An example is the treatment of the final housing allowance. Each rule has the
+  name of its amount: *le traitement aide finale de aide finale formule initiale*.
 
-Some of Catala has no translation yet: combining a list step by step (a
-*fold*), and lists built inside a definition. Such a definition is kept in the program as a *residue* block:
-its Catala text, the reason it was not translated, and the sentence a
-translation must conclude. The scenarios that depend on it are left out of
-the program and counted in the program's ledger, the record of what was
-translated from what.
+Some parts of Catala have no translation yet: the combination of a list step by step
+(a *fold*), and lists that a definition makes inside itself. The program keeps such
+a definition as a *residue* block. The residue block contains the Catala text, the
+reason that the translator did not translate it, and the sentence that a translation
+must conclude. The program does not contain the scenarios that depend on a residue
+block. The ledger of the program counts these scenarios. The ledger is the record of
+what was translated from what.
 
 ## Writing a program as Catala
 
-**File ▸ Export to Another System… ▸ Catala** writes the program as one
-Catala file in the English dialect: one scope, `Program`, with the
-program's inputs and the values and conditions its rules conclude. A value
-given only under conditions, with no last `otherwise`, has no value in the
-other cases, written with Catala's `impossible`. A code (a value in words)
-becomes an enumeration of the words the program uses. Each scenario
-becomes a test scope that Catala's `clerk test` runs. Numbers are written as
-decimals: Catala distinguishes money, decimals and whole numbers, and Logical
-English does not. A program that Catala cannot express is refused, with the
-reasons: sums or counts over the things related to a case, values with
-dates, rounding up or down. A rule about a child is written as a Catala
-definition that depends on a child: the child's details become a
-structure, and each scenario asks the definition about the child it
-describes. A number of months added to a date becomes a Catala duration.
+**File ▸ Export to Another System… ▸ Catala** writes the program as one Catala file in
+the English dialect. The file has one scope, `Program`. The scope contains the inputs
+of the program, and the values and conditions that its rules conclude.
+
+- A value can be given only under conditions, with no last `otherwise`. Such a value
+  has no value in the other cases. The export writes these cases with `impossible` of
+  Catala.
+- A code (a value in words) becomes an enumeration of the words that the program
+  uses.
+- Each scenario becomes a test scope that `clerk test` of Catala runs.
+- Numbers are written as decimals. Catala makes a difference between money, decimals
+  and whole numbers, but Logical English does not.
+- A rule about a child becomes a Catala definition that depends on a child. The
+  details of the child become a structure. Each scenario asks the definition about the
+  child that the scenario describes.
+- A number of months added to a date becomes a Catala duration.
+
+The export refuses a program that Catala cannot express, and it gives the reasons.
+Examples are sums or counts over the things related to a case, values with dates, and
+rounding up or down.
 
 ## The examples
 
-The examples in `examples/migration/catala` come from Catala's own examples
+The examples in `examples/migration/catala` come from the examples of Catala
 (`catala-examples`, Apache-2.0 licence):
 
 | Program | Dialect | Checked |
 |---|---|---|
 | United States tax code, section 132 (qualified employee discounts) | English | its 3 tests: 8 of 8 answers |
-| The French minimum wage (SMIC), 2019 to 2024 | French | 29 cases made from its dates and regions, checked against Catala's interpreter |
-| The monthly base of French family allowances, 2019 to 2024 | French | 6 cases, the same way |
-| United States tax code, section 121 (sale of a principal residence) | English | whole: its 6 tests, for one person and for two, pass |
-| French family benefits, eligibility | French | whole: its test, about four children, becomes four scenarios, and all pass |
-| French housing allowance (*aides au logement*, the CNAF's programme): the rental calculation (`apl_locatif`) | French | whole: its 9 tests, 49 answers, all pass |
+| The French minimum wage (SMIC), 2019 to 2024 | French | 29 cases made from its dates and regions, checked against the interpreter of Catala |
+| The monthly base of French family allowances, 2019 to 2024 | French | 6 cases, checked in the same way |
+| United States tax code, section 121 (sale of a principal residence) | English | in full: its 6 tests, for one person and for two persons, pass |
+| French family benefits, eligibility | French | in full: its test, about four children, becomes four scenarios, and all pass |
+| French housing allowance (*aides au logement*, the programme of the CNAF): the rental calculation (`apl_locatif`) | French | in full: its 9 tests, 49 answers, all pass |
 
-Written back to Catala, section 132, the minimum wage, the monthly base and
-the family benefits pass every test on Catala's interpreter. Section 121 is
-not written back yet: its sums over lists of periods have no Catala form in
-the exporter. The housing allowance is not written back either: two of its
-rules are cascades inside cascades that the exporter does not read yet. A
-program that still holds residue blocks is not written back.
+The export writes back to Catala section 132, the minimum wage, the monthly base and
+the family benefits. These programs pass each test on the interpreter of Catala.
+The export does not write back section 121 yet. Its sums over lists of periods have
+no Catala form in the exporter. The export does not write back the housing allowance
+either. Two of its rules are cascades inside cascades, and the exporter cannot read
+these cascades yet. The export does not write back a program that contains residue
+blocks.
 
 ## See also
 

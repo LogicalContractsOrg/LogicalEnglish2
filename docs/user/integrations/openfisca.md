@@ -2,29 +2,40 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-10-05)*
 
-**OpenFisca** is free software that governments and researchers use to
-write a country's taxes and benefits as programs, and to compute them for
-many households at once. France's tax and benefit system is written in it,
-and so are smaller models such as OpenFisca's own *country template*, a
-teaching example. **PolicyEngine** is a version of OpenFisca with its own
-models of the taxes and benefits of the United States and the United
-Kingdom. A model is a package of Python files. Each *variable* (an amount, a
-yes-or-no question, a code) has a formula; *parameters* (rates, thresholds,
-tables) are kept in files of their own with the dates they change; and test
-files say what the formulas should give for sample households.
+**OpenFisca** is free software. Governments and researchers use OpenFisca to write
+the taxes and benefits of a country as programs. They also use OpenFisca to
+calculate the taxes and benefits for many households at the same time. The tax and
+benefit system of France is written in OpenFisca. Smaller models are also written in
+OpenFisca, for example the *country template* of OpenFisca, which is a teaching
+example.
 
-Logical English (LE) reads such a model, and writes one. **File ▸ Open…**
-(or **File ▸ Import from Another System…**) takes a Python file of
-variables, or a zip file of a model's files. The result is a Logical
-English program: each variable a rule, each parameter a value for each period,
-and each test the program can take a *scenario* (a set of facts about one
-household, with the answers the test expects). **File ▸ Export to Another System… ▸ OpenFisca**
-writes a Logical English program as one Python file that OpenFisca runs.
-The translator is part of the Logical English Translators, so only
-installations that have them offer it. The models are published under the
-AGPL licence, so the translations of PolicyEngine's and OpenFisca's own
-models, called *twins*, are kept on the hosted service, not in the
-examples of every installation.
+**PolicyEngine** is a version of OpenFisca. PolicyEngine has its own models of the
+taxes and benefits of the United States and the United Kingdom.
+
+A model is a package of Python files. Python is a programming language. Each
+*variable* in a model is an amount, a yes-or-no question or a code, and each variable
+has a formula. *Parameters* are rates, thresholds and tables. The model keeps the
+parameters in separate files, together with the dates on which their values change.
+Test files tell what the formulas must give for sample households.
+
+Logical English (LE) can read such a model, and LE can also write one. **File ▸
+Open…** (or **File ▸ Import from Another System…**) reads a Python file of
+variables, or a zip file of the files of a model. A zip file is one compressed file
+that contains many files. The result is a Logical English program:
+
+- Each variable becomes a rule.
+- Each parameter becomes a value for each period.
+- Each test that the program can use becomes a *scenario*. A scenario is a set of
+  facts about one household, together with the answers that the test expects.
+
+**File ▸ Export to Another System… ▸ OpenFisca** writes a Logical English program as
+one Python file that OpenFisca can run. The translator is part of the Logical English
+Translators. Thus only installations that have the Logical English Translators show
+this menu item.
+
+The models have the AGPL licence. Thus the hosted service keeps the translations of
+the models of PolicyEngine and OpenFisca. These translations are called *twins*. The
+examples of each installation do not contain the twins.
 
 ## Contents
 
@@ -36,102 +47,127 @@ examples of every installation.
 
 ## What happens when a model is opened
 
-When a model is opened, the translator reads its files as text; it does
-not run the Python. (The twins of PolicyEngine's models were made
-differently: from the model installed with its engine, so that every
-parameter has the engine's own values, and each test was run on the
-engine to check it.) The translator starts from the variables nothing else in the upload reads (the results
-of the model) and follows every variable their formulas read. A variable
-the upload reads but does not define becomes a fact that each scenario
-states. The test files become scenarios, and their expected values the
-answers the scenarios expect. The notes say how many variables were
+When you open a model, the translator reads the files of the model as text. The
+translator does not run the Python.
+
+(The twins of the PolicyEngine models were made in a different way. They were made
+from the model that was installed with its engine. Thus each parameter has the values
+of the engine. Also, each test was run on the engine to check the test.)
+
+The translator starts from the variables that nothing else in the upload reads.
+These variables are the results of the model. Then the translator follows each
+variable that the formulas of these variables read. Some variables are read by the
+upload but are not defined in it. Each such variable becomes a fact that each
+scenario must state.
+
+The test files become scenarios. The expected values of the tests become the answers
+that the scenarios expect. The notes tell how many variables the translator
 translated, and how many tests pass.
 
-The originals are kept in the program's `sources/` folder: **File ▸ Show
-the Original…** shows them. Each rule cites the variable's label and its
-reference, usually a link to the statute.
+The program keeps the originals in its `sources/` folder. **File ▸ Show the
+Original…** shows the originals. Each rule cites the label of the variable and its
+reference. The reference is usually a link to the statute.
 
 ## How the Python becomes Logical English
 
 | In the model | In Logical English |
 |---|---|
-| a variable of a household, with a formula | a rule concluding `the snap net income of *an spm unit* is *an amount*` |
-| a yes-or-no variable | a rule concluding a sentence: `*an spm unit* is snap eligible` |
-| a parameter, with the dates its value changes | one rule for each period of its value; `the calculation date`, which each scenario states, picks the rule |
-| a table of parameters (by state, by household size) | one fact per row, with the dates it holds |
-| `where`, `select`, `max_`, `min_`, rounding | `otherwise`, the maximum and minimum of two values, LE's rounding |
-| a group's sum over its members | `the sum of each … such that the person is a member of the spm unit` |
-| a tax scale with brackets | the brackets written out, each rate times the part of the income in its bracket |
-| a variable's formulas from different dates | one rule per date range |
-| a question a person asks of the group the person belongs to (`person.benunit.any(...)`) | a sentence about the group, `*a benunit* has members who count for …`, read through `the person is a member of a benunit` |
-| a person's age from a birth date | the whole months from the birth date to the calculation date, divided by 12 |
-| a list kept as a parameter (`np.isin(status, p.eligible_statuses)`) | `the code is in [...]`, one list for each period the parameter defines |
-| a loop over a list written in the model, or a helper function of the model | written out: one copy of the loop's body per item; the helper's body in place of its call |
+| a variable of a household, with a formula | a rule that concludes `the snap net income of *an spm unit* is *an amount*` |
+| a yes-or-no variable | a rule that concludes a sentence: `*an spm unit* is snap eligible` |
+| a parameter, with the dates on which its value changes | one rule for each period of its value. Each scenario states `the calculation date`, and this date selects the rule |
+| a table of parameters (by state, by household size) | one fact for each row, with the dates on which the fact is true |
+| `where`, `select`, `max_`, `min_`, rounding | `otherwise`, the maximum and the minimum of two values, the rounding of LE |
+| the sum of a group over its members | `the sum of each … such that the person is a member of the spm unit` |
+| a tax scale with brackets | the brackets written in full. Each rate is multiplied by the part of the income in its bracket |
+| the formulas of a variable from different dates | one rule for each range of dates |
+| a question that a person asks of the group of the person (`person.benunit.any(...)`) | a sentence about the group, `*a benunit* has members who count for …`, read through `the person is a member of a benunit` |
+| the age of a person from a birth date | the number of whole months from the birth date to the calculation date, divided by 12 |
+| a list that the model keeps as a parameter (`np.isin(status, p.eligible_statuses)`) | `the code is in [...]`, with one list for each period that the parameter defines |
+| a loop over a list that the model writes, or a helper function of the model | written in full: one copy of the body of the loop for each item, and the body of the helper function in the place of its call |
 
-**Months and years.** A model defines each variable for a month or for a
-year. When a test asks for a year of a monthly variable, PolicyEngine adds
-up the twelve months. The translator checks with the model's own engine
-that the twelve months are equal; when they are, the scenario is one month
-at a twelfth of the yearly figures. In the same way, when a monthly formula
-reads an income defined for a year, PolicyEngine divides it by twelve, and
-the rule says `/ 12`; a size or an age keeps its value.
+**Months and years.** A model defines each variable for a month or for a year. When a
+test asks for a year of a monthly variable, PolicyEngine adds the values of the twelve
+months. The translator uses the engine of the model to check that the twelve months
+are equal. When the months are equal, the scenario is one month, at one twelfth of
+the yearly values. Also, a monthly formula can read an income that is defined for a
+year. Then PolicyEngine divides the income by twelve, and the rule says `/ 12`. A
+size or an age keeps its value.
 
-**The years a twin covers.** A twin keeps the parameter values of the years
-its tests ask about. An *integrity constraint* (a sentence `it must not be
-true that …`, which a scenario must not break) says so: a scenario dated
-before the first of those years or after the last is refused, with the
-reason, instead of being answered from values the twin does not have.
+**The years that a twin covers.** A twin keeps the parameter values of the years that
+its tests ask about. An *integrity constraint* tells this. An integrity constraint is
+a sentence `it must not be true that …`, and a scenario must not break it. The twin
+refuses a scenario with a date before the first of those years or after the last of
+those years. The twin gives the reason. It does not give an answer from values that
+it does not have.
 
-**Inputs whose default is "yes".** In a model, some facts are true unless
-a case says otherwise: a household takes up the benefit, a person files a
-tax return. In Logical English a sentence a scenario does not state is
-false. So the twin turns such a fact around: *a spm unit declines snap if
-eligible* is the twin's sentence for the model's `takes_up_snap_if_eligible`,
-and a scenario that says nothing about it means what the model's default
-means.
+**Inputs whose default is "yes".** In a model, some facts are true when a case does
+not tell otherwise. For example, a household takes up the benefit, and a person files
+a tax return. In Logical English, a sentence that a scenario does not state is false.
+Thus the twin uses the opposite sentence. For example, *a spm unit declines snap if
+eligible* is the sentence of the twin for `takes_up_snap_if_eligible` of the model. A
+scenario that does not state this sentence has the same meaning as the default of the
+model.
 
-**Roles in a group.** A household's adults and children are the roles the
-model's tests give. Each becomes a fact of the scenario, *person 1 is adult
-in household*, and the model's count of the adults a count of the members
-for whom that fact holds.
+**Roles in a group.** The adults and the children of a household are the roles that
+the tests of the model give. Each role becomes a fact of the scenario, for example
+*person 1 is adult in household*. The count of the adults in the model becomes a
+count of the members for whom that fact is true.
 
 ## What is left for a person to translate
 
-Python can say things that have no fixed translation: values a variable
-had in another period (last year's income), tables of texts kept as
-parameters (a utility allowance by state and by expense), a value drawn at
-random by the model's simulation, and an order that depends on the position
-of a family in its household. Loops over a list written in the model or kept
-as a parameter, dictionaries written in the model, the model's own helper
-functions and functions defined inside a formula are translated (see the
-table above).
-Such a formula is kept in the program as a *residue* block: its Python,
-the reason it was not translated, and the sentence a translation must
-conclude. The scenarios that depend on it are left out of the program and
-counted in the program's ledger, the record of what was translated from
-what. The LE Contract Assistant can translate a residue block on request.
+Python can say some things that have no fixed translation:
+
+- the values that a variable had in a different period (for example, the income of
+  the last year),
+- tables of texts that the model keeps as parameters (for example, a utility
+  allowance by state and by expense),
+- a value that the simulation of the model selects at random,
+- an order that depends on the position of a family in its household.
+
+The translator translates these items (refer to the table above):
+
+- loops over a list that the model writes or keeps as a parameter,
+- dictionaries that the model writes,
+- the helper functions of the model,
+- functions that a formula defines inside itself.
+
+The program keeps a formula that has no translation as a *residue* block. The residue
+block contains the Python, the reason that the translator did not translate it, and
+the sentence that a translation must conclude. The program does not contain the
+scenarios that depend on a residue block. The ledger of the program counts these
+scenarios. The ledger is the record of what was translated from what. The LE Contract
+Assistant can translate a residue block when you ask it.
 
 ## Writing a program as an OpenFisca model
 
-**File ▸ Export to Another System… ▸ OpenFisca** writes the program as one
-Python file: the kinds of things it speaks of (each person, and each group
-such as a household), a variable for each template, the parameters, and a
-function `system()` that assembles them; the scenarios follow as
-OpenFisca's tests. A program that OpenFisca cannot express is refused,
-with the reasons: a value concluded only under conditions, with no
-`otherwise`. A rule about a person may read a value of the person's group
-(*the person is a member of a tax unit and the tax unit …*), and a rule
-about a group may add up, count, or take the largest or smallest value over
-its members. A person's place among the members of its group (a child's
-rank among the children) is written as the number of members, meeting the
-same condition, who come before it.
+**File ▸ Export to Another System… ▸ OpenFisca** writes the program as one Python
+file. The file contains these items:
+
+- the kinds of things that the program is about (each person, and each group, for
+  example a household),
+- a variable for each template,
+- the parameters,
+- a function `system()` that puts these items together.
+
+The scenarios follow, as tests of OpenFisca.
+
+The export refuses a program that OpenFisca cannot express, and it gives the reasons.
+An example is a value that the program concludes only under conditions, with no
+`otherwise`.
+
+A rule about a person can read a value of the group of the person (*the person is a
+member of a tax unit and the tax unit …*). A rule about a group can add, count, or
+find the largest or the smallest value over its members. The place of a person among
+the members of its group (for example, the rank of a child among the children)
+becomes the number of members that meet the same condition and come before that
+person.
 
 ## See also
 
 - [Other systems: importing and exporting](index.md)
-- [OpenFisca-France et Français Logique](openfisca-france.md): France's
-  model as twins in Français Logique, and its housing allowance compared
-  with the CNAF's Catala programme (in French)
-- [Axiom RuleSpec and Logical English](rulespec.md): the same benefit rules
-  written by the Axiom Foundation
+- [OpenFisca-France et Français Logique](openfisca-france.md): the model of France as
+  twins in Français Logique, and its housing allowance compared with the Catala
+  programme of the CNAF (in French)
+- [Axiom RuleSpec and Logical English](rulespec.md): the same benefit rules, written
+  by the Axiom Foundation
 - OpenFisca: https://openfisca.org · PolicyEngine: https://policyengine.org

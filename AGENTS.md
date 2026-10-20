@@ -23,6 +23,10 @@ documents are written" section of `docs/README.md` (kept identical in LE2 and
 LPS2). The names of Logical English's own ideas — a template, a scenario, a
 fluent — are part of what is being taught: use them, and define each at first
 use.
+User documents are written in ASD-STE100 Simplified Technical English (short
+sentences, numbered steps, active voice, one word for one meaning): the rules
+are the "Simplified Technical English" subsection of `docs/README.md`, and the
+model is `docs/user/tutorials/intro-to-le/intro-to-le.md`.
 
 If /lps2 exists, it contains the Logic Production Systems repository, which depends on ours.
 

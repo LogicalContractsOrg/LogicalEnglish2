@@ -3,25 +3,26 @@
 *Kind: integration guide · Audience: users · Status: current (2026-10-05)*
 
 The Axiom Foundation publishes United States law as programs. Each program
-covers one provision of a statute, a regulation or an agency's policy, such
-as section 2017(a) of title 7 of the United States Code, which sets the
-monthly amount of food assistance (SNAP, the Supplemental Nutrition
-Assistance Program). The programs are written in a format called
-**RuleSpec**: a text file in YAML, a common format for structured data, with
-a second file beside it that holds the provision's tests. Axiom's
-collection, `rulespec-us`, holds about 5,000 such programs, and Axiom's own
-engine runs them.
+covers one provision of a statute, a regulation or the policy of an agency. An
+example is section 2017(a) of title 7 of the United States Code. That section
+sets the monthly amount of food assistance (SNAP, the Supplemental Nutrition
+Assistance Program). The programs are in a format with the name **RuleSpec**.
+A RuleSpec program is a text file in YAML. YAML is a common format for
+structured data. A second file is adjacent to the program file, and that file
+holds the tests of the provision. The collection of Axiom, `rulespec-us`, holds
+approximately 5,000 of these programs. The engine of Axiom runs them.
 
-Logical English (LE) reads RuleSpec, and writes it. **File ▸ Open…** (or
-**File ▸ Import from Another System…**) takes a RuleSpec file, alone or in a
-zip file with the files it uses. The result is an ordinary Logical English
-program, with the provision's tests as scenarios. **File ▸ Export to Another
-System…** writes a Logical English program as a RuleSpec file, with the
-program's scenarios as its tests. The translator is part of the Logical
-English Translators, so only installations that have them, such as the
-hosted service, offer it. The translations of Axiom's programs for food
-assistance, two tax credits and Supplemental Security Income, called
-*twins*, come with every installation.
+Logical English (LE) reads RuleSpec, and LE also writes RuleSpec. **File ▸
+Open…** (or **File ▸ Import from Another System…**) accepts a RuleSpec file.
+The file can be alone, or in a zip file with the files that it uses. The
+result is an ordinary Logical English program. The tests of the provision
+become scenarios in that program. **File ▸ Export to Another System…** writes
+a Logical English program as a RuleSpec file. The scenarios of the program
+become the tests of the file. The translator is a part of the Logical English
+Translators. Thus only the installations that have the Translators give the
+translator, for example the hosted service. Every installation has the
+translations of the Axiom programs for food assistance, two tax credits and
+Supplemental Security Income. These translations have the name *twins*.
 
 ## Contents
 
@@ -35,10 +36,11 @@ assistance, two tax credits and Supplemental Security Income, called
 
 ## RuleSpec in brief: a small example
 
-A RuleSpec file is a list of rules. A **parameter** is a number the law
-states. A **derived** rule computes a value, or decides a yes-or-no
-question (RuleSpec calls such a question a *judgment*), from a formula. A
-name that no rule defines is an **input**: the facts of the case give it.
+A RuleSpec file is a list of rules. A **parameter** is a number that the law
+states. A **derived** rule calculates a value from a formula. A derived rule
+can also decide a yes-or-no question from a formula. RuleSpec calls this type
+of question a *judgment*. A name that no rule defines is an **input**. The
+facts of the case give the value of an input.
 
 ```yaml
 format: rulespec/v1
@@ -63,9 +65,9 @@ rules:
               0
 ```
 
-Its twin in Logical English says the same in sentences. Each name becomes a
-**template**, the pattern of a sentence with places for its values; each
-rule cites the provision it comes from:
+The twin in Logical English says the same thing in sentences. Each name
+becomes a **template**. A template is the pattern of a sentence, with places
+for its values. Each rule cites the provision that it comes from:
 
 ```
 the snap minimum allotment rate is 0.08, as stated in "7 USC 2017(a)", confer "8 percent".
@@ -80,8 +82,8 @@ the snap regular month allotment of a household is an amount N if
     and N = 0.
 ```
 
-A test of the RuleSpec file becomes a **scenario**, a set of facts about one
-case, with the answers the test expects:
+A test of the RuleSpec file becomes a **scenario**. A scenario is a set of
+facts about one case, with the answers that the test expects:
 
 ```
 scenario household_not_certified_eligible_receives_no_regular_month_allotment is,
@@ -96,86 +98,97 @@ scenario household_not_certified_eligible_receives_no_regular_month_allotment is
 
 | | |
 |---|---|
-| Reads | a RuleSpec file (`.yaml` starting `format: rulespec/v1`), alone or in a zip with the files it uses (`imports`) |
-| Writes | one Logical English program: the file, and every file it uses, each provision under a comment naming it |
-| Tests | the companion `.test.yaml`, when it is there: one scenario per test case |
+| Reads | a RuleSpec file (`.yaml` that starts with `format: rulespec/v1`), alone or in a zip file with the files that it uses (`imports`) |
+| Writes | one Logical English program: the file and each file that it uses, each provision below a comment that gives its name |
+| Tests | the companion `.test.yaml`, if it is there: one scenario for each test case |
 | Way back | **File ▸ Export to Another System… ▸ Axiom RuleSpec**: one RuleSpec file, with the scenarios as its tests |
-| Checked against | Axiom's own engine, `axiom-rules-engine`: on Axiom's 39 programs that come as twins, the twins give all 473 answers the tests expect, and 37 of the 39 twins, written back as RuleSpec, pass all their tests on Axiom's engine |
+| Checked against | the engine of Axiom, `axiom-rules-engine`. Axiom has 39 programs that come as twins. The twins give all 473 answers that the tests expect. LE wrote the 39 twins back as RuleSpec, and 37 of them pass all their tests on the engine of Axiom |
 
 ## How to use it
 
-1. Choose **File ▸ Import from Another System…** and pick a RuleSpec file,
-   or a zip file of a provision and the provisions it uses (as laid out in
-   `rulespec-us`: `us/statutes/7/2017/a.yaml`, …).
-2. The program opens. Its notes say how many provisions it holds, and how
-   many of the tests pass. A provision the file uses but the upload does not
-   hold is named in the notes: the values it would have computed become
-   facts that the scenarios state.
-3. Choose a scenario and a query, and click **Query**. Click an answer to
-   see why: each step names the provision, and **View Original Text** shows
-   the RuleSpec file, kept in the program's `sources/` folder.
+Do these steps:
 
-The twins of Axiom's programs are among the examples, under
-`migration/rulespec/`: `snap/` (food assistance), `ctc/` (the Child Tax
-Credit), `eitc/` (the Earned Income Tax Credit) and `ssi/` (Supplemental
-Security Income). Start with `snap/us_statutes_7_2017_a.le`, section 2017(a)
-with the four provisions it uses.
+1. Select **File ▸ Import from Another System…**.
+2. Select a RuleSpec file, or a zip file of a provision and the provisions that
+   it uses. The zip file has the layout of `rulespec-us` (`us/statutes/7/2017/a.yaml`, …).
+3. Read the notes of the program that opens. The notes tell how many provisions
+   the program holds, and how many of the tests pass.
+4. Select a scenario and a query.
+5. Click **Query**.
+6. Click an answer to see the reason for that answer.
+7. Click **View Original Text** to see the RuleSpec file.
+
+Each step of an explanation gives the name of its provision. The program keeps
+the RuleSpec file in its `sources/` folder.
+
+> Note: possibly the file uses a provision that the upload does not hold. The
+> notes give the name of that provision. The values that the provision
+> calculates become facts that the scenarios state.
+
+The twins of the Axiom programs are in the examples, in `migration/rulespec/`.
+The folders are `snap/` (food assistance), `ctc/` (the Child Tax Credit),
+`eitc/` (the Earned Income Tax Credit) and `ssi/` (Supplemental Security
+Income). Start with `snap/us_statutes_7_2017_a.le`. That program is section
+2017(a), with the four provisions that it uses.
 
 ## How RuleSpec maps to Logical English
 
 | RuleSpec | Logical English |
 |---|---|
-| a parameter | a fact, citing the provision and the words it quotes (`confer "8 percent"`) |
-| a table (`indexed_by`, `values`) | one fact per row: `the snap maximum allotment table for 3 is 785` |
-| a derived value | a rule concluding `the <name> of *a household* is *an amount*`; the words come from the rule's name |
-| a judgment | a rule concluding a sentence: `*a household* is snap eligible` |
-| an input | a template whose facts the scenario states; a yes-or-no input is a sentence, stated when it is true |
-| the names a formula reads | the rule's conditions, one for each name |
-| `if … else …`, `match` | an `otherwise` cascade: the first branch whose conditions hold gives the value |
-| `and`, `or`, `not` | the conditions; each alternative of an `or` is a rule of its own |
+| a parameter | a fact that cites the provision and the words that the provision quotes (`confer "8 percent"`) |
+| a table (`indexed_by`, `values`) | one fact for each row: `the snap maximum allotment table for 3 is 785` |
+| a derived value | a rule with the conclusion `the <name> of *a household* is *an amount*`; the words come from the name of the rule |
+| a judgment | a rule with a sentence as its conclusion: `*a household* is snap eligible` |
+| an input | a template that has its facts in the scenario; a yes-or-no input is a sentence, which the scenario states when it is true |
+| the names that a formula reads | the conditions of the rule, one condition for each name |
+| `if … else …`, `match` | an `otherwise` cascade: the first branch with conditions that are true gives the value |
+| `and`, `or`, `not` | the conditions; each alternative of an `or` is a separate rule |
 | `len`, `sum`, `count_where`, `sum_where` over a relation | `the count of each …`, `the sum of each …` |
-| dated versions | each version a rule that holds from its start date, read against `the calculation date` the scenario states |
+| dated versions | each version is a rule that is true from its start date; LE compares that date with `the calculation date` that the scenario states |
 
-Two differences of meaning are worth knowing:
+Two differences of meaning are important:
 
-- **A missing fact.** RuleSpec calls a yes-or-no question *undetermined*
-  when the case does not give a fact it needs. Logical English treats a
-  sentence that is not stated as false. A twin's scenarios state every fact
-  the tests give, so the answers agree; a case of your own must state its
-  facts too.
-- **Numbers.** Axiom's engine computes money with exact decimals. Logical
-  English computes with ordinary computer numbers, which are very slightly
-  inexact (386.5 × 0.3 is 115.94999999999999 for a computer). An answer
-  shows such a number as 115.95, and a test compares numbers as numbers.
-  The library `lib/rounding` rounds a value at a number of decimals, exactly,
-  when a rule needs it.
+- **A missing fact.** RuleSpec calls a yes-or-no question *undetermined* when
+  the case does not give a necessary fact. Logical English thinks that a
+  sentence that is not stated is false. The scenarios of a twin state all the
+  facts that the tests give, thus the answers agree. A case that you write must
+  also state its facts.
+- **Numbers.** The engine of Axiom calculates money with exact decimals.
+  Logical English calculates with ordinary computer numbers. These numbers are
+  very slightly inexact: for a computer, 386.5 × 0.3 is 115.94999999999999. An
+  answer shows this number as 115.95. A test compares numbers as numbers. When
+  a rule needs exact rounding, the library `lib/rounding` rounds a value
+  exactly, at a number of decimals.
 
 ## Writing a program back as RuleSpec
 
 **File ▸ Export to Another System… ▸ Axiom RuleSpec** writes the program as
-one RuleSpec file. The file's tests (the scenarios, with the answers they
-expect) follow it as a block of comments; save them as the file's
-`.test.yaml` to run them with Axiom's engine. The export refuses a program
-that RuleSpec cannot express, and lists what it refused and why:
+one RuleSpec file. The tests of the file come after it, as a block of
+comments. The tests are the scenarios, with the answers that they expect. To
+run the tests with the engine of Axiom, save them as the `.test.yaml` of the
+file. The export refuses a program that RuleSpec cannot express. The export
+gives a list of the parts that it refused, and the reason for each part. It
+refuses these parts:
 
-- a value concluded only when conditions hold, with no `otherwise` for the
-  other cases (RuleSpec has no "no value");
-- a rule that reads a value of something other than its subject, except
-  through a count or a sum over a relation;
-- several rules concluding one value that are not dated versions of it;
+- a value that a rule concludes only when conditions are true, with no
+  `otherwise` for the other cases (RuleSpec has no "no value");
+- a rule that reads a value of a thing that is not its subject, but a count or
+  a sum over a relation is permitted;
+- more than one rule with the same value as conclusion, when the rules are not
+  dated versions of that value;
 - a template with three places or more.
 
 ## What is not supported yet
 
-- **Compositions.** Axiom's composed programs (`module.kind: composition`)
-  are not read.
-- **Relations computed by a rule** (`derived_relation`), the date functions
-  (`days_between`, `date_add_days`, …) and the sums over periods are kept in
-  the program as untranslated blocks, marked for translation by hand or by
-  the Contract Assistant.
-- **Rounding of a money value** (`rounding:`) is noted as an approximation
-  in the ledger; it occurs in 6 rules of the whole collection, none among
-  the twins.
+- **Compositions.** LE does not read the composed programs of Axiom
+  (`module.kind: composition`).
+- **Relations that a rule calculates** (`derived_relation`), the date functions
+  (`days_between`, `date_add_days`, …) and the sums over periods. LE keeps them
+  in the program as blocks that it did not translate. The blocks have a mark:
+  a person or the Contract Assistant must translate them.
+- **Rounding of a money value** (`rounding:`). The ledger records this rounding
+  as an approximation. It occurs in 6 rules of the full collection, and in none
+  of the twins.
 
 ## See also
 
