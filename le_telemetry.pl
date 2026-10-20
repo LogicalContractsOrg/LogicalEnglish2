@@ -38,7 +38,11 @@
 :- use_module(library(readutil)).
 :- use_module(library(uuid)).
 :- use_module(library(http/http_open)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(le_i18n).
 
 :- dynamic sent/2.              % Key, Time: what was reported, and when

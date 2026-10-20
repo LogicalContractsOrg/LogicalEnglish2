@@ -8,7 +8,11 @@
     a query with more than one answer gives the list of its values, which
     the comparison reports as a fault in itself.
 */
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- initialization(main, main).
 
 main :-

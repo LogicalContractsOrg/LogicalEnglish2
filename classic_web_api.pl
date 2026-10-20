@@ -20,7 +20,11 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_json)).
+:- if(exists_source(library(json))).
+:- use_module(library(json), [atom_json_term/3]).
+:- else.
 :- use_module(library(http/json), [atom_json_term/3]).
+:- endif.
 :- use_module(library(http/http_client)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(http/http_files)).

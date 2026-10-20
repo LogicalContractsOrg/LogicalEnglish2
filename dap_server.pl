@@ -7,7 +7,11 @@
 :- module(dap_server, [dap_websocket_handler/1, dap_tracer_hook/6]).
 
 :- use_module(library(http/websocket)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(library(http/http_json)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_parameters)).

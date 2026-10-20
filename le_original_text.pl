@@ -46,7 +46,11 @@
 
 :- use_module(library(lists)).
 :- use_module(library(apply)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(le_provenance).
 :- use_module(le_documents).
 

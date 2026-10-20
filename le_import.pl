@@ -129,7 +129,11 @@
 :- use_module(library(readutil)).
 :- use_module(library(zip)).
 :- use_module(library(base64)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(le_i18n).           % the messages the comments and the fallbacks say
 
 :- multifile importer/6.

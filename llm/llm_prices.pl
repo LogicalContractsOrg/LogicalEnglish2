@@ -34,7 +34,11 @@
 
 :- use_module(library(http/http_open)).
 :- use_module(library(http/http_ssl_plugin)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(library(apply)).
 :- use_module(library(lists)).
 

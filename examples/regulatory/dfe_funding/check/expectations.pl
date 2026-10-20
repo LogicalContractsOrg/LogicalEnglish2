@@ -2,7 +2,11 @@
     answers as the test runner writes them, as JSON lines
     {"scenario": S, "query": Q, "answers": [...]}. build_examples.py turns
     them into `expects answers` lines. */
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- initialization(main, main).
 main :-
     current_prolog_flag(argv, [File|_]),

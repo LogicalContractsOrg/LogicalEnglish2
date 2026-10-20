@@ -27,7 +27,11 @@
 :- use_module(library(apply)).
 :- use_module(library(pairs)).
 :- use_module(library(readutil)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(library(pcre)).
 
 :- dynamic index_cache/3.       % Root, Stamp, Index

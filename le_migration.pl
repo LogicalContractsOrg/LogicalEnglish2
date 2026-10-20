@@ -66,7 +66,11 @@
 :- use_module(library(rbtrees)).
 :- use_module(library(apply)).
 :- use_module(library(option)).
+:- if(exists_source(library(json))).
+:- use_module(library(json)).
+:- else.
 :- use_module(library(http/json)).
+:- endif.
 :- use_module(le_writer).
 :- use_module(le_kbs).
 
