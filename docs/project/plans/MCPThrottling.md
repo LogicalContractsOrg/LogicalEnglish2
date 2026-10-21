@@ -1,6 +1,68 @@
 # Limiting how much one client can ask of the public server
 
-*Kind: plan · Audience: developers · Status: written 21 October 2026; steps 1 and 2 of [the order of the work](#the-order-of-the-work) built the same day, in LE2, LPS2 and lpsPlus ([What was built](#what-was-built-21-october-2026)); steps 3 and 4 are for later*
+*Kind: plan · Audience: developers · Status: steps 1 and 2 of [the order of the work](#the-order-of-the-work) built on 21 October 2026, in LE2, LPS2 and lpsPlus, for the tools of `/mcp` and for the assistants; not yet deployed; steps 3 and 4 are for later*
+
+## Status (21 October 2026)
+
+### Done
+
+| What | Where | Section |
+|---|---|---|
+| Time limit (60 s), size limits, at most 4 tool calls at once | `le_throttle.pl` (LE2; LPS2 loads it from its LE2 or `vendor/le2`) | [What was built](#what-was-built-21-october-2026) |
+| A budget for each client: token bucket, day total, event total; sessions (`Mcp-Session-Id`) behind a shared address | `le_throttle.pl` | idem |
+| Refusals a model can read (MCP), 429/413 with `Retry-After` (LE2's four plain addresses) | `llm/mcp.pl`; LPS2 `src/edges/lps_mcp.pl`, `lps_throttle.pl` | idem |
+| Smaller replies: long program text left out, `list_examples` filter, at most 50 answers to a remote client | `llm/mcp.pl` | idem |
+| Signed keys (person, event, licence holder), withdrawal, the admin's commands, the identity hook | lpsPlus `accounts/lc_accounts.pl`, `lc_accounts_admin.pl` | idem |
+| The licensed parts through MCP, with a licence holder's key | `llm/mcp.pl` (`mcp_roles/1`); LPS2 `lps_plus_set_visitor/2` | idem |
+| The assistants: requests paid with the server's key spend the same budget; with the user's own key, no limit | `le_api:llm_payer/3` + `classic_web_api.pl`; LPS2 `lps_assistant:llm_payer/3` + `lps_http.pl` | [The assistants](#the-assistants-21-october-2026-later-the-same-day) |
+| The user can always bring a key: the LE2 editor's dialog and the Contract Assistant's page accept one even when the server has a key; LPS2 prefers the user's key | `editor/src/client.ts`; lpsPlus `contract_assistant/web/app.js`; LPS2 `lps_assistant.pl`, `ui/src/assistant.js` | idem |
+| Documents: the MCP guides of LE2 and LPS2 ("Limits and keys"), the assistants guide, the LPS2 IDE guide, both privacy notices, the accounts README, the Contract Assistant README | `docs/user/…`, lpsPlus | — |
+
+Tests: `testing/test_throttle.pl` (13), `testing/test_llm_payer.pl` (7), the
+`lc_mcp_keys` unit of lpsPlus `accounts/test_lc_accounts.pl` (9), and by hand over
+HTTP on both servers (a refusal after the budget, a second session at the same
+address, a licence holder's key opening a private example, a user's own key never
+refused). The full LE2 suite on the final code: unit and examples pass; the browser
+suite fails 16, of which the 10 known on this machine (`executive.spec.ts` ×6,
+WebKit; `scasp-engine.spec.ts` ×4, no `library(scasp)` here) and 6 that pass when
+run alone (`explanation-drill.spec.ts` ×4, `flip-button.spec.ts` ×2: timing under
+the full suite's load). LPS2: the MCP, surface, sandbox, sector-page, telemetry,
+assistant-documentation and assistant-prompt gates pass; core lint is clean.
+
+### To deploy
+
+1. Rebuild and redeploy both servers (`./buildPush.sh` in LE2 and in LPS2): the
+   code, `revoked_keys.csv` and the vendored `le_throttle.pl` go in the images.
+2. Make keys with `LC_AUTH_SECRET` set to the servers' secret
+   (`lc_accounts_admin.pl mcp-key …`, lpsPlus `accounts/README.md`).
+3. Optional settings (`fly secrets` or `fly.toml`): `LE_MCP_CONTACT` (where a
+   refused client may ask for a key), `LE_MCP_STATE_DIR` on a fly.io volume (event
+   totals across restarts), and the costs and rates if the defaults prove wrong.
+4. After the deploy, check: a call without a key is refused after its budget; a key
+   made with the servers' secret is accepted (`mcp-key show`).
+5. Commit: nothing is committed yet, in any of the three repositories.
+
+### Left to do
+
+- **Step 3** of the order of the work: the page `/keys`, where a signed-in person
+  makes, sees and withdraws keys (random keys in a store that the page can write,
+  shared by the two servers); and the cache of answers ([suggestion 4](#4-the-same-question-the-same-answer-a-cache)).
+- **Step 4**: OAuth sign-in from the assistant itself
+  ([Sign-in from the assistant itself](#sign-in-from-the-assistant-itself-oauth)),
+  and a second machine for the tools ([suggestion 6](#6-settings-of-the-host)).
+- **Measure** ([suggestion 7](#7-measure-before-choosing-the-numbers)): a few weeks
+  of counts for each level and tool, then fix the numbers of the levels and the
+  costs of the assistants.
+- **`fly.toml` concurrency settings** (suggestion 6, first half): not set.
+- **Not limited yet**: the `llm:` semantic services of a program
+  (`le_services.pl`), which use the server's key inside a query; and the
+  WebAssembly deployments' proxy (`wasm/api/proxy.js`), whose own rule is that the
+  server's key wins and `LE_PROXY_KEYS_ONLY=1` refuses the caller's.
+- **More than one machine**: each counts for itself; give each its share, or add a
+  shared store, if the service grows.
+- **LPS2's vendored copy**: `le_throttle.pl` and `i18n/messages.csv` were copied by
+  hand into `vendor/le2`; the next run of `tools/vendor_le2.sh` vendors them by
+  itself.
 
 ## The problem
 
