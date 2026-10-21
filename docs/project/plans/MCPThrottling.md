@@ -15,18 +15,20 @@
 | Signed keys (person, event, licence holder), withdrawal, the admin's commands, the identity hook | lpsPlus `accounts/lc_accounts.pl`, `lc_accounts_admin.pl` | idem |
 | The licensed parts through MCP, with a licence holder's key | `llm/mcp.pl` (`mcp_roles/1`); LPS2 `lps_plus_set_visitor/2` | idem |
 | The assistants: requests paid with the server's key spend the same budget; with the user's own key, no limit | `le_api:llm_payer/3` + `classic_web_api.pl`; LPS2 `lps_assistant:llm_payer/3` + `lps_http.pl` | [The assistants](#the-assistants-21-october-2026-later-the-same-day) |
+| LPS2's program runs (`/lpsapi`: `session_new`, `run`, `step`, `explain`, `observe`, `fork`, `trace`, `live_start`, `live_step`, `play_start`, `play_turn`) charged by their seconds; at most 2 runs of one client at once; a public LPS2 needs no `LPS_TOKEN` | `le_throttle.pl` (`throttle_check/3`, `throttle_charge/2`, `throttle_client_run/3`); LPS2 `lps_http.pl` (`handle_in_budget/3`) | [Program runs](#program-runs-on-lps2-21-october-2026) |
 | The user can always bring a key: the LE2 editor's dialog and the Contract Assistant's page accept one even when the server has a key; LPS2 prefers the user's key | `editor/src/client.ts`; lpsPlus `contract_assistant/web/app.js`; LPS2 `lps_assistant.pl`, `ui/src/assistant.js` | idem |
 | Documents: the MCP guides of LE2 and LPS2 ("Limits and keys"), the assistants guide, the LPS2 IDE guide, both privacy notices, the accounts README, the Contract Assistant README | `docs/user/…`, lpsPlus | — |
 
-Tests: `testing/test_throttle.pl` (13), `testing/test_llm_payer.pl` (7), the
+Tests: `testing/test_throttle.pl` (17), `testing/test_llm_payer.pl` (7), the
 `lc_mcp_keys` unit of lpsPlus `accounts/test_lc_accounts.pl` (9), and by hand over
 HTTP on both servers (a refusal after the budget, a second session at the same
 address, a licence holder's key opening a private example, a user's own key never
-refused). The full LE2 suite on the final code: unit and examples pass; the browser
+refused; on LPS2, quick steps never refused, a looping program charged its
+seconds and the next run refused, a third run at once refused). The full LE2 suite on the final code: unit and examples pass; the browser
 suite fails 16, of which the 10 known on this machine (`executive.spec.ts` ×6,
 WebKit; `scasp-engine.spec.ts` ×4, no `library(scasp)` here) and 6 that pass when
 run alone (`explanation-drill.spec.ts` ×4, `flip-button.spec.ts` ×2: timing under
-the full suite's load). LPS2: the MCP, surface, sandbox, sector-page, telemetry,
+the full suite's load). LPS2: the examples, explanation, MCP, surface, sandbox, sector-page, telemetry,
 assistant-documentation and assistant-prompt gates pass; core lint is clean.
 
 ### To deploy
@@ -35,12 +37,14 @@ assistant-documentation and assistant-prompt gates pass; core lint is clean.
    code, `revoked_keys.csv` and the vendored `le_throttle.pl` go in the images.
 2. Make keys with `LC_AUTH_SECRET` set to the servers' secret
    (`lc_accounts_admin.pl mcp-key …`, lpsPlus `accounts/README.md`).
-3. Optional settings (`fly secrets` or `fly.toml`): `LE_MCP_CONTACT` (where a
+3. On LPS2, leave `LPS_TOKEN` unset for the public server (`docs/dev/deploy.md`,
+   "fly.io"): the budget now protects it; the token is for a private server.
+4. Optional settings (`fly secrets` or `fly.toml`): `LE_MCP_CONTACT` (where a
    refused client may ask for a key), `LE_MCP_STATE_DIR` on a fly.io volume (event
    totals across restarts), and the costs and rates if the defaults prove wrong.
-4. After the deploy, check: a call without a key is refused after its budget; a key
+5. After the deploy, check: a call without a key is refused after its budget; a key
    made with the servers' secret is accepted (`mcp-key show`).
-5. Commit: nothing is committed yet, in any of the three repositories.
+6. Commit: nothing is committed yet, in any of the three repositories.
 
 ### Left to do
 
@@ -54,7 +58,8 @@ assistant-documentation and assistant-prompt gates pass; core lint is clean.
   of counts for each level and tool, then fix the numbers of the levels and the
   costs of the assistants.
 - **`fly.toml` concurrency settings** (suggestion 6, first half): not set.
-- **Not limited yet**: the `llm:` semantic services of a program
+- **Not limited yet**: LE2's own query operations (`/leapi`: a query of a program
+  in the editor has its time limit, 240 seconds, but no budget); the `llm:` semantic services of a program
   (`le_services.pl`), which use the server's key inside a query; and the
   WebAssembly deployments' proxy (`wasm/api/proxy.js`), whose own rule is that the
   server's key wins and `LE_PROXY_KEYS_ONLY=1` refuses the caller's.
@@ -500,3 +505,28 @@ provider of every model it uses is not counted.
   which run inside a query with the server's key only. A query that uses one is
   limited by the query's own time limit, not by this budget.
 - Tests: `testing/test_llm_payer.pl`.
+
+## Program runs on LPS2 (21 October 2026, the evening)
+
+With `LPS_TOKEN` set, every visitor of a public LPS2 must paste the token, since
+the page the server sends does not carry it. The token's purpose on a public server
+was "whose CPU this is" (LPS2 `docs/dev/deploy.md`). The budget now answers that
+instead, for the operations of `/lpsapi` that run a program.
+
+- **Charged by the seconds**, after the run: `throttle_check/3` asks that the client
+  have a unit left; the run goes; `throttle_charge/2` spends its wall-clock seconds
+  (at least a hundredth), and a bucket may go below nothing. A step costs next to
+  nothing; a program that loops until `LPS_OPERATION_SECONDS` (30) costs 30 units. A
+  flat price would have made stepping through a program in a classroom impossible.
+- **Two runs at once** for one client (`throttle_client_run/3`,
+  `LE_THROTTLE_CLIENT_RUNS`), so that a client cannot start many 30-second runs
+  before their seconds are charged. Nothing waits: a third is refused.
+- **The client**: the IDE's session of the program (or the live id) stands for the
+  session, so the students of a class share only the address's larger budget.
+- **The refusal** speaks of seconds of running (`throttle_run_rate`), not of calls.
+- **Where**: LPS2 `src/edges/lps_http.pl`, `handle_in_budget/3` (the list
+  `run_operation/1`), inside the existing catch, so a run's own errors (its time
+  limit) reply as before. A request from the same machine is not counted.
+- **Documents**: LPS2 `docs/dev/deploy.md` (a public server runs without
+  `LPS_TOKEN`; "A budget for each client"; the settings), the IDE guide, the
+  privacy notice.

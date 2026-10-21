@@ -108,4 +108,32 @@ test(key_in_address_when_header_holds_another_token, [cleanup(unsetenv('LE_MCP_E
                        search([key=ws])], E),
     E.level == event.
 
+test(check_does_not_spend) :-
+    throttle_reset,
+    anon('203.0.113.16', none, Id),
+    forall(between(1, 20, _), check_at(Id, 1, 1000, allow)),
+    admits(Id, 10, 1000, Vs), allowed(Vs, 10).
+
+test(charge_after_the_run) :-
+    throttle_reset,
+    anon('203.0.113.17', none, Id),
+    check_at(Id, 1, 1000, allow),
+    charge_at(Id, 25, 1000),                   % a run of 25 seconds
+    check_at(Id, 1, 1000, refuse(429, Wait, _)),
+    Wait >= 90,                                % 16 below nothing, refilled at 10 a minute
+    check_at(Id, 1, 1100, allow).
+
+test(cheap_steps_cost_little) :-
+    throttle_reset,
+    anon('203.0.113.18', none, Id),
+    forall(between(1, 500, _), ( check_at(Id, 1, 1000, allow), charge_at(Id, 0.01, 1000) )).
+
+test(client_runs_at_once, [cleanup(unsetenv('LE_THROTTLE_CLIENT_RUNS'))]) :-
+    setenv('LE_THROTTLE_CLIENT_RUNS', 1),
+    anon('203.0.113.19', s9, Id),
+    throttle_client_run(Id, throttle_client_run(Id, true, Inner), Outer),
+    Outer == done, Inner = busy(M),
+    once(sub_string(M, _, _, _, "1 programs")),
+    throttle_client_run(Id, true, done).       % the slot was given back
+
 :- end_tests(throttle).

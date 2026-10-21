@@ -44,6 +44,11 @@
 :- module(le_throttle, [
     throttle_identity/2,        % +Request, -Identity
     throttle_admit/4,           % +Identity, +Cost, +TextLengths, -Verdict
+    throttle_check/3,           % +Identity, +Need, -Verdict
+    throttle_charge/2,          % +Identity, +Cost
+    throttle_client_run/3,      % +Identity, :Goal, -Outcome
+    check_at/4,                 % +Identity, +Need, +Now, -Verdict
+    charge_at/3,                % +Identity, +Cost, +Now
     throttle_run/3,             % +Identity, :Goal, -Outcome
     throttle_new_session/1,     % -SessionId
     request_key/2,              % +Request, -Key                    nondet
@@ -60,7 +65,7 @@
 :- use_module(library(crypto)).
 :- use_module(le_i18n).
 
-:- meta_predicate throttle_run(+, 0, -).
+:- meta_predicate throttle_run(+, 0, -), throttle_client_run(+, 0, -).
 
 %!  client_identity(+Request, -Identity) is semidet.
 %
@@ -80,6 +85,7 @@
 :- dynamic events_saved_at/1.   % Time
 :- dynamic cleaned_at/1.        % Time
 :- dynamic slot_queue/1.        % Queue
+:- dynamic client_running/2.    % Key, Count
 
 %!  throttle_reset is det.
 %
@@ -224,10 +230,51 @@ admit_at(Identity, Cost, Lengths, Now, Verdict) :-
     (   max_list([0|Lengths], Longest), Longest > Limits.max_text
     ->  refusal(throttle_too_long, Identity, [length-Longest, max-(Limits.max_text)], 0, Message),
         Verdict = refuse(413, 0, Message)
-    ;   with_mutex(le_throttle, admit_(Identity, Level, Limits, Cost, Now, Verdict))
+    ;   with_mutex(le_throttle, admit_(Identity, Level, Limits, Cost, Now, spend, Verdict))
     ).
 
-admit_(Identity, Level, Limits, Cost, Now, Verdict) :-
+%!  throttle_check(+Identity, +Need, -Verdict) is det.
+%
+%   Whether the client has Need left in its budget, without spending it: for
+%   a call whose cost is known only once it has run (a program run, charged
+%   by its seconds with throttle_charge/2 afterwards).
+throttle_check(Identity, Need, Verdict) :-
+    get_time(Now),
+    check_at(Identity, Need, Now, Verdict).
+
+%!  check_at(+Identity, +Need, +Now, -Verdict) is det.
+check_at(Identity, _, _, allow) :-
+    get_dict(level, Identity, local), !.
+check_at(Identity, Need, Now, Verdict) :-
+    get_dict(level, Identity, Level),
+    level_limits(Level, Limits),
+    with_mutex(le_throttle, admit_(Identity, Level, Limits, Need, Now, check, Verdict)).
+
+%!  throttle_charge(+Identity, +Cost) is det.
+%
+%   Spend Cost from the client's budget, whatever is left: a bucket may go
+%   below nothing, and the client then waits until it refills.
+throttle_charge(Identity, Cost) :-
+    get_time(Now),
+    charge_at(Identity, Cost, Now).
+
+%!  charge_at(+Identity, +Cost, +Now) is det.
+charge_at(Identity, _, _) :-
+    get_dict(level, Identity, local), !.
+charge_at(Identity, Cost, Now) :-
+    get_dict(level, Identity, Level),
+    level_limits(Level, Limits),
+    with_mutex(le_throttle, charge_(Identity, Level, Limits, Cost, Now)).
+
+charge_(Identity, Level, Limits, Cost, Now) :-
+    day(Now, Day),
+    buckets(Identity, Level, Limits, Buckets),
+    forall(member(b(Key, L, _), Buckets), spend(Key, L, Cost, Now, Day)),
+    ( Level == event -> spend_event(Identity.event, Cost, Now) ; true ).
+
+%   Mode `spend` spends Cost when the call may run; `check` only says whether
+%   it may.
+admit_(Identity, Level, Limits, Cost, Now, Mode, Verdict) :-
     clean_up(Now),
     day(Now, Day),
     buckets(Identity, Level, Limits, Buckets),
@@ -243,8 +290,13 @@ admit_(Identity, Level, Limits, Cost, Now, Verdict) :-
         tokens(Key, L, Now, Tokens),
         Tokens < Cost
     ->  Wait is max(1, ceiling((Cost - Tokens) * 60 / L.per_minute)),
-        refusal(throttle_rate, Identity, [who-Who, seconds-Wait, per_minute-(L.per_minute)], Wait, Message),
+        %  A run is charged by its seconds (throttle_check/3, then
+        %  throttle_charge/2): its refusal speaks of time, not of calls.
+        ( Mode == check -> RateMsg = throttle_run_rate ; RateMsg = throttle_rate ),
+        refusal(RateMsg, Identity, [who-Who, seconds-Wait, per_minute-(L.per_minute)], Wait, Message),
         Verdict = refuse(429, Wait, Message)
+    ;   Mode == check
+    ->  Verdict = allow
     ;   forall(member(b(Key, L, _), Buckets), spend(Key, L, Cost, Now, Day)),
         ( Level == event -> spend_event(Identity.event, Cost, Now) ; true ),
         Verdict = allow
@@ -405,6 +457,52 @@ slots(Queue) :-
                    forall(between(1, N, _), thread_send_message(Queue, slot)),
                    assertz(slot_queue(Queue))
                )).
+
+%!  throttle_client_run(+Identity, :Goal, -Outcome) is det.
+%
+%   Run Goal once, as one of at most LE_THROTTLE_CLIENT_RUNS (2) calls of the
+%   same client at a time: one client cannot keep the server busy with many
+%   long program runs at once, each within its own time limit. Outcome is
+%   `done`, `failed`, `busy(Message)` (the client has its runs going
+%   already; nothing waits) or `error(E)`. A local client is not counted.
+throttle_client_run(Identity, Goal, Outcome) :-
+    get_dict(level, Identity, local), !,
+    run_outcome_all(Goal, Outcome).
+throttle_client_run(Identity, Goal, Outcome) :-
+    client_key(Identity, Key),
+    env_number('LE_THROTTLE_CLIENT_RUNS', 2, Max),
+    with_mutex(le_throttle,
+               (   ( client_running(Key, N0) -> true ; N0 = 0 ),
+                   (   N0 < Max
+                   ->  retractall(client_running(Key, _)), N1 is N0 + 1,
+                       assertz(client_running(Key, N1)), Got = true
+                   ;   Got = false
+                   )
+               )),
+    (   Got == true
+    ->  setup_call_cleanup(true, run_outcome_all(Goal, Outcome), release_client(Key))
+    ;   le_msg(throttle_client_busy, [runs-Max], M), atom_string(M, S),
+        Outcome = busy(S)
+    ).
+
+release_client(Key) :-
+    with_mutex(le_throttle,
+               (   retract(client_running(Key, N0)), N is N0 - 1,
+                   ( N > 0 -> assertz(client_running(Key, N)) ; true )
+               -> true ; true )).
+
+%   The client, for the runs at once: the key or sign-in, else the session,
+%   else the address.
+client_key(Identity, Key) :-
+    (   get_dict(level, Identity, anonymous)
+    ->  (   Identity.session \== none -> Key = session(Identity.session) ; Key = address(Identity.address) )
+    ;   Key = key(Identity.id)
+    ).
+
+%   As run_outcome/2, but an exception (a time limit included) is passed on
+%   as the outcome rather than thrown.
+run_outcome_all(Goal, Outcome) :-
+    catch(( once(Goal) -> Outcome = done ; Outcome = failed ), E, Outcome = error(E)).
 
 %!  throttle_new_session(-SessionId:atom) is det.
 %
