@@ -315,19 +315,22 @@ handle_method(Method, Dict, Response) :-
     AllTools = [
         _{
             name: "list_examples",
-            description: "List Logical English program example names and their summaries",
+            description: "List Logical English program example names and their summaries. The full list is long: give a filter (words that the name or the summary must contain) to get only the examples about a subject",
             inputSchema: _{
                 type: "object",
-                properties: _{}
+                properties: _{
+                    filter: _{ type: "string", description: "Optional: words that each listed example's name or summary must contain, e.g. \"nationality\" or \"tax\"" }
+                }
             }
         },
         _{
             name: "get_example_details",
-            description: "Get the full text and metadata (predicates, queries, scenarios) of a specific example",
+            description: "Get the templates, queries and scenarios of a specific example, and its text when the text is short (or when include_program_text is true)",
             inputSchema: _{
                 type: "object",
                 properties: _{
-                    example_name: _{ type: "string", description: "Name of the example program" }
+                    example_name: _{ type: "string", description: "Name of the example program" },
+                    include_program_text: _{ type: "boolean", description: "Optional: send the program's text even when it is long (by default a text of more than 30000 characters is left out; the templates and queries are enough to query the program)" }
                 },
                 required: ["example_name"]
             }
@@ -454,7 +457,7 @@ examples_dir(AbsDir) :-
     le_examples_dir(ExDir),
     format(atom(AbsDir), "~w/~w/", [CWD0, ExDir]).
 
-call_tool("list_examples", _Args, Result) :-
+call_tool("list_examples", Args, Result) :-
     examples_dir(Dir),
     get_time(T0), list_summary_budget(B), Deadline is T0 + B,
     b_setval(mcp_list_deadline, Deadline),
@@ -471,7 +474,12 @@ call_tool("list_examples", _Args, Result) :-
               atomic_list_concat([Root, '/'], TreePrefix),
               list_examples_with_summaries(TreeSlash, TreePrefix, Es) ),
             Others),
-    append([Main|Others], Examples),
+    append([Main|Others], Examples0),
+    (   get_dict(filter, Args, Filter), Filter \== "", Filter \== null
+    ->  split_string(Filter, " ,", " ,", Words0), exclude(==(""), Words0, Words),
+        include(example_matches(Words), Examples0, Examples)
+    ;   Examples = Examples0
+    ),
     Result = _{examples: Examples}.
 
 call_tool("get_example_details", Args, Result) :-
@@ -484,11 +492,11 @@ call_tool("get_example_details", Args, Result) :-
           error(permission_error(access, example, _), _),
           Outcome = restricted),
     (   Outcome = path(P)
-    ->  example_details(P, Result)
+    ->  example_details(P, Args, Result)
     ;   Outcome == restricted
     ->  format(string(Msg), "Example '~w' requires login", [ExampleName]),
         Result = _{error: Msg}
-    ;   format(string(Msg), "Example '~w' not found", [ExampleName]),
+    ;   le_tools:unknown_example_message(ExampleName, Msg),
         Result = _{error: Msg}
     ).
 
@@ -526,13 +534,29 @@ mcp_tool_name(Name) :-
 %   The goal is explicitly mcp-qualified: relying on compile-time
 %   meta-argument qualification across the explicit le_kbs: call proved
 %   fragile (the goal ran in the wrong module and the catch masked it).
-example_details(Path, Result) :-
+example_details(Path, Args, Result) :-
     between(1, 3, _),
     le_kbs:load(Path, KB),
     catch(le_kbs:with_kb_reference(KB, mcp:example_details_result(KB, Result0)), _, fail),
     !,
     read_file_to_string(Path, Text, [encoding(utf8)]),
-    Result = Result0.put(program_text, Text).
+    string_length(Text, Length),
+    %  A long text is left out unless asked for: a client caps what one tool
+    %  call may return (Claude Code at about 25000 tokens), and a reply that
+    %  holds the text of the British Nationality Act (100000 characters) was
+    %  refused whole, templates included, so the model never saw the sentences
+    %  it must use.
+    (   ( get_dict(include_program_text, Args, true) ; Length =< 30000 )
+    ->  Result = Result0.put(program_text, Text)
+    ;   format(string(Note), "The program's text (~D characters) is left out: it is longer than many clients accept from one tool call. The templates and queries above are enough to query the program; write facts with the templates, and dates as 2026-03-01. Only if you must read the rules, ask again with include_program_text: true.", [Length]),
+        Result = Result0.put(_{program_text_omitted: Length, note: Note})
+    ).
+
+%   An example whose name or summary contains every word (any case).
+example_matches(Words, Example) :-
+    get_dict(name, Example, N), get_dict(summary, Example, S),
+    format(string(Hay0), "~w ~w", [N, S]), string_lower(Hay0, Hay),
+    forall(member(W0, Words), ( string_lower(W0, W), sub_string(Hay, _, _, _, W) )).
 
 example_details_result(KB, Result) :-
     le_kbs:get_kb_metadata(KB, Metadata),

@@ -146,6 +146,14 @@ unknown_example_message(ExampleName, Msg) :-
         atomic_list_concat([ExampleName, '/', Base], Suggestion),
         catch(example_path_for(Suggestion, [], _), _, fail)
     ->  format(string(Msg), "Example '~w' not found; did you mean '~w'?", [ExampleName, Suggestion])
+    ;   %  a name given without its tree ('bna' for 'regulatory/bna')
+        \+ sub_atom(ExampleName, _, _, _, '/'),
+        le_kbs:le_extra_examples_dir(Root, _),
+        (   atomic_list_concat([Root, '/', ExampleName], Suggestion)
+        ;   atomic_list_concat([Root, '/', ExampleName, '/', ExampleName], Suggestion)
+        ),
+        catch(example_path_for(Suggestion, [], _), _, fail)
+    ->  format(string(Msg), "Example '~w' not found; did you mean '~w'?", [ExampleName, Suggestion])
     ;   format(string(Msg), "Example '~w' not found; list_examples gives the names of the examples", [ExampleName])
     ).
 
@@ -183,7 +191,9 @@ le_tool_query_(Args, UserRoles, Result) :-
             ),
             (   nonvar(ErrorFacts) -> Result = _{error: ErrorFacts}
             ;   catch(run_query(SM, Query, KB, Result0), error(le_parse_error(Msg), _), Result0 = _{error: Msg}),
-                fact_notes(KB, Facts, Notes),
+                fact_notes(KB, Facts, Notes0),
+                word_date_notes(Query, QueryNotes),
+                append(Notes0, QueryNotes, Notes),
                 ( Notes == [] -> Result = Result0 ; Result = Result0.put(notes, Notes) )
             )
         ),
@@ -230,8 +240,48 @@ fact_notes(KB, Facts, Notes) :-
                   ( string_concat(Fact, ".", Line) -> true ; Fact = Line ),
                   le_i18n:le_msg(Key, [fact-Fact], Note0),
                   atom_string(Note0, Note) ),
-                Notes)
+                Notes1),
+        word_date_notes(Facts, Notes2),
+        append(Notes1, Notes2, Notes)
     ).
+
+%!  word_date_notes(+Text, -Notes:list) is det.
+%
+%   A note for each date written in words ("3 March 1986", "the 1st of
+%   January 1990", "March 3, 1986"): Logical English reads a date only as
+%   2026-03-03, and a date in words is read as a name, silently, so a rule
+%   that compares dates never applies. Language models often write them so.
+word_date_notes(Text, Notes) :-
+    (   ( Text == "" ; Text == null ; \+ string(Text), \+ atom(Text) )
+    ->  Notes = []
+    ;   split_string(Text, " \n\t", " \t\r.,;", Words0),
+        exclude(==(""), Words0, Words),
+        findall(Note,
+                ( word_date(Words, Shown, Iso),
+                  le_i18n:le_msg(tool_word_date, [date-Shown, iso-Iso], Note0),
+                  atom_string(Note0, Note) ),
+                Notes0),
+        list_to_set(Notes0, Notes)
+    ).
+
+word_date(Words, Shown, Iso) :-
+    append(_, Rest, Words),
+    word_date_at(Rest, Used, D, M, Y),
+    atomic_list_concat(Used, ' ', ShownA), atom_string(ShownA, Shown),
+    format(string(Iso), "~d-~|~`0t~d~2+-~|~`0t~d~2+", [Y, M, D]).
+
+word_date_at([D0, M0, Y0|_], [D0, M0, Y0], D, M, Y) :- day(D0, D), month(M0, M), year(Y0, Y).
+word_date_at([D0, Of, M0, Y0|_], [D0, Of, M0, Y0], D, M, Y) :- string_lower(Of, "of"), day(D0, D), month(M0, M), year(Y0, Y).
+word_date_at([M0, D0, Y0|_], [M0, D0, Y0], D, M, Y) :- month(M0, M), day(D0, D), year(Y0, Y).
+
+day(S, D) :-
+    (   member(Suffix, ["st", "nd", "rd", "th"]), string_concat(N, Suffix, S) -> true ; N = S ),
+    catch(number_string(D, N), _, fail), integer(D), D >= 1, D =< 31.
+year(S, Y) :- string_length(S, 4), catch(number_string(Y, S), _, fail), integer(Y).
+month(S, M) :-
+    string_lower(S, L),
+    nth1(M, ["january", "february", "march", "april", "may", "june", "july",
+             "august", "september", "october", "november", "december"], L).
 
 %   What is worth saying about the terms one line of facts gave: a variable
 %   in a fact, or a fact no template of the program declares (a sentence

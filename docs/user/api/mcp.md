@@ -156,8 +156,8 @@ the server marks the result `isError: true`.
 
 | Tool | Arguments | Reply |
 |---|---|---|
-| `list_examples` | – | `{examples: [{name, summary}]}` |
-| `get_example_details` | `example_name` (required) | the program's text and metadata |
+| `list_examples` | `filter` | `{examples: [{name, summary}]}` |
+| `get_example_details` | `example_name` (required), `include_program_text` | the program's metadata, and its text when the text is short |
 | `query` | `query` (required), `example_name`, `program_text`, `scenario_name`, `facts` | `{results: [{answer, explanation, case?}], notes?}` |
 | `verify` | `program_text` (required) | `{issues, test_results}` |
 | `search_documentation` | `query` (required): a few keywords | `{sections}`: the sections found, each with its link |
@@ -168,6 +168,11 @@ folders (`regulatory/…`, `migration/…`, …) and of the folders of the other
 folders that only readers with a licence can open, because a client that speaks MCP
 never signs in. To write a summary, the server loads the program one time. Then the
 server keeps the summary for the next list.
+
+The full list is long (more than 150,000 characters). An assistant can refuse a
+reply of that size. Give `filter` to get a shorter list: `filter` is one or more
+words, and the list then contains only the examples whose name or summary
+contains every word. For example, `filter: "nationality"`.
 
 The server gives 20 seconds to the full list. When that time ends, the comment at the
 top of each program without a summary describes that program instead.
@@ -186,16 +191,29 @@ of the program itself. An example in a folder for licence holders only gives the
 answer `{error: "Example '…' requires login"}`, because a client that speaks MCP
 never logs in.
 
+The reply contains `program_text` only when the text has 30,000 characters or
+fewer. A longer text is left out, because many assistants refuse a reply of that
+size, and then they do not get the templates either. In its place, the reply
+contains `program_text_omitted` (the number of characters) and a `note`. The
+templates and the queries are sufficient to query the program. To get the text
+of a long program, give `include_program_text: true`.
+
+A name without its folder, such as `bna`, gives an error that names the full
+name: *Example 'bna' not found; did you mean 'regulatory/bna'?*
+
 **`query`** works in four steps:
 
 1. The tool loads a program into a session that lasts for this one call. The program
    is the example that `example_name` names, or the text in `program_text`.
 2. The tool sets the scenario `scenario_name`, if the call gives one.
 3. The tool adds the sentences of `facts`. Each sentence is an LE sentence that ends
-   with a full stop. The tool reads each sentence against the templates of the
-   program.
+   with a full stop. The sentences can be on one line or on separate lines. The
+   tool ignores a heading line, such as `the knowledge base includes:`. The tool
+   reads each sentence against the templates of the program.
 4. The tool runs `query`. `query` is the name of a query in the program, or a
-   question written in LE that agrees with the templates of the program.
+   question written in LE that agrees with the templates of the program. A
+   question can be two sentences joined by *and*, for example
+   `the question is asked on 1990-01-01 and which person is a british citizen on 1990-01-01`.
 
 An example for licence holders only gives the answer `error`, as above. A name that
 is not the name of an example gives the answer
@@ -216,6 +234,11 @@ A fact in `facts` can contain a variable. A variable is a phrase that starts wit
 `notes`, with one sentence for each such fact. Such a fact is about all things of its
 kind. A caller seldom means this. The answer that follows does not tell why it is
 wrong.
+
+A date in `facts` or in `query` that is written in words, such as `3 March 1986`
+or `the 1st of January 1990`, also gives a sentence in `notes`. Logical English
+reads a date only in the form year-month-day, as in `1986-03-03`. A date in words
+is a name, and no rule can compare it with a date.
 
 A case search is a query `which cases make it the case that …` or
 `is there a case in which …` ([the language reference](../reference/language.md)

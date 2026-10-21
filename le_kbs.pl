@@ -1793,15 +1793,33 @@ query(SessionModule, Template, TemplateInstance, Unknowns, Why) :-
                 reasoner:i(Goal, SessionModule, Unknowns, Why0),
                 opener_query_instance(KBmodule, Goal, TemplateInstance),
                 explanation_why(Why0, SessionModule, Why)
-            ;   parse_query_to_goal(KBmodule, Tokens, Goal, TemplateInstance) ->
+            ;   parse_query_to_goal(KBmodule, Tokens, Goal0, TemplateInstance0) ->
+                % Two sentences joined by "and", read as one template whose
+                % last value swallowed the rest ("the question is asked on
+                % 1990-01-01 and which person is ..."), are read as the editor's
+                % custom query reads them: a conjunction.
+                (   swallowed_and(Goal0),
+                    custom_query_body(KBmodule, Tokens, Goal1), Goal1 = and(_, _)
+                ->  Goal = Goal1        % its words are those of the solved goal, below
+                ;   Goal = Goal0, TemplateInstance = TemplateInstance0
+                ),
                 ( do_log -> print_message(informational, 'Executing query goal: ~w' - [Goal]); true),
                 reasoner:i(Goal, SessionModule, Unknowns, Why0),
+                (   var(TemplateInstance)
+                ->  ( item_to_instance(KBmodule, Goal, TI1) -> TemplateInstance = TI1 ; TemplateInstance = [Goal] )
+                ;   true
+                ),
                 ( do_log -> print_message(informational, 'Query goal solution found: ~w' - [Goal]); true),
                 explanation_why(Why0, SessionModule, Why)
             ;   format(string(Error), "Query does not match any template: ~w", [Template]),
                 throw(error(le_parse_error(Error), _))
             )
     ).
+
+%   A value of the goal (an atom or a string, at any depth) with " and " in it.
+swallowed_and(Goal) :-
+    occurs:sub_term(V, Goal), ( atom(V) ; string(V) ),
+    sub_string(V, _, _, _, " and "), !.
 
 %   An already-parsed goal rather than a query's name or text: a compound
 %   term, or the atom of a template with no places ("the business event is
@@ -3030,7 +3048,12 @@ kbSummary(KB, Summary) :-
 %!  parse_custom_facts(+KB:atom, +Text:string, -Terms:list) is det.
 %
 %   Parses a string of Logical English facts using the templates in the KB.
-parse_custom_facts(KB, Text, Terms) :-
+parse_custom_facts(KB, Text0, Terms) :-
+    % A sentence is read only where a line starts, so facts written on one
+    % line ("a is b. c is d.", as a language model often sends them over MCP)
+    % are put one to a line first; otherwise all but the first were dropped
+    % without a word.
+    facts_one_per_line(Text0, Text),
     tokenizer:tokenize_lang(Text, Tokens),
     le_grammar:set_token_pos(0),
     % The facts' own line starts: without them every token may open a
@@ -3053,6 +3076,38 @@ parse_custom_facts(KB, Text, Terms) :-
     % (their offsets are relative to the custom text, not to the program).
     with_provenance_sink(maplist(scenario_item_to_term(Templates, KB), Items, Terms0), ProvTerms),
     append(Terms0, ProvTerms, Terms).
+
+%!  facts_one_per_line(+Text, -Lined:string) is det.
+%
+%   Text with a line break after every full stop that is followed by a space
+%   or a tab and is not inside double quotes, and without heading lines (a
+%   line that ends with a colon). A full stop inside a number (1.5) or a date
+%   has no space after it, and is left alone.
+facts_one_per_line(Text, Lined) :-
+    string_codes(Text, Codes),
+    facts_lines(Codes, false, LinedCodes),
+    string_codes(Lined0, LinedCodes),
+    % A heading such as "the knowledge base includes:" or "scenario x is:",
+    % copied from a program, is not a fact; read as one, it made every fact
+    % after it be dropped.
+    split_string(Lined0, "\n", "", Lines0),
+    exclude([L]>>( split_string(L, "", " \t\r", [T]), string_concat(_, ":", T) ), Lines0, Lines),
+    atomic_list_concat(Lines, '\n', LinedA),
+    atom_string(LinedA, Lined).
+
+facts_lines([], _, []).
+facts_lines([0'"|Cs], InQ, [0'"|Out]) :- !,
+    ( InQ == true -> InQ1 = false ; InQ1 = true ),
+    facts_lines(Cs, InQ1, Out).
+facts_lines([0'., S|Cs], false, [0'., 0'\n|Out]) :-
+    memberchk(S, [0' , 0'\t]), !,
+    skip_blanks(Cs, Rest),
+    facts_lines(Rest, false, Out).
+facts_lines([C|Cs], InQ, [C|Out]) :-
+    facts_lines(Cs, InQ, Out).
+
+skip_blanks([C|Cs], Rest) :- memberchk(C, [0' , 0'\t]), !, skip_blanks(Cs, Rest).
+skip_blanks(Cs, Cs).
 
 scenario_item_to_term(Templates, M, Item, Term) :-
     ( le_grammar:second_pass_scenario_item_with_module(Templates, M, Item, NewItem) ->
