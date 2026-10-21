@@ -1,6 +1,6 @@
 # Limiting how much one client can ask of the public server
 
-*Kind: plan · Audience: developers · Status: suggestions for later work, 21 October 2026*
+*Kind: plan · Audience: developers · Status: written 21 October 2026; steps 1 and 2 of [the order of the work](#the-order-of-the-work) built the same day, in LE2, LPS2 and lpsPlus ([What was built](#what-was-built-21-october-2026)); steps 3 and 4 are for later*
 
 ## The problem
 
@@ -48,9 +48,9 @@ limit for each address that stops one script also stops the class.
 
 ### 1. A time limit and size limits on every tool call
 
-Run `query` and `verify` under `call_with_time_limit/2` (30 seconds is
+Run `query` and `verify` under `call_with_time_limit/2` (60 seconds is
 generous for the examples; the editor keeps its own 240), and reply
-`{error: "The query took more than 30 seconds and was stopped…"}`. Refuse a
+`{error: "The query took more than 60 seconds and was stopped…"}`. Refuse a
 `program_text` or `facts` longer than, say, 200,000 characters, and send at
 most the first 50 answers of a query, with a note that says how many there
 were. These limits alone stop the worst case: one call that holds a worker
@@ -98,9 +98,9 @@ until it refills. It allows short bursts and stops long floods.
      for one day and set in an environment variable of the server, gives a
      larger bucket to everyone who uses it. The lecturer writes the key on
      the slide.
-  3. **Signed-in users.** A licence holder (`le_entitlements.pl`) sends a
-     token in the `Authorization` header and gets a bucket of their own,
-     with the larger limits of their licence.
+  3. **A key of one's own.** A person, an event or a licence holder sends a
+     key, and the key has its own budget. The section
+     [Knowing who asks](#knowing-who-asks-keys-with-a-budget) below says how.
 
 ### 4. The same question, the same answer: a cache
 
@@ -133,6 +133,184 @@ process group), so that heavy use of the tools never slows the editor.
 Count the calls for each address and each tool, and their time, for a few
 weeks (the log line `MCP Result: …` in `llm/mcp.pl` is a start; see also
 `docs/dev/telemetry.md`). Choose the limits from what normal use looks like.
+
+## Knowing who asks: keys with a budget
+
+An address is a weak name for a client. A class shares one address; a
+laptop changes its address from home to university; and a person who wants
+to flood the server can use many addresses. A **key** names the person, the
+event or the program that asks. Then the budget belongs to them, a limit can
+be raised for those who need more (a course, a licence holder), and one
+client can be stopped without stopping the others.
+
+Keys must stay optional. The demonstration "one command, nothing to sign"
+(Demo F of the Ulster lecture) is the best introduction the server has, so
+a client without a key keeps a small budget of its own.
+
+### What exists already
+
+The lpsPlus repository (the folder `accounts/`, described in its
+`README.md`) already has most of the parts:
+
+- **Sign-in** with Google, GitHub, or an email and password that we create,
+  on the page `/login` of both servers; one sign-in is valid on LE2 and LPS2.
+- **The licences table**, `licenses.csv`: an email address, a licence, and
+  the last day the licence may be used.
+- **Signed tokens**: `sign/2` and `verify/2` in `lc_accounts.pl` write and
+  check a small JSON record signed with the server's secret
+  (`LC_AUTH_SECRET`, HMAC-SHA256). `lc_api_token/3` makes a token for one
+  hour from them; the server checks it without a table.
+- **Program clients**, `api_clients.csv`: a client name and the hash of its
+  secret, for a program that signs in (the Oracle Intelligent Advisor
+  adapter, with OAuth's "client credentials"). `lc_accounts_admin.pl
+  api-client` makes one and prints the secret once.
+
+What is missing: a key for the tools of `/mcp`, a budget attached to it,
+and the hook that reads it.
+
+### The levels
+
+| Who asks | How the server knows | Budget to start from | Also |
+|---|---|---|---|
+| Anybody | nothing: the address only | 10 calls a minute and 200 a day, for each address | a `program_text` of at most 20,000 characters |
+| A person | a free key, made on a page `/keys` after signing in | 30 calls a minute, 2,000 a day | a `program_text` of at most 200,000 characters |
+| An event (a lecture, a workshop) | an event key that we make | 5,000 calls for the event in all, and 60 a minute for each MCP session | valid only on the days of the event |
+| A licence holder | the person's key; the licence is looked up from its email | 300 calls a minute, 50,000 a day | the licensed parts through MCP too (below) |
+| A program | the client's secret, exchanged for a token (exists) | as agreed with its owner | |
+
+The numbers are a start; the measurements of suggestion 7 decide them.
+
+### What a key is: two ways
+
+1. **A signed key.** The key is a record signed like the existing tokens:
+   `lc_` followed by `sign(_{kind: "mcp_key", sub: Owner, level: Level,
+   kid: Id, exp: Expiry})`. The server checks the signature and reads the
+   owner, the level and the expiry date from the key itself: no table, no
+   storage, and the same key works on both servers.
+   - *For:* nothing to store; nothing to keep in step between machines.
+   - *Against:* one key cannot be withdrawn unless the server keeps a short
+     list of withdrawn key identifiers (a file `revoked_keys.csv` beside
+     the licences table); a new `LC_AUTH_SECRET` withdraws every key at
+     once; the key is long (about 200 characters).
+2. **A random key in a table.** The key is `lc_` and 32 random
+   characters; the server keeps only its SHA-256 hash in a table, with the
+   owner, the level, the dates and a note.
+   - *For:* a short key; each key can be listed, counted and withdrawn.
+   - *Against:* a page that makes keys must write the table. Today the
+     tables are files in the image, written by hand and deployed; a page
+     needs a store that it can write (a fly.io volume, or a small database
+     on one), shared by the two servers.
+   - A random key of 32 characters needs no slow hash: SHA-256 is enough,
+     and fast enough to check on every call. (The slow PBKDF2 hash of the
+     passwords and client secrets, 131,072 rounds, is made to be slow: right
+     for a sign-in, too slow for every tool call.)
+
+**Recommendation:** signed keys first. They need no store, so event keys
+and keys for licence holders can be made with `lc_accounts_admin.pl` the day
+the feature is ready. Random keys in a table come with the self-service
+page, when there are enough users to need one.
+
+### How the key travels
+
+- **In the `Authorization` header**, as a bearer token. Claude Code:
+  `claude mcp add --transport http logical-english
+  https://le2.logicalcontracts.com/mcp --header "Authorization: Bearer
+  lc_…"`. `mcp-remote` takes `--header` too, and the settings files of the
+  other clients have a field for headers.
+- **In the address**, `…/mcp?key=lc_…`, for a client that cannot set a
+  header. An address is kept in logs and in browser histories, so this way
+  is for event keys only: they are short-lived and worth little.
+- **The editor and the web API need no key**: a request that carries a
+  valid sign-in cookie (`lc_session`) counts as that person.
+- The server never writes a key in its log: it writes the key's identifier
+  (`kid`).
+
+### Sign-in from the assistant itself: OAuth
+
+The MCP standard describes how a client signs in to a remote server with
+OAuth 2.1, the usual protocol for "sign in with …" on the web. The server
+answers a call without a token with status `401` and the address of a
+description of itself (`/.well-known/oauth-protected-resource`). The client
+(in Claude Code: `/mcp`, then *Authenticate*) opens the browser at the
+server's sign-in page; the person signs in with Google or GitHub, as on
+`/login`; and the client receives a token, which it renews by itself. No
+key is copied or pasted.
+
+This is the most convenient way for a person, and the largest piece of
+work: the server must become an OAuth authorisation server (the pages
+`authorize` and `token`, codes protected with PKCE, the registration of
+clients, the description documents), and every part must be secure. It is
+for later, when there are many individual users. It must stay optional:
+the server goes on answering calls without a token, within the anonymous
+budget.
+
+### Counting the budgets
+
+- **What is counted.** For each key, the token bucket of suggestion 3 (the
+  rate), a total for the day, and for an event key a total for the event.
+  A call can cost by tool (as in suggestion 3) or by time: a budget in
+  seconds of work, each call costing its time rounded up to a second, is
+  fairer to a client that asks many small questions. Measure before
+  choosing.
+- **Where the counts live.** The rate and the day's total can live in
+  memory: a restart forgets them, which errs on the generous side. The
+  machine stops when it is idle (`auto_stop_machines` in `fly.toml`), but
+  an idle machine has no load to protect. The total of an event is worth
+  keeping: write it to a file on a fly.io volume every minute. With more
+  than one machine, each counts for itself; give each machine its share of
+  the budget, or add a shared store when the service grows to need one.
+- **Telling the client.** Each tool result can say what is left (a header
+  `X-LE-Budget-Remaining`, and a sentence in `notes` when less than a tenth
+  is left). A refusal says which limit was reached, when the budget
+  refills, and where to get a larger one: *"This address has used its 200
+  calls for today. A free key gives 2,000: https://le2.logicalcontracts.com/keys"*.
+- **The page `/keys`** (with the random keys): a signed-in person makes a
+  key (shown once), sees each key's use today, and withdraws a key.
+- **The administrator's commands** (with the signed keys), beside the
+  existing ones in `lc_accounts_admin.pl`:
+  - `mcp-key event ulster-2026-10-22 --budget 5000 --from 2026-10-22 --until 2026-10-22`
+    prints an event key;
+  - `mcp-key person someone@example.com` prints a person's key, at the
+    level of their licences;
+  - `mcp-key revoke KID` adds the key to the withdrawn list.
+
+### The licensed parts through MCP
+
+Today a client of `/mcp` never signs in, so it never has a licence: the
+private examples and the translators are refused to it. A key tells the
+server whose request it is. The hook that reads the key can also set the
+request's entitlements (`le_entitlements:set_request_entitlements/1`, from
+the licences of the key's email), as the sign-in cookie does for the
+editor. Then a licence holder's assistant can read the private examples and
+use the translators over MCP. This must be tested with care: a request
+without a key must keep the entitlements `none`.
+
+### Privacy and safety
+
+- **What is kept.** A key links calls to an email address. The privacy
+  notice must say what is counted (the tool, the time, the size of the
+  call), for how long (for example 30 days), and that the facts and the
+  queries are not kept: they may contain personal details of a real case.
+- **A key pasted by mistake.** Keys begin with `lc_`, so that a person, or
+  a code host's search for secrets, recognises one in a public file. A key
+  reported in this way is withdrawn.
+- **A key on a slide is public.** An event key gets a small budget and the
+  days of the event only.
+- **No key in logs or in error messages.** Only the identifier.
+
+### Where keys go in the code
+
+- **LE2 must work without lpsPlus**, as it does for licences: LE2 is open
+  source and lpsPlus is not. So `le_throttle.pl` asks a hook,
+  `le_throttle:client_identity(+Request, -Identity)`, declared `multifile`.
+  The accounts code of lpsPlus answers it (it checks the key and looks up
+  the licences), as `le_entitlements:host_entitlements/1` is answered for
+  LPS2. Without lpsPlus the identity is the address, and the simple event
+  keys of `LE_MCP_EVENT_KEYS` still work.
+- **The same hook** sets the request's entitlements for a call to `/mcp`.
+- **Signed keys** reuse `sign/2` and `verify/2` of `lc_accounts.pl`, with a
+  new `kind: "mcp_key"`, so that a key can never be used as a sign-in
+  cookie or an API token, nor the other way round.
 
 ## Where it goes in the code
 
@@ -171,9 +349,92 @@ take_(Key, Cost, Now, Verdict) :-
     assertz(bucket(Key, T, Now)).
 ```
 
-## A first step
+## The order of the work
 
-Suggestions 1, 2 and 3 (with the bucket for each address and the key for an
-event) are about a day's work with their tests, and remove the risks that
-matter. The cache (4) and the second machine (6) can follow when the
-measurements (7) show the need.
+1. **First, about a day with the tests:** suggestions 1, 2 and 3, with the
+   bucket for each address and the simple event keys of
+   `LE_MCP_EVENT_KEYS`. These remove the risks that matter.
+2. **Then, two or three days:** signed keys for people, events and licence
+   holders, made with `lc_accounts_admin.pl`; the hook
+   `client_identity/2` in lpsPlus; the levels; the licensed parts through
+   MCP; the privacy notice brought up to date.
+3. **When there are enough users:** the page `/keys` with random keys in a
+   store, and the cache (4).
+4. **Later:** OAuth sign-in from the assistant, and a second machine for
+   the tools (6), when the measurements (7) show the need.
+
+## What was built (21 October 2026)
+
+Steps 1 and 2 of the order above, for both servers.
+
+- **`le_throttle.pl`** (LE2; LPS2 loads the same file from the LE2 it uses, or
+  from its copy in `vendor/le2`): who asks (`throttle_identity/2`: the hook of
+  lpsPlus, then `LE_MCP_EVENT_KEYS`, then the address from `Fly-Client-IP`,
+  `X-Forwarded-For` or the connection), the levels (`level_limits/2`), the token
+  buckets and the totals of the day and of an event (`throttle_admit/4`, and
+  `admit_at/5` with the time given, for the tests), the size limit, the calls
+  running at once and their time limit (`throttle_run/3`), and the session
+  identifiers (`throttle_new_session/1`). The messages are rows `throttle_…` of
+  `i18n/messages.csv`, in the five languages.
+- **LE2**: `llm/mcp.pl` identifies the client of each POST to `/mcp` and of the
+  four plain addresses, gives a key's licences to the request, answers
+  `initialize` with `Mcp-Session-Id`, refuses a call over budget (a tool result
+  marked `isError` over MCP; 429 or 413 with `Retry-After` at the plain
+  addresses), runs the rest within the limits, opens the example trees with the
+  request's capabilities, and gives a remote client the first 50 answers of a
+  query. Tests: `testing/test_throttle.pl`.
+- **LPS2**: `src/edges/lps_throttle.pl` loads `le_throttle.pl` and gives
+  `lps_mcp.pl` the same four steps; `lps_plus_set_visitor/2` gives a key's
+  licences to the request; `tools/vendor_le2.sh` now vendors `le_throttle.pl`.
+- **lpsPlus** (`accounts/`): signed keys (`lc_mcp_key/2`, `lc_verify_mcp_key/2`),
+  `revoked_keys.csv` (`lc_revoke_mcp_key/2`), the hook (`lc_client_identity/2`:
+  a key, an API client's token, the sign-in cookie), and the commands
+  `mcp-key person|event|show|revoke` of `lc_accounts_admin.pl`. Tests: the
+  `lc_mcp_keys` unit of `accounts/test_lc_accounts.pl`.
+- **Documents**: LE2's and LPS2's `docs/user/api/mcp.md` ("Limits and keys"),
+  both privacy notices ("Keys for the tools of the assistants"), and the
+  accounts' `README.md`.
+
+Where the building differed from the plan above:
+
+- **The time limit is 60 seconds**, not 30: the first load of a large example
+  (the British Nationality Act) takes several seconds before its query runs.
+- **Keys start with `lc_`**, not `le2_`: one key is valid on both servers.
+- **A request from the same computer is not limited** (unless
+  `LE_MCP_THROTTLE_LOCAL=true`): the deep mode of the LE Assistant calls its own
+  server's `/mcp`, and a developer's server is not public.
+- **A key is looked for in the header, then in the address**: on an LPS2 server
+  started with `LPS_TOKEN`, the header carries that token.
+- **Every MCP call takes a turn** among the calls that run at once, not only
+  `tools/call`; the others are short.
+
+## The assistants (21 October 2026, later the same day)
+
+The same budget, levels and keys now apply to the requests of the assistants that
+the server pays for: a request that reaches a language model with the server's key,
+and only the server's key. A request that brings the user's own key for the
+provider of every model it uses is not counted.
+
+- **Who pays**: `le_api:llm_payer/3` (LE2) and `lps_assistant:llm_payer/3` (LPS2)
+  read the operation's model or models and its `api_keys`, with the rule the
+  assistants use to choose a key. The operations: LE2's `assistant_command` (10),
+  `nl_to_le` (3) and the Contract Assistant's `contract_start` (50); LPS2's
+  `assistant_command` and `play_start` (10), `le_nl` and `live_translate` (3).
+  `LE_ASSISTANT_COST`, `LE_NL_COST` and `LE_CONTRACT_COST` change the costs.
+- **Where**: in the HTTP half of each server, before the operation runs
+  (`classic_web_api.pl`, `llm_budget/3` in `handle_leapi/1`; `lps_http.pl`,
+  `llm_budget/3` in `lpsapi/1`), so that `le_api.pl` stays free of transport and
+  the WebAssembly deployment, which uses the user's keys through its proxy, is not
+  touched. The editor's assistant session stands for the MCP session. A refusal is
+  an ordinary reply with `error` (and `throttled`, `retry_after`), which every
+  assistant already shows, ending with the sentence `throttle_own_llm_key`: with
+  the user's own key there is no limit.
+- **The user's key must be usable**: the LE2 editor's key dialog no longer locks a
+  provider for which the server has a key, and the Contract Assistant shows the key
+  field for such a provider as optional. LPS2's assistant chose the server's key
+  before the user's (`have_key/3`); it now chooses the user's first, as LE2 does,
+  and its key dialog says so.
+- **Not counted**: the `llm:` semantic services of a program (`le_services.pl`),
+  which run inside a query with the server's key only. A query that uses one is
+  limited by the query's own time limit, not by this budget.
+- Tests: `testing/test_llm_payer.pl`.

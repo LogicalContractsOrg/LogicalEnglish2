@@ -31,6 +31,7 @@ Two functions in the editor do not need a model:
 ## Contents
 
 - [Setting up: models and API keys](#setting-up-models-and-api-keys)
+  - [The limit of the server's keys](#the-limit-of-the-servers-keys)
 - [The LE Assistant](#the-le-assistant)
   - [Light and Deep modes](#light-and-deep-modes)
 - [Write it in English](#write-it-in-english)
@@ -50,8 +51,10 @@ settings:
 - There is one **API key** field for each provider. (API means Application
   Programming Interface.) An API key is the pass phrase that lets the editor use the
   models of that provider. Sometimes the server already has a key for a provider.
-  Then the field shows *Provided by server*, and you cannot change it. You need your
-  own key only for a provider that has no key on the server.
+  Then the field says so. You need your own key for a provider that has no key on
+  the server. For a provider that has a key on the server, your own key is
+  optional: if you enter it, the editor uses it instead of the key of the server,
+  and the assistants have no limit ([The limit of the server's keys](#the-limit-of-the-servers-keys)).
 - **Assistant Max Steps (1–50)**: the maximum number of turns that the Light mode of
   the LE Assistant can use for one request. If you do not change the number, the
   maximum is 10.
@@ -64,6 +67,24 @@ Thus a key that you set in one place operates in the two places.
 Sometimes you did not select a model, or the provider of the selected model has no
 key. Then the LE Assistant answers with a warning that refers you to this dialog.
 Write it in English then makes its **Generate** button unavailable.
+
+### The limit of the server's keys
+
+The server pays for the requests that use its own keys. Thus these requests have a
+limit. The limit is the same as the limit of the tools for other assistants
+([Logical English over MCP](../api/mcp.md#limits-and-keys)):
+
+- Without a sign-in, each editor has 10 units in a minute and 200 units in a day. All
+  the editors at one internet address have, together, ten times that limit. Many
+  students in a classroom share one address.
+- A request to the LE Assistant uses 10 units. A sentence in Write it in English
+  uses 3 units. A contract that the Contract Assistant reads uses 50 units.
+- If you sign in and hold a licence, the limit is larger: 300 units in a minute and
+  50,000 units in a day.
+
+When a request is over the limit, the assistant tells you how long to wait. **With
+your own key for the provider of the model, there is no limit.** The editor sends
+your key with your request, and the server does not count that request.
 
 ## The LE Assistant
 
@@ -164,8 +185,9 @@ many times. A run can take some minutes or some hours. The cost depends on the m
 and on the effort that you select.
 
 The Contract Assistant needs a model and a key for the model (**3. Model**). A key
-field appears only for the provider of the model that you selected. It appears only
-when the server has no key for that provider. The **Judge model** does only two
+field appears for the provider of each model that you selected. When the server has
+a key for that provider, the field is optional: with your own key, the job has no
+limit ([The limit of the server's keys](#the-limit-of-the-servers-keys)). The **Judge model** does only two
 things: it merges the vocabulary samples, and it writes the coverage ledger. Thus a
 less expensive model is usually sufficient. **Branches also drafted by** gives the
 name of a second model. Sometimes a run writes two or more competing drafts. Then the

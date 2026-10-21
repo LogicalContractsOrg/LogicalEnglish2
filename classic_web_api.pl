@@ -52,6 +52,7 @@
 :- use_module(llm/llm_client, [llm_list_models/1]).
 :- use_module(llm/llm_prices, [llm_prices_start/0]).
 :- use_module(nl_to_le, [english_to_le/8]).
+:- use_module(le_throttle).
 :- use_module(llm/mcp, [handle_mcp/1, handle_rest_list_examples/1, handle_rest_query/1, handle_rest_verify/1, handle_rest_example_details/1]).
 :- use_module(restricted_paths).
 :- use_module(le_entitlements).
@@ -326,7 +327,12 @@ uit(Key, Text) :- le_i18n:ui_text(Key, Text).
 handle_leapi(Request) :-
     set_request_language(Request),
     http_read_json_dict(Request, Dict),
-    (   validate_token(Dict) ->  
+    (   validate_token(Dict),
+        llm_budget(Request, Dict, refuse(Wait, Message))
+    ->  get_dict(operation, Dict, Op),
+        print_message(informational, le_api_info(refused(Op))),
+        reply_json_dict(_{result: "error", error: Message, throttled: true, retry_after: Wait})
+    ;   validate_token(Dict) ->  
             get_dict(operation, Dict, Op),
             print_message(informational, le_api_info(Op)),
             operation_time_limit(Dict, Limit),
@@ -347,6 +353,38 @@ handle_leapi(Request) :-
           reply_json_dict(_{error: "Invalid token"}, [status(403)])
     ).
 
+
+%!  llm_budget(+Request, +Dict, -Verdict) is det.
+%
+%   An assistant's request that the server pays for (le_api:llm_payer/3: no
+%   key of the user's own for the model) spends from the client's budget,
+%   the same budget and the same levels as the tools of /mcp
+%   (le_throttle.pl): an address, the editor's session, a sign-in or a key.
+%   With the user's own key, or for any other operation, Verdict is `allow`.
+%   A refusal is a reply with `error`, which every assistant shows.
+llm_budget(Request, Dict, Verdict) :-
+    (   catch(llm_payer(Dict, Cost, server), _, fail)
+    ->  throttle_identity(Request, Identity0),
+        assistant_session(Identity0, Dict, Identity),
+        throttle_admit(Identity, Cost, [], V),
+        (   V = refuse(_, Wait, Message0)
+        ->  le_i18n:le_msg(throttle_own_llm_key, [], Own),
+            format(string(Message), "~w ~w", [Message0, Own]),
+            Verdict = refuse(Wait, Message)
+        ;   Verdict = allow
+        )
+    ;   Verdict = allow
+    ).
+
+%   The editor's own session stands for the MCP session: the students of a
+%   class behind one address have a budget each, and share a larger one.
+assistant_session(Identity0, Dict, Identity) :-
+    (   get_dict(session, Identity0, none),
+        ( get_dict(session_id, Dict, S) ; get_dict(sessionModule, Dict, S) ),
+        S \== null, S \== ""
+    ->  atom_string(SA, S), Identity = Identity0.put(session, SA)
+    ;   Identity = Identity0
+    ).
 
 validate_token(Dict) :-
     get_dict(token, Dict, Token),

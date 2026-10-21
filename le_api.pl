@@ -26,6 +26,7 @@
 
 :- module(le_api, [
     handle_operation/2,         % +RequestDict, -ReplyDict
+    llm_payer/3,                % +RequestDict, -Cost, -Payer          semidet
     operation_time_limit/2,     % +RequestDict, -Seconds
     query_time_limit/2,         % +RequestDict, -Seconds
     folder_blurb/2,             % +Dir, -HtmlBlurb   (the landing page's, too)
@@ -91,6 +92,61 @@ prolog:message(le_api_error(Op, Msg)) -->
     [ 'LE API Operation failed: ~w - ~w' - [Op, Msg] ].
 prolog:message(le_api_info(Msg)) -->
     [ 'LE API: ~w' - [Msg] ].
+
+%!  llm_payer(+Dict, -Cost, -Payer) is semidet.
+%
+%   For an operation that calls a language model, who pays for it: `user`
+%   when the browser sent its own key (`api_keys`) for the provider of every
+%   model the operation uses, `server` when one of them would use the
+%   server's key. Cost is what the call spends from the client's budget
+%   (le_throttle.pl), in the units of a tool call of /mcp: an assistant
+%   request is worth ten, a sentence written as Logical English three, a
+%   contract read by the Contract Assistant fifty (LE_ASSISTANT_COST,
+%   LE_NL_COST and LE_CONTRACT_COST change them). Fails for an operation
+%   that calls no model. The server's HTTP half (classic_web_api.pl) limits
+%   the operations the server pays for; with the user's own key there is no
+%   limit.
+llm_payer(Dict, Cost, Payer) :-
+    get_dict(operation, Dict, Op0), atom_string(Op, Op0),
+    llm_operation(Op, CostVar, DefaultCost),
+    (   getenv(CostVar, V), atom_number(V, C), C >= 0 -> Cost = C ; Cost = DefaultCost ),
+    llm_operation_models(Op, Dict, Models),
+    ( get_dict(api_keys, Dict, Keys), is_dict(Keys) -> true ; Keys = _{} ),
+    (   forall(member(M, Models), user_key_for_model(M, Keys)) -> Payer = user ; Payer = server ).
+
+llm_operation(assistant_command, 'LE_ASSISTANT_COST', 10).
+llm_operation(nl_to_le,          'LE_NL_COST',         3).
+llm_operation(contract_start,    'LE_CONTRACT_COST',  50).
+
+%   The models an operation uses, with the defaults the operation itself
+%   takes (handle_nl_to_le/2; the Contract Assistant's normalise_config).
+llm_operation_models(assistant_command, Dict, [M]) :-
+    given_model(Dict, model, "", M).
+llm_operation_models(nl_to_le, Dict, [M]) :-
+    given_model(Dict, model, "openai/gpt-oss-120b", M).
+llm_operation_models(contract_start, Dict, Models) :-
+    given_model(Dict, model, "claude-sonnet", M),
+    given_model(Dict, judge_model, M, J),
+    (   get_dict(branch_models, Dict, BM), BM \== null
+    ->  (   is_list(BM) -> Bs = BM ; split_string(BM, ",", " ", Bs) )
+    ;   Bs = []
+    ),
+    exclude(==(""), [M, J|Bs], Models).
+
+given_model(Dict, Field, Default, Model) :-
+    (   get_dict(Field, Dict, M0), M0 \== "", M0 \== null -> Model = M0 ; Model = Default ).
+
+%   The browser holds a key for this model's provider: the rule the
+%   assistants use to choose a key (le_assistant_light:get_key_for_model/3,
+%   nl_le_api_key/3, the Contract Assistant's key_for_model/3) — a model the
+%   client does not know is an OpenAI one.
+user_key_for_model(Model, Keys) :-
+    (   catch(llm_client:llm_model(Model, Provider0, _), _, fail)
+    ->  ( Provider0 == gemini -> Provider = google ; Provider = Provider0 )
+    ;   Provider = openai
+    ),
+    get_dict(Provider, Keys, K),
+    K \== null, K \== "".
 
 %!  operation_time_limit(+Dict, -Seconds) is det.
 %

@@ -1,6 +1,6 @@
 # Privacy notice
 
-*Kind: policy · Audience: everyone who uses the hosted sites · Status: current (2026-10-01)*
+*Kind: policy · Audience: everyone who uses the hosted sites · Status: current (2026-10-21: keys for the tools of the assistants)*
 
 This notice tells you which personal data the two hosted sites keep, and why. It
 also tells you how to have that data corrected or removed. Personal data is any
@@ -103,6 +103,27 @@ The sites count visits with **Cloudflare Web Analytics**. Cloudflare Web Analyti
 records which pages people visit, from which country, and with which type of
 browser and device. Cloudflare Web Analytics does not set a cookie. It does not
 follow you from one site to another site.
+
+## Keys for the tools of the assistants
+
+The two sites also answer programs that use the Model Context Protocol (MCP). MCP
+is a common method for an assistant, such as Claude Code, to use the tools of a
+server. You can use these tools without a key. A key gives a larger number of
+calls.
+
+- A key is a long text that starts with `lc_`. We make a key for a person, or for
+  an event, for example a lecture. The key contains the email address of the person
+  or the name of the event, and the last day on which the key is valid. The sites do
+  not keep the keys. A key that we withdraw goes on a list. The list contains only
+  the identifier of the key: twelve letters and digits.
+- To give each client a fair share, the servers count the calls of each client: for
+  each key, or for each internet address if there is no key. The servers count in
+  the same way the requests of the assistants of the editors that use a key of the
+  server. They do not count a request that uses your own key. The servers keep these
+  counts in memory, for the current day only. The total of an event key is kept
+  until the event ends.
+- The servers do not keep the facts and the questions that a call sends. These can
+  contain personal data about a real case.
 
 ## Cookies
 

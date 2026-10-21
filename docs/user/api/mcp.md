@@ -1,6 +1,6 @@
 # Logical English over MCP
 
-*Kind: reference · Audience: developers · Status: current (2026-10-16)*
+*Kind: reference · Audience: developers · Status: current (2026-10-21: limits and keys)*
 
 The LE (Logical English) server speaks MCP, the
 [Model Context Protocol](https://modelcontextprotocol.io). MCP is a common language
@@ -32,6 +32,11 @@ server itself. For all the other things that the server can do, refer to
 - [Resources](#resources)
 - [Prompts](#prompts)
 - [REST endpoints](#rest-endpoints)
+- [Limits and keys](#limits-and-keys)
+  - [The limits](#the-limits)
+  - [When the server refuses a call](#when-the-server-refuses-a-call)
+  - [Keys](#keys)
+  - [The settings of a server](#the-settings-of-a-server)
 - [Protocol details](#protocol-details)
 
 ## Transports
@@ -165,8 +170,8 @@ the server marks the result `isError: true`.
 **`list_examples`** lists the programs of `examples/moreExamples/`, of the extra
 folders (`regulatory/…`, `migration/…`, …) and of the folders of the other languages
 (`pt/…`). Each program has a summary of one line. The list does not contain the
-folders that only readers with a licence can open, because a client that speaks MCP
-never signs in. To write a summary, the server loads the program one time. Then the
+folders that only readers with a licence can open, unless the client sends the key
+of a licence holder ([Keys](#keys)). To write a summary, the server loads the program one time. Then the
 server keeps the summary for the next list.
 
 The full list is long (more than 150,000 characters). An assistant can refuse a
@@ -188,8 +193,8 @@ These fields are the same as the fields that
 API sends back, without the session, and with `program_text`. The web API is the
 other way for a program to ask this server for something. `program_text` is the text
 of the program itself. An example in a folder for licence holders only gives the
-answer `{error: "Example '…' requires login"}`, because a client that speaks MCP
-never logs in.
+answer `{error: "Example '…' requires login"}`, unless the client sends the key of a
+licence holder ([Keys](#keys)).
 
 The reply contains `program_text` only when the text has 30,000 characters or
 fewer. A longer text is left out, because many assistants refuse a reply of that
@@ -300,7 +305,99 @@ curl -s -X POST http://localhost:3050/query -H 'Content-Type: application/json' 
   -d '{"example_name":"citizenship","scenario_name":"alice","query":"one"}'
 ```
 
-These four addresses do not ask for a token.
+These four addresses do not ask for a token. They have the same limits as the MCP
+tools ([Limits and keys](#limits-and-keys)).
+
+## Limits and keys
+
+The public server, `le2.logicalcontracts.com`, answers every client. It is a small
+server, and the editor uses it too. Thus the server limits the calls of each
+client, so that each client gets a fair share. A server that you start on your own
+computer does not limit the calls that come from the same computer.
+
+### The limits
+
+| Client | Calls in a minute | Calls in a day | Longest text in a call |
+|---|---|---|---|
+| A client without a key | 10 | 200 | 20,000 characters |
+| A client with the key of a person | 30 | 2,000 | 200,000 characters |
+| A client with the key of an event (for example, a lecture) | 60, for each session | the total of the event | 200,000 characters |
+| A client with the key of a licence holder | 300 | 50,000 | 1,000,000 characters |
+
+- `query` and `verify` count as three calls. The other tools count as one call.
+- A *session* starts when a client sends `initialize`. The reply gives the session
+  identifier in the header `Mcp-Session-Id`, and the client sends it back with each
+  call. Without a key, the limit applies to each session. All the sessions from one
+  internet address have, together, ten times that limit. Many students in a
+  classroom share one address, and each student has a session.
+- A text in a call is the value of `program_text`, `facts` or `query`.
+- A tool call can run for a maximum of 60 seconds.
+- A maximum of four tool calls run at the same time. A call waits for its turn for
+  a maximum of five seconds.
+- `query` gives a client on a different computer a maximum of 50 answers. A note
+  tells how many answers there are.
+- The assistants of the editors use the same budget when they use a key of the
+  server: a request to an assistant counts as 10 calls, a sentence in Write it in
+  English as 3, a contract read by the Contract Assistant as 50. A request with the
+  user's own key for the model does not count
+  ([the assistants guide](../guide/assistants.md#the-limit-of-the-servers-keys)).
+
+### When the server refuses a call
+
+- **Over MCP**, the reply to the tool call is a normal result, marked
+  `isError: true`. Its text tells which limit the call reached, how many seconds
+  to wait, and how to get a key. An assistant can read this text and tell you.
+- **At the four web addresses**, the status of the reply is `429` (too many calls)
+  or `413` (a text that is too long). The header `Retry-After` gives the number of
+  seconds to wait, when waiting helps. The status `503` means that the server is
+  busy; `504` means that the call ran for too long.
+
+### Keys
+
+A key gives a larger number of calls. To get a key, write to Logical Contracts.
+There are three types of key:
+
+- **The key of a person** is valid for one year. If the person has a licence, the
+  key gives the licence holder's limits.
+- **The key of an event** is for a lecture or a workshop. It is valid only on the
+  days of the event, and it gives all the participants together a total number of
+  calls.
+- **The key of a licence holder** also opens what the licence pays for, for
+  example the private example programs. Without a key, an MCP client never has a
+  licence.
+
+To use a key, send it in the header `Authorization`:
+
+```bash
+claude mcp add --transport http logical-english https://le2.logicalcontracts.com/mcp \
+    --header "Authorization: Bearer lc_..."
+```
+
+A client that cannot send a header can put the key in the address:
+`https://le2.logicalcontracts.com/mcp?key=...`. Do this only with the key of an
+event: an address stays in logs and in the history of a browser.
+
+Keep your key secret. A key starts with `lc_`, so you can find one in a file. If a
+key becomes public by mistake, tell us, and we withdraw it.
+
+### The settings of a server
+
+These environment variables change the limits of a server that you run yourself:
+
+| Variable | What it changes | Default |
+|---|---|---|
+| `LE_MCP_THROTTLE` | `off` turns off all the limits | on |
+| `LE_MCP_THROTTLE_LOCAL` | `true` also limits the calls from the same computer | false |
+| `LE_MCP_RATE`, `LE_MCP_BURST`, `LE_MCP_DAILY` | the calls in a minute, the largest burst, and the calls in a day, for a client without a key | 10, 10, 200 |
+| `LE_MCP_CONCURRENT` | the tool calls that can run at the same time | 4 |
+| `LE_MCP_TIME_LIMIT` | the seconds that a tool call can run | 60 |
+| `LE_MCP_EVENT_KEYS` | simple event keys, without the accounts of the hosted sites: `name:budget:from:until`, separated by commas; the client sends the name as its key | none |
+| `LE_MCP_STATE_DIR` | a folder where the server keeps the totals of the event keys when it starts again | none |
+| `LE_MCP_CONTACT` | an email address that a refused client can write to for a key | none |
+
+The keys of the hosted sites are made by the accounts of Logical Contracts. A
+server without those accounts knows each client only by its address and by
+`LE_MCP_EVENT_KEYS`.
 
 ## Protocol details
 

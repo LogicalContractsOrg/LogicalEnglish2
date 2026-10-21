@@ -2203,8 +2203,12 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                     const input = document.getElementById(`${k}-key`) as HTMLInputElement;
                     const serverKey = data.server_keys.includes(k === 'google' ? 'gemini' : k);
                     if (serverKey && input) {
-                        input.disabled = true;
-                        input.placeholder = t('Provided by server');
+                        // The server has a key for this provider; the user may still
+                        // bring their own: it is used instead, and with it the assistants
+                        // have no limit (the server's key is used within a daily budget,
+                        // le_throttle.pl).
+                        input.disabled = false;
+                        input.placeholder = t('The server has a key: enter yours to use it instead');
                         // Add a note if not already there
                         let note = input.parentElement?.querySelector('.server-key-note');
                         if (!note) {
@@ -2213,7 +2217,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                             note.style.fontSize = '10px';
                             note.style.color = '#89d185';
                             note.style.marginTop = '2px';
-                            note.textContent = t('This key is provided by the server environment.');
+                            note.textContent = t("Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.");
                             input.parentElement?.appendChild(note);
                         }
                     } else if (input) {

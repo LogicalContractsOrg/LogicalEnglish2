@@ -17,6 +17,13 @@
 :- use_module('../le_tools').
 :- use_module('../le_docs_search', [docs_search_answer/4]).
 :- use_module('../restricted_paths', [is_path_allowed/2]).
+:- use_module('../le_throttle').
+:- use_module('../le_entitlements').
+:- use_module('../le_i18n').
+
+%   The client of the request being served over HTTP (le_throttle.pl's
+%   identity), for the tools that answer differently to a remote client.
+:- thread_local mcp_identity/1.
 
 :- dynamic mcp_only_query_verify/0.
 % mcp_only_query_verify. % Uncomment to enable the flag
@@ -54,19 +61,93 @@ loop_mcp_stdio :-
 handle_mcp(Request) :-
     (   member(method(post), Request) ->
         http_read_json_dict(Request, Dict),
+        % Who asks (a key, a sign-in or the address), and so the budget of the
+        % call and what it may open (le_throttle.pl).
+        throttle_identity(Request, Identity),
+        identity_entitlements(Identity),
+        retractall(mcp_identity(_)), assertz(mcp_identity(Identity)),
+        new_session_header(Request, Dict),
         % Attribute any verify captures during this request to the calling job,
         % so concurrent assistant jobs cannot recover each other's work.
         mcp_job_token(Request, JobToken),
-        setup_call_cleanup(
-            set_verify_job(JobToken),
-            handle_mcp_post(Dict),
-            clear_verify_job
+        (   tool_call(Dict, Tool, Args),
+            admit_tool(Identity, Tool, Args, refuse(_, _, Message))
+        ->  reply_tool_refusal(Dict, Message)
+        ;   setup_call_cleanup(
+                set_verify_job(JobToken),
+                throttle_run(Identity, handle_mcp_post(Dict), Outcome),
+                clear_verify_job),
+            mcp_outcome(Outcome, Dict)
         )
     ;   member(method(get), Request) ->
         % mcp-remote or other clients might try GET for SSE
         reply_json_dict(_{error: "SSE not implemented, use POST JSON-RPC"}, [status(405)])
     ;   reply_json_dict(_{error: "Method not allowed"}, [status(405)])
     ).
+
+%   A key's licences apply to the call it carries: the sign-in cookie set the
+%   request's entitlements already (classic_web_api.pl), and a key replaces
+%   them.
+identity_entitlements(Identity) :-
+    (   get_dict(caps, Identity, Caps), is_list(Caps)
+    ->  set_request_entitlements(Caps)
+    ;   true
+    ).
+
+%   The reply to `initialize` names a new MCP session (`Mcp-Session-Id`),
+%   which the client sends back with every later request: the clients behind
+%   one address then have a budget each. A header line written before the
+%   reply's own goes out with it.
+new_session_header(Request, Dict) :-
+    (   get_dict(method, Dict, M), match_method(initialize, M),
+        \+ memberchk(mcp_session_id(_), Request)
+    ->  throttle_new_session(S),
+        format('Mcp-Session-Id: ~w~n', [S])
+    ;   true
+    ).
+
+tool_call(Dict, Tool, Args) :-
+    get_dict(method, Dict, M), match_method('tools/call', M),
+    Params = Dict.get(params, _{}),
+    Tool = Params.get(name, ""),
+    Args = Params.get(arguments, _{}).
+
+%!  admit_tool(+Identity, +Tool, +Args, -Verdict) is det.
+%
+%   Whether the client's budget allows this call: a query or a check costs
+%   three, a look-up one; the texts it sends count against the size limit.
+admit_tool(Identity, Tool, Args, Verdict) :-
+    ( memberchk(Tool, ["query", "verify", query, verify]) -> Cost = 3 ; Cost = 1 ),
+    (   is_dict(Args)
+    ->  findall(L, ( member(K, [program_text, facts, query]),
+                     get_dict(K, Args, V), ( string(V) ; atom(V) ), string_length(V, L) ), Ls)
+    ;   Ls = []
+    ),
+    throttle_admit(Identity, Cost, Ls, Verdict).
+
+%   A refused call is a tool result marked isError, with a message the model
+%   can read and repeat: some clients take an HTTP error for a broken link.
+reply_tool_refusal(Dict, Message) :-
+    ( get_dict(id, Dict, ID) -> true ; ID = null ),
+    format(user_error, "MCP Refused: ~w~n", [Message]),
+    reply_json_dict(_{jsonrpc: "2.0", id: ID,
+                      result: _{content: [_{type: "text", text: Message}], isError: true}}).
+
+%   A call that waited too long for its turn, or ran out of time, is told
+%   so; one that failed or raised an error was not answered at all.
+mcp_outcome(done, _) :- !.
+mcp_outcome(busy(Message), Dict) :- !, reply_tool_refusal(Dict, Message).
+mcp_outcome(timeout(Message), Dict) :- !, reply_tool_refusal(Dict, Message).
+mcp_outcome(Outcome, Dict) :-
+    ( get_dict(id, Dict, ID) -> true ; ID = null ),
+    format(user_error, "MCP Error: ~q~n", [Outcome]),
+    reply_json_dict(_{jsonrpc: "2.0", id: ID,
+                      error: _{code: -32603, message: "Internal error during tool execution"}}).
+
+%   The roles (capabilities) the tools open the example trees with: the
+%   request's entitlements on a server, none otherwise.
+mcp_roles(Roles) :-
+    (   current_entitlements(C), is_list(C) -> Roles = C ; Roles = [] ).
 
 %!  mcp_job_token(+Request, -Token) is det.
 %
@@ -429,24 +510,37 @@ handle_method(Method, _Dict, _Response) :-
 
 % --- REST Handlers for ChatGPT Actions ---
 
-handle_rest_list_examples(_Request) :-
-    call_tool("list_examples", _{}, Result),
-    reply_json_dict(Result).
+handle_rest_list_examples(Request) :-
+    rest_tool(Request, "list_examples", _{}).
 
 handle_rest_query(Request) :-
     http_read_json_dict(Request, Args),
-    call_tool("query", Args, Result),
-    reply_json_dict(Result).
+    rest_tool(Request, "query", Args).
 
 handle_rest_verify(Request) :-
     http_read_json_dict(Request, Args),
-    call_tool("verify", Args, Result),
-    reply_json_dict(Result).
+    rest_tool(Request, "verify", Args).
 
 handle_rest_example_details(Request) :-
     http_read_json_dict(Request, Args),
-    call_tool("get_example_details", Args, Result),
-    reply_json_dict(Result).
+    rest_tool(Request, "get_example_details", Args).
+
+%   The same limits as /mcp. A refusal is HTTP status 429 (too many calls)
+%   or 413 (a text too long), with Retry-After when waiting helps.
+rest_tool(Request, Tool, Args) :-
+    throttle_identity(Request, Identity),
+    identity_entitlements(Identity),
+    retractall(mcp_identity(_)), assertz(mcp_identity(Identity)),
+    (   admit_tool(Identity, Tool, Args, refuse(Status, Wait, Message))
+    ->  ( Wait > 0 -> format('Retry-After: ~w~n', [Wait]) ; true ),
+        reply_json_dict(_{error: Message}, [status(Status)])
+    ;   throttle_run(Identity, ( call_tool(Tool, Args, Result), reply_json_dict(Result) ), Outcome),
+        (   Outcome == done -> true
+        ;   Outcome = busy(M) -> format('Retry-After: 10~n'), reply_json_dict(_{error: M}, [status(503)])
+        ;   Outcome = timeout(M) -> reply_json_dict(_{error: M}, [status(504)])
+        ;   reply_json_dict(_{error: "Internal error during tool execution"}, [status(500)])
+        )
+    ).
 
 % --- Tool Implementations ---
 
@@ -488,7 +582,8 @@ call_tool("get_example_details", Args, Result) :-
     % examples/pt/cidadania); relative paths are fine, the server runs from
     % the repo root. A restricted example (restricted_paths.pl) is not read for
     % an MCP/REST client, which has no session and so no roles.
-    catch(( le_tools:example_path_for(ExampleName, [], Path) -> Outcome = path(Path) ; Outcome = missing ),
+    mcp_roles(Roles),
+    catch(( le_tools:example_path_for(ExampleName, Roles, Path) -> Outcome = path(Path) ; Outcome = missing ),
           error(permission_error(access, example, _), _),
           Outcome = restricted),
     (   Outcome = path(P)
@@ -501,7 +596,9 @@ call_tool("get_example_details", Args, Result) :-
     ).
 
 call_tool("query", Args, Result) :-
-    le_tools:le_tool_query(Args, Result).
+    mcp_roles(Roles),
+    le_tools:le_tool_query(Args, Roles, Result0),
+    cap_answers(Result0, Result).
 
 call_tool("verify", Args, Result) :-
     le_tools:le_tool_verify(Args, Result).
@@ -524,6 +621,19 @@ call_tool(ToolName, _Args, Result) :-
     format(user_error, "MCP Error: Unknown tool called: ~w~n", [ToolName]),
     format(string(Msg), "Unknown tool: ~w. Available tools are: list_examples, get_example_details, query, verify, search_documentation.", [ToolName]),
     Result = _{error: Msg}.
+
+%   A remote client gets at most the first 50 answers of a query, with a note
+%   that says how many there were.
+cap_answers(R0, R) :-
+    (   mcp_identity(Identity), \+ get_dict(level, Identity, local),
+        get_dict(results, R0, Rs), length(Rs, N), N > 50
+    ->  length(First, 50), append(First, _, Rs),
+        le_msg(throttle_answers_cut, [shown-50, count-N], Note0), atom_string(Note0, Note),
+        ( get_dict(notes, R0, Ns) -> true ; Ns = [] ),
+        append(Ns, [Note], Ns1),
+        R = R0.put(_{results: First, notes: Ns1})
+    ;   R = R0
+    ).
 
 mcp_tool_name(Name) :-
     atom_string(Tool, Name),
@@ -624,7 +734,7 @@ list_examples_with_summaries(Dir, Prefix, Examples) :-
         file_name_extension(Base, le, F),
         atom_concat(Prefix, Base, ExPath),
         directory_file_path(Dir, F, Path),
-        restricted_paths:is_path_allowed(Path, []),
+        mcp_roles(Roles), restricted_paths:is_path_allowed(Path, Roles),
         \+ library_copy_in(Dir, Base),
         example_summary(Path, Summary)
     ), DirectExamples),
@@ -634,7 +744,7 @@ list_examples_with_summaries(Dir, Prefix, Examples) :-
         \+ memberchk(F, [sources, node_modules]),   % a twin's originals, not programs
         directory_file_path(Dir, F, SubDir),
         exists_directory(SubDir),
-        restricted_paths:is_path_allowed(SubDir, []),
+        mcp_roles(Roles), restricted_paths:is_path_allowed(SubDir, Roles),
         atomic_list_concat([Prefix, F, '/'], SubPrefix),
         list_examples_with_summaries(SubDir, SubPrefix, SubExamples)
     ), SubExamplesLists),

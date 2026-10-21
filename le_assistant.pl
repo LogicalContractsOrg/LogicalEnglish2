@@ -337,8 +337,10 @@ handle_assistant_command(Dict, Response) :-
         get_opencode_env(APIKeys, true, JobID, BaseEnv),
         
         % Special case: if model is groq/openai/gpt-oss-120b, ensure GROQ_API_KEY is set
+        % from the user's Groq key (it was read, by mistake, from the OpenAI one,
+        % which Groq refuses)
         (   sub_atom(OpencodeModel, _, _, _, 'groq/')
-        ->  ( (is_dict(APIKeys), get_dict(openai, APIKeys, GKey), GKey \== null, GKey \== "") -> 
+        ->  ( (is_dict(APIKeys), get_dict(groq, APIKeys, GKey), GKey \== null, GKey \== "") -> 
                 to_atom_or_string(GKey, SGKey),
                 ExtraEnv = ['GROQ_API_KEY'=SGKey]
             ; ExtraEnv = [] )

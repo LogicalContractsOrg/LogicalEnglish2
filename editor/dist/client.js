@@ -10095,7 +10095,9 @@ var uiCatalog = {
     "Save the Ledger": "Guardar o registo",
     "Save the ledger as a file on your computer, beside the program": "Guardar o registo como ficheiro no seu computador, ao lado do programa",
     "Open the ledger": "Abrir o registo",
-    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "O registo diz, para cada elemento da origem, se foi traduzido sem mudan\xE7a de significado, com uma mudan\xE7a de significado (e porqu\xEA), ou n\xE3o foi traduzido. Ficheiro > Mostrar o registo abre-o mais tarde."
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "O registo diz, para cada elemento da origem, se foi traduzido sem mudan\xE7a de significado, com uma mudan\xE7a de significado (e porqu\xEA), ou n\xE3o foi traduzido. Ficheiro > Mostrar o registo abre-o mais tarde.",
+    "The server has a key: enter yours to use it instead": "O servidor tem uma chave: introduza a sua para a usar em vez dela",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sem uma chave sua, \xE9 usada a chave do servidor, dentro de um limite di\xE1rio. Com a sua pr\xF3pria chave, n\xE3o h\xE1 limite."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -10762,7 +10764,9 @@ var uiCatalog = {
     "Save the Ledger": "Guardar el registro",
     "Save the ledger as a file on your computer, beside the program": "Guardar el registro como archivo en su ordenador, junto al programa",
     "Open the ledger": "Abrir el registro",
-    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "El registro dice, para cada elemento del origen, si se tradujo sin cambio de significado, con un cambio de significado (y por qu\xE9), o no se tradujo. Archivo > Mostrar el registro lo abre m\xE1s tarde."
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "El registro dice, para cada elemento del origen, si se tradujo sin cambio de significado, con un cambio de significado (y por qu\xE9), o no se tradujo. Archivo > Mostrar el registro lo abre m\xE1s tarde.",
+    "The server has a key: enter yours to use it instead": "El servidor tiene una clave: introduzca la suya para usarla en su lugar",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sin una clave propia, se usa la clave del servidor, dentro de un l\xEDmite diario. Con su propia clave, no hay l\xEDmite."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11429,7 +11433,9 @@ var uiCatalog = {
     "Save the Ledger": "Enregistrer le registre",
     "Save the ledger as a file on your computer, beside the program": "Enregistrer le registre comme fichier sur votre ordinateur, \xE0 c\xF4t\xE9 du programme",
     "Open the ledger": "Ouvrir le registre",
-    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Le registre dit, pour chaque \xE9l\xE9ment de la source, s'il a \xE9t\xE9 traduit sans changement de sens, avec un changement de sens (et pourquoi), ou pas du tout. Fichier > Afficher le registre l'ouvre plus tard."
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Le registre dit, pour chaque \xE9l\xE9ment de la source, s'il a \xE9t\xE9 traduit sans changement de sens, avec un changement de sens (et pourquoi), ou pas du tout. Fichier > Afficher le registre l'ouvre plus tard.",
+    "The server has a key: enter yours to use it instead": "Le serveur a une cl\xE9 : saisissez la v\xF4tre pour l'utiliser \xE0 sa place",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sans cl\xE9 \xE0 vous, la cl\xE9 du serveur est utilis\xE9e, dans une limite quotidienne. Avec votre propre cl\xE9, il n'y a pas de limite."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12096,7 +12102,9 @@ var uiCatalog = {
     "Save the Ledger": "Salva il registro",
     "Save the ledger as a file on your computer, beside the program": "Salva il registro come file sul tuo computer, accanto al programma",
     "Open the ledger": "Apri il registro",
-    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Il registro dice, per ogni elemento della fonte, se \xE8 stato tradotto senza cambiamento di significato, con un cambiamento di significato (e perch\xE9), o per niente. File > Mostra il registro lo apre pi\xF9 tardi."
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Il registro dice, per ogni elemento della fonte, se \xE8 stato tradotto senza cambiamento di significato, con un cambiamento di significato (e perch\xE9), o per niente. File > Mostra il registro lo apre pi\xF9 tardi.",
+    "The server has a key: enter yours to use it instead": "Il server ha una chiave: inserisca la sua per usarla al suo posto",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Senza una chiave sua, si usa la chiave del server, entro un limite giornaliero. Con una sua chiave, non c'\xE8 limite."
   }
 };
 var languages = [
@@ -17564,8 +17572,8 @@ ${err}`, "See s(CASP)");
           const input = document.getElementById(`${k}-key`);
           const serverKey = data.server_keys.includes(k === "google" ? "gemini" : k);
           if (serverKey && input) {
-            input.disabled = true;
-            input.placeholder = t("Provided by server");
+            input.disabled = false;
+            input.placeholder = t("The server has a key: enter yours to use it instead");
             let note = input.parentElement?.querySelector(".server-key-note");
             if (!note) {
               note = document.createElement("div");
@@ -17573,7 +17581,7 @@ ${err}`, "See s(CASP)");
               note.style.fontSize = "10px";
               note.style.color = "#89d185";
               note.style.marginTop = "2px";
-              note.textContent = t("This key is provided by the server environment.");
+              note.textContent = t("Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.");
               input.parentElement?.appendChild(note);
             }
           } else if (input) {

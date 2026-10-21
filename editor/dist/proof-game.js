@@ -117548,7 +117548,17 @@ var uiCatalog = {
     "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Estas s\xE3o as respostas encontradas em {n} segundos, quando a consulta foi parada. Pode haver mais.",
     "Keep going": "Continuar",
     "Run the query again, with {n} seconds to find the answers.": "Correr a consulta de novo, com {n} segundos para encontrar as respostas.",
-    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Este programa \xE9 grande. Para responder a tempo, as explica\xE7\xF5es n\xE3o mostram porque \xE9 que cada condi\xE7\xE3o da forma "n\xE3o \xE9 o caso que ..." se verifica.'
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Este programa \xE9 grande. Para responder a tempo, as explica\xE7\xF5es n\xE3o mostram porque \xE9 que cada condi\xE7\xE3o da forma "n\xE3o \xE9 o caso que ..." se verifica.',
+    "Show the Ledger\u2026": "Mostrar o registo\u2026",
+    "Show the ledger of a program translated from another system: for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all": "Mostrar o registo de um programa traduzido de outro sistema: para cada elemento da origem, se foi traduzido sem mudan\xE7a de significado, com uma mudan\xE7a de significado (e porqu\xEA), ou n\xE3o foi traduzido",
+    "Show the Ledger": "Mostrar o registo",
+    "This program has no ledger: it was not translated from another system, or the translation was made more than a day ago and was not saved with its ledger.": "Este programa n\xE3o tem registo: n\xE3o foi traduzido de outro sistema, ou a tradu\xE7\xE3o foi feita h\xE1 mais de um dia e n\xE3o foi guardada com o seu registo.",
+    "Save the Ledger": "Guardar o registo",
+    "Save the ledger as a file on your computer, beside the program": "Guardar o registo como ficheiro no seu computador, ao lado do programa",
+    "Open the ledger": "Abrir o registo",
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "O registo diz, para cada elemento da origem, se foi traduzido sem mudan\xE7a de significado, com uma mudan\xE7a de significado (e porqu\xEA), ou n\xE3o foi traduzido. Ficheiro > Mostrar o registo abre-o mais tarde.",
+    "The server has a key: enter yours to use it instead": "O servidor tem uma chave: introduza a sua para a usar em vez dela",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sem uma chave sua, \xE9 usada a chave do servidor, dentro de um limite di\xE1rio. Com a sua pr\xF3pria chave, n\xE3o h\xE1 limite."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -118207,7 +118217,17 @@ var uiCatalog = {
     "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Estas son las respuestas encontradas en {n} segundos, cuando se detuvo la consulta. Puede haber m\xE1s.",
     "Keep going": "Continuar",
     "Run the query again, with {n} seconds to find the answers.": "Ejecutar la consulta otra vez, con {n} segundos para encontrar las respuestas.",
-    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Este programa es grande. Para responder a tiempo, las explicaciones no muestran por qu\xE9 se cumple cada condici\xF3n de la forma "no es el caso que ...".'
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Este programa es grande. Para responder a tiempo, las explicaciones no muestran por qu\xE9 se cumple cada condici\xF3n de la forma "no es el caso que ...".',
+    "Show the Ledger\u2026": "Mostrar el registro\u2026",
+    "Show the ledger of a program translated from another system: for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all": "Mostrar el registro de un programa traducido de otro sistema: para cada elemento del origen, si se tradujo sin cambio de significado, con un cambio de significado (y por qu\xE9), o no se tradujo",
+    "Show the Ledger": "Mostrar el registro",
+    "This program has no ledger: it was not translated from another system, or the translation was made more than a day ago and was not saved with its ledger.": "Este programa no tiene registro: no se tradujo de otro sistema, o la traducci\xF3n se hizo hace m\xE1s de un d\xEDa y no se guard\xF3 con su registro.",
+    "Save the Ledger": "Guardar el registro",
+    "Save the ledger as a file on your computer, beside the program": "Guardar el registro como archivo en su ordenador, junto al programa",
+    "Open the ledger": "Abrir el registro",
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "El registro dice, para cada elemento del origen, si se tradujo sin cambio de significado, con un cambio de significado (y por qu\xE9), o no se tradujo. Archivo > Mostrar el registro lo abre m\xE1s tarde.",
+    "The server has a key: enter yours to use it instead": "El servidor tiene una clave: introduzca la suya para usarla en su lugar",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sin una clave propia, se usa la clave del servidor, dentro de un l\xEDmite diario. Con su propia clave, no hay l\xEDmite."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -118866,7 +118886,17 @@ var uiCatalog = {
     "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Voici les r\xE9ponses trouv\xE9es en {n} secondes, quand la requ\xEAte a \xE9t\xE9 arr\xEAt\xE9e. Il peut y en avoir d'autres.",
     "Keep going": "Continuer",
     "Run the query again, with {n} seconds to find the answers.": "Relancer la requ\xEAte, avec {n} secondes pour trouver les r\xE9ponses.",
-    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': "Ce programme est grand. Pour r\xE9pondre \xE0 temps, les explications ne montrent pas pourquoi chaque condition de la forme \xAB il n'est pas vrai que ... \xBB est remplie."
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': "Ce programme est grand. Pour r\xE9pondre \xE0 temps, les explications ne montrent pas pourquoi chaque condition de la forme \xAB il n'est pas vrai que ... \xBB est remplie.",
+    "Show the Ledger\u2026": "Afficher le registre\u2026",
+    "Show the ledger of a program translated from another system: for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all": "Afficher le registre d'un programme traduit d'un autre syst\xE8me : pour chaque \xE9l\xE9ment de la source, s'il a \xE9t\xE9 traduit sans changement de sens, avec un changement de sens (et pourquoi), ou pas du tout",
+    "Show the Ledger": "Afficher le registre",
+    "This program has no ledger: it was not translated from another system, or the translation was made more than a day ago and was not saved with its ledger.": "Ce programme n'a pas de registre : il n'a pas \xE9t\xE9 traduit d'un autre syst\xE8me, ou la traduction a \xE9t\xE9 faite il y a plus d'un jour et n'a pas \xE9t\xE9 enregistr\xE9e avec son registre.",
+    "Save the Ledger": "Enregistrer le registre",
+    "Save the ledger as a file on your computer, beside the program": "Enregistrer le registre comme fichier sur votre ordinateur, \xE0 c\xF4t\xE9 du programme",
+    "Open the ledger": "Ouvrir le registre",
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Le registre dit, pour chaque \xE9l\xE9ment de la source, s'il a \xE9t\xE9 traduit sans changement de sens, avec un changement de sens (et pourquoi), ou pas du tout. Fichier > Afficher le registre l'ouvre plus tard.",
+    "The server has a key: enter yours to use it instead": "Le serveur a une cl\xE9 : saisissez la v\xF4tre pour l'utiliser \xE0 sa place",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sans cl\xE9 \xE0 vous, la cl\xE9 du serveur est utilis\xE9e, dans une limite quotidienne. Avec votre propre cl\xE9, il n'y a pas de limite."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -119525,7 +119555,17 @@ var uiCatalog = {
     "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Queste sono le risposte trovate in {n} secondi, quando l'interrogazione \xE8 stata fermata. Potrebbero essercene altre.",
     "Keep going": "Continua",
     "Run the query again, with {n} seconds to find the answers.": "Eseguire di nuovo l'interrogazione, con {n} secondi per trovare le risposte.",
-    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Questo programma \xE8 grande. Per rispondere in tempo, le spiegazioni non mostrano perch\xE9 vale ogni condizione della forma "non \xE8 vero che ...".'
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': 'Questo programma \xE8 grande. Per rispondere in tempo, le spiegazioni non mostrano perch\xE9 vale ogni condizione della forma "non \xE8 vero che ...".',
+    "Show the Ledger\u2026": "Mostra il registro\u2026",
+    "Show the ledger of a program translated from another system: for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all": "Mostra il registro di un programma tradotto da un altro sistema: per ogni elemento della fonte, se \xE8 stato tradotto senza cambiamento di significato, con un cambiamento di significato (e perch\xE9), o per niente",
+    "Show the Ledger": "Mostra il registro",
+    "This program has no ledger: it was not translated from another system, or the translation was made more than a day ago and was not saved with its ledger.": "Questo programma non ha registro: non \xE8 stato tradotto da un altro sistema, oppure la traduzione \xE8 stata fatta pi\xF9 di un giorno fa e non \xE8 stata salvata con il suo registro.",
+    "Save the Ledger": "Salva il registro",
+    "Save the ledger as a file on your computer, beside the program": "Salva il registro come file sul tuo computer, accanto al programma",
+    "Open the ledger": "Apri il registro",
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Il registro dice, per ogni elemento della fonte, se \xE8 stato tradotto senza cambiamento di significato, con un cambiamento di significato (e perch\xE9), o per niente. File > Mostra il registro lo apre pi\xF9 tardi.",
+    "The server has a key: enter yours to use it instead": "Il server ha una chiave: inserisca la sua per usarla al suo posto",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Senza una chiave sua, si usa la chiave del server, entro un limite giornaliero. Con una sua chiave, non c'\xE8 limite."
   }
 };
 var languages = [
