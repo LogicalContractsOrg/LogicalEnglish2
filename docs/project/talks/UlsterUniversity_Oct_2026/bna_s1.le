@@ -1,0 +1,71 @@
+% The British Nationality Act 1981, section 1(1), much simplified:
+% the Prolog program of demo B (bna_s1.pl), in Logical English.
+% Open it in the editor at https://le2.logicalcontracts.com with File > Open.
+the target language is: prolog.
+
+the templates are:
+*a person* acquires British citizenship on *a date*.
+*a person* is born in *a place* on *a date*.
+*a person* counts as a parent of *a person*.
+*a person* is the mother of *a person*.
+*a person* is the father of *a person*.
+*a person* is married to *a person*.
+*a person* is a British citizen on *a date*.
+*a person* is settled in the UK on *a date*.
+
+the knowledge base section_1_1 includes:
+
+rule s1_1 with provenance the British Nationality Act 1981 at "section 1(1)":
+a person acquires British citizenship on a date
+if the person is born in the UK on the date
+    and the date is after or equal to 1983-01-01
+    and an other person counts as a parent of the person
+    and the other person is a British citizen on the date
+        or the other person is settled in the UK on the date.
+
+rule s50_9_mother with provenance the British Nationality Act 1981 at "section 50(9)":
+a person counts as a parent of an other person
+if the person is the mother of the other person.
+
+rule s50_9_father with provenance the British Nationality Act 1981 at "section 50(9), as passed in 1981":
+a person counts as a parent of an other person
+if the person is the father of the other person
+    and a third person is the mother of the other person
+    and the person is married to the third person.
+
+rule s50_9A_father with provenance the British Nationality Act 1981 at "section 50(9A), in force from 1 July 2006":
+a person counts as a parent of an other person
+if the person is the father of the other person
+    and the other person is born in a place on a date
+    and the date is after or equal to 2006-07-01.
+
+scenario john is:
+    John is born in the UK on 2021-10-09.
+    Alice is the mother of John.
+    Alice is a British citizen on 2021-10-09.
+    one expects answers ["John acquires British citizenship on 2021-10-09"].
+
+scenario mary is:
+    Mary is born in the UK on 2022-03-01.
+    Beth is the mother of Mary.
+    Harry is the father of Mary.
+    Harry is settled in the UK on 2022-03-01.
+    one expects answers ["Mary acquires British citizenship on 2022-03-01"].
+
+scenario tom is:
+    Tom is born in the UK on 2000-05-01.
+    Carol is the mother of Tom.
+    Harry is the father of Tom.
+    Harry is settled in the UK on 2000-05-01.
+    one expects answers [].
+
+scenario tom_married is:
+    Tom is born in the UK on 2000-05-01.
+    Carol is the mother of Tom.
+    Harry is the father of Tom.
+    Harry is married to Carol.
+    Harry is settled in the UK on 2000-05-01.
+    one expects answers ["Tom acquires British citizenship on 2000-05-01"].
+
+query one is:
+    which person acquires British citizenship on which date.
