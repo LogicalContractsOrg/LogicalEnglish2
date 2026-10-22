@@ -498,6 +498,17 @@ Do these steps:
     *covered by scenario case_2*. The explanation of a case shows the rules that the
     case uses, with the facts that it assumes.
 
+    You can also start a case search from the menu. Do these steps:
+    1. Select a query.
+    2. Select **Misc → Find Cases**, then **Which cases make it the case that…** or
+       **Is there a case in which…**. The dialog proposes the sentence of the
+       selected query.
+    3. Edit the sentence if necessary. Write the sentence as a condition of a rule,
+       for example *a person gets rent support*.
+    4. Click **Find**.
+
+    The search runs as your own query. You can change the query and run it again.
+
 ## The Scenario Editor
 
 A scenario is a set of facts with a name. Your queries run on these facts. With the

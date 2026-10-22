@@ -875,6 +875,12 @@
                 <div class="dropdown-divider"></div>
                 <div class="dropdown-item" id="menu-view-source-graph" title="Visualize the program's templates, rules, facts, scenarios and queries as a dependency graph, in a new browser tab">View Source Graph</div>
                 <div class="dropdown-item" id="menu-test-report" title="Run every expectation of the program (the &quot;expects answers&quot; lines of its scenarios) and list each with its outcome: passed, or what was expected and what came instead. A click on a row selects its scenario and query.">Run the Program's Tests…</div>
+                <div class="dropdown-item has-submenu" id="menu-find-cases" title="Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference §17.11)">Find Cases
+                    <div class="submenu">
+                        <div class="dropdown-item" id="menu-find-cases-all" title="List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case">Which cases make it the case that…</div>
+                        <div class="dropdown-item" id="menu-find-cases-one" title="Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case">Is there a case in which…</div>
+                    </div>
+                </div>
                 <div class="dropdown-item" id="menu-open-executive" title="Run the program as its users see it, without its text: the executive view, with the program's views, in a new window">Open Executive View</div>
                 <div class="dropdown-item" id="menu-run-lps" title="Run this LPS program (the target language is: lps) in time with the LPS engine, in a new window: its timeline, state changes and explanations">Run in LPS</div>
                 <div class="dropdown-item" id="menu-legal-view" title="The legal view of this LPS program: who may do what, when, and with which effect — each action's integrity constraints as one permission rule, each causal law as an effect — an ordinary Logical English program, opened in a new tab with the program's own calls as queries">Legal View of This LPS Program</div>
@@ -1073,6 +1079,28 @@
             <div class="modal-footer">
                 <button id="flip-cancel" style="background: var(--item-hover-bg); color: var(--text-color); border: 1px solid var(--input-border); border-radius: 3px; padding: 5px 15px; cursor: pointer;">Cancel</button>
                 <button id="flip-run" style="background: #0e639c; color: #fff; border: none; border-radius: 3px; padding: 5px 15px; cursor: pointer;">Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- A case search (docs/user/reference/language.md §17.11), from Misc > Find
+         Cases, run as a custom query. -->
+    <div id="cases-modal" class="modal-overlay">
+        <div class="modal-content" style="width: 560px;">
+            <div class="modal-header">
+                <h3 style="margin: 0; font-size: 16px;">Find cases</h3>
+                <span id="cases-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cases-opener" style="font-style: italic;"></div>
+                <textarea id="cases-goal" rows="3" style="width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--input-text); border: 1px solid var(--input-border); padding: 6px; border-radius: 3px; font: inherit;"></textarea>
+                <p id="cases-help-all" data-i18n style="font-size: 11px; color: #888; margin: 0;">Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.</p>
+                <p id="cases-help-one" data-i18n style="font-size: 11px; color: #888; margin: 0;">Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.</p>
+                <p data-i18n style="font-size: 11px; color: #888; margin: 0;">The search runs as a custom query that you can change and run again.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cases-cancel" style="background: var(--item-hover-bg); color: var(--text-color); border: 1px solid var(--input-border); border-radius: 3px; padding: 5px 15px; cursor: pointer;">Cancel</button>
+                <button id="cases-run" style="background: #0e639c; color: #fff; border: none; border-radius: 3px; padding: 5px 15px; cursor: pointer;">Find</button>
             </div>
         </div>
     </div>

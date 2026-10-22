@@ -10097,7 +10097,17 @@ var uiCatalog = {
     "Open the ledger": "Abrir o registo",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "O registo diz, para cada elemento da origem, se foi traduzido sem mudan\xE7a de significado, com uma mudan\xE7a de significado (e porqu\xEA), ou n\xE3o foi traduzido. Ficheiro > Mostrar o registo abre-o mais tarde.",
     "The server has a key: enter yours to use it instead": "O servidor tem uma chave: introduza a sua para a usar em vez dela",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sem uma chave sua, \xE9 usada a chave do servidor, dentro de um limite di\xE1rio. Com a sua pr\xF3pria chave, n\xE3o h\xE1 limite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sem uma chave sua, \xE9 usada a chave do servidor, dentro de um limite di\xE1rio. Com a sua pr\xF3pria chave, n\xE3o h\xE1 limite.",
+    "Find Cases": "Procurar casos",
+    "Find cases": "Procurar casos",
+    "Which cases make it the case that\u2026": "Que casos fazem com que\u2026",
+    "Is there a case in which\u2026": "H\xE1 algum caso em que\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Procura todos os casos que o programa permite, n\xE3o s\xF3 os seus cen\xE1rios: os casos em que uma frase \xE9 verdadeira, ou um caso que viola uma propriedade (refer\xEAncia da linguagem \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Lista todos os casos em que uma frase \xE9 verdadeira: o que um cen\xE1rio teria de dizer, e n\xE3o dizer, para que seja verdadeira, com os cen\xE1rios do programa que satisfazem cada caso",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Procura um caso em que uma frase \xE9 verdadeira, por exemplo um caso que viola uma propriedade do programa. A resposta \xE9 o caso, ou a declara\xE7\xE3o de que n\xE3o h\xE1 tal caso",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Escreva a frase como uma condi\xE7\xE3o de uma regra, por exemplo "a person gets rent support". Cada resposta \xE9 um caso em que a frase \xE9 verdadeira: o que um cen\xE1rio tem de dizer, e n\xE3o pode dizer. A resposta tamb\xE9m indica os cen\xE1rios do programa que satisfazem o caso.',
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Escreva a frase como uma condi\xE7\xE3o de uma regra, por exemplo "a person is eligible and the person is excluded". Para verificar uma propriedade, escreva o que a viola. A resposta \xE9 um caso em que a frase \xE9 verdadeira, ou a declara\xE7\xE3o de que n\xE3o h\xE1 tal caso.',
+    "The search runs as a custom query that you can change and run again.": "A procura corre como uma consulta personalizada que pode alterar e voltar a correr."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -10766,7 +10776,17 @@ var uiCatalog = {
     "Open the ledger": "Abrir el registro",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "El registro dice, para cada elemento del origen, si se tradujo sin cambio de significado, con un cambio de significado (y por qu\xE9), o no se tradujo. Archivo > Mostrar el registro lo abre m\xE1s tarde.",
     "The server has a key: enter yours to use it instead": "El servidor tiene una clave: introduzca la suya para usarla en su lugar",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sin una clave propia, se usa la clave del servidor, dentro de un l\xEDmite diario. Con su propia clave, no hay l\xEDmite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sin una clave propia, se usa la clave del servidor, dentro de un l\xEDmite diario. Con su propia clave, no hay l\xEDmite.",
+    "Find Cases": "Buscar casos",
+    "Find cases": "Buscar casos",
+    "Which cases make it the case that\u2026": "Qu\xE9 casos hacen que\u2026",
+    "Is there a case in which\u2026": "Hay alg\xFAn caso en que\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Busca todos los casos que el programa permite, no solo sus escenarios: los casos en que una frase es verdadera, o un caso que incumple una propiedad (referencia del lenguaje \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Lista todos los casos en que una frase es verdadera: lo que un escenario tendr\xEDa que decir, y no decir, para que sea verdadera, con los escenarios del programa que cumplen cada caso",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Busca un caso en que una frase es verdadera, por ejemplo un caso que incumple una propiedad del programa. La respuesta es el caso, o la declaraci\xF3n de que no hay tal caso",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Escriba la frase como una condici\xF3n de una regla, por ejemplo "a person gets rent support". Cada respuesta es un caso en que la frase es verdadera: lo que un escenario debe decir, y no debe decir. La respuesta tambi\xE9n indica los escenarios del programa que cumplen el caso.',
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Escriba la frase como una condici\xF3n de una regla, por ejemplo "a person is eligible and the person is excluded". Para comprobar una propiedad, escriba lo que la incumple. La respuesta es un caso en que la frase es verdadera, o la declaraci\xF3n de que no hay tal caso.',
+    "The search runs as a custom query that you can change and run again.": "La b\xFAsqueda se ejecuta como una consulta personalizada que puede cambiar y volver a ejecutar."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11435,7 +11455,17 @@ var uiCatalog = {
     "Open the ledger": "Ouvrir le registre",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Le registre dit, pour chaque \xE9l\xE9ment de la source, s'il a \xE9t\xE9 traduit sans changement de sens, avec un changement de sens (et pourquoi), ou pas du tout. Fichier > Afficher le registre l'ouvre plus tard.",
     "The server has a key: enter yours to use it instead": "Le serveur a une cl\xE9 : saisissez la v\xF4tre pour l'utiliser \xE0 sa place",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sans cl\xE9 \xE0 vous, la cl\xE9 du serveur est utilis\xE9e, dans une limite quotidienne. Avec votre propre cl\xE9, il n'y a pas de limite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sans cl\xE9 \xE0 vous, la cl\xE9 du serveur est utilis\xE9e, dans une limite quotidienne. Avec votre propre cl\xE9, il n'y a pas de limite.",
+    "Find Cases": "Chercher des cas",
+    "Find cases": "Chercher des cas",
+    "Which cases make it the case that\u2026": "Quels cas font que\u2026",
+    "Is there a case in which\u2026": "Il y a un cas o\xF9\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Cherche tous les cas que le programme permet, pas seulement ses sc\xE9narios : les cas o\xF9 une phrase est vraie, ou un cas qui viole une propri\xE9t\xE9 (r\xE9f\xE9rence du langage \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Liste tous les cas o\xF9 une phrase est vraie : ce qu'un sc\xE9nario devrait dire, et ne pas dire, pour qu'elle soit vraie, avec les sc\xE9narios du programme qui satisfont chaque cas",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cherche un cas o\xF9 une phrase est vraie, par exemple un cas qui viole une propri\xE9t\xE9 du programme. La r\xE9ponse est le cas, ou la d\xE9claration qu'il n'y a pas de tel cas",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': "\xC9crivez la phrase comme une condition d'une r\xE8gle, par exemple \xAB a person gets rent support \xBB. Chaque r\xE9ponse est un cas o\xF9 la phrase est vraie : ce qu'un sc\xE9nario doit dire, et ne doit pas dire. La r\xE9ponse indique aussi les sc\xE9narios du programme qui satisfont le cas.",
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': "\xC9crivez la phrase comme une condition d'une r\xE8gle, par exemple \xAB a person is eligible and the person is excluded \xBB. Pour v\xE9rifier une propri\xE9t\xE9, \xE9crivez ce qui la viole. La r\xE9ponse est un cas o\xF9 la phrase est vraie, ou la d\xE9claration qu'il n'y a pas de tel cas.",
+    "The search runs as a custom query that you can change and run again.": "La recherche s'ex\xE9cute comme une requ\xEAte personnalis\xE9e que vous pouvez modifier et relancer."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12104,7 +12134,17 @@ var uiCatalog = {
     "Open the ledger": "Apri il registro",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Il registro dice, per ogni elemento della fonte, se \xE8 stato tradotto senza cambiamento di significato, con un cambiamento di significato (e perch\xE9), o per niente. File > Mostra il registro lo apre pi\xF9 tardi.",
     "The server has a key: enter yours to use it instead": "Il server ha una chiave: inserisca la sua per usarla al suo posto",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Senza una chiave sua, si usa la chiave del server, entro un limite giornaliero. Con una sua chiave, non c'\xE8 limite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Senza una chiave sua, si usa la chiave del server, entro un limite giornaliero. Con una sua chiave, non c'\xE8 limite.",
+    "Find Cases": "Cerca casi",
+    "Find cases": "Cerca casi",
+    "Which cases make it the case that\u2026": "Quali casi fanno s\xEC che\u2026",
+    "Is there a case in which\u2026": "C'\xE8 un caso in cui\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Cerca tutti i casi che il programma consente, non solo i suoi scenari: i casi in cui una frase \xE8 vera, o un caso che viola una propriet\xE0 (riferimento del linguaggio \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Elenca tutti i casi in cui una frase \xE8 vera: ci\xF2 che uno scenario dovrebbe dire, e non dire, perch\xE9 sia vera, con gli scenari del programma che soddisfano ciascun caso",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cerca un caso in cui una frase \xE8 vera, per esempio un caso che viola una propriet\xE0 del programma. La risposta \xE8 il caso, o la dichiarazione che non esiste un tale caso",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Scriva la frase come una condizione di una regola, per esempio "a person gets rent support". Ogni risposta \xE8 un caso in cui la frase \xE8 vera: ci\xF2 che uno scenario deve dire, e non deve dire. La risposta indica anche gli scenari del programma che soddisfano il caso.',
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Scriva la frase come una condizione di una regola, per esempio "a person is eligible and the person is excluded". Per verificare una propriet\xE0, scriva ci\xF2 che la viola. La risposta \xE8 un caso in cui la frase \xE8 vera, o la dichiarazione che non esiste un tale caso.',
+    "The search runs as a custom query that you can change and run again.": "La ricerca si esegue come un'interrogazione personalizzata che pu\xF2 modificare e rieseguire."
   }
 };
 var languages = [
@@ -18996,6 +19036,58 @@ ${err}`, "See s(CASP)");
     updateQueryButtonState();
     updateUrlSelection();
     closeFlip();
+    btnQuery.click();
+  });
+  const casesModal = document.getElementById("cases-modal");
+  const casesGoal = document.getElementById("cases-goal");
+  let casesKey = "cases_query";
+  const closeCases = () => {
+    if (casesModal)
+      casesModal.style.display = "none";
+  };
+  document.getElementById("cases-close")?.addEventListener("click", closeCases);
+  document.getElementById("cases-cancel")?.addEventListener("click", closeCases);
+  casesModal?.addEventListener("click", (e) => {
+    if (e.target === casesModal)
+      closeCases();
+  });
+  const openCases = async (key) => {
+    if (!casesModal || !casesGoal)
+      return;
+    if (!isLoaded) {
+      const ok = await loadModule();
+      if (!ok)
+        return;
+    }
+    casesKey = key;
+    const lang = detectProgramLanguage(programText());
+    const named = lastQueries.find((x) => x.name === querySelect.value);
+    let goal = (querySelect.value === "___custom___" ? customQueryText.value : named ? String(named.le || "") : "").trim().replace(/\.$/, "");
+    const openers = ["cases_query", "case_exists_query", "flip_query"].flatMap((k) => [...kwPhrases(lang, k), ...kwPhrases("en", k)]).sort((a, b) => b.length - a.length);
+    const opener = openers.find((o) => goal.toLowerCase().startsWith(o.toLowerCase()));
+    if (opener)
+      goal = goal.slice(opener.length).trim();
+    document.getElementById("cases-opener").textContent = `${flipPhrase(key)} \u2026`;
+    document.getElementById("cases-help-all").style.display = key === "cases_query" ? "" : "none";
+    document.getElementById("cases-help-one").style.display = key === "cases_query" ? "none" : "";
+    casesGoal.value = goal;
+    casesModal.style.display = "flex";
+    casesGoal.focus();
+  };
+  document.getElementById("menu-find-cases-all")?.addEventListener("click", () => openCases("cases_query"));
+  document.getElementById("menu-find-cases-one")?.addEventListener("click", () => openCases("case_exists_query"));
+  document.getElementById("cases-run")?.addEventListener("click", () => {
+    if (!casesGoal)
+      return;
+    const goal = casesGoal.value.trim().replace(/\.$/, "");
+    if (!goal)
+      return;
+    querySelect.value = "___custom___";
+    customQueryContainer.style.display = "flex";
+    customQueryText.value = `${flipPhrase(casesKey)} ${goal}`;
+    updateQueryButtonState();
+    updateUrlSelection();
+    closeCases();
     btnQuery.click();
   });
   const btnProofGame = document.getElementById("btn-proof-game");

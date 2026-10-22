@@ -1828,6 +1828,8 @@ the cases that a program permits, without a scenario.
   of its limits. A scenario can expect that answer
   (`… expects answers ["there is no such case: the search covered every case"]`).
   Then the property is one of the tests of the program.
+- **In the editor.** **Misc → Find Cases** asks either search about the selected
+  query. The editor shows the sentence of the query in a dialog, where you can edit it.
 - **A ready-made scenario.** Each case comes with a scenario that satisfies it.
   The search selects the individuals and the values: `person_1`, an income of
   17500 between the limits 15000 and 20000, a date that agrees with the date

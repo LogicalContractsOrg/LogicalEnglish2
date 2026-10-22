@@ -3742,6 +3742,56 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         btnQuery.click();
     });
 
+    // --- Find Cases (Misc menu) ---------------------------------------------------
+    // A case search (docs/user/reference/language.md §17.11): "which cases make it
+    // the case that <goal>" (every case) or "is there a case in which <goal>"
+    // (one case, a property broken). The goal starts as the selected query,
+    // without the opener of a case search or a flip it may already have; it runs
+    // as a custom query, like a flip.
+    const casesModal = document.getElementById('cases-modal') as HTMLElement | null;
+    const casesGoal = document.getElementById('cases-goal') as HTMLTextAreaElement | null;
+    let casesKey: 'cases_query' | 'case_exists_query' = 'cases_query';
+    const closeCases = () => { if (casesModal) casesModal.style.display = 'none'; };
+    document.getElementById('cases-close')?.addEventListener('click', closeCases);
+    document.getElementById('cases-cancel')?.addEventListener('click', closeCases);
+    casesModal?.addEventListener('click', (e) => { if (e.target === casesModal) closeCases(); });
+
+    const openCases = async (key: 'cases_query' | 'case_exists_query') => {
+        if (!casesModal || !casesGoal) return;
+        if (!isLoaded) { const ok = await loadModule(); if (!ok) return; }
+        casesKey = key;
+        const lang = detectProgramLanguage(programText());
+        const named = lastQueries.find((x: any) => x.name === querySelect.value);
+        let goal = (querySelect.value === '___custom___' ? customQueryText.value
+                    : named ? String(named.le || '') : '').trim().replace(/\.$/, '');
+        const openers = ['cases_query', 'case_exists_query', 'flip_query']
+            .flatMap(k => [...kwPhrases(lang, k), ...kwPhrases('en', k)])
+            .sort((a, b) => b.length - a.length);
+        const opener = openers.find(o => goal.toLowerCase().startsWith(o.toLowerCase()));
+        if (opener) goal = goal.slice(opener.length).trim();
+        (document.getElementById('cases-opener') as HTMLElement).textContent = `${flipPhrase(key)} …`;
+        (document.getElementById('cases-help-all') as HTMLElement).style.display = key === 'cases_query' ? '' : 'none';
+        (document.getElementById('cases-help-one') as HTMLElement).style.display = key === 'cases_query' ? 'none' : '';
+        casesGoal.value = goal;
+        casesModal.style.display = 'flex';
+        casesGoal.focus();
+    };
+    document.getElementById('menu-find-cases-all')?.addEventListener('click', () => openCases('cases_query'));
+    document.getElementById('menu-find-cases-one')?.addEventListener('click', () => openCases('case_exists_query'));
+
+    document.getElementById('cases-run')?.addEventListener('click', () => {
+        if (!casesGoal) return;
+        const goal = casesGoal.value.trim().replace(/\.$/, '');
+        if (!goal) return;
+        querySelect.value = '___custom___';
+        customQueryContainer.style.display = 'flex';
+        customQueryText.value = `${flipPhrase(casesKey)} ${goal}`;
+        updateQueryButtonState();
+        updateUrlSelection();
+        closeCases();
+        btnQuery.click();
+    });
+
     const btnProofGame = document.getElementById('btn-proof-game') as HTMLButtonElement;
     
     btnProofGame.addEventListener('click', async () => {

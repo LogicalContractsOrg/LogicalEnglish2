@@ -37,4 +37,34 @@ test.describe('Case search', () => {
         await expect(page.locator('#answers-list .answer-item').first())
             .toHaveText('there is no such case: the search covered every case', { timeout: 90000 });
     });
+
+    test('Misc > Find Cases asks both searches about the selected query', async ({ page }) => {
+        test.setTimeout(120000);
+        await page.goto('index.html?example=regulatory/case_search&scenario=ana&query=support');
+        await expect(page.locator('#query-select')).toHaveValue('support', { timeout: 90000 });
+        // "which cases make it the case that …", from the selected query
+        await page.locator('.menu-item', { hasText: 'Misc' }).first().hover();
+        await page.locator('#menu-find-cases').hover();
+        await page.locator('#menu-find-cases-all').click();
+        await expect(page.locator('#cases-modal')).toBeVisible();
+        await expect(page.locator('#cases-opener')).toHaveText('which cases make it the case that …');
+        await expect(page.locator('#cases-goal')).toHaveValue('which person gets rent support');
+        await page.click('#cases-run');
+        await expect(page.locator('#query-select')).toHaveValue('___custom___');
+        await expect(page.locator('#custom-query-text')).toHaveValue('which cases make it the case that which person gets rent support');
+        await expect(page.locator('#answers-list .answer-item.case-item')).toHaveCount(1, { timeout: 90000 });
+        await expect(page.locator('#answers-list .case-coverage').first()).toHaveText('covered by scenario ana');
+
+        // "is there a case in which …": the custom query's goal, without its opener
+        await page.locator('.menu-item', { hasText: 'Misc' }).first().hover();
+        await page.locator('#menu-find-cases').hover();
+        await page.locator('#menu-find-cases-one').click();
+        await expect(page.locator('#cases-opener')).toHaveText('is there a case in which …');
+        await expect(page.locator('#cases-goal')).toHaveValue('which person gets rent support');
+        await page.fill('#cases-goal', 'a person gets rent support and the person is a student.');
+        await page.click('#cases-run');
+        await expect(page.locator('#custom-query-text')).toHaveValue('is there a case in which a person gets rent support and the person is a student');
+        await expect(page.locator('#answers-list .answer-item').first())
+            .toHaveText('there is no such case: the search covered every case', { timeout: 90000 });
+    });
 });
