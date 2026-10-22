@@ -61,6 +61,7 @@
 :- use_module(le_cases).
 :- use_module(library(time)).      % call_with_time_limit/2; the WASM build substitutes wasm/shims/time.pl
 :- use_module(library(uuid)).
+:- use_module(le_machine).
 :- use_module(library(pcre)).
 :- use_module(library(www_browser)).
 :- use_module(library(http/http_open)).
@@ -1462,7 +1463,10 @@ set_id_from_ref(Ref, M) :-
 createSession(KBmodule, SessionModule) :-
     ensure_kb_language(KBmodule),
     uuid(UUID),
-    atom_concat(s, UUID, SessionModule),
+    atom_concat(s, UUID, SessionModule0),
+    % the id names its machine, so that a request finds its way back to it
+    % when the server runs on several machines (le_machine.pl)
+    le_machine:machine_tagged_id(SessionModule0, SessionModule),
     % Use add_import_module to make all exported predicates of le_kbs 
     % available in the session module. This is more robust for dynamic modules.
     add_import_module(SessionModule, le_kbs, start),

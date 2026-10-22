@@ -163,6 +163,16 @@ in [editor/README.md](../../editor/README.md).
   `npm ci` inside `vendor/lpsplus/migration/solidity`),
   `buildPush.sh` (builds from a dereferenced copy of the tree, then
   `fly deploy --local-only`), `fly.toml`.
+- **Several machines** (`le_machine.pl`): a session, an LE Assistant job and a
+  Contract Assistant job live on the machine that made them, and the fly.io
+  proxy is not sticky. So each such id ends with `__m` and the machine's id
+  (`FLY_MACHINE_ID`), and a request that names another machine's id
+  (`sessionModule`, `job_id`, `job`; also `/dap?sessionModule=`) is answered
+  with `fly-replay: prefer_instance=<machine>`: the proxy sends it again to that
+  machine. A request already sent back (`fly-replay-src`), or with a body over
+  1 MB, is answered here ("Session expired": the editor reloads). Off fly.io
+  nothing changes; `LE_MACHINE_ID` sets the id for tests, `LE_MACHINE_REPLAY=off`
+  turns the sending back off. `testing/test_machine.pl`.
 - **Sibling repositories**: InsurLE2 (`le_extensions.pl` and the examples of
   those constructs), lpsPlus (`le_importers.pl` and the translators behind it,
   the domain models and the twins whose sources may not be published) and lps2

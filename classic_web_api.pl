@@ -53,6 +53,7 @@
 :- use_module(llm/llm_prices, [llm_prices_start/0]).
 :- use_module(nl_to_le, [english_to_le/8]).
 :- use_module(le_throttle).
+:- use_module(le_machine).
 :- use_module(llm/mcp, [handle_mcp/1, handle_rest_list_examples/1, handle_rest_query/1, handle_rest_verify/1, handle_rest_example_details/1]).
 :- use_module(restricted_paths).
 :- use_module(le_entitlements).
@@ -146,7 +147,7 @@ visitor(Email, Caps) :-
 :- http_handler('/docs/', handle_docs, [prefix]).
 :- http_handler('/executive', handle_executive, []).
 :- http_handler('/multilingual', handle_multilingual, []).
-:- http_handler('/dap', dap_websocket_handler, []).
+:- http_handler('/dap', handle_dap, []).
 % The pages and scripts change with the code; `no-cache` makes the browser
 % ask again each time (a 304 when unchanged), where without it Safari kept an
 % old page beside a new script (the executive's views: an element the old
@@ -327,6 +328,12 @@ uit(Key, Text) :- le_i18n:ui_text(Key, Text).
 handle_leapi(Request) :-
     set_request_language(Request),
     http_read_json_dict(Request, Dict),
+    (   replay_machine(Request, Dict, Machine)
+    ->  reply_replay(Machine)
+    ;   handle_leapi(Request, Dict)
+    ).
+
+handle_leapi(Request, Dict) :-
     (   validate_token(Dict),
         llm_budget(Request, Dict, refuse(Wait, Message))
     ->  get_dict(operation, Dict, Op),
@@ -353,6 +360,27 @@ handle_leapi(Request) :-
           reply_json_dict(_{error: "Invalid token"}, [status(403)])
     ).
 
+
+%!  reply_replay(+Machine) is det.
+%
+%   The reply that has the fly.io proxy send the request again to Machine,
+%   which keeps the session or the job it names (le_machine.pl). Its body is
+%   what this machine would answer without the proxy: the session is not
+%   here, and the editor loads the program again.
+reply_replay(Machine) :-
+    print_message(informational, le_api_info(replay(Machine))),
+    format("fly-replay: prefer_instance=~w~n", [Machine]),
+    reply_json_dict(_{error: "Session expired", session_expired: true}).
+
+%   The debugger's connection, /dap?sessionModule=…, goes to the machine of
+%   its session too, before the connection becomes a WebSocket.
+handle_dap(Request) :-
+    (   catch(http_parameters(Request, [sessionModule(SM, [optional(true)])]), _, fail),
+        nonvar(SM),
+        replay_machine(Request, _{sessionModule: SM}, Machine)
+    ->  reply_replay(Machine)
+    ;   dap_websocket_handler(Request)
+    ).
 
 %!  llm_budget(+Request, +Dict, -Verdict) is det.
 %

@@ -8,6 +8,7 @@
 :- module(le_assistant, [handle_assistant_command/2, handle_assistant_status/2, handle_assistant_interrupt/2, get_most_recent_opencode_session/2, normalize_path/2, test_llm_providers/0, extract_json_from_string/3, assistant_docs_material/2, assistant_docs_search_result/2]).
 
 :- use_module(le_entitlements).
+:- use_module(le_machine).
 :- use_module(library(process)).
 :- use_module(library(readutil)).
 :- use_module(library(http/http_json)).
@@ -237,7 +238,8 @@ handle_assistant_command(Dict, Response) :-
         ( get_dict(model, Dict, Model) -> true ; Model = "" ),
         ( get_dict(max_steps, Dict, MaxSteps) -> true ; MaxSteps = 10 ),
         get_next_id(ID),
-        format(string(JobID), "job_~w", [ID]),
+        format(string(JobID0), "job_~w", [ID]),
+        le_machine:machine_tagged_id(JobID0, JobID),
         (   catch(le_api:api_user(_, Roles), _, fail) -> UserRoles = Roles ; UserRoles = [] ),
         % The job thread inherits the request's UI language (thread-local, set
         % from ?lang= by set_request_language), so its progress messages come
@@ -308,7 +310,8 @@ handle_assistant_command(Dict, Response) :-
 
         % Create a temporary file for the editor content
         get_next_id(ID),
-        format(string(JobID), "job_~w", [ID]),
+        format(string(JobID0), "job_~w", [ID]),
+        le_machine:machine_tagged_id(JobID0, JobID),
         
         RelTempFile = "myProgram.le",
         format(string(TempFile), "~w/~w", [WorkDir, RelTempFile]),
