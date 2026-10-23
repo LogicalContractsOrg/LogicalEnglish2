@@ -15,7 +15,7 @@
     set_kb_module/1, clear_kb_module/0,
     current_compiling_module/1, rule_counter/1,
     verify/1, edit/1, canonical_string/2, token_to_atom/2, item_to_instance/3, query_explain/5, template_of/5,
-    topPredicates/2, kbSummary/2, kb_own_predicate/2, kb_summary_safe/3, with_kb_reference/2, parse_custom_facts/3, parse_custom_query/3, is_a_hierarchy/2, fetch_resources/3,
+    topPredicates/2, kbSummary/2, kb_own_predicate/2, kb_summary_safe/3, example_summary/3, with_kb_reference/2, parse_custom_facts/3, parse_custom_query/3, is_a_hierarchy/2, fetch_resources/3,
     maybe_destroy_kb/1, is_generated_kb_module/1,
     le_network_allowed/0, set_le_network_allowed/1,
     le_issue_reporting/0, set_le_issue_reporting/1,
@@ -1709,6 +1709,63 @@ kb_summary_compute(Path, Options, Summary) :-
     (   catch(with_kb_reference(KB, kbSummary(KB, Summary0)), _, fail)
     ->  !, Summary = Summary0
     ;   fail
+    ).
+
+%!  example_summary(+Path:atom, +Deadline:number, -Summary:string) is det.
+%
+%   The summary of an example program for a listing of many (the LE
+%   Assistant's prompt, the MCP list_examples tool): the cached one when
+%   there is one; otherwise kb_summary_safe/3, a full load, but only before
+%   Deadline (a get_time/1 stamp) and only for a program smaller than
+%   summary_load_limit/1; otherwise the program's opening comment. A
+%   licensed visitor sees the twins of lpsPlus, more than a hundred MB of
+%   programs: loading all of them took minutes, while the listing waited.
+example_summary(Path, Deadline, Summary) :-
+    (   kb_summary_cached(Path, Cached)
+    ->  Summary = Cached
+    ;   get_time(Now), Now =< Deadline,
+        catch(size_file(Path, Size), _, fail),
+        summary_load_limit(Limit), Size =< Limit,
+        % skip_tests: the listing only needs each KB loaded for its summary;
+        % running the KBs' embedded tests here would take tens of seconds.
+        kb_summary_safe(Path, [skip_tests], Summary0)
+    ->  Summary = Summary0
+    ;   leading_comment_summary(Path, Summary)
+    ).
+
+%   The largest program (in bytes) that example_summary/3 loads.
+summary_load_limit(100000).
+
+%   The summary kb_summary_safe/3 cached for Path's present version.
+kb_summary_cached(Path, Summary) :-
+    catch(absolute_file_name(Path, Abs), _, fail),
+    catch(time_file(Abs, Time), _, fail),
+    grammar_key([Abs], CacheKey),
+    kb_summary_cache(CacheKey, Time, Summary),
+    Summary \== failed.
+
+%   The program's opening comment, as one line (at most 300 characters).
+%   Only the opening lines are read: some twins are megabytes long.
+leading_comment_summary(Path, Summary) :-
+    catch(setup_call_cleanup(open(Path, read, In, [encoding(utf8)]),
+                             comment_prefix(In, Cs),
+                             close(In)),
+          _, Cs = []),
+    atomic_list_concat(Cs, ' ', S0), normalize_space(string(S1), S0),
+    (   S1 == "" -> Summary = "Logical English program (not summarised yet)"
+    ;   string_length(S1, L), L > 300 -> sub_string(S1, 0, 297, _, S2), string_concat(S2, "...", Summary)
+    ;   Summary = S1
+    ).
+
+comment_prefix(In, Cs) :-
+    read_line_to_string(In, L0),
+    (   L0 == end_of_file
+    ->  Cs = []
+    ;   normalize_space(string(L), L0),
+        (   L == "" -> comment_prefix(In, Cs)
+        ;   string_concat("%", C0, L) -> normalize_space(string(C), C0), Cs = [C|More], comment_prefix(In, More)
+        ;   Cs = []
+        )
     ).
 
 %!  reap_idle_sessions is det.

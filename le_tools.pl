@@ -28,13 +28,20 @@
 %!  le_tool_verify(+ProgramTextOrArgs, -Result) is det.
 %
 %   Parses and verifies a Logical English program, returning all issues found
-%   and running any embedded tests.
+%   and running any embedded tests. Args may give `program_base`: where the
+%   program is (a folder or a URL), against which its included resources
+%   resolve (le_kbs:load_text/3); without it they resolve against the
+%   server's folder, and a twin's `includes temporal` is not found.
 le_tool_verify(Args, Result) :-
     is_dict(Args), !,
     get_dict(program_text, Args, ProgramText),
-    le_tool_verify(ProgramText, Result).
+    ( get_dict(program_base, Args, Base) -> true ; Base = (-) ),
+    le_tool_verify_(ProgramText, Base, Result).
 le_tool_verify(ProgramText, Result) :-
-    le_kbs:load_text(ProgramText, KB),
+    le_tool_verify_(ProgramText, (-), Result).
+
+le_tool_verify_(ProgramText, Base, Result) :-
+    le_kbs:load_text(ProgramText, Base, KB),
     findall(_{severity: Sev, type: Type, message: Msg, fix: Fix, start: Start, end: End},
             KB:le_issue(Sev, Type, Msg, Fix, Start, End),
             Issues),
@@ -118,7 +125,9 @@ get_last_verified_program(Token0, AfterTime, ProgramText) :-
 %   Executes a query against a Logical English program or example. An example
 %   is read only if UserRoles may read it (le_tool_query/2: no roles, as for
 %   an anonymous client). The scenario is `scenario_name` (the MCP tool's
-%   field) or `scenario` (the light assistant's action).
+%   field) or `scenario` (the light assistant's action). A `program_text`
+%   resolves its included resources against `program_base`, as for
+%   le_tool_verify/2.
 le_tool_query(Args, Result) :-
     le_tool_query(Args, [], Result).
 le_tool_query(Args, UserRoles, Result) :-
@@ -173,7 +182,8 @@ le_tool_query_(Args, UserRoles, Result) :-
         example_path_for(ExampleName, UserRoles, Path),
         le_kbs:load(Path, KB)
     ;   ProgramText \== "" ->
-        le_kbs:load_text(ProgramText, KB)
+        ( get_dict(program_base, Args, Base) -> true ; Base = (-) ),
+        le_kbs:load_text(ProgramText, Base, KB)
     ;   KB = none
     ),
     le_kbs:createSession(KB, SM),

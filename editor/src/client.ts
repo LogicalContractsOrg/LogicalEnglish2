@@ -4257,6 +4257,9 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                     operation: 'assistant_command',
                     command: command,
                     content: jobDoc.model.getValue(),
+                    // Where the program is, so that the files it includes are found
+                    source: jobDoc.example || '',
+                    base: jobDoc.baseUrl || '',
                     session_id: jobDoc.assistantSessionId,
                     api_keys: apiKeys,
                     model: localStorage.getItem('le-assistant-model'),

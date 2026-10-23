@@ -681,41 +681,8 @@ example_details_result(KB, Result) :-
 list_summary_budget(20).
 
 example_summary(Path, Summary) :-
-    (   catch(absolute_file_name(Path, Abs), _, fail),
-        catch(time_file(Abs, Time), _, fail),
-        le_kbs:kb_summary_cache(Abs, Time, Cached), Cached \== failed
-    ->  Summary = Cached
-    ;   nb_current(mcp_list_deadline, Deadline), get_time(Now), Now > Deadline
-    ->  leading_comment_summary(Path, Summary)
-    ;   % skip_tests: the listing only needs each KB loaded for its summary;
-        % running the KBs' embedded tests here would take tens of seconds.
-        % kb_summary_safe holds a module reference while summarizing, so a
-        % concurrent request's session teardown cannot reclaim (abolish) the KB
-        % module mid-read — that race surfaced as existence_error(le_dict/1)
-        % 500s under parallel e2e load.
-        le_kbs:kb_summary_safe(Path, [skip_tests], Summary0)
-    ->  Summary = Summary0
-    ;   Summary = "Failed to load summary"
-    ).
-
-%   The program's opening comment, as one line (at most 300 characters).
-leading_comment_summary(Path, Summary) :-
-    catch(read_file_to_string(Path, Text, [encoding(utf8)]), _, Text = ""),
-    split_string(Text, "\n", "", Lines),
-    comment_prefix(Lines, Cs),
-    atomic_list_concat(Cs, ' ', S0), normalize_space(string(S1), S0),
-    (   S1 == "" -> Summary = "Logical English program (not summarised yet)"
-    ;   string_length(S1, L), L > 300 -> sub_string(S1, 0, 297, _, S2), string_concat(S2, "...", Summary)
-    ;   Summary = S1
-    ).
-
-comment_prefix([], []).
-comment_prefix([L0|Ls], Cs) :-
-    normalize_space(string(L), L0),
-    (   L == "" -> comment_prefix(Ls, Cs)
-    ;   string_concat("%", C0, L) -> normalize_space(string(C), C0), Cs = [C|More], comment_prefix(Ls, More)
-    ;   Cs = []
-    ).
+    (   nb_current(mcp_list_deadline, Deadline) -> true ; get_time(Deadline) ),
+    le_kbs:example_summary(Path, Deadline, Summary).
 
 %!  list_examples_with_summaries(+Dir:atom, +Prefix:atom, -Examples:list) is det.
 %

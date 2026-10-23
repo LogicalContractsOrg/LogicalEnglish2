@@ -241,6 +241,9 @@ handle_assistant_command(Dict, Response) :-
         format(string(JobID0), "job_~w", [ID]),
         le_machine:machine_tagged_id(JobID0, JobID),
         (   catch(le_api:api_user(_, Roles), _, fail) -> UserRoles = Roles ; UserRoles = [] ),
+        % Where the program is (its example's folder, or its URL), so that the
+        % verify and query actions find the resources it includes.
+        (   catch(le_api:load_base_of(Dict, Base0), _, fail) -> Base = Base0 ; Base = (-) ),
         % The job thread inherits the request's UI language (thread-local, set
         % from ?lang= by set_request_language), so its progress messages come
         % out localized — and the visitor's entitlements (le_entitlements.pl,
@@ -251,7 +254,7 @@ handle_assistant_command(Dict, Response) :-
         Job = le_entitlements:with_entitlements(Caps,
                   le_i18n:with_le_language(UILang,
                       le_assistant_light:run_light_assistant_thread(JobID, Command, Content,
-                                                                    Model, APIKeys, UserRoles, MaxSteps))),
+                                                                    Model, APIKeys, UserRoles, MaxSteps, Base))),
         (   current_prolog_flag(threads, true)
         ->  thread_create(Job, ThreadID, [detached(true)]),
             asserta(assistant_job(JobID, ThreadID))

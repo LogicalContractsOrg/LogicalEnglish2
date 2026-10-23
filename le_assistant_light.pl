@@ -7,7 +7,9 @@
 
 :- module(le_assistant_light, [
     run_light_assistant/9,
-    run_light_assistant_thread/7
+    run_light_assistant/10,
+    run_light_assistant_thread/7,
+    run_light_assistant_thread/8
 ]).
 
 :- use_module(library(http/http_json)).
@@ -18,12 +20,17 @@
 :- use_module(restricted_paths).
 
 %!  run_light_assistant_thread(+JobID, +Command, +Program0, +Model, +Keys, +UserRoles, +MaxSteps) is det.
+%!  run_light_assistant_thread(+JobID, +Command, +Program0, +Model, +Keys, +UserRoles, +MaxSteps, +Base) is det.
 %
-%   Runs the Light Assistant in a background thread.
+%   Runs the Light Assistant in a background thread. Base is where the
+%   program is (le_api:load_base_of/2), for its included resources; `-`
+%   when it is nowhere.
 run_light_assistant_thread(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps) :-
+    run_light_assistant_thread(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, (-)).
+run_light_assistant_thread(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, Base) :-
     asserta(le_assistant:assistant_job_status(JobID, running)),
     catch(
-        (   run_light_assistant(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, FinalExplanation, FinalProgram),
+        (   run_light_assistant(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, Base, FinalExplanation, FinalProgram),
             asserta(le_assistant:assistant_job_content(JobID, FinalProgram)),
             % Format the final output as JSON so that handle_assistant_status can parse it
             JSONDict = _{explanation: FinalExplanation, new_content: FinalProgram},
@@ -49,9 +56,15 @@ run_light_assistant_thread(JobID, Command, Program0, Model, Keys, UserRoles, Max
     ).
 
 %!  run_light_assistant(+JobID, +Command, +Program0, +Model, +Keys, +UserRoles, +MaxSteps, -FinalExplanation, -FinalProgram) is det.
+%!  run_light_assistant(+JobID, +Command, +Program0, +Model, +Keys, +UserRoles, +MaxSteps, +Base, -FinalExplanation, -FinalProgram) is det.
 %
-%   Runs the main Light Assistant agentic loop.
+%   Runs the main Light Assistant agentic loop. Base: as for
+%   run_light_assistant_thread/8; the verify and query actions load the
+%   program there (the thread's global variable le_assistant_base).
 run_light_assistant(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, FinalExplanation, FinalProgram) :-
+    run_light_assistant(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, (-), FinalExplanation, FinalProgram).
+run_light_assistant(JobID, Command, Program0, Model, Keys, UserRoles, MaxSteps, Base, FinalExplanation, FinalProgram) :-
+    b_setval(le_assistant_base, Base),
     assemble_system_prompt(Program0, UserRoles, SystemPrompt0),
     % The documentation searched for the request, behind the scenes.
     le_assistant:assistant_docs_material(Command, DocsBlock),
@@ -108,7 +121,8 @@ agent_loop(JobID, Model, Keys, Messages, Program, Step, LastVerifyStatus, MaxSte
                     le_i18n:le_msg(assistant_running_verification, [], VerifyingMsg),
                     format(string(VerifyingLine), "~w\n", [VerifyingMsg]),
                     assertz(le_assistant:assistant_job_output(JobID, stdout, VerifyingLine)),
-                    le_tools:le_tool_verify(Program, VerifyResult),
+                    b_getval(le_assistant_base, Base),
+                    le_tools:le_tool_verify(_{program_text: Program, program_base: Base}, VerifyResult),
                     % Format result as string to append to messages
                     with_output_to(string(ResultStr), json_write_dict(current_output, VerifyResult, [width(0)])),
                     format_verify_result(VerifyResult, FormattedResult),
@@ -142,7 +156,8 @@ agent_loop(JobID, Model, Keys, Messages, Program, Step, LastVerifyStatus, MaxSte
                     % The query runs against the program being edited: its text,
                     % never an example the model might name.
                     (   del_dict(example_name, ActionDict, _, ActionDict1) -> true ; ActionDict1 = ActionDict ),
-                    QueryArgs = ActionDict1.put(program_text, Program),
+                    b_getval(le_assistant_base, Base),
+                    QueryArgs = ActionDict1.put(_{program_text: Program, program_base: Base}),
                     le_tools:le_tool_query(QueryArgs, QueryResult),
                     with_output_to(string(ResultStr), json_write_dict(current_output, QueryResult, [width(0)])),
                     % Append to messages and loop
@@ -325,7 +340,12 @@ parse_yaml_frontmatter(Str, Dict) :-
     ), Pairs),
     dict_pairs(Dict, _, Pairs).
 
-list_examples_with_summaries(Dir, Prefix, UserRoles, Examples) :-
+%!  list_examples_with_summaries(+Dir, +Prefix, +UserRoles, +Deadline, -Examples) is det.
+%
+%   The examples of Dir and its subdirectories that UserRoles may open, each
+%   with a summary (le_kbs:example_summary/3: a program not summarised before
+%   Deadline is described by its opening comment).
+list_examples_with_summaries(Dir, Prefix, UserRoles, Deadline, Examples) :-
     directory_files(Dir, Files),
     findall(_{name: ExPath, summary: Summary}, (
         member(F, Files),
@@ -335,24 +355,18 @@ list_examples_with_summaries(Dir, Prefix, UserRoles, Examples) :-
         atomic_list_concat([Dir, F], FullPath),
         restricted_paths:is_path_allowed(FullPath, UserRoles),
         atom_concat(Prefix, Base, ExPath),
-        % skip_tests: the listing only needs each KB loaded for its summary;
-        % running the KBs' embedded tests here would take tens of seconds.
-        % kb_summary_safe holds a module reference while summarizing, so a
-        % concurrent session teardown cannot reclaim the KB module mid-read.
-        ( le_kbs:kb_summary_safe(FullPath, [skip_tests], Summary0) ->
-            Summary = Summary0
-        ; Summary = "No summary available"
-        )
+        le_kbs:example_summary(FullPath, Deadline, Summary)
     ), DirectExamples),
     findall(SubExamples, (
         member(F, Files),
         \+ sub_atom(F, 0, 1, _, '.'),
+        \+ memberchk(F, [sources, node_modules]),   % a twin's originals, not programs
         directory_file_path(Dir, F, SubDir),
         exists_directory(SubDir),
         restricted_paths:is_path_allowed(SubDir, UserRoles),
         atomic_list_concat([Prefix, F, '/'], SubPrefix),
         atomic_list_concat([SubDir, '/'], SubDirSlash),
-        list_examples_with_summaries(SubDirSlash, SubPrefix, UserRoles, SubExamples)
+        list_examples_with_summaries(SubDirSlash, SubPrefix, UserRoles, Deadline, SubExamples)
     ), SubExamplesLists),
     append(SubExamplesLists, SubExamplesFlat),
     append(DirectExamples, SubExamplesFlat, Examples).
@@ -378,7 +392,8 @@ load_curated_examples(_UserRoles, ExamplesStr) :-
 load_curated_examples(UserRoles, ExamplesStr) :-
     le_kbs:le_examples_dir(ExDir),
     atomic_list_concat([ExDir, '/'], DirSlash),
-    list_examples_with_summaries(DirSlash, '', UserRoles, Examples),
+    get_time(T0), list_summary_budget(Budget), Deadline is T0 + Budget,
+    list_examples_with_summaries(DirSlash, '', UserRoles, Deadline, Examples),
     % Format the list of all accessible examples
     findall(Line, (
         member(Ex, Examples),
@@ -407,6 +422,11 @@ load_curated_examples(UserRoles, ExamplesStr) :-
     atomic_list_concat(Contents, "\n", FullContentsStr),
     
     format(string(ExamplesStr), "Here is a list of all Logical English examples currently available in the system:\n~w\n\n~w", [ListStr, FullContentsStr]).
+
+%   Seconds the prompt's list of examples may spend loading programs for
+%   their summaries, before the first call to the model; the summaries are
+%   cached, so later requests list more of them from the cache.
+list_summary_budget(5).
 
 tool_specification(Spec) :-
     Spec = "
