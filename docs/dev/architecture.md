@@ -95,7 +95,7 @@ program includes.
 | `llm/llm_client.pl` | OpenAI-compatible client, model registry `llm_model_entry/4`, API keys from request, flags or environment |
 | `llm/le_llm.pl` | lets an embedder (LPS2) substitute its own client; used by `nl_to_le.pl` |
 | `llm/llm_prices.pl` | LiteLLM price table, for cost estimates |
-| `llm/mcp.pl` | MCP server (tools, prompts, resource `le://docs/syntax` = `docs/user/reference/language.md`) and REST endpoints; see [MCP](../user/api/mcp.md) |
+| `llm/mcp.pl` | MCP server (tools, prompts, resource `le://docs/syntax` = `docs/user/reference/language.md`) and REST endpoints; see [MCP](../user/api/mcp.md). An extension installed beside LE2 adds tools with clauses of `mcp:extension_tool/1` (its `tools/list` entries, for the current caller) and `mcp:extension_call/3`; lpsPlus's Contract Assistant offers its stages this way |
 
 **Server infrastructure**: `classic_web_api.pl`, `dap_server.pl`,
 `restricted_paths.pl`, `le_telemetry.pl`; `le_plus.pl` (where the private

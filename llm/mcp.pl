@@ -454,9 +454,13 @@ handle_method(Method, Dict, Response) :-
             }
         }
     ],
+    % tools an installed extension adds (extension_tool/1), when the caller
+    % may use them
+    findall(T, catch(extension_tool(T), _, fail), ExtTools),
+    append(AllTools, ExtTools, AllTools1),
     (   mcp_only_query_verify
-    ->  include(mcp:is_query_or_verify, AllTools, Tools)
-    ;   Tools = AllTools
+    ->  include(mcp:is_query_or_verify, AllTools1, Tools)
+    ;   Tools = AllTools1
     ),
     Response = _{
         jsonrpc: "2.0",
@@ -609,6 +613,17 @@ call_tool("search_documentation", Args, _{sections: Text}) :-
     directory_file_path(Root0, 'docs/user', Root),
     le_docs_search:docs_search_answer(Root, Q, [], Text).
 
+%   A tool of an installed extension (extension_call/3).
+call_tool(ToolName, Args, Result) :-
+    extension_tool_name(ToolName), !,
+    atom_string(T, ToolName),
+    (   catch(extension_call(T, Args, Result0), E,
+              ( term_string(E, ES), Result0 = _{error: ES} ))
+    ->  Result = Result0
+    ;   format(string(Msg), "The tool ~w could not answer with these arguments.", [ToolName]),
+        Result = _{error: Msg}
+    ).
+
 %   Reached when a tool's own clause failed, as well as for a name that is
 %   no tool: only the second is an unknown tool.
 call_tool(ToolName, _Args, Result) :-
@@ -638,6 +653,22 @@ cap_answers(R0, R) :-
 mcp_tool_name(Name) :-
     atom_string(Tool, Name),
     memberchk(Tool, [list_examples, get_example_details, query, verify, search_documentation]).
+
+%!  extension_tool(-ToolDict) is nondet.
+%!  extension_call(+Name, +Args, -Result) is semidet.
+%
+%   An extension installed beside LE2 (lpsPlus's Contract Assistant offers its
+%   stages this way, contract_assistant/ca_mcp.pl) adds tools: a clause of
+%   extension_tool/1 per tool it lists for the current caller (its
+%   `tools/list` entry: name, description, inputSchema), and extension_call/3
+%   answers a call. The extension checks the caller's licence itself.
+:- multifile extension_tool/1, extension_call/3.
+:- dynamic extension_tool/1, extension_call/3.
+
+extension_tool_name(Name) :-
+    atom_string(Tool, Name),
+    catch(extension_tool(T), _, fail),
+    atom_string(Tool, T.name), !.
 
 %   Read the metadata under a module reference (and retry if the module was
 %   reclaimed between load and reference) — same race as the listing above.
