@@ -42,8 +42,20 @@ verify(KB, Options, Issues) :-
     %  in the same thread) has none
     setup_call_cleanup(
         tests_budget_start,
-        ( setof(Issue, check_issue(KB, Options, Issue), Issues) -> true; Issues = [] ),
+        ( setof(Issue, guarded_check_issue(KB, Options, Issue), Issues) -> true; Issues = [] ),
         nb_setval(le_tests_deadline, none)).
+
+%   Each check on its own: a check that throws loses its own issues, never
+%   the others'. One check once threw on a program with the template
+%   `*a property* is *a property kind*` (Prolog's is/2) and the setof above
+%   then reported NOTHING, so the program looked clean while every one of its
+%   tests stopped with a run-time error, and no repair round was told why.
+guarded_check_issue(KB, Options, Issue) :-
+    clause(check_issue(KB, Options, Issue), Body),
+    catch(Body, E,
+          ( E = time_limit_exceeded -> throw(E)
+          ; print_message(warning, format("A verifier check failed and was skipped: ~q", [E])),
+            fail )).
 
 % The embedded tests a verification runs (failed_test below) share a time
 % budget, prolog flag le_verify_tests_seconds (default 5): a program with many
@@ -134,7 +146,9 @@ unread_value(KB, issue(unread_value, Description, Fix, Start, End)) :-
     with_rule_index(KB,
         findall(Slot-Values,
                 ( member(Slot, Slots), Slot = F/A/I,
-                  slot_values(KB, F, A, I, Values), Values \== [] ),
+                  % a template named like one of Prolog's own predicates
+                  % (builtin_template) has no clauses to read
+                  catch(slot_values(KB, F, A, I, Values), _, fail), Values \== [] ),
                 Read)),
     member(c(Slot, V, Head, Start, End), Candidates),
     memberchk(Slot-Values, Read),

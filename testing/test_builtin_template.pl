@@ -40,7 +40,39 @@ test(ordinary_template_is_fine) :-
     load_text(P, KB),
     assertion(\+ KB:le_issue(_, builtin_template, _, _, _, _)).
 
+% With a scenario fact of the is/2 template, another check (unread_value) once
+% threw on Prolog's private is/2, and the verification then reported no issue
+% at all: the program looked clean while every test stopped with a run-time
+% error. Each check now runs on its own (le_verifier:guarded_check_issue/3).
+test(the_error_survives_a_scenario_fact_of_the_template) :-
+    bt_scenario_prog(P),
+    load_text(P, KB),
+    assertion(KB:le_issue(error, builtin_template, _, _, _, _)).
+
 :- end_tests(builtin_template).
+
+bt_scenario_prog("the target language is: prolog.
+
+the templates are:
+    *a loss* occurs on *a date*.
+    *a loss* is late.
+    *a property* is *a property kind*; undefined.
+
+the knowledge base k includes:
+
+a loss is late
+    if the loss occurs on a date D
+    and D is after or equal to 2026-01-01.
+
+scenario one is:
+    claim one occurs on 2026-02-01.
+    property one is dwelling.
+    property two is contents.
+    q expects answers [\"claim one is late\"].
+
+query q is:
+    which loss is late.
+").
 
 bt_agg_prog(Cond, P) :-
     format(string(P), "the target language is: prolog.

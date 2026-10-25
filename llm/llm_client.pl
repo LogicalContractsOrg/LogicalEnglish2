@@ -37,6 +37,7 @@
 :- module(llm_client,
     [ llm_request/3,        % +Model, +Query, -Answer
       llm_request/4,        % +Model, +Messages, -Answer, +Options
+      llm_last_usage/1,     % -Usage: the token counts of this thread's last call
       llm_model/3,          % +ShortName, -Provider, -APIModel
       llm_list_models/1,    % -Rows
       llm_print_models/0,   % pretty-print registry
@@ -70,6 +71,8 @@ llm_model_entry('gpt-5.5',             openai, 'gpt-5.5',             'https://a
 llm_model_entry('gpt-5.6-sol',             openai, 'gpt-5.6-sol',             'https://api.openai.com/v1').
 llm_model_entry('gpt-5.6-terra',             openai, 'gpt-5.6-terra',             'https://api.openai.com/v1').
 llm_model_entry('gpt-5.6-luna',             openai, 'gpt-5.6-luna',             'https://api.openai.com/v1').
+llm_model_entry('gpt-6-sol',                openai, 'gpt-6-sol',                'https://api.openai.com/v1').
+llm_model_entry('gpt-6-luna',               openai, 'gpt-6-luna',               'https://api.openai.com/v1').
 
 
 %% Groq  ────────────────────────────────────────────────────────────
@@ -99,6 +102,8 @@ llm_model_entry('deepseek-ai/DeepSeek-V4-Pro',          together, 'deepseek-ai/D
 llm_model_entry('zai-org/GLM-5.2',          together, 'zai-org/GLM-5.2', 'https://api.together.xyz/v1').
 llm_model_entry('moonshotai/Kimi-K3',          together, 'moonshotai/Kimi-K3', 'https://api.together.xyz/v1').
 llm_model_entry('Qwen/Qwen3.8-2.4T-A95B',          together, 'Qwen/Qwen3.8-2.4T-A95B', 'https://api.together.xyz/v1').
+llm_model_entry('deepseek-ai/DeepSeek-V4.1-Flash',  together, 'deepseek-ai/DeepSeek-V4.1-Flash', 'https://api.together.xyz/v1').
+llm_model_entry('zai-org/GLM-5.3',                  together, 'zai-org/GLM-5.3', 'https://api.together.xyz/v1').
 
 %% Google Gemini  (OpenAI-compatible endpoint) ──────────────────────
 % cf. https://ai.google.dev/gemini-api/docs/models
@@ -152,8 +157,47 @@ llm_request(Model, Query, Answer, Options) :-
     ),
     request_fields(Provider, APIModel, Options, CleanOptions, Timeout),
     build_body(Provider, APIModel, Messages, CleanOptions, BodyPairs),
+    retractall(llm_last_usage(_)),
     call_api(Provider, BaseURL, Key, BodyPairs, Timeout, RawJSON),
+    record_usage(RawJSON),
     extract_answer(Provider, RawJSON, Answer).
+
+%!  llm_last_usage(-Usage:dict) is semidet.
+%
+%   The token counts the provider reported for the last call this thread
+%   made: `_{input: In, output: Out, cached: Cached, reasoning: R}`. Input
+%   includes the cached part; output includes the reasoning part. Fails when
+%   the provider reported nothing. A caller that wants to know what a call
+%   cost (the Contract Assistant's cost per stage) reads it right after
+%   llm_request/4 returns.
+:- thread_local llm_last_usage/1.
+
+record_usage(Response) :-
+    (   catch(response_usage(Response, Usage), _, fail)
+    ->  assertz(llm_last_usage(Usage))
+    ;   true
+    ).
+
+response_usage(Response, _{input: In, output: Out, cached: Cached, reasoning: R}) :-
+    is_dict(Response),
+    get_dict(usage, Response, U), is_dict(U),
+    (   get_dict(prompt_tokens, U, In0)                 % OpenAI-compatible
+    ->  In = In0,
+        get_dict(completion_tokens, U, Out),
+        ( usage_detail(U, prompt_tokens_details, cached_tokens, Cached) -> true ; Cached = 0 ),
+        ( usage_detail(U, completion_tokens_details, reasoning_tokens, R) -> true ; R = 0 )
+    ;   get_dict(input_tokens, U, In1),                 % Anthropic
+        get_dict(output_tokens, U, Out),
+        ( get_dict(cache_read_input_tokens, U, CR), number(CR) -> Cached = CR ; Cached = 0 ),
+        ( get_dict(cache_creation_input_tokens, U, CW), number(CW) -> true ; CW = 0 ),
+        In is In1 + Cached + CW,
+        R = 0
+    ),
+    number(In), number(Out).
+
+usage_detail(U, Group, Field, V) :-
+    get_dict(Group, U, G), is_dict(G),
+    get_dict(Field, G, V), number(V).
 
 %!  request_fields(+Provider, +APIModel, +Options, -BodyOptions, -Timeout) is det.
 %
@@ -225,6 +269,8 @@ reasoning_fields(_, _, _, []).
 % openai_effort_floor_none(+Model): an OpenAI model whose lowest reasoning
 % effort is "none" rather than "minimal": gpt-5.5 and every later gpt-5.N
 % (gpt-5.6-luna answered the same HTTP 400 in September 2026).
+openai_effort_floor_none(M) :-
+    sub_atom(M, 0, _, _, 'gpt-6'), !.          % gpt-6-* and gpt-6.1-*: floor "none" too
 openai_effort_floor_none(M) :-
     sub_atom(M, 0, _, _, 'gpt-5.'),
     sub_atom(M, 6, _, 0, Rest),
