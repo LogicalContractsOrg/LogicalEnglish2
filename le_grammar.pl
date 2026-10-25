@@ -1620,6 +1620,7 @@ template(Dicts) -->
     { Tokens = [First|_], get_token_start(First, Start), last(Tokens, Last), get_token_end(Last, End) },
     { process_template(Tokens, FunctorArgs, NamesTypes, WordsAndVars) },
     template_additions(Globals, Opposite, OppositeWV, Prep, Unknown, Synonyms, NamesTypes, FunctorArgs, Start, End),
+    { warn_template_over_lines(Start, End) },
     { validate_prepositional_template(Prep, FunctorArgs, WordsAndVars, Start, End) },
     { validate_synonym_template(Synonyms, Globals, Opposite, Prep, Unknown, Start, End) },
     { MainDict = dict(FunctorArgs, NamesTypes, WordsAndVars, Start, End, Globals, Opposite, Prep, Unknown),
@@ -1662,6 +1663,49 @@ defines_global_removed(Start, End) :-
         le_i18n:le_msg(defines_global_removed_fix, [], Fix),
         assertz(M:le_issue(error, defines_global_removed, Desc, Fix, Start, End))
     ;   true
+    ).
+
+%!  warn_template_over_lines(+Start, +End) is det.
+%
+%   A template ends at its period, not at the end of its line. A templates
+%   section written one template per line with no periods is therefore read
+%   as ONE long template, and every sentence that uses one of them is then
+%   reported as missing its template, far from the cause. A template whose
+%   text goes on to a new line indented no deeper than its own first line is
+%   almost always that mistake (a template continued on purpose is indented
+%   further), so say so at the template.
+warn_template_over_lines(Start, End) :-
+    (   le_kbs:current_compiling_module(M), M \== (-),
+        source_substring(Start, End, S),
+        sub_string(S, B, 1, _, "\n"),
+        B1 is B + 1,
+        sub_string(S, B1, _, 0, Next),
+        leading_blanks(Next, Ind, Rest),
+        Rest \== "", \+ sub_string(Rest, 0, 1, _, "\n"), \+ sub_string(Rest, 0, 1, _, "\r"),
+        first_line_indent(Start, Ind0),
+        Ind =< Ind0,
+        \+ M:le_issue(_, template_over_lines, _, _, Start, _)
+    ->  le_i18n:le_msg(template_over_lines_desc, [], Desc),
+        le_i18n:le_msg(template_over_lines_fix, [], Fix),
+        assertz(M:le_issue(warning, template_over_lines, Desc, Fix, Start, End))
+    ;   true
+    ).
+
+leading_blanks(S, N, Rest) :-
+    (   sub_string(S, 0, 1, _, C), memberchk(C, [" ", "\t"])
+    ->  sub_string(S, 1, _, 0, S1), leading_blanks(S1, N1, Rest), N is N1 + 1
+    ;   N = 0, Rest = S
+    ).
+
+%   The indentation of the line a template starts on (0 when the text before
+%   it on its line is not only blanks, or cannot be read).
+first_line_indent(Start, Ind) :-
+    offset_base(Start, Base),
+    From is max(Base, Start - 400),
+    (   source_substring(From, Start, Before)
+    ->  split_string(Before, "\n", "", Parts), last(Parts, Line),
+        ( leading_blanks(Line, Ind, "") -> true ; Ind = 0 )
+    ;   Ind = 0
     ).
 
 % A template with a synonym must not carry any other addition (opposite,

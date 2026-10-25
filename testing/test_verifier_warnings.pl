@@ -340,3 +340,25 @@ test(scenario_element_like_a_system_one_is_not_flagged) :-
     assertion(\+ memberchk(issue(redefined_system_template, _, _, _, _), Issues)).
 
 :- end_tests(redefined_system_template).
+
+% A templates section written without periods is read as one long template;
+% the template says so, whether the section is indented or not, and a
+% template continued on a more indented line is not flagged.
+:- begin_tests(template_over_lines).
+
+test(templates_without_periods_are_flagged) :-
+    Text = "the target language is: prolog.\nthe templates are:\n*a loss* occurs on *a date*\n*a loss* is big.\n",
+    le_kbs:load_text(Text, M),
+    assertion(M:le_issue(warning, template_over_lines, _, _, _, _)).
+
+test(indented_templates_without_periods_are_flagged) :-
+    Text = "the target language is: prolog.\nthe templates are:\n    *a loss* occurs on *a date*\n    *a loss* is big.\n",
+    le_kbs:load_text(Text, M),
+    assertion(M:le_issue(warning, template_over_lines, _, _, _, _)).
+
+test(a_continued_template_is_not_flagged) :-
+    Text = "the target language is: prolog.\nthe templates are:\n*a loss* occurs on *a date*\n    at *a place*.\n*a loss* is big.\n",
+    le_kbs:load_text(Text, M),
+    assertion(\+ M:le_issue(_, template_over_lines, _, _, _, _)).
+
+:- end_tests(template_over_lines).
