@@ -281,7 +281,12 @@ construct_keys(KB, Base, c(Kind, Label, Head, ID), Keys, Hints) :-
     head_words(Head, HeadWords),
     findall(E, ( member(E, Entries),
                  ledger_matches(E, Label, Template, HeadWords) ), Matching),
-    findall(K, ( member(E, Matching), get_dict(element, E, El), element_keys(El, EK), member(K, EK) ), LedgerKeys),
+    % an entry may carry the original's own words (`passage`, the Contract
+    % Assistant's ledger does): looked for as they are, before the element
+    findall(key(P, literal, ledger), ( member(E, Matching), get_dict(passage, E, P0), string(P0),
+                                       normalize_space(string(P), P0), string_length(P, PL), PL >= 12 ), PassageKeys),
+    findall(K, ( member(E, Matching), get_dict(element, E, El), element_keys(El, EK), member(K, EK) ), ElementKeys),
+    append(PassageKeys, ElementKeys, LedgerKeys),
     findall(H, ( member(E, Matching), get_dict(element, E, El), element_files(El, H) ), LedgerHints),
     % what it cites
     (   atom(ID), catch(KB:le_rule_provenance(ID, Prov), _, fail)
@@ -371,6 +376,9 @@ ledger_matches(E, Label, Template, HeadWords) :-
     IP \== "",
     (   Label \== none, atom_string(Label, L),
         (   IP == L
+        ;   % several rules encode the element: "a_rule, b_rule"
+            sub_string(IP, _, _, _, ", "),
+            split_string(IP, ",", " ", Ls), memberchk(L, Ls)
         ;   format(string(Paren), "(~w)", [L]), string_concat(_, Paren, IP)
         ;   % one of the rules an element became: <in_program>_<n>
             string_concat(IP, Suffix, L),

@@ -342,6 +342,7 @@ Meta   = [source(System), artifacts([...]), translator(Name), program(Name),
           date(D), licence(L)]
 Ledger = [entry(Element, Kind, Verdict, Mapping, InProgram, Note), ...]
           Verdict: encoded | approximated | residue
+                   (a conversion from text adds skipped | not_addressed)
 Tests  = [test(Id, Document, Locator, Facts, Expectations), ...]
           Facts: literals, fact(L, Provenance), unknown(L), rule(H, B) (a
           rule of the scenario), comment(Text)
@@ -370,6 +371,18 @@ written program's tests with `runTestsFor/2` and reports each source test as
 reproduced or not; the ledger shows the counts of encoded / approximated /
 residue elements beside that pass rate, one row per source element, and a
 Residue section for what was left to the assistant.
+
+**A ledger of a conversion from text.** The Contract Assistant (lpsPlus,
+`contract_assistant/ca_ledger.pl`) writes its ledger with the same
+predicates. Its source elements are the clauses of a document, so it uses two
+more verdicts: `skipped` (an element that is not a rule — a procedural clause,
+a heading — the note says why) and `not_addressed` (a normative clause nothing
+in the program encodes). Both are counted, in the markdown's summary and in
+the JSON's `counts`, only when a ledger has them. Its JSON entries may also
+carry `passage`: the original's own words where the element starts, which
+View Original Text (`le_original_text.pl`) looks for as they are written,
+before the identifiers of the element. An entry's `in_program` may name
+several rules, separated by commas.
 
 ## 4. Residue: the assistant translates only what the translator could not
 

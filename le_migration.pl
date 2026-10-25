@@ -17,6 +17,11 @@
       - residue      not mapped: left as a residue marker for the Contract
                      Assistant, an assumable template, or a comment.
 
+    A conversion from TEXT (the Contract Assistant's) has two more: `skipped`
+    (an element that is not a rule — a procedural clause, a heading — with
+    the reason in the note) and `not_addressed` (a normative element nothing
+    in the program encodes). They are counted only when present.
+
     The ledger, not the pass rate, is what a customer signs off. Its
     in-program half is the provenance trailers the IR carries (`rule r12
     with provenance policy.json at perils collision:`): the same source
@@ -344,6 +349,13 @@ pending_count(Tests, N) :-
 %!  ledger_counts(+Ledger, -Counts) is det.
 %
 %   Counts is counts(Encoded, Approximated, Residue).
+%!  ledger_text_counts(+Ledger, -Skipped, -NotAddressed) is det.
+%
+%   The two verdicts of a conversion from text (see the module header).
+ledger_text_counts(Ledger, S, N) :-
+    aggregate_all(count, member(entry(_, _, skipped, _, _, _), Ledger), S),
+    aggregate_all(count, member(entry(_, _, not_addressed, _, _, _), Ledger), N).
+
 ledger_counts(Ledger, counts(E, A, R)) :-
     aggregate_all(count, member(entry(_, _, encoded, _, _, _), Ledger), E),
     aggregate_all(count, member(entry(_, _, approximated, _, _, _), Ledger), A),
@@ -371,11 +383,20 @@ write_ledger(Meta, Ledger, Tests, Fidelity) :-
     ( option(licence(L), Meta) -> format("Source licence: ~w~n", [L]) ; true ),
     nl,
     ledger_counts(Ledger, counts(E, A, R)),
-    Total is E + A + R,
+    ledger_text_counts(Ledger, Skipped, NotAddressed),
+    Total is E + A + R + Skipped + NotAddressed,
     format("## Summary~n~n| Verdict | Source elements |~n|---|---|~n"),
-    format("| encoded | ~w |~n| approximated | ~w |~n| residue | ~w |~n| **total** | ~w |~n~n", [E, A, R, Total]),
+    format("| encoded | ~w |~n| approximated | ~w |~n| residue | ~w |~n", [E, A, R]),
+    ( Skipped > 0 -> format("| skipped | ~w |~n", [Skipped]) ; true ),
+    ( NotAddressed > 0 -> format("| not addressed | ~w |~n", [NotAddressed]) ; true ),
+    format("| **total** | ~w |~n~n", [Total]),
     write_fidelity_summary(Fidelity, Tests),
-    format("A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person.~n~n"),
+    format("A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person."),
+    ( Skipped + NotAddressed > 0
+    ->  format(" An element is **skipped** when it is not a rule (the note says why) and **not addressed** when it is a rule that nothing in the program encodes.")
+    ;   true
+    ),
+    format("~n~n"),
     format("## Source elements~n~n| Source element | Kind | Verdict | Mapping | In the program | Note |~n|---|---|---|---|---|---|~n"),
     forall(member(entry(El, K, V, M, In, N), Ledger),
            ( maplist(md_cell, [El, K, V, M, In, N], Cs),
@@ -433,12 +454,15 @@ md_cell(X, T) :-
 ledger_dict(Migration0, Fidelity, Dict) :-
     migration_pending(Migration0, migration(Meta, _, Ledger, Tests)),
     ledger_counts(Ledger, counts(E, A, R)),
+    ledger_text_counts(Ledger, S, N),
     maplist(entry_dict, Ledger, Entries),
     length(Tests, NT),
     pending_count(Tests, NPending),
     fidelity_dict(Fidelity, FD),
     meta_dict(Meta, MD),
-    Dict = _{meta: MD, counts: _{encoded: E, approximated: A, residue: R},
+    Counts0 = _{encoded: E, approximated: A, residue: R},
+    ( S + N > 0 -> Counts = Counts0.put(_{skipped: S, not_addressed: N}) ; Counts = Counts0 ),
+    Dict = _{meta: MD, counts: Counts,
              entries: Entries, source_tests: NT, pending_expectations: NPending, fidelity: FD}.
 
 entry_dict(entry(El, K, V, M, In, N), _{element: ElS, kind: KS, verdict: VS,
