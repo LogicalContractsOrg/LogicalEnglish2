@@ -24,6 +24,14 @@ the knowledge base person_not_enrolled_in_benefit includes:
 
 the text of the_model is at "sources/person-not-enrolled-in-benefit.dmn".
 
+% BEGIN of inlined logic: the function of the decision service
+% PersonEnrolledInBenefitService, below, copies the decision service
+% PersonEnrolledInBenefitService of the imported model
+% PersonEnrolledInBenefit (person-enrolled-in-benefit.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule person_enrolled_in_benefit_service_1 with provenance the model at decision PersonEnrolledInBenefitService:
 the person enrolled in benefit service result is true if
     the enrollments of the situation are listed
@@ -43,6 +51,7 @@ the person enrolled in benefit service result is false if
         and the benefit of the parameters is a fourth text
         and the benefit is equal to the fourth text.
 
+% END of inlined logic (service PersonEnrolledInBenefitService).
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     the person enrolled in benefit service result is false.

@@ -51,6 +51,66 @@ the body of the eligible of the next steps is "Apply through the Philadelphia Ta
 
 the note of the ineligible of the next steps is "You may still qualify if your name is not on the deed but you have a legal ownership interest. Check the program page for the tangled title supplement and supporting documents.".
 
+% BEGIN of inlined logic: the function of the decision service
+% LivesInPhiladelphiaPaService, below, copies the decision service
+% LivesInPhiladelphiaPaService of the imported model LivesInPhiladelphiaPa
+% (lives-in-philadelphia-pa.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
+rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is true if
+    the lives in philadelphia pa of the simple checks of the situation is true.
+
+rule lives_in_philadelphia_pa_service_2 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is false if
+    the lives in philadelphia pa of the simple checks of the situation is false.
+
+% END of inlined logic (service LivesInPhiladelphiaPaService).
+% BEGIN of inlined logic: the function of the decision service
+% OwnerOccupantService, below, copies the decision service
+% OwnerOccupantService of the imported model OwnerOccupant
+% (owner-occupant.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
+rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is true if
+    the owner occupant of the simple checks of the situation is true.
+
+rule owner_occupant_service_2 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is false if
+    the owner occupant of the simple checks of the situation is false.
+
+% END of inlined logic (service OwnerOccupantService).
+% BEGIN of inlined logic: the function of the decision service
+% TaxDelinquentService, below, copies the decision service
+% TaxDelinquentService of the imported model TaxDelinquent
+% (tax-delinquent.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
+rule tax_delinquent_service_1 with provenance the model at decision TaxDelinquentService:
+the tax delinquent service result is true if
+    the tax delinquent of the simple checks of the situation is true.
+
+rule tax_delinquent_service_2 with provenance the model at decision TaxDelinquentService:
+the tax delinquent service result is false if
+    the tax delinquent of the simple checks of the situation is false.
+
+% END of inlined logic (service TaxDelinquentService).
+% BEGIN of inlined logic: the rules of the decision checks, below, copy the
+% decision service PersonNotEnrolledInBenefitService of the imported model
+% PersonNotEnrolledInBenefit (person-not-enrolled-in-benefit.dmn); the
+% decision service PersonEnrolledInBenefitService of the imported model
+% PersonEnrolledInBenefit (person-enrolled-in-benefit.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule checks_1 with provenance the model at decision checks:
 the not already on owner occupied payment agreement of the checks is true if
     the enrollments of the situation are listed
@@ -68,36 +128,13 @@ the not already on owner occupied payment agreement of the checks is false if
     and the person id is equal to the primary person id of the situation
     and the benefit is equal to "PhlOwnerOccupiedPaymentAgreement".
 
-rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
-the lives in philadelphia pa service result is true if
-    the lives in philadelphia pa of the simple checks of the situation is true.
-
-rule lives_in_philadelphia_pa_service_2 with provenance the model at decision LivesInPhiladelphiaPaService:
-the lives in philadelphia pa service result is false if
-    the lives in philadelphia pa of the simple checks of the situation is false.
-
 the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
-
-rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
-the owner occupant service result is true if
-    the owner occupant of the simple checks of the situation is true.
-
-rule owner_occupant_service_2 with provenance the model at decision OwnerOccupantService:
-the owner occupant service result is false if
-    the owner occupant of the simple checks of the situation is false.
 
 the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
 
-rule tax_delinquent_service_1 with provenance the model at decision TaxDelinquentService:
-the tax delinquent service result is true if
-    the tax delinquent of the simple checks of the situation is true.
-
-rule tax_delinquent_service_2 with provenance the model at decision TaxDelinquentService:
-the tax delinquent service result is false if
-    the tax delinquent of the simple checks of the situation is false.
-
 the tax delinquent of the checks is the tax delinquent service result, as stated in the model at decision checks.
 
+% END of inlined logic (decision checks).
 rule is_eligible_1 with provenance the model at decision isEligible:
 the is_eligible is true if
     the not already on owner occupied payment agreement of the checks is true

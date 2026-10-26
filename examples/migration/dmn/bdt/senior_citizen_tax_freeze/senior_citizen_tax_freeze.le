@@ -29,14 +29,14 @@ the functions are:
     the help phone of the eligible of the next steps is *a text*.
     the body of the eligible of the next steps is *a text*.
     the note of the ineligible of the next steps is *a text*.
-    the owner occupant service result is *a truth value*.
-    the lives in philadelphia pa service result is *a truth value*.
-    the sctf age requirement service result is *a truth value*.
     the spouse id of the sctf age requirement service is *a value*.
     the primary person65 plus this year of the sctf age requirement service is *a truth value*.
     the primary person50 plus this year of the sctf age requirement service is *a truth value*.
     the spouse65 plus this year of the sctf age requirement service is *a truth value*.
     the late spouse was at least65 of the sctf age requirement service is *a value*.
+    the owner occupant service result is *a truth value*.
+    the lives in philadelphia pa service result is *a truth value*.
+    the sctf age requirement service result is *a truth value*.
 
 the templates are:
     the enrollments of the situation include *a person id* with *a benefit*.
@@ -50,23 +50,14 @@ the knowledge base senior_citizen_tax_freeze includes:
 
 the text of the_model is at "sources/senior-citizen-tax-freeze.dmn".
 
-rule checks_1 with provenance the model at decision checks:
-the not already on senior citizen tax freeze of the checks is true if
-    the enrollments of the situation are listed
-    and the primary person id of the situation is a text
-    and it is not the case that
-        the enrollments of the situation include a person id with a benefit
-        and the primary person id of the situation is the text
-        and the person id is equal to the text
-        and the benefit is equal to "PhlSeniorCitizenTaxFreeze".
-
-rule checks_2 with provenance the model at decision checks:
-the not already on senior citizen tax freeze of the checks is false if
-    the enrollments of the situation are listed
-    and the enrollments of the situation include a person id with a benefit
-    and the person id is equal to the primary person id of the situation
-    and the benefit is equal to "PhlSeniorCitizenTaxFreeze".
-
+% BEGIN of inlined logic: the function of the decision service
+% OwnerOccupantService, below, copies the decision service
+% OwnerOccupantService of the imported model OwnerOccupant
+% (owner-occupant.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
 the owner occupant service result is true if
     the owner occupant of the simple checks of the situation is true.
@@ -75,8 +66,15 @@ rule owner_occupant_service_2 with provenance the model at decision OwnerOccupan
 the owner occupant service result is false if
     the owner occupant of the simple checks of the situation is false.
 
-the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
-
+% END of inlined logic (service OwnerOccupantService).
+% BEGIN of inlined logic: the function of the decision service
+% LivesInPhiladelphiaPaService, below, copies the decision service
+% LivesInPhiladelphiaPaService of the imported model LivesInPhiladelphiaPa
+% (lives-in-philadelphia-pa.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
 the lives in philadelphia pa service result is true if
     the lives in philadelphia pa of the simple checks of the situation is true.
@@ -85,8 +83,18 @@ rule lives_in_philadelphia_pa_service_2 with provenance the model at decision Li
 the lives in philadelphia pa service result is false if
     the lives in philadelphia pa of the simple checks of the situation is false.
 
-the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
-
+% END of inlined logic (service LivesInPhiladelphiaPaService).
+% BEGIN of inlined logic: the function of the decision service
+% SctfAgeRequirementService, below, copies the decision service
+% SctfAgeRequirementService of the imported model SctfAgeRequirement
+% (sctf-age-requirement.dmn); the business knowledge model spouse id of the
+% imported model BDT (BDT.dmn); the decision service PersonMinAgeService of
+% the imported model PersonMinAge (person-min-age.dmn); the business
+% knowledge model as of date of the imported model Age (Age.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule sctf_age_requirement_service_1 with provenance the model at decision SctfAgeRequirementService:
 the spouse id of the sctf age requirement service is a value if
     the relationships of the situation include a type with a person id with the value
@@ -410,8 +418,40 @@ the sctf age requirement service result is false if
     and the spouse65 plus this year of the sctf age requirement service is false
     and the late spouse was at least65 of the sctf age requirement service is false.
 
+% END of inlined logic (service SctfAgeRequirementService).
+% BEGIN of inlined logic: the rules of the decision checks, below, copy the
+% decision service PersonNotEnrolledInBenefitService of the imported model
+% PersonNotEnrolledInBenefit (person-not-enrolled-in-benefit.dmn); the
+% decision service PersonEnrolledInBenefitService of the imported model
+% PersonEnrolledInBenefit (person-enrolled-in-benefit.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
+rule checks_1 with provenance the model at decision checks:
+the not already on senior citizen tax freeze of the checks is true if
+    the enrollments of the situation are listed
+    and the primary person id of the situation is a text
+    and it is not the case that
+        the enrollments of the situation include a person id with a benefit
+        and the primary person id of the situation is the text
+        and the person id is equal to the text
+        and the benefit is equal to "PhlSeniorCitizenTaxFreeze".
+
+rule checks_2 with provenance the model at decision checks:
+the not already on senior citizen tax freeze of the checks is false if
+    the enrollments of the situation are listed
+    and the enrollments of the situation include a person id with a benefit
+    and the person id is equal to the primary person id of the situation
+    and the benefit is equal to "PhlSeniorCitizenTaxFreeze".
+
+the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
+
+the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
+
 the meets age requirement of the checks is the sctf age requirement service result, as stated in the model at decision checks.
 
+% END of inlined logic (decision checks).
 rule is_eligible_1 with provenance the model at decision isEligible:
 the is_eligible is true if
     the not already on senior citizen tax freeze of the checks is true

@@ -22,6 +22,13 @@ the knowledge base retip_income includes:
 
 the text of the_model is at "sources/retip-income.dmn".
 
+% BEGIN of inlined logic: the rules of the decision checkResult, below, copy
+% the business knowledge model below household income limit of the imported
+% model Income (Income.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     it is not the case that
@@ -64,6 +71,7 @@ the check result is false if
     and the item at position M of the list [42950, 49100, 55250, 61350, 66300, 71200, 76100, 81000] is a value V
     and N >= V.
 
+% END of inlined logic (decision checkResult).
 scenario Fail is, as stated in the Bruno requests of RetipIncome at test case Fail:
     the household income of the situation is 42951.
     the household size of the situation is 1.

@@ -19,6 +19,14 @@ the knowledge base no_ten_year_tax_abatement includes:
 
 the text of the_model is at "sources/no-ten-year-tax-abatement.dmn".
 
+% BEGIN of inlined logic: the function of the decision service
+% TenYearTaxAbatementService, below, copies the decision service
+% TenYearTaxAbatementService of the imported model TenYearTaxAbatement
+% (ten-year-tax-abatement.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule ten_year_tax_abatement_service_1 with provenance the model at decision TenYearTaxAbatementService:
 the ten year tax abatement service result is true if
     the ten year tax abatement of the simple checks of the situation is true.
@@ -27,6 +35,7 @@ rule ten_year_tax_abatement_service_2 with provenance the model at decision TenY
 the ten year tax abatement service result is false if
     the ten year tax abatement of the simple checks of the situation is false.
 
+% END of inlined logic (service TenYearTaxAbatementService).
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     the ten year tax abatement service result is false.

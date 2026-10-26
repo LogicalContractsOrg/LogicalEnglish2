@@ -20,6 +20,14 @@ the knowledge base property_taxes_current_or_payment_plan includes:
 
 the text of the_model is at "sources/property-taxes-current-or-payment-plan.dmn".
 
+% BEGIN of inlined logic: the function of the decision service
+% TaxDelinquentService, below, copies the decision service
+% TaxDelinquentService of the imported model TaxDelinquent
+% (tax-delinquent.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule tax_delinquent_service_1 with provenance the model at decision TaxDelinquentService:
 the tax delinquent service result is true if
     the tax delinquent of the simple checks of the situation is true.
@@ -28,6 +36,7 @@ rule tax_delinquent_service_2 with provenance the model at decision TaxDelinquen
 the tax delinquent service result is false if
     the tax delinquent of the simple checks of the situation is false.
 
+% END of inlined logic (service TaxDelinquentService).
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     the tax delinquent service result is false.

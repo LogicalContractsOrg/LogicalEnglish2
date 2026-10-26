@@ -35,6 +35,15 @@ the knowledge base applicant_or_spouse_min_age includes:
 
 the text of the_model is at "sources/applicant-or-spouse-min-age.dmn".
 
+% BEGIN of inlined logic: the rules of the decision checkResult, below, copy
+% the decision service PersonMinAgeService of the imported model
+% PersonMinAge (person-min-age.dmn); the business knowledge model as of date
+% of the imported model Age (Age.dmn); the business knowledge model spouse
+% id of the imported model BDT (BDT.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule check_result_1 with provenance the model at decision checkResult:
 the primary person meets age of the check result is true if
     the primary person id of the situation is a text
@@ -262,6 +271,7 @@ the check result is false if
     the primary person meets age of the check result is false
     and the spouse meets age of the check result is false.
 
+% END of inlined logic (decision checkResult).
 scenario Fail is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Fail:
     the min age of the parameters is 65.
     the people of the situation are listed.

@@ -29,6 +29,13 @@ the knowledge base person_min_age includes:
 
 the text of the_model is at "sources/person-min-age.dmn".
 
+% BEGIN of inlined logic: the rules of the decision checkResult, below, copy
+% the business knowledge model as of date of the imported model Age
+% (Age.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule check_result_1 with provenance the model at decision checkResult:
 the date of birth of the check result is a value if
     the people of the situation include an id with the value
@@ -61,6 +68,7 @@ the check result is false if
     the date of birth of the check result is a value
     and the age of the check result < the min age of the parameters.
 
+% END of inlined logic (decision checkResult).
 scenario Empty is, as stated in the Bruno requests of PersonMinAge at test case Empty:
     q_d_check_result expects answers [].
 

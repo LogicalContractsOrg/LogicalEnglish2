@@ -40,14 +40,14 @@ the functions are:
     the meets income requirement of the checks is *a value*.
     the no disqualifying tax abatement of the checks is *a value*.
     the is_eligible is *a truth value*.
+    the one year increase of the property assessment increase service is *a truth value*.
+    the five year increase of the property assessment increase service is *a truth value*.
+    the tax delinquent service result is *a truth value*.
     the owner occupant service result is *a truth value*.
     the lives in philadelphia pa service result is *a truth value*.
     the min years owner occupant service result is *a truth value*.
     the property assessment increase service result is *a truth value*.
-    the one year increase of the property assessment increase service is *a truth value*.
-    the five year increase of the property assessment increase service is *a truth value*.
     the property taxes current or payment plan service result is *a truth value*.
-    the tax delinquent service result is *a truth value*.
     the loop income service result is *a truth value*.
     the no disqualifying tax abatement service result is *a truth value*.
 
@@ -73,23 +73,14 @@ the body of the eligible of the next steps is "Use the Philadelphia Tax Center t
 
 the note of the ineligible of the next steps is "Receiving the Homestead Exemption does not stop you from applying for LOOP, but you must request Homestead removal when applying. Use the City's property tax calculator to compare the programs first.".
 
-rule checks_1 with provenance the model at decision checks:
-the not already enrolled of the checks is true if
-    the enrollments of the situation are listed
-    and the primary person id of the situation is a text
-    and it is not the case that
-        the enrollments of the situation include a person id with a benefit
-        and the primary person id of the situation is the text
-        and the person id is equal to the text
-        and the benefit is equal to "PhlLoop".
-
-rule checks_2 with provenance the model at decision checks:
-the not already enrolled of the checks is false if
-    the enrollments of the situation are listed
-    and the enrollments of the situation include a person id with a benefit
-    and the person id is equal to the primary person id of the situation
-    and the benefit is equal to "PhlLoop".
-
+% BEGIN of inlined logic: the function of the decision service
+% OwnerOccupantService, below, copies the decision service
+% OwnerOccupantService of the imported model OwnerOccupant
+% (owner-occupant.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
 the owner occupant service result is true if
     the owner occupant of the simple checks of the situation is true.
@@ -98,8 +89,15 @@ rule owner_occupant_service_2 with provenance the model at decision OwnerOccupan
 the owner occupant service result is false if
     the owner occupant of the simple checks of the situation is false.
 
-the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
-
+% END of inlined logic (service OwnerOccupantService).
+% BEGIN of inlined logic: the function of the decision service
+% LivesInPhiladelphiaPaService, below, copies the decision service
+% LivesInPhiladelphiaPaService of the imported model LivesInPhiladelphiaPa
+% (lives-in-philadelphia-pa.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
 the lives in philadelphia pa service result is true if
     the lives in philadelphia pa of the simple checks of the situation is true.
@@ -108,8 +106,15 @@ rule lives_in_philadelphia_pa_service_2 with provenance the model at decision Li
 the lives in philadelphia pa service result is false if
     the lives in philadelphia pa of the simple checks of the situation is false.
 
-the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
-
+% END of inlined logic (service LivesInPhiladelphiaPaService).
+% BEGIN of inlined logic: the function of the decision service
+% MinYearsOwnerOccupantService, below, copies the decision service
+% MinYearsOwnerOccupantService of the imported model MinYearsOwnerOccupant
+% (min-years-owner-occupant.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule min_years_owner_occupant_service_1 with provenance the model at decision MinYearsOwnerOccupantService:
 the min years owner occupant service result is true if
     it is not the case that
@@ -130,8 +135,15 @@ the min years owner occupant service result is false if
     and the years owner occupied of the situation is a number M
     and M < 10.
 
-the ten years owner occupant of the checks is the min years owner occupant service result, as stated in the model at decision checks.
-
+% END of inlined logic (service MinYearsOwnerOccupantService).
+% BEGIN of inlined logic: the function of the decision service
+% PropertyAssessmentIncreaseService, below, copies the decision service
+% PropertyAssessmentIncreaseService of the imported model
+% PropertyAssessmentIncrease (property-assessment-increase.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule property_assessment_increase_service_1 with provenance the model at decision PropertyAssessmentIncreaseService:
 the one year increase of the property assessment increase service is true if
     it is not the case that
@@ -197,8 +209,15 @@ the property assessment increase service result is false if
     the one year increase of the property assessment increase service is false
     and the five year increase of the property assessment increase service is false.
 
-the assessment increase of the checks is the property assessment increase service result, as stated in the model at decision checks.
-
+% END of inlined logic (service PropertyAssessmentIncreaseService).
+% BEGIN of inlined logic: the function of the decision service
+% TaxDelinquentService, below, copies the decision service
+% TaxDelinquentService of the imported model TaxDelinquent
+% (tax-delinquent.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule tax_delinquent_service_1 with provenance the model at decision TaxDelinquentService:
 the tax delinquent service result is true if
     the tax delinquent of the simple checks of the situation is true.
@@ -207,6 +226,16 @@ rule tax_delinquent_service_2 with provenance the model at decision TaxDelinquen
 the tax delinquent service result is false if
     the tax delinquent of the simple checks of the situation is false.
 
+% END of inlined logic (service TaxDelinquentService).
+% BEGIN of inlined logic: the function of the decision service
+% PropertyTaxesCurrentOrPaymentPlanService, below, copies the decision
+% service PropertyTaxesCurrentOrPaymentPlanService of the imported model
+% PropertyTaxesCurrentOrPaymentPlan
+% (property-taxes-current-or-payment-plan.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule property_taxes_current_or_payment_plan_service_1 with provenance the model at decision PropertyTaxesCurrentOrPaymentPlanService:
 the property taxes current or payment plan service result is true if
     the tax delinquent service result is false.
@@ -220,8 +249,16 @@ the property taxes current or payment plan service result is false if
     the tax delinquent service result is true
     and the property tax payment plan of the simple checks of the situation is false.
 
-the taxes current or payment plan of the checks is the property taxes current or payment plan service result, as stated in the model at decision checks.
-
+% END of inlined logic (service PropertyTaxesCurrentOrPaymentPlanService).
+% BEGIN of inlined logic: the function of the decision service
+% LoopIncomeService, below, copies the decision service LoopIncomeService of
+% the imported model LoopIncome (loop-income.dmn); the business knowledge
+% model below household income limit of the imported model Income
+% (Income.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule loop_income_service_1 with provenance the model at decision LoopIncomeService:
 the loop income service result is true if
     it is not the case that
@@ -264,8 +301,15 @@ the loop income service result is false if
     and the item at position M of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a value V
     and N >= V.
 
-the meets income requirement of the checks is the loop income service result, as stated in the model at decision checks.
-
+% END of inlined logic (service LoopIncomeService).
+% BEGIN of inlined logic: the function of the decision service
+% NoDisqualifyingTaxAbatementService, below, copies the decision service
+% NoDisqualifyingTaxAbatementService of the imported model
+% NoDisqualifyingTaxAbatement (no-disqualifying-tax-abatement.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule no_disqualifying_tax_abatement_service_1 with provenance the model at decision NoDisqualifyingTaxAbatementService:
 the no disqualifying tax abatement service result is true if
     the disqualifying tax abatement of the simple checks of the situation is false.
@@ -274,8 +318,48 @@ rule no_disqualifying_tax_abatement_service_2 with provenance the model at decis
 the no disqualifying tax abatement service result is false if
     the disqualifying tax abatement of the simple checks of the situation is true.
 
+% END of inlined logic (service NoDisqualifyingTaxAbatementService).
+% BEGIN of inlined logic: the rules of the decision checks, below, copy the
+% decision service PersonNotEnrolledInBenefitService of the imported model
+% PersonNotEnrolledInBenefit (person-not-enrolled-in-benefit.dmn); the
+% decision service PersonEnrolledInBenefitService of the imported model
+% PersonEnrolledInBenefit (person-enrolled-in-benefit.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
+rule checks_1 with provenance the model at decision checks:
+the not already enrolled of the checks is true if
+    the enrollments of the situation are listed
+    and the primary person id of the situation is a text
+    and it is not the case that
+        the enrollments of the situation include a person id with a benefit
+        and the primary person id of the situation is the text
+        and the person id is equal to the text
+        and the benefit is equal to "PhlLoop".
+
+rule checks_2 with provenance the model at decision checks:
+the not already enrolled of the checks is false if
+    the enrollments of the situation are listed
+    and the enrollments of the situation include a person id with a benefit
+    and the person id is equal to the primary person id of the situation
+    and the benefit is equal to "PhlLoop".
+
+the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
+
+the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
+
+the ten years owner occupant of the checks is the min years owner occupant service result, as stated in the model at decision checks.
+
+the assessment increase of the checks is the property assessment increase service result, as stated in the model at decision checks.
+
+the taxes current or payment plan of the checks is the property taxes current or payment plan service result, as stated in the model at decision checks.
+
+the meets income requirement of the checks is the loop income service result, as stated in the model at decision checks.
+
 the no disqualifying tax abatement of the checks is the no disqualifying tax abatement service result, as stated in the model at decision checks.
 
+% END of inlined logic (decision checks).
 rule is_eligible_1 with provenance the model at decision isEligible:
 the is_eligible is true if
     the not already enrolled of the checks is true

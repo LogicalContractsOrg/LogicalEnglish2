@@ -27,6 +27,13 @@ the knowledge base tax_freeze_income includes:
 
 the text of the_model is at "sources/tax-freeze-income.dmn".
 
+% BEGIN of inlined logic: the rules of the decision checkResult, below, copy
+% the business knowledge model spouse id of the imported model BDT
+% (BDT.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     it is not the case that
@@ -101,6 +108,7 @@ condition 4 of the check result is holds if
     it is not the case that the relationships of the situation are listed
     or it is not the case that the primary person id of the situation is a text.
 
+% END of inlined logic (decision checkResult).
 scenario Fail is, as stated in the Bruno requests of TaxFreezeIncome at test case Fail:
     the applicant and spouse income of the situation is 33500.01.
     the primary person id of the situation is "p1".

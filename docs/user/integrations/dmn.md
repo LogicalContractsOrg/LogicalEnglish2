@@ -123,6 +123,7 @@ Decision Toolkit of Code for Philly: Philadelphia tax relief). Start with
 | a FEEL expression | a rule. The arithmetic stays arithmetic: `N = the principal of the loan * the rate of the loan / 12` |
 | a business knowledge model (BKM) | a function with places: `the pmt of *a value* and … is *a value*` |
 | a decision service | a function, `the <service> result is *a value*`, when the program's own inputs are its inputs; otherwise its logic, where a decision uses it |
+| a decision service or a BKM of an imported model | a copy in the program, between two comments: `BEGIN of inlined logic` and `END of inlined logic`. The comments name the model that the copy comes from. You can move the copy to a file of its own, and include that file in each program that uses it |
 | FEEL's built-in functions | the templates of the libraries `lib/text`, `lib/rounding`, `lib/temporal` and `lib/feel`: `decimal(x, 2)` is `the rounding of x to 2 decimals half even` |
 | a date, a duration of years and months | an LE date; a duration is a number of months |
 

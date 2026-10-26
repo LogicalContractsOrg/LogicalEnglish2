@@ -34,6 +34,15 @@ the knowledge base sctf_age_requirement includes:
 
 the text of the_model is at "sources/sctf-age-requirement.dmn".
 
+% BEGIN of inlined logic: the rules of the decision checkResult, below, copy
+% the business knowledge model spouse id of the imported model BDT
+% (BDT.dmn); the decision service PersonMinAgeService of the imported model
+% PersonMinAge (person-min-age.dmn); the business knowledge model as of date
+% of the imported model Age (Age.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule check_result_1 with provenance the model at decision checkResult:
 the spouse id of the check result is a value if
     the relationships of the situation include a type with a person id with the value
@@ -357,6 +366,7 @@ the check result is false if
     and the spouse65 plus this year of the check result is false
     and the late spouse was at least65 of the check result is false.
 
+% END of inlined logic (decision checkResult).
 scenario Fail is, as stated in the Bruno requests of SctfAgeRequirement at test case Fail:
     the people of the situation are listed.
     the people of the situation include 2000-01-01 with "p1".

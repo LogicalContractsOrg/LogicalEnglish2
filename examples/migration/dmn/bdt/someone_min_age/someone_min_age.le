@@ -29,6 +29,13 @@ the knowledge base someone_min_age includes:
 
 the text of the_model is at "sources/someone-min-age.dmn".
 
+% BEGIN of inlined logic: the rules of the decision checkResult, below, copy
+% the business knowledge model as of date of the imported model Age
+% (Age.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     it is not the case that
@@ -59,3 +66,4 @@ the check result is false if
         and -1 >= M
     and K <= 0.
 
+% END of inlined logic (decision checkResult).

@@ -36,6 +36,18 @@ the knowledge base retip_age_or_income_requirement includes:
 
 the text of the_model is at "sources/retip-age-or-income-requirement.dmn".
 
+% BEGIN of inlined logic: the function of the decision service
+% ApplicantOrSpouseMinAgeService, below, copies the decision service
+% ApplicantOrSpouseMinAgeService of the imported model
+% ApplicantOrSpouseMinAge (applicant-or-spouse-min-age.dmn); the decision
+% service PersonMinAgeService of the imported model PersonMinAge
+% (person-min-age.dmn); the business knowledge model as of date of the
+% imported model Age (Age.dmn); the business knowledge model spouse id of
+% the imported model BDT (BDT.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule applicant_or_spouse_min_age_service_1 with provenance the model at decision ApplicantOrSpouseMinAgeService:
 the primary person meets age of the applicant or spouse min age service is true if
     the primary person id of the situation is a text
@@ -251,6 +263,16 @@ the applicant or spouse min age service result is false if
     the primary person meets age of the applicant or spouse min age service is false
     and the spouse meets age of the applicant or spouse min age service is false.
 
+% END of inlined logic (service ApplicantOrSpouseMinAgeService).
+% BEGIN of inlined logic: the function of the decision service
+% RetipIncomeService, below, copies the decision service RetipIncomeService
+% of the imported model RetipIncome (retip-income.dmn); the business
+% knowledge model below household income limit of the imported model Income
+% (Income.dmn).
+% The copy keeps this program in one file. You may want to move the copied
+% logic to a separate file of its own, and include that file in this program
+% and in the other programs that use it ("the knowledge base ... includes
+% these resources").
 rule retip_income_service_1 with provenance the model at decision RetipIncomeService:
 the retip income service result is true if
     it is not the case that
@@ -293,6 +315,7 @@ the retip income service result is false if
     and the item at position M of the list [42950, 49100, 55250, 61350, 66300, 71200, 76100, 81000] is a value V
     and N >= V.
 
+% END of inlined logic (service RetipIncomeService).
 rule check_result_1 with provenance the model at decision checkResult:
 the check result is true if
     the applicant or spouse min age service result is true.
