@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="definitions" name="ReplacementTreeDecision" namespace="http://example.com/tree-permit/dmn" exporter="Camunda Modeler" exporterVersion="5.43.1">
+  <decision id="ReplacementTreeDecision" name="Replacement Tree Required?" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_0d4jygi" hitPolicy="FIRST">
+      <input id="InputClause_06c0im4">
+        <inputExpression id="LiteralExpression_0tokvqu" typeRef="integer">
+          <text>treeDiameter</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_191suuq" name="replacementRequired" typeRef="boolean" />
+      <rule id="DecisionRule_03zv2gm">
+        <inputEntry id="UnaryTests_0i9zrph">
+          <text>&lt;= 30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o24ko7">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tl6k1b">
+        <inputEntry id="UnaryTests_1h635ol">
+          <text>&gt; 30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rraoiq">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  
+  <!-- ✅ ADDED: Input Data Element with proper typeRef -->
+  <inputData id="InputData_treeDiameter" name="treeDiameter">
+    <variable id="Variable_treeDiameter" name="treeDiameter" typeRef="integer" />
+  </inputData>
+  
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0485hb1">
+      <dmndi:DMNShape id="DMNShape_0blj13u" dmnElementRef="ReplacementTreeDecision">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

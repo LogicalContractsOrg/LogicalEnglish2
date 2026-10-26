@@ -1,0 +1,547 @@
+% The Logical English twin of the DMN model "PhlSeniorCitizenTaxFreeze" (senior-citizen-tax-freeze.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base senior_citizen_tax_freeze includes these resources:
+    feel,
+    temporal.
+
+the functions are:
+    the late spouse was at least65 of the simple checks of the situation is *a truth value*.
+    the owner occupant of the simple checks of the situation is *a truth value*.
+    the lives in philadelphia pa of the simple checks of the situation is *a truth value*.
+    the primary person id of the situation is *a text*.
+    the not already on senior citizen tax freeze of the checks is *a value*.
+    the owner occupant of the checks is *a value*.
+    the lives in philadelphia pa of the checks is *a value*.
+    the meets age requirement of the checks is *a value*.
+    the is_eligible is *a truth value*.
+    the apply url of the eligible of the next steps is *a text*.
+    the help url of the eligible of the next steps is *a text*.
+    the help phone of the eligible of the next steps is *a text*.
+    the body of the eligible of the next steps is *a text*.
+    the note of the ineligible of the next steps is *a text*.
+    the owner occupant service result is *a truth value*.
+    the lives in philadelphia pa service result is *a truth value*.
+    the sctf age requirement service result is *a truth value*.
+    the spouse id of the sctf age requirement service is *a value*.
+    the primary person65 plus this year of the sctf age requirement service is *a truth value*.
+    the primary person50 plus this year of the sctf age requirement service is *a truth value*.
+    the spouse65 plus this year of the sctf age requirement service is *a truth value*.
+    the late spouse was at least65 of the sctf age requirement service is *a value*.
+
+the templates are:
+    the enrollments of the situation include *a person id* with *a benefit*.
+    the enrollments of the situation are listed.
+    the people of the situation include *an id* with *a date*.
+    the people of the situation are listed.
+    the relationships of the situation include *a type* with *a person id* with *a related person id*.
+    the relationships of the situation are listed.
+
+the knowledge base senior_citizen_tax_freeze includes:
+
+the text of the_model is at "sources/senior-citizen-tax-freeze.dmn".
+
+rule checks_1 with provenance the model at decision checks:
+the not already on senior citizen tax freeze of the checks is true if
+    the enrollments of the situation are listed
+    and the primary person id of the situation is a text
+    and it is not the case that
+        the enrollments of the situation include a person id with a benefit
+        and the primary person id of the situation is the text
+        and the person id is equal to the text
+        and the benefit is equal to "PhlSeniorCitizenTaxFreeze".
+
+rule checks_2 with provenance the model at decision checks:
+the not already on senior citizen tax freeze of the checks is false if
+    the enrollments of the situation are listed
+    and the enrollments of the situation include a person id with a benefit
+    and the person id is equal to the primary person id of the situation
+    and the benefit is equal to "PhlSeniorCitizenTaxFreeze".
+
+rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is true if
+    the owner occupant of the simple checks of the situation is true.
+
+rule owner_occupant_service_2 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is false if
+    the owner occupant of the simple checks of the situation is false.
+
+the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
+
+rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is true if
+    the lives in philadelphia pa of the simple checks of the situation is true.
+
+rule lives_in_philadelphia_pa_service_2 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is false if
+    the lives in philadelphia pa of the simple checks of the situation is false.
+
+the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
+
+rule sctf_age_requirement_service_1 with provenance the model at decision SctfAgeRequirementService:
+the spouse id of the sctf age requirement service is a value if
+    the relationships of the situation include a type with a person id with the value
+    and the person id is equal to the primary person id of the situation
+    and the type is equal to "spouse".
+
+rule sctf_age_requirement_service_2 with provenance the model at decision SctfAgeRequirementService:
+the primary person65 plus this year of the sctf age requirement service is true if
+    it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 >= 65.
+
+rule sctf_age_requirement_service_3 with provenance the model at decision SctfAgeRequirementService:
+the primary person65 plus this year of the sctf age requirement service is true if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include an id with a third date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 >= 65.
+
+rule sctf_age_requirement_service_4 with provenance the model at decision SctfAgeRequirementService:
+the primary person65 plus this year of the sctf age requirement service is true if
+    the people of the situation include an id with a date
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a third id with a fifth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N >= 65.
+
+rule sctf_age_requirement_service_5 with provenance the model at decision SctfAgeRequirementService:
+the primary person65 plus this year of the sctf age requirement service is false if
+    it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 < 65.
+
+rule sctf_age_requirement_service_6 with provenance the model at decision SctfAgeRequirementService:
+the primary person65 plus this year of the sctf age requirement service is false if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include an id with a third date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 < 65.
+
+rule sctf_age_requirement_service_7 with provenance the model at decision SctfAgeRequirementService:
+the primary person65 plus this year of the sctf age requirement service is false if
+    the people of the situation include an id with a date
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a third id with a fifth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N < 65.
+
+rule sctf_age_requirement_service_8 with provenance the model at decision SctfAgeRequirementService:
+the primary person50 plus this year of the sctf age requirement service is true if
+    it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 >= 50.
+
+rule sctf_age_requirement_service_9 with provenance the model at decision SctfAgeRequirementService:
+the primary person50 plus this year of the sctf age requirement service is true if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include an id with a third date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 >= 50.
+
+rule sctf_age_requirement_service_10 with provenance the model at decision SctfAgeRequirementService:
+the primary person50 plus this year of the sctf age requirement service is true if
+    the people of the situation include an id with a date
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a third id with a fifth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N >= 50.
+
+rule sctf_age_requirement_service_11 with provenance the model at decision SctfAgeRequirementService:
+the primary person50 plus this year of the sctf age requirement service is false if
+    it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 < 50.
+
+rule sctf_age_requirement_service_12 with provenance the model at decision SctfAgeRequirementService:
+the primary person50 plus this year of the sctf age requirement service is false if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include an id with a third date
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 < 50.
+
+rule sctf_age_requirement_service_13 with provenance the model at decision SctfAgeRequirementService:
+the primary person50 plus this year of the sctf age requirement service is false if
+    the people of the situation include an id with a date
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a third id with a fifth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N < 50.
+
+rule sctf_age_requirement_service_14 with provenance the model at decision SctfAgeRequirementService:
+the spouse65 plus this year of the sctf age requirement service is true if
+    it is not the case that
+        the people of the situation include an id with a date
+        and the spouse id of the sctf age requirement service is a value
+        and the id is equal to the value
+    and the people of the situation include a second id with a second date
+        and the spouse id of the sctf age requirement service is the value
+        and the second id is equal to the value
+    and -1 >= 65.
+
+rule sctf_age_requirement_service_15 with provenance the model at decision SctfAgeRequirementService:
+the spouse65 plus this year of the sctf age requirement service is true if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include an id with a third date
+        and the spouse id of the sctf age requirement service is a value
+        and the id is equal to the value
+    and -1 >= 65.
+
+rule sctf_age_requirement_service_16 with provenance the model at decision SctfAgeRequirementService:
+the spouse65 plus this year of the sctf age requirement service is true if
+    the people of the situation include an id with a date
+    and the spouse id of the sctf age requirement service is a value
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the spouse id of the sctf age requirement service is the value
+            and the second id is equal to the value
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a third id with a fifth date
+        and the spouse id of the sctf age requirement service is the value
+        and the third id is equal to the value
+    and N >= 65.
+
+rule sctf_age_requirement_service_17 with provenance the model at decision SctfAgeRequirementService:
+the spouse65 plus this year of the sctf age requirement service is false if
+    it is not the case that
+        the people of the situation include an id with a date
+        and the spouse id of the sctf age requirement service is a value
+        and the id is equal to the value
+    and the people of the situation include a second id with a second date
+        and the spouse id of the sctf age requirement service is the value
+        and the second id is equal to the value
+    and -1 < 65.
+
+rule sctf_age_requirement_service_18 with provenance the model at decision SctfAgeRequirementService:
+the spouse65 plus this year of the sctf age requirement service is false if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include an id with a third date
+        and the spouse id of the sctf age requirement service is a value
+        and the id is equal to the value
+    and -1 < 65.
+
+rule sctf_age_requirement_service_19 with provenance the model at decision SctfAgeRequirementService:
+the spouse65 plus this year of the sctf age requirement service is false if
+    the people of the situation include an id with a date
+    and the spouse id of the sctf age requirement service is a value
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the spouse id of the sctf age requirement service is the value
+            and the second id is equal to the value
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a third id with a fifth date
+        and the spouse id of the sctf age requirement service is the value
+        and the third id is equal to the value
+    and N < 65.
+
+the late spouse was at least65 of the sctf age requirement service is the late spouse was at least65 of the simple checks of the situation, as stated in the model at decision SctfAgeRequirementService.
+
+rule sctf_age_requirement_service_21 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is true if
+    the primary person65 plus this year of the sctf age requirement service is true.
+
+rule sctf_age_requirement_service_22 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is true if
+    the relationships of the situation are listed
+    and the spouse id of the sctf age requirement service is a value
+    and the spouse65 plus this year of the sctf age requirement service is true.
+
+rule sctf_age_requirement_service_23 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is true if
+    the primary person50 plus this year of the sctf age requirement service is true
+    and the late spouse was at least65 of the sctf age requirement service is true.
+
+rule sctf_age_requirement_service_24 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is false if
+    the primary person65 plus this year of the sctf age requirement service is false
+    and the relationships of the situation are listed
+    and it is not the case that the spouse id of the sctf age requirement service is a value
+    and the primary person50 plus this year of the sctf age requirement service is false.
+
+rule sctf_age_requirement_service_25 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is false if
+    the primary person65 plus this year of the sctf age requirement service is false
+    and the relationships of the situation are listed
+    and it is not the case that the spouse id of the sctf age requirement service is a value
+    and the late spouse was at least65 of the sctf age requirement service is false.
+
+rule sctf_age_requirement_service_26 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is false if
+    the primary person65 plus this year of the sctf age requirement service is false
+    and the relationships of the situation are listed
+    and the spouse id of the sctf age requirement service is a value
+    and the spouse65 plus this year of the sctf age requirement service is false
+    and the primary person50 plus this year of the sctf age requirement service is false.
+
+rule sctf_age_requirement_service_27 with provenance the model at decision SctfAgeRequirementService:
+the sctf age requirement service result is false if
+    the primary person65 plus this year of the sctf age requirement service is false
+    and the relationships of the situation are listed
+    and the spouse id of the sctf age requirement service is a value
+    and the spouse65 plus this year of the sctf age requirement service is false
+    and the late spouse was at least65 of the sctf age requirement service is false.
+
+the meets age requirement of the checks is the sctf age requirement service result, as stated in the model at decision checks.
+
+rule is_eligible_1 with provenance the model at decision isEligible:
+the is_eligible is true if
+    the not already on senior citizen tax freeze of the checks is true
+    and the owner occupant of the checks is true
+    and the lives in philadelphia pa of the checks is true
+    and the meets age requirement of the checks is true.
+
+rule is_eligible_2 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the not already on senior citizen tax freeze of the checks is false.
+
+rule is_eligible_3 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the owner occupant of the checks is false.
+
+rule is_eligible_4 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the lives in philadelphia pa of the checks is false.
+
+rule is_eligible_5 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the meets age requirement of the checks is false.
+
+the apply url of the eligible of the next steps is "https://tax-services.phila.gov/_/".
+
+the help url of the eligible of the next steps is "https://www.phila.gov/services/payments-assistance-taxes/payment-plans-and-assistance-programs/income-based-programs-for-residents/apply-for-the-low-income-senior-citizen-real-estate-tax-freeze/".
+
+the help phone of the eligible of the next steps is "(215) 686-6442".
+
+the body of the eligible of the next steps is "Apply through the Philadelphia Tax Center or use the paper application on the program page. You do not need an online account.
+
+- Apply by September 30 each year. If you missed the deadline and are already 65 or older, ask Revenue about backdated enrollment.
+- Include copies of proof of age and income for yourself and your spouse, as applicable. Keep your original documents.
+- If you qualified in an earlier year, ask Revenue which year's income documents to provide.".
+
+the note of the ineligible of the next steps is "Eligible residents of cooperative buildings use a special co-op application. Check the program page or contact Revenue for help with your situation.".
+
+scenario Age_Req_Fail_with_no_spouse is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Age Req Fail with no spouse:
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2026-09-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_meets_age_requirement_of_the_checks expects answers ["the meets age requirement of the checks is false"].
+
+scenario Age_Req_null_with_only_client_DOB is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Age Req null with only client DOB:
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2026-09-01.
+    the primary person id of the situation is "p1".
+    q_d_is_eligible expects answers [].
+    q_d_meets_age_requirement_of_the_checks expects answers [].
+
+scenario Age_Req_true_with_only_client_DOB___65 is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Age Req true with only client DOB 65:
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1950-09-01.
+    the primary person id of the situation is "p1".
+    q_d_is_eligible expects answers [].
+    q_d_meets_age_requirement_of_the_checks expects answers ["the meets age requirement of the checks is true"].
+
+scenario Eligible__late_spouse_was_65__ is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Eligible late spouse was 65:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "PhlHomesteadExemption".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1970-10-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the late spouse was at least65 of the simple checks of the situation is true.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+
+scenario Eligible is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Eligible:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p2" with "PhlHomesteadExemption".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1970-08-01.
+    the people of the situation include "p2" with 1960-12-30.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the relationships of the situation include "spouse" with "p2" with "p1".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+
+scenario Ineligible__late_spouse_was_65__ is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Ineligible late spouse was 65:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "PhlHomesteadExemption".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2005-10-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the late spouse was at least65 of the simple checks of the situation is true.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+
+scenario Ineligible is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Ineligible:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p2" with "PhlHomesteadExemption".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1970-08-01.
+    the people of the situation include "p2" with 1960-12-30.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the relationships of the situation include "spouse" with "p2" with "p1".
+    the lives in philadelphia pa of the simple checks of the situation is false.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+
+scenario Next_steps is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Next steps:
+    q_d_is_eligible expects answers [].
+
+scenario Smoke_Test is, as stated in the Bruno requests of PhlSeniorCitizenTaxFreeze at test case Smoke Test:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p2" with "PhlHomesteadExemption".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1970-08-01.
+    the people of the situation include "p2" with 1960-12-30.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the relationships of the situation include "spouse" with "p2" with "p1".
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers [].
+
+query q_d_is_eligible is:
+    the is_eligible is which truth value.
+
+query q_d_meets_age_requirement_of_the_checks is:
+    the meets age requirement of the checks is which value.
+

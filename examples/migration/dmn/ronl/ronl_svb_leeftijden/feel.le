@@ -1,0 +1,69 @@
+% lib/feel.le — the built-in functions of FEEL that the other libraries lack.
+%
+% Need E7 of lpsPlus/docs/migration/roadmap.md (§7.3): the DMN translator
+% writes FEEL's built-in functions (the DMN specification, §10.3.4) as
+% templates of the shared libraries. lib/text has the length of a text,
+% `contains` and `ends with`; lib/rounding has FEEL's decimal(), which
+% rounds half to even; lib/temporal has whole years and months between two
+% dates, calendar months after a date, and the year and the month of a
+% date; lib/maths has the power. This library adds the rest that the
+% translated models use: a date written as text, the day of the month,
+% substrings and case, the functions of a list, and the remainder.
+%
+% A library, not syntax: include it as a resource (a translator copies it
+% beside the program it writes, with feel.pl), and use its templates like
+% any other. Each template that gives one value for its arguments is a
+% FUNCTION (§2.3 of the language reference), so it can be an operand of a
+% formula.
+
+the knowledge base feel includes these resources:
+    feel.pl.
+
+the functions are:
+    the date written as *a text* is *a date*.
+    the date of year *a number* month *a second number* day *a third number* is *a date*.
+    the day of the month of *a date* is *a number*.
+    the substring of *a text* from position *a number* with length *a count* is *a part*.
+    the substring of *a text* from position *a number* is *a part*.
+    the upper case of *a text* is *a second text*.
+    the lower case of *a text* is *a second text*.
+    the number written as *a text* is *a number*.
+    the remainder of *a number* divided by *a divisor* is *a result*.
+    the count of the list *a list* is *a number*.
+    the sum of the list *a list* is *a number*.
+    the minimum of the list *a list* is *a number*.
+    the maximum of the list *a list* is *a number*.
+    the mean of the list *a list* is *a number*.
+    the item at position *a number* of the list *a list* is *a value*.
+    today is *a date*.
+    the rounding of *a number* away from zero to *a count* decimals is *a result*.
+    the rounding of *a number* toward zero to *a count* decimals is *a result*.
+    the rounding of *a number* to *a count* decimals half toward zero is *a result*.
+    the part of *a text* before *a part* is *a second text*.
+    the part of *a text* after *a part* is *a second text*.
+    the joining of the list *a list* with *a delimiter* is *a text*.
+    the product of the list *a list* is *a number*.
+    the median of the list *a list* is *a number*.
+    the reverse of the list *a list* is *a second list*.
+    the list of the distinct values of *a list* is *a second list*.
+    the flattening of the list *a list* is *a second list*.
+    the concatenation of the lists *a list* is *a second list*.
+    the sublist of *a list* from position *a number* is *a second list*.
+    the sublist of *a list* from position *a number* with length *a count* is *a second list*.
+    the list *a list* without the item at position *a number* is *a second list*.
+    the list *a list* with *a value* inserted at position *a number* is *a second list*.
+    the list of the positions of *a value* in *a list* is *a second list*.
+    the union of the lists *a list* is *a second list*.
+    the conjunction of the list *a list* is *a truth value*.
+    the disjunction of the list *a list* is *a truth value*.
+
+the templates are:
+    *a list* includes *a value*.
+    every item of *a list* is true.
+    some item of *a list* is true.
+    *a number* is odd.
+    *a number* is even.
+
+the knowledge base feel includes:
+
+% Every template is answered by feel.pl.

@@ -1,0 +1,108 @@
+% The Logical English twin of the DMN model "Dakisolatie Berekening" (dakisolatie-berekening-final.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base dakisolatie_berekening_final includes these resources:
+    rounding.
+
+the functions are:
+    the huidige r waarde is *a number*.
+    the dak oppervlakte m2 is *a number*.
+    the lambda w mk is *a number*.
+    the materiaal cost per m3 is *a number*.
+    the install cost per m2 per_100mm is *a number*.
+    the doel r waarde is *a number*.
+
+the templates are:
+    the bereken isolatie opties include *a delta r* with *an extra dikte mm* with *a materiaal kosten* with *an installatie kosten* with *a totale kosten* with *a subsidie* with *a netto kosten* with *a besparing jaar* with *a terugverdientijd* with *an aanbeveling*.
+    the bereken isolatie opties are listed.
+
+the knowledge base dakisolatie_berekening_final includes:
+
+the text of the_model is at "sources/dakisolatie-berekening-final.dmn".
+
+rule bereken_isolatie_opties_1 with provenance the model at decision Bereken Isolatie Opties rule 1:
+the bereken isolatie opties include a delta r D with an extra dikte mm with a materiaal kosten with an installatie kosten with a totale kosten with 249 with a netto kosten with 80 with a terugverdientijd with "" if
+    the huidige r waarde >= 0
+    and the dak oppervlakte m2 > 0
+    and the doel r waarde is a number
+    and the number is equal to 3
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * 1000 to 0 decimals half even is the extra dikte mm
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 to 0 decimals half even is the materiaal kosten
+    and the rounding of the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the installatie kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the totale kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 249 to 0 decimals half even is the netto kosten
+    and the rounding of ((the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 249) / 80 to 1 decimals half even is the terugverdientijd
+    and D = the doel r waarde - the huidige r waarde.
+
+rule bereken_isolatie_opties_2 with provenance the model at decision Bereken Isolatie Opties rule 2:
+the bereken isolatie opties include a delta r D with an extra dikte mm with a materiaal kosten with an installatie kosten with a totale kosten with 1552 with a netto kosten with 320 with a terugverdientijd with "" if
+    the huidige r waarde >= 0
+    and the dak oppervlakte m2 > 0
+    and the doel r waarde is a number
+    and the number is equal to 4
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * 1000 to 0 decimals half even is the extra dikte mm
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 to 0 decimals half even is the materiaal kosten
+    and the rounding of the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the installatie kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the totale kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 1552 to 0 decimals half even is the netto kosten
+    and the rounding of ((the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 1552) / 320 to 1 decimals half even is the terugverdientijd
+    and D = the doel r waarde - the huidige r waarde.
+
+rule bereken_isolatie_opties_3 with provenance the model at decision Bereken Isolatie Opties rule 3:
+the bereken isolatie opties include a delta r D with an extra dikte mm with a materiaal kosten with an installatie kosten with a totale kosten with 2185 with a netto kosten with 640 with a terugverdientijd with "Aanbevolen: R-waarde 6.0 m²K/W (gemarkeerd in groen) biedt de beste balans tussen investering, subsidie en terugverdientijd." if
+    the huidige r waarde >= 0
+    and the dak oppervlakte m2 > 0
+    and the doel r waarde is a number
+    and the number is equal to 6
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * 1000 to 0 decimals half even is the extra dikte mm
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 to 0 decimals half even is the materiaal kosten
+    and the rounding of the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the installatie kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the totale kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 2185 to 0 decimals half even is the netto kosten
+    and the rounding of ((the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 2185) / 640 to 1 decimals half even is the terugverdientijd
+    and D = the doel r waarde - the huidige r waarde.
+
+rule bereken_isolatie_opties_4 with provenance the model at decision Bereken Isolatie Opties rule 4:
+the bereken isolatie opties include a delta r D with an extra dikte mm with a materiaal kosten with an installatie kosten with a totale kosten with 3604 with a netto kosten with 780 with a terugverdientijd with "" if
+    the huidige r waarde >= 0
+    and the dak oppervlakte m2 > 0
+    and the doel r waarde is a number
+    and the number is equal to 8
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * 1000 to 0 decimals half even is the extra dikte mm
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 to 0 decimals half even is the materiaal kosten
+    and the rounding of the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the installatie kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) to 0 decimals half even is the totale kosten
+    and the rounding of (the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 3604 to 0 decimals half even is the netto kosten
+    and the rounding of ((the doel r waarde - the huidige r waarde) * the lambda w mk * the dak oppervlakte m2 * the materiaal cost per m3 + the dak oppervlakte m2 * the install cost per m2 per_100mm * ((the doel r waarde - the huidige r waarde) * the lambda w mk * 10) - 3604) / 780 to 1 decimals half even is the terugverdientijd
+    and D = the doel r waarde - the huidige r waarde.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Bereken Isolatie Opties:
+    the huidige r waarde is 0.
+    the dak oppervlakte m2 is 1.
+    the lambda w mk is 0.
+    the materiaal cost per m3 is 12.
+    the install cost per m2 per_100mm is 12.
+    the doel r waarde is 3.
+    q_d_rel_bereken_isolatie_opties expects answers ["the bereken isolatie opties include 3 with 0 with 0 with 0 with 0 with 249 with -249 with 80 with -3.1 with"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Bereken Isolatie Opties:
+    the huidige r waarde is 0.
+    the dak oppervlakte m2 is 1.
+    the lambda w mk is 0.
+    the materiaal cost per m3 is 2.5.
+    the install cost per m2 per_100mm is 12.
+    the doel r waarde is 6.
+    q_d_rel_bereken_isolatie_opties expects answers ["the bereken isolatie opties include 6 with 0 with 0 with 0 with 0 with 2185 with -2185 with 640 with -3.4 with Aanbevolen: R-waarde 6.0 m²K/W (gemarkeerd in groen) biedt de beste balans tussen investering, subsidie en terugverdientijd."].
+
+query q_d_rel_bereken_isolatie_opties is:
+    the bereken isolatie opties include which delta r with which extra dikte mm with which materiaal kosten with which installatie kosten with which totale kosten with which subsidie with which netto kosten with which besparing jaar with which terugverdientijd with which aanbeveling.
+

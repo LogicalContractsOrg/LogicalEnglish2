@@ -1,0 +1,152 @@
+% The Logical English twin of the DMN model "EmployeeRoleAssignment" (EmployeeRoleAssignment.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the department is *a text*.
+    the job function is *a text*.
+    the assigned roles of the employee role assignment is *a text*.
+    the candidate groups of the employee role assignment is *a text*.
+    the access level of the employee role assignment is *a text*.
+    the department or null is *a text*.
+    the job function or null is *a text*.
+
+the templates are:
+    the employee role assignment for *a text* and *a second text* is *a third text* with *a fourth text* with *a fifth text* under table employee_role_assignment.
+
+the table employee_role_assignment is, with first match:
+    department       | job function         | assigned roles                                            | candidate groups                | access level
+    "vergunningen"   | "behandelaar"        | "caseworker"                                              | "caseworker"                    | "basis"
+    "vergunningen"   | "senior-behandelaar" | "caseworker,vergunningen-senior"                          | "caseworker"                    | "uitgebreid"
+    "infrastructuur" | "verkenner"          | "caseworker,rip-verkenner"                                | "caseworker,rip-verkenner"      | "basis"
+    "infrastructuur" | "planner"            | "caseworker,rip-planner"                                  | "caseworker,rip-planner"        | "uitgebreid"
+    "infrastructuur" | "inkoop"             | "caseworker,rip-inkoop"                                   | "caseworker,rip-inkoop"         | "uitgebreid"
+    "infrastructuur" | "contractbeheer"     | "caseworker,rip-contractbeheer"                           | "caseworker,rip-contractbeheer" | "uitgebreid"
+    "infrastructuur" | "projectleider"      | "caseworker,rip-verkenner,rip-planner,rip-contractbeheer" | "caseworker,rip-projectleider"  | "admin"
+    "infrastructuur" | "toetser"            | "caseworker,rip-toetser"                                  | "caseworker,rip-toetser"        | "basis"
+    "infrastructuur" | "kwaliteit"          | "caseworker,rip-kwaliteit"                                | "caseworker,rip-kwaliteit"      | "basis"
+    "hr"             | any                  | "hr-medewerker"                                           | "hr-medewerker"                 | "uitgebreid"
+    any              | any                  | "caseworker"                                              | "caseworker"                    | "basis"
+
+the knowledge base employeeroleassignment includes:
+
+the text of the_model is at "sources/EmployeeRoleAssignment.dmn".
+
+the department or null is the department, as stated in the model at decision Employee Role Assignment.
+
+rule employee_role_assignment_2 with provenance the model at decision Employee Role Assignment:
+the department or null is null if
+    it is not the case that the department is a text.
+
+the job function or null is the job function, as stated in the model at decision Employee Role Assignment.
+
+rule employee_role_assignment_4 with provenance the model at decision Employee Role Assignment:
+the job function or null is null if
+    it is not the case that the job function is a text.
+
+rule employee_role_assignment_5 with provenance the model at decision Employee Role Assignment:
+the assigned roles of the employee role assignment is a text if
+    the employee role assignment for the department or null and the job function or null is the text with a second text with a third text under table employee_role_assignment.
+
+rule employee_role_assignment_6 with provenance the model at decision Employee Role Assignment:
+the candidate groups of the employee role assignment is a text if
+    the employee role assignment for the department or null and the job function or null is a second text with the text with a third text under table employee_role_assignment.
+
+rule employee_role_assignment_7 with provenance the model at decision Employee Role Assignment:
+the access level of the employee role assignment is a text if
+    the employee role assignment for the department or null and the job function or null is a second text with a third text with the text under table employee_role_assignment.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Employee Role Assignment:
+    the department is "vergunningen".
+    the job function is "behandelaar".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is basis"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Employee Role Assignment:
+    the department is "vergunningen".
+    the job function is "senior-behandelaar".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is uitgebreid"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,vergunningen-senior"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "verkenner".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is basis"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-verkenner"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-verkenner"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "planner".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is uitgebreid"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-planner"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-planner"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "inkoop".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is uitgebreid"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-inkoop"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-inkoop"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 6 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "contractbeheer".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is uitgebreid"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-contractbeheer"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-contractbeheer"].
+
+scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 7 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "projectleider".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is admin"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-verkenner,rip-planner,rip-contractbeheer"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-projectleider"].
+
+scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 8 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "toetser".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is basis"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-toetser"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-toetser"].
+
+scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 9 of Employee Role Assignment:
+    the department is "infrastructuur".
+    the job function is "kwaliteit".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is basis"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker,rip-kwaliteit"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker,rip-kwaliteit"].
+
+scenario g010 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g010 row 10 of Employee Role Assignment:
+    the department is "hr".
+    the job function is "toetser".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is uitgebreid"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is hr-medewerker"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is hr-medewerker"].
+
+scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g011 row 11 of Employee Role Assignment:
+    the department is "vergunningen".
+    the job function is "verkenner".
+    q_d_access_level_of_the_employee_role_assignment expects answers ["the access level of the employee role assignment is basis"].
+    q_d_assigned_roles_of_the_employee_role_assignment expects answers ["the assigned roles of the employee role assignment is caseworker"].
+    q_d_candidate_groups_of_the_employee_role_assignment expects answers ["the candidate groups of the employee role assignment is caseworker"].
+
+query q_d_access_level_of_the_employee_role_assignment is:
+    the access level of the employee role assignment is which text.
+
+query q_d_assigned_roles_of_the_employee_role_assignment is:
+    the assigned roles of the employee role assignment is which text.
+
+query q_d_candidate_groups_of_the_employee_role_assignment is:
+    the candidate groups of the employee role assignment is which text.
+

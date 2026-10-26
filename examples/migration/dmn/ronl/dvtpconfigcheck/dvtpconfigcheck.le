@@ -1,0 +1,96 @@
+% The Logical English twin of the DMN model "DvtpConfigCheck" (DvtpConfigCheck.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the initiator id is *a text*.
+    the return url is *a text*.
+    the initiator allowed of the dv tp service configuration check fr_30_32 is *a truth value*.
+    the config ttl days of the dv tp service configuration check fr_30_32 is *a number*.
+    the config ttl label of the dv tp service configuration check fr_30_32 is *a text*.
+    the initiator id or null is *a text*.
+    the return url or null is *a text*.
+
+the templates are:
+    the dv tp service configuration check fr_30_32 for *a text* and *a second text* is *a truth value* with *a number* with *a third text* under table dv_tp_service_configuration_check_fr_30_32.
+
+the table dv_tp_service_configuration_check_fr_30_32 is, with first match:
+    initiator id         | return url | initiator allowed | config ttl days | config ttl label
+    "DEMO-INITIATOR-001" | any        | true              | 365             | "1 jaar"
+    "DEMO-INITIATOR-002" | any        | true              | 30              | "30 dagen"
+    "DEMO-INITIATOR-003" | any        | false             | 0               | "Niet geregistreerd"
+    any                  | any        | true              | 365             | "1 jaar (standaard)"
+
+the knowledge base dvtpconfigcheck includes:
+
+the text of the_model is at "sources/DvtpConfigCheck.dmn".
+
+the initiator id or null is the initiator id, as stated in the model at decision DvTP Service Configuration Check FR-30 32.
+
+rule dv_tp_service_configuration_check_fr_30_32_2 with provenance the model at decision DvTP Service Configuration Check FR-30 32:
+the initiator id or null is null if
+    it is not the case that the initiator id is a text.
+
+the return url or null is the return url, as stated in the model at decision DvTP Service Configuration Check FR-30 32.
+
+rule dv_tp_service_configuration_check_fr_30_32_4 with provenance the model at decision DvTP Service Configuration Check FR-30 32:
+the return url or null is null if
+    it is not the case that the return url is a text.
+
+rule dv_tp_service_configuration_check_fr_30_32_5 with provenance the model at decision DvTP Service Configuration Check FR-30 32:
+the initiator allowed of the dv tp service configuration check fr_30_32 is a truth value if
+    the dv tp service configuration check fr_30_32 for the initiator id or null and the return url or null is the truth value with a number with a text under table dv_tp_service_configuration_check_fr_30_32.
+
+rule dv_tp_service_configuration_check_fr_30_32_6 with provenance the model at decision DvTP Service Configuration Check FR-30 32:
+the config ttl days of the dv tp service configuration check fr_30_32 is a number if
+    the dv tp service configuration check fr_30_32 for the initiator id or null and the return url or null is a truth value with the number with a text under table dv_tp_service_configuration_check_fr_30_32.
+
+rule dv_tp_service_configuration_check_fr_30_32_7 with provenance the model at decision DvTP Service Configuration Check FR-30 32:
+the config ttl label of the dv tp service configuration check fr_30_32 is a text if
+    the dv tp service configuration check fr_30_32 for the initiator id or null and the return url or null is a truth value with a number with the text under table dv_tp_service_configuration_check_fr_30_32.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of DvTP Service Configuration Check FR-30 32:
+    the initiator id is "DEMO-INITIATOR-001".
+    the return url is "anders".
+    q_d_config_ttl_days_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl days of the dv tp service configuration check fr_30_32 is 365"].
+    q_d_config_ttl_label_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl label of the dv tp service configuration check fr_30_32 is 1 jaar"].
+    q_d_initiator_allowed_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the initiator allowed of the dv tp service configuration check fr_30_32 is true"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of DvTP Service Configuration Check FR-30 32:
+    the initiator id is "DEMO-INITIATOR-002".
+    the return url is "anders".
+    q_d_config_ttl_days_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl days of the dv tp service configuration check fr_30_32 is 30"].
+    q_d_config_ttl_label_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl label of the dv tp service configuration check fr_30_32 is 30 dagen"].
+    q_d_initiator_allowed_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the initiator allowed of the dv tp service configuration check fr_30_32 is true"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of DvTP Service Configuration Check FR-30 32:
+    the initiator id is "DEMO-INITIATOR-003".
+    the return url is "anders".
+    q_d_config_ttl_days_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl days of the dv tp service configuration check fr_30_32 is 0"].
+    q_d_config_ttl_label_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl label of the dv tp service configuration check fr_30_32 is Niet geregistreerd"].
+    q_d_initiator_allowed_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the initiator allowed of the dv tp service configuration check fr_30_32 is false"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of DvTP Service Configuration Check FR-30 32:
+    the initiator id is "DEMO-INITIATOR-002".
+    the return url is "anders".
+    q_d_config_ttl_days_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl days of the dv tp service configuration check fr_30_32 is 30"].
+    q_d_config_ttl_label_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the config ttl label of the dv tp service configuration check fr_30_32 is 30 dagen"].
+    q_d_initiator_allowed_of_the_dv_tp_service_configuration_check_fr_30_32 expects answers ["the initiator allowed of the dv tp service configuration check fr_30_32 is true"].
+
+query q_d_config_ttl_days_of_the_dv_tp_service_configuration_check_fr_30_32 is:
+    the config ttl days of the dv tp service configuration check fr_30_32 is which number.
+
+query q_d_config_ttl_label_of_the_dv_tp_service_configuration_check_fr_30_32 is:
+    the config ttl label of the dv tp service configuration check fr_30_32 is which text.
+
+query q_d_initiator_allowed_of_the_dv_tp_service_configuration_check_fr_30_32 is:
+    the initiator allowed of the dv tp service configuration check fr_30_32 is which truth value.
+

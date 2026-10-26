@@ -1,0 +1,136 @@
+% The Logical English twin of the DMN model "CapacityClaimRouting" (CapacityClaimRouting.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the request type is *a text*.
+    the department is *a text*.
+    the decision route of the capacity claim routing is *a text*.
+    the candidate groups of the capacity claim routing is *a text*.
+    the advisory group of the capacity claim routing is *a text*.
+    the request type or null is *a text*.
+    the department or null is *a text*.
+
+the templates are:
+    the capacity claim routing for *a text* and *a second text* is *a third text* with *a fourth text* with *a fifth text* under table capacity_claim_routing.
+
+the table capacity_claim_routing is, with first match:
+    request type | department       | decision route | candidate groups                            | advisory group
+    "staffing"   | "vergunningen"   | "recruitment"  | "hrm-unit"                                  | "HRM unit (Vergunningen)"
+    "staffing"   | "infrastructuur" | "recruitment"  | "hrm-unit"                                  | "HRM unit (Infrastructuur)"
+    "staffing"   | "hr"             | "recruitment"  | "hrm-unit"                                  | "HRM unit (HR)"
+    "staffing"   | any              | "recruitment"  | "hrm-unit"                                  | "HRM unit"
+    "hiring"     | "vergunningen"   | "procurement"  | "procurement-unit,planning-control-officer" | "Legal Affairs and Procurement unit + Planning and Control officer (Vergunningen)"
+    "hiring"     | "infrastructuur" | "procurement"  | "procurement-unit,planning-control-officer" | "Legal Affairs and Procurement unit + Planning and Control officer (Infrastructuur)"
+    "hiring"     | "hr"             | "procurement"  | "procurement-unit,planning-control-officer" | "Legal Affairs and Procurement unit + Planning and Control officer (HR)"
+    "hiring"     | any              | "procurement"  | "procurement-unit,planning-control-officer" | "Legal Affairs and Procurement unit + Planning and Control officer"
+    any          | any              | "recruitment"  | "hrm-unit"                                  | "HRM unit"
+
+the knowledge base capacityclaimrouting includes:
+
+the text of the_model is at "sources/CapacityClaimRouting.dmn".
+
+the request type or null is the request type, as stated in the model at decision Capacity Claim Routing.
+
+rule capacity_claim_routing_2 with provenance the model at decision Capacity Claim Routing:
+the request type or null is null if
+    it is not the case that the request type is a text.
+
+the department or null is the department, as stated in the model at decision Capacity Claim Routing.
+
+rule capacity_claim_routing_4 with provenance the model at decision Capacity Claim Routing:
+the department or null is null if
+    it is not the case that the department is a text.
+
+rule capacity_claim_routing_5 with provenance the model at decision Capacity Claim Routing:
+the decision route of the capacity claim routing is a text if
+    the capacity claim routing for the request type or null and the department or null is the text with a second text with a third text under table capacity_claim_routing.
+
+rule capacity_claim_routing_6 with provenance the model at decision Capacity Claim Routing:
+the candidate groups of the capacity claim routing is a text if
+    the capacity claim routing for the request type or null and the department or null is a second text with the text with a third text under table capacity_claim_routing.
+
+rule capacity_claim_routing_7 with provenance the model at decision Capacity Claim Routing:
+the advisory group of the capacity claim routing is a text if
+    the capacity claim routing for the request type or null and the department or null is a second text with a third text with the text under table capacity_claim_routing.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Capacity Claim Routing:
+    the request type is "staffing".
+    the department is "vergunningen".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is HRM unit (Vergunningen)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is hrm-unit"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is recruitment"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Capacity Claim Routing:
+    the request type is "staffing".
+    the department is "infrastructuur".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is HRM unit (Infrastructuur)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is hrm-unit"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is recruitment"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Capacity Claim Routing:
+    the request type is "staffing".
+    the department is "hr".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is HRM unit (HR)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is hrm-unit"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is recruitment"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Capacity Claim Routing:
+    the request type is "staffing".
+    the department is "hr".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is HRM unit (HR)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is hrm-unit"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is recruitment"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of Capacity Claim Routing:
+    the request type is "hiring".
+    the department is "vergunningen".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is Legal Affairs and Procurement unit + Planning and Control officer (Vergunningen)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is procurement-unit,planning-control-officer"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is procurement"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 6 of Capacity Claim Routing:
+    the request type is "hiring".
+    the department is "infrastructuur".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is Legal Affairs and Procurement unit + Planning and Control officer (Infrastructuur)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is procurement-unit,planning-control-officer"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is procurement"].
+
+scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 7 of Capacity Claim Routing:
+    the request type is "hiring".
+    the department is "hr".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is Legal Affairs and Procurement unit + Planning and Control officer (HR)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is procurement-unit,planning-control-officer"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is procurement"].
+
+scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 8 of Capacity Claim Routing:
+    the request type is "hiring".
+    the department is "vergunningen".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is Legal Affairs and Procurement unit + Planning and Control officer (Vergunningen)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is procurement-unit,planning-control-officer"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is procurement"].
+
+scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 9 of Capacity Claim Routing:
+    the request type is "hiring".
+    the department is "hr".
+    q_d_advisory_group_of_the_capacity_claim_routing expects answers ["the advisory group of the capacity claim routing is Legal Affairs and Procurement unit + Planning and Control officer (HR)"].
+    q_d_candidate_groups_of_the_capacity_claim_routing expects answers ["the candidate groups of the capacity claim routing is procurement-unit,planning-control-officer"].
+    q_d_decision_route_of_the_capacity_claim_routing expects answers ["the decision route of the capacity claim routing is procurement"].
+
+query q_d_advisory_group_of_the_capacity_claim_routing is:
+    the advisory group of the capacity claim routing is which text.
+
+query q_d_candidate_groups_of_the_capacity_claim_routing is:
+    the candidate groups of the capacity claim routing is which text.
+
+query q_d_decision_route_of_the_capacity_claim_routing is:
+    the decision route of the capacity claim routing is which text.
+

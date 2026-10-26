@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" id="Definitions_CompleteMetRechtOpSubsidie" name="Complete subsidie thuisbatterij" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.46.1">
+  <decision id="BehaalbareHoogteSubsidie" name="Behaalbare Hoogte Subsidie" camunda:historyTimeToLive="0">
+    <variable name="hoogteSubsidie" typeRef="double" />
+    <informationRequirement id="InformationRequirement_Behaalbare_JaarGebondenBudget">
+      <requiredDecision href="#jaarGebondenBudget" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Behaalbare_BasisHoogte">
+      <requiredDecision href="#BerekenBasisHoogteSubsidie" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Behaalbare_Plafond">
+      <requiredDecision href="#BerekenBeschikbaarSubsidiePlafond" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1jpwlu5">
+      <requiredDecision href="#BerekenBasisHoogteSubsidie" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0843g4c">
+      <requiredDecision href="#BerekenBeschikbaarSubsidiePlafond" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_BehaalbareHoogteSubsidie">
+      <input id="Input_BasisHoogteSubsidie" label="Basis hoogte subsidie">
+        <inputExpression id="InputExpression_BasisHoogteSubsidie" typeRef="double" expressionLanguage="feel">
+          <text>basisHoogteSubsidie</text>
+        </inputExpression>
+      </input>
+      <output id="Output_HoogteSubsidie" label="Hoogte subsidie" name="hoogteSubsidie" typeRef="double" />
+      <rule id="Rule_Behaalbare_BasisPastBinnenResterendBudget">
+        <inputEntry id="UnaryTests_Behaalbare_BasisPastBinnenResterendBudget">
+          <text>&lt;= beschikbaarSubsidiePlafond</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Behaalbare_BasisPastBinnenResterendBudget" expressionLanguage="feel">
+          <text>basisHoogteSubsidie</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Behaalbare_BeperktDoorResterendBudget">
+        <inputEntry id="UnaryTests_Behaalbare_BeperktDoorResterendBudget">
+          <text>&gt; beschikbaarSubsidiePlafond</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Behaalbare_BeperktDoorResterendBudget" expressionLanguage="feel">
+          <text>beschikbaarSubsidiePlafond</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="BerekenBasisHoogteSubsidie" name="Bereken Basis Hoogte Subsidie" camunda:historyTimeToLive="0">
+    <variable name="basisHoogteSubsidie" typeRef="double" />
+    <informationRequirement id="InformationRequirement_1fephhr">
+      <requiredInput href="#InputData_18dsvrq" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_Basis_Constanten">
+      <requiredDecision href="#SubsidieConstantenThuisbatterij" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_153k8os">
+      <requiredDecision href="#SubsidieConstantenThuisbatterij" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_BerekenBasisHoogteSubsidie">
+      <input id="Input_GemaakteKosten" label="Gemaakte kosten">
+        <inputExpression id="InputExpression_GemaakteKosten" typeRef="double" expressionLanguage="feel">
+          <text>gemaakteKosten</text>
+        </inputExpression>
+      </input>
+      <output id="Output_BasisHoogteSubsidie" label="Basis hoogte subsidie" name="basisHoogteSubsidie" typeRef="double" />
+      <rule id="Rule_Basis_BovenMinimum">
+        <inputEntry id="UnaryTests_Basis_BovenMinimum">
+          <text>&gt;= minimaleNoodzakelijkeKosten / subsidiePercentage</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Basis_BovenMinimum" expressionLanguage="feel">
+          <text>if subsidiePercentage * gemaakteKosten &gt; subsidieMaximum then subsidieMaximum else if subsidiePercentage * gemaakteKosten &lt; subsidieMinimum then subsidieMinimum else subsidiePercentage * gemaakteKosten</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Basis_OnderMinimum">
+        <inputEntry id="UnaryTests_Basis_OnderMinimum">
+          <text>&lt; minimaleNoodzakelijkeKosten / subsidiePercentage</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Basis_OnderMinimum" expressionLanguage="feel">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="BerekenBeschikbaarSubsidiePlafond" name="Bereken Beschikbaar Subsidie Plafond" camunda:historyTimeToLive="0">
+    <variable name="beschikbaarSubsidiePlafond" typeRef="double" />
+    <informationRequirement id="InformationRequirement_1t30h0t">
+      <requiredInput href="#InputData_04cuqa0" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_050d666">
+      <requiredInput href="#InputData_1wzaium" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1noo0v7">
+      <requiredInput href="#InputData_0w9g4pp" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_12zgy8b">
+      <requiredInput href="#InputData_1f43kne" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0rt9na8">
+      <requiredDecision href="#jaarGebondenBudget" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_BerekenBeschikbaarSubsidiePlafond" hitPolicy="FIRST">
+      <input id="Input_AanvraagDatum" label="Aanvraagdatum">
+        <inputExpression id="InputExpression_AanvraagDatum" typeRef="string" expressionLanguage="feel">
+          <text>aanvraagDatum</text>
+        </inputExpression>
+      </input>
+      <input id="Input_AanvragerType" label="Aanvrager type">
+        <inputExpression id="InputExpression_AanvragerType" typeRef="string" expressionLanguage="feel">
+          <text>aanvragerType</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ReedsGesubsidieerdEigenaren" label="Reeds gesubsidieerd eigenaren">
+        <inputExpression id="InputExpression_ReedsGesubsidieerdEigenaren" typeRef="double" expressionLanguage="feel">
+          <text>reedsGesubsidieerdEigenaren</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ReedsGesubsidieerdHuurders" label="Reeds gesubsidieerd huurders">
+        <inputExpression id="InputExpression_ReedsGesubsidieerdHuurders" typeRef="double" expressionLanguage="feel">
+          <text>reedsGesubsidieerdHuurders</text>
+        </inputExpression>
+      </input>
+      <output id="Output_BeschikbaarSubsidiePlafond" label="Beschikbaar subsidieplafond" name="beschikbaarSubsidiePlafond" typeRef="double" />
+      <rule id="Rule_Platform_2026_Eigenaar_Gescheiden">
+        <description>12 januari 2026 t/m 30 september 2026: apart plafond voor eigenaren.</description>
+        <inputEntry id="UnaryTests_Platform_2026_Eigenaar_Gescheiden_Datum">
+          <text>date(aanvraagDatum) &gt;= date("2026-01-12") and date(aanvraagDatum) &lt;= date("2026-09-30")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Eigenaar_Gescheiden_Type">
+          <text>"eigenaar"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Eigenaar_Gescheiden_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Eigenaar_Gescheiden_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_2026_Eigenaar_Gescheiden" expressionLanguage="feel">
+          <text>if plafondEigenaren - reedsGesubsidieerdEigenaren &gt; 0 then plafondEigenaren - reedsGesubsidieerdEigenaren else 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Platform_2026_Huurder_Gescheiden">
+        <description>12 januari 2026 t/m 30 september 2026: apart plafond voor huurders.</description>
+        <inputEntry id="UnaryTests_Platform_2026_Huurder_Gescheiden_Datum">
+          <text>date(aanvraagDatum) &gt;= date("2026-01-12") and date(aanvraagDatum) &lt;= date("2026-09-30")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Huurder_Gescheiden_Type">
+          <text>"huurder"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Huurder_Gescheiden_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Huurder_Gescheiden_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_2026_Huurder_Gescheiden" expressionLanguage="feel">
+          <text>if plafondHuurders - reedsGesubsidieerdHuurders &gt; 0 then plafondHuurders - reedsGesubsidieerdHuurders else 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Platform_2026_Gebundeld">
+        <description>Vanaf 1 oktober 2026: wat over is van beide plafonds samen, geen onderscheid. Voor 2026 is het hele budget opgesplitst naar huurder en verhuurders.</description>
+        <inputEntry id="UnaryTests_Platform_2026_Gebundeld_Datum">
+          <text>date(aanvraagDatum) &gt;= date("2026-10-01") and date(aanvraagDatum) &lt;= date("2026-12-31")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Gebundeld_Type">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Gebundeld_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2026_Gebundeld_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_2026_Gebundeld" expressionLanguage="feel">
+          <text>if plafondEigenaren + plafondHuurders - reedsGesubsidieerdEigenaren - reedsGesubsidieerdHuurders &gt; 0 then plafondEigenaren + plafondHuurders - reedsGesubsidieerdEigenaren - reedsGesubsidieerdHuurders else 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Platform_2027_Eigenaar_Gescheiden">
+        <description>1 januari 2027 t/m 30 september 2027: apart plafond voor eigenaren. NB: in deze berekening wordt nog geen 2026 overgebleven budget overgeheveld.</description>
+        <inputEntry id="UnaryTests_Platform_2027_Eigenaar_Gescheiden_Datum">
+          <text>date("2027-01-01") &lt;= date(aanvraagDatum)   and date(aanvraagDatum) &lt;= date("2027-09-30")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Eigenaar_Gescheiden_Type">
+          <text>"eigenaar"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Eigenaar_Gescheiden_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Eigenaar_Gescheiden_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_2027_Eigenaar_Gescheiden" expressionLanguage="feel">
+          <text>if plafondEigenaren - reedsGesubsidieerdEigenaren &gt; 0 then plafondEigenaren - reedsGesubsidieerdEigenaren else 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Platform_2027_Huurder_Gescheiden">
+        <description>1 januari 2027 t/m 30 september 2027: apart plafond voor huurders.</description>
+        <inputEntry id="UnaryTests_Platform_2027_Huurder_Gescheiden_Datum">
+          <text>date(aanvraagDatum) &gt;= date("2027-01-01") and date(aanvraagDatum) &lt;= date("2027-09-30")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Huurder_Gescheiden_Type">
+          <text>"huurder"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Huurder_Gescheiden_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Huurder_Gescheiden_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_2027_Huurder_Gescheiden" expressionLanguage="feel">
+          <text>if plafondHuurders - reedsGesubsidieerdHuurders &gt; 0 then plafondHuurders - reedsGesubsidieerdHuurders else 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Platform_2027_Gebundeld">
+        <description>Vanaf 1 oktober 2027: wat over is van beide plafonds samen, geen onderscheid. NB": het totale budget voor 2027 is meer dan wat tm september mag worden uitgegeven! </description>
+        <inputEntry id="UnaryTests_Platform_2027_Gebundeld_Datum">
+          <text>date(aanvraagDatum) &gt;= date("2027-10-01") and date(aanvraagDatum) &lt;= date("2027-12-31")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Gebundeld_Type">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Gebundeld_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_2027_Gebundeld_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_2027_Gebundeld" expressionLanguage="feel">
+          <text>if 1000000 - reedsGesubsidieerdEigenaren - reedsGesubsidieerdHuurders &gt; 0 then 1000000 - reedsGesubsidieerdEigenaren - reedsGesubsidieerdHuurders else 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Platform_BuitenAanvraagperiodeOfOnbekendType">
+        <description>Buiten de gemodelleerde aanvraagperiodes of onbekend type: geen beschikbaar plafond.</description>
+        <inputEntry id="UnaryTests_Platform_BuitenAanvraagperiode_Datum">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_BuitenAanvraagperiode_Type">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_BuitenAanvraagperiode_ReedsEigenaren">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Platform_BuitenAanvraagperiode_ReedsHuurders">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Platform_BuitenAanvraagperiode" expressionLanguage="feel">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0klv7yq">
+        <inputEntry id="UnaryTests_1sqw8t4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cg6v8q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ges26c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13mg893">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xwy0en">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16qfnra">
+        <inputEntry id="UnaryTests_1nzy6bw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ma1nyc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l5820m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kff300">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18fm3qf">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dqlhxp">
+        <inputEntry id="UnaryTests_07tmdvy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13zu4uc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f0hb6l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k2sij6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09d1jiz">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pjqt9f">
+        <inputEntry id="UnaryTests_1hyjcdl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ahxsmr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ac30bg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vn3n5j">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hd3i3x">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SubsidieConstantenThuisbatterij" name="Subsidie Constanten Thuisbatterij" camunda:historyTimeToLive="0">
+    <variable name="constanten" />
+    <decisionTable id="DecisionTable_SubsidieConstantenThuisbatterij">
+      <output id="Output_Constanten_SubsidiePercentage" label="Subsidiepercentage" name="subsidiePercentage" typeRef="double" />
+      <output id="Output_Constanten_SubsidieMinimum" label="Subsidie minimum" name="subsidieMinimum" typeRef="double" />
+      <output id="Output_Constanten_SubsidieMaximum" label="Subsidie maximum" name="subsidieMaximum" typeRef="double" />
+      <output id="Output_Constanten_MinimaleNoodzakelijkeKosten" label="Minimale noodzakelijke kosten" name="minimaleNoodzakelijkeKosten" typeRef="double" />
+      <rule id="Rule_Constanten_Standaard">
+        <outputEntry id="LiteralExpression_Constanten_subsidiePercentage" expressionLanguage="feel">
+          <text>0.25</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_Constanten_subsidieMinimum" expressionLanguage="feel">
+          <text>750</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_Constanten_subsidieMaximum" expressionLanguage="feel">
+          <text>1250</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_Constanten_minimaleNoodzakelijkeKosten" expressionLanguage="feel">
+          <text>750</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="jaarGebondenBudget" name="Jaar Gebonden Budget" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_1wmmpy6">
+      <requiredInput href="#InputData_0w9g4pp" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1bhjh1w">
+      <input id="InputClause_17k6w47" label="aanvraagjaar">
+        <inputExpression id="LiteralExpression_0nh2bq6" typeRef="integer" expressionLanguage="feel">
+          <text>date(aanvraagDatum).year</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0yimwls" label="Plafond Eigenaren" name="plafondEigenaren" typeRef="double" />
+      <output id="OutputClause_0u2e23j" label="Plafond Huurders" name="plafondHuurders" typeRef="double" />
+      <rule id="DecisionRule_0nfr6kl">
+        <inputEntry id="UnaryTests_1r47gy9">
+          <text>2026</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v1foh0">
+          <text>437500</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k8pkv5">
+          <text>437500</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1e5agpr">
+        <inputEntry id="UnaryTests_0gqxupk">
+          <text>2027</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g4q0rk">
+          <text>437500</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wjnld3">
+          <text>437500</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="RechtOpSubsidieThuisbatterij" name="Recht op subsidie thuisbatterij" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_AanvragerFailliet">
+      <requiredInput href="#InputData_AanvragerFailliet" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_ProvincieWoning">
+      <requiredInput href="#InputData_ProvincieWoning" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_RelatieTotWoning">
+      <requiredInput href="#InputData_RelatieTotWoning" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_ToestemmingEigenaar">
+      <requiredInput href="#InputData_ToestemmingEigenaar" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_RekeningNaamKomtOvereen">
+      <requiredInput href="#InputData_RekeningNaamKomtOvereen" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_RechtOpSubsidieThuisbatterij" hitPolicy="FIRST">
+      <input id="Input_AanvragerFailliet" label="Aanvrager is failliet">
+        <inputExpression id="InputExpression_AanvragerFailliet" typeRef="boolean" expressionLanguage="feel">
+          <text>aanvragerFailliet</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ProvincieWoning" label="Provincie woning">
+        <inputExpression id="InputExpression_ProvincieWoning" typeRef="string" expressionLanguage="feel">
+          <text>provincieWoning</text>
+        </inputExpression>
+      </input>
+      <input id="Input_RelatieTotWoning" label="Relatie tot woning">
+        <inputExpression id="InputExpression_RelatieTotWoning" typeRef="string" expressionLanguage="feel">
+          <text>relatieTotWoning</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ToestemmingEigenaar" label="Toestemming eigenaar">
+        <inputExpression id="InputExpression_ToestemmingEigenaar" typeRef="boolean" expressionLanguage="feel">
+          <text>toestemmingEigenaar</text>
+        </inputExpression>
+      </input>
+      <input id="Input_RekeningNaamKomtOvereen" label="Naam op energierekening komt overeen">
+        <inputExpression id="InputExpression_RekeningNaamKomtOvereen" typeRef="boolean" expressionLanguage="feel">
+          <text>rekeningNaamKomtOvereen</text>
+        </inputExpression>
+      </input>
+      <output id="Output_RechtOpSubsidie" label="Recht op subsidie" name="rechtOpSubsidie" typeRef="boolean" />
+      <output id="Output_Reden" label="Reden" name="reden" typeRef="string" />
+      <rule id="Rule_Afwijzing_AanvragerFailliet">
+        <description>De aanvrager heeft geen recht op subsidie als de aanvrager failliet is.</description>
+        <inputEntry id="UnaryTests_AanvragerFailliet_Failliet">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_AanvragerFailliet_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_AanvragerFailliet_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_AanvragerFailliet_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_AanvragerFailliet_Rekening">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_AanvragerFailliet_Recht" expressionLanguage="feel">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_AanvragerFailliet_Reden" expressionLanguage="feel">
+          <text>"Aanvrager is failliet"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Afwijzing_NietInFlevoland">
+        <description>De woning moet in Flevoland liggen.</description>
+        <inputEntry id="UnaryTests_NietInFlevoland_Failliet">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NietInFlevoland_Provincie">
+          <text>not("Flevoland")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NietInFlevoland_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NietInFlevoland_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NietInFlevoland_Rekening">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_NietInFlevoland_Recht" expressionLanguage="feel">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_NietInFlevoland_Reden" expressionLanguage="feel">
+          <text>"Woning ligt niet in Flevoland"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Afwijzing_GeenEigenaarOfHuurder">
+        <description>De aanvrager moet eigenaar of huurder van de woning zijn.</description>
+        <inputEntry id="UnaryTests_GeenEigenaarOfHuurder_Failliet">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_GeenEigenaarOfHuurder_Provincie">
+          <text>"Flevoland"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_GeenEigenaarOfHuurder_Relatie">
+          <text>not("eigenaar", "huurder")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_GeenEigenaarOfHuurder_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_GeenEigenaarOfHuurder_Rekening">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_GeenEigenaarOfHuurder_Recht" expressionLanguage="feel">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_GeenEigenaarOfHuurder_Reden" expressionLanguage="feel">
+          <text>"Aanvrager is geen eigenaar of huurder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Afwijzing_HuurderZonderToestemming">
+        <description>Als de aanvrager huurder is, is toestemming van de eigenaar vereist.</description>
+        <inputEntry id="UnaryTests_HuurderZonderToestemming_Failliet">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_HuurderZonderToestemming_Provincie">
+          <text>"Flevoland"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_HuurderZonderToestemming_Relatie">
+          <text>"huurder"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_HuurderZonderToestemming_Toestemming">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_HuurderZonderToestemming_Rekening">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_HuurderZonderToestemming_Recht" expressionLanguage="feel">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_HuurderZonderToestemming_Reden" expressionLanguage="feel">
+          <text>"Huurder heeft geen toestemming van eigenaar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Afwijzing_NaamNietOpEnergierekening">
+        <description>De aanvrager moet ook de naam op de rekening van de energiemaatschappij zijn.</description>
+        <inputEntry id="UnaryTests_NaamNietOpEnergierekening_Failliet">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NaamNietOpEnergierekening_Provincie">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NaamNietOpEnergierekening_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NaamNietOpEnergierekening_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_NaamNietOpEnergierekening_Rekening">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_NaamNietOpEnergierekening_Recht" expressionLanguage="feel">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_NaamNietOpEnergierekening_Reden" expressionLanguage="feel">
+          <text>"Aanvrager staat niet op de energierekening"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Toekenning_Eigenaar">
+        <description>Eigenaar voldoet aan alle voorwaarden.</description>
+        <inputEntry id="UnaryTests_Eigenaar_Failliet">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Eigenaar_Provincie">
+          <text>"Flevoland"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Eigenaar_Relatie">
+          <text>"eigenaar"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Eigenaar_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Eigenaar_Rekening">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Eigenaar_Recht" expressionLanguage="feel">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_Eigenaar_Reden" expressionLanguage="feel">
+          <text>"Aanvrager heeft recht op subsidie"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Toekenning_Huurder">
+        <description>Huurder voldoet aan alle voorwaarden, inclusief toestemming van de eigenaar.</description>
+        <inputEntry id="UnaryTests_Huurder_Failliet">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Huurder_Provincie">
+          <text>"Flevoland"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Huurder_Relatie">
+          <text>"huurder"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Huurder_Toestemming">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Huurder_Rekening">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Huurder_Recht" expressionLanguage="feel">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_Huurder_Reden" expressionLanguage="feel">
+          <text>"Aanvrager heeft recht op subsidie; huurder met toestemming eigenaar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Afwijzing_Standaard">
+        <description>Vangnetregel: niet alle voorwaarden zijn vervuld of gegevens ontbreken.</description>
+        <inputEntry id="UnaryTests_Standaard_Failliet">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Standaard_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Standaard_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Standaard_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_Standaard_Rekening">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_Standaard_Recht" expressionLanguage="feel">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_Standaard_Reden" expressionLanguage="feel">
+          <text>"Niet alle voorwaarden zijn vervuld"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_04cuqa0" name="Reeds gesubsidieerd eigenaren" />
+  <inputData id="InputData_1wzaium" name="Reeds gesubsidieerd huurders" />
+  <inputData id="InputData_0w9g4pp" name="Datum van aanvraag" />
+  <inputData id="InputData_18dsvrq" name="Gemaakte Kosten" />
+  <inputData id="InputData_1f43kne" name="Aanvraag type" />
+  <inputData id="InputData_AanvragerFailliet" name="Aanvrager is failliet" />
+  <inputData id="InputData_ProvincieWoning" name="Provincie woning" />
+  <inputData id="InputData_RelatieTotWoning" name="Relatie tot woning" />
+  <inputData id="InputData_ToestemmingEigenaar" name="Toestemming eigenaar" />
+  <inputData id="InputData_RekeningNaamKomtOvereen" name="Naam op energierekening komt overeen" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_BehaalbareHoogteSubsidie" name="Behaalbare Hoogte Subsidie">
+      <dmndi:DMNShape id="DMNShape_BehaalbareHoogteSubsidie" dmnElementRef="BehaalbareHoogteSubsidie">
+        <dc:Bounds height="80" width="240" x="420" y="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_BerekenBasisHoogteSubsidie" dmnElementRef="BerekenBasisHoogteSubsidie">
+        <dc:Bounds height="80" width="260" x="240" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_BerekenBeschikbaarSubsidiePlafond" dmnElementRef="BerekenBeschikbaarSubsidiePlafond">
+        <dc:Bounds height="80" width="320" x="620" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_SubsidieConstantenThuisbatterij" dmnElementRef="SubsidieConstantenThuisbatterij">
+        <dc:Bounds height="80" width="300" x="220" y="400" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0djit7s" dmnElementRef="jaarGebondenBudget">
+        <dc:Bounds height="80" width="180" x="610" y="430" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0tknppw" dmnElementRef="InputData_04cuqa0">
+        <dc:Bounds height="45" width="125" x="1077" y="237" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1sj5azx" dmnElementRef="InformationRequirement_1t30h0t">
+        <di:waypoint x="1077" y="260" />
+        <di:waypoint x="960" y="260" />
+        <di:waypoint x="940" y="260" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1ezg9p8" dmnElementRef="InputData_1wzaium">
+        <dc:Bounds height="45" width="125" x="1077" y="347" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0cdps8r" dmnElementRef="InformationRequirement_050d666">
+        <di:waypoint x="1140" y="347" />
+        <di:waypoint x="860" y="320" />
+        <di:waypoint x="860" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1aa30u5" dmnElementRef="InputData_0w9g4pp">
+        <dc:Bounds height="45" width="125" x="887" y="447" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_078emae" dmnElementRef="InformationRequirement_1wmmpy6">
+        <di:waypoint x="887" y="470" />
+        <di:waypoint x="810" y="470" />
+        <di:waypoint x="790" y="470" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_03atk16" dmnElementRef="InformationRequirement_1noo0v7">
+        <di:waypoint x="950" y="447" />
+        <di:waypoint x="780" y="320" />
+        <di:waypoint x="780" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0agmhqu" dmnElementRef="InputData_18dsvrq">
+        <dc:Bounds height="45" width="125" x="158" y="78" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_06tbwfk" dmnElementRef="InformationRequirement_1fephhr">
+        <di:waypoint x="221" y="123" />
+        <di:waypoint x="370" y="200" />
+        <di:waypoint x="370" y="220" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_17pht6u" dmnElementRef="InputData_1f43kne">
+        <dc:Bounds height="45" width="125" x="1018" y="118" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1px9lhj" dmnElementRef="InformationRequirement_12zgy8b">
+        <di:waypoint x="1081" y="163" />
+        <di:waypoint x="780" y="200" />
+        <di:waypoint x="780" y="220" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_RechtOpSubsidieThuisbatterij" dmnElementRef="RechtOpSubsidieThuisbatterij">
+        <dc:Bounds height="80" width="280" x="1730" y="160" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_AanvragerFailliet" dmnElementRef="InputData_AanvragerFailliet">
+        <dc:Bounds height="45" width="170" x="1310" y="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_ProvincieWoning" dmnElementRef="InputData_ProvincieWoning">
+        <dc:Bounds height="45" width="170" x="1310" y="130" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_RelatieTotWoning" dmnElementRef="InputData_RelatieTotWoning">
+        <dc:Bounds height="45" width="170" x="1310" y="200" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_ToestemmingEigenaar" dmnElementRef="InputData_ToestemmingEigenaar">
+        <dc:Bounds height="45" width="170" x="1310" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_RekeningNaamKomtOvereen" dmnElementRef="InputData_RekeningNaamKomtOvereen">
+        <dc:Bounds height="45" width="240" x="1280" y="340" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_AanvragerFailliet" dmnElementRef="InformationRequirement_AanvragerFailliet">
+        <di:waypoint x="1480" y="83" />
+        <di:waypoint x="1730" y="180" />
+        <di:waypoint x="1730" y="200" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_ProvincieWoning" dmnElementRef="InformationRequirement_ProvincieWoning">
+        <di:waypoint x="1480" y="153" />
+        <di:waypoint x="1730" y="190" />
+        <di:waypoint x="1730" y="200" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_RelatieTotWoning" dmnElementRef="InformationRequirement_RelatieTotWoning">
+        <di:waypoint x="1480" y="223" />
+        <di:waypoint x="1730" y="210" />
+        <di:waypoint x="1730" y="200" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_ToestemmingEigenaar" dmnElementRef="InformationRequirement_ToestemmingEigenaar">
+        <di:waypoint x="1480" y="293" />
+        <di:waypoint x="1730" y="220" />
+        <di:waypoint x="1730" y="200" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_RekeningNaamKomtOvereen" dmnElementRef="InformationRequirement_RekeningNaamKomtOvereen">
+        <di:waypoint x="1520" y="363" />
+        <di:waypoint x="1730" y="230" />
+        <di:waypoint x="1730" y="200" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0rzgzfe" dmnElementRef="InformationRequirement_153k8os">
+        <di:waypoint x="370" y="400" />
+        <di:waypoint x="370" y="320" />
+        <di:waypoint x="370" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0awyk9w" dmnElementRef="InformationRequirement_1jpwlu5">
+        <di:waypoint x="370" y="220" />
+        <di:waypoint x="500" y="160" />
+        <di:waypoint x="500" y="140" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0gu253h" dmnElementRef="InformationRequirement_0rt9na8">
+        <di:waypoint x="700" y="430" />
+        <di:waypoint x="700" y="320" />
+        <di:waypoint x="700" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1tu6p1h" dmnElementRef="InformationRequirement_0843g4c">
+        <di:waypoint x="780" y="220" />
+        <di:waypoint x="580" y="160" />
+        <di:waypoint x="580" y="140" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

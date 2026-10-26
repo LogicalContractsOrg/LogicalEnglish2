@@ -1,0 +1,49 @@
+% The Logical English twin of the DMN model "0112-ruleOrder-hitpolicy-singleinoutcol" (0112-ruleOrder-hitpolicy-singleinoutcol.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the age is *a number*.
+
+the templates are:
+    the approval include *a text*.
+    the approval are listed.
+    the approval for *a number* is *a value* under table approval.
+
+the table approval is, with all matches:
+    age   | value
+    >= 18 | "Best"
+    >= 12 | "Standard"
+    < 12  | "Standard"
+
+the knowledge base n0112_ruleorder_hitpolicy_singleinoutcol includes:
+
+the text of the_model is at "sources/0112-ruleOrder-hitpolicy-singleinoutcol.dmn".
+
+rule approval_1 with provenance the model at decision Approval:
+the approval include a text if
+    the approval for the age is the text under table approval.
+
+scenario t001 is, as stated in "0112-ruleOrder-hitpolicy-singleinoutcol-test-01.xml" at test case 001:
+    the age is 19.
+    q_d_rel_approval expects answers ["the approval include Best", "the approval include Standard"].
+
+scenario t002 is, as stated in "0112-ruleOrder-hitpolicy-singleinoutcol-test-01.xml" at test case 002:
+    the age is 13.
+    q_d_rel_approval expects answers ["the approval include Standard"].
+
+scenario t003 is, as stated in "0112-ruleOrder-hitpolicy-singleinoutcol-test-01.xml" at test case 003:
+    the age is 10.
+    q_d_rel_approval expects answers ["the approval include Standard"].
+
+query q_d_rel_approval is:
+    the approval include which text.
+

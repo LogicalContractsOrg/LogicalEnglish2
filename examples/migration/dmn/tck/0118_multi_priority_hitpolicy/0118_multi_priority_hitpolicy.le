@@ -1,0 +1,81 @@
+% The Logical English twin of the DMN model "0118-multi-priority-hitpolicy" (0118-multi-priority-hitpolicy.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the age is *a number*.
+    the risk category is *a text*.
+    the is_affordable is *a truth value*.
+    the approved declined of the approval status is *a text*.
+    the rate of the approval status is *a text*.
+    the risk category or null is *a text*.
+    the is_affordable or null is *a truth value*.
+
+the templates are:
+    the approval status for *a number* and *a text* and *a truth value* is *a second text* with *a third text* under table approval_status.
+
+the table approval_status is, with first match:
+    age   | risk category     | is_affordable | approved declined | rate
+    >= 18 | "Medium" or "Low" | true          | "Approved"        | "Basic"
+    any   | "High"            | any           | "Approved"        | "Standard"
+    < 18  | any               | any           | "Declined"        | "Standard"
+
+the knowledge base n0118_multi_priority_hitpolicy includes:
+
+the text of the_model is at "sources/0118-multi-priority-hitpolicy.dmn".
+
+the risk category or null is the risk category, as stated in the model at decision Approval Status.
+
+rule approval_status_2 with provenance the model at decision Approval Status:
+the risk category or null is null if
+    it is not the case that the risk category is a text.
+
+the is_affordable or null is the is_affordable, as stated in the model at decision Approval Status.
+
+rule approval_status_4 with provenance the model at decision Approval Status:
+the is_affordable or null is null if
+    it is not the case that the is_affordable is a truth value.
+
+rule approval_status_5 with provenance the model at decision Approval Status:
+the approved declined of the approval status is a text if
+    the approval status for the age and the risk category or null and the is_affordable or null is the text with a second text under table approval_status.
+
+rule approval_status_6 with provenance the model at decision Approval Status:
+the rate of the approval status is a text if
+    the approval status for the age and the risk category or null and the is_affordable or null is a second text with the text under table approval_status.
+
+scenario t001 is, as stated in "0118-multi-priority-hitpolicy-test-01.xml" at test case 001:
+    the age is 17.
+    the risk category is "High".
+    the is_affordable is true.
+    q_d_approved_declined_of_the_approval_status expects answers ["the approved declined of the approval status is Approved"].
+    q_d_rate_of_the_approval_status expects answers ["the rate of the approval status is Standard"].
+
+scenario t002 is, as stated in "0118-multi-priority-hitpolicy-test-01.xml" at test case 002:
+    the age is 19.
+    the risk category is "Low".
+    the is_affordable is true.
+    q_d_approved_declined_of_the_approval_status expects answers ["the approved declined of the approval status is Approved"].
+    q_d_rate_of_the_approval_status expects answers ["the rate of the approval status is Basic"].
+
+scenario t003 is, as stated in "0118-multi-priority-hitpolicy-test-01.xml" at test case 003:
+    the age is 10.
+    the risk category is "Low".
+    the is_affordable is true.
+    q_d_approved_declined_of_the_approval_status expects answers ["the approved declined of the approval status is Declined"].
+    q_d_rate_of_the_approval_status expects answers ["the rate of the approval status is Standard"].
+
+query q_d_approved_declined_of_the_approval_status is:
+    the approved declined of the approval status is which text.
+
+query q_d_rate_of_the_approval_status is:
+    the rate of the approval status is which text.
+

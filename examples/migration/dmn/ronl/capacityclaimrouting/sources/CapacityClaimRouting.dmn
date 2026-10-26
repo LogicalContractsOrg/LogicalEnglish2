@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="definitions" name="CapacityClaimRouting" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.45.0">
+  <decision id="CapacityClaimRouting" name="Capacity Claim Routing" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_CapacityClaimRouting" hitPolicy="FIRST">
+      <input id="Input_requestType">
+        <inputExpression id="InputExpression_requestType" typeRef="string">
+          <text>requestType</text>
+        </inputExpression>
+      </input>
+      <input id="Input_department">
+        <inputExpression id="InputExpression_department" typeRef="string">
+          <text>department</text>
+        </inputExpression>
+      </input>
+      <output id="Output_decisionRoute" name="decisionRoute" typeRef="string" />
+      <output id="Output_candidateGroups" name="candidateGroups" typeRef="string" />
+      <output id="Output_advisoryGroup" name="advisoryGroup" typeRef="string" />
+      <rule id="Rule_01">
+        <inputEntry id="InputEntry_01_1">
+          <text>"staffing"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_01_2">
+          <text>"vergunningen"</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_01_1">
+          <text>"recruitment"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_01_2">
+          <text>"hrm-unit"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_01_3">
+          <text>"HRM unit (Vergunningen)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_02">
+        <inputEntry id="InputEntry_02_1">
+          <text>"staffing"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_02_2">
+          <text>"infrastructuur"</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_02_1">
+          <text>"recruitment"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_02_2">
+          <text>"hrm-unit"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_02_3">
+          <text>"HRM unit (Infrastructuur)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_03">
+        <inputEntry id="InputEntry_03_1">
+          <text>"staffing"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_03_2">
+          <text>"hr"</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_03_1">
+          <text>"recruitment"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_03_2">
+          <text>"hrm-unit"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_03_3">
+          <text>"HRM unit (HR)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_04">
+        <inputEntry id="InputEntry_04_1">
+          <text>"staffing"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_04_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_04_1">
+          <text>"recruitment"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_04_2">
+          <text>"hrm-unit"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_04_3">
+          <text>"HRM unit"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_05">
+        <inputEntry id="InputEntry_05_1">
+          <text>"hiring"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_05_2">
+          <text>"vergunningen"</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_05_1">
+          <text>"procurement"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_05_2">
+          <text>"procurement-unit,planning-control-officer"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_05_3">
+          <text>"Legal Affairs and Procurement unit + Planning and Control officer (Vergunningen)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_06">
+        <inputEntry id="InputEntry_06_1">
+          <text>"hiring"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_06_2">
+          <text>"infrastructuur"</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_06_1">
+          <text>"procurement"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_06_2">
+          <text>"procurement-unit,planning-control-officer"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_06_3">
+          <text>"Legal Affairs and Procurement unit + Planning and Control officer (Infrastructuur)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_07">
+        <inputEntry id="InputEntry_07_1">
+          <text>"hiring"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_07_2">
+          <text>"hr"</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_07_1">
+          <text>"procurement"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_07_2">
+          <text>"procurement-unit,planning-control-officer"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_07_3">
+          <text>"Legal Affairs and Procurement unit + Planning and Control officer (HR)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_08">
+        <inputEntry id="InputEntry_08_1">
+          <text>"hiring"</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_08_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_08_1">
+          <text>"procurement"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_08_2">
+          <text>"procurement-unit,planning-control-officer"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_08_3">
+          <text>"Legal Affairs and Procurement unit + Planning and Control officer"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_09">
+        <inputEntry id="InputEntry_09_1">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_09_2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_09_1">
+          <text>"recruitment"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_09_2">
+          <text>"hrm-unit"</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_09_3">
+          <text>"HRM unit"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_requestType" name="requestType">
+    <variable id="Variable_requestType" name="requestType" typeRef="string" />
+  </inputData>
+  <inputData id="InputData_department" name="department">
+    <variable id="Variable_department" name="department" typeRef="string" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_CapacityClaimRouting">
+      <dmndi:DMNShape id="DMNShape_CapacityClaimRouting" dmnElementRef="CapacityClaimRouting">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

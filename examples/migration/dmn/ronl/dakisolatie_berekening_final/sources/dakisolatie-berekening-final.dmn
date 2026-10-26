@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:operaton="http://operaton.org/schema/1.0/dmn" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="dakisolatie-definitions" name="Dakisolatie Berekening" namespace="http://operaton.org/schema/1.0/dmn">
+  <decision id="bereken_isolatie_opties" name="Bereken Isolatie Opties" camunda:historyTimeToLive="180">
+    <informationRequirement id="InformationRequirement_huidigeR">
+      <requiredInput href="#InputData_huidigeRWaarde" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_dakOppervlakte">
+      <requiredInput href="#InputData_dakOppervlakte" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_lambdaWmk">
+      <requiredInput href="#InputData_lambdaWmk" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_materiaalCost">
+      <requiredInput href="#InputData_materiaalCostPerM3" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_installCost">
+      <requiredInput href="#InputData_installCostPerM2Per100mm" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_doelR">
+      <requiredInput href="#InputData_doelRWaarde" />
+    </informationRequirement>
+    <decisionTable id="isolatie_tabel" hitPolicy="COLLECT">
+      <input id="input1" label="Bestaande R-waarde">
+        <inputExpression id="inputExpression1" typeRef="double">
+          <text>huidige_r_waarde</text>
+        </inputExpression>
+      </input>
+      <input id="input2" label="Dak oppervlakte">
+        <inputExpression id="inputExpression2" typeRef="double">
+          <text>dak_oppervlakte_m2</text>
+        </inputExpression>
+      </input>
+      <input id="input3" label="Doel R-waarde">
+        <inputExpression id="inputExpression3" typeRef="double">
+          <text>doel_r_waarde</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="ΔR" name="delta_r" typeRef="double" />
+      <output id="output2" label="Extra dikte (mm)" name="extra_dikte_mm" typeRef="integer" />
+      <output id="output3" label="Materiaal kosten (€)" name="materiaal_kosten" typeRef="integer" />
+      <output id="output4" label="Installatie kosten (€)" name="installatie_kosten" typeRef="integer" />
+      <output id="output5" label="Totale kosten (€)" name="totale_kosten" typeRef="integer" />
+      <output id="output6" label="Subsidie (€)" name="subsidie" typeRef="integer" />
+      <output id="output7" label="Netto kosten (€)" name="netto_kosten" typeRef="integer" />
+      <output id="output8" label="Besparing/jaar (€)" name="besparing_jaar" typeRef="integer" />
+      <output id="output9" label="Terugverdientijd (jaar)" name="terugverdientijd" typeRef="double" />
+      <output id="output10" label="Aanbeveling" name="aanbeveling" typeRef="string" />
+      <rule id="rule1">
+        <inputEntry id="rule1_input1">
+          <text>&gt;= 0</text>
+        </inputEntry>
+        <inputEntry id="rule1_input2">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="rule1_input3">
+          <text>3.0</text>
+        </inputEntry>
+        <outputEntry id="rule1_output1">
+          <text>doel_r_waarde - huidige_r_waarde</text>
+        </outputEntry>
+        <outputEntry id="rule1_output2">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule1_output3">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule1_output4">
+          <text>decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule1_output5">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule1_output6">
+          <text>249</text>
+        </outputEntry>
+        <outputEntry id="rule1_output7">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 249, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule1_output8">
+          <text>80</text>
+        </outputEntry>
+        <outputEntry id="rule1_output9">
+          <text>decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 249) / 80, 1)</text>
+        </outputEntry>
+        <outputEntry id="rule1_output10">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule2">
+        <inputEntry id="rule2_input1">
+          <text>&gt;= 0</text>
+        </inputEntry>
+        <inputEntry id="rule2_input2">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="rule2_input3">
+          <text>4.0</text>
+        </inputEntry>
+        <outputEntry id="rule2_output1">
+          <text>doel_r_waarde - huidige_r_waarde</text>
+        </outputEntry>
+        <outputEntry id="rule2_output2">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule2_output3">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule2_output4">
+          <text>decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule2_output5">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule2_output6">
+          <text>1552</text>
+        </outputEntry>
+        <outputEntry id="rule2_output7">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 1552, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule2_output8">
+          <text>320</text>
+        </outputEntry>
+        <outputEntry id="rule2_output9">
+          <text>decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 1552) / 320, 1)</text>
+        </outputEntry>
+        <outputEntry id="rule2_output10">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule3">
+        <inputEntry id="rule3_input1">
+          <text>&gt;= 0</text>
+        </inputEntry>
+        <inputEntry id="rule3_input2">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="rule3_input3">
+          <text>6.0</text>
+        </inputEntry>
+        <outputEntry id="rule3_output1">
+          <text>doel_r_waarde - huidige_r_waarde</text>
+        </outputEntry>
+        <outputEntry id="rule3_output2">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule3_output3">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule3_output4">
+          <text>decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule3_output5">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule3_output6">
+          <text>2185</text>
+        </outputEntry>
+        <outputEntry id="rule3_output7">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 2185, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule3_output8">
+          <text>640</text>
+        </outputEntry>
+        <outputEntry id="rule3_output9">
+          <text>decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 2185) / 640, 1)</text>
+        </outputEntry>
+        <outputEntry id="rule3_output10">
+          <text>"Aanbevolen: R-waarde 6.0 m²K/W (gemarkeerd in groen) biedt de beste balans tussen investering, subsidie en terugverdientijd."</text>
+        </outputEntry>
+      </rule>
+      <rule id="rule4">
+        <inputEntry id="rule4_input1">
+          <text>&gt;= 0</text>
+        </inputEntry>
+        <inputEntry id="rule4_input2">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="rule4_input3">
+          <text>8.0</text>
+        </inputEntry>
+        <outputEntry id="rule4_output1">
+          <text>doel_r_waarde - huidige_r_waarde</text>
+        </outputEntry>
+        <outputEntry id="rule4_output2">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule4_output3">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule4_output4">
+          <text>decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule4_output5">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)</text>
+        </outputEntry>
+        <outputEntry id="rule4_output6">
+          <text>3604</text>
+        </outputEntry>
+        <outputEntry id="rule4_output7">
+          <text>decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 3604, 0)</text>
+        </outputEntry>
+        <outputEntry id="rule4_output8">
+          <text>780</text>
+        </outputEntry>
+        <outputEntry id="rule4_output9">
+          <text>decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 3604) / 780, 1)</text>
+        </outputEntry>
+        <outputEntry id="rule4_output10">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_huidigeRWaarde" name="huidige_r_waarde">
+    <variable id="Variable_huidigeRWaarde" name="huidige_r_waarde" typeRef="double" />
+  </inputData>
+  <inputData id="InputData_dakOppervlakte" name="dak_oppervlakte_m2">
+    <variable id="Variable_dakOppervlakte" name="dak_oppervlakte_m2" typeRef="double" />
+  </inputData>
+  <inputData id="InputData_lambdaWmk" name="lambda_w_mk">
+    <variable id="Variable_lambdaWmk" name="lambda_w_mk" typeRef="double" />
+  </inputData>
+  <inputData id="InputData_materiaalCostPerM3" name="materiaal_cost_per_m3">
+    <variable id="Variable_materiaalCostPerM3" name="materiaal_cost_per_m3" typeRef="integer" />
+  </inputData>
+  <inputData id="InputData_installCostPerM2Per100mm" name="install_cost_per_m2_per_100mm">
+    <variable id="Variable_installCostPerM2Per100mm" name="install_cost_per_m2_per_100mm" typeRef="integer" />
+  </inputData>
+  <inputData id="InputData_doelRWaarde" name="doel_r_waarde">
+    <variable id="Variable_doelRWaarde" name="doel_r_waarde" typeRef="double" />
+  </inputData>
+</definitions>

@@ -1,0 +1,31 @@
+% The Logical English twin of the DMN model "0002-input-data-number" (0002-input-data-number.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the monthly salary is *a number*.
+    the yearly salary is *a number*.
+
+the knowledge base n0002_input_data_number includes:
+
+the text of the_model is at "sources/0002-input-data-number.dmn".
+
+rule yearly_salary_1 with provenance the model at decision Yearly Salary:
+the yearly salary is a number N if
+    N = 12 * the monthly salary.
+
+scenario t001 is, as stated in "0002-input-data-number-test-01.xml" at test case 001 Testing valid input:
+    the monthly salary is 10000.
+    q_d_yearly_salary expects answers ["the yearly salary is 120000"].
+
+query q_d_yearly_salary is:
+    the yearly salary is which number.
+

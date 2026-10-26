@@ -1,0 +1,42 @@
+% The Logical English twin of the DMN model "TaxDelinquent" (tax-delinquent.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the tax delinquent of the simple checks of the situation is *a truth value*.
+    the check result is *a truth value*.
+
+the knowledge base tax_delinquent includes:
+
+the text of the_model is at "sources/tax-delinquent.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    the tax delinquent of the simple checks of the situation is true.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is false if
+    the tax delinquent of the simple checks of the situation is false.
+
+scenario Fail is, as stated in the Bruno requests of TaxDelinquent at test case Fail:
+    the tax delinquent of the simple checks of the situation is false.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Null is, as stated in the Bruno requests of TaxDelinquent at test case Null:
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of TaxDelinquent at test case Pass:
+    the tax delinquent of the simple checks of the situation is true.
+    q_d_check_result expects answers ["the check result is true"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

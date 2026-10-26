@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="svb_leeftijden_drd" name="SVB Leeftijden" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.38.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+  <decision id="SVB_LeeftijdsInformatie" name="SVB Leeftijds Informatie" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_1">
+      <requiredDecision href="#SVB_Leeftijdsgrenzen" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_LeeftijdsInfo">
+      <input id="Input_dummy" label="Dummy input for passthrough">
+        <inputExpression id="InputExpression_dummy" typeRef="boolean">
+          <text>true</text>
+        </inputExpression>
+      </input>
+      <output id="Output_aanvragerIsJongerDan18" label="Aanvrager is jonger dan 18" name="aanvragerIsJongerDan18" typeRef="boolean" />
+      <output id="Output_aanvragerIs181920" label="Aanvrager is 18, 19 of 20" name="aanvragerIs181920" typeRef="boolean" />
+      <output id="Output_aanvragerIsTenminste21" label="Aanvrager is tenminste 21" name="aanvragerIsTenminste21" typeRef="boolean" />
+      <output id="Output_aanvragerHeeftAOWLeeftijd" label="Aanvrager heeft AOW leeftijd" name="aanvragerHeeftAOWLeeftijd" typeRef="boolean" />
+      <output id="Output_partnerIsJongerDan18" label="Partner is jonger dan 18" name="partnerIsJongerDan18" typeRef="boolean" />
+      <output id="Output_partnerIs181920" label="Partner is 18, 19 of 20" name="partnerIs181920" typeRef="boolean" />
+      <output id="Output_partnerIsTenminste21" label="Partner is tenminste 21" name="partnerIsTenminste21" typeRef="boolean" />
+      <output id="Output_partnerHeeftAOWLeeftijd" label="Partner heeft AOW leeftijd" name="partnerHeeftAOWLeeftijd" typeRef="boolean" />
+      <output id="Output_leeftijdAanvrager" label="Leeftijd aanvrager" name="leeftijdAanvrager" typeRef="integer" />
+      <output id="Output_leeftijdPartner" label="Leeftijd partner" name="leeftijdPartner" typeRef="integer" />
+      <output id="Output_AOWDatumAanvrager" label="AOW datum aanvrager" name="AOWDatumAanvrager" typeRef="string" />
+      <output id="Output_AOWDatumPartner" label="AOW datum partner" name="AOWDatumPartner" typeRef="string" />
+      <rule id="DecisionRule_passthrough">
+        <inputEntry id="UnaryTests_true">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_pass_aanvragerIsJongerDan18">
+          <text>aanvragerIsJongerDan18</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_aanvragerIs181920">
+          <text>aanvragerIs181920</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_aanvragerIsTenminste21">
+          <text>aanvragerIsTenminste21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_aanvragerHeeftAOWLeeftijd">
+          <text>aanvragerHeeftAOWLeeftijd</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_partnerIsJongerDan18">
+          <text>partnerIsJongerDan18</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_partnerIs181920">
+          <text>partnerIs181920</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_partnerIsTenminste21">
+          <text>partnerIsTenminste21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_partnerHeeftAOWLeeftijd">
+          <text>partnerHeeftAOWLeeftijd</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_leeftijdAanvrager">
+          <text>leeftijdAanvrager</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_leeftijdPartner">
+          <text>leeftijdPartner</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_AOWDatumAanvrager">
+          <text>AOWDatumAanvrager</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_pass_AOWDatumPartner">
+          <text>AOWDatumPartner</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SVB_Leeftijdsgrenzen" name="SVB Leeftijdsgrenzen" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_leeftijden">
+      <requiredDecision href="#SVB_BerekenLeeftijden" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_dag">
+      <requiredInput href="#InputData_dagVanAanvraag" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_leeftijdsgrenzen" hitPolicy="ANY">
+      <input id="InputClause_leeftijdAanvrager_grenzen" label="leeftijd aanvrager">
+        <inputExpression id="LiteralExpression_leeftijdAanvrager_grenzen" typeRef="integer">
+          <text>leeftijdAanvrager</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_leeftijdPartner_grenzen" label="leeftijd partner">
+        <inputExpression id="LiteralExpression_leeftijdPartner_grenzen" typeRef="integer">
+          <text>leeftijdPartner</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_AOWDatumAanvrager_grenzen" label="AOW-datum aanvrager">
+        <inputExpression id="LiteralExpression_AOWDatumAanvrager_grenzen" typeRef="string">
+          <text>AOWDatumAanvrager</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_AOWDatumPartner_grenzen" label="AOW-datum partner">
+        <inputExpression id="LiteralExpression_AOWDatumPartner_grenzen" typeRef="string">
+          <text>AOWDatumPartner</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_dagVanAanvraag_grenzen" label="dag van aanvraag">
+        <inputExpression id="LiteralExpression_dagVanAanvraag_grenzen" typeRef="string">
+          <text>dagVanAanvraag</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_aanvragerIsJongerDan18" label="de aanvrager is onder de 18" name="aanvragerIsJongerDan18" typeRef="boolean" />
+      <output id="OutputClause_aanvragerIs181920" label="de aanvrager is 18, 19 of 20 jaar oud" name="aanvragerIs181920" typeRef="boolean" />
+      <output id="OutputClause_aanvragerIsTenminste21" label="de aanvrager is tenminste 21" name="aanvragerIsTenminste21" typeRef="boolean" />
+      <output id="OutputClause_aanvragerHeeftAOWLeeftijd" label="de aanvrager heeft de AOW-leeftijd bereikt" name="aanvragerHeeftAOWLeeftijd" typeRef="boolean" />
+      <output id="OutputClause_partnerIsJongerDan18" label="de partner is onder de 18" name="partnerIsJongerDan18" typeRef="boolean" />
+      <output id="OutputClause_partnerIs181920" label="de partner is 18, 19 of 20 jaar oud" name="partnerIs181920" typeRef="boolean" />
+      <output id="OutputClause_partnerIsTenminste21" label="de partner is tenminste 21" name="partnerIsTenminste21" typeRef="boolean" />
+      <output id="OutputClause_partnerHeeftAOWLeeftijd" label="de partner heeft de AOW-leeftijd bereikt" name="partnerHeeftAOWLeeftijd" typeRef="boolean" />
+      <rule id="DecisionRule_withPartner">
+        <inputEntry id="UnaryTests_any1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_notNull">
+          <text>not(null)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_notNull2">
+          <text>not(null)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_aanvragerIsJongerDan18_grenzen">
+          <text>leeftijdAanvrager &lt; 18</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_aanvragerIs181920_grenzen">
+          <text>18 &lt;= leeftijdAanvrager  and leeftijdAanvrager &lt; 21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_aanvragerIsTenminste21_grenzen">
+          <text>leeftijdAanvrager &gt;= 21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_aanvragerHeeftAOWLeeftijd_grenzen">
+          <text>date(dagVanAanvraag) &gt;= date(AOWDatumAanvrager)</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerIsJongerDan18_grenzen">
+          <text>leeftijdPartner &lt; 18</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerIs181920_grenzen">
+          <text>18 &lt;= leeftijdPartner  and leeftijdPartner &lt; 21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerIsTenminste21_grenzen">
+          <text>leeftijdPartner &gt;= 21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerHeeftAOWLeeftijd_grenzen">
+          <text>date(dagVanAanvraag) &gt;= date(AOWDatumPartner)</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_withoutPartner">
+        <inputEntry id="UnaryTests_any4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_null">
+          <text>null</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_null2">
+          <text>null</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_aanvragerIsJongerDan18_single">
+          <text>leeftijdAanvrager &lt; 18</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_aanvragerIs181920_single">
+          <text>18 &lt;= leeftijdAanvrager  and leeftijdAanvrager &lt; 21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_aanvragerIsTenminste21_single">
+          <text>leeftijdAanvrager &gt;= 21</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_aanvragerHeeftAOWLeeftijd_single">
+          <text>date(dagVanAanvraag) &gt;= date(AOWDatumAanvrager)</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerIsJongerDan18_single">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerIs181920_single">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerIsTenminste21_single">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_partnerHeeftAOWLeeftijd_single">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SVB_BerekenLeeftijden" name="SVB Bereken Leeftijden" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_aow">
+      <requiredDecision href="#SVB_AOWleeftijd" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_geboorteAanvrager">
+      <requiredInput href="#InputData_geboortedatumAanvrager" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_geboortePartner">
+      <requiredInput href="#InputData_geboortedatumPartner" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_berekenLeeftijden">
+      <input id="InputClause_geboortedatumAanvrager_bereken" label="geboortedatum aanvrager">
+        <inputExpression id="LiteralExpression_geboortedatumAanvrager_bereken" typeRef="string">
+          <text>geboortedatumAanvrager</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_geboortedatumPartner_bereken" label="geboortedatum partner">
+        <inputExpression id="LiteralExpression_geboortedatumPartner_bereken" typeRef="string">
+          <text>geboortedatumPartner</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_dagVanAanvraag_bereken" label="dag van aanvraag">
+        <inputExpression id="LiteralExpression_dagVanAanvraag_bereken" typeRef="string">
+          <text>dagVanAanvraag</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_leeftijdAOWMaanden_bereken" label="leeftijd AOW in maanden">
+        <inputExpression id="LiteralExpression_leeftijdAOWMaanden_bereken" typeRef="integer">
+          <text>leeftijdAOWMaanden</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_leeftijdAanvrager_bereken" label="leeftijd aanvrager" name="leeftijdAanvrager" typeRef="integer" />
+      <output id="OutputClause_AOWDatumAanvrager_bereken" label="AOW ingangsdatum aanvrager" name="AOWDatumAanvrager" typeRef="string" />
+      <output id="OutputClause_leeftijdPartner_bereken" label="leeftijd partner" name="leeftijdPartner" typeRef="integer" />
+      <output id="OutputClause_AOWDatumPartner_bereken" label="AOW ingangsdatum partner" name="AOWDatumPartner" typeRef="string" />
+      <rule id="DecisionRule_withPartner_bereken">
+        <inputEntry id="UnaryTests_any7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_notNull3">
+          <text>not(null)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any9">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_leeftijdAanvrager_bereken">
+          <text>years and months duration(date(geboortedatumAanvrager), date(dagVanAanvraag)).years</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_AOWDatumAanvrager_bereken">
+          <text>date(geboortedatumAanvrager) + duration("P"+string(leeftijdAOWMaanden)+"M")</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_leeftijdPartner_bereken">
+          <text>years and months duration(date(geboortedatumPartner), date(dagVanAanvraag)).years</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_AOWDatumPartner_bereken">
+          <text>date(geboortedatumPartner) + duration("P"+string(leeftijdAOWMaanden)+"M")</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_withoutPartner_bereken">
+        <inputEntry id="UnaryTests_any10">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_null3">
+          <text>null</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any11">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_any12">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_leeftijdAanvrager_single_bereken">
+          <text>years and months duration(date(geboortedatumAanvrager), date(dagVanAanvraag)).years</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_AOWDatumAanvrager_single_bereken">
+          <text>date(geboortedatumAanvrager) + duration("P"+string(leeftijdAOWMaanden)+"M")</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_leeftijdPartner_single_bereken">
+          <text>null</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_AOWDatumPartner_single_bereken">
+          <text>null</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SVB_AOWleeftijd" name="SVB AOW leeftijd" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_dag2">
+      <requiredInput href="#InputData_dagVanAanvraag" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_aow">
+      <input id="InputClause_jaar_aow" label="jaar van berekening">
+        <inputExpression id="LiteralExpression_jaar_aow" typeRef="integer">
+          <text>date(dagVanAanvraag).year</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_leeftijdAOWMaanden_aow" label="leeftijd AOW in maanden" name="leeftijdAOWMaanden" typeRef="integer" />
+      <rule id="DecisionRule_2020">
+        <inputEntry id="UnaryTests_2020">
+          <text>2020</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2020">
+          <text>66 * 12 + 4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2021">
+        <inputEntry id="UnaryTests_2021">
+          <text>2021</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2021">
+          <text>66 * 12 + 7</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2022">
+        <inputEntry id="UnaryTests_2022">
+          <text>2022</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2022">
+          <text>66 * 12 + 7</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2023">
+        <inputEntry id="UnaryTests_2023">
+          <text>2023</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2023">
+          <text>66 * 12 + 10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024">
+        <inputEntry id="UnaryTests_2024">
+          <text>2024</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2024">
+          <text>67 * 12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025">
+        <inputEntry id="UnaryTests_2025">
+          <text>2025</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2025">
+          <text>67 * 12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026">
+        <inputEntry id="UnaryTests_2026">
+          <text>2026</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2026">
+          <text>67 * 12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2027">
+        <inputEntry id="UnaryTests_2027">
+          <text>2027</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2027">
+          <text>67 * 12 + 3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2028">
+        <inputEntry id="UnaryTests_2028">
+          <text>2028</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2028">
+          <text>67 * 12 + 3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2029">
+        <inputEntry id="UnaryTests_2029">
+          <text>2029</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2029">
+          <text>67 * 12 + 3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2030">
+        <inputEntry id="UnaryTests_2030">
+          <text>2030</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2030">
+          <text>67 * 12 + 3</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_dagVanAanvraag" name="dagVanAanvraag" />
+  <inputData id="InputData_geboortedatumAanvrager" name="geboortedatumAanvrager" />
+  <inputData id="InputData_geboortedatumPartner" name="geboortedatumPartner" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0johe3h">
+      <dmndi:DMNShape id="DMNShape_07u1ezl" dmnElementRef="SVB_LeeftijdsInformatie">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0vrcd2r" dmnElementRef="SVB_Leeftijdsgrenzen">
+        <dc:Bounds height="80" width="180" x="160" y="240" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_04gxvwn" dmnElementRef="SVB_BerekenLeeftijden">
+        <dc:Bounds height="80" width="180" x="160" y="370" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1aa7a2a" dmnElementRef="SVB_AOWleeftijd">
+        <dc:Bounds height="80" width="180" x="160" y="510" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

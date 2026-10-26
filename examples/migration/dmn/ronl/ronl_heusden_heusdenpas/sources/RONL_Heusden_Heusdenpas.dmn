@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="ronl_heusden_drd" name="RONL Heusden Heusdenpas" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.38.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+  <decision id="RONL_HeusdenpasEindresultaat" name="RONL Heusdenpas Eindresultaat" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_hoofdAanvraag">
+      <requiredDecision href="#RONL_HeusdenpasHoofdAanvraag" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_kindpakket">
+      <requiredDecision href="#RONL_HeusdenpasKindpakket" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_eindresultaat">
+      <input id="InputClause_hoofdAanmerking" label="De aanvrager komt in aanmerking voor de Heusdenpas">
+        <inputExpression id="LiteralExpression_hoofdAanmerking" typeRef="boolean">
+          <text>aanmerkingHeusdenPas</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_kindpakketAanmerking" label="De aanvraag voor het Kindpakket is succesvol">
+        <inputExpression id="LiteralExpression_kindpakketAanmerking" typeRef="boolean">
+          <text>aanmerkingKindPakket</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_hoofdresultaat" label="De aanvrager komt in aanmerking voor de Heusdenpas" name="aanmerkingHeusdenPas" typeRef="boolean" />
+      <output id="OutputClause_kindpakketresultaat" label="De aanvraag voor het Kindpakket is succesvol" name="aanmerkingKindPakket" typeRef="boolean" />
+      <rule id="DecisionRule_passthrough">
+        <inputEntry id="UnaryTests_anyHoofd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_anyKind">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_hoofdpassthrough">
+          <text>aanmerkingHeusdenPas</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_kindpassthrough">
+          <text>aanmerkingKindPakket</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="RONL_HeusdenpasHoofdAanvraag" name="RONL Heusdenpas Hoofd Aanvraag" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_automatisch">
+      <requiredDecision href="#RONL_HeusdenpasAutomatisch" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_knockoffs">
+      <requiredDecision href="#RONL_HeusdenpasKnockoffs" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_inkomen">
+      <requiredInput href="#InputData_maandelijksBrutoInkomenAanvrager" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_bijstand">
+      <requiredInput href="#InputData_bijstandsNorm" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_hoofdAanvraag" hitPolicy="ANY">
+      <input id="Input_knockoff" label="Een knockoff voor de Heusdenpas is van toepassing">
+        <inputExpression id="InputExpression_knockoff" typeRef="boolean">
+          <text>heusdenPasKnockoff</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_automatisch" label="Een automatische toekenning voor de Heusdenpas is van toepassing">
+        <inputExpression id="LiteralExpression_automatisch" typeRef="boolean">
+          <text>automatischeToekenningHeusdenpas</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_inkomen" label="Het maandelijkse bruto inkomen van de aanvrager is maximaal 1.1 maal de Bijstandsnorm">
+        <inputExpression id="LiteralExpression_inkomen" typeRef="boolean">
+          <text>maandelijksBrutoInkomenAanvrager &lt;= 1.1 * bijstandsNorm</text>
+        </inputExpression>
+      </input>
+      <output id="Output_aanmerking" label="De aanvrager komt in aanmerking voor de Heusdenpas" name="aanmerkingHeusdenPas" typeRef="boolean" />
+      <rule id="DecisionRule_knockoffNee">
+        <description>Als er een knockoff is, geen Heusdenpas</description>
+        <inputEntry id="UnaryTests_knockoffTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_automatischEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenEmpty">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_knockoffNee">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_automatischJa">
+        <description>Anders wel Heusdenpas bij automatische toewijzing</description>
+        <inputEntry id="UnaryTests_knockoffFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_automatischTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenEmpty2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_automatischJa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_inkomenJa">
+        <description>Anders wel Heusdenpas indien inkomensnorm niet overschreden</description>
+        <inputEntry id="UnaryTests_knockoffFalse2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_automatischFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenTrue">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_inkomenJa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_andersNee">
+        <description>Anders geen Heusdenpas</description>
+        <inputEntry id="UnaryTests_knockoffFalse3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_automatischFalse2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenFalse">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_andersNee">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="RONL_HeusdenpasKindpakket" name="RONL Heusdenpas Kindpakket" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_inwoner">
+      <requiredInput href="#InputData_aanvragerInwonerHeusden" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_kind4tm17">
+      <requiredInput href="#InputData_aanvragerHeeftKind4Tm17" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_inkomenKind">
+      <requiredInput href="#InputData_maandelijksBrutoInkomenAanvrager" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_bijstandKind">
+      <requiredInput href="#InputData_bijstandsNorm" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_kindpakket" hitPolicy="ANY">
+      <input id="InputClause_inwoner" label="De aanvrager is een inwoner van Heusden">
+        <inputExpression id="LiteralExpression_inwoner" typeRef="boolean">
+          <text>aanvragerInwonerHeusden</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_kind4tm17" label="De aanvrager heeft een inwonend kind van 4 tm 17 jaar oud">
+        <inputExpression id="LiteralExpression_kind4tm17" typeRef="boolean">
+          <text>aanvragerHeeftKind4Tm17</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_inkomenKind" label="Het inkomen van de aanvrager is maximaal 1.2 keer de basisnorm">
+        <inputExpression id="LiteralExpression_inkomenKind" typeRef="boolean">
+          <text>maandelijksBrutoInkomenAanvrager &lt;= 1.2 * bijstandsNorm</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_kindpakket" label="De aanvraag voor het Kindpakket is succesvol" name="aanmerkingKindPakket" typeRef="boolean" />
+      <rule id="DecisionRule_geenInwoner">
+        <description>Geen Kindpakket indien de aanvrager geen inwoner van Heusden is</description>
+        <inputEntry id="UnaryTests_inwonerFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kindEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenKindEmpty">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_geenInwoner">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_geenKind">
+        <description>Geen Kindpakket indien de aanvrager geen inwonend kind heeft van 4 t/m 17 jaar oud</description>
+        <inputEntry id="UnaryTests_inwonerEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kindFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenKindEmpty2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_geenKind">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_inkomenTeMuch">
+        <description>Geen Kindpakket indien inkomensnorm overschreden</description>
+        <inputEntry id="UnaryTests_inwonerEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kindEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenKindFalse">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_inkomenTeMuch">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_welKindpakket">
+        <description>Wel Kindpakket indien de aanvrager aan alle 3 de voorwaarden voldoet</description>
+        <inputEntry id="UnaryTests_inwonerTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kindTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_inkomenKindTrue">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_welKindpakket">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="RONL_HeusdenpasAutomatisch" name="RONL Heusdenpas Automatisch" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_baanbrekers">
+      <requiredInput href="#InputData_aanvragerUitkeringBaanbrekers" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_voedselbank">
+      <requiredInput href="#InputData_aanvragerVoedselbankpasDenBosch" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_kwijtschelding">
+      <requiredInput href="#InputData_aanvragerKwijtscheldingGemeentelijkeBelastingen" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_schuldhulp">
+      <requiredInput href="#InputData_aanvragerSchuldhulptrajectKredietbankNederland" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_automatisch" hitPolicy="ANY">
+      <input id="InputClause_baanbrekers" label="De aanvrager heeft een uitkering van Baanbrekers">
+        <inputExpression id="LiteralExpression_baanbrekers" typeRef="boolean">
+          <text>aanvragerUitkeringBaanbrekers</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_voedselbank" label="De aanvrager heeft een voedselbankpas van Den Bosch">
+        <inputExpression id="LiteralExpression_voedselbank" typeRef="boolean">
+          <text>aanvragerVoedselbankpasDenBosch</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_kwijtschelding" label="De aanvrager heeft kwijtschelding van Gemeentelijke belastingen">
+        <inputExpression id="LiteralExpression_kwijtschelding" typeRef="boolean">
+          <text>aanvragerKwijtscheldingGemeentelijkeBelastingen</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_schuldhulp" label="De aanvrager heeft een schuldhulptraject bij de Kredietbank Nederland">
+        <inputExpression id="LiteralExpression_schuldhulp" typeRef="boolean">
+          <text>aanvragerSchuldhulptrajectKredietbankNederland</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_automatisch" label="Automatische goedkeuring aanvraag Heusdenpas" name="automatischeToekenningHeusdenpas" typeRef="boolean" />
+      <rule id="DecisionRule_baanbrekersJa">
+        <inputEntry id="UnaryTests_baanbrekersTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_voedselbankEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kwijtscheldingEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_schuldhulpEmpty">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_baanbrekersJa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_voedselbankJa">
+        <inputEntry id="UnaryTests_baanbrekersEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_voedselbankTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kwijtscheldingEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_schuldhulpEmpty2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_voedselbankJa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_kwijtscheldingJa">
+        <inputEntry id="UnaryTests_baanbrekersEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_voedselbankEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kwijtscheldingTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_schuldhulpEmpty3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_kwijtscheldingJa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_schuldhulpJa">
+        <inputEntry id="UnaryTests_baanbrekersEmpty3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_voedselbankEmpty3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kwijtscheldingEmpty3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_schuldhulpTrue">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_schuldhulpJa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_automatischNee">
+        <inputEntry id="UnaryTests_baanbrekersNee">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_voedselbankNee">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_kwijtscheldingNee">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_schuldhulpNee">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_automatischNee">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="RONL_HeusdenpasKnockoffs" name="RONL Heusdenpas Knockoffs" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_inwonerKnock">
+      <requiredInput href="#InputData_aanvragerInwonerHeusden" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_alAangevraagd">
+      <requiredInput href="#InputData_aanvragerDitKalenderjaarAlAangevraagd" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_studiefinanciering">
+      <requiredInput href="#InputData_aanvragerAanmerkingStudieFinanciering" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_aanvrager181920">
+      <requiredInput href="#InputData_aanvragerIs181920" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_aanvrager21plus">
+      <requiredInput href="#InputData_aanvragerIsTenminste21" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_aanvragerAOW">
+      <requiredInput href="#InputData_aanvragerHeeftAOWLeeftijd" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_knockoffs" hitPolicy="ANY">
+      <input id="InputClause_inwonerKnock" label="De aanvrager is een inwoner van Heusden">
+        <inputExpression id="LiteralExpression_inwonerKnock" typeRef="boolean">
+          <text>aanvragerInwonerHeusden</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_alAangevraagd" label="De aanvrager heeft dit kalenderjaar al een Heusdenpas aangevraagd">
+        <inputExpression id="LiteralExpression_alAangevraagd" typeRef="boolean">
+          <text>aanvragerDitKalenderjaarAlAangevraagd</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_studiefinanciering" label="De aanvrager komt in aanmerking voor studiefinanciering">
+        <inputExpression id="LiteralExpression_studiefinanciering" typeRef="boolean">
+          <text>aanvragerAanmerkingStudieFinanciering</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_jongerDan18" label="de aanvrager is onder de 18 jaar">
+        <inputExpression id="LiteralExpression_jongerDan18" typeRef="boolean">
+          <text>not(aanvragerIs181920) and not(aanvragerIsTenminste21) and not(aanvragerHeeftAOWLeeftijd)</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_knockoff" label="Een knockoff voor de Heusdenpas is van toepassing" name="heusdenPasKnockoff" typeRef="boolean" />
+      <rule id="DecisionRule_geenInwonerKnock">
+        <inputEntry id="UnaryTests_inwonerKnockFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_alAangevraagdEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_studiefinancieringEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_jongerDan18Empty">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_geenInwonerKnock">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_alAangevraagdKnock">
+        <inputEntry id="UnaryTests_inwonerKnockEmpty">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_alAangevraagdTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_studiefinancieringEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_jongerDan18Empty2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_alAangevraagdKnock">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_studiefinancieringKnock">
+        <inputEntry id="UnaryTests_inwonerKnockEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_alAangevraagdEmpty2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_studiefinancieringTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_jongerDan18Empty3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_studiefinancieringKnock">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_jongerDan18Knock">
+        <inputEntry id="UnaryTests_inwonerKnockEmpty3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_alAangevraagdEmpty3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_studiefinancieringEmpty3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_jongerDan18True">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_jongerDan18Knock">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_geenKnockoff">
+        <inputEntry id="UnaryTests_inwonerKnockTrue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_alAangevraagdFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_studiefinancieringFalse">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_jongerDan18False">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_geenKnockoff">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_aanvragerInwonerHeusden" name="aanvragerInwonerHeusden" />
+  <inputData id="InputData_aanvragerHeeftKind4Tm17" name="aanvragerHeeftKind4Tm17" />
+  <inputData id="InputData_maandelijksBrutoInkomenAanvrager" name="maandelijksBrutoInkomenAanvrager" />
+  <inputData id="InputData_bijstandsNorm" name="bijstandsNorm" />
+  <inputData id="InputData_aanvragerUitkeringBaanbrekers" name="aanvragerUitkeringBaanbrekers" />
+  <inputData id="InputData_aanvragerVoedselbankpasDenBosch" name="aanvragerVoedselbankpasDenBosch" />
+  <inputData id="InputData_aanvragerKwijtscheldingGemeentelijkeBelastingen" name="aanvragerKwijtscheldingGemeentelijkeBelastingen" />
+  <inputData id="InputData_aanvragerSchuldhulptrajectKredietbankNederland" name="aanvragerSchuldhulptrajectKredietbankNederland" />
+  <inputData id="InputData_aanvragerDitKalenderjaarAlAangevraagd" name="aanvragerDitKalenderjaarAlAangevraagd" />
+  <inputData id="InputData_aanvragerAanmerkingStudieFinanciering" name="aanvragerAanmerkingStudieFinanciering" />
+  <inputData id="InputData_aanvragerIs181920" name="aanvragerIs181920" />
+  <inputData id="InputData_aanvragerIsTenminste21" name="aanvragerIsTenminste21" />
+  <inputData id="InputData_aanvragerHeeftAOWLeeftijd" name="aanvragerHeeftAOWLeeftijd" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0sw18q6">
+      <dmndi:DMNShape id="DMNShape_0hgo10e" dmnElementRef="RONL_HeusdenpasEindresultaat">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1sxsgum" dmnElementRef="RONL_HeusdenpasHoofdAanvraag">
+        <dc:Bounds height="80" width="180" x="160" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0hxmrua" dmnElementRef="RONL_HeusdenpasKindpakket">
+        <dc:Bounds height="80" width="180" x="160" y="360" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_11iqtyk" dmnElementRef="RONL_HeusdenpasAutomatisch">
+        <dc:Bounds height="80" width="180" x="160" y="500" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1443bxa" dmnElementRef="RONL_HeusdenpasKnockoffs">
+        <dc:Bounds height="80" width="180" x="160" y="640" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

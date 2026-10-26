@@ -1,0 +1,91 @@
+% The Logical English twin of the DMN model "AwbCompletenessCheck" (awb-completeness-check.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the product type is *a text*.
+    the is_complete of the awb admissibility check is *a truth value*.
+    the missing fields of the awb admissibility check is *a text*.
+    the awb article of the awb admissibility check is *a text*.
+    the product type or null is *a text*.
+
+the templates are:
+    the awb admissibility check for *a text* is *a truth value* with *a second text* with *a third text* under table awb_admissibility_check.
+
+the table awb_admissibility_check is, with first match:
+    product type                     | is_complete | missing fields                                                                             | awb article
+    "TreeFellingPermit"              | true        | "No missing fields."                                                                       | "Awb 4:5 - application complete"
+    "Zorgtoeslag"                    | true        | "No missing fields."                                                                       | "Awb 4:5 - application complete"
+    "BuildingPermit"                 | true        | "No missing fields."                                                                       | "Awb 4:5 - application complete"
+    "SubsidieThuisbatterijFlevoland" | true        | "No missing fields."                                                                       | "Awb 4:5 - application complete"
+    any                              | false       | "Unknown product type — this application cannot be processed under the current AWB shell." | "Awb 4:5 paragraph 1 - unknown product type"
+
+the knowledge base awb_completeness_check includes:
+
+the text of the_model is at "sources/awb-completeness-check.dmn".
+
+the product type or null is the product type, as stated in the model at decision Awb Admissibility Check.
+
+rule awb_admissibility_check_2 with provenance the model at decision Awb Admissibility Check:
+the product type or null is null if
+    it is not the case that the product type is a text.
+
+rule awb_admissibility_check_3 with provenance the model at decision Awb Admissibility Check:
+the is_complete of the awb admissibility check is a truth value if
+    the awb admissibility check for the product type or null is the truth value with a text with a second text under table awb_admissibility_check.
+
+rule awb_admissibility_check_4 with provenance the model at decision Awb Admissibility Check:
+the missing fields of the awb admissibility check is a text if
+    the awb admissibility check for the product type or null is a truth value with the text with a second text under table awb_admissibility_check.
+
+rule awb_admissibility_check_5 with provenance the model at decision Awb Admissibility Check:
+the awb article of the awb admissibility check is a text if
+    the awb admissibility check for the product type or null is a truth value with a second text with the text under table awb_admissibility_check.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Awb Admissibility Check:
+    the product type is "TreeFellingPermit".
+    q_d_awb_article_of_the_awb_admissibility_check expects answers ["the awb article of the awb admissibility check is Awb 4:5 - application complete"].
+    q_d_is_complete_of_the_awb_admissibility_check expects answers ["the is_complete of the awb admissibility check is true"].
+    q_d_missing_fields_of_the_awb_admissibility_check expects answers ["the missing fields of the awb admissibility check is No missing fields."].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Awb Admissibility Check:
+    the product type is "Zorgtoeslag".
+    q_d_awb_article_of_the_awb_admissibility_check expects answers ["the awb article of the awb admissibility check is Awb 4:5 - application complete"].
+    q_d_is_complete_of_the_awb_admissibility_check expects answers ["the is_complete of the awb admissibility check is true"].
+    q_d_missing_fields_of_the_awb_admissibility_check expects answers ["the missing fields of the awb admissibility check is No missing fields."].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Awb Admissibility Check:
+    the product type is "BuildingPermit".
+    q_d_awb_article_of_the_awb_admissibility_check expects answers ["the awb article of the awb admissibility check is Awb 4:5 - application complete"].
+    q_d_is_complete_of_the_awb_admissibility_check expects answers ["the is_complete of the awb admissibility check is true"].
+    q_d_missing_fields_of_the_awb_admissibility_check expects answers ["the missing fields of the awb admissibility check is No missing fields."].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Awb Admissibility Check:
+    the product type is "SubsidieThuisbatterijFlevoland".
+    q_d_awb_article_of_the_awb_admissibility_check expects answers ["the awb article of the awb admissibility check is Awb 4:5 - application complete"].
+    q_d_is_complete_of_the_awb_admissibility_check expects answers ["the is_complete of the awb admissibility check is true"].
+    q_d_missing_fields_of_the_awb_admissibility_check expects answers ["the missing fields of the awb admissibility check is No missing fields."].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of Awb Admissibility Check:
+    the product type is "Zorgtoeslag".
+    q_d_awb_article_of_the_awb_admissibility_check expects answers ["the awb article of the awb admissibility check is Awb 4:5 - application complete"].
+    q_d_is_complete_of_the_awb_admissibility_check expects answers ["the is_complete of the awb admissibility check is true"].
+    q_d_missing_fields_of_the_awb_admissibility_check expects answers ["the missing fields of the awb admissibility check is No missing fields."].
+
+query q_d_awb_article_of_the_awb_admissibility_check is:
+    the awb article of the awb admissibility check is which text.
+
+query q_d_is_complete_of_the_awb_admissibility_check is:
+    the is_complete of the awb admissibility check is which truth value.
+
+query q_d_missing_fields_of_the_awb_admissibility_check is:
+    the missing fields of the awb admissibility check is which text.
+

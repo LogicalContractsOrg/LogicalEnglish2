@@ -1,0 +1,72 @@
+% The Logical English twin of the DMN model "0101-feel-constants" (0101-feel-constants.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the decision1 is *a number*.
+    the decision2 is *a number*.
+    the decision4 is *a number*.
+    the decision5 is *a number*.
+    the decision7 is *a number*.
+    the decision8 is *a number*.
+
+the knowledge base n0101_feel_constants includes:
+
+the text of the_model is at "sources/0101-feel-constants.dmn".
+
+the decision1 is 0.872.
+
+the decision2 is -0.872.
+
+the decision4 is 50.
+
+the decision5 is -50.
+
+the decision7 is 125.4321987654.
+
+the decision8 is -125.4321987654.
+
+scenario t001 is, as stated in "0101-feel-constants-test-01.xml" at test case 001 Tests FEEL decimal number constant:
+    q_d_decision1 expects answers ["the decision1 is 0.872"].
+
+scenario t002 is, as stated in "0101-feel-constants-test-01.xml" at test case 002 Tests FEEL negative decimal number constant:
+    q_d_decision2 expects answers ["the decision2 is -0.872"].
+
+scenario t004 is, as stated in "0101-feel-constants-test-01.xml" at test case 004 Tests FEEL number constant:
+    q_d_decision4 expects answers ["the decision4 is 50"].
+
+scenario t005 is, as stated in "0101-feel-constants-test-01.xml" at test case 005 Tests FEEL negative number constant:
+    q_d_decision5 expects answers ["the decision5 is -50"].
+
+scenario t007 is, as stated in "0101-feel-constants-test-01.xml" at test case 007 Tests FEEL decimal number constant:
+    q_d_decision7 expects answers ["the decision7 is 125.4321987654"].
+
+scenario t008 is, as stated in "0101-feel-constants-test-01.xml" at test case 008 Tests FEEL negative decimal number constant:
+    q_d_decision8 expects answers ["the decision8 is -125.4321987654"].
+
+query q_d_decision1 is:
+    the decision1 is which number.
+
+query q_d_decision2 is:
+    the decision2 is which number.
+
+query q_d_decision4 is:
+    the decision4 is which number.
+
+query q_d_decision5 is:
+    the decision5 is which number.
+
+query q_d_decision7 is:
+    the decision7 is which number.
+
+query q_d_decision8 is:
+    the decision8 is which number.
+

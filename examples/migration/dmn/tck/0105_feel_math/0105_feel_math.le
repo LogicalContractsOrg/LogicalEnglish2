@@ -1,0 +1,334 @@
+% The Logical English twin of the DMN model "0105-feel-math" (0105-feel-math.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base n0105_feel_math includes these resources:
+    maths.
+
+the functions are:
+    the decision1 is *a number*.
+    the decision2 is *a number*.
+    the decision3 is *a number*.
+    the decision4 is *a number*.
+    the decision5 is *a number*.
+    the decision6 is *a number*.
+    the decision7 is *a number*.
+    the decision8 is *a number*.
+    the decision9 is *a number*.
+    the decision10 is *a number*.
+    the decision11 is *a number*.
+    the decision12 is *a number*.
+    the decision13 is *a number*.
+    the decision14 is *a number*.
+    the decision15 is *a number*.
+    the decision16 is *a number*.
+    the decision17 is *a number*.
+    the decision18 is *a number*.
+    the decision19 is *a number*.
+    the decision20 is *a number*.
+    the decision21 is *a number*.
+    the decision22 is *a number*.
+    the decision23 is *a number*.
+    the decision24 is *a number*.
+    the decision25 is *a number*.
+    the decision26 is *a number*.
+    the decision27 is *a number*.
+    the decision28 is *a number*.
+    the decision29 is *a number*.
+    the decision30 is *a number*.
+    the decision31 is *a number*.
+    the decision32 is *a number*.
+    the decision33 is *a number*.
+
+the knowledge base n0105_feel_math includes:
+
+the text of the_model is at "sources/0105-feel-math.dmn".
+
+the decision1 is 15.
+
+the decision2 is -15.
+
+the decision3 is -15.
+
+the decision4 is 5.
+
+the decision5 is -5.
+
+the decision6 is -5.
+
+the decision7 is 32.
+
+the decision8 is 50.
+
+the decision9 is 50.
+
+the decision10 is 50.
+
+the decision11 is -225.
+
+rule decision12_1 with provenance the model at decision Decision12:
+the decision12 is a number N if
+    N = 10 / 5.
+
+rule decision13_1 with provenance the model at decision Decision13:
+the decision13 is a number N if
+    N = -10 / -5.
+
+rule decision14_1 with provenance the model at decision Decision14:
+the decision14 is a number N if
+    N = -10 / -5.
+
+rule decision15_1 with provenance the model at decision Decision15:
+the decision15 is a number N if
+    N = 30 / -15.
+
+rule decision16_1 with provenance the model at decision Decision16:
+the decision16 is a number N if
+    N = 30 / 0.
+
+rule decision17_1 with provenance the model at decision Decision17:
+the decision17 is a number if
+    the power of 10 to 5 is the number.
+
+rule decision18_1 with provenance the model at decision Decision18:
+the decision18 is a number if
+    the power of 10 to -5 is the number.
+
+rule decision19_1 with provenance the model at decision Decision19:
+the decision19 is a number if
+    the power of 7 to 5 is the number.
+
+rule decision20_1 with provenance the model at decision Decision20:
+the decision20 is a number N if
+    the power of 2 to 5 is a result R
+    and N = 5 + R.
+
+rule decision21_1 with provenance the model at decision Decision21:
+the decision21 is a number N if
+    the power of 2 to 5 is a result R
+    and N = 5 + R + 3.
+
+rule decision22_1 with provenance the model at decision Decision22:
+the decision22 is a number N if
+    the power of 2 to 8 is a result R
+    and N = 5 + R.
+
+rule decision31_1 with provenance the model at decision Decision31:
+the decision31 is a number N if
+    N = 10 + 20 / -5 - 3.
+
+rule decision32_1 with provenance the model at decision Decision32:
+the decision32 is a number N if
+    N = 10 + 20 / -8.
+
+rule decision33_1 with provenance the model at decision Decision33:
+the decision33 is a number N if
+    the power of 10 to 3 is a result R
+    and N = 1.2 * R.
+
+scenario t001 is, as stated in "0105-feel-math-test-01.xml" at test case 001 Tests FEEL addition of number literals:
+    q_d_decision1 expects answers ["the decision1 is 15"].
+
+scenario t002 is, as stated in "0105-feel-math-test-01.xml" at test case 002 Tests FEEL addition of negative number literals:
+    q_d_decision2 expects answers ["the decision2 is -15"].
+
+scenario t003 is, as stated in "0105-feel-math-test-01.xml" at test case 003 Tests FEEL addition of negative number literals with brakets:
+    q_d_decision3 expects answers ["the decision3 is -15"].
+
+scenario t004 is, as stated in "0105-feel-math-test-01.xml" at test case 004 Tests FEEL subtraction of number literals:
+    q_d_decision4 expects answers ["the decision4 is 5"].
+
+scenario t005 is, as stated in "0105-feel-math-test-01.xml" at test case 005 Tests FEEL subtraction of negative number literals:
+    q_d_decision5 expects answers ["the decision5 is -5"].
+
+scenario t006 is, as stated in "0105-feel-math-test-01.xml" at test case 006 Tests FEEL subtraction of negative number literals with brakets:
+    q_d_decision6 expects answers ["the decision6 is -5"].
+
+scenario t007 is, as stated in "0105-feel-math-test-01.xml" at test case 007 Tests FEEL addition and subtraction of number literals with brakets:
+    q_d_decision7 expects answers ["the decision7 is 32"].
+
+scenario t008 is, as stated in "0105-feel-math-test-01.xml" at test case 008 Tests FEEL multiplication of number literals:
+    q_d_decision8 expects answers ["the decision8 is 50"].
+
+scenario t009 is, as stated in "0105-feel-math-test-01.xml" at test case 009 Tests FEEL multiplication of negative number literals:
+    q_d_decision9 expects answers ["the decision9 is 50"].
+
+scenario t010 is, as stated in "0105-feel-math-test-01.xml" at test case 010 Tests FEEL multiplication of negative number literals with brakets:
+    q_d_decision10 expects answers ["the decision10 is 50"].
+
+scenario t011 is, as stated in "0105-feel-math-test-01.xml" at test case 011 Tests FEEL addition and multiplication of number literals with brakets:
+    q_d_decision11 expects answers ["the decision11 is -225"].
+
+scenario t012 is, as stated in "0105-feel-math-test-01.xml" at test case 012 Tests FEEL division of number literals:
+    q_d_decision12 expects answers ["the decision12 is 2"].
+
+scenario t013 is, as stated in "0105-feel-math-test-01.xml" at test case 013 Tests FEEL division of negative number literals:
+    q_d_decision13 expects answers ["the decision13 is 2"].
+
+scenario t014 is, as stated in "0105-feel-math-test-01.xml" at test case 014 Tests FEEL division of negative number literals with brakets:
+    q_d_decision14 expects answers ["the decision14 is 2"].
+
+scenario t015 is, as stated in "0105-feel-math-test-01.xml" at test case 015 Tests FEEL addition and division of number literals with brakets:
+    q_d_decision15 expects answers ["the decision15 is -2"].
+
+scenario t016 is, as stated in "0105-feel-math-test-01.xml" at test case 016 Tests FEEL division by zero:
+    q_d_decision16 expects answers [].
+
+scenario t017 is, as stated in "0105-feel-math-test-01.xml" at test case 017 Tests FEEL potency of number literal:
+    q_d_decision17 expects answers ["the decision17 is 100000"].
+
+scenario t018 is, as stated in "0105-feel-math-test-01.xml" at test case 018 Tests FEEL negative potency of number literal:
+    q_d_decision18 expects answers ["the decision18 is 1.0e-05"].
+
+scenario t019 is, as stated in "0105-feel-math-test-01.xml" at test case 019 Tests FEEL potency of number literal with brakets:
+    q_d_decision19 expects answers ["the decision19 is 16807"].
+
+scenario t020 is, as stated in "0105-feel-math-test-01.xml" at test case 020 Tests FEEL addition and potency of number literals:
+    q_d_decision20 expects answers ["the decision20 is 37"].
+
+scenario t021 is, as stated in "0105-feel-math-test-01.xml" at test case 021 Tests FEEL addition and potency of number literals:
+    q_d_decision21 expects answers ["the decision21 is 40"].
+
+scenario t022 is, as stated in "0105-feel-math-test-01.xml" at test case 022 Tests FEEL addition and potency of number literals with brakets:
+    q_d_decision22 expects answers ["the decision22 is 261"].
+
+scenario t023 is, as stated in "0105-feel-math-test-01.xml" at test case 023 Tests FEEL addition with null:
+    q_d_decision23 expects answers [].
+
+scenario t024 is, as stated in "0105-feel-math-test-01.xml" at test case 024 Tests FEEL addition with null:
+    q_d_decision24 expects answers [].
+
+scenario t025 is, as stated in "0105-feel-math-test-01.xml" at test case 025 Tests FEEL subtraction with null:
+    q_d_decision25 expects answers [].
+
+scenario t026 is, as stated in "0105-feel-math-test-01.xml" at test case 026 Tests FEEL subtraction with null:
+    q_d_decision26 expects answers [].
+
+scenario t027 is, as stated in "0105-feel-math-test-01.xml" at test case 027 Tests FEEL multiplication with null:
+    q_d_decision27 expects answers [].
+
+scenario t028 is, as stated in "0105-feel-math-test-01.xml" at test case 028 Tests FEEL multiplication with null:
+    q_d_decision28 expects answers [].
+
+scenario t029 is, as stated in "0105-feel-math-test-01.xml" at test case 029 Tests FEEL division with null:
+    q_d_decision29 expects answers [].
+
+scenario t030 is, as stated in "0105-feel-math-test-01.xml" at test case 030 Tests FEEL division with null:
+    q_d_decision30 expects answers [].
+
+scenario t031 is, as stated in "0105-feel-math-test-01.xml" at test case 031 Tests FEEL arithmetics with spaces between number literals:
+    q_d_decision31 expects answers ["the decision31 is 3"].
+
+scenario t032 is, as stated in "0105-feel-math-test-01.xml" at test case 032 Tests FEEL arithmetics with spaces between number literals and brakets:
+    q_d_decision32 expects answers ["the decision32 is 7.5"].
+
+scenario t033 is, as stated in "0105-feel-math-test-01.xml" at test case 033 Tests FEEL arithmetics with decimal number literals:
+    q_d_decision33 expects answers ["the decision33 is 1200"].
+
+query q_d_decision1 is:
+    the decision1 is which number.
+
+query q_d_decision10 is:
+    the decision10 is which number.
+
+query q_d_decision11 is:
+    the decision11 is which number.
+
+query q_d_decision12 is:
+    the decision12 is which number.
+
+query q_d_decision13 is:
+    the decision13 is which number.
+
+query q_d_decision14 is:
+    the decision14 is which number.
+
+query q_d_decision15 is:
+    the decision15 is which number.
+
+query q_d_decision16 is:
+    the decision16 is which number.
+
+query q_d_decision17 is:
+    the decision17 is which number.
+
+query q_d_decision18 is:
+    the decision18 is which number.
+
+query q_d_decision19 is:
+    the decision19 is which number.
+
+query q_d_decision2 is:
+    the decision2 is which number.
+
+query q_d_decision20 is:
+    the decision20 is which number.
+
+query q_d_decision21 is:
+    the decision21 is which number.
+
+query q_d_decision22 is:
+    the decision22 is which number.
+
+query q_d_decision23 is:
+    the decision23 is which number.
+
+query q_d_decision24 is:
+    the decision24 is which number.
+
+query q_d_decision25 is:
+    the decision25 is which number.
+
+query q_d_decision26 is:
+    the decision26 is which number.
+
+query q_d_decision27 is:
+    the decision27 is which number.
+
+query q_d_decision28 is:
+    the decision28 is which number.
+
+query q_d_decision29 is:
+    the decision29 is which number.
+
+query q_d_decision3 is:
+    the decision3 is which number.
+
+query q_d_decision30 is:
+    the decision30 is which number.
+
+query q_d_decision31 is:
+    the decision31 is which number.
+
+query q_d_decision32 is:
+    the decision32 is which number.
+
+query q_d_decision33 is:
+    the decision33 is which number.
+
+query q_d_decision4 is:
+    the decision4 is which number.
+
+query q_d_decision5 is:
+    the decision5 is which number.
+
+query q_d_decision6 is:
+    the decision6 is which number.
+
+query q_d_decision7 is:
+    the decision7 is which number.
+
+query q_d_decision8 is:
+    the decision8 is which number.
+
+query q_d_decision9 is:
+    the decision9 is which number.
+

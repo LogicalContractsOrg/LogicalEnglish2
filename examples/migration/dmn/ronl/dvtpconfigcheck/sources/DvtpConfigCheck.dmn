@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="definitions_dvtp_config" name="DvtpConfigCheck" namespace="http://example.com/dvtp/dmn" exporter="Camunda Modeler" exporterVersion="5.45.0">
+  <decision id="DvtpConfigCheck" name="DvTP Service Configuration Check (FR-30/32)" camunda:historyTimeToLive="90">
+    <decisionTable id="DecisionTable_Config" hitPolicy="FIRST">
+      <input id="Input_InitiatorId">
+        <inputExpression id="IE_InitiatorId" typeRef="string">
+          <text>initiatorId</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ReturnUrl">
+        <inputExpression id="IE_ReturnUrl" typeRef="string">
+          <text>returnUrl</text>
+        </inputExpression>
+      </input>
+      <output id="Output_InitiatorAllowed" name="initiatorAllowed" typeRef="boolean" />
+      <output id="Output_ConfigTtlDays" name="configTtlDays" typeRef="integer" />
+      <output id="Output_ConfigTtlLabel" name="configTtlLabel" typeRef="string" />
+      <rule id="Rule_Init001">
+        <description>Demo private dienstverlener 1 — jaarlijkse toestemming</description>
+        <inputEntry id="IE_001_Id">
+          <text>"DEMO-INITIATOR-001"</text>
+        </inputEntry>
+        <inputEntry id="IE_001_Url">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_001_Allowed">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_001_Days">
+          <text>365</text>
+        </outputEntry>
+        <outputEntry id="OE_001_Label">
+          <text>"1 jaar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Init002">
+        <description>Demo private dienstverlener 2 — kortstondige toestemming</description>
+        <inputEntry id="IE_002_Id">
+          <text>"DEMO-INITIATOR-002"</text>
+        </inputEntry>
+        <inputEntry id="IE_002_Url">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_002_Allowed">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_002_Days">
+          <text>30</text>
+        </outputEntry>
+        <outputEntry id="OE_002_Label">
+          <text>"30 dagen"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Init003">
+        <description>Demo niet-geregistreerde initiator — blokkeren (FR-30)</description>
+        <inputEntry id="IE_003_Id">
+          <text>"DEMO-INITIATOR-003"</text>
+        </inputEntry>
+        <inputEntry id="IE_003_Url">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_003_Allowed">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_003_Days">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="OE_003_Label">
+          <text>"Niet geregistreerd"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Default">
+        <description>Onbekende initiator — standaard toestaan voor demo-doeleinden</description>
+        <inputEntry id="IE_Default_Id">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Default_Url">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Default_Allowed">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_Default_Days">
+          <text>365</text>
+        </outputEntry>
+        <outputEntry id="OE_Default_Label">
+          <text>"1 jaar (standaard)"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_initiatorId" name="initiatorId">
+    <variable id="Var_initiatorId" name="initiatorId" typeRef="string" />
+  </inputData>
+  <inputData id="InputData_returnUrl" name="returnUrl">
+    <variable id="Var_returnUrl" name="returnUrl" typeRef="string" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_Config">
+      <dmndi:DMNShape id="DMNShape_Config" dmnElementRef="DvtpConfigCheck">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

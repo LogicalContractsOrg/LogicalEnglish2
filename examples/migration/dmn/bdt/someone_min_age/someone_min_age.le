@@ -1,0 +1,61 @@
+% The Logical English twin of the DMN model "SomeoneMinAge" (someone-min-age.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base someone_min_age includes these resources:
+    temporal.
+
+the functions are:
+    the as of date of the parameters is *a date*.
+    the min age of the parameters is *a number*.
+    the check result is *a truth value*.
+    the dob is *a value*.
+
+the templates are:
+    the people of the situation include *an id* with *a date*.
+    the people of the situation are listed.
+    the people ids of the parameters include *a text*.
+    the people ids of the parameters are listed.
+
+the knowledge base someone_min_age includes:
+
+the text of the_model is at "sources/someone-min-age.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    it is not the case that
+        a number N is the count of each D such that
+            the people of the situation include an id with a date D
+            and the id is equal to '$rel'(d_rel_people_ids_of_the_parameters,[text],[item])
+        and N = 0
+    and a number K is the count of each -1 such that
+        the people of the situation include a second id with a second date
+        and the second id is equal to '$rel'(d_rel_people_ids_of_the_parameters,[text],[item])
+        and it is not the case that true
+        and the min age of the parameters is a number M
+        and -1 >= M
+    and K > 0.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is false if
+    it is not the case that
+        a number N is the count of each D such that
+            the people of the situation include an id with a date D
+            and the id is equal to '$rel'(d_rel_people_ids_of_the_parameters,[text],[item])
+        and N = 0
+    and a number K is the count of each -1 such that
+        the people of the situation include a second id with a second date
+        and the second id is equal to '$rel'(d_rel_people_ids_of_the_parameters,[text],[item])
+        and it is not the case that true
+        and the min age of the parameters is a number M
+        and -1 >= M
+    and K <= 0.
+

@@ -1,0 +1,841 @@
+% The Logical English twin of the DMN model "Complete subsidie thuisbatterij" (RechtEnHoogteSubsidieThuisbatterij.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base rechtenhoogtesubsidiethuisbatterij includes these resources:
+    feel,
+    temporal.
+
+the functions are:
+    the reeds gesubsidieerd eigenaren is *a value*.
+    the reeds gesubsidieerd huurders is *a value*.
+    the datum van aanvraag is *a value*.
+    the gemaakte kosten is *a value*.
+    the aanvraag type is *a value*.
+    the aanvrager is_failliet is *a value*.
+    the provincie woning is *a value*.
+    the relatie tot woning is *a value*.
+    the toestemming eigenaar is *a value*.
+    the naam op energierekening komt overeen is *a value*.
+    the behaalbare hoogte subsidie is *a number*.
+    the bereken basis hoogte subsidie is *a number*.
+    the bereken beschikbaar subsidie plafond is *a number*.
+    the subsidie percentage of the subsidie constanten thuisbatterij is *a number*.
+    the subsidie minimum of the subsidie constanten thuisbatterij is *a number*.
+    the subsidie maximum of the subsidie constanten thuisbatterij is *a number*.
+    the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is *a number*.
+    the plafond eigenaren of the jaar gebonden budget is *a number*.
+    the plafond huurders of the jaar gebonden budget is *a number*.
+    the recht op subsidie of the recht op subsidie thuisbatterij is *a truth value*.
+    the reden of the recht op subsidie thuisbatterij is *a text*.
+    the aanvraag datum is *a text*.
+    the aanvrager failliet is *a truth value*.
+    the aanvrager type is *a text*.
+    the gemaakte kosten two is *a number*.
+    the minimale noodzakelijke kosten is *a value*.
+    the plafond eigenaren is *a value*.
+    the plafond huurders is *a value*.
+    the provincie woning two is *a text*.
+    the reeds gesubsidieerd eigenaren two is *a number*.
+    the reeds gesubsidieerd huurders two is *a number*.
+    the rekening naam komt overeen is *a truth value*.
+    the relatie tot woning two is *a text*.
+    the subsidie maximum is *a value*.
+    the subsidie minimum is *a value*.
+    the subsidie percentage is *a value*.
+    the toestemming eigenaar two is *a truth value*.
+
+the templates are:
+    the jaar gebonden budget for *a number* is *a second number* with *a third number* under table jaar_gebonden_budget.
+
+the table jaar_gebonden_budget is, with unique match:
+    date aanvraag datum year | plafond eigenaren | plafond huurders
+    2026                     | 437500            | 437500
+    2027                     | 437500            | 437500
+
+the knowledge base rechtenhoogtesubsidiethuisbatterij includes:
+
+the text of the_model is at "sources/RechtEnHoogteSubsidieThuisbatterij.dmn".
+
+rule behaalbare_hoogte_subsidie_1 with provenance the model at decision Behaalbare Hoogte Subsidie rule 1:
+the behaalbare hoogte subsidie is the bereken basis hoogte subsidie if
+    the bereken basis hoogte subsidie <= the bereken beschikbaar subsidie plafond.
+
+rule behaalbare_hoogte_subsidie_2 with provenance the model at decision Behaalbare Hoogte Subsidie rule 2:
+the behaalbare hoogte subsidie is the bereken beschikbaar subsidie plafond if
+    the bereken basis hoogte subsidie > the bereken beschikbaar subsidie plafond.
+
+rule bereken_basis_hoogte_subsidie_1 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 1:
+the bereken basis hoogte subsidie is the subsidie maximum if
+    the gemaakte kosten two >= the minimale noodzakelijke kosten / the subsidie percentage
+    and the subsidie percentage * the gemaakte kosten two > the subsidie maximum.
+
+rule bereken_basis_hoogte_subsidie_2 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 1:
+the bereken basis hoogte subsidie is a number N if
+    the gemaakte kosten two is a number M
+    and the minimale noodzakelijke kosten is a value V
+    and the subsidie percentage is a value K
+    and M >= V / K
+    and it is not the case that
+        the subsidie percentage is a value P
+        and the gemaakte kosten two is a number Q
+        and the subsidie maximum is a value R
+        and P * Q > R
+    and the subsidie minimum is N
+    and K * M < N.
+
+rule bereken_basis_hoogte_subsidie_3 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 1:
+the bereken basis hoogte subsidie is a number N if
+    the gemaakte kosten two is a number M
+    and the minimale noodzakelijke kosten is a value V
+    and the subsidie percentage is a value K
+    and M >= V / K
+    and it is not the case that
+        the subsidie percentage is a value P
+        and the gemaakte kosten two is a number Q
+        and the subsidie maximum is a value R
+        and P * Q > R
+    and it is not the case that
+        the subsidie percentage is a value S
+        and the gemaakte kosten two is a number T
+        and the subsidie minimum is a value U
+        and S * T < U
+    and N = K * M.
+
+rule bereken_basis_hoogte_subsidie_4 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 2:
+the bereken basis hoogte subsidie is 0 if
+    the gemaakte kosten two < the minimale noodzakelijke kosten / the subsidie percentage.
+
+rule bereken_beschikbaar_subsidie_plafond_1 with provenance the model at decision Bereken Beschikbaar Subsidie Plafond:
+the bereken beschikbaar subsidie plafond is a number N if
+    the aanvraag datum is true
+    and the date written as true is a date D
+    and D >= 2026-01-12
+    and the date written as true is a date M
+    and M <= 2026-09-30
+    and the aanvrager type is "eigenaar"
+    and the plafond eigenaren is a value V
+    and the reeds gesubsidieerd eigenaren two is a number K
+    and V - K > 0
+    and N = V - K
+    otherwise the aanvraag datum is true
+    and the date written as true is a date P
+    and P >= 2026-01-12
+    and the date written as true is a date Q
+    and Q <= 2026-09-30
+    and the aanvrager type is "eigenaar"
+    and it is not the case that
+        the plafond eigenaren is a value R
+        and the reeds gesubsidieerd eigenaren two is a number S
+        and R - S > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date T
+    and T < 2026-01-12
+    and the aanvrager type is "eigenaar"
+    and the plafond eigenaren is a value U
+    and the reeds gesubsidieerd eigenaren two is a number W
+    and U - W > 0
+    and N = U - W
+    otherwise the aanvraag datum is false
+    and the date written as false is a date X
+    and X < 2026-01-12
+    and the aanvrager type is "eigenaar"
+    and it is not the case that
+        the plafond eigenaren is a value Y
+        and the reeds gesubsidieerd eigenaren two is a number Z
+        and Y - Z > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date B
+    and B > 2026-09-30
+    and the aanvrager type is "eigenaar"
+    and the plafond eigenaren is a value C
+    and the reeds gesubsidieerd eigenaren two is a number E
+    and C - E > 0
+    and N = C - E
+    otherwise the aanvraag datum is false
+    and the date written as false is a date F
+    and F > 2026-09-30
+    and the aanvrager type is "eigenaar"
+    and it is not the case that
+        the plafond eigenaren is a value G
+        and the reeds gesubsidieerd eigenaren two is a number H
+        and G - H > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is true
+    and the date written as true is a date J
+    and J >= 2026-01-12
+    and the date written as true is a date L
+    and L <= 2026-09-30
+    and the aanvrager type is "huurder"
+    and the plafond huurders is a value NN
+    and the reeds gesubsidieerd huurders two is a number NM
+    and NN - NM > 0
+    and N = NN - NM
+    otherwise the aanvraag datum is true
+    and the date written as true is a date NK
+    and NK >= 2026-01-12
+    and the date written as true is a date NP
+    and NP <= 2026-09-30
+    and the aanvrager type is "huurder"
+    and it is not the case that
+        the plafond huurders is a value NQ
+        and the reeds gesubsidieerd huurders two is a number NR
+        and NQ - NR > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date NS
+    and NS < 2026-01-12
+    and the aanvrager type is "huurder"
+    and the plafond huurders is a value NT
+    and the reeds gesubsidieerd huurders two is a number NU
+    and NT - NU > 0
+    and N = NT - NU
+    otherwise the aanvraag datum is false
+    and the date written as false is a date NV
+    and NV < 2026-01-12
+    and the aanvrager type is "huurder"
+    and it is not the case that
+        the plafond huurders is a value NW
+        and the reeds gesubsidieerd huurders two is a number NX
+        and NW - NX > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date NY
+    and NY > 2026-09-30
+    and the aanvrager type is "huurder"
+    and the plafond huurders is a value NZ
+    and the reeds gesubsidieerd huurders two is a number NB
+    and NZ - NB > 0
+    and N = NZ - NB
+    otherwise the aanvraag datum is false
+    and the date written as false is a date NC
+    and NC > 2026-09-30
+    and the aanvrager type is "huurder"
+    and it is not the case that
+        the plafond huurders is a value ND
+        and the reeds gesubsidieerd huurders two is a number NE
+        and ND - NE > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is true
+    and the date written as true is a date NF
+    and NF >= 2026-10-01
+    and the date written as true is a date NG
+    and NG <= 2026-12-31
+    and the plafond eigenaren is a value NH
+    and the plafond huurders is a value NJ
+    and the reeds gesubsidieerd eigenaren two is a number NL
+    and the reeds gesubsidieerd huurders two is a number MN
+    and NH + NJ - NL - MN > 0
+    and N = NH + NJ - NL - MN
+    otherwise the aanvraag datum is true
+    and the date written as true is a date MM
+    and MM >= 2026-10-01
+    and the date written as true is a date MK
+    and MK <= 2026-12-31
+    and it is not the case that
+        the plafond eigenaren is a value MP
+        and the plafond huurders is a value MQ
+        and the reeds gesubsidieerd eigenaren two is a number MR
+        and the reeds gesubsidieerd huurders two is a number MS
+        and MP + MQ - MR - MS > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date MT
+    and MT < 2026-10-01
+    and the plafond eigenaren is a value MU
+    and the plafond huurders is a value MV
+    and the reeds gesubsidieerd eigenaren two is a number MW
+    and the reeds gesubsidieerd huurders two is a number MX
+    and MU + MV - MW - MX > 0
+    and N = MU + MV - MW - MX
+    otherwise the aanvraag datum is false
+    and the date written as false is a date MY
+    and MY < 2026-10-01
+    and it is not the case that
+        the plafond eigenaren is a value MZ
+        and the plafond huurders is a value MB
+        and the reeds gesubsidieerd eigenaren two is a number MC
+        and the reeds gesubsidieerd huurders two is a number MD
+        and MZ + MB - MC - MD > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date ME
+    and ME > 2026-12-31
+    and the plafond eigenaren is a value MF
+    and the plafond huurders is a value MG
+    and the reeds gesubsidieerd eigenaren two is a number MH
+    and the reeds gesubsidieerd huurders two is a number MJ
+    and MF + MG - MH - MJ > 0
+    and N = MF + MG - MH - MJ
+    otherwise the aanvraag datum is false
+    and the date written as false is a date ML
+    and ML > 2026-12-31
+    and it is not the case that
+        the plafond eigenaren is a value KN
+        and the plafond huurders is a value KM
+        and the reeds gesubsidieerd eigenaren two is a number KK
+        and the reeds gesubsidieerd huurders two is a number KP
+        and KN + KM - KK - KP > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is true
+    and the date written as true is a date KQ
+    and 2027-01-01 <= KQ
+    and the date written as true is a date KR
+    and KR <= 2027-09-30
+    and the aanvrager type is "eigenaar"
+    and the plafond eigenaren is a value KS
+    and the reeds gesubsidieerd eigenaren two is a number KT
+    and KS - KT > 0
+    and N = KS - KT
+    otherwise the aanvraag datum is true
+    and the date written as true is a date KU
+    and 2027-01-01 <= KU
+    and the date written as true is a date KV
+    and KV <= 2027-09-30
+    and the aanvrager type is "eigenaar"
+    and it is not the case that
+        the plafond eigenaren is a value KW
+        and the reeds gesubsidieerd eigenaren two is a number KX
+        and KW - KX > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date KY
+    and 2027-01-01 > KY
+    and the aanvrager type is "eigenaar"
+    and the plafond eigenaren is a value KZ
+    and the reeds gesubsidieerd eigenaren two is a number KB
+    and KZ - KB > 0
+    and N = KZ - KB
+    otherwise the aanvraag datum is false
+    and the date written as false is a date KC
+    and 2027-01-01 > KC
+    and the aanvrager type is "eigenaar"
+    and it is not the case that
+        the plafond eigenaren is a value KD
+        and the reeds gesubsidieerd eigenaren two is a number KE
+        and KD - KE > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date KF
+    and KF > 2027-09-30
+    and the aanvrager type is "eigenaar"
+    and the plafond eigenaren is a value KG
+    and the reeds gesubsidieerd eigenaren two is a number KH
+    and KG - KH > 0
+    and N = KG - KH
+    otherwise the aanvraag datum is false
+    and the date written as false is a date KJ
+    and KJ > 2027-09-30
+    and the aanvrager type is "eigenaar"
+    and it is not the case that
+        the plafond eigenaren is a value KL
+        and the reeds gesubsidieerd eigenaren two is a number PN
+        and KL - PN > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is true
+    and the date written as true is a date PM
+    and PM >= 2027-01-01
+    and the date written as true is a date PK
+    and PK <= 2027-09-30
+    and the aanvrager type is "huurder"
+    and the plafond huurders is a value PP
+    and the reeds gesubsidieerd huurders two is a number PQ
+    and PP - PQ > 0
+    and N = PP - PQ
+    otherwise the aanvraag datum is true
+    and the date written as true is a date PR
+    and PR >= 2027-01-01
+    and the date written as true is a date PS
+    and PS <= 2027-09-30
+    and the aanvrager type is "huurder"
+    and it is not the case that
+        the plafond huurders is a value PT
+        and the reeds gesubsidieerd huurders two is a number PU
+        and PT - PU > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date PV
+    and PV < 2027-01-01
+    and the aanvrager type is "huurder"
+    and the plafond huurders is a value PW
+    and the reeds gesubsidieerd huurders two is a number PX
+    and PW - PX > 0
+    and N = PW - PX
+    otherwise the aanvraag datum is false
+    and the date written as false is a date PY
+    and PY < 2027-01-01
+    and the aanvrager type is "huurder"
+    and it is not the case that
+        the plafond huurders is a value PZ
+        and the reeds gesubsidieerd huurders two is a number PB
+        and PZ - PB > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date PC
+    and PC > 2027-09-30
+    and the aanvrager type is "huurder"
+    and the plafond huurders is a value PD
+    and the reeds gesubsidieerd huurders two is a number PE
+    and PD - PE > 0
+    and N = PD - PE
+    otherwise the aanvraag datum is false
+    and the date written as false is a date PF
+    and PF > 2027-09-30
+    and the aanvrager type is "huurder"
+    and it is not the case that
+        the plafond huurders is a value PG
+        and the reeds gesubsidieerd huurders two is a number PH
+        and PG - PH > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is true
+    and the date written as true is a date PJ
+    and PJ >= 2027-10-01
+    and the date written as true is a date PL
+    and PL <= 2027-12-31
+    and the reeds gesubsidieerd eigenaren two is a number QN
+    and the reeds gesubsidieerd huurders two is a number QM
+    and 1000000 - QN - QM > 0
+    and N = 1000000 - QN - QM
+    otherwise the aanvraag datum is true
+    and the date written as true is a date QK
+    and QK >= 2027-10-01
+    and the date written as true is a date QP
+    and QP <= 2027-12-31
+    and it is not the case that
+        the reeds gesubsidieerd eigenaren two is a number QQ
+        and the reeds gesubsidieerd huurders two is a number QR
+        and 1000000 - QQ - QR > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date QS
+    and QS < 2027-10-01
+    and the reeds gesubsidieerd eigenaren two is a number QT
+    and the reeds gesubsidieerd huurders two is a number QU
+    and 1000000 - QT - QU > 0
+    and N = 1000000 - QT - QU
+    otherwise the aanvraag datum is false
+    and the date written as false is a date QV
+    and QV < 2027-10-01
+    and it is not the case that
+        the reeds gesubsidieerd eigenaren two is a number QW
+        and the reeds gesubsidieerd huurders two is a number QX
+        and 1000000 - QW - QX > 0
+    and N is equal to 0
+    otherwise the aanvraag datum is false
+    and the date written as false is a date QY
+    and QY > 2027-12-31
+    and the reeds gesubsidieerd eigenaren two is a number QZ
+    and the reeds gesubsidieerd huurders two is a number QB
+    and 1000000 - QZ - QB > 0
+    and N = 1000000 - QZ - QB
+    otherwise the aanvraag datum is false
+    and the date written as false is a date QC
+    and QC > 2027-12-31
+    and it is not the case that
+        the reeds gesubsidieerd eigenaren two is a number QD
+        and the reeds gesubsidieerd huurders two is a number QE
+        and 1000000 - QD - QE > 0
+    and N is equal to 0
+    otherwise N is equal to 0.
+
+the subsidie percentage of the subsidie constanten thuisbatterij is 0.25.
+
+the subsidie minimum of the subsidie constanten thuisbatterij is 750.
+
+the subsidie maximum of the subsidie constanten thuisbatterij is 1250.
+
+the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750.
+
+rule jaar_gebonden_budget_1 with provenance the model at decision Jaar Gebonden Budget:
+the plafond eigenaren of the jaar gebonden budget is a number if
+    the date written as the aanvraag datum is a date
+    and the year of the date is a second number
+    and the jaar gebonden budget for the second number is the number with a third number under table jaar_gebonden_budget.
+
+rule jaar_gebonden_budget_2 with provenance the model at decision Jaar Gebonden Budget:
+the plafond huurders of the jaar gebonden budget is a number if
+    the date written as the aanvraag datum is a date
+    and the year of the date is a second number
+    and the jaar gebonden budget for the second number is a third number with the number under table jaar_gebonden_budget.
+
+rule recht_op_subsidie_thuisbatterij_1 with provenance the model at decision Recht op subsidie thuisbatterij:
+the recht op subsidie of the recht op subsidie thuisbatterij is a truth value if
+    the aanvrager failliet is true
+    and the truth value is equal to false
+    otherwise the aanvrager failliet is false
+    and it is not the case that the provincie woning two is a text
+    and the truth value is equal to false
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is a second text
+    and the second text is not equal to "Flevoland"
+    and the truth value is equal to false
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and it is not the case that the relatie tot woning two is a third text
+    and the truth value is equal to false
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is a fourth text
+    and the fourth text is not equal to "eigenaar"
+    and the fourth text is not equal to "huurder"
+    and the truth value is equal to false
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is "huurder"
+    and the toestemming eigenaar two is false
+    and the truth value is equal to false
+    otherwise the rekening naam komt overeen is false
+    and the truth value is equal to false
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is "eigenaar"
+    and the rekening naam komt overeen is true
+    and the truth value is equal to true
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is "huurder"
+    and the toestemming eigenaar two is true
+    and the rekening naam komt overeen is true
+    and the truth value is equal to true
+    otherwise the truth value is equal to false.
+
+rule recht_op_subsidie_thuisbatterij_2 with provenance the model at decision Recht op subsidie thuisbatterij:
+the reden of the recht op subsidie thuisbatterij is a text if
+    the aanvrager failliet is true
+    and the text is equal to "Aanvrager is failliet"
+    otherwise the aanvrager failliet is false
+    and it is not the case that the provincie woning two is a second text
+    and the text is equal to "Woning ligt niet in Flevoland"
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is a third text
+    and the third text is not equal to "Flevoland"
+    and the text is equal to "Woning ligt niet in Flevoland"
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and it is not the case that the relatie tot woning two is a fourth text
+    and the text is equal to "Aanvrager is geen eigenaar of huurder"
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is a fifth text
+    and the fifth text is not equal to "eigenaar"
+    and the fifth text is not equal to "huurder"
+    and the text is equal to "Aanvrager is geen eigenaar of huurder"
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is "huurder"
+    and the toestemming eigenaar two is false
+    and the text is equal to "Huurder heeft geen toestemming van eigenaar"
+    otherwise the rekening naam komt overeen is false
+    and the text is equal to "Aanvrager staat niet op de energierekening"
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is "eigenaar"
+    and the rekening naam komt overeen is true
+    and the text is equal to "Aanvrager heeft recht op subsidie"
+    otherwise the aanvrager failliet is false
+    and the provincie woning two is "Flevoland"
+    and the relatie tot woning two is "huurder"
+    and the toestemming eigenaar two is true
+    and the rekening naam komt overeen is true
+    and the text is equal to "Aanvrager heeft recht op subsidie; huurder met toestemming eigenaar"
+    otherwise the text is equal to "Niet alle voorwaarden zijn vervuld".
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Bereken Basis Hoogte Subsidie:
+    the aanvraag datum is "2026-10-01".
+    the aanvrager failliet is false.
+    the aanvrager type is "huurder".
+    the gemaakte kosten two is 2.5.
+    the provincie woning two is "anders".
+    the reeds gesubsidieerd eigenaren two is 1.
+    the reeds gesubsidieerd huurders two is 12.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "huurder".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Bereken Basis Hoogte Subsidie:
+    the gemaakte kosten two is 0.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 1 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2026-01-12".
+    the aanvrager failliet is true.
+    the aanvrager type is "eigenaar".
+    the gemaakte kosten two is 0.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 100.
+    the reeds gesubsidieerd huurders two is 100.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "eigenaar".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 2 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "anders".
+    the aanvrager type is "huurder".
+    the reeds gesubsidieerd eigenaren two is 1.
+    the reeds gesubsidieerd huurders two is 1.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 3 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2026-10-01".
+    the aanvrager failliet is false.
+    the aanvrager type is "eigenaar".
+    the gemaakte kosten two is 0.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 100.
+    the reeds gesubsidieerd huurders two is 100.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "eigenaar".
+    the toestemming eigenaar two is false.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 4 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "anders".
+    the aanvrager type is "eigenaar".
+    the reeds gesubsidieerd eigenaren two is 1.
+    the reeds gesubsidieerd huurders two is 1.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 5 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2027-01-01".
+    the aanvrager failliet is false.
+    the aanvrager type is "huurder".
+    the gemaakte kosten two is 0.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 100.
+    the reeds gesubsidieerd huurders two is 2.5.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "anders".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 6 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2027-01-01".
+    the aanvrager type is "anders".
+    the reeds gesubsidieerd eigenaren two is 0.
+    the reeds gesubsidieerd huurders two is 2.5.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 7 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2027-10-01".
+    the aanvrager failliet is false.
+    the aanvrager type is "huurder".
+    the gemaakte kosten two is 1.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 2.5.
+    the reeds gesubsidieerd huurders two is 2.5.
+    the rekening naam komt overeen is true.
+    the relatie tot woning two is "anders".
+    the toestemming eigenaar two is false.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g010 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g010 row 8 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2026-01-12".
+    the aanvrager type is "anders".
+    the reeds gesubsidieerd eigenaren two is 0.
+    the reeds gesubsidieerd huurders two is 0.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g011 row 9 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2026-01-12".
+    the aanvrager failliet is true.
+    the aanvrager type is "anders".
+    the gemaakte kosten two is 12.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 0.
+    the reeds gesubsidieerd huurders two is 0.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "huurder".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g012 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g012 row 10 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2026-01-12".
+    the aanvrager type is "anders".
+    the reeds gesubsidieerd eigenaren two is 0.
+    the reeds gesubsidieerd huurders two is 0.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g013 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g013 row 11 of Bereken Beschikbaar Subsidie Plafond:
+    the aanvraag datum is "2026-01-12".
+    the aanvrager failliet is false.
+    the aanvrager type is "anders".
+    the gemaakte kosten two is 100.
+    the provincie woning two is "anders".
+    the reeds gesubsidieerd eigenaren two is 0.
+    the reeds gesubsidieerd huurders two is 0.
+    the rekening naam komt overeen is true.
+    the relatie tot woning two is "anders".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g014 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g014 row 1 of Recht op subsidie thuisbatterij:
+    the aanvrager failliet is true.
+    the provincie woning two is "Flevoland".
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "huurder".
+    the toestemming eigenaar two is false.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g015 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g015 row 2 of Recht op subsidie thuisbatterij:
+    the aanvraag datum is "anders".
+    the aanvrager failliet is false.
+    the aanvrager type is "eigenaar".
+    the gemaakte kosten two is 0.
+    the provincie woning two is "anders".
+    the reeds gesubsidieerd eigenaren two is 2.5.
+    the reeds gesubsidieerd huurders two is 12.
+    the rekening naam komt overeen is true.
+    the relatie tot woning two is "eigenaar".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g016 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g016 row 3 of Recht op subsidie thuisbatterij:
+    the aanvrager failliet is false.
+    the provincie woning two is "Flevoland".
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "anders".
+    the toestemming eigenaar two is false.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g017 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g017 row 4 of Recht op subsidie thuisbatterij:
+    the aanvraag datum is "2027-12-31".
+    the aanvrager failliet is false.
+    the aanvrager type is "eigenaar".
+    the gemaakte kosten two is 100.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 2.5.
+    the reeds gesubsidieerd huurders two is 1.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "huurder".
+    the toestemming eigenaar two is false.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g018 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g018 row 5 of Recht op subsidie thuisbatterij:
+    the aanvrager failliet is false.
+    the provincie woning two is "Flevoland".
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "eigenaar".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g019 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g019 row 6 of Recht op subsidie thuisbatterij:
+    the aanvraag datum is "anders".
+    the aanvrager failliet is false.
+    the aanvrager type is "anders".
+    the gemaakte kosten two is 100.
+    the provincie woning two is "Flevoland".
+    the reeds gesubsidieerd eigenaren two is 12.
+    the reeds gesubsidieerd huurders two is 1.
+    the rekening naam komt overeen is true.
+    the relatie tot woning two is "eigenaar".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g020 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g020 row 7 of Recht op subsidie thuisbatterij:
+    the aanvrager failliet is false.
+    the provincie woning two is "Flevoland".
+    the rekening naam komt overeen is true.
+    the relatie tot woning two is "huurder".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+scenario g021 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g021 row 8 of Recht op subsidie thuisbatterij:
+    the aanvraag datum is "2026-12-31".
+    the aanvrager failliet is false.
+    the aanvrager type is "eigenaar".
+    the gemaakte kosten two is 100.
+    the provincie woning two is "anders".
+    the reeds gesubsidieerd eigenaren two is 1.
+    the reeds gesubsidieerd huurders two is 2.5.
+    the rekening naam komt overeen is false.
+    the relatie tot woning two is "eigenaar".
+    the toestemming eigenaar two is true.
+    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
+    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
+    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+
+query q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij is:
+    the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is which number.
+
+query q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij is:
+    the subsidie maximum of the subsidie constanten thuisbatterij is which number.
+
+query q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij is:
+    the subsidie minimum of the subsidie constanten thuisbatterij is which number.
+
+query q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij is:
+    the subsidie percentage of the subsidie constanten thuisbatterij is which number.
+

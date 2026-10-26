@@ -1,0 +1,35 @@
+% lib/text.le — joining, testing and measuring pieces of text, as LE templates.
+%
+% The rule systems the translators read (Oracle Intelligent Advisor above
+% all) build messages, labels and identifiers out of pieces of text: OIA's
+% `"Process: " + the parent form + "."`, `Text(the amount)`,
+% `Contains(the screen, "&")`. A library, not syntax: include it as a
+% resource (a translator copies it beside the program it writes, with
+% text.pl), and use its templates like any other.
+%
+% Each template is implemented by the predicate of text.pl named after it, so
+% the LE file carries no Prolog text.
+%
+% (`*a text* starts with *a part*` is LE's own, language.md §7.)
+%
+% A number becomes text the way such systems print it: a whole number
+% without decimals (70, not 70.0), other numbers with the decimals they need
+% (6152.36996634624). A date becomes its ISO form (2026-10-15).
+
+the knowledge base text includes these resources:
+    text.pl.
+
+% Each of these gives ONE value for its arguments, so they are declared
+% FUNCTIONS (§2.3 of the language reference).
+the functions are:
+    the joining of *a list* is *a text*.
+    the text of *a value* is *a text*.
+    the length of *a text* is *a number*.
+
+the templates are:
+    *a text* contains *a part*.
+    *a text* ends with *a part*.
+
+the knowledge base text includes:
+
+% Every template is answered by text.pl.

@@ -1,0 +1,96 @@
+{
+  "counts": {"approximated":0,"encoded":3,"residue":0},
+  "entries": [
+    {
+      "element":"checks",
+      "in_program":"checks",
+      "kind":"context",
+      "mapping":"context",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"isEligible",
+      "in_program":"isEligible",
+      "kind":"context",
+      "mapping":"context",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"nextSteps",
+      "in_program":"nextSteps",
+      "kind":"literal expression",
+      "mapping":"literal expression",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":12,
+    "tests": [
+      {
+	"detail":"",
+	"query":"q_d_is_eligible",
+	"result":"pass",
+	"scenario":"Age_Req_Fail_with_no_spouse"
+      },
+      {
+	"detail":"",
+	"query":"q_d_meets_age_requirement_of_the_checks",
+	"result":"pass",
+	"scenario":"Age_Req_Fail_with_no_spouse"
+      },
+      {
+	"detail":"",
+	"query":"q_d_is_eligible",
+	"result":"pass",
+	"scenario":"Age_Req_null_with_only_client_DOB"
+      },
+      {
+	"detail":"",
+	"query":"q_d_meets_age_requirement_of_the_checks",
+	"result":"pass",
+	"scenario":"Age_Req_null_with_only_client_DOB"
+      },
+      {
+	"detail":"",
+	"query":"q_d_is_eligible",
+	"result":"pass",
+	"scenario":"Age_Req_true_with_only_client_DOB___65"
+      },
+      {
+	"detail":"",
+	"query":"q_d_meets_age_requirement_of_the_checks",
+	"result":"pass",
+	"scenario":"Age_Req_true_with_only_client_DOB___65"
+      },
+      {
+	"detail":"",
+	"query":"q_d_is_eligible",
+	"result":"pass",
+	"scenario":"Eligible__late_spouse_was_65__"
+      },
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Eligible"},
+      {
+	"detail":"",
+	"query":"q_d_is_eligible",
+	"result":"pass",
+	"scenario":"Ineligible__late_spouse_was_65__"
+      },
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Ineligible"},
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Next_steps"},
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Smoke_Test"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["senior-citizen-tax-freeze.dmn" ],
+    "program":"senior_citizen_tax_freeze",
+    "source":"DMN",
+    "translator":"dmn_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":9
+}

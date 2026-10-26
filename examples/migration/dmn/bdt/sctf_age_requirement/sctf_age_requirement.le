@@ -1,0 +1,410 @@
+% The Logical English twin of the DMN model "SctfAgeRequirement" (sctf-age-requirement.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base sctf_age_requirement includes these resources:
+    feel,
+    temporal.
+
+the functions are:
+    the primary person id of the situation is *a text*.
+    the late spouse was at least65 of the simple checks of the situation is *a truth value*.
+    the check result is *a truth value*.
+    the spouse id of the check result is *a value*.
+    the primary person65 plus this year of the check result is *a truth value*.
+    the primary person50 plus this year of the check result is *a truth value*.
+    the spouse65 plus this year of the check result is *a truth value*.
+    the late spouse was at least65 of the check result is *a value*.
+
+the templates are:
+    the people of the situation include *a date* with *an id*.
+    the people of the situation are listed.
+    the relationships of the situation include *a type* with *a person id* with *a related person id*.
+    the relationships of the situation are listed.
+
+the knowledge base sctf_age_requirement includes:
+
+the text of the_model is at "sources/sctf-age-requirement.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the spouse id of the check result is a value if
+    the relationships of the situation include a type with a person id with the value
+    and the person id is equal to the primary person id of the situation
+    and the type is equal to "spouse".
+
+rule check_result_2 with provenance the model at decision checkResult:
+the primary person65 plus this year of the check result is true if
+    it is not the case that
+        the people of the situation include a date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second date with a second id
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 >= 65.
+
+rule check_result_3 with provenance the model at decision checkResult:
+the primary person65 plus this year of the check result is true if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include a third date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 >= 65.
+
+rule check_result_4 with provenance the model at decision checkResult:
+the primary person65 plus this year of the check result is true if
+    the people of the situation include a date with an id
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second date with a second id
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a fifth date with a third id
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N >= 65.
+
+rule check_result_5 with provenance the model at decision checkResult:
+the primary person65 plus this year of the check result is false if
+    it is not the case that
+        the people of the situation include a date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second date with a second id
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 < 65.
+
+rule check_result_6 with provenance the model at decision checkResult:
+the primary person65 plus this year of the check result is false if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include a third date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 < 65.
+
+rule check_result_7 with provenance the model at decision checkResult:
+the primary person65 plus this year of the check result is false if
+    the people of the situation include a date with an id
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second date with a second id
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a fifth date with a third id
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N < 65.
+
+rule check_result_8 with provenance the model at decision checkResult:
+the primary person50 plus this year of the check result is true if
+    it is not the case that
+        the people of the situation include a date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second date with a second id
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 >= 50.
+
+rule check_result_9 with provenance the model at decision checkResult:
+the primary person50 plus this year of the check result is true if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include a third date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 >= 50.
+
+rule check_result_10 with provenance the model at decision checkResult:
+the primary person50 plus this year of the check result is true if
+    the people of the situation include a date with an id
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second date with a second id
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a fifth date with a third id
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N >= 50.
+
+rule check_result_11 with provenance the model at decision checkResult:
+the primary person50 plus this year of the check result is false if
+    it is not the case that
+        the people of the situation include a date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and the people of the situation include a second date with a second id
+        and the primary person id of the situation is the text
+        and the second id is equal to the text
+    and -1 < 50.
+
+rule check_result_12 with provenance the model at decision checkResult:
+the primary person50 plus this year of the check result is false if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include a third date with an id
+        and the primary person id of the situation is a text
+        and the id is equal to the text
+    and -1 < 50.
+
+rule check_result_13 with provenance the model at decision checkResult:
+the primary person50 plus this year of the check result is false if
+    the people of the situation include a date with an id
+    and the primary person id of the situation is a text
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second date with a second id
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a fifth date with a third id
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N < 50.
+
+rule check_result_14 with provenance the model at decision checkResult:
+the spouse65 plus this year of the check result is true if
+    it is not the case that
+        the people of the situation include a date with an id
+        and the spouse id of the check result is a value
+        and the id is equal to the value
+    and the people of the situation include a second date with a second id
+        and the spouse id of the check result is the value
+        and the second id is equal to the value
+    and -1 >= 65.
+
+rule check_result_15 with provenance the model at decision checkResult:
+the spouse65 plus this year of the check result is true if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include a third date with an id
+        and the spouse id of the check result is a value
+        and the id is equal to the value
+    and -1 >= 65.
+
+rule check_result_16 with provenance the model at decision checkResult:
+the spouse65 plus this year of the check result is true if
+    the people of the situation include a date with an id
+    and the spouse id of the check result is a value
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second date with a second id
+            and the spouse id of the check result is the value
+            and the second id is equal to the value
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a fifth date with a third id
+        and the spouse id of the check result is the value
+        and the third id is equal to the value
+    and N >= 65.
+
+rule check_result_17 with provenance the model at decision checkResult:
+the spouse65 plus this year of the check result is false if
+    it is not the case that
+        the people of the situation include a date with an id
+        and the spouse id of the check result is a value
+        and the id is equal to the value
+    and the people of the situation include a second date with a second id
+        and the spouse id of the check result is the value
+        and the second id is equal to the value
+    and -1 < 65.
+
+rule check_result_18 with provenance the model at decision checkResult:
+the spouse65 plus this year of the check result is false if
+    it is not the case that
+        today is a date
+        and the year of the date is a number
+        and the date of year the number month 12 day 31 is a second date
+    and the people of the situation include a third date with an id
+        and the spouse id of the check result is a value
+        and the id is equal to the value
+    and -1 < 65.
+
+rule check_result_19 with provenance the model at decision checkResult:
+the spouse65 plus this year of the check result is false if
+    the people of the situation include a date with an id
+    and the spouse id of the check result is a value
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second date with a second id
+            and the spouse id of the check result is the value
+            and the second id is equal to the value
+        or it is not the case that
+            today is a third date
+            and the year of the third date is a number
+            and the date of year the number month 12 day 31 is a fourth date
+    and today is the third date
+    and the year of the third date is the number
+    and the date of year the number month 12 day 31 is the fourth date
+    and the number of whole years from the date to the fourth date is a number N
+    and the people of the situation include a fifth date with a third id
+        and the spouse id of the check result is the value
+        and the third id is equal to the value
+    and N < 65.
+
+the late spouse was at least65 of the check result is the late spouse was at least65 of the simple checks of the situation, as stated in the model at decision checkResult.
+
+rule check_result_21 with provenance the model at decision checkResult:
+the check result is true if
+    the primary person65 plus this year of the check result is true.
+
+rule check_result_22 with provenance the model at decision checkResult:
+the check result is true if
+    the relationships of the situation are listed
+    and the spouse id of the check result is a value
+    and the spouse65 plus this year of the check result is true.
+
+rule check_result_23 with provenance the model at decision checkResult:
+the check result is true if
+    the primary person50 plus this year of the check result is true
+    and the late spouse was at least65 of the check result is true.
+
+rule check_result_24 with provenance the model at decision checkResult:
+the check result is false if
+    the primary person65 plus this year of the check result is false
+    and the relationships of the situation are listed
+    and it is not the case that the spouse id of the check result is a value
+    and the primary person50 plus this year of the check result is false.
+
+rule check_result_25 with provenance the model at decision checkResult:
+the check result is false if
+    the primary person65 plus this year of the check result is false
+    and the relationships of the situation are listed
+    and it is not the case that the spouse id of the check result is a value
+    and the late spouse was at least65 of the check result is false.
+
+rule check_result_26 with provenance the model at decision checkResult:
+the check result is false if
+    the primary person65 plus this year of the check result is false
+    and the relationships of the situation are listed
+    and the spouse id of the check result is a value
+    and the spouse65 plus this year of the check result is false
+    and the primary person50 plus this year of the check result is false.
+
+rule check_result_27 with provenance the model at decision checkResult:
+the check result is false if
+    the primary person65 plus this year of the check result is false
+    and the relationships of the situation are listed
+    and the spouse id of the check result is a value
+    and the spouse65 plus this year of the check result is false
+    and the late spouse was at least65 of the check result is false.
+
+scenario Fail is, as stated in the Bruno requests of SctfAgeRequirement at test case Fail:
+    the people of the situation are listed.
+    the people of the situation include 2000-01-01 with "p1".
+    the people of the situation include 2000-01-01 with "p2".
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the late spouse was at least65 of the simple checks of the situation is false.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Known_no_spouse is, as stated in the Bruno requests of SctfAgeRequirement at test case Known no spouse:
+    the people of the situation are listed.
+    the people of the situation include 2000-01-01 with "p1".
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the late spouse was at least65 of the simple checks of the situation is false.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Null_late_spouse_unknown is, as stated in the Bruno requests of SctfAgeRequirement at test case Null late spouse unknown:
+    the people of the situation are listed.
+    the people of the situation include 1970-01-01 with "p1".
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers [].
+
+scenario Null is, as stated in the Bruno requests of SctfAgeRequirement at test case Null:
+    the people of the situation are listed.
+    the people of the situation include 2000-01-01 with "p1".
+    the primary person id of the situation is "p1".
+    the late spouse was at least65 of the simple checks of the situation is false.
+    q_d_check_result expects answers [].
+
+scenario Pass_late_spouse is, as stated in the Bruno requests of SctfAgeRequirement at test case Pass late spouse:
+    the people of the situation are listed.
+    the people of the situation include 1970-01-01 with "p1".
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the late spouse was at least65 of the simple checks of the situation is true.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Pass is, as stated in the Bruno requests of SctfAgeRequirement at test case Pass:
+    the people of the situation are listed.
+    the people of the situation include 1950-01-01 with "p1".
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the late spouse was at least65 of the simple checks of the situation is false.
+    q_d_check_result expects answers ["the check result is true"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

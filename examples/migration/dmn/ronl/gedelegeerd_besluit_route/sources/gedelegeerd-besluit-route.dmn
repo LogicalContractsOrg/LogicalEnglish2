@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_GedelegeerdBesluitRoute" name="GedelegeerdBesluitRoute" namespace="http://example.com/besluitvorming-gedelegeerd/dmn" exporter="Camunda Modeler" exporterVersion="5.43.1">
+  <decision id="GedelegeerdBesluitRoute" name="Route besluit onder gedelegeerde bevoegdheid" camunda:historyTimeToLive="365">
+    <decisionTable id="DecisionTable_GedelegeerdBesluitRoute" hitPolicy="FIRST">
+      <input id="Input_VoorwaardenVervuld" label="Zijn alle voorwaarden vervuld?">
+        <inputExpression id="InputExpression_VoorwaardenVervuld" typeRef="boolean">
+          <text>voorwaardenVervuld</text>
+        </inputExpression>
+      </input>
+      <input id="Input_BinnenMandaat" label="Valt het besluit binnen de gedelegeerde bevoegdheid?">
+        <inputExpression id="InputExpression_BinnenMandaat" typeRef="boolean">
+          <text>binnenMandaat</text>
+        </inputExpression>
+      </input>
+      <input id="Input_PolitiekGevoelig" label="Is het besluit politiek gevoelig?">
+        <inputExpression id="InputExpression_PolitiekGevoelig" typeRef="boolean">
+          <text>politiekGevoelig</text>
+        </inputExpression>
+      </input>
+      <input id="Input_OverwegingenDuidelijk" label="Zijn aanleiding en overwegingen duidelijk?">
+        <inputExpression id="InputExpression_OverwegingenDuidelijk" typeRef="boolean">
+          <text>overwegingenDuidelijk</text>
+        </inputExpression>
+      </input>
+      <input id="Input_FinancieleGevolgen" label="Financiële gevolgen (€)">
+        <inputExpression id="InputExpression_FinancieleGevolgen" typeRef="double">
+          <text>financieleGevolgen</text>
+        </inputExpression>
+      </input>
+      <output id="Output_Route" label="Route" name="route" typeRef="string" />
+      <rule id="Rule_VoorwaardenNietVervuld">
+        <description>Escalatie: niet alle voorwaarden zijn vervuld.</description>
+        <inputEntry id="Entry_R1_Voorwaarden"><text>false</text></inputEntry>
+        <inputEntry id="Entry_R1_Mandaat"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R1_Politiek"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R1_Overwegingen"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R1_Financieel"><text>-</text></inputEntry>
+        <outputEntry id="Output_R1"><text>"escaleren"</text></outputEntry>
+      </rule>
+      <rule id="Rule_BuitenMandaat">
+        <description>Escalatie: het besluit valt buiten de gedelegeerde bevoegdheid.</description>
+        <inputEntry id="Entry_R2_Voorwaarden"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R2_Mandaat"><text>false</text></inputEntry>
+        <inputEntry id="Entry_R2_Politiek"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R2_Overwegingen"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R2_Financieel"><text>-</text></inputEntry>
+        <outputEntry id="Output_R2"><text>"escaleren"</text></outputEntry>
+      </rule>
+      <rule id="Rule_PolitiekGevoelig">
+        <description>Escalatie: het besluit is politiek gevoelig.</description>
+        <inputEntry id="Entry_R3_Voorwaarden"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R3_Mandaat"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R3_Politiek"><text>true</text></inputEntry>
+        <inputEntry id="Entry_R3_Overwegingen"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R3_Financieel"><text>-</text></inputEntry>
+        <outputEntry id="Output_R3"><text>"escaleren"</text></outputEntry>
+      </rule>
+      <rule id="Rule_OverwegingenOnduidelijk">
+        <description>Formeel memorandum: overwegingen en aandachtspunten zijn niet duidelijk.</description>
+        <inputEntry id="Entry_R4_Voorwaarden"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R4_Mandaat"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R4_Politiek"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R4_Overwegingen"><text>false</text></inputEntry>
+        <inputEntry id="Entry_R4_Financieel"><text>-</text></inputEntry>
+        <outputEntry id="Output_R4"><text>"memorandum"</text></outputEntry>
+      </rule>
+      <rule id="Rule_FinancieelBoven50000">
+        <description>Formeel memorandum: financiële gevolgen boven € 50.000.</description>
+        <inputEntry id="Entry_R5_Voorwaarden"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R5_Mandaat"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R5_Politiek"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R5_Overwegingen"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R5_Financieel"><text>&gt; 50000</text></inputEntry>
+        <outputEntry id="Output_R5"><text>"memorandum"</text></outputEntry>
+      </rule>
+      <rule id="Rule_DirectOndertekenen">
+        <description>Alle voorwaarden vervuld, geen memorandum vereist: direct ter ondertekening.</description>
+        <inputEntry id="Entry_R6_Voorwaarden"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R6_Mandaat"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R6_Politiek"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R6_Overwegingen"><text>-</text></inputEntry>
+        <inputEntry id="Entry_R6_Financieel"><text>-</text></inputEntry>
+        <outputEntry id="Output_R6"><text>"ondertekenen"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_GedelegeerdBesluitRoute">
+      <dmndi:DMNShape id="DMNShape_GedelegeerdBesluitRoute" dmnElementRef="GedelegeerdBesluitRoute">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

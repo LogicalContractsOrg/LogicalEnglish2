@@ -1,0 +1,119 @@
+% The Logical English twin of the DMN model "GedelegeerdBesluitRoute" (gedelegeerd-besluit-route.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the route besluit onder gedelegeerde bevoegdheid is *a text*.
+    the binnen mandaat is *a truth value*.
+    the financiele gevolgen is *a number*.
+    the overwegingen duidelijk is *a truth value*.
+    the politiek gevoelig is *a truth value*.
+    the voorwaarden vervuld is *a truth value*.
+    the voorwaarden vervuld or null is *a truth value*.
+    the binnen mandaat or null is *a truth value*.
+    the politiek gevoelig or null is *a truth value*.
+    the overwegingen duidelijk or null is *a truth value*.
+
+the templates are:
+    the route besluit onder gedelegeerde bevoegdheid for *a truth value* and *a second truth value* and *a third truth value* and *a fourth truth value* and *a number* is *a text* under table route_besluit_onder_gedelegeerde_bevoegdheid.
+
+the table route_besluit_onder_gedelegeerde_bevoegdheid is, with first match:
+    voorwaarden vervuld | binnen mandaat | politiek gevoelig | overwegingen duidelijk | financiele gevolgen | route
+    false               | any            | any               | any                    | any                 | "escaleren"
+    any                 | false          | any               | any                    | any                 | "escaleren"
+    any                 | any            | true              | any                    | any                 | "escaleren"
+    any                 | any            | any               | false                  | any                 | "memorandum"
+    any                 | any            | any               | any                    | > 50000             | "memorandum"
+    any                 | any            | any               | any                    | any                 | "ondertekenen"
+
+the knowledge base gedelegeerd_besluit_route includes:
+
+the text of the_model is at "sources/gedelegeerd-besluit-route.dmn".
+
+the voorwaarden vervuld or null is the voorwaarden vervuld, as stated in the model at decision Route besluit onder gedelegeerde bevoegdheid.
+
+rule route_besluit_onder_gedelegeerde_bevoegdheid_2 with provenance the model at decision Route besluit onder gedelegeerde bevoegdheid:
+the voorwaarden vervuld or null is null if
+    it is not the case that the voorwaarden vervuld is a truth value.
+
+the binnen mandaat or null is the binnen mandaat, as stated in the model at decision Route besluit onder gedelegeerde bevoegdheid.
+
+rule route_besluit_onder_gedelegeerde_bevoegdheid_4 with provenance the model at decision Route besluit onder gedelegeerde bevoegdheid:
+the binnen mandaat or null is null if
+    it is not the case that the binnen mandaat is a truth value.
+
+the politiek gevoelig or null is the politiek gevoelig, as stated in the model at decision Route besluit onder gedelegeerde bevoegdheid.
+
+rule route_besluit_onder_gedelegeerde_bevoegdheid_6 with provenance the model at decision Route besluit onder gedelegeerde bevoegdheid:
+the politiek gevoelig or null is null if
+    it is not the case that the politiek gevoelig is a truth value.
+
+the overwegingen duidelijk or null is the overwegingen duidelijk, as stated in the model at decision Route besluit onder gedelegeerde bevoegdheid.
+
+rule route_besluit_onder_gedelegeerde_bevoegdheid_8 with provenance the model at decision Route besluit onder gedelegeerde bevoegdheid:
+the overwegingen duidelijk or null is null if
+    it is not the case that the overwegingen duidelijk is a truth value.
+
+rule route_besluit_onder_gedelegeerde_bevoegdheid_9 with provenance the model at decision Route besluit onder gedelegeerde bevoegdheid:
+the route besluit onder gedelegeerde bevoegdheid is a text if
+    the route besluit onder gedelegeerde bevoegdheid for the voorwaarden vervuld or null and the binnen mandaat or null and the politiek gevoelig or null and the overwegingen duidelijk or null and the financiele gevolgen is the text under table route_besluit_onder_gedelegeerde_bevoegdheid.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Route besluit onder gedelegeerde bevoegdheid:
+    the binnen mandaat is false.
+    the financiele gevolgen is 0.
+    the overwegingen duidelijk is true.
+    the politiek gevoelig is true.
+    the voorwaarden vervuld is false.
+    q_d_route_besluit_onder_gedelegeerde_bevoegdheid expects answers ["the route besluit onder gedelegeerde bevoegdheid is escaleren"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Route besluit onder gedelegeerde bevoegdheid:
+    the binnen mandaat is false.
+    the financiele gevolgen is 0.
+    the overwegingen duidelijk is false.
+    the politiek gevoelig is false.
+    the voorwaarden vervuld is false.
+    q_d_route_besluit_onder_gedelegeerde_bevoegdheid expects answers ["the route besluit onder gedelegeerde bevoegdheid is escaleren"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Route besluit onder gedelegeerde bevoegdheid:
+    the binnen mandaat is false.
+    the financiele gevolgen is 50000.
+    the overwegingen duidelijk is false.
+    the politiek gevoelig is true.
+    the voorwaarden vervuld is false.
+    q_d_route_besluit_onder_gedelegeerde_bevoegdheid expects answers ["the route besluit onder gedelegeerde bevoegdheid is escaleren"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Route besluit onder gedelegeerde bevoegdheid:
+    the binnen mandaat is true.
+    the financiele gevolgen is 50000.
+    the overwegingen duidelijk is false.
+    the politiek gevoelig is true.
+    the voorwaarden vervuld is false.
+    q_d_route_besluit_onder_gedelegeerde_bevoegdheid expects answers ["the route besluit onder gedelegeerde bevoegdheid is escaleren"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of Route besluit onder gedelegeerde bevoegdheid:
+    the binnen mandaat is true.
+    the financiele gevolgen is 50001.
+    the overwegingen duidelijk is false.
+    the politiek gevoelig is false.
+    the voorwaarden vervuld is true.
+    q_d_route_besluit_onder_gedelegeerde_bevoegdheid expects answers ["the route besluit onder gedelegeerde bevoegdheid is memorandum"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 6 of Route besluit onder gedelegeerde bevoegdheid:
+    the binnen mandaat is false.
+    the financiele gevolgen is 50000.
+    the overwegingen duidelijk is true.
+    the politiek gevoelig is true.
+    the voorwaarden vervuld is true.
+    q_d_route_besluit_onder_gedelegeerde_bevoegdheid expects answers ["the route besluit onder gedelegeerde bevoegdheid is escaleren"].
+
+query q_d_route_besluit_onder_gedelegeerde_bevoegdheid is:
+    the route besluit onder gedelegeerde bevoegdheid is which text.
+

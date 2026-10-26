@@ -1,0 +1,39 @@
+% The Logical English twin of the DMN model "BDT" (BDT.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base bdt includes these resources:
+    temporal.
+
+the functions are:
+    the age as of date of *a value* and *a second value* is *a third value*.
+    the invoke decision service of *a value* and *a second value* and *a third value* and *a fourth value* is *a fifth value*.
+    the spouse id of *a value* and *a second value* is *a third value*.
+
+the knowledge base bdt includes:
+
+the text of the_model is at "sources/BDT.dmn".
+
+the age as of date of a value and a second value is a third value if
+    the number of whole years from the value to the second value is the third value.
+
+% RESIDUE r_invoke_decision_service BEGIN: business knowledge model invoke decision service
+% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
+%   FEEL:
+%   | function([param('model name',string),param('service name',string),param(situation,tSituation),param(parameters,'Any')],java,context([entry(class,literal('"org.codeforphilly.bdt.library.functions.DecisionServiceInvoker"')),entry('method signature',literal('"invoke(java.lang.String, java.lang.String, java.util.Map, java.util.Map)"'))]))
+% RESIDUE r_invoke_decision_service END
+
+% RESIDUE r_spouse_id BEGIN: business knowledge model spouse id
+% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
+%   FEEL:
+%   | context([entry('persons spouse relationship',literal('relationships[item.personId = personId and item.type = "spouse"][1]')),entry(result,literal('persons spouse relationship.relatedPersonId')),entry('$result',literal(result))])
+% RESIDUE r_spouse_id END
+

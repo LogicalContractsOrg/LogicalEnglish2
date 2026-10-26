@@ -1,0 +1,497 @@
+% The Logical English twin of the DMN model "PhlRetip" (retip.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base retip includes these resources:
+    feel,
+    temporal.
+
+the functions are:
+    the owner occupant of the simple checks of the situation is *a truth value*.
+    the lives in philadelphia pa of the simple checks of the situation is *a truth value*.
+    the spouse lives in household of the simple checks of the situation is *a truth value*.
+    the primary person id of the situation is *a text*.
+    the household size of the situation is *a number*.
+    the household income of the situation is *a number*.
+    the apply url of the eligible of the next steps is *a text*.
+    the help url of the eligible of the next steps is *a text*.
+    the help phone of the eligible of the next steps is *a text*.
+    the body of the eligible of the next steps is *a text*.
+    the note of the ineligible of the next steps is *a text*.
+    the not already enrolled of the checks is *a value*.
+    the owner occupant of the checks is *a value*.
+    the lives in philadelphia pa of the checks is *a value*.
+    the meets age or income requirement of the checks is *a value*.
+    the is_eligible is *a truth value*.
+    the owner occupant service result is *a truth value*.
+    the lives in philadelphia pa service result is *a truth value*.
+    the retip age or income requirement service result is *a truth value*.
+    the applicant or spouse min age service result is *a truth value*.
+    the primary person meets age of the applicant or spouse min age service is *a truth value*.
+    the spouse id of the applicant or spouse min age service is *a value*.
+    the spouse meets age of the applicant or spouse min age service is *a truth value*.
+    the retip income service result is *a truth value*.
+
+the templates are:
+    the enrollments of the situation include *a person id* with *a benefit*.
+    the enrollments of the situation are listed.
+    the people of the situation include *an id* with *a date*.
+    the people of the situation are listed.
+    the relationships of the situation include *a type* with *a person id* with *a related person id*.
+    the relationships of the situation are listed.
+
+the knowledge base retip includes:
+
+the text of the_model is at "sources/retip.dmn".
+
+the apply url of the eligible of the next steps is "https://tax-services.phila.gov/_/".
+
+the help url of the eligible of the next steps is "https://www.phila.gov/services/payments-assistance-taxes/payment-plans-and-assistance-programs/income-based-programs-for-residents/set-up-real-estate-tax-installment-plan/".
+
+the help phone of the eligible of the next steps is "(215) 686-6442".
+
+the body of the eligible of the next steps is "Apply through the Philadelphia Tax Center using the combined real estate assistance application, or mail the paper application from the program page.
+
+- Applications must be received by March 31 each year.
+- Provide proof of age if applying as a senior, or the income information required for a low-income application.
+- Make every required monthly payment. Missing payments can end the plan and make the remaining taxes, interest, and charges due.".
+
+the note of the ineligible of the next steps is "If you are already enrolled and finish all required payments, the City automatically enrolls you for the following year. The application is for new applicants.".
+
+rule checks_1 with provenance the model at decision checks:
+the not already enrolled of the checks is true if
+    the enrollments of the situation are listed
+    and the primary person id of the situation is a text
+    and it is not the case that
+        the enrollments of the situation include a person id with a benefit
+        and the primary person id of the situation is the text
+        and the person id is equal to the text
+        and the benefit is equal to "PhlRetip".
+
+rule checks_2 with provenance the model at decision checks:
+the not already enrolled of the checks is false if
+    the enrollments of the situation are listed
+    and the enrollments of the situation include a person id with a benefit
+    and the person id is equal to the primary person id of the situation
+    and the benefit is equal to "PhlRetip".
+
+rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is true if
+    the owner occupant of the simple checks of the situation is true.
+
+rule owner_occupant_service_2 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is false if
+    the owner occupant of the simple checks of the situation is false.
+
+the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
+
+rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is true if
+    the lives in philadelphia pa of the simple checks of the situation is true.
+
+rule lives_in_philadelphia_pa_service_2 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is false if
+    the lives in philadelphia pa of the simple checks of the situation is false.
+
+the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
+
+rule applicant_or_spouse_min_age_service_1 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the primary person meets age of the applicant or spouse min age service is true if
+    the primary person id of the situation is a text
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the second text
+        and the second id is equal to the second text
+    and -1 >= 65.
+
+rule applicant_or_spouse_min_age_service_2 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the primary person meets age of the applicant or spouse min age service is true if
+    the primary person id of the situation is a text
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and -1 >= 65.
+
+rule applicant_or_spouse_min_age_service_3 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the primary person meets age of the applicant or spouse min age service is true if
+    the primary person id of the situation is a text
+    and the people of the situation include an id with a date
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N >= 65.
+
+rule applicant_or_spouse_min_age_service_4 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the primary person meets age of the applicant or spouse min age service is false if
+    the primary person id of the situation is a text
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the second text
+        and the second id is equal to the second text
+    and -1 < 65.
+
+rule applicant_or_spouse_min_age_service_5 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the primary person meets age of the applicant or spouse min age service is false if
+    the primary person id of the situation is a text
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and -1 < 65.
+
+rule applicant_or_spouse_min_age_service_6 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the primary person meets age of the applicant or spouse min age service is false if
+    the primary person id of the situation is a text
+    and the people of the situation include an id with a date
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and N < 65.
+
+rule applicant_or_spouse_min_age_service_7 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse id of the applicant or spouse min age service is a value if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the relationships of the situation include a type with a person id with the value
+    and the primary person id of the situation is a second text
+    and the person id is equal to the second text
+    and the type is equal to "spouse".
+
+rule applicant_or_spouse_min_age_service_8 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and it is not the case that the spouse id of the applicant or spouse min age service is a value.
+
+rule applicant_or_spouse_min_age_service_9 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is true if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and the spouse lives in household of the simple checks of the situation is true
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the spouse id of the applicant or spouse min age service is a second value
+        and the id is equal to the second value
+    and the people of the situation include a second id with a second date
+        and the spouse id of the applicant or spouse min age service is the second value
+        and the second id is equal to the second value
+    and -1 >= 65.
+
+rule applicant_or_spouse_min_age_service_10 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is true if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and the spouse lives in household of the simple checks of the situation is true
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the spouse id of the applicant or spouse min age service is a second value
+        and the id is equal to the second value
+    and -1 >= 65.
+
+rule applicant_or_spouse_min_age_service_11 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is true if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and the spouse lives in household of the simple checks of the situation is true
+    and the people of the situation include an id with a date
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the spouse id of the applicant or spouse min age service is the value
+            and the second id is equal to the value
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the spouse id of the applicant or spouse min age service is the value
+        and the third id is equal to the value
+    and N >= 65.
+
+rule applicant_or_spouse_min_age_service_12 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and the spouse lives in household of the simple checks of the situation is false.
+
+rule applicant_or_spouse_min_age_service_13 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the spouse id of the applicant or spouse min age service is a second value
+        and the id is equal to the second value
+    and the people of the situation include a second id with a second date
+        and the spouse id of the applicant or spouse min age service is the second value
+        and the second id is equal to the second value
+    and -1 < 65.
+
+rule applicant_or_spouse_min_age_service_14 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the spouse id of the applicant or spouse min age service is a second value
+        and the id is equal to the second value
+    and -1 < 65.
+
+rule applicant_or_spouse_min_age_service_15 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the spouse meets age of the applicant or spouse min age service is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the applicant or spouse min age service is a value
+    and the people of the situation include an id with a date
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the spouse id of the applicant or spouse min age service is the value
+            and the second id is equal to the value
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the spouse id of the applicant or spouse min age service is the value
+        and the third id is equal to the value
+    and N < 65.
+
+rule applicant_or_spouse_min_age_service_16 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the applicant or spouse min age service result is true if
+    the primary person meets age of the applicant or spouse min age service is true.
+
+rule applicant_or_spouse_min_age_service_17 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the applicant or spouse min age service result is true if
+    the spouse meets age of the applicant or spouse min age service is true.
+
+rule applicant_or_spouse_min_age_service_18 with provenance the model at decision ApplicantOrSpouseMinAgeService:
+the applicant or spouse min age service result is false if
+    the primary person meets age of the applicant or spouse min age service is false
+    and the spouse meets age of the applicant or spouse min age service is false.
+
+rule retip_income_service_1 with provenance the model at decision RetipIncomeService:
+the retip income service result is true if
+    it is not the case that
+        it is not the case that the household income of the situation is a number N
+        or the household income of the situation is N
+            and N < 0
+            or it is not the case that the household size of the situation is a number M
+    and it is not the case that
+        the household size of the situation is M
+        and M < 1
+        or the household size of the situation is M
+            and the count of the list [42950, 49100, 55250, 61350, 66300, 71200, 76100, 81000] is a number K
+            and M > K
+            or the household size of the situation is M
+                and the household size of the situation is M
+                and it is not the case that M = floor(M)
+    and the household income of the situation is N
+    and the household size of the situation is M
+    and the item at position M of the list [42950, 49100, 55250, 61350, 66300, 71200, 76100, 81000] is a value V
+    and N < V.
+
+rule retip_income_service_2 with provenance the model at decision RetipIncomeService:
+the retip income service result is false if
+    it is not the case that
+        it is not the case that the household income of the situation is a number N
+        or the household income of the situation is N
+            and N < 0
+            or it is not the case that the household size of the situation is a number M
+    and it is not the case that
+        the household size of the situation is M
+        and M < 1
+        or the household size of the situation is M
+            and the count of the list [42950, 49100, 55250, 61350, 66300, 71200, 76100, 81000] is a number K
+            and M > K
+            or the household size of the situation is M
+                and the household size of the situation is M
+                and it is not the case that M = floor(M)
+    and the household income of the situation is N
+    and the household size of the situation is M
+    and the item at position M of the list [42950, 49100, 55250, 61350, 66300, 71200, 76100, 81000] is a value V
+    and N >= V.
+
+rule retip_age_or_income_requirement_service_1 with provenance the model at decision RetipAgeOrIncomeRequirementService:
+the retip age or income requirement service result is true if
+    the applicant or spouse min age service result is true.
+
+rule retip_age_or_income_requirement_service_2 with provenance the model at decision RetipAgeOrIncomeRequirementService:
+the retip age or income requirement service result is true if
+    the retip income service result is true.
+
+rule retip_age_or_income_requirement_service_3 with provenance the model at decision RetipAgeOrIncomeRequirementService:
+the retip age or income requirement service result is false if
+    the applicant or spouse min age service result is false
+    and the retip income service result is false.
+
+the meets age or income requirement of the checks is the retip age or income requirement service result, as stated in the model at decision checks.
+
+rule is_eligible_1 with provenance the model at decision isEligible:
+the is_eligible is true if
+    the not already enrolled of the checks is true
+    and the owner occupant of the checks is true
+    and the lives in philadelphia pa of the checks is true
+    and the meets age or income requirement of the checks is true.
+
+rule is_eligible_2 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the not already enrolled of the checks is false.
+
+rule is_eligible_3 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the owner occupant of the checks is false.
+
+rule is_eligible_4 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the lives in philadelphia pa of the checks is false.
+
+rule is_eligible_5 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the meets age or income requirement of the checks is false.
+
+scenario Already_enrolled is, as stated in the Bruno requests of PhlRetip at test case Already enrolled:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "PhlRetip".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_not_already_enrolled_of_the_checks expects answers ["the not already enrolled of the checks is false"].
+
+scenario Eligible_by_income is, as stated in the Bruno requests of PhlRetip at test case Eligible by income:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 30000.
+    the household size of the situation is 1.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+    q_d_meets_age_or_income_requirement_of_the_checks expects answers ["the meets age or income requirement of the checks is true"].
+
+scenario Eligible_by_live_in_spouse_age is, as stated in the Bruno requests of PhlRetip at test case Eligible by live in spouse age:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 1000000.
+    the household size of the situation is 2.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the people of the situation include "p2" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the spouse lives in household of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+    q_d_meets_age_or_income_requirement_of_the_checks expects answers ["the meets age or income requirement of the checks is true"].
+
+scenario Eligible is, as stated in the Bruno requests of PhlRetip at test case Eligible:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+
+scenario Fails_MeetsAgeOrIncomeRequirement is, as stated in the Bruno requests of PhlRetip at test case Fails MeetsAgeOrIncomeRequirement:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_meets_age_or_income_requirement_of_the_checks expects answers ["the meets age or income requirement of the checks is false"].
+
+scenario Ineligible is, as stated in the Bruno requests of PhlRetip at test case Ineligible:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is false.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_owner_occupant_of_the_checks expects answers ["the owner occupant of the checks is false"].
+
+scenario Next_steps is, as stated in the Bruno requests of PhlRetip at test case Next steps:
+    q_d_is_eligible expects answers [].
+
+scenario Smoke_Test is, as stated in the Bruno requests of PhlRetip at test case Smoke Test:
+    the primary person id of the situation is "p1".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    q_d_is_eligible expects answers [].
+
+query q_d_is_eligible is:
+    the is_eligible is which truth value.
+
+query q_d_meets_age_or_income_requirement_of_the_checks is:
+    the meets age or income requirement of the checks is which value.
+
+query q_d_not_already_enrolled_of_the_checks is:
+    the not already enrolled of the checks is which value.
+
+query q_d_owner_occupant_of_the_checks is:
+    the owner occupant of the checks is which value.
+

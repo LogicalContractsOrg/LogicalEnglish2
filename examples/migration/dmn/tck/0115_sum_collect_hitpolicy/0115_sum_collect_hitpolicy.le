@@ -1,0 +1,51 @@
+% The Logical English twin of the DMN model "0115-sum-collect-hitpolicy" (0115-sum-collect-hitpolicy.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the num of years is *a number*.
+    the salary is *a number*.
+
+the templates are:
+    the salary for *a number* is *a value* under table salary.
+
+the table salary is, with all matches:
+    num of years | value
+    > 1          | 100
+    > 2          | 200
+    > 3          | 300
+    > 5          | 500
+
+the knowledge base n0115_sum_collect_hitpolicy includes:
+
+the text of the_model is at "sources/0115-sum-collect-hitpolicy.dmn".
+
+rule salary_1 with provenance the model at decision Salary:
+the salary is a number N if
+    N is the sum of each V such that
+        the num of years is a second number
+        and the salary for the second number is a value V under table salary.
+
+scenario t001 is, as stated in "0115-sum-collect-hitpolicy-test-01.xml" at test case 001:
+    the num of years is 6.
+    q_d_salary expects answers ["the salary is 1100"].
+
+scenario t002 is, as stated in "0115-sum-collect-hitpolicy-test-01.xml" at test case 002:
+    the num of years is 3.
+    q_d_salary expects answers ["the salary is 300"].
+
+scenario t003 is, as stated in "0115-sum-collect-hitpolicy-test-01.xml" at test case 003:
+    the num of years is 2.
+    q_d_salary expects answers ["the salary is 100"].
+
+query q_d_salary is:
+    the salary is which number.
+

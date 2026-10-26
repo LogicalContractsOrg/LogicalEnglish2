@@ -1,0 +1,84 @@
+% The Logical English twin of the DMN model "0010-multi-output-U" (0010-multi-output-U.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the age is *a number*.
+    the risk category is *a text*.
+    the is_affordable is *a truth value*.
+    the status of the approval is *a text*.
+    the rate of the approval is *a text*.
+    the risk category or null is *a text*.
+
+the templates are:
+    the approval for *a number* and *a text* and *a truth value* is *a second text* with *a third text* under table approval.
+
+the table approval is, with unique match:
+    age   | risk category     | is_affordable | status     | rate
+    >= 18 | "Low"             | true          | "Approved" | "Best"
+    >= 18 | "Medium"          | true          | "Approved" | "Standard"
+    < 18  | "Medium" or "Low" | true          | "Declined" | "Standard"
+    any   | "High"            | true          | "Declined" | "Standard"
+    any   | any               | false         | "Declined" | "Standard"
+
+the knowledge base n0010_multi_output_u includes:
+
+the text of the_model is at "sources/0010-multi-output-U.dmn".
+
+the risk category or null is the risk category, as stated in the model at decision Approval.
+
+rule approval_2 with provenance the model at decision Approval:
+the risk category or null is null if
+    it is not the case that the risk category is a text.
+
+rule approval_3 with provenance the model at decision Approval:
+the status of the approval is a text if
+    the age is a number
+    and the risk category or null is a second text
+    and the is_affordable is a truth value
+    and the approval for the number and the second text and the truth value is the text with a third text under table approval
+    otherwise the text is equal to "Declined".
+
+rule approval_4 with provenance the model at decision Approval:
+the rate of the approval is a text if
+    the age is a number
+    and the risk category or null is a second text
+    and the is_affordable is a truth value
+    and the approval for the number and the second text and the truth value is a third text with the text under table approval
+    otherwise the text is equal to "Standard".
+
+scenario t001 is, as stated in "0010-multi-output-U-test-01.xml" at test case 001:
+    the age is 18.
+    the risk category is "Medium".
+    the is_affordable is true.
+    q_d_status_of_the_approval expects answers ["the status of the approval is Approved"].
+    q_d_rate_of_the_approval expects answers ["the rate of the approval is Standard"].
+
+scenario t002 is, as stated in "0010-multi-output-U-test-01.xml" at test case 002:
+    the age is 17.
+    the risk category is "Medium".
+    the is_affordable is true.
+    q_d_status_of_the_approval expects answers ["the status of the approval is Declined"].
+    q_d_rate_of_the_approval expects answers ["the rate of the approval is Standard"].
+
+scenario t003 is, as stated in "0010-multi-output-U-test-01.xml" at test case 003:
+    the age is 18.
+    the risk category is "High".
+    the is_affordable is true.
+    q_d_status_of_the_approval expects answers ["the status of the approval is Declined"].
+    q_d_rate_of_the_approval expects answers ["the rate of the approval is Standard"].
+
+query q_d_rate_of_the_approval is:
+    the rate of the approval is which text.
+
+query q_d_status_of_the_approval is:
+    the status of the approval is which text.
+

@@ -1,0 +1,65 @@
+% The Logical English twin of the DMN model "TreeFellingDecision" (tree-felling-decision.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the tree diameter is *a number*.
+    the protected area is *a truth value*.
+    the tree felling permitted is *a text*.
+    the protected area or null is *a truth value*.
+
+the templates are:
+    the tree felling permitted for *a number* and *a truth value* is *a text* under table tree_felling_permitted.
+
+the table tree_felling_permitted is, with first match:
+    tree diameter   | protected area | decision
+    <= 30           | any            | "Permit"
+    >= 31 and <= 60 | false          | "Permit"
+    >= 31 and <= 60 | true           | "Reject"
+    > 60            | any            | "Reject"
+
+the knowledge base tree_felling_decision includes:
+
+the text of the_model is at "sources/tree-felling-decision.dmn".
+
+the protected area or null is the protected area, as stated in the model at decision Tree Felling Permitted?.
+
+rule tree_felling_permitted_2 with provenance the model at decision Tree Felling Permitted?:
+the protected area or null is null if
+    it is not the case that the protected area is a truth value.
+
+rule tree_felling_permitted_3 with provenance the model at decision Tree Felling Permitted?:
+the tree felling permitted is a text if
+    the tree felling permitted for the tree diameter and the protected area or null is the text under table tree_felling_permitted.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Tree Felling Permitted?:
+    the tree diameter is 0.
+    the protected area is false.
+    q_d_tree_felling_permitted expects answers ["the tree felling permitted is Permit"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Tree Felling Permitted?:
+    the tree diameter is 31.
+    the protected area is false.
+    q_d_tree_felling_permitted expects answers ["the tree felling permitted is Permit"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Tree Felling Permitted?:
+    the tree diameter is 31.
+    the protected area is true.
+    q_d_tree_felling_permitted expects answers ["the tree felling permitted is Reject"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Tree Felling Permitted?:
+    the tree diameter is 61.
+    the protected area is true.
+    q_d_tree_felling_permitted expects answers ["the tree felling permitted is Reject"].
+
+query q_d_tree_felling_permitted is:
+    the tree felling permitted is which text.
+

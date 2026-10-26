@@ -1,0 +1,40 @@
+% The Logical English twin of the DMN model "Household income limit" (P-5bdf1ac7-b0ca-403b-89f9-7f1504f6bf26-1.0.0.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the household income is *a number*.
+    the income limit of the parameters is *a number*.
+    the household income limit is *a truth value*.
+
+the knowledge base household_income_limit includes:
+
+the text of the_model is at "sources/P-5bdf1ac7-b0ca-403b-89f9-7f1504f6bf26-1.0.0.dmn".
+
+% Passes when yearly household income is at or below incomeLimit. Each benefit that uses this check sets its own incomeLimit; Philly Cash uses 40000. A blank income gives Need more information.
+rule household_income_limit_1 with provenance the model at decision Household income limit:
+the household income limit is true if
+    it is not the case that
+        it is not the case that the household income is a number
+        or it is not the case that the income limit of the parameters is a second number
+    and the household income is a number N
+    and the income limit of the parameters is a number M
+    and N <= M.
+
+rule household_income_limit_2 with provenance the model at decision Household income limit:
+the household income limit is false if
+    it is not the case that
+        it is not the case that the household income is a number
+        or it is not the case that the income limit of the parameters is a second number
+    and the household income is a number N
+    and the income limit of the parameters is a number M
+    and N > M.
+

@@ -1,0 +1,154 @@
+% The Logical English twin of the DMN model "TaxFreezeIncome" (tax-freeze-income.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the applicant and spouse income of the situation is *a number*.
+    the primary person id of the situation is *a text*.
+    the check result is *a truth value*.
+
+the templates are:
+    the relationships of the situation include *a type* with *a person id* with *a related person id*.
+    the relationships of the situation are listed.
+    condition 1 of the check result is holds.
+    condition 2 of the check result is holds.
+    condition 3 of the check result is holds.
+    condition 4 of the check result is holds.
+
+the knowledge base tax_freeze_income includes:
+
+the text of the_model is at "sources/tax-freeze-income.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    it is not the case that
+        it is not the case that the applicant and spouse income of the situation is a number
+        or the applicant and spouse income of the situation is a number N
+            and N < 0
+            or condition 1 of the check result is holds
+    and the applicant and spouse income of the situation is a number M
+    and it is not the case that
+        the relationships of the situation include a type with a person id with a related person id
+        and the primary person id of the situation is a text
+        and the person id is equal to the text
+        and the type is equal to "spouse"
+    and M <= 33500.
+
+condition 1 of the check result is holds if
+    it is not the case that the relationships of the situation are listed
+    or it is not the case that the primary person id of the situation is a text.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is true if
+    it is not the case that
+        it is not the case that the applicant and spouse income of the situation is a number
+        or the applicant and spouse income of the situation is a number N
+            and N < 0
+            or condition 2 of the check result is holds
+    and the applicant and spouse income of the situation is a number M
+    and the relationships of the situation include a type with a person id with a related person id
+        and the primary person id of the situation is a text
+        and the person id is equal to the text
+        and the type is equal to "spouse"
+    and M <= 41500.
+
+condition 2 of the check result is holds if
+    it is not the case that the relationships of the situation are listed
+    or it is not the case that the primary person id of the situation is a text.
+
+rule check_result_3 with provenance the model at decision checkResult:
+the check result is false if
+    it is not the case that
+        it is not the case that the applicant and spouse income of the situation is a number
+        or the applicant and spouse income of the situation is a number N
+            and N < 0
+            or condition 3 of the check result is holds
+    and the applicant and spouse income of the situation is a number M
+    and it is not the case that
+        the relationships of the situation include a type with a person id with a related person id
+        and the primary person id of the situation is a text
+        and the person id is equal to the text
+        and the type is equal to "spouse"
+    and M > 33500.
+
+condition 3 of the check result is holds if
+    it is not the case that the relationships of the situation are listed
+    or it is not the case that the primary person id of the situation is a text.
+
+rule check_result_4 with provenance the model at decision checkResult:
+the check result is false if
+    it is not the case that
+        it is not the case that the applicant and spouse income of the situation is a number
+        or the applicant and spouse income of the situation is a number N
+            and N < 0
+            or condition 4 of the check result is holds
+    and the applicant and spouse income of the situation is a number M
+    and the relationships of the situation include a type with a person id with a related person id
+        and the primary person id of the situation is a text
+        and the person id is equal to the text
+        and the type is equal to "spouse"
+    and M > 41500.
+
+condition 4 of the check result is holds if
+    it is not the case that the relationships of the situation are listed
+    or it is not the case that the primary person id of the situation is a text.
+
+scenario Fail is, as stated in the Bruno requests of TaxFreezeIncome at test case Fail:
+    the applicant and spouse income of the situation is 33500.01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Income_unknown is, as stated in the Bruno requests of TaxFreezeIncome at test case Income unknown:
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers [].
+
+scenario Invalid_income is, as stated in the Bruno requests of TaxFreezeIncome at test case Invalid income:
+    the applicant and spouse income of the situation is -1.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers [].
+
+scenario Married_at_limit is, as stated in the Bruno requests of TaxFreezeIncome at test case Married at limit:
+    the applicant and spouse income of the situation is 41500.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Married_over_limit is, as stated in the Bruno requests of TaxFreezeIncome at test case Married over limit:
+    the applicant and spouse income of the situation is 41500.01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Null is, as stated in the Bruno requests of TaxFreezeIncome at test case Null:
+    the applicant and spouse income of the situation is 30000.
+    the primary person id of the situation is "p1".
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of TaxFreezeIncome at test case Pass:
+    the applicant and spouse income of the situation is 33500.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Zero_income is, as stated in the Bruno requests of TaxFreezeIncome at test case Zero income:
+    the applicant and spouse income of the situation is 0.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers ["the check result is true"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

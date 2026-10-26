@@ -1,0 +1,43 @@
+% The Logical English twin of the DMN model "ReplacementTreeDecision" (replacement-tree-decision.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the tree diameter is *a number*.
+    the replacement tree required is *a truth value*.
+
+the templates are:
+    the replacement tree required for *a number* is *a truth value* under table replacement_tree_required.
+
+the table replacement_tree_required is, with first match:
+    tree diameter | replacement required
+    <= 30         | false
+    > 30          | true
+
+the knowledge base replacement_tree_decision includes:
+
+the text of the_model is at "sources/replacement-tree-decision.dmn".
+
+rule replacement_tree_required_1 with provenance the model at decision Replacement Tree Required?:
+the replacement tree required is a truth value if
+    the replacement tree required for the tree diameter is the truth value under table replacement_tree_required.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Replacement Tree Required?:
+    the tree diameter is 0.
+    q_d_replacement_tree_required expects answers ["the replacement tree required is false"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Replacement Tree Required?:
+    the tree diameter is 31.
+    q_d_replacement_tree_required expects answers ["the replacement tree required is true"].
+
+query q_d_replacement_tree_required is:
+    the replacement tree required is which truth value.
+

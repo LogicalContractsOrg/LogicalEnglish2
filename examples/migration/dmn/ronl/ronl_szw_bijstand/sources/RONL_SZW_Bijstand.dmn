@@ -1,0 +1,1726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="szw_bijstand_drd" name="SZW Bijstand" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.45.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+  <decision id="SZW_BijstandsnormInformatie" name="SZW Bijstandsnorm Informatie" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_bedragen">
+      <requiredDecision href="#SZW_BijstandsnormBedragen" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_BijstandsnormInfo">
+      <input id="Input_dummy_bijstand" label="Dummy input for passthrough">
+        <inputExpression id="InputExpression_dummy_bijstand" typeRef="boolean">
+          <text>true</text>
+        </inputExpression>
+      </input>
+      <output id="Output_bijstandsNorm" label="Bijstandsnorm bedrag" name="bijstandsNorm" typeRef="double" />
+      <output id="Output_bijstandsnormType" label="Bijstandsnorm type" name="bijstandsnormType" typeRef="string" />
+      <output id="Output_bijstandsnormTermijn" label="Bijstandsnorm termijn" name="bijstandsnormTermijn" typeRef="string" />
+      <rule id="DecisionRule_passthrough_bijstand">
+        <inputEntry id="UnaryTests_true_bijstand">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_bijstandsNorm">
+          <text>bijstandsNorm</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_bijstandsnormType">
+          <text>bijstandsnormType</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_bijstandsnormTermijn">
+          <text>bijstandsnormTermijn</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SZW_BijstandsnormBedragen" name="SZW Bijstandsnorm Bedragen" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_type">
+      <requiredDecision href="#SZW_Bijstandsnormtype" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_termijn">
+      <requiredDecision href="#SZW_Bijstandsnormtermijn" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_bedragen">
+      <input id="InputClause_termijn" label="Termijn">
+        <inputExpression id="LiteralExpression_termijn" typeRef="string">
+          <text>bijstandsnormTermijn</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_termijnValues">
+          <text>"2e helft 2024","1e helft 2025","2e helft 2025","1e helft 2026","2e helft 2026"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_type" label="Bijstandsnorm type">
+        <inputExpression id="LiteralExpression_type" typeRef="string">
+          <text>bijstandsnormType</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_typeValues">
+          <text>"M","MK","MM","MMK","MO","MOK","MJ","MJK","J","JK","JJ","JJK","JO","JOK","O","OK","OO","OOK"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_bedrag" label="Bijstandsnorm" name="bijstandsNorm" typeRef="double" />
+      <rule id="DecisionRule_2024H2_M">
+        <inputEntry id="UnaryTests_2024H2">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_M">
+          <text>"M"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_M_2024H2">
+          <text>1308.45</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MK">
+        <inputEntry id="UnaryTests_2024H2_2">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MK">
+          <text>"MK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MK_2024H2">
+          <text>1308.45</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MM">
+        <inputEntry id="UnaryTests_2024H2_3">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MM">
+          <text>"MM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MM_2024H2">
+          <text>1869.21</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MMK">
+        <inputEntry id="UnaryTests_2024H2_4">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MMK">
+          <text>"MMK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MMK_2024H2">
+          <text>1869.21</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MO">
+        <inputEntry id="UnaryTests_2024H2_5">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MO">
+          <text>"MO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MO_2024H2">
+          <text>1976.64</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MOK">
+        <inputEntry id="UnaryTests_2024H2_6">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MOK">
+          <text>"MOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MOK_2024H2">
+          <text>1976.64</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MJ">
+        <inputEntry id="UnaryTests_2024H2_7">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJ">
+          <text>"MJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJ_2024H2">
+          <text>1257.64</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_MJK">
+        <inputEntry id="UnaryTests_2024H2_8">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJK">
+          <text>"MJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJK_2024H2">
+          <text>1631.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_J">
+        <inputEntry id="UnaryTests_2024H2_9">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_J">
+          <text>"J"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_J_2024H2">
+          <text>323.03</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_JK">
+        <inputEntry id="UnaryTests_2024H2_10">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JK">
+          <text>"JK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JK_2024H2">
+          <text>323.03</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_JJ">
+        <inputEntry id="UnaryTests_2024H2_11">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJ">
+          <text>"JJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJ_2024H2">
+          <text>646.06</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_JJK">
+        <inputEntry id="UnaryTests_2024H2_12">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJK">
+          <text>"JJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJK_2024H2">
+          <text>1019.90</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_JO">
+        <inputEntry id="UnaryTests_2024H2_13">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JO">
+          <text>"JO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JO_2024H2">
+          <text>1631.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_JOK">
+        <inputEntry id="UnaryTests_2024H2_14">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JOK">
+          <text>"JOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JOK_2024H2">
+          <text>1631.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_O">
+        <inputEntry id="UnaryTests_2024H2_15">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_O">
+          <text>"O"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_O_2024H2">
+          <text>1456.85</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_OK">
+        <inputEntry id="UnaryTests_2024H2_16">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OK">
+          <text>"OK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OK_2024H2">
+          <text>1456.85</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_OO">
+        <inputEntry id="UnaryTests_2024H2_17">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OO">
+          <text>"OO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OO_2024H2">
+          <text>1976.64</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2024H2_OOK">
+        <inputEntry id="UnaryTests_2024H2_18">
+          <text>"2e helft 2024"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OOK">
+          <text>"OOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OOK_2024H2">
+          <text>1976.64</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_M">
+        <inputEntry id="UnaryTests_2025H1">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_M_2025H1">
+          <text>"M"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_M_2025H1">
+          <text>1345.45</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MK">
+        <inputEntry id="UnaryTests_2025H1_2">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MK_2025H1">
+          <text>"MK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MK_2025H1">
+          <text>1345.45</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MM">
+        <inputEntry id="UnaryTests_2025H1_3">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MM_2025H1">
+          <text>"MM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MM_2025H1">
+          <text>1922.07</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MMK">
+        <inputEntry id="UnaryTests_2025H1_4">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MMK_2025H1">
+          <text>"MMK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MMK_2025H1">
+          <text>1922.07</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MO">
+        <inputEntry id="UnaryTests_2025H1_5">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MO_2025H1">
+          <text>"MO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MO_2025H1">
+          <text>2053.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MOK">
+        <inputEntry id="UnaryTests_2025H1_6">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MOK_2025H1">
+          <text>"MOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MOK_2025H1">
+          <text>2053.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MJ">
+        <inputEntry id="UnaryTests_2025H1_7">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJ_2025H1">
+          <text>"MJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJ_2025H1">
+          <text>1293.21</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_MJK">
+        <inputEntry id="UnaryTests_2025H1_8">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJK_2025H1">
+          <text>"MJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJK_2025H1">
+          <text>1677.62</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_J">
+        <inputEntry id="UnaryTests_2025H1_9">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_J_2025H1">
+          <text>"J"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_J_2025H1">
+          <text>332.17</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_JK">
+        <inputEntry id="UnaryTests_2025H1_10">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JK_2025H1">
+          <text>"JK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JK_2025H1">
+          <text>332.17</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_JJ">
+        <inputEntry id="UnaryTests_2025H1_11">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJ_2025H1">
+          <text>"JJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJ_2025H1">
+          <text>664.34</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_JJK">
+        <inputEntry id="UnaryTests_2025H1_12">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJK_2025H1">
+          <text>"JJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJK_2025H1">
+          <text>1048.75</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_JO">
+        <inputEntry id="UnaryTests_2025H1_13">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JO_2025H1">
+          <text>"JO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JO_2025H1">
+          <text>1677.62</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_JOK">
+        <inputEntry id="UnaryTests_2025H1_14">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JOK_2025H1">
+          <text>"JOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JOK_2025H1">
+          <text>1677.62</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_O">
+        <inputEntry id="UnaryTests_2025H1_15">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_O_2025H1">
+          <text>"O"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_O_2025H1">
+          <text>1501.07</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_OK">
+        <inputEntry id="UnaryTests_2025H1_16">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OK_2025H1">
+          <text>"OK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OK_2025H1">
+          <text>1501.07</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_OO">
+        <inputEntry id="UnaryTests_2025H1_17">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OO_2025H1">
+          <text>"OO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OO_2025H1">
+          <text>2053.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1_OOK">
+        <inputEntry id="UnaryTests_2025H1_18">
+          <text>"1e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OOK_2025H1">
+          <text>"OOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OOK_2025H1">
+          <text>2053.48</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_M">
+        <inputEntry id="UnaryTests_2025H2">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_M_2025H2">
+          <text>"M"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_M_2025H2">
+          <text>1369.06</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MK">
+        <inputEntry id="UnaryTests_2025H2_2">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MK_2025H2">
+          <text>"MK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MK_2025H2">
+          <text>1369.06</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MM">
+        <inputEntry id="UnaryTests_2025H2_3">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MM_2025H2">
+          <text>"MM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MM_2025H2">
+          <text>1955.80</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MMK">
+        <inputEntry id="UnaryTests_2025H2_4">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MMK_2025H2">
+          <text>"MMK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MMK_2025H2">
+          <text>1955.8</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MO">
+        <inputEntry id="UnaryTests_2025H2_5">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MO_2025H2">
+          <text>"MO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MO_2025H2">
+          <text>2094.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MOK">
+        <inputEntry id="UnaryTests_2025H2_6">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MOK_2025H2">
+          <text>"MOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MOK_2025H2">
+          <text>2094.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MJ">
+        <inputEntry id="UnaryTests_2025H2_7">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJ_2025H2">
+          <text>"MJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJ_2025H2">
+          <text>1315.88</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_MJK">
+        <inputEntry id="UnaryTests_2025H2_8">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJK_2025H2">
+          <text>"MJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJK_2025H2">
+          <text>1707.04</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_J">
+        <inputEntry id="UnaryTests_2025H2_9">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_J_2025H2">
+          <text>"J"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_J_2025H2">
+          <text>337.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_JK">
+        <inputEntry id="UnaryTests_2025H2_10">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JK_2025H2">
+          <text>"JK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JK_2025H2">
+          <text>337.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_JJ">
+        <inputEntry id="UnaryTests_2025H2_11">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJ_2025H2">
+          <text>"JJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJ_2025H2">
+          <text>675.96</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_JJK">
+        <inputEntry id="UnaryTests_2025H2_12">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJK_2025H2">
+          <text>"JJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJK_2025H2">
+          <text>1067.12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_JO">
+        <inputEntry id="UnaryTests_2025H2_13">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JO_2025H2">
+          <text>"JO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JO_2025H2">
+          <text>1707.04</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_JOK">
+        <inputEntry id="UnaryTests_2025H2_14">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JOK_2025H2">
+          <text>"JOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JOK_2025H2">
+          <text>1707.04</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_O">
+        <inputEntry id="UnaryTests_2025H2_15">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_O_2025H2">
+          <text>"O"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_O_2025H2">
+          <text>1530.21</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_OK">
+        <inputEntry id="UnaryTests_2025H2_16">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OK_2025H2">
+          <text>"OK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OK_2025H2">
+          <text>1530.21</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_OO">
+        <inputEntry id="UnaryTests_2025H2_17">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OO_2025H2">
+          <text>"OO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OO_2025H2">
+          <text>2094.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2_OOK">
+        <inputEntry id="UnaryTests_2025H2_18">
+          <text>"2e helft 2025"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OOK_2025H2">
+          <text>"OOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OOK_2025H2">
+          <text>2094.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_M">
+        <inputEntry id="UnaryTests_2026H1">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_M_2026H1">
+          <text>"M"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_M_2026H1">
+          <text>1401.50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MK">
+        <inputEntry id="UnaryTests_2026H1_2">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MK_2026H1">
+          <text>"MK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MK_2026H1">
+          <text>1401.50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MM">
+        <inputEntry id="UnaryTests_2026H1_3">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MM_2026H1">
+          <text>"MM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MM_2026H1">
+          <text>2002.13</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MMK">
+        <inputEntry id="UnaryTests_2026H1_4">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MMK_2026H1">
+          <text>"MMK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MMK_2026H1">
+          <text>2002.13</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MO">
+        <inputEntry id="UnaryTests_2026H1_5">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MO_2026H1">
+          <text>"MO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MO_2026H1">
+          <text>2144.16</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MOK">
+        <inputEntry id="UnaryTests_2026H1_6">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MOK_2026H1">
+          <text>"MOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MOK_2026H1">
+          <text>2144.16</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MJ">
+        <inputEntry id="UnaryTests_2026H1_7">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJ_2026H1">
+          <text>"MJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJ_2026H1">
+          <text>1347.06</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_MJK">
+        <inputEntry id="UnaryTests_2026H1_8">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJK_2026H1">
+          <text>"MJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJK_2026H1">
+          <text>1747.49</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_J">
+        <inputEntry id="UnaryTests_2026H1_9">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_J_2026H1">
+          <text>"J"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_J_2026H1">
+          <text>345.99</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_JK">
+        <inputEntry id="UnaryTests_2026H1_10">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JK_2026H1">
+          <text>"JK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JK_2026H1">
+          <text>345.99</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_JJ">
+        <inputEntry id="UnaryTests_2026H1_11">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJ_2026H1">
+          <text>"JJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJ_2026H1">
+          <text>691.98</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_JJK">
+        <inputEntry id="UnaryTests_2026H1_12">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJK_2026H1">
+          <text>"JJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJK_2026H1">
+          <text>1092.41</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_JO">
+        <inputEntry id="UnaryTests_2026H1_13">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JO_2026H1">
+          <text>"JO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JO_2026H1">
+          <text>1747.49</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_JOK">
+        <inputEntry id="UnaryTests_2026H1_14">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JOK_2026H1">
+          <text>"JOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JOK_2026H1">
+          <text>1747.49</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_O">
+        <inputEntry id="UnaryTests_2026H1_15">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_O_2026H1">
+          <text>"O"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_O_2026H1">
+          <text>1564.69</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_OK">
+        <inputEntry id="UnaryTests_2026H1_16">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OK_2026H1">
+          <text>"OK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OK_2026H1">
+          <text>1564.69</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_OO">
+        <inputEntry id="UnaryTests_2026H1_17">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OO_2026H1">
+          <text>"OO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OO_2026H1">
+          <text>2144.16</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1_OOK">
+        <inputEntry id="UnaryTests_2026H1_18">
+          <text>"1e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OOK_2026H1">
+          <text>"OOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OOK_2026H1">
+          <text>2144.16</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_M">
+        <inputEntry id="UnaryTests_2026H2">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_M_2026H2">
+          <text>"M"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_M_2026H2">
+          <text>1419.46</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MK">
+        <inputEntry id="UnaryTests_2026H2_2">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MK_2026H2">
+          <text>"MK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MK_2026H2">
+          <text>1419.46</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MM">
+        <inputEntry id="UnaryTests_2026H2_3">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MM_2026H2">
+          <text>"MM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MM_2026H2">
+          <text>2027.79</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MMK">
+        <inputEntry id="UnaryTests_2026H2_4">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MMK_2026H2">
+          <text>"MMK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MMK_2026H2">
+          <text>2027.79</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MO">
+        <inputEntry id="UnaryTests_2026H2_5">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MO_2026H2">
+          <text>"MO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MO_2026H2">
+          <text>2176.10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MOK">
+        <inputEntry id="UnaryTests_2026H2_6">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MOK_2026H2">
+          <text>"MOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MOK_2026H2">
+          <text>2176.10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MJ">
+        <inputEntry id="UnaryTests_2026H2_7">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJ_2026H2">
+          <text>"MJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJ_2026H2">
+          <text>1364.32</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_MJK">
+        <inputEntry id="UnaryTests_2026H2_8">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_MJK_2026H2">
+          <text>"MJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_MJK_2026H2">
+          <text>1769.88</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_J">
+        <inputEntry id="UnaryTests_2026H2_9">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_J_2026H2">
+          <text>"J"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_J_2026H2">
+          <text>350.42</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_JK">
+        <inputEntry id="UnaryTests_2026H2_10">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JK_2026H2">
+          <text>"JK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JK_2026H2">
+          <text>350.42</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_JJ">
+        <inputEntry id="UnaryTests_2026H2_11">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJ_2026H2">
+          <text>"JJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJ_2026H2">
+          <text>700.84</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_JJK">
+        <inputEntry id="UnaryTests_2026H2_12">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JJK_2026H2">
+          <text>"JJK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JJK_2026H2">
+          <text>1106.40</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_JO">
+        <inputEntry id="UnaryTests_2026H2_13">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JO_2026H2">
+          <text>"JO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JO_2026H2">
+          <text>1769.88</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_JOK">
+        <inputEntry id="UnaryTests_2026H2_14">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_JOK_2026H2">
+          <text>"JOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_JOK_2026H2">
+          <text>1769.88</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_O">
+        <inputEntry id="UnaryTests_2026H2_15">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_O_2026H2">
+          <text>"O"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_O_2026H2">
+          <text>1587.34</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_OK">
+        <inputEntry id="UnaryTests_2026H2_16">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OK_2026H2">
+          <text>"OK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OK_2026H2">
+          <text>1587.34</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_OO">
+        <inputEntry id="UnaryTests_2026H2_17">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OO_2026H2">
+          <text>"OO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OO_2026H2">
+          <text>2176.10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2_OOK">
+        <inputEntry id="UnaryTests_2026H2_18">
+          <text>"2e helft 2026"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_OOK_2026H2">
+          <text>"OOK"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_OOK_2026H2">
+          <text>2176.10</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SZW_Bijstandsnormtype" name="SZW Bijstandsnormtype" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_alleenstaand">
+      <requiredInput href="#InputData_aanvragerAlleenstaand" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_kinderen">
+      <requiredInput href="#InputData_aanvragerHeeftKinderen" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_aanvragerIs181920">
+      <requiredInput href="#InputData_aanvragerIs181920" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_aanvragerIsTenminste21">
+      <requiredInput href="#InputData_aanvragerIsTenminste21" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_aanvragerHeeftAOWLeeftijd">
+      <requiredInput href="#InputData_aanvragerHeeftAOWLeeftijd" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_partnerIs181920">
+      <requiredInput href="#InputData_partnerIs181920" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_partnerIsTenminste21">
+      <requiredInput href="#InputData_partnerIsTenminste21" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_partnerHeeftAOWLeeftijd">
+      <requiredInput href="#InputData_partnerHeeftAOWLeeftijd" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_bijstandsnormtype">
+      <input id="InputClause_alleenstaand" label="Aanvrager alleenstaand">
+        <inputExpression id="LiteralExpression_alleenstaand" typeRef="boolean">
+          <text>aanvragerAlleenstaand</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_kinderen" label="Aanvrager heeft kinderen">
+        <inputExpression id="LiteralExpression_kinderen" typeRef="boolean">
+          <text>aanvragerHeeftKinderen</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_aanvrager181920" label="de aanvrager is 18, 19 of 20 jaar oud">
+        <inputExpression id="LiteralExpression_aanvrager181920" typeRef="boolean">
+          <text>aanvragerIs181920</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_aanvrager21plus" label="de aanvrager is tenminste 21">
+        <inputExpression id="LiteralExpression_aanvrager21plus" typeRef="boolean">
+          <text>aanvragerIsTenminste21</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_aanvragerAOW" label="de aanvrager heeft de AOW-leeftijd bereikt">
+        <inputExpression id="LiteralExpression_aanvragerAOW" typeRef="boolean">
+          <text>aanvragerHeeftAOWLeeftijd</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_partner181920" label="de partner is 18, 19 of 20 jaar oud">
+        <inputExpression id="LiteralExpression_partner181920" typeRef="boolean">
+          <text>partnerIs181920</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_partner21plus" label="de partner is tenminste 21">
+        <inputExpression id="LiteralExpression_partner21plus" typeRef="boolean">
+          <text>partnerIsTenminste21</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_partnerAOW" label="de partner heeft de AOW-leeftijd bereikt">
+        <inputExpression id="LiteralExpression_partnerAOW" typeRef="boolean">
+          <text>partnerHeeftAOWLeeftijd</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_bijstandsnormType" label="Bijstandsnorm type" name="bijstandsnormType" typeRef="string">
+        <outputValues id="UnaryTests_bijstandsnormTypeValues">
+          <text>"M","MK","MM","MMK","MO","MOK","MJ","MJK","J","JK","JJ","JJK","JO","JOK","O","OK","OO","OOK"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_M">
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <outputEntry>
+          <text>"M"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MK">
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MM">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MM"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MMK">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MMK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MO">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MOK">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MOK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MJ">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MJ"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_MJK">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"MJK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_J">
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <outputEntry>
+          <text>"J"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_JK">
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <outputEntry>
+          <text>"JK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_JJ">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"JJ"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_JJK">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"JJK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_JO">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"JO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_JOK">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"JOK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_O">
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <outputEntry>
+          <text>"O"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_OK">
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <inputEntry>
+          <text></text>
+        </inputEntry>
+        <outputEntry>
+          <text>"OK"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_OO">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"OO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_OOK">
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"OOK"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="SZW_Bijstandsnormtermijn" name="SZW Bijstandsnormtermijn" camunda:historyTimeToLive="0">
+    <informationRequirement id="InformationRequirement_dag">
+      <requiredInput href="#InputData_dagVanAanvraag" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_termijn">
+      <input id="InputClause_dag" label="dag van aanvraag">
+        <inputExpression id="LiteralExpression_dag" typeRef="string">
+          <text>dagVanAanvraag</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_termijn" label="Termijn" name="bijstandsnormTermijn" typeRef="string">
+        <outputValues id="UnaryTests_termijnOutputValues">
+          <text>"2e helft 2024","1e helft 2025","2e helft 2025","1e helft 2026","2e helft 2026"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_2024H2">
+        <inputEntry>
+          <text>date("2024-07-01") &lt;= date(dagVanAanvraag) and date(dagVanAanvraag) &lt;= date("2024-12-31")</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"2e helft 2024"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H1">
+        <inputEntry>
+          <text>date("2025-01-01") &lt;= date(dagVanAanvraag) and date(dagVanAanvraag) &lt;= date("2025-06-30")</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"1e helft 2025"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2025H2">
+        <inputEntry>
+          <text>date("2025-07-01") &lt;= date(dagVanAanvraag) and date(dagVanAanvraag) &lt;= date("2025-12-31")</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"2e helft 2025"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H1">
+        <inputEntry>
+          <text>date("2026-01-01") &lt;= date(dagVanAanvraag) and date(dagVanAanvraag) &lt;= date("2026-06-30")</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"1e helft 2026"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2026H2">
+        <inputEntry>
+          <text>date("2026-07-01") &lt;= date(dagVanAanvraag) and date(dagVanAanvraag) &lt;= date("2026-12-31")</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"2e helft 2026"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_dagVanAanvraag" name="dagVanAanvraag" />
+  <inputData id="InputData_aanvragerAlleenstaand" name="aanvragerAlleenstaand" />
+  <inputData id="InputData_aanvragerHeeftKinderen" name="aanvragerHeeftKinderen" />
+  <inputData id="InputData_aanvragerIs181920" name="aanvragerIs181920" />
+  <inputData id="InputData_aanvragerIsTenminste21" name="aanvragerIsTenminste21" />
+  <inputData id="InputData_aanvragerHeeftAOWLeeftijd" name="aanvragerHeeftAOWLeeftijd" />
+  <inputData id="InputData_partnerIs181920" name="partnerIs181920" />
+  <inputData id="InputData_partnerIsTenminste21" name="partnerIsTenminste21" />
+  <inputData id="InputData_partnerHeeftAOWLeeftijd" name="partnerHeeftAOWLeeftijd" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1g6kpu6">
+      <dmndi:DMNShape id="DMNShape_1734jqg" dmnElementRef="SZW_BijstandsnormInformatie">
+        <dc:Bounds height="80" width="180" x="190" y="110" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0ehkmow" dmnElementRef="SZW_BijstandsnormBedragen">
+        <dc:Bounds height="80" width="180" x="190" y="240" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0kyqy4q" dmnElementRef="SZW_Bijstandsnormtype">
+        <dc:Bounds height="80" width="180" x="190" y="360" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1oz3evo" dmnElementRef="SZW_Bijstandsnormtermijn">
+        <dc:Bounds height="80" width="180" x="190" y="490" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

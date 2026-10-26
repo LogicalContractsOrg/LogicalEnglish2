@@ -827,6 +827,19 @@ for the translators). Thus a program and its libraries are in one directory.
   `the power of *a number* to *an exponent* is *a result*`. The expressions of LE do
   not have a power operation (for example, the repayment of an annuity:
   `the power of 1.005 to -360`).
+- **`lib/feel.le`** (+ `feel.pl`): the built-in functions of FEEL, the expression
+  language of DMN, that the other libraries do not have. The DMN translator uses it
+  (`integrations/dmn.md`). The library has a date written as text
+  (`the date written as *a text* is *a date*`), a date from its parts, the day of the
+  month, substrings and case, the functions of a list (count, sum, minimum, maximum,
+  mean, median, product, the item at a position, a sublist, the distinct values,
+  flattening, concatenation, union), the rounding modes of FEEL that
+  `lib/rounding` does not have (away from zero, toward zero, half toward zero),
+  `*a number* is odd`, `*a number* is even`, and FEEL's `all()` and `any()` with
+  three values (`the conjunction of the list *a list* is *a truth value*`: no value
+  when an item is not a truth). Each template that gives one value is a function
+  (§2.3). Refer to `testing/fixtures/feel/uses_feel.le` (run by
+  `testing/test_feel_lib.pl`).
 - **`lib/lists.le`** (+ `lists.pl`):
   `*a list* is *an item* followed by *a second list*`. With this template, you can
   make a list one item at a time, in each direction (for example, the payments of a

@@ -1,0 +1,62 @@
+% The Logical English twin of the DMN model "0009-invocation-arithmetic" (0009-invocation-arithmetic.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base n0009_invocation_arithmetic includes these resources:
+    maths.
+
+the functions are:
+    the amount of the loan is *a number*.
+    the rate of the loan is *a number*.
+    the term of the loan is *a number*.
+    the fee is *a number*.
+    the pmt of *a value* and *a second value* and *a third value* is *a fourth value*.
+    the monthly payment is *a number*.
+
+the knowledge base n0009_invocation_arithmetic includes:
+
+the text of the_model is at "sources/0009-invocation-arithmetic.dmn".
+
+the pmt of a value V and a value N and a value M is a value K if
+    a number P = 1 + N / 12
+    and an exponent E = 0 - M
+    and the power of P to E is a result R
+    and K = V * N / 12 / (1 - R).
+
+rule monthly_payment_1 with provenance the model at decision MonthlyPayment:
+the monthly payment is a number N if
+    the pmt of the amount of the loan and the rate of the loan and the term of the loan is a value V
+    and N = V + the fee.
+
+scenario t001 is, as stated in "0009-invocation-arithmetic-test-01.xml" at test case 001:
+    the amount of the loan is 600000.
+    the rate of the loan is 0.0375.
+    the term of the loan is 360.
+    the fee is 100.
+    q_d_monthly_payment expects answers ["the monthly payment is 2878.69354943277"].
+
+scenario t002 is, as stated in "0009-invocation-arithmetic-test-01.xml" at test case 002:
+    the amount of the loan is 30000.
+    the rate of the loan is 0.0475.
+    the term of the loan is 60.
+    the fee is 100.
+    q_d_monthly_payment expects answers ["the monthly payment is 662.707359373292"].
+
+scenario t003 is, as stated in "0009-invocation-arithmetic-test-01.xml" at test case 003:
+    the amount of the loan is 600000.
+    the rate of the loan is 0.0399.
+    the term of the loan is 360.
+    the fee is 100.
+    q_d_monthly_payment expects answers ["the monthly payment is 2961.03377700389"].
+
+query q_d_monthly_payment is:
+    the monthly payment is which number.
+

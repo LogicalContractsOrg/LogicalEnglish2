@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="definitions_awb_completeness" name="AwbCompletenessCheck" namespace="http://example.com/awb/dmn" exporter="Camunda Modeler" exporterVersion="5.46.1">
+  <decision id="AwbCompletenessCheck" name="Awb Admissibility Check" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_Completeness" hitPolicy="FIRST">
+      <input id="Input_ProductType">
+        <inputExpression id="InputExpr_ProductType" typeRef="string">
+          <text>productType</text>
+        </inputExpression>
+      </input>
+      <output id="Output_IsComplete" name="isComplete" typeRef="boolean" />
+      <output id="Output_MissingFields" name="missingFields" typeRef="string" biodi:width="321" />
+      <output id="Output_AwbArticle" name="awbArticle" typeRef="string" biodi:width="282" />
+      <rule id="Rule_TreeFellingPermit">
+        <inputEntry id="IE_TF">
+          <text>"TreeFellingPermit"</text>
+        </inputEntry>
+        <outputEntry id="OE_TF_Complete">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_TF_Missing">
+          <text>"No missing fields."</text>
+        </outputEntry>
+        <outputEntry id="OE_TF_Article">
+          <text>"Awb 4:5 - application complete"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Zorgtoeslag">
+        <inputEntry id="IE_ZT">
+          <text>"Zorgtoeslag"</text>
+        </inputEntry>
+        <outputEntry id="OE_ZT_Complete">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_ZT_Missing">
+          <text>"No missing fields."</text>
+        </outputEntry>
+        <outputEntry id="OE_ZT_Article">
+          <text>"Awb 4:5 - application complete"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_BuildingPermit">
+        <inputEntry id="IE_BP">
+          <text>"BuildingPermit"</text>
+        </inputEntry>
+        <outputEntry id="OE_BP_Complete">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_BP_Missing">
+          <text>"No missing fields."</text>
+        </outputEntry>
+        <outputEntry id="OE_BP_Article">
+          <text>"Awb 4:5 - application complete"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0udgnpz">
+        <inputEntry id="UnaryTests_00geumx">
+          <text>"SubsidieThuisbatterijFlevoland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o6dsmx">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_185kz2l">
+          <text>"No missing fields."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s961cc">
+          <text>"Awb 4:5 - application complete"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Default">
+        <inputEntry id="IE_Default">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Default_Complete">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Default_Missing">
+          <text>"Unknown product type — this application cannot be processed under the current AWB shell."</text>
+        </outputEntry>
+        <outputEntry id="OE_Default_Article">
+          <text>"Awb 4:5 paragraph 1 - unknown product type"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_productType" name="productType">
+    <variable id="Variable_productType" name="productType" typeRef="string" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_Completeness">
+      <dmndi:DMNShape id="DMNShape_Completeness" dmnElementRef="AwbCompletenessCheck">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

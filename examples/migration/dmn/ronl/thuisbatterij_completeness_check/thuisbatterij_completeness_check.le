@@ -1,0 +1,158 @@
+% The Logical English twin of the DMN model "ThuisbatterijCompletenessCheck" (thuisbatterij-completeness-check.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is *a truth value*.
+    the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is *a text*.
+    the awb article of the thuisbatterij aanvraag volledig awb_4_5 is *a text*.
+    the aanvraag datum is *a text*.
+    the gemaakte kosten is *a number*.
+    the provincie woning is *a text*.
+    the relatie tot woning is *a text*.
+    the toestemming eigenaar is *a truth value*.
+
+the knowledge base thuisbatterij_completeness_check includes:
+
+the text of the_model is at "sources/thuisbatterij-completeness-check.dmn".
+
+rule thuisbatterij_aanvraag_volledig_awb_4_5_1 with provenance the model at decision Thuisbatterij aanvraag volledig Awb 4 5:
+the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is a truth value if
+    it is not the case that the gemaakte kosten is a number
+    and the truth value is equal to false
+    otherwise the gemaakte kosten is a number N
+    and N <= 0
+    and the truth value is equal to false
+    otherwise it is not the case that the relatie tot woning is a text
+    and the truth value is equal to false
+    otherwise the relatie tot woning is "huurder"
+    and the toestemming eigenaar is false
+    and the truth value is equal to false
+    otherwise the relatie tot woning is "huurder"
+    and it is not the case that the toestemming eigenaar is a second truth value
+    and the truth value is equal to false
+    otherwise it is not the case that the provincie woning is a second text
+    and the truth value is equal to false
+    otherwise it is not the case that the aanvraag datum is a third text
+    and the truth value is equal to false
+    otherwise the truth value is equal to true.
+
+rule thuisbatterij_aanvraag_volledig_awb_4_5_2 with provenance the model at decision Thuisbatterij aanvraag volledig Awb 4 5:
+the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is a text if
+    it is not the case that the gemaakte kosten is a number
+    and the text is equal to "De gemaakte kosten ontbreken."
+    otherwise the gemaakte kosten is a number N
+    and N <= 0
+    and the text is equal to "De gemaakte kosten ontbreken."
+    otherwise it is not the case that the relatie tot woning is a second text
+    and the text is equal to "De relatie van de aanvrager tot de woning ontbreekt."
+    otherwise the relatie tot woning is "huurder"
+    and the toestemming eigenaar is false
+    and the text is equal to "De toestemming van de eigenaar van de woning ontbreekt."
+    otherwise the relatie tot woning is "huurder"
+    and it is not the case that the toestemming eigenaar is a truth value
+    and the text is equal to "De toestemming van de eigenaar van de woning ontbreekt."
+    otherwise it is not the case that the provincie woning is a third text
+    and the text is equal to "De provincie waarin de woning ligt ontbreekt."
+    otherwise it is not the case that the aanvraag datum is a fourth text
+    and the text is equal to "De datum van aanvraag ontbreekt."
+    otherwise the text is equal to "Geen ontbrekende gegevens.".
+
+rule thuisbatterij_aanvraag_volledig_awb_4_5_3 with provenance the model at decision Thuisbatterij aanvraag volledig Awb 4 5:
+the awb article of the thuisbatterij aanvraag volledig awb_4_5 is a text if
+    it is not the case that the gemaakte kosten is a number
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise the gemaakte kosten is a number N
+    and N <= 0
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise it is not the case that the relatie tot woning is a second text
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise the relatie tot woning is "huurder"
+    and the toestemming eigenaar is false
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise the relatie tot woning is "huurder"
+    and it is not the case that the toestemming eigenaar is a truth value
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise it is not the case that the provincie woning is a third text
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise it is not the case that the aanvraag datum is a fourth text
+    and the text is equal to "Awb 4:5 - aanvraag onvolledig"
+    otherwise the text is equal to "Awb 4:5 - aanvraag volledig".
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Thuisbatterij aanvraag volledig Awb 4 5:
+    the aanvraag datum is "anders".
+    the gemaakte kosten is -1.
+    the provincie woning is "anders".
+    the relatie tot woning is "anders".
+    the toestemming eigenaar is true.
+    q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the awb article of the thuisbatterij aanvraag volledig awb_4_5 is Awb 4:5 - aanvraag onvolledig"].
+    q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is false"].
+    q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is De gemaakte kosten ontbreken."].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Thuisbatterij aanvraag volledig Awb 4 5:
+    the aanvraag datum is "anders".
+    the gemaakte kosten is 1.
+    the provincie woning is "anders".
+    the relatie tot woning is "anders".
+    the toestemming eigenaar is false.
+    q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the awb article of the thuisbatterij aanvraag volledig awb_4_5 is Awb 4:5 - aanvraag volledig"].
+    q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is true"].
+    q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is Geen ontbrekende gegevens."].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Thuisbatterij aanvraag volledig Awb 4 5:
+    the aanvraag datum is "anders".
+    the gemaakte kosten is 1.
+    the provincie woning is "anders".
+    the relatie tot woning is "huurder".
+    the toestemming eigenaar is false.
+    q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the awb article of the thuisbatterij aanvraag volledig awb_4_5 is Awb 4:5 - aanvraag onvolledig"].
+    q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is false"].
+    q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is De toestemming van de eigenaar van de woning ontbreekt."].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Thuisbatterij aanvraag volledig Awb 4 5:
+    the aanvraag datum is "anders".
+    the gemaakte kosten is -1.
+    the provincie woning is "anders".
+    the relatie tot woning is "huurder".
+    the toestemming eigenaar is true.
+    q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the awb article of the thuisbatterij aanvraag volledig awb_4_5 is Awb 4:5 - aanvraag onvolledig"].
+    q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is false"].
+    q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is De gemaakte kosten ontbreken."].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of Thuisbatterij aanvraag volledig Awb 4 5:
+    the aanvraag datum is "anders".
+    the gemaakte kosten is 1.
+    the provincie woning is "anders".
+    the relatie tot woning is "anders".
+    the toestemming eigenaar is false.
+    q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the awb article of the thuisbatterij aanvraag volledig awb_4_5 is Awb 4:5 - aanvraag volledig"].
+    q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is true"].
+    q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is Geen ontbrekende gegevens."].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 6 of Thuisbatterij aanvraag volledig Awb 4 5:
+    the aanvraag datum is "anders".
+    the gemaakte kosten is 0.
+    the provincie woning is "anders".
+    the relatie tot woning is "anders".
+    the toestemming eigenaar is true.
+    q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the awb article of the thuisbatterij aanvraag volledig awb_4_5 is Awb 4:5 - aanvraag onvolledig"].
+    q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is false"].
+    q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 expects answers ["the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is De gemaakte kosten ontbreken."].
+
+query q_d_awb_article_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 is:
+    the awb article of the thuisbatterij aanvraag volledig awb_4_5 is which text.
+
+query q_d_is_complete_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 is:
+    the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is which truth value.
+
+query q_d_missing_fields_of_the_thuisbatterij_aanvraag_volledig_awb_4_5 is:
+    the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is which text.
+

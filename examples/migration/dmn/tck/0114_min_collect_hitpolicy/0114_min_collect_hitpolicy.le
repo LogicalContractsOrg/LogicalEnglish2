@@ -1,0 +1,51 @@
+% The Logical English twin of the DMN model "0114-min-collect-hitpolicy" (0114-min-collect-hitpolicy.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the num of years is *a number*.
+    the car insurance is *a number*.
+
+the templates are:
+    the car insurance for *a number* is *a value* under table car_insurance.
+
+the table car_insurance is, with all matches:
+    num of years | value
+    > 1          | 98.83
+    > 2          | 150.21
+    > 3          | 205.43
+    > 4          | 64.32
+
+the knowledge base n0114_min_collect_hitpolicy includes:
+
+the text of the_model is at "sources/0114-min-collect-hitpolicy.dmn".
+
+rule car_insurance_1 with provenance the model at decision CarInsurance:
+the car insurance is a number N if
+    N is the minimum of each V such that
+        the num of years is a second number
+        and the car insurance for the second number is a value V under table car_insurance.
+
+scenario t001 is, as stated in "0114-min-collect-hitpolicy-test-01.xml" at test case 001:
+    the num of years is 5.
+    q_d_car_insurance expects answers ["the car insurance is 64.32"].
+
+scenario t002 is, as stated in "0114-min-collect-hitpolicy-test-01.xml" at test case 002:
+    the num of years is 3.
+    q_d_car_insurance expects answers ["the car insurance is 98.83"].
+
+scenario t003 is, as stated in "0114-min-collect-hitpolicy-test-01.xml" at test case 003:
+    the num of years is 4.
+    q_d_car_insurance expects answers ["the car insurance is 98.83"].
+
+query q_d_car_insurance is:
+    the car insurance is which number.
+

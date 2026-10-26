@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:sttrbuilder="http://sttr-builder.apps.geodan.nl/v1.0" xmlns:dmn="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:di="https://www.omg.org/spec/DMN/20191111/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="https://www.omg.org/spec/DMN/20191111/DC/" xmlns:bedr="http://toepasbare-regels.omgevingswet.overheid.nl/v1.0/Bedrijfsregel" xmlns:uitv="http://toepasbare-regels.omgevingswet.overheid.nl/v1.0/Uitvoeringsregel" xmlns:content="http://toepasbare-regels.omgevingswet.overheid.nl/v1.0/Content" xmlns:inter="http://toepasbare-regels.omgevingswet.overheid.nl/v1.0/Interactieregel" namespace="http://toepasbare-regels.omgevingswet.overheid.nl/00000001005024249000" exporter="Sogelink Netherlands STTR Builder" name="Boom kappen of houtopstand vellen" id="_246fefaa_671a_47bf_9b35_5b6ebcf101a7" xmlns="http://toepasbare-regels.omgevingswet.overheid.nl/00000001005024249000">
+    <dmn:extensionElements>
+        <inter:regelgroepen>
+            <inter:regelgroep id="_8920b425-97ec-41db-b226-8b9943362c34">
+                <inter:naam>Boom kappen of houtopstand vellen_Gemeente Lelystad</inter:naam>
+                <inter:prioriteit>1</inter:prioriteit>
+            </inter:regelgroep>
+        </inter:regelgroepen>
+        <uitv:uitvoeringsregels>
+            <uitv:uitvoeringsregel id="uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92">
+                <uitv:regelgroepRef href="#_8920b425-97ec-41db-b226-8b9943362c34"/>
+                <inter:prioriteit>10</inter:prioriteit>
+                <uitv:vraag>
+                    <uitv:gegevensType>boolean</uitv:gegevensType>
+                    <uitv:vraagTekst><![CDATA[Wilt u een boom of beplanting weghalen?]]></uitv:vraagTekst>
+                </uitv:vraag>
+                <content:uitvoeringsregelToelichting>
+                    <content:toelichting><![CDATA[Met boom of beplanting wordt iedere soort houtopstand bedoeld.]]></content:toelichting>
+                    <content:langeToelichting><![CDATA[**Wat is een houtopstand?**  
+Een houtopstand is een zelfstandige boom of een groep van bomen, boomvormers, struiken, hakhout of griend.
+
+Een boomvormer is een houtig, opgaand gewas met ontwikkeling van één of meer hoofdtakken. Een boomvormer kan uitgroeien tot een boom, een meerstammige boom of een boomachtige struik.
+
+Een griend is een vochtige akker waarop wilgenhout wordt verbouwd.]]></content:langeToelichting>
+                    <content:belangrijk>true</content:belangrijk>
+                </content:uitvoeringsregelToelichting>
+            </uitv:uitvoeringsregel>
+            <uitv:uitvoeringsregel id="uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7">
+                <uitv:regelgroepRef href="#_8920b425-97ec-41db-b226-8b9943362c34"/>
+                <inter:prioriteit>20</inter:prioriteit>
+                <uitv:vraag>
+                    <uitv:gegevensType>boolean</uitv:gegevensType>
+                    <uitv:vraagTekst><![CDATA[Gaat het om een aangewezen bijzondere boom of plant?]]></uitv:vraagTekst>
+                </uitv:vraag>
+                <content:uitvoeringsregelToelichting>
+                    <content:toelichting><![CDATA[Op deze kaart staan bomen en planten die door de gemeente aangewezen zijn als bijzonder:
+
+[Bijzondere bomen in Lelystad | Gemeente Lelystad](https://www.lelystad.nl/bijzonderebomen)]]></content:toelichting>
+                    <content:belangrijk>true</content:belangrijk>
+                </content:uitvoeringsregelToelichting>
+            </uitv:uitvoeringsregel>
+            <uitv:uitvoeringsregel id="uitv__7b6ed60e-184f-4d93-a186-828dc9182890">
+                <uitv:regelgroepRef href="#_8920b425-97ec-41db-b226-8b9943362c34"/>
+                <inter:prioriteit>30</inter:prioriteit>
+                <uitv:geoVerwijzing>
+                    <uitv:locatie identificatie="nl.imow-gm0995.gebiedengroep.180a63f795be43bf8683a480e75deb84"/>
+                    <uitv:vraagTekst><![CDATA[Gaat het om een boom of houtopstand binnen de bebouwingscontour houtkap?]]></uitv:vraagTekst>
+                </uitv:geoVerwijzing>
+                <content:uitvoeringsregelToelichting>
+                    <content:belangrijk>false</content:belangrijk>
+                </content:uitvoeringsregelToelichting>
+            </uitv:uitvoeringsregel>
+            <uitv:uitvoeringsregel id="uitv__648edf88-a9ce-4726-b043-a3e18fa434c5">
+                <uitv:regelgroepRef href="#_8920b425-97ec-41db-b226-8b9943362c34"/>
+                <inter:prioriteit>40</inter:prioriteit>
+                <uitv:vraag>
+                    <uitv:gegevensType>boolean</uitv:gegevensType>
+                    <uitv:vraagTekst><![CDATA[Staat de boom of beplanting op een kavel van maximaal 5.000 vierkante meter?]]></uitv:vraagTekst>
+                </uitv:vraag>
+                <content:uitvoeringsregelToelichting>
+                    <content:belangrijk>false</content:belangrijk>
+                </content:uitvoeringsregelToelichting>
+            </uitv:uitvoeringsregel>
+            <uitv:uitvoeringsregel id="uitv__8155d4e0-7003-44ca-8f42-c97afa52f0c7">
+                <uitv:regelgroepRef href="#_8920b425-97ec-41db-b226-8b9943362c34"/>
+                <inter:prioriteit>50</inter:prioriteit>
+                <uitv:vraag>
+                    <uitv:gegevensType>boolean</uitv:gegevensType>
+                    <uitv:vraagTekst><![CDATA[Staat de boom of beplanting op een (particulier) privé terrein?]]></uitv:vraagTekst>
+                </uitv:vraag>
+                <content:uitvoeringsregelToelichting>
+                    <content:belangrijk>false</content:belangrijk>
+                </content:uitvoeringsregelToelichting>
+            </uitv:uitvoeringsregel>
+        </uitv:uitvoeringsregels>
+        <sttrbuilder:dependencyInformation>
+            <sttrbuilder:dependencyInformationVersion>1.0.3</sttrbuilder:dependencyInformationVersion>
+            <sttrbuilder:checkDependencyInformation>
+                <sttrbuilder:rows>
+                    <sttrbuilder:row id="ec96841e-20c0-412d-b8da-ebbd3e389e44" questionId="uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92" groupId="_8920b425-97ec-41db-b226-8b9943362c34"/>
+                    <sttrbuilder:row id="8f81fbcf-9576-402e-b00b-bc72564126aa" questionId="uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7" groupId="_8920b425-97ec-41db-b226-8b9943362c34"/>
+                    <sttrbuilder:row id="f1b15b0b-9d38-4138-ad79-c9c3985017a5" questionId="uitv__7b6ed60e-184f-4d93-a186-828dc9182890" groupId="_8920b425-97ec-41db-b226-8b9943362c34"/>
+                    <sttrbuilder:row id="0b3c4307-c8eb-4ac4-bf3d-f0b16bdaf180" questionId="uitv__648edf88-a9ce-4726-b043-a3e18fa434c5" groupId="_8920b425-97ec-41db-b226-8b9943362c34"/>
+                    <sttrbuilder:row id="17009f72-90a5-4068-81df-6499e2985e5e" questionId="uitv__8155d4e0-7003-44ca-8f42-c97afa52f0c7" groupId="_8920b425-97ec-41db-b226-8b9943362c34"/>
+                </sttrbuilder:rows>
+                <sttrbuilder:questionPaths>
+                    <sttrbuilder:questionPath>
+                        <sttrbuilder:outcome><![CDATA[Niet van toepassing]]></sttrbuilder:outcome>
+                        <sttrbuilder:outcomeId><![CDATA[NietVanToepassing]]></sttrbuilder:outcomeId>
+                        <sttrbuilder:answers>
+                            <sttrbuilder:answer rowId="ec96841e-20c0-412d-b8da-ebbd3e389e44">
+<sttrbuilder:answer><![CDATA[nee]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                        </sttrbuilder:answers>
+                    </sttrbuilder:questionPath>
+                    <sttrbuilder:questionPath>
+                        <sttrbuilder:outcome><![CDATA[Vergunningplicht]]></sttrbuilder:outcome>
+                        <sttrbuilder:outcomeId><![CDATA[Vergunningplicht]]></sttrbuilder:outcomeId>
+                        <sttrbuilder:answers>
+                            <sttrbuilder:answer rowId="ec96841e-20c0-412d-b8da-ebbd3e389e44">
+<sttrbuilder:answer><![CDATA[ja]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="8f81fbcf-9576-402e-b00b-bc72564126aa">
+<sttrbuilder:answer><![CDATA[ja]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                        </sttrbuilder:answers>
+                    </sttrbuilder:questionPath>
+                    <sttrbuilder:questionPath>
+                        <sttrbuilder:outcome><![CDATA[Vergunningplicht]]></sttrbuilder:outcome>
+                        <sttrbuilder:outcomeId><![CDATA[Vergunningplicht]]></sttrbuilder:outcomeId>
+                        <sttrbuilder:answers>
+                            <sttrbuilder:answer rowId="ec96841e-20c0-412d-b8da-ebbd3e389e44">
+<sttrbuilder:answer><![CDATA[ja]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="8f81fbcf-9576-402e-b00b-bc72564126aa">
+<sttrbuilder:answer><![CDATA[nee]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="f1b15b0b-9d38-4138-ad79-c9c3985017a5" operand="OR">
+<sttrbuilder:multipleValues>
+    <sttrbuilder:value>deels</sttrbuilder:value>
+    <sttrbuilder:value>nee</sttrbuilder:value>
+</sttrbuilder:multipleValues>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="0b3c4307-c8eb-4ac4-bf3d-f0b16bdaf180">
+<sttrbuilder:answer><![CDATA[nee]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                        </sttrbuilder:answers>
+                    </sttrbuilder:questionPath>
+                    <sttrbuilder:questionPath>
+                        <sttrbuilder:outcome><![CDATA[Vergunningplicht]]></sttrbuilder:outcome>
+                        <sttrbuilder:outcomeId><![CDATA[Vergunningplicht]]></sttrbuilder:outcomeId>
+                        <sttrbuilder:answers>
+                            <sttrbuilder:answer rowId="ec96841e-20c0-412d-b8da-ebbd3e389e44">
+<sttrbuilder:answer><![CDATA[ja]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="8f81fbcf-9576-402e-b00b-bc72564126aa">
+<sttrbuilder:answer><![CDATA[nee]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="f1b15b0b-9d38-4138-ad79-c9c3985017a5" operand="OR">
+<sttrbuilder:multipleValues>
+    <sttrbuilder:value>deels</sttrbuilder:value>
+    <sttrbuilder:value>nee</sttrbuilder:value>
+</sttrbuilder:multipleValues>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="0b3c4307-c8eb-4ac4-bf3d-f0b16bdaf180">
+<sttrbuilder:answer><![CDATA[ja]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                            <sttrbuilder:answer rowId="17009f72-90a5-4068-81df-6499e2985e5e">
+<sttrbuilder:answer><![CDATA[nee]]></sttrbuilder:answer>
+                            </sttrbuilder:answer>
+                        </sttrbuilder:answers>
+                    </sttrbuilder:questionPath>
+                </sttrbuilder:questionPaths>
+                <sttrbuilder:outcomeInformation>
+                    <sttrbuilder:outcomeInformationContent outcomeId="Vergunningplicht">
+                        <sttrbuilder:content><![CDATA[Op basis van uw antwoorden valt uw activiteit onder de vergunningsplicht. Dit betekent dat u een omgevingsvergunning dient aan te vragen volgens de geldende regels van de Omgevingswet. Zorg ervoor dat u de aanvraag compleet indient met alle benodigde documenten en tekeningen.]]></sttrbuilder:content>
+                    </sttrbuilder:outcomeInformationContent>
+                    <sttrbuilder:outcomeInformationContent outcomeId="Toestemmingsvrij">
+                        <sttrbuilder:content><![CDATA[Op basis van uw antwoorden is de conclusie dat uw activiteit toestemmingsvrij is. Dit houdt in dat u geen omgevingsvergunning nodig heeft, mits u de voorschriften uit het omgevingsplan naleeft. Bewaar alle relevante documenten, zodat u deze later kunt raadplegen indien nodig, en neem bij vragen gerust contact op met de gemeente Lelystad.]]></sttrbuilder:content>
+                    </sttrbuilder:outcomeInformationContent>
+                </sttrbuilder:outcomeInformation>
+                <sttrbuilder:maatregelenPossibleOutcomes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </sttrbuilder:checkDependencyInformation>
+        </sttrbuilder:dependencyInformation>
+    </dmn:extensionElements>
+    <dmn:inputData name="uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92" id="input_uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92">
+        <dmn:extensionElements>
+            <uitv:uitvoeringsregelRef href="#uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92"/>
+        </dmn:extensionElements>
+        <dmn:variable typeRef="boolean" name="uitv__4483fe58_57b7_4e71_bf19_15783f0f9d92" id="_7601e3ce_5e6c_45bf_a9d6_82c04f8374c7"/>
+    </dmn:inputData>
+    <dmn:inputData name="uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7" id="input_uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7">
+        <dmn:extensionElements>
+            <uitv:uitvoeringsregelRef href="#uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7"/>
+        </dmn:extensionElements>
+        <dmn:variable typeRef="boolean" name="uitv__864933e7_4ea9_45a2_ae17_d8b1a4df34d7" id="_22264d96_a5d2_46b5_abe0_63b1e69d97f2"/>
+    </dmn:inputData>
+    <dmn:inputData name="uitv__7b6ed60e-184f-4d93-a186-828dc9182890" id="input_uitv__7b6ed60e-184f-4d93-a186-828dc9182890">
+        <dmn:extensionElements>
+            <uitv:uitvoeringsregelRef href="#uitv__7b6ed60e-184f-4d93-a186-828dc9182890"/>
+        </dmn:extensionElements>
+        <dmn:variable typeRef="boolean" name="uitv__7b6ed60e_184f_4d93_a186_828dc9182890" id="_375cc4fd_8adb_44d0_b34b_b80b6bdbf57b"/>
+    </dmn:inputData>
+    <dmn:inputData name="uitv__648edf88-a9ce-4726-b043-a3e18fa434c5" id="input_uitv__648edf88-a9ce-4726-b043-a3e18fa434c5">
+        <dmn:extensionElements>
+            <uitv:uitvoeringsregelRef href="#uitv__648edf88-a9ce-4726-b043-a3e18fa434c5"/>
+        </dmn:extensionElements>
+        <dmn:variable typeRef="boolean" name="uitv__648edf88_a9ce_4726_b043_a3e18fa434c5" id="_68970c43_c364_452b_94e8_035360f26597"/>
+    </dmn:inputData>
+    <dmn:inputData name="uitv__8155d4e0-7003-44ca-8f42-c97afa52f0c7" id="input_uitv__8155d4e0-7003-44ca-8f42-c97afa52f0c7">
+        <dmn:extensionElements>
+            <uitv:uitvoeringsregelRef href="#uitv__8155d4e0-7003-44ca-8f42-c97afa52f0c7"/>
+        </dmn:extensionElements>
+        <dmn:variable typeRef="boolean" name="uitv__8155d4e0_7003_44ca_8f42_c97afa52f0c7" id="_a1e7340a_6211_4840_a908_e5671e91d503"/>
+    </dmn:inputData>
+    <dmn:decision camunda:historyTimeToLive="180" name="Boom kappen of houtopstand vellen" id="_b6b64b9e_4dc7_4809_8476_6eb2d3d6d463">
+        <dmn:extensionElements>
+            <bedr:functioneleStructuurRef href="http://toepasbare-regels.omgevingswet.overheid.nl/00000001005024249000/id/concept/Conclusienl.imow-gm0995.activiteit.HoutopstandVellen"/>
+        </dmn:extensionElements>
+        <dmn:variable typeRef="string" name="Boom_kappen_of_houtopstand_vellen" id="_b6b64b9e_4dc7_4809_8476_6eb2d3d6d463_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_bd7e0786_427a_4038_b67a_d77d6d4f97b1"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_f627b91b_93ac_40ba_9426_6338d22efbc8"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="RULE ORDER" outputLabel="Boom kappen of houtopstand vellen" id="_b6b64b9e_4dc7_4809_8476_6eb2d3d6d463_dt">
+            <dmn:input id="dsoInput_1">
+                <dmn:inputExpression id="dsoInputExpr_1" typeRef="string">
+                    <dmn:text>Boom_kappen_of_houtopstand_vellen_Niet_van_toepassing_cross</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_2">
+                <dmn:inputExpression id="dsoInputExpr_2" typeRef="string">
+                    <dmn:text>Boom_kappen_of_houtopstand_vellen_Vergunningplicht_cross</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_eb574e9b_7603_4ad4_9685_2f1b664e82fb" typeRef="string"/>
+            <dmn:rule id="_08128dc0_c561_4e9c_8b41_6b4c44ce1afb">
+                <dmn:inputEntry id="_8af92ae7_ba7e_4cca_a7f6_a0ab6428c125">
+                    <dmn:text>if ?=null then false else contains(?,"Niet van toepassing pad 0_")</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_13f53f2c_edc7_4977_9902_4ca19715a049">
+                    <dmn:text>not(null)</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_459f8adb_a4c3_4d79_a1f6_2689b9b558d7">
+                    <dmn:text><![CDATA["NietVanToepassing"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_6cdb3521_1cd6_44c7_9fb9_12c07c02b0bf">
+                <dmn:inputEntry id="_b482e7dc_e53e_4283_ad60_7a7e6e5ff8f0">
+                    <dmn:text>not(null)</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_dbea0c01_2e3f_4456_85e4_97796e254fc6">
+                    <dmn:text>if ?=null then false else contains(?,"Vergunningplicht pad 1_")</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_ecd267d4_7301_4cee_a9e7_0c5cb8f11a53">
+                    <dmn:extensionElements>
+                        <content:conclusieToelichting>
+                            <content:toelichting><![CDATA[Op basis van uw antwoorden valt uw activiteit onder de vergunningsplicht. Dit betekent dat u een omgevingsvergunning dient aan te vragen volgens de geldende regels van de Omgevingswet. Zorg ervoor dat u de aanvraag compleet indient met alle benodigde documenten en tekeningen.]]></content:toelichting>
+                        </content:conclusieToelichting>
+                    </dmn:extensionElements>
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_c92647d1_6bbb_4db2_9507_077144c9e82f">
+                <dmn:inputEntry id="_289ab527_e819_4d84_9c2f_62ac36206e57">
+                    <dmn:text>not(null)</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_311d24bc_eca9_41eb_8ce3_187a37e6360b">
+                    <dmn:text>if ?=null then false else contains(?,"Vergunningplicht pad 2_")</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_ff66b157_2386_47ca_9788_0325acd8cdef">
+                    <dmn:extensionElements>
+                        <content:conclusieToelichting>
+                            <content:toelichting><![CDATA[Op basis van uw antwoorden valt uw activiteit onder de vergunningsplicht. Dit betekent dat u een omgevingsvergunning dient aan te vragen volgens de geldende regels van de Omgevingswet. Zorg ervoor dat u de aanvraag compleet indient met alle benodigde documenten en tekeningen.]]></content:toelichting>
+                        </content:conclusieToelichting>
+                    </dmn:extensionElements>
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_e614c01e_2891_4df0_a4e4_07046cca23a1">
+                <dmn:inputEntry id="_3beaeff6_4121_47c6_a3d4_34ac22ce5e97">
+                    <dmn:text>not(null)</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_4577b106_14d7_47a9_aa69_54d8f4a85313">
+                    <dmn:text>if ?=null then false else contains(?,"Vergunningplicht pad 3_")</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_27b53f9a_0cc8_442c_8989_e597ce04d56d">
+                    <dmn:extensionElements>
+                        <content:conclusieToelichting>
+                            <content:toelichting><![CDATA[Op basis van uw antwoorden valt uw activiteit onder de vergunningsplicht. Dit betekent dat u een omgevingsvergunning dient aan te vragen volgens de geldende regels van de Omgevingswet. Zorg ervoor dat u de aanvraag compleet indient met alle benodigde documenten en tekeningen.]]></content:toelichting>
+                        </content:conclusieToelichting>
+                    </dmn:extensionElements>
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_6f6780bd_3e2b_439e_bbc9_63536583ed6f">
+                <dmn:inputEntry id="_f243efe2_9993_41c1_80f3_c6d24709df78">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_eb2763af_7fd9_4ffe_b1eb_eb73a5b7d018">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_81f5e246_c76a_4392_a5a7_f1d7fd7e235a">
+                    <dmn:extensionElements>
+                        <content:conclusieToelichting>
+                            <content:toelichting><![CDATA[Op basis van uw antwoorden is de conclusie dat uw activiteit toestemmingsvrij is. Dit houdt in dat u geen omgevingsvergunning nodig heeft, mits u de voorschriften uit het omgevingsplan naleeft. Bewaar alle relevante documenten, zodat u deze later kunt raadplegen indien nodig, en neem bij vragen gerust contact op met de gemeente Lelystad.]]></content:toelichting>
+                        </content:conclusieToelichting>
+                    </dmn:extensionElements>
+                    <dmn:text>"Toestemmingsvrij"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision camunda:historyTimeToLive="180" name="Boom kappen of houtopstand vellen_Niet van toepassing_cross" id="_bd7e0786_427a_4038_b67a_d77d6d4f97b1">
+        <dmn:variable typeRef="string" name="Boom_kappen_of_houtopstand_vellen_Niet_van_toepassing_cross" id="_bd7e0786_427a_4038_b67a_d77d6d4f97b1_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_6d45be8c-8010-4d11-8775-487a28b88087"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="FIRST" outputLabel="Boom kappen of houtopstand vellen_Niet van toepassing_cross" id="_bd7e0786_427a_4038_b67a_d77d6d4f97b1_dt">
+            <dmn:input id="dsoInput_3">
+                <dmn:inputExpression id="dsoInputExpr_3" typeRef="string">
+                    <dmn:text>_6d45be8c_8010_4d11_8775_487a28b88087_Niet_van_toepassing</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_6da38b3a_803c_4aea_b548_db7f9bf558a5" typeRef="string"/>
+            <dmn:rule id="_afad99a6_7f77_424d_93c6_bc93342ffe6b">
+                <dmn:inputEntry id="_da4c7092_4529_4374_9f18_0ebe1f895be4">
+                    <dmn:text><![CDATA["Niet van toepassing"]]></dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_ce21acf0_6430_4f0d_b4ad_ef458542b09d">
+                    <dmn:text><![CDATA["Niet van toepassing pad 0_"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_5dacc9d1_2241_40c2_aa2f_7550fe28c972">
+                <dmn:inputEntry id="_4eb4e747_340e_4e1c_b078_d378cd80ee80">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_08559061_6ee5_4114_9f19_83ed1a29f361">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision camunda:historyTimeToLive="180" name="Boom kappen of houtopstand vellen_Vergunningplicht_cross" id="_f627b91b_93ac_40ba_9426_6338d22efbc8">
+        <dmn:variable typeRef="string" name="Boom_kappen_of_houtopstand_vellen_Vergunningplicht_cross" id="_f627b91b_93ac_40ba_9426_6338d22efbc8_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_2bc68e71-981f-4476-aaaf-f10980dab348"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_45d6b9e0-518b-4bcc-b39a-b50cc3251539"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_8f6e3ddc-bba0-4b6c-bb24-6614f061332c"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="FIRST" outputLabel="Boom kappen of houtopstand vellen_Vergunningplicht_cross" id="_f627b91b_93ac_40ba_9426_6338d22efbc8_dt">
+            <dmn:input id="dsoInput_4">
+                <dmn:inputExpression id="dsoInputExpr_4" typeRef="string">
+                    <dmn:text>_2bc68e71_981f_4476_aaaf_f10980dab348_Vergunningplicht</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_5">
+                <dmn:inputExpression id="dsoInputExpr_5" typeRef="string">
+                    <dmn:text>_45d6b9e0_518b_4bcc_b39a_b50cc3251539_Vergunningplicht</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_6">
+                <dmn:inputExpression id="dsoInputExpr_6" typeRef="string">
+                    <dmn:text>_8f6e3ddc_bba0_4b6c_bb24_6614f061332c_Vergunningplicht</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_5039b95f_c4c8_4a5f_903c_e850b0b625ab" typeRef="string"/>
+            <dmn:rule id="_5b610222_3e05_4792_8be2_c9562f321f10">
+                <dmn:inputEntry id="_dd1c1125_2e11_45b1_8baf_145ad1d64c3a">
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_c1ad906b_417d_47ab_b2be_6e2622a181a7">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_81fdc299_524d_4686_a061_eb914faa0537">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_732b82fd_f657_4af2_b983_757ec7dfca54">
+                    <dmn:text><![CDATA["Vergunningplicht pad 1_"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_9f5b595f_2a09_4fc3_b870_734e205d09fd">
+                <dmn:inputEntry id="_6b0448e8_caf1_42d9_b2fd_4fa805d913f5">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_5b0a4a46_883a_48a4_ac93_31a8ff01e738">
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_b64da760_0045_4f15_9cd1_3541be700f81">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_fcf8702a_b800_4680_85f2_e430d50e282d">
+                    <dmn:text><![CDATA["Vergunningplicht pad 2_"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_c068f1b2_e6f3_49f0_bc9f_4488ac7a40e8">
+                <dmn:inputEntry id="_ae24f5f0_f201_4ffb_b814_c0b3d359b9bb">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_18c63f8c_ab18_4a63_a2af_5869cf34220f">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_c31edb68_ef21_4a9c_938d_5a9f16a30a3d">
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_d956e551_738e_4d4b_84b3_1e782208e81e">
+                    <dmn:text><![CDATA["Vergunningplicht pad 3_"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_d6cf0753_ad36_4ea3_95ac_ad9b8cdcf057">
+                <dmn:inputEntry id="_d23f15fe_c079_4eb0_a5b5_39e92e3287ff">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_efd11272_8c54_4c59_a873_503c43a5711f">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_ea824986_5e57_4345_a75e_092c30754440">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_ee58ca9d_efa6_4d2f_8989_bcd886347e00">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision camunda:historyTimeToLive="180" name="_6d45be8c-8010-4d11-8775-487a28b88087_Niet van toepassing" id="_6d45be8c-8010-4d11-8775-487a28b88087">
+        <dmn:variable typeRef="string" name="_6d45be8c_8010_4d11_8775_487a28b88087_Niet_van_toepassing" id="_6d45be8c-8010-4d11-8775-487a28b88087_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="FIRST" outputLabel="_6d45be8c-8010-4d11-8775-487a28b88087_Niet van toepassing" id="_6d45be8c-8010-4d11-8775-487a28b88087_dt">
+            <dmn:input id="dsoInput_7">
+                <dmn:inputExpression id="dsoInputExpr_7" typeRef="boolean">
+                    <dmn:text>uitv__4483fe58_57b7_4e71_bf19_15783f0f9d92</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_34141fce_0baa_40bc_88e9_4604715c2a33" typeRef="string"/>
+            <dmn:rule id="_327c4520_ebf9_44fe_8fc1_8bf17e9215ae">
+                <dmn:inputEntry id="_b33c1b81_89ae_4f0c_aaa0_4dd517c318bf">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_2ceb44ab_2dd3_4e2c_829c_7a519adb7287">
+                    <dmn:text><![CDATA["Niet van toepassing"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_6d0164e1_f7c7_4bc0_98c8_fa9c4ccaf75f">
+                <dmn:inputEntry id="_d75fdb72_18ec_4da6_9b0a_d740714022cb">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_a5a05364_ea7f_45e4_bd9f_06b1ce8e8953">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision camunda:historyTimeToLive="180" name="_2bc68e71-981f-4476-aaaf-f10980dab348_Vergunningplicht" id="_2bc68e71-981f-4476-aaaf-f10980dab348">
+        <dmn:variable typeRef="string" name="_2bc68e71_981f_4476_aaaf_f10980dab348_Vergunningplicht" id="_2bc68e71-981f-4476-aaaf-f10980dab348_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="FIRST" outputLabel="_2bc68e71-981f-4476-aaaf-f10980dab348_Vergunningplicht" id="_2bc68e71-981f-4476-aaaf-f10980dab348_dt">
+            <dmn:input id="dsoInput_8">
+                <dmn:inputExpression id="dsoInputExpr_8" typeRef="boolean">
+                    <dmn:text>uitv__4483fe58_57b7_4e71_bf19_15783f0f9d92</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_9">
+                <dmn:inputExpression id="dsoInputExpr_9" typeRef="boolean">
+                    <dmn:text>uitv__864933e7_4ea9_45a2_ae17_d8b1a4df34d7</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_b893041d_d4d8_4b2f_8a67_b72aa5e7dd60" typeRef="string"/>
+            <dmn:rule id="_fe8d4797_903b_4054_a13d_040f14b7fd62">
+                <dmn:inputEntry id="_a173fa82_a4c1_4eb9_9983_28922a838823">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_2e68c3bb_96dd_4690_aa09_a8b9288620df">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_516da602_dc6f_4427_adba_30dab1aa90db">
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_af7db947_a2b3_4b53_846c_1913ebeaa418">
+                <dmn:inputEntry id="_d3bf6024_e7c0_4f98_b7eb_3060ed24c3c6">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_0cddd9f9_08f6_4c09_9d9b_8ac97e4d84bc">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_4f9d843b_a32d_4fdc_975e_7cfa3b32d2ab">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_8509e22d_2572_4f04_838d_65c1b0cc5f27">
+                <dmn:inputEntry id="_71b128bc_8654_4bbf_9b82_fa0856bb0fb6">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_567ba404_96d3_461f_946b_9569b47c259b">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_7b5cfc9a_4c6e_422f_b2e3_bf02f56157c4">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision camunda:historyTimeToLive="180" name="_45d6b9e0-518b-4bcc-b39a-b50cc3251539_Vergunningplicht" id="_45d6b9e0-518b-4bcc-b39a-b50cc3251539">
+        <dmn:variable typeRef="string" name="_45d6b9e0_518b_4bcc_b39a_b50cc3251539_Vergunningplicht" id="_45d6b9e0-518b-4bcc-b39a-b50cc3251539_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__7b6ed60e-184f-4d93-a186-828dc9182890"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__648edf88-a9ce-4726-b043-a3e18fa434c5"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="FIRST" outputLabel="_45d6b9e0-518b-4bcc-b39a-b50cc3251539_Vergunningplicht" id="_45d6b9e0-518b-4bcc-b39a-b50cc3251539_dt">
+            <dmn:input id="dsoInput_10">
+                <dmn:inputExpression id="dsoInputExpr_10" typeRef="boolean">
+                    <dmn:text>uitv__4483fe58_57b7_4e71_bf19_15783f0f9d92</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_11">
+                <dmn:inputExpression id="dsoInputExpr_11" typeRef="boolean">
+                    <dmn:text>uitv__864933e7_4ea9_45a2_ae17_d8b1a4df34d7</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_12">
+                <dmn:inputExpression id="dsoInputExpr_12" typeRef="boolean">
+                    <dmn:text>uitv__7b6ed60e_184f_4d93_a186_828dc9182890</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_13">
+                <dmn:inputExpression id="dsoInputExpr_13" typeRef="boolean">
+                    <dmn:text>uitv__648edf88_a9ce_4726_b043_a3e18fa434c5</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_e4bac1b4_3500_4935_8b75_df324c54ff25" typeRef="string"/>
+            <dmn:rule id="_96ab19cc_3b48_4d40_a1ca_2fccabd4c52c">
+                <dmn:inputEntry id="_723c4e2c_f35a_4695_b6cd_6fea78ccf1c4">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_e0565694_2137_439c_af97_116b7962bc30">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_a9276a95_c5a9_459c_9d1d_06ca74d938f1">
+                    <dmn:text>"deels","nee"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_819f4dbc_e43d_4317_a987_15aa8c0b7bdb">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_215fb637_03e5_4573_a9de_9e67427b7b44">
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_08a82066_8291_471c_9f13_20a7971ed900">
+                <dmn:inputEntry id="_9c09793e_ef52_4244_9012_a786b5931677">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_d8b52db3_88c2_4ad9_b3fe_d72370f1d80f">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_023b549d_d330_46f0_a8b1_4750e06f20a1">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_541df6a2_c7ed_48ee_a5e9_0bd299ee6b28">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_1d0c6e28_31d9_42e0_9f93_5529119b7bd7">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_e4c8c5e1_cee1_41f0_abea_78b3882dd6c9">
+                <dmn:inputEntry id="_9ed977d8_df64_4527_a110_e4df60fa0c8f">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_efe13974_6b84_455e_8b72_f091c8bf433c">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_e90b5414_4294_4210_851b_f534e3e589e3">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_dd5a3773_29d6_4dad_8e7f_0a4b613c9b44">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_aee2cbeb_9020_41e6_8c83_1fd18914f025">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_cc762923_c19c_490e_877b_08f24847438d">
+                <dmn:inputEntry id="_56599368_5436_4e2d_bb14_d60680357740">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_bf43f126_6318_461f_a91d_65352f32ef2f">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_019abcc2_1cc4_436b_8666_ef7180baae8c">
+                    <dmn:text><![CDATA["ja"]]></dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_ae84aaab_dd9b_4757_9c46_ec3cbafb8883">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_5f32c6b3_1119_4265_8484_09a6a5fdf36a">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_8c16449f_5839_4e9a_9ee2_8cb1ef266fbb">
+                <dmn:inputEntry id="_a87ce738_0d51_4faf_a26e_39fbe4a17feb">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_a7eef5af_3645_4d58_a415_f33fe8c36d44">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_efb278ee_c595_46a2_8bc8_3b2988c80e36">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_e63ac7dc_7518_4049_9b12_b101b4dd90e0">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_846610a0_378f_4af4_a0ff_b999af2f26bd">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision camunda:historyTimeToLive="180" name="_8f6e3ddc-bba0-4b6c-bb24-6614f061332c_Vergunningplicht" id="_8f6e3ddc-bba0-4b6c-bb24-6614f061332c">
+        <dmn:variable typeRef="string" name="_8f6e3ddc_bba0_4b6c_bb24_6614f061332c_Vergunningplicht" id="_8f6e3ddc-bba0-4b6c-bb24-6614f061332c_var"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__4483fe58-57b7-4e71-bf19-15783f0f9d92"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__864933e7-4ea9-45a2-ae17-d8b1a4df34d7"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__7b6ed60e-184f-4d93-a186-828dc9182890"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__648edf88-a9ce-4726-b043-a3e18fa434c5"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#input_uitv__8155d4e0-7003-44ca-8f42-c97afa52f0c7"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="FIRST" outputLabel="_8f6e3ddc-bba0-4b6c-bb24-6614f061332c_Vergunningplicht" id="_8f6e3ddc-bba0-4b6c-bb24-6614f061332c_dt">
+            <dmn:input id="dsoInput_14">
+                <dmn:inputExpression id="dsoInputExpr_14" typeRef="boolean">
+                    <dmn:text>uitv__4483fe58_57b7_4e71_bf19_15783f0f9d92</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_15">
+                <dmn:inputExpression id="dsoInputExpr_15" typeRef="boolean">
+                    <dmn:text>uitv__864933e7_4ea9_45a2_ae17_d8b1a4df34d7</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_16">
+                <dmn:inputExpression id="dsoInputExpr_16" typeRef="boolean">
+                    <dmn:text>uitv__7b6ed60e_184f_4d93_a186_828dc9182890</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_17">
+                <dmn:inputExpression id="dsoInputExpr_17" typeRef="boolean">
+                    <dmn:text>uitv__648edf88_a9ce_4726_b043_a3e18fa434c5</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:input id="dsoInput_18">
+                <dmn:inputExpression id="dsoInputExpr_18" typeRef="boolean">
+                    <dmn:text>uitv__8155d4e0_7003_44ca_8f42_c97afa52f0c7</dmn:text>
+                </dmn:inputExpression>
+            </dmn:input>
+            <dmn:output id="_2dc5348a_a5a0_4ad8_8d94_a723b7b3a6bc" typeRef="string"/>
+            <dmn:rule id="_bf695b51_7bf4_4cf5_9187_2edd35744357">
+                <dmn:inputEntry id="_e2ade6e1_f83a_4352_ad4d_f828a46c896e">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_e2aec413_28e1_4948_b400_7a5800e7fb31">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_1ce0cce1_7850_4f05_98f5_3f6e4c3b2def">
+                    <dmn:text>"deels","nee"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_21e0cb09_f639_4a86_ac9c_233373022c6d">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_9ddd7cb0_53bc_43dc_8d67_afe22800aff4">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_91d41d47_0eb1_424c_b045_b99395fee10d">
+                    <dmn:text><![CDATA["Vergunningplicht"]]></dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_e3fc4ac0_8b3b_4d33_84a8_b715dabd4e40">
+                <dmn:inputEntry id="_03da943a_fbc6_4543_85af_d58e5cff164e">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_8839cb81_fccb_43eb_95be_3402e0f70621">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_7d88dd47_75f2_4f41_8011_00ee19f01c50">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_ef2be331_91f5_4717_9b82_eee93174cfa1">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_0ae8dc6e_57dc_4941_8c7a_dabf04b30dde">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_8eaaaceb_f8ff_45aa_bd61_17719d4f37c9">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_576ab274_d98b_4e49_8699_a34763451f34">
+                <dmn:inputEntry id="_6448e52c_610c_45a0_915d_8473d09d7061">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_acbd8a88_909c_4cef_a1aa_fa183787b52b">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_479114d1_3bc8_4057_8c6e_b8f9c60307b9">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_3cda495e_704c_4ff2_b585_9b22f81a10df">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_fd7205c8_b43e_4e1f_8113_e0379359f248">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_e5f4d0b3_30f8_48e8_b895_a5823a977e03">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_ce4ff4ce_cad0_4ae6_b265_c0a429675efe">
+                <dmn:inputEntry id="_7b1174c6_730a_43ff_9113_5c1400425a8b">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_88da713d_35eb_4c94_9fba_b7fb602964f4">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_d3580d75_3116_47b7_978f_e4f25e45c2c1">
+                    <dmn:text><![CDATA["ja"]]></dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_fe3c09a7_019d_4b59_a907_7dd5a4e38857">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_ba271512_0ccc_4562_a833_c1ddc81d711c">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_435cd052_05be_40ef_9893_10e2816f2bd5">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_c2157bb4_09e2_4d6d_b04e_9863d3a41c17">
+                <dmn:inputEntry id="_a8357401_9c25_4f62_9e12_8e78a0b2ea8b">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_0d60624c_e5f0_4f97_9668_696bbfd48343">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_2089d8dd_f3ec_4fff_bfdb_17c57726456d">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_1012d18c_3267_4249_914e_c2c6532b3454">
+                    <dmn:text>false</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_d3527d8b_fc63_41f6_b024_c63e132a9d26">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_43828827_a988_4f15_a308_8782bbb47788">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_4d1d3747_284d_406d_bea2_7bd85399a548">
+                <dmn:inputEntry id="_98d6d922_843d_4aa6_bae5_157114c0899b">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_b65b287c_6cfb_40aa_adb3_e51b1b2f4141">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_d12e8818_74db_4579_a96a_c121d102ac5e">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_e1550be4_1ea8_4c0f_ae86_df0ba4776e55">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_38e6af0c_1742_43c9_a7c9_44caf868721b">
+                    <dmn:text>true</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_0ae6c30a_01c3_4d4f_85ac_dfb35fc682a8">
+                    <dmn:text>"no hit"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+</dmn:definitions>

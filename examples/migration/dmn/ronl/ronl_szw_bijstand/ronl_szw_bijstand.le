@@ -1,0 +1,564 @@
+% The Logical English twin of the DMN model "SZW Bijstand" (RONL_SZW_Bijstand.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base ronl_szw_bijstand includes these resources:
+    feel.
+
+the functions are:
+    the dag van aanvraag is *a value*.
+    the aanvrager alleenstaand is *a value*.
+    the aanvrager heeft kinderen is *a value*.
+    the aanvrager is181920 is *a value*.
+    the aanvrager is_tenminste21 is *a value*.
+    the aanvrager heeft aow leeftijd is *a value*.
+    the partner is181920 is *a value*.
+    the partner is_tenminste21 is *a value*.
+    the partner heeft aow leeftijd is *a value*.
+    the bijstands norm of the szw bijstandsnorm informatie is *a number*.
+    the bijstandsnorm type of the szw bijstandsnorm informatie is *a text*.
+    the bijstandsnorm termijn of the szw bijstandsnorm informatie is *a text*.
+    the szw bijstandsnorm bedragen is *a number*.
+    the szw bijstandsnormtype is *a text*.
+    the szw bijstandsnormtermijn is *a text*.
+    the partner is181920 or null is *a value*.
+    the partner is_tenminste21 or null is *a value*.
+    the partner heeft aow leeftijd or null is *a value*.
+
+the templates are:
+    the szw bijstandsnorm bedragen for *a text* and *a second text* is *a number* under table szw_bijstandsnorm_bedragen.
+    the szw bijstandsnormtype for *a truth value* and *a second truth value* and *a third truth value* and *a fourth truth value* and *a fifth truth value* and *a sixth truth value* and *a seventh truth value* and *an eighth truth value* is *a text* under table szw_bijstandsnormtype.
+
+the table szw_bijstandsnorm_bedragen is, with unique match:
+    bijstandsnorm termijn | bijstandsnorm type | bijstands norm
+    "2e helft 2024"       | "M"                | 1308.45
+    "2e helft 2024"       | "MK"               | 1308.45
+    "2e helft 2024"       | "MM"               | 1869.21
+    "2e helft 2024"       | "MMK"              | 1869.21
+    "2e helft 2024"       | "MO"               | 1976.64
+    "2e helft 2024"       | "MOK"              | 1976.64
+    "2e helft 2024"       | "MJ"               | 1257.64
+    "2e helft 2024"       | "MJK"              | 1631.48
+    "2e helft 2024"       | "J"                | 323.03
+    "2e helft 2024"       | "JK"               | 323.03
+    "2e helft 2024"       | "JJ"               | 646.06
+    "2e helft 2024"       | "JJK"              | 1019.9
+    "2e helft 2024"       | "JO"               | 1631.48
+    "2e helft 2024"       | "JOK"              | 1631.48
+    "2e helft 2024"       | "O"                | 1456.85
+    "2e helft 2024"       | "OK"               | 1456.85
+    "2e helft 2024"       | "OO"               | 1976.64
+    "2e helft 2024"       | "OOK"              | 1976.64
+    "1e helft 2025"       | "M"                | 1345.45
+    "1e helft 2025"       | "MK"               | 1345.45
+    "1e helft 2025"       | "MM"               | 1922.07
+    "1e helft 2025"       | "MMK"              | 1922.07
+    "1e helft 2025"       | "MO"               | 2053.48
+    "1e helft 2025"       | "MOK"              | 2053.48
+    "1e helft 2025"       | "MJ"               | 1293.21
+    "1e helft 2025"       | "MJK"              | 1677.62
+    "1e helft 2025"       | "J"                | 332.17
+    "1e helft 2025"       | "JK"               | 332.17
+    "1e helft 2025"       | "JJ"               | 664.34
+    "1e helft 2025"       | "JJK"              | 1048.75
+    "1e helft 2025"       | "JO"               | 1677.62
+    "1e helft 2025"       | "JOK"              | 1677.62
+    "1e helft 2025"       | "O"                | 1501.07
+    "1e helft 2025"       | "OK"               | 1501.07
+    "1e helft 2025"       | "OO"               | 2053.48
+    "1e helft 2025"       | "OOK"              | 2053.48
+    "2e helft 2025"       | "M"                | 1369.06
+    "2e helft 2025"       | "MK"               | 1369.06
+    "2e helft 2025"       | "MM"               | 1955.8
+    "2e helft 2025"       | "MMK"              | 1955.8
+    "2e helft 2025"       | "MO"               | 2094.98
+    "2e helft 2025"       | "MOK"              | 2094.98
+    "2e helft 2025"       | "MJ"               | 1315.88
+    "2e helft 2025"       | "MJK"              | 1707.04
+    "2e helft 2025"       | "J"                | 337.98
+    "2e helft 2025"       | "JK"               | 337.98
+    "2e helft 2025"       | "JJ"               | 675.96
+    "2e helft 2025"       | "JJK"              | 1067.12
+    "2e helft 2025"       | "JO"               | 1707.04
+    "2e helft 2025"       | "JOK"              | 1707.04
+    "2e helft 2025"       | "O"                | 1530.21
+    "2e helft 2025"       | "OK"               | 1530.21
+    "2e helft 2025"       | "OO"               | 2094.98
+    "2e helft 2025"       | "OOK"              | 2094.98
+    "1e helft 2026"       | "M"                | 1401.5
+    "1e helft 2026"       | "MK"               | 1401.5
+    "1e helft 2026"       | "MM"               | 2002.13
+    "1e helft 2026"       | "MMK"              | 2002.13
+    "1e helft 2026"       | "MO"               | 2144.16
+    "1e helft 2026"       | "MOK"              | 2144.16
+    "1e helft 2026"       | "MJ"               | 1347.06
+    "1e helft 2026"       | "MJK"              | 1747.49
+    "1e helft 2026"       | "J"                | 345.99
+    "1e helft 2026"       | "JK"               | 345.99
+    "1e helft 2026"       | "JJ"               | 691.98
+    "1e helft 2026"       | "JJK"              | 1092.41
+    "1e helft 2026"       | "JO"               | 1747.49
+    "1e helft 2026"       | "JOK"              | 1747.49
+    "1e helft 2026"       | "O"                | 1564.69
+    "1e helft 2026"       | "OK"               | 1564.69
+    "1e helft 2026"       | "OO"               | 2144.16
+    "1e helft 2026"       | "OOK"              | 2144.16
+    "2e helft 2026"       | "M"                | 1419.46
+    "2e helft 2026"       | "MK"               | 1419.46
+    "2e helft 2026"       | "MM"               | 2027.79
+    "2e helft 2026"       | "MMK"              | 2027.79
+    "2e helft 2026"       | "MO"               | 2176.1
+    "2e helft 2026"       | "MOK"              | 2176.1
+    "2e helft 2026"       | "MJ"               | 1364.32
+    "2e helft 2026"       | "MJK"              | 1769.88
+    "2e helft 2026"       | "J"                | 350.42
+    "2e helft 2026"       | "JK"               | 350.42
+    "2e helft 2026"       | "JJ"               | 700.84
+    "2e helft 2026"       | "JJK"              | 1106.4
+    "2e helft 2026"       | "JO"               | 1769.88
+    "2e helft 2026"       | "JOK"              | 1769.88
+    "2e helft 2026"       | "O"                | 1587.34
+    "2e helft 2026"       | "OK"               | 1587.34
+    "2e helft 2026"       | "OO"               | 2176.1
+    "2e helft 2026"       | "OOK"              | 2176.1
+
+the table szw_bijstandsnormtype is, with unique match:
+    aanvrager alleenstaand | aanvrager heeft kinderen | aanvrager is181920 | aanvrager is_tenminste21 | aanvrager heeft aow leeftijd | partner is181920 | partner is_tenminste21 | partner heeft aow leeftijd | bijstandsnorm type
+    true                   | false                    | false              | true                     | false                        | any              | any                    | any                        | "M"
+    true                   | true                     | false              | true                     | false                        | any              | any                    | any                        | "MK"
+    false                  | false                    | false              | true                     | false                        | false            | true                   | false                      | "MM"
+    false                  | true                     | false              | true                     | false                        | false            | true                   | false                      | "MMK"
+    false                  | false                    | false              | true                     | false                        | false            | true                   | true                       | "MO"
+    false                  | true                     | false              | true                     | false                        | false            | true                   | true                       | "MOK"
+    false                  | false                    | false              | true                     | false                        | true             | false                  | false                      | "MJ"
+    false                  | true                     | false              | true                     | false                        | true             | false                  | false                      | "MJK"
+    true                   | false                    | true               | false                    | false                        | any              | any                    | any                        | "J"
+    true                   | true                     | true               | false                    | false                        | any              | any                    | any                        | "JK"
+    false                  | false                    | true               | false                    | false                        | true             | false                  | false                      | "JJ"
+    false                  | true                     | true               | false                    | false                        | true             | false                  | false                      | "JJK"
+    false                  | false                    | true               | false                    | false                        | false            | true                   | true                       | "JO"
+    false                  | true                     | true               | false                    | false                        | false            | true                   | true                       | "JOK"
+    true                   | false                    | false              | true                     | true                         | any              | any                    | any                        | "O"
+    true                   | true                     | false              | true                     | true                         | any              | any                    | any                        | "OK"
+    false                  | false                    | false              | true                     | true                         | false            | true                   | true                       | "OO"
+    false                  | true                     | false              | true                     | true                         | false            | true                   | true                       | "OOK"
+
+the knowledge base ronl_szw_bijstand includes:
+
+the text of the_model is at "sources/RONL_SZW_Bijstand.dmn".
+
+rule szw_bijstandsnorm_informatie_1 with provenance the model at decision SZW Bijstandsnorm Informatie rule 1:
+the bijstands norm of the szw bijstandsnorm informatie is the szw bijstandsnorm bedragen if
+    true is equal to true.
+
+rule szw_bijstandsnorm_informatie_2 with provenance the model at decision SZW Bijstandsnorm Informatie rule 1:
+the bijstandsnorm type of the szw bijstandsnorm informatie is the szw bijstandsnormtype if
+    true is equal to true.
+
+rule szw_bijstandsnorm_informatie_3 with provenance the model at decision SZW Bijstandsnorm Informatie rule 1:
+the bijstandsnorm termijn of the szw bijstandsnorm informatie is the szw bijstandsnormtermijn if
+    true is equal to true.
+
+rule szw_bijstandsnorm_bedragen_1 with provenance the model at decision SZW Bijstandsnorm Bedragen:
+the szw bijstandsnorm bedragen is a number if
+    the szw bijstandsnorm bedragen for the szw bijstandsnormtermijn and the szw bijstandsnormtype is the number under table szw_bijstandsnorm_bedragen.
+
+the partner is181920 or null is the partner is181920, as stated in the model at decision SZW Bijstandsnormtype.
+
+rule szw_bijstandsnormtype_2 with provenance the model at decision SZW Bijstandsnormtype:
+the partner is181920 or null is null if
+    it is not the case that the partner is181920 is a value.
+
+the partner is_tenminste21 or null is the partner is_tenminste21, as stated in the model at decision SZW Bijstandsnormtype.
+
+rule szw_bijstandsnormtype_4 with provenance the model at decision SZW Bijstandsnormtype:
+the partner is_tenminste21 or null is null if
+    it is not the case that the partner is_tenminste21 is a value.
+
+the partner heeft aow leeftijd or null is the partner heeft aow leeftijd, as stated in the model at decision SZW Bijstandsnormtype.
+
+rule szw_bijstandsnormtype_6 with provenance the model at decision SZW Bijstandsnormtype:
+the partner heeft aow leeftijd or null is null if
+    it is not the case that the partner heeft aow leeftijd is a value.
+
+rule szw_bijstandsnormtype_7 with provenance the model at decision SZW Bijstandsnormtype:
+the szw bijstandsnormtype is a text if
+    the szw bijstandsnormtype for the aanvrager alleenstaand and the aanvrager heeft kinderen and the aanvrager is181920 and the aanvrager is_tenminste21 and the aanvrager heeft aow leeftijd and the partner is181920 or null and the partner is_tenminste21 or null and the partner heeft aow leeftijd or null is the text under table szw_bijstandsnormtype.
+
+rule szw_bijstandsnormtermijn_1 with provenance the model at decision SZW Bijstandsnormtermijn rule 1:
+the szw bijstandsnormtermijn is "2e helft 2024" if
+    the dag van aanvraag is true
+    and the date written as true is a date D
+    and 2024-07-01 <= D
+    and the date written as true is a date N
+    and N <= 2024-12-31.
+
+rule szw_bijstandsnormtermijn_2 with provenance the model at decision SZW Bijstandsnormtermijn rule 1:
+the szw bijstandsnormtermijn is "2e helft 2024" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and 2024-07-01 > D.
+
+rule szw_bijstandsnormtermijn_3 with provenance the model at decision SZW Bijstandsnormtermijn rule 1:
+the szw bijstandsnormtermijn is "2e helft 2024" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and D > 2024-12-31.
+
+rule szw_bijstandsnormtermijn_4 with provenance the model at decision SZW Bijstandsnormtermijn rule 2:
+the szw bijstandsnormtermijn is "1e helft 2025" if
+    the dag van aanvraag is true
+    and the date written as true is a date D
+    and 2025-01-01 <= D
+    and the date written as true is a date N
+    and N <= 2025-06-30.
+
+rule szw_bijstandsnormtermijn_5 with provenance the model at decision SZW Bijstandsnormtermijn rule 2:
+the szw bijstandsnormtermijn is "1e helft 2025" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and 2025-01-01 > D.
+
+rule szw_bijstandsnormtermijn_6 with provenance the model at decision SZW Bijstandsnormtermijn rule 2:
+the szw bijstandsnormtermijn is "1e helft 2025" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and D > 2025-06-30.
+
+rule szw_bijstandsnormtermijn_7 with provenance the model at decision SZW Bijstandsnormtermijn rule 3:
+the szw bijstandsnormtermijn is "2e helft 2025" if
+    the dag van aanvraag is true
+    and the date written as true is a date D
+    and 2025-07-01 <= D
+    and the date written as true is a date N
+    and N <= 2025-12-31.
+
+rule szw_bijstandsnormtermijn_8 with provenance the model at decision SZW Bijstandsnormtermijn rule 3:
+the szw bijstandsnormtermijn is "2e helft 2025" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and 2025-07-01 > D.
+
+rule szw_bijstandsnormtermijn_9 with provenance the model at decision SZW Bijstandsnormtermijn rule 3:
+the szw bijstandsnormtermijn is "2e helft 2025" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and D > 2025-12-31.
+
+rule szw_bijstandsnormtermijn_10 with provenance the model at decision SZW Bijstandsnormtermijn rule 4:
+the szw bijstandsnormtermijn is "1e helft 2026" if
+    the dag van aanvraag is true
+    and the date written as true is a date D
+    and 2026-01-01 <= D
+    and the date written as true is a date N
+    and N <= 2026-06-30.
+
+rule szw_bijstandsnormtermijn_11 with provenance the model at decision SZW Bijstandsnormtermijn rule 4:
+the szw bijstandsnormtermijn is "1e helft 2026" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and 2026-01-01 > D.
+
+rule szw_bijstandsnormtermijn_12 with provenance the model at decision SZW Bijstandsnormtermijn rule 4:
+the szw bijstandsnormtermijn is "1e helft 2026" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and D > 2026-06-30.
+
+rule szw_bijstandsnormtermijn_13 with provenance the model at decision SZW Bijstandsnormtermijn rule 5:
+the szw bijstandsnormtermijn is "2e helft 2026" if
+    the dag van aanvraag is true
+    and the date written as true is a date D
+    and 2026-07-01 <= D
+    and the date written as true is a date N
+    and N <= 2026-12-31.
+
+rule szw_bijstandsnormtermijn_14 with provenance the model at decision SZW Bijstandsnormtermijn rule 5:
+the szw bijstandsnormtermijn is "2e helft 2026" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and 2026-07-01 > D.
+
+rule szw_bijstandsnormtermijn_15 with provenance the model at decision SZW Bijstandsnormtermijn rule 5:
+the szw bijstandsnormtermijn is "2e helft 2026" if
+    the dag van aanvraag is false
+    and the date written as false is a date D
+    and D > 2026-12-31.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2024-07-01".
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is M"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MK"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2024-07-01".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MM"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MMK"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2024-12-31".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MO"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 6 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MOK"].
+
+scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 7 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2025-07-01".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is true.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MJ"].
+
+scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 8 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is true.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MJK"].
+
+scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 9 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2025-06-30".
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is J"].
+
+scenario g010 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g010 row 10 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is JK"].
+
+scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g011 row 11 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2026-01-01".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is true.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is JJ"].
+
+scenario g012 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g012 row 12 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is true.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is JJK"].
+
+scenario g013 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g013 row 13 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2026-06-30".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is JO"].
+
+scenario g014 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g014 row 14 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is JOK"].
+
+scenario g015 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g015 row 15 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2026-01-01".
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is true.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is O"].
+
+scenario g016 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g016 row 16 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is true.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is OK"].
+
+scenario g017 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g017 row 17 of SZW Bijstandsnormtype:
+    the dag van aanvraag is "2025-12-31".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is true.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is OO"].
+
+scenario g018 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g018 row 18 of SZW Bijstandsnormtype:
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is true.
+    the partner is181920 is false.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is OOK"].
+
+scenario g019 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g019 row 1 of SZW Bijstandsnormtermijn:
+    the dag van aanvraag is "2024-07-01".
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is false.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is JK"].
+
+scenario g020 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g020 row 2 of SZW Bijstandsnormtermijn:
+    the dag van aanvraag is "2026-06-30".
+    q_d_szw_bijstandsnormtermijn expects answers [].
+
+scenario g021 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g021 row 3 of SZW Bijstandsnormtermijn:
+    the dag van aanvraag is "2025-07-01".
+    the aanvrager alleenstaand is false.
+    the aanvrager heeft kinderen is false.
+    the aanvrager is181920 is true.
+    the aanvrager is_tenminste21 is false.
+    the aanvrager heeft aow leeftijd is true.
+    the partner is181920 is false.
+    the partner is_tenminste21 is false.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers [].
+
+scenario g022 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g022 row 4 of SZW Bijstandsnormtermijn:
+    the dag van aanvraag is "2025-06-30".
+    q_d_szw_bijstandsnormtermijn expects answers [].
+
+scenario g023 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g023 row 5 of SZW Bijstandsnormtermijn:
+    the dag van aanvraag is "2025-01-01".
+    the aanvrager alleenstaand is true.
+    the aanvrager heeft kinderen is true.
+    the aanvrager is181920 is false.
+    the aanvrager is_tenminste21 is true.
+    the aanvrager heeft aow leeftijd is false.
+    the partner is181920 is true.
+    the partner is_tenminste21 is true.
+    the partner heeft aow leeftijd is true.
+    q_d_szw_bijstandsnormtermijn expects answers [].
+    q_d_szw_bijstandsnormtype expects answers ["the szw bijstandsnormtype is MK"].
+
+query q_d_szw_bijstandsnormtermijn is:
+    the szw bijstandsnormtermijn is which text.
+
+query q_d_szw_bijstandsnormtype is:
+    the szw bijstandsnormtype is which text.
+

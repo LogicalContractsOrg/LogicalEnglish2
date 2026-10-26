@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="definitions_thuisbatterij_completeness" name="ThuisbatterijCompletenessCheck" namespace="http://example.com/flevoland/thuisbatterij/dmn" exporter="Camunda Modeler" exporterVersion="5.46.1">
+  <decision id="ThuisbatterijCompletenessCheck" name="Thuisbatterij: aanvraag volledig (Awb 4:5)" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_ThuisbatterijCompleteness" hitPolicy="FIRST">
+      <input id="Input_GemaakteKosten" label="Gemaakte kosten">
+        <inputExpression id="InputExpr_GemaakteKosten" typeRef="double">
+          <text>gemaakteKosten</text>
+        </inputExpression>
+      </input>
+      <input id="Input_RelatieTotWoning" label="Relatie tot de woning">
+        <inputExpression id="InputExpr_RelatieTotWoning" typeRef="string">
+          <text>relatieTotWoning</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ToestemmingEigenaar" label="Toestemming eigenaar">
+        <inputExpression id="InputExpr_ToestemmingEigenaar" typeRef="boolean">
+          <text>toestemmingEigenaar</text>
+        </inputExpression>
+      </input>
+      <input id="Input_ProvincieWoning" label="Provincie van de woning">
+        <inputExpression id="InputExpr_ProvincieWoning" typeRef="string">
+          <text>provincieWoning</text>
+        </inputExpression>
+      </input>
+      <input id="Input_AanvraagDatum" label="Datum van aanvraag">
+        <inputExpression id="InputExpr_AanvraagDatum" typeRef="string">
+          <text>aanvraagDatum</text>
+        </inputExpression>
+      </input>
+      <output id="Output_IsComplete" name="isComplete" typeRef="boolean" />
+      <output id="Output_MissingFields" name="missingFields" typeRef="string" biodi:width="321" />
+      <output id="Output_AwbArticle" name="awbArticle" typeRef="string" biodi:width="282" />
+      <rule id="Rule_KostenOntbreken">
+        <description>Zonder gemaakte kosten kan de hoogte van de subsidie niet worden berekend.</description>
+        <inputEntry id="IE_Kosten_Kosten">
+          <text>null, &lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="IE_Kosten_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Kosten_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Kosten_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Kosten_Datum">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Kosten_Complete">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Kosten_Missing">
+          <text>"De gemaakte kosten ontbreken."</text>
+        </outputEntry>
+        <outputEntry id="OE_Kosten_Article">
+          <text>"Awb 4:5 - aanvraag onvolledig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_RelatieOntbreekt">
+        <inputEntry id="IE_Relatie_Kosten">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Relatie_Relatie">
+          <text>null</text>
+        </inputEntry>
+        <inputEntry id="IE_Relatie_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Relatie_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Relatie_Datum">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Relatie_Complete">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Relatie_Missing">
+          <text>"De relatie van de aanvrager tot de woning ontbreekt."</text>
+        </outputEntry>
+        <outputEntry id="OE_Relatie_Article">
+          <text>"Awb 4:5 - aanvraag onvolledig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_ToestemmingOntbreekt">
+        <description>Een huurder heeft toestemming van de eigenaar nodig; zonder die toestemming is de aanvraag onvolledig, niet afgewezen.</description>
+        <inputEntry id="IE_Toestemming_Kosten">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Toestemming_Relatie">
+          <text>"huurder"</text>
+        </inputEntry>
+        <inputEntry id="IE_Toestemming_Toestemming">
+          <text>false, null</text>
+        </inputEntry>
+        <inputEntry id="IE_Toestemming_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Toestemming_Datum">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Toestemming_Complete">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Toestemming_Missing">
+          <text>"De toestemming van de eigenaar van de woning ontbreekt."</text>
+        </outputEntry>
+        <outputEntry id="OE_Toestemming_Article">
+          <text>"Awb 4:5 - aanvraag onvolledig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_ProvincieOntbreekt">
+        <inputEntry id="IE_Provincie_Kosten">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Provincie_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Provincie_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Provincie_Provincie">
+          <text>null</text>
+        </inputEntry>
+        <inputEntry id="IE_Provincie_Datum">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Provincie_Complete">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Provincie_Missing">
+          <text>"De provincie waarin de woning ligt ontbreekt."</text>
+        </outputEntry>
+        <outputEntry id="OE_Provincie_Article">
+          <text>"Awb 4:5 - aanvraag onvolledig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_DatumOntbreekt">
+        <inputEntry id="IE_Datum_Kosten">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Datum_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Datum_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Datum_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Datum_Datum">
+          <text>null</text>
+        </inputEntry>
+        <outputEntry id="OE_Datum_Complete">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Datum_Missing">
+          <text>"De datum van aanvraag ontbreekt."</text>
+        </outputEntry>
+        <outputEntry id="OE_Datum_Article">
+          <text>"Awb 4:5 - aanvraag onvolledig"</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_Volledig">
+        <inputEntry id="IE_Volledig_Kosten">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Volledig_Relatie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Volledig_Toestemming">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Volledig_Provincie">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="IE_Volledig_Datum">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_Volledig_Complete">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_Volledig_Missing">
+          <text>"Geen ontbrekende gegevens."</text>
+        </outputEntry>
+        <outputEntry id="OE_Volledig_Article">
+          <text>"Awb 4:5 - aanvraag volledig"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_ThuisbatterijCompleteness">
+      <dmndi:DMNShape id="DMNShape_ThuisbatterijCompleteness" dmnElementRef="ThuisbatterijCompletenessCheck">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

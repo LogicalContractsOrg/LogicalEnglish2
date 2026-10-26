@@ -1,0 +1,74 @@
+{
+  "counts": {"approximated":0,"encoded":3,"residue":0},
+  "entries": [
+    {
+      "element":"nextSteps",
+      "in_program":"nextSteps",
+      "kind":"literal expression",
+      "mapping":"literal expression",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"checks",
+      "in_program":"checks",
+      "kind":"context",
+      "mapping":"context",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"isEligible",
+      "in_program":"isEligible",
+      "kind":"context",
+      "mapping":"context",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":10,
+    "tests": [
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Already_enrolled"},
+      {
+	"detail":"",
+	"query":"q_d_not_already_enrolled_of_the_checks",
+	"result":"pass",
+	"scenario":"Already_enrolled"
+      },
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Eligible"},
+      {
+	"detail":"",
+	"query":"q_d_is_eligible",
+	"result":"pass",
+	"scenario":"Fails_MeetsIncomeRequirement"
+      },
+      {
+	"detail":"",
+	"query":"q_d_meets_income_requirement_of_the_checks",
+	"result":"pass",
+	"scenario":"Fails_MeetsIncomeRequirement"
+      },
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Ineligible"},
+      {
+	"detail":"",
+	"query":"q_d_owner_occupant_of_the_checks",
+	"result":"pass",
+	"scenario":"Ineligible"
+      },
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Married_at_limit"},
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Next_steps"},
+      {"detail":"","query":"q_d_is_eligible","result":"pass","scenario":"Smoke_Test"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["low-income-tax-freeze.dmn" ],
+    "program":"low_income_tax_freeze",
+    "source":"DMN",
+    "translator":"dmn_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":7
+}

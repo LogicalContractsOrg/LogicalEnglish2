@@ -1,0 +1,85 @@
+% The Logical English twin of the DMN model "PersonMinAge" (person-min-age.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base person_min_age includes these resources:
+    temporal.
+
+the functions are:
+    the person id of the parameters is *a text*.
+    the as of date of the parameters is *a date*.
+    the min age of the parameters is *a number*.
+    the check result is *a truth value*.
+    the date of birth of the check result is *a value*.
+    the age of the check result is *a value*.
+
+the templates are:
+    the people of the situation include *an id* with *a date*.
+    the people of the situation are listed.
+
+the knowledge base person_min_age includes:
+
+the text of the_model is at "sources/person-min-age.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the date of birth of the check result is a value if
+    the people of the situation include an id with the value
+    and the id is equal to the person id of the parameters.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the age of the check result is -1 if
+    it is not the case that the date of birth of the check result is a value.
+
+rule check_result_3 with provenance the model at decision checkResult:
+the age of the check result is -1 if
+    it is not the case that the as of date of the parameters is a date.
+
+rule check_result_4 with provenance the model at decision checkResult:
+the age of the check result is a value if
+    it is not the case that
+        it is not the case that the date of birth of the check result is a second value
+        or it is not the case that the as of date of the parameters is a date
+    and the date of birth of the check result is the second value
+    and the as of date of the parameters is the date
+    and the number of whole years from the second value to the date is the value.
+
+rule check_result_5 with provenance the model at decision checkResult:
+the check result is true if
+    the date of birth of the check result is a value
+    and the age of the check result >= the min age of the parameters.
+
+rule check_result_6 with provenance the model at decision checkResult:
+the check result is false if
+    the date of birth of the check result is a value
+    and the age of the check result < the min age of the parameters.
+
+scenario Empty is, as stated in the Bruno requests of PersonMinAge at test case Empty:
+    q_d_check_result expects answers [].
+
+scenario Person_At_Min_Age is, as stated in the Bruno requests of PersonMinAge at test case Person At Min Age:
+    the as of date of the parameters is 2024-01-01.
+    the min age of the parameters is 4.
+    the person id of the parameters is "p1".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2020-01-01.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Person_with_Null_DOB is, as stated in the Bruno requests of PersonMinAge at test case Person with Null DOB:
+    the as of date of the parameters is 2024-01-01.
+    the min age of the parameters is 4.
+    the person id of the parameters is "p1".
+    the people of the situation are listed.
+    the people of the situation include "p1" with null.
+    q_d_check_result expects answers [].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

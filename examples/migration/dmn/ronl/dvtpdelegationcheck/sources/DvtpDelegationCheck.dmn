@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="definitions_dvtp_delegation" name="DvtpDelegationCheck" namespace="http://example.com/dvtp/dmn" exporter="Camunda Modeler" exporterVersion="5.45.0">
+  <decision id="DvtpDelegationCheck" name="DvTP Machtiging- en delegatiecheck (FR-02)" camunda:historyTimeToLive="90">
+    <decisionTable id="DecisionTable_Delegation" hitPolicy="FIRST">
+      <input id="Input_MachtigingAanwezig">
+        <inputExpression id="IE_MachtigingAanwezig" typeRef="boolean">
+          <text>machtigingAanwezig</text>
+        </inputExpression>
+      </input>
+      <input id="Input_DelegatieUitgesloten">
+        <inputExpression id="IE_DelegatieUitgesloten" typeRef="boolean">
+          <text>delegatieUitgesloten</text>
+        </inputExpression>
+      </input>
+      <output id="Output_DelegatieGeblokkeerd" name="delegatieGeblokkeerd" typeRef="boolean" />
+      <output id="Output_DelegatieReden" name="delegatieReden" typeRef="string" />
+      <rule id="Rule_Blocked">
+        <description>FR-02: machtiging gedetecteerd maar delegatie is uitgesloten voor deze dienst</description>
+        <inputEntry id="IE_Blocked_Machtiging">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="IE_Blocked_Delegatie">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="OE_Blocked">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OE_Blocked_Reden">
+          <text>"U heeft ingelogd via een machtiging, maar deze dienst staat het geven van toestemming namens een ander niet toe (FR-02). Log opnieuw in met uw eigen DigiD."</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_DelegationAllowed">
+        <description>Machtiging aanwezig, delegatie is toegestaan voor deze dienst</description>
+        <inputEntry id="IE_Allowed_Machtiging">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="IE_Allowed_Delegatie">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="OE_Allowed">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_Allowed_Reden">
+          <text>"Machtiging aanwezig en delegatie is toegestaan voor deze dienst."</text>
+        </outputEntry>
+      </rule>
+      <rule id="Rule_NoMachtiging">
+        <description>Geen machtiging gedetecteerd — burger handelt op eigen naam</description>
+        <inputEntry id="IE_No_Machtiging">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="IE_No_Delegatie">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OE_No_Blocked">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OE_No_Reden">
+          <text>"Geen machtiging gedetecteerd. Burger handelt op eigen naam."</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_machtigingAanwezig" name="machtigingAanwezig">
+    <variable id="Var_machtigingAanwezig" name="machtigingAanwezig" typeRef="boolean" />
+  </inputData>
+  <inputData id="InputData_delegatieUitgesloten" name="delegatieUitgesloten">
+    <variable id="Var_delegatieUitgesloten" name="delegatieUitgesloten" typeRef="boolean" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_Delegation">
+      <dmndi:DMNShape id="DMNShape_Delegation" dmnElementRef="DvtpDelegationCheck">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

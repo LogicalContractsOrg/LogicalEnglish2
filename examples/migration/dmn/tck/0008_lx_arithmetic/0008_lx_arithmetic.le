@@ -1,0 +1,53 @@
+% The Logical English twin of the DMN model "0008-LX-arithmetic" (0008-LX-arithmetic.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base n0008_lx_arithmetic includes these resources:
+    maths.
+
+the functions are:
+    the principal of the loan is *a number*.
+    the rate of the loan is *a number*.
+    the term months of the loan is *a number*.
+    the payment is *a number*.
+
+the knowledge base n0008_lx_arithmetic includes:
+
+the text of the_model is at "sources/0008-LX-arithmetic.dmn".
+
+rule payment_1 with provenance the model at decision payment:
+the payment is a number N if
+    a number M = 1 + the rate of the loan / 12
+    and an exponent E = 0 - the term months of the loan
+    and the power of M to E is a result R
+    and N = the principal of the loan * the rate of the loan / 12 / (1 - R).
+
+scenario t001 is, as stated in "0008-LX-arithmetic-test-01.xml" at test case 001:
+    the principal of the loan is 600000.
+    the rate of the loan is 0.0375.
+    the term months of the loan is 360.
+    q_d_payment expects answers ["the payment is 2778.69354943277"].
+
+scenario t002 is, as stated in "0008-LX-arithmetic-test-01.xml" at test case 002:
+    the principal of the loan is 30000.
+    the rate of the loan is 0.0475.
+    the term months of the loan is 60.
+    q_d_payment expects answers ["the payment is 562.707359373292"].
+
+scenario t003 is, as stated in "0008-LX-arithmetic-test-01.xml" at test case 003:
+    the principal of the loan is 600000.
+    the rate of the loan is 0.0399.
+    the term months of the loan is 360.
+    q_d_payment expects answers ["the payment is 2861.03377700389"].
+
+query q_d_payment is:
+    the payment is which number.
+

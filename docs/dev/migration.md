@@ -29,6 +29,8 @@ program.le with RESIDUE blocks ──Contract Assistant, mode residue──▶ r
 | Residue mode: a fixed skeleton, only the residue translated by the LLM | lpsPlus `contract_assistant/le_contract_assistant.pl` (mode `residue`), prompts `contract_assistant/prompts/residue_*.md` | Phase 0 item 4 |
 | Dates, periods and lock times | `lib/temporal.le` + `lib/temporal.pl` | E3 |
 | Rounding at a number of decimals: half up, half even, down, up, to a step | `lib/rounding.le` + `lib/rounding.pl` | N8 |
+| FEEL's built-in functions that the other libraries lack (lists, substrings, three-valued `all`/`any`, FEEL's rounding modes) | `lib/feel.le` + `lib/feel.pl` | E7 |
+| A function (§2.3) or a constant as an operand of a formula, written by the writer where its inputs are variables or numbers | `le_grammar.pl`, `le_writer.pl` (`operand_function/3`) | — |
 | Dated versions of a rule: the calculation date | a convention, §6 below | N9 |
 | Obligations, permissions, prohibitions, violations (the deontic pattern library) and `*a sentence* is the case` | `lib/deontic.le`, `reasoner.pl` (`le_holds/1`) | N4 |
 | Integer division `//` and remainder `mod` | `le_grammar.pl` | E4 |

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:camunda="http://camunda.org/schema/1.0/dmn"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             id="definitions"
+             name="EmployeeRoleAssignment"
+             namespace="http://camunda.org/schema/1.0/dmn"
+             exporter="Linked Data Explorer"
+             exporterVersion="1.0">
+
+  <decision id="EmployeeRoleAssignment" name="Employee Role Assignment" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_EmployeeRoleAssignment" hitPolicy="FIRST">
+
+      <input id="Input_department">
+        <inputExpression id="InputExpression_department" typeRef="string">
+          <text>department</text>
+        </inputExpression>
+      </input>
+
+      <input id="Input_jobFunction">
+        <inputExpression id="InputExpression_jobFunction" typeRef="string">
+          <text>jobFunction</text>
+        </inputExpression>
+      </input>
+
+      <output id="Output_assignedRoles"   name="assignedRoles"   typeRef="string" />
+      <output id="Output_candidateGroups" name="candidateGroups" typeRef="string" />
+      <output id="Output_accessLevel"     name="accessLevel"     typeRef="string" />
+
+      <!-- Rule 1: vergunningen / behandelaar -->
+      <rule id="Rule_01">
+        <inputEntry id="InputEntry_01_1"><text>"vergunningen"</text></inputEntry>
+        <inputEntry id="InputEntry_01_2"><text>"behandelaar"</text></inputEntry>
+        <outputEntry id="OutputEntry_01_1"><text>"caseworker"</text></outputEntry>
+        <outputEntry id="OutputEntry_01_2"><text>"caseworker"</text></outputEntry>
+        <outputEntry id="OutputEntry_01_3"><text>"basis"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 2: vergunningen / senior-behandelaar -->
+      <rule id="Rule_02">
+        <inputEntry id="InputEntry_02_1"><text>"vergunningen"</text></inputEntry>
+        <inputEntry id="InputEntry_02_2"><text>"senior-behandelaar"</text></inputEntry>
+        <outputEntry id="OutputEntry_02_1"><text>"caseworker,vergunningen-senior"</text></outputEntry>
+        <outputEntry id="OutputEntry_02_2"><text>"caseworker"</text></outputEntry>
+        <outputEntry id="OutputEntry_02_3"><text>"uitgebreid"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 3: infrastructuur / verkenner -->
+      <rule id="Rule_03">
+        <inputEntry id="InputEntry_03_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_03_2"><text>"verkenner"</text></inputEntry>
+        <outputEntry id="OutputEntry_03_1"><text>"caseworker,rip-verkenner"</text></outputEntry>
+        <outputEntry id="OutputEntry_03_2"><text>"caseworker,rip-verkenner"</text></outputEntry>
+        <outputEntry id="OutputEntry_03_3"><text>"basis"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 4: infrastructuur / planner -->
+      <rule id="Rule_04">
+        <inputEntry id="InputEntry_04_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_04_2"><text>"planner"</text></inputEntry>
+        <outputEntry id="OutputEntry_04_1"><text>"caseworker,rip-planner"</text></outputEntry>
+        <outputEntry id="OutputEntry_04_2"><text>"caseworker,rip-planner"</text></outputEntry>
+        <outputEntry id="OutputEntry_04_3"><text>"uitgebreid"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 5: infrastructuur / inkoop -->
+      <rule id="Rule_05">
+        <inputEntry id="InputEntry_05_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_05_2"><text>"inkoop"</text></inputEntry>
+        <outputEntry id="OutputEntry_05_1"><text>"caseworker,rip-inkoop"</text></outputEntry>
+        <outputEntry id="OutputEntry_05_2"><text>"caseworker,rip-inkoop"</text></outputEntry>
+        <outputEntry id="OutputEntry_05_3"><text>"uitgebreid"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 6: infrastructuur / contractbeheer -->
+      <rule id="Rule_06">
+        <inputEntry id="InputEntry_06_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_06_2"><text>"contractbeheer"</text></inputEntry>
+        <outputEntry id="OutputEntry_06_1"><text>"caseworker,rip-contractbeheer"</text></outputEntry>
+        <outputEntry id="OutputEntry_06_2"><text>"caseworker,rip-contractbeheer"</text></outputEntry>
+        <outputEntry id="OutputEntry_06_3"><text>"uitgebreid"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 7: infrastructuur / projectleider -->
+      <rule id="Rule_07">
+        <inputEntry id="InputEntry_07_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_07_2"><text>"projectleider"</text></inputEntry>
+        <outputEntry id="OutputEntry_07_1"><text>"caseworker,rip-verkenner,rip-planner,rip-contractbeheer"</text></outputEntry>
+        <outputEntry id="OutputEntry_07_2"><text>"caseworker,rip-projectleider"</text></outputEntry>
+        <outputEntry id="OutputEntry_07_3"><text>"admin"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 8: infrastructuur / toetser -->
+      <rule id="Rule_08">
+        <inputEntry id="InputEntry_08_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_08_2"><text>"toetser"</text></inputEntry>
+        <outputEntry id="OutputEntry_08_1"><text>"caseworker,rip-toetser"</text></outputEntry>
+        <outputEntry id="OutputEntry_08_2"><text>"caseworker,rip-toetser"</text></outputEntry>
+        <outputEntry id="OutputEntry_08_3"><text>"basis"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 9: infrastructuur / kwaliteit -->
+      <rule id="Rule_09">
+        <inputEntry id="InputEntry_09_1"><text>"infrastructuur"</text></inputEntry>
+        <inputEntry id="InputEntry_09_2"><text>"kwaliteit"</text></inputEntry>
+        <outputEntry id="OutputEntry_09_1"><text>"caseworker,rip-kwaliteit"</text></outputEntry>
+        <outputEntry id="OutputEntry_09_2"><text>"caseworker,rip-kwaliteit"</text></outputEntry>
+        <outputEntry id="OutputEntry_09_3"><text>"basis"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 10: hr / any jobFunction -->
+      <rule id="Rule_10">
+        <inputEntry id="InputEntry_10_1"><text>"hr"</text></inputEntry>
+        <inputEntry id="InputEntry_10_2"><text>-</text></inputEntry>
+        <outputEntry id="OutputEntry_10_1"><text>"hr-medewerker"</text></outputEntry>
+        <outputEntry id="OutputEntry_10_2"><text>"hr-medewerker"</text></outputEntry>
+        <outputEntry id="OutputEntry_10_3"><text>"uitgebreid"</text></outputEntry>
+      </rule>
+
+      <!-- Rule 11: catch-all -->
+      <rule id="Rule_11">
+        <inputEntry id="InputEntry_11_1"><text>-</text></inputEntry>
+        <inputEntry id="InputEntry_11_2"><text>-</text></inputEntry>
+        <outputEntry id="OutputEntry_11_1"><text>"caseworker"</text></outputEntry>
+        <outputEntry id="OutputEntry_11_2"><text>"caseworker"</text></outputEntry>
+        <outputEntry id="OutputEntry_11_3"><text>"basis"</text></outputEntry>
+      </rule>
+
+    </decisionTable>
+  </decision>
+
+  <inputData id="InputData_department" name="department">
+    <variable id="Variable_department" name="department" typeRef="string" />
+  </inputData>
+
+  <inputData id="InputData_jobFunction" name="jobFunction">
+    <variable id="Variable_jobFunction" name="jobFunction" typeRef="string" />
+  </inputData>
+
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_EmployeeRoleAssignment">
+      <dmndi:DMNShape id="DMNShape_EmployeeRoleAssignment" dmnElementRef="EmployeeRoleAssignment">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+
+</definitions>

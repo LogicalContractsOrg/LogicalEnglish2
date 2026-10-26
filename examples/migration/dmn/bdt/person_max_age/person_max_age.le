@@ -1,0 +1,88 @@
+% The Logical English twin of the DMN model "PersonMaxAge" (person-max-age.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base person_max_age includes these resources:
+    temporal.
+
+the functions are:
+    the person id of the parameters is *a text*.
+    the as of date of the parameters is *a date*.
+    the max age of the parameters is *a number*.
+    the check result is *a truth value*.
+    the date of birth of the check result is *a value*.
+    the age of the check result is *a value*.
+
+the templates are:
+    the people of the situation include *an id* with *a date*.
+    the people of the situation are listed.
+
+the knowledge base person_max_age includes:
+
+the text of the_model is at "sources/person-max-age.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the date of birth of the check result is a value if
+    the people of the situation include an id with the value
+    and the id is equal to the person id of the parameters.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the age of the check result is -1 if
+    it is not the case that the date of birth of the check result is a value.
+
+rule check_result_3 with provenance the model at decision checkResult:
+the age of the check result is -1 if
+    it is not the case that the as of date of the parameters is a date.
+
+rule check_result_4 with provenance the model at decision checkResult:
+the age of the check result is a value if
+    it is not the case that
+        it is not the case that the date of birth of the check result is a second value
+        or it is not the case that the as of date of the parameters is a date
+    and the date of birth of the check result is the second value
+    and the as of date of the parameters is the date
+    and the number of whole years from the second value to the date is the value.
+
+rule check_result_5 with provenance the model at decision checkResult:
+the check result is true if
+    the date of birth of the check result is a value
+    and the age of the check result >= 0
+    and the age of the check result <= the max age of the parameters.
+
+rule check_result_6 with provenance the model at decision checkResult:
+the check result is false if
+    the date of birth of the check result is a value
+    and the age of the check result < 0.
+
+rule check_result_7 with provenance the model at decision checkResult:
+the check result is false if
+    the date of birth of the check result is a value
+    and the age of the check result > the max age of the parameters.
+
+scenario DOB_is_null is, as stated in the Bruno requests of PersonMaxAge at test case DOB is null:
+    the as of date of the parameters is 2025-12-31.
+    the max age of the parameters is 5.
+    the person id of the parameters is "p1".
+    the people of the situation are listed.
+    the people of the situation include "p1" with null.
+    q_d_check_result expects answers [].
+
+scenario age_is_below_max_age is, as stated in the Bruno requests of PersonMaxAge at test case age is below max age:
+    the as of date of the parameters is 2025-12-31.
+    the max age of the parameters is 5.
+    the person id of the parameters is "p1".
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2025-01-01.
+    q_d_check_result expects answers ["the check result is true"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

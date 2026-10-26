@@ -1,0 +1,71 @@
+% The Logical English twin of the DMN model "PropertyTaxesCurrentOrPaymentPlan" (property-taxes-current-or-payment-plan.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the tax delinquent of the simple checks of the situation is *a truth value*.
+    the property tax payment plan of the simple checks of the situation is *a truth value*.
+    the check result is *a truth value*.
+    the tax delinquent service result is *a truth value*.
+
+the knowledge base property_taxes_current_or_payment_plan includes:
+
+the text of the_model is at "sources/property-taxes-current-or-payment-plan.dmn".
+
+rule tax_delinquent_service_1 with provenance the model at decision TaxDelinquentService:
+the tax delinquent service result is true if
+    the tax delinquent of the simple checks of the situation is true.
+
+rule tax_delinquent_service_2 with provenance the model at decision TaxDelinquentService:
+the tax delinquent service result is false if
+    the tax delinquent of the simple checks of the situation is false.
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    the tax delinquent service result is false.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is true if
+    the property tax payment plan of the simple checks of the situation is true.
+
+rule check_result_3 with provenance the model at decision checkResult:
+the check result is false if
+    the tax delinquent service result is true
+    and the property tax payment plan of the simple checks of the situation is false.
+
+scenario Delinquent_with_unknown_plan is, as stated in the Bruno requests of PropertyTaxesCurrentOrPaymentPlan at test case Delinquent with unknown plan:
+    the tax delinquent of the simple checks of the situation is true.
+    q_d_check_result expects answers [].
+
+scenario Fail is, as stated in the Bruno requests of PropertyTaxesCurrentOrPaymentPlan at test case Fail:
+    the property tax payment plan of the simple checks of the situation is false.
+    the tax delinquent of the simple checks of the situation is true.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Null is, as stated in the Bruno requests of PropertyTaxesCurrentOrPaymentPlan at test case Null:
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of PropertyTaxesCurrentOrPaymentPlan at test case Pass:
+    the tax delinquent of the simple checks of the situation is false.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Payment_plan is, as stated in the Bruno requests of PropertyTaxesCurrentOrPaymentPlan at test case Payment plan:
+    the property tax payment plan of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is true.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Plan_with_unknown_delinquency is, as stated in the Bruno requests of PropertyTaxesCurrentOrPaymentPlan at test case Plan with unknown delinquency:
+    the property tax payment plan of the simple checks of the situation is true.
+    q_d_check_result expects answers ["the check result is true"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

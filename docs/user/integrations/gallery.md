@@ -1,6 +1,6 @@
-# The Migration Gallery: eighteen systems, each checked against its own engine
+# The Migration Gallery: nineteen systems, each checked against its own engine
 
-*Kind: gallery · Audience: anyone deciding whether Logical English can read their rules · Status: current (2026-10-18)*
+*Kind: gallery · Audience: anyone deciding whether Logical English can read their rules · Status: current (2026-10-26)*
 
 Logical English (LE) is a way to write rules in English that a computer can run. A
 *translator* is a program that reads the files of a different system and writes the
@@ -9,7 +9,7 @@ tests of the other system, written as *scenarios*. A scenario is a set of facts,
 together with the answers that the other system gives. When you run the scenarios,
 you check the twin against the other system.
 
-This page lists the eighteen systems that the translators read. For each system, the
+This page lists the nineteen systems that the translators read. For each system, the
 page tells what the twin was checked against, and the result. When the twin can be
 published, the **Open** link runs the twin in your browser. You do not need an
 account, and you do not have to install software. When the licence of the other
@@ -18,13 +18,13 @@ twin when it runs.
 
 ## Contents
 
-- [The eighteen systems](#the-eighteen-systems)
+- [The nineteen systems](#the-nineteen-systems)
 - [How to read the results](#how-to-read-the-results)
 - [Try one in two minutes](#try-one-in-two-minutes)
 - [A free twin of your own program](#a-free-twin-of-your-own-program)
 - [See also](#see-also)
 
-## The eighteen systems
+## The nineteen systems
 
 "Both ways" means that the editor can also write a Logical English program back in
 the format of the other system. *LE for LPS* is Logical English for programs that act
@@ -38,6 +38,7 @@ Production Systems 2).
 | **Blawx**, version 1 (rules as code, Canada; not the hosted Blawx 2 and 3) | into LE | the answers of Blawx | 163 of 163, in 15 projects | [Open](/editor/index.html?example=migration/blawx/rps/rps) | [watch](https://www.youtube.com/watch?v=_CdWVsLthhk) | [guide](/docs/user/integrations/blawx) |
 | **Catala** (laws as programs, in English and French) | both ways, *preliminary* | the interpreter of Catala | 129 of 129 in 9 programs, 15 more waiting. Written back: 42 of 42 tests pass on Catala | [Open](/editor/index.html?example=migration/catala/smic/smic) (the French minimum wage, in Français Logique) | [watch](https://www.youtube.com/watch?v=GEm6ybIKyWM) | [guide](/docs/user/integrations/catala) |
 | **Daml** (contracts on the Canton network) | both ways, as LE for LPS | a Canton sandbox | 18 of 22 scripts end with exactly the active contracts of Daml. The guide explains the other 4 | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/daml/simple_iou/simple_iou.le) | [watch](https://www.youtube.com/watch?v=9Svirhcghb4) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/daml) |
+| **DMN** (decision models and their FEEL expressions: the OMG standard, and the Dutch STTR profile) | into LE | the expected results of the DMN test kit (TCK) and of the Benefit Decision Toolkit; Apache KIE Drools on generated cases | 138 of 138 (TCK, 28 models). 195 of 195 (Benefit Decision Toolkit of Philadelphia). 346 of 346 (Dutch government examples, RONL) | [Open](/editor/index.html?example=migration/dmn/bdt/homestead_exemption/homestead_exemption) | (not yet on the channel) | [guide](/docs/user/integrations/dmn) |
 | **Drools** (business rule files) | into LE and LE for LPS | a real Drools session | 5 of 5 rule bases end with the same working memory as Drools | [Open in LPS2](https://lps2.logicalcontracts.com/ide?example=migration/drools/insurance/insurance.le) | [watch](https://www.youtube.com/watch?v=sdb3BJdb5jE) | [guide](https://lps2.logicalcontracts.com/docs/user/integrations/drools) |
 | **Epilog** (the rule language of Stanford) | into LE and LE for LPS | EpilogJS, the engine of Epilog | 17 of 17 rulesets. 70 of 74 games end in the same state as in Epilog | not published: no licence | [watch](https://www.youtube.com/watch?v=hqGWqiyA4So) | [guide](/docs/user/integrations/epilog) |
 | **Excel workbooks** (calculators kept in spreadsheets) | into LE | the workbook itself, calculated again | each checked value agrees: 2,588 values in 7 workbooks, 484 more waiting | [Open](/editor/index.html?example=migration/spreadsheet/cms_mlr/cms_mlr) (the United States medical loss ratio form) | [watch](https://www.youtube.com/watch?v=cVKjigqVvlo) | [guide](/docs/user/integrations/spreadsheets) |

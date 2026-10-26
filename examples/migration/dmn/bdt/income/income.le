@@ -1,0 +1,42 @@
+% The Logical English twin of the DMN model "Income" (Income.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base income includes these resources:
+    feel.
+
+the functions are:
+    the below household income limit of *a value* and *a second value* and *a third value* is *a fourth value*.
+
+the knowledge base income includes:
+
+the text of the_model is at "sources/Income.dmn".
+
+the below household income limit of a value V and a value N and a third value is true if
+    it is not the case that V < 0
+    and it is not the case that
+        N < 1
+        or the count of the list the third value is a number M
+            and N > M
+            or it is not the case that N = floor(N)
+    and the item at position N of the list the third value is a value K
+    and V < K.
+
+the below household income limit of a value V and a value N and a third value is false if
+    it is not the case that V < 0
+    and it is not the case that
+        N < 1
+        or the count of the list the third value is a number M
+            and N > M
+            or it is not the case that N = floor(N)
+    and the item at position N of the list the third value is a value K
+    and V >= K.
+

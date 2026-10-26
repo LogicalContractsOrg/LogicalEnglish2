@@ -1,0 +1,57 @@
+% The Logical English twin of the DMN model "0109-ruleOrder-hitpolicy" (0109-ruleOrder-hitpolicy.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the age is *a number*.
+    the risk category is *a text*.
+    the is_affordable is *a truth value*.
+
+the templates are:
+    the approval include *a status* with *a rate*.
+    the approval are listed.
+    the approval for *a number* and *a text* and *a truth value* is *a second text* with *a third text* under table approval.
+
+the table approval is, with all matches:
+    age   | risk category | is_affordable | status     | rate
+    >= 18 | "Medium"      | true          | "Approved" | "Best"
+    >= 12 | "Medium"      | true          | "Approved" | "Standard"
+    < 12  | "Low"         | true          | "Declined" | "Standard"
+
+the knowledge base n0109_ruleorder_hitpolicy includes:
+
+the text of the_model is at "sources/0109-ruleOrder-hitpolicy.dmn".
+
+rule approval_1 with provenance the model at decision Approval:
+the approval include a status with a rate if
+    the approval for the age and the risk category and the is_affordable is the status with the rate under table approval.
+
+scenario t001 is, as stated in "0109-ruleOrder-hitpolicy-test-01.xml" at test case 001:
+    the age is 19.
+    the risk category is "Medium".
+    the is_affordable is true.
+    q_d_rel_approval expects answers ["the approval include Approved with Best", "the approval include Approved with Standard"].
+
+scenario t002 is, as stated in "0109-ruleOrder-hitpolicy-test-01.xml" at test case 002:
+    the age is 13.
+    the risk category is "Medium".
+    the is_affordable is true.
+    q_d_rel_approval expects answers ["the approval include Approved with Standard"].
+
+scenario t003 is, as stated in "0109-ruleOrder-hitpolicy-test-01.xml" at test case 003:
+    the age is 10.
+    the risk category is "Low".
+    the is_affordable is true.
+    q_d_rel_approval expects answers ["the approval include Declined with Standard"].
+
+query q_d_rel_approval is:
+    the approval include which status with which rate.
+

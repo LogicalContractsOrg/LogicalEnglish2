@@ -1,0 +1,294 @@
+% The Logical English twin of the DMN model "RONL Heusden Heusdenpas" (RONL_Heusden_Heusdenpas.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the aanvrager inwoner heusden is *a value*.
+    the aanvrager heeft kind4 tm17 is *a value*.
+    the maandelijks bruto inkomen aanvrager is *a value*.
+    the bijstands norm is *a value*.
+    the aanvrager uitkering baanbrekers is *a value*.
+    the aanvrager voedselbankpas den bosch is *a value*.
+    the aanvrager kwijtschelding gemeentelijke belastingen is *a value*.
+    the aanvrager schuldhulptraject kredietbank nederland is *a value*.
+    the aanvrager dit kalenderjaar al aangevraagd is *a value*.
+    the aanvrager aanmerking studie financiering is *a value*.
+    the aanvrager is181920 is *a value*.
+    the aanvrager is_tenminste21 is *a value*.
+    the aanvrager heeft aow leeftijd is *a value*.
+    the aanmerking heusden pas of the ronl heusdenpas eindresultaat is *a truth value*.
+    the aanmerking kind pakket of the ronl heusdenpas eindresultaat is *a truth value*.
+    the ronl heusdenpas hoofd aanvraag is *a truth value*.
+    the ronl heusdenpas kindpakket is *a truth value*.
+    the ronl heusdenpas automatisch is *a truth value*.
+    the ronl heusdenpas knockoffs is *a truth value*.
+    the aanvrager uitkering baanbrekers or null is *a value*.
+    the aanvrager voedselbankpas den bosch or null is *a value*.
+    the aanvrager kwijtschelding gemeentelijke belastingen or null is *a value*.
+    the aanvrager schuldhulptraject kredietbank nederland or null is *a value*.
+
+the templates are:
+    the ronl heusdenpas automatisch for *a truth value* and *a second truth value* and *a third truth value* and *a fourth truth value* is *a fifth truth value* under table ronl_heusdenpas_automatisch.
+
+the table ronl_heusdenpas_automatisch is, with first match:
+    aanvrager uitkering baanbrekers | aanvrager voedselbankpas den bosch | aanvrager kwijtschelding gemeentelijke belastingen | aanvrager schuldhulptraject kredietbank nederland | automatische toekenning heusdenpas
+    true                            | any                                | any                                                | any                                               | true
+    any                             | true                               | any                                                | any                                               | true
+    any                             | any                                | true                                               | any                                               | true
+    any                             | any                                | any                                                | true                                              | true
+    false                           | false                              | false                                              | false                                             | false
+
+the knowledge base ronl_heusden_heusdenpas includes:
+
+the text of the_model is at "sources/RONL_Heusden_Heusdenpas.dmn".
+
+the aanmerking heusden pas of the ronl heusdenpas eindresultaat is the ronl heusdenpas hoofd aanvraag, as stated in the model at decision RONL Heusdenpas Eindresultaat rule 1.
+
+the aanmerking kind pakket of the ronl heusdenpas eindresultaat is the ronl heusdenpas kindpakket, as stated in the model at decision RONL Heusdenpas Eindresultaat rule 1.
+
+rule ronl_heusdenpas_hoofd_aanvraag_1 with provenance the model at decision RONL Heusdenpas Hoofd Aanvraag:
+the ronl heusdenpas hoofd aanvraag is a truth value if
+    the ronl heusdenpas knockoffs is true
+    and the truth value is equal to false
+    otherwise the ronl heusdenpas knockoffs is false
+    and the ronl heusdenpas automatisch is true
+    and the truth value is equal to true
+    otherwise the ronl heusdenpas knockoffs is false
+    and the ronl heusdenpas automatisch is false
+    and the maandelijks bruto inkomen aanvrager is a value V
+    and the bijstands norm is a value N
+    and V <= 1.1 * N
+    and true is equal to true
+    and the truth value is equal to true
+    otherwise the ronl heusdenpas knockoffs is false
+    and the ronl heusdenpas automatisch is false
+    and the maandelijks bruto inkomen aanvrager is a value M
+    and the bijstands norm is a value K
+    and M > 1.1 * K
+    and false is equal to true
+    and the truth value is equal to true
+    otherwise the ronl heusdenpas knockoffs is false
+    and the ronl heusdenpas automatisch is false
+    and the maandelijks bruto inkomen aanvrager is a value P
+    and the bijstands norm is a value Q
+    and P <= 1.1 * Q
+    and true is equal to false
+    and the truth value is equal to false
+    otherwise the ronl heusdenpas knockoffs is false
+    and the ronl heusdenpas automatisch is false
+    and the maandelijks bruto inkomen aanvrager is a value R
+    and the bijstands norm is a value S
+    and R > 1.1 * S
+    and false is equal to false
+    and the truth value is equal to false.
+
+rule ronl_heusdenpas_kindpakket_1 with provenance the model at decision RONL Heusdenpas Kindpakket:
+the ronl heusdenpas kindpakket is a truth value if
+    the aanvrager inwoner heusden is false
+    and the truth value is equal to false
+    otherwise the aanvrager heeft kind4 tm17 is false
+    and the truth value is equal to false
+    otherwise the maandelijks bruto inkomen aanvrager is a value V
+    and the bijstands norm is a value N
+    and V <= 1.2 * N
+    and true is equal to false
+    and the truth value is equal to false
+    otherwise the maandelijks bruto inkomen aanvrager is a value M
+    and the bijstands norm is a value K
+    and M > 1.2 * K
+    and false is equal to false
+    and the truth value is equal to false
+    otherwise the aanvrager inwoner heusden is true
+    and the aanvrager heeft kind4 tm17 is true
+    and the maandelijks bruto inkomen aanvrager is a value P
+    and the bijstands norm is a value Q
+    and P <= 1.2 * Q
+    and true is equal to true
+    and the truth value is equal to true
+    otherwise the aanvrager inwoner heusden is true
+    and the aanvrager heeft kind4 tm17 is true
+    and the maandelijks bruto inkomen aanvrager is a value R
+    and the bijstands norm is a value S
+    and R > 1.2 * S
+    and false is equal to true
+    and the truth value is equal to true.
+
+the aanvrager uitkering baanbrekers or null is the aanvrager uitkering baanbrekers, as stated in the model at decision RONL Heusdenpas Automatisch.
+
+rule ronl_heusdenpas_automatisch_2 with provenance the model at decision RONL Heusdenpas Automatisch:
+the aanvrager uitkering baanbrekers or null is null if
+    it is not the case that the aanvrager uitkering baanbrekers is a value.
+
+the aanvrager voedselbankpas den bosch or null is the aanvrager voedselbankpas den bosch, as stated in the model at decision RONL Heusdenpas Automatisch.
+
+rule ronl_heusdenpas_automatisch_4 with provenance the model at decision RONL Heusdenpas Automatisch:
+the aanvrager voedselbankpas den bosch or null is null if
+    it is not the case that the aanvrager voedselbankpas den bosch is a value.
+
+the aanvrager kwijtschelding gemeentelijke belastingen or null is the aanvrager kwijtschelding gemeentelijke belastingen, as stated in the model at decision RONL Heusdenpas Automatisch.
+
+rule ronl_heusdenpas_automatisch_6 with provenance the model at decision RONL Heusdenpas Automatisch:
+the aanvrager kwijtschelding gemeentelijke belastingen or null is null if
+    it is not the case that the aanvrager kwijtschelding gemeentelijke belastingen is a value.
+
+the aanvrager schuldhulptraject kredietbank nederland or null is the aanvrager schuldhulptraject kredietbank nederland, as stated in the model at decision RONL Heusdenpas Automatisch.
+
+rule ronl_heusdenpas_automatisch_8 with provenance the model at decision RONL Heusdenpas Automatisch:
+the aanvrager schuldhulptraject kredietbank nederland or null is null if
+    it is not the case that the aanvrager schuldhulptraject kredietbank nederland is a value.
+
+rule ronl_heusdenpas_automatisch_9 with provenance the model at decision RONL Heusdenpas Automatisch:
+the ronl heusdenpas automatisch is a truth value if
+    the ronl heusdenpas automatisch for the aanvrager uitkering baanbrekers or null and the aanvrager voedselbankpas den bosch or null and the aanvrager kwijtschelding gemeentelijke belastingen or null and the aanvrager schuldhulptraject kredietbank nederland or null is the truth value under table ronl_heusdenpas_automatisch.
+
+rule ronl_heusdenpas_knockoffs_1 with provenance the model at decision RONL Heusdenpas Knockoffs:
+the ronl heusdenpas knockoffs is a truth value if
+    the aanvrager inwoner heusden is false
+    and the truth value is equal to true
+    otherwise the aanvrager dit kalenderjaar al aangevraagd is true
+    and the truth value is equal to true
+    otherwise the aanvrager aanmerking studie financiering is true
+    and the truth value is equal to true
+    otherwise the aanvrager is181920 is false
+    and the aanvrager is_tenminste21 is false
+    and the aanvrager heeft aow leeftijd is false
+    and true is equal to true
+    and the truth value is equal to true
+    otherwise the aanvrager is181920 is true
+    and false is equal to true
+    and the truth value is equal to true
+    otherwise the aanvrager is_tenminste21 is true
+    and false is equal to true
+    and the truth value is equal to true
+    otherwise the aanvrager heeft aow leeftijd is true
+    and false is equal to true
+    and the truth value is equal to true
+    otherwise the aanvrager inwoner heusden is true
+    and the aanvrager dit kalenderjaar al aangevraagd is false
+    and the aanvrager aanmerking studie financiering is false
+    and the aanvrager is181920 is false
+    and the aanvrager is_tenminste21 is false
+    and the aanvrager heeft aow leeftijd is false
+    and true is equal to false
+    and the truth value is equal to false
+    otherwise the aanvrager inwoner heusden is true
+    and the aanvrager dit kalenderjaar al aangevraagd is false
+    and the aanvrager aanmerking studie financiering is false
+    and the aanvrager is181920 is true
+    and false is equal to false
+    and the truth value is equal to false
+    otherwise the aanvrager inwoner heusden is true
+    and the aanvrager dit kalenderjaar al aangevraagd is false
+    and the aanvrager aanmerking studie financiering is false
+    and the aanvrager is_tenminste21 is true
+    and false is equal to false
+    and the truth value is equal to false
+    otherwise the aanvrager inwoner heusden is true
+    and the aanvrager dit kalenderjaar al aangevraagd is false
+    and the aanvrager aanmerking studie financiering is false
+    and the aanvrager heeft aow leeftijd is true
+    and false is equal to false
+    and the truth value is equal to false.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of RONL Heusdenpas Kindpakket:
+    the aanvrager inwoner heusden is false.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager aanmerking studie financiering is false.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of RONL Heusdenpas Kindpakket:
+    the aanvrager inwoner heusden is false.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager uitkering baanbrekers is true.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager aanmerking studie financiering is true.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 1 of RONL Heusdenpas Automatisch:
+    the aanvrager inwoner heusden is false.
+    the aanvrager heeft kind4 tm17 is true.
+    the aanvrager uitkering baanbrekers is true.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager aanmerking studie financiering is true.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 2 of RONL Heusdenpas Automatisch:
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is true.
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 3 of RONL Heusdenpas Automatisch:
+    the aanvrager inwoner heusden is false.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager aanmerking studie financiering is true.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 4 of RONL Heusdenpas Automatisch:
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 5 of RONL Heusdenpas Automatisch:
+    the aanvrager inwoner heusden is true.
+    the aanvrager heeft kind4 tm17 is true.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager aanmerking studie financiering is true.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is false"].
+
+scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g011 row 2 of RONL Heusdenpas Knockoffs:
+    the aanvrager inwoner heusden is false.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager uitkering baanbrekers is true.
+    the aanvrager voedselbankpas den bosch is true.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager aanmerking studie financiering is false.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+scenario g013 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g013 row 4 of RONL Heusdenpas Knockoffs:
+    the aanvrager inwoner heusden is false.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager aanmerking studie financiering is false.
+    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+
+query q_d_ronl_heusdenpas_automatisch is:
+    the ronl heusdenpas automatisch is which truth value.
+

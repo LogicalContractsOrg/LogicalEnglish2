@@ -1,0 +1,42 @@
+% The Logical English twin of the DMN model "0107-feel-ternary-logic-not" (0107-feel-ternary-logic-not.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the value is *a truth value*.
+    the decision not is *a truth value*.
+
+the knowledge base n0107_feel_ternary_logic_not includes:
+
+the text of the_model is at "sources/0107-feel-ternary-logic-not.dmn".
+
+rule decision_not_1 with provenance the model at decision DecisionNot:
+the decision not is true if
+    the value is false.
+
+rule decision_not_2 with provenance the model at decision DecisionNot:
+the decision not is false if
+    the value is true.
+
+scenario t001 is, as stated in "0107-feel-ternary-logic-not-test-01.xml" at test case 001 Tests ternary logic for true:
+    the value is true.
+    q_d_decision_not expects answers ["the decision not is false"].
+
+scenario t002 is, as stated in "0107-feel-ternary-logic-not-test-01.xml" at test case 002 Tests ternary logic for false:
+    the value is false.
+    q_d_decision_not expects answers ["the decision not is true"].
+
+scenario t003 is, as stated in "0107-feel-ternary-logic-not-test-01.xml" at test case 003 Tests ternary logic for null:
+    q_d_decision_not expects answers [].
+
+query q_d_decision_not is:
+    the decision not is which truth value.
+

@@ -1,0 +1,54 @@
+% The Logical English twin of the DMN model "0102-feel-constants" (0102-feel-constants.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the decision1 is *a text*.
+    the decision2 is *a text*.
+    the decision3 is *a text*.
+    the decision4 is *a text*.
+
+the knowledge base n0102_feel_constants includes:
+
+the text of the_model is at "sources/0102-feel-constants.dmn".
+
+the decision1 is "foo bar".
+
+the decision2 is "šomeÚnicodeŠtriňg".
+
+the decision3 is "横綱".
+
+the decision4 is "thisIsSomeLongStringThatMustBeProcessedSoHopefullyThisTestPassWithItAndIMustWriteSomethingMoreSoItIsLongerAndLongerAndLongerAndLongerAndLongerTillItIsReallyLong".
+
+scenario t001 is, as stated in "0102-feel-constants-test-01.xml" at test case 001 Tests FEEL string constants:
+    q_d_decision1 expects answers ["the decision1 is foo bar"].
+
+scenario t002 is, as stated in "0102-feel-constants-test-01.xml" at test case 002 Tests FEEL unicode string constant:
+    q_d_decision2 expects answers ["the decision2 is šomeÚnicodeŠtriňg"].
+
+scenario t003 is, as stated in "0102-feel-constants-test-01.xml" at test case 003 Tests FEEL unicode string constant:
+    q_d_decision3 expects answers ["the decision3 is 横綱"].
+
+scenario t004 is, as stated in "0102-feel-constants-test-01.xml" at test case 004 Tests FEEL long string constant:
+    q_d_decision4 expects answers ["the decision4 is thisIsSomeLongStringThatMustBeProcessedSoHopefullyThisTestPassWithItAndIMustWriteSomethingMoreSoItIsLongerAndLongerAndLongerAndLongerAndLongerTillItIsReallyLong"].
+
+query q_d_decision1 is:
+    the decision1 is which text.
+
+query q_d_decision2 is:
+    the decision2 is which text.
+
+query q_d_decision3 is:
+    the decision3 is which text.
+
+query q_d_decision4 is:
+    the decision4 is which text.
+

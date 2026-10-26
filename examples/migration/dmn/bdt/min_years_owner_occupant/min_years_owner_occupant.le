@@ -1,0 +1,74 @@
+% The Logical English twin of the DMN model "MinYearsOwnerOccupant" (min-years-owner-occupant.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the years owner occupied of the situation is *a number*.
+    the min years of the parameters is *a number*.
+    the check result is *a truth value*.
+
+the knowledge base min_years_owner_occupant includes:
+
+the text of the_model is at "sources/min-years-owner-occupant.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    it is not the case that
+        it is not the case that the years owner occupied of the situation is a number
+        or the years owner occupied of the situation is a number N
+            and N < 0
+            or the min years of the parameters is a number M
+                and M < 0
+                or it is not the case that the min years of the parameters is a third number
+    and the years owner occupied of the situation is a number K
+    and the min years of the parameters is a number P
+    and K >= P.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is false if
+    it is not the case that
+        it is not the case that the years owner occupied of the situation is a number
+        or the years owner occupied of the situation is a number N
+            and N < 0
+            or the min years of the parameters is a number M
+                and M < 0
+                or it is not the case that the min years of the parameters is a third number
+    and the years owner occupied of the situation is a number K
+    and the min years of the parameters is a number P
+    and K < P.
+
+scenario Fail is, as stated in the Bruno requests of MinYearsOwnerOccupant at test case Fail:
+    the min years of the parameters is 10.
+    the years owner occupied of the situation is 9.99.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Invalid_years is, as stated in the Bruno requests of MinYearsOwnerOccupant at test case Invalid years:
+    the min years of the parameters is 10.
+    the years owner occupied of the situation is -1.
+    q_d_check_result expects answers [].
+
+scenario Longer_residency is, as stated in the Bruno requests of MinYearsOwnerOccupant at test case Longer residency:
+    the min years of the parameters is 10.
+    the years owner occupied of the situation is 20.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Null is, as stated in the Bruno requests of MinYearsOwnerOccupant at test case Null:
+    the min years of the parameters is 10.
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of MinYearsOwnerOccupant at test case Pass:
+    the min years of the parameters is 10.
+    the years owner occupied of the situation is 10.
+    q_d_check_result expects answers ["the check result is true"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

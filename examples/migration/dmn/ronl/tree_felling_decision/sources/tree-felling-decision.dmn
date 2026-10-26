@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="definitions" name="TreeFellingDecision" namespace="http://example.com/tree-permit/dmn" exporter="Camunda Modeler" exporterVersion="5.43.1">
+  <decision id="TreeFellingDecision" name="Tree Felling Permitted?" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_0a0c190" hitPolicy="FIRST">
+      <input id="InputClause_0h5lebd">
+        <inputExpression id="LiteralExpression_0cf8zey" typeRef="integer">
+          <text>treeDiameter</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1tv22vf">
+        <inputExpression id="LiteralExpression_08wld0d" typeRef="boolean">
+          <text>protectedArea</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_11n3p6z" name="decision" typeRef="string" />
+      <rule id="DecisionRule_0l8z953">
+        <inputEntry id="UnaryTests_0pyhb1u">
+          <text>&lt;= 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p0xm37">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t56d1i">
+          <text>"Permit"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17ed8cc">
+        <inputEntry id="UnaryTests_0ps8z0u">
+          <text>[31..60]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_144mvji">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lwzvl2">
+          <text>"Permit"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1x2tlzl">
+        <inputEntry id="UnaryTests_1i7y8n1">
+          <text>[31..60]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qac56r">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r8gg15">
+          <text>"Reject"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fvnpue">
+        <inputEntry id="UnaryTests_081d1y8">
+          <text>&gt; 60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17sbh9e">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18u53fq">
+          <text>"Reject"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  
+  <!-- ✅ ADDED: Input Data Elements with proper typeRef -->
+  <inputData id="InputData_treeDiameter" name="treeDiameter">
+    <variable id="Variable_treeDiameter" name="treeDiameter" typeRef="integer" />
+  </inputData>
+  
+  <inputData id="InputData_protectedArea" name="protectedArea">
+    <variable id="Variable_protectedArea" name="protectedArea" typeRef="boolean" />
+  </inputData>
+  
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0ca2j1c">
+      <dmndi:DMNShape id="DMNShape_1wqxqns" dmnElementRef="TreeFellingDecision">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

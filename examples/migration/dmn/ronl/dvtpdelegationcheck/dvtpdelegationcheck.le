@@ -1,0 +1,70 @@
+% The Logical English twin of the DMN model "DvtpDelegationCheck" (DvtpDelegationCheck.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the machtiging aanwezig is *a truth value*.
+    the delegatie uitgesloten is *a truth value*.
+    the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is *a truth value*.
+    the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is *a text*.
+    the delegatie uitgesloten or null is *a truth value*.
+
+the templates are:
+    the dv tp machtiging en delegatiecheck fr_02 for *a truth value* and *a second truth value* is *a third truth value* with *a text* under table dv_tp_machtiging_en_delegatiecheck_fr_02.
+
+the table dv_tp_machtiging_en_delegatiecheck_fr_02 is, with first match:
+    machtiging aanwezig | delegatie uitgesloten | delegatie geblokkeerd | delegatie reden
+    true                | true                  | true                  | "U heeft ingelogd via een machtiging, maar deze dienst staat het geven van toestemming namens een ander niet toe (FR-02). Log opnieuw in met uw eigen DigiD."
+    true                | false                 | false                 | "Machtiging aanwezig en delegatie is toegestaan voor deze dienst."
+    false               | any                   | false                 | "Geen machtiging gedetecteerd. Burger handelt op eigen naam."
+
+the knowledge base dvtpdelegationcheck includes:
+
+the text of the_model is at "sources/DvtpDelegationCheck.dmn".
+
+the delegatie uitgesloten or null is the delegatie uitgesloten, as stated in the model at decision DvTP Machtiging- en delegatiecheck FR-02.
+
+rule dv_tp_machtiging_en_delegatiecheck_fr_02_2 with provenance the model at decision DvTP Machtiging- en delegatiecheck FR-02:
+the delegatie uitgesloten or null is null if
+    it is not the case that the delegatie uitgesloten is a truth value.
+
+rule dv_tp_machtiging_en_delegatiecheck_fr_02_3 with provenance the model at decision DvTP Machtiging- en delegatiecheck FR-02:
+the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is a truth value if
+    the dv tp machtiging en delegatiecheck fr_02 for the machtiging aanwezig and the delegatie uitgesloten or null is the truth value with a text under table dv_tp_machtiging_en_delegatiecheck_fr_02.
+
+rule dv_tp_machtiging_en_delegatiecheck_fr_02_4 with provenance the model at decision DvTP Machtiging- en delegatiecheck FR-02:
+the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is a text if
+    the dv tp machtiging en delegatiecheck fr_02 for the machtiging aanwezig and the delegatie uitgesloten or null is a truth value with the text under table dv_tp_machtiging_en_delegatiecheck_fr_02.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of DvTP Machtiging- en delegatiecheck FR-02:
+    the machtiging aanwezig is true.
+    the delegatie uitgesloten is true.
+    q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is true"].
+    q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is U heeft ingelogd via een machtiging, maar deze dienst staat het geven van toestemming namens een ander niet toe (FR-02). Log opnieuw in met uw eigen DigiD."].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of DvTP Machtiging- en delegatiecheck FR-02:
+    the machtiging aanwezig is true.
+    the delegatie uitgesloten is false.
+    q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is false"].
+    q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is Machtiging aanwezig en delegatie is toegestaan voor deze dienst."].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of DvTP Machtiging- en delegatiecheck FR-02:
+    the machtiging aanwezig is false.
+    the delegatie uitgesloten is true.
+    q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is false"].
+    q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is Geen machtiging gedetecteerd. Burger handelt op eigen naam."].
+
+query q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 is:
+    the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is which truth value.
+
+query q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 is:
+    the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is which text.
+

@@ -1,0 +1,540 @@
+% The Logical English twin of the DMN model "PhlLoop" (loop.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base loop includes these resources:
+    feel.
+
+the functions are:
+    the owner occupant of the simple checks of the situation is *a truth value*.
+    the lives in philadelphia pa of the simple checks of the situation is *a truth value*.
+    the tax delinquent of the simple checks of the situation is *a truth value*.
+    the property tax payment plan of the simple checks of the situation is *a truth value*.
+    the disqualifying tax abatement of the simple checks of the situation is *a truth value*.
+    the years owner occupied of the situation is *a number*.
+    the property assessment of the situation is *a number*.
+    the previous year property assessment of the situation is *a number*.
+    the lowest property assessment last five years of the situation is *a number*.
+    the household income of the situation is *a number*.
+    the household size of the situation is *a number*.
+    the primary person id of the situation is *a text*.
+    the apply url of the eligible of the next steps is *a text*.
+    the help url of the eligible of the next steps is *a text*.
+    the help phone of the eligible of the next steps is *a text*.
+    the body of the eligible of the next steps is *a text*.
+    the note of the ineligible of the next steps is *a text*.
+    the not already enrolled of the checks is *a value*.
+    the owner occupant of the checks is *a value*.
+    the lives in philadelphia pa of the checks is *a value*.
+    the ten years owner occupant of the checks is *a value*.
+    the assessment increase of the checks is *a value*.
+    the taxes current or payment plan of the checks is *a value*.
+    the meets income requirement of the checks is *a value*.
+    the no disqualifying tax abatement of the checks is *a value*.
+    the is_eligible is *a truth value*.
+    the owner occupant service result is *a truth value*.
+    the lives in philadelphia pa service result is *a truth value*.
+    the min years owner occupant service result is *a truth value*.
+    the property assessment increase service result is *a truth value*.
+    the one year increase of the property assessment increase service is *a truth value*.
+    the five year increase of the property assessment increase service is *a truth value*.
+    the property taxes current or payment plan service result is *a truth value*.
+    the tax delinquent service result is *a truth value*.
+    the loop income service result is *a truth value*.
+    the no disqualifying tax abatement service result is *a truth value*.
+
+the templates are:
+    the enrollments of the situation include *a person id* with *a benefit*.
+    the enrollments of the situation are listed.
+
+the knowledge base loop includes:
+
+the text of the_model is at "sources/loop.dmn".
+
+the apply url of the eligible of the next steps is "https://tax-services.phila.gov/_/".
+
+the help url of the eligible of the next steps is "https://www.phila.gov/services/payments-assistance-taxes/payment-plans-and-assistance-programs/income-based-programs-for-residents/apply-for-the-longtime-owner-occupants-program-loop/".
+
+the help phone of the eligible of the next steps is "(215) 686-9200".
+
+the body of the eligible of the next steps is "Use the Philadelphia Tax Center to find your property, open its OPA number, and choose the real estate assistance application. The program page also has a paper application.
+
+- Include proof of income.
+- Compare LOOP and Homestead savings before switching: you cannot receive both at once. Request Homestead removal with your LOOP application if needed.
+- Applications are accepted throughout the year. Apply by September 30 for the benefit to apply to that year's bill.".
+
+the note of the ineligible of the next steps is "Receiving the Homestead Exemption does not stop you from applying for LOOP, but you must request Homestead removal when applying. Use the City's property tax calculator to compare the programs first.".
+
+rule checks_1 with provenance the model at decision checks:
+the not already enrolled of the checks is true if
+    the enrollments of the situation are listed
+    and the primary person id of the situation is a text
+    and it is not the case that
+        the enrollments of the situation include a person id with a benefit
+        and the primary person id of the situation is the text
+        and the person id is equal to the text
+        and the benefit is equal to "PhlLoop".
+
+rule checks_2 with provenance the model at decision checks:
+the not already enrolled of the checks is false if
+    the enrollments of the situation are listed
+    and the enrollments of the situation include a person id with a benefit
+    and the person id is equal to the primary person id of the situation
+    and the benefit is equal to "PhlLoop".
+
+rule owner_occupant_service_1 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is true if
+    the owner occupant of the simple checks of the situation is true.
+
+rule owner_occupant_service_2 with provenance the model at decision OwnerOccupantService:
+the owner occupant service result is false if
+    the owner occupant of the simple checks of the situation is false.
+
+the owner occupant of the checks is the owner occupant service result, as stated in the model at decision checks.
+
+rule lives_in_philadelphia_pa_service_1 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is true if
+    the lives in philadelphia pa of the simple checks of the situation is true.
+
+rule lives_in_philadelphia_pa_service_2 with provenance the model at decision LivesInPhiladelphiaPaService:
+the lives in philadelphia pa service result is false if
+    the lives in philadelphia pa of the simple checks of the situation is false.
+
+the lives in philadelphia pa of the checks is the lives in philadelphia pa service result, as stated in the model at decision checks.
+
+rule min_years_owner_occupant_service_1 with provenance the model at decision MinYearsOwnerOccupantService:
+the min years owner occupant service result is true if
+    it is not the case that
+        it is not the case that the years owner occupied of the situation is a number
+        or the years owner occupied of the situation is a number N
+            and N < 0
+            or 10 < 0
+    and the years owner occupied of the situation is a number M
+    and M >= 10.
+
+rule min_years_owner_occupant_service_2 with provenance the model at decision MinYearsOwnerOccupantService:
+the min years owner occupant service result is false if
+    it is not the case that
+        it is not the case that the years owner occupied of the situation is a number
+        or the years owner occupied of the situation is a number N
+            and N < 0
+            or 10 < 0
+    and the years owner occupied of the situation is a number M
+    and M < 10.
+
+the ten years owner occupant of the checks is the min years owner occupant service result, as stated in the model at decision checks.
+
+rule property_assessment_increase_service_1 with provenance the model at decision PropertyAssessmentIncreaseService:
+the one year increase of the property assessment increase service is true if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the previous year property assessment of the situation is a number M
+                and M <= 0
+                or it is not the case that the previous year property assessment of the situation is a third number
+    and the property assessment of the situation is a number K
+    and the previous year property assessment of the situation is a number P
+    and K >= P * (1 + 50 / 100).
+
+rule property_assessment_increase_service_2 with provenance the model at decision PropertyAssessmentIncreaseService:
+the one year increase of the property assessment increase service is false if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the previous year property assessment of the situation is a number M
+                and M <= 0
+                or it is not the case that the previous year property assessment of the situation is a third number
+    and the property assessment of the situation is a number K
+    and the previous year property assessment of the situation is a number P
+    and K < P * (1 + 50 / 100).
+
+rule property_assessment_increase_service_3 with provenance the model at decision PropertyAssessmentIncreaseService:
+the five year increase of the property assessment increase service is true if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the lowest property assessment last five years of the situation is a number M
+                and M <= 0
+                or it is not the case that the lowest property assessment last five years of the situation is a third number
+    and the property assessment of the situation is a number K
+    and the lowest property assessment last five years of the situation is a number P
+    and K >= P * (1 + 75 / 100).
+
+rule property_assessment_increase_service_4 with provenance the model at decision PropertyAssessmentIncreaseService:
+the five year increase of the property assessment increase service is false if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the lowest property assessment last five years of the situation is a number M
+                and M <= 0
+                or it is not the case that the lowest property assessment last five years of the situation is a third number
+    and the property assessment of the situation is a number K
+    and the lowest property assessment last five years of the situation is a number P
+    and K < P * (1 + 75 / 100).
+
+rule property_assessment_increase_service_5 with provenance the model at decision PropertyAssessmentIncreaseService:
+the property assessment increase service result is true if
+    the one year increase of the property assessment increase service is true.
+
+rule property_assessment_increase_service_6 with provenance the model at decision PropertyAssessmentIncreaseService:
+the property assessment increase service result is true if
+    the five year increase of the property assessment increase service is true.
+
+rule property_assessment_increase_service_7 with provenance the model at decision PropertyAssessmentIncreaseService:
+the property assessment increase service result is false if
+    the one year increase of the property assessment increase service is false
+    and the five year increase of the property assessment increase service is false.
+
+the assessment increase of the checks is the property assessment increase service result, as stated in the model at decision checks.
+
+rule tax_delinquent_service_1 with provenance the model at decision TaxDelinquentService:
+the tax delinquent service result is true if
+    the tax delinquent of the simple checks of the situation is true.
+
+rule tax_delinquent_service_2 with provenance the model at decision TaxDelinquentService:
+the tax delinquent service result is false if
+    the tax delinquent of the simple checks of the situation is false.
+
+rule property_taxes_current_or_payment_plan_service_1 with provenance the model at decision PropertyTaxesCurrentOrPaymentPlanService:
+the property taxes current or payment plan service result is true if
+    the tax delinquent service result is false.
+
+rule property_taxes_current_or_payment_plan_service_2 with provenance the model at decision PropertyTaxesCurrentOrPaymentPlanService:
+the property taxes current or payment plan service result is true if
+    the property tax payment plan of the simple checks of the situation is true.
+
+rule property_taxes_current_or_payment_plan_service_3 with provenance the model at decision PropertyTaxesCurrentOrPaymentPlanService:
+the property taxes current or payment plan service result is false if
+    the tax delinquent service result is true
+    and the property tax payment plan of the simple checks of the situation is false.
+
+the taxes current or payment plan of the checks is the property taxes current or payment plan service result, as stated in the model at decision checks.
+
+rule loop_income_service_1 with provenance the model at decision LoopIncomeService:
+the loop income service result is true if
+    it is not the case that
+        it is not the case that the household income of the situation is a number N
+        or the household income of the situation is N
+            and N < 0
+            or it is not the case that the household size of the situation is a number M
+    and it is not the case that
+        the household size of the situation is M
+        and M < 1
+        or the household size of the situation is M
+            and the count of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a number K
+            and M > K
+            or the household size of the situation is M
+                and the household size of the situation is M
+                and it is not the case that M = floor(M)
+    and the household income of the situation is N
+    and the household size of the situation is M
+    and the item at position M of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a value V
+    and N < V.
+
+rule loop_income_service_2 with provenance the model at decision LoopIncomeService:
+the loop income service result is false if
+    it is not the case that
+        it is not the case that the household income of the situation is a number N
+        or the household income of the situation is N
+            and N < 0
+            or it is not the case that the household size of the situation is a number M
+    and it is not the case that
+        the household size of the situation is M
+        and M < 1
+        or the household size of the situation is M
+            and the count of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a number K
+            and M > K
+            or the household size of the situation is M
+                and the household size of the situation is M
+                and it is not the case that M = floor(M)
+    and the household income of the situation is N
+    and the household size of the situation is M
+    and the item at position M of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a value V
+    and N >= V.
+
+the meets income requirement of the checks is the loop income service result, as stated in the model at decision checks.
+
+rule no_disqualifying_tax_abatement_service_1 with provenance the model at decision NoDisqualifyingTaxAbatementService:
+the no disqualifying tax abatement service result is true if
+    the disqualifying tax abatement of the simple checks of the situation is false.
+
+rule no_disqualifying_tax_abatement_service_2 with provenance the model at decision NoDisqualifyingTaxAbatementService:
+the no disqualifying tax abatement service result is false if
+    the disqualifying tax abatement of the simple checks of the situation is true.
+
+the no disqualifying tax abatement of the checks is the no disqualifying tax abatement service result, as stated in the model at decision checks.
+
+rule is_eligible_1 with provenance the model at decision isEligible:
+the is_eligible is true if
+    the not already enrolled of the checks is true
+    and the owner occupant of the checks is true
+    and the lives in philadelphia pa of the checks is true
+    and the ten years owner occupant of the checks is true
+    and the assessment increase of the checks is true
+    and the taxes current or payment plan of the checks is true
+    and the meets income requirement of the checks is true
+    and the no disqualifying tax abatement of the checks is true.
+
+rule is_eligible_2 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the not already enrolled of the checks is false.
+
+rule is_eligible_3 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the owner occupant of the checks is false.
+
+rule is_eligible_4 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the lives in philadelphia pa of the checks is false.
+
+rule is_eligible_5 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the ten years owner occupant of the checks is false.
+
+rule is_eligible_6 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the assessment increase of the checks is false.
+
+rule is_eligible_7 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the taxes current or payment plan of the checks is false.
+
+rule is_eligible_8 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the meets income requirement of the checks is false.
+
+rule is_eligible_9 with provenance the model at decision isEligible:
+the is_eligible is false if
+    the no disqualifying tax abatement of the checks is false.
+
+scenario Already_enrolled is, as stated in the Bruno requests of PhlLoop at test case Already enrolled:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "PhlLoop".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_not_already_enrolled_of_the_checks expects answers ["the not already enrolled of the checks is false"].
+
+scenario Eligible_while_on_Homestead is, as stated in the Bruno requests of PhlLoop at test case Eligible while on Homestead:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "PhlHomesteadExemption".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+
+scenario Eligible_with_five_year_increase is, as stated in the Bruno requests of PhlLoop at test case Eligible with five year increase:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 175000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 175000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+    q_d_assessment_increase_of_the_checks expects answers ["the assessment increase of the checks is true"].
+
+scenario Eligible_with_payment_plan is, as stated in the Bruno requests of PhlLoop at test case Eligible with payment plan:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the property tax payment plan of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is true.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+    q_d_taxes_current_or_payment_plan_of_the_checks expects answers ["the taxes current or payment plan of the checks is true"].
+
+scenario Eligible is, as stated in the Bruno requests of PhlLoop at test case Eligible:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is true"].
+
+scenario Fails_AssessmentIncrease is, as stated in the Bruno requests of PhlLoop at test case Fails AssessmentIncrease:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 149999.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_assessment_increase_of_the_checks expects answers ["the assessment increase of the checks is false"].
+
+scenario Fails_MeetsIncomeRequirement is, as stated in the Bruno requests of PhlLoop at test case Fails MeetsIncomeRequirement:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 103050.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_meets_income_requirement_of_the_checks expects answers ["the meets income requirement of the checks is false"].
+
+scenario Fails_NoDisqualifyingTaxAbatement is, as stated in the Bruno requests of PhlLoop at test case Fails NoDisqualifyingTaxAbatement:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is true.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_no_disqualifying_tax_abatement_of_the_checks expects answers ["the no disqualifying tax abatement of the checks is false"].
+
+scenario Fails_TaxesCurrentOrPaymentPlan is, as stated in the Bruno requests of PhlLoop at test case Fails TaxesCurrentOrPaymentPlan:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the property tax payment plan of the simple checks of the situation is false.
+    the tax delinquent of the simple checks of the situation is true.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_taxes_current_or_payment_plan_of_the_checks expects answers ["the taxes current or payment plan of the checks is false"].
+
+scenario Fails_TenYearsOwnerOccupant is, as stated in the Bruno requests of PhlLoop at test case Fails TenYearsOwnerOccupant:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is true.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 9.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_ten_years_owner_occupant_of_the_checks expects answers ["the ten years owner occupant of the checks is false"].
+
+scenario Ineligible is, as stated in the Bruno requests of PhlLoop at test case Ineligible:
+    the enrollments of the situation are listed.
+    the enrollments of the situation include "p1" with "OtherBenefit".
+    the household income of the situation is 100000.
+    the household size of the situation is 1.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the primary person id of the situation is "p1".
+    the property assessment of the situation is 150000.
+    the disqualifying tax abatement of the simple checks of the situation is false.
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    the owner occupant of the simple checks of the situation is false.
+    the tax delinquent of the simple checks of the situation is false.
+    the years owner occupied of the situation is 10.
+    q_d_is_eligible expects answers ["the is_eligible is false"].
+    q_d_owner_occupant_of_the_checks expects answers ["the owner occupant of the checks is false"].
+
+scenario Next_steps is, as stated in the Bruno requests of PhlLoop at test case Next steps:
+    q_d_is_eligible expects answers [].
+
+scenario Smoke_Test is, as stated in the Bruno requests of PhlLoop at test case Smoke Test:
+    the primary person id of the situation is "p1".
+    the lives in philadelphia pa of the simple checks of the situation is true.
+    q_d_is_eligible expects answers [].
+
+query q_d_assessment_increase_of_the_checks is:
+    the assessment increase of the checks is which value.
+
+query q_d_is_eligible is:
+    the is_eligible is which truth value.
+
+query q_d_meets_income_requirement_of_the_checks is:
+    the meets income requirement of the checks is which value.
+
+query q_d_no_disqualifying_tax_abatement_of_the_checks is:
+    the no disqualifying tax abatement of the checks is which value.
+
+query q_d_not_already_enrolled_of_the_checks is:
+    the not already enrolled of the checks is which value.
+
+query q_d_owner_occupant_of_the_checks is:
+    the owner occupant of the checks is which value.
+
+query q_d_taxes_current_or_payment_plan_of_the_checks is:
+    the taxes current or payment plan of the checks is which value.
+
+query q_d_ten_years_owner_occupant_of_the_checks is:
+    the ten years owner occupant of the checks is which value.
+

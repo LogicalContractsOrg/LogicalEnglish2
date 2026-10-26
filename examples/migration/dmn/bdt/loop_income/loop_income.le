@@ -1,0 +1,212 @@
+% The Logical English twin of the DMN model "LoopIncome" (loop-income.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base loop_income includes these resources:
+    feel.
+
+the functions are:
+    the household income of the situation is *a number*.
+    the household size of the situation is *a number*.
+    the check result is *a truth value*.
+
+the knowledge base loop_income includes:
+
+the text of the_model is at "sources/loop-income.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    it is not the case that
+        it is not the case that the household income of the situation is a number N
+        or the household income of the situation is N
+            and N < 0
+            or it is not the case that the household size of the situation is a number M
+    and it is not the case that
+        the household size of the situation is M
+        and M < 1
+        or the household size of the situation is M
+            and the count of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a number K
+            and M > K
+            or the household size of the situation is M
+                and the household size of the situation is M
+                and it is not the case that M = floor(M)
+    and the household income of the situation is N
+    and the household size of the situation is M
+    and the item at position M of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a value V
+    and N < V.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is false if
+    it is not the case that
+        it is not the case that the household income of the situation is a number N
+        or the household income of the situation is N
+            and N < 0
+            or it is not the case that the household size of the situation is a number M
+    and it is not the case that
+        the household size of the situation is M
+        and M < 1
+        or the household size of the situation is M
+            and the count of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a number K
+            and M > K
+            or the household size of the situation is M
+                and the household size of the situation is M
+                and it is not the case that M = floor(M)
+    and the household income of the situation is N
+    and the household size of the situation is M
+    and the item at position M of the list [103050, 117800, 132500, 147200, 159000, 170800, 182550, 194350, 206100, 217900] is a value V
+    and N >= V.
+
+scenario Fail is, as stated in the Bruno requests of LoopIncome at test case Fail:
+    the household income of the situation is 103051.
+    the household size of the situation is 1.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Invalid_income is, as stated in the Bruno requests of LoopIncome at test case Invalid income:
+    the household income of the situation is -1.
+    the household size of the situation is 1.
+    q_d_check_result expects answers [].
+
+scenario Null is, as stated in the Bruno requests of LoopIncome at test case Null:
+    the household size of the situation is 1.
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of LoopIncome at test case Pass:
+    the household income of the situation is 103049.
+    the household size of the situation is 1.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_1_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 1 at cap:
+    the household income of the situation is 103050.
+    the household size of the situation is 1.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_1_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 1 below cap:
+    the household income of the situation is 103049.99.
+    the household size of the situation is 1.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_10_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 10 at cap:
+    the household income of the situation is 217900.
+    the household size of the situation is 10.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_10_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 10 below cap:
+    the household income of the situation is 217899.99.
+    the household size of the situation is 10.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_2_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 2 at cap:
+    the household income of the situation is 117800.
+    the household size of the situation is 2.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_2_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 2 below cap:
+    the household income of the situation is 117799.99.
+    the household size of the situation is 2.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_3_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 3 at cap:
+    the household income of the situation is 132500.
+    the household size of the situation is 3.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_3_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 3 below cap:
+    the household income of the situation is 132499.99.
+    the household size of the situation is 3.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_4_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 4 at cap:
+    the household income of the situation is 147200.
+    the household size of the situation is 4.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_4_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 4 below cap:
+    the household income of the situation is 147199.99.
+    the household size of the situation is 4.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_5_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 5 at cap:
+    the household income of the situation is 159000.
+    the household size of the situation is 5.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_5_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 5 below cap:
+    the household income of the situation is 158999.99.
+    the household size of the situation is 5.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_6_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 6 at cap:
+    the household income of the situation is 170800.
+    the household size of the situation is 6.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_6_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 6 below cap:
+    the household income of the situation is 170799.99.
+    the household size of the situation is 6.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_7_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 7 at cap:
+    the household income of the situation is 182550.
+    the household size of the situation is 7.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_7_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 7 below cap:
+    the household income of the situation is 182549.99.
+    the household size of the situation is 7.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_8_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 8 at cap:
+    the household income of the situation is 194350.
+    the household size of the situation is 8.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_8_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 8 below cap:
+    the household income of the situation is 194349.99.
+    the household size of the situation is 8.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Size_9_at_cap is, as stated in the Bruno requests of LoopIncome at test case Size 9 at cap:
+    the household income of the situation is 206100.
+    the household size of the situation is 9.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Size_9_below_cap is, as stated in the Bruno requests of LoopIncome at test case Size 9 below cap:
+    the household income of the situation is 206099.99.
+    the household size of the situation is 9.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Unknown_or_unsupported_size__1 is, as stated in the Bruno requests of LoopIncome at test case Unknown or unsupported size -1:
+    the household income of the situation is 10000.
+    the household size of the situation is -1.
+    q_d_check_result expects answers [].
+
+scenario Unknown_or_unsupported_size_0 is, as stated in the Bruno requests of LoopIncome at test case Unknown or unsupported size 0:
+    the household income of the situation is 10000.
+    the household size of the situation is 0.
+    q_d_check_result expects answers [].
+
+scenario Unknown_or_unsupported_size_1_5 is, as stated in the Bruno requests of LoopIncome at test case Unknown or unsupported size 1 5:
+    the household income of the situation is 10000.
+    the household size of the situation is 1.5.
+    q_d_check_result expects answers [].
+
+scenario Unknown_or_unsupported_size_11 is, as stated in the Bruno requests of LoopIncome at test case Unknown or unsupported size 11:
+    the household income of the situation is 10000.
+    the household size of the situation is 11.
+    q_d_check_result expects answers [].
+
+scenario Unknown_or_unsupported_size_None is, as stated in the Bruno requests of LoopIncome at test case Unknown or unsupported size None:
+    the household income of the situation is 10000.
+    q_d_check_result expects answers [].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

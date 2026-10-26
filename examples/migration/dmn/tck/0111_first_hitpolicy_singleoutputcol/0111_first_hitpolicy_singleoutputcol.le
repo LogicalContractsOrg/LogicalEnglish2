@@ -1,0 +1,48 @@
+% The Logical English twin of the DMN model "0111-first-hitpolicy-singleoutputcol" (0111-first-hitpolicy-singleoutputcol.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the age is *a number*.
+    the advertisement is *a text*.
+
+the templates are:
+    the advertisement for *a number* is *a value* under table advertisement.
+
+the table advertisement is, with first match:
+    age  | value
+    > 18 | "Cars"
+    > 12 | "Videogames"
+    > 0  | "Toys"
+
+the knowledge base n0111_first_hitpolicy_singleoutputcol includes:
+
+the text of the_model is at "sources/0111-first-hitpolicy-singleoutputcol.dmn".
+
+rule advertisement_1 with provenance the model at decision Advertisement:
+the advertisement is a text if
+    the advertisement for the age is the text under table advertisement.
+
+scenario t001 is, as stated in "0111-first-hitpolicy-singleoutputcol-test-01.xml" at test case 001:
+    the age is 19.
+    q_d_advertisement expects answers ["the advertisement is Cars"].
+
+scenario t002 is, as stated in "0111-first-hitpolicy-singleoutputcol-test-01.xml" at test case 002:
+    the age is 13.
+    q_d_advertisement expects answers ["the advertisement is Videogames"].
+
+scenario t003 is, as stated in "0111-first-hitpolicy-singleoutputcol-test-01.xml" at test case 003:
+    the age is 5.
+    q_d_advertisement expects answers ["the advertisement is Toys"].
+
+query q_d_advertisement is:
+    the advertisement is which text.
+

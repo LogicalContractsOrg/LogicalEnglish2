@@ -1,0 +1,41 @@
+the target language is: prolog.
+
+% lib/feel used as a translated DMN model uses it: FEEL's built-in functions
+% as templates, several of them functions written as operands.
+
+the knowledge base uses_feel includes these resources:
+    feel.
+
+the templates are:
+    the item checked is *a value*.
+    the dates agree.
+    every answer is yes.
+
+the knowledge base uses_feel includes:
+
+the item checked is a value if
+    the item at position 2 of the list [10, 20, 30] is the value.
+
+the dates agree if
+    the date written as "2024-02-29" is a date
+    and the date of year 2024 month 2 day 29 is the date.
+
+every answer is yes if
+    the conjunction of the list [true, true] is true
+    and the disjunction of the list [false, true] is true
+    and the median of the list [3, 1, 2, 4] is 2.5
+    and the rounding of 1.125 away from zero to 2 decimals is 1.13
+    and the rounding of 1.125 to 2 decimals half toward zero is 1.12
+    and the part of "foobar" before "bar" is "foo"
+    and the sublist of [1, 2, 3, 4] from position -2 with length 1 is [3]
+    and "foobar" starts with "foo"
+    and 3 is odd.
+
+scenario lib is:
+    item expects answers ["the item checked is 20"].
+    dates expects answers ["the dates agree"].
+    yes expects answers ["every answer is yes"].
+
+query item is: the item checked is which value.
+query dates is: the dates agree.
+query yes is: every answer is yes.

@@ -2810,7 +2810,8 @@ check_types([Var-Type|NTs]) :-
     ;   Type == date ->
         ( Var = date(_) ; Var = date(_,_,_) ; Var = date(_,_,_,_,_,_,_,_,_) )
     ;   Type == number ->
-        number(Var)
+        % a number, or a formula passed as an operand (language.md §2.3)
+        ( number(Var) -> true ; ground(Var), compound(Var), catch(_ is Var, _, fail) )
     ;   true
     ),
     check_types(NTs).

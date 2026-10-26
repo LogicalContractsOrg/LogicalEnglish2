@@ -1,0 +1,170 @@
+% The Logical English twin of the DMN model "ArchivesActRetention" (archives-act-retention.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the product type is *a text*.
+    the decision type is *a text*.
+    the retention years of the archives act retention and destruction periods is *a number*.
+    the retention class of the archives act retention and destruction periods is *a text*.
+    the destroyable of the archives act retention and destruction periods is *a truth value*.
+    the legal basis of the archives act retention and destruction periods is *a text*.
+    the archive category of the archives act retention and destruction periods is *a text*.
+    the product type or null is *a text*.
+    the decision type or null is *a text*.
+
+the templates are:
+    the archives act retention and destruction periods for *a text* and *a second text* is *a number* with *a third text* with *a truth value* with *a fourth text* with *a fifth text* under table archives_act_retention_and_destruction_periods.
+
+the table archives_act_retention_and_destruction_periods is, with first match:
+    product type        | decision type | retention years | retention class | destroyable | legal basis                                                                               | archive category
+    "TreeFellingPermit" | "Granted"     | 10              | "V"             | true        | "VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after expiry date"    | "Tree felling permit granted - destroy after 10 years"
+    "TreeFellingPermit" | "Rejected"    | 10              | "V"             | true        | "VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after decision date"  | "Tree felling permit rejected - destroy after 10 years"
+    "TreeFellingPermit" | "Refused"     | 5               | "V"             | true        | "VNG Selection List 2020 - 7.1.3 - V 5 years (not processed)"                             | "Tree felling permit not processed - destroy after 5 years"
+    "Zorgtoeslag"       | "Granted"     | 7               | "V"             | true        | "Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na definitieve vaststelling"   | "Zorgtoeslag granted - destroy after 7 years from final settlement"
+    "Zorgtoeslag"       | "Rejected"    | 7               | "V"             | true        | "Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na besluitdatum"               | "Zorgtoeslag rejected - destroy after 7 years from decision date"
+    "Zorgtoeslag"       | "Refused"     | 5               | "V"             | true        | "Selectielijst Belastingdienst 2012 - Toeslagen - V 5 jaar (niet in behandeling genomen)" | "Zorgtoeslag not processed - destroy after 5 years"
+    "BuildingPermit"    | "Granted"     | 10              | "V"             | true        | "VNG Selection List 2020 - 8.1.1 Environmental permit granted - V 10 years"               | "Building permit granted - destroy after 10 years"
+    "BuildingPermit"    | "Rejected"    | 10              | "V"             | true        | "VNG Selection List 2020 - 8.1.1 Environmental permit rejected - V 10 years"              | "Building permit rejected - destroy after 10 years"
+    any                 | any           | 10              | "V"             | true        | "VNG Selection List 2020 - default rule V 10 years"                                       | "Default retention period - destroy after 10 years"
+
+the knowledge base archives_act_retention includes:
+
+the text of the_model is at "sources/archives-act-retention.dmn".
+
+the product type or null is the product type, as stated in the model at decision Archives Act - Retention and Destruction Periods.
+
+rule archives_act_retention_and_destruction_periods_2 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the product type or null is null if
+    it is not the case that the product type is a text.
+
+the decision type or null is the decision type, as stated in the model at decision Archives Act - Retention and Destruction Periods.
+
+rule archives_act_retention_and_destruction_periods_4 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the decision type or null is null if
+    it is not the case that the decision type is a text.
+
+rule archives_act_retention_and_destruction_periods_5 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the retention years of the archives act retention and destruction periods is a number if
+    the archives act retention and destruction periods for the product type or null and the decision type or null is the number with a text with a truth value with a second text with a third text under table archives_act_retention_and_destruction_periods.
+
+rule archives_act_retention_and_destruction_periods_6 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the retention class of the archives act retention and destruction periods is a text if
+    the archives act retention and destruction periods for the product type or null and the decision type or null is a number with the text with a truth value with a second text with a third text under table archives_act_retention_and_destruction_periods.
+
+rule archives_act_retention_and_destruction_periods_7 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the destroyable of the archives act retention and destruction periods is a truth value if
+    the archives act retention and destruction periods for the product type or null and the decision type or null is a number with a text with the truth value with a second text with a third text under table archives_act_retention_and_destruction_periods.
+
+rule archives_act_retention_and_destruction_periods_8 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the legal basis of the archives act retention and destruction periods is a text if
+    the archives act retention and destruction periods for the product type or null and the decision type or null is a number with a second text with a truth value with the text with a third text under table archives_act_retention_and_destruction_periods.
+
+rule archives_act_retention_and_destruction_periods_9 with provenance the model at decision Archives Act - Retention and Destruction Periods:
+the archive category of the archives act retention and destruction periods is a text if
+    the archives act retention and destruction periods for the product type or null and the decision type or null is a number with a second text with a truth value with a third text with the text under table archives_act_retention_and_destruction_periods.
+
+scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Archives Act - Retention and Destruction Periods:
+    the product type is "TreeFellingPermit".
+    the decision type is "Granted".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Tree felling permit granted - destroy after 10 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after expiry date"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 10"].
+
+scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Archives Act - Retention and Destruction Periods:
+    the product type is "TreeFellingPermit".
+    the decision type is "Rejected".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Tree felling permit rejected - destroy after 10 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after decision date"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 10"].
+
+scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Archives Act - Retention and Destruction Periods:
+    the product type is "TreeFellingPermit".
+    the decision type is "Refused".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Tree felling permit not processed - destroy after 5 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is VNG Selection List 2020 - 7.1.3 - V 5 years (not processed)"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 5"].
+
+scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Archives Act - Retention and Destruction Periods:
+    the product type is "Zorgtoeslag".
+    the decision type is "Granted".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Zorgtoeslag granted - destroy after 7 years from final settlement"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na definitieve vaststelling"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 7"].
+
+scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 5 of Archives Act - Retention and Destruction Periods:
+    the product type is "Zorgtoeslag".
+    the decision type is "Rejected".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Zorgtoeslag rejected - destroy after 7 years from decision date"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na besluitdatum"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 7"].
+
+scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 6 of Archives Act - Retention and Destruction Periods:
+    the product type is "Zorgtoeslag".
+    the decision type is "Refused".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Zorgtoeslag not processed - destroy after 5 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is Selectielijst Belastingdienst 2012 - Toeslagen - V 5 jaar (niet in behandeling genomen)"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 5"].
+
+scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 7 of Archives Act - Retention and Destruction Periods:
+    the product type is "BuildingPermit".
+    the decision type is "Granted".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Building permit granted - destroy after 10 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is VNG Selection List 2020 - 8.1.1 Environmental permit granted - V 10 years"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 10"].
+
+scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 8 of Archives Act - Retention and Destruction Periods:
+    the product type is "BuildingPermit".
+    the decision type is "Rejected".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Building permit rejected - destroy after 10 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is VNG Selection List 2020 - 8.1.1 Environmental permit rejected - V 10 years"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 10"].
+
+scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 9 of Archives Act - Retention and Destruction Periods:
+    the product type is "TreeFellingPermit".
+    the decision type is "Granted".
+    q_d_archive_category_of_the_archives_act_retention_and_destruction_periods expects answers ["the archive category of the archives act retention and destruction periods is Tree felling permit granted - destroy after 10 years"].
+    q_d_destroyable_of_the_archives_act_retention_and_destruction_periods expects answers ["the destroyable of the archives act retention and destruction periods is true"].
+    q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods expects answers ["the legal basis of the archives act retention and destruction periods is VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after expiry date"].
+    q_d_retention_class_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention class of the archives act retention and destruction periods is V"].
+    q_d_retention_years_of_the_archives_act_retention_and_destruction_periods expects answers ["the retention years of the archives act retention and destruction periods is 10"].
+
+query q_d_archive_category_of_the_archives_act_retention_and_destruction_periods is:
+    the archive category of the archives act retention and destruction periods is which text.
+
+query q_d_destroyable_of_the_archives_act_retention_and_destruction_periods is:
+    the destroyable of the archives act retention and destruction periods is which truth value.
+
+query q_d_legal_basis_of_the_archives_act_retention_and_destruction_periods is:
+    the legal basis of the archives act retention and destruction periods is which text.
+
+query q_d_retention_class_of_the_archives_act_retention_and_destruction_periods is:
+    the retention class of the archives act retention and destruction periods is which text.
+
+query q_d_retention_years_of_the_archives_act_retention_and_destruction_periods is:
+    the retention years of the archives act retention and destruction periods is which number.
+

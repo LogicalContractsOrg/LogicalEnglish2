@@ -1,0 +1,58 @@
+% The Logical English twin of the DMN model "PersonEnrolledInBenefit" (person-enrolled-in-benefit.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the person id of the parameters is *a text*.
+    the benefit of the parameters is *a text*.
+    the check result is *a truth value*.
+
+the templates are:
+    the enrollments of the situation include *a person id* with *a benefit*.
+    the enrollments of the situation are listed.
+
+the knowledge base person_enrolled_in_benefit includes:
+
+the text of the_model is at "sources/person-enrolled-in-benefit.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the check result is true if
+    the enrollments of the situation are listed
+    and the enrollments of the situation include a person id with a benefit
+    and the person id is equal to the person id of the parameters
+    and the benefit is equal to the benefit of the parameters.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the check result is false if
+    the enrollments of the situation are listed
+    and the person id of the parameters is a text
+    and the benefit of the parameters is a second text
+    and it is not the case that
+        the enrollments of the situation include a person id with a benefit
+        and the person id of the parameters is a third text
+        and the person id is equal to the third text
+        and the benefit of the parameters is a fourth text
+        and the benefit is equal to the fourth text.
+
+scenario Enrollments_empty is, as stated in the Bruno requests of PersonEnrolledInBenefit at test case Enrollments empty:
+    the benefit of the parameters is "bogus".
+    the person id of the parameters is "p1".
+    the enrollments of the situation are listed.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Enrollments_null is, as stated in the Bruno requests of PersonEnrolledInBenefit at test case Enrollments null:
+    the benefit of the parameters is "bogus".
+    the person id of the parameters is "p1".
+    q_d_check_result expects answers [].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

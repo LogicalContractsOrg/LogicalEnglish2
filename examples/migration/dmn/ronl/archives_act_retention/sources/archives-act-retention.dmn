@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+  xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+  xmlns:camunda="http://camunda.org/schema/1.0/dmn"
+  xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+  xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+  id="definitions_archives_retention"
+  name="ArchivesActRetention"
+  namespace="http://example.com/awb/dmn"
+  exporter="Camunda Modeler"
+  exporterVersion="5.43.1">
+
+  <!--
+    ArchivesActRetention
+    ====================
+    Archives Act 1995 / Archives Decree 1995 (Archiefwet / Archiefbesluit)
+
+    Determines the statutory retention period and class for each
+    decision dossier, based on product type and decision outcome.
+
+    Retention classes:
+      B = Preserve permanently (transferred to national archive)
+      V = Destroyable after retention period has elapsed
+
+    To add a new product/service: add one row per decisionType for that productType.
+    decisionType values: "Granted", "Rejected", "Refused"
+    (Refused = not processed under Awb 4:5 paragraph 2)
+
+    Inputs:
+      - productType  (String) : public service identifier
+      - decisionType (String) : "Granted", "Rejected", or "Refused"
+
+    Outputs:
+      - retentionYears  (Integer) : number of years to retain
+      - retentionClass  (String)  : "B" (permanent) or "V" (destroyable)
+      - destroyable     (Boolean) : convenience flag
+      - legalBasis      (String)  : applicable selection list reference
+      - archiveCategory (String)  : human-readable category description
+
+    Source: VNG Selection List for Municipalities 2020
+  -->
+
+  <decision id="ArchivesActRetention" name="Archives Act - Retention and Destruction Periods" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_Archives" hitPolicy="FIRST">
+
+      <input id="Input_ArchProductType">
+        <inputExpression id="InputExpr_ArchProductType" typeRef="string">
+          <text>productType</text>
+        </inputExpression>
+      </input>
+
+      <input id="Input_ArchDecisionType">
+        <inputExpression id="InputExpr_ArchDecisionType" typeRef="string">
+          <text>decisionType</text>
+        </inputExpression>
+      </input>
+
+      <output id="Output_RetentionYears"  name="retentionYears"  typeRef="integer" />
+      <output id="Output_RetentionClass"  name="retentionClass"  typeRef="string" />
+      <output id="Output_Destroyable"     name="destroyable"     typeRef="boolean" />
+      <output id="Output_LegalBasis"      name="legalBasis"      typeRef="string" />
+      <output id="Output_ArchiveCategory" name="archiveCategory" typeRef="string" />
+
+      <!-- TreeFellingPermit - Granted: retain 10 years (permit active + appeals period) -->
+      <rule id="Rule_Tree_Granted">
+        <inputEntry id="IE_Tree_Granted_PT"><text>"TreeFellingPermit"</text></inputEntry>
+        <inputEntry id="IE_Tree_Granted_DT"><text>"Granted"</text></inputEntry>
+        <outputEntry id="OE_Tree_Granted_Years"><text>10</text></outputEntry>
+        <outputEntry id="OE_Tree_Granted_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_Tree_Granted_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_Tree_Granted_Legal"><text>"VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after expiry date"</text></outputEntry>
+        <outputEntry id="OE_Tree_Granted_Cat"><text>"Tree felling permit granted - destroy after 10 years"</text></outputEntry>
+      </rule>
+
+      <!-- TreeFellingPermit - Rejected: retain 10 years (appeals window Awb 6:7 + disputes) -->
+      <rule id="Rule_Tree_Rejected">
+        <inputEntry id="IE_Tree_Rejected_PT"><text>"TreeFellingPermit"</text></inputEntry>
+        <inputEntry id="IE_Tree_Rejected_DT"><text>"Rejected"</text></inputEntry>
+        <outputEntry id="OE_Tree_Rejected_Years"><text>10</text></outputEntry>
+        <outputEntry id="OE_Tree_Rejected_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_Tree_Rejected_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_Tree_Rejected_Legal"><text>"VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after decision date"</text></outputEntry>
+        <outputEntry id="OE_Tree_Rejected_Cat"><text>"Tree felling permit rejected - destroy after 10 years"</text></outputEntry>
+      </rule>
+
+      <!-- TreeFellingPermit - Refused (not processed, Awb 4:5): retain 5 years -->
+      <rule id="Rule_Tree_Refused">
+        <inputEntry id="IE_Tree_Refused_PT"><text>"TreeFellingPermit"</text></inputEntry>
+        <inputEntry id="IE_Tree_Refused_DT"><text>"Refused"</text></inputEntry>
+        <outputEntry id="OE_Tree_Refused_Years"><text>5</text></outputEntry>
+        <outputEntry id="OE_Tree_Refused_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_Tree_Refused_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_Tree_Refused_Legal"><text>"VNG Selection List 2020 - 7.1.3 - V 5 years (not processed)"</text></outputEntry>
+        <outputEntry id="OE_Tree_Refused_Cat"><text>"Tree felling permit not processed - destroy after 5 years"</text></outputEntry>
+      </rule>
+
+      <!--
+        Zorgtoeslag - Granted: retain 7 years after final settlement.
+        Legal basis: Wet op de zorgtoeslag art. 26 (terugvordering) +
+        Archiefbesluit 1995 art. 5 + Awb appeal window (Awb 6:7).
+        7 years aligns with the Belastingdienst standard retention for
+        toeslagendossiers (Selectielijst Belastingdienst 2012).
+      -->
+      <rule id="Rule_Zorgtoeslag_Granted">
+        <inputEntry id="IE_ZT_Granted_PT"><text>"Zorgtoeslag"</text></inputEntry>
+        <inputEntry id="IE_ZT_Granted_DT"><text>"Granted"</text></inputEntry>
+        <outputEntry id="OE_ZT_Granted_Years"><text>7</text></outputEntry>
+        <outputEntry id="OE_ZT_Granted_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_ZT_Granted_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_ZT_Granted_Legal"><text>"Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na definitieve vaststelling"</text></outputEntry>
+        <outputEntry id="OE_ZT_Granted_Cat"><text>"Zorgtoeslag granted - destroy after 7 years from final settlement"</text></outputEntry>
+      </rule>
+
+      <!-- Zorgtoeslag - Rejected: retain 7 years (appeal window + potential objection proceedings) -->
+      <rule id="Rule_Zorgtoeslag_Rejected">
+        <inputEntry id="IE_ZT_Rejected_PT"><text>"Zorgtoeslag"</text></inputEntry>
+        <inputEntry id="IE_ZT_Rejected_DT"><text>"Rejected"</text></inputEntry>
+        <outputEntry id="OE_ZT_Rejected_Years"><text>7</text></outputEntry>
+        <outputEntry id="OE_ZT_Rejected_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_ZT_Rejected_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_ZT_Rejected_Legal"><text>"Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na besluitdatum"</text></outputEntry>
+        <outputEntry id="OE_ZT_Rejected_Cat"><text>"Zorgtoeslag rejected - destroy after 7 years from decision date"</text></outputEntry>
+      </rule>
+
+      <!-- Zorgtoeslag - Refused (not processed, Awb 4:5): retain 5 years -->
+      <rule id="Rule_Zorgtoeslag_Refused">
+        <inputEntry id="IE_ZT_Refused_PT"><text>"Zorgtoeslag"</text></inputEntry>
+        <inputEntry id="IE_ZT_Refused_DT"><text>"Refused"</text></inputEntry>
+        <outputEntry id="OE_ZT_Refused_Years"><text>5</text></outputEntry>
+        <outputEntry id="OE_ZT_Refused_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_ZT_Refused_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_ZT_Refused_Legal"><text>"Selectielijst Belastingdienst 2012 - Toeslagen - V 5 jaar (niet in behandeling genomen)"</text></outputEntry>
+        <outputEntry id="OE_ZT_Refused_Cat"><text>"Zorgtoeslag not processed - destroy after 5 years"</text></outputEntry>
+      </rule>
+
+      <!-- BuildingPermit - Granted (future placeholder) -->
+      <rule id="Rule_Building_Granted">
+        <inputEntry id="IE_Building_Granted_PT"><text>"BuildingPermit"</text></inputEntry>
+        <inputEntry id="IE_Building_Granted_DT"><text>"Granted"</text></inputEntry>
+        <outputEntry id="OE_Building_Granted_Years"><text>10</text></outputEntry>
+        <outputEntry id="OE_Building_Granted_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_Building_Granted_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_Building_Granted_Legal"><text>"VNG Selection List 2020 - 8.1.1 Environmental permit granted - V 10 years"</text></outputEntry>
+        <outputEntry id="OE_Building_Granted_Cat"><text>"Building permit granted - destroy after 10 years"</text></outputEntry>
+      </rule>
+
+      <!-- BuildingPermit - Rejected (future placeholder) -->
+      <rule id="Rule_Building_Rejected">
+        <inputEntry id="IE_Building_Rejected_PT"><text>"BuildingPermit"</text></inputEntry>
+        <inputEntry id="IE_Building_Rejected_DT"><text>"Rejected"</text></inputEntry>
+        <outputEntry id="OE_Building_Rejected_Years"><text>10</text></outputEntry>
+        <outputEntry id="OE_Building_Rejected_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_Building_Rejected_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_Building_Rejected_Legal"><text>"VNG Selection List 2020 - 8.1.1 Environmental permit rejected - V 10 years"</text></outputEntry>
+        <outputEntry id="OE_Building_Rejected_Cat"><text>"Building permit rejected - destroy after 10 years"</text></outputEntry>
+      </rule>
+
+      <!-- Fallback: unknown product type - conservative 10 years V -->
+      <rule id="Rule_Default">
+        <inputEntry id="IE_Default_PT"><text>-</text></inputEntry>
+        <inputEntry id="IE_Default_DT"><text>-</text></inputEntry>
+        <outputEntry id="OE_Default_Years"><text>10</text></outputEntry>
+        <outputEntry id="OE_Default_Class"><text>"V"</text></outputEntry>
+        <outputEntry id="OE_Default_Destroy"><text>true</text></outputEntry>
+        <outputEntry id="OE_Default_Legal"><text>"VNG Selection List 2020 - default rule V 10 years"</text></outputEntry>
+        <outputEntry id="OE_Default_Cat"><text>"Default retention period - destroy after 10 years"</text></outputEntry>
+      </rule>
+
+    </decisionTable>
+  </decision>
+
+  <inputData id="InputData_productType" name="productType">
+    <variable id="Variable_productType" name="productType" typeRef="string" />
+  </inputData>
+
+  <inputData id="InputData_decisionType" name="decisionType">
+    <variable id="Variable_decisionType" name="decisionType" typeRef="string" />
+  </inputData>
+
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_Archives">
+      <dmndi:DMNShape id="DMNShape_Archives" dmnElementRef="ArchivesActRetention">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+
+</definitions>

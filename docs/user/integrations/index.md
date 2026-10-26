@@ -61,6 +61,7 @@ flowchart LR
     EP["Epilog"]
     L4["L4"]
     XL["Excel workbooks"]
+    DMN["DMN · FEEL · STTR"]
   end
 
   subgraph core["Logical English"]
@@ -94,6 +95,7 @@ flowchart LR
   L4 -- "rules" --> LE
   L4 -- "contracts" --> LPS
   XL -- "formulas as rules" --> LE
+  DMN -- "tables as tables" --> LE
   LE -. "asks, as a service" .-> XL
   DR -- "decision services" --> LE
   DR -- "stateful rules" --> LPS
@@ -117,6 +119,7 @@ flowchart LR
   click L4 "l4" "L4 and Logical English"
   click RS "rulespec" "Axiom RuleSpec and Logical English"
   click XL "spreadsheets" "Spreadsheets and Logical English"
+  click DMN "dmn" "DMN and Logical English"
   click OF "openfisca" "OpenFisca, PolicyEngine and Logical English"
   click CA "catala" "Catala and Logical English"
   click RU "rune" "Rune and Logical English"
@@ -141,6 +144,7 @@ The LPS2 editor has its own map. That map shows the systems that only LPS2 reads
 |---|---|---|
 | Axiom RuleSpec module (United States statutes, regulations and policies as YAML) | import, export | [Axiom RuleSpec](rulespec.md) |
 | Excel workbook (.xlsx, .xlsm): formulas, lookup tables, the answers of the workbook | import; asked as a service | [Spreadsheets](spreadsheets.md) |
+| DMN decision model (OMG DMN 1.1 to 1.6, FEEL; the Dutch STTR files), with a TCK test file next to it | import | [DMN](dmn.md) |
 | OpenFisca or PolicyEngine model (Python variables, YAML parameters and tests) | import, export | [OpenFisca and PolicyEngine](openfisca.md) |
 | Catala program (English or French), with its test scopes | import, export | [Catala](catala.md) |
 | Rune file: the Digital Regulatory Reporting of ISDA, the Common Domain Model, or a model of your own | import, export (run on the engine of DRR) | [Rune](rune.md) |

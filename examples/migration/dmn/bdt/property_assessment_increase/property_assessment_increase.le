@@ -1,0 +1,152 @@
+% The Logical English twin of the DMN model "PropertyAssessmentIncrease" (property-assessment-increase.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the property assessment of the situation is *a number*.
+    the previous year property assessment of the situation is *a number*.
+    the lowest property assessment last five years of the situation is *a number*.
+    the one year percent of the parameters is *a number*.
+    the five year percent of the parameters is *a number*.
+    the check result is *a truth value*.
+    the one year increase of the check result is *a truth value*.
+    the five year increase of the check result is *a truth value*.
+
+the knowledge base property_assessment_increase includes:
+
+the text of the_model is at "sources/property-assessment-increase.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the one year increase of the check result is true if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the previous year property assessment of the situation is a number M
+                and M <= 0
+                or it is not the case that the previous year property assessment of the situation is a third number
+                or it is not the case that the one year percent of the parameters is a fifth number
+    and the property assessment of the situation is a number K
+    and the previous year property assessment of the situation is a number P
+    and the one year percent of the parameters is a number Q
+    and K >= P * (1 + Q / 100).
+
+rule check_result_2 with provenance the model at decision checkResult:
+the one year increase of the check result is false if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the previous year property assessment of the situation is a number M
+                and M <= 0
+                or it is not the case that the previous year property assessment of the situation is a third number
+                or it is not the case that the one year percent of the parameters is a fifth number
+    and the property assessment of the situation is a number K
+    and the previous year property assessment of the situation is a number P
+    and the one year percent of the parameters is a number Q
+    and K < P * (1 + Q / 100).
+
+rule check_result_3 with provenance the model at decision checkResult:
+the five year increase of the check result is true if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the lowest property assessment last five years of the situation is a number M
+                and M <= 0
+                or it is not the case that the lowest property assessment last five years of the situation is a third number
+                or it is not the case that the five year percent of the parameters is a fifth number
+    and the property assessment of the situation is a number K
+    and the lowest property assessment last five years of the situation is a number P
+    and the five year percent of the parameters is a number Q
+    and K >= P * (1 + Q / 100).
+
+rule check_result_4 with provenance the model at decision checkResult:
+the five year increase of the check result is false if
+    it is not the case that
+        it is not the case that the property assessment of the situation is a number
+        or the property assessment of the situation is a number N
+            and N < 0
+            or the lowest property assessment last five years of the situation is a number M
+                and M <= 0
+                or it is not the case that the lowest property assessment last five years of the situation is a third number
+                or it is not the case that the five year percent of the parameters is a fifth number
+    and the property assessment of the situation is a number K
+    and the lowest property assessment last five years of the situation is a number P
+    and the five year percent of the parameters is a number Q
+    and K < P * (1 + Q / 100).
+
+rule check_result_5 with provenance the model at decision checkResult:
+the check result is true if
+    the one year increase of the check result is true.
+
+rule check_result_6 with provenance the model at decision checkResult:
+the check result is true if
+    the five year increase of the check result is true.
+
+rule check_result_7 with provenance the model at decision checkResult:
+the check result is false if
+    the one year increase of the check result is false
+    and the five year increase of the check result is false.
+
+scenario Fail is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Fail:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 100000.
+    the property assessment of the situation is 149999.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Five_year_only is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Five year only:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    the lowest property assessment last five years of the situation is 100000.
+    the property assessment of the situation is 175000.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Five_year_path is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Five year path:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    the lowest property assessment last five years of the situation is 100000.
+    the previous year property assessment of the situation is 175000.
+    the property assessment of the situation is 175000.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Null is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Null:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Pass:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    the previous year property assessment of the situation is 100000.
+    the property assessment of the situation is 150000.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Unknown_five_year_history is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Unknown five year history:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    the previous year property assessment of the situation is 100000.
+    the property assessment of the situation is 149999.
+    q_d_check_result expects answers [].
+
+scenario Zero_baseline is, as stated in the Bruno requests of PropertyAssessmentIncrease at test case Zero baseline:
+    the five year percent of the parameters is 75.
+    the one year percent of the parameters is 50.
+    the lowest property assessment last five years of the situation is 0.
+    the previous year property assessment of the situation is 0.
+    the property assessment of the situation is 150000.
+    q_d_check_result expects answers [].
+
+query q_d_check_result is:
+    the check result is which truth value.
+

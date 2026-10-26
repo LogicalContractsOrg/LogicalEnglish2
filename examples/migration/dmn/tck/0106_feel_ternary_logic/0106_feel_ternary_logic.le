@@ -1,0 +1,102 @@
+% The Logical English twin of the DMN model "0106-feel-ternary-logic" (0106-feel-ternary-logic.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the value is *a truth value*.
+    the b is *a truth value*.
+    the decision and is *a truth value*.
+    the decision or is *a truth value*.
+
+the knowledge base n0106_feel_ternary_logic includes:
+
+the text of the_model is at "sources/0106-feel-ternary-logic.dmn".
+
+rule decision_and_1 with provenance the model at decision DecisionAnd:
+the decision and is true if
+    the value is true
+    and the b is true.
+
+rule decision_and_2 with provenance the model at decision DecisionAnd:
+the decision and is false if
+    the value is false.
+
+rule decision_and_3 with provenance the model at decision DecisionAnd:
+the decision and is false if
+    the b is false.
+
+rule decision_or_1 with provenance the model at decision DecisionOr:
+the decision or is true if
+    the value is true.
+
+rule decision_or_2 with provenance the model at decision DecisionOr:
+the decision or is true if
+    the b is true.
+
+rule decision_or_3 with provenance the model at decision DecisionOr:
+the decision or is false if
+    the value is false
+    and the b is false.
+
+scenario t001 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 001 Tests ternary logic for true true:
+    the value is true.
+    the b is true.
+    q_d_decision_and expects answers ["the decision and is true"].
+    q_d_decision_or expects answers ["the decision or is true"].
+
+scenario t002 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 002 Tests ternary logic for false true:
+    the value is false.
+    the b is true.
+    q_d_decision_and expects answers ["the decision and is false"].
+    q_d_decision_or expects answers ["the decision or is true"].
+
+scenario t003 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 003 Tests ternary logic for null true:
+    the b is true.
+    q_d_decision_and expects answers [].
+    q_d_decision_or expects answers ["the decision or is true"].
+
+scenario t004 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 004 Tests ternary logic for true false:
+    the value is true.
+    the b is false.
+    q_d_decision_and expects answers ["the decision and is false"].
+    q_d_decision_or expects answers ["the decision or is true"].
+
+scenario t005 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 005 Tests ternary logic for false false:
+    the value is false.
+    the b is false.
+    q_d_decision_and expects answers ["the decision and is false"].
+    q_d_decision_or expects answers ["the decision or is false"].
+
+scenario t006 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 006 Tests ternary logic for null false:
+    the b is false.
+    q_d_decision_and expects answers ["the decision and is false"].
+    q_d_decision_or expects answers [].
+
+scenario t007 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 007 Tests ternary logic for true null:
+    the value is true.
+    q_d_decision_and expects answers [].
+    q_d_decision_or expects answers ["the decision or is true"].
+
+scenario t008 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 008 Tests ternary logic for false null:
+    the value is false.
+    q_d_decision_and expects answers ["the decision and is false"].
+    q_d_decision_or expects answers [].
+
+scenario t009 is, as stated in "0106-feel-ternary-logic-test-01.xml" at test case 009 Tests ternary logic for null null:
+    q_d_decision_and expects answers [].
+    q_d_decision_or expects answers [].
+
+query q_d_decision_and is:
+    the decision and is which truth value.
+
+query q_d_decision_or is:
+    the decision or is which truth value.
+

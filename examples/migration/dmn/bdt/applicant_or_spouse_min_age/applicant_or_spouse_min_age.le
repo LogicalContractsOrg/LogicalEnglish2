@@ -1,0 +1,335 @@
+% The Logical English twin of the DMN model "ApplicantOrSpouseMinAge" (applicant-or-spouse-min-age.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base applicant_or_spouse_min_age includes these resources:
+    feel,
+    temporal.
+
+the functions are:
+    the primary person id of the situation is *a text*.
+    the spouse lives in household of the simple checks of the situation is *a truth value*.
+    the min age of the parameters is *a number*.
+    the person id of the parameters is *a text*.
+    the as of date of the parameters is *a date*.
+    the check result is *a truth value*.
+    the primary person meets age of the check result is *a truth value*.
+    the spouse id of the check result is *a value*.
+    the spouse meets age of the check result is *a truth value*.
+
+the templates are:
+    the people of the situation include *an id* with *a date*.
+    the people of the situation are listed.
+    the relationships of the situation include *a type* with *a person id* with *a related person id*.
+    the relationships of the situation are listed.
+
+the knowledge base applicant_or_spouse_min_age includes:
+
+the text of the_model is at "sources/applicant-or-spouse-min-age.dmn".
+
+rule check_result_1 with provenance the model at decision checkResult:
+the primary person meets age of the check result is true if
+    the primary person id of the situation is a text
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the second text
+        and the second id is equal to the second text
+    and the min age of the parameters is a number N
+    and -1 >= N.
+
+rule check_result_2 with provenance the model at decision checkResult:
+the primary person meets age of the check result is true if
+    the primary person id of the situation is a text
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and the min age of the parameters is a number N
+    and -1 >= N.
+
+rule check_result_3 with provenance the model at decision checkResult:
+the primary person meets age of the check result is true if
+    the primary person id of the situation is a text
+    and the people of the situation include an id with a date
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and the min age of the parameters is a number M
+    and N >= M.
+
+rule check_result_4 with provenance the model at decision checkResult:
+the primary person meets age of the check result is false if
+    the primary person id of the situation is a text
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and the people of the situation include a second id with a second date
+        and the primary person id of the situation is the second text
+        and the second id is equal to the second text
+    and the min age of the parameters is a number N
+    and -1 < N.
+
+rule check_result_5 with provenance the model at decision checkResult:
+the primary person meets age of the check result is false if
+    the primary person id of the situation is a text
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the primary person id of the situation is a second text
+        and the id is equal to the second text
+    and the min age of the parameters is a number N
+    and -1 < N.
+
+rule check_result_6 with provenance the model at decision checkResult:
+the primary person meets age of the check result is false if
+    the primary person id of the situation is a text
+    and the people of the situation include an id with a date
+    and the id is equal to the text
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the primary person id of the situation is the text
+            and the second id is equal to the text
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the primary person id of the situation is the text
+        and the third id is equal to the text
+    and the min age of the parameters is a number M
+    and N < M.
+
+rule check_result_7 with provenance the model at decision checkResult:
+the spouse id of the check result is a value if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the relationships of the situation include a type with a person id with the value
+    and the primary person id of the situation is a second text
+    and the person id is equal to the second text
+    and the type is equal to "spouse".
+
+rule check_result_8 with provenance the model at decision checkResult:
+the spouse meets age of the check result is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and it is not the case that the spouse id of the check result is a value.
+
+rule check_result_9 with provenance the model at decision checkResult:
+the spouse meets age of the check result is true if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and the spouse lives in household of the simple checks of the situation is true
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the spouse id of the check result is a second value
+        and the id is equal to the second value
+    and the people of the situation include a second id with a second date
+        and the spouse id of the check result is the second value
+        and the second id is equal to the second value
+    and the min age of the parameters is a number N
+    and -1 >= N.
+
+rule check_result_10 with provenance the model at decision checkResult:
+the spouse meets age of the check result is true if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and the spouse lives in household of the simple checks of the situation is true
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the spouse id of the check result is a second value
+        and the id is equal to the second value
+    and the min age of the parameters is a number N
+    and -1 >= N.
+
+rule check_result_11 with provenance the model at decision checkResult:
+the spouse meets age of the check result is true if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and the spouse lives in household of the simple checks of the situation is true
+    and the people of the situation include an id with a date
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the spouse id of the check result is the value
+            and the second id is equal to the value
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the spouse id of the check result is the value
+        and the third id is equal to the value
+    and the min age of the parameters is a number M
+    and N >= M.
+
+rule check_result_12 with provenance the model at decision checkResult:
+the spouse meets age of the check result is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and the spouse lives in household of the simple checks of the situation is false.
+
+rule check_result_13 with provenance the model at decision checkResult:
+the spouse meets age of the check result is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and it is not the case that
+        the people of the situation include an id with a date
+        and the spouse id of the check result is a second value
+        and the id is equal to the second value
+    and the people of the situation include a second id with a second date
+        and the spouse id of the check result is the second value
+        and the second id is equal to the second value
+    and the min age of the parameters is a number N
+    and -1 < N.
+
+rule check_result_14 with provenance the model at decision checkResult:
+the spouse meets age of the check result is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and it is not the case that today is a date
+    and the people of the situation include an id with a second date
+        and the spouse id of the check result is a second value
+        and the id is equal to the second value
+    and the min age of the parameters is a number N
+    and -1 < N.
+
+rule check_result_15 with provenance the model at decision checkResult:
+the spouse meets age of the check result is false if
+    it is not the case that
+        it is not the case that the relationships of the situation are listed
+        or it is not the case that the primary person id of the situation is a text
+    and the spouse id of the check result is a value
+    and the people of the situation include an id with a date
+    and the id is equal to the value
+    and it is not the case that
+        it is not the case that
+            the people of the situation include a second id with a second date
+            and the spouse id of the check result is the value
+            and the second id is equal to the value
+        or it is not the case that today is a third date
+    and today is the third date
+    and the number of whole years from the date to the third date is a number N
+    and the people of the situation include a third id with a fourth date
+        and the spouse id of the check result is the value
+        and the third id is equal to the value
+    and the min age of the parameters is a number M
+    and N < M.
+
+rule check_result_16 with provenance the model at decision checkResult:
+the check result is true if
+    the primary person meets age of the check result is true.
+
+rule check_result_17 with provenance the model at decision checkResult:
+the check result is true if
+    the spouse meets age of the check result is true.
+
+rule check_result_18 with provenance the model at decision checkResult:
+the check result is false if
+    the primary person meets age of the check result is false
+    and the spouse meets age of the check result is false.
+
+scenario Fail is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Fail:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Live_in_spouse is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Live in spouse:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the people of the situation include "p2" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the spouse lives in household of the simple checks of the situation is true.
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Null is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Null:
+    the min age of the parameters is 65.
+    the primary person id of the situation is "p1".
+    q_d_check_result expects answers [].
+
+scenario Pass is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Pass:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    q_d_check_result expects answers ["the check result is true"].
+
+scenario Spouse_lives_elsewhere is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Spouse lives elsewhere:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the people of the situation include "p2" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    the spouse lives in household of the simple checks of the situation is false.
+    q_d_check_result expects answers ["the check result is false"].
+
+scenario Spouse_residency_unknown is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Spouse residency unknown:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the people of the situation include "p2" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    the relationships of the situation include "spouse" with "p1" with "p2".
+    q_d_check_result expects answers [].
+
+scenario Spouse_unknown is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Spouse unknown:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the primary person id of the situation is "p1".
+    q_d_check_result expects answers [].
+
+scenario Unrelated_senior is, as stated in the Bruno requests of ApplicantOrSpouseMinAge at test case Unrelated senior:
+    the min age of the parameters is 65.
+    the people of the situation are listed.
+    the people of the situation include "p1" with 2000-01-01.
+    the people of the situation include "p2" with 1940-01-01.
+    the primary person id of the situation is "p1".
+    the relationships of the situation are listed.
+    q_d_check_result expects answers ["the check result is false"].
+
+query q_d_check_result is:
+    the check result is which truth value.
+
