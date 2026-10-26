@@ -133,8 +133,12 @@ The name then has the meaning of the value in each rule, scenario or query that
 uses it: `a person pays tax if the person earns an income and the income > the tax free allowance.`
 An explanation shows the value as a reason.
 
-Each line declares the template `the value of <name> is *a <type>*`, and states
-the one fact of that template. Thus you can also put the value into a variable:
+Each line declares the template `the value of <name> is *a <type>*`. The type
+is `number`, `text` or `thing`, from the form of the value. The line also states
+the one fact of that template: `the value of <name> is <value>`. For example, the
+first line above declares the template `the value of the tax free allowance is *a number*`
+and states the fact `the value of the tax free allowance is 12570`.
+Thus you can also put the value into a variable:
 `the value of the tax free allowance is an allowance A`. You can also write the name
 in arithmetic, as in `the tax is (the income - the tax free allowance) * 0.2`
 (§2.3 tells how the system reads the operands).
