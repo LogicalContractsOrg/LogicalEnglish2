@@ -135,9 +135,9 @@ An explanation shows the value as a reason.
 
 Each line declares the template `the value of <name> is *a <type>*`, and states
 the one fact of that template. Thus you can also put the value into a variable:
-`the value of the tax free allowance is an allowance A`. Use this method to use a
-constant in arithmetic, because arithmetic cannot operate on a name. You can compare
-a value with the name. Or you can put the value of the name into a variable first.
+`the value of the tax free allowance is an allowance A`. You can also write the name
+in arithmetic, as in `the tax is (the income - the tax free allowance) * 0.2`
+(§2.3 tells how the system reads the operands).
 
 A variable of a rule is stronger than a constant with the same name. In this
 program, `the rabbit` in the rule is the rabbit that `A rabbit` introduces, not
@@ -207,9 +207,20 @@ Important details:
   comparison, an `is`, a place of a different template, or the value of the head of
   a rule (`the label of thimble is our currency.`). A fact whose value is the value
   of a function is a rule.
-- **Arithmetic cannot operate on it**, the same as arithmetic cannot operate on a
-  constant: `the total is the price of a cup with capacity 200 ml + 5` does not
-  read the function. Put the value into a variable first, then do the arithmetic.
+- **Arithmetic.** You can write the function as an operand of arithmetic (an
+  operand is a value that `+`, `-`, `*`, `/` or `mod` operates on), as in most
+  programming languages: `the total is the price of a cup with capacity 200 ml + 5`.
+  You can write a constant (§2.2) in the same way. These rules apply:
+  - The operand is all the words and numbers up to the next operator. Thus the
+    function operates first: `the double of the price of the cup + the fee` is the
+    double of the price, plus the fee.
+  - To give the function a calculated value, put the value in brackets:
+    `the double of (the fee + 1) - 1`.
+  - A function can be the value of a place of a different function:
+    `the double of the price of a cup with capacity 200 ml`.
+  - A variable of the rule is stronger than a constant or a function with the same
+    name, as in §2.2.
+  - The name of a variable in arithmetic must still be an id (§7).
 - **Nothing can follow the phrase where the sentence continues with `is`.**
   `the price of the cup > 10` is correct, and `the label is our currency` is also
   correct. But `the price of the cup is in [10, 20]` is not correct. The sentence of
@@ -629,6 +640,7 @@ In an explanation, the system shows a type check as the statement that it checks
 ## 7. Arithmetic and Comparisons
 - **Math:** `+`, `-`, `*`, `/`, `( )`, integer division `//` and remainder `mod` (`S = B // 3 + B mod 3`). Contract code that keeps a fixed number of decimals uses this arithmetic. (For example, the Ethereum Virtual Machine, the EVM, keeps amounts in units of 1e18.)
 - **Functions:** the arithmetic functions `ceiling`, `floor`, `round`, `truncate`, `integer`, `abs`, `sign` and `sqrt` each take one argument in brackets, as in `the result is the multiple * ceiling(the amount / the multiple)`. Prolog calculates them with `is/2` while the query runs.
+- **Constants and functions as operands:** the name of a constant (§2.2) and a function written without its last place (§2.3) can be operands, as in `the total is the price of a cup with capacity 200 ml + the fee`.
 - **Comparison:** `=`, `>`, `<`, `>=`, `<=`, `==`, `!=` (`==` is `is equal to`, `!=` is `is different from`). A formula can be on **each side**: `N mod 3 = 2`, `2 = N mod 3`, `N mod 3 == 2` and `N mod 3 is equal to 2` all calculate `N mod 3` and compare the numbers. When one side has no value yet, `=` gives it the value of the other side, as in `R = N mod 3`. The system compares values that are not formulas (names, pieces of text, dates) exactly as they are written.
 - **Variable names in expressions:** in an arithmetic expression, the system takes a word as a variable only when the word is an **id**. An id is one capital letter, or a short word in capital letters (refer to §6.1), as in `ENT = ETI * ATR - TO`. A descriptive word in lower case or mixed case, such as `amount` or `exposure`, is part of a *type* and not a variable name. Thus, in an expression, such a word does not refer to the same thing as a variable of the head of the rule. Use ids (for example `EXP`, `IAOR`, `A`) for variables in arithmetic.
 - **System Templates:**

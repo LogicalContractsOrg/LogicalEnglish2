@@ -2370,6 +2370,39 @@ check_function_application(Parts, Templates, Value, VMIn, VMOut, AllowVars, Dept
         VMOut = [function_app(Goal)-ValueVar, extra_goal(Goal) | VM1]
     ).
 
+%!  function_arithmetic(+Parts, +Templates, -Expr, +VMIn, -VMOut, +AllowVars)
+%!      is semidet.
+%
+%   Parts are arithmetic with a function or a constant as an operand:
+%   `the double of the price of a cup with capacity 200 ml + the fee`. Read
+%   as the expression, so that the function binds tighter than the operator —
+%   double(price) + fee. Tried before check_function_application/7, which
+%   would otherwise take everything after `the double of` as the function's
+%   argument: double(price + fee). Only when the program declares a function
+%   or a constant, an operator is at the top level of Parts (not inside
+%   brackets), and the expression did read one: anything else keeps the
+%   reading it had.
+function_arithmetic(Parts, Templates, Expr, VMIn, VMOut, AllowVars) :-
+    once(( member(D0, Templates), ( function_dict(D0) ; has_globals(D0) ) )),
+    top_level_operator(Parts, 0),
+    parse_expression(Parts, VMIn, VMOut, Templates, Expr, AllowVars),
+    \+ number(Expr), \+ var(Expr),
+    once(( member(E, VMOut), \+ memberchk_eq(E, VMIn),
+           ( E = function_app(_)-_ ; E = global_template(_)-_ ) )).
+
+memberchk_eq(X, [Y|Ys]) :- ( X == Y -> true ; memberchk_eq(X, Ys) ).
+
+top_level_operator([P|Ps], D) :-
+    (   ( P = punct(Op, _) ; P = punctuation(Op, _) ; P = punct(Op) )
+    ->  (   Op == '(' -> D1 is D + 1, top_level_operator(Ps, D1)
+        ;   Op == ')' -> D1 is D - 1, top_level_operator(Ps, D1)
+        ;   D =:= 0, memberchk(Op, ['+', '-', '*', '/']) -> true
+        ;   top_level_operator(Ps, D)
+        )
+    ;   ( P = word(mod, _) ; P = word(mod) ), D =:= 0 -> true
+    ;   top_level_operator(Ps, D)
+    ).
+
 %!  as_function_dict(+Dict, -FunctionDict) is det.
 %
 %   Mark one line of `the functions are:` as a function, having checked that it
@@ -2435,6 +2468,7 @@ extract_value_from_parts(Parts, Value, VMIn, VMOut, Templates, NoTransform, Allo
               % which never fails (it falls back to reading the words as a
               % constant), and after the variable branch, so a name a variable
               % already has still wins.
+              ; function_arithmetic(Parts, Templates, Value, VMIn, VMOut, AllowVars) -> true
               ; check_function_application(Parts, Templates, Value, VMIn, VMOut, AllowVars, Depth) -> true
               ; NoTransform \== true, transform_instance(Parts, Templates, VMIn, VMOut, Value, AllowVars, Depth) -> true
               ; is_proper_name(Words) -> tokens_to_string(Parts, Value), VMOut = VMIn
@@ -4215,6 +4249,23 @@ factor_logic(F, VMIn, VMOut, Ts, AllowVars) -->
     function_arg(Arg, VMIn, VMOut, Ts, AllowVars),
     { F =.. [Fn, Arg] }.
 factor_logic(F, VMIn, VMOut, Ts, AllowVars) --> [expr(E)], { parse_expression(E, VMIn, VMOut, Ts, F, AllowVars) }.
+% A declared function written without its last place (§2.3), or a constant
+% (§2.2), as an operand: `the price of a cup with capacity 200 ml + 5`. The
+% operand is the whole run of words and numbers up to the next operator, so
+% the function binds tighter than any operator, as a call does in most
+% programming languages. Before the variable branch, which would otherwise
+% read `the fee` as a fresh variable named fee; but a phrase that names a
+% variable the rule already has stays that variable, as in
+% extract_value_from_parts/8.
+factor_logic(F, VMIn, VMOut, Ts, AllowVars) -->
+    operand_run(Parts),
+    {   maplist(extract_simple_word, Parts, Words),
+        \+ ( extract_var_name(Words, Name0), member_var_name(Name0, _, VMIn) ),
+        (   check_global_abbreviation(Words, Ts, F, VMIn, VMOut) -> true
+        ;   Parts = [_, _|_],
+            check_function_application(Parts, Ts, F, VMIn, VMOut, AllowVars, 0)
+        )
+    }.
 factor_logic(V, VMIn, VMOut, _, true) -->
     multi_word_var(Words),
     { Words \== [],
@@ -4228,6 +4279,38 @@ factor_logic(V, VMIn, VMOut, _, true) -->
 factor_logic(W, VM, VM, _, false) --> [word(W, _)], { is_proper_name_atom(W) }.
 factor_logic(N, VM, VM, _, _) --> [number(N, _)].
 factor_logic(_, VM, VM, _, _) --> [_], { fail }.
+
+% operand_run(-Parts): the longest run (one word only for a constant) of words,
+% numbers and texts that holds no operator, beginning with a word. After that
+% word the run takes a bracketed group whole, since it is a place of the
+% function: `the double of (the fee + 1) - 1`. Deterministic: an operand is
+% never a part of a run, so that `the price of a cup with capacity 200 ml` is
+% not also tried as `the price of a cup`.
+operand_run([P1|Ps]) -->
+    [P1], { P1 = word(_, _), operand_token(P1, [P1], []) },
+    operand_tokens(Ps).
+
+operand_tokens(Ps) --> operand_run_token(P), !, { flatten_group(P, Ps, Ps1) }, operand_tokens(Ps1).
+operand_tokens([]) --> [].
+
+operand_run_token(P) --> operand_token(P), !.
+operand_run_token(expr(E)) --> [expr(E)], !.
+operand_run_token(group(G)) --> [punctuation('(', L)], bracket_group(1, Inner), { G = [punctuation('(', L)|Inner] }.
+
+bracket_group(D, [T|Ts]) -->
+    [T],
+    {   T = punctuation('(', _) -> D1 is D + 1
+    ;   T = punctuation(')', _) -> D1 is D - 1
+    ;   D1 = D
+    },
+    ( { D1 =:= 0 } -> { Ts = [] } ; bracket_group(D1, Ts) ).
+
+flatten_group(group(G), Ps, Tail) :- !, append(G, Tail, Ps).
+flatten_group(P, [P|Tail], Tail).
+
+operand_token(word(W, L)) --> [word(W, L)], { W \== mod, \+ is_arith_function(W) }.
+operand_token(number(N, L)) --> [number(N, L)].
+operand_token(string(S, L)) --> [string(S, L)].
 
 % function_arg(Arg, ...) parses the parenthesised argument of a unary function,
 % accepting either a pre-grouped expr(...) token or explicit "( ... )".

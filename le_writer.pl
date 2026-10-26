@@ -1001,12 +1001,18 @@ compact_pass(Ctx, Head, Before, [C|Cs], Dropped) :-
         ( sub_var(V, Cs) ; sub_var(V, Head) ),
         %  and every use is a place where the phrase can be written at all
         forall(( member(U, [Head|Cs]), sub_var(V, U) ), safe_function_use(Ctx, V, U)),
-        %  and nowhere that the phrase could not be written: a function
-        %  applied is not an arithmetic operand (§2.3), so a value that feeds
-        %  a formula — `N = round(the lookup of the key * 0.9)` — keeps the
-        %  condition that binds it. Writing the phrase there would produce a
-        %  document that does not read back.
-        \+ value_in_arithmetic(V, [Head|Cs]),
+        %  and nowhere that the phrase could not be written. A function is
+        %  an arithmetic operand (§2.3) — `N = round(the lookup of the key *
+        %  0.9)` — only when its words read back as one operand: none is an
+        %  operator, and each input is a variable, a number or a plain word.
+        %  Otherwise a value that feeds a formula keeps the condition that
+        %  binds it, as writing the phrase there would produce a document
+        %  that does not read back.
+        (   \+ value_in_arithmetic(V, [Head|Cs])
+        ->  true
+        ;   \+ value_in_arithmetic(V, Head),
+            operand_function(Ctx, C, Inputs)
+        ),
         %  and the inputs are known where this condition stood
         forall(member(I, Inputs), known_here(I, Head, Before))
     ->  V = Marker,
@@ -1087,6 +1093,27 @@ safe_function_use(ctx(Dicts, _, _), V, G) :-
         A \== V
     ;   true
     ).
+
+%!  operand_function(+Ctx, +Goal, +Inputs) is semidet.
+%
+%   Goal asks a function whose phrase LE reads back as one operand of a
+%   formula (le_grammar's operand_run//1): it opens with a word, its words
+%   hold no operator or bracket, which would end the operand, and each input is
+%   a variable or a number (a text or a date keeps the formula from being read
+%   at all).
+operand_function(ctx(Dicts, _, _), C, Inputs) :-
+    functor(C, F, N), lookup_td(Dicts, F, N, TD),
+    function_td_prefix(TD, Prefix, _),
+    Prefix = [First|_], atom(First),
+    forall(( member(W, Prefix), atom(W) ), operand_word(W)),
+    forall(member(I, Inputs), operand_input(I)).
+
+operand_input(I) :- ( var(I) -> true ; number(I) ).
+
+operand_word(W) :-
+    atom_codes(W, Cs), Cs \== [],
+    forall(member(Ch, Cs), ( code_type(Ch, alnum) ; Ch =:= 0'_ ; Ch =:= 0'\' )),
+    \+ memberchk(W, [mod, ceiling, floor, round, truncate, integer, abs, sign, sqrt]).
 
 %   V is an operand of a formula somewhere in T.
 value_in_arithmetic(V, T) :-

@@ -140,19 +140,37 @@ test(a_function_is_a_section_and_is_used_compactly) :-
     text_results(Text, Results),
     assertion(all_pass(Results)).
 
-%   A value that feeds a formula is NOT written the compact way: a function
-%   applied is not an arithmetic operand (§2.3), so the condition that binds it
-%   stays and the document still reads back.
-test(a_function_feeding_arithmetic_keeps_its_condition) :-
+%   A value that feeds a formula is written the compact way too: a function
+%   applied is an arithmetic operand (§2.3), and the document reads back.
+test(a_function_feeding_arithmetic_is_an_operand) :-
     le_write(program([kb(cups)], [
-        template(expensive, "*a cup* is expensive", []),
+        template(dear, "*a cup* is dear", []),
         template(capacity, "the capacity of *a cup* is *a number* ml", [undefined]),
         function(price, "the price of *a cup* is *an amount*", []),
-        rule(expensive(C), and(capacity(C, _), and(price(C, P), le_gt(P * 2, 10))), [])
+        rule(price(C0, A), and(capacity(C0, K), A is K / 10), []),
+        rule(dear(C), and(capacity(C, _), and(price(C, P), le_gt(P * 2 + 1, 10))), []),
+        scenario(one, [ fact(capacity(mug, 200)), fact(capacity(thimble, 20)),
+                        expects(dear, [dear(mug)]) ], []),
+        query(dear, dear(_))
     ]), Text, Issues),
     assertion(\+ member(issue(error, _, _), Issues)),
-    assertion(sub_string(Text, _, _, _, "the price of the cup is an amount")),
-    assertion(\+ sub_string(Text, _, _, _, "the price of the cup * 2")).
+    assertion(sub_string(Text, _, _, _, "the price of the cup * 2 + 1 > 10")),
+    assertion(\+ sub_string(Text, _, _, _, "the price of the cup is an amount")),
+    text_errors(Text, Errors),
+    assertion(Errors == []),
+    text_results(Text, Results),
+    assertion(all_pass(Results)).
+
+%   But not when an input is a text: a formula with a text in it is not read
+%   as a formula, so the condition that binds the value stays.
+test(a_function_with_a_text_input_keeps_its_condition_in_arithmetic) :-
+    le_write(program([kb(cups)], [
+        template(dear, "*a cup* is dear", []),
+        function(price, "the price of *a cup* is *an amount*", []),
+        rule(dear(C), and(C = c, and(price("mug", P), le_gt(P * 2, 10))), [])
+    ]), Text, Issues),
+    assertion(\+ member(issue(error, _, _), Issues)),
+    assertion(sub_string(Text, _, _, _, "the price of \"mug\" is an amount")).
 
 %   A value used where WORDS FOLLOW the phrase keeps its condition: written
 %   compactly, "the select recalled of the policy is in [...]" reads back as

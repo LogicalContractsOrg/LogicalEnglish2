@@ -19,11 +19,18 @@ the templates are:
     *a cup* is expensive.
     *a cup* is worth its price.
     the label of *a cup* is *a text*.
+    the total of *a cup* is *an amount*.
+    the tax of *a cup* is *an amount*.
 
 the functions are:
     the price of a cup with capacity *a number* ml is *an amount*.
     the price of a cup with capacity *a number* is *an amount*.
     our currency is *a text*.
+    the double of *a number* is *a number*.
+
+the constants are:
+    the fee is 5.
+    the tax rate is 0.5.
 
 the knowledge base functions includes:
 
@@ -35,6 +42,21 @@ the price of a cup with capacity a number is an amount
     if the price of a cup with capacity the number ml is the amount.
 
 our currency is "EUR".
+
+the double of a number is a result if the result is the number * 2.
+
+% A function, or a constant, is an operand of arithmetic, as in most
+% programming languages. The operand is every word up to the next operator,
+% so the function applies first.
+the total of a cup is a total
+    if the capacity of the cup is a capacity ml
+    and the total is the price of a cup with capacity the capacity ml + the fee.
+
+% Nested: the double of the price, plus the fee, times the tax rate. Brackets
+% give a function a calculated value: the double of (the fee + 1).
+the tax of a cup is a tax
+    if the capacity of the cup is a capacity ml
+    and the tax is (the double of the price of a cup with capacity the capacity ml + the fee) * the tax rate - the double of (the fee + 1).
 
 % The function written without its last place, in a comparison. The prefix here
 % ends in a word ("ml"); the second function's ends in its own place, and both
@@ -64,6 +86,8 @@ scenario one_currency is:
     priced expects answers ["the price of a cup with capacity 200 ml is 20"].
     compact expects answers ["the price of a cup with capacity 200 is 20"].
     labels expects answers ["the label of mug is EUR", "the label of thimble is EUR"].
+    totals expects answers ["the total of mug is 25", "the total of thimble is 7"].
+    taxes expects answers ["the tax of mug is 10.5", "the tax of thimble is -7.5"].
 
 % A second value for a function of no places: every answer that reads it now
 % has two readings, and the explanation shows which one it used.
@@ -86,3 +110,9 @@ query compact is:
 
 query labels is:
     the label of which cup is which label.
+
+query totals is:
+    the total of which cup is which amount.
+
+query taxes is:
+    the tax of which cup is which amount.
