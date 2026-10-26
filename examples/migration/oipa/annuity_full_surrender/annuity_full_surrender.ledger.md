@@ -2,7 +2,7 @@
 
 Source: an OIPA transaction (Rules Palette XML) — FullSurrender/Transaction.xml
 Translator: lpsPlus/migration/oipa (oipa_twin.pl)
-Date: 2026-09-23
+Date: 2026-10-26
 
 ## Summary
 

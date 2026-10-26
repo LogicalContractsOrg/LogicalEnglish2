@@ -18085,7 +18085,7 @@ connection.onRequest("textDocument/foldingRange", (params) => {
   const text = document2.getText();
   const lines = text.split("\n");
   const foldingRanges = [];
-  const sectionHeaderRegex = /^\s*(the[ \t]+knowledge[ \t]+base|the[ \t]+contract|scenario|query|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language)/i;
+  const sectionHeaderRegex = /^\s*(the[ \t]+knowledge[ \t]+base|the[ \t]+contract|scenario|query|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+functions|the[ \t]+constants|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language)/i;
   let lastHeaderLine = -1;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -18170,8 +18170,8 @@ function commentRanges(text) {
 }
 function templateDeclarationRanges(text) {
   const ranges = [];
-  const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
-  const templateHeaderRegex = /the[ \t]+(predicates|templates|fluents|events)[ \t]+are:/gi;
+  const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+functions|the[ \t]+constants|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
+  const templateHeaderRegex = /the[ \t]+(predicates|templates|functions|fluents|events)[ \t]+are:/gi;
   let match;
   while ((match = templateHeaderRegex.exec(text)) !== null) {
     const start = match.index + match[0].length;
@@ -18202,16 +18202,24 @@ function templatesOf(uri, text) {
   const extra = (includedTemplates.get(uri) || []).filter((x) => !own.some((o) => o.label === x.label));
   return [...extra, ...own];
 }
+function functionShortForm(label, copulas) {
+  const m = label.match(/^(.*\S)\s+(\S+)\s+\*[^*]+\*$/);
+  if (!m || !copulas.includes(m[2].toLowerCase()))
+    return null;
+  return m[1];
+}
 function getTemplates(text) {
   const templates = [];
-  const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
-  const templateHeaderRegex = /the[ \t]+(predicates|templates|fluents|events)[ \t]+are:/gi;
+  const copulas = (kwTable(detectProgramLanguage(text))["marker_is"] ?? [["is"]]).filter((ws) => ws.length === 1).map((ws) => ws[0].toLowerCase());
+  const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+functions|the[ \t]+constants|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
+  const templateHeaderRegex = /the[ \t]+(predicates|templates|functions|fluents|events)[ \t]+are:/gi;
   let match;
   while ((match = templateHeaderRegex.exec(text)) !== null) {
     const start = match.index + match[0].length;
     const remaining = text.substring(start);
     const nextSectionMatch = remaining.match(sectionHeaderRegex);
     const sectionText = nextSectionMatch ? remaining.substring(0, nextSectionMatch.index) : remaining;
+    const isFunctions = match[1].toLowerCase() === "functions";
     const lines = sectionText.split("\n");
     for (const line of lines) {
       const trimmed = line.trim();
@@ -18225,6 +18233,13 @@ function getTemplates(text) {
             insertText: clean.replace(/\*/g, ""),
             detail: "User Template"
           });
+          const short = isFunctions ? functionShortForm(clean, copulas) : null;
+          if (short)
+            templates.push({
+              label: short,
+              insertText: short.replace(/\*/g, ""),
+              detail: "User Template"
+            });
         }
         if (semiIdx >= 0) {
           const oppMatch = trimmed.slice(semiIdx + 1).match(/opposite:\s*(.+)/i);

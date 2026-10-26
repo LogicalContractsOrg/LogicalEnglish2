@@ -2,7 +2,7 @@
 
 Source: an L4 program (smucclaw/l4-ide) — module-a1-regulatory-examples.l4
 Translator: lpsPlus/migration/l4 (l4_twin.pl)
-Date: 2026-09-29
+Date: 2026-10-26
 Source licence: Apache-2.0, Singapore Management University
 
 ## Summary

@@ -1,0 +1,126 @@
+the target language is: prolog.
+
+% Functions (docs/user/reference/language.md §2.3) and constants (§2.2) as
+% operands of arithmetic: the operand is every word up to the next operator,
+% so the function applies first; brackets give a function a calculated
+% value; and two applications of one function to different inputs are two
+% values, even while the inputs are still unknown.
+
+the templates are:
+    the capacity of *a cup* is *a number* ml.
+    the result a of *a cup* is *an amount*.
+    the result b of *a cup* is *an amount*.
+    the result c of *a cup* is *an amount*.
+    the result d of *a cup* is *an amount*.
+    the result e of *a cup* is *an amount*.
+    the result f is *an amount*.
+    the result h is *an amount*.
+    the result i is *an amount*.
+    the charge of *a person* is *a fee*.
+    the result g of *a person* is *an amount*.
+    the delta x for *a point* with *a second point* is *a number*.
+    *a cup* is big.
+    *a cup* is dear.
+
+the functions are:
+    the price of a cup with capacity *a number* ml is *an amount*.
+    the double of *a number* is *a number*.
+    a discount is *a number*.
+    the x of *a point* is *a number*.
+
+the constants are:
+    the fee is 3.
+    the tax rate is 2.
+    vat is 0.5.
+
+the knowledge base function_operands includes:
+
+the price of a cup with capacity a number ml is an amount
+    if the amount is the number / 10.
+
+a discount is 1.
+a discount is 2.
+
+the double of a number is a result if the result is the number * 2.
+
+the x of o is 0.
+the x of p is 3.
+
+% A function binds tighter than the operators.
+the result a of a cup is a total
+    if the capacity of the cup is a capacity ml
+    and the total is 2 * the price of a cup with capacity the capacity ml * the tax rate.
+
+% A function as the input of a function, then plus a constant.
+the result b of a cup is a total
+    if the capacity of the cup is a capacity ml
+    and the total is the double of the price of a cup with capacity the capacity ml + the fee.
+
+the result c of a cup is a total
+    if the capacity of the cup is a capacity ml
+    and the total is (the price of a cup with capacity the capacity ml + the fee) * the tax rate.
+
+% The same application twice is asked once.
+the result d of a cup is a total
+    if the capacity of the cup is a capacity ml
+    and the total is the price of a cup with capacity the capacity ml - the price of a cup with capacity the capacity ml + 1.
+
+the result e of a cup is a total
+    if the capacity of the cup is a capacity ml
+    and the total is round(the price of a cup with capacity the capacity ml / 3).
+
+% A function with several answers gives several totals.
+the result f is a total if the total is the fee - a discount.
+
+% A variable named like the constant stays the variable.
+the result g of a person is a total
+    if the charge of the person is a fee
+    and the total is the fee + 1.
+
+% A bracketed input is the input.
+the result h is a total if the total is the double of (the fee + 1) - 1.
+
+% A constant of one word.
+the result i is a total if the total is vat * 4 + 1.
+
+% Two inputs, two applications.
+the delta x for a point with a second point is a number N if
+    N = the x of the second point - the x of the point.
+
+a cup is big
+    if the capacity of the cup is a capacity ml
+    and the price of a cup with capacity the capacity ml + the fee > 20.
+
+a cup is dear
+    if the capacity of the cup is a capacity ml
+    and the double of the price of a cup with capacity the capacity ml > 30.
+
+scenario cups is:
+    the capacity of mug is 200 ml.
+    the capacity of thimble is 20 ml.
+    the charge of bob is 10.
+    a expects answers ["the result a of mug is 80", "the result a of thimble is 8"].
+    b expects answers ["the result b of mug is 43", "the result b of thimble is 7"].
+    c expects answers ["the result c of mug is 46", "the result c of thimble is 10"].
+    d expects answers ["the result d of mug is 1", "the result d of thimble is 1"].
+    e expects answers ["the result e of mug is 7", "the result e of thimble is 1"].
+    f expects answers ["the result f is 2", "the result f is 1"].
+    g expects answers ["the result g of bob is 11"].
+    h expects answers ["the result h is 7"].
+    i expects answers ["the result i is 3.0"].
+    delta expects answers ["the delta x for o with p is 3"].
+    big expects answers ["mug is big"].
+    dear expects answers ["mug is dear"].
+
+query a is: the result a of which cup is which amount.
+query b is: the result b of which cup is which amount.
+query c is: the result c of which cup is which amount.
+query d is: the result d of which cup is which amount.
+query e is: the result e of which cup is which amount.
+query f is: the result f is which amount.
+query g is: the result g of which person is which amount.
+query h is: the result h is which amount.
+query i is: the result i is which amount.
+query delta is: the delta x for o with p is which number.
+query big is: which cup is big.
+query dear is: which cup is dear.

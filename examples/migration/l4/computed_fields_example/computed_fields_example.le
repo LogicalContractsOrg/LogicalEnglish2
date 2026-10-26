@@ -54,14 +54,10 @@ the knowledge base computed_fields_example includes:
 the text of the source program is at "sources/computed-fields-example.l4".
 
 the age of an employee is a number N if
-    the current year of the employee is a number M
-    and the date of birth of the employee is a number K
-    and N = M - K.
+    N = the current year of the employee - the date of birth of the employee.
 
 the years of service of an employee is a number N if
-    the current year of the employee is a number M
-    and the date of employment of the employee is a number K
-    and N = M - K.
+    N = the current year of the employee - the date of employment of the employee.
 
 an employee has senior if
     the years of service of the employee >= 10.
@@ -74,14 +70,10 @@ the interest of an account is a number if
     the apply the balance of the account for the rate of the account is the number.
 
 the projected of an account is a number N if
-    the balance of the account is a number M
-    and the interest of the account is a number K
-    and N = M + K.
+    N = the balance of the account + the interest of the account.
 
 the area of a shape is a number N if
-    the width of the shape is a number M
-    and the height of the shape is a number K
-    and N = M * K.
+    N = the width of the shape * the height of the shape.
 
 % RESIDUE r1 BEGIN: w2
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
@@ -110,9 +102,8 @@ the diag sq of a shape is a number if
 the factor is 2.
 
 the scaled of a shape is a number N if
-    the area of the shape is a number M
-    and the factor is a number K
-    and N = M * K.
+    the factor is a number M
+    and N = the area of the shape * M.
 
 the apply a rate R for a base B is a number N if
     N = R * B / 100.

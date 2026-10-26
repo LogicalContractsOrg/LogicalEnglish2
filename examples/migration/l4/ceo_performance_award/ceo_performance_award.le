@@ -134,6 +134,13 @@ the templates are:
     L4's answer at line 667 is reproduced.
     L4's answer at line 668 is reproduced.
     L4's answer at line 669 is reproduced.
+    condition 1 of operational milestone met for holds for *a tranche number* and *a metrics*.
+    condition 3 of condition 1 of operational milestone met for holds for holds for *a tranche number* and *a metrics*.
+    condition 5 of condition 3 of condition 1 of operational milestone met for holds for holds for holds for *a tranche number* and *a metrics*.
+    condition 2 of EBITDA milestone met for holds for *a tranche number* and *a metrics*.
+    condition 4 of condition 2 of EBITDA milestone met for holds for holds for *a tranche number* and *a metrics*.
+    condition 6 of condition 4 of condition 2 of EBITDA milestone met for holds for holds for holds for *a tranche number* and *a metrics*.
+    condition 7 of condition 6 of condition 4 of condition 2 of EBITDA milestone met for holds for holds for holds for holds for *a tranche number* and *a metrics*.
 
 the knowledge base ceo_performance_award includes:
 
@@ -211,9 +218,8 @@ the required market cap in market cap milestone met for change in control for a 
     the required market cap for tranche for the tranche number is the number.
 
 the change in control market cap for a metrics is a number N if
-    the outstanding shares of the metrics is a number M
-    and the higher price for the metrics is a value V
-    and N = M * V.
+    the higher price for the metrics is a value V
+    and N = the outstanding shares of the metrics * V.
 
 the higher price for a metrics is a value if
     the per share consideration of the metrics is a number
@@ -234,69 +240,83 @@ market cap milestone met for change in control for a tranche number with a metri
 
 section operational milestone functions is:
 
-operational milestone met for a tranche number T with a metrics if
-    1 is equal to T
+operational milestone met for a tranche number with a metrics if
+    1 is equal to the tranche number
     and the tesla vehicles delivered of the metrics is a number N
     and the million for 20 is a number M
     and N >= M
-    or all of
-        it is not the case that 1 is equal to T
-        and 2 is equal to T
-            and the active FSD subscriptions of the metrics is a number K
-            and the million for 10 is a number P
-            and K >= P
-            or all of
-                it is not the case that 2 is equal to T
-                and 3 is equal to T
-                    and the bots delivered of the metrics is a number Q
-                    and the million for 1 is a number R
-                    and Q >= R
-                    or all of
-                        it is not the case that 3 is equal to T
-                        and 4 is equal to T
-                            and the robotaxis in operation of the metrics is a number S
-                            and the million for 1 is a number U
-                            and S >= U
-                            or T >= 5
-                                and it is not the case that 4 is equal to T
-                                and T <= 12
-                                and EBITDA milestone met for T with the metrics.
+    or condition 1 of operational milestone met for holds for the tranche number and the metrics.
 
-EBITDA milestone met for a tranche number T with a metrics if
-    5 is equal to T
+condition 1 of operational milestone met for holds for a tranche number and a metrics if
+    it is not the case that 1 is equal to the tranche number
+    and 2 is equal to the tranche number
+        and the active FSD subscriptions of the metrics is a number N
+        and the million for 10 is a number M
+        and N >= M
+        or condition 3 of condition 1 of operational milestone met for holds for holds for the tranche number and the metrics.
+
+condition 3 of condition 1 of operational milestone met for holds for holds for a tranche number and a metrics if
+    it is not the case that 2 is equal to the tranche number
+    and 3 is equal to the tranche number
+        and the bots delivered of the metrics is a number N
+        and the million for 1 is a number M
+        and N >= M
+        or condition 5 of condition 3 of condition 1 of operational milestone met for holds for holds for holds for the tranche number and the metrics.
+
+condition 5 of condition 3 of condition 1 of operational milestone met for holds for holds for holds for a tranche number T and a metrics if
+    it is not the case that 3 is equal to T
+    and 4 is equal to T
+        and the robotaxis in operation of the metrics is a number N
+        and the million for 1 is a number M
+        and N >= M
+        or T >= 5
+            and it is not the case that 4 is equal to T
+            and T <= 12
+            and EBITDA milestone met for T with the metrics.
+
+EBITDA milestone met for a tranche number with a metrics if
+    5 is equal to the tranche number
     and the current adjusted EBITDA of the metrics is a number N
     and the billion for 50 is a number M
     and N >= M
-    or all of
-        it is not the case that 5 is equal to T
-        and 6 is equal to T
+    or condition 2 of EBITDA milestone met for holds for the tranche number and the metrics.
+
+condition 2 of EBITDA milestone met for holds for a tranche number and a metrics if
+    it is not the case that 5 is equal to the tranche number
+    and 6 is equal to the tranche number
+        and the current adjusted EBITDA of the metrics is a number N
+        and the billion for 80 is a number M
+        and N >= M
+        or condition 4 of condition 2 of EBITDA milestone met for holds for holds for the tranche number and the metrics.
+
+condition 4 of condition 2 of EBITDA milestone met for holds for holds for a tranche number and a metrics if
+    it is not the case that 6 is equal to the tranche number
+    and 7 is equal to the tranche number
+        and the current adjusted EBITDA of the metrics is a number N
+        and the billion for 130 is a number M
+        and N >= M
+        or condition 6 of condition 4 of condition 2 of EBITDA milestone met for holds for holds for holds for the tranche number and the metrics.
+
+condition 6 of condition 4 of condition 2 of EBITDA milestone met for holds for holds for holds for a tranche number and a metrics if
+    it is not the case that 7 is equal to the tranche number
+    and 8 is equal to the tranche number
+        and the current adjusted EBITDA of the metrics is a number N
+        and the billion for 210 is a number M
+        and N >= M
+        or condition 7 of condition 6 of condition 4 of condition 2 of EBITDA milestone met for holds for holds for holds for holds for the tranche number and the metrics.
+
+condition 7 of condition 6 of condition 4 of condition 2 of EBITDA milestone met for holds for holds for holds for holds for a tranche number T and a metrics if
+    it is not the case that 8 is equal to T
+    and 9 is equal to T
+        and the current adjusted EBITDA of the metrics is a number N
+        and the billion for 300 is a number M
+        and N >= M
+        or T >= 10
+            and it is not the case that 9 is equal to T
+            and T <= 12
             and the current adjusted EBITDA of the metrics is a number K
-            and the billion for 80 is a number P
-            and K >= P
-            or all of
-                it is not the case that 6 is equal to T
-                and 7 is equal to T
-                    and the current adjusted EBITDA of the metrics is a number Q
-                    and the billion for 130 is a number R
-                    and Q >= R
-                    or all of
-                        it is not the case that 7 is equal to T
-                        and 8 is equal to T
-                            and the current adjusted EBITDA of the metrics is a number S
-                            and the billion for 210 is a number U
-                            and S >= U
-                            or all of
-                                it is not the case that 8 is equal to T
-                                and 9 is equal to T
-                                    and the current adjusted EBITDA of the metrics is a number V
-                                    and the billion for 300 is a number W
-                                    and V >= W
-                                    or T >= 10
-                                        and it is not the case that 9 is equal to T
-                                        and T <= 12
-                                        and the current adjusted EBITDA of the metrics is a number X
-                                        and the billion for 400 is a number Y
-                                        and X >= Y.
+            and the billion for 400 is a number P
+            and K >= P.
 
 section deemed achievement logic is:
 
@@ -414,7 +434,8 @@ forfeiture applies for an award state if
     and voluntary_resignation is equal to the second termination reason
     otherwise it is not the case that musk in eligible service for the award state
     or the current date of the award state is a date D
-        and it is not the case that it is not the case that musk in eligible service for the award state
+        and it is not the case that
+            it is not the case that musk in eligible service for the award state
         and the performance end date is a value V
         and D > V.
 

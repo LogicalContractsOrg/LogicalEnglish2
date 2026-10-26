@@ -61,20 +61,15 @@ the duration of an activity is a number if
 
 rule policy_year with provenance "Withdrawal/Transaction.xml" at MathVariable PolicyYearMV:
 the policy year of an activity is a number N if
-    the duration of the activity is a number M
-    and N = M + 1.
+    N = the duration of the activity + 1.
 
 rule free_amount with provenance "Withdrawal/Transaction.xml" at MathVariable FreeAmountMV:
 the free amount of an activity is an amount N if
-    the account value of the policy before the activity is an amount M
-    and the free withdrawal percent of the plan is a number K
-    and N = round(M * K / 100 * 100) / 100.
+    N = round(the account value of the policy before the activity * the free withdrawal percent of the plan / 100 * 100) / 100.
 
 rule excess with provenance "Withdrawal/Transaction.xml" at MathVariable ExcessMV:
 the excess of an activity is an amount N if
-    the gross amount of the activity is an amount M
-    and the free amount of the activity is an amount K
-    and N = M - K.
+    N = the gross amount of the activity - the free amount of the activity.
 
 rule chargeable_amount with provenance "Withdrawal/Transaction.xml" at MathVariable ChargeableAmountMV:
 the chargeable amount of an activity is an amount N if
@@ -103,15 +98,11 @@ the surrender charge of an activity is an amount N if
 
 rule net_amount with provenance "Withdrawal/Transaction.xml" at MathVariable NetAmountMV:
 the net amount of an activity is an amount N if
-    the gross amount of the activity is an amount M
-    and the surrender charge of the activity is an amount K
-    and N = round((M - K) * 100) / 100.
+    N = round((the gross amount of the activity - the surrender charge of the activity) * 100) / 100.
 
 rule remaining_value with provenance "Withdrawal/Transaction.xml" at MathVariable RemainingValueMV:
 the remaining value of an activity is an amount N if
-    the account value of the policy before the activity is an amount M
-    and the gross amount of the activity is an amount K
-    and N = round((M - K) * 100) / 100.
+    N = round((the account value of the policy before the activity - the gross amount of the activity) * 100) / 100.
 
 % The withdrawal must be a positive amount.
 rule w001 with provenance "Withdrawal/ValidateExpressions.xml" at Expression W001:
@@ -139,7 +130,7 @@ the account value of the policy after an activity is a value if
 scenario steady_saver_w1 is:
     the gross amount of w1 is 10000.
     the effective date of w1 is 2022-06-01.
-    the account value of the policy before w1 is 168836.850000000005821.
+    the account value of the policy before w1 is 168836.85.
     the issue date of the policy before w1 is 2020-03-15.
     net_amount expects answers ["the net amount of w1 is 10000"].
     remaining_value expects answers ["the remaining value of w1 is 158836.85"].
@@ -150,7 +141,7 @@ scenario steady_saver_w1 is:
 scenario steady_saver_w2 is:
     the gross amount of w2 is 40000.
     the effective date of w2 is 2023-02-01.
-    the account value of the policy before w2 is 158836.850000000005821.
+    the account value of the policy before w2 is 158836.85.
     the issue date of the policy before w2 is 2020-03-15.
     net_amount expects answers ["the net amount of w2 is 38794.18"].
     remaining_value expects answers ["the remaining value of w2 is 118836.85"].
@@ -161,7 +152,7 @@ scenario steady_saver_w2 is:
 scenario steady_saver_w3 is:
     the gross amount of w3 is 500000.
     the effective date of w3 is 2024-01-10.
-    the account value of the policy before w3 is 118836.850000000005821.
+    the account value of the policy before w3 is 118836.85.
     the issue date of the policy before w3 is 2020-03-15.
     net_amount expects answers ["the net amount of w3 is 480475.35"].
     remaining_value expects answers ["the remaining value of w3 is -381163.15"].

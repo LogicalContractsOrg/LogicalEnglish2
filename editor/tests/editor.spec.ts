@@ -268,6 +268,68 @@ test.describe('Logical English Editor', () => {
     expect(new Set(comment!).size).toBe(1);
   });
 
+  test('a function written without its last place is coloured as its template', async ({ page }) => {
+    // A function (docs/user/reference/language.md §2.3) is also written without
+    // its last place, here as an operand of a formula. The semantic-token
+    // provider (src/server.ts) did not read "the functions are:" at all, so
+    // neither form of a function matched its template.
+    test.setTimeout(60000);
+    const src = [
+      'the target language is: prolog.',
+      '',
+      'the functions are:',
+      '    the price of a cup with capacity *a number* ml is *an amount*.',
+      '',
+      'the templates are:',
+      '    the total of *a cup* is *an amount*.',
+      '',
+      'the knowledge base t includes:',
+      '',
+      'the total of a cup is a total',
+      '    if the total is the price of a cup with capacity 200 ml + 5.',
+      '',
+    ].join('\n');
+    await page.goto('index.html?text=' + encodeURIComponent(src));
+    await page.waitForFunction(() =>
+      typeof (window as any).monaco !== 'undefined' &&
+      (window as any).monaco.languages.getLanguages().some((l: any) => l.id === 'le')
+    );
+    const charClasses = (text: string) => page.evaluate((t: string) => {
+      const textOf = (l: Element) => (l.textContent || '').replace(/ /g, ' ').trim();
+      const line = [...document.querySelectorAll('.view-line')].find((l) => textOf(l).startsWith(t));
+      if (!line) return null;
+      const out: { ch: string, cls: string }[] = [];
+      for (const s of line.querySelectorAll('span > span')) {
+        for (const ch of (s.textContent || '').replace(/ /g, ' ')) out.push({ ch, cls: (s as HTMLElement).className });
+      }
+      return out;
+    }, text);
+    const classOf = (cs: { ch: string, cls: string }[], word: string) => {
+      const text = cs.map((c) => c.ch).join('');
+      const i = text.indexOf(word);
+      return new Set(cs.slice(i, i + word.length).map((c) => c.cls));
+    };
+    const ruleLine = 'if the total is the price of a cup';
+    // The template words of the function and its number are told apart once the tokens arrive.
+    await expect.poll(async () => {
+      const cs = await charClasses(ruleLine);
+      if (!cs) return false;
+      const words = classOf(cs, 'price of a cup with capacity');
+      const ml = classOf(cs, ' ml ');
+      const number = classOf(cs, '200');
+      return words.size === 1 && [...ml].some((c) => words.has(c)) && ![...number].some((c) => words.has(c));
+    }, { timeout: 30000 }).toBe(true);
+    // The declaration line is a template, not an instance: coloured as the
+    // declaration of `the templates are:` is, with no instance colours.
+    const classes = async (t: string) =>
+      new Set((await charClasses(t))!.filter((c) => c.ch !== ' ').map((c) => c.cls));
+    await expect.poll(async () => {
+      const fn = await classes('the price of a cup with capacity *a number*');
+      const tpl = await classes('the total of *a cup* is *an amount*');
+      return [...fn].every((c) => tpl.has(c));
+    }, { timeout: 30000 }).toBe(true);
+  });
+
   test('"it is not the case that" is coloured as one keyword', async ({ page }) => {
     // Regression (examples/moreExamples/domains/other/enclosure.le): the
     // semantic-token provider (src/server.ts) matched the system template

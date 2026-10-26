@@ -70,10 +70,7 @@ the premium rate of an activity is a number N if
 
 rule annual_premium with provenance "Issue/Transaction.xml" at MathVariable AnnualPremiumMV:
 the annual premium of an activity is an amount N if
-    the face amount of the activity is an amount M
-    and the premium rate of the activity is a number K
-    and the policy fee of the plan is an amount P
-    and N = round((M / 1000 * K + P) * 100) / 100.
+    N = round((the face amount of the activity / 1000 * the premium rate of the activity + the policy fee of the plan) * 100) / 100.
 
 rule modal_factor with provenance "Issue/Transaction.xml" at MathVariable ModalFactorMV:
 the modal factor of an activity is a number N if
@@ -91,9 +88,7 @@ the modal factor of an activity is a number N if
 
 rule modal_premium with provenance "Issue/Transaction.xml" at MathVariable ModalPremiumMV:
 the modal premium of an activity is an amount N if
-    the annual premium of the activity is an amount M
-    and the modal factor of the activity is a number K
-    and N = round(M * K * 100) / 100.
+    N = round(the annual premium of the activity * the modal factor of the activity * 100) / 100.
 
 % The insured's issue age of [the issue age] is outside 18 to 65.
 rule i001 with provenance "Issue/ValidateExpressions.xml" at Expression I001:

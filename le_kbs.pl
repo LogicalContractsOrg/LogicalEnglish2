@@ -3589,6 +3589,13 @@ word_matches(EW, AW) :-
     D = After,
     R is round(AX * 10^D) / 10^D,
     abs(R - EX) < 0.5 / 10^D.
+%   A number the source computed in exact decimals, given to more digits
+%   than binary floating point keeps: equal within a relative 1e-12 (the
+%   DMN TCK's 2778.69354943277 against the float 2778.693549432746).
+word_matches(EW, AW) :-
+    catch(number_string(EX, EW), _, fail), float(EX),
+    catch(number_string(AX, AW), _, fail), number(AX),
+    abs(AX - EX) =< 1.0e-12 * max(abs(EX), 1.0).
 
 %   A number written with the decimal comma of the program's language
 %   ("500,0" in French, the way an answer is shown there): the same number

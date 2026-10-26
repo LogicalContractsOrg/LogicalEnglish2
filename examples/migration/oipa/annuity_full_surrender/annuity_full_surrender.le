@@ -49,8 +49,7 @@ the duration of an activity is a number if
 
 rule policy_year with provenance "FullSurrender/Transaction.xml" at MathVariable PolicyYearMV:
 the policy year of an activity is a number N if
-    the duration of the activity is a number M
-    and N = M + 1.
+    N = the duration of the activity + 1.
 
 rule surrender_charge_rate with provenance "FullSurrender/Transaction.xml" at MathVariable SurrenderChargeRateMV:
 the surrender charge rate of an activity is a number N if
@@ -61,15 +60,11 @@ the surrender charge rate of an activity is a number N if
 
 rule surrender_charge with provenance "FullSurrender/Transaction.xml" at MathVariable SurrenderChargeMV:
 the surrender charge of an activity is an amount N if
-    the account value of the policy before the activity is an amount M
-    and the surrender charge rate of the activity is a number K
-    and N = round(M * K * 100) / 100.
+    N = round(the account value of the policy before the activity * the surrender charge rate of the activity * 100) / 100.
 
 rule surrender_value with provenance "FullSurrender/Transaction.xml" at MathVariable SurrenderValueMV:
 the surrender value of an activity is an amount N if
-    the account value of the policy before the activity is an amount M
-    and the surrender charge of the activity is an amount K
-    and N = round((M - K) * 100) / 100.
+    N = round((the account value of the policy before the activity - the surrender charge of the activity) * 100) / 100.
 
 rule copy_account_value with provenance "FullSurrender/CopyToPolicyFields.xml" at Field AccountValue:
 the account value of the policy after an activity is 0 if

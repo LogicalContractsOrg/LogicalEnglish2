@@ -279,7 +279,7 @@ connection.onRequest('textDocument/foldingRange', (params) => {
     const lines = text.split('\n');
     const foldingRanges: FoldingRange[] = [];
 
-    const sectionHeaderRegex = /^\s*(the[ \t]+knowledge[ \t]+base|the[ \t]+contract|scenario|query|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language)/i;
+    const sectionHeaderRegex = /^\s*(the[ \t]+knowledge[ \t]+base|the[ \t]+contract|scenario|query|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+functions|the[ \t]+constants|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language)/i;
 
     let lastHeaderLine = -1;
 
@@ -393,8 +393,8 @@ function commentRanges(text: string): { start: number, end: number }[] {
 
 function templateDeclarationRanges(text: string): { start: number, end: number }[] {
     const ranges: { start: number, end: number }[] = [];
-    const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
-    const templateHeaderRegex = /the[ \t]+(predicates|templates|fluents|events)[ \t]+are:/gi;
+    const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+functions|the[ \t]+constants|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
+    const templateHeaderRegex = /the[ \t]+(predicates|templates|functions|fluents|events)[ \t]+are:/gi;
     let match;
     while ((match = templateHeaderRegex.exec(text)) !== null) {
         const start = match.index + match[0].length;
@@ -436,10 +436,21 @@ function templatesOf(uri: string, text: string): Template[] {
     return [...extra, ...own];
 }
 
+// A function's template without its last place: "the price of *a cup* is
+// *an amount*" -> "the price of *a cup*". Null when the template does not end
+// in the copula and one place (the system then reads it as an ordinary template).
+function functionShortForm(label: string, copulas: string[]): string | null {
+    const m = label.match(/^(.*\S)\s+(\S+)\s+\*[^*]+\*$/);
+    if (!m || !copulas.includes(m[2].toLowerCase())) return null;
+    return m[1];
+}
+
 function getTemplates(text: string): Template[] {
     const templates: Template[] = [];
-    const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
-    const templateHeaderRegex = /the[ \t]+(predicates|templates|fluents|events)[ \t]+are:/gi;
+    const copulas = (kwTable(detectProgramLanguage(text))['marker_is'] ?? [['is']])
+        .filter((ws: string[]) => ws.length === 1).map((ws: string[]) => ws[0].toLowerCase());
+    const sectionHeaderRegex = /^(?:the[ \t]+knowledge[ \t]+base|the[ \t]+contract|the[ \t]+ontology|the[ \t]+predicates|the[ \t]+templates|the[ \t]+functions|the[ \t]+constants|the[ \t]+fluents|the[ \t]+events|the[ \t]+target[ \t]+language|scenario|query)\b/im;
+    const templateHeaderRegex = /the[ \t]+(predicates|templates|functions|fluents|events)[ \t]+are:/gi;
     
     let match;
     while ((match = templateHeaderRegex.exec(text)) !== null) {
@@ -448,6 +459,7 @@ function getTemplates(text: string): Template[] {
         const nextSectionMatch = remaining.match(sectionHeaderRegex);
         const sectionText = nextSectionMatch ? remaining.substring(0, nextSectionMatch.index) : remaining;
         
+        const isFunctions = match[1].toLowerCase() === 'functions';
         const lines = sectionText.split('\n');
         for (const line of lines) {
             const trimmed = line.trim();
@@ -467,6 +479,15 @@ function getTemplates(text: string): Template[] {
                     templates.push({
                         label: clean,
                         insertText: clean.replace(/\*/g, ''),
+                        detail: 'User Template'
+                    });
+                    // A function (docs/user/reference/language.md §2.3) is also
+                    // written without its last place, wherever a value goes:
+                    // "the price of the cup > 10", "the price of the cup + 5".
+                    const short = isFunctions ? functionShortForm(clean, copulas) : null;
+                    if (short) templates.push({
+                        label: short,
+                        insertText: short.replace(/\*/g, ''),
                         detail: 'User Template'
                     });
                 }

@@ -44,9 +44,7 @@ an activity is a deposit if
 
 rule premium_tax with provenance "Deposit/Transaction.xml" at MathVariable PremiumTaxMV:
 the premium tax of an activity is an amount N if
-    the gross amount of the activity is an amount M
-    and the premium tax rate of the plan is a number K
-    and N = round(M * K * 100) / 100.
+    N = round(the gross amount of the activity * the premium tax rate of the plan * 100) / 100.
 
 rule bonus_rate with provenance "Deposit/Transaction.xml" at MathVariable BonusRateMV:
 the bonus rate of an activity is a number N if
@@ -58,23 +56,15 @@ the bonus rate of an activity is a number N if
 
 rule bonus with provenance "Deposit/Transaction.xml" at MathVariable BonusMV:
 the bonus of an activity is an amount N if
-    the gross amount of the activity is an amount M
-    and the premium tax of the activity is an amount K
-    and the bonus rate of the activity is a number P
-    and N = round((M - K) * P * 100) / 100.
+    N = round((the gross amount of the activity - the premium tax of the activity) * the bonus rate of the activity * 100) / 100.
 
 rule net_deposit with provenance "Deposit/Transaction.xml" at MathVariable NetDepositMV:
 the net deposit of an activity is an amount N if
-    the gross amount of the activity is an amount M
-    and the premium tax of the activity is an amount K
-    and the bonus of the activity is an amount P
-    and N = round((M - K + P) * 100) / 100.
+    N = round((the gross amount of the activity - the premium tax of the activity + the bonus of the activity) * 100) / 100.
 
 rule new_account_value with provenance "Deposit/Transaction.xml" at MathVariable NewAccountValueMV:
 the new account value of an activity is an amount N if
-    the account value of the policy before the activity is an amount M
-    and the net deposit of the activity is an amount K
-    and N = round((M + K) * 100) / 100.
+    N = round((the account value of the policy before the activity + the net deposit of the activity) * 100) / 100.
 
 % The deposit must be a positive amount.
 rule d001 with provenance "Deposit/ValidateExpressions.xml" at Expression D001:
@@ -112,7 +102,7 @@ scenario steady_saver_d2 is:
 scenario steady_saver_d3 is:
     the effective date of d3 is 2024-02-01.
     the gross amount of d3 is 0.
-    the account value of the policy before d3 is 118836.850000000005821.
+    the account value of the policy before d3 is 118836.85.
     net_deposit expects answers ["the net deposit of d3 is 0"].
     new_account_value expects answers ["the new account value of d3 is 118836.85"].
     checks expects answers ["d3 fails the check D001"].

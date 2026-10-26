@@ -128,9 +128,8 @@ the currency of total_repayment_amount is the currency of a value if
 
 the value of total_repayment_amount is a number N if
     the monthly installment amount is a value
-    and the value of the value is a number M
-    and the monthly installments is a number K
-    and N = M * K.
+    and the monthly installments is a number M
+    and N = the value of the value * M.
 
 the currency of total_interest_amount is the currency of a value if
     the principal amount is the value.
@@ -138,8 +137,7 @@ the currency of total_interest_amount is the currency of a value if
 the value of total_interest_amount is a number N if
     the value of total_repayment_amount is a number M
     and the principal amount is a value
-    and the value of the value is a number K
-    and N = M - K.
+    and N = M - the value of the value.
 
 section promissory note tests is:
 
@@ -179,8 +177,7 @@ the base to the power of a base B with an exp E is a number M if
 a money is money at least equal within error for a second money if
     the currency of the money is a text
     and the text is equal to the currency of the second money
-    and the value of the second money is a number N
-    and the value of the money >= N - 0.05.
+    and the value of the money >= the value of the second money - 0.05.
 
 % RESIDUE r2 BEGIN: USD
 % TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically

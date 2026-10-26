@@ -2518,7 +2518,9 @@ arg_text(Ctx, St, X, T) :- nonvar(X), X = '$function'(_, _), !, function_text(Ct
 arg_text(Ctx, St, X, T) :-
     compound(X), \+ is_list(X), \+ X = date(_, _, _), \+ arith_expr(X), \+ X = '$VAR'(_), !,
     goal_text(Ctx, St, X, T).
-arg_text(Ctx, St, X, T) :- is_list(X), \+ ground(X), !,
+%   A list with a variable in it, or the phrase of a function or a constant
+%   (compact_functions/4, name_globals/3): its elements one by one.
+arg_text(Ctx, St, X, T) :- is_list(X), ( \+ ground(X) ; member(E, X), written_marker(E) ), !,
     maplist(arg_text(Ctx, St), X, Ts), atomic_list_concat(Ts, ', ', In),
     format(atom(T), '[~w]', [In]).
 arg_text(Ctx, St, X, T) :- arith_expr(X), !, expr_text(Ctx, St, X, T).
@@ -2526,6 +2528,8 @@ arg_text(Ctx, St, X, T) :-                  % an embedded sentence with no place
     atom(X), Ctx = ctx(Dicts, _, _), lookup_td_for(Dicts, X, _), !,
     render_literal(Ctx, St, X, T).
 arg_text(_, _, X, T) :- render_constant(X, T).
+
+written_marker(E) :- nonvar(E), ( E = '$function'(_, _) ; E = '$global'(_) ), !.
 
 %   An arithmetic operand: variables as their ids.
 expr_text(Ctx, St, X, T) :- var(X), !,

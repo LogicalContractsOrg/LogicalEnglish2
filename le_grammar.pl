@@ -2364,11 +2364,21 @@ check_function_application(Parts, Templates, Value, VMIn, VMOut, AllowVars, Dept
     match_instance_to_template(Parts, Prefix, VMIn, VM1, Templates, AllowVars, Depth),
     Goal =.. FunctorArgs,
     !,
-    (   member(function_app(Seen)-SeenVar, VM1), Seen =@= Goal
+    (   member(function_app(Seen)-SeenVar, VM1), same_application(Seen, Goal)
     ->  Value = SeenVar, VMOut = VM1
     ;   Value = ValueVar,
         VMOut = [function_app(Goal)-ValueVar, extra_goal(Goal) | VM1]
     ).
+
+%   The same application: the same function asked of the same inputs — the
+%   same variables, not merely variables in the same places. A variant test
+%   (=@=) took `the x of the second point - the x of the point` for one
+%   application while both points were still unbound, and the difference
+%   was always 0 (an L4 twin).
+same_application(Seen, Goal) :-
+    Seen =.. [F|SArgs], Goal =.. [F|GArgs],
+    append(SIns, [_], SArgs), append(GIns, [_], GArgs),
+    maplist(==, SIns, GIns).
 
 %!  function_arithmetic(+Parts, +Templates, -Expr, +VMIn, -VMOut, +AllowVars)
 %!      is semidet.

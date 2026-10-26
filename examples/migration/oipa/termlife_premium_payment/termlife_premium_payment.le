@@ -44,14 +44,11 @@ an activity is a premium payment if
 
 rule ratio with provenance "PremiumPayment/Transaction.xml" at MathVariable RatioMV:
 the ratio of an activity is a number N if
-    the amount of the activity is an amount M
-    and the modal premium of the policy before the activity is an amount K
-    and N = M / K.
+    N = the amount of the activity / the modal premium of the policy before the activity.
 
 rule modes_paid with provenance "PremiumPayment/Transaction.xml" at MathVariable ModesPaidMV:
 the modes paid of an activity is an amount N if
-    the ratio of the activity is a number M
-    and N = truncate(M).
+    N = truncate(the ratio of the activity).
 
 rule months_per_mode with provenance "PremiumPayment/Transaction.xml" at MathVariable MonthsPerModeMV:
 the months per mode of an activity is a number N if
@@ -69,9 +66,7 @@ the months per mode of an activity is a number N if
 
 rule months_advanced with provenance "PremiumPayment/Transaction.xml" at MathVariable MonthsAdvancedMV:
 the months advanced of an activity is a number N if
-    the modes paid of the activity is an amount M
-    and the months per mode of the activity is a number K
-    and N = M * K.
+    N = the modes paid of the activity * the months per mode of the activity.
 
 rule new_paid_to_date with provenance "PremiumPayment/Transaction.xml" at MathVariable NewPaidToDateMV:
 the new paid to date of an activity is a date if
@@ -79,10 +74,7 @@ the new paid to date of an activity is a date if
 
 rule unapplied_amount with provenance "PremiumPayment/Transaction.xml" at MathVariable UnappliedAmountMV:
 the unapplied amount of an activity is an amount N if
-    the amount of the activity is an amount M
-    and the modes paid of the activity is an amount K
-    and the modal premium of the policy before the activity is an amount P
-    and N = round((M - K * P) * 100) / 100.
+    N = round((the amount of the activity - the modes paid of the activity * the modal premium of the policy before the activity) * 100) / 100.
 
 % A payment of [the amount] is less than one modal premium ([the modal premium]).
 rule p001 with provenance "PremiumPayment/ValidateExpressions.xml" at Expression P001:
@@ -97,7 +89,7 @@ the paid to date of the policy after an activity is a value if
 scenario monthly_payer_p1 is:
     the effective date of p1 is 2024-04-01.
     the amount of p1 is 100.
-    the modal premium of the policy before p1 is 44.189999999999998.
+    the modal premium of the policy before p1 is 44.19.
     the paid to date of the policy before p1 is 2024-04-01.
     the billing mode of the policy before p1 is "12".
     new_paid_to_date expects answers ["the new paid to date of p1 is 2024-06-01"].
@@ -108,7 +100,7 @@ scenario monthly_payer_p1 is:
 scenario monthly_payer_p2 is:
     the effective date of p2 is 2024-05-21.
     the amount of p2 is 20.
-    the modal premium of the policy before p2 is 44.189999999999998.
+    the modal premium of the policy before p2 is 44.19.
     the paid to date of the policy before p2 is 2024-06-01.
     the billing mode of the policy before p2 is "12".
     new_paid_to_date expects answers ["the new paid to date of p2 is 2024-06-01"].
