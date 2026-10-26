@@ -16,6 +16,7 @@ the model's own tests (or the Drools engine) give.
 - [tck/](tck/README.md) — the 28 models of compliance level 2 of the DMN Technology Compatibility Kit.
 - [ronl/](ronl/README.md) — rules of Dutch municipalities and agencies (RONL examples).
 - [bdt/](bdt/README.md) — the Benefit Decision Toolkit of Code for Philly: Philadelphia tax relief.
+- [clients/](clients/README.md) — the models that the client examples of Kogito and Camunda call (Traffic Violation, Dinner Decisions), each with the mapping file of the DMN adapter.
 
 ## Try this
 1. Open [the homestead exemption](bdt/homestead_exemption/homestead_exemption.le?scenario=Eligible&query=q_d_is_eligible) and click **Query**: the answer is "the is_eligible is true".
@@ -24,5 +25,5 @@ the model's own tests (or the Drools engine) give.
 4. Choose **File > Show the Original…**: the DMN model.
 
 ## More
-- How DMN maps to Logical English: [the DMN guide](/docs/user/integrations/dmn).
+- How DMN maps to Logical English, the way back to DMN, and the DMN adapter: [the DMN guide](/docs/user/integrations/dmn).
 - The twins are written by the DMN translator of `lpsPlus/migration/dmn` (not public); do not edit them by hand.

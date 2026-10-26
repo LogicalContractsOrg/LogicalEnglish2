@@ -1,0 +1,66 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the tree diameter is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"treeDiameter",
+      "kind":"value",
+      "name":"treeDiameter",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the tree diameter is *a number*",
+      "text":"treeDiameter",
+      "type":"number"
+    },
+    {
+      "aliases": ["replacementRequired" ],
+      "derived":true,
+      "display":"the replacement tree required is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"Replacement Tree Required?",
+      "kind":"value",
+      "name":"Replacement Tree Required?",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the replacement tree required is *a truth value*",
+      "text":"Replacement Tree Required?",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["ReplacementTreeDecision", "replacement_tree_decision" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"ReplacementTreeDecision",
+	"inputs": [ {"index":1,"text":"treeDiameter"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Replacement Tree Required?",
+	"outputs": [ {"index":1,"name":"replacementRequired"} ],
+	"required": [],
+	"rules": [
+	   {"id":"DecisionRule_03zv2gm","index":1,"inputs": ["<= 30" ],"outputs": [false ]},
+	   {"id":"DecisionRule_0tl6k1b","index":2,"inputs": ["> 30" ],"outputs": [true ]}
+	]
+      }
+    ],
+    "file":"replacement-tree-decision.dmn",
+    "inputs": [ {"id":"InputData_treeDiameter","name":"treeDiameter","typeRef":"integer"} ],
+    "name":"ReplacementTreeDecision",
+    "namespace":"http://example.com/tree-permit/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"ReplacementTreeDecision",
+  "source":"DMN",
+  "title":"ReplacementTreeDecision",
+  "twin":"replacement_tree_decision"
+}

@@ -1,0 +1,86 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the household income of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdIncome",
+	  "kind":"value",
+	  "name":"householdIncome",
+	  "opposite":null,
+	  "template":"the household income of the situation is *a number*",
+	  "text":"householdIncome",
+	  "type":"number"
+	},
+	 {
+	  "display":"the household size of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdSize",
+	  "kind":"value",
+	  "name":"householdSize",
+	  "opposite":null,
+	  "template":"the household size of the situation is *a number*",
+	  "text":"householdSize",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["RetipIncome", "retip_income" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_2DE0F4EC-F328-46A7-8496-1B328B3F7F73",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"retip-income.dmn",
+    "inputs": [ {"id":"_2257EFFE-5A67-468E-A268-B21235E29BAB","name":"situation","typeRef":"tSituation"} ],
+    "name":"RetipIncome",
+    "namespace":"https://kie.apache.org/dmn/_0F40186A-672E-4BF8-8481-957F70A70DF4",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_30D72817-12C9-4432-A513-97E56AF4F837",
+	"name":"RetipIncomeService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"RetipIncome",
+  "source":"DMN",
+  "title":"RetipIncome",
+  "twin":"retip_income"
+}

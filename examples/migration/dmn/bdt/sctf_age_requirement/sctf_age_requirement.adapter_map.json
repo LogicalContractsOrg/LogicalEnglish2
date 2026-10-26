@@ -1,0 +1,122 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the primary person id of the situation is *a text*",
+	  "entity":"global",
+	  "key":"primaryPersonId",
+	  "kind":"value",
+	  "name":"primaryPersonId",
+	  "opposite":null,
+	  "template":"the primary person id of the situation is *a text*",
+	  "text":"primaryPersonId",
+	  "type":"string"
+	},
+	 {
+	  "components": [ {"name":"dateOfBirth","type":"date"},  {"name":"id","type":"string"} ],
+	  "entity":"global",
+	  "key":"people",
+	  "kind":"records",
+	  "listed":"the people of the situation are listed",
+	  "name":"people",
+	  "template":"the people of the situation include *a date* with *an id*",
+	  "text":"people",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {"name":"type","type":"string"},
+	     {"name":"personId","type":"string"},
+	     {"name":"relatedPersonId","type":"string"}
+	  ],
+	  "entity":"global",
+	  "key":"relationships",
+	  "kind":"records",
+	  "listed":"the relationships of the situation are listed",
+	  "name":"relationships",
+	  "template":"the relationships of the situation include *a type* with *a person id* with *a related person id*",
+	  "text":"relationships",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the late spouse was at least65 of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"lateSpouseWasAtLeast65",
+	      "kind":"value",
+	      "name":"lateSpouseWasAtLeast65",
+	      "opposite":null,
+	      "template":"the late spouse was at least65 of the simple checks of the situation is *a truth value*",
+	      "text":"lateSpouseWasAtLeast65",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["SctfAgeRequirement", "sctf_age_requirement" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_06629809-CF42-44BB-A240-C72F27A8071A",
+	"logic":"CONTEXT",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"sctf-age-requirement.dmn",
+    "inputs": [ {"id":"_1D0174F9-A149-4A00-A032-76094B64E886","name":"situation","typeRef":"tSituation"} ],
+    "name":"SctfAgeRequirement",
+    "namespace":"https://kie.apache.org/dmn/_6DD53443-571F-4F35-9881-5F7091F9CE59",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_59B1D987-60C3-4653-A582-539CFF1C3612",
+	"name":"SctfAgeRequirementService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"SctfAgeRequirement",
+  "source":"DMN",
+  "title":"SctfAgeRequirement",
+  "twin":"sctf_age_requirement"
+}

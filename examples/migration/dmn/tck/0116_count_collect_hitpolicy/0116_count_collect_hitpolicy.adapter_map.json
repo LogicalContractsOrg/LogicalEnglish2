@@ -1,0 +1,68 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the num of years is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"NumOfYears",
+      "kind":"value",
+      "name":"NumOfYears",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the num of years is *a number*",
+      "text":"NumOfYears",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the salary is *a number*",
+      "entity":"global",
+      "goal":true,
+      "key":"Salary",
+      "kind":"value",
+      "name":"Salary",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the salary is *a number*",
+      "text":"Salary",
+      "type":"number"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0116-count-collect-hitpolicy", "0116_count_collect_hitpolicy" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"COUNT",
+	"hitPolicy":"COLLECT",
+	"id":"salary",
+	"inputs": [ {"index":1,"text":"NumOfYears"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Salary",
+	"outputs": [ {"index":1,"name":""} ],
+	"required": [],
+	"rules": [
+	   {"id":"DecisionRule_07toq2m","index":1,"inputs": [">1" ],"outputs": ["100" ]},
+	   {"id":"DecisionRule_1q56imi","index":2,"inputs": [">2" ],"outputs": ["200" ]},
+	   {"id":"DecisionRule_1rwxbuf","index":3,"inputs": [">3" ],"outputs": ["300" ]},
+	   {"id":"DecisionRule_1lwr317","index":4,"inputs": [">5" ],"outputs": ["500" ]}
+	]
+      }
+    ],
+    "file":"0116-count-collect-hitpolicy.dmn",
+    "inputs": [ {"id":"inputData_input_1","name":"NumOfYears","typeRef":"number"} ],
+    "name":"0116-count-collect-hitpolicy",
+    "namespace":"http://www.trisotech.com/definitions/Definitions_11jk5op",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0116-count-collect-hitpolicy",
+  "source":"DMN",
+  "title":"0116-count-collect-hitpolicy",
+  "twin":"0116_count_collect_hitpolicy"
+}

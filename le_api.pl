@@ -69,6 +69,7 @@
 :- use_module(le_examples_search).
 :- use_module(le_telemetry).
 :- use_module(le_entitlements).
+:- use_module(le_adapter, [adapter_decide/6, adapter_twin_map/2]).
 
 :- multifile prolog:message//1.
 
@@ -256,6 +257,7 @@ handle_operation(Dict, Response) :-
         ; Op == "exportForeign" -> handle_export_foreign(Dict, Response)
         ; Op == "is_a_hierarchy" -> handle_is_a_hierarchy(Dict, Response)
         ; Op == "graph" -> handle_graph(Dict, Response)
+        ; Op == "adapterDecide" -> handle_adapter_decide(Dict, Response)
         ; Response = _{error: "Unknown operation"}
     ).
 
@@ -284,6 +286,46 @@ contract_assistant_refusal(_{error: Msg, unlicensed: true}) :-
 %   This installation has the Contract Assistant (an lpsPlus checkout with it).
 contract_assistant_installed :-
     current_predicate(le_contract_assistant:handle_contract_start/2).
+
+%!  handle_adapter_decide(+Dict, -Response) is det.
+%
+%   The adapter kit's case-answering operation (le_adapter.pl;
+%   docs/user/integrations/adapters.md), for both deployments: `file`, the
+%   twin (an example's name, as `load` takes it); `map`, its mapping, or
+%   none for the mapping file beside the twin; `case`, the values by the
+%   mapping's names; `outcomes`, a list of names, or "contract", "goals" or
+%   "all" (the default); `reports`, the outcomes whose explanation is
+%   wanted. Response: {outputs, reports} or {error}.
+handle_adapter_decide(Dict, Response) :-
+    get_dict(file, Dict, File),
+    le_example_relpath(File, Path0),
+    (   api_user(_, Roles) -> true ; Roles = [] ),
+    (   \+ is_path_allowed(Path0, Roles)
+    ->  le_i18n:le_msg(access_denied_role, [], M0), atom_string(M0, M), Response = _{error: M}
+    ;   (   exists_file(Path0), sub_atom(Path0, _, _, 0, '.le') -> Twin = Path0
+        ;   atom_concat(Path0, '.le', Twin), exists_file(Twin) -> true
+        ;   Twin = none
+        ),
+        (   Twin == none
+        ->  le_i18n:le_msg(example_not_found, [name-File], NF), atom_string(NF, NFS),
+            Response = _{error: NFS, notFound: true}
+        ;   (   get_dict(map, Dict, Map), is_dict(Map) -> true
+            ;   adapter_twin_map(Twin, Map) -> true
+            ;   Map = none
+            ),
+            (   Map == none
+            ->  Response = _{error: "The program has no mapping file beside it (<name>.adapter_map.json)."}
+            ;   ( get_dict(case, Dict, Case), is_dict(Case) -> true ; Case = _{} ),
+                ( get_dict(outcomes, Dict, O0) -> true ; O0 = "all" ),
+                ( string(O0) -> atom_string(Outcomes, O0) ; Outcomes = O0 ),
+                ( get_dict(reports, Dict, Reps), is_list(Reps) -> true ; Reps = [] ),
+                catch(( adapter_decide(Map, Twin, Case, Outcomes, [reports(Reps)], R),
+                        Response = R ),
+                      E, ( print_message(error, E),
+                           format(string(EM), "~q", [E]), Response = _{error: EM} ))
+            )
+        )
+    ).
 
 handle_graph(Dict, Response) :-
     get_dict(sessionModule, Dict, SMStr),

@@ -1,0 +1,307 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [ {"name":"personId","type":"string"},  {"name":"benefit","type":"string"} ],
+	  "entity":"global",
+	  "key":"enrollments",
+	  "kind":"records",
+	  "listed":"the enrollments of the situation are listed",
+	  "name":"enrollments",
+	  "template":"the enrollments of the situation include *a person id* with *a benefit*",
+	  "text":"enrollments",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the owner occupant of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"ownerOccupant",
+	      "kind":"value",
+	      "name":"ownerOccupant",
+	      "opposite":null,
+	      "template":"the owner occupant of the simple checks of the situation is *a truth value*",
+	      "text":"ownerOccupant",
+	      "type":"boolean"
+	    },
+	     {
+	      "display":"the lives in philadelphia pa of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"livesInPhiladelphiaPa",
+	      "kind":"value",
+	      "name":"livesInPhiladelphiaPa",
+	      "opposite":null,
+	      "template":"the lives in philadelphia pa of the simple checks of the situation is *a truth value*",
+	      "text":"livesInPhiladelphiaPa",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	},
+	 {
+	  "display":"the applicant and spouse income of the situation is *a number*",
+	  "entity":"global",
+	  "key":"applicantAndSpouseIncome",
+	  "kind":"value",
+	  "name":"applicantAndSpouseIncome",
+	  "opposite":null,
+	  "template":"the applicant and spouse income of the situation is *a number*",
+	  "text":"applicantAndSpouseIncome",
+	  "type":"number"
+	},
+	 {
+	  "components": [
+	     {"name":"type","type":"string"},
+	     {"name":"personId","type":"string"},
+	     {"name":"relatedPersonId","type":"string"}
+	  ],
+	  "entity":"global",
+	  "key":"relationships",
+	  "kind":"records",
+	  "listed":"the relationships of the situation are listed",
+	  "name":"relationships",
+	  "template":"the relationships of the situation include *a type* with *a person id* with *a related person id*",
+	  "text":"relationships",
+	  "type":"records"
+	},
+	 {
+	  "display":"the primary person id of the situation is *a text*",
+	  "entity":"global",
+	  "key":"primaryPersonId",
+	  "kind":"value",
+	  "name":"primaryPersonId",
+	  "opposite":null,
+	  "template":"the primary person id of the situation is *a text*",
+	  "text":"primaryPersonId",
+	  "type":"string"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the apply url of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"applyUrl",
+	      "kind":"value",
+	      "name":"applyUrl",
+	      "opposite":null,
+	      "template":"the apply url of the eligible of the next steps is *a text*",
+	      "text":"applyUrl",
+	      "type":"string"
+	    },
+	     {
+	      "display":"the help url of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"helpUrl",
+	      "kind":"value",
+	      "name":"helpUrl",
+	      "opposite":null,
+	      "template":"the help url of the eligible of the next steps is *a text*",
+	      "text":"helpUrl",
+	      "type":"string"
+	    },
+	     {
+	      "display":"the help phone of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"helpPhone",
+	      "kind":"value",
+	      "name":"helpPhone",
+	      "opposite":null,
+	      "template":"the help phone of the eligible of the next steps is *a text*",
+	      "text":"helpPhone",
+	      "type":"string"
+	    },
+	     {
+	      "display":"the body of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"body",
+	      "kind":"value",
+	      "name":"body",
+	      "opposite":null,
+	      "template":"the body of the eligible of the next steps is *a text*",
+	      "text":"body",
+	      "type":"string"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"eligible",
+	  "kind":"structure",
+	  "name":"eligible",
+	  "text":"eligible",
+	  "type":"structure"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the note of the ineligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"note",
+	      "kind":"value",
+	      "name":"note",
+	      "opposite":null,
+	      "template":"the note of the ineligible of the next steps is *a text*",
+	      "text":"note",
+	      "type":"string"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"ineligible",
+	  "kind":"structure",
+	  "name":"ineligible",
+	  "text":"ineligible",
+	  "type":"structure"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"nextSteps",
+      "kind":"structure",
+      "name":"nextSteps",
+      "null_when_empty":false,
+      "output":"contract",
+      "role":"decision",
+      "text":"nextSteps",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the not already enrolled of the checks is *a value*",
+	  "entity":"global",
+	  "key":"NotAlreadyEnrolled",
+	  "kind":"value",
+	  "name":"NotAlreadyEnrolled",
+	  "opposite":null,
+	  "template":"the not already enrolled of the checks is *a value*",
+	  "text":"NotAlreadyEnrolled",
+	  "type":"any"
+	},
+	 {
+	  "display":"the owner occupant of the checks is *a value*",
+	  "entity":"global",
+	  "key":"OwnerOccupant",
+	  "kind":"value",
+	  "name":"OwnerOccupant",
+	  "opposite":null,
+	  "template":"the owner occupant of the checks is *a value*",
+	  "text":"OwnerOccupant",
+	  "type":"any"
+	},
+	 {
+	  "display":"the lives in philadelphia pa of the checks is *a value*",
+	  "entity":"global",
+	  "key":"LivesInPhiladelphiaPa",
+	  "kind":"value",
+	  "name":"LivesInPhiladelphiaPa",
+	  "opposite":null,
+	  "template":"the lives in philadelphia pa of the checks is *a value*",
+	  "text":"LivesInPhiladelphiaPa",
+	  "type":"any"
+	},
+	 {
+	  "display":"the meets income requirement of the checks is *a value*",
+	  "entity":"global",
+	  "key":"MeetsIncomeRequirement",
+	  "kind":"value",
+	  "name":"MeetsIncomeRequirement",
+	  "opposite":null,
+	  "template":"the meets income requirement of the checks is *a value*",
+	  "text":"MeetsIncomeRequirement",
+	  "type":"any"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":false,
+      "key":"checks",
+      "kind":"structure",
+      "name":"checks",
+      "null_when_empty":false,
+      "output":"contract",
+      "role":"decision",
+      "text":"checks",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the is_eligible is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"isEligible",
+      "kind":"value",
+      "name":"isEligible",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the is_eligible is *a truth value*",
+      "text":"isEligible",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["PhlLowIncomeTaxFreeze", "low_income_tax_freeze" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_1760756A-EBB4-428B-BD6F-D9806AA2C2CB",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"nextSteps",
+	"required": []
+      },
+      {
+	"id":"_3E944A78-3B86-4D82-98A9-5D03B71D9208",
+	"logic":"CONTEXT",
+	"name":"checks",
+	"required": []
+      },
+      {
+	"id":"_1D72B951-1F93-4F8B-B9F9-8F2F99CC13D6",
+	"logic":"CONTEXT",
+	"name":"isEligible",
+	"required": ["checks" ]
+      }
+    ],
+    "file":"low-income-tax-freeze.dmn",
+    "inputs": [ {"id":"_FCFED5D1-47D3-48D4-BE13-A8DA3CFA215B","name":"situation","typeRef":"tSituation"} ],
+    "name":"PhlLowIncomeTaxFreeze",
+    "namespace":"https://kie.apache.org/dmn/_BDAE664A-A1E5-46F9-A470-90B8C34D7FB2",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_BB0585AE-AD21-44F8-84CF-C00CD188BBC6",
+	"name":"PhlLowIncomeTaxFreezeService",
+	"outputs": ["checks", "isEligible", "nextSteps" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"PhlLowIncomeTaxFreeze",
+  "source":"DMN",
+  "title":"PhlLowIncomeTaxFreeze",
+  "twin":"low_income_tax_freeze"
+}

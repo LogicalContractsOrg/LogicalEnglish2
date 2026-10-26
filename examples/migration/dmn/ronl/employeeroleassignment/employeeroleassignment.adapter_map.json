@@ -1,0 +1,188 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the department is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"department",
+      "kind":"value",
+      "name":"department",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the department is *a text*",
+      "text":"department",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the job function is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"jobFunction",
+      "kind":"value",
+      "name":"jobFunction",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the job function is *a text*",
+      "text":"jobFunction",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the assigned roles of the employee role assignment is *a text*",
+	  "entity":"global",
+	  "key":"assignedRoles",
+	  "kind":"value",
+	  "name":"assignedRoles",
+	  "opposite":null,
+	  "template":"the assigned roles of the employee role assignment is *a text*",
+	  "text":"assignedRoles",
+	  "type":"string"
+	},
+	 {
+	  "display":"the candidate groups of the employee role assignment is *a text*",
+	  "entity":"global",
+	  "key":"candidateGroups",
+	  "kind":"value",
+	  "name":"candidateGroups",
+	  "opposite":null,
+	  "template":"the candidate groups of the employee role assignment is *a text*",
+	  "text":"candidateGroups",
+	  "type":"string"
+	},
+	 {
+	  "display":"the access level of the employee role assignment is *a text*",
+	  "entity":"global",
+	  "key":"accessLevel",
+	  "kind":"value",
+	  "name":"accessLevel",
+	  "opposite":null,
+	  "template":"the access level of the employee role assignment is *a text*",
+	  "text":"accessLevel",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Employee Role Assignment",
+      "kind":"structure",
+      "name":"Employee Role Assignment",
+      "output":"contract",
+      "role":"decision",
+      "text":"Employee Role Assignment",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["EmployeeRoleAssignment", "employeeroleassignment" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"EmployeeRoleAssignment",
+	"inputs": [ {"index":1,"text":"department"},  {"index":2,"text":"jobFunction"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Employee Role Assignment",
+	"outputs": [
+	   {"index":1,"name":"assignedRoles"},
+	   {"index":2,"name":"candidateGroups"},
+	   {"index":3,"name":"accessLevel"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_01",
+	    "index":1,
+	    "inputs": ["\"vergunningen\"", "\"behandelaar\"" ],
+	    "outputs": ["\"caseworker\"", "\"caseworker\"", "\"basis\"" ]
+	  },
+	   {
+	    "id":"Rule_02",
+	    "index":2,
+	    "inputs": ["\"vergunningen\"", "\"senior-behandelaar\"" ],
+	    "outputs": ["\"caseworker,vergunningen-senior\"", "\"caseworker\"", "\"uitgebreid\"" ]
+	  },
+	   {
+	    "id":"Rule_03",
+	    "index":3,
+	    "inputs": ["\"infrastructuur\"", "\"verkenner\"" ],
+	    "outputs": ["\"caseworker,rip-verkenner\"", "\"caseworker,rip-verkenner\"", "\"basis\"" ]
+	  },
+	   {
+	    "id":"Rule_04",
+	    "index":4,
+	    "inputs": ["\"infrastructuur\"", "\"planner\"" ],
+	    "outputs": ["\"caseworker,rip-planner\"", "\"caseworker,rip-planner\"", "\"uitgebreid\"" ]
+	  },
+	   {
+	    "id":"Rule_05",
+	    "index":5,
+	    "inputs": ["\"infrastructuur\"", "\"inkoop\"" ],
+	    "outputs": ["\"caseworker,rip-inkoop\"", "\"caseworker,rip-inkoop\"", "\"uitgebreid\"" ]
+	  },
+	   {
+	    "id":"Rule_06",
+	    "index":6,
+	    "inputs": ["\"infrastructuur\"", "\"contractbeheer\"" ],
+	    "outputs": ["\"caseworker,rip-contractbeheer\"", "\"caseworker,rip-contractbeheer\"", "\"uitgebreid\"" ]
+	  },
+	   {
+	    "id":"Rule_07",
+	    "index":7,
+	    "inputs": ["\"infrastructuur\"", "\"projectleider\"" ],
+	    "outputs": [
+	      "\"caseworker,rip-verkenner,rip-planner,rip-contractbeheer\"",
+	      "\"caseworker,rip-projectleider\"",
+	      "\"admin\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_08",
+	    "index":8,
+	    "inputs": ["\"infrastructuur\"", "\"toetser\"" ],
+	    "outputs": ["\"caseworker,rip-toetser\"", "\"caseworker,rip-toetser\"", "\"basis\"" ]
+	  },
+	   {
+	    "id":"Rule_09",
+	    "index":9,
+	    "inputs": ["\"infrastructuur\"", "\"kwaliteit\"" ],
+	    "outputs": ["\"caseworker,rip-kwaliteit\"", "\"caseworker,rip-kwaliteit\"", "\"basis\"" ]
+	  },
+	   {
+	    "id":"Rule_10",
+	    "index":10,
+	    "inputs": ["\"hr\"", "-" ],
+	    "outputs": ["\"hr-medewerker\"", "\"hr-medewerker\"", "\"uitgebreid\"" ]
+	  },
+	   {
+	    "id":"Rule_11",
+	    "index":11,
+	    "inputs": ["-", "-" ],
+	    "outputs": ["\"caseworker\"", "\"caseworker\"", "\"basis\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"EmployeeRoleAssignment.dmn",
+    "inputs": [
+      {"id":"InputData_department","name":"department","typeRef":"string"},
+      {"id":"InputData_jobFunction","name":"jobFunction","typeRef":"string"}
+    ],
+    "name":"EmployeeRoleAssignment",
+    "namespace":"http://camunda.org/schema/1.0/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"EmployeeRoleAssignment",
+  "source":"DMN",
+  "title":"EmployeeRoleAssignment",
+  "twin":"employeeroleassignment"
+}

@@ -1,0 +1,86 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the wants extra cash is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"wantsExtraCash",
+      "kind":"value",
+      "name":"wantsExtraCash",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the wants extra cash is *a truth value*",
+      "text":"wantsExtraCash",
+      "type":"boolean"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the expected answer of the parameters is *a truth value*",
+	  "entity":"global",
+	  "key":"expectedAnswer",
+	  "kind":"value",
+	  "name":"expectedAnswer",
+	  "opposite":null,
+	  "template":"the expected answer of the parameters is *a truth value*",
+	  "text":"expectedAnswer",
+	  "type":"boolean"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the would like extra cash is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"Would like extra cash",
+      "kind":"value",
+      "name":"Would like extra cash",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the would like extra cash is *a truth value*",
+      "text":"Would like extra cash",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["Would like extra cash", "would_like_extra_cash" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"decision",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"Would like extra cash",
+	"required": []
+      }
+    ],
+    "file":"P-4fc360de-940e-48a1-97e5-adb2be1c7246-1.0.0.dmn",
+    "inputs": [
+      {"id":"input","name":"wantsExtraCash","typeRef":"boolean"},
+      {"id":"parameters","name":"parameters","typeRef":"tParameters"}
+    ],
+    "name":"Would like extra cash",
+    "namespace":"https://bdt.codeforphilly.org/examples/wants-extra-cash",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"Would like extra cash",
+  "source":"DMN",
+  "title":"Would like extra cash",
+  "twin":"would_like_extra_cash"
+}

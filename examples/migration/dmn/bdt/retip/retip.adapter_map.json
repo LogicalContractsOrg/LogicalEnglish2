@@ -1,0 +1,340 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [ {"name":"personId","type":"string"},  {"name":"benefit","type":"string"} ],
+	  "entity":"global",
+	  "key":"enrollments",
+	  "kind":"records",
+	  "listed":"the enrollments of the situation are listed",
+	  "name":"enrollments",
+	  "template":"the enrollments of the situation include *a person id* with *a benefit*",
+	  "text":"enrollments",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the owner occupant of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"ownerOccupant",
+	      "kind":"value",
+	      "name":"ownerOccupant",
+	      "opposite":null,
+	      "template":"the owner occupant of the simple checks of the situation is *a truth value*",
+	      "text":"ownerOccupant",
+	      "type":"boolean"
+	    },
+	     {
+	      "display":"the lives in philadelphia pa of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"livesInPhiladelphiaPa",
+	      "kind":"value",
+	      "name":"livesInPhiladelphiaPa",
+	      "opposite":null,
+	      "template":"the lives in philadelphia pa of the simple checks of the situation is *a truth value*",
+	      "text":"livesInPhiladelphiaPa",
+	      "type":"boolean"
+	    },
+	     {
+	      "display":"the spouse lives in household of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"spouseLivesInHousehold",
+	      "kind":"value",
+	      "name":"spouseLivesInHousehold",
+	      "opposite":null,
+	      "template":"the spouse lives in household of the simple checks of the situation is *a truth value*",
+	      "text":"spouseLivesInHousehold",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	},
+	 {
+	  "display":"the primary person id of the situation is *a text*",
+	  "entity":"global",
+	  "key":"primaryPersonId",
+	  "kind":"value",
+	  "name":"primaryPersonId",
+	  "opposite":null,
+	  "template":"the primary person id of the situation is *a text*",
+	  "text":"primaryPersonId",
+	  "type":"string"
+	},
+	 {
+	  "components": [ {"name":"id","type":"string"},  {"name":"dateOfBirth","type":"date"} ],
+	  "entity":"global",
+	  "key":"people",
+	  "kind":"records",
+	  "listed":"the people of the situation are listed",
+	  "name":"people",
+	  "template":"the people of the situation include *an id* with *a date*",
+	  "text":"people",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {"name":"type","type":"string"},
+	     {"name":"personId","type":"string"},
+	     {"name":"relatedPersonId","type":"string"}
+	  ],
+	  "entity":"global",
+	  "key":"relationships",
+	  "kind":"records",
+	  "listed":"the relationships of the situation are listed",
+	  "name":"relationships",
+	  "template":"the relationships of the situation include *a type* with *a person id* with *a related person id*",
+	  "text":"relationships",
+	  "type":"records"
+	},
+	 {
+	  "display":"the household size of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdSize",
+	  "kind":"value",
+	  "name":"householdSize",
+	  "opposite":null,
+	  "template":"the household size of the situation is *a number*",
+	  "text":"householdSize",
+	  "type":"number"
+	},
+	 {
+	  "display":"the household income of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdIncome",
+	  "kind":"value",
+	  "name":"householdIncome",
+	  "opposite":null,
+	  "template":"the household income of the situation is *a number*",
+	  "text":"householdIncome",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the apply url of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"applyUrl",
+	      "kind":"value",
+	      "name":"applyUrl",
+	      "opposite":null,
+	      "template":"the apply url of the eligible of the next steps is *a text*",
+	      "text":"applyUrl",
+	      "type":"string"
+	    },
+	     {
+	      "display":"the help url of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"helpUrl",
+	      "kind":"value",
+	      "name":"helpUrl",
+	      "opposite":null,
+	      "template":"the help url of the eligible of the next steps is *a text*",
+	      "text":"helpUrl",
+	      "type":"string"
+	    },
+	     {
+	      "display":"the help phone of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"helpPhone",
+	      "kind":"value",
+	      "name":"helpPhone",
+	      "opposite":null,
+	      "template":"the help phone of the eligible of the next steps is *a text*",
+	      "text":"helpPhone",
+	      "type":"string"
+	    },
+	     {
+	      "display":"the body of the eligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"body",
+	      "kind":"value",
+	      "name":"body",
+	      "opposite":null,
+	      "template":"the body of the eligible of the next steps is *a text*",
+	      "text":"body",
+	      "type":"string"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"eligible",
+	  "kind":"structure",
+	  "name":"eligible",
+	  "text":"eligible",
+	  "type":"structure"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the note of the ineligible of the next steps is *a text*",
+	      "entity":"global",
+	      "key":"note",
+	      "kind":"value",
+	      "name":"note",
+	      "opposite":null,
+	      "template":"the note of the ineligible of the next steps is *a text*",
+	      "text":"note",
+	      "type":"string"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"ineligible",
+	  "kind":"structure",
+	  "name":"ineligible",
+	  "text":"ineligible",
+	  "type":"structure"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"nextSteps",
+      "kind":"structure",
+      "name":"nextSteps",
+      "null_when_empty":false,
+      "output":"contract",
+      "role":"decision",
+      "text":"nextSteps",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the not already enrolled of the checks is *a value*",
+	  "entity":"global",
+	  "key":"NotAlreadyEnrolled",
+	  "kind":"value",
+	  "name":"NotAlreadyEnrolled",
+	  "opposite":null,
+	  "template":"the not already enrolled of the checks is *a value*",
+	  "text":"NotAlreadyEnrolled",
+	  "type":"any"
+	},
+	 {
+	  "display":"the owner occupant of the checks is *a value*",
+	  "entity":"global",
+	  "key":"OwnerOccupant",
+	  "kind":"value",
+	  "name":"OwnerOccupant",
+	  "opposite":null,
+	  "template":"the owner occupant of the checks is *a value*",
+	  "text":"OwnerOccupant",
+	  "type":"any"
+	},
+	 {
+	  "display":"the lives in philadelphia pa of the checks is *a value*",
+	  "entity":"global",
+	  "key":"LivesInPhiladelphiaPa",
+	  "kind":"value",
+	  "name":"LivesInPhiladelphiaPa",
+	  "opposite":null,
+	  "template":"the lives in philadelphia pa of the checks is *a value*",
+	  "text":"LivesInPhiladelphiaPa",
+	  "type":"any"
+	},
+	 {
+	  "display":"the meets age or income requirement of the checks is *a value*",
+	  "entity":"global",
+	  "key":"MeetsAgeOrIncomeRequirement",
+	  "kind":"value",
+	  "name":"MeetsAgeOrIncomeRequirement",
+	  "opposite":null,
+	  "template":"the meets age or income requirement of the checks is *a value*",
+	  "text":"MeetsAgeOrIncomeRequirement",
+	  "type":"any"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":false,
+      "key":"checks",
+      "kind":"structure",
+      "name":"checks",
+      "null_when_empty":false,
+      "output":"contract",
+      "role":"decision",
+      "text":"checks",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the is_eligible is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"isEligible",
+      "kind":"value",
+      "name":"isEligible",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the is_eligible is *a truth value*",
+      "text":"isEligible",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["PhlRetip", "retip" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_56B727E4-92DA-4A99-B930-3EBD9BA1D12F",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"nextSteps",
+	"required": []
+      },
+      {
+	"id":"_428EC775-E989-4EF3-ACDA-879F82AFAC31",
+	"logic":"CONTEXT",
+	"name":"checks",
+	"required": []
+      },
+      {
+	"id":"_0BCEA4FF-BB5F-44CE-B735-BAFA2B69A83A",
+	"logic":"CONTEXT",
+	"name":"isEligible",
+	"required": ["checks" ]
+      }
+    ],
+    "file":"retip.dmn",
+    "inputs": [ {"id":"_F166DE31-458D-4050-859A-75F9420F3955","name":"situation","typeRef":"tSituation"} ],
+    "name":"PhlRetip",
+    "namespace":"https://kie.apache.org/dmn/_667E72C0-CBDA-4E7D-942C-0E3FDD13252F",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_AD2B0550-D31E-47D7-8458-EFEE3644E6A1",
+	"name":"PhlRetipService",
+	"outputs": ["checks", "isEligible", "nextSteps" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"PhlRetip",
+  "source":"DMN",
+  "title":"PhlRetip",
+  "twin":"retip"
+}

@@ -1,0 +1,106 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the tree diameter is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"treeDiameter",
+      "kind":"value",
+      "name":"treeDiameter",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the tree diameter is *a number*",
+      "text":"treeDiameter",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the protected area is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"protectedArea",
+      "kind":"value",
+      "name":"protectedArea",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the protected area is *a truth value*",
+      "text":"protectedArea",
+      "type":"boolean"
+    },
+    {
+      "aliases": ["decision" ],
+      "derived":true,
+      "display":"the tree felling permitted is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Tree Felling Permitted?",
+      "kind":"value",
+      "name":"Tree Felling Permitted?",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the tree felling permitted is *a text*",
+      "text":"Tree Felling Permitted?",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["TreeFellingDecision", "tree_felling_decision" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"TreeFellingDecision",
+	"inputs": [ {"index":1,"text":"treeDiameter"},  {"index":2,"text":"protectedArea"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Tree Felling Permitted?",
+	"outputs": [ {"index":1,"name":"decision"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"DecisionRule_0l8z953",
+	    "index":1,
+	    "inputs": ["<= 30", "-" ],
+	    "outputs": ["\"Permit\"" ]
+	  },
+	   {
+	    "id":"DecisionRule_17ed8cc",
+	    "index":2,
+	    "inputs": ["[31..60]", false ],
+	    "outputs": ["\"Permit\"" ]
+	  },
+	   {
+	    "id":"DecisionRule_1x2tlzl",
+	    "index":3,
+	    "inputs": ["[31..60]", true ],
+	    "outputs": ["\"Reject\"" ]
+	  },
+	   {
+	    "id":"DecisionRule_0fvnpue",
+	    "index":4,
+	    "inputs": ["> 60", "-" ],
+	    "outputs": ["\"Reject\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"tree-felling-decision.dmn",
+    "inputs": [
+      {"id":"InputData_treeDiameter","name":"treeDiameter","typeRef":"integer"},
+      {"id":"InputData_protectedArea","name":"protectedArea","typeRef":"boolean"}
+    ],
+    "name":"TreeFellingDecision",
+    "namespace":"http://example.com/tree-permit/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"TreeFellingDecision",
+  "source":"DMN",
+  "title":"TreeFellingDecision",
+  "twin":"tree_felling_decision"
+}

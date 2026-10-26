@@ -1,0 +1,90 @@
+% Childcare support: a program written in Logical English and exported to DMN
+% (File > Export to Another System > DMN). It uses what the DMN writer turns
+% into DMN: values and conditions of one applicant (each applicant becomes a
+% case of the DMN model), a decision table with first match, arithmetic, a
+% list and its count, and scenarios that become the model's test cases
+% (lpsPlus migration/dmn/dmn_roundtrip.pl runs them on Drools).
+
+the target language is: prolog.
+
+the templates are:
+    the household income of *an applicant* is *an amount*.
+    the number of adults of *an applicant* is *a number*.
+    the children of *an applicant* include *a name*.
+    *an applicant* works or studies.
+    the income band of *an applicant* is *a band*.
+    the band for an income per adult of *an amount* is *a band* under table income_bands.
+    the number of children of *an applicant* is *a number*.
+    the support rate of *an applicant* is *a rate*.
+    the monthly support of *an applicant* is *an amount*.
+    *an applicant* is eligible for childcare support.
+
+the table income_bands is, with first match:
+    income per adult | band
+    <= 15000         | low
+    <= 40000         | middle
+    any              | high
+
+the knowledge base childcare support includes:
+
+the number of children of an applicant is a number N if
+    the household income of the applicant is an amount
+    and N is the count of each name such that
+        the children of the applicant include the name.
+
+an applicant is eligible for childcare support if
+    the applicant works or studies
+    and the number of children of the applicant is a number
+    and the number > 0.
+
+the income band of an applicant is a band if
+    the household income of the applicant is an amount
+    and the number of adults of the applicant is a number
+    and the number > 0
+    and P = the amount / the number
+    and the band for an income per adult of P is the band under table income_bands.
+
+the support rate of an applicant is 300 if
+    the income band of the applicant is low.
+
+the support rate of an applicant is 150 if
+    the income band of the applicant is middle.
+
+the support rate of an applicant is 0 if
+    the income band of the applicant is high.
+
+the monthly support of an applicant is an amount A if
+    the applicant is eligible for childcare support
+    and the support rate of the applicant is a rate R
+    and the number of children of the applicant is a number N
+    and A = R * N.
+
+scenario two_families is:
+    ana works or studies.
+    the household income of ana is 24000.
+    the number of adults of ana is 2.
+    the children of ana include "Rita".
+    the children of ana include "Tom".
+    the household income of ben is 90000.
+    the number of adults of ben is 1.
+    the children of ben include "Lia".
+    eligible expects answers ["ana is eligible for childcare support"].
+    support expects answers ["the monthly support of ana is 600"].
+    band expects answers ["the income band of ana is low", "the income band of ben is high"].
+
+scenario single_parent is:
+    carla works or studies.
+    the household income of carla is 30000.
+    the number of adults of carla is 1.
+    the children of carla include "Noa".
+    support expects answers ["the monthly support of carla is 150"].
+    band expects answers ["the income band of carla is middle"].
+
+query eligible is:
+    which applicant is eligible for childcare support.
+
+query support is:
+    the monthly support of which applicant is which amount.
+
+query band is:
+    the income band of which applicant is which band.

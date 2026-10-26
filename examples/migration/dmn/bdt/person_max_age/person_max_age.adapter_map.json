@@ -1,0 +1,129 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [ {"name":"id","type":"string"},  {"name":"dateOfBirth","type":"date"} ],
+	  "entity":"global",
+	  "key":"people",
+	  "kind":"records",
+	  "listed":"the people of the situation are listed",
+	  "name":"people",
+	  "template":"the people of the situation include *an id* with *a date*",
+	  "text":"people",
+	  "type":"records"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the person id of the parameters is *a text*",
+	  "entity":"global",
+	  "key":"personId",
+	  "kind":"value",
+	  "name":"personId",
+	  "opposite":null,
+	  "template":"the person id of the parameters is *a text*",
+	  "text":"personId",
+	  "type":"string"
+	},
+	 {
+	  "display":"the as of date of the parameters is *a date*",
+	  "entity":"global",
+	  "key":"asOfDate",
+	  "kind":"value",
+	  "name":"asOfDate",
+	  "opposite":null,
+	  "template":"the as of date of the parameters is *a date*",
+	  "text":"asOfDate",
+	  "type":"date"
+	},
+	 {
+	  "display":"the max age of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"maxAge",
+	  "kind":"value",
+	  "name":"maxAge",
+	  "opposite":null,
+	  "template":"the max age of the parameters is *a number*",
+	  "text":"maxAge",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["PersonMaxAge", "person_max_age" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_590F4D25-088E-44C2-B687-42994AA8EDFE",
+	"logic":"CONTEXT",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"person-max-age.dmn",
+    "inputs": [
+      {"id":"_B722FDDE-1413-4731-82EC-5B49261E3D79","name":"situation","typeRef":"tSituation"},
+      {
+	"id":"_0504B4EF-D5C1-44D2-9CF5-DDFDD6A7C097",
+	"name":"parameters",
+	"typeRef":"tParameters"
+      }
+    ],
+    "name":"PersonMaxAge",
+    "namespace":"https://kie.apache.org/dmn/_45AEA6C4-45ED-45F6-A18F-C534ADDEB602",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_50AFC26A-F5B6-498A-B58F-BDC38F8BE4C9",
+	"name":"PersonMaxAgeService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"PersonMaxAge",
+  "source":"DMN",
+  "title":"PersonMaxAge",
+  "twin":"person_max_age"
+}

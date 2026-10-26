@@ -36,6 +36,7 @@ language reference, §17; two large models apply them all to real regulation.
 - [flip_housing.le](flip_housing.le?scenario=bob&query=flip_bob) — flip queries: what would change the answer (§17.7).
 - [case_search.le](case_search.le?scenario=ana&query=both%20eligible%20and%20excluded) — case searches: every case in which a goal holds, which scenarios cover each one, and a case that breaks a property (§17.11).
 - [precedent.le](precedent.le), [precedent_pattern.le](precedent_pattern.le) — factors and precedent (§17.8).
+- [dmn_export/](dmn_export/README.md) — a program written in Logical English and exported to DMN 1.6, its scenarios as DMN test cases.
 
 ## More
 

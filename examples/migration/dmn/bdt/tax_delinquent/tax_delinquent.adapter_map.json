@@ -1,0 +1,85 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the tax delinquent of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"taxDelinquent",
+	      "kind":"value",
+	      "name":"taxDelinquent",
+	      "opposite":null,
+	      "template":"the tax delinquent of the simple checks of the situation is *a truth value*",
+	      "text":"taxDelinquent",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["TaxDelinquent", "tax_delinquent" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_76277271-E005-4934-8D0F-5C4433255927",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"tax-delinquent.dmn",
+    "inputs": [ {"id":"_828BBBD1-BA7A-488F-A5A6-C00779022AFA","name":"situation","typeRef":"tSituation"} ],
+    "name":"TaxDelinquent",
+    "namespace":"https://kie.apache.org/dmn/_F26CE0F4-1FF7-404A-9EF3-788224C69FE5",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_C41C2468-7290-4E8E-895F-8D0F648C6E26",
+	"name":"TaxDelinquentService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"TaxDelinquent",
+  "source":"DMN",
+  "title":"TaxDelinquent",
+  "twin":"tax_delinquent"
+}

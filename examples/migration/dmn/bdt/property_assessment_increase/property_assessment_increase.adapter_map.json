@@ -1,0 +1,140 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the property assessment of the situation is *a number*",
+	  "entity":"global",
+	  "key":"propertyAssessment",
+	  "kind":"value",
+	  "name":"propertyAssessment",
+	  "opposite":null,
+	  "template":"the property assessment of the situation is *a number*",
+	  "text":"propertyAssessment",
+	  "type":"number"
+	},
+	 {
+	  "display":"the previous year property assessment of the situation is *a number*",
+	  "entity":"global",
+	  "key":"previousYearPropertyAssessment",
+	  "kind":"value",
+	  "name":"previousYearPropertyAssessment",
+	  "opposite":null,
+	  "template":"the previous year property assessment of the situation is *a number*",
+	  "text":"previousYearPropertyAssessment",
+	  "type":"number"
+	},
+	 {
+	  "display":"the lowest property assessment last five years of the situation is *a number*",
+	  "entity":"global",
+	  "key":"lowestPropertyAssessmentLastFiveYears",
+	  "kind":"value",
+	  "name":"lowestPropertyAssessmentLastFiveYears",
+	  "opposite":null,
+	  "template":"the lowest property assessment last five years of the situation is *a number*",
+	  "text":"lowestPropertyAssessmentLastFiveYears",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the one year percent of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"oneYearPercent",
+	  "kind":"value",
+	  "name":"oneYearPercent",
+	  "opposite":null,
+	  "template":"the one year percent of the parameters is *a number*",
+	  "text":"oneYearPercent",
+	  "type":"number"
+	},
+	 {
+	  "display":"the five year percent of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"fiveYearPercent",
+	  "kind":"value",
+	  "name":"fiveYearPercent",
+	  "opposite":null,
+	  "template":"the five year percent of the parameters is *a number*",
+	  "text":"fiveYearPercent",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["PropertyAssessmentIncrease", "property_assessment_increase" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_44072827-1D4C-4015-9495-ECFC002F7FA2",
+	"logic":"CONTEXT",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"property-assessment-increase.dmn",
+    "inputs": [
+      {"id":"_62D62E47-96B5-4FA5-9AFA-CE7A2161181E","name":"situation","typeRef":"tSituation"},
+      {
+	"id":"_A0E81103-7450-4290-AA82-95A84CD3329A",
+	"name":"parameters",
+	"typeRef":"tParameters"
+      }
+    ],
+    "name":"PropertyAssessmentIncrease",
+    "namespace":"https://kie.apache.org/dmn/_DAB3F35C-2DCB-4A58-AC98-74EF174731A8",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_7C64C2FC-2361-4EE3-8790-4B918618BD2F",
+	"name":"PropertyAssessmentIncreaseService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"PropertyAssessmentIncrease",
+  "source":"DMN",
+  "title":"PropertyAssessmentIncrease",
+  "twin":"property_assessment_increase"
+}

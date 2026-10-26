@@ -1,0 +1,48 @@
+{
+  "counts": {"approximated":1,"encoded":1,"residue":0},
+  "entries": [
+    {
+      "element":"Beverages",
+      "in_program":"Beverages",
+      "kind":"decision table",
+      "mapping":"decision table",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"Dish",
+      "in_program":"Dish",
+      "kind":"decision table",
+      "mapping":"decision table",
+      "note":"a column that compares numbers and has `-` cells: where its input is null the table has no answer, while DMN matches a row with `-`",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":12,
+    "tests": [
+      {"detail":"","query":"q_d_rel_beverages","result":"pass","scenario":"spring_6"},
+      {"detail":"","query":"q_d_dish","result":"pass","scenario":"spring_6"},
+      {"detail":"","query":"q_d_rel_beverages","result":"pass","scenario":"spring_3"},
+      {"detail":"","query":"q_d_dish","result":"pass","scenario":"spring_3"},
+      {"detail":"","query":"q_d_rel_beverages","result":"pass","scenario":"fall_8"},
+      {"detail":"","query":"q_d_dish","result":"pass","scenario":"fall_8"},
+      {"detail":"","query":"q_d_rel_beverages","result":"pass","scenario":"winter_12"},
+      {"detail":"","query":"q_d_dish","result":"pass","scenario":"winter_12"},
+      {"detail":"","query":"q_d_rel_beverages","result":"pass","scenario":"winter_2"},
+      {"detail":"","query":"q_d_dish","result":"pass","scenario":"winter_2"},
+      {"detail":"","query":"q_d_rel_beverages","result":"pass","scenario":"summer_20"},
+      {"detail":"","query":"q_d_dish","result":"pass","scenario":"summer_20"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["dinnerDecisions.dmn" ],
+    "program":"dinnerdecisions",
+    "source":"DMN",
+    "translator":"dmn_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":6
+}

@@ -1,0 +1,124 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the machtiging aanwezig is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"machtigingAanwezig",
+      "kind":"value",
+      "name":"machtigingAanwezig",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the machtiging aanwezig is *a truth value*",
+      "text":"machtigingAanwezig",
+      "type":"boolean"
+    },
+    {
+      "derived":false,
+      "display":"the delegatie uitgesloten is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"delegatieUitgesloten",
+      "kind":"value",
+      "name":"delegatieUitgesloten",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the delegatie uitgesloten is *a truth value*",
+      "text":"delegatieUitgesloten",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is *a truth value*",
+	  "entity":"global",
+	  "key":"delegatieGeblokkeerd",
+	  "kind":"value",
+	  "name":"delegatieGeblokkeerd",
+	  "opposite":null,
+	  "template":"the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is *a truth value*",
+	  "text":"delegatieGeblokkeerd",
+	  "type":"boolean"
+	},
+	 {
+	  "display":"the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is *a text*",
+	  "entity":"global",
+	  "key":"delegatieReden",
+	  "kind":"value",
+	  "name":"delegatieReden",
+	  "opposite":null,
+	  "template":"the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is *a text*",
+	  "text":"delegatieReden",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"DvTP Machtiging- en delegatiecheck (FR-02)",
+      "kind":"structure",
+      "name":"DvTP Machtiging- en delegatiecheck (FR-02)",
+      "output":"contract",
+      "role":"decision",
+      "text":"DvTP Machtiging- en delegatiecheck (FR-02)",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["DvtpDelegationCheck", "dvtpdelegationcheck" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"DvtpDelegationCheck",
+	"inputs": [ {"index":1,"text":"machtigingAanwezig"},  {"index":2,"text":"delegatieUitgesloten"} ],
+	"logic":"DECISION_TABLE",
+	"name":"DvTP Machtiging- en delegatiecheck (FR-02)",
+	"outputs": [ {"index":1,"name":"delegatieGeblokkeerd"},  {"index":2,"name":"delegatieReden"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_Blocked",
+	    "index":1,
+	    "inputs": [true, true ],
+	    "outputs": [
+	      true,
+	      "\"U heeft ingelogd via een machtiging, maar deze dienst staat het geven van toestemming namens een ander niet toe (FR-02). Log opnieuw in met uw eigen DigiD.\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_DelegationAllowed",
+	    "index":2,
+	    "inputs": [true, false ],
+	    "outputs": [false, "\"Machtiging aanwezig en delegatie is toegestaan voor deze dienst.\"" ]
+	  },
+	   {
+	    "id":"Rule_NoMachtiging",
+	    "index":3,
+	    "inputs": [false, "-" ],
+	    "outputs": [false, "\"Geen machtiging gedetecteerd. Burger handelt op eigen naam.\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"DvtpDelegationCheck.dmn",
+    "inputs": [
+      {"id":"InputData_machtigingAanwezig","name":"machtigingAanwezig","typeRef":"boolean"},
+      {"id":"InputData_delegatieUitgesloten","name":"delegatieUitgesloten","typeRef":"boolean"}
+    ],
+    "name":"DvtpDelegationCheck",
+    "namespace":"http://example.com/dvtp/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"DvtpDelegationCheck",
+  "source":"DMN",
+  "title":"DvtpDelegationCheck",
+  "twin":"dvtpdelegationcheck"
+}

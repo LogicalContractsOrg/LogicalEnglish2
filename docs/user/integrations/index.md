@@ -1,6 +1,6 @@
 # Other systems: importing and exporting
 
-*Kind: integration guide · Audience: users · Status: current (2026-10-05)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-26)*
 
 The editor opens the files of other rule systems and contract systems as Logical
 English (LE). The editor also writes some Logical English programs in the format of a
@@ -33,6 +33,7 @@ English software has no translator. On such a server:
 - [Exporting to another system](#exporting-to-another-system)
   - [When an export is refused](#when-an-export-is-refused)
 - [The migration twins among the examples](#the-migration-twins-among-the-examples)
+- [Adapters: keep the callers](#adapters-keep-the-callers)
 - [See also](#see-also)
 
 ## The map
@@ -95,7 +96,7 @@ flowchart LR
   L4 -- "rules" --> LE
   L4 -- "contracts" --> LPS
   XL -- "formulas as rules" --> LE
-  DMN -- "tables as tables" --> LE
+  LE <--> DMN
   LE -. "asks, as a service" .-> XL
   DR -- "decision services" --> LE
   DR -- "stateful rules" --> LPS
@@ -144,7 +145,7 @@ The LPS2 editor has its own map. That map shows the systems that only LPS2 reads
 |---|---|---|
 | Axiom RuleSpec module (United States statutes, regulations and policies as YAML) | import, export | [Axiom RuleSpec](rulespec.md) |
 | Excel workbook (.xlsx, .xlsm): formulas, lookup tables, the answers of the workbook | import; asked as a service | [Spreadsheets](spreadsheets.md) |
-| DMN decision model (OMG DMN 1.1 to 1.6, FEEL; the Dutch STTR files), with a TCK test file next to it | import | [DMN](dmn.md) |
+| DMN decision model (OMG DMN 1.1 to 1.6, FEEL; the Dutch STTR files), with a TCK test file next to it | import, export (DMN 1.6, the scenarios as TCK test cases); an adapter answers the callers of Kogito, KIE Server and Camunda | [DMN](dmn.md) |
 | OpenFisca or PolicyEngine model (Python variables, YAML parameters and tests) | import, export | [OpenFisca and PolicyEngine](openfisca.md) |
 | Catala program (English or French), with its test scopes | import, export | [Catala](catala.md) |
 | Rune file: the Digital Regulatory Reporting of ISDA, the Common Domain Model, or a model of your own | import, export (run on the engine of DRR) | [Rune](rune.md) |
@@ -152,7 +153,7 @@ The LPS2 editor has its own map. That map shows the systems that only LPS2 reads
 | LegalRuleML (OASIS) | import, export | [LegalRuleML](legalruleml.md) |
 | s(CASP), Prolog, the s(CASP) translations of LE1 | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |
 | Blawx project (version 1) | import | [Blawx](blawx.md) |
-| Oracle Intelligent Advisor project or rulebase | import | [Oracle Intelligent Advisor](oia.md) |
+| Oracle Intelligent Advisor project or rulebase | import; an adapter answers the callers of OIA | [Oracle Intelligent Advisor](oia.md) |
 | Socotra product configuration | import | [Socotra](socotra.md) |
 | Oracle Insurance Policy Administration transaction | import | [OIPA](oipa.md) |
 | Epilog program | import (rulesets as LE, games as LE for LPS) | [Epilog](epilog.md) |
@@ -322,7 +323,9 @@ window. The window contains these items:
 - the exported text.
 
 The exporters are Bitcoin Miniscript (for spending-policy programs), LegalRuleML (for
-usual rule programs) and Daml (for LE for LPS programs). For example, the editor
+usual rule programs), DMN (for programs about one case, or about one kind of thing,
+with values, conditions and decision tables), Axiom RuleSpec, OpenFisca, Catala, Rune
+and Daml (for LE for LPS programs). For example, the editor
 shows both Miniscript and LegalRuleML for `migration/miniscript/core_2of3_multisig`.
 The LPS2 editor has the same exporters in **Misc ▸ Export to another system…**. It
 also has one more exporter of its own, **Misc ▸ Deploy as Solidity…**.
@@ -388,6 +391,14 @@ of L4) are among the examples of LPS2. The twins of Oracle Intelligent Advisor,
 Oracle Insurance Policy Administration (OIPA), Socotra and Epilog are only on
 installations that have the lpsPlus examples (in `lpsPlus/migration/`). Only users
 with access to these examples can open them.
+
+## Adapters: keep the callers
+
+A translated program can also answer the applications that called the other
+system, in the format of that system. This part of the server is an
+**adapter**. Two adapters exist: one for Oracle Intelligent Advisor, one for
+the DMN engines Kogito, KIE Server, Camunda 7 and Camunda 8. Refer to
+[Adapters](adapters.md).
 
 ## See also
 

@@ -1,0 +1,85 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the disqualifying tax abatement of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"disqualifyingTaxAbatement",
+	      "kind":"value",
+	      "name":"disqualifyingTaxAbatement",
+	      "opposite":null,
+	      "template":"the disqualifying tax abatement of the simple checks of the situation is *a truth value*",
+	      "text":"disqualifyingTaxAbatement",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["NoDisqualifyingTaxAbatement", "no_disqualifying_tax_abatement" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_285A7324-8165-46FA-A322-BC3B22C19A79",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"no-disqualifying-tax-abatement.dmn",
+    "inputs": [ {"id":"_0A59467B-A86E-4014-9CA9-C39219EA7E0E","name":"situation","typeRef":"tSituation"} ],
+    "name":"NoDisqualifyingTaxAbatement",
+    "namespace":"https://kie.apache.org/dmn/_5B6F0640-F1FF-4AFF-9D7A-A58FCA052672",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_3B748852-FBA3-428F-9C75-1D024EEE30A9",
+	"name":"NoDisqualifyingTaxAbatementService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"NoDisqualifyingTaxAbatement",
+  "source":"DMN",
+  "title":"NoDisqualifyingTaxAbatement",
+  "twin":"no_disqualifying_tax_abatement"
+}

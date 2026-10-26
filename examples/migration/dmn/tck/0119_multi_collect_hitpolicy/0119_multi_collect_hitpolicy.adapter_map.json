@@ -1,0 +1,120 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the age is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"Age",
+      "kind":"value",
+      "name":"Age",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the age is *a number*",
+      "text":"Age",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the risk category is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"RiskCategory",
+      "kind":"value",
+      "name":"RiskCategory",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the risk category is *a text*",
+      "text":"RiskCategory",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the is_affordable is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"isAffordable",
+      "kind":"value",
+      "name":"isAffordable",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the is_affordable is *a truth value*",
+      "text":"isAffordable",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "components": [ {"name":"Approved/Declined","type":"string"},  {"name":"Rate","type":"string"} ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Approval Status",
+      "kind":"records",
+      "listed":"the approval status are listed",
+      "name":"Approval Status",
+      "output":"contract",
+      "role":"decision",
+      "template":"the approval status include *an approved declined* with *a rate*",
+      "text":"Approval Status",
+      "type":"records"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0119-multi-collect-hitpolicy", "0119_multi_collect_hitpolicy" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"COLLECT",
+	"id":"_3b2953a3-745f-4d2e-b55d-75c8c5ae653c",
+	"inputs": [
+	   {"index":1,"text":"Age"},
+	   {"index":2,"text":"RiskCategory"},
+	   {"index":3,"text":"isAffordable"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Approval Status",
+	"outputs": [ {"index":1,"name":"Approved/Declined"},  {"index":2,"name":"Rate"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"_d720490a-c6c7-4e48-b003-44d99720c632",
+	    "index":1,
+	    "inputs": [">=18", "\"Medium\",\"Low\"", true ],
+	    "outputs": ["\"Approved\"", "\"Basic\"" ]
+	  },
+	   {
+	    "id":"_8e20e9ca-e276-4c26-b09a-52fe55f7b18a",
+	    "index":2,
+	    "inputs": ["<18", "-", "-" ],
+	    "outputs": ["\"Declined\"", "\"Standard\"" ]
+	  },
+	   {
+	    "id":"_784c2e00-6d8d-4739-8aff-4bd810e4f1d0",
+	    "index":3,
+	    "inputs": ["-", "\"High\"", "-" ],
+	    "outputs": ["\"Approved\"", "\"Standard\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"0119-multi-collect-hitpolicy.dmn",
+    "inputs": [
+      {"id":"_41effb45-b3c4-46ac-b1da-122b3e428a98","name":"Age","typeRef":"number"},
+      {"id":"_5a4bdb64-f0ef-4978-9e03-6f1ae64a1f17","name":"RiskCategory","typeRef":"string"},
+      {"id":"_8ff18665-84e9-49f2-a8df-8981b1844549","name":"isAffordable","typeRef":"boolean"}
+    ],
+    "name":"0119-multi-collect-hitpolicy",
+    "namespace":"http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0119-multi-collect-hitpolicy",
+  "source":"DMN",
+  "title":"0119-multi-collect-hitpolicy",
+  "twin":"0119_multi_collect_hitpolicy"
+}

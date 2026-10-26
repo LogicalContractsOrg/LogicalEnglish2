@@ -1,0 +1,108 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the amount of the loan is *a number*",
+	  "entity":"global",
+	  "key":"amount",
+	  "kind":"value",
+	  "name":"amount",
+	  "opposite":null,
+	  "template":"the amount of the loan is *a number*",
+	  "text":"amount",
+	  "type":"number"
+	},
+	 {
+	  "display":"the rate of the loan is *a number*",
+	  "entity":"global",
+	  "key":"rate",
+	  "kind":"value",
+	  "name":"rate",
+	  "opposite":null,
+	  "template":"the rate of the loan is *a number*",
+	  "text":"rate",
+	  "type":"number"
+	},
+	 {
+	  "display":"the term of the loan is *a number*",
+	  "entity":"global",
+	  "key":"term",
+	  "kind":"value",
+	  "name":"term",
+	  "opposite":null,
+	  "template":"the term of the loan is *a number*",
+	  "text":"term",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"Loan",
+      "kind":"structure",
+      "name":"Loan",
+      "output":null,
+      "role":"input",
+      "text":"Loan",
+      "type":"structure"
+    },
+    {
+      "derived":false,
+      "display":"the fee is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"fee",
+      "kind":"value",
+      "name":"fee",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the fee is *a number*",
+      "text":"fee",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the monthly payment is *a number*",
+      "entity":"global",
+      "goal":true,
+      "key":"MonthlyPayment",
+      "kind":"value",
+      "name":"MonthlyPayment",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the monthly payment is *a number*",
+      "text":"MonthlyPayment",
+      "type":"number"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0009-invocation-arithmetic", "0009_invocation_arithmetic" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"d_MonthlyPayment",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"MonthlyPayment",
+	"required": []
+      }
+    ],
+    "file":"0009-invocation-arithmetic.dmn",
+    "inputs": [
+      {"id":"i_Loan","name":"Loan","typeRef":"tLoan"},
+      {"id":"i_fee","name":"fee","typeRef":"number"}
+    ],
+    "name":"0009-invocation-arithmetic",
+    "namespace":"http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0009-invocation-arithmetic",
+  "source":"DMN",
+  "title":"0009-invocation-arithmetic",
+  "twin":"0009_invocation_arithmetic"
+}

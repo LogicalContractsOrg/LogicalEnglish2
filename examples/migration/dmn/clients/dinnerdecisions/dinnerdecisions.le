@@ -1,0 +1,119 @@
+% The Logical English twin of the DMN model "Dinner Decisions" (dinnerDecisions.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the season is *a value*.
+    the number of guests is *a value*.
+    the guests with children is *a value*.
+    the dish is *a text*.
+    the guest count is *a number*.
+    the guests with children two is *a truth value*.
+    the season two is *a text*.
+    the dish or null is *a text*.
+    the guests with children two or null is *a truth value*.
+
+the templates are:
+    the beverages include *a text*.
+    the beverages are listed.
+    the beverages for *a text* and *a truth value* is *a second text* under table beverages.
+    the dish for *a text* and *a number* is *a second text* under table dish.
+
+the table beverages is, with all matches:
+    desired dish                                                          | guests with children | beverages
+    "Spareribs"                                                           | any                  | "Aecht Schlenkerla Rauchbier"
+    "Stew"                                                                | any                  | "Guiness"
+    "Roastbeef"                                                           | any                  | "Bordeaux"
+    "Steak" or "Dry Aged Gourmet Steak" or "Light Salad and a nice Steak" | any                  | "Pinot Noir"
+    any                                                                   | true                 | "Apple Juice"
+    any                                                                   | any                  | "Water"
+
+the table dish is, with unique match:
+    season                         | guest count   | desired dish
+    "Fall"                         | <= 8          | "Spareribs"
+    "Winter"                       | <= 8          | "Roastbeef"
+    "Spring"                       | <= 4          | "Dry Aged Gourmet Steak"
+    "Spring"                       | >= 5 and <= 8 | "Steak"
+    "Fall" or "Winter" or "Spring" | > 8           | "Stew"
+    "Summer"                       | any           | "Light Salad and a nice Steak"
+
+the knowledge base dinnerdecisions includes:
+
+the text of the_model is at "sources/dinnerDecisions.dmn".
+
+the dish or null is the dish, as stated in the model at decision Beverages.
+
+rule beverages_2 with provenance the model at decision Beverages:
+the dish or null is null if
+    it is not the case that the dish is a text.
+
+the guests with children two or null is the guests with children two, as stated in the model at decision Beverages.
+
+rule beverages_4 with provenance the model at decision Beverages:
+the guests with children two or null is null if
+    it is not the case that the guests with children two is a truth value.
+
+rule beverages_5 with provenance the model at decision Beverages:
+the beverages include a text if
+    the beverages for the dish or null and the guests with children two or null is the text under table beverages.
+
+rule dish_1 with provenance the model at decision Dish:
+the dish is a text if
+    the dish for the season two and the guest count is the text under table dish.
+
+scenario spring_6 is, as stated in "the oracle, Camunda 7.23's DMN engine, on the cases of clients/" at test case spring_6 spring six guests children:
+    the guest count is 6.
+    the guests with children two is true.
+    the season two is "Spring".
+    q_d_rel_beverages expects answers ["the beverages include Apple Juice", "the beverages include Pinot Noir", "the beverages include Water"].
+    q_d_dish expects answers ["the dish is Steak"].
+
+scenario spring_3 is, as stated in "the oracle, Camunda 7.23's DMN engine, on the cases of clients/" at test case spring_3 spring three guests no children:
+    the guest count is 3.
+    the guests with children two is false.
+    the season two is "Spring".
+    q_d_rel_beverages expects answers ["the beverages include Pinot Noir", "the beverages include Water"].
+    q_d_dish expects answers ["the dish is Dry Aged Gourmet Steak"].
+
+scenario fall_8 is, as stated in "the oracle, Camunda 7.23's DMN engine, on the cases of clients/" at test case fall_8 fall eight guests:
+    the guest count is 8.
+    the guests with children two is false.
+    the season two is "Fall".
+    q_d_rel_beverages expects answers ["the beverages include Aecht Schlenkerla Rauchbier", "the beverages include Water"].
+    q_d_dish expects answers ["the dish is Spareribs"].
+
+scenario winter_12 is, as stated in "the oracle, Camunda 7.23's DMN engine, on the cases of clients/" at test case winter_12 winter twelve guests children:
+    the guest count is 12.
+    the guests with children two is true.
+    the season two is "Winter".
+    q_d_rel_beverages expects answers ["the beverages include Apple Juice", "the beverages include Guiness", "the beverages include Water"].
+    q_d_dish expects answers ["the dish is Stew"].
+
+scenario winter_2 is, as stated in "the oracle, Camunda 7.23's DMN engine, on the cases of clients/" at test case winter_2 winter two guests:
+    the guest count is 2.
+    the guests with children two is false.
+    the season two is "Winter".
+    q_d_rel_beverages expects answers ["the beverages include Bordeaux", "the beverages include Water"].
+    q_d_dish expects answers ["the dish is Roastbeef"].
+
+scenario summer_20 is, as stated in "the oracle, Camunda 7.23's DMN engine, on the cases of clients/" at test case summer_20 summer twenty guests children:
+    the guest count is 20.
+    the guests with children two is true.
+    the season two is "Summer".
+    q_d_rel_beverages expects answers ["the beverages include Apple Juice", "the beverages include Pinot Noir", "the beverages include Water"].
+    q_d_dish expects answers ["the dish is Light Salad and a nice Steak"].
+
+query q_d_dish is:
+    the dish is which text.
+
+query q_d_rel_beverages is:
+    the beverages include which text.
+

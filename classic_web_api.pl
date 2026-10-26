@@ -89,6 +89,18 @@ accounts_available :- current_predicate(lc_accounts:lc_request_user/2).
    ;   true
    ).
 
+%  The DMN adapter likewise (`migration/dmn/dmn_adapter.pl`): the decision
+%  APIs of Kogito, KIE Server, Camunda 7 and Camunda 8 (/kogito/...,
+%  /kie-server/services/rest/server/..., /engine-rest/...,
+%  /v2/decision-definitions/evaluation, /dmn-adapter), answered by the
+%  Logical English twins of DMN models. Both adapters are dialects of the
+%  open adapter kit, le_adapter.pl (docs/user/integrations/adapters.md).
+:- (   le_plus_file('migration/dmn/dmn_adapter.pl', DmnAdapterFile)
+   ->  catch(use_module(DmnAdapterFile), E,
+             print_message(warning, format('DMN adapter not loaded: ~q', [E])))
+   ;   true
+   ).
+
 %!  request_visitor(?Email, ?Capabilities) is semidet.
 %
 %   Who the request being served is from, set for every request by

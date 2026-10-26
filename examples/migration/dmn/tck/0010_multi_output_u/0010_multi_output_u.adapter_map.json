@@ -1,0 +1,153 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the age is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"Age",
+      "kind":"value",
+      "name":"Age",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the age is *a number*",
+      "text":"Age",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the risk category is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"RiskCategory",
+      "kind":"value",
+      "name":"RiskCategory",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the risk category is *a text*",
+      "text":"RiskCategory",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the is_affordable is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"isAffordable",
+      "kind":"value",
+      "name":"isAffordable",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the is_affordable is *a truth value*",
+      "text":"isAffordable",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the status of the approval is *a text*",
+	  "entity":"global",
+	  "key":"Status",
+	  "kind":"value",
+	  "name":"Status",
+	  "opposite":null,
+	  "template":"the status of the approval is *a text*",
+	  "text":"Status",
+	  "type":"string"
+	},
+	 {
+	  "display":"the rate of the approval is *a text*",
+	  "entity":"global",
+	  "key":"Rate",
+	  "kind":"value",
+	  "name":"Rate",
+	  "opposite":null,
+	  "template":"the rate of the approval is *a text*",
+	  "text":"Rate",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Approval",
+      "kind":"structure",
+      "name":"Approval",
+      "output":"contract",
+      "role":"decision",
+      "text":"Approval",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0010-multi-output-U", "0010_multi_output_u" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"UNIQUE",
+	"id":"_3b2953a3-745f-4d2e-b55d-75c8c5ae653c",
+	"inputs": [
+	   {"index":1,"text":"Age"},
+	   {"index":2,"text":"RiskCategory"},
+	   {"index":3,"text":"isAffordable"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Approval",
+	"outputs": [ {"index":1,"name":"Status"},  {"index":2,"name":"Rate"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"_ca85854c-27a3-4001-b2ac-23a164ca5940",
+	    "index":1,
+	    "inputs": [">=18", "\"Low\"", true ],
+	    "outputs": ["\"Approved\"", "\"Best\"" ]
+	  },
+	   {
+	    "id":"_7f03803d-2636-40ab-8346-7fd7f38ab695",
+	    "index":2,
+	    "inputs": [">=18", "\"Medium\"", true ],
+	    "outputs": ["\"Approved\"", "\"Standard\"" ]
+	  },
+	   {
+	    "id":"_887acecd-40fc-42da-9443-eeba476f5516",
+	    "index":3,
+	    "inputs": ["<18", "\"Medium\",\"Low\"", true ],
+	    "outputs": ["\"Declined\"", "\"Standard\"" ]
+	  },
+	   {
+	    "id":"_18058414-a571-4375-991f-77b9ea7fc699",
+	    "index":4,
+	    "inputs": ["-", "\"High\"", true ],
+	    "outputs": ["\"Declined\"", "\"Standard\"" ]
+	  },
+	   {
+	    "id":"_ede3e62a-43f3-49d3-90a4-ffaf1f698f54",
+	    "index":5,
+	    "inputs": ["-", "-", false ],
+	    "outputs": ["\"Declined\"", "\"Standard\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"0010-multi-output-U.dmn",
+    "inputs": [
+      {"id":"_41effb45-b3c4-46ac-b1da-122b3e428a98","name":"Age","typeRef":"number"},
+      {"id":"_5a4bdb64-f0ef-4978-9e03-6f1ae64a1f17","name":"RiskCategory","typeRef":"string"},
+      {"id":"_8ff18665-84e9-49f2-a8df-8981b1844549","name":"isAffordable","typeRef":"boolean"}
+    ],
+    "name":"0010-multi-output-U",
+    "namespace":"http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0010-multi-output-U",
+  "source":"DMN",
+  "title":"0010-multi-output-U",
+  "twin":"0010_multi_output_u"
+}

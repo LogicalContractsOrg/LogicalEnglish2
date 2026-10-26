@@ -1,0 +1,88 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the value is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"A",
+      "kind":"value",
+      "name":"A",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the value is *a truth value*",
+      "text":"A",
+      "type":"boolean"
+    },
+    {
+      "derived":false,
+      "display":"the b is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"B",
+      "kind":"value",
+      "name":"B",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the b is *a truth value*",
+      "text":"B",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the decision and is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"DecisionAnd",
+      "kind":"value",
+      "name":"DecisionAnd",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the decision and is *a truth value*",
+      "text":"DecisionAnd",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the decision or is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"DecisionOr",
+      "kind":"value",
+      "name":"DecisionOr",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the decision or is *a truth value*",
+      "text":"DecisionOr",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0106-feel-ternary-logic", "0106_feel_ternary_logic" ],
+  "dmn": {
+    "decisions": [
+      {"id":"d_1","logic":"LITERAL_EXPRESSION","name":"DecisionAnd","required": []},
+      {"id":"d_2","logic":"LITERAL_EXPRESSION","name":"DecisionOr","required": []}
+    ],
+    "file":"0106-feel-ternary-logic.dmn",
+    "inputs": [
+      {"id":"i_a","name":"A","typeRef":"boolean"},
+      {"id":"i_b","name":"B","typeRef":"boolean"}
+    ],
+    "name":"0106-feel-ternary-logic",
+    "namespace":"https://github.com/dmn-tck/tck",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0106-feel-ternary-logic",
+  "source":"DMN",
+  "title":"0106-feel-ternary-logic",
+  "twin":"0106_feel_ternary_logic"
+}

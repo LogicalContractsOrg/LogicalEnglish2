@@ -1,0 +1,134 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the product type is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"productType",
+      "kind":"value",
+      "name":"productType",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the product type is *a text*",
+      "text":"productType",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the is_complete of the awb admissibility check is *a truth value*",
+	  "entity":"global",
+	  "key":"isComplete",
+	  "kind":"value",
+	  "name":"isComplete",
+	  "opposite":null,
+	  "template":"the is_complete of the awb admissibility check is *a truth value*",
+	  "text":"isComplete",
+	  "type":"boolean"
+	},
+	 {
+	  "display":"the missing fields of the awb admissibility check is *a text*",
+	  "entity":"global",
+	  "key":"missingFields",
+	  "kind":"value",
+	  "name":"missingFields",
+	  "opposite":null,
+	  "template":"the missing fields of the awb admissibility check is *a text*",
+	  "text":"missingFields",
+	  "type":"string"
+	},
+	 {
+	  "display":"the awb article of the awb admissibility check is *a text*",
+	  "entity":"global",
+	  "key":"awbArticle",
+	  "kind":"value",
+	  "name":"awbArticle",
+	  "opposite":null,
+	  "template":"the awb article of the awb admissibility check is *a text*",
+	  "text":"awbArticle",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Awb Admissibility Check",
+      "kind":"structure",
+      "name":"Awb Admissibility Check",
+      "output":"contract",
+      "role":"decision",
+      "text":"Awb Admissibility Check",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["AwbCompletenessCheck", "awb_completeness_check" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"AwbCompletenessCheck",
+	"inputs": [ {"index":1,"text":"productType"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Awb Admissibility Check",
+	"outputs": [
+	   {"index":1,"name":"isComplete"},
+	   {"index":2,"name":"missingFields"},
+	   {"index":3,"name":"awbArticle"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_TreeFellingPermit",
+	    "index":1,
+	    "inputs": ["\"TreeFellingPermit\"" ],
+	    "outputs": [true, "\"No missing fields.\"", "\"Awb 4:5 - application complete\"" ]
+	  },
+	   {
+	    "id":"Rule_Zorgtoeslag",
+	    "index":2,
+	    "inputs": ["\"Zorgtoeslag\"" ],
+	    "outputs": [true, "\"No missing fields.\"", "\"Awb 4:5 - application complete\"" ]
+	  },
+	   {
+	    "id":"Rule_BuildingPermit",
+	    "index":3,
+	    "inputs": ["\"BuildingPermit\"" ],
+	    "outputs": [true, "\"No missing fields.\"", "\"Awb 4:5 - application complete\"" ]
+	  },
+	   {
+	    "id":"DecisionRule_0udgnpz",
+	    "index":4,
+	    "inputs": ["\"SubsidieThuisbatterijFlevoland\"" ],
+	    "outputs": [true, "\"No missing fields.\"", "\"Awb 4:5 - application complete\"" ]
+	  },
+	   {
+	    "id":"Rule_Default",
+	    "index":5,
+	    "inputs": ["-" ],
+	    "outputs": [
+	      false,
+	      "\"Unknown product type — this application cannot be processed under the current AWB shell.\"",
+	      "\"Awb 4:5 paragraph 1 - unknown product type\""
+	    ]
+	  }
+	]
+      }
+    ],
+    "file":"awb-completeness-check.dmn",
+    "inputs": [ {"id":"InputData_productType","name":"productType","typeRef":"string"} ],
+    "name":"AwbCompletenessCheck",
+    "namespace":"http://example.com/awb/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"AwbCompletenessCheck",
+  "source":"DMN",
+  "title":"AwbCompletenessCheck",
+  "twin":"awb_completeness_check"
+}

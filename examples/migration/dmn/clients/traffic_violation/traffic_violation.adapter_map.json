@@ -1,0 +1,260 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the code of the violation is *a text*",
+	  "entity":"global",
+	  "key":"Code",
+	  "kind":"value",
+	  "name":"Code",
+	  "opposite":null,
+	  "template":"the code of the violation is *a text*",
+	  "text":"Code",
+	  "type":"string"
+	},
+	 {
+	  "display":"the date of the violation is *a date*",
+	  "entity":"global",
+	  "key":"Date",
+	  "kind":"value",
+	  "name":"Date",
+	  "opposite":null,
+	  "template":"the date of the violation is *a date*",
+	  "text":"Date",
+	  "type":"date"
+	},
+	 {
+	  "display":"the type of the violation is *a text*",
+	  "entity":"global",
+	  "key":"Type",
+	  "kind":"value",
+	  "name":"Type",
+	  "opposite":null,
+	  "template":"the type of the violation is *a text*",
+	  "text":"Type",
+	  "type":"string"
+	},
+	 {
+	  "display":"the speed limit of the violation is *a number*",
+	  "entity":"global",
+	  "key":"Speed Limit",
+	  "kind":"value",
+	  "name":"Speed Limit",
+	  "opposite":null,
+	  "template":"the speed limit of the violation is *a number*",
+	  "text":"Speed Limit",
+	  "type":"number"
+	},
+	 {
+	  "display":"the actual speed of the violation is *a number*",
+	  "entity":"global",
+	  "key":"Actual Speed",
+	  "kind":"value",
+	  "name":"Actual Speed",
+	  "opposite":null,
+	  "template":"the actual speed of the violation is *a number*",
+	  "text":"Actual Speed",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"Violation",
+      "kind":"structure",
+      "name":"Violation",
+      "output":null,
+      "role":"input",
+      "text":"Violation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the name of the driver is *a text*",
+	  "entity":"global",
+	  "key":"Name",
+	  "kind":"value",
+	  "name":"Name",
+	  "opposite":null,
+	  "template":"the name of the driver is *a text*",
+	  "text":"Name",
+	  "type":"string"
+	},
+	 {
+	  "display":"the age of the driver is *a number*",
+	  "entity":"global",
+	  "key":"Age",
+	  "kind":"value",
+	  "name":"Age",
+	  "opposite":null,
+	  "template":"the age of the driver is *a number*",
+	  "text":"Age",
+	  "type":"number"
+	},
+	 {
+	  "display":"the state of the driver is *a text*",
+	  "entity":"global",
+	  "key":"State",
+	  "kind":"value",
+	  "name":"State",
+	  "opposite":null,
+	  "template":"the state of the driver is *a text*",
+	  "text":"State",
+	  "type":"string"
+	},
+	 {
+	  "display":"the city of the driver is *a text*",
+	  "entity":"global",
+	  "key":"City",
+	  "kind":"value",
+	  "name":"City",
+	  "opposite":null,
+	  "template":"the city of the driver is *a text*",
+	  "text":"City",
+	  "type":"string"
+	},
+	 {
+	  "display":"the points of the driver is *a number*",
+	  "entity":"global",
+	  "key":"Points",
+	  "kind":"value",
+	  "name":"Points",
+	  "opposite":null,
+	  "template":"the points of the driver is *a number*",
+	  "text":"Points",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"Driver",
+      "kind":"structure",
+      "name":"Driver",
+      "output":null,
+      "role":"input",
+      "text":"Driver",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the amount of the fine is *a number*",
+	  "entity":"global",
+	  "key":"Amount",
+	  "kind":"value",
+	  "name":"Amount",
+	  "opposite":null,
+	  "template":"the amount of the fine is *a number*",
+	  "text":"Amount",
+	  "type":"number"
+	},
+	 {
+	  "display":"the points of the fine is *a number*",
+	  "entity":"global",
+	  "key":"Points",
+	  "kind":"value",
+	  "name":"Points",
+	  "opposite":null,
+	  "template":"the points of the fine is *a number*",
+	  "text":"Points",
+	  "type":"number"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":false,
+      "key":"Fine",
+      "kind":"structure",
+      "name":"Fine",
+      "output":"contract",
+      "role":"decision",
+      "text":"Fine",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the should the driver be suspended is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Should the driver be suspended?",
+      "kind":"value",
+      "name":"Should the driver be suspended?",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the should the driver be suspended is *a text*",
+      "text":"Should the driver be suspended?",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["Traffic Violation", "traffic_violation" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"UNIQUE",
+	"id":"_4055D956-1C47-479C-B3F4-BAEB61F1C929",
+	"inputs": [
+	   {"index":1,"text":"Violation.Type"},
+	   {"index":2,"text":"Violation.Actual Speed - Violation.Speed Limit"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Fine",
+	"outputs": [ {"index":1,"name":"Amount"},  {"index":2,"name":"Points"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"_424A80AE-916F-4451-9B6B-71557F7EC65A",
+	    "index":1,
+	    "inputs": ["\"speed\"", "[10..30)" ],
+	    "outputs": ["500", "3" ]
+	  },
+	   {
+	    "id":"_B1ECE6A9-6B82-4A85-A7CA-5F96CDB0DCB6",
+	    "index":2,
+	    "inputs": ["\"speed\"", ">= 30" ],
+	    "outputs": ["1000", "7" ]
+	  },
+	   {
+	    "id":"_8FC7068C-A3FD-44D9-AC2B-69C160A12E5D",
+	    "index":3,
+	    "inputs": ["\"parking\"", "-" ],
+	    "outputs": ["100", "1" ]
+	  },
+	   {
+	    "id":"_A742DF2B-DC91-4166-9773-6EF86A45A625",
+	    "index":4,
+	    "inputs": ["\"driving under the influence\"", "-" ],
+	    "outputs": ["1000", "5" ]
+	  }
+	]
+      },
+      {
+	"id":"_8A408366-D8E9-4626-ABF3-5F69AA01F880",
+	"logic":"CONTEXT",
+	"name":"Should the driver be suspended?",
+	"required": ["Fine" ]
+      }
+    ],
+    "file":"Traffic Violation.dmn",
+    "inputs": [
+      {"id":"_1929CBD5-40E0-442D-B909-49CEDE0101DC","name":"Violation","typeRef":"tViolation"},
+      {"id":"_1F9350D7-146D-46F1-85D8-15B5B68AF22A","name":"Driver","typeRef":"tDriver"}
+    ],
+    "name":"Traffic Violation",
+    "namespace":"https://github.com/kiegroup/drools/kie-dmn/_A4BCA8B8-CF08-433F-93B2-A2598F19ECFF",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"Traffic Violation",
+  "source":"DMN",
+  "title":"Traffic Violation",
+  "twin":"traffic_violation"
+}

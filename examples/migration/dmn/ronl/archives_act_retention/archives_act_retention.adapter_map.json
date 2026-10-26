@@ -1,0 +1,250 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the product type is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"productType",
+      "kind":"value",
+      "name":"productType",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the product type is *a text*",
+      "text":"productType",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the decision type is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"decisionType",
+      "kind":"value",
+      "name":"decisionType",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the decision type is *a text*",
+      "text":"decisionType",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the retention years of the archives act retention and destruction periods is *a number*",
+	  "entity":"global",
+	  "key":"retentionYears",
+	  "kind":"value",
+	  "name":"retentionYears",
+	  "opposite":null,
+	  "template":"the retention years of the archives act retention and destruction periods is *a number*",
+	  "text":"retentionYears",
+	  "type":"number"
+	},
+	 {
+	  "display":"the retention class of the archives act retention and destruction periods is *a text*",
+	  "entity":"global",
+	  "key":"retentionClass",
+	  "kind":"value",
+	  "name":"retentionClass",
+	  "opposite":null,
+	  "template":"the retention class of the archives act retention and destruction periods is *a text*",
+	  "text":"retentionClass",
+	  "type":"string"
+	},
+	 {
+	  "display":"the destroyable of the archives act retention and destruction periods is *a truth value*",
+	  "entity":"global",
+	  "key":"destroyable",
+	  "kind":"value",
+	  "name":"destroyable",
+	  "opposite":null,
+	  "template":"the destroyable of the archives act retention and destruction periods is *a truth value*",
+	  "text":"destroyable",
+	  "type":"boolean"
+	},
+	 {
+	  "display":"the legal basis of the archives act retention and destruction periods is *a text*",
+	  "entity":"global",
+	  "key":"legalBasis",
+	  "kind":"value",
+	  "name":"legalBasis",
+	  "opposite":null,
+	  "template":"the legal basis of the archives act retention and destruction periods is *a text*",
+	  "text":"legalBasis",
+	  "type":"string"
+	},
+	 {
+	  "display":"the archive category of the archives act retention and destruction periods is *a text*",
+	  "entity":"global",
+	  "key":"archiveCategory",
+	  "kind":"value",
+	  "name":"archiveCategory",
+	  "opposite":null,
+	  "template":"the archive category of the archives act retention and destruction periods is *a text*",
+	  "text":"archiveCategory",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Archives Act - Retention and Destruction Periods",
+      "kind":"structure",
+      "name":"Archives Act - Retention and Destruction Periods",
+      "output":"contract",
+      "role":"decision",
+      "text":"Archives Act - Retention and Destruction Periods",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["ArchivesActRetention", "archives_act_retention" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"ArchivesActRetention",
+	"inputs": [ {"index":1,"text":"productType"},  {"index":2,"text":"decisionType"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Archives Act - Retention and Destruction Periods",
+	"outputs": [
+	   {"index":1,"name":"retentionYears"},
+	   {"index":2,"name":"retentionClass"},
+	   {"index":3,"name":"destroyable"},
+	   {"index":4,"name":"legalBasis"},
+	   {"index":5,"name":"archiveCategory"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_Tree_Granted",
+	    "index":1,
+	    "inputs": ["\"TreeFellingPermit\"", "\"Granted\"" ],
+	    "outputs": [
+	      "10",
+	      "\"V\"",
+	      true,
+	      "\"VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after expiry date\"",
+	      "\"Tree felling permit granted - destroy after 10 years\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Tree_Rejected",
+	    "index":2,
+	    "inputs": ["\"TreeFellingPermit\"", "\"Rejected\"" ],
+	    "outputs": [
+	      "10",
+	      "\"V\"",
+	      true,
+	      "\"VNG Selection List 2020 - 7.1.3 Environmental permits - V 10 years after decision date\"",
+	      "\"Tree felling permit rejected - destroy after 10 years\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Tree_Refused",
+	    "index":3,
+	    "inputs": ["\"TreeFellingPermit\"", "\"Refused\"" ],
+	    "outputs": [
+	      "5",
+	      "\"V\"",
+	      true,
+	      "\"VNG Selection List 2020 - 7.1.3 - V 5 years (not processed)\"",
+	      "\"Tree felling permit not processed - destroy after 5 years\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Zorgtoeslag_Granted",
+	    "index":4,
+	    "inputs": ["\"Zorgtoeslag\"", "\"Granted\"" ],
+	    "outputs": [
+	      "7",
+	      "\"V\"",
+	      true,
+	      "\"Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na definitieve vaststelling\"",
+	      "\"Zorgtoeslag granted - destroy after 7 years from final settlement\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Zorgtoeslag_Rejected",
+	    "index":5,
+	    "inputs": ["\"Zorgtoeslag\"", "\"Rejected\"" ],
+	    "outputs": [
+	      "7",
+	      "\"V\"",
+	      true,
+	      "\"Selectielijst Belastingdienst 2012 - Toeslagen - V 7 jaar na besluitdatum\"",
+	      "\"Zorgtoeslag rejected - destroy after 7 years from decision date\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Zorgtoeslag_Refused",
+	    "index":6,
+	    "inputs": ["\"Zorgtoeslag\"", "\"Refused\"" ],
+	    "outputs": [
+	      "5",
+	      "\"V\"",
+	      true,
+	      "\"Selectielijst Belastingdienst 2012 - Toeslagen - V 5 jaar (niet in behandeling genomen)\"",
+	      "\"Zorgtoeslag not processed - destroy after 5 years\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Building_Granted",
+	    "index":7,
+	    "inputs": ["\"BuildingPermit\"", "\"Granted\"" ],
+	    "outputs": [
+	      "10",
+	      "\"V\"",
+	      true,
+	      "\"VNG Selection List 2020 - 8.1.1 Environmental permit granted - V 10 years\"",
+	      "\"Building permit granted - destroy after 10 years\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Building_Rejected",
+	    "index":8,
+	    "inputs": ["\"BuildingPermit\"", "\"Rejected\"" ],
+	    "outputs": [
+	      "10",
+	      "\"V\"",
+	      true,
+	      "\"VNG Selection List 2020 - 8.1.1 Environmental permit rejected - V 10 years\"",
+	      "\"Building permit rejected - destroy after 10 years\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_Default",
+	    "index":9,
+	    "inputs": ["-", "-" ],
+	    "outputs": [
+	      "10",
+	      "\"V\"",
+	      true,
+	      "\"VNG Selection List 2020 - default rule V 10 years\"",
+	      "\"Default retention period - destroy after 10 years\""
+	    ]
+	  }
+	]
+      }
+    ],
+    "file":"archives-act-retention.dmn",
+    "inputs": [
+      {"id":"InputData_productType","name":"productType","typeRef":"string"},
+      {"id":"InputData_decisionType","name":"decisionType","typeRef":"string"}
+    ],
+    "name":"ArchivesActRetention",
+    "namespace":"http://example.com/awb/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"ArchivesActRetention",
+  "source":"DMN",
+  "title":"ArchivesActRetention",
+  "twin":"archives_act_retention"
+}

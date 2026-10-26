@@ -351,6 +351,10 @@ answer is *false*. In the same case, OIA can say *unknown* (refer to the first t
 below). The API clients belong to accounts that have the licence. Your administrator
 makes them.
 
+The OIA adapter and the DMN adapter share one part, the adapter kit. The kit reads
+the mapping file next to each twin, writes the case as sentences of the twin, and asks
+the outcomes. Refer to [Adapters](adapters.md).
+
 ## Traps
 
 - **Unknown is false.** OIA works with three values, not two. An input that nobody

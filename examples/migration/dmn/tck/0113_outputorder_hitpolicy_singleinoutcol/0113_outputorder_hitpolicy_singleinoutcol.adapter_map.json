@@ -1,0 +1,81 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the age is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"Age",
+      "kind":"value",
+      "name":"Age",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the age is *a number*",
+      "text":"Age",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Approval Status",
+      "kind":"list",
+      "listed":"the approval status are listed",
+      "name":"Approval Status",
+      "output":"contract",
+      "role":"decision",
+      "template":"the approval status include *a text*",
+      "text":"Approval Status",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0113-outputOrder-hitpolicy-singleinoutcol", "0113_outputorder_hitpolicy_singleinoutcol" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"OUTPUT_ORDER",
+	"id":"_3b2953a3-745f-4d2e-b55d-75c8c5ae653c",
+	"inputs": [ {"index":1,"text":"Age"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Approval Status",
+	"outputs": [ {"index":1,"name":""} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"_d720490a-c6c7-4e48-b003-44d99720c632",
+	    "index":1,
+	    "inputs": [">=18" ],
+	    "outputs": ["\"Approved\"" ]
+	  },
+	   {
+	    "id":"_8e20e9ca-e276-4c26-b09a-52fe55f7b18a",
+	    "index":2,
+	    "inputs": ["<18" ],
+	    "outputs": ["\"Declined\"" ]
+	  },
+	   {
+	    "id":"_784c2e00-6d8d-4739-8aff-4bd810e4f1d0",
+	    "index":3,
+	    "inputs": [">=0" ],
+	    "outputs": ["\"Approved\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"0113-outputOrder-hitpolicy-singleinoutcol.dmn",
+    "inputs": [ {"id":"_41effb45-b3c4-46ac-b1da-122b3e428a98","name":"Age","typeRef":"number"} ],
+    "name":"0113-outputOrder-hitpolicy-singleinoutcol",
+    "namespace":"http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0113-outputOrder-hitpolicy-singleinoutcol",
+  "source":"DMN",
+  "title":"0113-outputOrder-hitpolicy-singleinoutcol",
+  "twin":"0113_outputorder_hitpolicy_singleinoutcol"
+}

@@ -1,0 +1,58 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the employment status is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"Employment Status",
+      "kind":"value",
+      "name":"Employment Status",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the employment status is *a text*",
+      "text":"Employment Status",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the employment status statement is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Employment Status Statement",
+      "kind":"value",
+      "name":"Employment Status Statement",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the employment status statement is *a text*",
+      "text":"Employment Status Statement",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0003-input-data-string-allowed-values", "0003_input_data_string_allowed_values" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"d_EmploymentStatusStatement",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"Employment Status Statement",
+	"required": []
+      }
+    ],
+    "file":"0003-input-data-string-allowed-values.dmn",
+    "inputs": [ {"id":"i_EmploymentStatus","name":"Employment Status","typeRef":"tEmploymentStatus"} ],
+    "name":"0003-input-data-string-allowed-values",
+    "namespace":"https://github.com/agilepro/dmn-tck",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0003-input-data-string-allowed-values",
+  "source":"DMN",
+  "title":"0003-input-data-string-allowed-values",
+  "twin":"0003_input_data_string_allowed_values"
+}

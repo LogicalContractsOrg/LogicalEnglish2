@@ -1,0 +1,166 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the binnen mandaat is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"binnenMandaat",
+      "kind":"value",
+      "name":"binnenMandaat",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the binnen mandaat is *a truth value*",
+      "text":"binnenMandaat",
+      "type":"boolean"
+    },
+    {
+      "derived":false,
+      "display":"the financiele gevolgen is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"financieleGevolgen",
+      "kind":"value",
+      "name":"financieleGevolgen",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the financiele gevolgen is *a number*",
+      "text":"financieleGevolgen",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the overwegingen duidelijk is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"overwegingenDuidelijk",
+      "kind":"value",
+      "name":"overwegingenDuidelijk",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the overwegingen duidelijk is *a truth value*",
+      "text":"overwegingenDuidelijk",
+      "type":"boolean"
+    },
+    {
+      "derived":false,
+      "display":"the politiek gevoelig is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"politiekGevoelig",
+      "kind":"value",
+      "name":"politiekGevoelig",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the politiek gevoelig is *a truth value*",
+      "text":"politiekGevoelig",
+      "type":"boolean"
+    },
+    {
+      "derived":false,
+      "display":"the voorwaarden vervuld is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"voorwaardenVervuld",
+      "kind":"value",
+      "name":"voorwaardenVervuld",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the voorwaarden vervuld is *a truth value*",
+      "text":"voorwaardenVervuld",
+      "type":"boolean"
+    },
+    {
+      "aliases": ["route" ],
+      "derived":true,
+      "display":"the route besluit onder gedelegeerde bevoegdheid is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Route besluit onder gedelegeerde bevoegdheid",
+      "kind":"value",
+      "name":"Route besluit onder gedelegeerde bevoegdheid",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the route besluit onder gedelegeerde bevoegdheid is *a text*",
+      "text":"Route besluit onder gedelegeerde bevoegdheid",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["GedelegeerdBesluitRoute", "gedelegeerd_besluit_route" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"GedelegeerdBesluitRoute",
+	"inputs": [
+	   {"index":1,"text":"voorwaardenVervuld"},
+	   {"index":2,"text":"binnenMandaat"},
+	   {"index":3,"text":"politiekGevoelig"},
+	   {"index":4,"text":"overwegingenDuidelijk"},
+	   {"index":5,"text":"financieleGevolgen"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Route besluit onder gedelegeerde bevoegdheid",
+	"outputs": [ {"index":1,"name":"route"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_VoorwaardenNietVervuld",
+	    "index":1,
+	    "inputs": [false, "-", "-", "-", "-" ],
+	    "outputs": ["\"escaleren\"" ]
+	  },
+	   {
+	    "id":"Rule_BuitenMandaat",
+	    "index":2,
+	    "inputs": ["-", false, "-", "-", "-" ],
+	    "outputs": ["\"escaleren\"" ]
+	  },
+	   {
+	    "id":"Rule_PolitiekGevoelig",
+	    "index":3,
+	    "inputs": ["-", "-", true, "-", "-" ],
+	    "outputs": ["\"escaleren\"" ]
+	  },
+	   {
+	    "id":"Rule_OverwegingenOnduidelijk",
+	    "index":4,
+	    "inputs": ["-", "-", "-", false, "-" ],
+	    "outputs": ["\"memorandum\"" ]
+	  },
+	   {
+	    "id":"Rule_FinancieelBoven50000",
+	    "index":5,
+	    "inputs": ["-", "-", "-", "-", "> 50000" ],
+	    "outputs": ["\"memorandum\"" ]
+	  },
+	   {
+	    "id":"Rule_DirectOndertekenen",
+	    "index":6,
+	    "inputs": ["-", "-", "-", "-", "-" ],
+	    "outputs": ["\"ondertekenen\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"gedelegeerd-besluit-route.dmn",
+    "inputs": [],
+    "name":"GedelegeerdBesluitRoute",
+    "namespace":"http://example.com/besluitvorming-gedelegeerd/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"GedelegeerdBesluitRoute",
+  "source":"DMN",
+  "title":"GedelegeerdBesluitRoute",
+  "twin":"gedelegeerd_besluit_route"
+}

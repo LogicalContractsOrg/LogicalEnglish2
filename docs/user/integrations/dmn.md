@@ -1,6 +1,6 @@
 # DMN and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-10-26)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-26, the way back and the adapter added)*
 
 DMN (Decision Model and Notation) is a standard of the Object Management
 Group for decision models. A DMN model is an XML file. It holds the
@@ -19,8 +19,15 @@ the DMN Technology Compatibility Kit (the TCK) is next to the model, its
 test cases become scenarios. The translator is a part of the Logical
 English Translators. Thus only the installations that have the Translators
 give the translator, for example the hosted service. Every installation has
-the twins of the TCK, of examples of Dutch government rules (RONL) and of
-the Benefit Decision Toolkit of Philadelphia.
+the twins of the TCK, of examples of Dutch government rules (RONL), of
+the Benefit Decision Toolkit of Philadelphia, and of the models that the
+client examples of Kogito and Camunda call.
+
+The translation also goes the other way. **File ▸ Export to Another
+System… ▸ DMN** writes a Logical English program as a DMN 1.6 model, with its
+scenarios as TCK test cases. And the **DMN adapter** lets the applications
+that called a DMN engine (Kogito, KIE Server, Camunda 7, Camunda 8) call the
+twin instead, without a change to their code.
 
 ## Contents
 
@@ -30,6 +37,8 @@ the Benefit Decision Toolkit of Philadelphia.
 - [How DMN maps to Logical English](#how-dmn-maps-to-logical-english)
 - [Two differences of meaning](#two-differences-of-meaning)
 - [What is not supported yet](#what-is-not-supported-yet)
+- [The way back: from Logical English to DMN](#the-way-back-from-logical-english-to-dmn)
+- [The DMN adapter](#the-dmn-adapter)
 - [See also](#see-also)
 
 ## DMN in brief: a small example
@@ -80,8 +89,9 @@ scenario t001 is, as stated in "0004-simpletable-U-test-01.xml" at test case 001
 | Reads | a DMN model of version 1.1 to 1.6 (`.dmn`, or `.xml` with a DMN namespace, as the Dutch STTR files), alone or in a zip file with the models that it imports |
 | Writes | one Logical English program. The program keeps the model in its `sources/` folder |
 | Tests | a TCK test file next to the model (`<model>-test-01.xml`): one scenario for each test case |
-| Way back | not yet |
-| Checked against | the expected results of the TCK (compliance level 2: 138 of 138 test cases) and of the Benefit Decision Toolkit (195 of 195); for the models without tests, the answers of Apache KIE Drools 10.2.0 to generated cases (RONL: 346 of 346; the 196 models of the Omgevingswet's rules: 6,364 of 6,364) |
+| Way back | **File ▸ Export to Another System… ▸ DMN**: a DMN 1.6 model, the scenarios as a TCK test file. Checked on Drools with the runner of the TCK: the 84 twins and examples of the check, 424 of 424 test cases |
+| Adapter | the DMN adapter answers the callers of Kogito, KIE Server, Camunda 7 and Camunda 8 from the twins. Checked: 521 of 521 expected results of the four public collections, through the adapter |
+| Checked against | the expected results of the TCK (compliance level 2: 138 of 138 test cases) and of the Benefit Decision Toolkit (195 of 195); for the models without tests, the answers of Apache KIE Drools 10.2.0 to generated cases (RONL: 346 of 346; the 196 models of the Omgevingswet's rules: 6,364 of 6,364); for the client examples, the answers of Drools and of Camunda's own engine (33 of 33) |
 
 ## How to use it
 
@@ -101,8 +111,10 @@ Do these steps:
 
 The twins are in the examples, in `migration/dmn/`. The folders are `tck/`
 (the models of compliance level 2 of the TCK), `ronl/` (Dutch government
-rules: social assistance, subsidies, permits) and `bdt/` (the Benefit
-Decision Toolkit of Code for Philly: Philadelphia tax relief). Start with
+rules: social assistance, subsidies, permits), `bdt/` (the Benefit
+Decision Toolkit of Code for Philly: Philadelphia tax relief) and
+`clients/` (Traffic Violation, the model of Kogito's example, and Dinner
+Decisions, the model of Camunda's example). Start with
 `tck/0004_simpletable_u` and `bdt/homestead_exemption`.
 
 > Note: a model that is a set of questions to a citizen (the Dutch STTR
@@ -159,7 +171,6 @@ exactly, at a number of decimals.
   it did not translate. The blocks have a mark: a person or the Contract
   Assistant must translate them.
 - **A business knowledge model in Java.**
-- **The way back**, from Logical English to DMN.
 
 On the TCK's compliance level 3, which tests FEEL function by function, the
 twins give 1,745 of the 3,559 answers (49%). The answers that are not given are
@@ -170,9 +181,107 @@ modeller of the Omgevingswet uses them to identify the kind of rule: `UR`
 (*uitvoeringsregel*) is a question, `CR` (*conclusieregel*) a conclusion.
 The twin keeps them in the words of its templates.
 
+## The way back: from Logical English to DMN
+
+**File ▸ Export to Another System… ▸ DMN** writes the program of the front
+tab as one DMN 1.6 model. A DMN engine can then run the rules of the
+program. Do these steps:
+
+1. Open a Logical English program, for example
+   `regulatory/dmn_export/childcare_support`.
+2. Select **File ▸ Export to Another System…**, then **DMN**.
+3. Read the notes. Click **Save…** to keep the model as a `.dmn` file.
+4. At the end of the file, a comment holds the scenarios as a TCK test file.
+   Save that part as `<name>-test-01.xml` next to the model, without the
+   first and the last line of the comment. The runner of the TCK and the
+   test tools of most DMN engines run it.
+
+What becomes what:
+
+| Logical English | DMN |
+|---|---|
+| a value that no rule gives (`the age is *a number*`) | an input (`inputData`), with the type of its noun |
+| a sentence without a place that no rule gives | an input of the type boolean: false when a scenario does not state it |
+| a value that rules give | a decision. Its rules, in order, are one FEEL expression: `if <conditions of rule 1> then <value> else if … else null` |
+| a sentence that rules give | a decision of the type boolean: true when a rule applies, false when no rule applies |
+| a list (`the children include *a name*`) | a list input, or a decision whose value is a list |
+| a decision table | a DMN decision table, with its hit policy (`unique match` UNIQUE, `first match` FIRST, `all matches` COLLECT). A decision that only reads the table is the table; else the table is a business knowledge model that the decision calls |
+| a template with places that rules give (`the pmt of *a value* and … is *a value*`) | a business knowledge model: a function with parameters |
+| `it is not the case that`, `or`, `otherwise`, comparisons, arithmetic | `not(…)`, `or`, `if … then … else`, comparisons, arithmetic |
+| `the count`, `sum`, `min` or `max of each …` | `count(…)`, `sum(…)`, `min(…)`, `max(…)` |
+| the templates of `lib/temporal`, `lib/rounding`, `lib/maths`, `lib/text` that FEEL has | FEEL's own functions: `date(…)`, `decimal(…)`, `years and months duration(…)`, `string join(…)`, … |
+| a scenario | a test case of the TCK. A query that expects no answer expects null (false for a sentence, `[]` for a list) |
+
+**A program about one kind of thing.** Many programs are about persons,
+claims or applicants: `the household income of *an applicant* is *an
+amount*`. A DMN model decides one case at a time, and has no such things.
+When all the templates of a program are about one kind of thing, and each
+rule is about one of them, the export makes that thing the case. The
+template becomes `the household income of the applicant is *an amount*`.
+Each thing of a scenario becomes a test case of its own (`two_families_ana`,
+`two_families_ben`).
+
+**What the export refuses.** The export writes nothing, and it lists the
+problems, when the program has:
+
+- relations between two things (`*a person* is the parent of *a person*`);
+- templates that may be assumed (abduction);
+- a table that a scenario changes;
+- a value that a scenario states and that rules also give (in DMN a value is
+  an input or a decision, not both);
+- conditions that FEEL has no form for here.
+
+**How the export was checked.** The script `dmn_roundtrip.pl` of the
+translators exports a set of programs. It runs the test cases of each model
+with the runner of the TCK on Apache KIE Drools 10.2. On 26 October 2026:
+the 83 public DMN twins and the example `childcare_support`, 84 programs,
+424 of 424 test cases pass. Of 99 other example programs written in Logical
+English, 20 export, 38 of 38 test cases pass, and 79 are refused with the
+reason.
+
+## The DMN adapter
+
+An application that called a DMN engine can call the Logical English server
+instead. The server answers in the format of that engine, from the twin of
+the model. The application changes the address of the engine, and nothing
+else.
+
+| The application called | It calls this server at |
+|---|---|
+| a Kogito or Apache KIE service (`POST /<model>`) | `POST /kogito/<model>`, `/kogito/<model>/dmnresult`, `/kogito/<model>/<decision service>`; `GET /kogito/<model>` gives the DMN file, `GET /kogito/q/openapi` the OpenAPI description |
+| KIE Server (Red Hat Decision Manager, IBM BAMOE) | `POST /kie-server/services/rest/server/containers/<any>/dmn` (JSON), and the lists of containers and models |
+| Camunda 7 | `POST /engine-rest/decision-definition/key/<decision id>/evaluate`, and the list of decision definitions |
+| Camunda 8 (for example with `@camunda8/sdk`) | `POST /v2/decision-definitions/evaluation`; the sign-in at `/dmn-adapter/oauth/token` |
+
+`/dmn-adapter` shows the list of the models that the server can answer.
+Each answer is the answer of the twin. Add `?explain=true` to a Kogito
+`dmnresult` call to get the reasons for each decision, as a tree of
+sentences. The adapter uses the mapping file that the translator writes
+next to each twin. Refer to [Adapters](adapters.md) for the mapping file and
+for the sign-in.
+
+The folder `migration/dmn/clients/` has the twins of the models that the
+client examples of Kogito and Camunda call. With those twins, these clients
+ran without a change, except for the address:
+
+- the request of Kogito's own example (`curl … /Traffic%20Violation`);
+- the Java client of KIE Server (`kie-server-client`, `DMNServicesClient`);
+- the Node.js client of Camunda 8 (`@camunda8/sdk`, `evaluateDecision`),
+  with no sign-in and with OAuth;
+- calls to the REST API of Camunda 7.
+
+Their 26 answers are the same as the answers of Drools and of Camunda's own
+engine on the original models.
+
+**Not available:** the XML formats of KIE Server, the processes,
+deployments and history of Camunda, the rules that matched in a decision
+table (Camunda 8 gets an empty list of matched rules), and the tracing
+services of Kogito.
+
 ## See also
 
 - [Other systems: importing and exporting](index.md)
+- [Adapters: keep the callers of another system](adapters.md)
 - DMN: https://www.omg.org/dmn/
 - The DMN TCK: https://github.com/dmn-tck/tck (Apache-2.0)
 - The Benefit Decision Toolkit: https://github.com/CodeForPhilly/benefit-decision-toolkit (MIT)

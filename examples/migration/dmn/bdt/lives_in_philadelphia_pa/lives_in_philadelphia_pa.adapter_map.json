@@ -1,0 +1,85 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the lives in philadelphia pa of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"livesInPhiladelphiaPa",
+	      "kind":"value",
+	      "name":"livesInPhiladelphiaPa",
+	      "opposite":null,
+	      "template":"the lives in philadelphia pa of the simple checks of the situation is *a truth value*",
+	      "text":"livesInPhiladelphiaPa",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["LivesInPhiladelphiaPa", "lives_in_philadelphia_pa" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_92328A77-8FE6-456E-BB05-00251028CFA9",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"lives-in-philadelphia-pa.dmn",
+    "inputs": [ {"id":"_BEB5EAD3-1710-4CC3-9266-EFF3BEAF4B72","name":"situation","typeRef":"tSituation"} ],
+    "name":"LivesInPhiladelphiaPa",
+    "namespace":"https://kie.apache.org/dmn/_5FD5AE82-65B3-44EF-98CC-651E88F93786",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_C4355049-6C5C-452D-A767-0F103ED2893E",
+	"name":"LivesInPhiladelphiaPaService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"LivesInPhiladelphiaPa",
+  "source":"DMN",
+  "title":"LivesInPhiladelphiaPa",
+  "twin":"lives_in_philadelphia_pa"
+}

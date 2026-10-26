@@ -1,0 +1,86 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the household income is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"householdIncome",
+      "kind":"value",
+      "name":"householdIncome",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the household income is *a number*",
+      "text":"householdIncome",
+      "type":"number"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the income limit of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"incomeLimit",
+	  "kind":"value",
+	  "name":"incomeLimit",
+	  "opposite":null,
+	  "template":"the income limit of the parameters is *a number*",
+	  "text":"incomeLimit",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the household income limit is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"Household income limit",
+      "kind":"value",
+      "name":"Household income limit",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the household income limit is *a truth value*",
+      "text":"Household income limit",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["Household income limit", "household_income_limit" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"decision",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"Household income limit",
+	"required": []
+      }
+    ],
+    "file":"P-5bdf1ac7-b0ca-403b-89f9-7f1504f6bf26-1.0.0.dmn",
+    "inputs": [
+      {"id":"input","name":"householdIncome","typeRef":"number"},
+      {"id":"parameters","name":"parameters","typeRef":"tParameters"}
+    ],
+    "name":"Household income limit",
+    "namespace":"https://bdt.codeforphilly.org/examples/household-income-limit",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"Household income limit",
+  "source":"DMN",
+  "title":"Household income limit",
+  "twin":"household_income_limit"
+}

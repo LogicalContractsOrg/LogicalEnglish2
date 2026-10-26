@@ -1,0 +1,176 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the primary person id of the situation is *a text*",
+	  "entity":"global",
+	  "key":"primaryPersonId",
+	  "kind":"value",
+	  "name":"primaryPersonId",
+	  "opposite":null,
+	  "template":"the primary person id of the situation is *a text*",
+	  "text":"primaryPersonId",
+	  "type":"string"
+	},
+	 {
+	  "components": [ {"name":"id","type":"string"},  {"name":"dateOfBirth","type":"date"} ],
+	  "entity":"global",
+	  "key":"people",
+	  "kind":"records",
+	  "listed":"the people of the situation are listed",
+	  "name":"people",
+	  "template":"the people of the situation include *an id* with *a date*",
+	  "text":"people",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {"name":"type","type":"string"},
+	     {"name":"personId","type":"string"},
+	     {"name":"relatedPersonId","type":"string"}
+	  ],
+	  "entity":"global",
+	  "key":"relationships",
+	  "kind":"records",
+	  "listed":"the relationships of the situation are listed",
+	  "name":"relationships",
+	  "template":"the relationships of the situation include *a type* with *a person id* with *a related person id*",
+	  "text":"relationships",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the spouse lives in household of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"spouseLivesInHousehold",
+	      "kind":"value",
+	      "name":"spouseLivesInHousehold",
+	      "opposite":null,
+	      "template":"the spouse lives in household of the simple checks of the situation is *a truth value*",
+	      "text":"spouseLivesInHousehold",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the min age of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"minAge",
+	  "kind":"value",
+	  "name":"minAge",
+	  "opposite":null,
+	  "template":"the min age of the parameters is *a number*",
+	  "text":"minAge",
+	  "type":"number"
+	},
+	 {
+	  "display":"the person id of the parameters is *a text*",
+	  "entity":"global",
+	  "key":"personId",
+	  "kind":"value",
+	  "name":"personId",
+	  "opposite":null,
+	  "template":"the person id of the parameters is *a text*",
+	  "text":"personId",
+	  "type":"string"
+	},
+	 {
+	  "display":"the as of date of the parameters is *a date*",
+	  "entity":"global",
+	  "key":"asOfDate",
+	  "kind":"value",
+	  "name":"asOfDate",
+	  "opposite":null,
+	  "template":"the as of date of the parameters is *a date*",
+	  "text":"asOfDate",
+	  "type":"date"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["ApplicantOrSpouseMinAge", "applicant_or_spouse_min_age" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_6883DA3C-4BFB-4A45-9B4D-FE7875586354",
+	"logic":"CONTEXT",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"applicant-or-spouse-min-age.dmn",
+    "inputs": [
+      {"id":"_7EF427A7-D97C-4123-B88C-A2F1D1B670FB","name":"situation","typeRef":"tSituation"},
+      {
+	"id":"_63F66303-A72B-4135-9DA4-EC9C94A6BA03",
+	"name":"parameters",
+	"typeRef":"tParameters"
+      }
+    ],
+    "name":"ApplicantOrSpouseMinAge",
+    "namespace":"https://kie.apache.org/dmn/_32004365-F30E-4E68-B7EF-6E87FC2EA724",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_6A22FC6F-9E65-48FF-A538-7A886D125EDA",
+	"name":"ApplicantOrSpouseMinAgeService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"ApplicantOrSpouseMinAge",
+  "source":"DMN",
+  "title":"ApplicantOrSpouseMinAge",
+  "twin":"applicant_or_spouse_min_age"
+}

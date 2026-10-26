@@ -1,0 +1,144 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the primary person id of the situation is *a text*",
+	  "entity":"global",
+	  "key":"primaryPersonId",
+	  "kind":"value",
+	  "name":"primaryPersonId",
+	  "opposite":null,
+	  "template":"the primary person id of the situation is *a text*",
+	  "text":"primaryPersonId",
+	  "type":"string"
+	},
+	 {
+	  "components": [ {"name":"id","type":"string"},  {"name":"dateOfBirth","type":"date"} ],
+	  "entity":"global",
+	  "key":"people",
+	  "kind":"records",
+	  "listed":"the people of the situation are listed",
+	  "name":"people",
+	  "template":"the people of the situation include *an id* with *a date*",
+	  "text":"people",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {"name":"type","type":"string"},
+	     {"name":"personId","type":"string"},
+	     {"name":"relatedPersonId","type":"string"}
+	  ],
+	  "entity":"global",
+	  "key":"relationships",
+	  "kind":"records",
+	  "listed":"the relationships of the situation are listed",
+	  "name":"relationships",
+	  "template":"the relationships of the situation include *a type* with *a person id* with *a related person id*",
+	  "text":"relationships",
+	  "type":"records"
+	},
+	 {
+	  "components": [
+	     {
+	      "display":"the spouse lives in household of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"spouseLivesInHousehold",
+	      "kind":"value",
+	      "name":"spouseLivesInHousehold",
+	      "opposite":null,
+	      "template":"the spouse lives in household of the simple checks of the situation is *a truth value*",
+	      "text":"spouseLivesInHousehold",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	},
+	 {
+	  "display":"the household size of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdSize",
+	  "kind":"value",
+	  "name":"householdSize",
+	  "opposite":null,
+	  "template":"the household size of the situation is *a number*",
+	  "text":"householdSize",
+	  "type":"number"
+	},
+	 {
+	  "display":"the household income of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdIncome",
+	  "kind":"value",
+	  "name":"householdIncome",
+	  "opposite":null,
+	  "template":"the household income of the situation is *a number*",
+	  "text":"householdIncome",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["RetipAgeOrIncomeRequirement", "retip_age_or_income_requirement" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_174BF905-2497-4A91-9B26-359677BECF14",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"retip-age-or-income-requirement.dmn",
+    "inputs": [ {"id":"_0F3A7B00-32F3-4596-9AF8-3A2129B7E514","name":"situation","typeRef":"tSituation"} ],
+    "name":"RetipAgeOrIncomeRequirement",
+    "namespace":"https://kie.apache.org/dmn/_F215D4C4-6D59-4557-88FA-9ADEFD5CA3D6",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_BA58546D-4E8A-4FCE-8A39-42A1F5A69762",
+	"name":"RetipAgeOrIncomeRequirementService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"RetipAgeOrIncomeRequirement",
+  "source":"DMN",
+  "title":"RetipAgeOrIncomeRequirement",
+  "twin":"retip_age_or_income_requirement"
+}

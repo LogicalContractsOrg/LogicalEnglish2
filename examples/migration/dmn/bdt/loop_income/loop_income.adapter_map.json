@@ -1,0 +1,86 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the household income of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdIncome",
+	  "kind":"value",
+	  "name":"householdIncome",
+	  "opposite":null,
+	  "template":"the household income of the situation is *a number*",
+	  "text":"householdIncome",
+	  "type":"number"
+	},
+	 {
+	  "display":"the household size of the situation is *a number*",
+	  "entity":"global",
+	  "key":"householdSize",
+	  "kind":"value",
+	  "name":"householdSize",
+	  "opposite":null,
+	  "template":"the household size of the situation is *a number*",
+	  "text":"householdSize",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["LoopIncome", "loop_income" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_9F9451CA-C707-461A-81C1-EF816A8B4FFA",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"loop-income.dmn",
+    "inputs": [ {"id":"_E83712B9-7AAF-49CF-B844-2C81414375AB","name":"situation","typeRef":"tSituation"} ],
+    "name":"LoopIncome",
+    "namespace":"https://kie.apache.org/dmn/_E6D4D573-2C2C-4EE3-BC52-4351F39E5E06",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_17B4DC5A-D23D-4116-9163-BE57C068D80E",
+	"name":"LoopIncomeService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"LoopIncome",
+  "source":"DMN",
+  "title":"LoopIncome",
+  "twin":"loop_income"
+}

@@ -1,0 +1,58 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the monthly salary is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"Monthly Salary",
+      "kind":"value",
+      "name":"Monthly Salary",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the monthly salary is *a number*",
+      "text":"Monthly Salary",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the yearly salary is *a number*",
+      "entity":"global",
+      "goal":true,
+      "key":"Yearly Salary",
+      "kind":"value",
+      "name":"Yearly Salary",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the yearly salary is *a number*",
+      "text":"Yearly Salary",
+      "type":"number"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0002-input-data-number", "0002_input_data_number" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"d_YearlySalary",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"Yearly Salary",
+	"required": []
+      }
+    ],
+    "file":"0002-input-data-number.dmn",
+    "inputs": [ {"id":"i_MonthlySalary","name":"Monthly Salary","typeRef":"number"} ],
+    "name":"0002-input-data-number",
+    "namespace":"https://github.com/agilepro/dmn-tck",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0002-input-data-number",
+  "source":"DMN",
+  "title":"0002-input-data-number",
+  "twin":"0002_input_data_number"
+}

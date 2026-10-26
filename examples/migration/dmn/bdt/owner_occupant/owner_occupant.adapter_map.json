@@ -1,0 +1,85 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the owner occupant of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"ownerOccupant",
+	      "kind":"value",
+	      "name":"ownerOccupant",
+	      "opposite":null,
+	      "template":"the owner occupant of the simple checks of the situation is *a truth value*",
+	      "text":"ownerOccupant",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["OwnerOccupant", "owner_occupant" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_F3AEC1E2-F89B-4B36-A761-3D7F22B6F6BD",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"owner-occupant.dmn",
+    "inputs": [ {"id":"_2790A63A-B2CF-4C54-A985-FC50AB8E0BA4","name":"situation","typeRef":"tSituation"} ],
+    "name":"OwnerOccupant",
+    "namespace":"https://kie.apache.org/dmn/_47ECD886-CEBE-47BC-BD4F-06113DCDE5D8",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_B514A3B6-6E48-4558-B6AA-CCB4084EA48F",
+	"name":"OwnerOccupantService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"OwnerOccupant",
+  "source":"DMN",
+  "title":"OwnerOccupant",
+  "twin":"owner_occupant"
+}

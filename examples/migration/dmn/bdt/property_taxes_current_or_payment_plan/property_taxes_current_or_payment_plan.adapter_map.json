@@ -1,0 +1,96 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the tax delinquent of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"taxDelinquent",
+	      "kind":"value",
+	      "name":"taxDelinquent",
+	      "opposite":null,
+	      "template":"the tax delinquent of the simple checks of the situation is *a truth value*",
+	      "text":"taxDelinquent",
+	      "type":"boolean"
+	    },
+	     {
+	      "display":"the property tax payment plan of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"propertyTaxPaymentPlan",
+	      "kind":"value",
+	      "name":"propertyTaxPaymentPlan",
+	      "opposite":null,
+	      "template":"the property tax payment plan of the simple checks of the situation is *a truth value*",
+	      "text":"propertyTaxPaymentPlan",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["PropertyTaxesCurrentOrPaymentPlan", "property_taxes_current_or_payment_plan" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_FDFB4A3B-E85B-4B2F-B7DF-22205A3E3C4C",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"property-taxes-current-or-payment-plan.dmn",
+    "inputs": [ {"id":"_0E1E4E91-93D3-4958-9F33-0E6900A729C1","name":"situation","typeRef":"tSituation"} ],
+    "name":"PropertyTaxesCurrentOrPaymentPlan",
+    "namespace":"https://kie.apache.org/dmn/_70055967-EC4F-4900-B499-53DFE6337AA6",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_3DB44F95-F290-47A3-890C-686F02A3B861",
+	"name":"PropertyTaxesCurrentOrPaymentPlanService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"PropertyTaxesCurrentOrPaymentPlan",
+  "source":"DMN",
+  "title":"PropertyTaxesCurrentOrPaymentPlan",
+  "twin":"property_taxes_current_or_payment_plan"
+}

@@ -1,0 +1,214 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the aanvraag datum is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"aanvraagDatum",
+      "kind":"value",
+      "name":"aanvraagDatum",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the aanvraag datum is *a text*",
+      "text":"aanvraagDatum",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the gemaakte kosten is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"gemaakteKosten",
+      "kind":"value",
+      "name":"gemaakteKosten",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the gemaakte kosten is *a number*",
+      "text":"gemaakteKosten",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the provincie woning is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"provincieWoning",
+      "kind":"value",
+      "name":"provincieWoning",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the provincie woning is *a text*",
+      "text":"provincieWoning",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the relatie tot woning is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"relatieTotWoning",
+      "kind":"value",
+      "name":"relatieTotWoning",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the relatie tot woning is *a text*",
+      "text":"relatieTotWoning",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the toestemming eigenaar is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"toestemmingEigenaar",
+      "kind":"value",
+      "name":"toestemmingEigenaar",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the toestemming eigenaar is *a truth value*",
+      "text":"toestemmingEigenaar",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is *a truth value*",
+	  "entity":"global",
+	  "key":"isComplete",
+	  "kind":"value",
+	  "name":"isComplete",
+	  "opposite":null,
+	  "template":"the is_complete of the thuisbatterij aanvraag volledig awb_4_5 is *a truth value*",
+	  "text":"isComplete",
+	  "type":"boolean"
+	},
+	 {
+	  "display":"the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is *a text*",
+	  "entity":"global",
+	  "key":"missingFields",
+	  "kind":"value",
+	  "name":"missingFields",
+	  "opposite":null,
+	  "template":"the missing fields of the thuisbatterij aanvraag volledig awb_4_5 is *a text*",
+	  "text":"missingFields",
+	  "type":"string"
+	},
+	 {
+	  "display":"the awb article of the thuisbatterij aanvraag volledig awb_4_5 is *a text*",
+	  "entity":"global",
+	  "key":"awbArticle",
+	  "kind":"value",
+	  "name":"awbArticle",
+	  "opposite":null,
+	  "template":"the awb article of the thuisbatterij aanvraag volledig awb_4_5 is *a text*",
+	  "text":"awbArticle",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Thuisbatterij: aanvraag volledig (Awb 4:5)",
+      "kind":"structure",
+      "name":"Thuisbatterij: aanvraag volledig (Awb 4:5)",
+      "output":"contract",
+      "role":"decision",
+      "text":"Thuisbatterij: aanvraag volledig (Awb 4:5)",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["ThuisbatterijCompletenessCheck", "thuisbatterij_completeness_check" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"ThuisbatterijCompletenessCheck",
+	"inputs": [
+	   {"index":1,"text":"gemaakteKosten"},
+	   {"index":2,"text":"relatieTotWoning"},
+	   {"index":3,"text":"toestemmingEigenaar"},
+	   {"index":4,"text":"provincieWoning"},
+	   {"index":5,"text":"aanvraagDatum"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Thuisbatterij: aanvraag volledig (Awb 4:5)",
+	"outputs": [
+	   {"index":1,"name":"isComplete"},
+	   {"index":2,"name":"missingFields"},
+	   {"index":3,"name":"awbArticle"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_KostenOntbreken",
+	    "index":1,
+	    "inputs": ["null, <= 0", "-", "-", "-", "-" ],
+	    "outputs": [false, "\"De gemaakte kosten ontbreken.\"", "\"Awb 4:5 - aanvraag onvolledig\"" ]
+	  },
+	   {
+	    "id":"Rule_RelatieOntbreekt",
+	    "index":2,
+	    "inputs": ["-", null, "-", "-", "-" ],
+	    "outputs": [
+	      false,
+	      "\"De relatie van de aanvrager tot de woning ontbreekt.\"",
+	      "\"Awb 4:5 - aanvraag onvolledig\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_ToestemmingOntbreekt",
+	    "index":3,
+	    "inputs": ["-", "\"huurder\"", "false, null", "-", "-" ],
+	    "outputs": [
+	      false,
+	      "\"De toestemming van de eigenaar van de woning ontbreekt.\"",
+	      "\"Awb 4:5 - aanvraag onvolledig\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_ProvincieOntbreekt",
+	    "index":4,
+	    "inputs": ["-", "-", "-", null, "-" ],
+	    "outputs": [
+	      false,
+	      "\"De provincie waarin de woning ligt ontbreekt.\"",
+	      "\"Awb 4:5 - aanvraag onvolledig\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_DatumOntbreekt",
+	    "index":5,
+	    "inputs": ["-", "-", "-", "-", null ],
+	    "outputs": [false, "\"De datum van aanvraag ontbreekt.\"", "\"Awb 4:5 - aanvraag onvolledig\"" ]
+	  },
+	   {
+	    "id":"Rule_Volledig",
+	    "index":6,
+	    "inputs": ["-", "-", "-", "-", "-" ],
+	    "outputs": [true, "\"Geen ontbrekende gegevens.\"", "\"Awb 4:5 - aanvraag volledig\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"thuisbatterij-completeness-check.dmn",
+    "inputs": [],
+    "name":"ThuisbatterijCompletenessCheck",
+    "namespace":"http://example.com/flevoland/thuisbatterij/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"ThuisbatterijCompletenessCheck",
+  "source":"DMN",
+  "title":"ThuisbatterijCompletenessCheck",
+  "twin":"thuisbatterij_completeness_check"
+}

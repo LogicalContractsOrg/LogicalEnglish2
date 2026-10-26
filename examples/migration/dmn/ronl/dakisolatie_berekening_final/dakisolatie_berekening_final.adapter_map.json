@@ -1,0 +1,244 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the huidige r waarde is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"huidige_r_waarde",
+      "kind":"value",
+      "name":"huidige_r_waarde",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the huidige r waarde is *a number*",
+      "text":"huidige_r_waarde",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the dak oppervlakte m2 is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"dak_oppervlakte_m2",
+      "kind":"value",
+      "name":"dak_oppervlakte_m2",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the dak oppervlakte m2 is *a number*",
+      "text":"dak_oppervlakte_m2",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the lambda w mk is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"lambda_w_mk",
+      "kind":"value",
+      "name":"lambda_w_mk",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the lambda w mk is *a number*",
+      "text":"lambda_w_mk",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the materiaal cost per m3 is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"materiaal_cost_per_m3",
+      "kind":"value",
+      "name":"materiaal_cost_per_m3",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the materiaal cost per m3 is *a number*",
+      "text":"materiaal_cost_per_m3",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the install cost per m2 per_100mm is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"install_cost_per_m2_per_100mm",
+      "kind":"value",
+      "name":"install_cost_per_m2_per_100mm",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the install cost per m2 per_100mm is *a number*",
+      "text":"install_cost_per_m2_per_100mm",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the doel r waarde is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"doel_r_waarde",
+      "kind":"value",
+      "name":"doel_r_waarde",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the doel r waarde is *a number*",
+      "text":"doel_r_waarde",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {"name":"delta_r","type":"number"},
+	 {"name":"extra_dikte_mm","type":"number"},
+	 {"name":"materiaal_kosten","type":"number"},
+	 {"name":"installatie_kosten","type":"number"},
+	 {"name":"totale_kosten","type":"number"},
+	 {"name":"subsidie","type":"number"},
+	 {"name":"netto_kosten","type":"number"},
+	 {"name":"besparing_jaar","type":"number"},
+	 {"name":"terugverdientijd","type":"number"},
+	 {"name":"aanbeveling","type":"string"}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Bereken Isolatie Opties",
+      "kind":"records",
+      "listed":"the bereken isolatie opties are listed",
+      "name":"Bereken Isolatie Opties",
+      "output":"contract",
+      "role":"decision",
+      "template":"the bereken isolatie opties include *a delta r* with *an extra dikte mm* with *a materiaal kosten* with *an installatie kosten* with *a totale kosten* with *a subsidie* with *a netto kosten* with *a besparing jaar* with *a terugverdientijd* with *an aanbeveling*",
+      "text":"Bereken Isolatie Opties",
+      "type":"records"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["Dakisolatie Berekening", "dakisolatie_berekening_final" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"COLLECT",
+	"id":"bereken_isolatie_opties",
+	"inputs": [
+	   {"index":1,"text":"huidige_r_waarde"},
+	   {"index":2,"text":"dak_oppervlakte_m2"},
+	   {"index":3,"text":"doel_r_waarde"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Bereken Isolatie Opties",
+	"outputs": [
+	   {"index":1,"name":"delta_r"},
+	   {"index":2,"name":"extra_dikte_mm"},
+	   {"index":3,"name":"materiaal_kosten"},
+	   {"index":4,"name":"installatie_kosten"},
+	   {"index":5,"name":"totale_kosten"},
+	   {"index":6,"name":"subsidie"},
+	   {"index":7,"name":"netto_kosten"},
+	   {"index":8,"name":"besparing_jaar"},
+	   {"index":9,"name":"terugverdientijd"},
+	   {"index":10,"name":"aanbeveling"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"rule1",
+	    "index":1,
+	    "inputs": [">= 0", "> 0", "3.0" ],
+	    "outputs": [
+	      "doel_r_waarde - huidige_r_waarde",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)",
+	      "decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "249",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 249, 0)",
+	      "80",
+	      "decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 249) / 80, 1)",
+	      "\"\""
+	    ]
+	  },
+	   {
+	    "id":"rule2",
+	    "index":2,
+	    "inputs": [">= 0", "> 0", "4.0" ],
+	    "outputs": [
+	      "doel_r_waarde - huidige_r_waarde",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)",
+	      "decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "1552",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 1552, 0)",
+	      "320",
+	      "decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 1552) / 320, 1)",
+	      "\"\""
+	    ]
+	  },
+	   {
+	    "id":"rule3",
+	    "index":3,
+	    "inputs": [">= 0", "> 0", "6.0" ],
+	    "outputs": [
+	      "doel_r_waarde - huidige_r_waarde",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)",
+	      "decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "2185",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 2185, 0)",
+	      "640",
+	      "decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 2185) / 640, 1)",
+	      "\"Aanbevolen: R-waarde 6.0 m²K/W (gemarkeerd in groen) biedt de beste balans tussen investering, subsidie en terugverdientijd.\""
+	    ]
+	  },
+	   {
+	    "id":"rule4",
+	    "index":4,
+	    "inputs": [">= 0", "> 0", "8.0" ],
+	    "outputs": [
+	      "doel_r_waarde - huidige_r_waarde",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 1000, 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3, 0)",
+	      "decimal(dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10), 0)",
+	      "3604",
+	      "decimal((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 3604, 0)",
+	      "780",
+	      "decimal(((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * dak_oppervlakte_m2 * materiaal_cost_per_m3 + dak_oppervlakte_m2 * install_cost_per_m2_per_100mm * ((doel_r_waarde - huidige_r_waarde) * lambda_w_mk * 10) - 3604) / 780, 1)",
+	      "\"\""
+	    ]
+	  }
+	]
+      }
+    ],
+    "file":"dakisolatie-berekening-final.dmn",
+    "inputs": [
+      {"id":"InputData_huidigeRWaarde","name":"huidige_r_waarde","typeRef":"double"},
+      {"id":"InputData_dakOppervlakte","name":"dak_oppervlakte_m2","typeRef":"double"},
+      {"id":"InputData_lambdaWmk","name":"lambda_w_mk","typeRef":"double"},
+      {"id":"InputData_materiaalCostPerM3","name":"materiaal_cost_per_m3","typeRef":"integer"},
+      {
+	"id":"InputData_installCostPerM2Per100mm",
+	"name":"install_cost_per_m2_per_100mm",
+	"typeRef":"integer"
+      },
+      {"id":"InputData_doelRWaarde","name":"doel_r_waarde","typeRef":"double"}
+    ],
+    "name":"Dakisolatie Berekening",
+    "namespace":"http://operaton.org/schema/1.0/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"Dakisolatie Berekening",
+  "source":"DMN",
+  "title":"Dakisolatie Berekening",
+  "twin":"dakisolatie_berekening_final"
+}

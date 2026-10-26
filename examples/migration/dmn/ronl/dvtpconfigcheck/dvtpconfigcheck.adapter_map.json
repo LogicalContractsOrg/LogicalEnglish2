@@ -1,0 +1,142 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the initiator id is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"initiatorId",
+      "kind":"value",
+      "name":"initiatorId",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the initiator id is *a text*",
+      "text":"initiatorId",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the return url is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"returnUrl",
+      "kind":"value",
+      "name":"returnUrl",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the return url is *a text*",
+      "text":"returnUrl",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the initiator allowed of the dv tp service configuration check fr_30_32 is *a truth value*",
+	  "entity":"global",
+	  "key":"initiatorAllowed",
+	  "kind":"value",
+	  "name":"initiatorAllowed",
+	  "opposite":null,
+	  "template":"the initiator allowed of the dv tp service configuration check fr_30_32 is *a truth value*",
+	  "text":"initiatorAllowed",
+	  "type":"boolean"
+	},
+	 {
+	  "display":"the config ttl days of the dv tp service configuration check fr_30_32 is *a number*",
+	  "entity":"global",
+	  "key":"configTtlDays",
+	  "kind":"value",
+	  "name":"configTtlDays",
+	  "opposite":null,
+	  "template":"the config ttl days of the dv tp service configuration check fr_30_32 is *a number*",
+	  "text":"configTtlDays",
+	  "type":"number"
+	},
+	 {
+	  "display":"the config ttl label of the dv tp service configuration check fr_30_32 is *a text*",
+	  "entity":"global",
+	  "key":"configTtlLabel",
+	  "kind":"value",
+	  "name":"configTtlLabel",
+	  "opposite":null,
+	  "template":"the config ttl label of the dv tp service configuration check fr_30_32 is *a text*",
+	  "text":"configTtlLabel",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"DvTP Service Configuration Check (FR-30/32)",
+      "kind":"structure",
+      "name":"DvTP Service Configuration Check (FR-30/32)",
+      "output":"contract",
+      "role":"decision",
+      "text":"DvTP Service Configuration Check (FR-30/32)",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["DvtpConfigCheck", "dvtpconfigcheck" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"DvtpConfigCheck",
+	"inputs": [ {"index":1,"text":"initiatorId"},  {"index":2,"text":"returnUrl"} ],
+	"logic":"DECISION_TABLE",
+	"name":"DvTP Service Configuration Check (FR-30/32)",
+	"outputs": [
+	   {"index":1,"name":"initiatorAllowed"},
+	   {"index":2,"name":"configTtlDays"},
+	   {"index":3,"name":"configTtlLabel"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_Init001",
+	    "index":1,
+	    "inputs": ["\"DEMO-INITIATOR-001\"", "-" ],
+	    "outputs": [true, "365", "\"1 jaar\"" ]
+	  },
+	   {
+	    "id":"Rule_Init002",
+	    "index":2,
+	    "inputs": ["\"DEMO-INITIATOR-002\"", "-" ],
+	    "outputs": [true, "30", "\"30 dagen\"" ]
+	  },
+	   {
+	    "id":"Rule_Init003",
+	    "index":3,
+	    "inputs": ["\"DEMO-INITIATOR-003\"", "-" ],
+	    "outputs": [false, "0", "\"Niet geregistreerd\"" ]
+	  },
+	   {
+	    "id":"Rule_Default",
+	    "index":4,
+	    "inputs": ["-", "-" ],
+	    "outputs": [true, "365", "\"1 jaar (standaard)\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"DvtpConfigCheck.dmn",
+    "inputs": [
+      {"id":"InputData_initiatorId","name":"initiatorId","typeRef":"string"},
+      {"id":"InputData_returnUrl","name":"returnUrl","typeRef":"string"}
+    ],
+    "name":"DvtpConfigCheck",
+    "namespace":"http://example.com/dvtp/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"DvtpConfigCheck",
+  "source":"DMN",
+  "title":"DvtpConfigCheck",
+  "twin":"dvtpconfigcheck"
+}

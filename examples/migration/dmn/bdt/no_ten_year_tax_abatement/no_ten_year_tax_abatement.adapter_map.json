@@ -1,0 +1,85 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [
+	     {
+	      "display":"the ten year tax abatement of the simple checks of the situation is *a truth value*",
+	      "entity":"global",
+	      "key":"tenYearTaxAbatement",
+	      "kind":"value",
+	      "name":"tenYearTaxAbatement",
+	      "opposite":null,
+	      "template":"the ten year tax abatement of the simple checks of the situation is *a truth value*",
+	      "text":"tenYearTaxAbatement",
+	      "type":"boolean"
+	    }
+	  ],
+	  "entity":"global",
+	  "key":"simpleChecks",
+	  "kind":"structure",
+	  "name":"simpleChecks",
+	  "text":"simpleChecks",
+	  "type":"structure"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["NoTenYearTaxAbatement", "no_ten_year_tax_abatement" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_1D5F9C3B-2A7E-4F6A-BAAB-9E4D1B7F3C5A",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"no-ten-year-tax-abatement.dmn",
+    "inputs": [ {"id":"_3F8E1D5B-7A4C-4D5B-A9B7-1E6C8D3F9A5B","name":"situation","typeRef":"tSituation"} ],
+    "name":"NoTenYearTaxAbatement",
+    "namespace":"https://kie.apache.org/dmn/_F2A8E6C4-3D1B-4F9A-B7E5-1C4D8F2A6B3E",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_E4A7C1D9-3F5B-4D1F-FEEF-4B8E2D6A9C3F",
+	"name":"NoTenYearTaxAbatementService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"NoTenYearTaxAbatement",
+  "source":"DMN",
+  "title":"NoTenYearTaxAbatement",
+  "twin":"no_ten_year_tax_abatement"
+}

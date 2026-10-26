@@ -1,0 +1,67 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the age is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"age",
+      "kind":"value",
+      "name":"age",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the age is *a number*",
+      "text":"age",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the advertisement is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Advertisement",
+      "kind":"value",
+      "name":"Advertisement",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the advertisement is *a text*",
+      "text":"Advertisement",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0111-first-hitpolicy-singleoutputcol", "0111_first_hitpolicy_singleoutputcol" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"advertisement",
+	"inputs": [ {"index":1,"text":"age"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Advertisement",
+	"outputs": [ {"index":1,"name":""} ],
+	"required": [],
+	"rules": [
+	   {"id":"DecisionRule_0bqji8h","index":1,"inputs": [">18" ],"outputs": ["\"Cars\"" ]},
+	   {"id":"DecisionRule_1m87ug5","index":2,"inputs": [">12" ],"outputs": ["\"Videogames\"" ]},
+	   {"id":"DecisionRule_0fnal3o","index":3,"inputs": [">0" ],"outputs": ["\"Toys\"" ]}
+	]
+      }
+    ],
+    "file":"0111-first-hitpolicy-singleoutputcol.dmn",
+    "inputs": [ {"id":"inputData_input_1","name":"age","typeRef":"number"} ],
+    "name":"0111-first-hitpolicy-singleoutputcol",
+    "namespace":"http://www.trisotech.com/definitions/Definitions_1qokm8z",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0111-first-hitpolicy-singleoutputcol",
+  "source":"DMN",
+  "title":"0111-first-hitpolicy-singleoutputcol",
+  "twin":"0111_first_hitpolicy_singleoutputcol"
+}

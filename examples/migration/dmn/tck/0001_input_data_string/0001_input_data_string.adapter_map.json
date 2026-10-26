@@ -1,0 +1,58 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the full name is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"Full Name",
+      "kind":"value",
+      "name":"Full Name",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the full name is *a text*",
+      "text":"Full Name",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the greeting message is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Greeting Message",
+      "kind":"value",
+      "name":"Greeting Message",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the greeting message is *a text*",
+      "text":"Greeting Message",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0001-input-data-string", "0001_input_data_string" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"d_GreetingMessage",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"Greeting Message",
+	"required": []
+      }
+    ],
+    "file":"0001-input-data-string.dmn",
+    "inputs": [ {"id":"i_FullName","name":"Full Name","typeRef":"string"} ],
+    "name":"0001-input-data-string",
+    "namespace":"https://github.com/agilepro/dmn-tck",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0001-input-data-string",
+  "source":"DMN",
+  "title":"0001-input-data-string",
+  "twin":"0001_input_data_string"
+}

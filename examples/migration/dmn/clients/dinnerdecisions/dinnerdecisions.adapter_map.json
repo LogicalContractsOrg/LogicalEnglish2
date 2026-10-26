@@ -1,0 +1,227 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the season is *a value*",
+      "entity":"global",
+      "goal":false,
+      "key":"Season",
+      "kind":"value",
+      "name":"Season",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the season is *a value*",
+      "text":"Season",
+      "type":"any"
+    },
+    {
+      "derived":false,
+      "display":"the number of guests is *a value*",
+      "entity":"global",
+      "goal":false,
+      "key":"Number of Guests",
+      "kind":"value",
+      "name":"Number of Guests",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the number of guests is *a value*",
+      "text":"Number of Guests",
+      "type":"any"
+    },
+    {
+      "derived":false,
+      "display":"the guests with children is *a value*",
+      "entity":"global",
+      "goal":false,
+      "key":"Guests with children?",
+      "kind":"value",
+      "name":"Guests with children?",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the guests with children is *a value*",
+      "text":"Guests with children?",
+      "type":"any"
+    },
+    {
+      "derived":false,
+      "display":"the guest count is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"guestCount",
+      "kind":"value",
+      "name":"guestCount",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the guest count is *a number*",
+      "text":"guestCount",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the guests with children two is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"guestsWithChildren",
+      "kind":"value",
+      "name":"guestsWithChildren",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the guests with children two is *a truth value*",
+      "text":"guestsWithChildren",
+      "type":"boolean"
+    },
+    {
+      "derived":false,
+      "display":"the season two is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"season",
+      "kind":"value",
+      "name":"season",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the season two is *a text*",
+      "text":"season",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Beverages",
+      "kind":"list",
+      "listed":"the beverages are listed",
+      "name":"Beverages",
+      "output":"contract",
+      "role":"decision",
+      "template":"the beverages include *a text*",
+      "text":"Beverages",
+      "type":"string"
+    },
+    {
+      "aliases": ["desiredDish" ],
+      "derived":true,
+      "display":"the dish is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"Dish",
+      "kind":"value",
+      "name":"Dish",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the dish is *a text*",
+      "text":"Dish",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["Dinner Decisions", "dinnerdecisions" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"COLLECT",
+	"id":"beverages",
+	"inputs": [ {"index":1,"text":"desiredDish"},  {"index":2,"text":"guestsWithChildren"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Beverages",
+	"outputs": [ {"index":1,"name":"beverages"} ],
+	"required": ["Dish", "Dish" ],
+	"rules": [
+	   {
+	    "id":"row-506282952-7",
+	    "index":1,
+	    "inputs": ["\"Spareribs\"", "" ],
+	    "outputs": ["\"Aecht Schlenkerla Rauchbier\"" ]
+	  },
+	   {"id":"row-506282952-8","index":2,"inputs": ["\"Stew\"", "" ],"outputs": ["\"Guiness\"" ]},
+	   {
+	    "id":"row-506282952-9",
+	    "index":3,
+	    "inputs": ["\"Roastbeef\"", "" ],
+	    "outputs": ["\"Bordeaux\"" ]
+	  },
+	   {
+	    "id":"row-506282952-10",
+	    "index":4,
+	    "inputs": ["\"Steak\",\"Dry Aged Gourmet Steak\",\"Light Salad and a nice Steak\"", "" ],
+	    "outputs": ["\"Pinot Noir\"" ]
+	  },
+	   {"id":"row-506282952-11","index":5,"inputs": ["", true ],"outputs": ["\"Apple Juice\"" ]},
+	   {"id":"row-506282952-12","index":6,"inputs": ["", "" ],"outputs": ["\"Water\"" ]}
+	]
+      },
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"UNIQUE",
+	"id":"dish",
+	"inputs": [ {"index":1,"text":"season"},  {"index":2,"text":"guestCount"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Dish",
+	"outputs": [ {"index":1,"name":"desiredDish"} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"row-506282952-1",
+	    "index":1,
+	    "inputs": ["\"Fall\"", "<= 8" ],
+	    "outputs": ["\"Spareribs\"" ]
+	  },
+	   {
+	    "id":"row-506282952-2",
+	    "index":2,
+	    "inputs": ["\"Winter\"", "<= 8" ],
+	    "outputs": ["\"Roastbeef\"" ]
+	  },
+	   {
+	    "id":"row-506282952-3",
+	    "index":3,
+	    "inputs": ["\"Spring\"", "<= 4" ],
+	    "outputs": ["\"Dry Aged Gourmet Steak\"" ]
+	  },
+	   {
+	    "id":"row-506282952-4",
+	    "index":4,
+	    "inputs": ["\"Spring\"", "[5..8]" ],
+	    "outputs": ["\"Steak\"" ]
+	  },
+	   {
+	    "id":"row-506282952-5",
+	    "index":5,
+	    "inputs": ["\"Fall\",\"Winter\",\"Spring\"", "> 8" ],
+	    "outputs": ["\"Stew\"" ]
+	  },
+	   {
+	    "id":"row-506282952-6",
+	    "index":6,
+	    "inputs": ["\"Summer\"", "" ],
+	    "outputs": ["\"Light Salad and a nice Steak\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"dinnerDecisions.dmn",
+    "inputs": [
+      {"id":"InputData_0rin549","name":"Season","typeRef":""},
+      {"id":"InputData_1axnom3","name":"Number of Guests","typeRef":""},
+      {"id":"InputData_0pgvdj9","name":"Guests with children?","typeRef":""}
+    ],
+    "name":"Dinner Decisions",
+    "namespace":"http://camunda.org/schema/1.0/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"Dinner Decisions",
+  "source":"DMN",
+  "title":"Dinner Decisions",
+  "twin":"dinnerdecisions"
+}

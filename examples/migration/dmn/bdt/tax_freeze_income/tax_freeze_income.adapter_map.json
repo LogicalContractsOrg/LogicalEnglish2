@@ -1,0 +1,101 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the applicant and spouse income of the situation is *a number*",
+	  "entity":"global",
+	  "key":"applicantAndSpouseIncome",
+	  "kind":"value",
+	  "name":"applicantAndSpouseIncome",
+	  "opposite":null,
+	  "template":"the applicant and spouse income of the situation is *a number*",
+	  "text":"applicantAndSpouseIncome",
+	  "type":"number"
+	},
+	 {
+	  "display":"the primary person id of the situation is *a text*",
+	  "entity":"global",
+	  "key":"primaryPersonId",
+	  "kind":"value",
+	  "name":"primaryPersonId",
+	  "opposite":null,
+	  "template":"the primary person id of the situation is *a text*",
+	  "text":"primaryPersonId",
+	  "type":"string"
+	},
+	 {
+	  "components": [
+	     {"name":"type","type":"string"},
+	     {"name":"personId","type":"string"},
+	     {"name":"relatedPersonId","type":"string"}
+	  ],
+	  "entity":"global",
+	  "key":"relationships",
+	  "kind":"records",
+	  "listed":"the relationships of the situation are listed",
+	  "name":"relationships",
+	  "template":"the relationships of the situation include *a type* with *a person id* with *a related person id*",
+	  "text":"relationships",
+	  "type":"records"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["TaxFreezeIncome", "tax_freeze_income" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_7A7542CB-9FC6-412E-990C-2295A28974A1",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"tax-freeze-income.dmn",
+    "inputs": [ {"id":"_8C376723-0FFC-490D-B1CE-9E20E7B84537","name":"situation","typeRef":"tSituation"} ],
+    "name":"TaxFreezeIncome",
+    "namespace":"https://kie.apache.org/dmn/_325E4AAB-C41A-49BA-9078-57738900C2C3",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_8FCBEB34-FBA5-4684-AA73-8FC6B9C7E86F",
+	"name":"TaxFreezeIncomeService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"TaxFreezeIncome",
+  "source":"DMN",
+  "title":"TaxFreezeIncome",
+  "twin":"tax_freeze_income"
+}

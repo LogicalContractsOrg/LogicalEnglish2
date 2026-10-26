@@ -1,0 +1,90 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the principal of the loan is *a number*",
+	  "entity":"global",
+	  "key":"principal",
+	  "kind":"value",
+	  "name":"principal",
+	  "opposite":null,
+	  "template":"the principal of the loan is *a number*",
+	  "text":"principal",
+	  "type":"number"
+	},
+	 {
+	  "display":"the rate of the loan is *a number*",
+	  "entity":"global",
+	  "key":"rate",
+	  "kind":"value",
+	  "name":"rate",
+	  "opposite":null,
+	  "template":"the rate of the loan is *a number*",
+	  "text":"rate",
+	  "type":"number"
+	},
+	 {
+	  "display":"the term months of the loan is *a number*",
+	  "entity":"global",
+	  "key":"termMonths",
+	  "kind":"value",
+	  "name":"termMonths",
+	  "opposite":null,
+	  "template":"the term months of the loan is *a number*",
+	  "text":"termMonths",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"loan",
+      "kind":"structure",
+      "name":"loan",
+      "output":null,
+      "role":"input",
+      "text":"loan",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the payment is *a number*",
+      "entity":"global",
+      "goal":true,
+      "key":"payment",
+      "kind":"value",
+      "name":"payment",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the payment is *a number*",
+      "text":"payment",
+      "type":"number"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0008-LX-arithmetic", "0008_lx_arithmetic" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_ebf02591-49c6-448d-9f76-6358b0e011c3",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"payment",
+	"required": []
+      }
+    ],
+    "file":"0008-LX-arithmetic.dmn",
+    "inputs": [ {"id":"_1f4ae444-2e4e-4d26-b1f7-87a645c3f50a","name":"loan","typeRef":"tLoan"} ],
+    "name":"0008-LX-arithmetic",
+    "namespace":"http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0008-LX-arithmetic",
+  "source":"DMN",
+  "title":"0008-LX-arithmetic",
+  "twin":"0008_lx_arithmetic"
+}

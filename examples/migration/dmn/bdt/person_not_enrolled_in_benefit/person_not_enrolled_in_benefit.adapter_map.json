@@ -1,0 +1,118 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [ {"name":"personId","type":"string"},  {"name":"benefit","type":"string"} ],
+	  "entity":"global",
+	  "key":"enrollments",
+	  "kind":"records",
+	  "listed":"the enrollments of the situation are listed",
+	  "name":"enrollments",
+	  "template":"the enrollments of the situation include *a person id* with *a benefit*",
+	  "text":"enrollments",
+	  "type":"records"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the person id of the parameters is *a text*",
+	  "entity":"global",
+	  "key":"personId",
+	  "kind":"value",
+	  "name":"personId",
+	  "opposite":null,
+	  "template":"the person id of the parameters is *a text*",
+	  "text":"personId",
+	  "type":"string"
+	},
+	 {
+	  "display":"the benefit of the parameters is *a text*",
+	  "entity":"global",
+	  "key":"benefit",
+	  "kind":"value",
+	  "name":"benefit",
+	  "opposite":null,
+	  "template":"the benefit of the parameters is *a text*",
+	  "text":"benefit",
+	  "type":"string"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["PersonNotEnrolledInBenefit", "person_not_enrolled_in_benefit" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_D047F2EA-124C-4CC4-9EA0-5CF496ED9E5C",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"person-not-enrolled-in-benefit.dmn",
+    "inputs": [
+      {"id":"_63C15A72-50A2-471A-B023-7A2B39937C40","name":"situation","typeRef":"tSituation"},
+      {
+	"id":"_380ACD7B-0D9B-47E6-A601-474E38C1EBCF",
+	"name":"parameters",
+	"typeRef":"PersonEnrolledInBenefit.tParameters"
+      }
+    ],
+    "name":"PersonNotEnrolledInBenefit",
+    "namespace":"https://kie.apache.org/dmn/_3B9E68B5-63FA-437C-AF93-CC12DDD00BC5",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_513F29D9-6F29-4B8A-AD8D-F5C339B354DE",
+	"name":"PersonNotEnrolledInBenefitService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"PersonNotEnrolledInBenefit",
+  "source":"DMN",
+  "title":"PersonNotEnrolledInBenefit",
+  "twin":"person_not_enrolled_in_benefit"
+}

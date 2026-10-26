@@ -1,0 +1,107 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "display":"the years owner occupied of the situation is *a number*",
+	  "entity":"global",
+	  "key":"yearsOwnerOccupied",
+	  "kind":"value",
+	  "name":"yearsOwnerOccupied",
+	  "opposite":null,
+	  "template":"the years owner occupied of the situation is *a number*",
+	  "text":"yearsOwnerOccupied",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "display":"the min years of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"minYears",
+	  "kind":"value",
+	  "name":"minYears",
+	  "opposite":null,
+	  "template":"the min years of the parameters is *a number*",
+	  "text":"minYears",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["MinYearsOwnerOccupant", "min_years_owner_occupant" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_5038BC28-9443-449C-B6AA-FFF361E90BBD",
+	"logic":"LITERAL_EXPRESSION",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"min-years-owner-occupant.dmn",
+    "inputs": [
+      {"id":"_22C28902-170A-451D-A21F-DD04D156E503","name":"situation","typeRef":"tSituation"},
+      {
+	"id":"_5C32E232-D785-45B7-89F3-64D672E38A43",
+	"name":"parameters",
+	"typeRef":"tParameters"
+      }
+    ],
+    "name":"MinYearsOwnerOccupant",
+    "namespace":"https://kie.apache.org/dmn/_7CF18264-8908-42B1-8D1B-838863020556",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_D22362E8-8207-40A8-A967-044DE8693E4E",
+	"name":"MinYearsOwnerOccupantService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"MinYearsOwnerOccupant",
+  "source":"DMN",
+  "title":"MinYearsOwnerOccupant",
+  "twin":"min_years_owner_occupant"
+}

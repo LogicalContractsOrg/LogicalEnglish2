@@ -1,0 +1,68 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the num of years is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"NumOfYears",
+      "kind":"value",
+      "name":"NumOfYears",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the num of years is *a number*",
+      "text":"NumOfYears",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the car insurance is *a number*",
+      "entity":"global",
+      "goal":true,
+      "key":"CarInsurance",
+      "kind":"value",
+      "name":"CarInsurance",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the car insurance is *a number*",
+      "text":"CarInsurance",
+      "type":"number"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0114-min-collect-hitpolicy", "0114_min_collect_hitpolicy" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"MIN",
+	"hitPolicy":"COLLECT",
+	"id":"carInsurance",
+	"inputs": [ {"index":1,"text":"NumOfYears"} ],
+	"logic":"DECISION_TABLE",
+	"name":"CarInsurance",
+	"outputs": [ {"index":1,"name":""} ],
+	"required": [],
+	"rules": [
+	   {"id":"DecisionRule_0acwtg0","index":1,"inputs": [">1" ],"outputs": ["98.83" ]},
+	   {"id":"DecisionRule_147sotc","index":2,"inputs": [">2" ],"outputs": ["150.21" ]},
+	   {"id":"DecisionRule_0gxrx36","index":3,"inputs": [">3" ],"outputs": ["205.43" ]},
+	   {"id":"DecisionRule_0od3nns","index":4,"inputs": [">4" ],"outputs": ["64.32" ]}
+	]
+      }
+    ],
+    "file":"0114-min-collect-hitpolicy.dmn",
+    "inputs": [ {"id":"inputData_input_1","name":"NumOfYears","typeRef":"number"} ],
+    "name":"0114-min-collect-hitpolicy",
+    "namespace":"http://www.trisotech.com/definitions/Definitions_0reic0g",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0114-min-collect-hitpolicy",
+  "source":"DMN",
+  "title":"0114-min-collect-hitpolicy",
+  "twin":"0114_min_collect_hitpolicy"
+}

@@ -1,0 +1,143 @@
+{
+  "attributes": [
+    {
+      "components": [
+	 {
+	  "components": [ {"name":"id","type":"string"},  {"name":"dateOfBirth","type":"date"} ],
+	  "entity":"global",
+	  "key":"people",
+	  "kind":"records",
+	  "listed":"the people of the situation are listed",
+	  "name":"people",
+	  "template":"the people of the situation include *an id* with *a date*",
+	  "text":"people",
+	  "type":"records"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"situation",
+      "kind":"structure",
+      "name":"situation",
+      "output":null,
+      "role":"input",
+      "text":"situation",
+      "type":"structure"
+    },
+    {
+      "components": [
+	 {
+	  "entity":"global",
+	  "key":"peopleIds",
+	  "kind":"list",
+	  "listed":"the people ids of the parameters are listed",
+	  "name":"peopleIds",
+	  "template":"the people ids of the parameters include *a text*",
+	  "text":"peopleIds",
+	  "type":"string"
+	},
+	 {
+	  "display":"the as of date of the parameters is *a date*",
+	  "entity":"global",
+	  "key":"asOfDate",
+	  "kind":"value",
+	  "name":"asOfDate",
+	  "opposite":null,
+	  "template":"the as of date of the parameters is *a date*",
+	  "text":"asOfDate",
+	  "type":"date"
+	},
+	 {
+	  "display":"the min age of the parameters is *a number*",
+	  "entity":"global",
+	  "key":"minAge",
+	  "kind":"value",
+	  "name":"minAge",
+	  "opposite":null,
+	  "template":"the min age of the parameters is *a number*",
+	  "text":"minAge",
+	  "type":"number"
+	}
+      ],
+      "derived":false,
+      "entity":"global",
+      "goal":false,
+      "key":"parameters",
+      "kind":"structure",
+      "name":"parameters",
+      "output":null,
+      "role":"input",
+      "text":"parameters",
+      "type":"structure"
+    },
+    {
+      "derived":false,
+      "display":"the dob is *a value*",
+      "entity":"global",
+      "goal":false,
+      "key":"dob",
+      "kind":"value",
+      "name":"dob",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the dob is *a value*",
+      "text":"dob",
+      "type":"any"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the check result is *a truth value*",
+      "entity":"global",
+      "goal":true,
+      "key":"checkResult",
+      "kind":"value",
+      "name":"checkResult",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the check result is *a truth value*",
+      "text":"checkResult",
+      "type":"boolean"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["SomeoneMinAge", "someone_min_age" ],
+  "dmn": {
+    "decisions": [
+      {
+	"id":"_C015A46D-E538-4F4B-9237-6620B7781DF8",
+	"logic":"CONTEXT",
+	"name":"checkResult",
+	"required": []
+      }
+    ],
+    "file":"someone-min-age.dmn",
+    "inputs": [
+      {"id":"_15ACE01F-0C2D-4F2D-B44F-5E562B7D61BA","name":"situation","typeRef":"tSituation"},
+      {
+	"id":"_C98E92CF-600E-4C9B-AFAD-1531015A5A7F",
+	"name":"parameters",
+	"typeRef":"tParameters"
+      }
+    ],
+    "name":"SomeoneMinAge",
+    "namespace":"https://kie.apache.org/dmn/_68F3AAA8-BC9B-46C8-B921-B2B060D5BC55",
+    "services": [
+      {
+	"encapsulated": [],
+	"id":"_115363CB-5A44-450E-A973-2718F10C793A",
+	"name":"SomeoneMinAgeService",
+	"outputs": ["checkResult" ]
+      }
+    ]
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"SomeoneMinAge",
+  "source":"DMN",
+  "title":"SomeoneMinAge",
+  "twin":"someone_min_age"
+}

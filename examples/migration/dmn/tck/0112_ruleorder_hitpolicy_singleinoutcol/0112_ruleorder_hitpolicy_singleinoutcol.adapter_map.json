@@ -1,0 +1,81 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the age is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"Age",
+      "kind":"value",
+      "name":"Age",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the age is *a number*",
+      "text":"Age",
+      "type":"number"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Approval",
+      "kind":"list",
+      "listed":"the approval are listed",
+      "name":"Approval",
+      "output":"contract",
+      "role":"decision",
+      "template":"the approval include *a text*",
+      "text":"Approval",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0112-ruleOrder-hitpolicy-singleinoutcol", "0112_ruleorder_hitpolicy_singleinoutcol" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"RULE_ORDER",
+	"id":"_3b2953a3-745f-4d2e-b55d-75c8c5ae653c",
+	"inputs": [ {"index":1,"text":"Age"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Approval",
+	"outputs": [ {"index":1,"name":""} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"_ca85854c-27a3-4001-b2ac-23a164ca5940",
+	    "index":1,
+	    "inputs": [">=18" ],
+	    "outputs": ["\"Best\"" ]
+	  },
+	   {
+	    "id":"_7f03803d-2636-40ab-8346-7fd7f38ab695",
+	    "index":2,
+	    "inputs": [">=12" ],
+	    "outputs": ["\"Standard\"" ]
+	  },
+	   {
+	    "id":"_887acecd-40fc-42da-9443-eeba476f5516",
+	    "index":3,
+	    "inputs": ["<12" ],
+	    "outputs": ["\"Standard\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"0112-ruleOrder-hitpolicy-singleinoutcol.dmn",
+    "inputs": [ {"id":"_41effb45-b3c4-46ac-b1da-122b3e428a98","name":"Age","typeRef":"number"} ],
+    "name":"0112-ruleOrder-hitpolicy-singleinoutcol",
+    "namespace":"http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0112-ruleOrder-hitpolicy-singleinoutcol",
+  "source":"DMN",
+  "title":"0112-ruleOrder-hitpolicy-singleinoutcol",
+  "twin":"0112_ruleorder_hitpolicy_singleinoutcol"
+}

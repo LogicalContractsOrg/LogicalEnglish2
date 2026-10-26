@@ -1,0 +1,188 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the request type is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"requestType",
+      "kind":"value",
+      "name":"requestType",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the request type is *a text*",
+      "text":"requestType",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the department is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"department",
+      "kind":"value",
+      "name":"department",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the department is *a text*",
+      "text":"department",
+      "type":"string"
+    },
+    {
+      "aliases": [],
+      "components": [
+	 {
+	  "display":"the decision route of the capacity claim routing is *a text*",
+	  "entity":"global",
+	  "key":"decisionRoute",
+	  "kind":"value",
+	  "name":"decisionRoute",
+	  "opposite":null,
+	  "template":"the decision route of the capacity claim routing is *a text*",
+	  "text":"decisionRoute",
+	  "type":"string"
+	},
+	 {
+	  "display":"the candidate groups of the capacity claim routing is *a text*",
+	  "entity":"global",
+	  "key":"candidateGroups",
+	  "kind":"value",
+	  "name":"candidateGroups",
+	  "opposite":null,
+	  "template":"the candidate groups of the capacity claim routing is *a text*",
+	  "text":"candidateGroups",
+	  "type":"string"
+	},
+	 {
+	  "display":"the advisory group of the capacity claim routing is *a text*",
+	  "entity":"global",
+	  "key":"advisoryGroup",
+	  "kind":"value",
+	  "name":"advisoryGroup",
+	  "opposite":null,
+	  "template":"the advisory group of the capacity claim routing is *a text*",
+	  "text":"advisoryGroup",
+	  "type":"string"
+	}
+      ],
+      "derived":true,
+      "entity":"global",
+      "goal":true,
+      "key":"Capacity Claim Routing",
+      "kind":"structure",
+      "name":"Capacity Claim Routing",
+      "output":"contract",
+      "role":"decision",
+      "text":"Capacity Claim Routing",
+      "type":"structure"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["CapacityClaimRouting", "capacityclaimrouting" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"FIRST",
+	"id":"CapacityClaimRouting",
+	"inputs": [ {"index":1,"text":"requestType"},  {"index":2,"text":"department"} ],
+	"logic":"DECISION_TABLE",
+	"name":"Capacity Claim Routing",
+	"outputs": [
+	   {"index":1,"name":"decisionRoute"},
+	   {"index":2,"name":"candidateGroups"},
+	   {"index":3,"name":"advisoryGroup"}
+	],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"Rule_01",
+	    "index":1,
+	    "inputs": ["\"staffing\"", "\"vergunningen\"" ],
+	    "outputs": ["\"recruitment\"", "\"hrm-unit\"", "\"HRM unit (Vergunningen)\"" ]
+	  },
+	   {
+	    "id":"Rule_02",
+	    "index":2,
+	    "inputs": ["\"staffing\"", "\"infrastructuur\"" ],
+	    "outputs": ["\"recruitment\"", "\"hrm-unit\"", "\"HRM unit (Infrastructuur)\"" ]
+	  },
+	   {
+	    "id":"Rule_03",
+	    "index":3,
+	    "inputs": ["\"staffing\"", "\"hr\"" ],
+	    "outputs": ["\"recruitment\"", "\"hrm-unit\"", "\"HRM unit (HR)\"" ]
+	  },
+	   {
+	    "id":"Rule_04",
+	    "index":4,
+	    "inputs": ["\"staffing\"", "-" ],
+	    "outputs": ["\"recruitment\"", "\"hrm-unit\"", "\"HRM unit\"" ]
+	  },
+	   {
+	    "id":"Rule_05",
+	    "index":5,
+	    "inputs": ["\"hiring\"", "\"vergunningen\"" ],
+	    "outputs": [
+	      "\"procurement\"",
+	      "\"procurement-unit,planning-control-officer\"",
+	      "\"Legal Affairs and Procurement unit + Planning and Control officer (Vergunningen)\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_06",
+	    "index":6,
+	    "inputs": ["\"hiring\"", "\"infrastructuur\"" ],
+	    "outputs": [
+	      "\"procurement\"",
+	      "\"procurement-unit,planning-control-officer\"",
+	      "\"Legal Affairs and Procurement unit + Planning and Control officer (Infrastructuur)\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_07",
+	    "index":7,
+	    "inputs": ["\"hiring\"", "\"hr\"" ],
+	    "outputs": [
+	      "\"procurement\"",
+	      "\"procurement-unit,planning-control-officer\"",
+	      "\"Legal Affairs and Procurement unit + Planning and Control officer (HR)\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_08",
+	    "index":8,
+	    "inputs": ["\"hiring\"", "-" ],
+	    "outputs": [
+	      "\"procurement\"",
+	      "\"procurement-unit,planning-control-officer\"",
+	      "\"Legal Affairs and Procurement unit + Planning and Control officer\""
+	    ]
+	  },
+	   {
+	    "id":"Rule_09",
+	    "index":9,
+	    "inputs": ["-", "-" ],
+	    "outputs": ["\"recruitment\"", "\"hrm-unit\"", "\"HRM unit\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"CapacityClaimRouting.dmn",
+    "inputs": [
+      {"id":"InputData_requestType","name":"requestType","typeRef":"string"},
+      {"id":"InputData_department","name":"department","typeRef":"string"}
+    ],
+    "name":"CapacityClaimRouting",
+    "namespace":"http://camunda.org/schema/1.0/dmn",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"CapacityClaimRouting",
+  "source":"DMN",
+  "title":"CapacityClaimRouting",
+  "twin":"capacityclaimrouting"
+}

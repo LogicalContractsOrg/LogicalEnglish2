@@ -1,0 +1,126 @@
+{
+  "attributes": [
+    {
+      "derived":false,
+      "display":"the age is *a number*",
+      "entity":"global",
+      "goal":false,
+      "key":"Age",
+      "kind":"value",
+      "name":"Age",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the age is *a number*",
+      "text":"Age",
+      "type":"number"
+    },
+    {
+      "derived":false,
+      "display":"the risk category is *a text*",
+      "entity":"global",
+      "goal":false,
+      "key":"RiskCategory",
+      "kind":"value",
+      "name":"RiskCategory",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the risk category is *a text*",
+      "text":"RiskCategory",
+      "type":"string"
+    },
+    {
+      "derived":false,
+      "display":"the is_affordable is *a truth value*",
+      "entity":"global",
+      "goal":false,
+      "key":"isAffordable",
+      "kind":"value",
+      "name":"isAffordable",
+      "opposite":null,
+      "output":null,
+      "role":"input",
+      "template":"the is_affordable is *a truth value*",
+      "text":"isAffordable",
+      "type":"boolean"
+    },
+    {
+      "aliases": [],
+      "derived":true,
+      "display":"the approval status is *a text*",
+      "entity":"global",
+      "goal":true,
+      "key":"Approval Status",
+      "kind":"value",
+      "name":"Approval Status",
+      "opposite":null,
+      "output":"contract",
+      "role":"decision",
+      "template":"the approval status is *a text*",
+      "text":"Approval Status",
+      "type":"string"
+    }
+  ],
+  "current_date_template":null,
+  "deployments": ["0005-simpletable-A", "0005_simpletable_a" ],
+  "dmn": {
+    "decisions": [
+      {
+	"aggregation":"NONE",
+	"hitPolicy":"ANY",
+	"id":"_3b2953a3-745f-4d2e-b55d-75c8c5ae653c",
+	"inputs": [
+	   {"index":1,"text":"Age"},
+	   {"index":2,"text":"RiskCategory"},
+	   {"index":3,"text":"isAffordable"}
+	],
+	"logic":"DECISION_TABLE",
+	"name":"Approval Status",
+	"outputs": [ {"index":1,"name":""} ],
+	"required": [],
+	"rules": [
+	   {
+	    "id":"_ce051810-0ddf-4423-8de4-2474df9ab864",
+	    "index":1,
+	    "inputs": [">=18", "\"Medium\",\"Low\"", true ],
+	    "outputs": ["\"Approved\"" ]
+	  },
+	   {
+	    "id":"_c40019d2-e426-4786-87ba-8421a918adb7",
+	    "index":2,
+	    "inputs": ["<18", "-", "-" ],
+	    "outputs": ["\"Declined\"" ]
+	  },
+	   {
+	    "id":"_71054262-f580-4eb6-aa37-0c48eb974e07",
+	    "index":3,
+	    "inputs": ["-", "\"High\"", "-" ],
+	    "outputs": ["\"Declined\"" ]
+	  },
+	   {
+	    "id":"_b4ca4f5f-86f9-4657-8bcc-637424f00da2",
+	    "index":4,
+	    "inputs": ["-", "-", false ],
+	    "outputs": ["\"Declined\"" ]
+	  }
+	]
+      }
+    ],
+    "file":"0005-simpletable-A.dmn",
+    "inputs": [
+      {"id":"_41effb45-b3c4-46ac-b1da-122b3e428a98","name":"Age","typeRef":"number"},
+      {"id":"_5a4bdb64-f0ef-4978-9e03-6f1ae64a1f17","name":"RiskCategory","typeRef":"string"},
+      {"id":"_8ff18665-84e9-49f2-a8df-8981b1844549","name":"isAffordable","typeRef":"boolean"}
+    ],
+    "name":"0005-simpletable-A",
+    "namespace":"http://www.trisotech.com/definitions/_6cb03678-38e5-4ee3-826b-d6622c738563",
+    "services": []
+  },
+  "entities": [],
+  "format":"le-adapter-map/1",
+  "project":"0005-simpletable-A",
+  "source":"DMN",
+  "title":"0005-simpletable-A",
+  "twin":"0005_simpletable_a"
+}

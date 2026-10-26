@@ -1,6 +1,6 @@
 # Migrating programs into Logical English: the shared machinery
 
-*Kind: reference · Audience: developers · Status: current (2026-09-23)*
+*Kind: reference · Audience: developers · Status: current (2026-10-26)*
 
 This is the reference for the infrastructure every translator into Logical
 English shares — Phase 0 of the roadmap in
@@ -37,6 +37,7 @@ program.le with RESIDUE blocks ──Contract Assistant, mode residue──▶ r
 | `either`/`any of` with nested `all of`; negation in numbered items | `le_extensions.pl` (InsurLE) | D1, D2 |
 | `; opposite:` forms are not negation in a condition — documented, and diagnosed (`opposite_as_condition`) | `le_verifier.pl`, `docs/user/reference/language.md` §2 | D3 |
 | `verify/1` on LPS documents, with the LPS emitter's own diagnostics | `le_kbs.pl` | D4 |
+| The adapter kit: a twin answers the callers of its source system, through a mapping file each translator writes beside the twin (§7 below) | `le_adapter.pl`, `le_api.pl` (`adapterDecide`) | MarketingPlan §2.12 D5/D6; OpportunitiesForAdapters A2 |
 
 ## 0. Opening another system's file (`le_import.pl`)
 
@@ -552,6 +553,36 @@ need more than 15 significant ones with 15 (`115.95`, not
 `115.94999999999999`; `le_kbs:number_locale_atom/2`), and a test compares
 the numbers of an answer as numbers (`30` is `30.0`; `normalize_string/2`).
 When a rule itself must round, `lib/rounding` rounds exactly.
+
+## 7. Adapters: the mapping file a translator writes
+
+An adapter answers the callers of a source system (its addresses, its
+request and reply formats) from the twin. The common part is `le_adapter.pl`
+(user documentation: `docs/user/integrations/adapters.md`); a **dialect** is
+a module with the routes of one system (lpsPlus `migration/oia/oia_adapter.pl`,
+`migration/dmn/dmn_adapter.pl`). A translator whose source has callers writes,
+beside the twin, `<twin>.adapter_map.json` (OIA's translator writes
+`<twin>.oia_map.json`, the same format):
+
+- `title`, `project`, `deployments` (the names a route may use), `entities`
+  (OIA), `current_date_template`;
+- one attribute per name the callers use: `name` (and `key`, `text`,
+  `aliases`), `type`, `derived`, and its `kind`: `value` (`template` with one
+  place), `boolean` (`display`, `opposite`), `structure` (`components`),
+  `list` and `records` (`template`, `listed`, `components`), `evalue` and
+  `ebool` (OIA entities);
+- anything else the dialect needs to write its replies, under a key of its
+  own (the DMN translator's `dmn`: namespace, decision ids, hit policies,
+  rule ids).
+
+A dialect registers its maps with one clause,
+`le_adapter:adapter_dialect(Dialect, Suffix, Roots)`, and answers with
+`adapter_deployment/4` and `adapter_decide/6`. Who may call is the
+`le_adapter:access_hook/3` of the installation (lpsPlus
+`migration/adapter_access.pl`: an API client of an account holding the
+translators' licence); `ADAPTERS_OPEN=true` or `NO_RESTRICTIONS=true` open
+every adapter. `testing/test_adapter.pl` pins the kit on the twins of
+`examples/migration/dmn/clients/`.
 
 ## The disclaimer every twin carries
 

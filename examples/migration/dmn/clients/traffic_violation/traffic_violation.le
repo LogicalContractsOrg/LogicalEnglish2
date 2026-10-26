@@ -1,0 +1,162 @@
+% The Logical English twin of the DMN model "Traffic Violation" (Traffic Violation.dmn), written by the DMN translator.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the functions are:
+    the code of the violation is *a text*.
+    the date of the violation is *a date*.
+    the type of the violation is *a text*.
+    the speed limit of the violation is *a number*.
+    the actual speed of the violation is *a number*.
+    the name of the driver is *a text*.
+    the age of the driver is *a number*.
+    the state of the driver is *a text*.
+    the city of the driver is *a text*.
+    the points of the driver is *a number*.
+    the amount of the fine is *a number*.
+    the points of the fine is *a number*.
+    the should the driver be suspended is *a text*.
+    the total points of the should the driver be suspended is *a value*.
+
+the knowledge base traffic_violation includes:
+
+the text of the_model is at "sources/Traffic Violation.dmn".
+
+rule fine_1 with provenance the model at decision Fine rule 1:
+the amount of the fine is 500 if
+    the type of the violation is "speed"
+    and the actual speed of the violation - the speed limit of the violation >= 10
+    and the actual speed of the violation - the speed limit of the violation < 30.
+
+rule fine_2 with provenance the model at decision Fine rule 1:
+the points of the fine is 3 if
+    the type of the violation is "speed"
+    and the actual speed of the violation - the speed limit of the violation >= 10
+    and the actual speed of the violation - the speed limit of the violation < 30.
+
+rule fine_3 with provenance the model at decision Fine rule 2:
+the amount of the fine is 1000 if
+    the type of the violation is "speed"
+    and the actual speed of the violation - the speed limit of the violation >= 30.
+
+rule fine_4 with provenance the model at decision Fine rule 2:
+the points of the fine is 7 if
+    the type of the violation is "speed"
+    and the actual speed of the violation - the speed limit of the violation >= 30.
+
+rule fine_5 with provenance the model at decision Fine rule 3:
+the amount of the fine is 100 if
+    the type of the violation is "parking".
+
+rule fine_6 with provenance the model at decision Fine rule 3:
+the points of the fine is 1 if
+    the type of the violation is "parking".
+
+rule fine_7 with provenance the model at decision Fine rule 4:
+the amount of the fine is 1000 if
+    the type of the violation is "driving under the influence".
+
+rule fine_8 with provenance the model at decision Fine rule 4:
+the points of the fine is 5 if
+    the type of the violation is "driving under the influence".
+
+rule should_the_driver_be_suspended_1 with provenance the model at decision Should the driver be suspended?:
+the total points of the should the driver be suspended is a value V if
+    V = the points of the driver + the points of the fine.
+
+rule should_the_driver_be_suspended_2 with provenance the model at decision Should the driver be suspended?:
+the should the driver be suspended is "Yes" if
+    the total points of the should the driver be suspended >= 20.
+
+rule should_the_driver_be_suspended_3 with provenance the model at decision Should the driver be suspended?:
+the should the driver be suspended is "No" if
+    it is not the case that
+        the total points of the should the driver be suspended is a value V
+        and V >= 20.
+
+scenario readme is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case readme the request of Kogito s README for dmn-quarkus-example:
+    the points of the driver is 2.
+    the actual speed of the violation is 120.
+    the speed limit of the violation is 100.
+    the type of the violation is "speed".
+    q_d_amount_of_the_fine expects answers ["the amount of the fine is 500"].
+    q_d_points_of_the_fine expects answers ["the points of the fine is 3"].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is No"].
+
+scenario fast is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case fast 40 over the limit a driver with 15 points:
+    the age of the driver is 34.
+    the city of the driver is "Philadelphia".
+    the name of the driver is "Ana".
+    the points of the driver is 15.
+    the state of the driver is "PA".
+    the actual speed of the violation is 140.
+    the code of the violation is "S-40".
+    the date of the violation is 2026-10-20.
+    the speed limit of the violation is 100.
+    the type of the violation is "speed".
+    q_d_amount_of_the_fine expects answers ["the amount of the fine is 1000"].
+    q_d_points_of_the_fine expects answers ["the points of the fine is 7"].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is Yes"].
+
+scenario slightly_fast is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case slightly_fast 5 over the limit no fine:
+    the points of the driver is 3.
+    the actual speed of the violation is 105.
+    the speed limit of the violation is 100.
+    the type of the violation is "speed".
+    q_d_amount_of_the_fine expects answers [].
+    q_d_points_of_the_fine expects answers [].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is No"].
+
+scenario parking is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case parking a parking violation:
+    the points of the driver is 19.
+    the actual speed of the violation is 0.
+    the speed limit of the violation is 0.
+    the type of the violation is "parking".
+    q_d_amount_of_the_fine expects answers ["the amount of the fine is 100"].
+    q_d_points_of_the_fine expects answers ["the points of the fine is 1"].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is Yes"].
+
+scenario dui is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case dui driving under the influence 16 points already:
+    the points of the driver is 16.
+    the actual speed of the violation is 50.
+    the speed limit of the violation is 50.
+    the type of the violation is "driving under the influence".
+    q_d_amount_of_the_fine expects answers ["the amount of the fine is 1000"].
+    q_d_points_of_the_fine expects answers ["the points of the fine is 5"].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is Yes"].
+
+scenario boundary_10 is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case boundary_10 exactly 10 over the limit:
+    the points of the driver is 17.
+    the actual speed of the violation is 60.
+    the speed limit of the violation is 50.
+    the type of the violation is "speed".
+    q_d_amount_of_the_fine expects answers ["the amount of the fine is 500"].
+    q_d_points_of_the_fine expects answers ["the points of the fine is 3"].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is Yes"].
+
+scenario boundary_30 is, as stated in "the oracle, Drools 10.2.0, on the cases of clients/" at test case boundary_30 exactly 30 over the limit:
+    the points of the driver is 13.
+    the actual speed of the violation is 80.
+    the speed limit of the violation is 50.
+    the type of the violation is "speed".
+    q_d_amount_of_the_fine expects answers ["the amount of the fine is 1000"].
+    q_d_points_of_the_fine expects answers ["the points of the fine is 7"].
+    q_d_should_the_driver_be_suspended expects answers ["the should the driver be suspended is Yes"].
+
+query q_d_amount_of_the_fine is:
+    the amount of the fine is which number.
+
+query q_d_points_of_the_fine is:
+    the points of the fine is which number.
+
+query q_d_should_the_driver_be_suspended is:
+    the should the driver be suspended is which text.
+
