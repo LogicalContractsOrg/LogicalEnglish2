@@ -193,6 +193,8 @@ query debt is:
         await expect.poll(async () => (await panel.isVisible()) || (await notice.isVisible()), { timeout: 30000 }).toBe(true);
         if (await panel.isVisible()) {
             await expect(page.locator('#prolog-content')).toContainText('is_happy');
+            // the panel says what it shows: s(CASP), not Prolog
+            await expect(page.locator('#prolog-panel-title')).toHaveText('s(CASP) Equivalent');
         }
     });
 });

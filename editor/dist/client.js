@@ -9543,6 +9543,7 @@ var uiCatalog = {
     "Open...": "Abrir...",
     "OpenAI API Key:": "Chave de API OpenAI:",
     "PROLOG Equivalent": "Equivalente PROLOG",
+    "s(CASP) Equivalent": "Equivalente s(CASP)",
     "Paste": "Colar",
     "Patch scenario": "Ajustar cen\xE1rio",
     "Predicates Legend": "Legenda de predicados",
@@ -10224,6 +10225,7 @@ var uiCatalog = {
     "Open...": "Abrir...",
     "OpenAI API Key:": "Clave de API OpenAI:",
     "PROLOG Equivalent": "Equivalente PROLOG",
+    "s(CASP) Equivalent": "Equivalente s(CASP)",
     "Paste": "Pegar",
     "Patch scenario": "Ajustar escenario",
     "Predicates Legend": "Leyenda de predicados",
@@ -10903,6 +10905,7 @@ var uiCatalog = {
     "Open...": "Ouvrir...",
     "OpenAI API Key:": "Cl\xE9 d'API OpenAI :",
     "PROLOG Equivalent": "\xC9quivalent PROLOG",
+    "s(CASP) Equivalent": "\xC9quivalent s(CASP)",
     "Paste": "Coller",
     "Patch scenario": "Ajuster le sc\xE9nario",
     "Predicates Legend": "L\xE9gende des pr\xE9dicats",
@@ -11582,6 +11585,7 @@ var uiCatalog = {
     "Open...": "Apri...",
     "OpenAI API Key:": "Chiave API OpenAI:",
     "PROLOG Equivalent": "Equivalente PROLOG",
+    "s(CASP) Equivalent": "Equivalente s(CASP)",
     "Paste": "Incolla",
     "Patch scenario": "Aggiusta scenario",
     "Predicates Legend": "Legenda dei predicati",
@@ -16076,7 +16080,7 @@ async function start() {
             const lines = data.issues.map((i) => `% [${i.kind}] ${i.message}`);
             content += "\n\n% ---- s(CASP) compile-time issues ----\n" + lines.join("\n");
           }
-          showPrologPanel(content);
+          showPrologPanel(content, "s(CASP) Equivalent");
         } else {
           showModal(data.error || t("The s(CASP) program could not be produced."), "See s(CASP)");
         }
@@ -16611,7 +16615,9 @@ ${err}`, "See s(CASP)");
   const prologClose = document.getElementById("prolog-panel-close");
   const prologHeader = document.getElementById("prolog-panel-header");
   const prologCopy = document.getElementById("prolog-copy");
-  const showPrologPanel = (content) => {
+  const prologTitle = document.getElementById("prolog-panel-title");
+  const showPrologPanel = (content, title = "PROLOG Equivalent") => {
+    prologTitle.textContent = t(title);
     prologContent.textContent = content;
     prologPanel.style.display = "flex";
   };
@@ -19474,6 +19480,9 @@ ${err}`, "See s(CASP)");
           operation: "assistant_command",
           command,
           content: jobDoc.model.getValue(),
+          // Where the program is, so that the files it includes are found
+          source: jobDoc.example || "",
+          base: jobDoc.baseUrl || "",
           session_id: jobDoc.assistantSessionId,
           api_keys: apiKeys,
           model: localStorage.getItem("le-assistant-model"),

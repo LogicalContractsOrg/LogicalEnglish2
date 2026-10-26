@@ -599,7 +599,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                             const lines = data.issues.map((i: any) => `% [${i.kind}] ${i.message}`);
                             content += '\n\n% ---- s(CASP) compile-time issues ----\n' + lines.join('\n');
                         }
-                        showPrologPanel(content);
+                        showPrologPanel(content, 's(CASP) Equivalent');
                     } else {
                         // never silent: the server's reason (e.g. the s(CASP) engine is
                         // not installed, already in the program's language), else ours;
@@ -1218,7 +1218,12 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         const prologHeader = document.getElementById('prolog-panel-header')!;
         const prologCopy = document.getElementById('prolog-copy')!;
 
-        const showPrologPanel = (content: string) => {
+        const prologTitle = document.getElementById('prolog-panel-title')!;
+
+        // The panel shows the Prolog of the program, or its s(CASP): the
+        // title says which (an English key of i18n/ui.csv).
+        const showPrologPanel = (content: string, title: string = 'PROLOG Equivalent') => {
+            prologTitle.textContent = t(title);
             prologContent.textContent = content;
             prologPanel.style.display = 'flex';
         };
