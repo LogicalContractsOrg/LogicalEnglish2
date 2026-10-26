@@ -195,3 +195,37 @@ a person pays the fee if the value of the fee is a fee and the fee > 1.
     assertion(KB:le_constant('the fee', the_value_of_the_fee_is/1)).
 
 :- end_tests(functions).
+
+%  A constant is weaker than a variable of the rule: once a rule introduces a
+%  variable ("A rabbit"), a definite phrase with the same name ("the rabbit")
+%  is that variable, not the constant `the rabbit is jonas`. Where the rule
+%  introduces no such variable, the phrase is still the constant.
+:- begin_tests(constants_weaker_than_variables).
+
+rabbit_kb(Rule, KB) :-
+    format(string(T), "the target language is: prolog.
+
+the templates are:
+*a creature* has *an offspring*.
+*a creature* is happy.
+
+the constants are:
+the rabbit is jonas.
+
+the knowledge base rabbit includes:
+~w
+", [Rule]),
+    le_kbs:load_text(T, KB).
+
+test(a_variable_of_the_rule_wins_over_a_constant) :-
+    rabbit_kb("A rabbit is happy if the rabbit has baby rabbits.", KB),
+    rule(KB, is_happy, 1, is_happy(X), Body),
+    assertion(Body == has(X, 'baby rabbits')).
+
+test(without_such_a_variable_the_constant_is_used) :-
+    rabbit_kb("A creature is happy if the rabbit has baby rabbits.", KB),
+    rule(KB, is_happy, 1, is_happy(_), Body),
+    conjuncts(Body, [First|_]),
+    assertion(First = the_value_of_the_rabbit_is(_)).
+
+:- end_tests(constants_weaker_than_variables).

@@ -976,6 +976,15 @@ the program. The server then checks the result against the program (`nl_to_le.pl
 | `templates` | list of strings | the template labels, with their `*…*` placeholders, that the new text can use |
 | `content` | string | the program. The server checks the new text against it |
 | `model` | string | optional, `"openai/gpt-oss-120b"` by default |
+| `jury_models` | list of strings | optional: two or three models of different companies. They write and check the probes, and with the effort dial at 2 or 3 they also make the vocabulary and the drafts |
+| `profile` | string | optional: `"auto"` (the default), `"none"`, or the name of a profile: `"policy_schedule"`, `"coverage_policy"`, `"tariff"`, `"legal_opinion"`, `"csa"` |
+| `questions` | list of strings | optional: the kinds of question that the program must answer, for example `["coverage", "amount"]`. By default, the questions of the profile |
+| `target_language` | string | optional: `"lps"` writes Logical English for LPS. Each case is then a timeline, with `% expect` lines that LPS checks |
+| `schema` | string | in `population` mode: a Logical English program whose templates are the elements to fill |
+| `document_name` | string | in `population` mode: the name of the document, for the citations |
+| `documents` | list | in `collection` mode: one item for each document. An item has a `name` and the fields of a `contract` request for that document (`wording` or `wording_url`, and optionally `schedule`, `cases`, `target`). The models, the budget, the features and the profile of the request apply to each document |
+| `library` | upload | in `collection` mode: an LE program that each document's program includes |
+| `collection_name` | string | in `collection` mode: the name of the folder and of the entry program |
 | `api_keys` | object | optional |
 | `document` | string | optional: the name of the document that the facts come from. Each new fact then cites that document |
 | `address` | string | optional, together with `document`: the location of the text of the document |
@@ -1002,6 +1011,15 @@ The client sends `assistant_status` at intervals to get the progress of the job.
 | `content` | string | the current text of the program |
 | `mode` | string | `"light"` or `"deep"`. `"light"` is an agent that runs in the server itself (`le_assistant_light.pl`). `"deep"` (the default when the request gives no mode) is an `opencode` agent that works in a separate folder |
 | `model` | string | the short name of a model |
+| `jury_models` | list of strings | optional: two or three models of different companies. They write and check the probes, and with the effort dial at 2 or 3 they also make the vocabulary and the drafts |
+| `profile` | string | optional: `"auto"` (the default), `"none"`, or the name of a profile: `"policy_schedule"`, `"coverage_policy"`, `"tariff"`, `"legal_opinion"`, `"csa"` |
+| `questions` | list of strings | optional: the kinds of question that the program must answer, for example `["coverage", "amount"]`. By default, the questions of the profile |
+| `target_language` | string | optional: `"lps"` writes Logical English for LPS. Each case is then a timeline, with `% expect` lines that LPS checks |
+| `schema` | string | in `population` mode: a Logical English program whose templates are the elements to fill |
+| `document_name` | string | in `population` mode: the name of the document, for the citations |
+| `documents` | list | in `collection` mode: one item for each document. An item has a `name` and the fields of a `contract` request for that document (`wording` or `wording_url`, and optionally `schedule`, `cases`, `target`). The models, the budget, the features and the profile of the request apply to each document |
+| `library` | upload | in `collection` mode: an LE program that each document's program includes |
+| `collection_name` | string | in `collection` mode: the name of the folder and of the entry program |
 | `api_keys` | object | optional |
 | `max_steps` | number | light mode: the number of steps that the agent can do, 10 by default |
 | `session_id` | string | deep mode: the conversation to continue, as a previous `assistant_status` gave it |
@@ -1056,7 +1074,7 @@ started with `NO_RESTRICTIONS=true` replies to all callers.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `mode` | string | `"contract"`, `"scenario"`, `"query"` or `"residue"`. `"contract"` is the default when the request gives no mode: materials in, a full program out. `"scenario"` and `"query"` make one new block for a program that already exists |
+| `mode` | string | `"contract"`, `"scenario"`, `"query"`, `"residue"`, `"population"` or `"collection"`. `"contract"` is the default when the request gives no mode: materials in, a full program out. `"scenario"` and `"query"` make one new block for a program that already exists. `"population"` fills a schema from the wording. `"collection"` converts each of `documents` and assembles the programs |
 | `wording` | upload | the wording of the contract; a request in `contract` mode must contain it, or `wording_url` |
 | `wording_url` | string | instead of `wording`: the web address of the wording (a PDF, a web page, a Word file or a text file). The server gets the wording and converts it. The program cites it as the location where the wording is published |
 | `schedule`, `cases` | upload or list of uploads | optional, in `contract` mode |
@@ -1067,10 +1085,19 @@ started with `NO_RESTRICTIONS=true` replies to all callers.
 | `instructions` | string | optional: more instructions for the assistant, in free text |
 | `model`, `judge_model` | string | `"claude-sonnet"` by default. The judge uses the same model as the work, unless the request gives a model for the judge |
 | `branch_models` | list of strings | optional, in `contract` mode: the models that write and repair the competing drafts ("branches"), in turn. For example, with `["gpt-5.6-sol", "Qwen/Qwen3.8-2.4T-A95B"]`, the first model does branches 1 and 3, and the second model does branch 2. The tests give a rank to all the branches together |
+| `jury_models` | list of strings | optional: two or three models of different companies. They write and check the probes, and with the effort dial at 2 or 3 they also make the vocabulary and the drafts |
+| `profile` | string | optional: `"auto"` (the default), `"none"`, or the name of a profile: `"policy_schedule"`, `"coverage_policy"`, `"tariff"`, `"legal_opinion"`, `"csa"` |
+| `questions` | list of strings | optional: the kinds of question that the program must answer, for example `["coverage", "amount"]`. By default, the questions of the profile |
+| `target_language` | string | optional: `"lps"` writes Logical English for LPS. Each case is then a timeline, with `% expect` lines that LPS checks |
+| `schema` | string | in `population` mode: a Logical English program whose templates are the elements to fill |
+| `document_name` | string | in `population` mode: the name of the document, for the citations |
+| `documents` | list | in `collection` mode: one item for each document. An item has a `name` and the fields of a `contract` request for that document (`wording` or `wording_url`, and optionally `schedule`, `cases`, `target`). The models, the budget, the features and the profile of the request apply to each document |
+| `library` | upload | in `collection` mode: an LE program that each document's program includes |
+| `collection_name` | string | in `collection` mode: the name of the folder and of the entry program |
 | `api_keys` | object | optional |
 | `target` | string | optional |
-| `budget` | object | `{preset, k?, w?, repairs?, minutes?}`, where `preset` is `"draft"`, `"standard"` or `"thorough"`; `draft` by default |
-| `features` | object | optional: settings to change one at a time — `probes`, `interrogation_repair`, `holdout`, `paraphrase`, `clausewise`, `diff_repairs`, `max_rewrite_errors`, `polish` |
+| `budget` | object | `{preset, effort?, k?, w?, repairs?, minutes?}`, where `preset` is `"draft"`, `"standard"` or `"thorough"`; `draft` by default. `effort` (0 to 5) is the effort dial; it replaces the preset |
+| `features` | object | optional: settings to change one at a time — `probes`, `interrogation_repair`, `holdout`, `paraphrase`, `clausewise`, `diff_repairs`, `max_rewrite_errors`, `polish`; and `hide_outcomes` (`false`, `"draft"`, `"full"`), `prompt_layout` (`"steered"`, `"classic"`), `probe_jury`, `faithfulness`, `adaptive_branches` with `parallel` and `stop_after`, `hops` (0 or 1), `ledger` (`"both"` or `"structured"`) |
 | `max_tokens` | number | optional; the server calculates a value when the request gives none |
 | `reasoning` | string | `"default"` or `"minimal"` |
 
@@ -1100,7 +1127,13 @@ If a job does not run and is not on the disk, the reply is
 
 **Request**: `job`.
 
-**Reply**: `{ "le": "<program>", "filename": "contract.le", "mode": "...", "winner": 1, "scores": [ ... ], "final_score": ..., "ledger": "<markdown>", "interrogation": {...}, "paraphrase": {...}, "existing_code": {...} }`
+**Reply**: `{ "le": "<program>", "filename": "contract.le", "mode": "...", "winner": 1, "scores": [ ... ], "final_score": ..., "ledger": "<markdown>", "interrogation": {...}, "paraphrase": {...}, "existing_code": {...}, "faithfulness": {...}, "costs": {...}, "coverage": {...} }`
+`costs` gives the tokens and the cost of the calls, for each stage and each model,
+as the providers reported them. `coverage` gives the figures of the ledger: the
+clauses that the program encodes, approximates, leaves out on purpose, and does not
+address. The folder of the job also contains `contract.ledger.json` and
+`contract.ledger.md`, the ledger in the form of the
+[migrations](../integrations/index.md).
 The reply also contains `recovered: true` when the server read the result from the
 disk after a restart. The errors are `{ "error": "Job has no result (yet)" }` and
 `{ "error": "Unknown job" }`.

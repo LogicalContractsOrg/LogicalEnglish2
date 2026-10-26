@@ -29,6 +29,7 @@ server itself. For all the other things that the server can do, refer to
   - [opencode (the LE Assistant)](#opencode-the-le-assistant)
   - [ChatGPT actions](#chatgpt-actions)
 - [Tools](#tools)
+  - [The tools of the Contract Assistant](#the-tools-of-the-contract-assistant)
 - [Resources](#resources)
 - [Prompts](#prompts)
 - [REST endpoints](#rest-endpoints)
@@ -271,6 +272,34 @@ with the sections that contain the keywords, each with its link on the server.
 
 A server that starts with the flag `mcp:mcp_only_query_verify` lists only two of the
 four tools: `query` and `verify`.
+
+### The tools of the Contract Assistant
+
+A server with the Contract Assistant installed gives nine more tools. The tools are
+in the list only when the sign-in of the client has the licence of the Logical
+English Translators (the capability `contract_assistant`;
+[signing in](../guide/accounts.md)). Each tool is one stage of the
+[Contract Assistant](../guide/assistants.md#the-contract-assistant). Each tool takes
+what it needs (the document, the vocabulary, the program) and gives back its
+result. The client keeps the results and gives them to the next tool. Thus an
+assistant such as Claude Code can do the stages one at a time, read each result,
+and decide the next step.
+
+| Tool | Arguments | Reply |
+|---|---|---|
+| `ca_ingest` | `document`, `profile`, `hops` | the kind of document, the profile, the questions, the clauses that the assistant found, the index of the limits, the referenced documents |
+| `ca_vocabulary` | `document`, `k`, `jury_models` | the vocabulary: the templates of the program |
+| `ca_architecture` | `document`, `vocabulary`, `sketch_number` | a plan of the program |
+| `ca_draft` | `document`, `vocabulary`, `sketch`, `cases` | a program, verified |
+| `ca_check` | `program` | the errors, the warnings, the tests, and the feedback that a repair receives (no model call) |
+| `ca_repair` | `document`, `vocabulary`, `program`, `feedback` | the program after one repair, verified |
+| `ca_probe_cases` | `document`, `count`, `jury_models` | test cases that two or three models wrote from the document and checked |
+| `ca_ledger` | `document`, `program`, `profile` | the ledger of the program, clause by clause, and its coverage figure (no model call) |
+| `ca_populate` | `document`, `schema`, `k` | the elements of the schema, with their values as facts that cite the document |
+
+A tool that calls a model can run for some minutes. This is more than the limit of
+60 seconds for a call ([The limits](#the-limits)). Use these tools on a server on
+your own computer, or on a server with a higher limit.
 
 ## Resources
 

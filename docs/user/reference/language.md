@@ -139,6 +139,22 @@ the one fact of that template. Thus you can also put the value into a variable:
 constant in arithmetic, because arithmetic cannot operate on a name. You can compare
 a value with the name. Or you can put the value of the name into a variable first.
 
+A variable of a rule is stronger than a constant with the same name. In this
+program, `the rabbit` in the rule is the rabbit that `A rabbit` introduces, not
+`jonas`:
+
+```le
+the constants are:
+    the rabbit is jonas.
+
+the knowledge base rabbits includes:
+    A rabbit is happy if the rabbit has baby rabbits.
+```
+
+The name has the meaning of the constant only in a rule that does not introduce a
+variable with that name, for example
+`a creature is happy if the rabbit has baby rabbits.`
+
 The system finds the type of the value from the value as you wrote it: a number, a
 piece of text, or a name. The name itself can contain the word `is`. Then the value
 is the part after the last `is`. The verifier reports a constant that nothing uses

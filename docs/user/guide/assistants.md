@@ -38,6 +38,7 @@ Two functions in the editor do not need a model:
 - [The Contract Assistant](#the-contract-assistant)
   - [What to generate](#what-to-generate)
   - [A whole program](#a-whole-program)
+  - [Other ways to use the Contract Assistant](#other-ways-to-use-the-contract-assistant)
   - [Running, leaving, coming back](#running-leaving-coming-back)
   - [The result](#the-result)
 
@@ -272,22 +273,76 @@ Do these steps:
      keep the last section.
 
    For the full wording, keep the field empty.
-3. **Existing LE code** (optional). Give templates, scenarios with the answers that you
+3. **Kind of document**, **Referenced documents** and **Write the program in**
+   (three settings below the target section):
+   - **Kind of document** selects a *profile*. A profile is a file that tells the
+     assistant about one kind of document: which parts are rules, which parts are
+     the data of each case, and which parts are procedure; how the document
+     numbers its clauses; and which other documents it names. There are five
+     profiles: an insurance policy with a schedule, a coverage policy (for example
+     a Medicare policy), a tariff, a legal opinion, and an ISDA credit support
+     annex. With **automatic**, the assistant reads the start of the document and
+     selects a profile, or no profile when none is applicable.
+   - **Referenced documents**: some documents depend on other documents that they
+     name. For example, a Medicare coverage policy names its policy article. With
+     **fetch, one step**, the assistant finds the documents that the wording names,
+     gets them from the sources of the profile, and reads them together with the
+     wording. It does not get the documents that those documents name.
+   - **Write the program in**: **Logical English**, or **Logical English for LPS**.
+     LPS (Logic Production Systems) is the language of programs that act over
+     time: events, actions, and states that start and stop. Select it for a
+     contract that must act, for example a loan that charges a fee when a payment
+     is late. Each case is then a timeline. The assistant runs each timeline in
+     LPS and compares the run with the result that the case expects.
+4. **Existing LE code** (optional). Give templates, scenarios with the answers that you
    expect, and rules that you already wrote. The program that the assistant writes
    must contain your code and must agree with it. The result tells how much of your
    code stayed word for word.
-4. **Additional instructions** (optional). Write any text that you want. The assistant
+5. **Additional instructions** (optional). Write any text that you want. The assistant
    adds it to each request for a draft and to each request for a repair. Sometimes
    your instructions are different from the usual conventions of the assistant. Then
    your instructions have priority. The assistant writes scenarios only for the cases
    that you give, unless your instructions ask for more.
-5. **Effort budget**. **Draft** takes approximately 15 minutes, **Standard**
+6. **Effort budget**. **Draft** takes approximately 15 minutes, **Standard**
    approximately 45 minutes and **Thorough** approximately 2 hours. The three budgets
    are different in three numbers: the number of vocabulary samples, the number of
    competing drafts, and the number of difficult test cases for the best draft.
    **Advanced** shows each of these numbers and settings, and you can select them
    yourself. After you select a wording file, the page shows an **estimate of the
    cost** before you start.
+
+   The **Effort dial** is a different way to select the effort. It replaces the
+   budget. Each notch adds one kind of effort, in the order in which the kinds
+   usually give the most value for their cost:
+   - **0**: the least expensive run.
+   - **1**: checks. Two or three models write test cases from the document alone,
+     and each model examines the answers of the others. These test cases are
+     *probes*. A probe counts only when most of the models agree on its answer. A
+     judge also compares each rule with the passage that the rule quotes.
+   - **2**: the same models together select the vocabulary (the templates).
+   - **3**: the vocabulary samples and the drafts come from different models.
+   - **4**: more drafts. The assistant stops making new drafts when two drafts in
+     sequence pass no check that an earlier draft did not pass.
+   - **5**: more repairs.
+
+   Give the models of notches 1 to 3 in **Jury models**. Use two or three models
+   from different companies. Below the dial, the page shows what each notch adds to
+   the cost.
+
+   Two settings in **Advanced** change how the assistant writes:
+   - **Expected answers**: the cases that you give contain their results. With
+     **hidden from the drafter**, the model that writes the program sees the facts
+     of each case, but not its result. A different request changes the results
+     into tests, and no repair can change these tests. With **hidden from the
+     drafter and the repairs**, a repair sees the answer of the program and why the
+     program did not give the expected answer, but not the expected answer. The
+     purpose is a program that follows the document, not a program that only fits
+     its tests.
+   - **Prompt layout**: **steered** (the default) starts each request with the kind
+     of document and the role of the model, then the document, and ends with the
+     task. The repairs start with the same document. The provider keeps the start
+     of the request in a cache, which makes the repeated part less expensive.
+     **classic** is the layout before October 2026.
 
 The program contains these items in addition to its rules:
 
@@ -330,6 +385,35 @@ If you gave two or more cases, the assistant does not use some of them during th
 drafts. It then gives a score to the result on these cases, which the drafts did not
 see.
 
+### Other ways to use the Contract Assistant
+
+Three more uses are available only through the web API of the server and through
+MCP (the Model Context Protocol, a standard way for an assistant program to call
+tools). They are not on the web page.
+
+- **Fill a schema.** A *schema* is a list of the data elements of a kind of
+  document, for example the 64 elements of a credit support annex: the base
+  currency, the threshold of each party, and so on. Write the schema as a Logical
+  English program: each template is one element. The assistant reads the document
+  one or more times. It gives each element the value that the readings agree on,
+  with a quotation of the words that state the value. The result is a set of facts
+  that cite the document, and a ledger with one line for each element. An element
+  that the document does not state stays empty
+  ([`contract_start`](../api/web-api.md#contract_start--start-a-contract-assistant-job),
+  `mode: "population"`).
+- **A collection.** Some decisions need many documents, for example the coverage
+  policies of a group of medical items. The assistant converts each document into
+  its own program, with a library that you give. Then it makes one folder for all of
+  them. The folder has an entry program that includes the others, an index (which
+  document mentions which code, which document declares which template), and a
+  report of the templates that two documents write in different words
+  (`mode: "collection"`).
+- **One stage at a time.** The stages of the assistant are also MCP tools: read the
+  document, make the vocabulary, plan the program, write a draft, check, repair,
+  write probes, make the ledger, fill a schema. An assistant such as Claude Code can
+  call them one after the other, read each result, and decide the next step
+  ([MCP](../api/mcp.md)).
+
 ### Running, leaving, coming back
 
 The run screen shows these items:
@@ -357,7 +441,17 @@ server.
   program, and open it from the file;
 - the score of the delivered program, and of each draft;
 - for a full program, the **coverage ledger**: the parts that the assistant encoded,
-  the parts that it did not encode intentionally, and the parts that are missing;
+  the parts that it did not encode intentionally, and the parts that are missing.
+  The assistant makes the ledger from the program itself: it divides the document
+  into its clauses, with the numbers that the document uses (for example
+  `III.B.8`), and it examines which rules cite each clause. Each line of the ledger
+  gives the words of the clause. Thus **View Original Text** in the editor shows the
+  passage of a rule. The ledger also gives a figure: the percentage of the clauses
+  with rules that the program encodes. After this ledger, the ledger of a model
+  that compared the document with the program is given as *the critic's reading*;
+- for a legal opinion, an **index of the limits**: each sentence of the opinion
+  that limits its scope (an exclusion, an assumption, a qualification), with the
+  rule that quotes it, if there is one;
 - reports, where they are applicable:
   - the test cases that agree with the program, and the test cases that do not agree
     with it. A disagreement means that the program is wrong, or that the reading of
@@ -365,7 +459,11 @@ server.
   - how much of your existing code the assistant kept;
   - what a new scenario or query answers when it runs against the program;
   - the score for how stable the program is when the same question has different
-    words.
+    words;
+  - with the effort dial at notch 1 or more, how many rules a judge found faithful
+    to the passage that they quote, and the probes on which the models agreed;
+  - in the *Technicalities* part of the ledger, what the calls to the models cost,
+    as the providers reported it, for each stage and each model.
 
 Read the result as you read the draft of a colleague. The tests show that the program
 decides the cases that you gave as you expected. The ledger shows what the program

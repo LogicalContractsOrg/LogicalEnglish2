@@ -2419,7 +2419,15 @@ extract_value_from_parts(Parts, Value, VMIn, VMOut, Templates, NoTransform, Allo
         ; (Parts = [string(S, _)] ; Parts = [string(S)]) -> Value = S, VMOut = VMIn
         ; (Parts = [date(D, _)] ; Parts = [date(D)]) -> Value = D, VMOut = VMIn
         ; maplist(extract_simple_word, Parts, Words),
-          (   check_global_abbreviation(Words, Templates, Value, VMIn, VMOut) -> true
+          (   % A definite phrase whose variable the rule has already
+              % introduced ("A rabbit is happy if the rabbit ...") is that
+              % variable, even when a constant has the same name (`the rabbit
+              % is jonas`): a constant is weaker than a variable of the rule.
+              definite_phrase(Words),
+              allow_var_name(AllowVars, Words, Name),
+              definite_is_anaphoric(Words, Name, VMIn)
+          ->  unify_with_vmap(Name, Value, VMIn, VMOut, true)
+          ;   check_global_abbreviation(Words, Templates, Value, VMIn, VMOut) -> true
               ; allow_var_name(AllowVars, Words, Name),
                 definite_is_anaphoric(Words, Name, VMIn) -> unify_with_vmap(Name, Value, VMIn, VMOut, true)
               % A declared function (`the functions are:`) written without its
