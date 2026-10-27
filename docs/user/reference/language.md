@@ -92,7 +92,7 @@ After a template definition, you can write one or more additions. Each addition 
   - Example: `*a person* has passed the test; undefined.`
 - `; via service <name>` — a declared service answers the template when the query runs (§17.6).
 - `; <value> by default` — **LPS target, fluents only** (`le_lps_surface.md` §2). This addition gives the value of the last place of the template where no fact has stored a value (`the balance of *an account* is *an amount*; 0 by default`, `…; the zero address by default`). The system reports a default on a different template (`default_not_lps`).
-- `; judged` — this addition marks an **open-textured** relation. A person *decides* the instances of such a relation; rules do not calculate them. The synonyms are `; open textured` and `; evaluative`. The system solves a judged template as it solves `; assumable`, with one difference. When a question has a recorded outcome (the last argument), the system assumes no other outcome for that question. A rule that concludes a judged template is an error. The system shows an instance that nobody decided yet as *judgment needed*. Refer to §17.1.
+- `; judged` — this addition marks an **open-textured** matter: a person decides it, and rules do not calculate it. The synonyms are `; open textured` and `; evaluative`. A sentence of such a template is a *judgment*. In a template with two or more places, the last place holds the decision. When a scenario records a decision, a different decision about the same thing is not possible. When no decision is recorded, an answer can depend on a judgment that is still to come, as with `; assumable`. The explanation then shows that judgment as *judgment needed*. A rule that concludes a judged template is an error. Refer to §17.1.
 - `; memorable` — while a query runs, the system **keeps** the answers to this template. It calculates each different question one time only, and keeps the answers and their explanations. Each time that the same question occurs again, the system gives the same answers (§2.4). The name of this method is memoization. The synonyms `; memoised`, `; memoized` and `; cached` have the same meaning.
 - `; one value` — the **last place of the template holds one value** for each choice of its other places. For example, mark *the income of a person is an amount* with `; one value`, and a person has one income. The synonym `; single valued` has the same meaning. Only the case search reads this marker (§17.11). The case search reads two facts of such a template about the same things as one fact. Thus a case never needs a person with two incomes, or a report with two reporting parties. Queries give the same answers as before, and a scenario that states two values still has the two values. Rune is the language of the Common Domain Model of ISDA. The translator of Rune marks with `; one value` each attribute that Rune lets have only one value.
 - `; image "<address>"` — this addition gives a **picture** for a sentence. The **Bento Box** shows the picture in the location of the sentence. The Bento Box is the editor display of an explanation as boxes in boxes (refer to §12 of the [introduction to LE](../tutorials/intro-to-le/intro-to-le.md#12-bento-box-an-explanation-as-boxes-in-boxes)). The address is a full web address that starts with `http://` or `https://`, in double quotes. The picture has no effect on what the program proves. You can write the addition in two locations:
@@ -1046,37 +1046,18 @@ document (`confer`, `according to`, `because`) takes the default document. A
 fact with its own `as stated in` names a different document. A comma that is *not*
 followed by a trailer keyword stays part of the fact, as usual.
 
-- **The trailers do not change the proof.** The system reads the fact exactly as it
-  reads the fact without the trailers. It records the provenance with the fact
-  (`le_fact_provenance/4`, recorded with the location of the fact in the source).
-  Each session that loads the scenario receives
-  `le_provenance(Fact, Source, Document, Locator, Rationale)`. A part that is not
-  there is `none`. When there is no `according to`, the source is the document.
+- **The trailers do not change the proof.** A fact with trailers has the same
+  effect on the answers as the same fact without trailers. The trailers are kept
+  with the fact, and the explanations show them (refer to the next item). When a
+  fact has no `according to`, its source is its document.
+  (For programmers: the Prolog form of this record is
+  `le_provenance(Fact, Source, Document, Locator, Rationale)`, with `none` for a
+  part that the fact does not give.)
 - **Explanations** show a proved fact with its trailers, as you wrote them:
   `the burst pipe is accidental, according to the loss adjuster, as stated in report LA-17 at page 3, because "..."`.
 - **`scenario facts require provenance.`**: a statement about the full program.
   Write it after the target-language line. Then each scenario fact without a
   trailer causes a `fact_without_provenance` warning.
-- **`; judged`** (a template addition, §2): a person decides the matter, and the
-  rules do not calculate it. The system solves such a template as it solves
-  `; assumable`, but with the rule about outcomes below. The effects are:
-  - a rule that concludes a judged template is an **error**
-    (`judged_with_rules`);
-  - a judged fact in a scenario without `according to` or `because` causes a
-    `judgment_without_provenance` warning;
-  - a sentence that is still open (a sentence that the system assumed) shows in an
-    explanation as `the burst pipe is accidental (judgment needed)`. The list of
-    unknowns of the answer does not change (`"the burst pipe is accidental"`);
-  - **the last argument is the outcome** when the template has two or more
-    arguments, the same as for a service (§17.6). The template
-    `the principal use of *a good* is *a use*; judged.` asks one question for each
-    good. When a question has a recorded outcome
-    (`the principal use of the bin is household use, according to CBP, ...`), the
-    system assumes no other outcome for that question. A question with no record
-    stays open, with one judgment needed for each outcome that the rules try. Thus
-    write a judged template with its outcome last
-    (`the claim that *a good* is *a kind* is *an outcome*`), and not as a plain
-    relation between two things.
 
 **Documents.** A document that a fact cites is an ordinary constant
 (`ruling NY N362700`, `the benefit act`) or a quoted piece of text, such as a web
@@ -1135,6 +1116,76 @@ value that the rules read is similar to it. An example is
 `the fabric construction of style A is knit`, where the rules read knitted, woven
 and other values: "Did you mean knitted?". The verifier does not report a value that
 is not similar to any of these values, such as a free description or a name.
+
+**Judged templates.** Rules do not calculate some matters. A person decides
+them. For example, a loss adjuster decides if damage is accidental. A customs
+officer decides the principal use of a good. Lawyers call such a matter
+*open-textured*. To mark a template for such a matter, write `; judged` after the
+template (§2). The synonyms `; open textured` and `; evaluative` have the same
+meaning. A sentence of a judged template is a **judgment**.
+
+This program is an example:
+```le
+the templates are:
+    *a good* is taxed at *a rate*.
+    *a good* is imported; undefined.
+    the principal use of *a good* is *a use*; judged.
+
+the knowledge base tariff includes:
+
+a good is taxed at 5
+    if the good is imported
+    and the principal use of the good is household use.
+
+a good is taxed at 10
+    if the good is imported
+    and the principal use of the good is industrial use.
+```
+A template has **places**: the parts between asterisks, such as `*a good*` and
+`*a use*`. In a judged template with two or more places, the **last place holds
+the decision**. The other places tell what the decision is about. In the example,
+the decision is a use, such as household use. Each good gets one decision.
+
+A judgment has an effect on the answers in one of two ways:
+1. **A person recorded the decision.** A scenario has the fact
+   `the principal use of the bin is household use, according to CBP.` The answer to
+   `which good is taxed at which rate` is `the bin is taxed at 5`. The rate 10 is
+   not an answer. The reason is that the decision for the bin is in the scenario,
+   and a different use for the bin is then not possible.
+2. **Nobody recorded a decision yet.** The answer can then depend on a judgment
+   that is still to come, as with an assumable template (`; assumable`, §2). In the
+   example, there are two answers: `the bin is taxed at 5` and
+   `the bin is taxed at 10`. Each answer gives the judgment that it depends on, in
+   its list of unknowns: `the principal use of the bin is household use` for the
+   first answer, and `the principal use of the bin is industrial use` for the
+   second answer. The explanation of the first answer shows
+   `the principal use of the bin is household use (judgment needed)`. Only the
+   uses that a rule names can occur in this way. Here, these uses are household
+   use and industrial use.
+
+Two checks apply to a judged template:
+- A rule that concludes a judged template is an **error** (`judged_with_rules`).
+  A person decides the matter, thus a rule must not calculate it.
+- A judgment in a scenario without `according to` or `because` causes a
+  `judgment_without_provenance` warning. A recorded decision must tell who made it,
+  or why.
+
+**Put the decision in the last place.** Only the last place is the decision.
+Thus, the template `*a good* is *a kind*; judged.` is usually not correct. With
+this template, the judgment `the bin is a container` makes the judgment
+`the bin is a plastic article` impossible, because the kind is in the last place.
+A good can be of more than one kind, and a person decides each kind separately.
+Then give the decision a place of its own, after the good and the kind:
+```le
+    the classification of *a good* as *a kind* is *a decision*; judged.
+```
+This template has three places: the good, the kind and the decision, for example
+`accepted` or `rejected`. Each combination of a good and a kind is a separate
+decision. A rule then names the decision that it needs, for example
+`the classification of the good as container is accepted`.
+
+A judged template with one place, such as `*a damage* is accidental; judged.`,
+has no separate decision place. The full sentence is the judgment.
 
 Refer to `examples/regulatory/judged_damage.le`, and to the customs and Medicare
 programs (`examples/regulatory/customs/`,
