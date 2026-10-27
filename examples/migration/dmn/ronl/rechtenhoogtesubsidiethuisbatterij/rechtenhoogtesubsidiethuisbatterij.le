@@ -40,17 +40,11 @@ the functions are:
     the aanvrager failliet is *a truth value*.
     the aanvrager type is *a text*.
     the gemaakte kosten two is *a number*.
-    the minimale noodzakelijke kosten is *a value*.
-    the plafond eigenaren is *a value*.
-    the plafond huurders is *a value*.
     the provincie woning two is *a text*.
     the reeds gesubsidieerd eigenaren two is *a number*.
     the reeds gesubsidieerd huurders two is *a number*.
     the rekening naam komt overeen is *a truth value*.
     the relatie tot woning two is *a text*.
-    the subsidie maximum is *a value*.
-    the subsidie minimum is *a value*.
-    the subsidie percentage is *a value*.
     the toestemming eigenaar two is *a truth value*.
 
 the templates are:
@@ -74,45 +68,45 @@ the behaalbare hoogte subsidie is the bereken beschikbaar subsidie plafond if
     the bereken basis hoogte subsidie > the bereken beschikbaar subsidie plafond.
 
 rule bereken_basis_hoogte_subsidie_1 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 1:
-the bereken basis hoogte subsidie is the subsidie maximum if
-    the gemaakte kosten two >= the minimale noodzakelijke kosten / the subsidie percentage
-    and the subsidie percentage * the gemaakte kosten two > the subsidie maximum.
+the bereken basis hoogte subsidie is the subsidie maximum of the subsidie constanten thuisbatterij if
+    the gemaakte kosten two >= the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij / the subsidie percentage of the subsidie constanten thuisbatterij
+    and the subsidie percentage of the subsidie constanten thuisbatterij * the gemaakte kosten two > the subsidie maximum of the subsidie constanten thuisbatterij.
 
 rule bereken_basis_hoogte_subsidie_2 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 1:
 the bereken basis hoogte subsidie is a number N if
     the gemaakte kosten two is a number M
-    and the minimale noodzakelijke kosten is a value V
-    and the subsidie percentage is a value K
-    and M >= V / K
+    and the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is a number K
+    and the subsidie percentage of the subsidie constanten thuisbatterij is a number P
+    and M >= K / P
     and it is not the case that
-        the subsidie percentage is a value P
-        and the gemaakte kosten two is a number Q
-        and the subsidie maximum is a value R
-        and P * Q > R
-    and the subsidie minimum is N
-    and K * M < N.
+        the subsidie percentage of the subsidie constanten thuisbatterij is a number Q
+        and the gemaakte kosten two is a number R
+        and the subsidie maximum of the subsidie constanten thuisbatterij is a number S
+        and Q * R > S
+    and the subsidie minimum of the subsidie constanten thuisbatterij is N
+    and P * M < N.
 
 rule bereken_basis_hoogte_subsidie_3 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 1:
 the bereken basis hoogte subsidie is a number N if
     the gemaakte kosten two is a number M
-    and the minimale noodzakelijke kosten is a value V
-    and the subsidie percentage is a value K
-    and M >= V / K
+    and the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is a number K
+    and the subsidie percentage of the subsidie constanten thuisbatterij is a number P
+    and M >= K / P
     and it is not the case that
-        the subsidie percentage is a value P
-        and the gemaakte kosten two is a number Q
-        and the subsidie maximum is a value R
-        and P * Q > R
+        the subsidie percentage of the subsidie constanten thuisbatterij is a number Q
+        and the gemaakte kosten two is a number R
+        and the subsidie maximum of the subsidie constanten thuisbatterij is a number S
+        and Q * R > S
     and it is not the case that
-        the subsidie percentage is a value S
-        and the gemaakte kosten two is a number T
-        and the subsidie minimum is a value U
-        and S * T < U
-    and N = K * M.
+        the subsidie percentage of the subsidie constanten thuisbatterij is a number T
+        and the gemaakte kosten two is a number U
+        and the subsidie minimum of the subsidie constanten thuisbatterij is a number V
+        and T * U < V
+    and N = P * M.
 
 rule bereken_basis_hoogte_subsidie_4 with provenance the model at decision Bereken Basis Hoogte Subsidie rule 2:
 the bereken basis hoogte subsidie is 0 if
-    the gemaakte kosten two < the minimale noodzakelijke kosten / the subsidie percentage.
+    the gemaakte kosten two < the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij / the subsidie percentage of the subsidie constanten thuisbatterij.
 
 rule bereken_beschikbaar_subsidie_plafond_1 with provenance the model at decision Bereken Beschikbaar Subsidie Plafond:
 the bereken beschikbaar subsidie plafond is a number N if
@@ -122,35 +116,35 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as true is a date M
     and M <= 2026-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren is a value V
-    and the reeds gesubsidieerd eigenaren two is a number K
-    and V - K > 0
-    and N = V - K
+    and the plafond eigenaren of the jaar gebonden budget is a number K
+    and the reeds gesubsidieerd eigenaren two is a number P
+    and K - P > 0
+    and N = K - P
     otherwise the aanvraag datum is true
-    and the date written as true is a date P
-    and P >= 2026-01-12
     and the date written as true is a date Q
-    and Q <= 2026-09-30
+    and Q >= 2026-01-12
+    and the date written as true is a date R
+    and R <= 2026-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren is a value R
-        and the reeds gesubsidieerd eigenaren two is a number S
-        and R - S > 0
+        the plafond eigenaren of the jaar gebonden budget is a number S
+        and the reeds gesubsidieerd eigenaren two is a number T
+        and S - T > 0
     and N is equal to 0
     otherwise the aanvraag datum is false
-    and the date written as false is a date T
-    and T < 2026-01-12
+    and the date written as false is a date U
+    and U < 2026-01-12
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren is a value U
+    and the plafond eigenaren of the jaar gebonden budget is a number V
     and the reeds gesubsidieerd eigenaren two is a number W
-    and U - W > 0
-    and N = U - W
+    and V - W > 0
+    and N = V - W
     otherwise the aanvraag datum is false
     and the date written as false is a date X
     and X < 2026-01-12
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren is a value Y
+        the plafond eigenaren of the jaar gebonden budget is a number Y
         and the reeds gesubsidieerd eigenaren two is a number Z
         and Y - Z > 0
     and N is equal to 0
@@ -158,7 +152,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date B
     and B > 2026-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren is a value C
+    and the plafond eigenaren of the jaar gebonden budget is a number C
     and the reeds gesubsidieerd eigenaren two is a number E
     and C - E > 0
     and N = C - E
@@ -167,7 +161,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and F > 2026-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren is a value G
+        the plafond eigenaren of the jaar gebonden budget is a number G
         and the reeds gesubsidieerd eigenaren two is a number H
         and G - H > 0
     and N is equal to 0
@@ -177,7 +171,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as true is a date L
     and L <= 2026-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders is a value NN
+    and the plafond huurders of the jaar gebonden budget is a number NN
     and the reeds gesubsidieerd huurders two is a number NM
     and NN - NM > 0
     and N = NN - NM
@@ -188,7 +182,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and NP <= 2026-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders is a value NQ
+        the plafond huurders of the jaar gebonden budget is a number NQ
         and the reeds gesubsidieerd huurders two is a number NR
         and NQ - NR > 0
     and N is equal to 0
@@ -196,7 +190,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date NS
     and NS < 2026-01-12
     and the aanvrager type is "huurder"
-    and the plafond huurders is a value NT
+    and the plafond huurders of the jaar gebonden budget is a number NT
     and the reeds gesubsidieerd huurders two is a number NU
     and NT - NU > 0
     and N = NT - NU
@@ -205,7 +199,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and NV < 2026-01-12
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders is a value NW
+        the plafond huurders of the jaar gebonden budget is a number NW
         and the reeds gesubsidieerd huurders two is a number NX
         and NW - NX > 0
     and N is equal to 0
@@ -213,7 +207,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date NY
     and NY > 2026-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders is a value NZ
+    and the plafond huurders of the jaar gebonden budget is a number NZ
     and the reeds gesubsidieerd huurders two is a number NB
     and NZ - NB > 0
     and N = NZ - NB
@@ -222,7 +216,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and NC > 2026-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders is a value ND
+        the plafond huurders of the jaar gebonden budget is a number ND
         and the reeds gesubsidieerd huurders two is a number NE
         and ND - NE > 0
     and N is equal to 0
@@ -231,8 +225,8 @@ the bereken beschikbaar subsidie plafond is a number N if
     and NF >= 2026-10-01
     and the date written as true is a date NG
     and NG <= 2026-12-31
-    and the plafond eigenaren is a value NH
-    and the plafond huurders is a value NJ
+    and the plafond eigenaren of the jaar gebonden budget is a number NH
+    and the plafond huurders of the jaar gebonden budget is a number NJ
     and the reeds gesubsidieerd eigenaren two is a number NL
     and the reeds gesubsidieerd huurders two is a number MN
     and NH + NJ - NL - MN > 0
@@ -243,8 +237,8 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as true is a date MK
     and MK <= 2026-12-31
     and it is not the case that
-        the plafond eigenaren is a value MP
-        and the plafond huurders is a value MQ
+        the plafond eigenaren of the jaar gebonden budget is a number MP
+        and the plafond huurders of the jaar gebonden budget is a number MQ
         and the reeds gesubsidieerd eigenaren two is a number MR
         and the reeds gesubsidieerd huurders two is a number MS
         and MP + MQ - MR - MS > 0
@@ -252,8 +246,8 @@ the bereken beschikbaar subsidie plafond is a number N if
     otherwise the aanvraag datum is false
     and the date written as false is a date MT
     and MT < 2026-10-01
-    and the plafond eigenaren is a value MU
-    and the plafond huurders is a value MV
+    and the plafond eigenaren of the jaar gebonden budget is a number MU
+    and the plafond huurders of the jaar gebonden budget is a number MV
     and the reeds gesubsidieerd eigenaren two is a number MW
     and the reeds gesubsidieerd huurders two is a number MX
     and MU + MV - MW - MX > 0
@@ -262,8 +256,8 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date MY
     and MY < 2026-10-01
     and it is not the case that
-        the plafond eigenaren is a value MZ
-        and the plafond huurders is a value MB
+        the plafond eigenaren of the jaar gebonden budget is a number MZ
+        and the plafond huurders of the jaar gebonden budget is a number MB
         and the reeds gesubsidieerd eigenaren two is a number MC
         and the reeds gesubsidieerd huurders two is a number MD
         and MZ + MB - MC - MD > 0
@@ -271,8 +265,8 @@ the bereken beschikbaar subsidie plafond is a number N if
     otherwise the aanvraag datum is false
     and the date written as false is a date ME
     and ME > 2026-12-31
-    and the plafond eigenaren is a value MF
-    and the plafond huurders is a value MG
+    and the plafond eigenaren of the jaar gebonden budget is a number MF
+    and the plafond huurders of the jaar gebonden budget is a number MG
     and the reeds gesubsidieerd eigenaren two is a number MH
     and the reeds gesubsidieerd huurders two is a number MJ
     and MF + MG - MH - MJ > 0
@@ -281,8 +275,8 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date ML
     and ML > 2026-12-31
     and it is not the case that
-        the plafond eigenaren is a value KN
-        and the plafond huurders is a value KM
+        the plafond eigenaren of the jaar gebonden budget is a number KN
+        and the plafond huurders of the jaar gebonden budget is a number KM
         and the reeds gesubsidieerd eigenaren two is a number KK
         and the reeds gesubsidieerd huurders two is a number KP
         and KN + KM - KK - KP > 0
@@ -293,7 +287,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as true is a date KR
     and KR <= 2027-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren is a value KS
+    and the plafond eigenaren of the jaar gebonden budget is a number KS
     and the reeds gesubsidieerd eigenaren two is a number KT
     and KS - KT > 0
     and N = KS - KT
@@ -304,7 +298,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and KV <= 2027-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren is a value KW
+        the plafond eigenaren of the jaar gebonden budget is a number KW
         and the reeds gesubsidieerd eigenaren two is a number KX
         and KW - KX > 0
     and N is equal to 0
@@ -312,7 +306,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date KY
     and 2027-01-01 > KY
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren is a value KZ
+    and the plafond eigenaren of the jaar gebonden budget is a number KZ
     and the reeds gesubsidieerd eigenaren two is a number KB
     and KZ - KB > 0
     and N = KZ - KB
@@ -321,7 +315,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and 2027-01-01 > KC
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren is a value KD
+        the plafond eigenaren of the jaar gebonden budget is a number KD
         and the reeds gesubsidieerd eigenaren two is a number KE
         and KD - KE > 0
     and N is equal to 0
@@ -329,7 +323,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date KF
     and KF > 2027-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren is a value KG
+    and the plafond eigenaren of the jaar gebonden budget is a number KG
     and the reeds gesubsidieerd eigenaren two is a number KH
     and KG - KH > 0
     and N = KG - KH
@@ -338,7 +332,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and KJ > 2027-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren is a value KL
+        the plafond eigenaren of the jaar gebonden budget is a number KL
         and the reeds gesubsidieerd eigenaren two is a number PN
         and KL - PN > 0
     and N is equal to 0
@@ -348,7 +342,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as true is a date PK
     and PK <= 2027-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders is a value PP
+    and the plafond huurders of the jaar gebonden budget is a number PP
     and the reeds gesubsidieerd huurders two is a number PQ
     and PP - PQ > 0
     and N = PP - PQ
@@ -359,7 +353,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and PS <= 2027-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders is a value PT
+        the plafond huurders of the jaar gebonden budget is a number PT
         and the reeds gesubsidieerd huurders two is a number PU
         and PT - PU > 0
     and N is equal to 0
@@ -367,7 +361,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date PV
     and PV < 2027-01-01
     and the aanvrager type is "huurder"
-    and the plafond huurders is a value PW
+    and the plafond huurders of the jaar gebonden budget is a number PW
     and the reeds gesubsidieerd huurders two is a number PX
     and PW - PX > 0
     and N = PW - PX
@@ -376,7 +370,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and PY < 2027-01-01
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders is a value PZ
+        the plafond huurders of the jaar gebonden budget is a number PZ
         and the reeds gesubsidieerd huurders two is a number PB
         and PZ - PB > 0
     and N is equal to 0
@@ -384,7 +378,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and the date written as false is a date PC
     and PC > 2027-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders is a value PD
+    and the plafond huurders of the jaar gebonden budget is a number PD
     and the reeds gesubsidieerd huurders two is a number PE
     and PD - PE > 0
     and N = PD - PE
@@ -393,7 +387,7 @@ the bereken beschikbaar subsidie plafond is a number N if
     and PF > 2027-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders is a value PG
+        the plafond huurders of the jaar gebonden budget is a number PG
         and the reeds gesubsidieerd huurders two is a number PH
         and PG - PH > 0
     and N is equal to 0

@@ -43,252 +43,240 @@ the functions are:
     the leeftijd partner of the svb bereken leeftijden is *a number*.
     the aow datum partner of the svb bereken leeftijden is *a text*.
     the svb aow leeftijd is *a number*.
-    the aow datum aanvrager is *a value*.
-    the aow datum partner is *a value*.
-    the aanvrager heeft aow leeftijd is *a value*.
-    the aanvrager is181920 is *a value*.
-    the aanvrager is_jonger dan18 is *a value*.
-    the aanvrager is_tenminste21 is *a value*.
-    the leeftijd aanvrager is *a value*.
-    the leeftijd partner is *a value*.
-    the partner heeft aow leeftijd is *a value*.
-    the partner is181920 is *a value*.
-    the partner is_jonger dan18 is *a value*.
-    the partner is_tenminste21 is *a value*.
 
 the knowledge base ronl_svb_leeftijden includes:
 
 the text of the_model is at "sources/RONL_SVB_Leeftijden.dmn".
 
 rule svb_leeftijds_informatie_1 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the aanvrager is_jonger dan18 of the svb leeftijds informatie is the aanvrager is_jonger dan18 if
+the aanvrager is_jonger dan18 of the svb leeftijds informatie is the aanvrager is_jonger dan18 of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_2 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the aanvrager is181920 of the svb leeftijds informatie is the aanvrager is181920 if
+the aanvrager is181920 of the svb leeftijds informatie is the aanvrager is181920 of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_3 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the aanvrager is_tenminste21 of the svb leeftijds informatie is the aanvrager is_tenminste21 if
+the aanvrager is_tenminste21 of the svb leeftijds informatie is the aanvrager is_tenminste21 of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_4 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the aanvrager heeft aow leeftijd of the svb leeftijds informatie is the aanvrager heeft aow leeftijd if
+the aanvrager heeft aow leeftijd of the svb leeftijds informatie is the aanvrager heeft aow leeftijd of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_5 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the partner is_jonger dan18 of the svb leeftijds informatie is the partner is_jonger dan18 if
+the partner is_jonger dan18 of the svb leeftijds informatie is the partner is_jonger dan18 of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_6 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the partner is181920 of the svb leeftijds informatie is the partner is181920 if
+the partner is181920 of the svb leeftijds informatie is the partner is181920 of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_7 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the partner is_tenminste21 of the svb leeftijds informatie is the partner is_tenminste21 if
+the partner is_tenminste21 of the svb leeftijds informatie is the partner is_tenminste21 of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_8 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the partner heeft aow leeftijd of the svb leeftijds informatie is the partner heeft aow leeftijd if
+the partner heeft aow leeftijd of the svb leeftijds informatie is the partner heeft aow leeftijd of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_9 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the leeftijd aanvrager of the svb leeftijds informatie is the leeftijd aanvrager if
+the leeftijd aanvrager of the svb leeftijds informatie is the leeftijd aanvrager of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_10 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the leeftijd partner of the svb leeftijds informatie is the leeftijd partner if
+the leeftijd partner of the svb leeftijds informatie is the leeftijd partner of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_11 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the aow datum aanvrager of the svb leeftijds informatie is the aow datum aanvrager if
+the aow datum aanvrager of the svb leeftijds informatie is the aow datum aanvrager of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijds_informatie_12 with provenance the model at decision SVB Leeftijds Informatie rule 1:
-the aow datum partner of the svb leeftijds informatie is the aow datum partner if
+the aow datum partner of the svb leeftijds informatie is the aow datum partner of the svb leeftijds informatie if
     true is equal to true.
 
 rule svb_leeftijdsgrenzen_1 with provenance the model at decision SVB Leeftijdsgrenzen:
 the aanvrager is_jonger dan18 of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value
-    and the aow datum partner is a second value
-    and the leeftijd aanvrager is a value V
-    and V < 18
+    the leeftijd partner of the svb leeftijds informatie is a number
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number N
+    and N < 18
     and the truth value is equal to true
-    otherwise the leeftijd partner is a fourth value
-    and the aow datum partner is a fifth value
-    and the leeftijd aanvrager is a value N
-    and N >= 18
+    otherwise the leeftijd partner of the svb leeftijds informatie is a third number
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number M
+    and M >= 18
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value M
-    and it is not the case that the aow datum partner is a value K
-    and the leeftijd aanvrager is a value P
-    and P < 18
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a fifth number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a third text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number K
+    and K < 18
     and the truth value is equal to true
-    otherwise it is not the case that the leeftijd partner is a value Q
-    and it is not the case that the aow datum partner is a value R
-    and the leeftijd aanvrager is a value S
-    and S >= 18
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a number P
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a fourth text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number Q
+    and Q >= 18
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_2 with provenance the model at decision SVB Leeftijdsgrenzen:
 the aanvrager is181920 of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value
-    and the aow datum partner is a second value
-    and the leeftijd aanvrager is a value V
-    and 18 <= V
-    and V < 21
+    the leeftijd partner of the svb leeftijds informatie is a number
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number N
+    and 18 <= N
+    and N < 21
     and the truth value is equal to true
-    otherwise the leeftijd partner is a fourth value
-    and the aow datum partner is a fifth value
-    and the leeftijd aanvrager is a value N
-    and 18 > N
+    otherwise the leeftijd partner of the svb leeftijds informatie is a third number
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number M
+    and 18 > M
     and the truth value is equal to false
-    otherwise the leeftijd partner is a value M
-    and the aow datum partner is a value K
-    and the leeftijd aanvrager is a value P
-    and P >= 21
+    otherwise the leeftijd partner of the svb leeftijds informatie is a fifth number
+    and the aow datum partner of the svb leeftijds informatie is a third text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number K
+    and K >= 21
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value Q
-    and it is not the case that the aow datum partner is a value R
-    and the leeftijd aanvrager is a value S
-    and 18 <= S
-    and S < 21
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a number P
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a fourth text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number Q
+    and 18 <= Q
+    and Q < 21
     and the truth value is equal to true
-    otherwise it is not the case that the leeftijd partner is a value T
-    and it is not the case that the aow datum partner is a value U
-    and the leeftijd aanvrager is a value W
-    and 18 > W
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a number R
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a fifth text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number S
+    and 18 > S
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value X
-    and it is not the case that the aow datum partner is a value Y
-    and the leeftijd aanvrager is a value Z
-    and Z >= 21
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a number T
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a sixth text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number U
+    and U >= 21
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_3 with provenance the model at decision SVB Leeftijdsgrenzen:
 the aanvrager is_tenminste21 of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value
-    and the aow datum partner is a second value
-    and the leeftijd aanvrager is a value V
-    and V >= 21
+    the leeftijd partner of the svb leeftijds informatie is a number
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number N
+    and N >= 21
     and the truth value is equal to true
-    otherwise the leeftijd partner is a fourth value
-    and the aow datum partner is a fifth value
-    and the leeftijd aanvrager is a value N
-    and N < 21
+    otherwise the leeftijd partner of the svb leeftijds informatie is a third number
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number M
+    and M < 21
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value M
-    and it is not the case that the aow datum partner is a value K
-    and the leeftijd aanvrager is a value P
-    and P >= 21
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a fifth number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a third text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number K
+    and K >= 21
     and the truth value is equal to true
-    otherwise it is not the case that the leeftijd partner is a value Q
-    and it is not the case that the aow datum partner is a value R
-    and the leeftijd aanvrager is a value S
-    and S < 21
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a number P
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a fourth text
+    and the leeftijd aanvrager of the svb leeftijds informatie is a number Q
+    and Q < 21
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_4 with provenance the model at decision SVB Leeftijdsgrenzen:
 the aanvrager heeft aow leeftijd of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value
-    and the aow datum partner is a second value
-    and the dag van aanvraag is a third value
-    and the date written as the third value is a date D
-    and the aow datum aanvrager is a fourth value
-    and the date written as the fourth value is a date N
+    the leeftijd partner of the svb leeftijds informatie is a number
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and the dag van aanvraag is a value
+    and the date written as the value is a date D
+    and the aow datum aanvrager of the svb leeftijds informatie is a second text
+    and the date written as the second text is a date N
     and D >= N
     and the truth value is equal to true
-    otherwise the leeftijd partner is a fifth value
-    and the aow datum partner is a sixth value
-    and the dag van aanvraag is a value V
-    and the date written as V is a date M
-    and the aow datum aanvrager is a value K
-    and the date written as K is a date P
-    and M < P
+    otherwise the leeftijd partner of the svb leeftijds informatie is a second number
+    and the aow datum partner of the svb leeftijds informatie is a third text
+    and the dag van aanvraag is a second value
+    and the date written as the second value is a date M
+    and the aow datum aanvrager of the svb leeftijds informatie is a fourth text
+    and the date written as the fourth text is a date K
+    and M < K
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value Q
-    and it is not the case that the aow datum partner is a value R
-    and the dag van aanvraag is a value S
-    and the date written as S is a date T
-    and the aow datum aanvrager is a value U
-    and the date written as U is a date W
-    and T >= W
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a third number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a fifth text
+    and the dag van aanvraag is a third value
+    and the date written as the third value is a date P
+    and the aow datum aanvrager of the svb leeftijds informatie is a sixth text
+    and the date written as the sixth text is a date Q
+    and P >= Q
     and the truth value is equal to true
-    otherwise it is not the case that the leeftijd partner is a value X
-    and it is not the case that the aow datum partner is a value Y
-    and the dag van aanvraag is a value Z
-    and the date written as Z is a date B
-    and the aow datum aanvrager is a value C
-    and the date written as C is a date E
-    and B < E
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a fourth number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a text T
+    and the dag van aanvraag is a fourth value
+    and the date written as the fourth value is a date R
+    and the aow datum aanvrager of the svb leeftijds informatie is a text S
+    and the date written as S is a date U
+    and R < U
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_5 with provenance the model at decision SVB Leeftijdsgrenzen:
 the partner is_jonger dan18 of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value V
-    and the aow datum partner is a second value
-    and V < 18
+    the leeftijd partner of the svb leeftijds informatie is a number N
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and N < 18
     and the truth value is equal to true
-    otherwise the leeftijd partner is a value N
-    and the aow datum partner is a fourth value
-    and N >= 18
+    otherwise the leeftijd partner of the svb leeftijds informatie is a number M
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and M >= 18
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a fifth value
-    and it is not the case that the aow datum partner is a sixth value
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a third number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a third text
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_6 with provenance the model at decision SVB Leeftijdsgrenzen:
 the partner is181920 of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value V
-    and the aow datum partner is a second value
-    and 18 <= V
-    and V < 21
+    the leeftijd partner of the svb leeftijds informatie is a number N
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and 18 <= N
+    and N < 21
     and the truth value is equal to true
-    otherwise the leeftijd partner is a value N
-    and the aow datum partner is a fourth value
-    and 18 > N
+    otherwise the leeftijd partner of the svb leeftijds informatie is a number M
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and 18 > M
     and the truth value is equal to false
-    otherwise the leeftijd partner is a value M
-    and the aow datum partner is a sixth value
-    and M >= 21
+    otherwise the leeftijd partner of the svb leeftijds informatie is a number K
+    and the aow datum partner of the svb leeftijds informatie is a third text
+    and K >= 21
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value K
-    and it is not the case that the aow datum partner is a value P
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a fourth number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a fourth text
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_7 with provenance the model at decision SVB Leeftijdsgrenzen:
 the partner is_tenminste21 of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value V
-    and the aow datum partner is a second value
-    and V >= 21
+    the leeftijd partner of the svb leeftijds informatie is a number N
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and N >= 21
     and the truth value is equal to true
-    otherwise the leeftijd partner is a value N
-    and the aow datum partner is a fourth value
-    and N < 21
+    otherwise the leeftijd partner of the svb leeftijds informatie is a number M
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and M < 21
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a fifth value
-    and it is not the case that the aow datum partner is a sixth value
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a third number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a third text
     and the truth value is equal to false.
 
 rule svb_leeftijdsgrenzen_8 with provenance the model at decision SVB Leeftijdsgrenzen:
 the partner heeft aow leeftijd of the svb leeftijdsgrenzen is a truth value if
-    the leeftijd partner is a value
-    and the aow datum partner is a second value
-    and the dag van aanvraag is a third value
-    and the date written as the third value is a date D
-    and the date written as the second value is a date N
+    the leeftijd partner of the svb leeftijds informatie is a number
+    and the aow datum partner of the svb leeftijds informatie is a text
+    and the dag van aanvraag is a value
+    and the date written as the value is a date D
+    and the date written as the text is a date N
     and D >= N
     and the truth value is equal to true
-    otherwise the leeftijd partner is a fourth value
-    and the aow datum partner is a fifth value
-    and the dag van aanvraag is a sixth value
-    and the date written as the sixth value is a date M
-    and the date written as the fifth value is a date K
+    otherwise the leeftijd partner of the svb leeftijds informatie is a second number
+    and the aow datum partner of the svb leeftijds informatie is a second text
+    and the dag van aanvraag is a second value
+    and the date written as the second value is a date M
+    and the date written as the second text is a date K
     and M < K
     and the truth value is equal to false
-    otherwise it is not the case that the leeftijd partner is a value V
-    and it is not the case that the aow datum partner is a value P
+    otherwise it is not the case that the leeftijd partner of the svb leeftijds informatie is a third number
+    and it is not the case that the aow datum partner of the svb leeftijds informatie is a third text
     and the truth value is equal to false.
 
 rule svb_bereken_leeftijden_1 with provenance the model at decision SVB Bereken Leeftijden rule 1:
