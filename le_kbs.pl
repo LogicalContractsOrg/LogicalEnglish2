@@ -616,7 +616,7 @@ process_section_acc(extends(Name, Bases, Start, End), M) :-
 
 process_section_acc(predicates(Dicts), M) :- forall(member(D, Dicts), assert_dict_with_source(D, M)).
 process_section_acc(templates(Dicts), M) :- forall(member(D, Dicts), assert_dict_with_source(D, M)).
-%   `the constants are:` (le_summary.md §2.2): each line is a template with a
+%   `the constants are:` (le_summary.md §2.3): each line is a template with a
 %   name for its value and its one fact; le_constant(Name, F/1) records
 %   which templates are constants, for the verifier and the writer.
 process_section_acc(constants(Dicts, Facts, _, _), M) :-
@@ -625,7 +625,7 @@ process_section_acc(constants(Dicts, Facts, _, _), M) :-
              D =.. [dict, [F|Args], _, _, _, _, [Name|_]|_], length(Args, N),
              assertz(M:le_constant(Name, F/N)) )),
     forall(member(Item, Facts), process_item(Item, M)).
-%   `the functions are:` (docs/user/reference/language.md §2.3): templates whose
+%   `the functions are:` (docs/user/reference/language.md §2.4): templates whose
 %   value may be written without their last place. The templates are asserted
 %   exactly as `the templates are:` asserts them (the functional reading is a
 %   parse-time affair, le_grammar:check_function_application/7); le_function/1
@@ -2810,7 +2810,7 @@ check_types([Var-Type|NTs]) :-
     ;   Type == date ->
         ( Var = date(_) ; Var = date(_,_,_) ; Var = date(_,_,_,_,_,_,_,_,_) )
     ;   Type == number ->
-        % a number, or a formula passed as an operand (language.md §2.3)
+        % a number, or a formula passed as an operand (language.md §2.4)
         ( number(Var) -> true ; ground(Var), compound(Var), catch(_ is Var, _, fail) )
     ;   true
     ),
@@ -3270,9 +3270,9 @@ is_system_predicate(le_prolog_resource/2).
 is_system_predicate(le_lps_role/2).
 is_system_predicate(le_lps_functor/2).
 is_system_predicate(le_lps_item/3).
-% `the constants are:` (le_summary.md §2.2): which templates are named constants.
+% `the constants are:` (le_summary.md §2.3): which templates are named constants.
 is_system_predicate(le_constant/2).
-% `the functions are:` (docs/user/reference/language.md §2.3): which predicates were
+% `the functions are:` (docs/user/reference/language.md §2.4): which predicates were
 % declared as functions, so that the writer and the editor can say so.
 is_system_predicate(le_function/1).
 % `; <value> by default` on a fluent (le_lps_surface.md §2), and `extends`
@@ -3298,7 +3298,7 @@ is_system_predicate(le_service/3).
 % The expected minimal change sets of a flip query (le_flip.pl), per scenario.
 is_system_predicate(le_expected_changes/3).
 is_system_predicate(le_service_template/2).
-% `; memorable` templates (docs/user/reference/language.md §2.4): the predicates the
+% `; memorable` templates (docs/user/reference/language.md §2.5): the predicates the
 % reasoner memoizes within a query (reasoner:memo_solve/8).
 is_system_predicate(le_memorable/2).
 is_system_predicate(le_one_value/2).

@@ -269,7 +269,7 @@ test.describe('Logical English Editor', () => {
   });
 
   test('a function written without its last place is coloured as its template', async ({ page }) => {
-    // A function (docs/user/reference/language.md §2.3) is also written without
+    // A function (docs/user/reference/language.md §2.4) is also written without
     // its last place, here as an operand of a formula. The semantic-token
     // provider (src/server.ts) did not read "the functions are:" at all, so
     // neither form of a function matched its template.

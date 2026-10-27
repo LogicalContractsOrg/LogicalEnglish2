@@ -30,7 +30,7 @@ program.le with RESIDUE blocks ──Contract Assistant, mode residue──▶ r
 | Dates, periods and lock times | `lib/temporal.le` + `lib/temporal.pl` | E3 |
 | Rounding at a number of decimals: half up, half even, down, up, to a step | `lib/rounding.le` + `lib/rounding.pl` | N8 |
 | FEEL's built-in functions that the other libraries lack (lists, substrings, three-valued `all`/`any`, FEEL's rounding modes) | `lib/feel.le` + `lib/feel.pl` | E7 |
-| A function (§2.3) or a constant as an operand of a formula, written by the writer where its inputs are variables or numbers | `le_grammar.pl`, `le_writer.pl` (`operand_function/3`) | — |
+| A function (§2.4) or a constant as an operand of a formula, written by the writer where its inputs are variables or numbers | `le_grammar.pl`, `le_writer.pl` (`operand_function/3`) | — |
 | Dated versions of a rule: the calculation date | a convention, §6 below | N9 |
 | Obligations, permissions, prohibitions, violations (the deontic pattern library) and `*a sentence* is the case` | `lib/deontic.le`, `reasoner.pl` (`le_holds/1`) | N4 |
 | Integer division `//` and remainder `mod` | `le_grammar.pl` | E4 |
@@ -206,8 +206,8 @@ program(Header, Items)
 | Item | Written as |
 |---|---|
 | `template(F, Text, Additions)` | a line of `the templates are:`. `F` is the translator's name for the predicate (its literals use it, with as many arguments as `Text` has places); LE derives its own functor from the words, and the two never need to agree. `Text` is the declaration, `"*a person* is born in *a place* on *a date*"`. Additions: `undefined`, `assumable`, `judged`, `prepositional`, `opposite(Text)`, `synonym(Text)`, `via_service(S)`, `known_as(F)`, `default(V)` (a fluent's `; V by default`), `included` (declared by an included resource or a base: known for writing, not written) |
-| `constant(F, Name, Value)` | a line of `the constants are:` (`Name is Value.`, le_summary.md §2.2); `F` is the functor of its template `the value of Name is *a type*` (`the_value_of_<name words>_is`), whose one-place goal a body uses where the value is read — the writer writes the name there |
-| `function(F, Text)` / `function(F, Text, Additions)` | a line of `the functions are:` (docs/user/reference/language.md §2.3): a template of the form `... is *a value*` whose value may be written without that last place. Emit it for a relation the source says is functional (a rate, a lookup, a computed field), and the writer writes the compact form — `and the price of the cup > 10` rather than a condition binding the value and another using it — wherever the value is used and its inputs are already known |
+| `constant(F, Name, Value)` | a line of `the constants are:` (`Name is Value.`, le_summary.md §2.3); `F` is the functor of its template `the value of Name is *a type*` (`the_value_of_<name words>_is`), whose one-place goal a body uses where the value is read — the writer writes the name there |
+| `function(F, Text)` / `function(F, Text, Additions)` | a line of `the functions are:` (docs/user/reference/language.md §2.4): a template of the form `... is *a value*` whose value may be written without that last place. Emit it for a relation the source says is functional (a rate, a lookup, a computed field), and the writer writes the compact form — `and the price of the cup > 10` rather than a condition binding the value and another using it — wherever the value is used and its inputs are already known |
 | `fluent/event/action(F, Text, Additions)` | the LPS declaration sections |
 | `rule(Head, Body, Options)` | a rule. Options: `label(L)` (`rule L:`), `provenance(P)` (with a label: `rule L with provenance ...:`), `numbered(true)` (a numbered outline, docs/user/reference/extensions.md §15.5 — written only with `extensions(true)` in the header, a plain body otherwise), `comment(Text)` |
 | `fact(Head, Options)` | a fact; Options `provenance(P)` (trailers), `ontology` (in `the ontology is:`) |

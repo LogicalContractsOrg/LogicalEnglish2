@@ -162,7 +162,7 @@ write_document(KB, p(Settings, F, E, A, PE, Body, Obs)) :-
 	partition(constant_template(KB), Timeless0, Constants, Timeless1),
 	%  A template declared in `the functions are:` is written back there:
 	%  the section is what says its value may be written without its last
-	%  place (LE2's docs/user/reference/language.md §2.3).
+	%  place (LE2's docs/user/reference/language.md §2.4).
 	partition(function_template(KB), Timeless1, Functions, Timeless),
 	write_section(KB, 'the functions are', Functions),
 	write_section(KB, 'the templates are', Timeless),

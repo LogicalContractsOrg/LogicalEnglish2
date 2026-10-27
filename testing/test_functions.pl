@@ -1,7 +1,7 @@
 /** <module> Unit tests for `the functions are:` (and for what it replaced)
 
     A function is a template of the form "... is *a value*" declared in its own
-    section (docs/user/reference/language.md §2.3). Declaring it lets the
+    section (docs/user/reference/language.md §2.4). Declaring it lets the
     sentence be written WITHOUT its last place wherever a value is expected:
     "the price of a cup with capacity 200" is then the price itself.
 
@@ -15,7 +15,7 @@
       * a declared function that is not of the "... is *a value*" form is
         reported (function_not_is_form), and the rest of the program still
         parses;
-      * `; defines global`, which §2.2 and §2.3 replaced between them, is
+      * `; defines global`, which §2.3 and §2.4 replaced between them, is
         reported (defines_global_removed);
       * `the constants are:`, which uses the same machinery underneath, still
         raises nothing.
@@ -158,7 +158,7 @@ a cup is expensive if the cup holds 200 ml.
     assertion(issue(KB, function_not_is_form)),
     assertion(rule(KB, is_expensive, 1, _, _)).
 
-%  `; defines global` is no longer part of the language (§2.2, §2.3): the
+%  `; defines global` is no longer part of the language (§2.3, §2.4): the
 %  template that carries it is told so, at its own line.
 test(defines_global_is_reported_as_removed) :-
     le_kbs:load_text("the target language is: prolog.

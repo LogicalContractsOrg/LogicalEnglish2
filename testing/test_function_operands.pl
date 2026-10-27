@@ -1,4 +1,4 @@
-/** <module> Unit tests for functions given a formula (language.md §2.3)
+/** <module> Unit tests for functions given a formula (language.md §2.4)
 
     A function applied to a formula, `the double of (the fee + 1)`, receives
     the formula and calculates it. Its step in an explanation must still read

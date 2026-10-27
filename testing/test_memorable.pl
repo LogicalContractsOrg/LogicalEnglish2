@@ -1,6 +1,6 @@
 /** <module> Unit tests for `; memorable` templates (memoization)
 
-    docs/user/reference/language.md §2.4. A template marked `; memorable`
+    docs/user/reference/language.md §2.5. A template marked `; memorable`
     has its calls cached for the duration of a query: the first call of each
     distinct (variant) call computes every answer, with its explanation, and
     the later variant calls replay them (reasoner:memo_solve/8). Pinned here:

@@ -112,7 +112,7 @@ test(ir_forms_are_the_current_language) :-
     assertion(sub_string(Text, _, _, _, "% RESIDUE r1 BEGIN")),
     assertion(sub_string(Text, _, _, _, "%   | premium = base * factor(state);")).
 
-%   A function (`the functions are:`, §2.3): its own section, and its value
+%   A function (`the functions are:`, §2.4): its own section, and its value
 %   written where it is used rather than in a condition of its own.
 function_ir(program([kb(cups)], [
     template(expensive, "*a cup* is expensive", []),
@@ -141,7 +141,7 @@ test(a_function_is_a_section_and_is_used_compactly) :-
     assertion(all_pass(Results)).
 
 %   A value that feeds a formula is written the compact way too: a function
-%   applied is an arithmetic operand (§2.3), and the document reads back.
+%   applied is an arithmetic operand (§2.4), and the document reads back.
 test(a_function_feeding_arithmetic_is_an_operand) :-
     le_write(program([kb(cups)], [
         template(dear, "*a cup* is dear", []),

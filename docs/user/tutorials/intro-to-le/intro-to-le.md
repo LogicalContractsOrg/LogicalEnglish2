@@ -621,7 +621,7 @@ it is unknown whether Alice is a British citizen on 2021-10-09.
 ```
 
 (For all the data, refer to the
-[template additions](../../reference/language.md#template-additions-after-) in the
+[template additions](../../reference/language.md#21-template-additions-after-) in the
 language reference.)
 
 ---

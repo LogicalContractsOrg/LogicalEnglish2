@@ -31,7 +31,7 @@ illustrate. Open a folder's guide from its heading, or a program from the list.
 | [`includes/`](includes/README.md) | citizenship_including (+ citizenship_premier), prolog_resources/ | §14 |
 | [`scasp/`](scasp/README.md) | dual_engine_demo, clp_coverage | docs/user/reference/scasp.md |
 | [`prolog/`](prolog/README.md) | prolog_call | §15.6 (embedded `prolog` goals), §13 |
-| [`memoization/`](memoization/README.md) | lattice_paths, family_relatives, memorable_warnings | §2.4 (`; memorable`) |
+| [`memoization/`](memoization/README.md) | lattice_paths, family_relatives, memorable_warnings | §2.5 (`; memorable`) |
 | [`extensions/`](extensions/README.md) | numbering_test | extensions.md §15.5 (needs le_extensions.pl) |
 
 ## More

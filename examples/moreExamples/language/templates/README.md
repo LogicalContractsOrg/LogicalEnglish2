@@ -1,6 +1,6 @@
 # Templates, variables, constants and functions
 
-- `functions.le` — `the functions are:` (§2.3): a template of the form
+- `functions.le` — `the functions are:` (§2.4): a template of the form
   `... is *a value*` whose value may be written without that last place.
 - `synonyms.le` — the `; synonym` template addition.
 - `named_vars.le` — a qualifier in front of a variable's type (`a second date`).

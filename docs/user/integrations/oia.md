@@ -254,7 +254,7 @@ The OIA rules about one case refer by name to the people and things in that case
 subject. Sometimes one phrase is the subject of two or more attributes. Then the
 translator changes that phrase into a **role**. Each template that refers to the role
 gets a place for it, and the type of the place is the role. A named constant (the
-language reference §2.2) then tells which individual of the case the role refers to.
+language reference §2.3) then tells which individual of the case the role refers to.
 Thus the rules continue to read as their author wrote them:
 
 ```le

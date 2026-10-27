@@ -118,7 +118,7 @@ export function buildLeMonarchTokens(lang: string): any {
     const copulas = words(T, ['copula', 'ignorable', 'meta_marker', 'that']);
     const preps = words(T, ['connective_heuristic', 'of']);
     //  `defines_global` is deliberately absent: it is no longer part of the
-    //  language (docs/user/reference/language.md §2.2, §2.3), and a program
+    //  language (docs/user/reference/language.md §2.3, §2.4), and a program
     //  that still writes it gets an error saying so, not highlighting saying
     //  it is fine.
     const additions = alt(T, ['opposite', 'synonym', 'prepositional', 'unknown', 'undefined', 'known_as', 'judged', 'memorable', 'via_service', 'by_default']);

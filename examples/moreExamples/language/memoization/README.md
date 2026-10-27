@@ -1,7 +1,7 @@
 # Memoization: `; memorable` templates
 
 A template marked `; memorable` has the calls on it cached during a query
-(docs/user/reference/language.md §2.4): the first call of each distinct
+(docs/user/reference/language.md §2.5): the first call of each distinct
 call — distinct up to the renaming of variables — computes every answer with
 its explanation, and every later variant of that call in the same query
 replays them. The answers and the explanations are the same as without the
@@ -15,7 +15,7 @@ only the repeated proving is saved.
   and, in a query about everybody, many times over.
 - `instalments.le` — a recursion through a value not yet known: the days
   an obligation starts on, each asked about an earlier, unknown day. The
-  marker finds every day (the rounds of §2.4); without it only the days
+  marker finds every day (the rounds of §2.5); without it only the days
   that follow the first.
 - `memorable_warnings.le` — the two warnings: a memorable call under a
   negation (`memorable_under_negation`) and a memorable predicate whose rule

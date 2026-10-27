@@ -435,7 +435,7 @@ solve_real_actual(le_cases(Goal, Mode, Case), SM, KM, _Anc, _D, _MyID, [],
 solve_real_actual(le_at(Goal, Start, End), SM, KM, Anc, D, MyID, Us, Whys) :- !,
     solve(Goal, SM, KM, Anc, D, MyID, Us, Whys0),
     maplist(attach_range(Start, End), Whys0, Whys).
-% A literal of a `; memorable` template (docs/user/reference/language.md §2.4):
+% A literal of a `; memorable` template (docs/user/reference/language.md §2.5):
 % its answers, with their explanations, are computed once per distinct call in
 % a query and replayed for every later variant of that call (memo_solve/8).
 solve_real_actual(G, SM, KM, Anc, D, MyID, Us, Whys) :-
@@ -632,7 +632,7 @@ note_loop_cut(Above) :-
 
 % ── Memoization of `; memorable` templates ──────────────────────────────────
 %
-%   docs/user/reference/language.md §2.4. A program marks a template
+%   docs/user/reference/language.md §2.5. A program marks a template
 %   `; memorable` when the same call on it is made many times in a query —
 %   the repeated sub-proofs that the explanation's redundancy detection
 %   (group_variant_whys/2, le_api:mark_cross_tree_repeats/2) finds after the

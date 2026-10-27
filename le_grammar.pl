@@ -567,7 +567,7 @@ section(templates(Dicts)) -->
     templates(Dicts).
 
 % section(functions(...)) parses "the functions are:" (docs/user/reference/language.md
-% §2.3). Its lines are templates, declared exactly as `the templates are:`
+% §2.4). Its lines are templates, declared exactly as `the templates are:`
 % declares them, and each must be of the form "... is *a value*": the last
 % place, after the copula, is the value the function gives. Such a template may
 % then be written WITHOUT that last place wherever a value is expected —
@@ -584,7 +584,7 @@ section(functions(Dicts)) -->
     templates(Dicts0),
     { maplist(as_function_dict, Dicts0, Dicts) }.
 
-% section(constants(...)) parses "the constants are:" (docs/user/reference/language.md §2.2).
+% section(constants(...)) parses "the constants are:" (docs/user/reference/language.md §2.3).
 % Each line names one value — `the unlimited allowance is 115…` — and is short
 % for a template that names its value, and one fact:
 %     the value of the unlimited allowance is *a number*   (its name: the unlimited allowance)
@@ -1577,7 +1577,7 @@ constant_line(Dicts, fact(Head, Start, End), End) -->
         le_i18n:kw_main_words(constant_value_of, VOWords),
         maplist(synthetic_word(Start), VOWords, VOToks),
         %   The marker is internal (constant_global_marker/1), not the written
-        %   `; defines global` that §2.2 replaced: a constant is not a program
+        %   `; defines global` that §2.3 replaced: a constant is not a program
         %   using a syntax that no longer exists.
         constant_global_marker(Marker),
         DGToks = [word(Marker, loc(Start, Start))],
@@ -1655,7 +1655,7 @@ constant_global_marker('$le constant global').
 
 %!  defines_global_removed(+Start, +End) is det.
 %
-%   `; defines global` is gone from the language (§2.2, §2.3): say so, at the
+%   `; defines global` is gone from the language (§2.3, §2.4): say so, at the
 %   template that still carries it, with what to write instead.
 defines_global_removed(Start, End) :-
     (   le_kbs:current_compiling_module(M), M \== (-)
@@ -1726,7 +1726,7 @@ validate_synonym_template(_, _, _, _, _, _, _).
 template_additions(Globals, Opposite, OppositeWV, Prep, Unknown, Synonyms, NTs, FunctorArgs, TStart, TEnd) -->
     t(punctuation(';', _)),
     %   `; defines global <name>` was a third way to say what `the constants
-    %   are:` and `the functions are:` (§2.2, §2.3) now say between them: a
+    %   are:` and `the functions are:` (§2.3, §2.4) now say between them: a
     %   value with a name, and a value the rules compute, written where a value
     %   goes. It is no longer part of the language. The keyword is still read,
     %   so that a program that has it is told exactly that, at the line, rather
@@ -1776,7 +1776,7 @@ template_additions(Globals, Opposite, OppositeWV, Prep, Unknown, Synonyms, NTs, 
         { Unknown = judged },
         template_additions(Globals, Opposite, OppositeWV, Prep, _, Synonyms, NTs, FunctorArgs, TStart, TEnd)
     ;   kw(memorable) ->
-        % "; memorable" (docs/user/reference/language.md §2.4): calls on this
+        % "; memorable" (docs/user/reference/language.md §2.5): calls on this
         % template are memoized during a query — the first call of each
         % distinct (variant) call computes every answer, with its explanation,
         % and the later variant calls of the same query replay them
@@ -1879,7 +1879,7 @@ record_template_default(FunctorArgs, Value, TStart, TEnd) :-
 
 %!  record_memorable_template(+FunctorArgs) is det.
 %
-%   `; memorable` (docs/user/reference/language.md §2.4): records
+%   `; memorable` (docs/user/reference/language.md §2.5): records
 %   le_memorable(F, A) in the compiling module; the reasoner memoizes the
 %   calls of that predicate within a query (reasoner:memorable_goal/3).
 record_memorable_template(FunctorArgs) :-
@@ -2339,7 +2339,7 @@ has_globals(dict(_, _, _, _, _, _, Globals, _, _, _)) :- Globals \== [].
 %!  check_function_application(+Parts, +Templates, -Value, +VMIn, -VMOut,
 %!                              +AllowVars, +Depth) is semidet.
 %
-%   Parts are a declared function (`the functions are:`, §2.3) written without
+%   Parts are a declared function (`the functions are:`, §2.4) written without
 %   its last place — `the price of a cup with capacity 200` where a value is
 %   expected. Match them against the function's words up to its copula, which
 %   binds its other arguments, and give back the variable of the last place as
@@ -3547,7 +3547,7 @@ well_formed_image_url(URL0) :-
 % is_global_extra_goal(+Templates, +Goal) is semidet.
 %
 %   True when Goal was introduced by a name standing for a value — a constant
-%   (§2.2) or a function written without its last place (§2.3): its functor
+%   (§2.3) or a function written without its last place (§2.4): its functor
 %   is the head of a template that declares a (non-empty) global. Such goals bind
 %   the global's value and so are placed before the literal that uses them, unlike
 %   prepositional extra goals which constrain a variable the literal introduces.
@@ -4259,8 +4259,8 @@ factor_logic(F, VMIn, VMOut, Ts, AllowVars) -->
     function_arg(Arg, VMIn, VMOut, Ts, AllowVars),
     { F =.. [Fn, Arg] }.
 factor_logic(F, VMIn, VMOut, Ts, AllowVars) --> [expr(E)], { parse_expression(E, VMIn, VMOut, Ts, F, AllowVars) }.
-% A declared function written without its last place (§2.3), or a constant
-% (§2.2), as an operand: `the price of a cup with capacity 200 ml + 5`. The
+% A declared function written without its last place (§2.4), or a constant
+% (§2.3), as an operand: `the price of a cup with capacity 200 ml + 5`. The
 % operand is the whole run of words and numbers up to the next operator, so
 % the function binds tighter than any operator, as a call does in most
 % programming languages. Before the variable branch, which would otherwise

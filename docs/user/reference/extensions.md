@@ -15,7 +15,7 @@ The section numbers continue from the language reference
 core Logical English. Each server understands core Logical English. The three
 things are §15.1 (`only if` rules), the rule labels and provenance of §15.5, and
 embedded `prolog` goals (§15.6). Some sections that this page mentions are not on
-this page (§2.1, §4, §13, …). Those sections are in the language reference.
+this page (§2.2, §4, §13, …). Those sections are in the language reference.
 
 ## Contents
 - [15.2 `which` relative clauses](#152-which-relative-clauses-requires-le_extensionspl)
@@ -124,7 +124,7 @@ to §14.1 for Prolog resources. Inside a numbered rule body (§15.5), the system
 a `prolog` item in the same way.
 
 ### 15.7 Prepositional chaining **[requires le_extensions.pl]**
-§2.1 describes the `; prepositional` template marker and how to use the marker in a
+§2.2 describes the `; prepositional` template marker and how to use the marker in a
 chain. In a chain, you do not write the first argument. Thus one sentence has the
 meaning of more than one condition joined by *and*. The extensions module
 calculates this chain.

@@ -67,7 +67,7 @@ the table approval_status is, with unique match:
 ```
 
 Each input and each decision becomes a **function**: a template whose last
-place is its value (language.md §2.3). An example is `the age is *a
+place is its value (language.md §2.4). An example is `the age is *a
 number*`. A rule can then use the value directly, also in a formula:
 `N = the monthly salary * 12`.
 

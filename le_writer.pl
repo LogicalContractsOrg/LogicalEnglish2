@@ -209,7 +209,7 @@ item_td(Item, td(F, N, WV, NTs, Kind, Adds, Text)) :-
 
 %!  function_shaped(+Text) is semidet.
 %
-%   Whether a template's text can be declared in `the functions are:` (§2.3):
+%   Whether a template's text can be declared in `the functions are:` (§2.4):
 %   it ends with the copula and one place — "the price of *a cup* is *an
 %   amount*" — so its value may be written without that last place. For a
 %   translator deciding which of the relations it found are functions: a
@@ -230,7 +230,7 @@ to_text(X, A) :- ( atom(X) -> A = X ; atom_string(A, X) ).
 template_item(template(F, Text), template, F, Text, []).
 template_item(template(F, Text, Adds), template, F, Text, Adds).
 %   A function is an ordinary template of the form "... is *a value*", declared
-%   in `the functions are:` (§2.3): its sentence may be written without that
+%   in `the functions are:` (§2.4): its sentence may be written without that
 %   last place wherever the value is used, which is what write_rule/4 does
 %   through compact_functions/4.
 template_item(function(F, Text), function, F, Text, []).
@@ -239,7 +239,7 @@ template_item(fluent(F, Text, Adds), fluent, F, Text, Adds).
 template_item(event(F, Text, Adds), event, F, Text, Adds).
 template_item(action(F, Text, Adds), action, F, Text, Adds).
 %   A named constant is the template `the value of <name> is *a <type>*` with
-%   its name (docs/user/reference/language.md §2.2); F is its functor.
+%   its name (docs/user/reference/language.md §2.3); F is its functor.
 template_item(constant(F, Name, Value), constant, F, Text, [defines_global(Name)]) :-
     constant_template_text(Name, Value, Text).
 
@@ -916,7 +916,7 @@ write_constraint(Ctx, Body0, Opts) :-
 
 %!  compact_functions(+Ctx, +Head, +Body0, -Body) is det.
 %
-%   A function (`the functions are:`, §2.3) written the compact way: the
+%   A function (`the functions are:`, §2.4) written the compact way: the
 %   condition that asks it is dropped, and its value is written, where it is
 %   used, as the function's sentence without its last place —
 %
@@ -1002,7 +1002,7 @@ compact_pass(Ctx, Head, Before, [C|Cs], Dropped) :-
         %  and every use is a place where the phrase can be written at all
         forall(( member(U, [Head|Cs]), sub_var(V, U) ), safe_function_use(Ctx, V, U)),
         %  and nowhere that the phrase could not be written. A function is
-        %  an arithmetic operand (§2.3) — `N = round(the lookup of the key *
+        %  an arithmetic operand (§2.4) — `N = round(the lookup of the key *
         %  0.9)` — only when its words read back as one operand: none is an
         %  operator, and each input is a variable, a number or a plain word.
         %  Otherwise a value that feeds a formula keeps the condition that
@@ -1127,7 +1127,7 @@ known_here(X, _, Before) :- member(C, Before), sub_var(X, C), !.
 
 sub_var(V, T) :- \+ \+ ( sub_term(S, T), S == V ), !.
 
-%   The goal LE inserts where a named constant (§2.2) is used: the name is
+%   The goal LE inserts where a named constant (§2.3) is used: the name is
 %   written instead, where its value is read.
 name_globals(Ctx, T0, T) :-
     (   var(T0) -> T = T0

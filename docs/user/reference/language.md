@@ -9,21 +9,23 @@ This document gives a summary of the constructs of Logical English (LE) that the
   - [Table of Contents](#table-of-contents)
   - [1. Document Sections](#1-document-sections)
   - [2. Templates](#2-templates)
-    - [Template additions (after `;`)](#template-additions-after-)
-      - [`; opposite: <template>`](#-opposite-template)
-      - [`; synonym <template>`](#-synonym-template)
-      - [`; assumable`](#-assumable)
-      - [`; undefined`](#-undefined)
-      - [`; judged`](#-judged)
-      - [`; one value`](#-one-value)
-      - [`; via service <name>`](#-via-service-name)
-      - [`; image "<address>"`](#-image-address)
-      - [`; <value> by default`](#-value-by-default)
-      - [`; known as <name>`](#-known-as-name)
-    - [2.1 Prepositional templates](#21-prepositional-templates)
-    - [2.2 Named constants: `the constants are:`](#22-named-constants-the-constants-are)
-    - [2.3 Functions: `the functions are:`](#23-functions-the-functions-are)
-    - [2.4 Memorable templates: `; memorable`](#24-memorable-templates--memorable)
+    - [2.1 Template additions (after `;`)](#21-template-additions-after-)
+      - [2.1.1 `; opposite: <template>`](#211--opposite-template)
+      - [2.1.2 `; synonym <template>`](#212--synonym-template)
+      - [2.1.3 `; prepositional`](#213--prepositional)
+      - [2.1.4 `; assumable`](#214--assumable)
+      - [2.1.5 `; undefined`](#215--undefined)
+      - [2.1.6 `; judged`](#216--judged)
+      - [2.1.7 `; memorable`](#217--memorable)
+      - [2.1.8 `; one value`](#218--one-value)
+      - [2.1.9 `; via service <name>`](#219--via-service-name)
+      - [2.1.10 `; image "<address>"`](#2110--image-address)
+      - [2.1.11 `; <value> by default`](#2111--value-by-default)
+      - [2.1.12 `; known as <name>`](#2112--known-as-name)
+    - [2.2 Prepositional templates](#22-prepositional-templates)
+    - [2.3 Named constants: `the constants are:`](#23-named-constants-the-constants-are)
+    - [2.4 Functions: `the functions are:`](#24-functions-the-functions-are)
+    - [2.5 Memorable templates: `; memorable`](#25-memorable-templates--memorable)
   - [3. Rules and Facts](#3-rules-and-facts)
     - [3.1 Rule Sections](#31-rule-sections)
     - [3.2 Query bodies](#32-query-bodies)
@@ -77,8 +79,8 @@ You write a program in sections. Each section tells the system how to read the s
   negation (`it is not the case that …`) and `for all cases in which …` (refer to §3.2).
 - **Ontology:** `the ontology is:`. This section says which kinds of thing are kinds of other things.
 - **Templates:** `the predicates are:` or `the templates are:`. This section gives the sentence patterns of the program.
-- **Constants:** `the constants are:`. This section gives named values, one on each line: `the fee is 5.` (§2.2).
-- **Functions:** `the functions are:`. This section gives templates of the form `... is *a value*`. You can write the value of such a template without its last place (§2.3).
+- **Constants:** `the constants are:`. This section gives named values, one on each line: `the fee is 5.` (§2.3).
+- **Functions:** `the functions are:`. This section gives templates of the form `... is *a value*`. You can write the value of such a template without its last place (§2.4).
 - **Bases (LPS target):** LPS is Logic Production System. LPS is the companion system for rules about time and change. `the knowledge base <name> extends <base>, <base>.` brings in the templates, laws and constraints of the bases, but not their instance (`le_lps_surface.md` §1.1).
 - **Dynamics:** `the fluents are:` or `the events are:`. These sections are for reasoning about time. In the LPS target, a sentence needs times only where it relates two moments. An example is `if there is a fire in a room and it is not the case that an alarm is on then an alarm goes on.` This sentence tests its conditions at one time, and it starts its action at that time. The sentence `when an alarm goes on then an alarm is on.` also needs no times (`le_lps_surface.md` §3.1).
 - **Meta:** `the target language is: prolog.` This line is necessary before the system can make Prolog.
@@ -119,7 +121,7 @@ logicians say that the proof **binds** the variable, or **instantiates** it.
   - Use `which person is the father of which other person` to refer to two
     different persons.
 
-### Template additions (after `;`)
+### 2.1 Template additions (after `;`)
 After a template, you can write one or more **additions**. Each addition starts with
 `;` and comes before the full stop of the template:
 ```le
@@ -128,36 +130,34 @@ the templates are:
     *a payment* is in respect of *a claim*; synonym *a payment* covers *a claim*.
 ```
 An addition changes how the system reads or solves the sentences of the template.
-This table lists all the additions. Each addition has a subsection below, or a
-section of its own.
+This table lists all the additions. Each addition has a subsection below.
 
 | Addition | Synonyms | In short | Section |
 |---|---|---|---|
-| `; opposite: <template>` | | A second template for the opposite statement. | [opposite](#-opposite-template) |
-| `; synonym <template>` | | A second wording of the same relation. | [synonym](#-synonym-template) |
-| `; prepositional` | `; composite` | A template of two places that can extend the condition before it. | §2.1 |
-| `; assumable` | `; unknown`, `; assumed` | A sentence that the program cannot prove can be assumed. | [assumable](#-assumable) |
-| `; undefined` | `; scenario element` | The sentences come only from scenarios. | [undefined](#-undefined) |
-| `; judged` | `; open textured`, `; evaluative` | A person decides the sentences. Rules do not calculate them. | [judged](#-judged) |
-| `; memorable` | `; memoised`, `; memoized`, `; cached` | The answers are kept and used again during one query. | §2.4 |
-| `; one value` | `; single valued` | The last place has one value for each choice of the other places. | [one value](#-one-value) |
-| `; via service <name>` | | A service gives the answers when the query runs. | [via service](#-via-service-name) |
-| `; image "<address>"` | | A picture for the sentence in the Bento Box. | [image](#-image-address) |
-| `; <value> by default` | | LPS target only: the value of the last place when no fact gives one. | [by default](#-value-by-default) |
-| `; known as <name>` | | LPS target only: the name of the predicate. | [known as](#-known-as-name) |
+| `; opposite: <template>` | | A second template for the opposite statement. | [2.1.1](#211--opposite-template) |
+| `; synonym <template>` | | A second wording of the same relation. | [2.1.2](#212--synonym-template) |
+| `; prepositional` | `; composite` | A template of two places that can extend the condition before it. | [2.1.3](#213--prepositional) |
+| `; assumable` | `; unknown`, `; assumed` | A sentence that the program cannot prove can be assumed. | [2.1.4](#214--assumable) |
+| `; undefined` | `; scenario element` | The sentences come only from scenarios. | [2.1.5](#215--undefined) |
+| `; judged` | `; open textured`, `; evaluative` | A person decides the sentences. Rules do not calculate them. | [2.1.6](#216--judged) |
+| `; memorable` | `; memoised`, `; memoized`, `; cached` | The answers are kept and used again during one query. | [2.1.7](#217--memorable) |
+| `; one value` | `; single valued` | The last place has one value for each choice of the other places. | [2.1.8](#218--one-value) |
+| `; via service <name>` | | A service gives the answers when the query runs. | [2.1.9](#219--via-service-name) |
+| `; image "<address>"` | | A picture for the sentence in the Bento Box. | [2.1.10](#2110--image-address) |
+| `; <value> by default` | | LPS target only: the value of the last place when no fact gives one. | [2.1.11](#2111--value-by-default) |
+| `; known as <name>` | | LPS target only: the name of the predicate. | [2.1.12](#2112--known-as-name) |
 
 **Combinations.** A template can have more than one addition, in any sequence.
 There are two limits:
 - `; assumable`, `; undefined` and `; judged` exclude each other. When a template
   has more than one of the three, only the last one has an effect.
-- A template with `; synonym` cannot have other additions (refer to
-  [synonym](#-synonym-template)).
+- A template with `; synonym` cannot have other additions (§2.1.2).
 
 The keywords of the additions are in the language of the program. For example,
 `; julgado` is the Portuguese form of `; judged`. The file `i18n/keywords.csv` gives
 all the forms.
 
-#### `; opposite: <template>`
+#### 2.1.1 `; opposite: <template>`
 **Form.** `<template>; opposite: <second template>`. The second template has the
 same places as the first template, in the same sequence.
 
@@ -183,7 +183,7 @@ a rule concludes it. The condition
 `it is not the case that the claimant has another form of income` is true when the
 program cannot prove `the claimant has another form of income`.
 
-#### `; synonym <template>`
+#### 2.1.2 `; synonym <template>`
 **Form.** `<template>; synonym <second template>`. A template can have more than
 one `; synonym` addition, one after the other.
 
@@ -207,7 +207,14 @@ proves the step. A query shows its answers in the form that the query uses.
 ```
 The fact `p covers c` is the same fact as `p is in respect of c`.
 
-#### `; assumable`
+#### 2.1.3 `; prepositional`
+**Form.** `<template>; prepositional`. The synonym is `; composite`. The template has
+exactly two places, and its first word is a place.
+
+**Meaning.** A sentence of the template can extend the condition before it, without
+its first place. §2.2 gives the full description.
+
+#### 2.1.4 `; assumable`
 **Form.** `<template>; assumable`. The synonyms are `; unknown` and `; assumed`.
 
 **Meaning.** When the program cannot prove a sentence of this template, the answer
@@ -240,7 +247,7 @@ the knowledge base tax includes:
 A scenario has no fact about the residence of bob. The answer
 `bob pays tax in France` then has the unknown `bob is resident in France`.
 
-#### `; undefined`
+#### 2.1.5 `; undefined`
 **Form.** `<template>; undefined`. The synonym is `; scenario element` (two words).
 
 **Meaning.** The sentences of this template come only from **scenarios**: they
@@ -256,7 +263,7 @@ usual: a sentence that no scenario states is false.
 
 **Example.** `*a person* has passed the test; undefined.`
 
-#### `; judged`
+#### 2.1.6 `; judged`
 **Form.** `<template>; judged`. The synonyms are `; open textured` and
 `; evaluative`.
 
@@ -273,7 +280,15 @@ causes the warning `judgment_without_provenance`.
 
 §17.1.5 gives the full description and an example.
 
-#### `; one value`
+#### 2.1.7 `; memorable`
+**Form.** `<template>; memorable`. The synonyms are `; memoised`, `; memoized` and
+`; cached`.
+
+**Meaning.** During one query, the system calculates the answers to each different
+question of the template one time only, and uses them again. In logic programming,
+this method is tabling, or memoization. §2.5 gives the full description.
+
+#### 2.1.8 `; one value`
 **Form.** `<template>; one value`. The synonym is `; single valued`.
 
 **Meaning.** The **last place of the template has one value** for each choice of
@@ -290,14 +305,14 @@ income.
 The translator from Rune, the language of the Common Domain Model of ISDA, marks with
 `; one value` each attribute that has only one value in Rune.
 
-#### `; via service <name>`
+#### 2.1.9 `; via service <name>`
 **Form.** `<template>; via service <name>`. `<name>` is the name of a service that
 the program declares.
 
 **Meaning.** When a query runs, the service gives the answers to the sentences of
 this template. The rules do not calculate them. §17.6 describes services.
 
-#### `; image "<address>"`
+#### 2.1.10 `; image "<address>"`
 **Form.** `; image "<address>"` after a template with no places, or after a scenario
 fact with no variables, before its full stop. `<address>` is a full web address in
 double quotes. It starts with `http://` or `https://`.
@@ -320,7 +335,7 @@ picture.
 
 Refer to `examples/moreExamples/domains/other/sequencer.le`.
 
-#### `; <value> by default`
+#### 2.1.11 `; <value> by default`
 **Form.** `<template>; <value> by default`, after a template of a **fluent**, in a
 program for the **LPS target**. A fluent is a fact that can change with time. LPS
 (Logic Production Systems) is the companion system for rules about time and change.
@@ -333,14 +348,14 @@ gives a value. Examples: `the balance of *an account* is *an amount*; 0 by defau
 **Checks.** The system reports a default on a template that is not a fluent of the
 LPS target (`default_not_lps`).
 
-#### `; known as <name>`
+#### 2.1.12 `; known as <name>`
 **Form.** `<template>; known as <name>`, in a program for the **LPS target**.
 
 **Meaning.** `<name>` is the name of the predicate in the program that the system
 makes for LPS. Without this addition, the system makes the name from the words of
 the template. The LPS documentation describes it (`le-for-lps.md` §2).
 
-### 2.1 Prepositional templates
+### 2.2 Prepositional templates
 A prepositional template relates two things, and it **starts with one of the two things**. Thus it can extend the condition before it. In a chain of such templates, the author can omit the first argument. The system then adds that argument from the previous condition: it uses the variable whose type agrees.
 - **Declaration:**
   ```le
@@ -360,7 +375,7 @@ A prepositional template relates two things, and it **starts with one of the two
   Each prepositional template becomes an **extra condition** of the rule. This is true when the chain is in the head of the rule, and also when the chain is in its conditions.
 - **Standalone usage** is also possible: write the first argument (for example `the payment under this policy`), and the sentence matches the template directly.
 
-### 2.2 Named constants: `the constants are:`
+### 2.3 Named constants: `the constants are:`
 This section gives named values, one on each line, in the form `<name> is <value>.`:
 ```le
 the constants are:
@@ -379,7 +394,7 @@ and states the fact `the value of the tax free allowance is 12570`.
 Thus you can also put the value into a variable:
 `the value of the tax free allowance is an allowance A`. You can also write the name
 in arithmetic, as in `the tax is (the income - the tax free allowance) * 0.2`
-(§2.3 tells how the system reads the operands).
+(§2.4 tells how the system reads the operands).
 
 A variable of a rule is stronger than a constant with the same name. In this
 program, `the rabbit` in the rule is the rabbit that `A rabbit` introduces, not
@@ -403,10 +418,10 @@ is the part after the last `is`. The verifier reports a constant that nothing us
 (`unused_constant`). `le_writer.pl` is the part of the software that writes an LE
 program out again. It writes the section again from the item `constant(F, Name, Value)`.
 
-A constant is a special case of a **function** (§2.3): its value is written, not
+A constant is a special case of a **function** (§2.4): its value is written, not
 calculated. When the rules calculate the value, use the functions section.
 
-### 2.3 Functions: `the functions are:`
+### 2.4 Functions: `the functions are:`
 A **function** is an ordinary template of the form `... is *a value*`. Its last
 place, after the word `is`, is the value that the function gives. You declare a
 function in a separate section:
@@ -438,7 +453,7 @@ repeated phrase does not multiply the answers.
 A function with no place of its own is a value with a name. An example is
 `our policy is *a policy*`, used as `our policy`. Before, the `; defines global`
 addition had this purpose. The system does not have that addition now. A value
-that you write is a constant (§2.2). A value that the rules calculate is a
+that you write is a constant (§2.3). A value that the rules calculate is a
 function. The name of a function is the words of its sentence, not a separate
 invented name. When a program still has `; defines global`, the system tells you so
 at that line (`defines_global_removed`).
@@ -452,7 +467,7 @@ Important details:
 - **Arithmetic.** You can write the function as an operand of arithmetic (an
   operand is a value that `+`, `-`, `*`, `/` or `mod` operates on), as in most
   programming languages: `the total is the price of a cup with capacity 200 ml + 5`.
-  You can write a constant (§2.2) in the same way. These rules apply:
+  You can write a constant (§2.3) in the same way. These rules apply:
   - The operand is all the words and numbers up to the next operator. Thus the
     function operates first: `the double of the price of the cup + the fee` is the
     double of the price, plus the fee.
@@ -461,7 +476,7 @@ Important details:
   - A function can be the value of a place of a different function:
     `the double of the price of a cup with capacity 200 ml`.
   - A variable of the rule is stronger than a constant or a function with the same
-    name, as in §2.2.
+    name, as in §2.3.
   - The name of a variable in arithmetic must still be an id (§7).
 - **Nothing can follow the phrase where the sentence continues with `is`.**
   `the price of the cup > 10` is correct, and `the label is our currency` is also
@@ -487,7 +502,7 @@ Important details:
 The worked example is
 `examples/moreExamples/language/templates/functions.le`.
 
-### 2.4 Memorable templates: `; memorable`
+### 2.5 Memorable templates: `; memorable`
 A query on a large program frequently proves the same thing many times. Several
 rules, or several cases of one rule, reach the same condition with the same values.
 After the query, the explanation shows the repetition: it puts the repeated parts
@@ -882,7 +897,7 @@ In an explanation, the system shows a type check as the statement that it checks
 ## 7. Arithmetic and Comparisons
 - **Math:** `+`, `-`, `*`, `/`, `( )`, integer division `//` and remainder `mod` (`S = B // 3 + B mod 3`). Contract code that keeps a fixed number of decimals uses this arithmetic. (For example, the Ethereum Virtual Machine, the EVM, keeps amounts in units of 1e18.)
 - **Functions:** the arithmetic functions `ceiling`, `floor`, `round`, `truncate`, `integer`, `abs`, `sign` and `sqrt` each take one argument in brackets, as in `the result is the multiple * ceiling(the amount / the multiple)`. Prolog calculates them with `is/2` while the query runs.
-- **Constants and functions as operands:** the name of a constant (§2.2) and a function written without its last place (§2.3) can be operands, as in `the total is the price of a cup with capacity 200 ml + the fee`.
+- **Constants and functions as operands:** the name of a constant (§2.3) and a function written without its last place (§2.4) can be operands, as in `the total is the price of a cup with capacity 200 ml + the fee`.
 - **Comparison:** `=`, `>`, `<`, `>=`, `<=`, `==`, `!=` (`==` is `is equal to`, `!=` is `is different from`). A formula can be on **each side**: `N mod 3 = 2`, `2 = N mod 3`, `N mod 3 == 2` and `N mod 3 is equal to 2` all calculate `N mod 3` and compare the numbers. When one side has no value yet, `=` gives it the value of the other side, as in `R = N mod 3`. The system compares values that are not formulas (names, pieces of text, dates) exactly as they are written.
 - **Variable names in expressions:** in an arithmetic expression, the system takes a word as a variable only when the word is an **id**. An id is one capital letter, or a short word in capital letters (refer to §6.1), as in `ENT = ETI * ATR - TO`. A descriptive word in lower case or mixed case, such as `amount` or `exposure`, is part of a *type* and not a variable name. Thus, in an expression, such a word does not refer to the same thing as a variable of the head of the rule. Use ids (for example `EXP`, `IAOR`, `A`) for variables in arithmetic.
 - **System Templates:**
@@ -1080,7 +1095,7 @@ for the translators). Thus a program and its libraries are in one directory.
   `*a number* is odd`, `*a number* is even`, and FEEL's `all()` and `any()` with
   three values (`the conjunction of the list *a list* is *a truth value*`: no value
   when an item is not a truth). Each template that gives one value is a function
-  (§2.3). Refer to `testing/fixtures/feel/uses_feel.le` (run by
+  (§2.4). Refer to `testing/fixtures/feel/uses_feel.le` (run by
   `testing/test_feel_lib.pl`).
 - **`lib/lists.le`** (+ `lists.pl`):
   `*a list* is *an item* followed by *a second list*`. With this template, you can
@@ -1179,7 +1194,7 @@ a postcode is in a region if
 - **Explanations** show the goal as a built-in step. The other target
   languages do not run such a goal. s(CASP) reports it as not supported
   ([scasp.md](scasp.md)).
-- **Kept answers:** the verifier reports a memorable template (§2.4)
+- **Kept answers:** the verifier reports a memorable template (§2.5)
   whose rules use a `prolog` goal (`memorable_calls_prolog`). The reason is that a
   goal that changes something in a different location can make the kept answers
   out of date.
@@ -1404,7 +1419,7 @@ the text of ruling NY N362700 is at "sources/cbp/N362700.txt".
 1. A judgment is true when a fact states it. Usually, the fact is in a scenario, with
    provenance (17.1.1).
 2. A judgment that no fact states can be an **assumption** of an answer, as for an
-   assumable template (§2, `; assumable`). The answer then lists the judgment as one
+   assumable template (§2.1.4). The answer then lists the judgment as one
    of its unknowns. An explanation shows it with the words *(judgment needed)*, for
    example `the burst pipe is accidental (judgment needed)`.
 3. Rule 2 has one exception. When a fact states a decision for a subject, a different
@@ -1463,7 +1478,7 @@ a kind. A rule then names the decision that it needs, for example
 `the classification of the good as container is accepted`.
 
 **`; judged` and `; assumable`.** In logic, a judged template is an assumable
-template (§2) with one integrity constraint (§3.3): one decision for each subject.
+template (§2.1.4) with one integrity constraint (§3.3): one decision for each subject.
 For the example above, this constraint has the same effect on the answers:
 ```le
 it must not be true that
@@ -2271,7 +2286,7 @@ the cases that a program permits, without a scenario.
   constraints contradict each other, and it gives each number its limits. The search
   solves date comparisons in the same way, in days. Two facts of a template whose
   last place holds a value (*a person has an income of an amount*), or of a
-  template with the mark `; one value` (§2), are read as one fact: a person has one
+  template with the mark `; one value` (§2.1.8), are read as one fact: a person has one
   income. When a smaller case already gives a case, the search does not list that
   case.
 - **Totals and lists of assumed facts.** A count of facts that the case assumes is

@@ -391,7 +391,7 @@ service_undeclared(KB, issue(service_undeclared, Description, Fix, Start, End)) 
 semantic_matcher_declared(KB) :-
     catch(le_services:semantic_matcher(KB, _), _, fail).
 
-% --- `; memorable` templates (docs/user/reference/language.md §2.4) ---
+% --- `; memorable` templates (docs/user/reference/language.md §2.5) ---
 
 %   A memorable call under a negation. `it is not the case that`, `unless`
 %   and the guard of `otherwise` all compile to not/1, and a negation stops
@@ -1207,7 +1207,7 @@ contains_literal(T, F, A) :-
 % Only EXTENSIONAL predicates are reported. A predicate with rules of its own
 % that no query reaches is already `untested_predicate`, which says the same
 % thing about a derivation rather than about data.
-%   A named constant (`the constants are:`, le_summary.md §2.2) that nothing
+%   A named constant (`the constants are:`, le_summary.md §2.3) that nothing
 %   reads is said as such: its template and fact are the section's, not the
 %   author's words.
 unconsumed_facts(KB, issue(unused_constant, Description, Fix, Start, End)) :-

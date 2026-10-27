@@ -481,7 +481,7 @@ function getTemplates(text: string): Template[] {
                         insertText: clean.replace(/\*/g, ''),
                         detail: 'User Template'
                     });
-                    // A function (docs/user/reference/language.md §2.3) is also
+                    // A function (docs/user/reference/language.md §2.4) is also
                     // written without its last place, wherever a value goes:
                     // "the price of the cup > 10", "the price of the cup + 5".
                     const short = isFunctions ? functionShortForm(clean, copulas) : null;
