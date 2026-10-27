@@ -3937,6 +3937,17 @@ run_one_test(KBmodule, test(QueryName, ScenarioName, ExpectedStrings, ExpectedUn
         destroySession(SM)
     ).
 
+%!  run_one_test(+KBmodule, +Test, -Result, -Got) is det.
+%
+%   run_one_test/3, and what the query got: got(Answers, Unknowns), or none
+%   when it did not run. A passed test's Result does not carry its answers,
+%   and the editor's test report shows them (Expected and Got).
+run_one_test(KBmodule, Test, Result, Got) :-
+    nb_setval(le_test_got, none),
+    run_one_test(KBmodule, Test, Result),
+    nb_getval(le_test_got, Got),
+    nb_setval(le_test_got, none).
+
 %!  test_run_error(+Error, +QueryName, +ScenarioName, -Result) is det.
 %
 %   A test that RAISES is that test's error, not the run's. Only
@@ -3977,6 +3988,7 @@ run_change_test(KB, QueryName, ScenarioName, ExpectedSets, SM, Result) :-
         sort(Expected0, Expected),
         maplist(normalized_set, Actual, ActualN0),
         sort(ActualN0, ActualN),
+        nb_setval(le_test_got, got(Actual, [])),
         (   Expected == ActualN
         ->  Result = pass(QueryName, ScenarioName)
         ;   Result = fail(QueryName, ScenarioName, ExpectedSets, Actual)
@@ -4045,6 +4057,7 @@ run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUn
                         maplist(normalize_string, SortedActualUnknowns, NormActualUnknowns),
                         sort(NormExpectedUnknowns, SortedExpectedUnknowns),
                         sort(NormActualUnknowns, SortedActualUnknownsFinal),
+                        nb_setval(le_test_got, got(ActualStrings, SortedActualUnknowns)),
                         (   answers_match(SortedExpected, SortedActual), ( ExpectedUnknowns == any -> true ; SortedExpectedUnknowns == SortedActualUnknownsFinal ) -> 
                                 Result = pass(QueryName, ScenarioName)
                             ; 
@@ -4092,6 +4105,7 @@ run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUn
                         maplist(normalize_string, SortedActualUnknowns, NormActualUnknowns),
                         sort(NormExpectedUnknowns, SortedExpectedUnknowns),
                         sort(NormActualUnknowns, SortedActualUnknownsFinal),
+                        nb_setval(le_test_got, got(ActualStrings, SortedActualUnknowns)),
                         (   answers_match(SortedExpected, SortedActual), ( ExpectedUnknowns == any -> true ; SortedExpectedUnknowns == SortedActualUnknownsFinal ) -> Result = pass(QueryName, ScenarioName)
                         ;   maplist(strip_string_wrapper, ExpectedStrings, CleanExpected),
                             maplist(strip_string_wrapper, EUList, CleanExpectedUnknowns),

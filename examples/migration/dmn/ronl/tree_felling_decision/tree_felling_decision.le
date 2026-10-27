@@ -40,24 +40,24 @@ rule tree_felling_permitted_3 with provenance the model at decision Tree Felling
 the tree felling permitted is a text if
     the tree felling permitted for the tree diameter and the protected area or null is the text under table tree_felling_permitted.
 
-scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Tree Felling Permitted?:
+scenario g001 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g001 row 1 of Tree Felling Permitted?:
+    the protected area is false.
     the tree diameter is 0.
-    the protected area is false.
     q_d_tree_felling_permitted expects answers ["the tree felling permitted is Permit"].
 
-scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Tree Felling Permitted?:
-    the tree diameter is 31.
+scenario g002 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g002 row 2 of Tree Felling Permitted?:
     the protected area is false.
+    the tree diameter is 31.
     q_d_tree_felling_permitted expects answers ["the tree felling permitted is Permit"].
 
-scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of Tree Felling Permitted?:
-    the tree diameter is 31.
+scenario g003 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g003 row 3 of Tree Felling Permitted?:
     the protected area is true.
+    the tree diameter is 31.
     q_d_tree_felling_permitted expects answers ["the tree felling permitted is Reject"].
 
-scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 4 of Tree Felling Permitted?:
-    the tree diameter is 61.
+scenario g004 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g004 row 4 of Tree Felling Permitted?:
     the protected area is true.
+    the tree diameter is 61.
     q_d_tree_felling_permitted expects answers ["the tree felling permitted is Reject"].
 
 query q_d_tree_felling_permitted is:

@@ -198,97 +198,142 @@ the ronl heusdenpas knockoffs is a truth value if
     and false is equal to false
     and the truth value is equal to false.
 
-scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of RONL Heusdenpas Kindpakket:
-    the aanvrager inwoner heusden is false.
-    the aanvrager heeft kind4 tm17 is false.
-    the aanvrager uitkering baanbrekers is false.
-    the aanvrager voedselbankpas den bosch is false.
-    the aanvrager kwijtschelding gemeentelijke belastingen is false.
-    the aanvrager schuldhulptraject kredietbank nederland is true.
-    the aanvrager dit kalenderjaar al aangevraagd is false.
+scenario g001 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g001 row 1 of RONL Heusdenpas Kindpakket:
     the aanvrager aanmerking studie financiering is false.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
-
-scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of RONL Heusdenpas Kindpakket:
-    the aanvrager inwoner heusden is false.
-    the aanvrager heeft kind4 tm17 is false.
-    the aanvrager uitkering baanbrekers is true.
-    the aanvrager voedselbankpas den bosch is false.
-    the aanvrager kwijtschelding gemeentelijke belastingen is true.
-    the aanvrager schuldhulptraject kredietbank nederland is true.
-    the aanvrager dit kalenderjaar al aangevraagd is true.
-    the aanvrager aanmerking studie financiering is true.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
-
-scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 1 of RONL Heusdenpas Automatisch:
-    the aanvrager inwoner heusden is false.
-    the aanvrager heeft kind4 tm17 is true.
-    the aanvrager uitkering baanbrekers is true.
-    the aanvrager voedselbankpas den bosch is false.
-    the aanvrager kwijtschelding gemeentelijke belastingen is false.
-    the aanvrager schuldhulptraject kredietbank nederland is false.
     the aanvrager dit kalenderjaar al aangevraagd is false.
-    the aanvrager aanmerking studie financiering is true.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
-
-scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 2 of RONL Heusdenpas Automatisch:
-    the aanvrager uitkering baanbrekers is false.
-    the aanvrager voedselbankpas den bosch is true.
-    the aanvrager kwijtschelding gemeentelijke belastingen is false.
-    the aanvrager schuldhulptraject kredietbank nederland is false.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
-
-scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 3 of RONL Heusdenpas Automatisch:
-    the aanvrager inwoner heusden is false.
     the aanvrager heeft kind4 tm17 is false.
-    the aanvrager uitkering baanbrekers is false.
-    the aanvrager voedselbankpas den bosch is false.
-    the aanvrager kwijtschelding gemeentelijke belastingen is true.
-    the aanvrager schuldhulptraject kredietbank nederland is false.
-    the aanvrager dit kalenderjaar al aangevraagd is true.
-    the aanvrager aanmerking studie financiering is true.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
-
-scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 4 of RONL Heusdenpas Automatisch:
-    the aanvrager uitkering baanbrekers is false.
-    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager inwoner heusden is false.
     the aanvrager kwijtschelding gemeentelijke belastingen is false.
     the aanvrager schuldhulptraject kredietbank nederland is true.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
 
-scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 5 of RONL Heusdenpas Automatisch:
+scenario g002 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g002 row 2 of RONL Heusdenpas Kindpakket:
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager inwoner heusden is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g003 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g003 row 3 of RONL Heusdenpas Kindpakket:
+    the aanvrager aanmerking studie financiering is true.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager inwoner heusden is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    the aanvrager uitkering baanbrekers is true.
+    the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g004 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g004 row 4 of RONL Heusdenpas Kindpakket:
+    the aanvrager heeft kind4 tm17 is true.
     the aanvrager inwoner heusden is true.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+
+scenario g005 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g005 row 1 of RONL Heusdenpas Automatisch:
+    the aanvrager aanmerking studie financiering is true.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
     the aanvrager heeft kind4 tm17 is true.
-    the aanvrager uitkering baanbrekers is false.
-    the aanvrager voedselbankpas den bosch is false.
+    the aanvrager inwoner heusden is false.
     the aanvrager kwijtschelding gemeentelijke belastingen is false.
     the aanvrager schuldhulptraject kredietbank nederland is false.
-    the aanvrager dit kalenderjaar al aangevraagd is true.
-    the aanvrager aanmerking studie financiering is true.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is false"].
-
-scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g011 row 2 of RONL Heusdenpas Knockoffs:
-    the aanvrager inwoner heusden is false.
-    the aanvrager heeft kind4 tm17 is false.
     the aanvrager uitkering baanbrekers is true.
-    the aanvrager voedselbankpas den bosch is true.
-    the aanvrager kwijtschelding gemeentelijke belastingen is true.
-    the aanvrager schuldhulptraject kredietbank nederland is true.
-    the aanvrager dit kalenderjaar al aangevraagd is true.
-    the aanvrager aanmerking studie financiering is false.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
-
-scenario g013 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g013 row 4 of RONL Heusdenpas Knockoffs:
-    the aanvrager inwoner heusden is false.
-    the aanvrager heeft kind4 tm17 is false.
-    the aanvrager uitkering baanbrekers is false.
     the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g006 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g006 row 2 of RONL Heusdenpas Automatisch:
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is true.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+
+scenario g007 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g007 row 3 of RONL Heusdenpas Automatisch:
+    the aanvrager aanmerking studie financiering is true.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager inwoner heusden is false.
     the aanvrager kwijtschelding gemeentelijke belastingen is true.
     the aanvrager schuldhulptraject kredietbank nederland is false.
-    the aanvrager dit kalenderjaar al aangevraagd is false.
-    the aanvrager aanmerking studie financiering is false.
-    q_d_ronl_heusdenpas_automatisch expects answers ["the ronl heusdenpas automatisch is true"].
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
 
-query q_d_ronl_heusdenpas_automatisch is:
-    the ronl heusdenpas automatisch is which truth value.
+scenario g008 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g008 row 4 of RONL Heusdenpas Automatisch:
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+
+scenario g009 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g009 row 5 of RONL Heusdenpas Automatisch:
+    the aanvrager aanmerking studie financiering is true.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager heeft kind4 tm17 is true.
+    the aanvrager inwoner heusden is true.
+    the aanvrager kwijtschelding gemeentelijke belastingen is false.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+
+scenario g010 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g010 row 1 of RONL Heusdenpas Knockoffs:
+    the aanvrager aanmerking studie financiering is false.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager inwoner heusden is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g011 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g011 row 2 of RONL Heusdenpas Knockoffs:
+    the aanvrager aanmerking studie financiering is false.
+    the aanvrager dit kalenderjaar al aangevraagd is true.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager inwoner heusden is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is true.
+    the aanvrager uitkering baanbrekers is true.
+    the aanvrager voedselbankpas den bosch is true.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g012 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g012 row 3 of RONL Heusdenpas Knockoffs:
+    the aanvrager aanmerking studie financiering is true.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager inwoner heusden is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g013 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g013 row 4 of RONL Heusdenpas Knockoffs:
+    the aanvrager aanmerking studie financiering is false.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager heeft kind4 tm17 is false.
+    the aanvrager inwoner heusden is false.
+    the aanvrager kwijtschelding gemeentelijke belastingen is true.
+    the aanvrager schuldhulptraject kredietbank nederland is false.
+    the aanvrager uitkering baanbrekers is false.
+    the aanvrager voedselbankpas den bosch is false.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking heusden pas of the ronl heusdenpas eindresultaat is false"].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers ["the aanmerking kind pakket of the ronl heusdenpas eindresultaat is false"].
+
+scenario g014 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g014 row 5 of RONL Heusdenpas Knockoffs:
+    the aanvrager aanmerking studie financiering is false.
+    the aanvrager dit kalenderjaar al aangevraagd is false.
+    the aanvrager inwoner heusden is true.
+    q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+    q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat expects answers [].
+
+query q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat is:
+    the aanmerking heusden pas of the ronl heusdenpas eindresultaat is which truth value.
+
+query q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat is:
+    the aanmerking kind pakket of the ronl heusdenpas eindresultaat is which truth value.
 

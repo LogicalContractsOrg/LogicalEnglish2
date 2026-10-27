@@ -12,7 +12,7 @@ Translator: dmn_twin
 | residue | 0 |
 | **total** | 5 |
 
-Fidelity: **9 of 9** source test expectation(s) reproduced (100%).
+Fidelity: **28 of 28** source test expectation(s) reproduced (100%).
 
 A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person.
 
@@ -30,13 +30,32 @@ A source element is **encoded** when a documented mapping rule translated it wit
 
 | Source test | Query | Result | Detail |
 |---|---|---|---|
-| g001 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g003 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g005 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g006 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g007 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g008 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g009 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g011 | q_d_ronl_heusdenpas_automatisch | pass |  |
-| g013 | q_d_ronl_heusdenpas_automatisch | pass |  |
+| g001 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g001 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g002 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g002 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g003 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g003 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g004 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g004 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g005 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g005 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g006 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g006 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g007 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g007 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g008 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g008 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g009 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g009 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g010 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g010 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g011 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g011 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g012 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g012 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g013 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g013 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g014 | q_d_aanmerking_heusden_pas_of_the_ronl_heusdenpas_eindresultaat | pass |  |
+| g014 | q_d_aanmerking_kind_pakket_of_the_ronl_heusdenpas_eindresultaat | pass |  |
 

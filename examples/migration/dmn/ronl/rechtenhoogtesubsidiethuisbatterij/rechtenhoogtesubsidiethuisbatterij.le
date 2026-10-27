@@ -110,20 +110,20 @@ the bereken basis hoogte subsidie is 0 if
 
 rule bereken_beschikbaar_subsidie_plafond_1 with provenance the model at decision Bereken Beschikbaar Subsidie Plafond:
 the bereken beschikbaar subsidie plafond is a number N if
-    the aanvraag datum is true
-    and the date written as true is a date D
+    the aanvraag datum is a text
+    and the date written as the text is a date D
     and D >= 2026-01-12
-    and the date written as true is a date M
+    and the date written as the text is a date M
     and M <= 2026-09-30
     and the aanvrager type is "eigenaar"
     and the plafond eigenaren of the jaar gebonden budget is a number K
     and the reeds gesubsidieerd eigenaren two is a number P
     and K - P > 0
     and N = K - P
-    otherwise the aanvraag datum is true
-    and the date written as true is a date Q
+    otherwise the aanvraag datum is a second text
+    and the date written as the second text is a date Q
     and Q >= 2026-01-12
-    and the date written as true is a date R
+    and the date written as the second text is a date R
     and R <= 2026-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
@@ -131,110 +131,88 @@ the bereken beschikbaar subsidie plafond is a number N if
         and the reeds gesubsidieerd eigenaren two is a number T
         and S - T > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date U
-    and U < 2026-01-12
+    otherwise it is not the case that the aanvraag datum is a third text
+    and the aanvraag datum is a fourth text
+    and the date written as the fourth text is a date U
+    and U >= 2026-01-12
+    and the date written as the fourth text is a date V
+    and V <= 2026-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren of the jaar gebonden budget is a number V
-    and the reeds gesubsidieerd eigenaren two is a number W
-    and V - W > 0
-    and N = V - W
-    otherwise the aanvraag datum is false
-    and the date written as false is a date X
-    and X < 2026-01-12
-    and the aanvrager type is "eigenaar"
-    and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number Y
-        and the reeds gesubsidieerd eigenaren two is a number Z
-        and Y - Z > 0
-    and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date B
-    and B > 2026-09-30
-    and the aanvrager type is "eigenaar"
-    and the plafond eigenaren of the jaar gebonden budget is a number C
-    and the reeds gesubsidieerd eigenaren two is a number E
-    and C - E > 0
-    and N = C - E
-    otherwise the aanvraag datum is false
-    and the date written as false is a date F
-    and F > 2026-09-30
+    and the plafond eigenaren of the jaar gebonden budget is a number W
+    and the reeds gesubsidieerd eigenaren two is a number X
+    and W - X > 0
+    and N = W - X
+    otherwise it is not the case that the aanvraag datum is a fifth text
+    and the aanvraag datum is a sixth text
+    and the date written as the sixth text is a date Y
+    and Y >= 2026-01-12
+    and the date written as the sixth text is a date Z
+    and Z <= 2026-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number G
-        and the reeds gesubsidieerd eigenaren two is a number H
-        and G - H > 0
+        the plafond eigenaren of the jaar gebonden budget is a number B
+        and the reeds gesubsidieerd eigenaren two is a number C
+        and B - C > 0
     and N is equal to 0
-    otherwise the aanvraag datum is true
-    and the date written as true is a date J
-    and J >= 2026-01-12
-    and the date written as true is a date L
-    and L <= 2026-09-30
+    otherwise the aanvraag datum is a text E
+    and the date written as E is a date F
+    and F >= 2026-01-12
+    and the date written as E is a date G
+    and G <= 2026-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders of the jaar gebonden budget is a number NN
-    and the reeds gesubsidieerd huurders two is a number NM
-    and NN - NM > 0
-    and N = NN - NM
-    otherwise the aanvraag datum is true
-    and the date written as true is a date NK
-    and NK >= 2026-01-12
-    and the date written as true is a date NP
-    and NP <= 2026-09-30
+    and the plafond huurders of the jaar gebonden budget is a number H
+    and the reeds gesubsidieerd huurders two is a number J
+    and H - J > 0
+    and N = H - J
+    otherwise the aanvraag datum is a text L
+    and the date written as L is a date NN
+    and NN >= 2026-01-12
+    and the date written as L is a date NM
+    and NM <= 2026-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders of the jaar gebonden budget is a number NQ
-        and the reeds gesubsidieerd huurders two is a number NR
-        and NQ - NR > 0
+        the plafond huurders of the jaar gebonden budget is a number NK
+        and the reeds gesubsidieerd huurders two is a number NP
+        and NK - NP > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date NS
-    and NS < 2026-01-12
+    otherwise it is not the case that the aanvraag datum is a text NQ
+    and the aanvraag datum is a text NR
+    and the date written as NR is a date NS
+    and NS >= 2026-01-12
+    and the date written as NR is a date NT
+    and NT <= 2026-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders of the jaar gebonden budget is a number NT
-    and the reeds gesubsidieerd huurders two is a number NU
-    and NT - NU > 0
-    and N = NT - NU
-    otherwise the aanvraag datum is false
-    and the date written as false is a date NV
-    and NV < 2026-01-12
+    and the plafond huurders of the jaar gebonden budget is a number NU
+    and the reeds gesubsidieerd huurders two is a number NV
+    and NU - NV > 0
+    and N = NU - NV
+    otherwise it is not the case that the aanvraag datum is a text NW
+    and the aanvraag datum is a text NX
+    and the date written as NX is a date NY
+    and NY >= 2026-01-12
+    and the date written as NX is a date NZ
+    and NZ <= 2026-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
-        the plafond huurders of the jaar gebonden budget is a number NW
-        and the reeds gesubsidieerd huurders two is a number NX
-        and NW - NX > 0
+        the plafond huurders of the jaar gebonden budget is a number NB
+        and the reeds gesubsidieerd huurders two is a number NC
+        and NB - NC > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date NY
-    and NY > 2026-09-30
-    and the aanvrager type is "huurder"
-    and the plafond huurders of the jaar gebonden budget is a number NZ
-    and the reeds gesubsidieerd huurders two is a number NB
-    and NZ - NB > 0
-    and N = NZ - NB
-    otherwise the aanvraag datum is false
-    and the date written as false is a date NC
-    and NC > 2026-09-30
-    and the aanvrager type is "huurder"
-    and it is not the case that
-        the plafond huurders of the jaar gebonden budget is a number ND
-        and the reeds gesubsidieerd huurders two is a number NE
-        and ND - NE > 0
-    and N is equal to 0
-    otherwise the aanvraag datum is true
-    and the date written as true is a date NF
-    and NF >= 2026-10-01
-    and the date written as true is a date NG
-    and NG <= 2026-12-31
-    and the plafond eigenaren of the jaar gebonden budget is a number NH
-    and the plafond huurders of the jaar gebonden budget is a number NJ
-    and the reeds gesubsidieerd eigenaren two is a number NL
-    and the reeds gesubsidieerd huurders two is a number MN
-    and NH + NJ - NL - MN > 0
-    and N = NH + NJ - NL - MN
-    otherwise the aanvraag datum is true
-    and the date written as true is a date MM
+    otherwise the aanvraag datum is a text ND
+    and the date written as ND is a date NE
+    and NE >= 2026-10-01
+    and the date written as ND is a date NF
+    and NF <= 2026-12-31
+    and the plafond eigenaren of the jaar gebonden budget is a number NG
+    and the plafond huurders of the jaar gebonden budget is a number NH
+    and the reeds gesubsidieerd eigenaren two is a number NJ
+    and the reeds gesubsidieerd huurders two is a number NL
+    and NG + NH - NJ - NL > 0
+    and N = NG + NH - NJ - NL
+    otherwise the aanvraag datum is a text MN
+    and the date written as MN is a date MM
     and MM >= 2026-10-01
-    and the date written as true is a date MK
+    and the date written as MN is a date MK
     and MK <= 2026-12-31
     and it is not the case that
         the plafond eigenaren of the jaar gebonden budget is a number MP
@@ -243,113 +221,89 @@ the bereken beschikbaar subsidie plafond is a number N if
         and the reeds gesubsidieerd huurders two is a number MS
         and MP + MQ - MR - MS > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date MT
-    and MT < 2026-10-01
-    and the plafond eigenaren of the jaar gebonden budget is a number MU
-    and the plafond huurders of the jaar gebonden budget is a number MV
-    and the reeds gesubsidieerd eigenaren two is a number MW
-    and the reeds gesubsidieerd huurders two is a number MX
-    and MU + MV - MW - MX > 0
-    and N = MU + MV - MW - MX
-    otherwise the aanvraag datum is false
-    and the date written as false is a date MY
-    and MY < 2026-10-01
+    otherwise it is not the case that the aanvraag datum is a text MT
+    and the aanvraag datum is a text MU
+    and the date written as MU is a date MV
+    and MV >= 2026-10-01
+    and the date written as MU is a date MW
+    and MW <= 2026-12-31
+    and the plafond eigenaren of the jaar gebonden budget is a number MX
+    and the plafond huurders of the jaar gebonden budget is a number MY
+    and the reeds gesubsidieerd eigenaren two is a number MZ
+    and the reeds gesubsidieerd huurders two is a number MB
+    and MX + MY - MZ - MB > 0
+    and N = MX + MY - MZ - MB
+    otherwise it is not the case that the aanvraag datum is a text MC
+    and the aanvraag datum is a text MD
+    and the date written as MD is a date ME
+    and ME >= 2026-10-01
+    and the date written as MD is a date MF
+    and MF <= 2026-12-31
     and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number MZ
-        and the plafond huurders of the jaar gebonden budget is a number MB
-        and the reeds gesubsidieerd eigenaren two is a number MC
-        and the reeds gesubsidieerd huurders two is a number MD
-        and MZ + MB - MC - MD > 0
+        the plafond eigenaren of the jaar gebonden budget is a number MG
+        and the plafond huurders of the jaar gebonden budget is a number MH
+        and the reeds gesubsidieerd eigenaren two is a number MJ
+        and the reeds gesubsidieerd huurders two is a number ML
+        and MG + MH - MJ - ML > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date ME
-    and ME > 2026-12-31
-    and the plafond eigenaren of the jaar gebonden budget is a number MF
-    and the plafond huurders of the jaar gebonden budget is a number MG
-    and the reeds gesubsidieerd eigenaren two is a number MH
-    and the reeds gesubsidieerd huurders two is a number MJ
-    and MF + MG - MH - MJ > 0
-    and N = MF + MG - MH - MJ
-    otherwise the aanvraag datum is false
-    and the date written as false is a date ML
-    and ML > 2026-12-31
-    and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number KN
-        and the plafond huurders of the jaar gebonden budget is a number KM
-        and the reeds gesubsidieerd eigenaren two is a number KK
-        and the reeds gesubsidieerd huurders two is a number KP
-        and KN + KM - KK - KP > 0
-    and N is equal to 0
-    otherwise the aanvraag datum is true
-    and the date written as true is a date KQ
-    and 2027-01-01 <= KQ
-    and the date written as true is a date KR
-    and KR <= 2027-09-30
+    otherwise the aanvraag datum is a text KN
+    and the date written as KN is a date KM
+    and 2027-01-01 <= KM
+    and the date written as KN is a date KK
+    and KK <= 2027-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren of the jaar gebonden budget is a number KS
-    and the reeds gesubsidieerd eigenaren two is a number KT
-    and KS - KT > 0
-    and N = KS - KT
-    otherwise the aanvraag datum is true
-    and the date written as true is a date KU
-    and 2027-01-01 <= KU
-    and the date written as true is a date KV
-    and KV <= 2027-09-30
+    and the plafond eigenaren of the jaar gebonden budget is a number KP
+    and the reeds gesubsidieerd eigenaren two is a number KQ
+    and KP - KQ > 0
+    and N = KP - KQ
+    otherwise the aanvraag datum is a text KR
+    and the date written as KR is a date KS
+    and 2027-01-01 <= KS
+    and the date written as KR is a date KT
+    and KT <= 2027-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number KW
-        and the reeds gesubsidieerd eigenaren two is a number KX
-        and KW - KX > 0
+        the plafond eigenaren of the jaar gebonden budget is a number KU
+        and the reeds gesubsidieerd eigenaren two is a number KV
+        and KU - KV > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date KY
-    and 2027-01-01 > KY
+    otherwise it is not the case that the aanvraag datum is a text KW
+    and the aanvraag datum is a text KX
+    and the date written as KX is a date KY
+    and 2027-01-01 <= KY
+    and the date written as KX is a date KZ
+    and KZ <= 2027-09-30
     and the aanvrager type is "eigenaar"
-    and the plafond eigenaren of the jaar gebonden budget is a number KZ
-    and the reeds gesubsidieerd eigenaren two is a number KB
-    and KZ - KB > 0
-    and N = KZ - KB
-    otherwise the aanvraag datum is false
-    and the date written as false is a date KC
-    and 2027-01-01 > KC
+    and the plafond eigenaren of the jaar gebonden budget is a number KB
+    and the reeds gesubsidieerd eigenaren two is a number KC
+    and KB - KC > 0
+    and N = KB - KC
+    otherwise it is not the case that the aanvraag datum is a text KD
+    and the aanvraag datum is a text KE
+    and the date written as KE is a date KF
+    and 2027-01-01 <= KF
+    and the date written as KE is a date KG
+    and KG <= 2027-09-30
     and the aanvrager type is "eigenaar"
     and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number KD
-        and the reeds gesubsidieerd eigenaren two is a number KE
-        and KD - KE > 0
+        the plafond eigenaren of the jaar gebonden budget is a number KH
+        and the reeds gesubsidieerd eigenaren two is a number KJ
+        and KH - KJ > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date KF
-    and KF > 2027-09-30
-    and the aanvrager type is "eigenaar"
-    and the plafond eigenaren of the jaar gebonden budget is a number KG
-    and the reeds gesubsidieerd eigenaren two is a number KH
-    and KG - KH > 0
-    and N = KG - KH
-    otherwise the aanvraag datum is false
-    and the date written as false is a date KJ
-    and KJ > 2027-09-30
-    and the aanvrager type is "eigenaar"
-    and it is not the case that
-        the plafond eigenaren of the jaar gebonden budget is a number KL
-        and the reeds gesubsidieerd eigenaren two is a number PN
-        and KL - PN > 0
-    and N is equal to 0
-    otherwise the aanvraag datum is true
-    and the date written as true is a date PM
-    and PM >= 2027-01-01
-    and the date written as true is a date PK
-    and PK <= 2027-09-30
+    otherwise the aanvraag datum is a text KL
+    and the date written as KL is a date PN
+    and PN >= 2027-01-01
+    and the date written as KL is a date PM
+    and PM <= 2027-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders of the jaar gebonden budget is a number PP
-    and the reeds gesubsidieerd huurders two is a number PQ
-    and PP - PQ > 0
-    and N = PP - PQ
-    otherwise the aanvraag datum is true
-    and the date written as true is a date PR
+    and the plafond huurders of the jaar gebonden budget is a number PK
+    and the reeds gesubsidieerd huurders two is a number PP
+    and PK - PP > 0
+    and N = PK - PP
+    otherwise the aanvraag datum is a text PQ
+    and the date written as PQ is a date PR
     and PR >= 2027-01-01
-    and the date written as true is a date PS
+    and the date written as PQ is a date PS
     and PS <= 2027-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
@@ -357,88 +311,68 @@ the bereken beschikbaar subsidie plafond is a number N if
         and the reeds gesubsidieerd huurders two is a number PU
         and PT - PU > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date PV
-    and PV < 2027-01-01
+    otherwise it is not the case that the aanvraag datum is a text PV
+    and the aanvraag datum is a text PW
+    and the date written as PW is a date PX
+    and PX >= 2027-01-01
+    and the date written as PW is a date PY
+    and PY <= 2027-09-30
     and the aanvrager type is "huurder"
-    and the plafond huurders of the jaar gebonden budget is a number PW
-    and the reeds gesubsidieerd huurders two is a number PX
-    and PW - PX > 0
-    and N = PW - PX
-    otherwise the aanvraag datum is false
-    and the date written as false is a date PY
-    and PY < 2027-01-01
-    and the aanvrager type is "huurder"
-    and it is not the case that
-        the plafond huurders of the jaar gebonden budget is a number PZ
-        and the reeds gesubsidieerd huurders two is a number PB
-        and PZ - PB > 0
-    and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date PC
-    and PC > 2027-09-30
-    and the aanvrager type is "huurder"
-    and the plafond huurders of the jaar gebonden budget is a number PD
-    and the reeds gesubsidieerd huurders two is a number PE
-    and PD - PE > 0
-    and N = PD - PE
-    otherwise the aanvraag datum is false
-    and the date written as false is a date PF
-    and PF > 2027-09-30
+    and the plafond huurders of the jaar gebonden budget is a number PZ
+    and the reeds gesubsidieerd huurders two is a number PB
+    and PZ - PB > 0
+    and N = PZ - PB
+    otherwise it is not the case that the aanvraag datum is a text PC
+    and the aanvraag datum is a text PD
+    and the date written as PD is a date PE
+    and PE >= 2027-01-01
+    and the date written as PD is a date PF
+    and PF <= 2027-09-30
     and the aanvrager type is "huurder"
     and it is not the case that
         the plafond huurders of the jaar gebonden budget is a number PG
         and the reeds gesubsidieerd huurders two is a number PH
         and PG - PH > 0
     and N is equal to 0
-    otherwise the aanvraag datum is true
-    and the date written as true is a date PJ
-    and PJ >= 2027-10-01
-    and the date written as true is a date PL
-    and PL <= 2027-12-31
-    and the reeds gesubsidieerd eigenaren two is a number QN
-    and the reeds gesubsidieerd huurders two is a number QM
-    and 1000000 - QN - QM > 0
-    and N = 1000000 - QN - QM
-    otherwise the aanvraag datum is true
-    and the date written as true is a date QK
-    and QK >= 2027-10-01
-    and the date written as true is a date QP
-    and QP <= 2027-12-31
+    otherwise the aanvraag datum is a text PJ
+    and the date written as PJ is a date PL
+    and PL >= 2027-10-01
+    and the date written as PJ is a date QN
+    and QN <= 2027-12-31
+    and the reeds gesubsidieerd eigenaren two is a number QM
+    and the reeds gesubsidieerd huurders two is a number QK
+    and 1000000 - QM - QK > 0
+    and N = 1000000 - QM - QK
+    otherwise the aanvraag datum is a text QP
+    and the date written as QP is a date QQ
+    and QQ >= 2027-10-01
+    and the date written as QP is a date QR
+    and QR <= 2027-12-31
     and it is not the case that
-        the reeds gesubsidieerd eigenaren two is a number QQ
-        and the reeds gesubsidieerd huurders two is a number QR
-        and 1000000 - QQ - QR > 0
+        the reeds gesubsidieerd eigenaren two is a number QS
+        and the reeds gesubsidieerd huurders two is a number QT
+        and 1000000 - QS - QT > 0
     and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date QS
-    and QS < 2027-10-01
-    and the reeds gesubsidieerd eigenaren two is a number QT
-    and the reeds gesubsidieerd huurders two is a number QU
-    and 1000000 - QT - QU > 0
-    and N = 1000000 - QT - QU
-    otherwise the aanvraag datum is false
-    and the date written as false is a date QV
-    and QV < 2027-10-01
+    otherwise it is not the case that the aanvraag datum is a text QU
+    and the aanvraag datum is a text QV
+    and the date written as QV is a date QW
+    and QW >= 2027-10-01
+    and the date written as QV is a date QX
+    and QX <= 2027-12-31
+    and the reeds gesubsidieerd eigenaren two is a number QY
+    and the reeds gesubsidieerd huurders two is a number QZ
+    and 1000000 - QY - QZ > 0
+    and N = 1000000 - QY - QZ
+    otherwise it is not the case that the aanvraag datum is a text QB
+    and the aanvraag datum is a text QC
+    and the date written as QC is a date QD
+    and QD >= 2027-10-01
+    and the date written as QC is a date QE
+    and QE <= 2027-12-31
     and it is not the case that
-        the reeds gesubsidieerd eigenaren two is a number QW
-        and the reeds gesubsidieerd huurders two is a number QX
-        and 1000000 - QW - QX > 0
-    and N is equal to 0
-    otherwise the aanvraag datum is false
-    and the date written as false is a date QY
-    and QY > 2027-12-31
-    and the reeds gesubsidieerd eigenaren two is a number QZ
-    and the reeds gesubsidieerd huurders two is a number QB
-    and 1000000 - QZ - QB > 0
-    and N = 1000000 - QZ - QB
-    otherwise the aanvraag datum is false
-    and the date written as false is a date QC
-    and QC > 2027-12-31
-    and it is not the case that
-        the reeds gesubsidieerd eigenaren two is a number QD
-        and the reeds gesubsidieerd huurders two is a number QE
-        and 1000000 - QD - QE > 0
+        the reeds gesubsidieerd eigenaren two is a number QF
+        and the reeds gesubsidieerd huurders two is a number QG
+        and 1000000 - QF - QG > 0
     and N is equal to 0
     otherwise N is equal to 0.
 
@@ -544,7 +478,7 @@ the reden of the recht op subsidie thuisbatterij is a text if
     and the text is equal to "Aanvrager heeft recht op subsidie; huurder met toestemming eigenaar"
     otherwise the text is equal to "Niet alle voorwaarden zijn vervuld".
 
-scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of Bereken Basis Hoogte Subsidie:
+scenario g001 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g001 row 1 of Bereken Basis Hoogte Subsidie:
     the aanvraag datum is "2026-10-01".
     the aanvrager failliet is false.
     the aanvrager type is "huurder".
@@ -555,19 +489,17 @@ scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "huurder".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Woning ligt niet in Flevoland"].
 
-scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of Bereken Basis Hoogte Subsidie:
+scenario g002 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g002 row 2 of Bereken Basis Hoogte Subsidie:
     the gemaakte kosten two is 0.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Niet alle voorwaarden zijn vervuld"].
 
-scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 1 of Bereken Beschikbaar Subsidie Plafond:
+scenario g003 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g003 row 1 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2026-01-12".
     the aanvrager failliet is true.
     the aanvrager type is "eigenaar".
@@ -578,22 +510,20 @@ scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "eigenaar".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager is failliet"].
 
-scenario g004 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g004 row 2 of Bereken Beschikbaar Subsidie Plafond:
+scenario g004 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g004 row 2 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "anders".
     the aanvrager type is "huurder".
     the reeds gesubsidieerd eigenaren two is 1.
     the reeds gesubsidieerd huurders two is 1.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Niet alle voorwaarden zijn vervuld"].
 
-scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g005 row 3 of Bereken Beschikbaar Subsidie Plafond:
+scenario g005 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g005 row 3 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2026-10-01".
     the aanvrager failliet is false.
     the aanvrager type is "eigenaar".
@@ -604,22 +534,20 @@ scenario g005 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "eigenaar".
     the toestemming eigenaar two is false.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager staat niet op de energierekening"].
 
-scenario g006 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g006 row 4 of Bereken Beschikbaar Subsidie Plafond:
+scenario g006 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g006 row 4 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "anders".
     the aanvrager type is "eigenaar".
     the reeds gesubsidieerd eigenaren two is 1.
     the reeds gesubsidieerd huurders two is 1.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Niet alle voorwaarden zijn vervuld"].
 
-scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g007 row 5 of Bereken Beschikbaar Subsidie Plafond:
+scenario g007 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g007 row 5 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2027-01-01".
     the aanvrager failliet is false.
     the aanvrager type is "huurder".
@@ -630,22 +558,20 @@ scenario g007 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "anders".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager is geen eigenaar of huurder"].
 
-scenario g008 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g008 row 6 of Bereken Beschikbaar Subsidie Plafond:
+scenario g008 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g008 row 6 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2027-01-01".
     the aanvrager type is "anders".
     the reeds gesubsidieerd eigenaren two is 0.
     the reeds gesubsidieerd huurders two is 2.5.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Niet alle voorwaarden zijn vervuld"].
 
-scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g009 row 7 of Bereken Beschikbaar Subsidie Plafond:
+scenario g009 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g009 row 7 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2027-10-01".
     the aanvrager failliet is false.
     the aanvrager type is "huurder".
@@ -656,22 +582,20 @@ scenario g009 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is true.
     the relatie tot woning two is "anders".
     the toestemming eigenaar two is false.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager is geen eigenaar of huurder"].
 
-scenario g010 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g010 row 8 of Bereken Beschikbaar Subsidie Plafond:
+scenario g010 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g010 row 8 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2026-01-12".
     the aanvrager type is "anders".
     the reeds gesubsidieerd eigenaren two is 0.
     the reeds gesubsidieerd huurders two is 0.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Niet alle voorwaarden zijn vervuld"].
 
-scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g011 row 9 of Bereken Beschikbaar Subsidie Plafond:
+scenario g011 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g011 row 9 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2026-01-12".
     the aanvrager failliet is true.
     the aanvrager type is "anders".
@@ -682,22 +606,20 @@ scenario g011 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "huurder".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager is failliet"].
 
-scenario g012 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g012 row 10 of Bereken Beschikbaar Subsidie Plafond:
+scenario g012 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g012 row 10 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2026-01-12".
     the aanvrager type is "anders".
     the reeds gesubsidieerd eigenaren two is 0.
     the reeds gesubsidieerd huurders two is 0.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Niet alle voorwaarden zijn vervuld"].
 
-scenario g013 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g013 row 11 of Bereken Beschikbaar Subsidie Plafond:
+scenario g013 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g013 row 11 of Bereken Beschikbaar Subsidie Plafond:
     the aanvraag datum is "2026-01-12".
     the aanvrager failliet is false.
     the aanvrager type is "anders".
@@ -708,23 +630,21 @@ scenario g013 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is true.
     the relatie tot woning two is "anders".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Woning ligt niet in Flevoland"].
 
-scenario g014 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g014 row 1 of Recht op subsidie thuisbatterij:
+scenario g014 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g014 row 1 of Recht op subsidie thuisbatterij:
     the aanvrager failliet is true.
     the provincie woning two is "Flevoland".
     the rekening naam komt overeen is false.
     the relatie tot woning two is "huurder".
     the toestemming eigenaar two is false.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager is failliet"].
 
-scenario g015 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g015 row 2 of Recht op subsidie thuisbatterij:
+scenario g015 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g015 row 2 of Recht op subsidie thuisbatterij:
     the aanvraag datum is "anders".
     the aanvrager failliet is false.
     the aanvrager type is "eigenaar".
@@ -735,23 +655,21 @@ scenario g015 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is true.
     the relatie tot woning two is "eigenaar".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Woning ligt niet in Flevoland"].
 
-scenario g016 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g016 row 3 of Recht op subsidie thuisbatterij:
+scenario g016 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g016 row 3 of Recht op subsidie thuisbatterij:
     the aanvrager failliet is false.
     the provincie woning two is "Flevoland".
     the rekening naam komt overeen is false.
     the relatie tot woning two is "anders".
     the toestemming eigenaar two is false.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager is geen eigenaar of huurder"].
 
-scenario g017 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g017 row 4 of Recht op subsidie thuisbatterij:
+scenario g017 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g017 row 4 of Recht op subsidie thuisbatterij:
     the aanvraag datum is "2027-12-31".
     the aanvrager failliet is false.
     the aanvrager type is "eigenaar".
@@ -762,23 +680,21 @@ scenario g017 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "huurder".
     the toestemming eigenaar two is false.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Huurder heeft geen toestemming van eigenaar"].
 
-scenario g018 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g018 row 5 of Recht op subsidie thuisbatterij:
+scenario g018 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g018 row 5 of Recht op subsidie thuisbatterij:
     the aanvrager failliet is false.
     the provincie woning two is "Flevoland".
     the rekening naam komt overeen is false.
     the relatie tot woning two is "eigenaar".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager staat niet op de energierekening"].
 
-scenario g019 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g019 row 6 of Recht op subsidie thuisbatterij:
+scenario g019 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g019 row 6 of Recht op subsidie thuisbatterij:
     the aanvraag datum is "anders".
     the aanvrager failliet is false.
     the aanvrager type is "anders".
@@ -789,23 +705,21 @@ scenario g019 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is true.
     the relatie tot woning two is "eigenaar".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is true"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager heeft recht op subsidie"].
 
-scenario g020 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g020 row 7 of Recht op subsidie thuisbatterij:
+scenario g020 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g020 row 7 of Recht op subsidie thuisbatterij:
     the aanvrager failliet is false.
     the provincie woning two is "Flevoland".
     the rekening naam komt overeen is true.
     the relatie tot woning two is "huurder".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers [].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is true"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Aanvrager heeft recht op subsidie; huurder met toestemming eigenaar"].
 
-scenario g021 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g021 row 8 of Recht op subsidie thuisbatterij:
+scenario g021 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g021 row 8 of Recht op subsidie thuisbatterij:
     the aanvraag datum is "2026-12-31".
     the aanvrager failliet is false.
     the aanvrager type is "eigenaar".
@@ -816,20 +730,16 @@ scenario g021 is, as stated in "the oracle, Drools 10.2.0, on generated cases" a
     the rekening naam komt overeen is false.
     the relatie tot woning two is "eigenaar".
     the toestemming eigenaar two is true.
-    q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij expects answers ["the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie maximum of the subsidie constanten thuisbatterij is 1250"].
-    q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie minimum of the subsidie constanten thuisbatterij is 750"].
-    q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij expects answers ["the subsidie percentage of the subsidie constanten thuisbatterij is 0.25"].
+    q_d_behaalbare_hoogte_subsidie expects answers ["the behaalbare hoogte subsidie is 0"].
+    q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij expects answers ["the recht op subsidie of the recht op subsidie thuisbatterij is false"].
+    q_d_reden_of_the_recht_op_subsidie_thuisbatterij expects answers ["the reden of the recht op subsidie thuisbatterij is Woning ligt niet in Flevoland"].
 
-query q_d_minimale_noodzakelijke_kosten_of_the_subsidie_constanten_thuisbatterij is:
-    the minimale noodzakelijke kosten of the subsidie constanten thuisbatterij is which number.
+query q_d_behaalbare_hoogte_subsidie is:
+    the behaalbare hoogte subsidie is which number.
 
-query q_d_subsidie_maximum_of_the_subsidie_constanten_thuisbatterij is:
-    the subsidie maximum of the subsidie constanten thuisbatterij is which number.
+query q_d_recht_op_subsidie_of_the_recht_op_subsidie_thuisbatterij is:
+    the recht op subsidie of the recht op subsidie thuisbatterij is which truth value.
 
-query q_d_subsidie_minimum_of_the_subsidie_constanten_thuisbatterij is:
-    the subsidie minimum of the subsidie constanten thuisbatterij is which number.
-
-query q_d_subsidie_percentage_of_the_subsidie_constanten_thuisbatterij is:
-    the subsidie percentage of the subsidie constanten thuisbatterij is which number.
+query q_d_reden_of_the_recht_op_subsidie_thuisbatterij is:
+    the reden of the recht op subsidie thuisbatterij is which text.
 

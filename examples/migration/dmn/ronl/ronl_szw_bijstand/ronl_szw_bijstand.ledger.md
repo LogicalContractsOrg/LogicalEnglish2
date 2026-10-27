@@ -12,7 +12,7 @@ Translator: dmn_twin
 | residue | 0 |
 | **total** | 4 |
 
-Fidelity: **35 of 35** source test expectation(s) reproduced (100%).
+Fidelity: **42 of 42** source test expectation(s) reproduced (100%).
 
 A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person.
 
@@ -29,39 +29,46 @@ A source element is **encoded** when a documented mapping rule translated it wit
 
 | Source test | Query | Result | Detail |
 |---|---|---|---|
-| g001 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g001 | q_d_szw_bijstandsnormtype | pass |  |
-| g002 | q_d_szw_bijstandsnormtype | pass |  |
-| g003 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g003 | q_d_szw_bijstandsnormtype | pass |  |
-| g004 | q_d_szw_bijstandsnormtype | pass |  |
-| g005 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g005 | q_d_szw_bijstandsnormtype | pass |  |
-| g006 | q_d_szw_bijstandsnormtype | pass |  |
-| g007 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g007 | q_d_szw_bijstandsnormtype | pass |  |
-| g008 | q_d_szw_bijstandsnormtype | pass |  |
-| g009 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g009 | q_d_szw_bijstandsnormtype | pass |  |
-| g010 | q_d_szw_bijstandsnormtype | pass |  |
-| g011 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g011 | q_d_szw_bijstandsnormtype | pass |  |
-| g012 | q_d_szw_bijstandsnormtype | pass |  |
-| g013 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g013 | q_d_szw_bijstandsnormtype | pass |  |
-| g014 | q_d_szw_bijstandsnormtype | pass |  |
-| g015 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g015 | q_d_szw_bijstandsnormtype | pass |  |
-| g016 | q_d_szw_bijstandsnormtype | pass |  |
-| g017 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g017 | q_d_szw_bijstandsnormtype | pass |  |
-| g018 | q_d_szw_bijstandsnormtype | pass |  |
-| g019 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g019 | q_d_szw_bijstandsnormtype | pass |  |
-| g020 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g021 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g021 | q_d_szw_bijstandsnormtype | pass |  |
-| g022 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g023 | q_d_szw_bijstandsnormtermijn | pass |  |
-| g023 | q_d_szw_bijstandsnormtype | pass |  |
+| g001 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g001 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g001 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g003 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g003 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g003 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g005 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g005 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g005 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g007 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g007 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g007 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g009 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g009 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g009 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g011 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g011 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g011 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g013 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g013 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g013 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g015 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g015 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g015 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g017 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g017 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g017 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g019 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g019 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g019 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g020 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g020 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g020 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g021 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g021 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g021 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g022 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g022 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g022 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g023 | q_d_bijstands_norm_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g023 | q_d_bijstandsnorm_termijn_of_the_szw_bijstandsnorm_informatie | pass |  |
+| g023 | q_d_bijstandsnorm_type_of_the_szw_bijstandsnorm_informatie | pass |  |
 

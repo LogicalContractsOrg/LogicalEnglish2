@@ -9940,6 +9940,7 @@ var uiCatalog = {
     "Tests of": "Testes de",
     "Running the tests\u2026": "A executar os testes\u2026",
     "only those that did not pass": "s\xF3 os que n\xE3o passaram",
+    "(no answers)": "(sem respostas)",
     "Hide the tests that passed": "Esconder os testes que passaram",
     "errors": "erros",
     "tests": "testes",
@@ -10621,6 +10622,7 @@ var uiCatalog = {
     "Tests of": "Pruebas de",
     "Running the tests\u2026": "Ejecutando las pruebas\u2026",
     "only those that did not pass": "solo las que no pasaron",
+    "(no answers)": "(sin respuestas)",
     "Hide the tests that passed": "Ocultar las pruebas que pasaron",
     "errors": "errores",
     "tests": "pruebas",
@@ -11301,6 +11303,7 @@ var uiCatalog = {
     "Tests of": "Tests de",
     "Running the tests\u2026": "Ex\xE9cution des tests\u2026",
     "only those that did not pass": "seulement ceux qui n'ont pas r\xE9ussi",
+    "(no answers)": "(aucune r\xE9ponse)",
     "Hide the tests that passed": "Masquer les tests r\xE9ussis",
     "errors": "erreurs",
     "tests": "tests",
@@ -11981,6 +11984,7 @@ var uiCatalog = {
     "Tests of": "Test di",
     "Running the tests\u2026": "Esecuzione dei test\u2026",
     "only those that did not pass": "solo quelli non superati",
+    "(no answers)": "(nessuna risposta)",
     "Hide the tests that passed": "Nascondere i test superati",
     "errors": "errori",
     "tests": "test",
@@ -17987,8 +17991,8 @@ ${err}`, "See s(CASP)");
           mark,
           r.scenario,
           r.query,
-          r.status === "pass" ? "" : (r.expected || []).join("; ") + ((r.expectedUnknowns || []).length ? ` (${t("unknowns")}: ${r.expectedUnknowns.join("; ")})` : ""),
-          r.status === "pass" ? "" : r.status === "error" ? r.message : (r.actual || []).join("; ") + ((r.unknowns || []).length ? ` (${t("unknowns")}: ${r.unknowns.join("; ")})` : "")
+          ((r.expected || []).length || (r.expectedUnknowns || []).length ? (r.expected || []).join("; ") : t("(no answers)")) + ((r.expectedUnknowns || []).length ? ` (${t("unknowns")}: ${r.expectedUnknowns.join("; ")})` : ""),
+          r.status === "error" ? r.message : ((r.actual || []).length || (r.unknowns || []).length ? (r.actual || []).join("; ") : t("(no answers)")) + ((r.unknowns || []).length ? ` (${t("unknowns")}: ${r.unknowns.join("; ")})` : "")
         ];
         cells.forEach((c, i) => {
           const td = document.createElement("td");

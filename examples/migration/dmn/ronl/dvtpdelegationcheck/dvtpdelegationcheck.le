@@ -44,21 +44,21 @@ rule dv_tp_machtiging_en_delegatiecheck_fr_02_4 with provenance the model at dec
 the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is a text if
     the dv tp machtiging en delegatiecheck fr_02 for the machtiging aanwezig and the delegatie uitgesloten or null is a truth value with the text under table dv_tp_machtiging_en_delegatiecheck_fr_02.
 
-scenario g001 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g001 row 1 of DvTP Machtiging- en delegatiecheck FR-02:
-    the machtiging aanwezig is true.
+scenario g001 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g001 row 1 of DvTP Machtiging- en delegatiecheck FR-02:
     the delegatie uitgesloten is true.
+    the machtiging aanwezig is true.
     q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is true"].
     q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is U heeft ingelogd via een machtiging, maar deze dienst staat het geven van toestemming namens een ander niet toe (FR-02). Log opnieuw in met uw eigen DigiD."].
 
-scenario g002 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g002 row 2 of DvTP Machtiging- en delegatiecheck FR-02:
-    the machtiging aanwezig is true.
+scenario g002 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g002 row 2 of DvTP Machtiging- en delegatiecheck FR-02:
     the delegatie uitgesloten is false.
+    the machtiging aanwezig is true.
     q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is false"].
     q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is Machtiging aanwezig en delegatie is toegestaan voor deze dienst."].
 
-scenario g003 is, as stated in "the oracle, Drools 10.2.0, on generated cases" at test case g003 row 3 of DvTP Machtiging- en delegatiecheck FR-02:
-    the machtiging aanwezig is false.
+scenario g003 is, as stated in "the oracle, Camunda 7.23's DMN engine, on generated cases" at test case g003 row 3 of DvTP Machtiging- en delegatiecheck FR-02:
     the delegatie uitgesloten is true.
+    the machtiging aanwezig is false.
     q_d_delegatie_geblokkeerd_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie geblokkeerd of the dv tp machtiging en delegatiecheck fr_02 is false"].
     q_d_delegatie_reden_of_the_dv_tp_machtiging_en_delegatiecheck_fr_02 expects answers ["the delegatie reden of the dv tp machtiging en delegatiecheck fr_02 is Geen machtiging gedetecteerd. Burger handelt op eigen naam."].
 

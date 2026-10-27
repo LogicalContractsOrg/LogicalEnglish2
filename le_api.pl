@@ -1086,14 +1086,25 @@ handle_test_report(Dict, Response) :-
     load_base_of(Dict, Base),
     (   catch(le_kbs:load_text(Doc, Base, KB), E, (print_message(error, E), fail))
     ->  ( current_predicate(KB:le_expected/4) -> findall(test(Q, S, A, U), KB:le_expected(Q, S, A, U), Ts) ; Ts = [] ),
-        maplist(le_kbs:run_one_test(KB), Ts, Rs),
-        maplist(test_result_json, Rs, Tests),
+        maplist(le_kbs:run_one_test(KB), Ts, Rs, Gots),
+        maplist(test_result_json, Ts, Rs, Gots, Tests),
         aggregate_all(count, ( member(T, Tests), get_dict(status, T, "pass") ), P),
         aggregate_all(count, ( member(T, Tests), get_dict(status, T, "fail") ), F),
         aggregate_all(count, ( member(T, Tests), get_dict(status, T, "error") ), Er),
         Response = _{tests: Tests, passed: P, failed: F, errors: Er}
     ;   Response = _{error: "The program could not be loaded"}
     ).
+
+%   A passed test shows what it expected and what it got, as a failed one
+%   does: the expectation from the program, the answers from the run.
+test_result_json(test(_, _, Exp, ExpU), pass(Q, S), got(Act, ActU), J) :- !,
+    test_result_json(pass(Q, S), J0),
+    maplist(le_kbs:strip_string_wrapper, Exp, Exp1),
+    ( ExpU == any -> ExpU1 = [] ; maplist(le_kbs:strip_string_wrapper, ExpU, ExpU1) ),
+    maplist(term_to_atom_string, Exp1, E1), maplist(term_to_atom_string, Act, A1),
+    maplist(term_to_atom_string, ExpU1, EU1), maplist(term_to_atom_string, ActU, AU1),
+    J = J0.put(_{expected: E1, actual: A1, expectedUnknowns: EU1, unknowns: AU1}).
+test_result_json(_, R, _, J) :- test_result_json(R, J).
 
 test_result_json(pass(Q, S), _{scenario: SS, query: QS, status: "pass", expected: [], actual: [], unknowns: [], expectedUnknowns: [], message: ""}) :- !,
     term_to_atom_string(Q, QS), term_to_atom_string(S, SS).

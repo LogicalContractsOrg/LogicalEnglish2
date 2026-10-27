@@ -2568,8 +2568,8 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                 tr.title = t('Select this scenario and query in the query panel');
                 const mark = r.status === 'pass' ? '✓' : r.status === 'fail' ? '✗' : '!';
                 const cells = [mark, r.scenario, r.query,
-                    r.status === 'pass' ? '' : (r.expected || []).join('; ') + ((r.expectedUnknowns || []).length ? ` (${t('unknowns')}: ${r.expectedUnknowns.join('; ')})` : ''),
-                    r.status === 'pass' ? '' : r.status === 'error' ? r.message : (r.actual || []).join('; ') + ((r.unknowns || []).length ? ` (${t('unknowns')}: ${r.unknowns.join('; ')})` : '')];
+                    ((r.expected || []).length || (r.expectedUnknowns || []).length ? (r.expected || []).join('; ') : t('(no answers)')) + ((r.expectedUnknowns || []).length ? ` (${t('unknowns')}: ${r.expectedUnknowns.join('; ')})` : ''),
+                    r.status === 'error' ? r.message : ((r.actual || []).length || (r.unknowns || []).length ? (r.actual || []).join('; ') : t('(no answers)')) + ((r.unknowns || []).length ? ` (${t('unknowns')}: ${r.unknowns.join('; ')})` : '')];
                 cells.forEach((c, i) => {
                     const td = document.createElement('td'); td.textContent = String(c ?? '');
                     td.style.cssText = 'border-bottom:1px solid #444;padding:4px 6px;vertical-align:top'
