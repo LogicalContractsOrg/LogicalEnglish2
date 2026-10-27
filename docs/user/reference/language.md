@@ -10,6 +10,16 @@ This document gives a summary of the constructs of Logical English (LE) that the
   - [1. Document Sections](#1-document-sections)
   - [2. Templates](#2-templates)
     - [Template additions (after `;`)](#template-additions-after-)
+      - [`; opposite: <template>`](#-opposite-template)
+      - [`; synonym <template>`](#-synonym-template)
+      - [`; assumable`](#-assumable)
+      - [`; undefined`](#-undefined)
+      - [`; judged`](#-judged)
+      - [`; one value`](#-one-value)
+      - [`; via service <name>`](#-via-service-name)
+      - [`; image "<address>"`](#-image-address)
+      - [`; <value> by default`](#-value-by-default)
+      - [`; known as <name>`](#-known-as-name)
     - [2.1 Prepositional templates](#21-prepositional-templates)
     - [2.2 Named constants: `the constants are:`](#22-named-constants-the-constants-are)
     - [2.3 Functions: `the functions are:`](#23-functions-the-functions-are)
@@ -37,6 +47,12 @@ This document gives a summary of the constructs of Logical English (LE) that the
   - [16. Humanizing LE](#16-humanizing-le)
   - [17. Regulatory-decision constructs](#17-regulatory-decision-constructs)
     - [17.1 Provenance trailers and judged templates](#171-provenance-trailers-and-judged-templates)
+      - [17.1.1 Trailers after a fact: `according to`, `as stated in`, `because`, `confer`](#1711-trailers-after-a-fact-according-to-as-stated-in-because-confer)
+      - [17.1.2 The default document of a scenario: `scenario <name> is, as stated in <document>:`](#1712-the-default-document-of-a-scenario-scenario-name-is-as-stated-in-document)
+      - [17.1.3 Required provenance: `scenario facts require provenance.`](#1713-required-provenance-scenario-facts-require-provenance)
+      - [17.1.4 The location of a document: `is published at` and `the text of … is at`](#1714-the-location-of-a-document-is-published-at-and-the-text-of--is-at)
+      - [17.1.5 Judged templates: `<template>; judged.`](#1715-judged-templates-template-judged)
+      - [17.1.6 The values that the rules test for in a place](#1716-the-values-that-the-rules-test-for-in-a-place)
     - [17.2 `otherwise` cascades](#172-otherwise-cascades)
     - [17.3 Decision tables](#173-decision-tables)
     - [17.4 The decision skeleton: applicability, question, remedy](#174-the-decision-skeleton-applicability-question-remedy)
@@ -64,43 +80,265 @@ You write a program in sections. Each section tells the system how to read the s
 - **Constants:** `the constants are:`. This section gives named values, one on each line: `the fee is 5.` (§2.2).
 - **Functions:** `the functions are:`. This section gives templates of the form `... is *a value*`. You can write the value of such a template without its last place (§2.3).
 - **Bases (LPS target):** LPS is Logic Production System. LPS is the companion system for rules about time and change. `the knowledge base <name> extends <base>, <base>.` brings in the templates, laws and constraints of the bases, but not their instance (`le_lps_surface.md` §1.1).
-- **Dynamics:** `the fluents are:` or `the events are:`. These sections are for reasoning about time. In the LPS target, a sentence needs times only where it relates two moments. An example is `if there is a fire in a room and it is not the case that an alarm is on then an alarm goes on.` This sentence reads its conditions at one time, and it starts its action at that time. The sentence `when an alarm goes on then an alarm is on.` also needs no times (`le_lps_surface.md` §3.1).
+- **Dynamics:** `the fluents are:` or `the events are:`. These sections are for reasoning about time. In the LPS target, a sentence needs times only where it relates two moments. An example is `if there is a fire in a room and it is not the case that an alarm is on then an alarm goes on.` This sentence tests its conditions at one time, and it starts its action at that time. The sentence `when an alarm goes on then an alarm is on.` also needs no times (`le_lps_surface.md` §3.1).
 - **Meta:** `the target language is: prolog.` This line is necessary before the system can make Prolog.
 
 ## 2. Templates
-A template is a sentence pattern. Each template says how you can write one kind of sentence. The template also connects that kind of sentence to a predicate in the Prolog program that the system makes from Logical English. A predicate is a named relation.
-- **Pattern:** `*a person* is a friend of *another person*`
-- **Variables:** Words between asterisks `*...*`.
-- **Types:** The **head noun** of the variable phrase (for example `person`). Refer to §6 for how the system separates names and types.
-- **Variable Scoping:** If you write the same variable name two times in one sentence, or in one query, the two names refer to the same individual.
-  - `which person is the father of which person` matches only when a person is the father of himself.
-  - Use `which person is the father of which other person` to refer to two different persons.
+A **template** is a sentence pattern. Each template says how you can write one kind
+of sentence. In logic, a template declares a **predicate**, that is, a named
+relation. The Prolog program that the system makes from Logical English uses that
+predicate.
+
+**Form.** A template is a sequence of words and **places**. A place is a phrase
+between asterisks, such as `*a person*`. Each place stands for one thing.
+- **"Place", "argument", "parameter".** This document uses the word *place*. In
+  logic and in Prolog, the same thing is an **argument** of the predicate. Other
+  documents also use the words *parameter* and *slot*. The four words have the same
+  meaning here.
+- **The sequence of the places.** The places of a template are numbered from left
+  to right. The first place is the first argument of the predicate, and so on. The
+  number of places is the arity of the predicate. Example:
+  `*a person* is a friend of *another person*` has two places, and its predicate has
+  two arguments.
+- **The type of a place.** The **head noun** of the phrase between the asterisks is
+  the type of the place (`person`). Refer to §6 for how the system separates names
+  and types.
+- **A template with no place** is a fixed sentence, such as `the power is on`. In
+  logic, it is a proposition.
+
+**A sentence that matches a template.** A sentence matches a template when it has
+the same words, and something in each place. In each place, the sentence has a
+**value** (a constant, such as `alice` or `12570`) or a **variable** (such as
+`a person` or `the person`). When a sentence has a value in a place, this document
+says that the value **fills** the place. When a proof finds the value of a variable,
+logicians say that the proof **binds** the variable, or **instantiates** it.
+- **The scope of a variable.** If you write the same variable two times in one
+  sentence, or in one query, the two refer to the same thing.
+  - `which person is the father of which person` matches only when a person is the
+    father of himself.
+  - Use `which person is the father of which other person` to refer to two
+    different persons.
 
 ### Template additions (after `;`)
-After a template definition, you can write one or more additions. Each addition starts with `;`:
-- `; opposite: <template>` — this addition declares how to say the opposite of the template. A rule can then conclude the opposite form, and an explanation can show it.
-  **The opposite form is not a negation when you use it as a condition.** As a condition, `the claimant does not have another form of income` asks about a separate relation. Only a rule that concludes that relation can prove it. Such a rule is an `only if` rule (§15.1). To test that the positive template is not true, write `it is not the case that the claimant has another form of income`. The verifier reports an opposite form that a condition uses but that nothing concludes (`opposite_as_condition`).
-- `; synonym <template>` — this addition declares a **second way to say the same thing**. The synonym is for the **same** relation as the main template. Thus you can write a fact, the head of a rule, a condition of a rule and a query in each of the two forms. A template can have several `; synonym ...` additions, one after the other. The system matches the `*variables*` of the synonym to the variables of the main template **by position**. Thus the two forms must list their arguments in the same sequence.
-  - Example: `*a payment* is in respect of *a claim*; synonym *a payment* covers *a claim*.` The fact `p covers c` is the same fact as `p is in respect of c`.
-  - **Rendering:** By default, the system shows the main form, that is, the form that you wrote first. An explanation shows each step in the form that the rule or fact that proves the step uses. A query shows its answers in the form that the query uses.
-  - **Restriction:** a template with a synonym **cannot have other additions** (`opposite`, `prepositional`, `unknown`, `undefined`). The system reports such a template as a `synonym_with_other_additions` error.
-- `; prepositional` — this addition marks a **prepositional** template (refer to §2.1). The synonym `; composite` has the same meaning.
-- `; unknown` — this addition marks the template as **assumable**. When the program cannot prove a sentence of this kind, the system assumes that the sentence is true. The system reports the sentence as an unknown. The integrity constraints set the limits of this assumption (§3.3). Logicians call a sentence that the system can assume in this way an abducible. The synonyms `; assumed` and `; assumable` have the same meaning. When the scenario proves a sentence already, the system does not also assume the sentence. **A useful negation of such a sentence is not possible:** `it is not the case that` before the sentence is never true. The reason is that the system never proves false a sentence that it can assume. To require that something is *not* true, and keep it open, declare that requirement as a separate template (`*a counterparty* is not in administration; unknown.`). The verifier reports a negated unknown (`negated_unknown`).
-- `; undefined` — this addition marks the template as a **scenario element**. Sentences of this kind are only for scenarios. They are never facts or conclusions of rules in the knowledge base. The synonym `; scenario element` (two words) has the same meaning. The verifier then changes its operation for the template in two ways:
-  - The verifier does **not** give its `undefined_predicate` warning for this template, although the knowledge base has no rule and no fact for it.
-  - The verifier gives a **`defined_scenario_element` warning** when it finds a fact, or a rule that concludes this template, in the knowledge base.
-  - Example: `*a person* has passed the test; undefined.`
-- `; via service <name>` — a declared service answers the template when the query runs (§17.6).
-- `; <value> by default` — **LPS target, fluents only** (`le_lps_surface.md` §2). This addition gives the value of the last place of the template where no fact has stored a value (`the balance of *an account* is *an amount*; 0 by default`, `…; the zero address by default`). The system reports a default on a different template (`default_not_lps`).
-- `; judged` — this addition marks an **open-textured** matter: a person decides it, and rules do not calculate it. The synonyms are `; open textured` and `; evaluative`. A sentence of such a template is a *judgment*. In a template with two or more places, the last place holds the decision. When a scenario records a decision, a different decision about the same thing is not possible. When no decision is recorded, an answer can depend on a judgment that is still to come, as with `; assumable`. The explanation then shows that judgment as *judgment needed*. A rule that concludes a judged template is an error. Refer to §17.1.
-- `; memorable` — while a query runs, the system **keeps** the answers to this template. It calculates each different question one time only, and keeps the answers and their explanations. Each time that the same question occurs again, the system gives the same answers (§2.4). The name of this method is memoization. The synonyms `; memoised`, `; memoized` and `; cached` have the same meaning.
-- `; one value` — the **last place of the template holds one value** for each choice of its other places. For example, mark *the income of a person is an amount* with `; one value`, and a person has one income. The synonym `; single valued` has the same meaning. Only the case search reads this marker (§17.11). The case search reads two facts of such a template about the same things as one fact. Thus a case never needs a person with two incomes, or a report with two reporting parties. Queries give the same answers as before, and a scenario that states two values still has the two values. Rune is the language of the Common Domain Model of ISDA. The translator of Rune marks with `; one value` each attribute that Rune lets have only one value.
-- `; image "<address>"` — this addition gives a **picture** for a sentence. The **Bento Box** shows the picture in the location of the sentence. The Bento Box is the editor display of an explanation as boxes in boxes (refer to §12 of the [introduction to LE](../tutorials/intro-to-le/intro-to-le.md#12-bento-box-an-explanation-as-boxes-in-boxes)). The address is a full web address that starts with `http://` or `https://`, in double quotes. The picture has no effect on what the program proves. You can write the addition in two locations:
-  - **On a scenario fact**, before its full stop: `pad one is a pad on step grid; image "https://…/drum.png".` The picture is for that fact. The fact must be **concrete**, that is, it must have no variables.
-  - **On a template with no variables** (a template whose sentence has no `*…*` place): `the power is on; image "https://…/plug.png".` The picture is then for that sentence in all locations where no fact has a picture of its own.
-  - **Warnings:** the verifier reports a picture on a fact with variables (`image_nonground`), on a rule (`image_on_rule`), and on a template with variables (`image_template_vars`). It also reports an address that is not a full web address (`image_bad_url`). In each of these cases, the system ignores the picture, and the program runs as before.
-  - The keyword is in the language of the document: `imagem` (Portuguese), `imagen` (Spanish), `image` (French), `immagine` (Italian).
-  - Refer to `examples/moreExamples/domains/other/sequencer.le`.
+After a template, you can write one or more **additions**. Each addition starts with
+`;` and comes before the full stop of the template:
+```le
+the templates are:
+    *a damage* is accidental; judged.
+    *a payment* is in respect of *a claim*; synonym *a payment* covers *a claim*.
+```
+An addition changes how the system reads or solves the sentences of the template.
+This table lists all the additions. Each addition has a subsection below, or a
+section of its own.
+
+| Addition | Synonyms | In short | Section |
+|---|---|---|---|
+| `; opposite: <template>` | | A second template for the opposite statement. | [opposite](#-opposite-template) |
+| `; synonym <template>` | | A second wording of the same relation. | [synonym](#-synonym-template) |
+| `; prepositional` | `; composite` | A template of two places that can extend the condition before it. | §2.1 |
+| `; assumable` | `; unknown`, `; assumed` | A sentence that the program cannot prove can be assumed. | [assumable](#-assumable) |
+| `; undefined` | `; scenario element` | The sentences come only from scenarios. | [undefined](#-undefined) |
+| `; judged` | `; open textured`, `; evaluative` | A person decides the sentences. Rules do not calculate them. | [judged](#-judged) |
+| `; memorable` | `; memoised`, `; memoized`, `; cached` | The answers are kept and used again during one query. | §2.4 |
+| `; one value` | `; single valued` | The last place has one value for each choice of the other places. | [one value](#-one-value) |
+| `; via service <name>` | | A service gives the answers when the query runs. | [via service](#-via-service-name) |
+| `; image "<address>"` | | A picture for the sentence in the Bento Box. | [image](#-image-address) |
+| `; <value> by default` | | LPS target only: the value of the last place when no fact gives one. | [by default](#-value-by-default) |
+| `; known as <name>` | | LPS target only: the name of the predicate. | [known as](#-known-as-name) |
+
+**Combinations.** A template can have more than one addition, in any sequence.
+There are two limits:
+- `; assumable`, `; undefined` and `; judged` exclude each other. When a template
+  has more than one of the three, only the last one has an effect.
+- A template with `; synonym` cannot have other additions (refer to
+  [synonym](#-synonym-template)).
+
+The keywords of the additions are in the language of the program. For example,
+`; julgado` is the Portuguese form of `; judged`. The file `i18n/keywords.csv` gives
+all the forms.
+
+#### `; opposite: <template>`
+**Form.** `<template>; opposite: <second template>`. The second template has the
+same places as the first template, in the same sequence.
+
+**Meaning.** The second template is the wording of the opposite statement. A rule
+can conclude the opposite form, and an explanation can show it. In logic, the
+opposite form is a **separate predicate**. It is not the negation of the first
+predicate: the system does not prove one form from the other.
+
+**Use as a condition.** As a condition, the opposite form asks about the separate
+predicate. Only a rule that concludes the opposite form can prove it. Such a rule is
+an `only if` rule (§15.1). To test that the first form is not true, write
+`it is not the case that` before the first form.
+
+**Checks.** The verifier gives the warning `opposite_as_condition` when a condition
+uses an opposite form that nothing concludes.
+
+**Example.**
+```le
+*a claimant* has another form of income; opposite: *a claimant* does not have another form of income.
+```
+The condition `the claimant does not have another form of income` is true only when
+a rule concludes it. The condition
+`it is not the case that the claimant has another form of income` is true when the
+program cannot prove `the claimant has another form of income`.
+
+#### `; synonym <template>`
+**Form.** `<template>; synonym <second template>`. A template can have more than
+one `; synonym` addition, one after the other.
+
+**Meaning.** The second template is a **second way to say the same thing**. The two
+templates declare the **same predicate**. You can write a fact, the head of a rule,
+a condition and a query in each form. The places of the two templates correspond
+**by their sequence**: the first place to the first place, and so on. Thus the two
+forms must have their places in the same sequence.
+
+**Display.** By default, the system shows the first form, that is, the form that you
+wrote first. An explanation shows each step in the form of the rule or fact that
+proves the step. A query shows its answers in the form that the query uses.
+
+**Checks.** A template with a synonym **cannot have other additions** (`opposite`,
+`prepositional`, `assumable`, `undefined`). The system reports such a template as a
+`synonym_with_other_additions` error.
+
+**Example.**
+```le
+*a payment* is in respect of *a claim*; synonym *a payment* covers *a claim*.
+```
+The fact `p covers c` is the same fact as `p is in respect of c`.
+
+#### `; assumable`
+**Form.** `<template>; assumable`. The synonyms are `; unknown` and `; assumed`.
+
+**Meaning.** When the program cannot prove a sentence of this template, the answer
+can depend on the **assumption** that the sentence is true. The answer then lists
+the sentence as one of its **unknowns**: an unknown is a sentence that must be true
+for the answer to be true. In logic, such a sentence is an **abducible**, and this
+kind of reasoning is abductive logic programming.
+- When the facts and rules prove the sentence, the sentence is not also an
+  unknown.
+- Integrity constraints set the limits of the assumptions (§3.3).
+
+**Negation.** `it is not the case that` before an assumable sentence is never true.
+The reason is that the system never proves false a sentence that it can assume. To
+require that something is *not* true, and keep it open, declare that requirement as a
+separate assumable template, such as
+`*a counterparty* is not in administration; assumable.`
+
+**Checks.** The verifier gives the warning `negated_unknown` for an assumable
+sentence after `it is not the case that`.
+
+**Example.**
+```le
+the templates are:
+    *a person* pays tax in *a country*.
+    *a person* is resident in *a country*; assumable.
+
+the knowledge base tax includes:
+    a person pays tax in a country if the person is resident in the country.
+```
+A scenario has no fact about the residence of bob. The answer
+`bob pays tax in France` then has the unknown `bob is resident in France`.
+
+#### `; undefined`
+**Form.** `<template>; undefined`. The synonym is `; scenario element` (two words).
+
+**Meaning.** The sentences of this template come only from **scenarios**: they
+describe a case. The knowledge base has no facts and no rules for them. In logic,
+the predicate is an input (an open predicate) of the program. The proof is as
+usual: a sentence that no scenario states is false.
+
+**Checks.** The verifier changes its checks for the template in two ways:
+- It does **not** give the warning `undefined_predicate`, although the knowledge
+  base has no rule and no fact for the template.
+- It gives the warning `defined_scenario_element` when the knowledge base has a fact
+  of the template, or a rule that concludes it.
+
+**Example.** `*a person* has passed the test; undefined.`
+
+#### `; judged`
+**Form.** `<template>; judged`. The synonyms are `; open textured` and
+`; evaluative`.
+
+**Meaning.** A person **decides** the sentences of this template. Rules do not
+calculate them. A sentence of such a template is a **judgment**. Lawyers call such
+a matter *open-textured*. In a template with two or more places, the **last place
+holds the decision**, and the other places tell what the decision is about. In
+logic, a judged template is an assumable template with one integrity constraint: one
+decision for each combination of values in the other places.
+
+**Checks.** A rule that concludes a judged template is an error
+(`judged_with_rules`). A judgment in a scenario without `according to` or `because`
+causes the warning `judgment_without_provenance`.
+
+§17.1.5 gives the full description and an example.
+
+#### `; one value`
+**Form.** `<template>; one value`. The synonym is `; single valued`.
+
+**Meaning.** The **last place of the template has one value** for each choice of
+values in the other places. In logic, this is a functional dependency. Only the case
+search reads this addition (§17.11). The case search takes two facts of such a
+template about the same things to be one fact. Thus a case never needs a person with
+two incomes, or a report with two reporting parties. Queries give the same answers
+with and without the addition. A scenario that states two values still has the two
+values.
+
+**Example.** `the income of *a person* is *an amount*; one value.` A person has one
+income.
+
+The translator from Rune, the language of the Common Domain Model of ISDA, marks with
+`; one value` each attribute that has only one value in Rune.
+
+#### `; via service <name>`
+**Form.** `<template>; via service <name>`. `<name>` is the name of a service that
+the program declares.
+
+**Meaning.** When a query runs, the service gives the answers to the sentences of
+this template. The rules do not calculate them. §17.6 describes services.
+
+#### `; image "<address>"`
+**Form.** `; image "<address>"` after a template with no places, or after a scenario
+fact with no variables, before its full stop. `<address>` is a full web address in
+double quotes. It starts with `http://` or `https://`.
+
+**Meaning.** The **Bento Box** shows the picture in the location of the sentence. The
+Bento Box is the editor display of an explanation as boxes in boxes (refer to §12 of
+the [introduction to LE](../tutorials/intro-to-le/intro-to-le.md#12-bento-box-an-explanation-as-boxes-in-boxes)).
+The picture has no effect on the answers.
+- **On a scenario fact:** the picture is for that fact. Example:
+  `pad one is a pad on step grid; image "https://…/drum.png".`
+- **On a template with no places:** the picture is for that sentence, in all
+  locations where no fact has a picture of its own. Example:
+  `the power is on; image "https://…/plug.png".`
+
+**Checks.** The verifier gives a warning for a picture on a fact with variables
+(`image_nonground`), on a rule (`image_on_rule`), and on a template with places
+(`image_template_vars`). It also gives a warning for an address that is not a full
+web address (`image_bad_url`). In each of these cases, the system ignores the
+picture.
+
+Refer to `examples/moreExamples/domains/other/sequencer.le`.
+
+#### `; <value> by default`
+**Form.** `<template>; <value> by default`, after a template of a **fluent**, in a
+program for the **LPS target**. A fluent is a fact that can change with time. LPS
+(Logic Production Systems) is the companion system for rules about time and change.
+
+**Meaning.** `<value>` is the value of the last place of the template when no fact
+gives a value. Examples: `the balance of *an account* is *an amount*; 0 by default`,
+`…; the zero address by default`. The LPS documentation describes it
+(`le_lps_surface.md` §2).
+
+**Checks.** The system reports a default on a template that is not a fluent of the
+LPS target (`default_not_lps`).
+
+#### `; known as <name>`
+**Form.** `<template>; known as <name>`, in a program for the **LPS target**.
+
+**Meaning.** `<name>` is the name of the predicate in the program that the system
+makes for LPS. Without this addition, the system makes the name from the words of
+the template. The LPS documentation describes it (`le-for-lps.md` §2).
 
 ### 2.1 Prepositional templates
 A prepositional template relates two things, and it **starts with one of the two things**. Thus it can extend the condition before it. In a chain of such templates, the author can omit the first argument. The system then adds that argument from the previous condition: it uses the variable whose type agrees.
@@ -1008,17 +1246,49 @@ The two applications are examples, given "as is", and they are not advice. The
 first comment of each program says this in full.
 
 ### 17.1 Provenance trailers and judged templates
-Each fact of a scenario, and each fact of the knowledge base, can have
-**trailers**. Each trailer comes after a comma. You can write the trailers in any
-sequence:
+The **provenance** of a fact tells where the fact comes from: who states it, in which
+document, and why. This section gives the constructs that record provenance, and the
+`; judged` addition for the matters that a person decides:
+
+| Subsection | Construct |
+|---|---|
+| 17.1.1 | `<fact>, according to …, as stated in … at …, because "…", confer "…"` |
+| 17.1.2 | `scenario <name> is, as stated in <document>:` |
+| 17.1.3 | `scenario facts require provenance.` |
+| 17.1.4 | `<document> is published at "<address>"` and `the text of <document> is at "<address>"` |
+| 17.1.5 | `<template>; judged.` |
+| 17.1.6 | The values that the rules test for in a place, and the warning `unread_value` |
+
+#### 17.1.1 Trailers after a fact: `according to`, `as stated in`, `because`, `confer`
+**Form.**
+```
+<fact>, <trailer>, <trailer>, … .
+```
+A **trailer** is one of the four forms of this table. Each trailer comes after a
+comma. The trailers can be in any sequence. A fact of a scenario and a fact of the
+knowledge base can have trailers.
 
 | Trailer | Meaning |
 |---|---|
-| `according to <source>` | who states the fact: a party, a witness, a document type, a service, a court. `<source>` is an ordinary constant. |
-| `as stated in <document> at <locator>` | where the fact is written (`at <locator>` is optional). Without `according to`, the document is the source. |
-| `because "<text>"` | the reason. |
-| `confer "<passage>"` | a quotation of the passage of the document that states the fact. The document is the document of `as stated in`, or the default document of the scenario. |
+| `according to <source>` | Who states the fact: a party, a witness, a document type, a service, a court. `<source>` is an ordinary constant. |
+| `as stated in <document> at <locator>` | Where the fact is written. `at <locator>` is optional. |
+| `because "<text>"` | The reason for the fact. |
+| `confer "<passage>"` | A quotation of the passage of the document that states the fact. The document is the document of `as stated in`, or the default document of the scenario (17.1.2). |
 
+- The trailers can start on the line of the fact, or on the next line. In the second
+  case, the line of the fact ends with the comma.
+- A comma that is *not* followed by a trailer keyword stays part of the fact, as
+  usual.
+- When a fact has no `according to`, its source is its document.
+
+**Meaning.** The trailers **do not change the proof**. A fact with trailers has the
+same effect on the answers as the same fact without trailers. The system keeps the
+trailers with the fact. An **explanation** shows a proved fact with its trailers, as
+you wrote them. (For programmers: the Prolog form of this record is
+`le_provenance(Fact, Source, Document, Locator, Rationale)`, with `none` for a part
+that the fact does not give.)
+
+**Example.**
 ```le
 scenario decided is:
     claim one is for the burst pipe, as stated in the claim form at section 2.
@@ -1026,12 +1296,23 @@ scenario decided is:
         according to the loss adjuster, as stated in report LA-17 at page 3,
         because "corrosion was not visible on inspection".
 ```
-The trailers can start on the line of the fact, or on the next line. In the second
-case, the line of the fact ends with the comma.
+An explanation that uses the second fact shows
+`the burst pipe is accidental, according to the loss adjuster, as stated in report LA-17 at page 3, because "..."`.
 
-**The default provenance of a scenario.** Usually, a scenario takes all its facts
-from one document. Then the header of the scenario names that document one time,
-and each fact only refers to its own passage:
+#### 17.1.2 The default document of a scenario: `scenario <name> is, as stated in <document>:`
+**Form.**
+```
+scenario <name> is, as stated in <document>:
+```
+**Meaning.** `<document>` is the **default document** of the scenario. It applies to
+each fact of the scenario as follows:
+- A fact with no trailers has the default document.
+- A fact whose trailers name no document (`confer`, `according to`, `because`) has
+  the default document.
+- A fact with its own `as stated in` has its own document.
+
+**Example.** Usually, a scenario takes all its facts from one document. The header
+names that document one time, and each fact refers only to its own passage:
 ```le
 scenario ny_n362700 is, as stated in ruling NY N362700:
     style 1025AD is an upper body garment,
@@ -1041,90 +1322,103 @@ scenario ny_n362700 is, as stated in ruling NY N362700:
         according to CBP, confer "a portion of each of these pockets is below the waist".
     style 1025AD is shown in the catalogue, as stated in the importer's catalogue at page 3.
 ```
-A fact with no trailers takes the default. A fact whose trailers name no
-document (`confer`, `according to`, `because`) takes the default document. A
-fact with its own `as stated in` names a different document. A comma that is *not*
-followed by a trailer keyword stays part of the fact, as usual.
 
-- **The trailers do not change the proof.** A fact with trailers has the same
-  effect on the answers as the same fact without trailers. The trailers are kept
-  with the fact, and the explanations show them (refer to the next item). When a
-  fact has no `according to`, its source is its document.
-  (For programmers: the Prolog form of this record is
-  `le_provenance(Fact, Source, Document, Locator, Rationale)`, with `none` for a
-  part that the fact does not give.)
-- **Explanations** show a proved fact with its trailers, as you wrote them:
-  `the burst pipe is accidental, according to the loss adjuster, as stated in report LA-17 at page 3, because "..."`.
-- **`scenario facts require provenance.`**: a statement about the full program.
-  Write it after the target-language line. Then each scenario fact without a
-  trailer causes a `fact_without_provenance` warning.
+#### 17.1.3 Required provenance: `scenario facts require provenance.`
+**Form.** `scenario facts require provenance.` This statement is about the full
+program. Write it after the target-language line.
 
-**Documents.** A document that a fact cites is an ordinary constant
+**Meaning.** Each scenario fact without a trailer causes the warning
+`fact_without_provenance`. The answers do not change.
+
+#### 17.1.4 The location of a document: `is published at` and `the text of … is at`
+**Form.** A document that a fact cites is an ordinary constant
 (`ruling NY N362700`, `the benefit act`) or a quoted piece of text, such as a web
-address. Two built-in templates tell where the document is:
+address. Two built-in templates give the location of a document:
+```
+<document> is published at "<address>".
+the text of <document> is at "<address>".
+```
+**Meaning.**
+- `is published at` gives the page that a reader opens.
+- `the text of … is at` gives the plain text of the document. The address is a file
+  in the folder of the program, or a web address. The system looks for the file only
+  in the folder of the program, never outside it. At a web address, the system takes
+  the `text` field of a reply in JSON. (JSON is a usual format for data that programs
+  send to other programs.) When the reply is a web page, the system takes the text of
+  the page. The system cannot use a PDF file.
+- The two facts do not need their own provenance.
+
+**Example.**
 ```le
 ruling NY N362700 is published at "https://rulings.cbp.gov/ruling/N362700".
 the text of ruling NY N362700 is at "sources/cbp/N362700.txt".
 ```
-The first fact gives the page that a reader opens. The second fact gives the plain
-text of the document. That text is a file in the folder of the program, or a web
-address. The system looks for the file only in the folder of the program, never
-outside it. At a web address, the system reads the `text` field of a reply in JSON.
-JSON is a usual format for data that programs send to other programs. When the reply
-is a web page, the system reads the text of the page. The system does not read a
-PDF. The two facts do not need their own provenance. With the two facts:
-- the verifier checks a **quotation**
-  (`confer "a zipper garage at the top of the collar"`) against the text of the
-  document, when that text is a file in the folder of the program. (A locator in
-  quotes, `at "section 4, paragraph a)"`, is a location, not a quotation. The
-  verifier does not look for it.) The verifier ignores differences of white space,
-  of no-break spaces and of letter case. It gives the warning `quote_not_found`
-  when it cannot find the passage;
-- each step of an explanation that a cited fact or a labelled rule proves has its
-  provenance
-  (`provenance: {source, document, locator, quote, rationale, url, text}`, and also
-  `rule` for a rule). The editor marks the step with a **§** badge. The source viewer
-  then shows the text of the document, with the quoted passage highlighted.
-  *Open original* opens the published address. When that address has no anchor of
-  its own, the editor adds a `#:~:text=` fragment. Then the browser goes to the
-  quotation. The `documentText` operation of the server gives the text. A step also
-  has a `plain` field: its sentence without the trailers. This field is for a screen
-  that shows the citation separately. The executive view lists the cited steps of an
-  answer in this way;
-- in the program itself, the context menu of the editor has the item **Show original
-  text** on each line that cites a document with an address. Such lines are a fact
-  with provenance, the `with provenance` label of a rule or a table and the lines
-  below it, a scenario "as stated in" a document (its header and its facts), and a
-  `... is published at` or `the text of ... is at` statement. The editor opens the
-  same source viewer, at the passage that the line quotes. When only the published
-  address is known, that page opens. The reply that loads the program lists these
-  lines (`citations`). The `provenanceAt` operation tells which document the line at
-  the cursor cites. That is the innermost citation. Thus, for a fact that names its
-  own document, the editor does not show the document of its scenario.
 
-**The values that a place reads.** For each place of a scenario template, the
-program itself tells which values are important: the values that its rules read in
-that place. The system finds these values one step along the rules. They are the
-facts of a relation that shares the variable, the members of a list that the rules
-compare the variable with (`is in [...]`), the constants where the value goes into a
-conclusion, and the column of a decision table. The fact forms of the editor, in the
-Scenario Editor and in Scenario Variations, show these values in the field as
-suggestions. The prompt that gets facts from a document also lists them.
-The verifier gives the warning **`unread_value`** in this case: a scenario fact puts
-in such a place a value that no rule, fact or table row of the program uses, and a
-value that the rules read is similar to it. An example is
-`the fabric construction of style A is knit`, where the rules read knitted, woven
-and other values: "Did you mean knitted?". The verifier does not report a value that
-is not similar to any of these values, such as a free description or a name.
+**Effects.** With the two facts:
+- **The verifier checks each quotation.** It looks for the passage of a `confer`
+  trailer (`confer "a zipper garage at the top of the collar"`) in the text of the
+  document, when that text is a file in the folder of the program. It ignores
+  differences of white space, of no-break spaces and of letter case. It gives the
+  warning `quote_not_found` when it cannot find the passage. A locator in quotes,
+  such as `at "section 4, paragraph a)"`, is a location, not a quotation. The
+  verifier does not look for it.
+- **Explanations show the source.** Each step of an explanation that a cited fact or
+  a labelled rule proves has its provenance. The editor marks the step with a **§**
+  badge. A click on the badge opens the source viewer. The source viewer shows the
+  text of the document, with the quoted passage highlighted. *Open original* opens
+  the published address, at the quotation. The executive view lists the cited steps
+  of an answer, each with its citation.
+  (For programmers: the step has the field
+  `provenance: {source, document, locator, quote, rationale, url, text}`, and also
+  `rule` for a rule, and the field `plain`, its sentence without the trailers. The
+  `documentText` operation of the server gives the text of a document. When the
+  published address has no anchor of its own, the editor adds a `#:~:text=`
+  fragment, so that the browser goes to the quotation.)
+- **The editor opens the source from the program.** The context menu of the editor
+  has the item **Show original text** on each line that cites a document with an
+  address. Such lines are a fact with provenance, the `with provenance` label of a
+  rule or a table and the lines below it, a scenario "as stated in" a document (its
+  header and its facts), and a `… is published at` or `the text of … is at`
+  statement. The editor opens the same source viewer, at the passage that the line
+  quotes. When only the published address is known, that page opens. When a line is
+  in a scenario with a default document, and the line names its own document, the
+  editor opens the document of the line.
+  (For programmers: the reply that loads the program lists these lines in
+  `citations`. The `provenanceAt` operation gives the document of the line at the
+  cursor.)
 
-**Judged templates.** Rules do not calculate some matters. A person decides
-them. For example, a loss adjuster decides if damage is accidental. A customs
-officer decides the principal use of a good. Lawyers call such a matter
-*open-textured*. To mark a template for such a matter, write `; judged` after the
-template (§2). The synonyms `; open textured` and `; evaluative` have the same
-meaning. A sentence of a judged template is a **judgment**.
+#### 17.1.5 Judged templates: `<template>; judged.`
+**Form.** `<template>; judged.` The synonyms of `; judged` are `; open textured` and
+`; evaluative`.
 
-This program is an example:
+**Definitions.**
+- A sentence of a judged template is a **judgment**.
+- In a template with two or more places, the **last place holds the decision**. The
+  values in the other places tell what the decision is about: the **subject** of the
+  decision. Two judgments with the same subject and different decisions are two
+  different decisions about the same subject.
+- In a template with one place, the full sentence is the judgment. There is no
+  separate decision place.
+
+**Meaning.** A person decides the judgments. Rules do not calculate them.
+1. A judgment is true when a fact states it. Usually, the fact is in a scenario, with
+   provenance (17.1.1).
+2. A judgment that no fact states can be an **assumption** of an answer, as for an
+   assumable template (§2, `; assumable`). The answer then lists the judgment as one
+   of its unknowns. An explanation shows it with the words *(judgment needed)*, for
+   example `the burst pipe is accidental (judgment needed)`.
+3. Rule 2 has one exception. When a fact states a decision for a subject, a different
+   decision for the same subject cannot be an assumption.
+4. An assumed judgment always has the decision that a condition of a rule names.
+
+**Checks.**
+- A rule that concludes a judged template is an **error** (`judged_with_rules`).
+  A person decides the matter, thus a rule must not calculate it.
+- A judgment in a scenario without `according to` or `because` causes the warning
+  `judgment_without_provenance`. A recorded decision must tell who made it, or why.
+
+**Example.** A customs officer decides the principal use of a good. Lawyers call such
+a matter *open-textured*.
 ```le
 the templates are:
     *a good* is taxed at *a rate*.
@@ -1141,38 +1435,22 @@ a good is taxed at 10
     if the good is imported
     and the principal use of the good is industrial use.
 ```
-A template has **places**: the parts between asterisks, such as `*a good*` and
-`*a use*`. In a judged template with two or more places, the **last place holds
-the decision**. The other places tell what the decision is about. In the example,
-the decision is a use, such as household use. Each good gets one decision.
-
-A judgment has an effect on the answers in one of two ways:
+The subject of the decision is a good. The decision is a use, such as household use.
 1. **A person recorded the decision.** A scenario has the fact
    `the principal use of the bin is household use, according to CBP.` The answer to
    `which good is taxed at which rate` is `the bin is taxed at 5`. The rate 10 is
-   not an answer. The reason is that the decision for the bin is in the scenario,
-   and a different use for the bin is then not possible.
-2. **Nobody recorded a decision yet.** The answer can then depend on a judgment
-   that is still to come, as with an assumable template (`; assumable`, §2). In the
-   example, there are two answers: `the bin is taxed at 5` and
-   `the bin is taxed at 10`. Each answer gives the judgment that it depends on, in
-   its list of unknowns: `the principal use of the bin is household use` for the
-   first answer, and `the principal use of the bin is industrial use` for the
-   second answer. The explanation of the first answer shows
-   `the principal use of the bin is household use (judgment needed)`. Only the
-   uses that a rule names can occur in this way. Here, these uses are household
-   use and industrial use.
+   not an answer, because of rule 3: the decision for the bin is in the scenario.
+2. **Nobody recorded a decision yet.** There are two answers:
+   `the bin is taxed at 5` and `the bin is taxed at 10`. Each answer lists the
+   judgment that it depends on as an unknown:
+   `the principal use of the bin is household use` for the first answer, and
+   `the principal use of the bin is industrial use` for the second answer. The
+   explanation of the first answer shows
+   `the principal use of the bin is household use (judgment needed)`.
 
-Two checks apply to a judged template:
-- A rule that concludes a judged template is an **error** (`judged_with_rules`).
-  A person decides the matter, thus a rule must not calculate it.
-- A judgment in a scenario without `according to` or `because` causes a
-  `judgment_without_provenance` warning. A recorded decision must tell who made it,
-  or why.
-
-**Put the decision in the last place.** Only the last place is the decision.
-Thus, the template `*a good* is *a kind*; judged.` is usually not correct. With
-this template, the judgment `the bin is a container` makes the judgment
+**Put the decision in the last place.** Only the last place is the decision. Thus,
+the template `*a good* is *a kind*; judged.` is usually not correct. With this
+template, the judgment `the bin is a container` makes the judgment
 `the bin is a plastic article` impossible, because the kind is in the last place.
 A good can be of more than one kind, and a person decides each kind separately.
 Then give the decision a place of its own, after the good and the kind:
@@ -1180,16 +1458,55 @@ Then give the decision a place of its own, after the good and the kind:
     the classification of *a good* as *a kind* is *a decision*; judged.
 ```
 This template has three places: the good, the kind and the decision, for example
-`accepted` or `rejected`. Each combination of a good and a kind is a separate
-decision. A rule then names the decision that it needs, for example
+`accepted` or `rejected`. The subject of each decision is a combination of a good and
+a kind. A rule then names the decision that it needs, for example
 `the classification of the good as container is accepted`.
 
-A judged template with one place, such as `*a damage* is accidental; judged.`,
-has no separate decision place. The full sentence is the judgment.
+**`; judged` and `; assumable`.** In logic, a judged template is an assumable
+template (§2) with one integrity constraint (§3.3): one decision for each subject.
+For the example above, this constraint has the same effect on the answers:
+```le
+it must not be true that
+    the principal use of a good is a use
+    and the principal use of the good is a second use
+    and the use is different from the second use.
+```
+For a judged template with one place, there is no difference in the answers. Thus
+`; judged` does not let a program prove more. It tells the reader that a person
+decides the matter, and that rules do not calculate it. It also adds the two checks
+above and the words *judgment needed* in an explanation. The views (§17.10) also
+show the judgments apart from the other facts. Without `; judged`, you must write
+the constraint yourself for each template, and these checks are not done.
+
+#### 17.1.6 The values that the rules test for in a place
+**Definition.** For each place of a scenario template, the **expected values** are
+the values that the rules of the program test for in that place. The system finds
+them in the conditions of the rules that use the template:
+- a constant that a condition writes in the place. The cells of a column of a
+  decision table are such constants;
+- the facts of a second relation that a condition joins to the place through a
+  shared variable;
+- the members of a list that a condition compares with the place (`is in [...]`);
+- the values that the rules test for in a place of the conclusion of a rule, when
+  the rule gives the value of the place to that conclusion.
+
+**Effects.**
+- The fact forms of the editor, in the Scenario Editor and in Scenario Variations,
+  suggest the expected values for the place. The prompt that gets facts from a
+  document also lists them.
+- The verifier gives the warning **`unread_value`** when a scenario fact has, in a
+  place, a value that no rule, fact or table row uses, and an expected value of that
+  place is similar to it. The verifier does not report a value that is not similar
+  to an expected value, such as a free description or a name.
+
+**Example.** The rules test the fabric construction of a style for the values
+`knitted`, `woven` and other values. The scenario fact
+`the fabric construction of style A is knit` causes the warning `unread_value`, with
+the question "Did you mean knitted?".
 
 Refer to `examples/regulatory/judged_damage.le`, and to the customs and Medicare
-programs (`examples/regulatory/customs/`,
-`examples/regulatory/medicare/`). In these programs, each rule, table and fact cites its passage.
+programs (`examples/regulatory/customs/`, `examples/regulatory/medicare/`). In these
+programs, each rule, table and fact cites its passage.
 
 ### 17.2 `otherwise` cascades
 A line of conditions that **starts** with `otherwise` starts a new alternative.
@@ -1724,10 +2041,10 @@ is not limited to a specific kind of document or program:
   header names the document (or `as stated in <document>, confer "..."`);
 - when the program marks its scenario templates with `; undefined` or
   `; judged`, the system offers only those templates. With each template, it gives
-  the values that its rules read in each place
+  the values that its rules test for in each place (§17.1.6)
   (`the kind of *a good* is *a kind*    [*a kind*: coat, dress, jacket, ...]`, a
   maximum of 200 values). The model then writes the words of the rules, and not
-  near-synonyms that no rule reads. When the program marks none of its templates,
+  near-synonyms that no rule uses. When the program marks none of its templates,
   the system offers all templates;
 - the system asks the model for little reasoning (`reasoning(minimal)`), and it
   lets the model give long replies (`max_tokens(16384)`). Thus the system does not
@@ -1858,10 +2175,10 @@ the program:
   **Re-evaluate** button comes on. When you push Enter in a field, the same occurs.
   An *automatically* box evaluates again after each change. After the new
   evaluation, the editor highlights the answers that changed, and it puts a line
-  through the answers that are not there now. The rules cannot read some values in
-  their location: a number in quotation marks where the rules compare it with a
+  through the answers that are not there now. The rules cannot use some values in
+  their place: a number in quotation marks where the rules compare it with a
   number, text written as a number, or a value that is nearly the same as a value
-  that the rules read. The editor reports such a value above the result
+  that the rules test for. The editor reports such a value above the result
   (`answeringQuery` replies `valueWarnings` for a case that you typed;
   le_verifier:fact_value_warnings/3. The same check on the scenarios of a program
   gives the `mistyped_value` warning). A fact that gives only a type
