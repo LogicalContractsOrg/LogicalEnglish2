@@ -50,6 +50,7 @@
 :- use_module(le_import).
 :- use_module(le_why_not).
 :- use_module(le_lps_legal).
+:- use_module(le_readable, [readable_document/3]).
 :- use_module(le_scasp).
 :- use_module(le_lps).
 :- use_module(le_assistant).
@@ -231,6 +232,7 @@ handle_operation(Dict, Response) :-
         ; Op == "draftView" -> handle_draft_view(Dict, Response)
         ; Op == "automaticView" -> handle_automatic_view(Dict, Response)
         ; Op == "legalView" -> handle_legal_view(Dict, Response)
+        ; Op == "readableDocument" -> handle_readable_document(Dict, Response)
         ; Op == "testReport" -> handle_test_report(Dict, Response)
         ; Op == "getScasp" -> handle_get_scasp(Dict, Response)
         ; Op == "getLps" -> handle_get_lps(Dict, Response)
@@ -860,6 +862,69 @@ handle_ledger(Dict, Response) :-
     ->  file_base_name(File, Name),
         Response = _{markdown: Text, fileName: Name}
     ;   Response = _{markdown: null}
+    ).
+
+%!  handle_readable_document(+Dict, -Response) is det.
+%
+%   File ▸ Save as a Readable Document: the program as a document for a
+%   person to read without the editor (le_readable.pl). Request: `text`, the
+%   program (the editor's text, saved or not), or none for the example
+%   `source` as the server keeps it; `source`, the example the program was
+%   opened as (its includes resolve beside it, and the document is named
+%   after it); `format` (html, md, docx, pdf), `style` (plain, compact,
+%   legal, cute, editor), `comments` (true to keep the author's comments),
+%   `linkBase` (the server address the links to included resources use, or
+%   null). Response: {content, mime, fileName, encoding} ("base64" for
+%   docx), or {error}.
+handle_readable_document(Dict, Response) :-
+    (   get_dict(text, Dict, T), string(T), T \== ""
+    ->  Text = T, Access = ok
+    ;   get_dict(source, Dict, Src), Src \== null, Src \== ""
+    ->  readable_example_text(Src, Text, Access)
+    ;   Access = error("No program to read"), Text = ""
+    ),
+    (   Access = error(Msg)
+    ->  Response = _{error: Msg}
+    ;   load_base_of(Dict, Base),
+        ( get_dict(source, Dict, N0), N0 \== null, N0 \== "" -> Name = N0
+        ; get_dict(fileName, Dict, N1), N1 \== null -> Name = N1
+        ; Name = "program.le" ),
+        readable_options(Dict, Options0),
+        Options = [base(Base), name(Name)|Options0],
+        catch(( readable_document(Text, Options, Response0), Response = Response0 ),
+              E, ( format(string(EM), "~q", [E]), Response = _{error: EM} ))
+    ).
+
+%!  readable_options(+Dict, -Options) is det.
+%
+%   The options of le_readable:readable_document/3 that a request gives.
+readable_options(Dict, Options) :-
+    findall(O,
+            (   get_dict(format, Dict, F), F \== null, atom_string(FA, F), O = format(FA)
+            ;   get_dict(style, Dict, St), St \== null, atom_string(SA, St), O = style(SA)
+            ;   get_dict(comments, Dict, true), O = comments(true)
+            ;   get_dict(linkBase, Dict, LB), LB \== null, LB \== "", O = link_base(LB)
+            ),
+            Options).
+
+%!  readable_example_text(+Example, -Text, -Access) is det.
+%
+%   The text of an example the server keeps, when the visitor may read it:
+%   Access is `ok`, or error(Message).
+readable_example_text(Example, Text, Access) :-
+    le_example_relpath(Example, Path0),
+    (   api_user(_, Roles) -> true ; Roles = [] ),
+    (   exists_file(Path0), file_name_extension(_, le, Path0) -> Path = Path0
+    ;   atom_concat(Path0, '.le', Path), exists_file(Path) -> true
+    ;   Path = none
+    ),
+    (   Path == none
+    ->  le_i18n:le_msg(example_not_found, [name-Example], NF), atom_string(NF, NFS),
+        Access = error(NFS), Text = ""
+    ;   \+ is_path_allowed(Path, Roles)
+    ->  le_i18n:le_msg(access_denied_role, [], M0), atom_string(M0, M),
+        Access = error(M), Text = ""
+    ;   read_file_to_string(Path, Text, [encoding(utf8)]), Access = ok
     ).
 
 %!  handle_resource_at(+Dict, -Response) is det.

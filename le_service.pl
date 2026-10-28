@@ -101,6 +101,8 @@
     le_import_formats/1,        % -Formats
     le_export_formats/3,        % +LEText, +Options, -Formats
     le_export/4,                % +LEText, +Exporter, +Options, -Reply
+    % — a program as a readable document (le_readable.pl)
+    le_readable_document/3,     % +LEText, +Options, -Result
     le_service_version/1        % -Version
   ]).
 
@@ -167,6 +169,18 @@ le_legal_view(LEText, Options, Text, Issues) :-
 
 :- use_module(le_lps_legal, []).
 
+%!  le_readable_document(+LEText, +Options, -Result:dict) is det.
+%
+%   The document of a Logical English program (LE for LPS included) that a
+%   person reads without an editor: le_readable:readable_document/3, with
+%   its Options (format(html|md|docx|pdf), style(S), comments(Bool),
+%   base(Dir), name(Name), link_base(URL)). Result is
+%   _{content, mime, fileName, encoding}, the content in base64 for docx.
+le_readable_document(LEText, Options, Result) :-
+    le_readable:readable_document(LEText, Options, Result).
+
+:- use_module(le_readable, []).
+
 %!  le_lps_from_internal(+InternalTerms, +Options, -LEText, -Issues) is det.
 %
 %   The Logical English document an LPS program would have had, if it had
@@ -223,7 +237,7 @@ le_export(LEText, Id, Options, Reply) :-
 %   The version of the surface described in this module's header. An embedder
 %   that cares whether the LE2 checkout it loaded is new enough checks this;
 %   it moves when a predicate here changes shape, not when LE itself grows.
-le_service_version('1.2').
+le_service_version('1.3').
 
 
 		 /*******************************

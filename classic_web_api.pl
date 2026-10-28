@@ -156,6 +156,8 @@ visitor(Email, Caps) :-
 :- http_handler(root(verify), handle_rest_verify, [method(post)]).
 :- http_handler(root(example_details), handle_rest_example_details, [method(post)]).
 :- http_handler(root('source/'), handle_source, [prefix]).
+%  An example as a readable document (le_readable.pl), for signed-in visitors.
+:- http_handler(root('readable/'), handle_readable, [prefix, time_limit(900)]).
 :- http_handler('/docs/', handle_docs, [prefix]).
 :- http_handler('/executive', handle_executive, []).
 :- http_handler('/multilingual', handle_multilingual, []).
@@ -1283,6 +1285,69 @@ handle_source(Request) :-
         )
     ;   http_reply(forbidden(FilePath))
     ).
+
+%!  handle_readable(+Request) is det.
+%
+%   /readable/<example>?format=html|md|docx|pdf&style=…&comments=true: the
+%   example as a readable document (le_readable.pl), the same as the
+%   editor's File ▸ Save as a Readable Document, for any example the visitor
+%   may open. The links of a document to an included resource come here, so
+%   that a reader can follow them. Making a document loads the program, so
+%   the route is for signed-in visitors only (or a server started with
+%   NO_RESTRICTIONS=true); anybody else is sent to sign in, and back.
+handle_readable(Request) :-
+    member(path(Path), Request),
+    atom_concat('/readable/', Example0, Path),
+    (   readable_allowed
+    ->  http_parameters(Request, [format(F, [oneof([html, md, docx, pdf]), default(html)]),
+                                  style(St, [default(plain)]),
+                                  comments(C, [boolean, default(false)])]),
+        le_kbs:example_current_name(Example0, Example),
+        request_server_base(Request, LinkBase),
+        atom_string(Example, ExS), atom_string(F, FS), atom_string(St, StS),
+        Dict = _{source: ExS, format: FS, style: StS, comments: C, linkBase: LinkBase},
+        le_api:handle_readable_document(Dict, R),
+        (   get_dict(error, R, Msg)
+        ->  format("Status: 404~nContent-Type: text/plain; charset=utf-8~n~n~w~n", [Msg])
+        ;   (   F == docx -> Disp = attachment
+            ;   F == md -> Disp = attachment
+            ;   Disp = inline
+            ),
+            format("Content-Type: ~w~n", [R.mime]),
+            format("Content-Disposition: ~w; filename=\"~w\"~n", [Disp, R.fileName]),
+            format("Cache-Control: no-cache~n~n"),
+            (   R.encoding == "base64"
+            ->  base64(Bytes, R.content),
+                set_stream(current_output, encoding(octet)),
+                write(Bytes)
+            ;   set_stream(current_output, encoding(utf8)),
+                write(R.content)
+            )
+        )
+    ;   memberchk(request_uri(URI), Request),
+        uri_encoded(query_value, URI, Ret),
+        format(atom(Href), '/login?return=~w', [Ret]),
+        http_redirect(moved_temporary, Href, Request)
+    ).
+
+readable_allowed :- request_visitor(_, _), !.
+readable_allowed :- getenv('NO_RESTRICTIONS', true).
+
+%   The address of this server as the visitor reached it, for the links of a
+%   document to the documents of its included resources.
+request_server_base(Request, Base) :-
+    (   memberchk(x_forwarded_proto(P), Request) -> Scheme = P
+    ;   memberchk(protocol(P), Request) -> Scheme = P
+    ;   Scheme = http
+    ),
+    (   memberchk(x_forwarded_host(H), Request) -> Host = H
+    ;   memberchk(host(H), Request),
+        (   memberchk(port(Port), Request), Port \== 80, Port \== 443
+        ->  format(atom(Host), "~w:~w", [H, Port])
+        ;   Host = H
+        )
+    ),
+    format(string(Base), "~w://~w", [Scheme, Host]).
 
 % installations usually define ALLOWED_LE_EXPORTS=examples/moreExamples
 is_allowed_export(FilePath) :- getenv('ALLOWED_LE_EXPORTS', AllowedStr),

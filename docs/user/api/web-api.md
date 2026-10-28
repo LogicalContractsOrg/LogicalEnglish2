@@ -53,6 +53,7 @@ same work, are in [mcp.md](mcp.md).
   - [`automaticView`](#automaticview--the-automatic-view)
   - [`draftView`](#draftview--draft-a-view-section)
   - [`legalView`](#legalview--the-legal-view-of-an-lps-program)
+  - [`readableDocument`](#readabledocument--the-program-as-a-readable-document)
 - [Other targets, import and export](#other-targets-import-and-export)
   - [`getScasp`](#getscasp--the-program-as-scasp)
   - [`getLps`](#getlps--the-program-as-lps)
@@ -209,6 +210,7 @@ gets none of these translators.
 | `automaticView` | `sessionModule` | the automatic LE view |
 | `draftView` | `sessionModule` | a first view section, as LE text |
 | `legalView` | `le` | the legal view of a program in LE for LPS (Logic Production System) |
+| `readableDocument` | `text` or `source` | the program as a readable document (HTML, PDF, Word or Markdown) |
 | `getScasp` | `sessionModule` | the program as s(CASP) |
 | `getLps` | `le` or `sessionModule` | the program as LPS |
 | `importFormats` | – | the importers |
@@ -870,6 +872,30 @@ as a usual LE program.
 In these three conditions, the reply is `{ "error": "<message>" }`: the program does
 not declare `the target language is: lps`, the program does not load, or the server
 cannot make a view from it.
+
+### `readableDocument` — The program as a readable document
+
+This operation gives the program as a document for a person who reads it without
+the editor. The document has the statements of the program word for word, with
+numbers, links from each sentence to where it is defined, and an index of the
+templates. Refer to [Readable documents](../guide/readable-documents.md).
+
+**Request**: `text`, the program, or no `text` and `source`, an example of the
+server. Optionally: `source`, the example that the program was opened as (its
+includes are found beside it, and the document has its name); `format`, one of
+`html` (the default), `pdf`, `docx` or `md`; `style`, one of `plain` (the
+default), `compact`, `legal`, `cute` or `editor`; `comments`, `true` to include
+the comments; `linkBase`, the address of the server (for example
+`https://example.org`), for links to the documents of included resources.
+
+**Reply**: `{ "content": "…", "mime": "text/html; charset=utf-8", "fileName": "citizenship.html", "encoding": "utf8" }`.
+For `docx`, `content` is the file in base64 and `encoding` is `"base64"`. For `pdf`,
+`content` is the HTML page that opens the print dialog of the browser. The reply is
+`{ "error": "<message>" }` when the server does not have the example, or when you
+cannot open it.
+
+The address `/readable/<example>?format=…&style=…&comments=true` gives the same
+document, for a visitor who is signed in.
 
 ---
 

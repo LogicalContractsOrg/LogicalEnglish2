@@ -14,6 +14,16 @@
 
 :- multifile extract_var_name_extension/2, unify_with_vmap_extension/5, post_parse_literal_hook/4, parse_node_extension/6, second_pass_item_extension/4, match_template_with_chaining/8.
 
+%!  literal_parsed_hook(+Tokens, +Literal, +Instance) is semidet.
+%
+%   Called after each sentence of a rule, fact, query or LPS sentence is
+%   matched to its template: Tokens are the sentence's tokens (each with its
+%   source location), Literal the goal it became, Instance the template's
+%   words with the arguments in place. It records nothing unless a module
+%   defines it; le_readable.pl does, while it draws a program as a readable
+%   document, to find where each sentence is and which template it uses.
+:- multifile literal_parsed_hook/3.
+
 :- use_module(le_entitlements, []).
 :- use_module(tokenizer, [tokenize/2, tokenize_file/2, tokens_to_string/2]).
 :- use_module(le_system_templates).
@@ -4131,6 +4141,7 @@ parse_literal(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars) :-
     exclude(is_indent_or_comment, Tokens, CleanTokens),
     ( le_kbs:do_log -> maplist(extract_simple_word, CleanTokens, Words), print_message(informational,'Parsing literal: ~w~n' - [Words]); true),
     parse_literal_real(CleanTokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars),
+    ( literal_parsed_hook(CleanTokens, Literal, Instance) -> true ; true ),
     ( le_kbs:do_log -> print_message(informational,'  Succeeded: ~w~n' - [Literal]); true).
 
 parse_literal_real(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars) :-

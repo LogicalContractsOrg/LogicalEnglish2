@@ -35,6 +35,7 @@ workers.
 | `/` | landing page: examples tree, executive view link, documentation list (from `docs/user/nav.json`), a button that runs the example test suite |
 | `/multilingual`, `/executive` | a language picker, or with `?lang=` a landing page for `examples/<lang>/`; the executive view |
 | `/docs/…` | the user documentation, only under `docs/user/` (`public_doc/1`); a document name answers the markdown viewer `web_extras/docsview/viewer.html`; old paths redirect (`doc_moved/2`) |
+| `/readable/<example>` | an example as a readable document (`le_readable.pl`; `?format=html\|md\|docx\|pdf&style=…&comments=true`), for signed-in visitors only (or `NO_RESTRICTIONS=true`), since it loads the program; the others are sent to `/login` and back |
 | `/source/<example>` | an example's `.le` text, only under the directories listed in `ALLOWED_LE_EXPORTS` and allowed for the user's roles |
 | `/login`, `/logout`, `/whoami` | the sign-in shared with LPS2, from the private lpsPlus repository (`accounts/lc_accounts.pl`, found by `le_plus.pl`): Google, GitHub or a password account we created, and `/auth/google`, `/auth/github` with their callbacks. The visitor of every request is identified by a request expansion (`identify_visitor/3`), from a signed cookie; the licences held by that email address (lpsPlus `accounts/licenses.csv`) become capabilities, which gate the example trees (`restricted_paths.pl`) and, through `le_entitlements.pl`, the translators of other systems and the InsurLE extensions. Without lpsPlus every visitor is anonymous; lpsPlus `accounts/README.md` has the whole design |
 | `/telemetry.js`, `/telemetry_test` | Sentry and Cloudflare configuration, off unless configured ([telemetry.md](telemetry.md)) |
@@ -80,6 +81,7 @@ program includes.
 | `le_writer.pl`, `le_migration.pl` | Migration IR to LE text; migration ledger and source tests as scenarios ([migration.md](migration.md)) |
 | `le_import.pl` | File ▸ Open of other systems' files and Export; registries `importer/6`, `exporter/6`. The translators themselves are in InsurLE2 |
 | `le_graph.pl` | KB graph for Cytoscape ([graph.md](graph.md)) |
+| `le_readable.pl` | a program as a readable document (File ▸ Save as a Readable Document, operation `readableDocument`, route `/readable/`): loads the program again while `le_grammar:literal_parsed_hook/3` records where each sentence is and which template it matched, then writes Markdown, one self-contained HTML file (five styles, a menu to pick one) or Word (.docx, with `library(zip)`); PDF is the HTML printed by the browser. Comments are left out, notices (a comment that starts with a word of keywords.csv `notice_start`) kept ([readable-documents.md](../user/guide/readable-documents.md)) |
 | `le_proof_game.pl` | rules and facts for the Proof Game |
 
 **LLM features** ([assistant.md](assistant.md), [contract-assistant.md](contract-assistant.md))

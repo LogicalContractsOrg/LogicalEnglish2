@@ -1823,6 +1823,37 @@ var keywords = {
         "the",
         "cell"
       ]
+    ],
+    "notice_start": [
+      [
+        "spdx-license-identifier:"
+      ],
+      [
+        "licensed",
+        "under"
+      ],
+      [
+        "legal",
+        "notice"
+      ],
+      [
+        "disclaimer"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "license"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "pt": {
@@ -3743,6 +3774,34 @@ var keywords = {
         "a",
         "c\xE9lula"
       ]
+    ],
+    "notice_start": [
+      [
+        "isen\xE7\xE3o",
+        "de",
+        "responsabilidade"
+      ],
+      [
+        "direitos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licen\xE7a"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "es": {
@@ -5581,6 +5640,34 @@ var keywords = {
       [
         "la",
         "celda"
+      ]
+    ],
+    "notice_start": [
+      [
+        "descargo",
+        "de",
+        "responsabilidad"
+      ],
+      [
+        "derechos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licencia"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
       ]
     ]
   },
@@ -7536,6 +7623,31 @@ var keywords = {
         "la",
         "cellule"
       ]
+    ],
+    "notice_start": [
+      [
+        "mentions",
+        "l\xE9gales"
+      ],
+      [
+        "avis",
+        "juridique"
+      ],
+      [
+        "avertissement"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "it": {
@@ -9423,6 +9535,32 @@ var keywords = {
         "la",
         "cella"
       ]
+    ],
+    "notice_start": [
+      [
+        "esclusione",
+        "di",
+        "responsabilit\xE0"
+      ],
+      [
+        "avviso",
+        "legale"
+      ],
+      [
+        "avvertenza"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licenza"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   }
 };
@@ -10109,7 +10247,89 @@ var uiCatalog = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Procura um caso em que uma frase \xE9 verdadeira, por exemplo um caso que viola uma propriedade do programa. A resposta \xE9 o caso, ou a declara\xE7\xE3o de que n\xE3o h\xE1 tal caso",
     'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Escreva a frase como uma condi\xE7\xE3o de uma regra, por exemplo "a person gets rent support". Cada resposta \xE9 um caso em que a frase \xE9 verdadeira: o que um cen\xE1rio tem de dizer, e n\xE3o pode dizer. A resposta tamb\xE9m indica os cen\xE1rios do programa que satisfazem o caso.',
     'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Escreva a frase como uma condi\xE7\xE3o de uma regra, por exemplo "a person is eligible and the person is excluded". Para verificar uma propriedade, escreva o que a viola. A resposta \xE9 um caso em que a frase \xE9 verdadeira, ou a declara\xE7\xE3o de que n\xE3o h\xE1 tal caso.',
-    "The search runs as a custom query that you can change and run again.": "A procura corre como uma consulta personalizada que pode alterar e voltar a correr."
+    "The search runs as a custom query that you can change and run again.": "A procura corre como uma consulta personalizada que pode alterar e voltar a correr.",
+    "Save as a Readable Document\u2026": "Guardar como documento leg\xEDvel\u2026",
+    "Save as a Readable Document": "Guardar como documento leg\xEDvel",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Fazer um documento deste programa para uma pessoa ler sem o editor \u2014 cada afirma\xE7\xE3o exatamente como est\xE1 escrita, cada frase ligada ao s\xEDtio onde \xE9 definida, com \xEDndice e um \xEDndice remissivo dos modelos \u2014 e abri-lo ou guard\xE1-lo como p\xE1gina web, PDF, documento Word ou Markdown. Os coment\xE1rios ficam de fora, a n\xE3o ser que os inclua",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Um documento do programa para uma pessoa ler sem o editor: cada afirma\xE7\xE3o exatamente como est\xE1 escrita, com \xEDndice, liga\xE7\xF5es de cada frase ao s\xEDtio onde \xE9 definida e um \xEDndice remissivo dos modelos.",
+    "Web page (HTML)": "P\xE1gina web (HTML)",
+    "PDF (printed from the browser)": "PDF (impresso a partir do navegador)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Estilo",
+    "Comments": "Coment\xE1rios",
+    "Plain": "Simples",
+    "Compact": "Compacto",
+    "Legal": "Jur\xEDdico",
+    "Colourful": "Colorido",
+    "Editor colours": "Cores do editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "O aspeto da p\xE1gina web quando abre. A p\xE1gina tem um menu para mudar o estilo.",
+    "Include the comments of the program": "Incluir os coment\xE1rios do programa",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Os coment\xE1rios s\xE3o notas do autor e podem ser privados, por isso ficam de fora, a n\xE3o ser que os inclua. Um coment\xE1rio que come\xE7a por Copyright, Licen\xE7a ou Aviso \xE9 um aviso: fica sempre, no in\xEDcio do documento.",
+    "Open the document in a new tab of the browser": "Abrir o documento num novo separador do navegador",
+    "Save the document as a file on your computer": "Guardar o documento como ficheiro no seu computador",
+    "Making the document\u2026": "A fazer o documento\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': 'O documento abre num novo separador com o di\xE1logo de impress\xE3o: escolha a\xED "Guardar como PDF".',
+    "Untitled program": "Programa sem t\xEDtulo",
+    "Knowledge base": "Base de conhecimento",
+    "Included resources": "Recursos inclu\xEDdos",
+    "Services": "Servi\xE7os",
+    "Kinds of things": "Tipos de coisas",
+    "Fluents": "Fluentes",
+    "Events": "Eventos",
+    "Actions": "A\xE7\xF5es",
+    "Constants": "Constantes",
+    "Functions": "Fun\xE7\xF5es",
+    "Decision table": "Tabela de decis\xE3o",
+    "View": "Vista",
+    "Cells of a service": "C\xE9lulas de um servi\xE7o",
+    "Section": "Sec\xE7\xE3o",
+    "A program in Logical English": "Um programa em Portugu\xEAs L\xF3gico",
+    "A program in Logical English for LPS (Logic Production System)": "Um programa em Portugu\xEAs L\xF3gico para LPS (Logic Production System)",
+    "Contents": "\xCDndice",
+    "Notices": "Avisos",
+    "Index of templates": "\xCDndice dos modelos",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Cada modelo do programa, com o n\xFAmero da afirma\xE7\xE3o que o declara, as afirma\xE7\xF5es que o definem e as afirma\xE7\xF5es que o usam.",
+    "declared in": "declarado em",
+    "defined in": "definido em",
+    "also defined in": "tamb\xE9m definido em",
+    "used in": "usado em",
+    "not defined by a rule": "n\xE3o definido por uma regra",
+    "The comments of the program are not shown.": "Os coment\xE1rios do programa n\xE3o s\xE3o mostrados.",
+    "The comments of the program are shown in grey.": "Os coment\xE1rios do programa s\xE3o mostrados a cinzento.",
+    "Print or save as PDF": "Imprimir ou guardar como PDF",
+    "How to read this document": "Como ler este documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Este documento \xE9 o programa, palavra por palavra. Cada afirma\xE7\xE3o numerada \xE9 uma afirma\xE7\xE3o do programa.",
+    "Words of Logical English itself, such as if, and, or": "Palavras da pr\xF3pria linguagem, como se, e, ou",
+    "The words of a template: select them to go to where the sentence is defined": "As palavras de um modelo: selecione-as para ir ao s\xEDtio onde a frase \xE9 definida",
+    "The words of a template where a rule or a fact defines it": "As palavras de um modelo onde uma regra ou um facto o define",
+    "A variable: it stands for any thing of its kind": "Uma vari\xE1vel: representa qualquer coisa do seu tipo",
+    "A value: one fixed thing, number or text": "Um valor: uma coisa, n\xFAmero ou texto fixo",
+    "A place of a template, which a sentence fills": "Um lugar de um modelo, que uma frase preenche",
+    "Template": "Modelo",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "A\xE7\xE3o",
+    "Constant": "Constante",
+    "Function": "Fun\xE7\xE3o",
+    "Rule": "Regra",
+    "Fact": "Facto",
+    "Causal law": "Lei causal",
+    "Reactive rule": "Regra reativa",
+    "Constraint": "Restri\xE7\xE3o",
+    "Initial state": "Estado inicial",
+    "Goal": "Objetivo",
+    "Setting": "Defini\xE7\xE3o",
+    "Expected answers": "Respostas esperadas",
+    "Fact of the scenario": "Facto do cen\xE1rio",
+    "Included resource": "Recurso inclu\xEDdo",
+    "Service": "Servi\xE7o",
+    "Sentence of a view": "Frase de uma vista",
+    "Kind of thing": "Tipo de coisa",
+    "Statement": "Afirma\xE7\xE3o",
+    "Comment": "Coment\xE1rio",
+    "Made from {name} on {date}.": "Feito a partir de {name} em {date}."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -10790,7 +11010,89 @@ var uiCatalog = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Busca un caso en que una frase es verdadera, por ejemplo un caso que incumple una propiedad del programa. La respuesta es el caso, o la declaraci\xF3n de que no hay tal caso",
     'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Escriba la frase como una condici\xF3n de una regla, por ejemplo "a person gets rent support". Cada respuesta es un caso en que la frase es verdadera: lo que un escenario debe decir, y no debe decir. La respuesta tambi\xE9n indica los escenarios del programa que cumplen el caso.',
     'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Escriba la frase como una condici\xF3n de una regla, por ejemplo "a person is eligible and the person is excluded". Para comprobar una propiedad, escriba lo que la incumple. La respuesta es un caso en que la frase es verdadera, o la declaraci\xF3n de que no hay tal caso.',
-    "The search runs as a custom query that you can change and run again.": "La b\xFAsqueda se ejecuta como una consulta personalizada que puede cambiar y volver a ejecutar."
+    "The search runs as a custom query that you can change and run again.": "La b\xFAsqueda se ejecuta como una consulta personalizada que puede cambiar y volver a ejecutar.",
+    "Save as a Readable Document\u2026": "Guardar como documento legible\u2026",
+    "Save as a Readable Document": "Guardar como documento legible",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Hacer un documento de este programa para que una persona lo lea sin el editor \u2014 cada enunciado tal como est\xE1 escrito, cada frase enlazada con el lugar donde se define, con \xEDndice y un \xEDndice de las plantillas \u2014 y abrirlo o guardarlo como p\xE1gina web, PDF, documento Word o Markdown. Los comentarios quedan fuera, salvo que los incluya",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un documento del programa para que una persona lo lea sin el editor: cada enunciado tal como est\xE1 escrito, con \xEDndice, enlaces de cada frase al lugar donde se define y un \xEDndice de las plantillas.",
+    "Web page (HTML)": "P\xE1gina web (HTML)",
+    "PDF (printed from the browser)": "PDF (impreso desde el navegador)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Estilo",
+    "Comments": "Comentarios",
+    "Plain": "Sencillo",
+    "Compact": "Compacto",
+    "Legal": "Jur\xEDdico",
+    "Colourful": "Colorido",
+    "Editor colours": "Colores del editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "El aspecto de la p\xE1gina web cuando se abre. La p\xE1gina tiene un men\xFA para cambiar el estilo.",
+    "Include the comments of the program": "Incluir los comentarios del programa",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Los comentarios son notas del autor y pueden ser privados, por eso quedan fuera, salvo que los incluya. Un comentario que empieza por Copyright, Licencia o Aviso es un aviso: se conserva siempre, al principio del documento.",
+    "Open the document in a new tab of the browser": "Abrir el documento en una nueva pesta\xF1a del navegador",
+    "Save the document as a file on your computer": "Guardar el documento como archivo en su ordenador",
+    "Making the document\u2026": "Haciendo el documento\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': 'El documento se abre en una nueva pesta\xF1a con el di\xE1logo de impresi\xF3n: elija all\xED "Guardar como PDF".',
+    "Untitled program": "Programa sin t\xEDtulo",
+    "Knowledge base": "Base de conocimiento",
+    "Included resources": "Recursos incluidos",
+    "Services": "Servicios",
+    "Kinds of things": "Tipos de cosas",
+    "Fluents": "Fluentes",
+    "Events": "Eventos",
+    "Actions": "Acciones",
+    "Constants": "Constantes",
+    "Functions": "Funciones",
+    "Decision table": "Tabla de decisi\xF3n",
+    "View": "Vista",
+    "Cells of a service": "Celdas de un servicio",
+    "Section": "Secci\xF3n",
+    "A program in Logical English": "Un programa en Espa\xF1ol L\xF3gico",
+    "A program in Logical English for LPS (Logic Production System)": "Un programa en Espa\xF1ol L\xF3gico para LPS (Logic Production System)",
+    "Contents": "\xCDndice",
+    "Notices": "Avisos",
+    "Index of templates": "\xCDndice de las plantillas",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Cada plantilla del programa, con el n\xFAmero del enunciado que la declara, los enunciados que la definen y los enunciados que la usan.",
+    "declared in": "declarada en",
+    "defined in": "definida en",
+    "also defined in": "tambi\xE9n definida en",
+    "used in": "usada en",
+    "not defined by a rule": "no definida por una regla",
+    "The comments of the program are not shown.": "Los comentarios del programa no se muestran.",
+    "The comments of the program are shown in grey.": "Los comentarios del programa se muestran en gris.",
+    "Print or save as PDF": "Imprimir o guardar como PDF",
+    "How to read this document": "C\xF3mo leer este documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Este documento es el programa, palabra por palabra. Cada enunciado numerado es un enunciado del programa.",
+    "Words of Logical English itself, such as if, and, or": "Palabras del propio lenguaje, como si, y, o",
+    "The words of a template: select them to go to where the sentence is defined": "Las palabras de una plantilla: selecci\xF3nelas para ir al lugar donde se define la frase",
+    "The words of a template where a rule or a fact defines it": "Las palabras de una plantilla donde una regla o un hecho la define",
+    "A variable: it stands for any thing of its kind": "Una variable: representa cualquier cosa de su tipo",
+    "A value: one fixed thing, number or text": "Un valor: una cosa, n\xFAmero o texto fijo",
+    "A place of a template, which a sentence fills": "Un lugar de una plantilla, que una frase rellena",
+    "Template": "Plantilla",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Acci\xF3n",
+    "Constant": "Constante",
+    "Function": "Funci\xF3n",
+    "Rule": "Regla",
+    "Fact": "Hecho",
+    "Causal law": "Ley causal",
+    "Reactive rule": "Regla reactiva",
+    "Constraint": "Restricci\xF3n",
+    "Initial state": "Estado inicial",
+    "Goal": "Objetivo",
+    "Setting": "Ajuste",
+    "Expected answers": "Respuestas esperadas",
+    "Fact of the scenario": "Hecho del escenario",
+    "Included resource": "Recurso incluido",
+    "Service": "Servicio",
+    "Sentence of a view": "Frase de una vista",
+    "Kind of thing": "Tipo de cosa",
+    "Statement": "Enunciado",
+    "Comment": "Comentario",
+    "Made from {name} on {date}.": "Hecho a partir de {name} el {date}."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11471,7 +11773,89 @@ var uiCatalog = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cherche un cas o\xF9 une phrase est vraie, par exemple un cas qui viole une propri\xE9t\xE9 du programme. La r\xE9ponse est le cas, ou la d\xE9claration qu'il n'y a pas de tel cas",
     'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': "\xC9crivez la phrase comme une condition d'une r\xE8gle, par exemple \xAB a person gets rent support \xBB. Chaque r\xE9ponse est un cas o\xF9 la phrase est vraie : ce qu'un sc\xE9nario doit dire, et ne doit pas dire. La r\xE9ponse indique aussi les sc\xE9narios du programme qui satisfont le cas.",
     'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': "\xC9crivez la phrase comme une condition d'une r\xE8gle, par exemple \xAB a person is eligible and the person is excluded \xBB. Pour v\xE9rifier une propri\xE9t\xE9, \xE9crivez ce qui la viole. La r\xE9ponse est un cas o\xF9 la phrase est vraie, ou la d\xE9claration qu'il n'y a pas de tel cas.",
-    "The search runs as a custom query that you can change and run again.": "La recherche s'ex\xE9cute comme une requ\xEAte personnalis\xE9e que vous pouvez modifier et relancer."
+    "The search runs as a custom query that you can change and run again.": "La recherche s'ex\xE9cute comme une requ\xEAte personnalis\xE9e que vous pouvez modifier et relancer.",
+    "Save as a Readable Document\u2026": "Enregistrer comme document lisible\u2026",
+    "Save as a Readable Document": "Enregistrer comme document lisible",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Faire un document de ce programme pour qu'une personne le lise sans l'\xE9diteur \u2014 chaque \xE9nonc\xE9 exactement tel qu'il est \xE9crit, chaque phrase li\xE9e \xE0 l'endroit o\xF9 elle est d\xE9finie, avec une table des mati\xE8res et un index des mod\xE8les \u2014 et l'ouvrir ou l'enregistrer comme page web, PDF, document Word ou Markdown. Les commentaires sont omis, sauf si vous les incluez",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un document du programme pour qu'une personne le lise sans l'\xE9diteur : chaque \xE9nonc\xE9 exactement tel qu'il est \xE9crit, avec une table des mati\xE8res, des liens de chaque phrase vers l'endroit o\xF9 elle est d\xE9finie et un index des mod\xE8les.",
+    "Web page (HTML)": "Page web (HTML)",
+    "PDF (printed from the browser)": "PDF (imprim\xE9 depuis le navigateur)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Format",
+    "Style": "Style",
+    "Comments": "Commentaires",
+    "Plain": "Simple",
+    "Compact": "Compact",
+    "Legal": "Juridique",
+    "Colourful": "Color\xE9",
+    "Editor colours": "Couleurs de l'\xE9diteur",
+    "How the web page looks when it opens. The page has a menu to change the style.": "L'aspect de la page web \xE0 son ouverture. La page a un menu pour changer de style.",
+    "Include the comments of the program": "Inclure les commentaires du programme",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Les commentaires sont les notes de l'auteur et peuvent \xEAtre priv\xE9s : ils sont donc omis, sauf si vous les incluez. Un commentaire qui commence par Copyright, Licence ou Avertissement est un avis : il est toujours conserv\xE9, au d\xE9but du document.",
+    "Open the document in a new tab of the browser": "Ouvrir le document dans un nouvel onglet du navigateur",
+    "Save the document as a file on your computer": "Enregistrer le document comme fichier sur votre ordinateur",
+    "Making the document\u2026": "Cr\xE9ation du document\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': "Le document s'ouvre dans un nouvel onglet avec la bo\xEEte d'impression : choisissez-y \xAB Enregistrer au format PDF \xBB.",
+    "Untitled program": "Programme sans titre",
+    "Knowledge base": "Base de connaissances",
+    "Included resources": "Ressources incluses",
+    "Services": "Services",
+    "Kinds of things": "Sortes de choses",
+    "Fluents": "Fluents",
+    "Events": "\xC9v\xE9nements",
+    "Actions": "Actions",
+    "Constants": "Constantes",
+    "Functions": "Fonctions",
+    "Decision table": "Table de d\xE9cision",
+    "View": "Vue",
+    "Cells of a service": "Cellules d'un service",
+    "Section": "Section",
+    "A program in Logical English": "Un programme en Fran\xE7ais Logique",
+    "A program in Logical English for LPS (Logic Production System)": "Un programme en Fran\xE7ais Logique pour LPS (Logic Production System)",
+    "Contents": "Table des mati\xE8res",
+    "Notices": "Avis",
+    "Index of templates": "Index des mod\xE8les",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Chaque mod\xE8le du programme, avec le num\xE9ro de l'\xE9nonc\xE9 qui le d\xE9clare, les \xE9nonc\xE9s qui le d\xE9finissent et les \xE9nonc\xE9s qui l'utilisent.",
+    "declared in": "d\xE9clar\xE9 en",
+    "defined in": "d\xE9fini en",
+    "also defined in": "aussi d\xE9fini en",
+    "used in": "utilis\xE9 en",
+    "not defined by a rule": "non d\xE9fini par une r\xE8gle",
+    "The comments of the program are not shown.": "Les commentaires du programme ne sont pas montr\xE9s.",
+    "The comments of the program are shown in grey.": "Les commentaires du programme sont montr\xE9s en gris.",
+    "Print or save as PDF": "Imprimer ou enregistrer en PDF",
+    "How to read this document": "Comment lire ce document",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Ce document est le programme, mot pour mot. Chaque \xE9nonc\xE9 num\xE9rot\xE9 est un \xE9nonc\xE9 du programme.",
+    "Words of Logical English itself, such as if, and, or": "Mots du langage lui-m\xEAme, comme si, et, ou",
+    "The words of a template: select them to go to where the sentence is defined": "Les mots d'un mod\xE8le : s\xE9lectionnez-les pour aller \xE0 l'endroit o\xF9 la phrase est d\xE9finie",
+    "The words of a template where a rule or a fact defines it": "Les mots d'un mod\xE8le l\xE0 o\xF9 une r\xE8gle ou un fait le d\xE9finit",
+    "A variable: it stands for any thing of its kind": "Une variable : elle repr\xE9sente n'importe quelle chose de son type",
+    "A value: one fixed thing, number or text": "Une valeur : une chose, un nombre ou un texte fixe",
+    "A place of a template, which a sentence fills": "Une place d'un mod\xE8le, qu'une phrase remplit",
+    "Template": "Mod\xE8le",
+    "Fluent": "Fluent",
+    "Event": "\xC9v\xE9nement",
+    "Action": "Action",
+    "Constant": "Constante",
+    "Function": "Fonction",
+    "Rule": "R\xE8gle",
+    "Fact": "Fait",
+    "Causal law": "Loi causale",
+    "Reactive rule": "R\xE8gle r\xE9active",
+    "Constraint": "Contrainte",
+    "Initial state": "\xC9tat initial",
+    "Goal": "But",
+    "Setting": "R\xE9glage",
+    "Expected answers": "R\xE9ponses attendues",
+    "Fact of the scenario": "Fait du sc\xE9nario",
+    "Included resource": "Ressource incluse",
+    "Service": "Service",
+    "Sentence of a view": "Phrase d'une vue",
+    "Kind of thing": "Sorte de chose",
+    "Statement": "\xC9nonc\xE9",
+    "Comment": "Commentaire",
+    "Made from {name} on {date}.": "Fait \xE0 partir de {name} le {date}."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12152,7 +12536,89 @@ var uiCatalog = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cerca un caso in cui una frase \xE8 vera, per esempio un caso che viola una propriet\xE0 del programma. La risposta \xE8 il caso, o la dichiarazione che non esiste un tale caso",
     'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Scriva la frase come una condizione di una regola, per esempio "a person gets rent support". Ogni risposta \xE8 un caso in cui la frase \xE8 vera: ci\xF2 che uno scenario deve dire, e non deve dire. La risposta indica anche gli scenari del programma che soddisfano il caso.',
     'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Scriva la frase come una condizione di una regola, per esempio "a person is eligible and the person is excluded". Per verificare una propriet\xE0, scriva ci\xF2 che la viola. La risposta \xE8 un caso in cui la frase \xE8 vera, o la dichiarazione che non esiste un tale caso.',
-    "The search runs as a custom query that you can change and run again.": "La ricerca si esegue come un'interrogazione personalizzata che pu\xF2 modificare e rieseguire."
+    "The search runs as a custom query that you can change and run again.": "La ricerca si esegue come un'interrogazione personalizzata che pu\xF2 modificare e rieseguire.",
+    "Save as a Readable Document\u2026": "Salva come documento leggibile\u2026",
+    "Save as a Readable Document": "Salva come documento leggibile",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Fare un documento di questo programma perch\xE9 una persona lo legga senza l'editor \u2014 ogni enunciato esattamente come \xE8 scritto, ogni frase collegata al punto in cui \xE8 definita, con indice e un indice dei modelli \u2014 e aprirlo o salvarlo come pagina web, PDF, documento Word o Markdown. I commenti sono esclusi, a meno che non li includa",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un documento del programma perch\xE9 una persona lo legga senza l'editor: ogni enunciato esattamente come \xE8 scritto, con indice, collegamenti da ogni frase al punto in cui \xE8 definita e un indice dei modelli.",
+    "Web page (HTML)": "Pagina web (HTML)",
+    "PDF (printed from the browser)": "PDF (stampato dal browser)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Stile",
+    "Comments": "Commenti",
+    "Plain": "Semplice",
+    "Compact": "Compatto",
+    "Legal": "Giuridico",
+    "Colourful": "Colorato",
+    "Editor colours": "Colori dell'editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "L'aspetto della pagina web quando si apre. La pagina ha un menu per cambiare lo stile.",
+    "Include the comments of the program": "Includere i commenti del programma",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "I commenti sono note dell'autore e possono essere privati, quindi sono esclusi, a meno che non li includa. Un commento che inizia con Copyright, Licenza o Avvertenza \xE8 un avviso: \xE8 sempre conservato, all'inizio del documento.",
+    "Open the document in a new tab of the browser": "Aprire il documento in una nuova scheda del browser",
+    "Save the document as a file on your computer": "Salvare il documento come file sul computer",
+    "Making the document\u2026": "Creazione del documento\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': 'Il documento si apre in una nuova scheda con la finestra di stampa: scegliere l\xEC "Salva come PDF".',
+    "Untitled program": "Programma senza titolo",
+    "Knowledge base": "Base di conoscenza",
+    "Included resources": "Risorse incluse",
+    "Services": "Servizi",
+    "Kinds of things": "Tipi di cose",
+    "Fluents": "Fluenti",
+    "Events": "Eventi",
+    "Actions": "Azioni",
+    "Constants": "Costanti",
+    "Functions": "Funzioni",
+    "Decision table": "Tabella decisionale",
+    "View": "Vista",
+    "Cells of a service": "Celle di un servizio",
+    "Section": "Sezione",
+    "A program in Logical English": "Un programma in Italiano Logico",
+    "A program in Logical English for LPS (Logic Production System)": "Un programma in Italiano Logico per LPS (Logic Production System)",
+    "Contents": "Indice",
+    "Notices": "Avvisi",
+    "Index of templates": "Indice dei modelli",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Ogni modello del programma, con il numero dell'enunciato che lo dichiara, gli enunciati che lo definiscono e gli enunciati che lo usano.",
+    "declared in": "dichiarato in",
+    "defined in": "definito in",
+    "also defined in": "definito anche in",
+    "used in": "usato in",
+    "not defined by a rule": "non definito da una regola",
+    "The comments of the program are not shown.": "I commenti del programma non sono mostrati.",
+    "The comments of the program are shown in grey.": "I commenti del programma sono mostrati in grigio.",
+    "Print or save as PDF": "Stampa o salva come PDF",
+    "How to read this document": "Come leggere questo documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Questo documento \xE8 il programma, parola per parola. Ogni enunciato numerato \xE8 un enunciato del programma.",
+    "Words of Logical English itself, such as if, and, or": "Parole del linguaggio stesso, come se, e, o",
+    "The words of a template: select them to go to where the sentence is defined": "Le parole di un modello: selezionarle per andare al punto in cui la frase \xE8 definita",
+    "The words of a template where a rule or a fact defines it": "Le parole di un modello dove una regola o un fatto lo definisce",
+    "A variable: it stands for any thing of its kind": "Una variabile: rappresenta qualsiasi cosa del suo tipo",
+    "A value: one fixed thing, number or text": "Un valore: una cosa, un numero o un testo fisso",
+    "A place of a template, which a sentence fills": "Un posto di un modello, che una frase riempie",
+    "Template": "Modello",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Azione",
+    "Constant": "Costante",
+    "Function": "Funzione",
+    "Rule": "Regola",
+    "Fact": "Fatto",
+    "Causal law": "Legge causale",
+    "Reactive rule": "Regola reattiva",
+    "Constraint": "Vincolo",
+    "Initial state": "Stato iniziale",
+    "Goal": "Obiettivo",
+    "Setting": "Impostazione",
+    "Expected answers": "Risposte attese",
+    "Fact of the scenario": "Fatto dello scenario",
+    "Included resource": "Risorsa inclusa",
+    "Service": "Servizio",
+    "Sentence of a view": "Frase di una vista",
+    "Kind of thing": "Tipo di cosa",
+    "Statement": "Enunciato",
+    "Comment": "Commento",
+    "Made from {name} on {date}.": "Fatto a partire da {name} il {date}."
   }
 };
 var languages = [
@@ -17116,6 +17582,142 @@ ${err}`, "See s(CASP)");
     document.body.appendChild(overlay);
     close.focus();
   }
+  async function readableDocumentDialog(doc) {
+    if (!doc)
+      return;
+    const { overlay, box } = overlayBox("readable-dialog", t("Save as a Readable Document"));
+    const intro = document.createElement("p");
+    intro.textContent = t("A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.");
+    intro.style.maxWidth = "60ch";
+    box.appendChild(intro);
+    const row = (label, control) => {
+      const l = document.createElement("label");
+      l.style.cssText = "display:flex;gap:8px;align-items:center;margin:6px 0";
+      const span = document.createElement("span");
+      span.textContent = label;
+      span.style.minWidth = "7em";
+      l.append(span, control);
+      box.appendChild(l);
+      return l;
+    };
+    const select = (options) => {
+      const sel = document.createElement("select");
+      for (const [v, txt] of options) {
+        const o = document.createElement("option");
+        o.value = v;
+        o.textContent = txt;
+        sel.appendChild(o);
+      }
+      return sel;
+    };
+    const format = select([
+      ["html", t("Web page (HTML)")],
+      ["pdf", t("PDF (printed from the browser)")],
+      ["docx", t("Word (.docx)")],
+      ["md", t("Markdown")]
+    ]);
+    row(t("Format"), format);
+    const style = select([
+      ["plain", t("Plain")],
+      ["compact", t("Compact")],
+      ["legal", t("Legal")],
+      ["cute", t("Colourful")],
+      ["editor", t("Editor colours")]
+    ]);
+    const styleRow = row(t("Style"), style);
+    style.title = t("How the web page looks when it opens. The page has a menu to change the style.");
+    const comments = document.createElement("input");
+    comments.type = "checkbox";
+    row(t("Comments"), comments).append(document.createTextNode(t("Include the comments of the program")));
+    const note = document.createElement("p");
+    note.textContent = t("The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.");
+    note.style.cssText = "max-width:60ch;opacity:.8;font-size:12px";
+    box.appendChild(note);
+    const status = document.createElement("div");
+    status.style.cssText = "min-height:1.4em;margin:4px 0";
+    box.appendChild(status);
+    const bar = document.createElement("div");
+    bar.style.cssText = "display:flex;gap:8px;justify-content:flex-end;margin-top:8px";
+    const openBtn = document.createElement("button");
+    openBtn.textContent = t("Open");
+    openBtn.title = t("Open the document in a new tab of the browser");
+    const saveBtn = document.createElement("button");
+    saveBtn.textContent = t("Save\u2026");
+    saveBtn.title = t("Save the document as a file on your computer");
+    const cancel = document.createElement("button");
+    cancel.textContent = t("Cancel");
+    cancel.onclick = () => overlay.remove();
+    bar.append(openBtn, saveBtn, cancel);
+    box.appendChild(bar);
+    const sync = () => {
+      const web = format.value === "html" || format.value === "pdf";
+      styleRow.style.opacity = web ? "1" : ".5";
+      style.disabled = !web;
+      openBtn.disabled = !web;
+      saveBtn.disabled = format.value === "pdf";
+      status.textContent = format.value === "pdf" ? t('The document opens in a new tab with the print dialog: choose "Save as PDF" there.') : "";
+    };
+    format.onchange = sync;
+    sync();
+    const make = async () => {
+      status.textContent = t("Making the document\u2026");
+      const linkBase = window.LE_WASM_CONFIG ? null : location.origin;
+      const data = await leRequest("readableDocument", doc, {
+        text: doc.model.getValue(),
+        fileName: doc.fileName || "",
+        format: format.value,
+        style: style.value,
+        comments: comments.checked,
+        linkBase
+      });
+      if (data.error) {
+        status.textContent = String(data.error);
+        return null;
+      }
+      status.textContent = "";
+      let blob;
+      if (data.encoding === "base64") {
+        const bin = atob(data.content);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++)
+          bytes[i] = bin.charCodeAt(i);
+        blob = new Blob([bytes], { type: data.mime });
+      } else {
+        blob = new Blob([data.content], { type: data.mime });
+      }
+      return { blob, fileName: String(data.fileName || "program.html") };
+    };
+    openBtn.onclick = async () => {
+      const w = window.open("", "_blank");
+      const r = await make();
+      if (!r) {
+        w?.close();
+        return;
+      }
+      const url = URL.createObjectURL(r.blob);
+      if (w)
+        w.location.href = url;
+      else
+        window.open(url, "_blank");
+      setTimeout(() => URL.revokeObjectURL(url), 6e4);
+      overlay.remove();
+    };
+    saveBtn.onclick = async () => {
+      const r = await make();
+      if (!r)
+        return;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(r.blob);
+      a.download = r.fileName;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1e3);
+      overlay.remove();
+    };
+    format.focus();
+  }
+  document.getElementById("menu-readable")?.addEventListener("click", () => {
+    readableDocumentDialog(activeDoc);
+  });
   document.getElementById("menu-show-ledger")?.addEventListener("click", () => {
     showLedger(activeDoc);
   });

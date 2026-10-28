@@ -1604,6 +1604,37 @@ export const keywords: Record<string, KeywordTable> = {
         "the",
         "cell"
       ]
+    ],
+    "notice_start": [
+      [
+        "spdx-license-identifier:"
+      ],
+      [
+        "licensed",
+        "under"
+      ],
+      [
+        "legal",
+        "notice"
+      ],
+      [
+        "disclaimer"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "license"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "©"
+      ]
     ]
   },
   "pt": {
@@ -3524,6 +3555,34 @@ export const keywords: Record<string, KeywordTable> = {
         "a",
         "célula"
       ]
+    ],
+    "notice_start": [
+      [
+        "isenção",
+        "de",
+        "responsabilidade"
+      ],
+      [
+        "direitos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licença"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "©"
+      ]
     ]
   },
   "es": {
@@ -5362,6 +5421,34 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "la",
         "celda"
+      ]
+    ],
+    "notice_start": [
+      [
+        "descargo",
+        "de",
+        "responsabilidad"
+      ],
+      [
+        "derechos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licencia"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "©"
       ]
     ]
   },
@@ -7317,6 +7404,31 @@ export const keywords: Record<string, KeywordTable> = {
         "la",
         "cellule"
       ]
+    ],
+    "notice_start": [
+      [
+        "mentions",
+        "légales"
+      ],
+      [
+        "avis",
+        "juridique"
+      ],
+      [
+        "avertissement"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "©"
+      ]
     ]
   },
   "it": {
@@ -9204,6 +9316,32 @@ export const keywords: Record<string, KeywordTable> = {
         "la",
         "cella"
       ]
+    ],
+    "notice_start": [
+      [
+        "esclusione",
+        "di",
+        "responsabilità"
+      ],
+      [
+        "avviso",
+        "legale"
+      ],
+      [
+        "avvertenza"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licenza"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "©"
+      ]
     ]
   }
 } as const;
@@ -9392,7 +9530,8 @@ export const keywordCategories: Record<string, string> = {
   "cells_open": "service_cells",
   "cells_are": "service_cells",
   "cells_sheet": "service_cells",
-  "cells_cell": "service_cells"
+  "cells_cell": "service_cells",
+  "notice_start": "notice"
 } as const;
 
 /** UI chrome strings per language, keyed by the canonical English string. */
@@ -10079,7 +10218,89 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Procura um caso em que uma frase é verdadeira, por exemplo um caso que viola uma propriedade do programa. A resposta é o caso, ou a declaração de que não há tal caso",
     "Write the sentence as a condition of a rule, for example \"a person gets rent support\". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.": "Escreva a frase como uma condição de uma regra, por exemplo \"a person gets rent support\". Cada resposta é um caso em que a frase é verdadeira: o que um cenário tem de dizer, e não pode dizer. A resposta também indica os cenários do programa que satisfazem o caso.",
     "Write the sentence as a condition of a rule, for example \"a person is eligible and the person is excluded\". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.": "Escreva a frase como uma condição de uma regra, por exemplo \"a person is eligible and the person is excluded\". Para verificar uma propriedade, escreva o que a viola. A resposta é um caso em que a frase é verdadeira, ou a declaração de que não há tal caso.",
-    "The search runs as a custom query that you can change and run again.": "A procura corre como uma consulta personalizada que pode alterar e voltar a correr."
+    "The search runs as a custom query that you can change and run again.": "A procura corre como uma consulta personalizada que pode alterar e voltar a correr.",
+    "Save as a Readable Document…": "Guardar como documento legível…",
+    "Save as a Readable Document": "Guardar como documento legível",
+    "Make a document of this program for a person to read without the editor — every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates — and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Fazer um documento deste programa para uma pessoa ler sem o editor — cada afirmação exatamente como está escrita, cada frase ligada ao sítio onde é definida, com índice e um índice remissivo dos modelos — e abri-lo ou guardá-lo como página web, PDF, documento Word ou Markdown. Os comentários ficam de fora, a não ser que os inclua",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Um documento do programa para uma pessoa ler sem o editor: cada afirmação exatamente como está escrita, com índice, ligações de cada frase ao sítio onde é definida e um índice remissivo dos modelos.",
+    "Web page (HTML)": "Página web (HTML)",
+    "PDF (printed from the browser)": "PDF (impresso a partir do navegador)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Estilo",
+    "Comments": "Comentários",
+    "Plain": "Simples",
+    "Compact": "Compacto",
+    "Legal": "Jurídico",
+    "Colourful": "Colorido",
+    "Editor colours": "Cores do editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "O aspeto da página web quando abre. A página tem um menu para mudar o estilo.",
+    "Include the comments of the program": "Incluir os comentários do programa",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Os comentários são notas do autor e podem ser privados, por isso ficam de fora, a não ser que os inclua. Um comentário que começa por Copyright, Licença ou Aviso é um aviso: fica sempre, no início do documento.",
+    "Open the document in a new tab of the browser": "Abrir o documento num novo separador do navegador",
+    "Save the document as a file on your computer": "Guardar o documento como ficheiro no seu computador",
+    "Making the document…": "A fazer o documento…",
+    "The document opens in a new tab with the print dialog: choose \"Save as PDF\" there.": "O documento abre num novo separador com o diálogo de impressão: escolha aí \"Guardar como PDF\".",
+    "Untitled program": "Programa sem título",
+    "Knowledge base": "Base de conhecimento",
+    "Included resources": "Recursos incluídos",
+    "Services": "Serviços",
+    "Kinds of things": "Tipos de coisas",
+    "Fluents": "Fluentes",
+    "Events": "Eventos",
+    "Actions": "Ações",
+    "Constants": "Constantes",
+    "Functions": "Funções",
+    "Decision table": "Tabela de decisão",
+    "View": "Vista",
+    "Cells of a service": "Células de um serviço",
+    "Section": "Secção",
+    "A program in Logical English": "Um programa em Português Lógico",
+    "A program in Logical English for LPS (Logic Production System)": "Um programa em Português Lógico para LPS (Logic Production System)",
+    "Contents": "Índice",
+    "Notices": "Avisos",
+    "Index of templates": "Índice dos modelos",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Cada modelo do programa, com o número da afirmação que o declara, as afirmações que o definem e as afirmações que o usam.",
+    "declared in": "declarado em",
+    "defined in": "definido em",
+    "also defined in": "também definido em",
+    "used in": "usado em",
+    "not defined by a rule": "não definido por uma regra",
+    "The comments of the program are not shown.": "Os comentários do programa não são mostrados.",
+    "The comments of the program are shown in grey.": "Os comentários do programa são mostrados a cinzento.",
+    "Print or save as PDF": "Imprimir ou guardar como PDF",
+    "How to read this document": "Como ler este documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Este documento é o programa, palavra por palavra. Cada afirmação numerada é uma afirmação do programa.",
+    "Words of Logical English itself, such as if, and, or": "Palavras da própria linguagem, como se, e, ou",
+    "The words of a template: select them to go to where the sentence is defined": "As palavras de um modelo: selecione-as para ir ao sítio onde a frase é definida",
+    "The words of a template where a rule or a fact defines it": "As palavras de um modelo onde uma regra ou um facto o define",
+    "A variable: it stands for any thing of its kind": "Uma variável: representa qualquer coisa do seu tipo",
+    "A value: one fixed thing, number or text": "Um valor: uma coisa, número ou texto fixo",
+    "A place of a template, which a sentence fills": "Um lugar de um modelo, que uma frase preenche",
+    "Template": "Modelo",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Ação",
+    "Constant": "Constante",
+    "Function": "Função",
+    "Rule": "Regra",
+    "Fact": "Facto",
+    "Causal law": "Lei causal",
+    "Reactive rule": "Regra reativa",
+    "Constraint": "Restrição",
+    "Initial state": "Estado inicial",
+    "Goal": "Objetivo",
+    "Setting": "Definição",
+    "Expected answers": "Respostas esperadas",
+    "Fact of the scenario": "Facto do cenário",
+    "Included resource": "Recurso incluído",
+    "Service": "Serviço",
+    "Sentence of a view": "Frase de uma vista",
+    "Kind of thing": "Tipo de coisa",
+    "Statement": "Afirmação",
+    "Comment": "Comentário",
+    "Made from {name} on {date}.": "Feito a partir de {name} em {date}."
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -10760,7 +10981,89 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Busca un caso en que una frase es verdadera, por ejemplo un caso que incumple una propiedad del programa. La respuesta es el caso, o la declaración de que no hay tal caso",
     "Write the sentence as a condition of a rule, for example \"a person gets rent support\". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.": "Escriba la frase como una condición de una regla, por ejemplo \"a person gets rent support\". Cada respuesta es un caso en que la frase es verdadera: lo que un escenario debe decir, y no debe decir. La respuesta también indica los escenarios del programa que cumplen el caso.",
     "Write the sentence as a condition of a rule, for example \"a person is eligible and the person is excluded\". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.": "Escriba la frase como una condición de una regla, por ejemplo \"a person is eligible and the person is excluded\". Para comprobar una propiedad, escriba lo que la incumple. La respuesta es un caso en que la frase es verdadera, o la declaración de que no hay tal caso.",
-    "The search runs as a custom query that you can change and run again.": "La búsqueda se ejecuta como una consulta personalizada que puede cambiar y volver a ejecutar."
+    "The search runs as a custom query that you can change and run again.": "La búsqueda se ejecuta como una consulta personalizada que puede cambiar y volver a ejecutar.",
+    "Save as a Readable Document…": "Guardar como documento legible…",
+    "Save as a Readable Document": "Guardar como documento legible",
+    "Make a document of this program for a person to read without the editor — every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates — and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Hacer un documento de este programa para que una persona lo lea sin el editor — cada enunciado tal como está escrito, cada frase enlazada con el lugar donde se define, con índice y un índice de las plantillas — y abrirlo o guardarlo como página web, PDF, documento Word o Markdown. Los comentarios quedan fuera, salvo que los incluya",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un documento del programa para que una persona lo lea sin el editor: cada enunciado tal como está escrito, con índice, enlaces de cada frase al lugar donde se define y un índice de las plantillas.",
+    "Web page (HTML)": "Página web (HTML)",
+    "PDF (printed from the browser)": "PDF (impreso desde el navegador)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Estilo",
+    "Comments": "Comentarios",
+    "Plain": "Sencillo",
+    "Compact": "Compacto",
+    "Legal": "Jurídico",
+    "Colourful": "Colorido",
+    "Editor colours": "Colores del editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "El aspecto de la página web cuando se abre. La página tiene un menú para cambiar el estilo.",
+    "Include the comments of the program": "Incluir los comentarios del programa",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Los comentarios son notas del autor y pueden ser privados, por eso quedan fuera, salvo que los incluya. Un comentario que empieza por Copyright, Licencia o Aviso es un aviso: se conserva siempre, al principio del documento.",
+    "Open the document in a new tab of the browser": "Abrir el documento en una nueva pestaña del navegador",
+    "Save the document as a file on your computer": "Guardar el documento como archivo en su ordenador",
+    "Making the document…": "Haciendo el documento…",
+    "The document opens in a new tab with the print dialog: choose \"Save as PDF\" there.": "El documento se abre en una nueva pestaña con el diálogo de impresión: elija allí \"Guardar como PDF\".",
+    "Untitled program": "Programa sin título",
+    "Knowledge base": "Base de conocimiento",
+    "Included resources": "Recursos incluidos",
+    "Services": "Servicios",
+    "Kinds of things": "Tipos de cosas",
+    "Fluents": "Fluentes",
+    "Events": "Eventos",
+    "Actions": "Acciones",
+    "Constants": "Constantes",
+    "Functions": "Funciones",
+    "Decision table": "Tabla de decisión",
+    "View": "Vista",
+    "Cells of a service": "Celdas de un servicio",
+    "Section": "Sección",
+    "A program in Logical English": "Un programa en Español Lógico",
+    "A program in Logical English for LPS (Logic Production System)": "Un programa en Español Lógico para LPS (Logic Production System)",
+    "Contents": "Índice",
+    "Notices": "Avisos",
+    "Index of templates": "Índice de las plantillas",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Cada plantilla del programa, con el número del enunciado que la declara, los enunciados que la definen y los enunciados que la usan.",
+    "declared in": "declarada en",
+    "defined in": "definida en",
+    "also defined in": "también definida en",
+    "used in": "usada en",
+    "not defined by a rule": "no definida por una regla",
+    "The comments of the program are not shown.": "Los comentarios del programa no se muestran.",
+    "The comments of the program are shown in grey.": "Los comentarios del programa se muestran en gris.",
+    "Print or save as PDF": "Imprimir o guardar como PDF",
+    "How to read this document": "Cómo leer este documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Este documento es el programa, palabra por palabra. Cada enunciado numerado es un enunciado del programa.",
+    "Words of Logical English itself, such as if, and, or": "Palabras del propio lenguaje, como si, y, o",
+    "The words of a template: select them to go to where the sentence is defined": "Las palabras de una plantilla: selecciónelas para ir al lugar donde se define la frase",
+    "The words of a template where a rule or a fact defines it": "Las palabras de una plantilla donde una regla o un hecho la define",
+    "A variable: it stands for any thing of its kind": "Una variable: representa cualquier cosa de su tipo",
+    "A value: one fixed thing, number or text": "Un valor: una cosa, número o texto fijo",
+    "A place of a template, which a sentence fills": "Un lugar de una plantilla, que una frase rellena",
+    "Template": "Plantilla",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Acción",
+    "Constant": "Constante",
+    "Function": "Función",
+    "Rule": "Regla",
+    "Fact": "Hecho",
+    "Causal law": "Ley causal",
+    "Reactive rule": "Regla reactiva",
+    "Constraint": "Restricción",
+    "Initial state": "Estado inicial",
+    "Goal": "Objetivo",
+    "Setting": "Ajuste",
+    "Expected answers": "Respuestas esperadas",
+    "Fact of the scenario": "Hecho del escenario",
+    "Included resource": "Recurso incluido",
+    "Service": "Servicio",
+    "Sentence of a view": "Frase de una vista",
+    "Kind of thing": "Tipo de cosa",
+    "Statement": "Enunciado",
+    "Comment": "Comentario",
+    "Made from {name} on {date}.": "Hecho a partir de {name} el {date}."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11441,7 +11744,89 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cherche un cas où une phrase est vraie, par exemple un cas qui viole une propriété du programme. La réponse est le cas, ou la déclaration qu'il n'y a pas de tel cas",
     "Write the sentence as a condition of a rule, for example \"a person gets rent support\". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.": "Écrivez la phrase comme une condition d'une règle, par exemple « a person gets rent support ». Chaque réponse est un cas où la phrase est vraie : ce qu'un scénario doit dire, et ne doit pas dire. La réponse indique aussi les scénarios du programme qui satisfont le cas.",
     "Write the sentence as a condition of a rule, for example \"a person is eligible and the person is excluded\". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.": "Écrivez la phrase comme une condition d'une règle, par exemple « a person is eligible and the person is excluded ». Pour vérifier une propriété, écrivez ce qui la viole. La réponse est un cas où la phrase est vraie, ou la déclaration qu'il n'y a pas de tel cas.",
-    "The search runs as a custom query that you can change and run again.": "La recherche s'exécute comme une requête personnalisée que vous pouvez modifier et relancer."
+    "The search runs as a custom query that you can change and run again.": "La recherche s'exécute comme une requête personnalisée que vous pouvez modifier et relancer.",
+    "Save as a Readable Document…": "Enregistrer comme document lisible…",
+    "Save as a Readable Document": "Enregistrer comme document lisible",
+    "Make a document of this program for a person to read without the editor — every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates — and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Faire un document de ce programme pour qu'une personne le lise sans l'éditeur — chaque énoncé exactement tel qu'il est écrit, chaque phrase liée à l'endroit où elle est définie, avec une table des matières et un index des modèles — et l'ouvrir ou l'enregistrer comme page web, PDF, document Word ou Markdown. Les commentaires sont omis, sauf si vous les incluez",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un document du programme pour qu'une personne le lise sans l'éditeur : chaque énoncé exactement tel qu'il est écrit, avec une table des matières, des liens de chaque phrase vers l'endroit où elle est définie et un index des modèles.",
+    "Web page (HTML)": "Page web (HTML)",
+    "PDF (printed from the browser)": "PDF (imprimé depuis le navigateur)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Format",
+    "Style": "Style",
+    "Comments": "Commentaires",
+    "Plain": "Simple",
+    "Compact": "Compact",
+    "Legal": "Juridique",
+    "Colourful": "Coloré",
+    "Editor colours": "Couleurs de l'éditeur",
+    "How the web page looks when it opens. The page has a menu to change the style.": "L'aspect de la page web à son ouverture. La page a un menu pour changer de style.",
+    "Include the comments of the program": "Inclure les commentaires du programme",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Les commentaires sont les notes de l'auteur et peuvent être privés : ils sont donc omis, sauf si vous les incluez. Un commentaire qui commence par Copyright, Licence ou Avertissement est un avis : il est toujours conservé, au début du document.",
+    "Open the document in a new tab of the browser": "Ouvrir le document dans un nouvel onglet du navigateur",
+    "Save the document as a file on your computer": "Enregistrer le document comme fichier sur votre ordinateur",
+    "Making the document…": "Création du document…",
+    "The document opens in a new tab with the print dialog: choose \"Save as PDF\" there.": "Le document s'ouvre dans un nouvel onglet avec la boîte d'impression : choisissez-y « Enregistrer au format PDF ».",
+    "Untitled program": "Programme sans titre",
+    "Knowledge base": "Base de connaissances",
+    "Included resources": "Ressources incluses",
+    "Services": "Services",
+    "Kinds of things": "Sortes de choses",
+    "Fluents": "Fluents",
+    "Events": "Événements",
+    "Actions": "Actions",
+    "Constants": "Constantes",
+    "Functions": "Fonctions",
+    "Decision table": "Table de décision",
+    "View": "Vue",
+    "Cells of a service": "Cellules d'un service",
+    "Section": "Section",
+    "A program in Logical English": "Un programme en Français Logique",
+    "A program in Logical English for LPS (Logic Production System)": "Un programme en Français Logique pour LPS (Logic Production System)",
+    "Contents": "Table des matières",
+    "Notices": "Avis",
+    "Index of templates": "Index des modèles",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Chaque modèle du programme, avec le numéro de l'énoncé qui le déclare, les énoncés qui le définissent et les énoncés qui l'utilisent.",
+    "declared in": "déclaré en",
+    "defined in": "défini en",
+    "also defined in": "aussi défini en",
+    "used in": "utilisé en",
+    "not defined by a rule": "non défini par une règle",
+    "The comments of the program are not shown.": "Les commentaires du programme ne sont pas montrés.",
+    "The comments of the program are shown in grey.": "Les commentaires du programme sont montrés en gris.",
+    "Print or save as PDF": "Imprimer ou enregistrer en PDF",
+    "How to read this document": "Comment lire ce document",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Ce document est le programme, mot pour mot. Chaque énoncé numéroté est un énoncé du programme.",
+    "Words of Logical English itself, such as if, and, or": "Mots du langage lui-même, comme si, et, ou",
+    "The words of a template: select them to go to where the sentence is defined": "Les mots d'un modèle : sélectionnez-les pour aller à l'endroit où la phrase est définie",
+    "The words of a template where a rule or a fact defines it": "Les mots d'un modèle là où une règle ou un fait le définit",
+    "A variable: it stands for any thing of its kind": "Une variable : elle représente n'importe quelle chose de son type",
+    "A value: one fixed thing, number or text": "Une valeur : une chose, un nombre ou un texte fixe",
+    "A place of a template, which a sentence fills": "Une place d'un modèle, qu'une phrase remplit",
+    "Template": "Modèle",
+    "Fluent": "Fluent",
+    "Event": "Événement",
+    "Action": "Action",
+    "Constant": "Constante",
+    "Function": "Fonction",
+    "Rule": "Règle",
+    "Fact": "Fait",
+    "Causal law": "Loi causale",
+    "Reactive rule": "Règle réactive",
+    "Constraint": "Contrainte",
+    "Initial state": "État initial",
+    "Goal": "But",
+    "Setting": "Réglage",
+    "Expected answers": "Réponses attendues",
+    "Fact of the scenario": "Fait du scénario",
+    "Included resource": "Ressource incluse",
+    "Service": "Service",
+    "Sentence of a view": "Phrase d'une vue",
+    "Kind of thing": "Sorte de chose",
+    "Statement": "Énoncé",
+    "Comment": "Commentaire",
+    "Made from {name} on {date}.": "Fait à partir de {name} le {date}."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12122,7 +12507,89 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cerca un caso in cui una frase è vera, per esempio un caso che viola una proprietà del programma. La risposta è il caso, o la dichiarazione che non esiste un tale caso",
     "Write the sentence as a condition of a rule, for example \"a person gets rent support\". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.": "Scriva la frase come una condizione di una regola, per esempio \"a person gets rent support\". Ogni risposta è un caso in cui la frase è vera: ciò che uno scenario deve dire, e non deve dire. La risposta indica anche gli scenari del programma che soddisfano il caso.",
     "Write the sentence as a condition of a rule, for example \"a person is eligible and the person is excluded\". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.": "Scriva la frase come una condizione di una regola, per esempio \"a person is eligible and the person is excluded\". Per verificare una proprietà, scriva ciò che la viola. La risposta è un caso in cui la frase è vera, o la dichiarazione che non esiste un tale caso.",
-    "The search runs as a custom query that you can change and run again.": "La ricerca si esegue come un'interrogazione personalizzata che può modificare e rieseguire."
+    "The search runs as a custom query that you can change and run again.": "La ricerca si esegue come un'interrogazione personalizzata che può modificare e rieseguire.",
+    "Save as a Readable Document…": "Salva come documento leggibile…",
+    "Save as a Readable Document": "Salva come documento leggibile",
+    "Make a document of this program for a person to read without the editor — every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates — and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Fare un documento di questo programma perché una persona lo legga senza l'editor — ogni enunciato esattamente come è scritto, ogni frase collegata al punto in cui è definita, con indice e un indice dei modelli — e aprirlo o salvarlo come pagina web, PDF, documento Word o Markdown. I commenti sono esclusi, a meno che non li includa",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un documento del programma perché una persona lo legga senza l'editor: ogni enunciato esattamente come è scritto, con indice, collegamenti da ogni frase al punto in cui è definita e un indice dei modelli.",
+    "Web page (HTML)": "Pagina web (HTML)",
+    "PDF (printed from the browser)": "PDF (stampato dal browser)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Stile",
+    "Comments": "Commenti",
+    "Plain": "Semplice",
+    "Compact": "Compatto",
+    "Legal": "Giuridico",
+    "Colourful": "Colorato",
+    "Editor colours": "Colori dell'editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "L'aspetto della pagina web quando si apre. La pagina ha un menu per cambiare lo stile.",
+    "Include the comments of the program": "Includere i commenti del programma",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "I commenti sono note dell'autore e possono essere privati, quindi sono esclusi, a meno che non li includa. Un commento che inizia con Copyright, Licenza o Avvertenza è un avviso: è sempre conservato, all'inizio del documento.",
+    "Open the document in a new tab of the browser": "Aprire il documento in una nuova scheda del browser",
+    "Save the document as a file on your computer": "Salvare il documento come file sul computer",
+    "Making the document…": "Creazione del documento…",
+    "The document opens in a new tab with the print dialog: choose \"Save as PDF\" there.": "Il documento si apre in una nuova scheda con la finestra di stampa: scegliere lì \"Salva come PDF\".",
+    "Untitled program": "Programma senza titolo",
+    "Knowledge base": "Base di conoscenza",
+    "Included resources": "Risorse incluse",
+    "Services": "Servizi",
+    "Kinds of things": "Tipi di cose",
+    "Fluents": "Fluenti",
+    "Events": "Eventi",
+    "Actions": "Azioni",
+    "Constants": "Costanti",
+    "Functions": "Funzioni",
+    "Decision table": "Tabella decisionale",
+    "View": "Vista",
+    "Cells of a service": "Celle di un servizio",
+    "Section": "Sezione",
+    "A program in Logical English": "Un programma in Italiano Logico",
+    "A program in Logical English for LPS (Logic Production System)": "Un programma in Italiano Logico per LPS (Logic Production System)",
+    "Contents": "Indice",
+    "Notices": "Avvisi",
+    "Index of templates": "Indice dei modelli",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Ogni modello del programma, con il numero dell'enunciato che lo dichiara, gli enunciati che lo definiscono e gli enunciati che lo usano.",
+    "declared in": "dichiarato in",
+    "defined in": "definito in",
+    "also defined in": "definito anche in",
+    "used in": "usato in",
+    "not defined by a rule": "non definito da una regola",
+    "The comments of the program are not shown.": "I commenti del programma non sono mostrati.",
+    "The comments of the program are shown in grey.": "I commenti del programma sono mostrati in grigio.",
+    "Print or save as PDF": "Stampa o salva come PDF",
+    "How to read this document": "Come leggere questo documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Questo documento è il programma, parola per parola. Ogni enunciato numerato è un enunciato del programma.",
+    "Words of Logical English itself, such as if, and, or": "Parole del linguaggio stesso, come se, e, o",
+    "The words of a template: select them to go to where the sentence is defined": "Le parole di un modello: selezionarle per andare al punto in cui la frase è definita",
+    "The words of a template where a rule or a fact defines it": "Le parole di un modello dove una regola o un fatto lo definisce",
+    "A variable: it stands for any thing of its kind": "Una variabile: rappresenta qualsiasi cosa del suo tipo",
+    "A value: one fixed thing, number or text": "Un valore: una cosa, un numero o un testo fisso",
+    "A place of a template, which a sentence fills": "Un posto di un modello, che una frase riempie",
+    "Template": "Modello",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Azione",
+    "Constant": "Costante",
+    "Function": "Funzione",
+    "Rule": "Regola",
+    "Fact": "Fatto",
+    "Causal law": "Legge causale",
+    "Reactive rule": "Regola reattiva",
+    "Constraint": "Vincolo",
+    "Initial state": "Stato iniziale",
+    "Goal": "Obiettivo",
+    "Setting": "Impostazione",
+    "Expected answers": "Risposte attese",
+    "Fact of the scenario": "Fatto dello scenario",
+    "Included resource": "Risorsa inclusa",
+    "Service": "Servizio",
+    "Sentence of a view": "Frase di una vista",
+    "Kind of thing": "Tipo di cosa",
+    "Statement": "Enunciato",
+    "Comment": "Commento",
+    "Made from {name} on {date}.": "Fatto a partire da {name} il {date}."
   }
 } as const;
 

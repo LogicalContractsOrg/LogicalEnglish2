@@ -959,6 +959,25 @@ When the system compares a sentence with a template, it ignores some filler word
 - **Line Comments:** `%` or `#`
 - **Block Comments:** `/* ... */`
 
+**Notices.** A comment that starts with one of the words `Copyright`, `©`, `(c)`,
+`Licence`, `License`, `Licensed under`, `Disclaimer`, `Legal notice` or
+`SPDX-License-Identifier:` is a **notice**. The other languages have their own words
+(category `notice` of `i18n/keywords.csv`). A notice continues to the next empty
+comment line. A notice has no effect on the program. Use a notice to give the
+copyright, the licence or a disclaimer of the program:
+
+```le
+% Copyright 2026 Example Ltd. All rights reserved.
+% Licensed under the Apache License, Version 2.0.
+%
+% A usual comment.
+```
+
+A readable document of the program (File > Save as a Readable Document) leaves out
+the usual comments, because a comment can be a private note of the author. The
+readable document always shows the notices. Refer to
+[Readable documents](../guide/readable-documents.md).
+
 ## 11. Meta-Templates
 A template can take a full sentence as one of its arguments.
 - **Keywords:** `says`, `that`

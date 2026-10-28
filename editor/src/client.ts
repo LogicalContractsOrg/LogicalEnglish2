@@ -1687,6 +1687,126 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         document.body.appendChild(overlay);
         close.focus();
     }
+    // File > Save as a Readable Document: the program as a document that a
+    // person reads without the editor (operation readableDocument,
+    // le_readable.pl) — every statement as written, its words coloured for
+    // what they are, each sentence linked to where it is defined, with
+    // contents and an index. Saved as a web page (one file, with a menu of
+    // styles), a PDF (the page printed by the browser), Word or Markdown.
+    async function readableDocumentDialog(doc: any): Promise<void> {
+        if (!doc) return;
+        const { overlay, box } = overlayBox('readable-dialog', t('Save as a Readable Document'));
+        const intro = document.createElement('p');
+        intro.textContent = t('A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.');
+        intro.style.maxWidth = '60ch';
+        box.appendChild(intro);
+        const row = (label: string, control: HTMLElement) => {
+            const l = document.createElement('label');
+            l.style.cssText = 'display:flex;gap:8px;align-items:center;margin:6px 0';
+            const span = document.createElement('span');
+            span.textContent = label;
+            span.style.minWidth = '7em';
+            l.append(span, control);
+            box.appendChild(l);
+            return l;
+        };
+        const select = (options: [string, string][]) => {
+            const sel = document.createElement('select');
+            for (const [v, txt] of options) {
+                const o = document.createElement('option');
+                o.value = v; o.textContent = txt;
+                sel.appendChild(o);
+            }
+            return sel;
+        };
+        const format = select([['html', t('Web page (HTML)')], ['pdf', t('PDF (printed from the browser)')],
+                               ['docx', t('Word (.docx)')], ['md', t('Markdown')]]);
+        row(t('Format'), format);
+        const style = select([['plain', t('Plain')], ['compact', t('Compact')], ['legal', t('Legal')],
+                              ['cute', t('Colourful')], ['editor', t('Editor colours')]]);
+        const styleRow = row(t('Style'), style);
+        style.title = t('How the web page looks when it opens. The page has a menu to change the style.');
+        const comments = document.createElement('input');
+        comments.type = 'checkbox';
+        row(t('Comments'), comments).append(document.createTextNode(t('Include the comments of the program')));
+        const note = document.createElement('p');
+        note.textContent = t('The comments are the author\'s notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.');
+        note.style.cssText = 'max-width:60ch;opacity:.8;font-size:12px';
+        box.appendChild(note);
+        const status = document.createElement('div');
+        status.style.cssText = 'min-height:1.4em;margin:4px 0';
+        box.appendChild(status);
+        const bar = document.createElement('div');
+        bar.style.cssText = 'display:flex;gap:8px;justify-content:flex-end;margin-top:8px';
+        const openBtn = document.createElement('button');
+        openBtn.textContent = t('Open');
+        openBtn.title = t('Open the document in a new tab of the browser');
+        const saveBtn = document.createElement('button');
+        saveBtn.textContent = t('Save…');
+        saveBtn.title = t('Save the document as a file on your computer');
+        const cancel = document.createElement('button');
+        cancel.textContent = t('Cancel');
+        cancel.onclick = () => overlay.remove();
+        bar.append(openBtn, saveBtn, cancel);
+        box.appendChild(bar);
+        const sync = () => {
+            const web = format.value === 'html' || format.value === 'pdf';
+            styleRow.style.opacity = web ? '1' : '.5';
+            style.disabled = !web;
+            openBtn.disabled = !web;
+            // A PDF is the web page printed by the browser: it opens, and
+            // the browser's print dialog saves it ("Save as PDF").
+            saveBtn.disabled = format.value === 'pdf';
+            status.textContent = format.value === 'pdf'
+                ? t('The document opens in a new tab with the print dialog: choose "Save as PDF" there.') : '';
+        };
+        format.onchange = sync;
+        sync();
+        const make = async () => {
+            status.textContent = t('Making the document…');
+            // The links to an included resource's own document go to this
+            // server's /readable/ route; the browser-only deployment has none.
+            const linkBase = (window as any).LE_WASM_CONFIG ? null : location.origin;
+            const data = await leRequest('readableDocument', doc, {
+                text: doc.model.getValue(), fileName: doc.fileName || '', format: format.value,
+                style: style.value, comments: comments.checked, linkBase });
+            if (data.error) { status.textContent = String(data.error); return null; }
+            status.textContent = '';
+            let blob: Blob;
+            if (data.encoding === 'base64') {
+                const bin = atob(data.content);
+                const bytes = new Uint8Array(bin.length);
+                for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+                blob = new Blob([bytes], { type: data.mime });
+            } else {
+                blob = new Blob([data.content], { type: data.mime });
+            }
+            return { blob, fileName: String(data.fileName || 'program.html') };
+        };
+        openBtn.onclick = async () => {
+            // A tab opened after the request returns is taken for a pop-up:
+            // open it now, and fill it in when the document arrives.
+            const w = window.open('', '_blank');
+            const r = await make();
+            if (!r) { w?.close(); return; }
+            const url = URL.createObjectURL(r.blob);
+            if (w) w.location.href = url; else window.open(url, '_blank');
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+            overlay.remove();
+        };
+        saveBtn.onclick = async () => {
+            const r = await make();
+            if (!r) return;
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(r.blob);
+            a.download = r.fileName;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+            overlay.remove();
+        };
+        format.focus();
+    }
+    document.getElementById('menu-readable')?.addEventListener('click', () => { readableDocumentDialog(activeDoc); });
     document.getElementById('menu-show-ledger')?.addEventListener('click', () => { showLedger(activeDoc); });
     document.getElementById('menu-show-original')?.addEventListener('click', () => { showOriginals(activeDoc); });
     // File > View Original Text: as the context menu's, at the cursor of the tab shown.

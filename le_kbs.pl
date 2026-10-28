@@ -5,7 +5,7 @@
     about loaded KBs. It acts as the main interface for managing LE programs.
 */
 
-:- module(le_kbs, [load/2, load/3, load_text/2, load_text/3, createSession/2, destroySession/1, note_session_use/1, start_session_reaper/0,
+:- module(le_kbs, [load/2, load/3, load_text/2, load_text/3, load_text/4, createSession/2, destroySession/1, note_session_use/1, start_session_reaper/0,
     addSessionFact/2, negateSessionFact/2, setScenarion/2, clearSession/1, printSession/1, query/5, queryScenario/4, queryScenario/6,
     runTestsFor/2, runTestsInDir/2, runTestsInDir/3, runTests/0, runTests/1, runAllTests/0, le_suite/1,
     run_suite/2, suite_failure_count/3, print_test_summary/1,
@@ -430,6 +430,12 @@ load_text(Text, NewModule) :-
 %   directory), so text loaded from the editor for a known example still finds
 %   the example's sibling resources. Base = '-' keeps the default (cwd).
 load_text(Text, Base, NewModule) :-
+    load_text(Text, Base, NewModule, []).
+
+%!  load_text(+Text, +Base, -NewModule, +Options) is det.
+%
+%   As load_text/3, with the Options of load/3 (skip_tests).
+load_text(Text, Base, NewModule, Options) :-
     (   var(NewModule) ->
         grammar_key([Text, Base], Key),
         variant_sha1(Key, Hash),
@@ -437,15 +443,15 @@ load_text(Text, Base, NewModule) :-
     ;   true
     ),
     (   Base == (-)
-    ->  with_mutex(NewModule, load_text_sync(NewModule, Text))
+    ->  with_mutex(NewModule, load_text_sync(NewModule, Text, Options))
     ;   setup_call_cleanup(
             ( retractall(le_include_base(_)), assertz(le_include_base(Base)) ),
-            with_mutex(NewModule, load_text_sync(NewModule, Text)),
+            with_mutex(NewModule, load_text_sync(NewModule, Text, Options)),
             retractall(le_include_base(_)))
     ).
 
-load_text_sync(NewModule, Text) :-
-    load_common_sync(NewModule, parse_le_text(Text, doc(Sections), NewModule), Sections, "Parsing failed. Check for malformed sections or characters.", []).
+load_text_sync(NewModule, Text, Options) :-
+    load_common_sync(NewModule, parse_le_text(Text, doc(Sections), NewModule), Sections, "Parsing failed. Check for malformed sections or characters.", Options).
 
 load_common_sync(NewModule, ParseGoal, Sections, ErrorMsg, Options) :-
     (   current_module(NewModule),
