@@ -187,6 +187,18 @@ test(operation_reads_editor_text) :-
                        text: Text, format: "html", style: "legal"}, R),
     assertion(sub_string(R.content, _, _, _, "style-legal")).
 
+test(nothing_stays_on_the_server) :-
+    program(Text),
+    readable_document(Text, [format(html), date('2026-10-28')], _),
+    readable_document(Text, [format(md), date('2026-10-28')], _),
+    thread_self(Me), ( atom(Me) -> Id = Me ; thread_property(Me, id(Id)) ),
+    atom_concat(le_readable_kb_, Id, M),
+    assertion(\+ ( current_predicate(M:F/A), functor(H, F, A),
+                    predicate_property(M:H, number_of_clauses(N)), N > 0 )),
+    assertion(\+ le_readable:rec_span(_, _, _, _, _)),
+    aggregate_all(count, ( current_module(X), sub_atom(X, 0, _, _, le_readable_kb_) ), NM),
+    assertion(NM =< 1).
+
 :- end_tests(readable).
 
 has_seg(Segs, Text, Class) :-

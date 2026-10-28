@@ -54,6 +54,19 @@ test.describe('Readable document', () => {
         expect(download.suggestedFilename()).toBe('citizenship.docx');
     });
 
+    test('a server that does not answer gives a message, not a wait for ever', async ({ page }) => {
+        await openDialog(page);
+        await page.locator('#readable-dialog select').first().selectOption('md');
+        await page.route('**/leapi', route => {
+            const body = route.request().postData() || '';
+            return body.includes('readableDocument') ? route.abort('connectionreset') : route.continue();
+        });
+        await page.locator('#readable-dialog button', { hasText: 'Save' }).click();
+        await expect(page.locator('#readable-dialog')).toContainText('The server did not answer');
+        await expect(page.locator('#readable-dialog button', { hasText: 'Save' })).toBeEnabled();
+        expect(await page.evaluate(() => document.body.style.cursor)).toBe('');
+    });
+
     test('the address of an example is for signed-in visitors', async ({ page, request }) => {
         if (process.env.NO_RESTRICTIONS !== 'true') {
             const anon = await request.get('/readable/citizenship?format=html', { maxRedirects: 0 });

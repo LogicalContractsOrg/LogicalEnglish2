@@ -1764,13 +1764,29 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         sync();
         const make = async () => {
             status.textContent = t('Making the document…');
-            // The links to an included resource's own document go to this
-            // server's /readable/ route; the browser-only deployment has none.
-            const linkBase = (window as any).LE_WASM_CONFIG ? null : location.origin;
-            const data = await leRequest('readableDocument', doc, {
-                text: doc.model.getValue(), fileName: doc.fileName || '', format: format.value,
-                style: style.value, comments: comments.checked, linkBase });
-            if (data.error) { status.textContent = String(data.error); return null; }
+            // A long program takes some seconds: a wait cursor, and no second
+            // request while the first runs.
+            const busy = (on: boolean) => {
+                for (const el of [document.body, overlay, box]) el.style.cursor = on ? 'wait' : '';
+                for (const b of [openBtn, saveBtn, cancel]) b.disabled = on;
+                if (!on) sync();
+            };
+            busy(true);
+            let data: any;
+            try {
+                // The links to an included resource's own document go to this
+                // server's /readable/ route; the browser-only deployment has none.
+                const linkBase = (window as any).LE_WASM_CONFIG ? null : location.origin;
+                data = await leRequest('readableDocument', doc, {
+                    text: doc.model.getValue(), fileName: doc.fileName || '', format: format.value,
+                    style: style.value, comments: comments.checked, linkBase });
+            } catch {
+                // the server stopped or restarted while it made the document
+                data = { error: t('The server did not answer, so the document was not made. Try again.') };
+            } finally {
+                busy(false);
+            }
+            if (!data || data.error) { status.textContent = String(data?.error ?? ''); return null; }
             status.textContent = '';
             let blob: Blob;
             if (data.encoding === 'base64') {

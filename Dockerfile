@@ -42,6 +42,9 @@ WORKDIR /app
 
 # Copy the Prolog source files and examples into the container
 COPY *.pl ./
+#  classic_web_api.pl loads wasm/pack.pl (which example trees a static export
+#  leaves out); the rest of wasm/ is the WebAssembly build, not for the image.
+COPY wasm/pack.pl ./wasm/pack.pl
 # The parts of the private lpsPlus repository this server uses — signing in
 # and the licences table (accounts/), the translators (migration/) — copied
 # there by vendor_lpsplus.sh, which buildPush.sh runs. Without them the image

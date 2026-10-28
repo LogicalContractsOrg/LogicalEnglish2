@@ -170,15 +170,31 @@ readable_ir0(Text, Options, Doc) :-
     (   once(le_i18n:detect_language_tokens(Tokens0, Lang0)) -> Lang = Lang0 ; Lang = en ),
     le_i18n:with_le_language(Lang, le_readable:readable_ir_(Text, Tokens0, Base, Lang, Options, Doc)).
 
+%   Nothing of a document stays on the server once it is made: the program
+%   is loaded into a module of the thread's own (one name per worker
+%   thread, so neither modules nor their mutexes pile up), and the module's
+%   clauses, the recorded sentences and the templates cached for it are
+%   dropped when the document is done, or fails.
 readable_ir_(Text, Tokens0, Base, Lang, Options, Doc) :-
-    gensym(le_readable_kb_, M),
+    thread_self(Me),
+    ( atom(Me) -> Id = Me ; thread_property(Me, id(Id)) ),
+    atom_concat(le_readable_kb_, Id, M),
     setup_call_cleanup(
-        true,
+        destroy_module_clauses(M),
         (   nb_setval(le_readable_base, Base),
             load_recording(Text, Base, M),
             build_doc(Text, Tokens0, M, Lang, Options, Doc)
         ),
-        ( destroy_module_clauses(M), retractall(rec_span(_, _, _, _, _)) )).
+        forget_document(M)).
+
+forget_document(M) :-
+    destroy_module_clauses(M),
+    retractall(rec_span(_, _, _, _, _)),
+    nb_setval(le_readable_base, (-)),
+    (   nb_current(le_prepared_templates, k(M, _, _, _)-_)
+    ->  nb_delete(le_prepared_templates)
+    ;   true
+    ).
 
 load_recording(Text, Base, M) :-
     retractall(rec_span(_, _, _, _, _)),

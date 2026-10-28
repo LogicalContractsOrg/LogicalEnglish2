@@ -10329,7 +10329,8 @@ var uiCatalog = {
     "Kind of thing": "Tipo de coisa",
     "Statement": "Afirma\xE7\xE3o",
     "Comment": "Coment\xE1rio",
-    "Made from {name} on {date}.": "Feito a partir de {name} em {date}."
+    "Made from {name} on {date}.": "Feito a partir de {name} em {date}.",
+    "The server did not answer, so the document was not made. Try again.": "O servidor n\xE3o respondeu, por isso o documento n\xE3o foi feito. Tente novamente."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -11092,7 +11093,8 @@ var uiCatalog = {
     "Kind of thing": "Tipo de cosa",
     "Statement": "Enunciado",
     "Comment": "Comentario",
-    "Made from {name} on {date}.": "Hecho a partir de {name} el {date}."
+    "Made from {name} on {date}.": "Hecho a partir de {name} el {date}.",
+    "The server did not answer, so the document was not made. Try again.": "El servidor no respondi\xF3, por eso el documento no se hizo. Int\xE9ntelo de nuevo."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11855,7 +11857,8 @@ var uiCatalog = {
     "Kind of thing": "Sorte de chose",
     "Statement": "\xC9nonc\xE9",
     "Comment": "Commentaire",
-    "Made from {name} on {date}.": "Fait \xE0 partir de {name} le {date}."
+    "Made from {name} on {date}.": "Fait \xE0 partir de {name} le {date}.",
+    "The server did not answer, so the document was not made. Try again.": "Le serveur n'a pas r\xE9pondu, donc le document n'a pas \xE9t\xE9 fait. R\xE9essayez."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12618,7 +12621,8 @@ var uiCatalog = {
     "Kind of thing": "Tipo di cosa",
     "Statement": "Enunciato",
     "Comment": "Commento",
-    "Made from {name} on {date}.": "Fatto a partire da {name} il {date}."
+    "Made from {name} on {date}.": "Fatto a partire da {name} il {date}.",
+    "The server did not answer, so the document was not made. Try again.": "Il server non ha risposto, quindi il documento non \xE8 stato fatto. Riprovare."
   }
 };
 var languages = [
@@ -17661,17 +17665,33 @@ ${err}`, "See s(CASP)");
     sync();
     const make = async () => {
       status.textContent = t("Making the document\u2026");
-      const linkBase = window.LE_WASM_CONFIG ? null : location.origin;
-      const data = await leRequest("readableDocument", doc, {
-        text: doc.model.getValue(),
-        fileName: doc.fileName || "",
-        format: format.value,
-        style: style.value,
-        comments: comments.checked,
-        linkBase
-      });
-      if (data.error) {
-        status.textContent = String(data.error);
+      const busy = (on) => {
+        for (const el of [document.body, overlay, box])
+          el.style.cursor = on ? "wait" : "";
+        for (const b of [openBtn, saveBtn, cancel])
+          b.disabled = on;
+        if (!on)
+          sync();
+      };
+      busy(true);
+      let data;
+      try {
+        const linkBase = window.LE_WASM_CONFIG ? null : location.origin;
+        data = await leRequest("readableDocument", doc, {
+          text: doc.model.getValue(),
+          fileName: doc.fileName || "",
+          format: format.value,
+          style: style.value,
+          comments: comments.checked,
+          linkBase
+        });
+      } catch {
+        data = { error: t("The server did not answer, so the document was not made. Try again.") };
+      } finally {
+        busy(false);
+      }
+      if (!data || data.error) {
+        status.textContent = String(data?.error ?? "");
         return null;
       }
       status.textContent = "";
