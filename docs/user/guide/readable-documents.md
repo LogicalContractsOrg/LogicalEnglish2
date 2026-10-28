@@ -156,7 +156,12 @@ rules (`if … then …`), constraints and `initially` sentences are statements 
 their own kinds. The fluents, the events and the actions are headings. A sentence
 links to the law that makes it true.
 
-The LPS2 editor has the same command: **File > Save as a readable document…**. For
-a program in the older syntax of LPS (an `.lps` file), the document shows the
-program after the conversion to Logical English (**Misc > Convert to Logical
-English…**).
+The LPS2 editor has the same command: **File > Save as a readable document…**, with
+the same **Copy link** button. For a program in the older syntax of LPS (an `.lps`
+file), the document shows the program after the conversion to Logical English
+(**Misc > Convert to Logical English…**).
+
+The LPS2 server gives the documents of its own examples at the same kind of address,
+for example `/readable/le/goat?format=html&style=legal`. The same rule applies: the
+address is only for people who are signed in. A sentence of a base that a program
+extends is a link to the readable document of that base on the LPS2 server.

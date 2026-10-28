@@ -90,6 +90,10 @@ readable_formats([html, md, docx, pdf]).
 %     - link_base(URL): the address of the server whose /readable/ route
 %       renders an included resource; none for no links to resources
 %     - date(Date): the date written in the document (default today)
+%     - example_of(Goal): call(Goal, File, Example) names the example of
+%       the server's /readable/ route that File is, for the links to an
+%       included resource's document; default le_kbs:example_name_for_file/2
+%       (LE2's example trees). LPS2 gives its own.
 readable_document(Text, Options, Result) :-
     once(readable_document_(Text, Options, Result)).
 
@@ -182,6 +186,8 @@ readable_ir_(Text, Tokens0, Base, Lang, Options, Doc) :-
     setup_call_cleanup(
         destroy_module_clauses(M),
         (   nb_setval(le_readable_base, Base),
+            option_or(example_of(ExOf), Options, le_kbs:example_name_for_file),
+            nb_setval(le_readable_example_of, ExOf),
             load_recording(Text, Base, M),
             build_doc(Text, Tokens0, M, Lang, Options, Doc)
         ),
@@ -807,7 +813,7 @@ resource_link(R, LinkBase, URL) :-
     (   Kind = le_url(U) -> atom_string(U, URL)
     ;   Kind = pl_url(U) -> atom_string(U, URL)
     ;   LinkBase \== none,
-        catch(le_kbs:example_name_for_file(Id, Example), _, fail)
+        resource_example(Id, Example)
     ->  format(string(URL), "~w/readable/~w?format=html", [LinkBase, Example])
     ).
 
@@ -1234,7 +1240,7 @@ pred_target(FA, _, _, Templates, Defs, Len, LinkBase, url(URL)) :-
     ;   member(tmpl(FA, S), Templates), S >= Len
     ),
     catch(le_kbs:resource_range_info(S, S, Info), _, fail),
-    Example = Info.resourceExample, Example \== null, !,
+    resource_example(Info.resourcePath, Example), !,
     pred_anchor(FA, PA),
     format(string(URL), "~w/readable/~w?format=html#~w", [LinkBase, Example, PA]).
 pred_target(FA, _, _, Templates, Defs, Len, _, url(URL)) :-
@@ -1244,6 +1250,12 @@ pred_target(FA, _, _, Templates, Defs, Len, _, url(URL)) :-
     catch(le_kbs:resource_range_info(S, S, Info), _, fail),
     Path = Info.resourcePath, le_kbs:is_url(Path), !,
     atom_string(Path, URL).
+
+%   The example name, on the server the links go to, of an included file.
+resource_example(File, Example) :-
+    (   nb_current(le_readable_example_of, G), G \== [] -> true ; G = le_kbs:example_name_for_file ),
+    catch(call(G, File, Example), _, fail),
+    Example \== null, !.
 
 pred_anchor(F/A, Anchor) :-
     atom_codes(F, Cs),
@@ -1259,7 +1271,8 @@ link_block(TA, DefNs, _DeclNs, UseNs, B0, B) :-
     ),
     (   memberchk(B1.type, [statement, (table)])
     ->  N = B1.n,
-        findall(PA, ( get_assoc(FA, TA, local(N)), pred_anchor(FA, PA) ), Ts0),
+        assoc_to_list(TA, TPairs),
+        findall(PA, ( member(FA-local(N), TPairs), pred_anchor(FA, PA) ), Ts0),
         sort(Ts0, Targets),
         findall(_{what: used_in, pred: FA, refs: Refs},
                 ( member(FA, B1.defines), get_assoc(FA, TA, local(N)),

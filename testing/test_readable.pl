@@ -187,6 +187,13 @@ test(operation_reads_editor_text) :-
                        text: Text, format: "html", style: "legal"}, R),
     assertion(sub_string(R.content, _, _, _, "style-legal")).
 
+test(definitions_carry_the_anchors_other_documents_link_to) :-
+    program(Text),
+    readable_document(Text, [format(html), date('2026-10-28')], R),
+    %  the rule that defines `is eligible`, and the declaration of `is a resident`
+    assertion(sub_string(R.content, _, _, _, "<span id=\"p-is_eligible-1\"></span>")),
+    assertion(sub_string(R.content, _, _, _, "<span id=\"p-is_a_resident-1\"></span>")).
+
 test(nothing_stays_on_the_server) :-
     program(Text),
     readable_document(Text, [format(html), date('2026-10-28')], _),
