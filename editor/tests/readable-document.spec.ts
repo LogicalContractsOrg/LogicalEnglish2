@@ -67,6 +67,41 @@ test.describe('Readable document', () => {
         expect(await page.evaluate(() => document.body.style.cursor)).toBe('');
     });
 
+    test('Copy link gives an address that opens only for signed-in visitors', async ({ page, context, browser }) => {
+        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await openDialog(page);
+        await page.locator('#readable-dialog select').nth(1).selectOption('legal');
+        await page.locator('#readable-dialog button', { hasText: 'Copy link' }).click();
+        await expect(page.locator('#readable-dialog')).toContainText('signed in');
+        const url = await page.evaluate(() => navigator.clipboard.readText());
+        expect(url).toMatch(/\/readable\/citizenship\?format=html&style=legal$/);
+        // somebody who is not signed in is sent to sign in, and back
+        const stranger = await browser.newContext();
+        const anon = await stranger.request.get(url, { maxRedirects: 0 });
+        if (process.env.NO_RESTRICTIONS !== 'true') {
+            expect(anon.status()).toBe(302);
+            const back = new URL(anon.headers()['location'], url).searchParams.get('return');
+            expect(back).toBe('/readable/citizenship?format=html&style=legal');
+            // signing in on that page returns to the document
+            const signedIn = await stranger.request.post('/login', { maxRedirects: 0, form: {
+                email: 'support@logicalcontracts.com', password: 'LE2rocks', return: back! } });
+            expect(signedIn.headers()['location']).toContain('/readable/citizenship?format=html&style=legal');
+        }
+        await stranger.close();
+        // a signed-in visitor gets the document
+        await signIn(page);
+        const doc = await page.request.get(url);
+        expect(doc.status()).toBe(200);
+        expect(await doc.text()).toContain('style-legal');
+    });
+
+    test('a program the server does not keep has no link', async ({ page }) => {
+        await page.goto('index.html');
+        await page.waitForSelector('.monaco-editor', { timeout: 30000 });
+        await page.evaluate(() => (document.getElementById('menu-readable') as HTMLElement).click());
+        await expect(page.locator('#readable-dialog button', { hasText: 'Copy link' })).toBeDisabled();
+    });
+
     test('the address of an example is for signed-in visitors', async ({ page, request }) => {
         if (process.env.NO_RESTRICTIONS !== 'true') {
             const anon = await request.get('/readable/citizenship?format=html', { maxRedirects: 0 });

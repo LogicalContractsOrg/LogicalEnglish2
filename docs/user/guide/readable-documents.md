@@ -49,7 +49,8 @@ Do these steps:
 5. To include the comments of the program, select **Include the comments of the
    program**.
 6. Click **Open** to show the document in a new tab, or click **Save…** to save it
-   as a file.
+   as a file. To send the address of the document to somebody, click **Copy link**
+   (refer to [The address of a readable document](#the-address-of-a-readable-document)).
 
 The document shows the text in the editor, also when you did not save it.
 
@@ -124,9 +125,23 @@ Each example program of the server has a readable document at this address:
 
 An example is `/readable/citizenship?format=html&style=legal`.
 
+To give the address to a colleague, do these steps:
+
+1. Open the program from the examples of the server (**File > Open example from
+   server…**).
+2. Select **File > Save as a Readable Document…**.
+3. Select the format, the style and the comments.
+4. Click **Copy link**.
+5. Paste the address into your message.
+
+The address shows the program as the server keeps it. It does not show the changes
+that you did not save. **Copy link** is not available for a program that the server
+does not keep, for example a file from your computer.
+
 To make a document, the server loads the program. Thus the address is only for
 people who are signed in. When you are not signed in, the server opens the sign-in
-page first, and then the document. Refer to
+page first, and then the document. The document of a program of a licensed
+collection opens only for people whose licence includes that collection. Refer to
 [Signing in, and what a licence adds](accounts.md).
 
 The editor that runs completely in the browser (the WebAssembly version) also makes

@@ -1744,6 +1744,29 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         const saveBtn = document.createElement('button');
         saveBtn.textContent = t('Save…');
         saveBtn.title = t('Save the document as a file on your computer');
+        // Copy link: the address of the document on this server's /readable/
+        // route, to send to somebody. The route makes the document for a
+        // signed-in visitor only, and sends anybody else to sign in first.
+        // Only a program the server keeps has an address there: the link shows
+        // the server's copy, not the text in the editor.
+        const linkBtn = document.createElement('button');
+        linkBtn.textContent = t('Copy link');
+        const wasm = !!(window as any).LE_WASM_CONFIG;
+        const readableUrl = () => {
+            const q = new URLSearchParams({ format: format.value });
+            if (format.value === 'html' || format.value === 'pdf') q.set('style', style.value);
+            if (comments.checked) q.set('comments', 'true');
+            return `${location.origin}/readable/${encodeURI(doc.example)}?${q.toString()}`;
+        };
+        linkBtn.onclick = async () => {
+            const url = readableUrl();
+            let copied = true;
+            try { await navigator.clipboard.writeText(url); } catch { copied = false; }
+            const who = t('The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.');
+            const edited = doc.dirty ? ' ' + t('It shows the program as the server keeps it, without your unsaved changes.') : '';
+            status.textContent = (copied ? t('Link copied.') + ' ' : url + ' — ') + who + edited;
+        };
+        bar.append(linkBtn);
         const cancel = document.createElement('button');
         cancel.textContent = t('Cancel');
         cancel.onclick = () => overlay.remove();
@@ -1757,6 +1780,12 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             // A PDF is the web page printed by the browser: it opens, and
             // the browser's print dialog saves it ("Save as PDF").
             saveBtn.disabled = format.value === 'pdf';
+            linkBtn.disabled = wasm || !doc.example;
+            linkBtn.title = wasm
+                ? t('This version of the editor runs in the browser and has no server, so a document has no address to share.')
+                : !doc.example
+                ? t('Only a program that the server keeps has a link: open the program from the server\'s examples.')
+                : t('Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.');
             status.textContent = format.value === 'pdf'
                 ? t('The document opens in a new tab with the print dialog: choose "Save as PDF" there.') : '';
         };
@@ -1768,7 +1797,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             // request while the first runs.
             const busy = (on: boolean) => {
                 for (const el of [document.body, overlay, box]) el.style.cursor = on ? 'wait' : '';
-                for (const b of [openBtn, saveBtn, cancel]) b.disabled = on;
+                for (const b of [openBtn, saveBtn, cancel, linkBtn]) b.disabled = on;
                 if (!on) sync();
             };
             busy(true);

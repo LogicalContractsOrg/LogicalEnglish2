@@ -10330,7 +10330,14 @@ var uiCatalog = {
     "Statement": "Afirma\xE7\xE3o",
     "Comment": "Coment\xE1rio",
     "Made from {name} on {date}.": "Feito a partir de {name} em {date}.",
-    "The server did not answer, so the document was not made. Try again.": "O servidor n\xE3o respondeu, por isso o documento n\xE3o foi feito. Tente novamente."
+    "The server did not answer, so the document was not made. Try again.": "O servidor n\xE3o respondeu, por isso o documento n\xE3o foi feito. Tente novamente.",
+    "Copy link": "Copiar liga\xE7\xE3o",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "A liga\xE7\xE3o s\xF3 abre o documento para quem tem sess\xE3o iniciada neste servidor; os outros t\xEAm primeiro de iniciar sess\xE3o.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Mostra o programa como o servidor o guarda, sem as suas altera\xE7\xF5es por guardar.",
+    "Link copied.": "Liga\xE7\xE3o copiada.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Esta vers\xE3o do editor funciona no navegador e n\xE3o tem servidor, por isso um documento n\xE3o tem endere\xE7o para partilhar.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "S\xF3 um programa que o servidor guarda tem liga\xE7\xE3o: abra o programa a partir dos exemplos do servidor.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar o endere\xE7o deste documento, para o enviar a algu\xE9m. S\xF3 abre para quem tem sess\xE3o iniciada neste servidor."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -11094,7 +11101,14 @@ var uiCatalog = {
     "Statement": "Enunciado",
     "Comment": "Comentario",
     "Made from {name} on {date}.": "Hecho a partir de {name} el {date}.",
-    "The server did not answer, so the document was not made. Try again.": "El servidor no respondi\xF3, por eso el documento no se hizo. Int\xE9ntelo de nuevo."
+    "The server did not answer, so the document was not made. Try again.": "El servidor no respondi\xF3, por eso el documento no se hizo. Int\xE9ntelo de nuevo.",
+    "Copy link": "Copiar enlace",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "El enlace solo abre el documento para quien ha iniciado sesi\xF3n en este servidor; los dem\xE1s deben iniciar sesi\xF3n primero.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Muestra el programa como lo guarda el servidor, sin sus cambios sin guardar.",
+    "Link copied.": "Enlace copiado.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Esta versi\xF3n del editor funciona en el navegador y no tiene servidor, por eso un documento no tiene direcci\xF3n para compartir.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Solo un programa que el servidor guarda tiene enlace: abra el programa desde los ejemplos del servidor.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar la direcci\xF3n de este documento, para enviarla a alguien. Solo se abre para quien ha iniciado sesi\xF3n en este servidor."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11858,7 +11872,14 @@ var uiCatalog = {
     "Statement": "\xC9nonc\xE9",
     "Comment": "Commentaire",
     "Made from {name} on {date}.": "Fait \xE0 partir de {name} le {date}.",
-    "The server did not answer, so the document was not made. Try again.": "Le serveur n'a pas r\xE9pondu, donc le document n'a pas \xE9t\xE9 fait. R\xE9essayez."
+    "The server did not answer, so the document was not made. Try again.": "Le serveur n'a pas r\xE9pondu, donc le document n'a pas \xE9t\xE9 fait. R\xE9essayez.",
+    "Copy link": "Copier le lien",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "Le lien n'ouvre le document que pour les personnes connect\xE9es \xE0 ce serveur ; les autres doivent d'abord se connecter.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Il montre le programme tel que le serveur le garde, sans vos modifications non enregistr\xE9es.",
+    "Link copied.": "Lien copi\xE9.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Cette version de l'\xE9diteur fonctionne dans le navigateur et n'a pas de serveur : un document n'a donc pas d'adresse \xE0 partager.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Seul un programme que le serveur garde a un lien : ouvrez le programme depuis les exemples du serveur.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copier l'adresse de ce document, pour l'envoyer \xE0 quelqu'un. Il ne s'ouvre que pour les personnes connect\xE9es \xE0 ce serveur."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12622,7 +12643,14 @@ var uiCatalog = {
     "Statement": "Enunciato",
     "Comment": "Commento",
     "Made from {name} on {date}.": "Fatto a partire da {name} il {date}.",
-    "The server did not answer, so the document was not made. Try again.": "Il server non ha risposto, quindi il documento non \xE8 stato fatto. Riprovare."
+    "The server did not answer, so the document was not made. Try again.": "Il server non ha risposto, quindi il documento non \xE8 stato fatto. Riprovare.",
+    "Copy link": "Copia link",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "Il link apre il documento solo per chi ha effettuato l'accesso a questo server; gli altri devono prima accedere.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Mostra il programma come lo conserva il server, senza le modifiche non salvate.",
+    "Link copied.": "Link copiato.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Questa versione dell'editor funziona nel browser e non ha un server, quindi un documento non ha un indirizzo da condividere.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Solo un programma conservato dal server ha un link: aprire il programma dagli esempi del server.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiare l'indirizzo di questo documento, per inviarlo a qualcuno. Si apre solo per chi ha effettuato l'accesso a questo server."
   }
 };
 var languages = [
@@ -17648,6 +17676,30 @@ ${err}`, "See s(CASP)");
     const saveBtn = document.createElement("button");
     saveBtn.textContent = t("Save\u2026");
     saveBtn.title = t("Save the document as a file on your computer");
+    const linkBtn = document.createElement("button");
+    linkBtn.textContent = t("Copy link");
+    const wasm = !!window.LE_WASM_CONFIG;
+    const readableUrl = () => {
+      const q = new URLSearchParams({ format: format.value });
+      if (format.value === "html" || format.value === "pdf")
+        q.set("style", style.value);
+      if (comments.checked)
+        q.set("comments", "true");
+      return `${location.origin}/readable/${encodeURI(doc.example)}?${q.toString()}`;
+    };
+    linkBtn.onclick = async () => {
+      const url = readableUrl();
+      let copied = true;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        copied = false;
+      }
+      const who = t("The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.");
+      const edited = doc.dirty ? " " + t("It shows the program as the server keeps it, without your unsaved changes.") : "";
+      status.textContent = (copied ? t("Link copied.") + " " : url + " \u2014 ") + who + edited;
+    };
+    bar.append(linkBtn);
     const cancel = document.createElement("button");
     cancel.textContent = t("Cancel");
     cancel.onclick = () => overlay.remove();
@@ -17659,6 +17711,8 @@ ${err}`, "See s(CASP)");
       style.disabled = !web;
       openBtn.disabled = !web;
       saveBtn.disabled = format.value === "pdf";
+      linkBtn.disabled = wasm || !doc.example;
+      linkBtn.title = wasm ? t("This version of the editor runs in the browser and has no server, so a document has no address to share.") : !doc.example ? t("Only a program that the server keeps has a link: open the program from the server's examples.") : t("Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.");
       status.textContent = format.value === "pdf" ? t('The document opens in a new tab with the print dialog: choose "Save as PDF" there.') : "";
     };
     format.onchange = sync;
@@ -17668,7 +17722,7 @@ ${err}`, "See s(CASP)");
       const busy = (on) => {
         for (const el of [document.body, overlay, box])
           el.style.cursor = on ? "wait" : "";
-        for (const b of [openBtn, saveBtn, cancel])
+        for (const b of [openBtn, saveBtn, cancel, linkBtn])
           b.disabled = on;
         if (!on)
           sync();
