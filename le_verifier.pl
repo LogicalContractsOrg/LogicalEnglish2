@@ -38,6 +38,7 @@ verify(KB, Options, Issues) :-
     nb_setval(le_query_reachable, none),       % computed once per verification
     nb_setval(le_body_functors, none),         % likewise (template_used/3)
     nb_setval(le_template_used, none),
+    nb_setval(le_view_functors, none),         % likewise (template_used/3)
     %  the budget is this verification's: a test run after it (runTestsFor,
     %  in the same thread) has none
     setup_call_cleanup(
@@ -1148,6 +1149,21 @@ template_used_(KB, F, A) :-
     KB:query_info(_, Goal, _),
     find_in_body(Goal, L),
     embeds_literal(L, F, A), !.
+%   Named by a view: the view asks for it as a fact of the case, or shows it.
+%   The verifier said "never used" of a template that a view names, and a
+%   clean-up that believed it broke the view (view_unknown_template).
+template_used_(KB, F, A) :-
+    view_functors(KB, Used),
+    get_assoc(F/A, Used, _), !.
+
+view_functors(KB, Used) :-
+    (   nb_current(le_view_functors, KB-Used0), Used0 \== none
+    ->  Used = Used0
+    ;   findall(F/A-x, catch(le_views:view_template(KB, F, A), _, fail), Pairs0),
+        sort(Pairs0, Pairs),
+        list_to_assoc(Pairs, Used),
+        nb_setval(le_view_functors, KB-Used)
+    ).
 
 %   body_functors(+KB, -Used): every F/A a condition of a rule or a query
 %   names, computed once per verification (a program of a thousand templates

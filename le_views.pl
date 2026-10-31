@@ -36,6 +36,7 @@
     record_view_source/5,   % +M, +Name, +Rows, +Start, +End
     program_views/2,        % +KB, -Views:list(dict)
     view_issue/2,           % +KB, -Issue
+    view_template/3,        % +KB, -F, -A
     draft_view/2,           % +KB, -Text:string
     draft_view/3,           % +KB, +NameHint:string, -Text:string
     automatic_view/3        % +KB, +NameHint:string, -View:dict
@@ -107,6 +108,22 @@ view_issue(KB, Issue) :-
         \+ ( KB:le_view_source(Name, _, S0, _), S0 < S ),
         issue(view_duplicate_name, [name-Name], S, E, Issue)
     ).
+
+%!  view_template(+KB, -F, -A) is nondet.
+%
+%   A template that a view of the program names (a fact it asks for, a
+%   judgment, a question, a kept fact), for the verifier's `unused_template`.
+view_template(KB, F, A) :-
+    atom(KB), KB \== none,
+    current_predicate(KB:le_view_source/4),
+    findall(D, KB:le_dict(D), Dicts),
+    le_grammar:prepare_templates(Dicts, Templates),
+    KB:le_view_source(Name, Sents, S, E),
+    member(sentence(Toks, _, _), Sents),
+    Toks \== [],
+    catch(phrase(view_sentence(Item0), Toks), _, fail),
+    catch(resolve_item(KB, Templates, Name, Item0, S, E, Item, _), _, fail),
+    sub_term(inst(F/A, _, _, _, _), Item).
 
 compile_view(KB, Name, Sents, VStart, VEnd, View, Issues) :-
     findall(D, KB:le_dict(D), Dicts),
