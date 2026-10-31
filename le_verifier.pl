@@ -91,6 +91,7 @@ check_issue(KB, _, Issue) :- defined_scenario_element(KB, Issue).
 check_issue(KB, _, Issue) :- untested_predicate(KB, Issue).
 check_issue(KB, _, Issue) :- rule_without_variables(KB, Issue).
 check_issue(KB, _, Issue) :- facts_rules_ratio(KB, Issue).
+check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), query_cannot_give_expected(KB, Issue).
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), failed_test(KB, Issue).
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), tests_not_run(KB, Issue).
 check_issue(KB, _, Issue) :- redefined_system_template(KB, Issue).
@@ -1429,6 +1430,103 @@ facts_rules_ratio(KB, issue(too_many_facts, Description, Fix, 0, 0)) :-
     le_i18n:le_msg(too_many_facts_fix, [], Fix).
 
 % --- 6. Failed tests ---
+
+% A query that can never give its expected answers. The expected answer
+% "conference proposal may proceed" read against the templates is
+% may_proceed('conference proposal'); the query "the proposal may proceed",
+% with no `which`, is may_proceed('the proposal'), a constant. Or the query
+% "which check has which result for which proposal" matches a more general
+% template than its answers do. Either way the test fails with no answer at
+% all, and "Expected [...], Actual []" does not say why: a repair round
+% rewrote rules for a query that could not match them. Reported once per
+% query, at its first expectation that no literal of the query unifies with.
+query_cannot_give_expected(KB, issue(query_cannot_give_expected, Description, Fix, Start, End)) :-
+    current_predicate(KB:le_expected/4),
+    current_predicate(KB:query_info/3),
+    findall(Q, clause(KB:le_expected(Q, _, _, _), true), Qs0),
+    sort(Qs0, Qs),
+    member(QueryName, Qs),
+    once(KB:query_info(QueryName, Goal, _)),
+    \+ ( Goal = le_flip(_, _) ; Goal = le_cases(_, _, _) ),
+    query_literals(Goal, Literals),
+    once(( clause(KB:le_expected(QueryName, ScenarioName, Expected, ExpU), true, Ref),
+           member(E, Expected),
+           expected_answer_text(E, Text),
+           answer_readings(KB, Text, Readings),
+           Readings = [AnswerGoal|_],
+           \+ ( member(R, Readings), member(L, Literals), same_shape(L, R) ) )),
+    % a test that passes shows the query can give its answers, whatever the
+    % readings say (an answer's value can hold the words of a template)
+    test_in_budget,
+    run_one_test(KB, test(QueryName, ScenarioName, Expected, ExpU), Result),
+    Result \= pass(_, _), Result \= not_run(_, _),
+    query_literals(Goal, QLs), ( QLs = [QL] -> true ; QL = Goal ),
+    goal_reading(QL, QReading),
+    goal_reading(AnswerGoal, AReading),
+    le_i18n:le_msg(query_cannot_give_expected_desc,
+                   [query-QueryName, scenario-ScenarioName, answer-Text,
+                    query_reading-QReading, answer_reading-AReading], Description),
+    le_i18n:le_msg(query_cannot_give_expected_fix, [], Fix),
+    ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true ; Start = 0, End = 0 ).
+
+query_literals(G, Ls) :- var(G), !, Ls = [G].
+query_literals(le_at(G, _, _), Ls) :- !, query_literals(G, Ls).
+query_literals((A, B), Ls) :- !, query_literals(A, LA), query_literals(B, LB), append(LA, LB, Ls).
+query_literals(and(A, B), Ls) :- !, query_literals(A, LA), query_literals(B, LB), append(LA, LB, Ls).
+query_literals(G, [G]).
+
+%   Every reading of an expected answer as one plain literal of the
+%   program's own templates (a reading as the built-in "*a thing* is *a
+%   value*" is left out: an answer such as "the answer to X is" ends in that
+%   word only because its value is empty). No reading, no report.
+answer_readings(KB, Text, Readings) :-
+    % an answer that reads as a conjunction or a negation is the instance of
+    % a whole query body, not of one literal
+    \+ ( catch(( tokenizer:tokenize_lang(Text, Ts0), le_grammar:set_token_pos(0),
+                 le_kbs:custom_query_body(KB, Ts0, Body) ), _, fail),
+         \+ single_answer_literal(Body, _) ),
+    catch(( tokenizer:tokenize_lang(Text, Tokens),
+            le_grammar:set_token_pos(0),
+            findall(R, ( le_kbs:parse_query_to_goal(KB, Tokens, G, _),
+                         single_answer_literal(G, R),
+                         \+ functor(R, le_is, _) ),
+                    Readings0) ),
+          _, Readings0 = []),
+    Readings0 \== [],
+    Readings = Readings0.
+
+%   A query literal can give the answer: they unify once strings and atoms
+%   are the same (a quoted value is a string in one, an atom in the other).
+same_shape(L, R) :-
+    copy_term(L-R, L1-R1),
+    texts_as_atoms(L1, L2), texts_as_atoms(R1, R2),
+    L2 = R2, !.
+
+texts_as_atoms(T, T) :- var(T), !.
+texts_as_atoms(T, A) :- string(T), !, atom_string(A, T).
+texts_as_atoms(T, T) :- atomic(T), !.
+texts_as_atoms(T, T2) :-
+    T =.. [F|As], maplist(texts_as_atoms, As, As2), T2 =.. [F|As2].
+
+%   An expected answer read as one plain literal: only then is "no literal of
+%   the query unifies with it" sure to mean the query cannot give it (an
+%   answer that is itself a conjunction or a negation is the whole query's
+%   instance, and is left alone).
+single_answer_literal(Goal, L) :-
+    query_literals(Goal, [L]),
+    nonvar(L),
+    \+ memberchk(L, [not(_), (\+ _), or(_, _), (_ ; _)]).
+
+expected_answer_text(string(S, _), T) :- !, atom_string(S, T).
+expected_answer_text(S, T) :- atomic(S), atom_string(S, T).
+
+%   A goal as the reader of a message can compare two of them: the predicate,
+%   and its arguments with `_` for a `which` variable.
+goal_reading(Goal, Reading) :-
+    copy_term(Goal, G),
+    term_variables(G, Vs), maplist(=('$VAR'('_')), Vs),
+    format(string(Reading), "~W", [G, [quoted(true), numbervars(true)]]).
+
 failed_test(KB, issue(failed_test, Description, Fix, Start, End)) :-
     current_predicate(KB:le_expected/4),
     clause(KB:le_expected(QueryName, ScenarioName, ExpectedStrings, ExpectedUnknowns), true, Ref),
@@ -1768,7 +1866,7 @@ print_issue(issue(Type, Description, Fix, Start, End)) :-
 %   the text as a format string and fail with "too many arguments".
 verifier_issue_kind(Type) :-
     atom(Type),
-    (   memberchk(Type, [missing_template, undefined_predicate, opposite_as_condition, negated_unknown, suspicious_is_a, misplaced_expectation, defined_scenario_element, untested_predicate, tests_not_run, rule_without_variables, missing_rules, too_many_facts, failed_test, redefined_system_template, scenario_before_rules, missing_trailing_dot, prepositional_arity, prepositional_first_arg, reserved_word_in_template, single_variable_fact, include_too_deep, restricted_resource, skipped_directive, module_directive_stripped, missing_resource, unsafe_prolog_goal, stray_asterisk, unmarked_meta_template, unused_template, unconsumed_facts, unused_constant, image_nonground, image_on_rule, image_bad_url, image_template_vars, judged_with_rules, judgment_without_provenance, fact_without_provenance, malformed_provenance, quote_not_found, unread_value, mistyped_value, view_unknown_sentence, view_unknown_template, view_unknown_query, view_unknown_scenario, view_bad_question, view_duplicate_name, view_not_judged, view_derived_fact, view_no_result, view_said_twice, view_headed_by_unknown, view_stage_without_sections, view_nothing_cited, view_unknown_section, view_keeps_derived])
+    (   memberchk(Type, [missing_template, undefined_predicate, opposite_as_condition, negated_unknown, suspicious_is_a, misplaced_expectation, defined_scenario_element, untested_predicate, tests_not_run, rule_without_variables, missing_rules, too_many_facts, failed_test, query_cannot_give_expected, redefined_system_template, scenario_before_rules, missing_trailing_dot, prepositional_arity, prepositional_first_arg, reserved_word_in_template, single_variable_fact, include_too_deep, restricted_resource, skipped_directive, module_directive_stripped, missing_resource, unsafe_prolog_goal, stray_asterisk, unmarked_meta_template, unused_template, unconsumed_facts, unused_constant, image_nonground, image_on_rule, image_bad_url, image_template_vars, judged_with_rules, judgment_without_provenance, fact_without_provenance, malformed_provenance, quote_not_found, unread_value, mistyped_value, view_unknown_sentence, view_unknown_template, view_unknown_query, view_unknown_scenario, view_bad_question, view_duplicate_name, view_not_judged, view_derived_fact, view_no_result, view_said_twice, view_headed_by_unknown, view_stage_without_sections, view_nothing_cited, view_unknown_section, view_keeps_derived])
     ->  true
     ;   atom_concat(Type, '_desc', Key),
         le_i18n:msg_entry(en, Key, _)
