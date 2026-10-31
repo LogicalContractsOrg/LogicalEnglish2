@@ -375,6 +375,8 @@ are called *twins*, and the twins are among the examples. To open a twin, select
 ledger, the tests of its source written as scenarios, and its `sources/` folder.
 
 - `migration/blawx/…`: Blawx encodings;
+- `migration/epilog/…`: the rulesets of the Epilog site, with the answers of
+  EpilogJS (the full list of Epilog programs is in the README of that folder);
 - `migration/l4/…`: the examples and courses of L4, their rules, and the history
   views of their contracts;
 - `migration/legalruleml/…`: the examples of the LegalRuleML specification;
@@ -387,8 +389,8 @@ ledger, the tests of its source written as scenarios, and its `sources/` folder.
 - `migration/scasp/…`: s(CASP) programs, including the programs of LE1.
 
 The twins written in Logical English for LPS (Daml, Drools, Solidity, the contracts
-of L4) are among the examples of LPS2. The twins of Oracle Intelligent Advisor,
-Oracle Insurance Policy Administration (OIPA), Socotra and Epilog are only on
+of L4, the Epilog games) are among the examples of LPS2. The twins of Oracle
+Intelligent Advisor and Socotra are only on
 installations that have the lpsPlus examples (in `lpsPlus/migration/`). Only users
 with access to these examples can open them.
 

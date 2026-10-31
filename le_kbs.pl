@@ -20,6 +20,7 @@
     le_network_allowed/0, set_le_network_allowed/1,
     le_issue_reporting/0, set_le_issue_reporting/1,
     le_examples_dir/1, le_example_relpath/2, language_examples_dir/2, le_extra_examples_dir/2,
+    le_private_examples_dir/2, private_examples_dir/1,
     example_alias/2, example_dir_alias/2, example_current_name/2, negation_words/1, user_rule_name/1]).
 
 :- discontiguous process_section_acc/2.
@@ -98,6 +99,36 @@ le_extra_examples_dir(regulatory, 'examples/regulatory').
 le_extra_examples_dir(migration, 'examples/migration').
 le_extra_examples_dir(fixtures, 'testing/fixtures/le').
 
+%!  le_private_examples_dir(?Name:atom, ?Dir:atom) is semidet.
+%
+%   The unlisted example tree: examples/private/ of the private lpsPlus
+%   repository (le_plus:le_plus_root/1), Dir its absolute path, so that its
+%   programs are kept in that repository's history and not in this one's.
+%   Fails on an installation without lpsPlus, or whose lpsPlus has no such
+%   folder. A name under Name ('private/acme/contract') resolves into Dir
+%   (le_example_relpath/2), so whoever knows an exact name can open the
+%   program, and a landing page ?dir=private/<folder> shows that folder.
+%   Nothing lists it: it is deliberately NOT a le_extra_examples_dir/2 tree,
+%   and the walkers of the other trees skip it where they meet it again —
+%   examples/moreExamples/lpsPlus is a link to lpsPlus's examples/, and so
+%   holds the same folder (private_examples_dir/1). Not a restricted tree
+%   either (restricted_paths.pl): knowing the name is enough. The browser
+%   build leaves it out (wasm/pack.pl never/1).
+le_private_examples_dir(private, Dir) :-
+    catch(le_plus:le_plus_root(Root), _, fail),
+    atom_concat(Root, '/examples/private', Dir),
+    exists_directory(Dir).
+
+%!  private_examples_dir(+Dir:atom) is semidet.
+%
+%   Dir, by whatever path (a relative one, or one through a symbolic link
+%   such as examples/moreExamples/lpsPlus/private), is the unlisted example
+%   tree of le_private_examples_dir/2. Every walker of an example tree asks
+%   this of each folder it would go into, and does not go into this one.
+private_examples_dir(Dir) :-
+    le_private_examples_dir(_, PrivateDir),
+    catch(same_file(Dir, PrivateDir), _, fail).
+
 %!  example_alias(?Old:atom, ?New:atom) is nondet.
 %!  example_dir_alias(?OldDir:atom, ?NewDir:atom) is nondet.
 %
@@ -167,6 +198,11 @@ example_dir_alias('insureLE2/migration/oipa', 'migration/oipa').
 example_dir_alias('lpsPlus/customs', 'regulatory/customs').
 example_dir_alias('lpsPlus/medicare', 'regulatory/medicare').
 example_dir_alias('lpsPlus/migration/oipa', 'migration/oipa').
+%  The Epilog site's texts were cleared for publication (October 2026): the
+%  rulesets' twins left lpsPlus for examples/migration/epilog/; the games'
+%  (Logical English for LPS) went to LPS2's examples.
+example_dir_alias('insureLE2/migration/epilog', 'migration/epilog').
+example_dir_alias('lpsPlus/migration/epilog', 'migration/epilog').
 
 %!  example_current_name(+Name:atom, -Current:atom) is det.
 %
@@ -210,7 +246,9 @@ le_example_relpath(Name0, Path) :-
     ->  atom_concat('examples/', Name, Path)
     ;   sub_atom(Name, Before, _, _, '/'),
         sub_atom(Name, 0, Before, _, Root),
-        le_extra_examples_dir(Root, RootDir)
+        (   le_extra_examples_dir(Root, RootDir)
+        ;   le_private_examples_dir(Root, RootDir)    % unlisted, but opens by name
+        )
     ->  sub_atom(Name, Before, _, 0, Rest),          % '/<name>'
         atom_concat(RootDir, Rest, Path)
     ;   le_examples_dir(Dir),
@@ -983,6 +1021,7 @@ example_name_for_file(File, Name) :-
     file_name_extension(Stem, le, File),
     (   le_examples_dir(Dir), Prefix = ''
     ;   le_extra_examples_dir(Root, Dir), atom_concat(Root, '/', Prefix)
+    ;   le_private_examples_dir(Root, Dir), atom_concat(Root, '/', Prefix)
     ;   language_examples_dir(Lang, Dir), atom_concat(Lang, '/', Prefix)
     ),
     absolute_file_name(Dir, AbsDir, [file_type(directory), file_errors(fail)]),
@@ -3657,6 +3696,7 @@ runTestsInDir(Dir, Suite, Results) :-
         \+ sub_atom(F, 0, 1, _, '.'),
         directory_file_path(Dir, F, SubDir),
         exists_directory(SubDir),
+        \+ private_examples_dir(SubDir),          % unlisted, not in any suite
         suite_includes(Suite, SubDir),
         runTestsInDir(SubDir, Suite, SubResults)
     ), SubResultsLists),

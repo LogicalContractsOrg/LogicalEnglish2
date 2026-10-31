@@ -1,0 +1,97 @@
+% Properties of a graph (the Examples page)
+%
+% The Logical English twin of an Epilog ruleset, written by the Epilog translator
+% from graphs.rules and graphs.data (kept in sources/). Every expected answer is
+% EpilogJS's own (Stanford's Epilog interpreter) on the same ruleset and dataset.
+% Source: the Epilog Examples page, http://epilog.stanford.edu/homepage/rulesheet.php?theory=graphs
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    nonreflexive.
+    nonsymmetric.
+    nontransitive.
+    reflexive.
+    symmetric.
+    transitive.
+    *a node* is a node.
+    *a node* is the p of *a second node*.
+
+the knowledge base graphs includes:
+
+the text of the ruleset is at "sources/graphs.rules".
+
+reflexive if
+    it is not the case that nonreflexive.
+
+nonreflexive if
+    a node is a node
+    and it is not the case that the node is the p of the node.
+
+symmetric if
+    it is not the case that nonsymmetric.
+
+nonsymmetric if
+    a node is the p of a second node
+    and it is not the case that the second node is the p of the node.
+
+transitive if
+    nontransitive.
+
+nontransitive if
+    a node is the p of a second node
+    and the second node is the p of a third node
+    and it is not the case that the node is the p of the third node.
+
+scenario dataset is, as stated in the dataset:
+    a is a node.
+    b is a node.
+    c is a node.
+    d is a node.
+    e is a node.
+    a is the p of a.
+    a is the p of b.
+    a is the p of c.
+    b is the p of a.
+    b is the p of b.
+    b is the p of c.
+    c is the p of a.
+    c is the p of b.
+    c is the p of c.
+    d is the p of d.
+    d is the p of e.
+    e is the p of d.
+    e is the p of e.
+    nonreflexive expects answers [].
+    nonsymmetric expects answers [].
+    nontransitive expects answers [].
+    reflexive expects answers ["reflexive"].
+    symmetric expects answers ["symmetric"].
+    transitive expects answers [].
+
+query nonreflexive is:
+    nonreflexive.
+
+query nonsymmetric is:
+    nonsymmetric.
+
+query nontransitive is:
+    nontransitive.
+
+query reflexive is:
+    reflexive.
+
+query symmetric is:
+    symmetric.
+
+query transitive is:
+    transitive.
+

@@ -112,6 +112,15 @@ never(Rel) :- sub_atom(Rel, 0, 1, _, '.').
 %   of a `--private` build too: light is what the browser build is, not a
 %   rule about who may read.
 never(Rel) :- light_excluded(Tree), sub_atom(Rel, 0, _, _, Tree).
+%   The unlisted examples (le_kbs:le_private_examples_dir/2), which the
+%   server opens only for whoever knows a name. A static site serves every
+%   file it carries to anyone who asks, and its payload can be unpacked and
+%   read, so it cannot keep a name unlisted: the tree is never packed, in a
+%   `--private` build either, which follows the link
+%   examples/moreExamples/lpsPlus into lpsPlus's examples/ and so would meet
+%   the tree as lpsPlus/private/ there.
+never(Rel) :- sub_atom(Rel, 0, _, _, 'examples/moreExamples/lpsPlus/private/').
+never(Rel) :- sub_atom(Rel, 0, _, _, 'examples/private/').
 
 %!  light_excluded(?Tree:atom) is nondet.
 %

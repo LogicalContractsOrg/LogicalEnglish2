@@ -53,6 +53,16 @@ page. These settings are useful when you want to share a link:
     "[show all]" link goes back to the full list.
 *   `?expand=all` opens all the folders.
 
+The folder `private/` is not listed. A program in that folder opens only when you
+know its exact name, for example `/editor/index.html?example=private/acme/contract`.
+You do not have to log in. The address `/?dir=private/acme` shows the programs of the
+folder `acme`. The address `/?dir=private` shows no programs. The programs of
+`private/` do not show in the list of examples, in the search of the examples, in
+**File > Open example from server...** or in the browser-only copy of the site. An
+unlisted program is not a secret: anybody who has the name can open the program.
+On an installation that has the private lpsPlus repository, the folder is
+`examples/private/` of that repository. Without lpsPlus, there is no folder `private/`.
+
 Above the list of examples, a box **searches the examples**. This box operates in the
 same way as the box below *Documentation*, which searches the documents. Do these
 steps:
@@ -353,9 +363,11 @@ directory:
 | `insureLE2/medicare/…` | `regulatory/medicare/…` |
 | `insureLE2/migration/…` | `lpsPlus/migration/…` |
 | `insureLE2/migration/oipa/…` | `migration/oipa/…` |
+| `insureLE2/migration/epilog/…` | `migration/epilog/…` (the Epilog rulesets; the Epilog games are in LPS2) |
 | `lpsPlus/customs/…` | `regulatory/customs/…` |
 | `lpsPlus/medicare/…` | `regulatory/medicare/…` |
 | `lpsPlus/migration/oipa/…` | `migration/oipa/…` |
+| `lpsPlus/migration/epilog/…` | `migration/epilog/…` (the Epilog rulesets; the Epilog games are in LPS2) |
 
 Some single programs moved independently: `sums`, `citizenship_including`,
 `white_rabbit` and approximately thirty others. Each of these programs has one

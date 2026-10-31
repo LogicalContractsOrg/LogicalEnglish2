@@ -1,0 +1,47 @@
+{
+  "counts": {"approximated":0,"encoded":2,"residue":1},
+  "entries": [
+    {
+      "element":"goal/0",
+      "in_program":"goal",
+      "kind":"view",
+      "mapping":"a view definition -> an LE rule (naive wording); its query expects EpilogJS's answers",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"illegal/0",
+      "in_program":"illegal",
+      "kind":"view",
+      "mapping":"a view definition -> an LE rule (naive wording); its query expects EpilogJS's answers",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"base/1: a sentence with the functional term color(R,H)",
+      "in_program":"functional_term_1",
+      "kind":"functional_term",
+      "mapping":"a Logical English place holds a constant, not a term (such as not(X), and(P,Q) or cell(a,1)): restate the term as a relation, or write it in an included Prolog resource",
+      "note":"",
+      "verdict":"residue"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":2,
+    "tests": [
+      {"detail":"","query":"goal","result":"pass","scenario":"dataset"},
+      {"detail":"","query":"illegal","result":"pass","scenario":"dataset"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["mapcoloring.rules", "mapcoloring.data" ],
+    "date":"2026-10-31",
+    "program":"mapcoloring",
+    "source":"an Epilog ruleset",
+    "translator":"lpsPlus/migration/epilog (epilog_twin.pl)"
+  },
+  "pending_expectations":1,
+  "source_tests":1
+}

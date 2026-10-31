@@ -1,0 +1,92 @@
+% Map coloring (the Examples page)
+%
+% The Logical English twin of an Epilog ruleset, written by the Epilog translator
+% from mapcoloring.rules and mapcoloring.data (kept in sources/). Every expected answer is
+% EpilogJS's own (Stanford's Epilog interpreter) on the same ruleset and dataset.
+% Source: the Epilog Examples page, http://epilog.stanford.edu/homepage/rulesheet.php?theory=mapcoloring
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    goal.
+    illegal.
+    *a thing* is a base.
+    *a thing* is a hue.
+    *a thing* is a region.
+    *a thing* is the color of *a second thing*.
+    *a thing* is the next of *a second thing*.
+
+the knowledge base mapcoloring includes:
+
+the text of the ruleset is at "sources/mapcoloring.rules".
+
+goal if
+    r1 is the color of a thing
+    and r2 is the color of a second thing
+    and r3 is the color of a third thing
+    and r4 is the color of a fourth thing
+    and r5 is the color of a fifth thing
+    and r6 is the color of a sixth thing.
+
+illegal if
+    a thing is the next of a second thing
+    and the thing is the color of a third thing
+    and the second thing is the color of the third thing.
+
+% RESIDUE functional_term_1 BEGIN: a sentence with the functional term color(R,H)
+% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
+% a Logical English place holds a constant, not a term (such as not(X), and(P,Q) or cell(a,1)): restate the term as a relation, or write it in an included Prolog resource
+%   epilog:
+%   | base(color(R,H)) :- region(R) & hue(H)
+% RESIDUE functional_term_1 END
+
+scenario dataset is, as stated in the dataset:
+    r1 is a region.
+    r2 is a region.
+    r3 is a region.
+    r4 is a region.
+    r5 is a region.
+    r6 is a region.
+    red is a hue.
+    green is a hue.
+    blue is a hue.
+    purple is a hue.
+    r1 is the next of r2.
+    r1 is the next of r3.
+    r1 is the next of r5.
+    r1 is the next of r6.
+    r2 is the next of r3.
+    r2 is the next of r4.
+    r2 is the next of r5.
+    r2 is the next of r6.
+    r3 is the next of r4.
+    r3 is the next of r6.
+    r5 is the next of r6.
+    r1 is the color of red.
+    r2 is the color of green.
+    r3 is the color of green.
+    r4 is the color of red.
+    r5 is the color of blue.
+    r6 is the color of purple.
+    % pending — waits for residue functional_term_1:
+    % base expects answers ["r1 is the color of blue is a base", "r1 is the color of green is a base", "r1 is the color of purple is a base", "r1 is the color of red is a base", "r2 is the color of blue is a base", "r2 is the color of green is a base", "r2 is the color of purple is a base", "r2 is the color of red is a base", "r3 is the color of blue is a base", "r3 is the color of green is a base", "r3 is the color of purple is a base", "r3 is the color of red is a base", "r4 is the color of blue is a base", "r4 is the color of green is a base", "r4 is the color of purple is a base", "r4 is the color of red is a base", "r5 is the color of blue is a base", "r5 is the color of green is a base", "r5 is the color of purple is a base", "r5 is the color of red is a base", "r6 is the color of blue is a base", "r6 is the color of green is a base", "r6 is the color of purple is a base", "r6 is the color of red is a base"].
+    goal expects answers ["goal"].
+    illegal expects answers ["illegal"].
+
+query base is:
+    which thing is a base.
+
+query goal is:
+    goal.
+
+query illegal is:
+    illegal.
+

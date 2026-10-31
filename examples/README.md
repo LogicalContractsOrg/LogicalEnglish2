@@ -25,7 +25,7 @@ comment, says so in full.
 The proprietary examples (InsurLE2) appear under `moreExamples/insureLE2` when
 that repository is linked there, for users with access. The twins whose
 sources carry no licence that allows publication (Oracle Intelligent Advisor,
-Socotra, Epilog) are not published; they appear, the same way, under
+Socotra) are not published; they appear, the same way, under
 `moreExamples/lpsPlus/migration`, for users with access.
 
 **Names.** An example is opened by its name: `/editor/index.html?example=<name>`.

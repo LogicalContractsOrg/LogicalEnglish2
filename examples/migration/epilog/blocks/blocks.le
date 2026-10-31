@@ -1,0 +1,90 @@
+% Blocks world (the Examples page)
+%
+% The Logical English twin of an Epilog ruleset, written by the Epilog translator
+% from blocks.rules and blocks.data (kept in sources/). Every expected answer is
+% EpilogJS's own (Stanford's Epilog interpreter) on the same ruleset and dataset.
+% Source: the Epilog Examples page, http://epilog.stanford.edu/homepage/rulesheet.php?theory=blocks
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a block* is cluttered.
+    *a block* is a clear.
+    *a block* is supported.
+    *a block* is table.
+    *a thing* stack *a second thing* with *a third thing*.
+    *a thing* is the above of *a second thing*.
+    *a block* is a block.
+    *a thing* on *a second thing*.
+
+the knowledge base blocks includes:
+
+the text of the ruleset is at "sources/blocks.rules".
+
+a block is cluttered if
+    a thing on the block.
+
+a block is a clear if
+    the block is a block
+    and it is not the case that the block is cluttered.
+
+a block is supported if
+    the block on a thing.
+
+a block is table if
+    the block is a block
+    and it is not the case that the block is supported.
+
+a thing stack a second thing with a third thing if
+    the thing on the second thing
+    and the second thing on the third thing.
+
+a thing is the above of a second thing if
+    the thing on the second thing.
+
+a thing is the above of a second thing if
+    the thing on a third thing
+    and the third thing is the above of the second thing.
+
+scenario dataset is, as stated in the dataset:
+    a is a block.
+    b is a block.
+    c is a block.
+    d is a block.
+    e is a block.
+    a on b.
+    b on c.
+    d on e.
+    above expects answers ["a is the above of b", "a is the above of c", "b is the above of c", "d is the above of e"].
+    clear expects answers ["a is a clear", "d is a clear"].
+    cluttered expects answers ["b is cluttered", "c is cluttered", "e is cluttered"].
+    stack expects answers ["a stack b with c"].
+    supported expects answers ["a is supported", "b is supported", "d is supported"].
+    table expects answers ["c is table", "e is table"].
+
+query above is:
+    which thing is the above of which second thing.
+
+query clear is:
+    which block is a clear.
+
+query cluttered is:
+    which block is cluttered.
+
+query stack is:
+    which thing stack which second thing with which third thing.
+
+query supported is:
+    which block is supported.
+
+query table is:
+    which block is table.
+

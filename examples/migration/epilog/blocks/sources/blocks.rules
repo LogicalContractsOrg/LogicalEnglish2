@@ -1,0 +1,10 @@
+cluttered(Y) :- on(X,Y)
+clear(X) :- block(X) & ~cluttered(X)
+
+supported(X) :- on(X,Y)
+table(X) :- block(X) & ~supported(X)
+
+stack(X,Y,Z) :- on(X,Y) & on(Y,Z)
+
+above(X,Z) :- on(X,Z)
+above(X,Z) :- on(X,Y) & above(Y,Z)

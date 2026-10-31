@@ -364,6 +364,7 @@ list_examples_with_summaries(Dir, Prefix, UserRoles, Deadline, Examples) :-
         directory_file_path(Dir, F, SubDir),
         exists_directory(SubDir),
         restricted_paths:is_path_allowed(SubDir, UserRoles),
+        \+ le_kbs:private_examples_dir(SubDir),     % unlisted (le_kbs:le_private_examples_dir/2)
         atomic_list_concat([Prefix, F, '/'], SubPrefix),
         atomic_list_concat([SubDir, '/'], SubDirSlash),
         list_examples_with_summaries(SubDirSlash, SubPrefix, UserRoles, Deadline, SubExamples)

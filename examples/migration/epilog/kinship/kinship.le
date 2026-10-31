@@ -1,0 +1,81 @@
+% Kinship (the Examples page)
+%
+% The Logical English twin of an Epilog ruleset, written by the Epilog translator
+% from kinship.rules and kinship.data (kept in sources/). Every expected answer is
+% EpilogJS's own (Stanford's Epilog interpreter) on the same ruleset and dataset.
+% Source: the Epilog Examples page, http://epilog.stanford.edu/homepage/rulesheet.php?theory=kinship
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a thing* is the gp of *a second thing*.
+    *a thing* is the anc of *a second thing*.
+    *a thing* is a person.
+    *a thing* is isparent.
+    *a thing* is childless.
+    *a thing* is the parent of *a second thing*.
+
+the knowledge base kinship includes:
+
+the text of the ruleset is at "sources/kinship.rules".
+
+a thing is the gp of a second thing if
+    the thing is the parent of a third thing
+    and the third thing is the parent of the second thing.
+
+a thing is the anc of a second thing if
+    the thing is the parent of the second thing.
+
+a thing is the anc of a second thing if
+    the thing is the parent of a third thing
+    and the third thing is the anc of the second thing.
+
+a thing is a person if
+    the thing is the parent of a second thing.
+
+a thing is a person if
+    a second thing is the parent of the thing.
+
+a thing is isparent if
+    the thing is the parent of a second thing.
+
+a thing is childless if
+    the thing is a person
+    and it is not the case that the thing is isparent.
+
+scenario dataset is, as stated in the dataset:
+    art is the parent of bob.
+    art is the parent of bea.
+    bob is the parent of cal.
+    bob is the parent of cam.
+    bea is the parent of cat.
+    bea is the parent of coe.
+    anc expects answers ["art is the anc of bea", "art is the anc of bob", "art is the anc of cal", "art is the anc of cam", "art is the anc of cat", "art is the anc of coe", "bea is the anc of cat", "bea is the anc of coe", "bob is the anc of cal", "bob is the anc of cam"].
+    childless expects answers ["cal is childless", "cam is childless", "cat is childless", "coe is childless"].
+    gp expects answers ["art is the gp of cal", "art is the gp of cam", "art is the gp of cat", "art is the gp of coe"].
+    isparent expects answers ["art is isparent", "bea is isparent", "bob is isparent"].
+    person expects answers ["art is a person", "bea is a person", "bob is a person", "cal is a person", "cam is a person", "cat is a person", "coe is a person"].
+
+query anc is:
+    which thing is the anc of which second thing.
+
+query childless is:
+    which thing is childless.
+
+query gp is:
+    which thing is the gp of which second thing.
+
+query isparent is:
+    which thing is isparent.
+
+query person is:
+    which thing is a person.
+

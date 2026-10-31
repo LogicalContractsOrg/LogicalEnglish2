@@ -481,17 +481,7 @@ handle_landing_page(Request) :-
     % like missing ones, so the parameter cannot probe their existence.
     normalize_dir_param(DirParam0, DirParam1),
     example_current_dir(DirParam1, DirParam),
-    (   DirParam == '' ->
-        landing_example_items(Dir, UserRoles, ExampleItems),
-        FocusNote = ''
-    ;   example_focus_dir(DirParam, Dir, SubDirPath, UserRoles) ->
-        atom_concat(DirParam, '/', Prefix),
-        landing_example_items(SubDirPath, Prefix, UserRoles, ExampleItems),
-        FocusNote = span([' showing ', b([DirParam, '/']), ' ', a(href('/'), '[show all]')])
-    ;   landing_example_items(Dir, UserRoles, ExampleItems),
-        format(atom(NotFoundMsg), ' Example directory \'~w\' not found.', [DirParam]),
-        FocusNote = span(style('color: red;'), NotFoundMsg)
-    ),
+    landing_focus(DirParam, Dir, UserRoles, ExampleItems, FocusNote),
     build_info(BuildInfo),
     landing_folders_script(FolderScript),
     landing_readme_script(ReadmeScript),
@@ -868,6 +858,30 @@ normalize_dir_param(D0, D) :-
     ;   D = D0
     ).
 
+%!  landing_focus(+DirParam:atom, +Dir:atom, +UserRoles:list, -ExampleItems:list, -FocusNote) is det.
+%
+%   The landing page's example list for its ?dir= value DirParam ('' for the
+%   whole list, of the main examples Dir and the trees beside it), and the
+%   note shown above it.
+landing_focus(DirParam, Dir, UserRoles, ExampleItems, FocusNote) :-
+    (   DirParam == '' ->
+        landing_example_items(Dir, UserRoles, ExampleItems),
+        FocusNote = ''
+    ;   DirParam == private ->
+        % The unlisted tree itself (le_kbs:le_private_examples_dir/2): its
+        % folders open by their exact name only, so its top lists nothing.
+        ExampleItems = [],
+        FocusNote = span([' showing ', b([DirParam, '/']), ': this folder is not listed. ',
+                          a(href('/'), '[show all]')])
+    ;   example_focus_dir(DirParam, Dir, SubDirPath, UserRoles) ->
+        atom_concat(DirParam, '/', Prefix),
+        landing_example_items(SubDirPath, Prefix, UserRoles, ExampleItems),
+        FocusNote = span([' showing ', b([DirParam, '/']), ' ', a(href('/'), '[show all]')])
+    ;   landing_example_items(Dir, UserRoles, ExampleItems),
+        format(atom(NotFoundMsg), ' Example directory \'~w\' not found.', [DirParam]),
+        FocusNote = span(style('color: red;'), NotFoundMsg)
+    ).
+
 %!  example_current_dir(+Dir0:atom, -Dir:atom) is det.
 %
 %   A ?dir= value as the directory is named now (le_kbs:example_dir_alias/2):
@@ -884,7 +898,8 @@ example_current_dir(Dir0, Dir) :-
 %   examples BaseDir, or one of the extra example trees shown beside it
 %   (le_kbs:le_extra_examples_dir/2, listed under their name, e.g.
 %   ?dir=regulatory or ?dir=migration/blawx) — every folder whose link the
-%   landing page offers.
+%   landing page offers — or a folder of the unlisted tree, by its name
+%   (?dir=private/acme).
 example_focus_dir(DirParam, BaseDir, SubDirPath, UserRoles) :-
     safe_example_subdir(DirParam, BaseDir, SubDirPath, UserRoles),
     !.
@@ -898,6 +913,15 @@ example_focus_dir(DirParam, _BaseDir, SubDirPath, UserRoles) :-
     ;   atomic_list_concat(Rest, '/', RestPath),
         safe_example_subdir(RestPath, RootDir, SubDirPath, UserRoles)
     ),
+    !.
+example_focus_dir(DirParam, _BaseDir, SubDirPath, UserRoles) :-
+    % A folder of the unlisted tree (le_kbs:le_private_examples_dir/2), for
+    % whoever knows its name: ?dir=private/acme. Never the bare tree.
+    atomic_list_concat([Root|Rest], '/', DirParam),
+    Rest \== [],
+    le_kbs:le_private_examples_dir(Root, RootDir),
+    atomic_list_concat(Rest, '/', RestPath),
+    safe_example_subdir(RestPath, RootDir, SubDirPath, UserRoles),
     !.
 
 %!  safe_example_subdir(+DirParam:atom, +BaseDir:atom, -SubDirPath:atom, +UserRoles:list) is semidet.
@@ -968,6 +992,7 @@ landing_example_items(Dir, Prefix, UserRoles, Items) :-
         directory_file_path(Dir, SubDir, SubDirPath),
         exists_directory(SubDirPath),
         listed_example_path(SubDirPath, UserRoles),
+        \+ le_kbs:private_examples_dir(SubDirPath),   % unlisted (moreExamples/lpsPlus/private)
         atomic_list_concat([Prefix, SubDir, '/'], SubPrefix),
         landing_example_items(SubDirPath, SubPrefix, UserRoles, SubItems),
         SubItems \= [],

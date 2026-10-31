@@ -49,7 +49,8 @@ corpus(Files) :-
                  exists_directory(Dir),
                  directory_member(Dir, F, [extensions([le]), recursive(true)]),
                  \+ sub_atom(F, _, _, _, 'insureLE2'),
-                 \+ sub_atom(F, _, _, _, 'InsurLE2') ),
+                 \+ sub_atom(F, _, _, _, 'InsurLE2'),
+                 \+ sub_atom(F, _, _, _, 'lpsPlus/private/') ),   % unlisted (le_kbs:le_private_examples_dir/2)
             Files0),
     sort(Files0, Files).
 

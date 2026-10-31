@@ -743,6 +743,7 @@ list_examples_with_summaries(Dir, Prefix, Examples) :-
         directory_file_path(Dir, F, SubDir),
         exists_directory(SubDir),
         mcp_roles(Roles), restricted_paths:is_path_allowed(SubDir, Roles),
+        \+ le_kbs:private_examples_dir(SubDir),     % unlisted (le_kbs:le_private_examples_dir/2)
         atomic_list_concat([Prefix, F, '/'], SubPrefix),
         list_examples_with_summaries(SubDir, SubPrefix, SubExamples)
     ), SubExamplesLists),

@@ -1,6 +1,6 @@
 # Epilog and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-09-16)*
+*Kind: integration guide · Audience: users · Status: current (2026-10-31)*
 
 Epilog is the logic programming language of the Stanford course on Dynamic Logic
 Programming. The course teaches Epilog with the Epilog web site and with EpilogJS.
@@ -118,23 +118,28 @@ when the Logical English installation next to that editor has the translators.
 
 ### The example twins
 
-The translator translated the programs of the Epilog site. The translations are the
-*twins*. They are among the lpsPlus examples, under `lpsPlus/migration/epilog/`. The
-twins are visible only on installations that have the lpsPlus examples. They are
-visible only to users who have access to these examples. To open a twin, select
-**File ▸ Open example from server…**.
+The translator translated every program of the Epilog site. The translations are
+the *twins*. Each twin was checked against EpilogJS. A twin is published only when
+it gives the same results as EpilogJS. The Epilog programs and their twins are
+public. To open a twin, select **File ▸ Open example from server…**.
 
-- Rulesets from the Examples page: `lpsPlus/migration/epilog/kinship`, `…/blocks`,
-  `…/graphs`. In each of these twins, the data sheet became the scenario `dataset`.
-  The query of each view expects the answers that EpilogJS gives on the same rules
-  and the same data. **Misc ▸ Run the Program's Tests…** shows that all the answers
-  pass.
-- Games from the Games page: `…/tictactoe`, `…/buttonsandlights`,
-  `…/bridgecrossing`, `…/hunter`, `…/missionaries`, `…/knightstour`,
-  `…/lightboard`, `…/connectfour`, `…/cram`, `…/hamilton`. The scenario `play`
-  contains a play that EpilogJS made. The comment immediately before the scenario
-  gives the final state of EpilogJS. When you run the twin in LPS, it finishes in
-  the same state.
+- The rulesets are in `migration/epilog/` (6 twins: `base`, `blocks`, `graphs`,
+  `kinship`, `mapcoloring`, `metalevel`). In each of these twins, the data sheet
+  became the scenario `dataset`. The query of each view expects the answers that
+  EpilogJS gives on the same rules and the same data. **Misc ▸ Run the Program's
+  Tests…** shows that all the answers pass.
+- The games, and two programs with operations (`triples`, `grapheditor`), need
+  LPS. Their twins are among the examples of LPS2, in its `migration/epilog/`
+  folder: 71 games of the Games page, for example
+  [tic-tac-toe](https://lps2.logicalcontracts.com/ide?example=migration/epilog/tictactoe/tictactoe.le).
+  The scenario `play` contains a play that EpilogJS made. The comment immediately
+  before the scenario gives the final state of EpilogJS. When you run the twin in
+  LPS, it finishes in the same state.
+
+[The README of the Epilog examples](/?dir=migration/epilog) lists
+every program of the Epilog site: which programs have a twin, which programs need
+LPS, which programs are different from EpilogJS, and why. It also tells how to
+check a new Epilog program against EpilogJS.
 
 On a twin, **File ▸ Show the Original…** shows a list with the rule sheet and the
 data sheet (`.rules`, `.data`). For a game, the list has the game library (`.hrf`)
@@ -185,6 +190,14 @@ The editor reads a file as a game when the file contains one or more operation
 definitions (`… :: … ==> …`). The editor reads a file with no operation definition as
 a ruleset.
 
+The games of the Epilog site and of the Gamemaster site
+(http://gamemaster.stanford.edu, the same 81 games) use one game description
+language: Epilog with the words `role`, `base`, `action`, `init`, `legal`, `goal`
+and `terminal`, and operations for the moves. The translator reads this language.
+The older Game Description Language of general game playing describes the next
+state with `next`, `true` and `does` instead of operations. The translator does not
+read that form as a game (see [Traps](#traps)).
+
 | Epilog | Logical English for LPS |
 |---|---|
 | a relation that `init` sets or an operation changes (`cell`, `control`) | a fluent |
@@ -224,8 +237,9 @@ A game manager refuses a move that is not legal. The translated program also doe
 this: the constraint stops the move fully. Legality is not a goal of the program.
 Also, the program does not select the moves. Each move comes from the scenario.
 
-On the full Games page, EpilogJS can play the libraries of 74 games. Of these 74
-games, 70 finish under LPS2 in the same state as in EpilogJS after the same play.
+The Games page has 81 games, and 78 of them have a library. EpilogJS plays 75 of
+these games within 120 seconds. Of these 75 games, 71 finish under LPS2 in the same
+state as in EpilogJS after the same play.
 
 ## Traps
 
@@ -287,6 +301,10 @@ games, 70 finish under LPS2 in the same state as in EpilogJS after the same play
   calls itself. Then the effects below that depth get no law. The program then
   contains a residue block with the names of the applicable operations. The ledger
   marks the move *approximated*.
+- **The older Game Description Language.** A game that uses `next(…)`,
+  `true(…)` and `does(…)` and has no operations opens as a ruleset: `next`, `true`
+  and `does` become usual relations, with no time. Write the moves as operations
+  (`a :: cond ==> e & ~f`), as the games of the Epilog site do.
 - **Rules with no variables**
   (`reflexive if it is not the case that nonreflexive.`) are correct for Epilog. But
   the verifier gives a warning about each of them.

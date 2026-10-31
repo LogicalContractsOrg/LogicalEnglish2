@@ -1,0 +1,10 @@
+gp(X,Z) :- parent(X,Y) & parent(Y,Z)
+
+anc(X,Z) :- parent(X,Z)
+anc(X,Z) :- parent(X,Y)& anc(Y,Z)
+
+person(X) :- parent(X,Y)
+person(Y) :- parent(X,Y)
+
+isparent(X) :- parent(X,Y)
+childless(X) :- person(X) & ~isparent(X)

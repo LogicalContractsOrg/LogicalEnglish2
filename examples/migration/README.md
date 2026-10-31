@@ -11,6 +11,7 @@ gives, so running them checks the translation.
 - [Blawx](blawx/) — Acts encoded in Blawx, a visual tool for legal rules.
 - [Catala](catala/) — tax and benefit law written in Catala, in English and in French (Français Logique), the rental calculation of the French housing allowance among them.
 - [DMN](dmn/) — decision models of the OMG standard: the DMN Technology Compatibility Kit, Dutch government rules and Philadelphia's benefit checks.
+- [Epilog](epilog/README.md) — every program of Stanford's Epilog site, checked against EpilogJS: the rulesets here, the games among LPS2's examples.
 - [LegalRuleML](legalruleml/) — the examples of the OASIS LegalRuleML standard: duties, permissions, prohibitions.
 - [Miniscript](miniscript/) — Bitcoin spending policies: who can spend a coin, and when.
 - [OIPA](oipa/) — insurance transactions of Oracle Insurance Policy Administration, on two plans we wrote.
@@ -27,7 +28,7 @@ gives, so running them checks the translation.
 ## More
 - How translation works, for each system: [the integrations guide](/docs/user/integrations/index).
 - The twins are written by the translators of `lpsPlus/migration` (not public); do not edit them by hand.
-- The twins in Logical English for LPS (Daml, Drools, Solidity) are among LPS2's examples, in its `examples/migration/`.
+- The twins in Logical English for LPS (Daml, Drools, Solidity, the Epilog games) are among LPS2's examples, in its `examples/migration/`.
 
 ## Disclaimer
 A twin is written by a translator, and it is provided **"as is", without

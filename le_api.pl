@@ -506,7 +506,8 @@ list_examples_in_dir(Dir, Prefix, UserRoles, Examples) :-
         \+ plain_file_name(F),
         directory_file_path(Dir, F, SubDir),
         exists_directory(SubDir),
-        is_path_allowed(SubDir, UserRoles)
+        is_path_allowed(SubDir, UserRoles),
+        \+ le_kbs:private_examples_dir(SubDir)     % unlisted (moreExamples/lpsPlus/private)
     ), Subs0),
     distinct_directories(Subs0, Subs),
     findall(SubExamples, (

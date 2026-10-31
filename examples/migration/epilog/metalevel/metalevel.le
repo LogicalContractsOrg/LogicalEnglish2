@@ -1,0 +1,48 @@
+% Metalevel (the Examples page)
+%
+% The Logical English twin of an Epilog ruleset, written by the Epilog translator
+% from metalevel.rules and metalevel.data (kept in sources/). Every expected answer is
+% EpilogJS's own (Stanford's Epilog interpreter) on the same ruleset and dataset.
+% Source: the Epilog Examples page, http://epilog.stanford.edu/homepage/rulesheet.php?theory=metalevel
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a thing* is goal.
+    *a thing* is a p.
+    *a thing* is a q.
+    *a thing* is the r of *a second thing*.
+
+the knowledge base metalevel includes:
+
+the text of the ruleset is at "sources/metalevel.rules".
+
+a thing is goal if
+    the thing is a p
+    and a second thing is a p
+    and the thing is the r of a third thing
+    and the thing is a q.
+
+a thing is goal if
+    the thing is a p
+    and the thing is the r of a second thing.
+
+scenario dataset is, as stated in the dataset:
+    a is a p.
+    b is a p.
+    a is a q.
+    a is the r of c.
+    b is the r of c.
+    goal expects answers ["a is goal", "b is goal"].
+
+query goal is:
+    which thing is goal.
+

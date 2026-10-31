@@ -1,0 +1,7 @@
+goal :-
+  color(r1,H1) & color(r2,H2) & color(r3,H3) &
+  color(r4,H4) & color(r5,H5) & color(r6,H6)
+
+illegal :- next(R1,R2) & color(R1,H) & color(R2,H)
+
+base(color(R,H)) :- region(R) & hue(H)
