@@ -284,10 +284,21 @@ What the assistant does:
    Before the last stage, some regulations are not in the program yet. An expected
    answer that needs them could only be met by a wrong rule.
 4. The assistant divides the last program into files. Each rule goes to the program
-   of the document that its provenance cites. Each template goes to the first
-   program that uses it, in this sequence: the regulations, the agreements, the
-   cases. Thus a program includes only the programs before it.
-5. The assistant loads the program of the cases with the programs that it includes,
+   of the document that its provenance cites. The files always have the same
+   structure:
+   - each agreement includes all the regulations, and nothing else;
+   - the program of the cases includes all the agreements, and nothing else;
+   - a regulation includes only the earlier regulations that it uses.
+
+   A template that a regulation uses is in the first regulation that uses it. A
+   template that only agreements use is in each agreement that uses it.
+5. The program of the cases keeps only the queries that the expected answers of
+   the cases use. To get the queries that you want, name the questions in
+   **Additional instructions**, for example: "The program gives three findings
+   for a proposal: the checks `uk exemption`, `agent licence` and `contractual
+   authority`, each with the result `passes`, `fails` or `more information
+   needed`." 
+6. The assistant loads the program of the cases with the programs that it includes,
    and runs the tests. The results must be the same as the results of the whole
    program. If they are not the same, the ledger tells you.
 
