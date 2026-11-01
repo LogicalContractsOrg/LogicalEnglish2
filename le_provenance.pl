@@ -396,11 +396,17 @@ apply_trailer(Group, prov(S0, D0, L0, R0), prov(S, D, L, R)) :-
         DocToks \== [],
         document_parts(DocToks, DocConst, DocText),
         D = doc(DocConst, DocText),
-        ( LocToks == [] -> L = L0 ; at_locator_text(LocToks, L) ),
+        (   LocToks == [] -> L = L0
+        ;   quoted_locator(L0) -> L = L0          % a confer before it is kept
+        ;   at_locator_text(LocToks, L)
+        ),
         S = S0, R = R0
     ;   trailer_body(confer, Group, Rest)
-    ->  % confer "<passage>": the passage of the document (quoted locator)
-        L0 == none, Rest \== [],
+    ->  % confer "<passage>": the passage of the document (quoted locator).
+        % One slot holds the locator or the passage: with both (`as stated in
+        % the agreement at C1, confer "..."`, as a rule's label writes it),
+        % the passage is kept, as it is for a rule.
+        \+ quoted_locator(L0), Rest \== [],
         locator_text(Rest, L),
         S = S0, D = D0, R = R0
     ;   trailer_body(because, Group, Rest)
@@ -410,6 +416,8 @@ apply_trailer(Group, prov(S0, D0, L0, R0), prov(S, D, L, R)) :-
         ),
         S = S0, D = D0, L = L0
     ).
+
+quoted_locator(L) :- string(L), sub_string(L, 0, 1, _, "\"").
 
 trailer_body(Key, Tokens, Rest) :-
     le_i18n:kw_synonym_words(Key, Words),

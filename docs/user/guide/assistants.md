@@ -257,7 +257,9 @@ To make a set of programs:
 1. Select **Agreements under regulations** in **What to generate**.
 2. In **Regulations**, select the files of the regulations. You can also type their
    web addresses, one on each line. The assistant gets each address one time. When
-   it got the same address in the last day, it uses its copy.
+   it got the same address in the last day, it uses its copy. Give only the parts of
+   a regulation that apply: an address that shows a full Act makes every call of the
+   stage very long and expensive.
 3. Put the regulations in the necessary sequence: start their file names with
    `1_`, `2_` and so on. The assistant uses the files in the sequence of their names,
    and then the addresses.
@@ -285,11 +287,27 @@ What the assistant does:
    cases. Thus a program includes only the programs before it.
 5. The assistant loads the program of the cases with the programs that it includes,
    and runs the tests. The results must be the same as the results of the whole
-   program. If they are not the same, the zip also holds the whole program
-   (`whole.le`), and the ledger tells you.
+   program. If they are not the same, the ledger tells you.
 
 Each stage is one full run, with its own budget. Thus a set with three regulations
 takes about three times as long as one program.
+
+The names of the programs come from the names of the files. The number at the start
+of a file name only gives the sequence: `2_exemption_order.md` gives the program
+`exemption_order.le`. A document from a web address gets the name of its title, for
+example `corporations_act_2001.le`. Its program also says where the document is
+published (`... is published at "<address>".`).
+
+Sometimes a stage stops before it delivers its program, for example because the
+account of the model provider has no credit left. Then the program of that
+regulation has no rules. It starts with a `% NOT ENCODED YET` line that gives the
+reason, and the ledger also gives the reason. To continue:
+
+1. Correct the cause, for example add credit to the account.
+2. On the result screen, select **Resume the set**.
+3. Make sure that the same documents are selected, in the same sequence.
+4. Start the run. The assistant keeps the stages that it delivered, and does only
+   the other stages.
 
 The zip file holds:
 
@@ -302,7 +320,9 @@ The zip file holds:
   of each stage.
 
 On the result screen, **Download .zip** saves the zip file. **Open in editor** opens
-the whole program, because the editor does not have the other files of the set.
+the program before the division (the *whole program*), because the editor does not
+have the other files of the set. The whole program is not in the zip. It stays on the
+server, in the folder of the run (`system/whole.le`).
 
 In the scenario, query and residue modes, the assistant only reads the program that
 you paste. It never changes that program. The assistant does not make new templates.
