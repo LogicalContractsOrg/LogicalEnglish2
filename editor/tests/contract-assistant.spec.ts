@@ -68,6 +68,33 @@ test.describe('Contract Assistant UI', () => {
         await page.locator('#wording-url').fill('https://example.org/policy.pdf');
         await expect(page.locator('#btn-start')).toBeEnabled();
     });
+    // "Agreements under regulations": its own documents card replaces the
+    // wording card and the existing-code card; it needs a regulation (a file
+    // or an address) and an agreement before it can start.
+    test('agreements under regulations: its documents and its start condition', async ({ page }) => {
+        await page.goto('/web_extras/contract_assistant/index.html');
+        await expect(page.locator('#file-regulations')).toBeHidden();
+        await page.locator('input[name=mode][value=system]').check();
+        await expect(page.locator('#regulation-urls')).toBeVisible();
+        await expect(page.locator('#file-agreements')).toBeAttached();
+        await expect(page.locator('#file-wording')).toBeHidden();
+        await expect(page.locator('#existing-code')).toBeHidden();
+        await expect(page.locator('#effort')).toBeVisible();
+        await expect(page.locator('#btn-start')).toBeDisabled();
+        await expect(page.locator('#btn-start')).toHaveText('Generate the programs');
+        await page.locator('#regulation-urls').fill('https://example.org/act.html');
+        await expect(page.locator('#btn-start')).toBeDisabled();
+        await page.locator('#file-agreements').setInputFiles({
+            name: 'A_agreement.md', mimeType: 'text/markdown', buffer: Buffer.from('# A\n\nA1 Text.\n') });
+        await expect(page.locator('#btn-start')).toBeEnabled();
+        // back to a whole program: its own cards come back
+        await page.locator('input[name=mode][value=contract]').check();
+        await expect(page.locator('#file-wording')).toBeVisible();
+        await expect(page.locator('#existing-code')).toBeVisible();
+        await expect(page.locator('#regulation-urls')).toBeHidden();
+        // the result screen has a button to copy the ledger
+        await expect(page.locator('#btn-copy-ledger')).toBeAttached();
+    });
     test('setup screen loads with models and uploads', async ({ page }) => {
         await page.goto('/web_extras/contract_assistant/index.html');
         await expect(page.locator('#file-wording')).toBeAttached();

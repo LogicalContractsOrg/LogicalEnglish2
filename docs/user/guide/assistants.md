@@ -37,6 +37,7 @@ Two functions in the editor do not need a model:
 - [Write it in English](#write-it-in-english)
 - [The Contract Assistant](#the-contract-assistant)
   - [What to generate](#what-to-generate)
+  - [Agreements under regulations](#agreements-under-regulations)
   - [A whole program](#a-whole-program)
   - [Other ways to use the Contract Assistant](#other-ways-to-use-the-contract-assistant)
   - [Running, leaving, coming back](#running-leaving-coming-back)
@@ -203,6 +204,11 @@ let the tests select. **Additional instructions** and the **Effort budget** (ref
 - **A whole program**: a contract wording, with its schedule and its specific cases,
   becomes a full program (templates, rules, scenarios, queries). The program has a
   coverage ledger, clause by clause. Refer to [A whole program](#a-whole-program).
+- **Agreements under regulations**: some agreements (contracts), the regulations
+  that apply to all of them, and cases about the whole set. A case gives the facts,
+  the questions and the expected answers. You receive a zip file with one program
+  for each regulation, one program for each agreement, and one program for the
+  cases. Refer to [Agreements under regulations](#agreements-under-regulations).
 - **One scenario**: paste a Logical English program that you think is correct.
   Describe a situation in English. You receive one `scenario … is:` block for the
   situation. **Expected answers** selects if the scenario gets `expects answers`
@@ -236,6 +242,67 @@ let the tests select. **Additional instructions** and the **Effort budget** (ref
     the block. This is folding. The text of the block stays as a comment above each
     of these rules. The assistant also keeps the program from before the folding.
   - The assistant does not fold a block when a scenario gives the name of the block.
+
+### Agreements under regulations
+
+Use this mode when one set of regulations applies to two or more agreements. A
+regulation and the agreements use one vocabulary. A *template* (the pattern of a
+sentence, such as `*a provider* meets the licensing requirement for *a service*`)
+can be a part of both. The assistant finds these shared templates only when it reads
+the documents together. Thus it writes one program for the whole set, in stages, and
+then divides that program into files.
+
+To make a set of programs:
+
+1. Select **Agreements under regulations** in **What to generate**.
+2. In **Regulations**, select the files of the regulations. You can also type their
+   web addresses, one on each line. The assistant gets each address one time. When
+   it got the same address in the last day, it uses its copy.
+3. Put the regulations in the necessary sequence: start their file names with
+   `1_`, `2_` and so on. The assistant uses the files in the sequence of their names,
+   and then the addresses.
+4. In **Agreements**, select the files of the agreements.
+5. In **Cases**, select the files of the cases. In each case, start the expected
+   answers on a line that starts with `Expected findings:` or `Expected answer:`.
+6. Optionally, type a **Name of the set**. This is the name of the zip file.
+7. Select the model and the effort, and start the run.
+
+What the assistant does:
+
+1. Stage 1: it writes a program from the first regulation, all the agreements and
+   the cases.
+2. Each further stage adds one regulation. The program of the earlier stages is the
+   *existing code* of the stage. The stage can change the earlier rules when the new
+   regulation makes it necessary. For example, an earlier stage can leave a decision
+   of a later regulation as a fact of the cases. The later stage then writes the
+   rules for that decision.
+3. The assistant gives the expected answers of the cases only to the last stage.
+   Before the last stage, some regulations are not in the program yet. An expected
+   answer that needs them could only be met by a wrong rule.
+4. The assistant divides the last program into files. Each rule goes to the program
+   of the document that its provenance cites. Each template goes to the first
+   program that uses it, in this sequence: the regulations, the agreements, the
+   cases. Thus a program includes only the programs before it.
+5. The assistant loads the program of the cases with the programs that it includes,
+   and runs the tests. The results must be the same as the results of the whole
+   program. If they are not the same, the zip also holds the whole program
+   (`whole.le`), and the ledger tells you.
+
+Each stage is one full run, with its own budget. Thus a set with three regulations
+takes about three times as long as one program.
+
+The zip file holds:
+
+- one `.le` file for each regulation and each agreement;
+- `cases.le`, with the scenarios and the queries. It includes the other programs.
+  Open this file to ask the questions of the cases;
+- the text of each document, so that **Show original text** finds the quoted
+  passages;
+- `ledger.md`: the programs, the stages, the check of the division, and the ledger
+  of each stage.
+
+On the result screen, **Download .zip** saves the zip file. **Open in editor** opens
+the whole program, because the editor does not have the other files of the set.
 
 In the scenario, query and residue modes, the assistant only reads the program that
 you paste. It never changes that program. The assistant does not make new templates.
@@ -440,6 +507,9 @@ server.
   it. Some programs are too large to go in a web address. You must download such a
   program, and open it from the file;
 - the score of the delivered program, and of each draft;
+- **Copy ledger** copies the ledger to the clipboard, as Markdown. The last section
+  of the ledger, *Technicalities*, gives the names of the files that you gave, and
+  the web addresses;
 - for a full program, the **coverage ledger**: the parts that the assistant encoded,
   the parts that it did not encode intentionally, and the parts that are missing.
   The assistant makes the ledger from the program itself: it divides the document
