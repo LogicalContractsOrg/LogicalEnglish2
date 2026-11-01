@@ -266,6 +266,8 @@ To make a set of programs:
 4. In **Agreements**, select the files of the agreements.
 5. In **Cases**, select the files of the cases. In each case, start the expected
    answers on a line that starts with `Expected findings:` or `Expected answer:`.
+   A case without such a line gives facts but no test. The log of the run warns
+   you about each such case.
 6. Optionally, type a **Name of the set**. This is the name of the zip file.
 7. Select the model and the effort, and start the run.
 
@@ -288,6 +290,12 @@ What the assistant does:
 5. The assistant loads the program of the cases with the programs that it includes,
    and runs the tests. The results must be the same as the results of the whole
    program. If they are not the same, the ledger tells you.
+
+In this mode, the assistant does not hold back a case to examine the program
+without it, because a set has few cases and each case must guide the repairs. The
+expected answers go to a separate step that writes the tests, and the step that
+writes the program does not see them. You can change these two settings in
+**Advanced**.
 
 Each stage is one full run, with its own budget. Thus a set with three regulations
 takes about three times as long as one program.
