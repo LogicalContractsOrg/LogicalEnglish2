@@ -7,7 +7,10 @@
 # What it copies: accounts/ (lc_accounts.pl, licenses.csv, passwords.csv —
 # signing in and who holds which licence), migration/ (the translators of
 # other systems that File ▸ Open and Export offer) and contract_assistant/
-# (the LE Contract Assistant: its module, prompts, web page and tests). Only the files git knows
+# (the LE Contract Assistant: its module, prompts, web page and tests), and
+# examples/private/ (the unlisted examples, which open only by their exact
+# name, ?example=private/<folder>/<name>: le_kbs:le_private_examples_dir/2
+# finds them here; without them that address answers "File not found"). Only the files git knows
 # about or would add: the gitignored caches of fetched sources and tools
 # (gigabytes of them) stay behind, except the few the Rune door reads (below).
 #
@@ -26,7 +29,7 @@ if [ ! -f "$PLUS/accounts/lc_accounts.pl" ]; then
     exit 1
 fi
 
-echo "vendoring lpsPlus (accounts, translators, contract assistant) from $PLUS"
+echo "vendoring lpsPlus (accounts, translators, contract assistant, private examples) from $PLUS"
 rm -rf "$OUT"
 mkdir -p "$OUT"
 n=0
@@ -35,7 +38,7 @@ while IFS= read -r f; do
     mkdir -p "$OUT/$(dirname "$f")"
     cp "$PLUS/$f" "$OUT/$f"
     n=$((n+1))
-done < <(git -c safe.directory='*' -C "$PLUS" ls-files --cached --others --exclude-standard -- accounts migration contract_assistant)
+done < <(git -c safe.directory='*' -C "$PLUS" ls-files --cached --others --exclude-standard -- accounts migration contract_assistant examples/private)
 # The Rune door (File ▸ Open of a .rosetta file or a zip of them) translates
 # over ISDA's DRR 7.14.0, downloaded by migration/rune/fetch_sources.sh into
 # migration/rune/.cache, which git ignores: so copied here by name. Only what
