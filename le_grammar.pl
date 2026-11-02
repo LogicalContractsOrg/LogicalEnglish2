@@ -1475,13 +1475,38 @@ templates(AllDicts) -->
     template(TDicts), !,
     (   (t(punct('.')) ; t(punct(',')))
     ->  ( templates(MoreDicts) | { MoreDicts = [] } ),
-        { append(TDicts, MoreDicts, AllDicts) }
+        { wordless_template_error(TDicts, TDicts1),
+          append(TDicts1, MoreDicts, AllDicts) }
     ;   reserved_word_template_error(TDicts)
     ->  % recover: drop the truncated template, parse the rest of the section
         ( templates(AllDicts) | { AllDicts = [] } )
     ;   warn_truncated_template(TDicts), { AllDicts = TDicts }
     ).
 templates([]) --> [].
+
+%!  wordless_template_error(+Dicts0, -Dicts) is det.
+%
+%   A template with no word outside its argument places (`*an exemption
+%   expressly covers a superannuation trustee service*; undefined.`) matches
+%   every sentence: in one program it took 174 conditions, the comparisons of
+%   dates among them, and the `the text of` statements, which then named no
+%   document. It is reported as an error and dropped, so that the sentences it
+%   took are reported as sentences without a template instead.
+wordless_template_error([dict(_, _, WV, Start, End, _, _, _, _)|_], []) :-
+    is_list(WV), WV \== [],
+    \+ ( member(W, WV), nonvar(W) ), !,
+    (   le_kbs:current_compiling_module(M), M \== (-)
+    ->  (   current_source_text(Src), integer(Start), integer(End), End > Start,
+            L is End - Start, catch(sub_string(Src, Start, L, _, T), _, fail)
+        ->  true
+        ;   T = ''
+        ),
+        le_i18n:le_msg(wordless_template_desc, [template-T], Desc),
+        le_i18n:le_msg(wordless_template_fix, [], Fix),
+        assertz(M:le_issue(error, wordless_template, Desc, Fix, Start, End))
+    ;   true
+    ).
+wordless_template_error(Dicts, Dicts).
 
 % A parsed template is not followed by its '.'/',' terminator and the next token
 % is one of the reserved words that end a template instance (if, unless, either,
