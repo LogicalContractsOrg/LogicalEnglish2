@@ -404,6 +404,21 @@ Do these steps:
    expect, and rules that you already wrote. The program that the assistant writes
    must contain your code and must agree with it. The result tells how much of your
    code stayed word for word.
+
+   **Programs to include** (optional, only for **A whole program**). Select one or more
+   Logical English files (`.le`), for example the program of a regulation that you
+   already have. The new program *includes* these programs: it names them in an
+   `includes these resources:` statement, and it does not contain them. A template is
+   the pattern of a sentence that a program can state, for example
+   `*a person* is licensed.` The templates of the included programs control the new
+   program:
+   - The new program uses their templates word for word.
+   - The new program does not declare their templates again.
+   - The new program has no rule that concludes what their rules conclude.
+
+   The assistant checks these three rules after each draft. The result does not contain
+   the included programs. Keep the new program in the folder that holds them, so that
+   it can find them.
 5. **Additional instructions** (optional). Write any text that you want. The assistant
    adds it to each request for a draft and to each request for a repair. Sometimes
    your instructions are different from the usual conventions of the assistant. Then
