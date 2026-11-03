@@ -93,6 +93,11 @@ modelling_warning("single_variable_fact").
 modelling_warning("unbound_aggregate_variable").
 modelling_warning("detached_condition").
 modelling_warning("possessive_template").
+%   Two from the Contract Assistant's checks: a fixed name written as a
+%   reference (`the proposal` with nothing before it), and one thing spelled
+%   two ways (`agreementD`, `agreement D`). Each makes a rule apply to nothing.
+modelling_warning("definite_constant").
+modelling_warning("near_duplicate_constant").
 
 %!  count_modelling_warnings(+Issues, -Count) is det.
 %
