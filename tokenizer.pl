@@ -325,14 +325,6 @@ token_match(Idx, quoteString(S, loc(Idx, End)), End) -->
       length(Codes, L),
       End is Idx + L + 2 }.
 
-%   Up to the closing apostrophe on the same line; fails at a line's end.
-string_until_quote_on_line([]) --> "'", !.
-string_until_quote_on_line([C|Cs]) --> [C], { C \== 0'\n, C \== 0'\r }, string_until_quote_on_line(Cs).
-
-possessive_s, [0's, C] --> [0's, C], { \+ code_type(C, alnum) }.
-possessive_s, [0's] --> [0's], eos_peek.
-
-eos_peek([], []).
 
 
 % Number
@@ -362,6 +354,15 @@ token_match(Idx, word(A, loc(Idx, End)), End) -->
     { atom_codes(A, [C|Rest]),
       length([C|Rest], L),
       End is Idx + L }.
+
+%   Up to the closing apostrophe on the same line; fails at a line's end.
+string_until_quote_on_line([]) --> "'", !.
+string_until_quote_on_line([C|Cs]) --> [C], { C \== 0'\n, C \== 0'\r }, string_until_quote_on_line(Cs).
+
+possessive_s, [0's, C] --> [0's, C], { \+ code_type(C, alnum) }.
+possessive_s, [0's] --> [0's], eos_peek.
+
+eos_peek([], []).
 
 % decimal_part(+DecCode, -Fraction): the decimal separator directly followed
 % by digits.
