@@ -71,6 +71,39 @@ specific thing.
 **Fix:** Name the thing in a condition before the aggregate, for example
 `a claim has the claim component`.
 
+## The condition '...' shares nothing with the rest of its rule
+
+A rule has two or more conditions. One condition contains only variables, and these
+variables are in no other part of the rule. A variable is a part of a rule that
+different values can fill. An example is the last condition of this rule:
+
+```
+a proposal has an established regulatory basis for a provider
+    if the proposal involves the provider
+    and the provider has a licence covering a financial service
+    and an Australian financial services licence is current on a date.
+```
+
+This condition does not ask about the licence of the provider. It asks whether a
+licence is current on a date, for any licence and any date. Thus the rule is true
+when some other licence is current. Also, the system must examine each such fact for
+each answer of the rule, and the answers become slow.  
+**Fix:** Connect the condition to the rule. Use *the* for a thing that the rule
+already names: `and the licence of the provider is current on the date of the
+proposal`. If the rule really needs only that some such fact exists, declare a
+template without variables for it (`there is a current licence.`). Then write a rule
+that concludes it from the condition.
+
+## The template '...' has no words outside its argument places (an error)
+
+All the words of the template are between asterisks. An example is
+`*an exemption expressly covers a trustee service*; undefined.` A template of this
+kind agrees with each sentence of the program. Thus the system read conditions such
+as `the date is before 2027-03-31` and `the text of the policy is at "..."` as facts
+of this template. The system now ignores the template.  
+**Fix:** Write the fixed words outside the asterisks:
+`*an exemption* expressly covers a trustee service; undefined.`
+
 ## Rule without variables: ...
 
 The conclusion of the rule and the conditions of the rule do not contain a variable.

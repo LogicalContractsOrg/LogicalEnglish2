@@ -3974,14 +3974,43 @@ run_one_test(KBmodule, test_changes(QueryName, ScenarioName, ExpectedSets), Resu
               Error,
               test_run_error(Error, QueryName, ScenarioName, Result)),
         destroySession(SM)).
-run_one_test(KBmodule, test(QueryName, ScenarioName, ExpectedStrings, ExpectedUnknowns), Result) :-
+%   A test compares answers and unknowns, never the explanation of a
+%   failure, so it runs without the proof's per-call records
+%   (le_failure_explanations off), whoever calls it: the suite runner did,
+%   but runTestsFor/2, the editor's tests and the Contract Assistant's
+%   verifications did not, and on a program of 115 kB one test made 855,000
+%   assertions to fail in 18 s.
+%
+%   A test's result is kept in the program's module (le_test_result/3, gone
+%   when the module is rebuilt): loading a program runs its tests for the
+%   verifier's `failed_test`, and runTestsFor/2 or the editor then ran every
+%   one of them a second time.
+run_one_test(KBmodule, Test, Result) :-
+    Test = test(_, _, _, _),
+    catch(KBmodule:le_test_result(Test, Result0, Got), _, fail), !,
+    Result = Result0,
+    nb_setval(le_test_got, Got).
+run_one_test(KBmodule, Test, Result) :-
+    Test = test(_, _, _, _),
+    nb_setval(le_test_got, none),
+    run_one_test_uncached(KBmodule, Test, Result),
+    (   ( Result = pass(_, _) ; Result = fail(_, _, _, _) ; Result = fail(_, _, _, _, _, _) ),
+        ground(Test)
+    ->  ( nb_current(le_test_got, Got) -> true ; Got = none ),
+        catch(( KBmodule:dynamic(le_test_result/3),
+                assertz(KBmodule:le_test_result(Test, Result, Got)) ), _, true)
+    ;   true
+    ).
+
+run_one_test_uncached(KBmodule, test(QueryName, ScenarioName, ExpectedStrings, ExpectedUnknowns), Result) :-
     createSession(KBmodule, SM),
+    current_prolog_flag(le_failure_explanations, FE),
     setup_call_cleanup(
-        true,
+        set_prolog_flag(le_failure_explanations, false),
         catch(run_one_test_body(KBmodule, QueryName, ScenarioName, ExpectedStrings, ExpectedUnknowns, SM, Result),
               Error,
               test_run_error(Error, QueryName, ScenarioName, Result)),
-        destroySession(SM)
+        ( set_prolog_flag(le_failure_explanations, FE), destroySession(SM) )
     ).
 
 %!  run_one_test(+KBmodule, +Test, -Result, -Got) is det.

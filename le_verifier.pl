@@ -99,6 +99,7 @@ check_issue(KB, _, Issue) :- redefined_system_template(KB, Issue).
 check_issue(KB, _, Issue) :- builtin_template(KB, Issue).
 check_issue(KB, _, Issue) :- unbound_aggregate_variable(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
+check_issue(KB, _, Issue) :- detached_condition(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
 check_issue(KB, _, Issue) :- non_stratified(KB, Issue).
@@ -1752,6 +1753,55 @@ single_variable_fact(KB, issue(single_variable_fact, Description, Fix, Start, En
     le_i18n:le_msg(single_variable_fact_desc, [text-Text], Description),
     le_i18n:le_msg(single_variable_fact_fix, [], Fix),
     ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true ; Start = 0, End = 0 ).
+
+% --- 8b. A condition that shares nothing with the rest of its rule ---
+% "a proposal has an established regulatory basis for a provider if the
+% proposal involves the provider and the provider has a licence covering a
+% financial service and an Australian financial services licence is current
+% on a date": the last condition's arguments are variables that appear nowhere
+% else in the rule, so it asks only whether ANY licence is current on ANY
+% date, and it multiplies the search by every such fact. Reported when the
+% rule has other conditions too, and each argument of the condition is a
+% variable that appears once in the rule (its type checks aside). Only the
+% conditions of the rule's conjunction are read: one under a negation, an
+% `or` or an aggregate is left alone.
+detached_condition(KB, issue(detached_condition, Description, Fix, Start, End)) :-
+    kb_rule(KB, Head, Body, _Ref),
+    conjunction_conditions(Body, Conds),
+    Conds = [_, _|_],
+    member(c(Lit, Start, End), Conds),
+    compound(Lit),
+    functor(Lit, F, A), A > 0,
+    \+ is_system_predicate(F/A), \+ sub_atom(F, 0, _, _, le_),
+    Lit =.. [_|Args],
+    maplist(var, Args),
+    strip_type_checks(Body, Plain),
+    term_variables(Args, Vs),
+    forall(member(V, Vs), occurrences_of_var(V, Head-Plain, 1)),
+    fact_le_text(KB, Lit, Text),
+    le_i18n:le_msg(detached_condition_desc, [text-Text], Description),
+    le_i18n:le_msg(detached_condition_fix, [], Fix).
+
+%   The conditions of a conjunction, with their source ranges, without type
+%   checks; a negation, an `or` or an aggregate is not descended into.
+conjunction_conditions(B, Cs) :-
+    phrase(conj_conds(B, none), Cs).
+
+conj_conds(V, _) --> { var(V) }, !, [].
+conj_conds(and(A, B), R) --> !, conj_conds(A, R), conj_conds(B, R).
+conj_conds((A, B), R) --> !, conj_conds(A, R), conj_conds(B, R).
+conj_conds(le_at(G, S, E), _) --> !, conj_conds(G, range(S, E)).
+conj_conds(le_type_check(_, _), _) --> !, [].
+conj_conds(true, _) --> !, [].
+conj_conds(G, range(S, E)) --> { callable(G) }, !, [c(G, S, E)].
+conj_conds(G, none) --> { callable(G) }, !, [c(G, 0, 0)].
+conj_conds(_, _) --> [].
+
+strip_type_checks(V, V) :- var(V), !.
+strip_type_checks(le_type_check(_, _), true) :- !.
+strip_type_checks(T, T) :- \+ compound(T), !.
+strip_type_checks(T, P) :-
+    T =.. [F|As], maplist(strip_type_checks, As, Bs), P =.. [F|Bs].
 
 % --- 8a. Scenario fact with a single, likely-accidental variable ---
 % The same trap as single_variable_fact, but inside a scenario: "a person is

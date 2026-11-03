@@ -74,6 +74,11 @@
 %     commonest way for a plausible-looking fact to mean something else
 %     entirely ("a payment is 500" makes every payment 500).
 %
+%   - detached_condition: a condition whose arguments appear nowhere else in
+%     its rule asks whether such a fact exists for anything, and multiplies
+%     the search by every such fact ("and an Australian financial services
+%     licence is current on a date" in a rule about a provider and a proposal).
+%
 %   Callers refuse to call a program (or a fragment) finished while any of these
 %   is left, bounded by their patience, and one of them outranks every cosmetic
 %   warning in a round's working set. Everything else — dead vocabulary, ground
@@ -86,6 +91,7 @@ modelling_warning("suspicious_is_a").
 modelling_warning("unmarked_meta_template").
 modelling_warning("single_variable_fact").
 modelling_warning("unbound_aggregate_variable").
+modelling_warning("detached_condition").
 
 %!  count_modelling_warnings(+Issues, -Count) is det.
 %
