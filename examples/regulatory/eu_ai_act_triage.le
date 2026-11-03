@@ -1,0 +1,1334 @@
+% EU AI Act triage: the classification of one AI system, the role of each
+% operator, and the obligation map, under Regulation (EU) 2024/1689 (the
+% Artificial Intelligence Act) as amended by Regulation (EU) 2026/1744 (the
+% "Digital Omnibus on AI").
+%
+% Source: the consolidated text 02024R1689-20260727 of the Publications
+% Office of the European Union (CELEX 02024R1689-20260727), retrieved on
+% 3 November 2026. Each rule names the article, paragraph and point that it
+% encodes. The consolidated text is a documentation tool with no legal effect;
+% the authentic text is the one published in the Official Journal.
+%
+% This program is provided "as is", without warranty of any kind. It is not
+% legal advice. It is a triage, not a conformity assessment: a suspected
+% prohibited practice, a high-risk system and general-purpose AI go to a
+% human for a full analysis (query escalation).
+%
+% WHAT IT IS FOR. It replaces the determinations of the Mike OSS workflow "EU
+% AI Act Triage" (mike-workflows, eu-ai-governance-pack, version 1.1.0): an
+% assistant reads the documents of a matter and writes the facts about the
+% system as sentences of the templates below; this program decides, and
+% explains each answer with the articles it used. The plan is
+% lpsPlus/docs/strategy/MikeOSS_plan.md.
+%
+% HOW IT WAS MADE. Written by hand, with an AI agent, from the consolidated
+% text. The ten scenarios are fictitious systems; their expected answers were
+% worked out from the text before the program was run.
+%
+% HOW TO READ IT.
+% - Each case names the system that it triages and the date of the triage:
+%   "TalentSift is triaged on 2026-11-03." Every date of application is
+%   compared with that date, so the same case gives a different obligation
+%   map on a different day.
+% - What a case does not state is false, except where the regulation needs
+%   the fact to decide. There, a missing fact is a GAP (query gaps): for
+%   example, an Annex III system that does not say whether it profiles
+%   persons cannot use the Article 6(3) derogation, and the gap says why.
+%   Where a fact decides against the system, the program asks for it to be
+%   stated: "PayCalc does not infer how to generate its outputs".
+% - Adaptiveness after deployment is something an AI system MAY exhibit
+%   (Article 3(1)); it is not a condition, so no template asks for it.
+% - "high-risk" and every citation are written inside quotation marks,
+%   because a template cannot contain a hyphen or a bracket.
+
+the target language is: prolog.
+
+scenario facts require provenance.
+
+the templates are:
+
+% ---------------------------------------------------------------- the case
+*a system* is triaged on *a date*; undefined.
+
+% ---------------------------------------------------------------- scope (Article 2)
+*a system* is used exclusively for military or defence or national security purposes; undefined.
+*a system* is developed and put into service for the sole purpose of scientific research and development; undefined.
+*a system* is in the scope of the regulation.
+
+% ---------------------------------------------------------------- step 1: an AI system (Article 3(1))
+*a system* is a machine based system; undefined.
+*a system* is designed to operate with varying levels of autonomy; undefined.
+*a system* infers from the input it receives how to generate outputs; undefined.
+*a system* does not infer how to generate its outputs; undefined.
+the outputs of *a system* can influence physical or virtual environments; undefined.
+*a system* is not a machine based system; undefined.
+*a system* is an AI system.
+*a system* is not an AI system.
+the triage of *a system* continues.
+
+% ---------------------------------------------------------------- the operators (Article 3(3) to (8), Article 25)
+*an operator* places *a system* on the market under its own name; undefined.
+*an operator* puts *a system* into service under its own name; undefined.
+*an operator* uses *a system* under its own authority; undefined.
+*an operator* uses *a system* only in a purely personal non professional activity; undefined.
+*an operator* is established in the Union; undefined.
+*an operator* places on the Union market *a system* that bears the name or trademark of an operator established in a third country; undefined.
+*an operator* makes *a system* available on the Union market as a distributor; undefined.
+*an operator* holds a written mandate from the provider of *a system*; undefined.
+*an operator* puts its name or trademark on *a system*; undefined.
+*an operator* makes a substantial modification to *a system*; undefined.
+*an operator* modifies the intended purpose of *a system*; undefined.
+*a system* was not classified as high risk before its intended purpose was modified; undefined.
+*an operator* is the initial provider of *a system*.
+*an operator* is considered the provider of *a system* under *a provision*.
+*an operator* is a provider of *a system*.
+*an operator* is a deployer of *a system*.
+*an operator* is an importer of *a system*.
+*an operator* is a distributor of *a system*.
+*an operator* is an authorised representative for *a system*.
+*an operator* has the role *a role* for *a system*.
+*an operator* is an operator of *a system*.
+
+% ---------------------------------------------------------------- step 2: prohibited practices (Article 5)
+*a system* deploys subliminal or purposefully manipulative or deceptive techniques that materially distort the behaviour of persons and cause or are likely to cause significant harm; undefined.
+*a system* exploits vulnerabilities of persons due to their age or disability or social or economic situation and materially distorts their behaviour with significant harm; undefined.
+*a system* evaluates or classifies natural persons over time on their social behaviour or personal characteristics with a social score that leads to unjustified or unrelated detrimental treatment; undefined.
+*a system* assesses or predicts the risk of a natural person committing a criminal offence based solely on profiling or on personality traits; undefined.
+*a system* only supports a human assessment of the involvement of a person in a criminal activity that is based on objective and verifiable facts; undefined.
+*a system* creates or expands facial recognition databases through the untargeted scraping of facial images from the internet or CCTV footage; undefined.
+*a system* infers emotions of natural persons in the workplace or in education institutions; undefined.
+*a system* is intended to be put in place for medical or safety reasons; undefined.
+*a system* categorises natural persons individually on their biometric data to deduce their race or political opinions or trade union membership or religious or philosophical beliefs or sex life or sexual orientation; undefined.
+*a system* is used for real time remote biometric identification in publicly accessible spaces for law enforcement; undefined.
+the use of *a system* is strictly necessary for the search for victims or the prevention of an imminent threat or the localisation of a suspect of a serious offence; undefined.
+generating *a material* is the intended purpose of *a system*; undefined.
+*a system* makes generating *a material* a reasonably foreseeable and reproducible outcome; undefined.
+*a system* has adequate safeguards that reliably prevent generating *a material*; undefined.
+*an operator* uses *a system* to generate *a material*; undefined.
+*a material* is the material of *a provision*.
+*a system* involves the practice *a practice* prohibited by *a provision*.
+*an operator* is subject to the prohibition of *a provision* for *a system*.
+*a system* involves a prohibited practice.
+the prohibition of *a provision* applies from *a date*.
+
+% ---------------------------------------------------------------- step 3: high risk (Article 6, Annexes I and III)
+*a system* is itself a product covered by *an act*; undefined.
+*a system* is a component of a product covered by *an act*; undefined.
+*a system* fulfils a safety function for the product that it is a component of; undefined.
+the failure or malfunctioning of *a system* would endanger the health and safety of persons or property; undefined.
+*a system* is used solely for non safety related purposes such as user assistance or optimisation; undefined.
+*a system* must undergo a third party conformity assessment under *an act*; undefined.
+the third party conformity assessment of *a system* is required solely due to risks other than risks to health and safety; undefined.
+*an act* is listed in *a provision*.
+*an act* is in Section *a section* of Annex I.
+*a system* is a safety component of a product covered by *an act*.
+*a system* is a product or safety component under *an act* that needs a third party conformity assessment.
+*a system* is high risk under Article 6 paragraph 1 because of *an act*.
+
+*a system* is intended to be used for *a use*; undefined.
+*a system* is used for the purpose of detecting financial fraud; undefined.
+*a use* is listed in *a provision*.
+*a system* is used for a use listed in *a provision*.
+*a system* is intended to perform a narrow procedural task; undefined.
+*a system* is intended to improve the result of a previously completed human activity; undefined.
+*a system* is intended to detect decision making patterns or deviations from them without replacing or influencing the human assessment; undefined.
+*a system* is intended to perform a preparatory task to an assessment relevant for the use cases of Annex III; undefined.
+*a system* performs profiling of natural persons; undefined.
+*a system* does not perform profiling of natural persons; undefined.
+*a system* meets a condition of Article 6 paragraph 3 under *a provision*.
+*a system* is not high risk under Article 6 paragraph 3 because of *a provision*.
+*a system* is high risk under Article 6 paragraph 2 because of *a provision*.
+*a system* is high risk.
+*a system* is classified as *a class* on the basis of *a provision*.
+
+% ---------------------------------------------------------------- step 4: general purpose AI models (Chapter V)
+*an operator* places the general purpose AI model *a model* on the market; undefined.
+*a system* is based on the general purpose AI model *a model*; undefined.
+the cumulative training computation of *a model* is *a number* floating point operations; undefined.
+the Commission designates *a model* as a general purpose AI model with systemic risk; undefined.
+*a model* is released under a free and open source licence with its parameters publicly available; undefined.
+*a model* was placed on the market on *a date*; undefined.
+*an operator* is the provider of the general purpose AI model *a model* of *a system*.
+*a model* has systemic risk under *a provision*.
+the date of application of Chapter V to *a model* is *a date*.
+general purpose AI is in play for *a system*.
+
+% ---------------------------------------------------------------- step 5: transparency (Article 50)
+*a system* is intended to interact directly with natural persons; undefined.
+it is obvious to the natural persons concerned that they interact with *a system*; undefined.
+*a system* generates synthetic *a kind* content; undefined.
+*a system* only performs an assistive function for standard editing or does not substantially alter the input data; undefined.
+*a system* is authorised by law to detect or prevent or investigate or prosecute criminal offences; undefined.
+*a system* is an emotion recognition system or a biometric categorisation system; undefined.
+*a system* generates or manipulates image or audio or video content that is a deep fake; undefined.
+*an operator* publishes text generated by *a system* to inform the public on matters of public interest; undefined.
+the text that *an operator* publishes from *a system* has undergone human review or editorial control under its editorial responsibility; undefined.
+*a system* was first placed on the market or put into service on *a date*; undefined.
+the date of application of Article 50 paragraph 2 to *a system* is *a date*.
+
+% ---------------------------------------------------------------- step 7: the obligation map (Articles 4, 6, 25 to 27, 50, 53, 55, 111, 113)
+*an operator* is a body governed by public law; undefined.
+*an operator* is a private entity providing public services; undefined.
+*an operator* is a private entity that does not provide public services; undefined.
+*an operator* is a public authority; undefined.
+*an operator* has a data protection impact assessment for *a system*; undefined.
+the date of application of Chapter III to *a system* is *a date*.
+*an obligation* applies to *an operator* for *a system* from *a date*.
+*an obligation* already applies to *an operator* for *a system*.
+*an obligation* applies to *an operator* for *a system* only from *a date* that is in *a number* days.
+the prohibition of *a provision* already applies to *an operator* for *a system*.
+the prohibition of *a provision* applies to *an operator* for *a system* only from *a date* that is in *a number* days.
+*an operator* must perform a fundamental rights impact assessment for *a system*.
+*an operator* may reuse its data protection impact assessment in the fundamental rights impact assessment for *a system*.
+the fundamental rights impact assessment for *a system* is *a verdict*.
+*a system* is subject to Chapter III only after a significant change in its design from *a date*.
+
+% ---------------------------------------------------------------- step 8: the triage card
+the triage of *a system* has the gap *a gap*.
+*a system* goes to a human for a full analysis because *a reason*.
+
+the knowledge base eu_ai_act_triage includes:
+
+% ================================================================ Article 2: scope
+section applicability is:
+
+rule scope with provenance the AI Act at "Article 2(3), second subparagraph, and Article 2(6)":
+a system is in the scope of the regulation
+    if the system is triaged on a date
+    and it is not the case that
+        the system is used exclusively for military or defence or national security purposes
+    and it is not the case that
+        the system is developed and put into service for the sole purpose of scientific research and development.
+
+% ================================================================ step 1: Article 3(1)
+rule ai_system with provenance the AI Act at "Article 3(1)",
+        confer "a machine-based system that is designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment, and that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs":
+a system is an AI system
+    if the system is a machine based system
+    and the system is designed to operate with varying levels of autonomy
+    and the system infers from the input it receives how to generate outputs
+    and the outputs of the system can influence physical or virtual environments
+    and it is not the case that
+        the system is not an AI system.
+
+rule not_ai_system_inference with provenance the AI Act at "Article 3(1)":
+a system is not an AI system
+    if the system does not infer how to generate its outputs.
+
+rule not_ai_system_machine with provenance the AI Act at "Article 3(1)":
+a system is not an AI system
+    if the system is not a machine based system.
+
+% The triage goes on only for an AI system in scope that involves no
+% prohibited practice: the workflow stops at a suspected prohibited practice
+% and sends it to a human.
+the triage of a system continues
+    if the system is in the scope of the regulation
+    and the system is an AI system
+    and it is not the case that
+        the system involves a prohibited practice.
+
+% ================================================================ step 6: the operators
+section roles is:
+
+rule provider_by_placing with provenance the AI Act at "Article 3(3)":
+an operator is the initial provider of a system
+    if the operator places the system on the market under its own name.
+
+rule provider_by_service with provenance the AI Act at "Article 3(3)":
+an operator is the initial provider of a system
+    if the operator puts the system into service under its own name.
+
+rule provider with provenance the AI Act at "Article 3(3) and Article 25(2), first subparagraph",
+        confer "the provider that initially placed the AI system on the market or put it into service shall no longer be considered to be a provider of that specific AI system":
+an operator is a provider of a system
+    if the operator is the initial provider of the system
+    and it is not the case that
+        an other operator is considered the provider of the system under a provision.
+
+rule provider_requalified with provenance the AI Act at "Article 25(1)":
+an operator is a provider of a system
+    if the operator is considered the provider of the system under a provision.
+
+rule requalified_name with provenance the AI Act at "Article 25(1), point (a)":
+an operator is considered the provider of a system under "Article 25(1), point (a)"
+    if the operator puts its name or trademark on the system
+    and an other operator is the initial provider of the system
+    and the system is high risk.
+
+rule requalified_modification with provenance the AI Act at "Article 25(1), point (b)":
+an operator is considered the provider of a system under "Article 25(1), point (b)"
+    if the operator makes a substantial modification to the system
+    and an other operator is the initial provider of the system
+    and the system is high risk.
+
+rule requalified_purpose with provenance the AI Act at "Article 25(1), point (c)":
+an operator is considered the provider of a system under "Article 25(1), point (c)"
+    if the operator modifies the intended purpose of the system
+    and an other operator is the initial provider of the system
+    and the system was not classified as high risk before its intended purpose was modified
+    and the system is high risk.
+
+rule deployer with provenance the AI Act at "Article 3(4) and Article 2(10)":
+an operator is a deployer of a system
+    if the operator uses the system under its own authority
+    and it is not the case that
+        the operator uses the system only in a purely personal non professional activity.
+
+rule importer with provenance the AI Act at "Article 3(6)":
+an operator is an importer of a system
+    if the operator is established in the Union
+    and the operator places on the Union market the system that bears the name or trademark of an operator established in a third country.
+
+rule distributor with provenance the AI Act at "Article 3(7)":
+an operator is a distributor of a system
+    if the operator makes the system available on the Union market as a distributor
+    and it is not the case that
+        the operator is a provider of the system
+    and it is not the case that
+        the operator is an importer of the system.
+
+rule authorised_representative with provenance the AI Act at "Article 3(5)":
+an operator is an authorised representative for a system
+    if the operator is established in the Union
+    and the operator holds a written mandate from the provider of the system.
+
+an operator has the role "provider" for a system
+    if the triage of the system continues
+    and the operator is a provider of the system.
+an operator has the role "deployer" for a system
+    if the triage of the system continues
+    and the operator is a deployer of the system.
+an operator has the role "importer" for a system
+    if the triage of the system continues
+    and the operator is an importer of the system.
+an operator has the role "distributor" for a system
+    if the triage of the system continues
+    and the operator is a distributor of the system.
+an operator has the role "authorised representative" for a system
+    if the triage of the system continues
+    and the operator is an authorised representative for the system.
+
+rule operator with provenance the AI Act at "Article 3(8)":
+an operator is an operator of a system
+    if the operator has the role a role for the system.
+
+% ================================================================ step 2: Article 5
+section question is:
+
+rule practice_a with provenance the AI Act at "Article 5(1), first subparagraph, point (a)":
+a system involves the practice "manipulation causing significant harm" prohibited by "Article 5(1), first subparagraph, point (a)"
+    if the system deploys subliminal or purposefully manipulative or deceptive techniques that materially distort the behaviour of persons and cause or are likely to cause significant harm.
+
+rule practice_b with provenance the AI Act at "Article 5(1), first subparagraph, point (b)":
+a system involves the practice "exploitation of vulnerabilities" prohibited by "Article 5(1), first subparagraph, point (b)"
+    if the system exploits vulnerabilities of persons due to their age or disability or social or economic situation and materially distorts their behaviour with significant harm.
+
+rule practice_c with provenance the AI Act at "Article 5(1), first subparagraph, point (c)":
+a system involves the practice "social scoring" prohibited by "Article 5(1), first subparagraph, point (c)"
+    if the system evaluates or classifies natural persons over time on their social behaviour or personal characteristics with a social score that leads to unjustified or unrelated detrimental treatment.
+
+rule practice_d with provenance the AI Act at "Article 5(1), first subparagraph, point (d)",
+        confer "this prohibition shall not apply to AI systems used to support the human assessment of the involvement of a person in a criminal activity, which is already based on objective and verifiable facts":
+a system involves the practice "crime prediction based solely on profiling" prohibited by "Article 5(1), first subparagraph, point (d)"
+    if the system assesses or predicts the risk of a natural person committing a criminal offence based solely on profiling or on personality traits
+    and it is not the case that
+        the system only supports a human assessment of the involvement of a person in a criminal activity that is based on objective and verifiable facts.
+
+rule practice_e with provenance the AI Act at "Article 5(1), first subparagraph, point (e)":
+a system involves the practice "untargeted scraping of facial images" prohibited by "Article 5(1), first subparagraph, point (e)"
+    if the system creates or expands facial recognition databases through the untargeted scraping of facial images from the internet or CCTV footage.
+
+rule practice_f with provenance the AI Act at "Article 5(1), first subparagraph, point (f)",
+        confer "except where the use of the AI system is intended to be put in place or into the market for medical or safety reasons":
+a system involves the practice "emotion recognition in the workplace or in education" prohibited by "Article 5(1), first subparagraph, point (f)"
+    if the system infers emotions of natural persons in the workplace or in education institutions
+    and it is not the case that
+        the system is intended to be put in place for medical or safety reasons.
+
+rule practice_g with provenance the AI Act at "Article 5(1), first subparagraph, point (g)":
+a system involves the practice "biometric categorisation by sensitive attributes" prohibited by "Article 5(1), first subparagraph, point (g)"
+    if the system categorises natural persons individually on their biometric data to deduce their race or political opinions or trade union membership or religious or philosophical beliefs or sex life or sexual orientation.
+
+rule practice_h with provenance the AI Act at "Article 5(1), first subparagraph, point (h)":
+a system involves the practice "real-time remote biometric identification for law enforcement" prohibited by "Article 5(1), first subparagraph, point (h)"
+    if the system is used for real time remote biometric identification in publicly accessible spaces for law enforcement
+    and it is not the case that
+        the use of the system is strictly necessary for the search for victims or the prevention of an imminent threat or the localisation of a suspect of a serious offence.
+
+% Points (ba) and (bb), added by Regulation (EU) 2026/1744. Placing on the
+% market or putting into service is prohibited only where the generation is
+% the intended purpose, or a foreseeable and reproducible outcome without
+% adequate safeguards (Article 5(1a), point (a)); use only where the deployer
+% uses the system for that purpose (Article 5(1a), point (b)). Article 5(1b)
+% (a manipulation that does not increase exposure is not a manipulation) is
+% left to the person who states the facts.
+intimate imagery made without consent is the material of "Article 5(1), first subparagraph, point (ba)".
+child sexual abuse material is the material of "Article 5(1), first subparagraph, point (bb)".
+
+rule material_by_purpose with provenance the AI Act at "Article 5(1a), point (a)(i)":
+a system involves the practice a material prohibited by a provision
+    if the material is the material of the provision
+    and generating the material is the intended purpose of the system.
+
+rule material_by_design with provenance the AI Act at "Article 5(1a), point (a)(ii)":
+a system involves the practice a material prohibited by a provision
+    if the material is the material of the provision
+    and the system makes generating the material a reasonably foreseeable and reproducible outcome
+    and it is not the case that
+        the system has adequate safeguards that reliably prevent generating the material.
+
+rule material_by_use with provenance the AI Act at "Article 5(1a), point (b)":
+a system involves the practice a material prohibited by a provision
+    if the material is the material of the provision
+    and an operator uses the system to generate the material.
+
+rule prohibited with provenance the AI Act at "Article 5(1)":
+a system involves a prohibited practice
+    if the system involves the practice a practice prohibited by a provision.
+
+% Who is bound: the provider places the system on the market or puts it
+% into service; the deployer uses it. For points (ba) and (bb) the deployer
+% is bound only when it uses the system for that purpose (Article 5(1a)(b)).
+rule prohibition_provider with provenance the AI Act at "Article 5(1), first subparagraph":
+an operator is subject to the prohibition of a provision for a system
+    if the system involves the practice a practice prohibited by the provision
+    and the operator is a provider of the system
+    and it is not the case that
+        the provision is "Article 5(1), first subparagraph, point (h)".
+
+rule prohibition_deployer with provenance the AI Act at "Article 5(1), first subparagraph":
+an operator is subject to the prohibition of a provision for a system
+    if the system involves the practice a practice prohibited by the provision
+    and the operator is a deployer of the system
+    and it is not the case that
+        the practice is the material of the provision.
+
+rule prohibition_deployer_material with provenance the AI Act at "Article 5(1a), point (b)":
+an operator is subject to the prohibition of a provision for a system
+    if the material is the material of the provision
+    and the operator uses the system to generate the material
+    and the operator is a deployer of the system.
+
+rule prohibition_dates with provenance the AI Act at "Article 113, third paragraph, point (a)",
+        confer "Chapters I and II shall apply from 2 February 2025, with the exception of Article 5(1), first subparagraph, points (ba) and (bb), and Article 5(1a) and (1b) which shall apply from 2 December 2026":
+the prohibition of a provision applies from a date
+    if a material is the material of the provision
+    and the date is 2026-12-02
+    otherwise the date is 2025-02-02.
+
+% ================================================================ step 3: Article 6(1) and Annex I
+the toys directive is listed in "Annex I, Section A, point 2 (Directive 2009/48/EC, toys)".
+the recreational craft directive is listed in "Annex I, Section A, point 3 (Directive 2013/53/EU, recreational craft)".
+the lifts directive is listed in "Annex I, Section A, point 4 (Directive 2014/33/EU, lifts)".
+the explosive atmospheres directive is listed in "Annex I, Section A, point 5 (Directive 2014/34/EU, equipment for explosive atmospheres)".
+the radio equipment directive is listed in "Annex I, Section A, point 6 (Directive 2014/53/EU, radio equipment)".
+the pressure equipment directive is listed in "Annex I, Section A, point 7 (Directive 2014/68/EU, pressure equipment)".
+the cableway installations regulation is listed in "Annex I, Section A, point 8 (Regulation (EU) 2016/424, cableways)".
+the personal protective equipment regulation is listed in "Annex I, Section A, point 9 (Regulation (EU) 2016/425, personal protective equipment)".
+the gas appliances regulation is listed in "Annex I, Section A, point 10 (Regulation (EU) 2016/426, gas appliances)".
+the medical devices regulation is listed in "Annex I, Section A, point 11 (Regulation (EU) 2017/745, medical devices)".
+the in vitro diagnostic medical devices regulation is listed in "Annex I, Section A, point 12 (Regulation (EU) 2017/746, in vitro diagnostic medical devices)".
+the civil aviation security regulation is listed in "Annex I, Section B, point 13 (Regulation (EC) No 300/2008, civil aviation security)".
+the regulation on two wheel and three wheel vehicles is listed in "Annex I, Section B, point 14 (Regulation (EU) No 168/2013)".
+the agricultural and forestry vehicles regulation is listed in "Annex I, Section B, point 15 (Regulation (EU) No 167/2013)".
+the marine equipment directive is listed in "Annex I, Section B, point 16 (Directive 2014/90/EU, marine equipment)".
+the rail interoperability directive is listed in "Annex I, Section B, point 17 (Directive (EU) 2016/797, rail system)".
+the motor vehicles approval regulation is listed in "Annex I, Section B, point 18 (Regulation (EU) 2018/858, motor vehicles)".
+the vehicle general safety regulation is listed in "Annex I, Section B, point 19 (Regulation (EU) 2019/2144, vehicle general safety)".
+the civil aviation regulation is listed in "Annex I, Section B, point 20 (Regulation (EU) 2018/1139, civil aviation)".
+the machinery regulation is listed in "Annex I, Section B, point 21 (Regulation (EU) 2023/1230, machinery)".
+
+the toys directive is in Section "A" of Annex I.
+the recreational craft directive is in Section "A" of Annex I.
+the lifts directive is in Section "A" of Annex I.
+the explosive atmospheres directive is in Section "A" of Annex I.
+the radio equipment directive is in Section "A" of Annex I.
+the pressure equipment directive is in Section "A" of Annex I.
+the cableway installations regulation is in Section "A" of Annex I.
+the personal protective equipment regulation is in Section "A" of Annex I.
+the gas appliances regulation is in Section "A" of Annex I.
+the medical devices regulation is in Section "A" of Annex I.
+the in vitro diagnostic medical devices regulation is in Section "A" of Annex I.
+the civil aviation security regulation is in Section "B" of Annex I.
+the regulation on two wheel and three wheel vehicles is in Section "B" of Annex I.
+the agricultural and forestry vehicles regulation is in Section "B" of Annex I.
+the marine equipment directive is in Section "B" of Annex I.
+the rail interoperability directive is in Section "B" of Annex I.
+the motor vehicles approval regulation is in Section "B" of Annex I.
+the vehicle general safety regulation is in Section "B" of Annex I.
+the civil aviation regulation is in Section "B" of Annex I.
+the machinery regulation is in Section "B" of Annex I.
+
+% A safety component (Article 3(14)) fulfils a safety function, or its failure
+% endangers health and safety. A component used solely for user assistance,
+% optimisation, efficiency, automation, convenience or quality control is not
+% one (Article 6(1a)), unless its failure would endanger health and safety
+% (Article 6(1b)).
+rule safety_component_by_failure with provenance the AI Act at "Article 3(14) and Article 6(1b)":
+a system is a safety component of a product covered by an act
+    if the system is a component of a product covered by the act
+    and the failure or malfunctioning of the system would endanger the health and safety of persons or property.
+
+rule safety_component_by_function with provenance the AI Act at "Article 3(14) and Article 6(1a)",
+        confer "AI systems that are solely used for non-safety related aspects of user assistance, performance optimisation, service efficiency, automation or convenience or quality control shall not qualify as safety components":
+a system is a safety component of a product covered by an act
+    if the system is a component of a product covered by the act
+    and the system fulfils a safety function for the product that it is a component of
+    and it is not the case that
+        the system is used solely for non safety related purposes such as user assistance or optimisation.
+
+rule annex_i_product with provenance the AI Act at "Article 6(1), points (a) and (b), and Article 6(1c)":
+a system is a product or safety component under an act that needs a third party conformity assessment
+    if the system is itself a product covered by the act
+    and the system must undergo a third party conformity assessment under the act
+    and it is not the case that
+        the third party conformity assessment of the system is required solely due to risks other than risks to health and safety.
+
+rule annex_i_component with provenance the AI Act at "Article 6(1), points (a) and (b), and Article 6(1c)":
+a system is a product or safety component under an act that needs a third party conformity assessment
+    if the system is a safety component of a product covered by the act
+    and the system must undergo a third party conformity assessment under the act
+    and it is not the case that
+        the third party conformity assessment of the system is required solely due to risks other than risks to health and safety.
+
+rule high_risk_annex_i with provenance the AI Act at "Article 6(1)":
+a system is high risk under Article 6 paragraph 1 because of an act
+    if the system is an AI system
+    and the system is a product or safety component under the act that needs a third party conformity assessment
+    and the act is listed in a provision.
+
+% ================================================================ step 3: Article 6(2), Annex III and the Article 6(3) derogation
+the remote biometric identification of natural persons is listed in "Annex III, point 1(a)".
+the biometric categorisation of natural persons according to sensitive or protected attributes is listed in "Annex III, point 1(b)".
+the emotion recognition of natural persons is listed in "Annex III, point 1(c)".
+the use as a safety component in the management and operation of critical digital infrastructure, road traffic or the supply of water, gas, heating or electricity is listed in "Annex III, point 2".
+the determination of access or admission to educational and vocational training institutions is listed in "Annex III, point 3(a)".
+the evaluation of learning outcomes is listed in "Annex III, point 3(b)".
+the assessment of the level of education that an individual will receive or can access is listed in "Annex III, point 3(c)".
+the monitoring and detection of prohibited behaviour of students during tests is listed in "Annex III, point 3(d)".
+the recruitment or selection of natural persons is listed in "Annex III, point 4(a)".
+the decisions on work relationships, the allocation of tasks or the monitoring and evaluation of workers is listed in "Annex III, point 4(b)".
+the evaluation of eligibility for essential public assistance benefits and services by or for public authorities is listed in "Annex III, point 5(a)".
+the evaluation of the creditworthiness of natural persons or the establishment of their credit score is listed in "Annex III, point 5(b)".
+the risk assessment and pricing of natural persons for life and health insurance is listed in "Annex III, point 5(c)".
+the evaluation and classification of emergency calls, the dispatch of emergency first response services or emergency patient triage is listed in "Annex III, point 5(d)".
+the assessment for law enforcement of the risk of a natural person becoming a victim of criminal offences is listed in "Annex III, point 6(a)".
+the use for law enforcement as a polygraph or similar tool is listed in "Annex III, point 6(b)".
+the evaluation for law enforcement of the reliability of evidence is listed in "Annex III, point 6(c)".
+the assessment for law enforcement of the risk of a natural person offending or re-offending is listed in "Annex III, point 6(d)".
+the profiling of natural persons for the detection, investigation or prosecution of criminal offences is listed in "Annex III, point 6(e)".
+the use for migration, asylum or border control as a polygraph or similar tool is listed in "Annex III, point 7(a)".
+the assessment of a security, irregular migration or health risk posed by a person entering a Member State is listed in "Annex III, point 7(b)".
+the examination of applications for asylum, visa or residence permits is listed in "Annex III, point 7(c)".
+the detection, recognition or identification of natural persons for migration, asylum or border control is listed in "Annex III, point 7(d)".
+the assistance of a judicial authority in researching and interpreting facts and the law and in applying the law is listed in "Annex III, point 8(a)".
+the influencing of the outcome of an election or referendum or of the voting behaviour of natural persons is listed in "Annex III, point 8(b)".
+
+rule annex_iii_use with provenance the AI Act at "Article 6(2) and Annex III":
+a system is used for a use listed in a provision
+    if the system is intended to be used for a use
+    and the use is listed in the provision
+    and it is not the case that
+        the provision is "Annex III, point 5(b)"
+        and the system is used for the purpose of detecting financial fraud.
+
+rule condition_a with provenance the AI Act at "Article 6(3), second subparagraph, point (a)":
+a system meets a condition of Article 6 paragraph 3 under "Article 6(3), second subparagraph, point (a)"
+    if the system is intended to perform a narrow procedural task.
+rule condition_b with provenance the AI Act at "Article 6(3), second subparagraph, point (b)":
+a system meets a condition of Article 6 paragraph 3 under "Article 6(3), second subparagraph, point (b)"
+    if the system is intended to improve the result of a previously completed human activity.
+rule condition_c with provenance the AI Act at "Article 6(3), second subparagraph, point (c)":
+a system meets a condition of Article 6 paragraph 3 under "Article 6(3), second subparagraph, point (c)"
+    if the system is intended to detect decision making patterns or deviations from them without replacing or influencing the human assessment.
+rule condition_d with provenance the AI Act at "Article 6(3), second subparagraph, point (d)":
+a system meets a condition of Article 6 paragraph 3 under "Article 6(3), second subparagraph, point (d)"
+    if the system is intended to perform a preparatory task to an assessment relevant for the use cases of Annex III.
+
+% The derogation needs the case to STATE that the system does not profile:
+% "an AI system referred to in Annex III shall always be considered to be
+% high-risk where the AI system performs profiling of natural persons", and
+% the provider who relies on the derogation must document its assessment
+% (Article 6(4)). Without that statement the derogation does not apply, and
+% the gap says so.
+rule derogation with provenance the AI Act at "Article 6(3), first and third subparagraphs",
+        confer "Notwithstanding the first subparagraph, an AI system referred to in Annex III shall always be considered to be high-risk where the AI system performs profiling of natural persons":
+a system is not high risk under Article 6 paragraph 3 because of a provision
+    if the system is used for a use listed in a listing
+    and the system meets a condition of Article 6 paragraph 3 under the provision
+    and the system does not perform profiling of natural persons
+    and it is not the case that
+        the system performs profiling of natural persons.
+
+rule high_risk_annex_iii with provenance the AI Act at "Article 6(2) and Article 6(3)":
+a system is high risk under Article 6 paragraph 2 because of a provision
+    if the system is an AI system
+    and the system is used for a use listed in the provision
+    and it is not the case that
+        the system is not high risk under Article 6 paragraph 3 because of a condition.
+
+a system is high risk
+    if the system is high risk under Article 6 paragraph 1 because of an act.
+a system is high risk
+    if the system is high risk under Article 6 paragraph 2 because of a provision.
+
+% ---------------------------------------------------------------- the classification rows of the triage card
+rule class_not_ai with provenance the AI Act at "Article 3(1)":
+a system is classified as "not an AI system" on the basis of "Article 3(1)"
+    if the system is triaged on a date
+    and the system is not an AI system.
+
+rule class_ai with provenance the AI Act at "Article 3(1)":
+a system is classified as "an AI system" on the basis of "Article 3(1)"
+    if the system is triaged on a date
+    and the system is an AI system.
+
+rule class_open with provenance the AI Act at "Article 3(1)":
+a system is classified as "possibly an AI system: the facts leave gaps" on the basis of "Article 3(1)"
+    if the system is triaged on a date
+    and it is not the case that
+        the system is an AI system
+    and it is not the case that
+        the system is not an AI system.
+
+rule class_out_of_scope with provenance the AI Act at "Article 2":
+a system is classified as "outside the scope of the regulation" on the basis of "Article 2(3) or Article 2(6)"
+    if the system is triaged on a date
+    and it is not the case that
+        the system is in the scope of the regulation.
+
+rule class_prohibited with provenance the AI Act at "Article 5(1)":
+a system is classified as "a suspected prohibited practice" on the basis of a provision
+    if the system is triaged on a date
+    and the system is an AI system
+    and the system involves the practice a practice prohibited by the provision.
+
+rule class_high_risk_annex_i with provenance the AI Act at "Article 6(1) and Annex I":
+a system is classified as "high-risk under Article 6(1)" on the basis of a provision
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 1 because of an act
+    and the act is listed in the provision.
+
+rule class_high_risk_annex_iii with provenance the AI Act at "Article 6(2) and Annex III":
+a system is classified as "high-risk under Article 6(2)" on the basis of a provision
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 2 because of the provision.
+
+rule class_derogation with provenance the AI Act at "Article 6(3)":
+a system is classified as "not high-risk under the Article 6(3) derogation" on the basis of a provision
+    if the triage of the system continues
+    and the system is not high risk under Article 6 paragraph 3 because of the provision
+    and it is not the case that
+        the system is high risk.
+
+rule class_not_safety_component with provenance the AI Act at "Article 6(1a)":
+a system is classified as "not high-risk: not a safety component" on the basis of "Article 6(1a)"
+    if the triage of the system continues
+    and the system is a component of a product covered by an act
+    and it is not the case that
+        the system is a safety component of the product covered by the act
+    and it is not the case that
+        the system is high risk.
+
+rule class_not_high_risk with provenance the AI Act at "Article 6 and Annexes I and III":
+a system is classified as "not high-risk" on the basis of "Article 6 and Annexes I and III"
+    if the triage of the system continues
+    and it is not the case that
+        the system is high risk
+    and it is not the case that
+        the system is not high risk under Article 6 paragraph 3 because of a provision
+    and it is not the case that
+        the system is a component of a product covered by an act.
+
+rule class_systemic_risk with provenance the AI Act at "Article 51":
+a system is classified as "based on its provider's general-purpose AI model with systemic risk" on the basis of a provision
+    if the triage of the system continues
+    and an operator is the provider of the general purpose AI model a model of the system
+    and the model has systemic risk under the provision.
+
+rule class_gpai with provenance the AI Act at "Article 3(63) and Chapter V":
+a system is classified as "based on its provider's general-purpose AI model" on the basis of "Article 3(63) and Chapter V"
+    if the triage of the system continues
+    and an operator is the provider of the general purpose AI model a model of the system
+    and it is not the case that
+        the model has systemic risk under a provision.
+
+% ================================================================ step 4: general-purpose AI models (Chapter V)
+% A general-purpose AI model is "in play" when the provider of the system is
+% also the provider of the model it is built on. A system that only
+% integrates another company's model through an interface makes its provider
+% a downstream provider, not a model provider.
+rule gpai_provider with provenance the AI Act at "Article 3(3) and Article 3(63)":
+an operator is the provider of the general purpose AI model a model of a system
+    if the system is based on the general purpose AI model the model
+    and the operator places the general purpose AI model the model on the market
+    and the operator is a provider of the system.
+
+rule systemic_risk_presumption with provenance the AI Act at "Article 51(1), point (a), and Article 51(2)",
+        confer "presumed to have high impact capabilities ... when the cumulative amount of computation used for its training measured in floating point operations is greater than 10^25":
+a model has systemic risk under "Article 51(1), point (a), and Article 51(2)"
+    if the cumulative training computation of the model is a number N floating point operations
+    and N > 10000000000000000000000000.
+
+rule systemic_risk_designation with provenance the AI Act at "Article 51(1), point (b), and Article 52(4)":
+a model has systemic risk under "Article 51(1), point (b)"
+    if the Commission designates the model as a general purpose AI model with systemic risk.
+
+general purpose AI is in play for a system
+    if an operator is the provider of the general purpose AI model a model of the system.
+
+% ================================================================ step 7: the obligation map
+section remedy is:
+
+% ---- AI literacy
+rule literacy with provenance the AI Act at "Article 4 and Article 113, third paragraph, point (a)",
+        confer "This obligation does not require providers or deployers to guarantee any specific level of AI literacy of any individual":
+"Article 4 (AI literacy of staff)" applies to an operator for a system from 2025-02-02
+    if the triage of the system continues
+    and the operator is a provider of the system.
+
+rule literacy_deployer with provenance the AI Act at "Article 4 and Article 113, third paragraph, point (a)":
+"Article 4 (AI literacy of staff)" applies to an operator for a system from 2025-02-02
+    if the triage of the system continues
+    and the operator is a deployer of the system.
+
+% ---- high-risk systems: the date of application of Chapter III
+rule chapter_iii_annex_iii with provenance the AI Act at "Article 113, third paragraph, point (c)(i)":
+the date of application of Chapter III to a system is 2027-12-02
+    if the system is high risk under Article 6 paragraph 2 because of a provision.
+
+rule chapter_iii_annex_i with provenance the AI Act at "Article 113, third paragraph, point (c)(ii)":
+the date of application of Chapter III to a system is 2028-08-02
+    if the system is high risk under Article 6 paragraph 1 because of an act
+    and it is not the case that
+        the system is high risk under Article 6 paragraph 2 because of a provision.
+
+rule high_risk_provider with provenance the AI Act at "Chapter III, Sections 1 to 3, and Article 16":
+"Chapter III, Sections 1 to 3 (requirements for high-risk AI systems, provider obligations of Article 16)" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is a provider of the system
+    and the date of application of Chapter III to the system is the date
+    and it is not the case that
+        the system is high risk under Article 6 paragraph 1 because of an act
+        and the act is in Section "B" of Annex I
+        and it is not the case that
+            the system is high risk under Article 6 paragraph 2 because of a provision.
+
+rule high_risk_section_b with provenance the AI Act at "Article 2(2)",
+        confer "only Article 6(1), Article 60a and Articles 102 to 112 shall apply":
+"Article 6(1), Article 60a and Articles 102 to 112 only, through the sectoral legislation of Annex I, Section B" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is a provider of the system
+    and the system is high risk under Article 6 paragraph 1 because of an act
+    and the act is in Section "B" of Annex I
+    and the date of application of Chapter III to the system is the date.
+
+rule high_risk_deployer with provenance the AI Act at "Article 26 and Article 113, third paragraph, point (c)":
+"Article 26 (obligations of deployers of high-risk AI systems)" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is a deployer of the system
+    and the system is high risk
+    and the date of application of Chapter III to the system is the date.
+
+% ---- systems already on the market (Article 111(2), as replaced in 2026)
+rule legacy with provenance the AI Act at "Article 111(2), first sentence",
+        confer "this Regulation shall apply to operators of high-risk AI systems ... that have been placed on the market or put into service before the date of application of Chapter III ... only if, as from that date, those systems are subject to significant changes in their designs":
+a system is subject to Chapter III only after a significant change in its design from a date
+    if the triage of the system continues
+    and the date of application of Chapter III to the system is the date
+    and the system was first placed on the market or put into service on a first date
+    and the first date is before the date.
+
+rule legacy_public with provenance the AI Act at "Article 111(2), second sentence":
+"Article 111(2): compliance of a high-risk system intended for use by public authorities" applies to an operator for a system from 2030-08-02
+    if the system is subject to Chapter III only after a significant change in its design from a date
+    and the operator is an operator of the system
+    and an authority is a public authority
+    and the authority is a deployer of the system.
+
+% ---- the Article 6(3) derogation: documentation and registration
+rule derogation_documentation with provenance the AI Act at "Article 6(4) and Article 49(2)",
+        confer "A provider who considers that an AI system referred to in Annex III is not high-risk shall document its assessment before that system is placed on the market or put into service":
+"Article 6(4) and Article 49(2) (document the assessment that the system is not high-risk, and register it)" applies to an operator for a system from 2027-12-02
+    if the triage of the system continues
+    and the system is not high risk under Article 6 paragraph 3 because of a provision
+    and it is not the case that
+        the system is high risk
+    and the operator is a provider of the system.
+
+% ---- the fundamental rights impact assessment (Article 27)
+rule fria_public with provenance the AI Act at "Article 27(1)":
+an operator must perform a fundamental rights impact assessment for a system
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 2 because of a provision
+    and it is not the case that
+        the provision is "Annex III, point 2"
+    and the operator is a deployer of the system
+    and the operator is a body governed by public law.
+
+rule fria_public_services with provenance the AI Act at "Article 27(1)":
+an operator must perform a fundamental rights impact assessment for a system
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 2 because of a provision
+    and it is not the case that
+        the provision is "Annex III, point 2"
+    and the operator is a deployer of the system
+    and the operator is a private entity providing public services.
+
+rule fria_credit with provenance the AI Act at "Article 27(1)",
+        confer "and deployers of high-risk AI systems referred to in points 5 (b) and (c) of Annex III":
+an operator must perform a fundamental rights impact assessment for a system
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 2 because of "Annex III, point 5(b)"
+    and the operator is a deployer of the system.
+
+rule fria_insurance with provenance the AI Act at "Article 27(1)":
+an operator must perform a fundamental rights impact assessment for a system
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 2 because of "Annex III, point 5(c)"
+    and the operator is a deployer of the system.
+
+rule fria_date with provenance the AI Act at "Article 27(1) and Article 113, third paragraph, point (c)(i)":
+"Article 27 (fundamental rights impact assessment before the first use)" applies to an operator for a system from 2027-12-02
+    if the operator must perform a fundamental rights impact assessment for the system.
+
+rule fria_dpia with provenance the AI Act at "Article 27(4)":
+an operator may reuse its data protection impact assessment in the fundamental rights impact assessment for a system
+    if the operator must perform a fundamental rights impact assessment for the system
+    and the operator has a data protection impact assessment for the system.
+
+the fundamental rights impact assessment for a system is "required"
+    if an operator must perform a fundamental rights impact assessment for the system.
+
+the fundamental rights impact assessment for a system is "needs analysis: the status of a deployer is not stated"
+    if the triage of the system has the gap "whether each deployer is a body governed by public law or a private entity providing public services (Article 27(1))".
+
+the fundamental rights impact assessment for a system is "not required"
+    if the triage of the system continues
+    and it is not the case that
+        an operator must perform a fundamental rights impact assessment for the system
+    and it is not the case that
+        the triage of the system has the gap "whether each deployer is a body governed by public law or a private entity providing public services (Article 27(1))".
+
+% ---- general-purpose AI models
+rule gpai_date with provenance the AI Act at "Article 113, third paragraph, point (b), and Article 111(3)":
+the date of application of Chapter V to a model is a date
+    if the model was placed on the market on a placing date
+    and the placing date is before 2025-08-02
+    and the date is 2027-08-02
+    otherwise the date is 2025-08-02.
+
+rule gpai_documentation with provenance the AI Act at "Article 53(1), points (a) and (b), and Article 53(2)",
+        confer "The obligations set out in paragraph 1, points (a) and (b), shall not apply to providers of AI models that are released under a free and open-source licence ... This exception shall not apply to general-purpose AI models with systemic risks":
+"Article 53(1), points (a) and (b) (technical documentation, information for downstream providers)" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is the provider of the general purpose AI model a model of the system
+    and the date of application of Chapter V to the model is the date
+    and it is not the case that
+        the model is released under a free and open source licence with its parameters publicly available
+        and it is not the case that
+            the model has systemic risk under a provision.
+
+rule gpai_copyright with provenance the AI Act at "Article 53(1), points (c) and (d)":
+"Article 53(1), points (c) and (d) (copyright policy, summary of the training content)" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is the provider of the general purpose AI model a model of the system
+    and the date of application of Chapter V to the model is the date.
+
+rule gpai_systemic with provenance the AI Act at "Article 55(1)":
+"Article 55 (obligations for models with systemic risk: evaluation, adversarial testing, incidents, cybersecurity)" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is the provider of the general purpose AI model a model of the system
+    and the model has systemic risk under a provision
+    and the date of application of Chapter V to the model is the date.
+
+% ---- transparency (Article 50), from the general date of application
+rule transparency_interaction with provenance the AI Act at "Article 50(1) and Article 113, second paragraph":
+"Article 50(1) (inform persons that they interact with an AI system)" applies to an operator for a system from 2026-08-02
+    if the triage of the system continues
+    and the operator is a provider of the system
+    and the system is intended to interact directly with natural persons
+    and it is not the case that
+        it is obvious to the natural persons concerned that they interact with the system
+    and it is not the case that
+        the system is authorised by law to detect or prevent or investigate or prosecute criminal offences.
+
+rule transparency_marking with provenance the AI Act at "Article 50(2)":
+"Article 50(2) (machine-readable marking of synthetic content)" applies to an operator for a system from a date
+    if the triage of the system continues
+    and the operator is a provider of the system
+    and the system generates synthetic a kind content
+    and it is not the case that
+        the system only performs an assistive function for standard editing or does not substantially alter the input data
+    and it is not the case that
+        the system is authorised by law to detect or prevent or investigate or prosecute criminal offences
+    and the date of application of Article 50 paragraph 2 to the system is the date.
+
+rule marking_date with provenance the AI Act at "Article 111(4)",
+        confer "Providers of AI systems ... generating synthetic audio, image, video or text content, that have been placed on the market before 2 August 2026 shall take the necessary steps in order to comply with Article 50(2) by 2 December 2026":
+the date of application of Article 50 paragraph 2 to a system is a date
+    if the system was first placed on the market or put into service on a first date
+    and the first date is before 2026-08-02
+    and the date is 2026-12-02
+    otherwise the date is 2026-08-02.
+
+rule transparency_emotion with provenance the AI Act at "Article 50(3)":
+"Article 50(3) (inform persons exposed to emotion recognition or biometric categorisation)" applies to an operator for a system from 2026-08-02
+    if the triage of the system continues
+    and the operator is a deployer of the system
+    and the system is an emotion recognition system or a biometric categorisation system
+    and it is not the case that
+        the system is authorised by law to detect or prevent or investigate or prosecute criminal offences.
+
+rule transparency_deep_fake with provenance the AI Act at "Article 50(4), first subparagraph":
+"Article 50(4), first subparagraph (disclose deep fakes)" applies to an operator for a system from 2026-08-02
+    if the triage of the system continues
+    and the operator is a deployer of the system
+    and the system generates or manipulates image or audio or video content that is a deep fake
+    and it is not the case that
+        the system is authorised by law to detect or prevent or investigate or prosecute criminal offences.
+
+rule transparency_public_text with provenance the AI Act at "Article 50(4), second subparagraph":
+"Article 50(4), second subparagraph (disclose text generated to inform the public)" applies to an operator for a system from 2026-08-02
+    if the triage of the system continues
+    and the operator is a deployer of the system
+    and the operator publishes text generated by the system to inform the public on matters of public interest
+    and it is not the case that
+        the text that the operator publishes from the system has undergone human review or editorial control under its editorial responsibility.
+
+% ---- the status of each obligation on the triage date
+an obligation already applies to an operator for a system
+    if the obligation applies to the operator for the system from a date
+    and the system is triaged on a triage date
+    and the date is before or equal to the triage date.
+
+an obligation applies to an operator for a system only from a date that is in a number days
+    if the obligation applies to the operator for the system from the date
+    and the system is triaged on a triage date
+    and the triage date is before the date
+    and the date is the number days after the triage date.
+
+the prohibition of a provision already applies to an operator for a system
+    if the operator is subject to the prohibition of the provision for the system
+    and the prohibition of the provision applies from a date
+    and the system is triaged on a triage date
+    and the date is before or equal to the triage date.
+
+the prohibition of a provision applies to an operator for a system only from a date that is in a number days
+    if the operator is subject to the prohibition of the provision for the system
+    and the prohibition of the provision applies from the date
+    and the system is triaged on a triage date
+    and the triage date is before the date
+    and the date is the number days after the triage date.
+
+% ================================================================ step 8: escalation and gaps
+section escalation is:
+
+rule escalate_prohibited with provenance the Mike workflow at "Human gate", confer "suspected prohibited practice (Article 5)":
+a system goes to a human for a full analysis because "a prohibited practice is suspected (Article 5)"
+    if the system is triaged on a date
+    and the system involves a prohibited practice.
+
+rule escalate_high_risk with provenance the Mike workflow at "Human gate", confer "high-risk":
+a system goes to a human for a full analysis because "the system is high-risk (Article 6)"
+    if the triage of the system continues
+    and the system is high risk.
+
+rule escalate_gpai with provenance the Mike workflow at "Human gate", confer "GPAI":
+a system goes to a human for a full analysis because "general-purpose AI is in play (Chapter V)"
+    if the triage of the system continues
+    and general purpose AI is in play for the system.
+
+section gaps is:
+
+rule gap_machine with provenance the AI Act at "Article 3(1)":
+the triage of a system has the gap "whether the system is a machine-based system (Article 3(1))"
+    if the system is triaged on a date
+    and it is not the case that
+        the system is not an AI system
+    and it is not the case that
+        the system is a machine based system.
+
+rule gap_autonomy with provenance the AI Act at "Article 3(1)":
+the triage of a system has the gap "whether the system is designed to operate with varying levels of autonomy (Article 3(1))"
+    if the system is triaged on a date
+    and it is not the case that
+        the system is not an AI system
+    and it is not the case that
+        the system is designed to operate with varying levels of autonomy.
+
+rule gap_inference with provenance the AI Act at "Article 3(1)":
+the triage of a system has the gap "whether the system infers from its input how to generate outputs (Article 3(1))"
+    if the system is triaged on a date
+    and it is not the case that
+        the system is not an AI system
+    and it is not the case that
+        the system infers from the input it receives how to generate outputs.
+
+rule gap_influence with provenance the AI Act at "Article 3(1)":
+the triage of a system has the gap "whether the outputs of the system can influence physical or virtual environments (Article 3(1))"
+    if the system is triaged on a date
+    and it is not the case that
+        the system is not an AI system
+    and it is not the case that
+        the outputs of the system can influence physical or virtual environments.
+
+rule gap_profiling with provenance the AI Act at "Article 6(3), third subparagraph":
+the triage of a system has the gap "whether the system performs profiling of natural persons (Article 6(3), third subparagraph)"
+    if the triage of the system continues
+    and the system is used for a use listed in a provision
+    and it is not the case that
+        the system performs profiling of natural persons
+    and it is not the case that
+        the system does not perform profiling of natural persons.
+
+rule gap_market_date_marking with provenance the AI Act at "Article 111(4)":
+the triage of a system has the gap "when the system was first placed on the market or put into service (Article 111(4))"
+    if "Article 50(2) (machine-readable marking of synthetic content)" applies to an operator for the system from a date
+    and it is not the case that
+        the system was first placed on the market or put into service on a first date.
+
+rule gap_market_date_legacy with provenance the AI Act at "Article 111(2)":
+the triage of a system has the gap "when the system was first placed on the market or put into service (Article 111(2))"
+    if the triage of the system continues
+    and the system is high risk
+    and it is not the case that
+        the system was first placed on the market or put into service on a first date.
+
+rule gap_computation with provenance the AI Act at "Article 51(2)":
+the triage of a system has the gap "the cumulative training computation of the general-purpose AI model (Article 51(2))"
+    if the triage of the system continues
+    and an operator is the provider of the general purpose AI model a model of the system
+    and it is not the case that
+        the cumulative training computation of the model is a number floating point operations
+    and it is not the case that
+        the Commission designates the model as a general purpose AI model with systemic risk.
+
+rule gap_deployer_status with provenance the AI Act at "Article 27(1)":
+the triage of a system has the gap "whether each deployer is a body governed by public law or a private entity providing public services (Article 27(1))"
+    if the triage of the system continues
+    and the system is high risk under Article 6 paragraph 2 because of a provision
+    and an operator is a deployer of the system
+    and it is not the case that
+        the operator must perform a fundamental rights impact assessment for the system
+    and it is not the case that
+        the operator is a private entity that does not provide public services.
+
+rule gap_material with provenance the AI Act at "Article 5(1a), point (a)":
+the triage of a system has the gap "whether the system can generate intimate imagery of identifiable persons or child sexual abuse material without adequate safeguards (Article 5(1a))"
+    if the system is triaged on a date
+    and the system is an AI system
+    and the system generates synthetic a kind content
+    and it is not the case that
+        the kind is text
+    and a material is the material of a provision
+    and it is not the case that
+        the system involves the practice the material prohibited by the provision
+    and it is not the case that
+        the system has adequate safeguards that reliably prevent generating the material.
+
+rule gap_role with provenance the AI Act at "Article 3(3) to (8)":
+the triage of a system has the gap "who is the provider of the system (Article 3(3))"
+    if the triage of the system continues
+    and it is not the case that
+        an operator is a provider of the system.
+
+% ================================================================ the scenarios
+scenario hr_screener is, as stated in the TalentSift vendor pack:
+    TalentSift is triaged on 2026-11-03.
+    HireLogic BV places TalentSift on the market under its own name.
+    TalentSift was first placed on the market or put into service on 2025-06-01.
+    TalentSift is a machine based system.
+    TalentSift is designed to operate with varying levels of autonomy.
+    TalentSift infers from the input it receives how to generate outputs.
+    the outputs of TalentSift can influence physical or virtual environments.
+    TalentSift is intended to be used for the recruitment or selection of natural persons.
+    TalentSift performs profiling of natural persons.
+    TalentSift is intended to perform a preparatory task to an assessment relevant for the use cases of Annex III,
+        according to HireLogic BV, confer "only performs a preparatory task".
+    Acme Logistics GmbH uses TalentSift under its own authority, as stated in the Acme data protection impact assessment.
+    Acme Logistics GmbH is a private entity that does not provide public services, as stated in the Acme data protection impact assessment.
+    classification expects answers ["TalentSift is classified as an AI system on the basis of Article 3(1)", "TalentSift is classified as high-risk under Article 6(2) on the basis of Annex III, point 4(a)"].
+    roles expects answers ["HireLogic BV has the role provider for TalentSift", "Acme Logistics GmbH has the role deployer for TalentSift"].
+    in_force expects answers ["Article 4 (AI literacy of staff) already applies to HireLogic BV for TalentSift", "Article 4 (AI literacy of staff) already applies to Acme Logistics GmbH for TalentSift"].
+    later expects answers ["Chapter III, Sections 1 to 3 (requirements for high-risk AI systems, provider obligations of Article 16) applies to HireLogic BV for TalentSift only from 2027-12-02 that is in 394 days", "Article 26 (obligations of deployers of high-risk AI systems) applies to Acme Logistics GmbH for TalentSift only from 2027-12-02 that is in 394 days"].
+    legacy expects answers ["TalentSift is subject to Chapter III only after a significant change in its design from 2027-12-02"].
+    fria expects answers ["the fundamental rights impact assessment for TalentSift is not required"].
+    escalation expects answers ["TalentSift goes to a human for a full analysis because the system is high-risk (Article 6)"].
+    gaps expects answers [].
+    flip_hr expects changes [["add: TalentSift does not infer how to generate its outputs"], ["add: TalentSift is not a machine based system"], ["remove: TalentSift is a machine based system"], ["remove: TalentSift is designed to operate with varying levels of autonomy"], ["remove: TalentSift infers from the input it receives how to generate outputs"], ["remove: the outputs of TalentSift can influence physical or virtual environments"], ["remove: TalentSift is intended to be used for the recruitment or selection of natural persons"]].
+
+scenario chatbot is, as stated in the HelpBot product sheet:
+    HelpBot is triaged on 2026-11-03.
+    Nordwind Retail Oy puts HelpBot into service under its own name.
+    Nordwind Retail Oy uses HelpBot under its own authority.
+    HelpBot was first placed on the market or put into service on 2025-03-01.
+    HelpBot is based on the general purpose AI model ModelCo-LM.
+    ModelCo Inc places the general purpose AI model ModelCo-LM on the market, as stated in the ModelCo API terms.
+    HelpBot is a machine based system.
+    HelpBot is designed to operate with varying levels of autonomy.
+    HelpBot infers from the input it receives how to generate outputs.
+    the outputs of HelpBot can influence physical or virtual environments.
+    HelpBot is intended to interact directly with natural persons.
+    HelpBot generates synthetic text content.
+    classification expects answers ["HelpBot is classified as an AI system on the basis of Article 3(1)", "HelpBot is classified as not high-risk on the basis of Article 6 and Annexes I and III"].
+    roles expects answers ["Nordwind Retail Oy has the role provider for HelpBot", "Nordwind Retail Oy has the role deployer for HelpBot"].
+    in_force expects answers ["Article 4 (AI literacy of staff) already applies to Nordwind Retail Oy for HelpBot", "Article 50(1) (inform persons that they interact with an AI system) already applies to Nordwind Retail Oy for HelpBot"].
+    later expects answers ["Article 50(2) (machine-readable marking of synthetic content) applies to Nordwind Retail Oy for HelpBot only from 2026-12-02 that is in 29 days"].
+    fria expects answers ["the fundamental rights impact assessment for HelpBot is not required"].
+    escalation expects answers [].
+    gaps expects answers [].
+
+scenario image_api is, as stated in the PixelForge model card:
+    PixelForge is triaged on 2026-11-03.
+    Lumen Labs SAS places PixelForge on the market under its own name.
+    PixelForge was first placed on the market or put into service on 2026-03-01.
+    PixelForge is based on the general purpose AI model Lumen-XL.
+    Lumen Labs SAS places the general purpose AI model Lumen-XL on the market.
+    Lumen-XL was placed on the market on 2026-03-01.
+    the cumulative training computation of Lumen-XL is 20000000000000000000000000 floating point operations.
+    PixelForge is a machine based system.
+    PixelForge is designed to operate with varying levels of autonomy.
+    PixelForge infers from the input it receives how to generate outputs.
+    the outputs of PixelForge can influence physical or virtual environments.
+    PixelForge generates synthetic image content.
+    PixelForge has adequate safeguards that reliably prevent generating intimate imagery made without consent.
+    PixelForge has adequate safeguards that reliably prevent generating child sexual abuse material.
+    classification expects answers ["PixelForge is classified as an AI system on the basis of Article 3(1)", "PixelForge is classified as not high-risk on the basis of Article 6 and Annexes I and III", "PixelForge is classified as based on its provider's general-purpose AI model with systemic risk on the basis of Article 51(1), point (a), and Article 51(2)"].
+    roles expects answers ["Lumen Labs SAS has the role provider for PixelForge"].
+    in_force expects answers ["Article 4 (AI literacy of staff) already applies to Lumen Labs SAS for PixelForge", "Article 53(1), points (a) and (b) (technical documentation, information for downstream providers) already applies to Lumen Labs SAS for PixelForge", "Article 53(1), points (c) and (d) (copyright policy, summary of the training content) already applies to Lumen Labs SAS for PixelForge", "Article 55 (obligations for models with systemic risk: evaluation, adversarial testing, incidents, cybersecurity) already applies to Lumen Labs SAS for PixelForge"].
+    later expects answers ["Article 50(2) (machine-readable marking of synthetic content) applies to Lumen Labs SAS for PixelForge only from 2026-12-02 that is in 29 days"].
+    escalation expects answers ["PixelForge goes to a human for a full analysis because general-purpose AI is in play (Chapter V)"].
+    gaps expects answers [].
+
+scenario payroll_rules is, as stated in the PayCalc user manual:
+    PayCalc is triaged on 2026-11-03.
+    Bureau Dupont SARL uses PayCalc under its own authority.
+    PayCalc is a machine based system.
+    PayCalc does not infer how to generate its outputs, confer "computes wages from fixed formulas that the payroll staff write".
+    classification expects answers ["PayCalc is classified as not an AI system on the basis of Article 3(1)"].
+    roles expects answers [].
+    in_force expects answers [].
+    escalation expects answers [].
+    gaps expects answers [].
+
+scenario workplace_emotion is, as stated in the MoodMeter procurement file:
+    MoodMeter is triaged on 2026-11-03.
+    EmoTech AB places MoodMeter on the market under its own name.
+    CallServe Sp z o o uses MoodMeter under its own authority.
+    MoodMeter was first placed on the market or put into service on 2024-11-01.
+    MoodMeter is a machine based system.
+    MoodMeter is designed to operate with varying levels of autonomy.
+    MoodMeter infers from the input it receives how to generate outputs.
+    the outputs of MoodMeter can influence physical or virtual environments.
+    MoodMeter infers emotions of natural persons in the workplace or in education institutions.
+    classification expects answers ["MoodMeter is classified as an AI system on the basis of Article 3(1)", "MoodMeter is classified as a suspected prohibited practice on the basis of Article 5(1), first subparagraph, point (f)"].
+    prohibitions expects answers ["the prohibition of Article 5(1), first subparagraph, point (f) already applies to EmoTech AB for MoodMeter", "the prohibition of Article 5(1), first subparagraph, point (f) already applies to CallServe Sp z o o for MoodMeter"].
+    in_force expects answers [].
+    escalation expects answers ["MoodMeter goes to a human for a full analysis because a prohibited practice is suspected (Article 5)"].
+
+scenario medical_device is, as stated in the ScanAssist technical file:
+    ScanAssist is triaged on 2026-11-03.
+    MedVision GmbH places ScanAssist on the market under its own name.
+    ScanAssist was first placed on the market or put into service on 2028-09-01.
+    ScanAssist is a machine based system.
+    ScanAssist is designed to operate with varying levels of autonomy.
+    ScanAssist infers from the input it receives how to generate outputs.
+    the outputs of ScanAssist can influence physical or virtual environments.
+    ScanAssist is itself a product covered by the medical devices regulation.
+    ScanAssist must undergo a third party conformity assessment under the medical devices regulation.
+    the failure or malfunctioning of ScanAssist would endanger the health and safety of persons or property.
+    classification expects answers ["ScanAssist is classified as an AI system on the basis of Article 3(1)", "ScanAssist is classified as high-risk under Article 6(1) on the basis of Annex I, Section A, point 11 (Regulation (EU) 2017/745, medical devices)"].
+    roles expects answers ["MedVision GmbH has the role provider for ScanAssist"].
+    later expects answers ["Chapter III, Sections 1 to 3 (requirements for high-risk AI systems, provider obligations of Article 16) applies to MedVision GmbH for ScanAssist only from 2028-08-02 that is in 638 days"].
+    legacy expects answers [].
+    fria expects answers ["the fundamental rights impact assessment for ScanAssist is not required"].
+    escalation expects answers ["ScanAssist goes to a human for a full analysis because the system is high-risk (Article 6)"].
+    gaps expects answers [].
+
+scenario lift_optimiser is, as stated in the LiftFlow technical file:
+    LiftFlow is triaged on 2026-11-03.
+    Elevara SpA places LiftFlow on the market under its own name.
+    LiftFlow is a machine based system.
+    LiftFlow is designed to operate with varying levels of autonomy.
+    LiftFlow infers from the input it receives how to generate outputs.
+    the outputs of LiftFlow can influence physical or virtual environments.
+    LiftFlow is a component of a product covered by the lifts directive.
+    LiftFlow must undergo a third party conformity assessment under the lifts directive.
+    LiftFlow is used solely for non safety related purposes such as user assistance or optimisation.
+    classification expects answers ["LiftFlow is classified as an AI system on the basis of Article 3(1)", "LiftFlow is classified as not high-risk: not a safety component on the basis of Article 6(1a)"].
+    roles expects answers ["Elevara SpA has the role provider for LiftFlow"].
+    later expects answers [].
+    escalation expects answers [].
+    gaps expects answers [].
+
+scenario cv_formatter is, as stated in the CVFormat product sheet:
+    CVFormat is triaged on 2026-11-03.
+    HireLogic BV places CVFormat on the market under its own name.
+    CVFormat was first placed on the market or put into service on 2028-02-01.
+    CVFormat is a machine based system.
+    CVFormat is designed to operate with varying levels of autonomy.
+    CVFormat infers from the input it receives how to generate outputs.
+    the outputs of CVFormat can influence physical or virtual environments.
+    CVFormat is intended to be used for the recruitment or selection of natural persons.
+    CVFormat is intended to perform a narrow procedural task.
+    CVFormat does not perform profiling of natural persons.
+    classification expects answers ["CVFormat is classified as an AI system on the basis of Article 3(1)", "CVFormat is classified as not high-risk under the Article 6(3) derogation on the basis of Article 6(3), second subparagraph, point (a)"].
+    later expects answers ["Article 6(4) and Article 49(2) (document the assessment that the system is not high-risk, and register it) applies to HireLogic BV for CVFormat only from 2027-12-02 that is in 394 days"].
+    escalation expects answers [].
+    gaps expects answers [].
+
+scenario bank_requalified is, as stated in the Banco Atlântico credit model file:
+    GenAssist is triaged on 2026-11-03.
+    ModelCo Inc places GenAssist on the market under its own name, as stated in the ModelCo API terms.
+    GenAssist is based on the general purpose AI model ModelCo-LM, as stated in the ModelCo API terms.
+    ModelCo Inc places the general purpose AI model ModelCo-LM on the market, as stated in the ModelCo API terms.
+    GenAssist was not classified as high risk before its intended purpose was modified, as stated in the ModelCo API terms.
+    Banco Atlântico SA modifies the intended purpose of GenAssist.
+    Banco Atlântico SA uses GenAssist under its own authority.
+    Banco Atlântico SA is a private entity that does not provide public services.
+    Banco Atlântico SA has a data protection impact assessment for GenAssist.
+    GenAssist was first placed on the market or put into service on 2028-01-10.
+    GenAssist is a machine based system.
+    GenAssist is designed to operate with varying levels of autonomy.
+    GenAssist infers from the input it receives how to generate outputs.
+    the outputs of GenAssist can influence physical or virtual environments.
+    GenAssist is intended to be used for the evaluation of the creditworthiness of natural persons or the establishment of their credit score.
+    GenAssist performs profiling of natural persons.
+    classification expects answers ["GenAssist is classified as an AI system on the basis of Article 3(1)", "GenAssist is classified as high-risk under Article 6(2) on the basis of Annex III, point 5(b)"].
+    roles expects answers ["Banco Atlântico SA has the role provider for GenAssist", "Banco Atlântico SA has the role deployer for GenAssist"].
+    requalification expects answers ["Banco Atlântico SA is considered the provider of GenAssist under Article 25(1), point (c)"].
+    fria expects answers ["the fundamental rights impact assessment for GenAssist is required"].
+    dpia expects answers ["Banco Atlântico SA may reuse its data protection impact assessment in the fundamental rights impact assessment for GenAssist"].
+    legacy expects answers [].
+    escalation expects answers ["GenAssist goes to a human for a full analysis because the system is high-risk (Article 6)"].
+    gaps expects answers [].
+
+scenario intimate_images is, as stated in the UndressAI app store listing:
+    UndressAI is triaged on 2026-11-03.
+    ShadyApps Ltd places UndressAI on the market under its own name.
+    UndressAI was first placed on the market or put into service on 2026-05-01.
+    UndressAI is a machine based system.
+    UndressAI is designed to operate with varying levels of autonomy.
+    UndressAI infers from the input it receives how to generate outputs.
+    the outputs of UndressAI can influence physical or virtual environments.
+    UndressAI generates synthetic image content.
+    generating intimate imagery made without consent is the intended purpose of UndressAI.
+    classification expects answers ["UndressAI is classified as an AI system on the basis of Article 3(1)", "UndressAI is classified as a suspected prohibited practice on the basis of Article 5(1), first subparagraph, point (ba)"].
+    prohibitions_later expects answers ["the prohibition of Article 5(1), first subparagraph, point (ba) applies to ShadyApps Ltd for UndressAI only from 2026-12-02 that is in 29 days"].
+    escalation expects answers ["UndressAI goes to a human for a full analysis because a prohibited practice is suspected (Article 5)"].
+
+% A case with gaps: the vendor pack of an Annex III system says nothing about
+% inference or profiling.
+scenario incomplete is, as stated in a two-page brochure:
+    TutorRank is triaged on 2026-11-03.
+    EduMetrics Srl places TutorRank on the market under its own name.
+    TutorRank is a machine based system.
+    TutorRank is designed to operate with varying levels of autonomy.
+    the outputs of TutorRank can influence physical or virtual environments.
+    TutorRank is intended to be used for the evaluation of learning outcomes.
+    classification expects answers ["TutorRank is classified as possibly an AI system: the facts leave gaps on the basis of Article 3(1)"].
+    gaps expects answers ["the triage of TutorRank has the gap whether the system infers from its input how to generate outputs (Article 3(1))"].
+
+% ================================================================ the queries
+query classification is:
+    which system is classified as which class on the basis of which provision.
+
+query roles is:
+    which operator has the role which role for which system.
+
+query requalification is:
+    which operator is considered the provider of which system under which provision.
+
+query prohibitions is:
+    the prohibition of which provision already applies to which operator for which system.
+
+query prohibitions_later is:
+    the prohibition of which provision applies to which operator for which system only from which date that is in which number days.
+
+query in_force is:
+    which obligation already applies to which operator for which system.
+
+query later is:
+    which obligation applies to which operator for which system only from which date that is in which number days.
+
+query legacy is:
+    which system is subject to Chapter III only after a significant change in its design from which date.
+
+query fria is:
+    the fundamental rights impact assessment for which system is which verdict.
+
+query dpia is:
+    which operator may reuse its data protection impact assessment in the fundamental rights impact assessment for which system.
+
+query escalation is:
+    which system goes to a human for a full analysis because which reason.
+
+query gaps is:
+    the triage of which system has the gap which gap.
+
+query stage is:
+    the query fails at which section.
+
+query flip_hr is:
+    which minimal change to the scenario makes it the case that
+        it is not the case that TalentSift is high risk.
+
+% ================================================================ the view
+the view triage card is:
+    the title is "EU AI Act triage card".
+    the case is a scenario, with the documents it is stated in.
+    the facts about "The system and the date of the triage" are
+        a system is triaged on a date,
+        a system was first placed on the market or put into service on a date.
+    the facts about "Is it an AI system (Article 3(1))" are
+        a system is a machine based system,
+        a system is designed to operate with varying levels of autonomy,
+        a system infers from the input it receives how to generate outputs,
+        a system does not infer how to generate its outputs,
+        the outputs of a system can influence physical or virtual environments.
+    the facts about "The operators (Articles 3 and 25)" are
+        an operator places a system on the market under its own name,
+        an operator puts a system into service under its own name,
+        an operator uses a system under its own authority,
+        an operator puts its name or trademark on a system,
+        an operator makes a substantial modification to a system,
+        an operator modifies the intended purpose of a system,
+        an operator is a body governed by public law,
+        an operator is a private entity providing public services,
+        an operator is a private entity that does not provide public services,
+        an operator has a data protection impact assessment for a system.
+    the facts about "Use and risk (Articles 5 and 6, Annexes I and III)" are
+        a system is intended to be used for a use,
+        a system performs profiling of natural persons,
+        a system does not perform profiling of natural persons,
+        a system is intended to perform a narrow procedural task,
+        a system is intended to perform a preparatory task to an assessment relevant for the use cases of Annex III,
+        a system is itself a product covered by an act,
+        a system is a component of a product covered by an act,
+        a system must undergo a third party conformity assessment under an act,
+        a system is used solely for non safety related purposes such as user assistance or optimisation,
+        a system infers emotions of natural persons in the workplace or in education institutions,
+        generating a material is the intended purpose of a system.
+    the facts about "General-purpose AI and transparency (Chapter V, Article 50)" are
+        a system is based on the general purpose AI model a model,
+        an operator places the general purpose AI model a model on the market,
+        the cumulative training computation of a model is a number floating point operations,
+        a system is intended to interact directly with natural persons,
+        a system generates synthetic a kind content.
+    every fact shows who states it.
+    the result is the answer to query classification, headed by the class.
+    the result shows its citations.
+    the answers to "which operator has the role which role for which system" are listed as "Operator roles".
+    the answers to "which operator is considered the provider of which system under which provision" are listed as "Requalification as provider (Article 25)".
+    the answers to "which obligation already applies to which operator for which system" are listed as "Obligations that apply on the date of the triage".
+    the answers to "which obligation applies to which operator for which system only from which date that is in which number days" are listed as "Obligations that apply later".
+    the answers to "the prohibition of which provision already applies to which operator for which system" are listed as "Prohibitions that apply".
+    the answers to "the prohibition of which provision applies to which operator for which system only from which date that is in which number days" are listed as "Prohibitions that apply later".
+    the answers to "which system is subject to Chapter III only after a significant change in its design from which date" are listed as "Systems already on the market (Article 111(2))".
+    the answers to "the fundamental rights impact assessment for which system is which verdict" are listed as "Fundamental rights impact assessment (Article 27)".
+    the answers to "the triage of which system has the gap which gap" are listed as "Gaps".
+    the case is flagged as "Goes to a human for a full analysis" when query escalation has an answer.
+    the result can be flipped.
+    the documents of the case are shown beside the facts.

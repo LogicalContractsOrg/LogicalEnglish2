@@ -457,7 +457,14 @@ handle_method(Method, Dict, Response) :-
     % tools an installed extension adds (extension_tool/1), when the caller
     % may use them
     findall(T, catch(extension_tool(T), _, fail), ExtTools),
-    append(AllTools, ExtTools, AllTools1),
+    %  The five tools only read: they change nothing on the server. Saying so
+    %  (MCP tool annotations) lets a client such as Mike OSS label them as
+    %  read tools, instead of treating each as a write that needs approval.
+    maplist([T0, T1]>>put_dict(annotations, T0,
+                               _{readOnlyHint: true, destructiveHint: false,
+                                 idempotentHint: true, openWorldHint: false}, T1),
+            AllTools, AnnotatedTools),
+    append(AnnotatedTools, ExtTools, AllTools1),
     (   mcp_only_query_verify
     ->  include(mcp:is_query_or_verify, AllTools1, Tools)
     ;   Tools = AllTools1
