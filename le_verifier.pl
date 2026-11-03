@@ -654,9 +654,51 @@ missing_template(KB, issue(missing_template, Description, Fix, Start, End)) :-
     ),
     le_grammar:reconstruct_name(Tokens, Name),
     le_i18n:le_msg(missing_template_desc, [name-Name], Description),
-    tokens_to_template_hypothesis(Tokens, Hypothesis),
+    (   program_argument_types(KB, Types), Types \== []
+    ->  typed_template_hypothesis(Tokens, Types, Hypothesis)
+    ;   tokens_to_template_hypothesis(Tokens, Hypothesis)
+    ),
     format(atom(Fix), "~w.", [Hypothesis]),
     ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true; Start = 0, End = 0).
+
+%!  typed_template_hypothesis(+Tokens, +Types, -Hypothesis) is det.
+%
+%   The template a missing sentence needs, read with the program's own kinds
+%   of things (the names of its templates' argument places): "the provider",
+%   "a second person" become `*a provider*`, `*a second person*`; every other
+%   word stays as written. Guessing from capitals made "the Agent's Australian
+%   financial services licence has no restriction preventing the proposal"
+%   into `the *a Agent's* *a Australian* financial services licence ...`,
+%   a suggestion that misled every repair round that read it.
+typed_template_hypothesis(Tokens, Types, Hypothesis) :-
+    findall(W, ( member(T, Tokens), token_word(T, W) ), Words),
+    typed_parts(Words, Types, Parts),
+    atomic_list_concat(Parts, ' ', Hypothesis).
+
+token_word(var(Ws, _), W) :- !, atomic_list_concat(Ws, ' ', W0), format(atom(W), "*~w*", [W0]).
+token_word(T, W) :- le_grammar:extract_simple_word(T, W).
+
+typed_parts([], _, []).
+typed_parts([Art|Ws], Types, [P|Ps]) :-
+    downcase_atom(Art, LA), memberchk(LA, [a, an, the]),
+    between(1, 4, N), length(TWs, N), append(TWs, Rest, Ws),
+    atomic_list_concat(TWs, ' ', TypeName), memberchk(TypeName, Types), !,
+    TWs = [First|_],
+    ( sub_atom(First, 0, 1, _, C), memberchk(C, [a, e, i, o, u]) -> A = an ; A = a ),
+    format(atom(P), "*~w ~w*", [A, TypeName]),
+    typed_parts(Rest, Types, Ps).
+typed_parts([W|Ws], Types, [W|Ps]) :-
+    typed_parts(Ws, Types, Ps).
+
+%   The names of the argument places of the program's templates (`provider`,
+%   `second person`), longest first.
+program_argument_types(KB, Types) :-
+    findall(T, ( catch(KB:le_dict(dict(_, NTs, _, _, _, _, _)), _, fail),
+                 member(_-T0, NTs), atom(T0), T0 \== any,
+                 T = T0 ), Ts0),
+    sort(Ts0, Ts1),
+    map_list_to_pairs([T, L]>>( atom_length(T, L0), L is -L0 ), Ts1, Ps),
+    keysort(Ps, SPs), pairs_values(SPs, Types).
 
 tokens_to_template_hypothesis(Tokens, Hypothesis) :-
     group_hypothesis_parts(Tokens, Grouped),

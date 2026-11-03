@@ -92,6 +92,7 @@ modelling_warning("unmarked_meta_template").
 modelling_warning("single_variable_fact").
 modelling_warning("unbound_aggregate_variable").
 modelling_warning("detached_condition").
+modelling_warning("possessive_template").
 
 %!  count_modelling_warnings(+Issues, -Count) is det.
 %

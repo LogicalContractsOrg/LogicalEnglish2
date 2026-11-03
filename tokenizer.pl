@@ -312,12 +312,28 @@ token_match(Idx, doubleQuoteString(S, loc(Idx, End)), End) -->
       End is Idx + L + 2 }.
 
 % Quoted String: '...'
+% Not a possessive (`*a provider*'s licence`: an apostrophe after an
+% argument place, then `s` and a space or punctuation), and never across a
+% line: two possessives in a templates section were read as ONE quoted string
+% from the first apostrophe to the second, lines apart, and every template
+% between them was lost without an error (25 sentences of one program then
+% had no template). The apostrophe is then punctuation, as before.
 token_match(Idx, quoteString(S, loc(Idx, End)), End) -->
-    "'", !,
-    string_until_ending("'", Codes),
+    "'", \+ possessive_s,
+    string_until_quote_on_line(Codes), !,
     { string_codes(S, Codes),
       length(Codes, L),
       End is Idx + L + 2 }.
+
+%   Up to the closing apostrophe on the same line; fails at a line's end.
+string_until_quote_on_line([]) --> "'", !.
+string_until_quote_on_line([C|Cs]) --> [C], { C \== 0'\n, C \== 0'\r }, string_until_quote_on_line(Cs).
+
+possessive_s, [0's, C] --> [0's, C], { \+ code_type(C, alnum) }.
+possessive_s, [0's] --> [0's], eos_peek.
+
+eos_peek([], []).
+
 
 % Number
 % Accepts an optional integer part with thousands separators (e.g. 10,000,000),

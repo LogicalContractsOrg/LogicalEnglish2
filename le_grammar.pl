@@ -1476,6 +1476,7 @@ templates(AllDicts) -->
     (   (t(punct('.')) ; t(punct(',')))
     ->  ( templates(MoreDicts) | { MoreDicts = [] } ),
         { wordless_template_error(TDicts, TDicts1),
+          possessive_template_warning(TDicts1),
           append(TDicts1, MoreDicts, AllDicts) }
     ;   reserved_word_template_error(TDicts)
     ->  % recover: drop the truncated template, parse the rest of the section
@@ -1504,6 +1505,44 @@ wordless_template_error([dict(_, _, WV, Start, End, _, _, _, _)|_], []) :-
         le_i18n:le_msg(wordless_template_desc, [template-T], Desc),
         le_i18n:le_msg(wordless_template_fix, [], Fix),
         assertz(M:le_issue(error, wordless_template, Desc, Fix, Start, End))
+    ;   true
+    ).
+%!  possessive_template_warning(+Dicts) is det.
+%
+%   `*a provider*'s licence covers *a proposal*`: a sentence writes the
+%   possessive as one word ("the provider's licence"), the template as an
+%   argument place followed by an apostrophe, so no sentence ever matches it.
+%   A warning at the template; each sentence that uses it is a missing
+%   template.
+possessive_template_warning([dict(_, _, WV, Start, End, _, _, _, _)|_]) :-
+    is_list(WV),
+    append(_, [V, '\''|_], WV), var(V), !,
+    (   le_kbs:current_compiling_module(M), M \== (-)
+    ->  (   current_source_text(Src), integer(Start), integer(End), End > Start,
+            L is End - Start, catch(sub_string(Src, Start, L, _, T), _, fail)
+        ->  true
+        ;   T = ''
+        ),
+        le_i18n:le_msg(possessive_template_desc, [template-T], Desc),
+        le_i18n:le_msg(possessive_template_fix, [], Fix),
+        assertz(M:le_issue(warning, possessive_template, Desc, Fix, Start, End))
+    ;   true
+    ).
+possessive_template_warning(_).
+
+%   A template named like one of Prolog's own predicates (`*a provider* is *a
+%   named provider*`, functor is/2) took every "... is ..." sentence of the
+%   program, the date comparisons and the arithmetic among them: also an
+%   error, and also dropped (le_verifier's builtin_template message).
+wordless_template_error([dict([F|Args], _, WV, Start, End, _, _, _, _)|_], []) :-
+    atom(F), length(Args, N),
+    catch(le_verifier:prolog_reserved_functor(F, N), _, fail),
+    \+ catch(le_verifier:le_system_template_functor(F, N), _, fail), !,
+    (   le_kbs:current_compiling_module(M), M \== (-)
+    ->  ( catch(le_verifier:canonical_string(WV, T), _, fail) -> true ; T = '' ),
+        le_i18n:le_msg(builtin_template_desc, [template-T], Desc),
+        le_i18n:le_msg(builtin_template_fix, [], Fix),
+        assertz(M:le_issue(error, builtin_template, Desc, Fix, Start, End))
     ;   true
     ).
 wordless_template_error(Dicts, Dicts).

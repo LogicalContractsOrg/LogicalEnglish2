@@ -104,6 +104,16 @@ of this template. The system now ignores the template.
 **Fix:** Write the fixed words outside the asterisks:
 `*an exemption* expressly covers a trustee service; undefined.`
 
+## The template '...' puts an apostrophe after an argument place
+
+The template has a possessive after an argument place, for example
+`*a provider*'s licence covers *a proposal*`. A sentence of the program writes the
+possessive as one word: `the provider's licence covers the proposal`. Thus no sentence
+agrees with this template, and the system reports each sentence as a sentence without
+a template.  
+**Fix:** Write the possessive with *of*, in the template and in the sentences:
+`the licence of *a provider* covers *a proposal*`.
+
 ## Rule without variables: ...
 
 The conclusion of the rule and the conditions of the rule do not contain a variable.
