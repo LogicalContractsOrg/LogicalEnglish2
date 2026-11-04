@@ -10337,7 +10337,8 @@ var uiCatalog = {
     "Link copied.": "Liga\xE7\xE3o copiada.",
     "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Esta vers\xE3o do editor funciona no navegador e n\xE3o tem servidor, por isso um documento n\xE3o tem endere\xE7o para partilhar.",
     "Only a program that the server keeps has a link: open the program from the server's examples.": "S\xF3 um programa que o servidor guarda tem liga\xE7\xE3o: abra o programa a partir dos exemplos do servidor.",
-    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar o endere\xE7o deste documento, para o enviar a algu\xE9m. S\xF3 abre para quem tem sess\xE3o iniciada neste servidor."
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar o endere\xE7o deste documento, para o enviar a algu\xE9m. S\xF3 abre para quem tem sess\xE3o iniciada neste servidor.",
+    "The server did not answer. Check the connection and try again.": "O servidor n\xE3o respondeu. Verifique a liga\xE7\xE3o e tente novamente."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -11108,7 +11109,8 @@ var uiCatalog = {
     "Link copied.": "Enlace copiado.",
     "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Esta versi\xF3n del editor funciona en el navegador y no tiene servidor, por eso un documento no tiene direcci\xF3n para compartir.",
     "Only a program that the server keeps has a link: open the program from the server's examples.": "Solo un programa que el servidor guarda tiene enlace: abra el programa desde los ejemplos del servidor.",
-    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar la direcci\xF3n de este documento, para enviarla a alguien. Solo se abre para quien ha iniciado sesi\xF3n en este servidor."
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar la direcci\xF3n de este documento, para enviarla a alguien. Solo se abre para quien ha iniciado sesi\xF3n en este servidor.",
+    "The server did not answer. Check the connection and try again.": "El servidor no respondi\xF3. Compruebe la conexi\xF3n e int\xE9ntelo de nuevo."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -11879,7 +11881,8 @@ var uiCatalog = {
     "Link copied.": "Lien copi\xE9.",
     "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Cette version de l'\xE9diteur fonctionne dans le navigateur et n'a pas de serveur : un document n'a donc pas d'adresse \xE0 partager.",
     "Only a program that the server keeps has a link: open the program from the server's examples.": "Seul un programme que le serveur garde a un lien : ouvrez le programme depuis les exemples du serveur.",
-    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copier l'adresse de ce document, pour l'envoyer \xE0 quelqu'un. Il ne s'ouvre que pour les personnes connect\xE9es \xE0 ce serveur."
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copier l'adresse de ce document, pour l'envoyer \xE0 quelqu'un. Il ne s'ouvre que pour les personnes connect\xE9es \xE0 ce serveur.",
+    "The server did not answer. Check the connection and try again.": "Le serveur n'a pas r\xE9pondu. V\xE9rifiez la connexion et r\xE9essayez."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -12650,7 +12653,8 @@ var uiCatalog = {
     "Link copied.": "Link copiato.",
     "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Questa versione dell'editor funziona nel browser e non ha un server, quindi un documento non ha un indirizzo da condividere.",
     "Only a program that the server keeps has a link: open the program from the server's examples.": "Solo un programma conservato dal server ha un link: aprire il programma dagli esempi del server.",
-    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiare l'indirizzo di questo documento, per inviarlo a qualcuno. Si apre solo per chi ha effettuato l'accesso a questo server."
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiare l'indirizzo di questo documento, per inviarlo a qualcuno. Si apre solo per chi ha effettuato l'accesso a questo server.",
+    "The server did not answer. Check the connection and try again.": "Il server non ha risposto. Controllare la connessione e riprovare."
   }
 };
 var languages = [

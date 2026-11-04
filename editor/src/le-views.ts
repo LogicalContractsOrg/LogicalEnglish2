@@ -33,12 +33,27 @@ export interface ViewContext {
 // One request at a time: every widget asks the same reasoning session, and a
 // request sets the session's scenario — two at once (the result of the case,
 // the comparison with another scenario) would each see the other's.
+// A request that does not reach the server (the network dropped, the server
+// restarting) is tried once more after a pause; the requests only ask, so a
+// second try changes nothing. A second failure, or an answer that is not the
+// server's (a proxy's error page), rejects with a message for the reader:
+// every widget that asks says it where its answer would be (`noAnswer`).
 let queue: Promise<any> = Promise.resolve();
+const NO_SERVER = 'The server did not answer. Check the connection and try again.';
 async function leapi(body: any): Promise<any> {
-    const call = () => fetch('/leapi', {
+    const once = () => fetch('/leapi', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: TOKEN, ...body }),
-    }).then(r => r.json());
+    });
+    const call = async () => {
+        let r: Response;
+        try { r = await once(); }
+        catch {
+            await new Promise(ok => setTimeout(ok, 1500));
+            try { r = await once(); } catch { throw new Error(t(NO_SERVER)); }
+        }
+        try { return await r.json(); } catch { throw new Error(t(NO_SERVER)); }
+    };
     const p = queue.then(call, call);
     queue = p.catch(() => undefined);
     return p;
@@ -50,6 +65,9 @@ function el(tag: string, cls = '', text?: string): HTMLElement {
     if (text !== undefined) e.textContent = text;
     return e;
 }
+
+// What a widget shows in place of its answer when the request failed.
+const noAnswer = (e: unknown) => el('div', 'lv-status', e instanceof Error && e.message ? e.message : t(NO_SERVER));
 
 // What each part of a view is, said when the pointer rests on it (the view's
 // own words say what the case is about; these say what the widget does).
@@ -761,7 +779,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
             delete req.query;
             req.customQuery = flipText(goal, negate);
             if (keep.length) req.keep = keep;
-            const res = await leapi({ operation: 'answeringQuery', ...req });
+            let res: any;
+            try { res = await leapi({ operation: 'answeringQuery', ...req }); }
+            catch (e) { out.innerHTML = ''; out.appendChild(noAnswer(e)); return; }
             out.innerHTML = '';
             const sets: string[] = (res.results || []).map((r: any) => String(r.answer));
             if (!sets.length) { out.appendChild(el('div', 'lv-status', t('No change of up to three facts would change it.'))); return; }
@@ -789,7 +809,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
             const req = resultRequest();
             delete req.query;
             req.customQuery = tb.question;
-            const res = await leapi({ operation: 'answeringQuery', ...req });
+            let res: any;
+            try { res = await leapi({ operation: 'answeringQuery', ...req }); }
+            catch (e) { b.appendChild(noAnswer(e)); continue; }
             const results: any[] = res.results || [];
             if (!results.length) { b.appendChild(el('div', 'lv-status', t('None.'))); continue; }
             const slots0 = answerSlots(tb.question, results[0].answer);
@@ -817,7 +839,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
             b.appendChild(el('div', 'lv-grp', sc));
             const req: any = { sessionModule: ctx.sessionModule, scenario: sc };
             if (R.whether) req.customQuery = R.whether; else req.query = R.query;
-            const res = await leapi({ operation: 'answeringQuery', ...req });
+            let res: any;
+            try { res = await leapi({ operation: 'answeringQuery', ...req }); }
+            catch (e) { b.appendChild(noAnswer(e)); continue; }
             const results: any[] = res.results || [];
             if (results.length) results.slice(0, 3).forEach(r => b.appendChild(el('div', 'lv-ok', R.whether && R.holds ? R.holds : num(r.answer))));
             else {
@@ -878,6 +902,8 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
                     table.appendChild(tr);
                     done++;
                 }
+            } catch (e) {
+                out.appendChild(noAnswer(e));
             } finally {
                 progress.textContent = done < total ? say('Stopped after {i} of {n} cases.', done, total)
                                                     : say('{n} cases run.', done, total);
@@ -947,7 +973,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
     const renderMissing = async () => {
         const b = bodyOf('questions'); if (!b) return;
         const req = resultRequest();
-        const oq = await leapi({ operation: 'openQuestions', ...req });
+        let oq: any;
+        try { oq = await leapi({ operation: 'openQuestions', ...req }); }
+        catch (e) { b.innerHTML = ''; b.appendChild(noAnswer(e)); return; }
         b.innerHTML = '';            // after the answer: a later run may have rendered meanwhile
         // a result that holds only provided that some facts hold: those are missing
         const assumed: string[] = !oq.holds && lastResult && (lastResult.results || []).length
@@ -1047,7 +1075,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
             const req = resultRequest();
             delete req.query; delete req.customQuery;
             if (f.query) req.query = f.query; else req.customQuery = f.question;
-            const res = await leapi({ operation: 'answeringQuery', ...req });
+            let res: any;
+            try { res = await leapi({ operation: 'answeringQuery', ...req }); }
+            catch { continue; }      // a flag not known is not shown; the result says why
             const results: any[] = res.results || [];
             if (!results.length) continue;
             const banner = el('div', 'lv-flag');
@@ -1108,6 +1138,11 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
         let res: any;
         try {
             res = await leapi({ operation: 'answeringQuery', ...runRequest() });
+        } catch (e) {
+            // the results below stay those of the last evaluation, and say so
+            setStale(true);
+            status.textContent = e instanceof Error && e.message ? e.message : t(NO_SERVER);
+            return;
         } finally {
             evalBtn.disabled = false;
             root.classList.remove('lv-busy');
@@ -1196,7 +1231,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
         const step = async () => {
             box.innerHTML = '';
             box.appendChild(el('div', 'lv-status', t('Thinking…')));
-            const oq = await leapi({ operation: 'openQuestions', ...req() });
+            let oq: any;
+            try { oq = await leapi({ operation: 'openQuestions', ...req() }); }
+            catch (e) { box.innerHTML = ''; box.appendChild(noAnswer(e)); return; }
             box.innerHTML = '';
             const touched = new Set<string>((oq.touched || []).map((x: any) => norm(x.literal)));
             const wanted = new Set<string>([...(oq.missing || []), ...(oq.touched || [])].map((x: any) => String(x.label)));
@@ -1246,7 +1283,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
                 }
                 return;
             }
-            const res = await leapi({ operation: 'answeringQuery', ...req() });
+            let res: any;
+            try { res = await leapi({ operation: 'answeringQuery', ...req() }); }
+            catch (e) { box.appendChild(noAnswer(e)); return; }
             lastResult = res;
             const holds = (res.results || []).length > 0;
             box.appendChild(el('div', `lv-res ${holds ? 'yes' : 'no'}`, holds ? (R.holds || num(res.results[0].answer)) : (R.not || t('No'))));
@@ -1269,9 +1308,9 @@ export async function mountView(root: HTMLElement, ctx: ViewContext): Promise<vo
                 const goal = holds ? (res.results[0].goal || res.results[0].answer) : (R.whether || queryText(R.query));
                 const r2 = req(); delete r2.query; r2.customQuery = flipText(goal, holds);
                 if (keep.length) r2.keep = keep;
-                const fl = await leapi({ operation: 'answeringQuery', ...r2 });
-                const sets: string[] = (fl.results || []).map((r: any) => String(r.answer));
-                if (!sets.length) box.appendChild(el('div', 'lv-status', t('No change of up to three facts would change it.')));
+                const fl: any = await leapi({ operation: 'answeringQuery', ...r2 }).catch(e => { box.appendChild(noAnswer(e)); return null; });
+                const sets: string[] = ((fl && fl.results) || []).map((r: any) => String(r.answer));
+                if (fl && !sets.length) box.appendChild(el('div', 'lv-status', t('No change of up to three facts would change it.')));
                 sets.slice(0, 6).forEach((s, i) => box.appendChild(el('div', 'lv-ck', (i ? `${t('or')} ` : '') + sayChange(s))));
             }
             const again = el('button', 'lv-bigbtn', t('Change an answer'));

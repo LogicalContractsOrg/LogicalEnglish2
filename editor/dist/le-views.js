@@ -1598,6 +1598,37 @@ var keywords = {
         "the",
         "cell"
       ]
+    ],
+    "notice_start": [
+      [
+        "spdx-license-identifier:"
+      ],
+      [
+        "licensed",
+        "under"
+      ],
+      [
+        "legal",
+        "notice"
+      ],
+      [
+        "disclaimer"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "license"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "pt": {
@@ -3518,6 +3549,34 @@ var keywords = {
         "a",
         "c\xE9lula"
       ]
+    ],
+    "notice_start": [
+      [
+        "isen\xE7\xE3o",
+        "de",
+        "responsabilidade"
+      ],
+      [
+        "direitos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licen\xE7a"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "es": {
@@ -5356,6 +5415,34 @@ var keywords = {
       [
         "la",
         "celda"
+      ]
+    ],
+    "notice_start": [
+      [
+        "descargo",
+        "de",
+        "responsabilidad"
+      ],
+      [
+        "derechos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licencia"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
       ]
     ]
   },
@@ -7311,6 +7398,31 @@ var keywords = {
         "la",
         "cellule"
       ]
+    ],
+    "notice_start": [
+      [
+        "mentions",
+        "l\xE9gales"
+      ],
+      [
+        "avis",
+        "juridique"
+      ],
+      [
+        "avertissement"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "it": {
@@ -9198,6 +9310,32 @@ var keywords = {
         "la",
         "cella"
       ]
+    ],
+    "notice_start": [
+      [
+        "esclusione",
+        "di",
+        "responsabilit\xE0"
+      ],
+      [
+        "avviso",
+        "legale"
+      ],
+      [
+        "avvertenza"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licenza"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   }
 };
@@ -9318,6 +9456,7 @@ var uiCatalog = {
     "Open...": "Abrir...",
     "OpenAI API Key:": "Chave de API OpenAI:",
     "PROLOG Equivalent": "Equivalente PROLOG",
+    "s(CASP) Equivalent": "Equivalente s(CASP)",
     "Paste": "Colar",
     "Patch scenario": "Ajustar cen\xE1rio",
     "Predicates Legend": "Legenda de predicados",
@@ -9714,6 +9853,7 @@ var uiCatalog = {
     "Tests of": "Testes de",
     "Running the tests\u2026": "A executar os testes\u2026",
     "only those that did not pass": "s\xF3 os que n\xE3o passaram",
+    "(no answers)": "(sem respostas)",
     "Hide the tests that passed": "Esconder os testes que passaram",
     "errors": "erros",
     "tests": "testes",
@@ -9872,7 +10012,108 @@ var uiCatalog = {
     "Open the ledger": "Abrir o registo",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "O registo diz, para cada elemento da origem, se foi traduzido sem mudan\xE7a de significado, com uma mudan\xE7a de significado (e porqu\xEA), ou n\xE3o foi traduzido. Ficheiro > Mostrar o registo abre-o mais tarde.",
     "The server has a key: enter yours to use it instead": "O servidor tem uma chave: introduza a sua para a usar em vez dela",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sem uma chave sua, \xE9 usada a chave do servidor, dentro de um limite di\xE1rio. Com a sua pr\xF3pria chave, n\xE3o h\xE1 limite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sem uma chave sua, \xE9 usada a chave do servidor, dentro de um limite di\xE1rio. Com a sua pr\xF3pria chave, n\xE3o h\xE1 limite.",
+    "Find Cases": "Procurar casos",
+    "Find cases": "Procurar casos",
+    "Which cases make it the case that\u2026": "Que casos fazem com que\u2026",
+    "Is there a case in which\u2026": "H\xE1 algum caso em que\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Procura todos os casos que o programa permite, n\xE3o s\xF3 os seus cen\xE1rios: os casos em que uma frase \xE9 verdadeira, ou um caso que viola uma propriedade (refer\xEAncia da linguagem \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Lista todos os casos em que uma frase \xE9 verdadeira: o que um cen\xE1rio teria de dizer, e n\xE3o dizer, para que seja verdadeira, com os cen\xE1rios do programa que satisfazem cada caso",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Procura um caso em que uma frase \xE9 verdadeira, por exemplo um caso que viola uma propriedade do programa. A resposta \xE9 o caso, ou a declara\xE7\xE3o de que n\xE3o h\xE1 tal caso",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Escreva a frase como uma condi\xE7\xE3o de uma regra, por exemplo "a person gets rent support". Cada resposta \xE9 um caso em que a frase \xE9 verdadeira: o que um cen\xE1rio tem de dizer, e n\xE3o pode dizer. A resposta tamb\xE9m indica os cen\xE1rios do programa que satisfazem o caso.',
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Escreva a frase como uma condi\xE7\xE3o de uma regra, por exemplo "a person is eligible and the person is excluded". Para verificar uma propriedade, escreva o que a viola. A resposta \xE9 um caso em que a frase \xE9 verdadeira, ou a declara\xE7\xE3o de que n\xE3o h\xE1 tal caso.',
+    "The search runs as a custom query that you can change and run again.": "A procura corre como uma consulta personalizada que pode alterar e voltar a correr.",
+    "Save as a Readable Document\u2026": "Guardar como documento leg\xEDvel\u2026",
+    "Save as a Readable Document": "Guardar como documento leg\xEDvel",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Fazer um documento deste programa para uma pessoa ler sem o editor \u2014 cada afirma\xE7\xE3o exatamente como est\xE1 escrita, cada frase ligada ao s\xEDtio onde \xE9 definida, com \xEDndice e um \xEDndice remissivo dos modelos \u2014 e abri-lo ou guard\xE1-lo como p\xE1gina web, PDF, documento Word ou Markdown. Os coment\xE1rios ficam de fora, a n\xE3o ser que os inclua",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Um documento do programa para uma pessoa ler sem o editor: cada afirma\xE7\xE3o exatamente como est\xE1 escrita, com \xEDndice, liga\xE7\xF5es de cada frase ao s\xEDtio onde \xE9 definida e um \xEDndice remissivo dos modelos.",
+    "Web page (HTML)": "P\xE1gina web (HTML)",
+    "PDF (printed from the browser)": "PDF (impresso a partir do navegador)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Estilo",
+    "Comments": "Coment\xE1rios",
+    "Plain": "Simples",
+    "Compact": "Compacto",
+    "Legal": "Jur\xEDdico",
+    "Colourful": "Colorido",
+    "Editor colours": "Cores do editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "O aspeto da p\xE1gina web quando abre. A p\xE1gina tem um menu para mudar o estilo.",
+    "Include the comments of the program": "Incluir os coment\xE1rios do programa",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Os coment\xE1rios s\xE3o notas do autor e podem ser privados, por isso ficam de fora, a n\xE3o ser que os inclua. Um coment\xE1rio que come\xE7a por Copyright, Licen\xE7a ou Aviso \xE9 um aviso: fica sempre, no in\xEDcio do documento.",
+    "Open the document in a new tab of the browser": "Abrir o documento num novo separador do navegador",
+    "Save the document as a file on your computer": "Guardar o documento como ficheiro no seu computador",
+    "Making the document\u2026": "A fazer o documento\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': 'O documento abre num novo separador com o di\xE1logo de impress\xE3o: escolha a\xED "Guardar como PDF".',
+    "Untitled program": "Programa sem t\xEDtulo",
+    "Knowledge base": "Base de conhecimento",
+    "Included resources": "Recursos inclu\xEDdos",
+    "Services": "Servi\xE7os",
+    "Kinds of things": "Tipos de coisas",
+    "Fluents": "Fluentes",
+    "Events": "Eventos",
+    "Actions": "A\xE7\xF5es",
+    "Constants": "Constantes",
+    "Functions": "Fun\xE7\xF5es",
+    "Decision table": "Tabela de decis\xE3o",
+    "View": "Vista",
+    "Cells of a service": "C\xE9lulas de um servi\xE7o",
+    "Section": "Sec\xE7\xE3o",
+    "A program in Logical English": "Um programa em Portugu\xEAs L\xF3gico",
+    "A program in Logical English for LPS (Logic Production System)": "Um programa em Portugu\xEAs L\xF3gico para LPS (Logic Production System)",
+    "Contents": "\xCDndice",
+    "Notices": "Avisos",
+    "Index of templates": "\xCDndice dos modelos",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Cada modelo do programa, com o n\xFAmero da afirma\xE7\xE3o que o declara, as afirma\xE7\xF5es que o definem e as afirma\xE7\xF5es que o usam.",
+    "declared in": "declarado em",
+    "defined in": "definido em",
+    "also defined in": "tamb\xE9m definido em",
+    "used in": "usado em",
+    "not defined by a rule": "n\xE3o definido por uma regra",
+    "The comments of the program are not shown.": "Os coment\xE1rios do programa n\xE3o s\xE3o mostrados.",
+    "The comments of the program are shown in grey.": "Os coment\xE1rios do programa s\xE3o mostrados a cinzento.",
+    "Print or save as PDF": "Imprimir ou guardar como PDF",
+    "How to read this document": "Como ler este documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Este documento \xE9 o programa, palavra por palavra. Cada afirma\xE7\xE3o numerada \xE9 uma afirma\xE7\xE3o do programa.",
+    "Words of Logical English itself, such as if, and, or": "Palavras da pr\xF3pria linguagem, como se, e, ou",
+    "The words of a template: select them to go to where the sentence is defined": "As palavras de um modelo: selecione-as para ir ao s\xEDtio onde a frase \xE9 definida",
+    "The words of a template where a rule or a fact defines it": "As palavras de um modelo onde uma regra ou um facto o define",
+    "A variable: it stands for any thing of its kind": "Uma vari\xE1vel: representa qualquer coisa do seu tipo",
+    "A value: one fixed thing, number or text": "Um valor: uma coisa, n\xFAmero ou texto fixo",
+    "A place of a template, which a sentence fills": "Um lugar de um modelo, que uma frase preenche",
+    "Template": "Modelo",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "A\xE7\xE3o",
+    "Constant": "Constante",
+    "Function": "Fun\xE7\xE3o",
+    "Rule": "Regra",
+    "Fact": "Facto",
+    "Causal law": "Lei causal",
+    "Reactive rule": "Regra reativa",
+    "Constraint": "Restri\xE7\xE3o",
+    "Initial state": "Estado inicial",
+    "Goal": "Objetivo",
+    "Setting": "Defini\xE7\xE3o",
+    "Expected answers": "Respostas esperadas",
+    "Fact of the scenario": "Facto do cen\xE1rio",
+    "Included resource": "Recurso inclu\xEDdo",
+    "Service": "Servi\xE7o",
+    "Sentence of a view": "Frase de uma vista",
+    "Kind of thing": "Tipo de coisa",
+    "Statement": "Afirma\xE7\xE3o",
+    "Comment": "Coment\xE1rio",
+    "Made from {name} on {date}.": "Feito a partir de {name} em {date}.",
+    "The server did not answer, so the document was not made. Try again.": "O servidor n\xE3o respondeu, por isso o documento n\xE3o foi feito. Tente novamente.",
+    "Copy link": "Copiar liga\xE7\xE3o",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "A liga\xE7\xE3o s\xF3 abre o documento para quem tem sess\xE3o iniciada neste servidor; os outros t\xEAm primeiro de iniciar sess\xE3o.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Mostra o programa como o servidor o guarda, sem as suas altera\xE7\xF5es por guardar.",
+    "Link copied.": "Liga\xE7\xE3o copiada.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Esta vers\xE3o do editor funciona no navegador e n\xE3o tem servidor, por isso um documento n\xE3o tem endere\xE7o para partilhar.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "S\xF3 um programa que o servidor guarda tem liga\xE7\xE3o: abra o programa a partir dos exemplos do servidor.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar o endere\xE7o deste documento, para o enviar a algu\xE9m. S\xF3 abre para quem tem sess\xE3o iniciada neste servidor.",
+    "The server did not answer. Check the connection and try again.": "O servidor n\xE3o respondeu. Verifique a liga\xE7\xE3o e tente novamente."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -9989,6 +10230,7 @@ var uiCatalog = {
     "Open...": "Abrir...",
     "OpenAI API Key:": "Clave de API OpenAI:",
     "PROLOG Equivalent": "Equivalente PROLOG",
+    "s(CASP) Equivalent": "Equivalente s(CASP)",
     "Paste": "Pegar",
     "Patch scenario": "Ajustar escenario",
     "Predicates Legend": "Leyenda de predicados",
@@ -10384,6 +10626,7 @@ var uiCatalog = {
     "Tests of": "Pruebas de",
     "Running the tests\u2026": "Ejecutando las pruebas\u2026",
     "only those that did not pass": "solo las que no pasaron",
+    "(no answers)": "(sin respuestas)",
     "Hide the tests that passed": "Ocultar las pruebas que pasaron",
     "errors": "errores",
     "tests": "pruebas",
@@ -10541,7 +10784,108 @@ var uiCatalog = {
     "Open the ledger": "Abrir el registro",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "El registro dice, para cada elemento del origen, si se tradujo sin cambio de significado, con un cambio de significado (y por qu\xE9), o no se tradujo. Archivo > Mostrar el registro lo abre m\xE1s tarde.",
     "The server has a key: enter yours to use it instead": "El servidor tiene una clave: introduzca la suya para usarla en su lugar",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sin una clave propia, se usa la clave del servidor, dentro de un l\xEDmite diario. Con su propia clave, no hay l\xEDmite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sin una clave propia, se usa la clave del servidor, dentro de un l\xEDmite diario. Con su propia clave, no hay l\xEDmite.",
+    "Find Cases": "Buscar casos",
+    "Find cases": "Buscar casos",
+    "Which cases make it the case that\u2026": "Qu\xE9 casos hacen que\u2026",
+    "Is there a case in which\u2026": "Hay alg\xFAn caso en que\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Busca todos los casos que el programa permite, no solo sus escenarios: los casos en que una frase es verdadera, o un caso que incumple una propiedad (referencia del lenguaje \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Lista todos los casos en que una frase es verdadera: lo que un escenario tendr\xEDa que decir, y no decir, para que sea verdadera, con los escenarios del programa que cumplen cada caso",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Busca un caso en que una frase es verdadera, por ejemplo un caso que incumple una propiedad del programa. La respuesta es el caso, o la declaraci\xF3n de que no hay tal caso",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Escriba la frase como una condici\xF3n de una regla, por ejemplo "a person gets rent support". Cada respuesta es un caso en que la frase es verdadera: lo que un escenario debe decir, y no debe decir. La respuesta tambi\xE9n indica los escenarios del programa que cumplen el caso.',
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Escriba la frase como una condici\xF3n de una regla, por ejemplo "a person is eligible and the person is excluded". Para comprobar una propiedad, escriba lo que la incumple. La respuesta es un caso en que la frase es verdadera, o la declaraci\xF3n de que no hay tal caso.',
+    "The search runs as a custom query that you can change and run again.": "La b\xFAsqueda se ejecuta como una consulta personalizada que puede cambiar y volver a ejecutar.",
+    "Save as a Readable Document\u2026": "Guardar como documento legible\u2026",
+    "Save as a Readable Document": "Guardar como documento legible",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Hacer un documento de este programa para que una persona lo lea sin el editor \u2014 cada enunciado tal como est\xE1 escrito, cada frase enlazada con el lugar donde se define, con \xEDndice y un \xEDndice de las plantillas \u2014 y abrirlo o guardarlo como p\xE1gina web, PDF, documento Word o Markdown. Los comentarios quedan fuera, salvo que los incluya",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un documento del programa para que una persona lo lea sin el editor: cada enunciado tal como est\xE1 escrito, con \xEDndice, enlaces de cada frase al lugar donde se define y un \xEDndice de las plantillas.",
+    "Web page (HTML)": "P\xE1gina web (HTML)",
+    "PDF (printed from the browser)": "PDF (impreso desde el navegador)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Estilo",
+    "Comments": "Comentarios",
+    "Plain": "Sencillo",
+    "Compact": "Compacto",
+    "Legal": "Jur\xEDdico",
+    "Colourful": "Colorido",
+    "Editor colours": "Colores del editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "El aspecto de la p\xE1gina web cuando se abre. La p\xE1gina tiene un men\xFA para cambiar el estilo.",
+    "Include the comments of the program": "Incluir los comentarios del programa",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Los comentarios son notas del autor y pueden ser privados, por eso quedan fuera, salvo que los incluya. Un comentario que empieza por Copyright, Licencia o Aviso es un aviso: se conserva siempre, al principio del documento.",
+    "Open the document in a new tab of the browser": "Abrir el documento en una nueva pesta\xF1a del navegador",
+    "Save the document as a file on your computer": "Guardar el documento como archivo en su ordenador",
+    "Making the document\u2026": "Haciendo el documento\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': 'El documento se abre en una nueva pesta\xF1a con el di\xE1logo de impresi\xF3n: elija all\xED "Guardar como PDF".',
+    "Untitled program": "Programa sin t\xEDtulo",
+    "Knowledge base": "Base de conocimiento",
+    "Included resources": "Recursos incluidos",
+    "Services": "Servicios",
+    "Kinds of things": "Tipos de cosas",
+    "Fluents": "Fluentes",
+    "Events": "Eventos",
+    "Actions": "Acciones",
+    "Constants": "Constantes",
+    "Functions": "Funciones",
+    "Decision table": "Tabla de decisi\xF3n",
+    "View": "Vista",
+    "Cells of a service": "Celdas de un servicio",
+    "Section": "Secci\xF3n",
+    "A program in Logical English": "Un programa en Espa\xF1ol L\xF3gico",
+    "A program in Logical English for LPS (Logic Production System)": "Un programa en Espa\xF1ol L\xF3gico para LPS (Logic Production System)",
+    "Contents": "\xCDndice",
+    "Notices": "Avisos",
+    "Index of templates": "\xCDndice de las plantillas",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Cada plantilla del programa, con el n\xFAmero del enunciado que la declara, los enunciados que la definen y los enunciados que la usan.",
+    "declared in": "declarada en",
+    "defined in": "definida en",
+    "also defined in": "tambi\xE9n definida en",
+    "used in": "usada en",
+    "not defined by a rule": "no definida por una regla",
+    "The comments of the program are not shown.": "Los comentarios del programa no se muestran.",
+    "The comments of the program are shown in grey.": "Los comentarios del programa se muestran en gris.",
+    "Print or save as PDF": "Imprimir o guardar como PDF",
+    "How to read this document": "C\xF3mo leer este documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Este documento es el programa, palabra por palabra. Cada enunciado numerado es un enunciado del programa.",
+    "Words of Logical English itself, such as if, and, or": "Palabras del propio lenguaje, como si, y, o",
+    "The words of a template: select them to go to where the sentence is defined": "Las palabras de una plantilla: selecci\xF3nelas para ir al lugar donde se define la frase",
+    "The words of a template where a rule or a fact defines it": "Las palabras de una plantilla donde una regla o un hecho la define",
+    "A variable: it stands for any thing of its kind": "Una variable: representa cualquier cosa de su tipo",
+    "A value: one fixed thing, number or text": "Un valor: una cosa, n\xFAmero o texto fijo",
+    "A place of a template, which a sentence fills": "Un lugar de una plantilla, que una frase rellena",
+    "Template": "Plantilla",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Acci\xF3n",
+    "Constant": "Constante",
+    "Function": "Funci\xF3n",
+    "Rule": "Regla",
+    "Fact": "Hecho",
+    "Causal law": "Ley causal",
+    "Reactive rule": "Regla reactiva",
+    "Constraint": "Restricci\xF3n",
+    "Initial state": "Estado inicial",
+    "Goal": "Objetivo",
+    "Setting": "Ajuste",
+    "Expected answers": "Respuestas esperadas",
+    "Fact of the scenario": "Hecho del escenario",
+    "Included resource": "Recurso incluido",
+    "Service": "Servicio",
+    "Sentence of a view": "Frase de una vista",
+    "Kind of thing": "Tipo de cosa",
+    "Statement": "Enunciado",
+    "Comment": "Comentario",
+    "Made from {name} on {date}.": "Hecho a partir de {name} el {date}.",
+    "The server did not answer, so the document was not made. Try again.": "El servidor no respondi\xF3, por eso el documento no se hizo. Int\xE9ntelo de nuevo.",
+    "Copy link": "Copiar enlace",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "El enlace solo abre el documento para quien ha iniciado sesi\xF3n en este servidor; los dem\xE1s deben iniciar sesi\xF3n primero.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Muestra el programa como lo guarda el servidor, sin sus cambios sin guardar.",
+    "Link copied.": "Enlace copiado.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Esta versi\xF3n del editor funciona en el navegador y no tiene servidor, por eso un documento no tiene direcci\xF3n para compartir.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Solo un programa que el servidor guarda tiene enlace: abra el programa desde los ejemplos del servidor.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiar la direcci\xF3n de este documento, para enviarla a alguien. Solo se abre para quien ha iniciado sesi\xF3n en este servidor.",
+    "The server did not answer. Check the connection and try again.": "El servidor no respondi\xF3. Compruebe la conexi\xF3n e int\xE9ntelo de nuevo."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -10658,6 +11002,7 @@ var uiCatalog = {
     "Open...": "Ouvrir...",
     "OpenAI API Key:": "Cl\xE9 d'API OpenAI :",
     "PROLOG Equivalent": "\xC9quivalent PROLOG",
+    "s(CASP) Equivalent": "\xC9quivalent s(CASP)",
     "Paste": "Coller",
     "Patch scenario": "Ajuster le sc\xE9nario",
     "Predicates Legend": "L\xE9gende des pr\xE9dicats",
@@ -11053,6 +11398,7 @@ var uiCatalog = {
     "Tests of": "Tests de",
     "Running the tests\u2026": "Ex\xE9cution des tests\u2026",
     "only those that did not pass": "seulement ceux qui n'ont pas r\xE9ussi",
+    "(no answers)": "(aucune r\xE9ponse)",
     "Hide the tests that passed": "Masquer les tests r\xE9ussis",
     "errors": "erreurs",
     "tests": "tests",
@@ -11210,7 +11556,108 @@ var uiCatalog = {
     "Open the ledger": "Ouvrir le registre",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Le registre dit, pour chaque \xE9l\xE9ment de la source, s'il a \xE9t\xE9 traduit sans changement de sens, avec un changement de sens (et pourquoi), ou pas du tout. Fichier > Afficher le registre l'ouvre plus tard.",
     "The server has a key: enter yours to use it instead": "Le serveur a une cl\xE9 : saisissez la v\xF4tre pour l'utiliser \xE0 sa place",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sans cl\xE9 \xE0 vous, la cl\xE9 du serveur est utilis\xE9e, dans une limite quotidienne. Avec votre propre cl\xE9, il n'y a pas de limite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Sans cl\xE9 \xE0 vous, la cl\xE9 du serveur est utilis\xE9e, dans une limite quotidienne. Avec votre propre cl\xE9, il n'y a pas de limite.",
+    "Find Cases": "Chercher des cas",
+    "Find cases": "Chercher des cas",
+    "Which cases make it the case that\u2026": "Quels cas font que\u2026",
+    "Is there a case in which\u2026": "Il y a un cas o\xF9\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Cherche tous les cas que le programme permet, pas seulement ses sc\xE9narios : les cas o\xF9 une phrase est vraie, ou un cas qui viole une propri\xE9t\xE9 (r\xE9f\xE9rence du langage \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Liste tous les cas o\xF9 une phrase est vraie : ce qu'un sc\xE9nario devrait dire, et ne pas dire, pour qu'elle soit vraie, avec les sc\xE9narios du programme qui satisfont chaque cas",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cherche un cas o\xF9 une phrase est vraie, par exemple un cas qui viole une propri\xE9t\xE9 du programme. La r\xE9ponse est le cas, ou la d\xE9claration qu'il n'y a pas de tel cas",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': "\xC9crivez la phrase comme une condition d'une r\xE8gle, par exemple \xAB a person gets rent support \xBB. Chaque r\xE9ponse est un cas o\xF9 la phrase est vraie : ce qu'un sc\xE9nario doit dire, et ne doit pas dire. La r\xE9ponse indique aussi les sc\xE9narios du programme qui satisfont le cas.",
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': "\xC9crivez la phrase comme une condition d'une r\xE8gle, par exemple \xAB a person is eligible and the person is excluded \xBB. Pour v\xE9rifier une propri\xE9t\xE9, \xE9crivez ce qui la viole. La r\xE9ponse est un cas o\xF9 la phrase est vraie, ou la d\xE9claration qu'il n'y a pas de tel cas.",
+    "The search runs as a custom query that you can change and run again.": "La recherche s'ex\xE9cute comme une requ\xEAte personnalis\xE9e que vous pouvez modifier et relancer.",
+    "Save as a Readable Document\u2026": "Enregistrer comme document lisible\u2026",
+    "Save as a Readable Document": "Enregistrer comme document lisible",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Faire un document de ce programme pour qu'une personne le lise sans l'\xE9diteur \u2014 chaque \xE9nonc\xE9 exactement tel qu'il est \xE9crit, chaque phrase li\xE9e \xE0 l'endroit o\xF9 elle est d\xE9finie, avec une table des mati\xE8res et un index des mod\xE8les \u2014 et l'ouvrir ou l'enregistrer comme page web, PDF, document Word ou Markdown. Les commentaires sont omis, sauf si vous les incluez",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un document du programme pour qu'une personne le lise sans l'\xE9diteur : chaque \xE9nonc\xE9 exactement tel qu'il est \xE9crit, avec une table des mati\xE8res, des liens de chaque phrase vers l'endroit o\xF9 elle est d\xE9finie et un index des mod\xE8les.",
+    "Web page (HTML)": "Page web (HTML)",
+    "PDF (printed from the browser)": "PDF (imprim\xE9 depuis le navigateur)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Format",
+    "Style": "Style",
+    "Comments": "Commentaires",
+    "Plain": "Simple",
+    "Compact": "Compact",
+    "Legal": "Juridique",
+    "Colourful": "Color\xE9",
+    "Editor colours": "Couleurs de l'\xE9diteur",
+    "How the web page looks when it opens. The page has a menu to change the style.": "L'aspect de la page web \xE0 son ouverture. La page a un menu pour changer de style.",
+    "Include the comments of the program": "Inclure les commentaires du programme",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Les commentaires sont les notes de l'auteur et peuvent \xEAtre priv\xE9s : ils sont donc omis, sauf si vous les incluez. Un commentaire qui commence par Copyright, Licence ou Avertissement est un avis : il est toujours conserv\xE9, au d\xE9but du document.",
+    "Open the document in a new tab of the browser": "Ouvrir le document dans un nouvel onglet du navigateur",
+    "Save the document as a file on your computer": "Enregistrer le document comme fichier sur votre ordinateur",
+    "Making the document\u2026": "Cr\xE9ation du document\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': "Le document s'ouvre dans un nouvel onglet avec la bo\xEEte d'impression : choisissez-y \xAB Enregistrer au format PDF \xBB.",
+    "Untitled program": "Programme sans titre",
+    "Knowledge base": "Base de connaissances",
+    "Included resources": "Ressources incluses",
+    "Services": "Services",
+    "Kinds of things": "Sortes de choses",
+    "Fluents": "Fluents",
+    "Events": "\xC9v\xE9nements",
+    "Actions": "Actions",
+    "Constants": "Constantes",
+    "Functions": "Fonctions",
+    "Decision table": "Table de d\xE9cision",
+    "View": "Vue",
+    "Cells of a service": "Cellules d'un service",
+    "Section": "Section",
+    "A program in Logical English": "Un programme en Fran\xE7ais Logique",
+    "A program in Logical English for LPS (Logic Production System)": "Un programme en Fran\xE7ais Logique pour LPS (Logic Production System)",
+    "Contents": "Table des mati\xE8res",
+    "Notices": "Avis",
+    "Index of templates": "Index des mod\xE8les",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Chaque mod\xE8le du programme, avec le num\xE9ro de l'\xE9nonc\xE9 qui le d\xE9clare, les \xE9nonc\xE9s qui le d\xE9finissent et les \xE9nonc\xE9s qui l'utilisent.",
+    "declared in": "d\xE9clar\xE9 en",
+    "defined in": "d\xE9fini en",
+    "also defined in": "aussi d\xE9fini en",
+    "used in": "utilis\xE9 en",
+    "not defined by a rule": "non d\xE9fini par une r\xE8gle",
+    "The comments of the program are not shown.": "Les commentaires du programme ne sont pas montr\xE9s.",
+    "The comments of the program are shown in grey.": "Les commentaires du programme sont montr\xE9s en gris.",
+    "Print or save as PDF": "Imprimer ou enregistrer en PDF",
+    "How to read this document": "Comment lire ce document",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Ce document est le programme, mot pour mot. Chaque \xE9nonc\xE9 num\xE9rot\xE9 est un \xE9nonc\xE9 du programme.",
+    "Words of Logical English itself, such as if, and, or": "Mots du langage lui-m\xEAme, comme si, et, ou",
+    "The words of a template: select them to go to where the sentence is defined": "Les mots d'un mod\xE8le : s\xE9lectionnez-les pour aller \xE0 l'endroit o\xF9 la phrase est d\xE9finie",
+    "The words of a template where a rule or a fact defines it": "Les mots d'un mod\xE8le l\xE0 o\xF9 une r\xE8gle ou un fait le d\xE9finit",
+    "A variable: it stands for any thing of its kind": "Une variable : elle repr\xE9sente n'importe quelle chose de son type",
+    "A value: one fixed thing, number or text": "Une valeur : une chose, un nombre ou un texte fixe",
+    "A place of a template, which a sentence fills": "Une place d'un mod\xE8le, qu'une phrase remplit",
+    "Template": "Mod\xE8le",
+    "Fluent": "Fluent",
+    "Event": "\xC9v\xE9nement",
+    "Action": "Action",
+    "Constant": "Constante",
+    "Function": "Fonction",
+    "Rule": "R\xE8gle",
+    "Fact": "Fait",
+    "Causal law": "Loi causale",
+    "Reactive rule": "R\xE8gle r\xE9active",
+    "Constraint": "Contrainte",
+    "Initial state": "\xC9tat initial",
+    "Goal": "But",
+    "Setting": "R\xE9glage",
+    "Expected answers": "R\xE9ponses attendues",
+    "Fact of the scenario": "Fait du sc\xE9nario",
+    "Included resource": "Ressource incluse",
+    "Service": "Service",
+    "Sentence of a view": "Phrase d'une vue",
+    "Kind of thing": "Sorte de chose",
+    "Statement": "\xC9nonc\xE9",
+    "Comment": "Commentaire",
+    "Made from {name} on {date}.": "Fait \xE0 partir de {name} le {date}.",
+    "The server did not answer, so the document was not made. Try again.": "Le serveur n'a pas r\xE9pondu, donc le document n'a pas \xE9t\xE9 fait. R\xE9essayez.",
+    "Copy link": "Copier le lien",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "Le lien n'ouvre le document que pour les personnes connect\xE9es \xE0 ce serveur ; les autres doivent d'abord se connecter.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Il montre le programme tel que le serveur le garde, sans vos modifications non enregistr\xE9es.",
+    "Link copied.": "Lien copi\xE9.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Cette version de l'\xE9diteur fonctionne dans le navigateur et n'a pas de serveur : un document n'a donc pas d'adresse \xE0 partager.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Seul un programme que le serveur garde a un lien : ouvrez le programme depuis les exemples du serveur.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copier l'adresse de ce document, pour l'envoyer \xE0 quelqu'un. Il ne s'ouvre que pour les personnes connect\xE9es \xE0 ce serveur.",
+    "The server did not answer. Check the connection and try again.": "Le serveur n'a pas r\xE9pondu. V\xE9rifiez la connexion et r\xE9essayez."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -11327,6 +11774,7 @@ var uiCatalog = {
     "Open...": "Apri...",
     "OpenAI API Key:": "Chiave API OpenAI:",
     "PROLOG Equivalent": "Equivalente PROLOG",
+    "s(CASP) Equivalent": "Equivalente s(CASP)",
     "Paste": "Incolla",
     "Patch scenario": "Aggiusta scenario",
     "Predicates Legend": "Legenda dei predicati",
@@ -11722,6 +12170,7 @@ var uiCatalog = {
     "Tests of": "Test di",
     "Running the tests\u2026": "Esecuzione dei test\u2026",
     "only those that did not pass": "solo quelli non superati",
+    "(no answers)": "(nessuna risposta)",
     "Hide the tests that passed": "Nascondere i test superati",
     "errors": "errori",
     "tests": "test",
@@ -11879,7 +12328,108 @@ var uiCatalog = {
     "Open the ledger": "Apri il registro",
     "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Il registro dice, per ogni elemento della fonte, se \xE8 stato tradotto senza cambiamento di significato, con un cambiamento di significato (e perch\xE9), o per niente. File > Mostra il registro lo apre pi\xF9 tardi.",
     "The server has a key: enter yours to use it instead": "Il server ha una chiave: inserisca la sua per usarla al suo posto",
-    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Senza una chiave sua, si usa la chiave del server, entro un limite giornaliero. Con una sua chiave, non c'\xE8 limite."
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Senza una chiave sua, si usa la chiave del server, entro un limite giornaliero. Con una sua chiave, non c'\xE8 limite.",
+    "Find Cases": "Cerca casi",
+    "Find cases": "Cerca casi",
+    "Which cases make it the case that\u2026": "Quali casi fanno s\xEC che\u2026",
+    "Is there a case in which\u2026": "C'\xE8 un caso in cui\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Cerca tutti i casi che il programma consente, non solo i suoi scenari: i casi in cui una frase \xE8 vera, o un caso che viola una propriet\xE0 (riferimento del linguaggio \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Elenca tutti i casi in cui una frase \xE8 vera: ci\xF2 che uno scenario dovrebbe dire, e non dire, perch\xE9 sia vera, con gli scenari del programma che soddisfano ciascun caso",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Cerca un caso in cui una frase \xE8 vera, per esempio un caso che viola una propriet\xE0 del programma. La risposta \xE8 il caso, o la dichiarazione che non esiste un tale caso",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': 'Scriva la frase come una condizione di una regola, per esempio "a person gets rent support". Ogni risposta \xE8 un caso in cui la frase \xE8 vera: ci\xF2 che uno scenario deve dire, e non deve dire. La risposta indica anche gli scenari del programma che soddisfano il caso.',
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': 'Scriva la frase come una condizione di una regola, per esempio "a person is eligible and the person is excluded". Per verificare una propriet\xE0, scriva ci\xF2 che la viola. La risposta \xE8 un caso in cui la frase \xE8 vera, o la dichiarazione che non esiste un tale caso.',
+    "The search runs as a custom query that you can change and run again.": "La ricerca si esegue come un'interrogazione personalizzata che pu\xF2 modificare e rieseguire.",
+    "Save as a Readable Document\u2026": "Salva come documento leggibile\u2026",
+    "Save as a Readable Document": "Salva come documento leggibile",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Fare un documento di questo programma perch\xE9 una persona lo legga senza l'editor \u2014 ogni enunciato esattamente come \xE8 scritto, ogni frase collegata al punto in cui \xE8 definita, con indice e un indice dei modelli \u2014 e aprirlo o salvarlo come pagina web, PDF, documento Word o Markdown. I commenti sono esclusi, a meno che non li includa",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Un documento del programma perch\xE9 una persona lo legga senza l'editor: ogni enunciato esattamente come \xE8 scritto, con indice, collegamenti da ogni frase al punto in cui \xE8 definita e un indice dei modelli.",
+    "Web page (HTML)": "Pagina web (HTML)",
+    "PDF (printed from the browser)": "PDF (stampato dal browser)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Formato",
+    "Style": "Stile",
+    "Comments": "Commenti",
+    "Plain": "Semplice",
+    "Compact": "Compatto",
+    "Legal": "Giuridico",
+    "Colourful": "Colorato",
+    "Editor colours": "Colori dell'editor",
+    "How the web page looks when it opens. The page has a menu to change the style.": "L'aspetto della pagina web quando si apre. La pagina ha un menu per cambiare lo stile.",
+    "Include the comments of the program": "Includere i commenti del programma",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "I commenti sono note dell'autore e possono essere privati, quindi sono esclusi, a meno che non li includa. Un commento che inizia con Copyright, Licenza o Avvertenza \xE8 un avviso: \xE8 sempre conservato, all'inizio del documento.",
+    "Open the document in a new tab of the browser": "Aprire il documento in una nuova scheda del browser",
+    "Save the document as a file on your computer": "Salvare il documento come file sul computer",
+    "Making the document\u2026": "Creazione del documento\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': 'Il documento si apre in una nuova scheda con la finestra di stampa: scegliere l\xEC "Salva come PDF".',
+    "Untitled program": "Programma senza titolo",
+    "Knowledge base": "Base di conoscenza",
+    "Included resources": "Risorse incluse",
+    "Services": "Servizi",
+    "Kinds of things": "Tipi di cose",
+    "Fluents": "Fluenti",
+    "Events": "Eventi",
+    "Actions": "Azioni",
+    "Constants": "Costanti",
+    "Functions": "Funzioni",
+    "Decision table": "Tabella decisionale",
+    "View": "Vista",
+    "Cells of a service": "Celle di un servizio",
+    "Section": "Sezione",
+    "A program in Logical English": "Un programma in Italiano Logico",
+    "A program in Logical English for LPS (Logic Production System)": "Un programma in Italiano Logico per LPS (Logic Production System)",
+    "Contents": "Indice",
+    "Notices": "Avvisi",
+    "Index of templates": "Indice dei modelli",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Ogni modello del programma, con il numero dell'enunciato che lo dichiara, gli enunciati che lo definiscono e gli enunciati che lo usano.",
+    "declared in": "dichiarato in",
+    "defined in": "definito in",
+    "also defined in": "definito anche in",
+    "used in": "usato in",
+    "not defined by a rule": "non definito da una regola",
+    "The comments of the program are not shown.": "I commenti del programma non sono mostrati.",
+    "The comments of the program are shown in grey.": "I commenti del programma sono mostrati in grigio.",
+    "Print or save as PDF": "Stampa o salva come PDF",
+    "How to read this document": "Come leggere questo documento",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Questo documento \xE8 il programma, parola per parola. Ogni enunciato numerato \xE8 un enunciato del programma.",
+    "Words of Logical English itself, such as if, and, or": "Parole del linguaggio stesso, come se, e, o",
+    "The words of a template: select them to go to where the sentence is defined": "Le parole di un modello: selezionarle per andare al punto in cui la frase \xE8 definita",
+    "The words of a template where a rule or a fact defines it": "Le parole di un modello dove una regola o un fatto lo definisce",
+    "A variable: it stands for any thing of its kind": "Una variabile: rappresenta qualsiasi cosa del suo tipo",
+    "A value: one fixed thing, number or text": "Un valore: una cosa, un numero o un testo fisso",
+    "A place of a template, which a sentence fills": "Un posto di un modello, che una frase riempie",
+    "Template": "Modello",
+    "Fluent": "Fluente",
+    "Event": "Evento",
+    "Action": "Azione",
+    "Constant": "Costante",
+    "Function": "Funzione",
+    "Rule": "Regola",
+    "Fact": "Fatto",
+    "Causal law": "Legge causale",
+    "Reactive rule": "Regola reattiva",
+    "Constraint": "Vincolo",
+    "Initial state": "Stato iniziale",
+    "Goal": "Obiettivo",
+    "Setting": "Impostazione",
+    "Expected answers": "Risposte attese",
+    "Fact of the scenario": "Fatto dello scenario",
+    "Included resource": "Risorsa inclusa",
+    "Service": "Servizio",
+    "Sentence of a view": "Frase di una vista",
+    "Kind of thing": "Tipo di cosa",
+    "Statement": "Enunciato",
+    "Comment": "Commento",
+    "Made from {name} on {date}.": "Fatto a partire da {name} il {date}.",
+    "The server did not answer, so the document was not made. Try again.": "Il server non ha risposto, quindi il documento non \xE8 stato fatto. Riprovare.",
+    "Copy link": "Copia link",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "Il link apre il documento solo per chi ha effettuato l'accesso a questo server; gli altri devono prima accedere.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Mostra il programma come lo conserva il server, senza le modifiche non salvate.",
+    "Link copied.": "Link copiato.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Questa versione dell'editor funziona nel browser e non ha un server, quindi un documento non ha un indirizzo da condividere.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Solo un programma conservato dal server ha un link: aprire il programma dagli esempi del server.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Copiare l'indirizzo di questo documento, per inviarlo a qualcuno. Si apre solo per chi ha effettuato l'accesso a questo server.",
+    "The server did not answer. Check the connection and try again.": "Il server non ha risposto. Controllare la connessione e riprovare."
   }
 };
 var languages = [
@@ -12932,12 +13482,31 @@ function openSourceViewer(p, rule, ctx = {}) {
 // src/le-views.ts
 var TOKEN2 = "myToken123";
 var queue = Promise.resolve();
+var NO_SERVER = "The server did not answer. Check the connection and try again.";
 async function leapi(body) {
-  const call = () => fetch("/leapi", {
+  const once = () => fetch("/leapi", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token: TOKEN2, ...body })
-  }).then((r) => r.json());
+  });
+  const call = async () => {
+    let r;
+    try {
+      r = await once();
+    } catch {
+      await new Promise((ok) => setTimeout(ok, 1500));
+      try {
+        r = await once();
+      } catch {
+        throw new Error(t(NO_SERVER));
+      }
+    }
+    try {
+      return await r.json();
+    } catch {
+      throw new Error(t(NO_SERVER));
+    }
+  };
   const p = queue.then(call, call);
   queue = p.catch(() => void 0);
   return p;
@@ -12950,6 +13519,7 @@ function el(tag, cls = "", text) {
     e.textContent = text;
   return e;
 }
+var noAnswer = (e) => el("div", "lv-status", e instanceof Error && e.message ? e.message : t(NO_SERVER));
 var WIDGET_TIPS = {
   facts: "The facts of the case. Change a value, add or remove a fact, or pick another case; then Re-evaluate",
   questions: "The facts the result still depends on: answer them to complete the case",
@@ -13779,7 +14349,14 @@ async function mountView(root, ctx) {
       req.customQuery = flipText(goal, negate);
       if (keep.length)
         req.keep = keep;
-      const res = await leapi({ operation: "answeringQuery", ...req });
+      let res;
+      try {
+        res = await leapi({ operation: "answeringQuery", ...req });
+      } catch (e) {
+        out.innerHTML = "";
+        out.appendChild(noAnswer(e));
+        return;
+      }
       out.innerHTML = "";
       const sets = (res.results || []).map((r) => String(r.answer));
       if (!sets.length) {
@@ -13814,7 +14391,13 @@ async function mountView(root, ctx) {
       const req = resultRequest();
       delete req.query;
       req.customQuery = tb.question;
-      const res = await leapi({ operation: "answeringQuery", ...req });
+      let res;
+      try {
+        res = await leapi({ operation: "answeringQuery", ...req });
+      } catch (e) {
+        b.appendChild(noAnswer(e));
+        continue;
+      }
       const results = res.results || [];
       if (!results.length) {
         b.appendChild(el("div", "lv-status", t("None.")));
@@ -13852,7 +14435,13 @@ async function mountView(root, ctx) {
         req.customQuery = R.whether;
       else
         req.query = R.query;
-      const res = await leapi({ operation: "answeringQuery", ...req });
+      let res;
+      try {
+        res = await leapi({ operation: "answeringQuery", ...req });
+      } catch (e) {
+        b.appendChild(noAnswer(e));
+        continue;
+      }
       const results = res.results || [];
       if (results.length)
         results.slice(0, 3).forEach((r) => b.appendChild(el("div", "lv-ok", R.whether && R.holds ? R.holds : num(r.answer))));
@@ -13935,6 +14524,8 @@ async function mountView(root, ctx) {
           table.appendChild(tr);
           done++;
         }
+      } catch (e) {
+        out.appendChild(noAnswer(e));
       } finally {
         progress.textContent = done < total ? say("Stopped after {i} of {n} cases.", done, total) : say("{n} cases run.", done, total);
         running = false;
@@ -14002,7 +14593,14 @@ async function mountView(root, ctx) {
     if (!b)
       return;
     const req = resultRequest();
-    const oq = await leapi({ operation: "openQuestions", ...req });
+    let oq;
+    try {
+      oq = await leapi({ operation: "openQuestions", ...req });
+    } catch (e) {
+      b.innerHTML = "";
+      b.appendChild(noAnswer(e));
+      return;
+    }
     b.innerHTML = "";
     const assumed = !oq.holds && lastResult && (lastResult.results || []).length ? [...new Set((lastResult.results || []).flatMap((r) => r.unknowns || []))] : [];
     if (assumed.length) {
@@ -14113,7 +14711,12 @@ async function mountView(root, ctx) {
         req.query = f.query;
       else
         req.customQuery = f.question;
-      const res = await leapi({ operation: "answeringQuery", ...req });
+      let res;
+      try {
+        res = await leapi({ operation: "answeringQuery", ...req });
+      } catch {
+        continue;
+      }
       const results = res.results || [];
       if (!results.length)
         continue;
@@ -14196,6 +14799,10 @@ async function mountView(root, ctx) {
     let res;
     try {
       res = await leapi({ operation: "answeringQuery", ...runRequest() });
+    } catch (e) {
+      setStale(true);
+      status.textContent = e instanceof Error && e.message ? e.message : t(NO_SERVER);
+      return;
     } finally {
       evalBtn.disabled = false;
       root.classList.remove("lv-busy");
@@ -14285,7 +14892,14 @@ async function mountView(root, ctx) {
     const step = async () => {
       box.innerHTML = "";
       box.appendChild(el("div", "lv-status", t("Thinking\u2026")));
-      const oq = await leapi({ operation: "openQuestions", ...req() });
+      let oq;
+      try {
+        oq = await leapi({ operation: "openQuestions", ...req() });
+      } catch (e) {
+        box.innerHTML = "";
+        box.appendChild(noAnswer(e));
+        return;
+      }
       box.innerHTML = "";
       const touched = new Set((oq.touched || []).map((x) => norm(x.literal)));
       const wanted = new Set([...oq.missing || [], ...oq.touched || []].map((x) => String(x.label)));
@@ -14353,7 +14967,13 @@ async function mountView(root, ctx) {
         }
         return;
       }
-      const res = await leapi({ operation: "answeringQuery", ...req() });
+      let res;
+      try {
+        res = await leapi({ operation: "answeringQuery", ...req() });
+      } catch (e) {
+        box.appendChild(noAnswer(e));
+        return;
+      }
       lastResult = res;
       const holds = (res.results || []).length > 0;
       box.appendChild(el("div", `lv-res ${holds ? "yes" : "no"}`, holds ? R.holds || num(res.results[0].answer) : R.not || t("No")));
@@ -14379,9 +14999,12 @@ async function mountView(root, ctx) {
         r2.customQuery = flipText(goal, holds);
         if (keep.length)
           r2.keep = keep;
-        const fl = await leapi({ operation: "answeringQuery", ...r2 });
-        const sets = (fl.results || []).map((r) => String(r.answer));
-        if (!sets.length)
+        const fl = await leapi({ operation: "answeringQuery", ...r2 }).catch((e) => {
+          box.appendChild(noAnswer(e));
+          return null;
+        });
+        const sets = (fl && fl.results || []).map((r) => String(r.answer));
+        if (fl && !sets.length)
           box.appendChild(el("div", "lv-status", t("No change of up to three facts would change it.")));
         sets.slice(0, 6).forEach((s, i) => box.appendChild(el("div", "lv-ck", (i ? `${t("or")} ` : "") + sayChange(s))));
       }
