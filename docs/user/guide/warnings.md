@@ -73,9 +73,10 @@ specific thing.
 
 ## The condition '...' shares nothing with the rest of its rule
 
-A rule has two or more conditions. One condition contains only variables, and these
-variables are in no other part of the rule. A variable is a part of a rule that
-different values can fill. An example is the last condition of this rule:
+A rule has two or more conditions. One condition contains only variables, or
+variables and a name, and these variables are in no other part of the rule. A
+variable is a part of a rule that different values can fill. An example is the
+last condition of this rule:
 
 ```
 a proposal has an established regulatory basis for a provider
@@ -87,7 +88,10 @@ a proposal has an established regulatory basis for a provider
 This condition does not ask about the licence of the provider. It asks whether a
 licence is current on a date, for any licence and any date. Thus the rule is true
 when some other licence is current. Also, the system must examine each such fact for
-each answer of the rule, and the answers become slow.  
+each answer of the rule, and the answers become slow. A condition with a name and a
+new variable, `and a case supplies agreement D`, is the same: it is true when any
+case supplies the agreement. A condition whose first part is a name, `the start
+date is a date`, asks about that named thing, and is not reported.  
 **Fix:** Connect the condition to the rule. Use *the* for a thing that the rule
 already names: `and the licence of the provider is current on the date of the
 proposal`. If the rule really needs only that some such fact exists, declare a

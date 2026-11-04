@@ -1804,7 +1804,10 @@ single_variable_fact(KB, issue(single_variable_fact, Description, Fix, Start, En
 % else in the rule, so it asks only whether ANY licence is current on ANY
 % date, and it multiplies the search by every such fact. Reported when the
 % rule has other conditions too, and each argument of the condition is a
-% variable that appears once in the rule (its type checks aside). Only the
+% name or a variable that appears once in the rule (its type checks aside),
+% the first a variable: "if a case supplies agreementD and the proposal ..."
+% holds for every proposal as soon as any case supplies the addendum, while
+% "the start date is a date" asks about the named date and is left alone. Only the
 % conditions of the rule's conjunction are read: one under a negation, an
 % `or` or an aggregate is left alone.
 detached_condition(KB, issue(detached_condition, Description, Fix, Start, End)) :-
@@ -1816,9 +1819,13 @@ detached_condition(KB, issue(detached_condition, Description, Fix, Start, End)) 
     functor(Lit, F, A), A > 0,
     \+ is_system_predicate(F/A), \+ sub_atom(F, 0, _, _, le_),
     Lit =.. [_|Args],
-    maplist(var, Args),
+    %  a name among the arguments (`a case supplies agreementD`) links the
+    %  condition to nothing either: it still holds if any such fact exists.
+    %  A name as the subject (`the start date is a date`) asks about that
+    %  named thing, and is left alone.
+    Args = [First|_], var(First),
+    partition(var, Args, Vs, _Constants),
     strip_type_checks(Body, Plain),
-    term_variables(Args, Vs),
     forall(member(V, Vs), occurrences_of_var(V, Head-Plain, 1)),
     fact_le_text(KB, Lit, Text),
     le_i18n:le_msg(detached_condition_desc, [text-Text], Description),

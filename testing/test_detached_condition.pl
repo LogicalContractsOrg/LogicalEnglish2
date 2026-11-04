@@ -27,6 +27,10 @@ a provider is licensed
 a provider is licensed
     if a licence is current on a date.
 
+a provider is licensed
+    if the provider holds a licence
+    and a proposal involves ann.
+
 scenario s is:
     p1 involves ann.
     ann holds l1.
@@ -42,9 +46,11 @@ test(reported_once) :-
     detached_program(T),
     le_kbs:load_text(T, KB),
     findall(S, KB:le_issue(warning, detached_condition, _, _, S, _), Ss),
-    % the first rule's last condition; not the linked one, not a lone condition
-    assertion(length(Ss, 1)),
-    once(KB:le_issue(warning, detached_condition, D, _, _, _)),
-    assertion(sub_string(D, _, _, _, "is current on")).
+    % the first rule's last condition and the condition with a name and a
+    % new variable; not the linked one, not a lone condition
+    assertion(length(Ss, 2)),
+    findall(D, KB:le_issue(warning, detached_condition, D, _, _, _), Ds),
+    assertion(( member(D1, Ds), sub_string(D1, _, _, _, "is current on") )),
+    assertion(( member(D2, Ds), sub_string(D2, _, _, _, "involves ann") )).
 
 :- end_tests(detached_condition).
