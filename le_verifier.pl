@@ -100,6 +100,7 @@ check_issue(KB, _, Issue) :- builtin_template(KB, Issue).
 check_issue(KB, _, Issue) :- unbound_aggregate_variable(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
 check_issue(KB, _, Issue) :- detached_condition(KB, Issue).
+check_issue(KB, _, Issue) :- homonym_templates(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
 check_issue(KB, _, Issue) :- non_stratified(KB, Issue).
@@ -1830,6 +1831,104 @@ detached_condition(KB, issue(detached_condition, Description, Fix, Start, End)) 
     fact_le_text(KB, Lit, Text),
     le_i18n:le_msg(detached_condition_desc, [text-Text], Description),
     le_i18n:le_msg(detached_condition_fix, [], Fix).
+
+% --- Two templates with the same words ---
+% `*an interest form* shows federal income tax withheld of *an amount*` and
+% `*a dividend form* shows federal income tax withheld of *an amount*` differ
+% only in the names of their argument places. The names are not types: both
+% declare one predicate, so a sum over the dividend forms' withholding also
+% sums every interest form's. (A Form 1040 program counted tax withheld twice
+% this way.) One relation for several kinds of thing is often meant (`the
+% name of *a person*`, `the name of *a company*`), and does no harm while
+% each rule says which thing it is about. The harm comes from a condition
+% that tells the kinds apart by the name alone: in the place where the names
+% differ it has a variable that the rule's conclusion does not name and that
+% no other condition fixes, the other conditions naming it being of the same
+% kind (`a dividend form belongs to a person on the return and the dividend
+% form shows ... of X`, where `*an interest form* belongs to ...` has the same
+% words too). The pair is reported only when some rule has such a
+% condition: at the later declaration, once,
+% naming the first one with other names. A declaration repeated with the
+% same names is not this warning; a pair that lies wholly in included
+% resources is left to them.
+homonym_templates(KB, Issue) :-
+    homonym_pairs(KB, Pairs),
+    Pairs \== [],
+    findall(F/A-Is, member(pair(_, _, F/A, Is, _, _), Pairs), Places0),
+    sort(Places0, Places),
+    member(pair(Start, End, F/A, Is, Label, Label0), Pairs),
+    once(kind_by_name_alone(KB, F, A, Is, Places)),
+    le_i18n:le_msg(homonym_templates_desc, [template-Label, other-Label0], Description),
+    le_i18n:le_msg(homonym_templates_fix, [], Fix),
+    Issue = issue(homonym_templates, Description, Fix, Start, End).
+
+%   pair(Start, End, F/A, Places, Label, OtherLabel): a template declared at
+%   Start..End with the words of an earlier one and other names, in the
+%   argument places Places.
+homonym_pairs(KB, Pairs) :-
+    current_predicate(KB:le_source_info/4), !,
+    findall(Pair, homonym_pair(KB, Pair), Pairs).
+homonym_pairs(_, []).
+
+homonym_pair(KB, pair(Start, End, FA, Is, Label, Label0)) :-
+    findall(t(S, E, F/A, Names, Label),
+            ( KB:le_source_info(Ref, S, E, template),
+              catch(clause(KB:le_dict(Dict), true, Ref), _, fail),
+              template_parts(Dict, [F|Args], NTs, WV),
+              \+ le_system_templates:le_system_template(dict([F|Args], NTs, WV)),
+              length(Args, A),
+              findall(N, member(_-N, NTs), Names),
+              template_label(NTs, WV, Label) ),
+            Ts0),
+    msort(Ts0, Ts),
+    append(_, [t(Start, End, FA, Names, Label)|_], Ts),
+    once(( member(t(S0, _, FA, Names0, Label0), Ts),
+           S0 < Start,
+           Names0 \== Names,
+           \+ generalised_names(Names0, Names) )),
+    \+ ( in_included_resource(S0), in_included_resource(Start) ),
+    findall(I, ( nth1(I, Names0, N1), nth1(I, Names, N2), N1 \== N2 ), Is).
+
+%   A condition of a rule on F/A whose argument, in one of the places Is
+%   where the two templates' names differ, is a variable that only names
+%   say the kind of: the conclusion does not name it, and every condition
+%   that has it as an argument has it in such a place of such a template
+%   (Places). The name in the sentence is all that tells the kinds apart,
+%   and the name does not count.
+kind_by_name_alone(KB, F, A, Is, Places) :-
+    kb_rule(KB, Head, Body, _),
+    sub_term(Lit, Body), compound(Lit), functor(Lit, F, A),
+    member(I, Is), arg(I, Lit, V), var(V),
+    \+ occurrences_of_var(V, Head, 1),
+    forall(( sub_term(L2, Body), compound(L2), functor(L2, F2, A2),
+             \+ sub_atom(F2, 0, _, _, le_),
+             once(( KB:le_dict(D2), arg(1, D2, [F2|As2]), length(As2, A2) )),
+             arg(J, L2, V2), V2 == V ),
+           ( memberchk(F2/A2-Is2, Places), memberchk(J, Is2) )).
+
+%   `*a funding record*` beside `*a record*`, `*a financial service*` beside
+%   `*a service*`: in each place where the names differ, one is the head
+%   noun of the other, a kind of it. One predicate for both is then what the
+%   author meant, and is not reported.
+generalised_names(Ns1, Ns2) :-
+    forall(( nth1(I, Ns1, N1), nth1(I, Ns2, N2), N1 \== N2 ),
+           ( head_noun_of(N1, N2) ; head_noun_of(N2, N1) )).
+
+head_noun_of(Head, Name) :-
+    atom(Head), atom(Name),
+    atomic_list_concat(Ws, ' ', Name), Ws = [_, _|_],
+    last(Ws, Head).
+
+template_parts(dict(FA, NTs, WV, _, _, _, _), FA, NTs, WV) :- !.
+template_parts(dict(FA, NTs, WV, _, _, _), FA, NTs, WV) :- !.
+template_parts(dict(FA, NTs, WV, _, _), FA, NTs, WV) :- !.
+template_parts(dict(FA, NTs, WV, _), FA, NTs, WV) :- !.
+template_parts(dict(FA, NTs, WV), FA, NTs, WV).
+
+template_label(NTs, WV, Label) :-
+    copy_term(NTs-WV, NTsC-WVC),
+    maplist(le_kbs:starred_type, NTsC),
+    le_kbs:canonical_string(WVC, Label).
 
 %   The conditions of a conjunction, with their source ranges, without type
 %   checks; a negation, an `or` or an aggregate is not descended into.

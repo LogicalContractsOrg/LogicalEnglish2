@@ -98,6 +98,43 @@ proposal`. If the rule really needs only that some such fact exists, declare a
 template without variables for it (`there is a current licence.`). Then write a rule
 that concludes it from the condition.
 
+## The template '...' has the same words as '...'
+
+Two templates have the same words. Only the names in their argument places are
+different. An argument place is a part of a template between asterisks, for
+example `*an amount*`. The system does not use these names as types. Thus the
+two templates are one relation, and each sentence of one template also agrees
+with the other template. An example is this pair:
+
+```
+*an interest form* shows federal income tax withheld of *an amount*.
+*a dividend form* shows federal income tax withheld of *an amount*.
+```
+
+A rule that adds the tax withheld on each dividend form also adds the tax
+withheld on each interest form:
+
+```
+a return has dividend withholding of an amount T
+    if T is the sum of each W such that
+        a dividend form shows federal income tax withheld of W.
+```
+
+The system reports the pair only when a rule has a condition of this kind. In
+the condition, only the name `a dividend form` tells the two kinds of form
+apart: the conclusion of the rule does not name the form, and no other
+condition tells which kind of form it is. A second condition with a template
+of the same kind does not tell it either, for example
+`a dividend form belongs to the return` beside `*an interest form* belongs to
+*a return*`. One
+relation for two kinds of thing is often correct, for example `the name of *a
+person*` and `the name of *a company*`, when each rule says which thing it is
+about. A pair where one name is the last word of the other name, `*a funding
+record*` and `*a record*`, is not reported.  
+**Fix:** Give one of the two templates a word of its own, outside the argument
+places: `*a dividend form* shows dividend tax withheld of *an amount*`. If the
+two templates are one relation, keep one template.
+
 ## The template '...' has no words outside its argument places (an error)
 
 All the words of the template are between asterisks. An example is

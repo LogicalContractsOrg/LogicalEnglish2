@@ -362,6 +362,13 @@ Do these steps:
      published.
    - **Schedule** and **cases / claims** are optional. Each one can be more than one
      file.
+   - **Held-out cases** are optional. Give cases from a different source here, for
+     example cases from a different author or a published set of test cases. The
+     model that writes the program never sees these cases. The assistant uses them
+     only to give a score to the finished program. With held-out cases, the
+     assistant uses all the cases of **cases / claims** to develop the program.
+     Cases from a second author can find an error that the first author and the
+     program both make.
 
    Markdown or plain text is best. The server can also convert some other formats,
    if the necessary tools are installed. These formats are a Word file (`.docx`, with
@@ -384,11 +391,20 @@ Do these steps:
    - **Kind of document** selects a *profile*. A profile is a file that tells the
      assistant about one kind of document: which parts are rules, which parts are
      the data of each case, and which parts are procedure; how the document
-     numbers its clauses; and which other documents it names. There are five
+     numbers its clauses; and which other documents it names. There are six
      profiles: an insurance policy with a schedule, a coverage policy (for example
-     a Medicare policy), a tariff, a legal opinion, and an ISDA credit support
-     annex. With **automatic**, the assistant reads the start of the document and
-     selects a profile, or no profile when none is applicable.
+     a Medicare policy), a tariff, a legal opinion, an ISDA credit support annex,
+     and a form. With **automatic**, the assistant reads the start of the document
+     and selects a profile, or no profile when none is applicable.
+
+     A *form* is a document with numbered lines and instructions for each line,
+     for example a tax form. For a form, the assistant uses *form mode*. It makes
+     one template and one query for each line of the form, from the form itself,
+     with no request to a model. An example of a template is
+     `the amount on line 16 of Form 1040 for *a return* is *an amount*.` These
+     templates and queries stay fixed: a repair cannot remove them or change their
+     words. The model writes only the rules that calculate the lines. Each value of
+     a line that a case records is a test of its own.
    - **Referenced documents**: some documents depend on other documents that they
      name. For example, a Medicare coverage policy names its policy article. With
      **fetch, one step**, the assistant finds the documents that the wording names,
@@ -459,6 +475,20 @@ Do these steps:
      program did not give the expected answer, but not the expected answer. The
      purpose is a program that follows the document, not a program that only fits
      its tests.
+   - **Form mode**: **auto** (the default) uses form mode when the document is a
+     form. **on** uses form mode when the assistant finds numbered lines in the
+     document. **off** never uses form mode.
+   - **Repair the first wrong value only**: some tests check intermediate values,
+     for example each line of a form. A wrong value then has a first line where it
+     starts: the tests of that line fail, and the tests of the lines that it reads
+     pass. With **auto** (the default), the repair request then shows the model
+     only the rules of that line, the values that these rules read, and the
+     expected and actual values. The assistant accepts changes only to these
+     rules.
+   - **Keep proof anchors**: when the cases pass, the assistant keeps the
+     intermediate results of their proofs. If a later repair makes a case fail,
+     the repair request shows the results that changed. These results are hints
+     for the repair. They are not tests.
    - **Prompt layout**: **steered** (the default) starts each request with the kind
      of document and the role of the model, then the document, and ends with the
      task. The repairs start with the same document. The provider keeps the start
@@ -504,7 +534,14 @@ drafts. To compare the drafts, the assistant uses these preferences:
 
 If you gave two or more cases, the assistant does not use some of them during the
 drafts. It then gives a score to the result on these cases, which the drafts did not
-see.
+see. If you gave **Held-out cases**, the assistant uses those cases for this score,
+and it uses all your other cases during the drafts.
+
+With the **Standard** and **Thorough** budgets, the assistant then writes some more
+test cases, *probes*, from the document alone. Some probes go to the rules that no
+test uses. The report gives the
+*rule coverage*: the number of rules that the proof of a test uses, out of all the
+rules of the program. A rule that no test uses can be wrong, and no test shows it.
 
 ### Other ways to use the Contract Assistant
 

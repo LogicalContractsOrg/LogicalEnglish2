@@ -3526,7 +3526,11 @@ normalize_string(string(S, _), N) :- !, normalize_string(S, N).
 normalize_string(S, N) :-
     (   number(S) -> atom_string(S, N)
     ;   (atom(S) ; string(S)) ->  
-        split_string(S, "_- ", "_- ", Words00),
+        split_string(S, "_- ", "_- ", Words000),
+        %  the tokenizer reads `1z` and `25a` as a number and a word (`line 1
+        %  z of Form 1040`), so an expected answer written `line 1z` is read
+        %  the same way
+        foldl(split_number_letters, Words000, Words00, []),
         unelide_words(Words00, Words0),
         maplist(same_number_word, Words0, Words1),
         maplist(same_article_word, Words1, Words),
@@ -3534,6 +3538,15 @@ normalize_string(S, N) :-
         atom_string(Atom, N)
     ;   N = S
     ).
+
+split_number_letters(W, [D, L|T], T) :-
+    string_codes(W, Cs),
+    append(Ds, Ls, Cs), Ds = [_|_], Ls = [_|_],
+    forall(member(C, Ds), code_type(C, digit)),
+    length(Ls, NL), NL =< 2,
+    forall(member(C, Ls), ( code_type(C, lower) ; code_type(C, upper) )), !,
+    string_codes(D, Ds), string_codes(L, Ls).
+split_number_letters(W, [W|T], T).
 
 %   An expected answer may elide where the answer does not ("la mère
 %   d'Alice", "la mère de Alice"): each is read with the elisions and

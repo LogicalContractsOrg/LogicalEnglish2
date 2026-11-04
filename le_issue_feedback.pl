@@ -45,7 +45,8 @@
     feedback_type_name/2,
     line_start_offsets/2,
     issue_location/5,
-    truncated/3
+    truncated/3,
+    numeric_hints/4
 ]).
 
 :- use_module(library(lists)).
@@ -96,6 +97,10 @@ modelling_warning("defined_scenario_element").
 modelling_warning("or_then_and").
 modelling_warning("mistyped_value").
 modelling_warning("possessive_template").
+%   Two templates with the same words and different argument names are one
+%   predicate: a sum over one counts the facts of the other (a Form 1040
+%   program counted tax withheld twice).
+modelling_warning("homonym_templates").
 %   Two from the Contract Assistant's checks: a fixed name written as a
 %   reference (`the proposal` with nothing before it), and one thing spelled
 %   two ways (`agreementD`, `agreement D`). Each makes a rule apply to nothing.
@@ -236,3 +241,71 @@ truncated(S0, Max, Out) :-
         sub_string(S, 0, Keep, _, Head),
         string_concat(Head, "...", Out)
     ).
+
+%!  numeric_hints(+Expected, +Actual, +Others, -Hints) is det.
+%
+%   For a failed test whose answers are amounts: what kind of difference
+%   separates an expected answer from the actual answer that reads the same
+%   but for one number (LawAndOrder.md §5.5, after LAW&ORDER's table of
+%   rounding mismatches). Expected and Actual are answer strings; Others are
+%   the numbers of the case's other expected answers (the values of the
+%   other lines). Each hint is one line for a repair round:
+%
+%     - off by exactly 1, or by a cent, ten cents, half a unit: a rounding
+%       step (to whole dollars, to cents; half up or down; before or after a
+%       product);
+%     - a fraction where a whole number is expected: no rounding at all;
+%     - a factor of 2: a single and a joint amount confused, or a value
+%       counted twice;
+%     - the difference is the value of another line: that line added twice,
+%       or left out;
+%     - the actual value is 0: an input or a condition is missing;
+%     - a small relative difference: a rate, or the wrong band of a table.
+numeric_hints(Expected, Actual, Others, Hints) :-
+    findall(H,
+            ( member(E, Expected),
+              member(A, Actual),
+              numeric_pair(E, A, EV, AV),
+              EV =\= AV,
+              numeric_hint(EV, AV, Others, H0),
+              format(string(H), "expected ~w, actual ~w: ~w", [EV, AV, H0]) ),
+            Hints0),
+    list_to_set(Hints0, Hints).
+
+%   The two answers have the same words but for one number.
+numeric_pair(E, A, EV, AV) :-
+    answer_words(E, EW), answer_words(A, AW),
+    length(EW, N), length(AW, N),
+    findall(I, ( nth1(I, EW, X), nth1(I, AW, Y), X \== Y ), [I]),
+    nth1(I, EW, EX), nth1(I, AW, AY),
+    atom_number(EX, EV), atom_number(AY, AV).
+
+answer_words(S0, Ws) :-
+    ( atomic(S0) -> text_to_string(S0, S) ; term_string(S0, S) ),
+    string_lower(S, L),
+    split_string(L, " ", " ,;\"", Ws0),
+    exclude(==(""), Ws0, Ws1),
+    maplist([W, A]>>( sub_string(W, _, 1, 0, ".") , sub_string(W, 0, _, 1, W1), \+ number_string(_, W) -> atom_string(A, W1) ; atom_string(A, W) ), Ws1, Ws).
+
+numeric_hint(E, A, Others, Hint) :-
+    D is A - E, AD is abs(D),
+    (   AD =:= 1
+    ->  Hint = "off by exactly 1: a rounding step (round half up, not down or toward zero; round once, at the step the instructions say, not before a product or a sum)"
+    ;   member(C, [0.01, 0.1, 0.5]), abs(AD - C) < 1.0e-9
+    ->  format(string(Hint), "off by ~w: a rounding to cents or to whole units, or half rounded the other way", [C])
+    ;   integer_valued(E), \+ integer_valued(A)
+    ->  Hint = "a fraction where a whole number is expected: the value is not rounded (amounts are whole dollars; round where the instructions say)"
+    ;   A =:= 0
+    ->  Hint = "the value is 0: an input the rule reads is missing, or a condition fails for this case"
+    ;   E =\= 0, ( A =:= 2 * E ; E =:= 2 * A )
+    ->  Hint = "a factor of 2: a single and a joint amount confused, or a value counted twice"
+    ;   member(O, Others), number(O), O =\= 0, AD =:= abs(O)
+    ->  ( D > 0 -> Way = "added twice, or added where it should not be" ; Way = "left out" ),
+        format(string(Hint), "the difference (~w) is the value of another line of the case, ~w: that value is ~w", [AD, O, Way])
+    ;   E =\= 0, AD / abs(E) < 0.02
+    ->  Hint = "a small difference: a rate, a band of a table or a threshold of the instructions (check which band applies to this value, and the edges of the band)"
+    ;   Hint = "a different amount: check the inputs of the rule against the lines it reads"
+    ).
+
+integer_valued(X) :- integer(X), !.
+integer_valued(X) :- float(X), X =:= float_integer_part(X).
