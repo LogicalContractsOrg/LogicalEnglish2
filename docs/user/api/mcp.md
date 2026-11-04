@@ -28,6 +28,7 @@ server itself. For all the other things that the server can do, refer to
   - [Claude Code](#claude-code)
   - [opencode (the LE Assistant)](#opencode-the-le-assistant)
   - [ChatGPT actions](#chatgpt-actions)
+  - [Mike OSS: rule sets that decide legal questions](#mike-oss-rule-sets-that-decide-legal-questions)
 - [Tools](#tools)
   - [The tools of the Contract Assistant](#the-tools-of-the-contract-assistant)
 - [Resources](#resources)
@@ -151,6 +152,79 @@ Do these steps:
 
 Note: A server that runs on your own computer has no such address until you open a
 tunnel to it. Use a tool such as `ngrok` to open a tunnel.
+
+### Mike OSS: rule sets that decide legal questions
+
+[Mike OSS](https://mikeoss.com) is an open-source legal assistant. It keeps the
+documents of a matter in a project, and a language model writes its answers. Mike
+can use the tools of an MCP server. With a Logical English server, the work divides
+into two parts:
+
+- **The language model reads and writes.** It reads the documents of the matter,
+  and it writes what they say as Logical English sentences, the *facts*.
+- **The Logical English rule set decides and explains.** A rule set is a Logical
+  English program that encodes a law or a contract, rule by rule. Each rule cites
+  its article. The server applies the rules to the facts. Each answer comes with its
+  explanation: the rules that the answer uses, and the article of each rule.
+
+The language model does not decide. Thus the same facts always give the same
+answer, and a reader can examine each fact and each step of each answer.
+
+An example rule set is `regulatory/eu_ai_act_triage`. It encodes the parts of the
+EU AI Act (Regulation (EU) 2024/1689) that classify an AI system: the
+classification, the role of each operator, the obligations with their dates, and
+whether a person must examine the matter. Open it in the editor at
+<https://le2.logicalcontracts.com/editor/index.html?example=regulatory/eu_ai_act_triage>.
+
+**Connect Mike to Logical English.** Do these steps:
+
+1. In Mike, open **Settings ▸ Connectors ▸ Custom**.
+2. Type a label, for example `Logical English`.
+3. Type the address of the server: `https://le2.logicalcontracts.com/mcp`. Mike
+   accepts only a public address that starts with `https://`. Thus a server on your
+   own computer is not sufficient, unless you open a tunnel to it.
+4. Click **Connect**. Mike shows the five tools of the server
+   ([Tools](#tools)). Make sure that `get_example_details` and `query` are on.
+
+A triage makes approximately twelve tool calls in two minutes, and each `query`
+counts as three calls. That is more than the limit of a client without a key
+([The limits](#the-limits)). Get a key from Logical Contracts
+([Keys](#keys)). If you cannot give Mike a header for the key, put the key of an
+event in the address: `https://le2.logicalcontracts.com/mcp?key=lc_...`.
+
+**Use a rule set in a matter.** Do these steps:
+
+1. Make a project in Mike, and add the documents of the matter.
+2. In the chat of the project, select a model, and give the assistant
+   instructions such as these:
+
+   > Use the Logical English connector. First call `get_example_details` with
+   > `example_name: "regulatory/eu_ai_act_triage"`, and read its templates and its
+   > queries. Then read the documents of this project. Write each fact that they
+   > state about the AI system as a sentence of one of the templates, word for
+   > word, with a full stop, and add `, as stated in <the document>`. Write names
+   > without *a*, *an* or *the*, and dates as year-month-day. Do not write a fact
+   > that the documents do not state. Then call `query` once for each query of the
+   > rule set, with `example_name` and all the facts in `facts`. Write a triage
+   > card that copies the answers and the articles of the explanations word for
+   > word. Add no article and no date of your own. List the facts first. If an
+   > answer names a gap, ask me about it.
+
+3. Read the card. The facts are at the top, each with its document. When a
+   document changes, or when you answer a gap, run the instructions again: the
+   rules stay the same, and only the facts change.
+
+The server loads the rule set by its name. Thus Mike never sends the rules, and it
+cannot change them. The program text of the rule set is long, and
+`get_example_details` sends only its templates and queries. The templates are
+sufficient for the model to write the facts.
+
+To use a different rule set, give its name instead of
+`regulatory/eu_ai_act_triage`. `list_examples` with a `filter` finds the names
+([Tools](#tools)). Also, a rule set that you wrote yourself works in the same way:
+the facts and the rules go together in one `query` call, with the rules in
+`program_text` and the facts in `facts`. A text has a maximum length for each call
+([The limits](#the-limits)).
 
 ## Tools
 
