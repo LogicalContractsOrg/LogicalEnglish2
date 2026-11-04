@@ -93,6 +93,7 @@ modelling_warning("single_variable_fact").
 modelling_warning("unbound_aggregate_variable").
 modelling_warning("detached_condition").
 modelling_warning("defined_scenario_element").
+modelling_warning("or_then_and").
 modelling_warning("possessive_template").
 %   Two from the Contract Assistant's checks: a fixed name written as a
 %   reference (`the proposal` with nothing before it), and one thing spelled
