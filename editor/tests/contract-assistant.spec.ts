@@ -106,6 +106,29 @@ test.describe('Contract Assistant UI', () => {
         await expect(page.locator('#btn-start')).toBeDisabled();
     });
 
+    // "Send the results by email": the address stays in this browser only
+    // (localStorage), and the page says when it will not be used.
+    test('email field is remembered and checked', async ({ page }) => {
+        await page.goto('/web_extras/contract_assistant/index.html');
+        const field = page.locator('#notify-email');
+        await expect(field).toBeVisible();
+        await field.fill('ann at example');
+        await field.blur();
+        // An invalid address, or a server without email: either way, a note.
+        await expect(page.locator('#notify-email-note')).not.toBeEmpty();
+        await field.fill('ann@example.com');
+        await field.blur();
+        await page.reload();
+        await expect(page.locator('#notify-email')).toHaveValue('ann@example.com');
+        const reply = await (await page.request.post('/leapi', {
+            data: { token: TOKEN, operation: 'contract_cost_estimate' } })).json();
+        expect(typeof reply.email).toBe('boolean');
+        if (reply.email === false)
+            await expect(page.locator('#notify-email-note')).toContainText('not set up');
+        else
+            await expect(page.locator('#notify-email-note')).toHaveText('');
+    });
+
     // The optional "Existing LE code" box (group 2) counts what was pasted and
     // triggers a cost estimate; the cost line lives with the effort budget.
     test('existing LE code box and cost estimate render', async ({ page }) => {

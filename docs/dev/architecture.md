@@ -100,7 +100,8 @@ program includes.
 | `llm/mcp.pl` | MCP server (tools, prompts, resource `le://docs/syntax` = `docs/user/reference/language.md`) and REST endpoints; see [MCP](../user/api/mcp.md). An extension installed beside LE2 adds tools with clauses of `mcp:extension_tool/1` (its `tools/list` entries, for the current caller) and `mcp:extension_call/3`; lpsPlus's Contract Assistant offers its stages this way |
 
 **Server infrastructure**: `classic_web_api.pl`, `dap_server.pl`,
-`restricted_paths.pl`, `le_telemetry.pl`; `le_plus.pl` (where the private
+`restricted_paths.pl`, `le_telemetry.pl`, `le_email.pl` (email through
+Brevo, off unless configured: [email.md](email.md)); `le_plus.pl` (where the private
 lpsPlus repository is: the sign-in and the translators) and
 `le_entitlements.pl` (what the request being served may use of the licensed
 parts: `converters`, `extended_examples`, `le_extensions`; everything on the

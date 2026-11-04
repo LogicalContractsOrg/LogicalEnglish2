@@ -3,7 +3,7 @@
 | Folder | What | Published |
 |---|---|---|
 | [`user/`](user/) | the user documentation: tutorials, guides, references, the API. [`user/nav.json`](user/nav.json) is its table of contents, from which the editor's Help menu, the landing page and the documentation viewer are built | yes, at `/docs/user/…` |
-| [`dev/`](dev/) | how the system is built: architecture, the assistants, migration, the debugger, the graph, telemetry | no |
+| [`dev/`](dev/) | how the system is built: architecture, the assistants, migration, the debugger, the graph, telemetry, email | no |
 | [`project/`](project/) | plans, papers, research material, and an archive of superseded documents | no |
 
 The viewer's shared script, `web_extras/docsview/docs-extras.js` (identical in LE2 and LPS2:
@@ -97,7 +97,7 @@ rules, together with the rules above:
 - Other systems: [the map, importing and exporting](user/integrations/index.md), and a document per system: [Bitcoin Miniscript](user/integrations/miniscript.md), [LegalRuleML](user/integrations/legalruleml.md), [s(CASP), Prolog and LE1](user/integrations/scasp.md), [Blawx](user/integrations/blawx.md), [Oracle Intelligent Advisor](user/integrations/oia.md), [Socotra](user/integrations/socotra.md), [OIPA](user/integrations/oipa.md), [Epilog](user/integrations/epilog.md); Drools, Solidity, Daml, PDDL, Inform 7 and the original LPS are in LPS2's `docs/user/integrations/`
 - API: [the web API](user/api/web-api.md), [MCP](user/api/mcp.md)
 
-**Developer documentation** (`dev/`): [architecture](dev/architecture.md), [the LE Assistant](dev/assistant.md), [the Contract Assistant](dev/contract-assistant.md), [LE Views](dev/views.md), [migration](dev/migration.md), [debugger](dev/debugger.md), [graph](dev/graph.md), [telemetry](dev/telemetry.md), [deploying as a static site](dev/deploy-vercel.md) (the WebAssembly build: LE2 in the browser, on Vercel), [i18n](../i18n/README.md), the LE2↔LPS2 interface (in LPS2: `docs/dev/le-lps-interface.md`).
+**Developer documentation** (`dev/`): [architecture](dev/architecture.md), [the LE Assistant](dev/assistant.md), [the Contract Assistant](dev/contract-assistant.md), [LE Views](dev/views.md), [migration](dev/migration.md), [debugger](dev/debugger.md), [graph](dev/graph.md), [telemetry](dev/telemetry.md), [email](dev/email.md) (Brevo, for the Contract Assistant's results), [deploying as a static site](dev/deploy-vercel.md) (the WebAssembly build: LE2 in the browser, on Vercel), [i18n](../i18n/README.md), the LE2↔LPS2 interface (in LPS2: `docs/dev/le-lps-interface.md`).
 
 **Project documents** (`project/`): [plans](project/plans/), [papers](project/papers/), [research](project/research/), [archive](project/archive/).
 

@@ -41,6 +41,7 @@ Two functions in the editor do not need a model:
   - [A whole program](#a-whole-program)
   - [Other ways to use the Contract Assistant](#other-ways-to-use-the-contract-assistant)
   - [Running, leaving, coming back](#running-leaving-coming-back)
+  - [Getting the results by email](#getting-the-results-by-email)
   - [The result](#the-result)
 
 ## Setting up: models and API keys
@@ -589,6 +590,32 @@ different person. If you do not have such an address, the setup screen shows **Y
 recent runs** from this browser. When the server starts again, it does not keep its
 runs. But you can recover a finished result from the files that the run left on the
 server.
+
+### Getting the results by email
+
+A run can take one hour or more. The server can send you an email when the run
+ends. Do these steps before you start the run:
+
+1. Find the field **Send the results by email**, above the **Generate Logical
+   English** button.
+2. Write your email address in the field.
+3. Start the run.
+
+When the run ends, the server sends one message to that address:
+
+- If the run finishes, the message has a zip file. The zip file has two folders.
+  The `results` folder has the Logical English and the ledger. The `inputs`
+  folder has the documents that you gave, as text, and your additional
+  instructions.
+- If the run stops because of an error, the message gives the reason. The
+  server also reports the error to the team that maintains the Contract
+  Assistant.
+- If you cancel the run, the server sends no message.
+
+The message also has a link to the run. The server does not keep your address:
+it forgets the address when the message has gone. Your browser keeps the address
+in the field for your next run. If the server is not set up to send email, a
+note under the field says so.
 
 ### The result
 
