@@ -166,7 +166,6 @@ example_alias(type_check_test, 'fixtures/type_check_test').
 example_alias(scenario_element_test, 'fixtures/scenario_element_test').
 example_alias(numbering_test, 'language/extensions/numbering_test').
 example_alias(clp_coverage, 'language/scasp/clp_coverage').
-example_alias('AItest', 'fixtures/AItest').
 example_alias(prolog_call, 'language/prolog/prolog_call').
 %  Embedded `prolog` goals became core LE (2026-09-22); the example left the
 %  extensions folder.
