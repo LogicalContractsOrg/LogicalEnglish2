@@ -101,6 +101,9 @@ modelling_warning("restated_cases_rule").
 %   A thing of the conclusion that only a negation names: the answer is the
 %   unnamed `_ has ... more information needed`, whatever the case says.
 modelling_warning("negation_only_variable").
+%   One name with and without its article (`the uk exemption check` in the
+%   query, `uk exemption check` in the rules): no rule answers the query.
+modelling_warning("article_variant_constant").
 modelling_warning("defined_scenario_element").
 modelling_warning("or_then_and").
 modelling_warning("mistyped_value").

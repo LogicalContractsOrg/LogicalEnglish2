@@ -58,68 +58,55 @@
 %     llm_model_entry(ShortName, Provider, APIModelString, BaseURL)
 % ═══════════════════════════════════════════════════════════════════
 
+%% The models the pickers offer: the current generation of each provider,
+%% checked against the providers' own model lists on 5 November 2026
+%% (OpenAI, Groq, Together; the Anthropic and Gemini lists from their
+%% documentation). A model the provider no longer serves is hidden anyway
+%% while the server has that provider's key (llm_list_models/1). A name not
+%% listed here still works when its provider can be inferred
+%% (infer_provider/3), so an older model can be asked for by name.
+
 %% OpenAI  ──────────────────────────────────────────────────────────
 % cf. https://platform.openai.com/docs/models
-% llm_model_entry('o1',                openai, 'o1',                'https://api.openai.com/v1').
-% llm_model_entry('o1-mini',           openai, 'o1-mini',           'https://api.openai.com/v1').
-% llm_model_entry('o3-mini',           openai, 'o3-mini',           'https://api.openai.com/v1').
-llm_model_entry('gpt-4o',            openai, 'gpt-4o',            'https://api.openai.com/v1').
-llm_model_entry('gpt-4o-mini',       openai, 'gpt-4o-mini',       'https://api.openai.com/v1').
-llm_model_entry('gpt-4-turbo',       openai, 'gpt-4-turbo',       'https://api.openai.com/v1').
-llm_model_entry('gpt-4',             openai, 'gpt-4',             'https://api.openai.com/v1').
-llm_model_entry('gpt-5.5',             openai, 'gpt-5.5',             'https://api.openai.com/v1').
-llm_model_entry('gpt-5.6-sol',             openai, 'gpt-5.6-sol',             'https://api.openai.com/v1').
-llm_model_entry('gpt-5.6-terra',             openai, 'gpt-5.6-terra',             'https://api.openai.com/v1').
-llm_model_entry('gpt-5.6-luna',             openai, 'gpt-5.6-luna',             'https://api.openai.com/v1').
+llm_model_entry('gpt-6.1-sol',              openai, 'gpt-6.1-sol',              'https://api.openai.com/v1').
+llm_model_entry('gpt-6.1-terra',            openai, 'gpt-6.1-terra',            'https://api.openai.com/v1').
 llm_model_entry('gpt-6-sol',                openai, 'gpt-6-sol',                'https://api.openai.com/v1').
 llm_model_entry('gpt-6-luna',               openai, 'gpt-6-luna',               'https://api.openai.com/v1').
+llm_model_entry('gpt-5.6-luna',             openai, 'gpt-5.6-luna',             'https://api.openai.com/v1').
 
 
 %% Groq  ────────────────────────────────────────────────────────────
 % https://console.groq.com/docs/models
-llm_model_entry('llama-3.3-70b',    groq, 'llama-3.3-70b-versatile',          'https://api.groq.com/openai/v1').
-% llm_model_entry('llama-3.1-70b',    groq, 'llama-3.1-70b-versatile',          'https://api.groq.com/openai/v1').
-% llm_model_entry('llama-3.1-8b',     groq, 'llama-3.1-8b-instant',             'https://api.groq.com/openai/v1').
-llm_model_entry('meta-llama/llama-4-scout-17b-16e-instruct',     groq, 'meta-llama/llama-4-scout-17b-16e-instruct',               'https://api.groq.com/openai/v1').
-% llm_model_entry('gemma2-9b',        groq, 'gemma2-9b-it',                     'https://api.groq.com/openai/v1').
-% llm_model_entry('deepseek-r1',      groq, 'deepseek-r1-distill-llama-70b',    'https://api.groq.com/openai/v1').
 llm_model_entry('openai/gpt-oss-120b',      groq, 'openai/gpt-oss-120b',    'https://api.groq.com/openai/v1'). % our favorite
+llm_model_entry('qwen/qwen3.8-27b',         groq, 'qwen/qwen3.8-27b',       'https://api.groq.com/openai/v1').
 
 
 %% Anthropic  ───────────────────────────────────────────────────────
 % https://platform.claude.com/docs/en/about-claude/models/overview
 %  Native Messages API (NOT OpenAI-compat) – handled separately in call_api/6.
+llm_model_entry('claude-opus-5-5',           anthropic, 'claude-opus-5-5',           'https://api.anthropic.com/v1').
+llm_model_entry('claude-sonnet-5',           anthropic, 'claude-sonnet-5',           'https://api.anthropic.com/v1').
 llm_model_entry('claude-haiku-4-5-20251001', anthropic, 'claude-haiku-4-5-20251001', 'https://api.anthropic.com/v1').
-llm_model_entry('claude-opus-5', anthropic, 'claude-opus-5', 'https://api.anthropic.com/v1').
-% llm_model_entry('claude',     anthropic, 'claude-haiku-4-5-20251001',     'https://api.anthropic.com/v1').
 
 %% Together AI  ─────────────────────────────────────────────────────
 % https://api.together.ai/models
-% llm_model_entry('llama-3.3-70b-together', together, 'meta-llama/Llama-3.3-70B-Instruct-Turbo', 'https://api.together.xyz/v1').
-% llm_model_entry('llama-3.1-405b',         together, 'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo', 'https://api.together.xyz/v1').
-llm_model_entry('MiniMaxAI/MiniMax-M2.7',          together, 'MiniMaxAI/MiniMax-M2.7', 'https://api.together.xyz/v1').
-llm_model_entry('deepseek-ai/DeepSeek-V4-Pro',          together, 'deepseek-ai/DeepSeek-V4-Pro', 'https://api.together.xyz/v1').
-llm_model_entry('zai-org/GLM-5.2',          together, 'zai-org/GLM-5.2', 'https://api.together.xyz/v1').
-llm_model_entry('moonshotai/Kimi-K3',          together, 'moonshotai/Kimi-K3', 'https://api.together.xyz/v1').
-llm_model_entry('Qwen/Qwen3.8-2.4T-A95B',          together, 'Qwen/Qwen3.8-2.4T-A95B', 'https://api.together.xyz/v1').
-llm_model_entry('deepseek-ai/DeepSeek-V4.1-Flash',  together, 'deepseek-ai/DeepSeek-V4.1-Flash', 'https://api.together.xyz/v1').
+llm_model_entry('moonshotai/Kimi-K3.1-Pro',         together, 'moonshotai/Kimi-K3.1-Pro', 'https://api.together.xyz/v1').
+llm_model_entry('moonshotai/Kimi-K3',               together, 'moonshotai/Kimi-K3', 'https://api.together.xyz/v1').
+llm_model_entry('Qwen/Qwen3.8-2.4T-A95B',           together, 'Qwen/Qwen3.8-2.4T-A95B', 'https://api.together.xyz/v1').
 llm_model_entry('zai-org/GLM-5.3',                  together, 'zai-org/GLM-5.3', 'https://api.together.xyz/v1').
+llm_model_entry('zai-org/GLM-5.2',                  together, 'zai-org/GLM-5.2', 'https://api.together.xyz/v1').
+llm_model_entry('deepseek-ai/DeepSeek-V4-Pro-0813', together, 'deepseek-ai/DeepSeek-V4-Pro-0813', 'https://api.together.xyz/v1').
+llm_model_entry('deepseek-ai/DeepSeek-V4.1-Flash',  together, 'deepseek-ai/DeepSeek-V4.1-Flash', 'https://api.together.xyz/v1').
+llm_model_entry('MiniMaxAI/MiniMax-M3.1-Flash',     together, 'MiniMaxAI/MiniMax-M3.1-Flash', 'https://api.together.xyz/v1').
+llm_model_entry('MiniMaxAI/MiniMax-M2.7',           together, 'MiniMaxAI/MiniMax-M2.7', 'https://api.together.xyz/v1').
 
 %% Google Gemini  (OpenAI-compatible endpoint) ──────────────────────
 % cf. https://ai.google.dev/gemini-api/docs/models
 %  Endpoint: https://generativelanguage.googleapis.com/v1beta/openai
 %  Key:      GEMINI_API_KEY  –  get one free at aistudio.google.com
-%
-llm_model_entry('gemini-2.0-flash',      gemini, 'gemini-2.0-flash',             'https://generativelanguage.googleapis.com/v1beta/openai').
-% llm_model_entry('gemini-2.0-flash-lite', gemini, 'gemini-2.0-flash-lite-preview', 'https://generativelanguage.googleapis.com/v1beta/openai').
-% llm_model_entry('gemini-1.5-pro',        gemini, 'gemini-1.5-pro',               'https://generativelanguage.googleapis.com/v1beta/openai').
-llm_model_entry('gemini-3-flash-preview',      gemini, 'gemini-3-flash-preview',             'https://generativelanguage.googleapis.com/v1beta/openai').
-llm_model_entry('gemini-3.1-flash-lite-preview',      gemini, 'gemini-3.1-flash-lite-preview',             'https://generativelanguage.googleapis.com/v1beta/openai').
-llm_model_entry('gemini-3.1-pro-preview', gemini, 'gemini-3.1-pro-preview','https://generativelanguage.googleapis.com/v1beta/openai').
-llm_model_entry('gemini-3.5-flash', gemini, 'gemini-3.5-flash','https://generativelanguage.googleapis.com/v1beta/openai').
-
-%  Convenience alias 
-% llm_model_entry('gemini',                gemini, 'gemini-3.1-flash-lite-preview',             'https://generativelanguage.googleapis.com/v1beta/openai').
+llm_model_entry('gemini-3.5-flash',              gemini, 'gemini-3.5-flash',              'https://generativelanguage.googleapis.com/v1beta/openai').
+llm_model_entry('gemini-3.1-pro-preview',        gemini, 'gemini-3.1-pro-preview',        'https://generativelanguage.googleapis.com/v1beta/openai').
+llm_model_entry('gemini-3.1-flash-lite-preview', gemini, 'gemini-3.1-flash-lite-preview', 'https://generativelanguage.googleapis.com/v1beta/openai').
 
 
 % ───────────────────────────────────────────────────────────────────
@@ -132,8 +119,54 @@ llm_model(Short, Provider, APIModel) :-
 % ───────────────────────────────────────────────────────────────────
 % llm_list_models(-Rows)
 % ───────────────────────────────────────────────────────────────────
+%  The registry's models, less those a provider no longer serves: for each
+%  provider whose key the server has, its own model list (GET <base>/models)
+%  is read once every six hours. A provider without a key, or whose list
+%  cannot be read, keeps all its rows: the check only ever hides a model the
+%  provider itself has stopped listing.
 llm_list_models(Rows) :-
-    findall(row(S,P,M), llm_model_entry(S,P,M,_), Rows).
+    findall(row(S,P,M), ( llm_model_entry(S,P,M,_), \+ model_withdrawn(P, M) ), Rows).
+
+:- dynamic provider_models_cache/3.     % Provider, Time, Ids (list of atoms) | failed
+
+model_withdrawn(Provider, APIModel) :-
+    provider_served_models(Provider, Ids),
+    \+ memberchk(APIModel, Ids).
+
+provider_served_models(Provider, Ids) :-
+    get_time(Now),
+    (   provider_models_cache(Provider, T, Cached), Now - T < 6 * 3600
+    ->  true
+    ;   ( fetch_provider_models(Provider, Fetched) -> Cached = Fetched ; Cached = failed ),
+        retractall(provider_models_cache(Provider, _, _)),
+        assertz(provider_models_cache(Provider, Now, Cached))
+    ),
+    Cached \== failed,
+    Ids = Cached.
+
+fetch_provider_models(Provider, Ids) :-
+    catch(api_key(Provider, Key), _, fail),
+    once(llm_model_entry(_, Provider, _, Base)),
+    atom_concat(Base, '/models', URL),
+    (   Provider == anthropic
+    ->  Headers = [request_header('x-api-key'=Key), request_header('anthropic-version'='2023-06-01')],
+        atom_concat(URL, '?limit=1000', URL1)
+    ;   format(atom(Auth), 'Bearer ~w', [Key]),
+        Headers = [request_header('Authorization'=Auth)],
+        URL1 = URL
+    ),
+    catch(setup_call_cleanup(
+              http_open(URL1, In, [timeout(5), status_code(Code)|Headers]),
+              json_read_dict(In, D),
+              close(In)),
+          _, fail),
+    Code == 200,
+    ( is_list(D) -> Rows = D ; get_dict(data, D, Rows) ),
+    findall(Id, ( member(R, Rows), get_dict(id, R, Id0), atom_string(Id1, Id0),
+                  %  Gemini lists `models/gemini-3.5-flash`
+                  ( atom_concat('models/', Id, Id1) -> true ; Id = Id1 ) ),
+            Ids),
+    Ids \== [].
 
 
 % ═══════════════════════════════════════════════════════════════════

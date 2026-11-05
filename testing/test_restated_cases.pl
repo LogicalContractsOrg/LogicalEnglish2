@@ -59,7 +59,7 @@ query qualifies is:
     which provider qualifies under paragraph a.
 ").
 
-issue_types(Text, Types) :-
+restated_issue_types(Text, Types) :-
     le_kbs:load_text(Text, KB),
     findall(T, ( le_verifier:check_issue(KB, [skip_tests], issue(T, _, _, _, _)) ), Ts),
     sort(Ts, Types).
@@ -68,12 +68,12 @@ issue_types(Text, Types) :-
 
 test(restated_cases_rule_warned) :-
     restated_program(P),
-    issue_types(P, Types),
+    restated_issue_types(P, Types),
     assertion(memberchk(restated_cases_rule, Types)).
 
 test(negation_only_variable_warned) :-
     restated_program(P),
-    issue_types(P, Types),
+    restated_issue_types(P, Types),
     assertion(memberchk(negation_only_variable, Types)).
 
 test(the_rules_for_each_case_are_not_warned) :-
@@ -83,11 +83,11 @@ test(the_rules_for_each_case_are_not_warned) :-
     once(sub_string(P0, E, _, _, "a proposal passes the uk")),
     sub_string(P0, 0, B, _, Before), sub_string(P0, E, _, 0, After),
     string_concat(Before, After, P),
-    issue_types(P, Types),
+    restated_issue_types(P, Types),
     assertion(\+ memberchk(restated_cases_rule, Types)).
 
 test(recursion_over_other_things_is_not_warned) :-
-    issue_types("the target language is: prolog.
+    restated_issue_types("the target language is: prolog.
 
 the templates are:
     *a person* is an ancestor of *a person*.
@@ -115,3 +115,50 @@ test(an_article_left_out_still_matches) :-
     assertion(\+ le_kbs:answers_match([E], [A2])).
 
 :- end_tests(restated_cases).
+
+/* article_variant_constant: `has the uk exemption check` in the query and
+   `has uk exemption check` in the rules, for `*a proposal* has *a check*
+   with result *a result*`, are two names: no rule answers the query. */
+
+article_program("the target language is: prolog.
+
+the templates are:
+    *a proposal* passes *a check*.
+    *a proposal* has *a check* with result *a result*.
+    *a proposal* occurs on *a date*; undefined.
+
+the knowledge base articles includes:
+
+a proposal passes uk exemption check
+    if the proposal occurs on 2026-11-15.
+
+a proposal has a check with result passes
+    if the proposal passes the check.
+
+scenario one is:
+    proposal one occurs on 2026-11-15.
+
+query result is:
+    which proposal has the uk exemption check with result which result.
+").
+
+:- begin_tests(article_variant_constant).
+
+test(warned) :-
+    article_program(P),
+    restated_issue_types(P, Types),
+    assertion(memberchk(article_variant_constant, Types)).
+
+test(goal_name_with_a_bound_name) :-
+    %  a variable argument must not take the name
+    assertion(\+ le_verifier:goal_name(p(_, b), 'a c')),
+    assertion(le_verifier:goal_name(p(_, 'a c'), 'a c')).
+
+test(same_spelling_not_warned) :-
+    article_program(P0),
+    atomic_list_concat(Parts, "has the uk exemption check", P0),
+    atomic_list_concat(Parts, "has uk exemption check", P),
+    restated_issue_types(P, Types),
+    assertion(\+ memberchk(article_variant_constant, Types)).
+
+:- end_tests(article_variant_constant).

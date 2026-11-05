@@ -127,7 +127,7 @@ llm_operation_models(assistant_command, Dict, [M]) :-
 llm_operation_models(nl_to_le, Dict, [M]) :-
     given_model(Dict, model, "openai/gpt-oss-120b", M).
 llm_operation_models(contract_start, Dict, Models) :-
-    given_model(Dict, model, "claude-sonnet", M),
+    given_model(Dict, model, "claude-sonnet-5", M),
     given_model(Dict, judge_model, M, J),
     (   get_dict(branch_models, Dict, BM), BM \== null
     ->  (   is_list(BM) -> Bs = BM ; split_string(BM, ",", " ", Bs) )

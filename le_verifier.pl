@@ -102,6 +102,7 @@ check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
 check_issue(KB, _, Issue) :- detached_condition(KB, Issue).
 check_issue(KB, _, Issue) :- restated_cases_rule(KB, Issue).
 check_issue(KB, _, Issue) :- negation_only_variable(KB, Issue).
+check_issue(KB, _, Issue) :- article_variant_constant(KB, Issue).
 check_issue(KB, _, Issue) :- homonym_templates(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
@@ -1870,6 +1871,66 @@ own_case_arg(_, H, L, N, N) :- H == L, !.
 own_case_arg(Rule, H, L, _, true) :-
     var(H), atomic(L),
     occurrences_of_var(H, Rule, 1).
+
+% --- One name written with and without its article ---
+% `*a proposal* has *a check* with result *a result*` reads the article as
+% part of the name: the query `which proposal has the uk exemption check with
+% result which result` asks about 'the uk exemption check', and the rules that
+% write `a proposal has uk exemption check with result passes` conclude about
+% 'uk exemption check'. Two things for the engine, so no rule answers the
+% query (a run of the Contract Assistant failed 8 of its 9 tests this way, with
+% every check passing underneath). A name that begins with a definite article
+% of the program's language, in a rule, a query or a scenario, is reported
+% when the same name without the article is in the program too: once per
+% name, at a rule or query that has the name with the article.
+article_variant_constant(KB, issue(article_variant_constant, Description, Fix, Start, End)) :-
+    findall(C-Where, program_name(KB, C, Where), Pairs0),
+    sort(Pairs0, Pairs),
+    findall(C, member(C-_, Pairs), Cs0), sort(Cs0, Cs),
+    member(With, Cs),
+    definite_article_prefix(With, Without),
+    ord_memberchk(Without, Cs),
+    once(member(With-where(Start, End), Pairs)),
+    le_i18n:le_msg(article_variant_constant_desc, [with-With, without-Without], Description),
+    le_i18n:le_msg(article_variant_constant_fix, [], Fix).
+
+%   program_name(+KB, -Name, -where(Start, End)): a name (an atom) in an
+%   argument of a rule, a query or a scenario fact.
+program_name(KB, C, where(S, E)) :-
+    kb_rule(KB, H, B, Ref),
+    ( clause(KB:le_source_info(Ref, S, E, _), true) -> true ; S = 0, E = 0 ),
+    strip_type_checks(H-B, T),
+    goal_name(T, C).
+program_name(KB, C, where(0, 0)) :-
+    current_predicate(KB:query_info/3),
+    KB:query_info(_, G, _),
+    goal_name(G, C).
+program_name(KB, C, where(S, E)) :-
+    current_predicate(KB:scenario/2),
+    KB:scenario(_, Terms),
+    member(fact_with_source(F, S, E), Terms),
+    goal_name(F, C).
+
+%   An atom in an argument place of a literal of T.
+goal_name(T, C) :-
+    sub_term(L, T), compound(L),
+    functor(L, F, N), N > 0,
+    \+ is_system_predicate(F/N), \+ sub_atom(F, 0, _, _, le_),
+    arg(_, L, A), atom(A),          % (a variable argument must not bind C)
+    sub_atom(A, _, 1, _, ' '),
+    C = A.
+
+definite_article_prefix(With, Without) :-
+    (   catch(le_i18n:le_active_language(L), _, fail) -> true ; L = en ),
+    (   current_predicate(le_writer:writer_word/3)
+    ->  findall(A, ( member(K, [definite_m, definite_f]), le_writer:writer_word(K, L, A) ), As0)
+    ;   As0 = []
+    ),
+    ( As0 == [] -> As = [the] ; As = As0 ),
+    member(Art, As),
+    atom_concat(Art, ' ', P),
+    atom_concat(P, Without, With),
+    Without \== '', !.
 
 % --- A conclusion whose thing only a negation names ---
 % `a proposal has the uk exemption check with result more information needed

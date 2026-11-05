@@ -119,6 +119,24 @@ order, and a query can take minutes.
 provider qualifies for an exemption under a paragraph`) gets its answers from the
 rules for each paragraph.
 
+## The name '...' and the name '...' differ only by the article
+
+A template has argument places. An article in an argument place is part of the
+name. This template has no article before its second argument place:
+
+```
+*a proposal* has *a check* with result *a result*.
+```
+
+A query asks `which proposal has the uk exemption check with result which
+result`. Thus the query asks about the name `the uk exemption check`. A rule says
+`a proposal has uk exemption check with result passes`. That rule is about the name
+`uk exemption check`. For the system these are two different things. Thus the rule
+does not answer the query.  
+**Fix:** Write the name the same way in each rule, query, scenario and expected
+answer. Use the article everywhere or nowhere. Or put the article into the words
+of the template: `*a proposal* has the *a check* check with result *a result*`.
+
 ## In the rule for '...', a thing of the conclusion is named only in conditions under 'it is not the case that'
 
 A condition under `it is not the case that` does not name a thing. It asks if the

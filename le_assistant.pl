@@ -626,11 +626,11 @@ test_llm_providers :-
     ; forall(member(P, AvailableProviders), (
         format("Testing provider: ~w~n", [P]),
         % Pick a model for this provider
-        (   P == openai -> Model = 'gpt-4o-mini'
-        ;   P == anthropic -> Model = 'claude'
-        ;   P == google -> Model = 'gemini'
+        (   P == openai -> Model = 'gpt-6-luna'
+        ;   P == anthropic -> Model = 'claude-haiku-4-5-20251001'
+        ;   P == google -> Model = 'gemini-3.5-flash'
         ;   P == groq -> Model = 'openai/gpt-oss-120b'
-        ;   P == together -> Model = 'deepseek-ai/DeepSeek-V4-Pro'
+        ;   P == together -> Model = 'deepseek-ai/DeepSeek-V4.1-Flash'
         ;   fail
         ),
         ( test_opencode_prompt(Model, "who are you? please answer in one sentence.", Answer) ->
