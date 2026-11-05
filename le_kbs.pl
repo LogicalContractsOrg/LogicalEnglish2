@@ -3636,6 +3636,17 @@ answers_match_([E|Es], As) :-
 
 answer_matches(E, A) :-
     split_string(E, " ", "", EWs), split_string(A, " ", "", AWs),
+    (   words_match(EWs, AWs)
+    ->  true
+    ;   %  an article that one of them has and the other leaves out ("has uk
+        %  exemption check" for "has the uk exemption check"): the parser reads
+        %  a sentence with or without it, as it read the query that asked
+        exclude(==("#article"), EWs, EWs1), exclude(==("#article"), AWs, AWs1),
+        ( EWs1 \== EWs ; AWs1 \== AWs ),
+        words_match(EWs1, AWs1)
+    ).
+
+words_match(EWs, AWs) :-
     length(EWs, N), length(AWs, N),
     maplist(word_matches, EWs, AWs).
 

@@ -93,6 +93,14 @@ modelling_warning("unmarked_meta_template").
 modelling_warning("single_variable_fact").
 modelling_warning("unbound_aggregate_variable").
 modelling_warning("detached_condition").
+%   A rule whose conditions are its own conclusion with a name in place of a
+%   variable (`... under a paragraph if ... under paragraph a or ... under
+%   paragraph b ...`) adds only wrong answers and calls itself: a test of a
+%   statute's 23 exemption paragraphs never ended, so the repairs had no time.
+modelling_warning("restated_cases_rule").
+%   A thing of the conclusion that only a negation names: the answer is the
+%   unnamed `_ has ... more information needed`, whatever the case says.
+modelling_warning("negation_only_variable").
 modelling_warning("defined_scenario_element").
 modelling_warning("or_then_and").
 modelling_warning("mistyped_value").

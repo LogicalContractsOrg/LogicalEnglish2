@@ -100,6 +100,8 @@ check_issue(KB, _, Issue) :- builtin_template(KB, Issue).
 check_issue(KB, _, Issue) :- unbound_aggregate_variable(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
 check_issue(KB, _, Issue) :- detached_condition(KB, Issue).
+check_issue(KB, _, Issue) :- restated_cases_rule(KB, Issue).
+check_issue(KB, _, Issue) :- negation_only_variable(KB, Issue).
 check_issue(KB, _, Issue) :- homonym_templates(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
@@ -1831,6 +1833,75 @@ detached_condition(KB, issue(detached_condition, Description, Fix, Start, End)) 
     fact_le_text(KB, Lit, Text),
     le_i18n:le_msg(detached_condition_desc, [text-Text], Description),
     le_i18n:le_msg(detached_condition_fix, [], Fix).
+
+% --- A rule that restates its own cases ---
+% `a provider qualifies for an exemption under a paragraph of subsection
+% 911A(2) if the provider qualifies for an exemption under paragraph a of
+% subsection 911A(2) or ... under paragraph l ...`: each condition is the
+% rule's own conclusion with a name in the place where the conclusion has a
+% variable, and that variable is in no other part of the rule. The rules for
+% each paragraph already conclude the template, so the rule adds no answer of
+% its own, only wrong ones (it says that the provider qualifies under every
+% paragraph). And it calls itself: each condition is answered by the rule
+% again, the loop check stops only a call that repeats one exactly, and the
+% search runs through the orders of the paragraphs (912,520 calls in 15
+% seconds for 23 paragraphs, a test that never ended). Only conditions outside
+% a negation are read.
+restated_cases_rule(KB, issue(restated_cases_rule, Description, Fix, Start, End)) :-
+    kb_rule(KB, Head, Body, Ref),
+    strip_type_checks(Body, Plain),
+    once(( positive_literal(Plain, Lit),
+           own_case_of(Head, Lit, Head-Plain) )),
+    fact_le_text(KB, Head, Text),
+    le_i18n:le_msg(restated_cases_rule_desc, [text-Text], Description),
+    le_i18n:le_msg(restated_cases_rule_fix, [], Fix),
+    ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true ; Start = 0, End = 0 ).
+
+%   Lit is Head with a name in at least one place where Head has a variable
+%   that is in no other part of the rule, and the same in every other place.
+own_case_of(Head, Lit, Rule) :-
+    compound(Lit),
+    functor(Head, F, A), functor(Lit, F, A),
+    Head =.. [_|HAs], Lit =.. [_|LAs],
+    foldl(own_case_arg(Rule), HAs, LAs, false, Named),
+    Named == true.
+
+own_case_arg(_, H, L, N, N) :- H == L, !.
+own_case_arg(Rule, H, L, _, true) :-
+    var(H), atomic(L),
+    occurrences_of_var(H, Rule, 1).
+
+% --- A conclusion whose thing only a negation names ---
+% `a proposal has the uk exemption check with result more information needed
+% if it is not the case that the proposal passes the uk exemption check and it
+% is not the case that the proposal fails the uk exemption check`: no
+% condition outside the negations names the proposal. A negation never names
+% a thing, so the negations ask whether ANY proposal passes, and the answer
+% is the unnamed `_ has the uk exemption check with result more information
+% needed`, whatever the case says of the proposal. A variable of the
+% conclusion that is in the rule's conditions only under `it is not the case
+% that` is reported (the type checks that LE adds name every variable and
+% are not counted).
+negation_only_variable(KB, issue(negation_only_variable, Description, Fix, Start, End)) :-
+    kb_rule(KB, Head, Body, Ref),
+    strip_type_checks(Body, Plain),
+    term_variables(Head, HVs), HVs \== [],
+    drop_negations(Plain, Positive),
+    term_variables(Positive, PVs),
+    term_variables(Plain, BVs),
+    once(( member(V, HVs),
+           \+ ( member(W, PVs), W == V ),
+           member(W2, BVs), W2 == V )),
+    fact_le_text(KB, Head, Text),
+    le_i18n:le_msg(negation_only_variable_desc, [text-Text], Description),
+    le_i18n:le_msg(negation_only_variable_fix, [], Fix),
+    ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true ; Start = 0, End = 0 ).
+
+drop_negations(V, V) :- var(V), !.
+drop_negations(not(_), true) :- !.
+drop_negations(T, T) :- \+ compound(T), !.
+drop_negations(T, P) :-
+    T =.. [F|As], maplist(drop_negations, As, Bs), P =.. [F|Bs].
 
 % --- Two templates with the same words ---
 % `*an interest form* shows federal income tax withheld of *an amount*` and

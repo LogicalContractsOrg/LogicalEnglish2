@@ -98,6 +98,47 @@ proposal`. If the rule really needs only that some such fact exists, declare a
 template without variables for it (`there is a current licence.`). Then write a rule
 that concludes it from the condition.
 
+## The rule for '...' has a condition that is its own conclusion with a name in place of a variable
+
+A variable is a part of a rule that different values can fill. In this rule,
+each condition is the conclusion again, with a name (`paragraph a`,
+`paragraph b`) in the place of the variable `a paragraph`:
+
+```
+a provider qualifies for an exemption under a paragraph
+    if the provider qualifies for an exemption under paragraph a
+    or the provider qualifies for an exemption under paragraph b.
+```
+
+The rules for paragraph a and paragraph b already give the conclusion. Thus this
+rule gives no new correct answer. It gives wrong answers: it says that the
+provider qualifies under each paragraph. Also, the rule uses itself to answer
+each condition. With many paragraphs, the system examines them in each possible
+order, and a query can take minutes.  
+**Fix:** Delete the rule. A condition that asks for any paragraph (`and the
+provider qualifies for an exemption under a paragraph`) gets its answers from the
+rules for each paragraph.
+
+## In the rule for '...', a thing of the conclusion is named only in conditions under 'it is not the case that'
+
+A condition under `it is not the case that` does not name a thing. It asks if the
+sentence is true for anything. In this rule, only such conditions name the
+proposal:
+
+```
+a proposal has the uk exemption check with result more information needed
+    if it is not the case that
+        the proposal passes the uk exemption check
+    and it is not the case that
+        the proposal fails the uk exemption check.
+```
+
+Thus the rule does not ask about one specific proposal. The answer shows the
+proposal as `_`, a variable without a name, and the answer does not change with
+the facts of the case.  
+**Fix:** Before the negations, add a condition that names the thing. Use a fact
+that each case gives about it, for example `if the proposal occurs on a date`.
+
 ## The template '...' has the same words as '...'
 
 Two templates have the same words. Only the names in their argument places are
