@@ -269,7 +269,11 @@ kw_category_key(Category, Key) :-
 %   Word belongs to the single-word class Class (article, ignorable, reserved,
 %   qualifier, copula, meta_marker, ...) in the active language. For the
 %   determiner classes (article, definite_article) a capitalised variant
-%   ('The' for 'the') is also accepted, mirroring the historical English lists.
+%   ('The' for 'the') is also accepted, mirroring the historical English lists;
+%   so it is for the question words (which, what, who, ..., and each), which
+%   begin a query as often as not: `Which person is happy.` asks the same as
+%   `which person is happy.`, and did not (it asked about a person named
+%   "Which person").
 %
 %   This sits on the parser's hottest path, so it is a single lookup against
 %   the class_word/3 facts materialized at CSV-load time (which already carry
@@ -287,6 +291,13 @@ class_member(Lang, Class, Word) :-
 cap_allowed(article).
 cap_allowed(article_narrow).
 cap_allowed(definite_article).
+cap_allowed(wh_var).
+cap_allowed(which).
+cap_allowed(who).
+cap_allowed(what).
+cap_allowed(when).
+cap_allowed(where).
+cap_allowed(each).
 
 initial_upper(Word, Upper) :-
     atom_codes(Word, [C|Cs]),
