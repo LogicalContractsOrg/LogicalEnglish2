@@ -19136,39 +19136,40 @@ ${err}`, "See s(CASP)");
   applyUrlSelection();
   const bottomPanel = document.getElementById("bottom-panel");
   const resizer = document.getElementById("resizer");
-  let isResizing = false;
-  resizer.addEventListener("mousedown", (e) => {
-    isResizing = true;
-    document.body.style.cursor = "ns-resize";
-  });
-  document.addEventListener("mousemove", (e) => {
-    if (!isResizing)
-      return;
+  const dragSplitter = (handle, cursor, onMove) => {
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0)
+        return;
+      e.preventDefault();
+      handle.setPointerCapture(e.pointerId);
+      document.body.style.cursor = cursor;
+      const move = (ev) => onMove(ev);
+      const end = () => {
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", end);
+        handle.removeEventListener("pointercancel", end);
+        document.body.style.cursor = "default";
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", end);
+      handle.addEventListener("pointercancel", end);
+    });
+  };
+  dragSplitter(resizer, "ns-resize", (e) => {
     const offsetTop = e.clientY;
     const windowHeight = window.innerHeight;
     const headerHeight = container.getBoundingClientRect().top;
     const newContainerHeight = offsetTop - headerHeight;
-    const newPanelHeight = windowHeight - offsetTop - 5;
+    const newPanelHeight = windowHeight - offsetTop - resizer.offsetHeight;
     if (newContainerHeight > 100 && newPanelHeight > 100) {
       container.style.height = `${newContainerHeight}px`;
       bottomPanel.style.height = `${newPanelHeight}px`;
       editor.layout();
     }
   });
-  document.addEventListener("mouseup", () => {
-    isResizing = false;
-    document.body.style.cursor = "default";
-  });
   const resultsResizer = document.getElementById("results-resizer");
   const answersPanel = document.getElementById("answers-panel");
-  let isResizingResults = false;
-  resultsResizer.addEventListener("mousedown", (e) => {
-    isResizingResults = true;
-    document.body.style.cursor = "ew-resize";
-  });
-  document.addEventListener("mousemove", (e) => {
-    if (!isResizingResults)
-      return;
+  dragSplitter(resultsResizer, "ew-resize", (e) => {
     const resultsArea = document.getElementById("results-area");
     const rect = resultsArea.getBoundingClientRect();
     const offsetLeft = e.clientX - rect.left;
@@ -19176,11 +19177,6 @@ ${err}`, "See s(CASP)");
     if (percentage > 10 && percentage < 90) {
       answersPanel.style.width = `${percentage}%`;
     }
-  });
-  document.addEventListener("mouseup", () => {
-    isResizingResults = false;
-    if (!isResizing)
-      document.body.style.cursor = "default";
   });
   let answersList = document.getElementById("answers-list");
   let explanationTree = document.getElementById("explanation-tree");

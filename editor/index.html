@@ -375,6 +375,15 @@
         #resizer:hover {
             background-color: #0e639c;
         }
+        /* The splitters are dragged with a finger too (client.ts, dragSplitter):
+           the browser must not scroll the page meanwhile, and on a touch screen
+           each gets an invisible grab area wider than its 5 px line. */
+        #resizer, #results-resizer { touch-action: none; position: relative; }
+        @media (pointer: coarse) {
+            #resizer::after, #results-resizer::after { content: ""; position: absolute; z-index: 20; }
+            #resizer::after { left: 0; right: 0; top: -10px; bottom: -10px; }
+            #results-resizer::after { top: 0; bottom: 0; left: -10px; right: -10px; }
+        }
         #bottom-panel {
             height: 200px;
             background-color: var(--panel-bg);
