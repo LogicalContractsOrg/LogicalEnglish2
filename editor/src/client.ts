@@ -2569,6 +2569,57 @@ const queryChannel = new BroadcastChannel('le-query-editor');
         openSourceGraph();
     });
 
+    // Radial Tree: one query as a tree (radial-tree.html / radial-tree.ts), in
+    // its own browser tab, on the same le-graph-sync channel as the graph.
+    // From Misc > Radial Tree it shows the query selected in the Query panel;
+    // from the context menu, the query whose statement is selected.
+    async function openRadialTree(query: string) {
+        if (!isLoaded && !isLoading) {
+            await loadModule();
+        }
+        window.open('radial-tree.html?query=' + encodeURIComponent(query), '_blank');
+    }
+
+    document.getElementById('menu-radial-tree')?.addEventListener('click', () => {
+        const q = querySelect.value;
+        if (!q || q === '___custom___') {
+            alert(t('Select a query in the Query panel first. The Radial Tree shows one query of the program.'));
+            return;
+        }
+        openRadialTree(q);
+    });
+
+    editor.addAction({
+        id: 'open-radial-tree',
+        label: t('Radial Tree'),
+        contextMenuGroupId: 'navigation',
+        contextMenuOrder: 1.85,
+        run: async (ed: any) => {
+            const notAQuery = t('The selection is not a query. Select a query of the program (a "query ... is:" statement), then try again.');
+            if (activeDoc !== panelDoc) { alert(notAQuery); return; }
+            const model = ed.getModel();
+            const selection = ed.getSelection();
+            if (!model || !selection) { alert(notAQuery); return; }
+            if (!(await loadModule())) { alert(t('The program could not be loaded: ') + (lastLoadError || '')); return; }
+            try {
+                const response = await fetch('/leapi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        token: 'myToken123', operation: 'radialTree', sessionModule, check: true,
+                        offset: model.getOffsetAt(selection.getStartPosition()),
+                    })
+                });
+                const data = await response.json();
+                if (data.query) openRadialTree(data.query);
+                else if (data.error_code === 'not_a_query') alert(notAQuery);
+                else alert(t('The server could not build the tree: ') + (data.error || ''));
+            } catch (err) {
+                alert(t('Could not reach the server to build the tree.'));
+            }
+        }
+    });
+
     // The executive view of a document AS IT IS HERE, unsaved changes included:
     // its text goes to the new window by localStorage (same origin), under a key
     // the address names (`text=`); the example it came from (or its URL) still

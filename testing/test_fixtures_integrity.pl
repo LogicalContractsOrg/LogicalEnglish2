@@ -52,6 +52,9 @@ test_suite_fixture('testing/fixtures/le/assumed_coloring.le',
 test_suite_fixture('testing/fixtures/le/proof_game_is_a_cards.le',
     'testing/test_proof_game.pl (proof_game_is_a_cards)').
 
+test_suite_fixture('testing/fixtures/le/radial_tree_claims.le',
+    'testing/test_graph.pl (radial_tree), editor/tests/radial-tree.spec.ts').
+
 :- begin_tests(fixtures_integrity).
 
 % Every LE program a test suite depends on must still exist at its expected

@@ -87,3 +87,90 @@ test(eu261_layers) :-
     aggregate_all(count, member("query"-_, TLs), 4).
 
 :- end_tests(source_graph).
+
+/* The Radial Tree of a query (le_graph:radial_tree/4, editor/radial-tree.html):
+   the rules under the query, the conditions under each rule, NOT on a
+   negated condition, how often each node holds in the scenarios, and the
+   scenarios' test results. */
+
+claims_kb(KB) :-
+    le_kbs:load('testing/fixtures/le/radial_tree_claims.le', KB, [skip_tests]).
+
+tree_nodes(Node, [Node|Ns]) :-
+    get_dict(children, Node, Cs),
+    foldl([C, A0, A]>>( tree_nodes(C, CNs), append(A0, CNs, A) ), Cs, [], Ns).
+
+node_by_label(Tree, Label, Node) :-
+    tree_nodes(Tree, Ns),
+    member(Node, Ns),
+    get_dict(label, Node, L0), atom_string(L0, Label), !.
+
+:- begin_tests(radial_tree).
+
+test(query_at_offset) :-
+    claims_kb(KB),
+    clause(KB:query_info(covered, _, _), true, Ref),
+    KB:le_source_info(Ref, Start, _, _),
+    Inside is Start + 5,
+    assertion(le_graph:query_at_offset(KB, Inside, covered)),
+    assertion(\+ le_graph:query_at_offset(KB, 400, _)).
+
+test(no_such_query) :-
+    claims_kb(KB),
+    le_graph:radial_tree(KB, "nothing", [], R),
+    assertion(R.error_code == "no_query").
+
+% One rule concludes "a claim is covered": the query and that rule are one
+% node, and its two alternatives are under it, "OR".
+test(tree_structure) :-
+    claims_kb(KB),
+    le_graph:radial_tree(KB, "covered", [], R),
+    T = R.tree,
+    assertion(T.kind == "query"),
+    assertion(T.connector == "OR"),
+    length(T.children, 2),
+    node_by_label(T, "a claim is under the buildings section", B),
+    assertion(B.connector == "AND"),
+    node_by_label(T, "a claim concerns gradual wear", W),
+    assertion(W.negated == true),
+    assertion(W.given == true),
+    node_by_label(T, "an item is a household item", H),
+    assertion(H.facts == 1).
+
+% Held in the scenarios, in order pipe, wear, tv.
+test(held_and_test_results) :-
+    claims_kb(KB),
+    le_graph:radial_tree(KB, "covered", [], R),
+    assertion(R.held_complete == true),
+    assertion(R.tree.held == ["yes", "no", "yes"]),
+    node_by_label(R.tree, "a claim concerns gradual wear", W),
+    assertion(W.held == ["yes", "no", "yes"]),
+    findall(N-Res, ( member(S, R.scenarios), N = S.name, Res = S.result ), Results),
+    assertion(Results == ["pipe"-"pass", "wear"-"pass", "tv"-"pass"]).
+
+% Depth 1 shows the query's conditions without unfolding them.
+test(depth_limit) :-
+    claims_kb(KB),
+    le_graph:radial_tree(KB, "covered", [depth(1), held(false)], R),
+    node_by_label(R.tree, "a claim is under the buildings section", B),
+    assertion(B.more == true),
+    assertion(B.children == []).
+
+% eu261_integration.le: "it is not the case that" over an "and" group, and
+% over a condition "according to the carrier" (le_scoped/2), used to fail
+% (an instantiation error, and a condition shown as a calculation); a
+% comparison and a decision table are not evaluated alone, so the counts
+% are complete.
+test(negated_group_and_scoped_condition) :-
+    le_kbs:load('examples/regulatory/eu261_integration.le', KB, [skip_tests]),
+    le_graph:radial_tree(KB, claim, [], R),
+    assertion(\+ get_dict(error, R, _)),
+    assertion(R.held_complete == true),
+    node_by_label(R.tree, "the cancellation of a flight is due to extraordinary circumstances", C),
+    assertion(C.kind == "condition"),
+    assertion(C.negated == true),
+    node_by_label(R.tree, "a number is greater than or equal to 14", B),
+    assertion(B.kind == "builtin"),
+    assertion(B.held == [null, null, null, null]).
+
+:- end_tests(radial_tree).

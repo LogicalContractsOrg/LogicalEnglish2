@@ -246,58 +246,58 @@
     <div id="header">
         <div id="title">Logical English Knowledge Graph</div>
         <div id="controls">
-            <button id="btn-refresh-graph">Refresh</button>
+            <button id="btn-refresh-graph" title="Get the graph again from the program in the editor, after you change the program">Refresh</button>
             <button id="btn-copy-mermaid" title="Copy the visible graph as a Mermaid diagram (text), pasteable into GitHub, Obsidian, mermaid.live…">Copy Mermaid</button>
-            <button id="btn-fit">Fit View</button>
-            <button id="btn-center">Center</button>
-            <button id="btn-zoom-in">+</button>
-            <button id="btn-zoom-out">-</button>
-            <input type="text" id="graph-search" placeholder="Search nodes...">
+            <button id="btn-fit" title="Zoom and move the graph so that all of it shows in the window">Fit View</button>
+            <button id="btn-center" title="Move the graph to the centre of the window, at the same zoom">Center</button>
+            <button id="btn-zoom-in" title="Zoom in">+</button>
+            <button id="btn-zoom-out" title="Zoom out">-</button>
+            <input type="text" id="graph-search" placeholder="Search nodes..." title="Type words to find the boxes that contain them. The other boxes become pale.">
         </div>
     </div>
     <div id="main-container">
         <div id="sidebar">
             <div class="control-group">
-                <label>Scenario</label>
-                <select id="scenario-select">
-                    <option value="">None</option>
+                <label title="Show the facts of one scenario only, or of all the scenarios (None). The facts show when Facts and Scenarios are both selected below.">Scenario</label>
+                <select id="scenario-select" title="Show the facts of one scenario only, or of all the scenarios (None). The facts show when Facts and Scenarios are both selected below.">
+                    <option value="" title="All the scenarios">None</option>
                 </select>
             </div>
             <div class="control-group">
-                <label>Layout</label>
-                <select id="layout-select">
-                    <option value="elk">ELK (Layered)</option>
-                    <option value="fcose">fCoSE (Default)</option>
-                    <option value="dagre">Dagre (Hierarchical)</option>
-                    <option value="grid">Grid</option>
-                    <option value="circle">Circle</option>
+                <label title="How the boxes are put on the page">Layout</label>
+                <select id="layout-select" title="How the boxes are put on the page">
+                    <option value="elk" title="In layers: each box is after the boxes that it uses">ELK (Layered)</option>
+                    <option value="fcose" title="As a network: boxes that are connected come near each other">fCoSE (Default)</option>
+                    <option value="dagre" title="As a hierarchy: each box is below or after the boxes that use it">Dagre (Hierarchical)</option>
+                    <option value="grid" title="In rows and columns">Grid</option>
+                    <option value="circle" title="On a circle">Circle</option>
                 </select>
             </div>
             <div class="control-group">
-                <label>Direction</label>
-                <select id="direction-select">
-                    <option value="LR">Horizontal (L→R)</option>
-                    <option value="TB">Vertical (T→B)</option>
+                <label title="The direction of the layers, for the ELK and Dagre layouts">Direction</label>
+                <select id="direction-select" title="The direction of the layers, for the ELK and Dagre layouts">
+                    <option value="LR" title="From left to right">Horizontal (L→R)</option>
+                    <option value="TB" title="From top to bottom">Vertical (T→B)</option>
                 </select>
             </div>
             <div class="control-group">
-                <label>Node Types</label>
+                <label title="The kinds of box that show in the graph">Node Types</label>
                 <div class="checkbox-group">
-                    <label class="checkbox-item"><input type="checkbox" data-type="template" checked> Templates</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="rule" checked> Rules</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="fact"> Facts</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="scenario"> Scenarios</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="type"> Types</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="query"> Queries</label>
+                    <label class="checkbox-item" title="Show the templates: the sentence patterns that the program declares, for example &quot;*a person* is happy&quot;"><input type="checkbox" data-type="template" checked> Templates</label>
+                    <label class="checkbox-item" title="Show the rules: the sentences with &quot;if&quot; that conclude something from conditions"><input type="checkbox" data-type="rule" checked> Rules</label>
+                    <label class="checkbox-item" title="Show the facts: the sentences without conditions, in the knowledge base and (with Scenarios) in the scenarios"><input type="checkbox" data-type="fact"> Facts</label>
+                    <label class="checkbox-item" title="Show the scenarios: the sets of facts that describe one case each"><input type="checkbox" data-type="scenario"> Scenarios</label>
+                    <label class="checkbox-item" title="Show the types: the kinds of thing in the templates (for example, a person), and which type is a kind of which"><input type="checkbox" data-type="type"> Types</label>
+                    <label class="checkbox-item" title="Show the queries: the questions that the program declares"><input type="checkbox" data-type="query"> Queries</label>
                 </div>
             </div>
             <div class="control-group">
-                <label>Edge Types</label>
+                <label title="The kinds of line that show in the graph">Edge Types</label>
                 <div class="checkbox-group">
-                    <label class="checkbox-item"><input type="checkbox" data-type="uses" checked> Uses</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="depends-on" checked> Depends-on</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="negates" checked> Negates</label>
-                    <label class="checkbox-item"><input type="checkbox" data-type="is-a" checked> Is-a</label>
+                    <label class="checkbox-item" title="Show the lines from a rule, a fact or a query to each template that it uses"><input type="checkbox" data-type="uses" checked> Uses</label>
+                    <label class="checkbox-item" title="Show the lines from a rule to the rules and facts that it depends on"><input type="checkbox" data-type="depends-on" checked> Depends-on</label>
+                    <label class="checkbox-item" title="Show the lines from a rule to each template that it uses with &quot;it is not the case that&quot;"><input type="checkbox" data-type="negates" checked> Negates</label>
+                    <label class="checkbox-item" title="Show the lines from a type to the type that it is a kind of"><input type="checkbox" data-type="is-a" checked> Is-a</label>
                 </div>
             </div>
         </div>
@@ -305,9 +305,9 @@
     </div>
     <div id="tooltip"></div>
     <div id="context-menu">
-        <div class="context-menu-item" id="ctx-copy-node">Copy Node</div>
-        <div class="context-menu-item" id="ctx-copy-url">Copy URL</div>
-        <div class="context-menu-item" id="ctx-layout-from-here">Redraw from here</div>
+        <div class="context-menu-item" id="ctx-copy-node" title="Copy the text of this box to the clipboard">Copy Node</div>
+        <div class="context-menu-item" id="ctx-copy-url" title="Copy a link that opens the graph on this box">Copy URL</div>
+        <div class="context-menu-item" id="ctx-layout-from-here" title="Put the graph again as a tree that starts at this box">Redraw from here</div>
     </div>
 
     <script type="module">

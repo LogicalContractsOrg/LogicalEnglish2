@@ -1,0 +1,43 @@
+the target language is: prolog.
+
+the templates are:
+*a claim* is covered.
+*a claim* is under the buildings section.
+*a claim* is under the contents section.
+*a claim* concerns damage to the structure.
+*a claim* concerns gradual wear.
+*a claim* concerns *an item*.
+*an item* is a household item.
+
+the knowledge base claims includes:
+
+a claim is covered
+    if the claim is under the buildings section
+    or the claim is under the contents section.
+
+a claim is under the buildings section
+    if the claim concerns damage to the structure
+    and it is not the case that
+        the claim concerns gradual wear.
+
+a claim is under the contents section
+    if the claim concerns an item
+    and the item is a household item.
+
+tv is a household item.
+
+scenario pipe is:
+    c1 concerns damage to the structure.
+    covered expects answers ["c1 is covered"].
+
+scenario wear is:
+    c2 concerns damage to the structure.
+    c2 concerns gradual wear.
+    covered expects answers [].
+
+scenario tv is:
+    c3 concerns tv.
+    covered expects answers ["c3 is covered"].
+
+query covered is:
+    which claim is covered.

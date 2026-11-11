@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/telemetry.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical English Radial Tree</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #d4d4d4;
+            --muted-color: #9a9a9a;
+            --header-bg: #333;
+            --panel-bg: #252526;
+            --border-color: #444;
+            --input-bg: #3c3c3c;
+            --input-text: #ccc;
+            --input-border: #555;
+            --ring-color: #3a3a3a;
+            --edge-color: #6a6a6a;
+            --node-color: #bbbbbb;
+            --held-color: #4caf50;
+            --held-bg: rgba(76, 175, 80, 0.18);
+            --not-held-color: #f48771;
+            --unknown-color: #e5b33b;
+            --badge-color: #c586c0;
+            --row-hover: #2f3b46;
+            --row-selected: #094771;
+        }
+
+        .light-theme {
+            --bg-color: #ffffff;
+            --text-color: #1f1f1f;
+            --muted-color: #666666;
+            --header-bg: #f3f3f3;
+            --panel-bg: #fafafa;
+            --border-color: #dddddd;
+            --input-bg: #ffffff;
+            --input-text: #333;
+            --input-border: #cccccc;
+            --ring-color: #e6e6e6;
+            --edge-color: #b0b0b0;
+            --node-color: #333333;
+            --held-color: #2e7d32;
+            --held-bg: rgba(46, 125, 50, 0.12);
+            --not-held-color: #c62828;
+            --unknown-color: #b26a00;
+            --badge-color: #8e1b74;
+            --row-hover: #eef3f8;
+            --row-selected: #d6e8f7;
+        }
+
+        .hc-theme {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --muted-color: #ffffff;
+            --header-bg: #000000;
+            --panel-bg: #000000;
+            --border-color: #ffffff;
+            --input-bg: #000000;
+            --input-text: #ffffff;
+            --input-border: #ffffff;
+            --ring-color: #555555;
+            --edge-color: #ffffff;
+            --node-color: #ffffff;
+            --held-color: #00ff66;
+            --held-bg: rgba(0, 255, 102, 0.2);
+            --not-held-color: #ff6666;
+            --unknown-color: #ffd700;
+            --badge-color: #ff9cff;
+            --row-hover: #222222;
+            --row-selected: #003366;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        #header {
+            height: 40px;
+            background-color: var(--header-bg);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        #title {
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+        }
+
+        #controls {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: flex-end;
+            min-width: 0;
+            font-size: 12px;
+        }
+
+        #controls label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        select, button {
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border: 1px solid var(--input-border);
+            padding: 4px 8px;
+            font-size: 11px;
+            outline: none;
+            border-radius: 3px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #0e639c;
+            color: white;
+            border: none;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            background-color: #1177bb;
+        }
+
+        #main-container {
+            display: flex;
+            height: calc(100% - 40px);
+            width: 100%;
+        }
+
+        #tree-container {
+            flex-grow: 1;
+            position: relative;
+            min-width: 0;
+            cursor: grab;
+        }
+
+        #tree-container.panning {
+            cursor: grabbing;
+        }
+
+        #tree-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            user-select: none;
+        }
+
+        #tree-status {
+            display: none;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            color: var(--muted-color);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        #tests-panel {
+            width: 380px;
+            min-width: 280px;
+            background-color: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 14px;
+            box-sizing: border-box;
+            font-size: 12px;
+        }
+
+        #tests-panel.hidden {
+            display: none;
+        }
+
+        #tests-panel h2 {
+            font-size: 14px;
+            margin: 0 0 6px 0;
+        }
+
+        #tests-summary {
+            color: var(--muted-color);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        #tests-summary .big {
+            font-size: 22px;
+            color: var(--text-color);
+            margin-right: 4px;
+        }
+
+        #tests-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        #tests-table th {
+            text-align: left;
+            font-weight: normal;
+            color: var(--muted-color);
+            padding: 4px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #tests-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+        }
+
+        #tests-table tbody tr {
+            cursor: pointer;
+        }
+
+        #tests-table tbody tr:hover {
+            background-color: var(--row-hover);
+        }
+
+        #tests-table tbody tr.selected {
+            background-color: var(--row-selected);
+        }
+
+        .result-pass { color: var(--held-color); }
+        .result-fail { color: var(--not-held-color); }
+        .result-error { color: var(--unknown-color); }
+        .result-none { color: var(--muted-color); }
+
+        #tooltip {
+            position: fixed;
+            display: none;
+            max-width: 420px;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 3000;
+            pointer-events: none;
+            border: 1px solid #555;
+            white-space: pre-wrap;
+        }
+
+        /* The tree itself */
+        .ring { fill: none; stroke: var(--ring-color); stroke-width: 1; }
+        .edge { stroke: var(--edge-color); stroke-width: 1.5; fill: none; }
+        .edge.held { stroke: var(--held-color); stroke-width: 2.5; }
+        .edge.or { stroke-dasharray: 5 4; }
+        .node-dot { stroke: var(--node-color); stroke-width: 2; fill: var(--bg-color); cursor: pointer; }
+        .node-dot.leaf { fill: var(--node-color); }
+        .node-dot.held { stroke: var(--held-color); }
+        .node-dot.leaf.held { fill: var(--held-color); }
+        .node-dot.not-held { stroke: var(--muted-color); }
+        .node-dot.leaf.not-held { fill: var(--muted-color); }
+        .node-dot.unknown { stroke: var(--unknown-color); }
+        .node-dot.leaf.unknown { fill: var(--unknown-color); }
+        .node-dot.more { stroke-dasharray: 3 2; }
+        .node-dot.focused { stroke: #ffeb3b; stroke-width: 4; }
+        .node-label { cursor: pointer; }
+        /* a halo in the background colour: an edge under a label does not cut its text */
+        .node-label text { paint-order: stroke; stroke: var(--bg-color); stroke-width: 4px; stroke-linejoin: round; }
+        .node-label .title { fill: var(--text-color); font-size: 15px; font-weight: 600; }
+        .node-label .sub { fill: var(--muted-color); font-size: 12px; }
+        .node-label .held-line { fill: var(--muted-color); font-size: 11px; font-family: Menlo, Consolas, monospace; }
+        .node-label .badge { fill: var(--badge-color); font-size: 11px; font-weight: 700; font-family: Menlo, Consolas, monospace; letter-spacing: 0.5px; }
+        .node-label .status-yes { fill: var(--held-color); font-size: 11px; font-weight: 700; font-family: Menlo, Consolas, monospace; }
+        .node-label .status-no { fill: var(--not-held-color); font-size: 11px; font-weight: 700; font-family: Menlo, Consolas, monospace; }
+        .node-label .status-unknown { fill: var(--unknown-color); font-size: 11px; font-weight: 700; font-family: Menlo, Consolas, monospace; }
+        .node-label.focused .title { fill: #ffb300; }
+        .root-circle { fill: var(--bg-color); stroke: var(--node-color); stroke-width: 2; cursor: pointer; }
+        .root-circle.held { stroke: var(--held-color); stroke-width: 3; }
+        .root-circle.not-held { stroke: var(--not-held-color); stroke-width: 3; }
+        .root-title { fill: var(--text-color); font-size: 22px; font-family: Georgia, "Times New Roman", serif; }
+        .root-text { fill: var(--muted-color); font-size: 12px; }
+        .verdict-box.yes { fill: var(--held-bg); stroke: var(--held-color); }
+        .verdict-box.no { fill: rgba(200, 60, 60, 0.12); stroke: var(--not-held-color); }
+        .verdict-text { font-size: 15px; font-weight: 700; font-family: Menlo, Consolas, monospace; letter-spacing: 1px; }
+        .verdict-text.yes { fill: var(--held-color); }
+        .verdict-text.no { fill: var(--not-held-color); }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div id="title">Radial Tree</div>
+        <div id="controls">
+            <label title="How many levels of conditions to show around the query. More levels show more detail, but the tree gets larger.">Depth
+                <select id="depth-select" title="How many levels of conditions to show around the query. More levels show more detail, but the tree gets larger.">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected>4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                </select>
+            </label>
+            <label class="checkbox-item" title="Below each condition, show in how many scenarios the condition is true (for example, &quot;held in 2 of 5&quot;)."><input type="checkbox" id="chk-held" checked> Held counts</label>
+            <label class="checkbox-item" title="Show the conditions that come from facts: the facts of the program and the facts that the scenarios give."><input type="checkbox" id="chk-data" checked> Facts</label>
+            <label class="checkbox-item" title="Show the panel with the scenarios and their test results for this query. Click a scenario in the panel to show which conditions are true in it."><input type="checkbox" id="chk-tests" checked> Tests</label>
+            <button id="btn-refresh" title="Get the tree again from the program in the editor, after you change the program">Refresh</button>
+            <button id="btn-fit" title="Zoom and move the tree so that all of it shows in the window">Fit View</button>
+            <button id="btn-zoom-in" title="Zoom in">+</button>
+            <button id="btn-zoom-out" title="Zoom out">-</button>
+        </div>
+    </div>
+    <div id="main-container">
+        <div id="tree-container">
+            <svg id="tree-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div id="tree-status"></div>
+        </div>
+        <div id="tests-panel">
+            <h2>Tests</h2>
+            <div id="tests-summary"></div>
+            <table id="tests-table">
+                <colgroup>
+                    <col style="width: 34%">
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                    <col style="width: 16%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th title="The scenario: the facts of one case">Scenario</th>
+                        <th title="The answers that the scenario expects (its &quot;expects answers&quot; line)">Expected</th>
+                        <th title="The answers that the query gets in the scenario">Got</th>
+                        <th title="Passed when the answers are the expected answers">Result</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="tooltip"></div>
+
+    <script type="module">
+        import './dist/radial-tree.js';
+    </script>
+</body>
+</html>

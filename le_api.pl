@@ -259,6 +259,7 @@ handle_operation(Dict, Response) :-
         ; Op == "exportForeign" -> handle_export_foreign(Dict, Response)
         ; Op == "is_a_hierarchy" -> handle_is_a_hierarchy(Dict, Response)
         ; Op == "graph" -> handle_graph(Dict, Response)
+        ; Op == "radialTree" -> handle_radial_tree(Dict, Response)
         ; Op == "adapterDecide" -> handle_adapter_decide(Dict, Response)
         ; Response = _{error: "Unknown operation"}
     ).
@@ -337,6 +338,40 @@ handle_graph(Dict, Response) :-
     ( KB \== none ->
         le_graph:kb_graph(KB, Response)
     ; Response = _{error: "No KB loaded"}
+    ).
+
+%!  handle_radial_tree(+Dict, -Response) is det.
+%
+%   The radial tree of a query (editor/radial-tree.html, le_graph:
+%   radial_tree/4). The query is `query` (its name), or the query whose
+%   statement contains `offset` (the editor's selection). With `check`
+%   true, only the query's name: {query}, or {error, error_code:
+%   "not_a_query"}. `depth` is how many levels of conditions to unfold.
+handle_radial_tree(Dict, Response) :-
+    get_dict(sessionModule, Dict, SMStr),
+    atom_string(SM, SMStr),
+    le_kbs:note_session_use(SM),
+    (   current_module(SM), current_predicate(SM:le_kb_module_fact/1), SM:le_kb_module_fact(KB)
+    ->  (   get_dict(offset, Dict, Offset), integer(Offset)
+        ->  (   le_graph:query_at_offset(KB, Offset, Q)
+            ->  QName = Q
+            ;   QName = none
+            )
+        ;   get_dict(query, Dict, QName)
+        ->  true
+        ;   QName = none
+        ),
+        (   QName == none
+        ->  Response = _{error: "The selection is not a query", error_code: "not_a_query"}
+        ;   get_dict(check, Dict, true)
+        ->  term_string(QName, QS), Response = _{query: QS}
+        ;   ( get_dict(depth, Dict, D), integer(D), D > 0 -> Depth is min(D, 12) ; Depth = 4 ),
+            ( get_dict(held, Dict, false) -> Held = false ; Held = true ),
+            catch(le_graph:radial_tree(KB, QName, [depth(Depth), held(Held)], Response),
+                  E, ( print_message(error, E), format(string(EM), "~q", [E]),
+                       Response = _{error: EM, error_code: "failed"} ))
+        )
+    ;   Response = _{error: "No KB loaded", session_expired: true}
     ).
 
 %!  folder_blurb(+Dir:atom, -Blurb:list) is det.

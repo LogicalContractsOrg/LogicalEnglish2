@@ -959,6 +959,41 @@ example.
     scenarios that are selected now, and the direction that you set. Scenarios become
     groups in boxes around their facts. Paste the result into GitHub, Obsidian, or
     other locations that show Mermaid diagrams.
+*   **Radial Tree:** The radial tree shows one query as a tree, in a new browser
+    tab. The query is in a circle at the centre. Around the query, ring after ring,
+    are the rules that can conclude it and the conditions of each rule. A
+    *condition* is one sentence in the body of a rule, after "if". To open the radial
+    tree, do these steps:
+    1.  Select a query in the **Query** panel.
+    2.  Select **Misc → Radial Tree**.
+
+    You can also right-click a query in the editor and select **Radial Tree**. The
+    editor tells you when the text that you selected is not a query.
+
+    Small words in colour above a sentence tell how the items below it combine:
+    *   **OR**: one of the items is sufficient. Two or more rules that conclude the
+        same sentence are alternatives. Their lines are dashed.
+    *   **AND**: all the items are necessary.
+    *   **NOT**: the sentence is true when its condition is not true ("it is not
+        the case that").
+
+    A full dot is a condition that facts give: the facts of the program, or the
+    facts of the scenarios. An empty dot is a condition that rules conclude. A
+    dotted circle tells that the tree stops there. Double-click it, or increase
+    the **Depth**, to see more.
+
+    The **Tests** panel at the right shows each scenario of the program. A
+    *scenario* is a set of facts that describes one case. For each scenario, the
+    panel shows the answers that the scenario expects, the answers that the query
+    gets, and the result: **Pass** or **Fail**. Below each sentence of the tree, a
+    line such as "held in 2 of 5" tells in how many scenarios that sentence is
+    true. Click a scenario in the panel. The tree then shows **Yes** or **No** above
+    each sentence, for that scenario, and the lines to the true sentences become
+    green. Click the scenario again to show the counts again.
+
+    Click a sentence to highlight its text in the editor. Double-click a sentence to
+    hide or show the items below it. The checkboxes at the top hide or show the
+    counts, the facts, and the **Tests** panel.
 *   **LE Assistant:** Use the **LE Assistant** tab to ask questions about your
     program, or to get help when you write new rules. The **Light Mode** checkbox in
     the header of the tab selects one of two assistants. Light is a fast assistant

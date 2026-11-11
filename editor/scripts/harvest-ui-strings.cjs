@@ -16,6 +16,7 @@ const path = require('path');
 const repoRoot = path.resolve(__dirname, '..', '..');
 const files = [
     'editor/index.html', 'editor/proof-game.html', 'editor/graph.html',
+    'editor/radial-tree.html',
     'editor/hierarchy.html', 'editor/scenario-editor.html',
     'editor/query-editor.html', 'editor/scenario-variations.html',
     'editor/explanation-drill.html', 'web_extras/executive/index.html',
