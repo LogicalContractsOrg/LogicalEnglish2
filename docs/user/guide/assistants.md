@@ -39,6 +39,7 @@ Two functions in the editor do not need a model:
   - [What to generate](#what-to-generate)
   - [Agreements under regulations](#agreements-under-regulations)
   - [A whole program](#a-whole-program)
+  - [How the assistant writes the program](#how-the-assistant-writes-the-program)
   - [Other ways to use the Contract Assistant](#other-ways-to-use-the-contract-assistant)
   - [Running, leaving, coming back](#running-leaving-coming-back)
   - [Getting the results by email](#getting-the-results-by-email)
@@ -369,7 +370,9 @@ Do these steps:
      only to give a score to the finished program. With held-out cases, the
      assistant uses all the cases of **cases / claims** to develop the program.
      Cases from a second author can find an error that the first author and the
-     program both make.
+     program both make. The assistant uses held-out cases only when it writes the
+     Logical English directly. When it writes the rules in Prolog first, it uses
+     all the cases as tests.
 
    Markdown or plain text is best. The server can also convert some other formats,
    if the necessary tools are installed. These formats are a Word file (`.docx`, with
@@ -412,15 +415,23 @@ Do these steps:
      gets them from the sources of the profile, and reads them together with the
      wording. It does not get the documents that those documents name.
    - **Write the program in**: **Logical English**, or **Logical English for LPS**.
+     For **Logical English**, the assistant writes the rules first in Prolog.
+     Prolog is the programming language that Logical English runs on. Refer to
+     [How the assistant writes the program](#how-the-assistant-writes-the-program).
      LPS (Logic Production Systems) is the language of programs that act over
      time: events, actions, and states that start and stop. Select it for a
      contract that must act, for example a loan that charges a fee when a payment
      is late. Each case is then a timeline. The assistant runs each timeline in
-     LPS and compares the run with the result that the case expects.
+     LPS and compares the run with the result that the case expects. For LPS,
+     the assistant writes the Logical English directly.
+   - **Prolog form**: select **also give it** to also get the Prolog program
+     that the Logical English comes from. The result screen then shows
+     **Download .pl**.
 4. **Existing LE code** (optional). Give templates, scenarios with the answers that you
    expect, and rules that you already wrote. The program that the assistant writes
    must contain your code and must agree with it. The result tells how much of your
-   code stayed word for word.
+   code stayed word for word. With existing code, the assistant writes the Logical
+   English directly, not from Prolog.
 
    **Programs to include** (optional, only for **A whole program**). Select one or more
    Logical English files (`.le`), for example the program of a regulation that you
@@ -442,9 +453,14 @@ Do these steps:
    your instructions have priority. The assistant writes scenarios only for the cases
    that you give, unless your instructions ask for more.
 6. **Effort budget**. **Draft** takes approximately 15 minutes, **Standard**
-   approximately 45 minutes and **Thorough** approximately 2 hours. The three budgets
-   are different in three numbers: the number of vocabulary samples, the number of
-   competing drafts, and the number of difficult test cases for the best draft.
+   approximately 45 minutes and **Thorough** approximately 2 hours. When the
+   assistant writes the rules in Prolog first, the budget sets the number of
+   competing drafts, the number of repairs and the time. **Draft** uses the short
+   procedure: one draft, and only the checks in Prolog. When the assistant writes
+   the Logical English directly, the three budgets are also different in the
+   number of vocabulary samples and the number of difficult test cases for the
+   best draft. The **Effort dial** and most settings of **Advanced** apply only
+   when the assistant writes the Logical English directly.
    **Advanced** shows each of these numbers and settings, and you can select them
    yourself. After you select a wording file, the page shows an **estimate of the
    cost** before you start.
@@ -496,6 +512,36 @@ Do these steps:
      of the request in a cache, which makes the repeated part less expensive.
      **classic** is the layout before October 2026.
 
+### How the assistant writes the program
+
+Click **Generate Logical English**. For **Logical English** with no existing code,
+the assistant does these steps:
+
+1. The model writes the rules as a Prolog program. Each rule cites the clause of
+   the document that it encodes, with a quotation. Each case that you gave becomes
+   a test.
+2. The assistant loads the Prolog program and runs the tests. It also examines
+   the quotations, the missing cases, and the parts that Logical English cannot
+   state. The model then repairs the program. The repairs continue until all the
+   tests pass and no problem remains, or until the budget ends.
+3. The model reads the program again with the document. A test case is only an
+   example. Thus the model looks for rules that decide only the cases that it saw,
+   for example a list of the causes of the cases where the document gives a
+   condition. It writes these rules again from the condition of the document. The
+   assistant keeps the new rules only if all the tests still pass. (This step is
+   not in the **Draft** budget.)
+4. With the **Standard** and **Thorough** budgets, the model writes more than one
+   program. The assistant keeps the program with the fewest problems.
+5. The model gives each predicate a *template*, the pattern of an English
+   sentence. A predicate is one statement of the Prolog program, for example
+   `household_size(Household, Number)`.
+6. The assistant writes the Logical English from the Prolog program and the
+   templates. A model does not do this step. Thus each rule of the Logical English
+   is the same rule as in Prolog, and the tests have the same results.
+7. The assistant checks the Logical English. The model can then change the
+   templates, or repair a rule in Prolog. The assistant keeps a change only if
+   the result is better.
+
 The program contains these items in addition to its rules:
 
 - **Citations.** The program gives the wording as a document: where it is published,
@@ -508,12 +554,14 @@ The program contains these items in addition to its rules:
   The assistant compares the quotations with the text. If the wording does not
   contain a quotation, the assistant sends the quotation back for repair, with the
   passage that is most similar to it.
-- **Sections.** The rules are in groups, in sections. If the wording has that shape,
+- **Sections** (only when the assistant writes the Logical English directly). The
+  rules are in groups, in sections. If the wording has that shape,
   there are three sections. The *applicability* section tells if the contract
   applies. The *question* section tells if the claim is covered. The *remedy* section
   tells what is paid. When a claim fails, the report gives the section where it
   stopped.
-- **A view.** A view is a screen for the person who decides cases. The executive view
+- **A view** (only when the assistant writes the Logical English directly). A view
+  is a screen for the person who decides cases. The executive view
   shows it ([views](../reference/language.md#1710-views-how-a-screen-shows-a-program)).
   The assistant selects the shape of the view from the kind of contract:
   - a claims desk for an insurance policy,
@@ -525,7 +573,8 @@ The program contains these items in addition to its rules:
   and the amount payable. It also shows the clauses that the amount depends on, the
   changes that can change the amount, and the other claims with their results.
 
-Click **Generate Logical English**. The assistant then writes more than one draft. It
+When the assistant writes the Logical English directly (for existing code, and for
+LPS), it does not use Prolog. It then writes more than one draft. It
 examines each draft and repairs it with the cases. It keeps the best of all the
 drafts. To compare the drafts, the assistant uses these preferences:
 
@@ -624,6 +673,8 @@ note under the field says so.
   block at the end of the program that it is for, exactly as the assistant examined
   it. Some programs are too large to go in a web address. You must download such a
   program, and open it from the file;
+- when you selected **Prolog form: also give it**, the Prolog program, with
+  **Download .pl**;
 - the score of the delivered program, and of each draft;
 - **Copy ledger** copies the ledger to the clipboard, as Markdown. The last section
   of the ledger, *Technicalities*, gives the names of the files that you gave, and

@@ -1005,7 +1005,7 @@ the program. The server then checks the result against the program (`nl_to_le.pl
 | `jury_models` | list of strings | optional: two or three models of different companies. They write and check the probes, and with the effort dial at 2 or 3 they also make the vocabulary and the drafts |
 | `profile` | string | optional: `"auto"` (the default), `"none"`, or the name of a profile: `"policy_schedule"`, `"coverage_policy"`, `"tariff"`, `"legal_opinion"`, `"csa"` |
 | `questions` | list of strings | optional: the kinds of question that the program must answer, for example `["coverage", "amount"]`. By default, the questions of the profile |
-| `target_language` | string | optional: `"lps"` writes Logical English for LPS. Each case is then a timeline, with `% expect` lines that LPS checks |
+| `target_language` | string | optional. In `contract` mode the assistant writes the rules in Prolog first, and then writes the Logical English from the Prolog (`"prolog_form"`, the default). `"le_direct"` writes the Logical English directly; a request with `existing_code` and the documents of a collection always do. `"lps"` writes Logical English for LPS: each case is then a timeline, with `% expect` lines that LPS checks |
 | `schema` | string | in `population` mode: a Logical English program whose templates are the elements to fill |
 | `document_name` | string | in `population` mode: the name of the document, for the citations |
 | `documents` | list | in `collection` mode: one item for each document. An item has a `name` and the fields of a `contract` request for that document (`wording` or `wording_url`, and optionally `schedule`, `cases`, `target`). The models, the budget, the features and the profile of the request apply to each document |
@@ -1040,7 +1040,7 @@ The client sends `assistant_status` at intervals to get the progress of the job.
 | `jury_models` | list of strings | optional: two or three models of different companies. They write and check the probes, and with the effort dial at 2 or 3 they also make the vocabulary and the drafts |
 | `profile` | string | optional: `"auto"` (the default), `"none"`, or the name of a profile: `"policy_schedule"`, `"coverage_policy"`, `"tariff"`, `"legal_opinion"`, `"csa"` |
 | `questions` | list of strings | optional: the kinds of question that the program must answer, for example `["coverage", "amount"]`. By default, the questions of the profile |
-| `target_language` | string | optional: `"lps"` writes Logical English for LPS. Each case is then a timeline, with `% expect` lines that LPS checks |
+| `target_language` | string | optional. In `contract` mode the assistant writes the rules in Prolog first, and then writes the Logical English from the Prolog (`"prolog_form"`, the default). `"le_direct"` writes the Logical English directly; a request with `existing_code` and the documents of a collection always do. `"lps"` writes Logical English for LPS: each case is then a timeline, with `% expect` lines that LPS checks |
 | `schema` | string | in `population` mode: a Logical English program whose templates are the elements to fill |
 | `document_name` | string | in `population` mode: the name of the document, for the citations |
 | `documents` | list | in `collection` mode: one item for each document. An item has a `name` and the fields of a `contract` request for that document (`wording` or `wording_url`, and optionally `schedule`, `cases`, `target`). The models, the budget, the features and the profile of the request apply to each document |
@@ -1114,7 +1114,7 @@ started with `NO_RESTRICTIONS=true` replies to all callers.
 | `jury_models` | list of strings | optional: two or three models of different companies. They write and check the probes, and with the effort dial at 2 or 3 they also make the vocabulary and the drafts |
 | `profile` | string | optional: `"auto"` (the default), `"none"`, or the name of a profile: `"policy_schedule"`, `"coverage_policy"`, `"tariff"`, `"legal_opinion"`, `"csa"` |
 | `questions` | list of strings | optional: the kinds of question that the program must answer, for example `["coverage", "amount"]`. By default, the questions of the profile |
-| `target_language` | string | optional: `"lps"` writes Logical English for LPS. Each case is then a timeline, with `% expect` lines that LPS checks |
+| `target_language` | string | optional. In `contract` mode the assistant writes the rules in Prolog first, and then writes the Logical English from the Prolog (`"prolog_form"`, the default). `"le_direct"` writes the Logical English directly; a request with `existing_code` and the documents of a collection always do. `"lps"` writes Logical English for LPS: each case is then a timeline, with `% expect` lines that LPS checks |
 | `schema` | string | in `population` mode: a Logical English program whose templates are the elements to fill |
 | `document_name` | string | in `population` mode: the name of the document, for the citations |
 | `documents` | list | in `collection` mode: one item for each document. An item has a `name` and the fields of a `contract` request for that document (`wording` or `wording_url`, and optionally `schedule`, `cases`, `target`). The models, the budget, the features and the profile of the request apply to each document |
@@ -1123,7 +1123,7 @@ started with `NO_RESTRICTIONS=true` replies to all callers.
 | `api_keys` | object | optional |
 | `target` | string | optional |
 | `budget` | object | `{preset, effort?, k?, w?, repairs?, minutes?}`, where `preset` is `"draft"`, `"standard"` or `"thorough"`; `draft` by default. `effort` (0 to 5) is the effort dial; it replaces the preset |
-| `features` | object | optional: settings to change one at a time — `probes`, `interrogation_repair`, `holdout`, `paraphrase`, `clausewise`, `diff_repairs`, `max_rewrite_errors`, `polish`; and `hide_outcomes` (`false`, `"draft"`, `"full"`), `prompt_layout` (`"steered"`, `"classic"`), `probe_jury`, `faithfulness`, `adaptive_branches` with `parallel` and `stop_after`, `hops` (0 or 1), `ledger` (`"both"` or `"structured"`) |
+| `features` | object | optional: settings to change one at a time — `probes`, `interrogation_repair`, `holdout`, `paraphrase`, `clausewise`, `diff_repairs`, `max_rewrite_errors`, `polish`; and `hide_outcomes` (`false`, `"draft"`, `"full"`), `prompt_layout` (`"steered"`, `"classic"`), `probe_jury`, `faithfulness`, `adaptive_branches` with `parallel` and `stop_after`, `hops` (0 or 1), `ledger` (`"both"` or `"structured"`). For the Prolog form: `prolog_output` (`true` adds `prolog` and `prolog_filename` to the result), `prolog_flow` (`"full"`, the default, or `"simple"`), `generality_review` (on by default with `"full"`) |
 | `max_tokens` | number | optional; the server calculates a value when the request gives none |
 | `reasoning` | string | `"default"` or `"minimal"` |
 
