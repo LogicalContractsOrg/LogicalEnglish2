@@ -29,6 +29,7 @@ server itself. For all the other things that the server can do, refer to
   - [opencode (the LE Assistant)](#opencode-the-le-assistant)
   - [ChatGPT actions](#chatgpt-actions)
   - [Mike OSS: rule sets that decide legal questions](#mike-oss-rule-sets-that-decide-legal-questions)
+  - [Harvey and Legora (untested)](#harvey-and-legora-untested)
 - [Tools](#tools)
   - [The tools of the Contract Assistant](#the-tools-of-the-contract-assistant)
 - [Resources](#resources)
@@ -225,6 +226,65 @@ To use a different rule set, give its name instead of
 the facts and the rules go together in one `query` call, with the rules in
 `program_text` and the facts in `facts`. A text has a maximum length for each call
 ([The limits](#the-limits)).
+
+### Harvey and Legora (untested)
+
+**Warning: nobody has tested the steps in this section.** They come from the public
+documents of Harvey and Legora (November 2026). Each product can change, and the
+form of each product can be different from this description.
+
+[Harvey](https://www.harvey.ai) and [Legora](https://legora.com) are commercial
+legal assistants. Each one can use the tools of an MCP server that a customer adds.
+Thus the division of work is the same as with Mike OSS: the language model writes
+the facts, and the Logical English rule set decides and explains.
+
+**Authentication.** Harvey uses OAuth when a server asks for authentication. OAuth
+is a standard procedure by which a person lets one program use a different program.
+The Logical English server does not use OAuth. Thus add the server with no
+authentication. To get more calls than a client without a key
+([The limits](#the-limits)), put the key of an event in the address:
+`https://le2.logicalcontracts.com/mcp?key=lc_...` ([Keys](#keys)). Make sure that
+the form keeps the part of the address after `?`.
+
+**Connect Harvey to Logical English.** Do these steps:
+
+1. Ask an administrator of your Harvey workspace to let users add custom MCP
+   servers. Harvey calls this feature "Bring Your Own MCP Server".
+2. Add a custom connector. Type a name, for example `Logical English`, and the
+   address of the server. Harvey accepts only an address that starts with
+   `https://`.
+3. Select no authentication. If the form does not let you do this, stop: this
+   server cannot connect to Harvey yet.
+4. In Harvey Assistant, turn on the connector under **Sources**. Make sure that
+   Harvey shows the five tools of the server ([Tools](#tools)).
+
+**Connect Legora to Logical English.** Do these steps:
+
+1. Ask your Legora representative to connect a custom MCP server to your
+   organisation. Give the address of the server, and say that the server needs no
+   authentication.
+2. In the Legora Assistant, make sure that Legora shows the five tools of the
+   server ([Tools](#tools)).
+
+Legora also has an MCP server of its own, at `https://mcp.legora.com/mcp`. That
+server lets a different client ask Legora a question. It is not related to these
+steps.
+
+**Use a rule set in a matter.** Use the same instructions as for Mike OSS
+([Mike OSS](#mike-oss-rule-sets-that-decide-legal-questions)). First, do a short
+test: ask the assistant to call `query` with
+`example_name: "regulatory/eu261_integration"`, `scenario_name: "new_claim"` and
+`query: "claim"`, and to show the explanation. If the answer and its explanation
+are correct, give the instructions of the triage.
+
+These items are not known, and you must examine them in the first test:
+
+- the maximum length of a tool result,
+- whether the review tables and the saved workflows of the product can use the
+  tools, or only the chat of the assistant,
+- whether the product asks a person before each tool call.
+
+The five tools in these steps only read. They do not change data.
 
 ## Tools
 
