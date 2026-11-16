@@ -97,6 +97,7 @@ check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), failed_tes
 check_issue(KB, Options, Issue) :- \+ memberchk(skip_tests, Options), tests_not_run(KB, Issue).
 check_issue(KB, _, Issue) :- redefined_system_template(KB, Issue).
 check_issue(KB, _, Issue) :- builtin_template(KB, Issue).
+check_issue(KB, _, Issue) :- template_without_arguments(KB, Issue).
 check_issue(KB, _, Issue) :- unbound_aggregate_variable(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_fact(KB, Issue).
 check_issue(KB, _, Issue) :- detached_condition(KB, Issue).
@@ -1703,6 +1704,51 @@ builtin_template(KB, issue(builtin_template, Description, Fix, Start, End)) :-
     le_i18n:le_msg(builtin_template_desc, [template-TemplateStr], Description),
     le_i18n:le_msg(builtin_template_fix, [], Fix).
 
+% --- A template that looks as if it had arguments, but has none ---
+% An argument place of a template is written between asterisks: `*a taxpayer*
+% is married`. Written without them, `a taxpayer is married` is a template
+% with no argument at all, a single proposition: a scenario cannot say WHICH
+% taxpayer is married, and a query `which amount ...` answers with the
+% template's own words. A model writing its first Logical English program
+% makes this mistake: in a benchmark run (lpsPlus
+% docs/strategy/ContractAssistantBenchmarking.md §4.2) GPT-6 Luna declared
+% all 57 templates of a tax-credit program this way, and the program loaded
+% and passed its own checks. So a template with no argument is reported when
+% it starts with an indefinite article and two more words (`a taxpayer is
+% married`), or ends with an indefinite article and a kind of value (`... is
+% an amount`, `... is a date`: keywords.csv class value_kind). Propositions
+% are left alone: `the sky is blue`, `the game is a draw`, `a holds` (a
+% proposition named "a"). A scan of LE2's 612 example programs on 12 November
+% 2026 left two reports, both propositions that do start with "a" (`a trial
+% balance is defined`).
+template_without_arguments(KB, issue(template_without_arguments, Description, Fix, Start, End)) :-
+    current_predicate(KB:le_dict/1),
+    clause(KB:le_dict(Dict), true, Ref),
+    arg(1, Dict, [F]),
+    atom(F),
+    arg(3, Dict, WV),
+    is_list(WV),
+    clause(KB:le_source_info(Ref, Start, End, _), true),
+    \+ le_system_template(dict([F], _, _)),
+    indefinite_article_place(WV, Article),
+    canonical_string(WV, TemplateStr),
+    le_i18n:le_msg(template_without_arguments_desc, [template-TemplateStr, article-Article], Description),
+    le_i18n:le_msg(template_without_arguments_fix, [], Fix).
+
+indefinite_article_place([W, _, _|_], W) :-
+    indefinite_article(W), !.
+indefinite_article_place(WV, W) :-
+    append(_, [W, Last], WV),
+    indefinite_article(W),
+    le_i18n:class_member(value_kind, Last).
+
+%   An article of the program's language that is not a definite one
+%   (English: a, an, some).
+indefinite_article(W) :-
+    atom(W),
+    le_i18n:class_member(article, W),
+    \+ le_i18n:class_member(definite_article, W).
+
 %   The names a template must not take: Prolog's arithmetic, comparison and
 %   control, which the rules already use under these names.
 prolog_reserved_functor(F, 2) :- memberchk(F, [is, =, \=, ==, \==, <, >, =<, >=, =:=, =\=, @<, @>, @=<, @>=, ',', ;, ->, =..]).
@@ -2212,7 +2258,7 @@ print_issue(issue(Type, Description, Fix, Start, End)) :-
 %   the text as a format string and fail with "too many arguments".
 verifier_issue_kind(Type) :-
     atom(Type),
-    (   memberchk(Type, [missing_template, undefined_predicate, opposite_as_condition, negated_unknown, suspicious_is_a, misplaced_expectation, defined_scenario_element, untested_predicate, tests_not_run, rule_without_variables, missing_rules, too_many_facts, failed_test, query_cannot_give_expected, redefined_system_template, scenario_before_rules, missing_trailing_dot, prepositional_arity, prepositional_first_arg, reserved_word_in_template, single_variable_fact, include_too_deep, restricted_resource, skipped_directive, module_directive_stripped, missing_resource, unsafe_prolog_goal, stray_asterisk, unmarked_meta_template, unused_template, unconsumed_facts, unused_constant, image_nonground, image_on_rule, image_bad_url, image_template_vars, judged_with_rules, judgment_without_provenance, fact_without_provenance, malformed_provenance, quote_not_found, unread_value, mistyped_value, view_unknown_sentence, view_unknown_template, view_unknown_query, view_unknown_scenario, view_bad_question, view_duplicate_name, view_not_judged, view_derived_fact, view_no_result, view_said_twice, view_headed_by_unknown, view_stage_without_sections, view_nothing_cited, view_unknown_section, view_keeps_derived])
+    (   memberchk(Type, [missing_template, undefined_predicate, opposite_as_condition, negated_unknown, suspicious_is_a, misplaced_expectation, defined_scenario_element, untested_predicate, tests_not_run, rule_without_variables, missing_rules, too_many_facts, failed_test, query_cannot_give_expected, redefined_system_template, scenario_before_rules, missing_trailing_dot, prepositional_arity, prepositional_first_arg, reserved_word_in_template, single_variable_fact, template_without_arguments, include_too_deep, restricted_resource, skipped_directive, module_directive_stripped, missing_resource, unsafe_prolog_goal, stray_asterisk, unmarked_meta_template, unused_template, unconsumed_facts, unused_constant, image_nonground, image_on_rule, image_bad_url, image_template_vars, judged_with_rules, judgment_without_provenance, fact_without_provenance, malformed_provenance, quote_not_found, unread_value, mistyped_value, view_unknown_sentence, view_unknown_template, view_unknown_query, view_unknown_scenario, view_bad_question, view_duplicate_name, view_not_judged, view_derived_fact, view_no_result, view_said_twice, view_headed_by_unknown, view_stage_without_sections, view_nothing_cited, view_unknown_section, view_keeps_derived])
     ->  true
     ;   atom_concat(Type, '_desc', Key),
         le_i18n:msg_entry(en, Key, _)

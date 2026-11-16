@@ -4901,12 +4901,43 @@ resolve_prolog_tokens(Tokens, Templates, VMIn, VMOut, Goal) :-
     ).
 
 tokens_to_prolog_string(Tokens, Templates, VMIn, VMOut, String, VarNames) :-
-    tokens_to_prolog_parts(Tokens, Templates, VMIn, VMOut, Parts, VarNames),
+    tokens_to_prolog_parts(Tokens, Templates, VMIn, VMOut, Segs, VarNames),
+    join_prolog_segments(Segs, none, Parts),
     atomic_list_concat(Parts, String).
 
+% join_prolog_segments(+Segs, +PrevEnd, -Parts): the text of each segment,
+% with one space before it where the source had white space between it and
+% the segment before (so `X is Y - 5` is not read as `XisY-5`). Where a
+% position is unknown the segments are joined as they are.
+join_prolog_segments([], _, []).
+join_prolog_segments([seg(Part, S, E)|Segs], PrevEnd, Parts) :-
+    (   PrevEnd == none
+    ->  Parts = [Part|Rest]
+    ;   integer(PrevEnd), integer(S)
+    ->  ( S > PrevEnd -> Parts = [' ', Part|Rest] ; Parts = [Part|Rest] )
+    ;   Parts = [Part|Rest]
+    ),
+    join_prolog_segments(Segs, E, Rest).
+
+% The source range of one token (an expr group spans its brackets).
+prolog_token_start(T, S) :-
+    (   T = expr([F|_]) -> prolog_token_start(F, S0), ( integer(S0) -> S is S0 - 1 ; S = none )
+    ;   compound(T), arg(2, T, loc(S0, _)) -> S = S0
+    ;   S = none
+    ).
+prolog_token_end(T, E) :-
+    (   T = expr(I), I \== [] -> last(I, L), prolog_token_end(L, E0), ( integer(E0) -> E is E0 + 1 ; E = none )
+    ;   compound(T), arg(2, T, loc(_, E0)) -> E = E0
+    ;   E = none
+    ).
+prolog_tokens_range([], none, none).
+prolog_tokens_range([F|R], S, E) :-
+    prolog_token_start(F, S), last([F|R], L), prolog_token_end(L, E).
+
 tokens_to_prolog_parts([], _, VM, VM, [], []).
-tokens_to_prolog_parts([var(Words, _)|Ts], Templates, VMIn, VMOut, [Part|Parts], [PName-Var|VarNames]) :-
+tokens_to_prolog_parts([var(Words, Loc)|Ts], Templates, VMIn, VMOut, [seg(Part, S, E)|Parts], [PName-Var|VarNames]) :-
     !,
+    prolog_tokens_range([var(Words, Loc)], S, E),
     extract_var_info_from_words(Words, Name, _Type),
     unify_with_vmap(Name, Var, VMIn, VM1, true),
     variant_sha1(Name, Hash),
@@ -4914,13 +4945,14 @@ tokens_to_prolog_parts([var(Words, _)|Ts], Templates, VMIn, VMOut, [Part|Parts],
     atomic_list_concat(['VAR_', ShortHash], PName),
     Part = PName,
     tokens_to_prolog_parts(Ts, Templates, VM1, VMOut, Parts, VarNames).
-tokens_to_prolog_parts(Tokens, Templates, VMIn, VMOut, [Part|Parts], VarNames) :-
+tokens_to_prolog_parts(Tokens, Templates, VMIn, VMOut, [seg(Part, S, E)|Parts], VarNames) :-
     % Try to match a variable (greedy: try longer sequences first)
     findall(L-VT-R, (append(VT, R, Tokens), VT \== [], length(VT, L)), Splits),
     sort(1, @>=, Splits, SortedSplits),
     member(_-VarTokens-Rest, SortedSplits),
     extract_var_name_from_tokens(VarTokens, Name),
     !,
+    prolog_tokens_range(VarTokens, S, E),
     unify_with_vmap(Name, Var, VMIn, VM1, true),
     % Generate a unique name for this variable in the Prolog string
     variant_sha1(Name, Hash),
@@ -4929,13 +4961,15 @@ tokens_to_prolog_parts(Tokens, Templates, VMIn, VMOut, [Part|Parts], VarNames) :
     Part = PName,
     VarNames = [PName-Var | RestVarNames],
     tokens_to_prolog_parts(Rest, Templates, VM1, VMOut, Parts, RestVarNames).
-tokens_to_prolog_parts([expr(E)|Ts], Templates, VMIn, VMOut, [Part|Parts], VarNames) :-
+tokens_to_prolog_parts([expr(E)|Ts], Templates, VMIn, VMOut, [seg(Part, S, End)|Parts], VarNames) :-
     !,
+    prolog_tokens_range([expr(E)], S, End),
     tokens_to_prolog_string(E, Templates, VMIn, VM1, InnerString, InnerVarNames),
     format(atom(Part), '(~w)', [InnerString]),
     append(InnerVarNames, RestVarNames, VarNames),
     tokens_to_prolog_parts(Ts, Templates, VM1, VMOut, Parts, RestVarNames).
-tokens_to_prolog_parts([T|Ts], Templates, VMIn, VMOut, [Part|Parts], VarNames) :-
+tokens_to_prolog_parts([T|Ts], Templates, VMIn, VMOut, [seg(Part, S, E)|Parts], VarNames) :-
+    prolog_tokens_range([T], S, E),
     extract_simple_word(T, Word),
     ( Word == '' -> Part = ' ' ; Part = Word ), % avoid empty parts
     tokens_to_prolog_parts(Ts, Templates, VMIn, VMOut, Parts, VarNames).

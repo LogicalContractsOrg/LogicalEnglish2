@@ -61,7 +61,143 @@ le_tool_verify_(ProgramText, Base, Result) :-
     % Capture this program so the LE Assistant can recover the agent's work
     % even if its file edits failed or the job was interrupted (see le_assistant).
     record_verified_program(ProgramText),
-    Result = _{issues: Issues, test_results: JSONTestResults}.
+    verify_summary(KB, ProgramText, TestResults, Summary, AmountIssues),
+    append(Issues, AmountIssues, AllIssues),
+    Result = _{issues: AllIssues, test_results: JSONTestResults, summary: Summary}.
+
+%!  verify_summary(+KB, +Text, +TestResults, -Summary, -Issues) is det.
+%
+%   What a client needs to see at a glance after a verification: the size of
+%   the text checked (a client that retypes a program can check a shorter
+%   copy than its file), the tests passed and failed, and the queries that
+%   answer in no scenario. Each query also runs in each scenario (within
+%   flag le_verify_answers_seconds, default 10, 2 seconds a run), and an
+%   amount of money with two different values for the same thing is reported
+%   (several_amounts): two rules that both apply, often through a template
+%   typed wrong in one of them. Only arguments whose type is a word of the
+%   class money_type (amount, price, fee, ...) count: a query may rightly
+%   give several numbers, and a thing may rightly have several amounts in
+%   different roles, so the other arguments must be the same.
+:- create_prolog_flag(le_verify_answers_seconds, 10, [type(integer), keep(true)]).
+
+verify_summary(KB, Text, TestResults, Summary, Issues) :-
+    split_string(Text, "\n", "", Ls), length(Ls, Lines),
+    ( current_predicate(KB:scenario/2) -> findall(S, KB:scenario(S, _), Ss) ; Ss = [] ),
+    length(Ss, NS),
+    ( current_predicate(KB:query_info/3) -> findall(Q, KB:query_info(Q, _, _), Qs0), sort(Qs0, Qs) ; Qs = [] ),
+    length(Qs, NQ),
+    length(TestResults, NT),
+    aggregate_all(count, member(pass(_, _), TestResults), NP),
+    NF is NT - NP,
+    current_prolog_flag(le_verify_answers_seconds, Budget),
+    get_time(T0), Deadline is T0 + Budget,
+    findall(Q-S-R,
+            ( member(Q, Qs), member(S, Ss),
+              get_time(Now), Now < Deadline,
+              verify_query_run(KB, Q, S, R) ),
+            Runs),
+    length(Runs, Checked),
+    findall(Q, ( member(Q, Qs), memberchk(Q-_-_, Runs), \+ memberchk(Q-_-answers(_), Runs) ), Unanswered),
+    aggregated_functors(KB, Aggregated),
+    %  one warning for each query: the first scenario where it happens
+    %  a test of the query that passes in the scenario vouches for its answers
+    findall(Q-I, ( member(Q-S-answers(Sols), Runs),
+                   \+ ( member(pass(QP, SP), TestResults), QP == Q, SP == S ),
+                   several_amounts(KB, Aggregated, Q, S, Sols, I) ), QIs),
+    findall(I, ( member(Q, Qs), memberchk(Q-I, QIs) ), Issues),
+    maplist([X, Y]>>term_string(X, Y), Unanswered, UnansweredS),
+    le_i18n:le_msg(verify_summary_note, [lines-Lines, scenarios-NS, tests-NT, passed-NP, failed-NF], Note),
+    Summary = _{lines: Lines, scenarios: NS, queries: NQ, tests: NT, tests_passed: NP, tests_failed: NF,
+                queries_without_answers: UnansweredS, query_runs_checked: Checked, note: Note}.
+
+% One query in one scenario: answers(Solutions) (each the query's items,
+% bound), none, or error (an error or the time limit).
+verify_query_run(KB, Q, S, R) :-
+    KB:query_info(Q, FullGoal, Items),
+    le_kbs:createSession(KB, SM),
+    current_prolog_flag(le_failure_explanations, FE),
+    setup_call_cleanup(
+        set_prolog_flag(le_failure_explanations, false),
+        catch(( le_kbs:setScenarion(SM, S),
+                call_with_time_limit(2,
+                    findall(Items, reasoner:without_explanations(reasoner:i(FullGoal, SM, _, _)), Sols0)) ),
+              _, Sols0 = error),
+        ( set_prolog_flag(le_failure_explanations, FE), le_kbs:destroySession(SM) )),
+    (   Sols0 == error -> R = error
+    ;   Sols0 == [] -> R = none
+    ;   R = answers(Sols0)
+    ), !.
+verify_query_run(_, _, _, error).
+
+several_amounts(KB, Aggregated, Q, S, Sols, Issue) :-
+    Sols = [Items0|_],
+    nth1(K, Items0, query_clause(G0, _, _, Start, End)),
+    G0 =.. [F|Args0], length(Args0, A),
+    \+ memberchk(F/A, Aggregated),
+    money_positions(KB, F, A, MPs), MPs \== [],
+    findall(Key-Money-Items,
+            ( member(Items, Sols), nth1(K, Items, query_clause(G, _, _, _, _)),
+              G =.. [_|Args],
+              money_split(Args, 1, MPs, Key, Money),
+              ground(Key), Money \== [], maplist(number, Money) ),
+            Triples),
+    msort(Triples, Sorted),
+    group_by_key(Sorted, Groups),
+    member(Key-Group, Groups),
+    findall(M, member(M-_, Group), Ms0), sort(Ms0, Ms),
+    length(Ms, N), N >= 2, !,
+    findall(Str, ( member(M, Ms), memberchk(M-Items, Group), nth1(K, Items, Clause),
+                   le_kbs:item_to_instance(KB, Clause, Inst), flatten(Inst, Flat),
+                   le_kbs:canonical_string(Flat, At), atom_string(At, Str0),
+                   format(string(Str), "'~w'", [Str0]) ),
+           Strs0),
+    length(Strs0, NStrs), ( NStrs > 4 -> length(Strs, 4), append(Strs, _, Strs0) ; Strs = Strs0 ),
+    atomic_list_concat(Strs, ', ', Examples),
+    le_i18n:le_msg(several_amounts_desc, [scenario-S, query-Q, count-N, examples-Examples], Msg),
+    le_i18n:le_msg(several_amounts_fix, [], Fix),
+    Issue = _{severity: warning, type: several_amounts, message: Msg, fix: Fix, start: Start, end: End}.
+
+% The templates that an aggregate of the program reads (`the max of each
+% amount A such that we will pay A ...`): the author expects them to have
+% several amounts for one thing, and chooses among them.
+aggregated_functors(KB, Fs) :-
+    findall(F/A,
+            ( current_predicate(KB:P/N), functor(H, P, N),
+              \+ predicate_property(KB:H, imported_from(_)),
+              catch(clause(KB:H, B), _, fail),
+              sub_term(T, B), compound(T), T =.. [Op, _, G, _],
+              memberchk(Op, [max, min, sum, count, list, average]),
+              sub_term(L, G), compound(L), \+ L = le_at(_, _, _), functor(L, F, A) ),
+            Fs0),
+    sort(Fs0, Fs).
+
+group_by_key([], []).
+group_by_key([K-M-I|T], [K-[M-I|Ms]|Gs]) :-
+    take_key(T, K, Ms, Rest),
+    group_by_key(Rest, Gs).
+take_key([K1-M-I|T], K, [M-I|Ms], Rest) :- K1 == K, !, take_key(T, K, Ms, Rest).
+take_key(Rest, _, [], Rest).
+
+money_split([], _, _, [], []).
+money_split([X|Xs], P, MPs, Key, Money) :-
+    P1 is P + 1,
+    (   memberchk(P, MPs) -> Money = [X|Money1], Key = Key1
+    ;   Key = [X|Key1], Money = Money1
+    ),
+    money_split(Xs, P1, MPs, Key1, Money1).
+
+% The positions of a template's arguments whose type is money (the last word
+% of the type is in the class money_type).
+money_positions(KB, F, A, MPs) :-
+    current_predicate(KB:le_dict/1),
+    KB:le_dict(D), D =.. [dict, [F|DArgs], VTs|_], length(DArgs, A), !,
+    findall(P, ( nth1(P, DArgs, V), member(V1-T, VTs), V1 == V, money_type(T) ), MPs).
+money_positions(_, _, _, []).
+
+money_type(T) :-
+    atom(T),
+    split_string(T, " _", "", Ws), last(Ws, W0), atom_string(W, W0),
+    le_i18n:class_member(money_type, W).
 
 % --- Capture of the most recent program submitted to the verify tool ---
 % The verify tool runs in-process (same server as the LE Assistant), so the

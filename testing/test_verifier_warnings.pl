@@ -362,3 +362,19 @@ test(a_continued_template_is_not_flagged) :-
     assertion(\+ M:le_issue(_, template_over_lines, _, _, _, _)).
 
 :- end_tests(template_over_lines).
+
+% A template written without asterisks has no argument. When it starts with
+% an indefinite article ("a taxpayer is married") or ends with one and a kind
+% ("... is an amount"), the author almost certainly meant an argument place:
+% the verifier warns. A real proposition ("the sky is blue") is left alone.
+:- begin_tests(template_without_arguments).
+
+test(unmarked_argument_places_are_flagged) :-
+    Text = "the target language is: prolog.\nthe templates are:\n    a taxpayer is married.\n    the credit of the claim is an amount.\n    the sky is blue.\n    *a person* is happy.\n\nthe knowledge base twa includes:\n\na person is happy if the sky is blue.\n",
+    le_kbs:load_text(Text, M),
+    le_verifier:verify(M, [skip_tests], Issues),
+    findall(D, member(issue(template_without_arguments, D, _, _, _), Issues), Ds),
+    assertion(length(Ds, 2)),
+    assertion(\+ (member(D, Ds), sub_atom(D, _, _, _, 'sky'))).
+
+:- end_tests(template_without_arguments).

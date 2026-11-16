@@ -30,7 +30,14 @@
 
 % --- STDIO Handler ---
 
+%   mcp_local_files: the server runs over stdio, as a process of the client's
+%   own user on the client's machine, so `verify` and `query` may read the
+%   program from a file (program_file). The HTTP server never reads a file
+%   that a client names.
+:- dynamic mcp_local_files/0.
+
 handle_mcp_stdio :-
+    ( mcp_local_files -> true ; assertz(mcp_local_files) ),
     set_stream(user_input, encoding(utf8)),
     set_stream(user_output, encoding(utf8)),
     loop_mcp_stdio.
@@ -424,6 +431,7 @@ handle_method(Method, Dict, Response) :-
                 properties: _{
                     example_name: _{ type: "string", description: "Name of the example program" },
                     program_text: _{ type: "string", description: "Logical English program text" },
+                    program_file: _{ type: "string", description: "Instead of program_text, the path of the program's file (only a server that runs on your own machine, over stdio, reads it). Prefer it: the query then runs on the file as it is, not on a copy" },
                     scenario_name: _{ type: "string", description: "Name of a scenario defined in the program" },
                     facts: _{ type: "string", description: "Additional Logical English facts (MUST match templates exactly)" },
                     query: _{ type: "string", description: "The query to execute (MUST match a template exactly)" }
@@ -444,13 +452,13 @@ handle_method(Method, Dict, Response) :-
         },
         _{
             name: "verify",
-            description: "Parse and verify a Logical English program, returning all issues found",
+            description: "Parse and verify a Logical English program, returning all issues found, the result of each test of its scenarios (`expects answers`), and a summary: the size of the program checked, the tests passed and failed, the queries that answer in no scenario, and any amount that has two different values for the same thing",
             inputSchema: _{
                 type: "object",
                 properties: _{
-                    program_text: _{ type: "string", description: "Logical English program text" }
-                },
-                required: ["program_text"]
+                    program_text: _{ type: "string", description: "Logical English program text" },
+                    program_file: _{ type: "string", description: "Instead of program_text, the path of the program's file (only a server that runs on your own machine, over stdio, reads it). Prefer it: the check is then of the file as it is, not of a copy" }
+                }
             }
         }
     ],
@@ -606,13 +614,24 @@ call_tool("get_example_details", Args, Result) :-
         Result = _{error: Msg}
     ).
 
-call_tool("query", Args, Result) :-
-    mcp_roles(Roles),
-    le_tools:le_tool_query(Args, Roles, Result0),
-    cap_answers(Result0, Result).
+call_tool("query", Args0, Result) :-
+    (   program_file_args(Args0, Args, Error)
+    ->  (   nonvar(Error)
+        ->  Result = _{error: Error}
+        ;   mcp_roles(Roles),
+            le_tools:le_tool_query(Args, Roles, Result0),
+            cap_answers(Result0, Result)
+        )
+    ).
 
-call_tool("verify", Args, Result) :-
-    le_tools:le_tool_verify(Args, Result).
+call_tool("verify", Args0, Result) :-
+    program_file_args(Args0, Args, Error),
+    (   nonvar(Error)
+    ->  Result = _{error: Error}
+    ;   \+ get_dict(program_text, Args, _)
+    ->  Result = _{error: "Give the program as program_text, or as program_file on a server that runs on your own machine."}
+    ;   le_tools:le_tool_verify(Args, Result)
+    ).
 
 call_tool("search_documentation", Args, _{sections: Text}) :-
     ( get_dict(query, Args, Q) -> true ; Q = "" ),
@@ -764,6 +783,28 @@ library_copy_in(Dir, Base) :-
     catch(le_api:library_copy(D, Base), _, fail).
 
 % --- MCP Helpers ---
+
+%!  program_file_args(+Args0, -Args, -Error) is det.
+%
+%   A program_file argument becomes the file's text (program_text) and its
+%   folder (program_base, for the includes), on the stdio server only
+%   (mcp_local_files). Error is left unbound when all is well.
+program_file_args(Args0, Args, Error) :-
+    (   get_dict(program_file, Args0, File0), File0 \== "", File0 \== null
+    ->  (   \+ mcp_local_files
+        ->  Args = Args0,
+            Error = "program_file is read only by a server that runs on your own machine, over stdio; give the program as program_text."
+        ;   absolute_file_name(File0, File, []),
+            (   exists_file(File)
+            ->  read_file_to_string(File, Text, [encoding(utf8)]),
+                file_directory_name(File, Dir),
+                Args = Args0.put(_{program_text: Text, program_base: Dir})
+            ;   Args = Args0,
+                format(string(Error), "There is no file ~w.", [File])
+            )
+        )
+    ;   Args = Args0
+    ).
 
 is_query_or_verify(Tool) :-
     member(Tool.name, ["query", "verify", "search_documentation"]).

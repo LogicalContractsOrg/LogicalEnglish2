@@ -238,8 +238,8 @@ the server marks the result `isError: true`.
 |---|---|---|
 | `list_examples` | `filter` | `{examples: [{name, summary}]}` |
 | `get_example_details` | `example_name` (required), `include_program_text` | the program's metadata, and its text when the text is short |
-| `query` | `query` (required), `example_name`, `program_text`, `scenario_name`, `facts` | `{results: [{answer, explanation, case?}], notes?}` |
-| `verify` | `program_text` (required) | `{issues, test_results}` |
+| `query` | `query` (required), `example_name`, `program_text` or `program_file`, `scenario_name`, `facts` | `{results: [{answer, explanation, case?}], notes?}` |
+| `verify` | `program_text` or `program_file` | `{issues, test_results, summary}` |
 | `search_documentation` | `query` (required): a few keywords | `{sections}`: the sections found, each with its link |
 
 **`list_examples`** lists the programs of `examples/moreExamples/`, of the extra
@@ -333,7 +333,7 @@ cases.
 **`search_documentation`** looks for the keywords in this documentation. It replies
 with the sections that contain the keywords, each with its link on the server.
 
-**`verify`** loads `program_text` and replies with two lists:
+**`verify`** loads `program_text` and replies with two lists and a summary:
 
 - `issues` contains the problems and the possible problems that the verifier found
   in the program. Each issue is `{severity, type, message, fix, start, end}`.
@@ -343,6 +343,28 @@ with the sections that contain the keywords, each with its link on the server.
   `{status: "pass"|"fail"|"error", query, scenario}`. A test that fails also contains
   `expected`, `actual` and the unknowns. A test that stops with an error contains
   `message`.
+- `summary` gives the numbers to look at first: `lines`, `scenarios`, `queries`,
+  `tests`, `tests_passed`, `tests_failed`, and `note`, the same numbers in one
+  sentence. `queries_without_answers` names each query that gives no answer in any
+  scenario. Compare `lines` with your file: a model that types the program again
+  for `verify` can check a copy that is different from the file.
+
+`verify` also runs each query in each scenario, for 10 seconds at most. When one
+amount of money gets two different values for the same thing, `issues` contains a
+`several_amounts` warning. An example is a household that has both 0 and 75 as its
+dependent care deduction. Usually two rules both apply, because a condition is
+missing or because one word of a template has a typing error. The check uses only
+the arguments whose type is a word for money, for example `amount`, `price`, `fee`,
+`income` or `tax`. The check ignores a template that an aggregate of the program
+reads (for example `the max of each amount A such that ...`), because there the
+program expects several amounts. The check also ignores a query in a scenario where
+a test of that query passes, because the test gives the answers that you expect.
+
+**A program in a file.** A server that runs on your own computer, over standard
+input and output (stdio), can read the program from a file. Give `program_file`,
+the path of the file, instead of `program_text`. Then `verify` and `query` use the
+file as it is on the disk, and not a copy of its text. The server on the web does
+not read files, and replies with an error.
 
 A server that starts with the flag `mcp:mcp_only_query_verify` lists only two of the
 four tools: `query` and `verify`.

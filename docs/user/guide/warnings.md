@@ -221,6 +221,27 @@ A variable is a part of a rule that different values can fill. Each part of this
 names one specific value.  
 **Fix:** Move the specific values into a scenario. A rule must use variables.
 
+## The template '...' has no argument
+
+No word of the template is between asterisks, but the template starts or ends with
+an article ("a", "an"), as if it has an argument. An example is
+`a taxpayer's earned income credit for 2026 is an amount.` As written, the template
+is one statement. A scenario cannot say which taxpayer, and a question with "which"
+replies with the words of the template.  
+**Fix:** Put each argument place between asterisks:
+`*a taxpayer*'s earned income credit for *a year* is *an amount*.`
+
+## Query '...' gives different amounts for the same thing (several_amounts)
+
+The `verify` tool of the MCP server shows this warning ([MCP](../api/mcp.md)). In a
+scenario, a query gives two or more amounts of money for the same thing. An example
+is both 0 and 75 as the dependent care deduction of one household. Usually two
+rules both apply. A condition is missing in one rule, or one word of a template has
+a typing error. Then the rule for "no deduction" does not see the fact that gives
+the deduction.  
+**Fix:** Make the rules exclude one another. If more than one amount is correct,
+ask for the sum or the list of the amounts.
+
 ## Missing rules / Too many facts
 
 - **Missing rules:** The program contains only facts and no rules.  

@@ -91,6 +91,7 @@ modelling_warning("suspicious_is").
 modelling_warning("suspicious_is_a").
 modelling_warning("unmarked_meta_template").
 modelling_warning("single_variable_fact").
+modelling_warning("template_without_arguments").
 modelling_warning("unbound_aggregate_variable").
 modelling_warning("detached_condition").
 %   A rule whose conditions are its own conclusion with a name in place of a
