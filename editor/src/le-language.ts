@@ -82,17 +82,18 @@ export function buildLeMonarchTokens(lang: string): any {
 
     const headers = alt(T, ['kb_open', 'scenario', 'query', 'ontology', 'meta_target', 'constants']);
     // "the contract" opens a section only on a line that goes on to say
-    // "states that:" or "includes these resources:" (le_grammar.pl, section//1).
+    // "states that:", "includes these resources:" or "includes these
+    // scenarios:" (le_grammar.pl, section//1).
     // Anywhere else it is ordinary words: "the contract is breached", or the
     // template "the contract delivery starts on day *a day*" inside a list.
     const contractHeader = alt(T, ['contract_open']) &&
-        `^[ \\t]*(?:${alt(T, ['contract_open'])})(?=[ \\t].*?(?:${alt(T, ['contract_states', 'resources_include'])})[ \\t]*:)`;
+        `^[ \\t]*(?:${alt(T, ['contract_open'])})(?=[ \\t].*?(?:${alt(T, ['contract_states', 'resources_include', 'scenarios_include'])})[ \\t]*:)`;
     // The aggregate words are keywords only in "is the sum of each ..."
     // (le_grammar.pl, is_aggregate/4): "minimum" in "minimum payment" is not.
     const aggregates = `(?:${alt(T, ['sum', 'count', 'average', 'min', 'max'])})(?=[ \\t]+(?:${alt(T, ['of_each'])})(?!${W}))`;
     const templateHeaders = alt(T, ['predicates', 'templates', 'functions', 'fluents', 'events', 'actions', 'prolog_events']);
     const structural = alt(T, [
-        'resources_include', 'kb_include', 'if', 'only_if', 'either', 'any_of',
+        'resources_include', 'scenarios_include', 'kb_include', 'if', 'only_if', 'either', 'any_of',
         'all_of', 'at_least_one_of', 'unless', 'and_unless', 'forall',
         'it_the_case', 'not_the_case', 'such_that', 'marker',
         // LPS (lps2's docs/user/reference/le-for-lps.md §3): the sentence forms a document with

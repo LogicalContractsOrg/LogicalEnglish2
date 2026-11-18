@@ -301,6 +301,7 @@ section_start(lps_setting(_, _, S, _), S).
 section_start(provenance_required(S, _), S).
 section_start(table(_, _, _, _, _, S, _), S).
 section_start(services(_, _, S, _), S).
+section_start(scenario_resources(_, _, S, _), S).
 
 % Only KNOWLEDGE BASE rules count for the "scenario before rules" ordering check.
 % Scenarios (and queries) may legitimately contain their own local rules, so they
@@ -443,6 +444,20 @@ section(resources(Name, Resources, Start, End)) -->
 
 section(resources(Name, Resources, Start, End)) -->
     any_indent, kw_start(contract_open, Start), kb_name_tokens(Tokens), kw(resources_include), t(punctuation(':', _)),
+    { reconstruct_name(Tokens, Name) },
+    resource_list(Resources, End).
+
+% section(scenario_resources(...)) parses "the knowledge base <name> includes
+% these scenarios: <file>, ...": files read as resources are, but whose
+% scenarios and queries (with their `expects` lines) are kept, as are their
+% rules and templates (le_kbs:fetch_resources/3; language.md §14).
+section(scenario_resources(Name, Resources, Start, End)) -->
+    any_indent, kw_start(kb_open, Start), kb_name_tokens(Tokens), kw(scenarios_include), t(punctuation(':', _)),
+    { reconstruct_name(Tokens, Name) },
+    resource_list(Resources, End).
+
+section(scenario_resources(Name, Resources, Start, End)) -->
+    any_indent, kw_start(contract_open, Start), kb_name_tokens(Tokens), kw(scenarios_include), t(punctuation(':', _)),
     { reconstruct_name(Tokens, Name) },
     resource_list(Resources, End).
 

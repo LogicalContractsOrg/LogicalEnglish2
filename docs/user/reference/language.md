@@ -70,6 +70,7 @@ This document gives a summary of the constructs of Logical English (LE) that the
 You write a program in sections. Each section tells the system how to read the sentences that follow it. Each section header ends with a colon `:`.
 
 - **Included Resources:** `the knowledge base <name> includes these resources:` or `the contract <name> includes these resources:`. This section brings in other LE files, or documents at a web address. (A web address is also known as a URL.) Write this section before the main knowledge base header.
+- **Included Scenarios:** `the knowledge base <name> includes these scenarios:`. This section brings in the scenarios and the queries of other LE files, with their rules (§14.3). Write this section before the main knowledge base header.
 - **Knowledge Base:** `the knowledge base <name> includes:` or `the contract <name> states that:`
 - **Scenario:** `scenario <name> is:`. This section states the facts of one case. Usually, it is a case that you use to test the program.
   - A scenario can include expectations: `<QueryName> expects answers [<List of Strings>] and unknowns [<List of Strings>].` You can omit the word `answers`. With `and any unknowns`, the test checks only the answers (§12).
@@ -1048,7 +1049,7 @@ A Logical English program can include other LE programs. To do this, write an `i
       Resource1, Resource2.
   ```
 - **Resources:** a resource is a file path relative to the program (for example `royal_family`), or a web address (`https://le2.logicalcontracts.com/source/royal_family`). It is not necessary to write `.le` at the end.
-- **Behavior:** the system adds the included rules, facts, templates and ontology to the knowledge base that includes them. It uses them when it answers a query. It ignores the scenarios and the queries of an included resource.
+- **Behavior:** the system adds the included rules, facts, templates and ontology to the knowledge base that includes them. It uses them when it answers a query. It ignores the scenarios and the queries of an included resource. To get the scenarios and the queries of a file, use `includes these scenarios:` (§14.3).
 - **Transitivity:** an included resource can include other resources. There is a limit on the length of the chain (the Prolog setting `le_include_max_depth`, 5 by default). When a resource is included two times, or when there is a circle of includes, the system finds the problem and skips the resource. The system finds the path of each resource **relative to the file that includes it**. That is, the path is relative to the folder of that file, or to its folder on the web.
 - **Local-path restriction:** a resource can be a file on the same computer. You can include such a file only when it is below the folder of the file that includes it, or when it is a file that all users can read on the server, as `restricted_paths` permits. This restriction does not apply to a resource at an `http(s)` address on a different computer.
 - **Source positions:** each included `.le` resource has its own range of character positions. The system moves the positions of the characters of the resource into that range (a multiple of `le_grammar:resource_offset_unit/1`, one range for each resource, `le_kbs:resource_base/2`). Thus the system never confuses the records for a resource with the document that includes it. Such records are where a rule starts and ends, the identifier of a rule, a condition, a problem, and a note of the origin of a fact. Each reply of the `/leapi` address of the server marks a range in a resource with `resource`, `resourceExample`, `resourceLine`, `resourceStart` and `resourceEnd` (`le_kbs:annotate_resource_ranges/2`). The editor then opens the resource at that line in a new tab. It does not select text in the document on the screen. This occurs for a step of an explanation, for a node of the graph, and for *Show definition*. The editor shows the problems of a resource on the `includes these resources:` section. A printed message gives the file and the line, `(apparel.le, line 53)`.
@@ -1133,6 +1134,37 @@ for the translators). Thus a program and its libraries are in one directory.
   The library says nothing about time. It says who has an obligation, and what is
   violated, in one case. The translator for LegalRuleML (InsurLE2 Phase 2f) writes
   its programs with this library.
+
+### 14.3 Scenarios from other files (`includes these scenarios:`)
+A program can get its scenarios and its queries from a different file. To do this, write an `includes these scenarios:` header.
+- **Syntax:**
+  ```le
+  the knowledge base tax includes these scenarios:
+      cases/2025, cases/edge.
+  ```
+- **Names of files:** you write the names of the files as for `includes these resources:` (§14). The paths, the limit on the length of the chain, the local-path restriction and the `.le` extension are the same.
+- **Behavior:** the system reads all of each file. It keeps the scenarios and the queries of the file, with their `expects` lines. It also keeps all that `includes these resources:` keeps: the rules, the facts, the templates and the ontology.
+- **A scenario file can include the rules that it tests.** Write `includes these resources:` in the scenario file. Then you can also open the scenario file and run it alone. When the program includes the same rules, the system reads them one time only.
+- **The scenarios of a resource are not included.** When the scenario file includes a resource, the system ignores the scenarios and the queries of that resource. When the scenario file has its own `includes these scenarios:` line, the system keeps those scenarios too.
+- **Order:** the scenarios of the program come first, then the included scenarios. A run that does not select a scenario uses the first scenario.
+- **Names must be different.** When two scenarios, or two queries, have the same name, the system shows an error (`included_case_clash`) on the `includes these scenarios:` line. The error gives the two locations, for example `at line 11 and at fee_cases.le, line 8`.
+- **Tests:** the tests of the included scenarios run with the tests of the program. The test suite (`runTests`) runs a scenario file only through the program that includes it. It does not run the scenario file alone, because the file can have no rules of its own. This applies when the program is in the same folder as the scenario file, or in a folder above it.
+- **The editor:** the list of scenarios shows the included scenarios. *Show definition* on a name of a file opens the file. The editor shows the problems of a scenario file on the `includes these scenarios:` line.
+- Refer to `examples/moreExamples/language/includes/scenarios/` (`fee.le` includes the rules of `fee_rules.le` and the scenarios of `fee_cases.le`), and `testing/test_include_scenarios.pl`.
+
+### 14.4 Three ways to use the text of a different file
+A document can use the text of a different file in three ways. The table compares them.
+
+| | `includes these resources:` | `extends` | Companion `.lps` file |
+|---|---|---|---|
+| Where you can use it | Plain LE and LE for LPS. | LE for LPS. Plain LE reads the line, but only the LPS checks use it. | LPS2 only. |
+| How a document asks for it | A section before the knowledge base. | `the knowledge base X extends B.` | The document does not ask. LPS2 uses `foo.lps` with `foo.le` because the two files have the same name. |
+| Where the software is | LE2 `le_kbs.pl`, `fetch_resources/3`. | LE2 `le_kbs.pl`, `fetch_base/4`. The checks are in `le_lps.pl`. | LPS2 `src/edges/lps_le.pl`. |
+| What the document gets | The templates, the rules, the ontology, and the resources of the file. For LPS, also the `initially` sentences and the settings. | Only the agreement: the templates, the laws, the constraints and the timeless rules. | LPS and Prolog clauses: `display/2`, `findall`, the settings of the engine. |
+| What the document does not get | The scenarios and the queries. | The scenarios, the queries, the `initially` sentences and the settings. | — |
+| Special abilities | A `.pl` resource gives Prolog clauses to `prolog` goals (§14.1). Only the LE2 reasoner uses them. The LPS translation does not use them. | `this law replaces law L of B.`, and the warnings `lps_replaces` and `lps_extends_clash`. | — |
+
+`includes these scenarios:` (§14.3) is a fourth way. It gets all that `includes these resources:` gets, and also the scenarios and the queries. For LPS, it also keeps the `initially` sentences of the file, because they describe a case.
 
 ## 15. LE Extensions
 This section is about features that are not in the core constructs above.

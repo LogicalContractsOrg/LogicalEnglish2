@@ -171,7 +171,7 @@ item_construct(le_dict(D), _, _, _, c(template, none, Head, none)) :- !,
     arg(1, D, [F|Args]), length(Args, A), functor(Head, F, A).
 item_construct(Item, _, _, _, _) :-
     functor(Item, IF, IN),
-    memberchk(IF/IN, [le_kb/1, le_expected/4, le_expected_changes/3, le_included_resource/3,
+    memberchk(IF/IN, [le_kb/1, le_expected/4, le_expected_changes/3, le_included_resource/3, le_included_scenarios/3,
                       ontology/1, le_lps_item/3, le_lps_role/2, le_source_section/2,
                       le_issue/6, le_service/3, le_provenance_required/0, le_unknown/1]),
     !, fail.

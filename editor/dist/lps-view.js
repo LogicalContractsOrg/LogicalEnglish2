@@ -75,6 +75,13 @@ var keywords = {
         "resources"
       ]
     ],
+    "scenarios_include": [
+      [
+        "includes",
+        "these",
+        "scenarios"
+      ]
+    ],
     "scenario": [
       [
         "scenario"
@@ -884,6 +891,91 @@ var keywords = {
         "a"
       ]
     ],
+    "value_kind": [
+      [
+        "percentage"
+      ],
+      [
+        "amount"
+      ],
+      [
+        "number"
+      ],
+      [
+        "count"
+      ],
+      [
+        "date"
+      ],
+      [
+        "time"
+      ],
+      [
+        "year"
+      ],
+      [
+        "sum"
+      ]
+    ],
+    "money_type": [
+      [
+        "deduction"
+      ],
+      [
+        "allowance"
+      ],
+      [
+        "payment"
+      ],
+      [
+        "premium"
+      ],
+      [
+        "dollars"
+      ],
+      [
+        "amount"
+      ],
+      [
+        "charge"
+      ],
+      [
+        "income"
+      ],
+      [
+        "salary"
+      ],
+      [
+        "pounds"
+      ],
+      [
+        "money"
+      ],
+      [
+        "price"
+      ],
+      [
+        "wages"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "cost"
+      ],
+      [
+        "wage"
+      ],
+      [
+        "sum"
+      ],
+      [
+        "fee"
+      ],
+      [
+        "tax"
+      ]
+    ],
     "image": [
       [
         "image"
@@ -1636,6 +1728,37 @@ var keywords = {
         "the",
         "cell"
       ]
+    ],
+    "notice_start": [
+      [
+        "spdx-license-identifier:"
+      ],
+      [
+        "licensed",
+        "under"
+      ],
+      [
+        "legal",
+        "notice"
+      ],
+      [
+        "disclaimer"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "license"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "pt": {
@@ -1674,6 +1797,13 @@ var keywords = {
         "inclui",
         "estes",
         "recursos"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "inclui",
+        "estes",
+        "cen\xE1rios"
       ]
     ],
     "scenario": [
@@ -2711,6 +2841,82 @@ var keywords = {
         "\xE9"
       ]
     ],
+    "value_kind": [
+      [
+        "percentagem"
+      ],
+      [
+        "montante"
+      ],
+      [
+        "quantia"
+      ],
+      [
+        "n\xFAmero"
+      ],
+      [
+        "data"
+      ],
+      [
+        "soma"
+      ],
+      [
+        "ano"
+      ]
+    ],
+    "money_type": [
+      [
+        "rendimento"
+      ],
+      [
+        "pagamento"
+      ],
+      [
+        "montante"
+      ],
+      [
+        "dinheiro"
+      ],
+      [
+        "subs\xEDdio"
+      ],
+      [
+        "quantia"
+      ],
+      [
+        "dedu\xE7\xE3o"
+      ],
+      [
+        "sal\xE1rio"
+      ],
+      [
+        "imposto"
+      ],
+      [
+        "d\xF3lares"
+      ],
+      [
+        "pr\xE9mio"
+      ],
+      [
+        "libras"
+      ],
+      [
+        "pre\xE7o"
+      ],
+      [
+        "custo"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "soma"
+      ],
+      [
+        "taxa"
+      ]
+    ],
     "image": [
       [
         "imagem"
@@ -3556,6 +3762,34 @@ var keywords = {
         "a",
         "c\xE9lula"
       ]
+    ],
+    "notice_start": [
+      [
+        "isen\xE7\xE3o",
+        "de",
+        "responsabilidade"
+      ],
+      [
+        "direitos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licen\xE7a"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "es": {
@@ -3594,6 +3828,13 @@ var keywords = {
         "incluye",
         "estos",
         "recursos"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "incluye",
+        "estos",
+        "escenarios"
       ]
     ],
     "scenario": [
@@ -4622,6 +4863,85 @@ var keywords = {
         "o"
       ]
     ],
+    "value_kind": [
+      [
+        "porcentaje"
+      ],
+      [
+        "cantidad"
+      ],
+      [
+        "importe"
+      ],
+      [
+        "n\xFAmero"
+      ],
+      [
+        "fecha"
+      ],
+      [
+        "suma"
+      ],
+      [
+        "a\xF1o"
+      ]
+    ],
+    "money_type": [
+      [
+        "deducci\xF3n"
+      ],
+      [
+        "cantidad"
+      ],
+      [
+        "subsidio"
+      ],
+      [
+        "impuesto"
+      ],
+      [
+        "importe"
+      ],
+      [
+        "ingreso"
+      ],
+      [
+        "salario"
+      ],
+      [
+        "d\xF3lares"
+      ],
+      [
+        "dinero"
+      ],
+      [
+        "precio"
+      ],
+      [
+        "libras"
+      ],
+      [
+        "coste"
+      ],
+      [
+        "costo"
+      ],
+      [
+        "prima"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "suma"
+      ],
+      [
+        "tasa"
+      ],
+      [
+        "pago"
+      ]
+    ],
     "image": [
       [
         "imagen"
@@ -5395,6 +5715,34 @@ var keywords = {
         "la",
         "celda"
       ]
+    ],
+    "notice_start": [
+      [
+        "descargo",
+        "de",
+        "responsabilidad"
+      ],
+      [
+        "derechos",
+        "de",
+        "autor"
+      ],
+      [
+        "aviso",
+        "legal"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licencia"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "fr": {
@@ -5441,6 +5789,18 @@ var keywords = {
         "inclut",
         "ces",
         "ressources"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "comprend",
+        "ces",
+        "sc\xE9narios"
+      ],
+      [
+        "inclut",
+        "ces",
+        "sc\xE9narios"
       ]
     ],
     "scenario": [
@@ -6539,6 +6899,76 @@ var keywords = {
         "\xE0"
       ]
     ],
+    "value_kind": [
+      [
+        "pourcentage"
+      ],
+      [
+        "montant"
+      ],
+      [
+        "nombre"
+      ],
+      [
+        "somme"
+      ],
+      [
+        "ann\xE9e"
+      ],
+      [
+        "date"
+      ]
+    ],
+    "money_type": [
+      [
+        "allocation"
+      ],
+      [
+        "d\xE9duction"
+      ],
+      [
+        "paiement"
+      ],
+      [
+        "montant"
+      ],
+      [
+        "salaire"
+      ],
+      [
+        "dollars"
+      ],
+      [
+        "argent"
+      ],
+      [
+        "revenu"
+      ],
+      [
+        "livres"
+      ],
+      [
+        "somme"
+      ],
+      [
+        "frais"
+      ],
+      [
+        "imp\xF4t"
+      ],
+      [
+        "prime"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "prix"
+      ],
+      [
+        "co\xFBt"
+      ]
+    ],
     "image": [
       [
         "image"
@@ -7349,6 +7779,31 @@ var keywords = {
         "la",
         "cellule"
       ]
+    ],
+    "notice_start": [
+      [
+        "mentions",
+        "l\xE9gales"
+      ],
+      [
+        "avis",
+        "juridique"
+      ],
+      [
+        "avertissement"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licence"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   },
   "it": {
@@ -7387,6 +7842,13 @@ var keywords = {
         "include",
         "queste",
         "risorse"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "include",
+        "questi",
+        "scenari"
       ]
     ],
     "scenario": [
@@ -8465,6 +8927,76 @@ var keywords = {
         "\xE8"
       ]
     ],
+    "value_kind": [
+      [
+        "percentuale"
+      ],
+      [
+        "importo"
+      ],
+      [
+        "numero"
+      ],
+      [
+        "somma"
+      ],
+      [
+        "data"
+      ],
+      [
+        "anno"
+      ]
+    ],
+    "money_type": [
+      [
+        "pagamento"
+      ],
+      [
+        "deduzione"
+      ],
+      [
+        "indennit\xE0"
+      ],
+      [
+        "sterline"
+      ],
+      [
+        "importo"
+      ],
+      [
+        "reddito"
+      ],
+      [
+        "salario"
+      ],
+      [
+        "imposta"
+      ],
+      [
+        "dollari"
+      ],
+      [
+        "denaro"
+      ],
+      [
+        "prezzo"
+      ],
+      [
+        "premio"
+      ],
+      [
+        "somma"
+      ],
+      [
+        "tassa"
+      ],
+      [
+        "costo"
+      ],
+      [
+        "euro"
+      ]
+    ],
     "image": [
       [
         "immagine"
@@ -9236,6 +9768,32 @@ var keywords = {
         "la",
         "cella"
       ]
+    ],
+    "notice_start": [
+      [
+        "esclusione",
+        "di",
+        "responsabilit\xE0"
+      ],
+      [
+        "avviso",
+        "legale"
+      ],
+      [
+        "avvertenza"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "licenza"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
     ]
   }
 };
@@ -9318,11 +9876,12 @@ function buildLeMonarchTokens(lang) {
   const W = "[A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF0-9_]";
   const b = (re) => `(?<!${W})(?:${re})(?!${W})`;
   const headers = alt(T, ["kb_open", "scenario", "query", "ontology", "meta_target", "constants"]);
-  const contractHeader = alt(T, ["contract_open"]) && `^[ \\t]*(?:${alt(T, ["contract_open"])})(?=[ \\t].*?(?:${alt(T, ["contract_states", "resources_include"])})[ \\t]*:)`;
+  const contractHeader = alt(T, ["contract_open"]) && `^[ \\t]*(?:${alt(T, ["contract_open"])})(?=[ \\t].*?(?:${alt(T, ["contract_states", "resources_include", "scenarios_include"])})[ \\t]*:)`;
   const aggregates = `(?:${alt(T, ["sum", "count", "average", "min", "max"])})(?=[ \\t]+(?:${alt(T, ["of_each"])})(?!${W}))`;
   const templateHeaders = alt(T, ["predicates", "templates", "functions", "fluents", "events", "actions", "prolog_events"]);
   const structural = alt(T, [
     "resources_include",
+    "scenarios_include",
     "kb_include",
     "if",
     "only_if",

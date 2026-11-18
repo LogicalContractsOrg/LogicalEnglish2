@@ -492,6 +492,7 @@ header_mode(HKind, Mode, HMode) :-
 header_kind(Toks, Kind) :-
     words_of(Toks, Words),
     (   kw_inside(resources_include, Words) -> Kind = resources
+    ;   kw_inside(scenarios_include, Words) -> Kind = resources
     ;   kw_inside(services_include, Words) -> Kind = services
     ;   kw_prefix(kb_open, Words) -> Kind = kb
     ;   kw_prefix(contract_open, Words) -> Kind = kb

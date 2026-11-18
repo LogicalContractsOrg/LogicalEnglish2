@@ -262,6 +262,13 @@ var keywords = {
         "resources"
       ]
     ],
+    "scenarios_include": [
+      [
+        "includes",
+        "these",
+        "scenarios"
+      ]
+    ],
     "scenario": [
       [
         "scenario"
@@ -1069,6 +1076,91 @@ var keywords = {
       ],
       [
         "a"
+      ]
+    ],
+    "value_kind": [
+      [
+        "percentage"
+      ],
+      [
+        "amount"
+      ],
+      [
+        "number"
+      ],
+      [
+        "count"
+      ],
+      [
+        "date"
+      ],
+      [
+        "time"
+      ],
+      [
+        "year"
+      ],
+      [
+        "sum"
+      ]
+    ],
+    "money_type": [
+      [
+        "deduction"
+      ],
+      [
+        "allowance"
+      ],
+      [
+        "payment"
+      ],
+      [
+        "premium"
+      ],
+      [
+        "dollars"
+      ],
+      [
+        "amount"
+      ],
+      [
+        "charge"
+      ],
+      [
+        "income"
+      ],
+      [
+        "salary"
+      ],
+      [
+        "pounds"
+      ],
+      [
+        "money"
+      ],
+      [
+        "price"
+      ],
+      [
+        "wages"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "cost"
+      ],
+      [
+        "wage"
+      ],
+      [
+        "sum"
+      ],
+      [
+        "fee"
+      ],
+      [
+        "tax"
       ]
     ],
     "image": [
@@ -1892,6 +1984,13 @@ var keywords = {
         "inclui",
         "estes",
         "recursos"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "inclui",
+        "estes",
+        "cen\xE1rios"
       ]
     ],
     "scenario": [
@@ -2929,6 +3028,82 @@ var keywords = {
         "\xE9"
       ]
     ],
+    "value_kind": [
+      [
+        "percentagem"
+      ],
+      [
+        "montante"
+      ],
+      [
+        "quantia"
+      ],
+      [
+        "n\xFAmero"
+      ],
+      [
+        "data"
+      ],
+      [
+        "soma"
+      ],
+      [
+        "ano"
+      ]
+    ],
+    "money_type": [
+      [
+        "rendimento"
+      ],
+      [
+        "pagamento"
+      ],
+      [
+        "montante"
+      ],
+      [
+        "dinheiro"
+      ],
+      [
+        "subs\xEDdio"
+      ],
+      [
+        "quantia"
+      ],
+      [
+        "dedu\xE7\xE3o"
+      ],
+      [
+        "sal\xE1rio"
+      ],
+      [
+        "imposto"
+      ],
+      [
+        "d\xF3lares"
+      ],
+      [
+        "pr\xE9mio"
+      ],
+      [
+        "libras"
+      ],
+      [
+        "pre\xE7o"
+      ],
+      [
+        "custo"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "soma"
+      ],
+      [
+        "taxa"
+      ]
+    ],
     "image": [
       [
         "imagem"
@@ -3840,6 +4015,13 @@ var keywords = {
         "incluye",
         "estos",
         "recursos"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "incluye",
+        "estos",
+        "escenarios"
       ]
     ],
     "scenario": [
@@ -4868,6 +5050,85 @@ var keywords = {
         "o"
       ]
     ],
+    "value_kind": [
+      [
+        "porcentaje"
+      ],
+      [
+        "cantidad"
+      ],
+      [
+        "importe"
+      ],
+      [
+        "n\xFAmero"
+      ],
+      [
+        "fecha"
+      ],
+      [
+        "suma"
+      ],
+      [
+        "a\xF1o"
+      ]
+    ],
+    "money_type": [
+      [
+        "deducci\xF3n"
+      ],
+      [
+        "cantidad"
+      ],
+      [
+        "subsidio"
+      ],
+      [
+        "impuesto"
+      ],
+      [
+        "importe"
+      ],
+      [
+        "ingreso"
+      ],
+      [
+        "salario"
+      ],
+      [
+        "d\xF3lares"
+      ],
+      [
+        "dinero"
+      ],
+      [
+        "precio"
+      ],
+      [
+        "libras"
+      ],
+      [
+        "coste"
+      ],
+      [
+        "costo"
+      ],
+      [
+        "prima"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "suma"
+      ],
+      [
+        "tasa"
+      ],
+      [
+        "pago"
+      ]
+    ],
     "image": [
       [
         "imagen"
@@ -5715,6 +5976,18 @@ var keywords = {
         "inclut",
         "ces",
         "ressources"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "comprend",
+        "ces",
+        "sc\xE9narios"
+      ],
+      [
+        "inclut",
+        "ces",
+        "sc\xE9narios"
       ]
     ],
     "scenario": [
@@ -6813,6 +7086,76 @@ var keywords = {
         "\xE0"
       ]
     ],
+    "value_kind": [
+      [
+        "pourcentage"
+      ],
+      [
+        "montant"
+      ],
+      [
+        "nombre"
+      ],
+      [
+        "somme"
+      ],
+      [
+        "ann\xE9e"
+      ],
+      [
+        "date"
+      ]
+    ],
+    "money_type": [
+      [
+        "allocation"
+      ],
+      [
+        "d\xE9duction"
+      ],
+      [
+        "paiement"
+      ],
+      [
+        "montant"
+      ],
+      [
+        "salaire"
+      ],
+      [
+        "dollars"
+      ],
+      [
+        "argent"
+      ],
+      [
+        "revenu"
+      ],
+      [
+        "livres"
+      ],
+      [
+        "somme"
+      ],
+      [
+        "frais"
+      ],
+      [
+        "imp\xF4t"
+      ],
+      [
+        "prime"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "prix"
+      ],
+      [
+        "co\xFBt"
+      ]
+    ],
     "image": [
       [
         "image"
@@ -7686,6 +8029,13 @@ var keywords = {
         "include",
         "queste",
         "risorse"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "include",
+        "questi",
+        "scenari"
       ]
     ],
     "scenario": [
@@ -8762,6 +9112,76 @@ var keywords = {
       ],
       [
         "\xE8"
+      ]
+    ],
+    "value_kind": [
+      [
+        "percentuale"
+      ],
+      [
+        "importo"
+      ],
+      [
+        "numero"
+      ],
+      [
+        "somma"
+      ],
+      [
+        "data"
+      ],
+      [
+        "anno"
+      ]
+    ],
+    "money_type": [
+      [
+        "pagamento"
+      ],
+      [
+        "deduzione"
+      ],
+      [
+        "indennit\xE0"
+      ],
+      [
+        "sterline"
+      ],
+      [
+        "importo"
+      ],
+      [
+        "reddito"
+      ],
+      [
+        "salario"
+      ],
+      [
+        "imposta"
+      ],
+      [
+        "dollari"
+      ],
+      [
+        "denaro"
+      ],
+      [
+        "prezzo"
+      ],
+      [
+        "premio"
+      ],
+      [
+        "somma"
+      ],
+      [
+        "tassa"
+      ],
+      [
+        "costo"
+      ],
+      [
+        "euro"
       ]
     ],
     "image": [
@@ -10444,7 +10864,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrar a consulta selecionada no painel de consultas como \xE1rvore radial, num novo separador: a consulta ao centro, depois as regras que a podem concluir e as suas condi\xE7\xF5es, com os resultados dos testes dos cen\xE1rios",
     "decision table": "tabela de decis\xE3o",
     "DECISION TABLE": "TABELA DE DECIS\xC3O",
-    "not run (time limit)": "n\xE3o executado (limite de tempo)"
+    "not run (time limit)": "n\xE3o executado (limite de tempo)",
+    "Write anyway, with residues": "Escrever mesmo assim, com res\xEDduos",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que n\xE3o pode ser traduzida, e cada parte que usa uma, \xE9 acrescentada no fim como coment\xE1rio, com a sua linha e a raz\xE3o."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -11322,7 +11744,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrar la consulta seleccionada en el panel de consultas como \xE1rbol radial, en una nueva pesta\xF1a: la consulta en el centro, luego las reglas que pueden concluirla y sus condiciones, con los resultados de las pruebas de los escenarios",
     "decision table": "tabla de decisi\xF3n",
     "DECISION TABLE": "TABLA DE DECISI\xD3N",
-    "not run (time limit)": "no ejecutado (l\xEDmite de tiempo)"
+    "not run (time limit)": "no ejecutado (l\xEDmite de tiempo)",
+    "Write anyway, with residues": "Escribir de todos modos, con residuos",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se a\xF1ade al final como comentario, con su l\xEDnea y el motivo."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -12200,7 +12624,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Montrer la requ\xEAte s\xE9lectionn\xE9e dans le panneau des requ\xEAtes en arbre radial, dans un nouvel onglet : la requ\xEAte au centre, puis les r\xE8gles qui peuvent la conclure et leurs conditions, avec les r\xE9sultats des tests des sc\xE9narios",
     "decision table": "table de d\xE9cision",
     "DECISION TABLE": "TABLE DE D\xC9CISION",
-    "not run (time limit)": "non ex\xE9cut\xE9 (limite de temps)"
+    "not run (time limit)": "non ex\xE9cut\xE9 (limite de temps)",
+    "Write anyway, with residues": "\xC9crire quand m\xEAme, avec les r\xE9sidus",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "\xC9crire quand m\xEAme \xE9crit les parties qui peuvent \xEAtre traduites. Chaque partie qui ne peut pas l'\xEAtre, et chaque partie qui en utilise une, est ajout\xE9e \xE0 la fin en commentaire, avec sa ligne et la raison."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -13078,7 +13504,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrare l'interrogazione selezionata nel pannello delle interrogazioni come albero radiale, in una nuova scheda: l'interrogazione al centro, poi le regole che possono concluderla e le loro condizioni, con i risultati dei test degli scenari",
     "decision table": "tabella decisionale",
     "DECISION TABLE": "TABELLA DECISIONALE",
-    "not run (time limit)": "non eseguito (limite di tempo)"
+    "not run (time limit)": "non eseguito (limite di tempo)",
+    "Write anyway, with residues": "Scrivi comunque, con i residui",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si pu\xF2 tradurre, e ogni parte che ne usa una, \xE8 aggiunta alla fine come commento, con la sua riga e il motivo."
   }
 };
 var languages = [
@@ -13408,11 +13836,12 @@ function buildLeMonarchTokens(lang) {
   const W = "[A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF0-9_]";
   const b = (re) => `(?<!${W})(?:${re})(?!${W})`;
   const headers = alt(T, ["kb_open", "scenario", "query", "ontology", "meta_target", "constants"]);
-  const contractHeader = alt(T, ["contract_open"]) && `^[ \\t]*(?:${alt(T, ["contract_open"])})(?=[ \\t].*?(?:${alt(T, ["contract_states", "resources_include"])})[ \\t]*:)`;
+  const contractHeader = alt(T, ["contract_open"]) && `^[ \\t]*(?:${alt(T, ["contract_open"])})(?=[ \\t].*?(?:${alt(T, ["contract_states", "resources_include", "scenarios_include"])})[ \\t]*:)`;
   const aggregates = `(?:${alt(T, ["sum", "count", "average", "min", "max"])})(?=[ \\t]+(?:${alt(T, ["of_each"])})(?!${W}))`;
   const templateHeaders = alt(T, ["predicates", "templates", "functions", "fluents", "events", "actions", "prolog_events"]);
   const structural = alt(T, [
     "resources_include",
+    "scenarios_include",
     "kb_include",
     "if",
     "only_if",
@@ -17181,7 +17610,7 @@ ${err}`, "See s(CASP)");
       return null;
     const lang = detectProgramLanguage(model.getValue());
     const phrases = (key) => [...kwPhrases(lang, key), ...kwPhrases("en", key)].filter(Boolean).map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"));
-    const includes = new RegExp(`(?:${phrases("resources_include").join("|")})\\s*:`, "i");
+    const includes = new RegExp(`(?:${[...phrases("resources_include"), ...phrases("scenarios_include")].join("|")})\\s*:`, "i");
     const extendsKw = new RegExp(`(?:${phrases("kb_open").join("|")})\\b.*?\\b(?:${phrases("kb_extends").join("|")})\\b`, "i");
     const line = model.getLineContent(position.lineNumber);
     const col = position.column - 1;
@@ -18304,7 +18733,7 @@ ${err}`, "See s(CASP)");
     pre.style.cssText = "white-space:pre-wrap;word-break:break-all;font-size:12px;background:rgba(128,128,128,.12);padding:8px;border-radius:4px;max-height:60vh;overflow:auto";
     box.appendChild(pre);
   };
-  const showRefusal = (data) => {
+  const showRefusal = (data, retry) => {
     const { overlay, box } = overlayBox("export-refused", `${t("Not translated to")} ${data.exporter}`);
     const p = document.createElement("p");
     p.textContent = data.error;
@@ -18340,13 +18769,26 @@ ${err}`, "See s(CASP)");
       list.appendChild(li);
     }
     box.appendChild(list);
+    const note = document.createElement("p");
+    note.style.cssText = "opacity:.75;font-size:12px";
+    note.textContent = data.partial_impossible || t("Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.");
+    box.appendChild(note);
+    if (retry && !data.partial_impossible) {
+      const b = document.createElement("button");
+      b.textContent = t("Write anyway, with residues");
+      b.onclick = () => {
+        overlay.remove();
+        retry();
+      };
+      box.appendChild(b);
+    }
   };
-  const runExport = async (doc, id) => {
+  const runExport = async (doc, id, partial = false) => {
     document.body.style.cursor = "progress";
     try {
-      const data = await leRequest("exportForeign", doc, { exporter: id });
+      const data = await leRequest("exportForeign", doc, partial ? { exporter: id, partial: true } : { exporter: id });
       if (Array.isArray(data.problems)) {
-        showRefusal(data);
+        showRefusal(data, partial ? void 0 : () => runExport(doc, id, true));
         return;
       }
       if (data.error || typeof data.document !== "string") {
@@ -21225,7 +21667,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
   const resourceTextCache = /* @__PURE__ */ new Map();
   const includedResourceNames = (text) => {
     const lang = detectProgramLanguage(text);
-    const phrases = [...kwPhrases(lang, "resources_include"), ...kwPhrases("en", "resources_include")].filter(Boolean).map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"));
+    const phrases = ["resources_include", "scenarios_include"].flatMap((k) => [...kwPhrases(lang, k), ...kwPhrases("en", k)]).filter(Boolean).map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"));
     if (phrases.length === 0)
       return [];
     const header = new RegExp(`(?:${phrases.join("|")})\\s*:`, "gi");
@@ -21323,7 +21765,7 @@ ${t("It lists every fact a case can state as one group, and shows the result of 
           if (offset >= res2.start && offset <= res2.end) {
             return {
               contents: [
-                { value: `**Included Resource:** ${res2.resource}` },
+                { value: res2.scenarios ? `**Included Scenarios:** ${res2.resource}` : `**Included Resource:** ${res2.resource}` },
                 { value: `Rules: ${res2.rules} | Templates: ${res2.templates}` }
               ]
             };

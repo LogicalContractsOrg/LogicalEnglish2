@@ -653,6 +653,12 @@ process_section_acc(ontology(Content, Start, End), M) :-
 process_section_acc(resources(_, Resources, Start, End), M) :-
     forall(member(R, Resources), assertz(M:le_included_resource(R, Start, End))).
 
+%   `the knowledge base <name> includes these scenarios: ...`: the files were
+%   read with the includes (fetch_resources/3); le_included_scenarios/3 is
+%   the line, for the writer and the knowledge base summary.
+process_section_acc(scenario_resources(_, Resources, Start, End), M) :-
+    forall(member(R, Resources), assertz(M:le_included_scenarios(R, Start, End))).
+
 %   `the knowledge base <name> extends <base>, ...`: the bases were read with
 %   the includes (fetch_base/4); le_kb_extends/3 is the sentence itself.
 process_section_acc(extends(Name, Bases, Start, End), M) :-
@@ -814,12 +820,22 @@ has_reportable_content(Tokens) :-
 %   directory or URL. This entry point initialises that state when it is the
 %   top-level call of a load (nested calls arrive via parse_resource_text
 %   with the state already set).
+%
+%   A file named in "includes these scenarios:" (scenarios(R)) is read as an
+%   include is, but its own scenarios and queries are kept; they come after
+%   the document's own sections, where a scenario is allowed to be. Its
+%   rules and templates come in too, so a scenario file can include the
+%   rules it tests; read once, by the guard above, when the document
+%   includes them as well. Two scenarios, or two queries, of one name are
+%   an error on the "includes these scenarios:" line (case_name_clashes/3).
 fetch_resources(Sections, MergedSections, M) :-
     findall(include(R), ( member(resources(_, Rs, _, _), Sections), member(R, Rs) ), Incs),
     findall(base(Name, R), ( member(extends(Name, Bs, _, _), Sections), member(R, Bs) ), Bases),
-    append(Bases, Incs, Wanted),
+    findall(scenarios(R), ( member(scenario_resources(_, Rs, _, _), Sections), member(R, Rs) ), Scens),
+    append([Bases, Incs, Scens], Wanted),
     (   Wanted \== []
-    ->  (   le_include_depth(_)
+    ->  ( le_include_depth(_) -> Nested = true ; Nested = false ),
+        (   Nested == true
         ->  fetch_all_wanted(Wanted, M, IncludedSections)            % nested
         ;   setup_call_cleanup(
                 ( assertz(le_include_depth(0)),
@@ -828,13 +844,65 @@ fetch_resources(Sections, MergedSections, M) :-
                 ( retractall(le_include_depth(_)),
                   retractall(le_include_seen(_)) ))
         ),
-        append(IncludedSections, Sections, MergedSections)
+        partition(is_scenario_or_query, IncludedSections, IncludedCases, IncludedRest),
+        append([IncludedRest, Sections, IncludedCases], MergedSections),
+        (   Nested == false, IncludedCases \== []
+        ->  case_name_clashes(Sections, MergedSections, M)
+        ;   true
+        )
     ;   MergedSections = Sections
+    ).
+
+%!  case_name_clashes(+Sections, +MergedSections, +M) is det.
+%
+%   Two scenarios, or two queries, with one name, of which at least one came
+%   from a file of "includes these scenarios:": an error on that line of the
+%   document (the first such line), which names both places. The document's
+%   own duplicates are left to the checks that already see them.
+case_name_clashes(Sections, Merged, M) :-
+    (   nonvar(M), M \== (-),
+        member(scenario_resources(_, _, LS, LE), Sections)
+    ->  forall(( member(Kind, [scenario, query]),
+                 case_name_clash(Kind, Merged, Name, S1, S2) ),
+               ( case_place(S1, P1), case_place(S2, P2),
+                 atomic_list_concat([included_, Kind, '_clash_desc'], DescId),
+                 le_i18n:le_msg(DescId, [name-Name, first-P1, second-P2], Desc),
+                 le_i18n:le_msg(included_case_clash_fix, [], Fix),
+                 assertz(M:le_issue(error, included_case_clash, Desc, Fix, LS, LE)) ))
+    ;   true
+    ).
+
+case_name_clash(Kind, Merged, Name, S1, S2) :-
+    findall(N, ( member(Sec, Merged), Sec =.. [Kind, N, _, _, _] ), Ns),
+    msort(Ns, Sorted), clumped_pairs(Sorted, Dups),
+    member(Name, Dups),
+    findall(S, ( member(Sec, Merged), Sec =.. [Kind, Name, _, S, _] ), [S1, S2|_]),
+    ( included_offset(S1) ; included_offset(S2) ).
+
+clumped_pairs(Sorted, Dups) :-
+    clumped(Sorted, Counts),
+    findall(N, ( member(N-C, Counts), C > 1 ), Dups).
+
+included_offset(S) :-
+    integer(S), le_grammar:offset_base(S, Base), Base > 0.
+
+%   case_place(+Start, -Place): "<file>, line N" for an included section,
+%   "line N" for one of the document itself.
+case_place(S, Place) :-
+    (   resource_range_info(S, S, Info)
+    ->  format(atom(Place), "~w, line ~w", [Info.resource, Info.resourceLine])
+    ;   integer(S), le_grammar:current_source_text(Text),
+        string_length(Text, Len), S =< Len
+    ->  sub_string(Text, 0, S, _, Before),
+        split_string(Before, "\n", "", Parts), length(Parts, Line),
+        format(atom(Place), "line ~w", [Line])
+    ;   Place = 'this document'
     ).
 
 fetch_all_wanted([], _, []).
 fetch_all_wanted([W|Ws], M, AllSections) :-
     (   W = include(R) -> fetch_resource(R, M, Sections)
+    ;   W = scenarios(R) -> fetch_resource(R, cases, M, Sections)
     ;   W = base(Child, R), fetch_base(Child, R, M, Sections)
     ),
     fetch_all_wanted(Ws, M, RestSections),
@@ -885,6 +953,11 @@ current_include_base(Base) :-
     ; working_directory(Base, Base) ).
 
 fetch_resource(Resource, M, Sections) :-
+    fetch_resource(Resource, no_cases, M, Sections).
+
+%   Keep: cases for a file of "includes these scenarios:", whose scenarios
+%   and queries are kept; no_cases for every other resource.
+fetch_resource(Resource, Keep, M, Sections) :-
     current_include_base(Base),
     resolve_resource(Resource, Base, Kind, Id),
     (   le_include_seen(Id)
@@ -896,7 +969,7 @@ fetch_resource(Resource, M, Sections) :-
             (nonvar(M) -> assertz(M:le_issue(error, include_too_deep, Desc, "Flatten the include chain, or raise the le_include_max_depth flag.", 0, 0)) ; true),
             Sections = []
         ;   assertz(le_include_seen(Id)),
-            fetch_resource_kind(Kind, Id, Resource, M, Sections)
+            fetch_resource_kind(Kind, Keep, Id, Resource, M, Sections)
         )
     ).
 
@@ -1097,17 +1170,17 @@ folder_or_ancestor(D0, D) :-
     file_directory_name(D0, D1), D1 \== D0,
     folder_or_ancestor(D1, D).
 
-fetch_resource_kind(le_url(URL), _Id, Resource, M, Sections) :-
+fetch_resource_kind(le_url(URL), Keep, _Id, Resource, M, Sections) :-
     catch(fetch_url(URL, Text), FetchErr, true),
     (   var(FetchErr)
-    ->  include_resource_text(Text, URL, M, Sections),
+    ->  include_resource_text(Text, URL, Keep, M, Sections),
         count_rules_and_templates(Sections, RuleCount, TemplateCount),
         assertz(M:le_resource_stats(Resource, RuleCount, TemplateCount))
     ;   fetch_error_desc(URL, FetchErr, Desc),
         (nonvar(M) -> assertz(M:le_issue(error, missing_resource, Desc, "", 0, 0)) ; true),
         Sections = []
     ).
-fetch_resource_kind(le_file(File), _Id, Resource, M, Sections) :-
+fetch_resource_kind(le_file(File), Keep, _Id, Resource, M, Sections) :-
     current_include_base(Base),
     (   \+ local_resource_allowed(File, Base)
     ->  format(atom(Desc), "Resource path not allowed: ~w", [Resource]),
@@ -1115,21 +1188,21 @@ fetch_resource_kind(le_file(File), _Id, Resource, M, Sections) :-
         Sections = []
     ;   exists_file(File)
     ->  read_file_to_string(File, Text, []),
-        include_resource_text(Text, File, M, Sections),
+        include_resource_text(Text, File, Keep, M, Sections),
         count_rules_and_templates(Sections, RuleCount, TemplateCount),
         assertz(M:le_resource_stats(Resource, RuleCount, TemplateCount))
     ;   format(atom(Desc), "Resource not found: ~w", [Resource]),
         (nonvar(M) -> assertz(M:le_issue(error, missing_resource, Desc, "", 0, 0)) ; true),
         Sections = []
     ).
-fetch_resource_kind(pl_url(URL), Id, Resource, M, []) :-
+fetch_resource_kind(pl_url(URL), _Keep, Id, Resource, M, []) :-
     catch(fetch_url(URL, Text), FetchErr, true),
     (   var(FetchErr)
     ->  load_prolog_resource(Id, text(Text), M, Resource)
     ;   fetch_error_desc(URL, FetchErr, Desc),
         (nonvar(M) -> assertz(M:le_issue(error, missing_resource, Desc, "", 0, 0)) ; true)
     ).
-fetch_resource_kind(pl_file(File), Id, Resource, M, []) :-
+fetch_resource_kind(pl_file(File), _Keep, Id, Resource, M, []) :-
     current_include_base(Base),
     (   \+ local_resource_allowed(File, Base)
     ->  format(atom(Desc), "Resource path not allowed: ~w", [Resource]),
@@ -1146,7 +1219,7 @@ fetch_resource_kind(pl_file(File), Id, Resource, M, []) :-
 % runs on its return: left pending, it kept the deeper depth and base for
 % the NEXT resource, so three sibling includes (a program including three
 % chapters that each include a library) ran out of depth.
-include_resource_text(Text, IdOrPath, M, Sections) :-
+include_resource_text(Text, IdOrPath, Keep, M, Sections) :-
     ( is_url(IdOrPath) -> resource_base_of_url(IdOrPath, NewBase)
     ; file_directory_name(IdOrPath, NewBase) ),
     le_include_depth(Depth), Depth1 is Depth + 1,
@@ -1154,7 +1227,7 @@ include_resource_text(Text, IdOrPath, M, Sections) :-
     setup_call_cleanup(
         ( retractall(le_include_base(_)), assertz(le_include_base(NewBase)),
           retractall(le_include_depth(_)), assertz(le_include_depth(Depth1)) ),
-        once(parse_resource_text(Text, IdOrPath, M, Sections)),
+        once(parse_resource_text(Text, IdOrPath, Keep, M, Sections)),
         ( retractall(le_include_base(_)), assertz(le_include_base(OldBase)),
           retractall(le_include_depth(_)), assertz(le_include_depth(Depth)) )).
 
@@ -1264,7 +1337,13 @@ count_rules_and_templates(Sections, RuleCount, TemplateCount) :-
 % clause ranges, conditions, issues, provenance, rule ids — is confused with
 % the including document's; le_resource_origin/3 remembers which resource a
 % base stands for, and its text.
-parse_resource_text(Text, Id, M, FilteredMergedSections) :-
+% A file of "includes these scenarios:" (Keep = cases) keeps its own
+% scenarios and queries; those of the files it includes as resources were
+% already left out where they were read.
+parse_resource_text(Text, Id, M, Sections) :-
+    parse_resource_text(Text, Id, no_cases, M, Sections).
+
+parse_resource_text(Text, Id, Keep, M, FilteredMergedSections) :-
     tokenizer:tokenize_lang(Text, Tokens0),
     resource_base(Id, Base),
     le_grammar:register_resource_source_text(Base, Text),
@@ -1282,7 +1361,10 @@ parse_resource_text(Text, Id, M, FilteredMergedSections) :-
             phrase(le_grammar:doc(Sections), Tokens),
             le_grammar:restore_line_starts(SavedStarts))
     ->  fetch_resources(Sections, MergedSections, M),
-        exclude(is_scenario_or_query, MergedSections, FilteredMergedSections)
+        (   Keep == cases
+        ->  FilteredMergedSections = MergedSections
+        ;   exclude(is_scenario_or_query, MergedSections, FilteredMergedSections)
+        )
     ;   FilteredMergedSections = []
     ).
 
@@ -2991,9 +3073,19 @@ get_kb_metadata(KB, Metadata) :-
         findall(_{resource: R, start: Start, end: End, rules: RuleCount, templates: TemplateCount}, (
             KB:le_included_resource(R, Start, End),
             ( KB:le_resource_stats(R, RuleCount, TemplateCount) -> true ; RuleCount = 0, TemplateCount = 0 )
-        ), IncludedResources)
-    ;   IncludedResources = []
+        ), IncludedResources0)
+    ;   IncludedResources0 = []
     ),
+    %   the files of "includes these scenarios:", in the same list: their
+    %   problems are shown on that line as an include's are on its own
+    (   current_predicate(KB:le_included_scenarios/3) ->
+        findall(_{resource: R, start: Start, end: End, rules: RuleCount, templates: TemplateCount, scenarios: true}, (
+            KB:le_included_scenarios(R, Start, End),
+            ( KB:le_resource_stats(R, RuleCount, TemplateCount) -> true ; RuleCount = 0, TemplateCount = 0 )
+        ), IncludedScenarios)
+    ;   IncludedScenarios = []
+    ),
+    append(IncludedResources0, IncludedScenarios, IncludedResources),
     % Per-fact images ("<fact>; image "URL"."), keyed by the fact's source
     % range — the same range its explanation nodes carry, which is how the
     % Bento Box window matches a leaf to its image.
@@ -3305,6 +3397,7 @@ is_system_predicate(le_fact_image/3).
 is_system_predicate(le_template_image/2).
 % Include bookkeeping (see fetch_resources/3 and load_prolog_resource/4).
 is_system_predicate(le_included_resource/3).
+is_system_predicate(le_included_scenarios/3).
 is_system_predicate(le_resource_stats/3).
 is_system_predicate(le_prolog_resource/2).
 % LPS target (lps2's docs/user/reference/le-for-lps.md). le_lps_role/2 says which declaration
@@ -3705,6 +3798,14 @@ runTestsInDir(Dir, Results) :-
     runTestsInDir(Dir, all, Results).
 
 runTestsInDir(Dir, Suite, Results) :-
+    runTestsInDir(Dir, Suite, [], Results).
+
+%   Skip: the files (absolute) that a program of this directory or of one
+%   above it names in "includes these scenarios:". Such a file is run as
+%   part of that program, where its rules are, and not again on its own:
+%   it need not include what it tests, and when it does, the second run
+%   would only count its tests twice.
+runTestsInDir(Dir, Suite, Skip0, Results) :-
     directory_files(Dir, Files),
     findall(LEFile, (
         member(F, Files),
@@ -3712,8 +3813,11 @@ runTestsInDir(Dir, Suite, Results) :-
         \+ sub_atom(F, _, _, 0, '.le.tests'),
         directory_file_path(Dir, F, LEFile),
         suite_includes(Suite, LEFile)
-    ), LEFiles0),
-    sort(LEFiles0, LEFiles),
+    ), LEFiles1),
+    sort(LEFiles1, LEFiles2),
+    findall(SF, ( member(LF, LEFiles2), included_scenario_file(LF, SF) ), Named),
+    append(Skip0, Named, Skip1), sort(Skip1, Skip),
+    exclude([LF]>>( absolute_file_name(LF, Abs), memberchk(Abs, Skip) ), LEFiles2, LEFiles),
     findall(SubResults, (
         member(F, Files),
         \+ sub_atom(F, 0, 1, _, '.'),
@@ -3721,11 +3825,51 @@ runTestsInDir(Dir, Suite, Results) :-
         exists_directory(SubDir),
         \+ private_examples_dir(SubDir),          % unlisted, not in any suite
         suite_includes(Suite, SubDir),
-        runTestsInDir(SubDir, Suite, SubResults)
+        runTestsInDir(SubDir, Suite, Skip, SubResults)
     ), SubResultsLists),
     maplist(runTestsFor, LEFiles, FileResults),
     append(SubResultsLists, SubResultsFlat),
     append(FileResults, SubResultsFlat, Results).
+
+%!  included_scenario_file(+LEFile, -File) is nondet.
+%
+%   File (absolute, with its .le) is named in an "includes these scenarios:"
+%   line of LEFile, in any of the languages. Read from the text, without
+%   loading the program: most files have no such line, and a look for the
+%   words is enough to tell.
+included_scenario_file(LEFile, File) :-
+    catch(read_file_to_string(LEFile, Text, []), _, fail),
+    findall(P, ( le_i18n:known_language(L),
+                 le_i18n:kw_synonym_words(L, scenarios_include, Ws),
+                 atomic_list_concat(Ws, ' ', P) ), Ps0),
+    sort(Ps0, Ps),
+    member(Phrase, Ps),
+    sub_string(Text, B, PL, _, Phrase),
+    A is B + PL,
+    sub_string(Text, A, _, 0, After0),
+    split_string(After0, "", " \t", [After1]),
+    sub_string(After1, 0, 1, _, ":"),
+    sub_string(After1, 1, _, 0, After),
+    resource_names_text(After, Names),
+    file_directory_name(LEFile, Dir0), absolute_file_name(Dir0, Dir),
+    member(Name, Names),
+    \+ is_url(Name),
+    catch(resolve_resource(Name, Dir, le_file(File), _), _, fail).
+
+%   resource_names_text(+Text, -Names): the names of a resource list: up to
+%   the first full stop that ends a sentence (a name may hold a dot, as in
+%   `cases.le` or a web address), separated by commas, without comments.
+resource_names_text(Text, Names) :-
+    split_string(Text, "\n", "", Lines0),
+    maplist([L0, L]>>( sub_string(L0, B, _, _, "%") -> sub_string(L0, 0, B, _, L) ; L = L0 ), Lines0, Lines),
+    atomic_list_concat(Lines, ' ', Flat0), atom_string(Flat0, Flat),
+    (   re_matchsub("^(.*?)\\.(\\s|$)"/s, Flat, Sub, [])
+    ->  List = Sub.1
+    ;   List = Flat
+    ),
+    split_string(List, ",", " \t", Names0),
+    exclude(==(""), Names0, Names1),
+    maplist(atom_string, Names, Names1).
 
 %!  le_suite(?Suite:atom) is nondet.
 %

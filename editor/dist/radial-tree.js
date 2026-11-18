@@ -879,7 +879,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrar a consulta selecionada no painel de consultas como \xE1rvore radial, num novo separador: a consulta ao centro, depois as regras que a podem concluir e as suas condi\xE7\xF5es, com os resultados dos testes dos cen\xE1rios",
     "decision table": "tabela de decis\xE3o",
     "DECISION TABLE": "TABELA DE DECIS\xC3O",
-    "not run (time limit)": "n\xE3o executado (limite de tempo)"
+    "not run (time limit)": "n\xE3o executado (limite de tempo)",
+    "Write anyway, with residues": "Escrever mesmo assim, com res\xEDduos",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que n\xE3o pode ser traduzida, e cada parte que usa uma, \xE9 acrescentada no fim como coment\xE1rio, com a sua linha e a raz\xE3o."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -1757,7 +1759,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrar la consulta seleccionada en el panel de consultas como \xE1rbol radial, en una nueva pesta\xF1a: la consulta en el centro, luego las reglas que pueden concluirla y sus condiciones, con los resultados de las pruebas de los escenarios",
     "decision table": "tabla de decisi\xF3n",
     "DECISION TABLE": "TABLA DE DECISI\xD3N",
-    "not run (time limit)": "no ejecutado (l\xEDmite de tiempo)"
+    "not run (time limit)": "no ejecutado (l\xEDmite de tiempo)",
+    "Write anyway, with residues": "Escribir de todos modos, con residuos",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se a\xF1ade al final como comentario, con su l\xEDnea y el motivo."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -2635,7 +2639,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Montrer la requ\xEAte s\xE9lectionn\xE9e dans le panneau des requ\xEAtes en arbre radial, dans un nouvel onglet : la requ\xEAte au centre, puis les r\xE8gles qui peuvent la conclure et leurs conditions, avec les r\xE9sultats des tests des sc\xE9narios",
     "decision table": "table de d\xE9cision",
     "DECISION TABLE": "TABLE DE D\xC9CISION",
-    "not run (time limit)": "non ex\xE9cut\xE9 (limite de temps)"
+    "not run (time limit)": "non ex\xE9cut\xE9 (limite de temps)",
+    "Write anyway, with residues": "\xC9crire quand m\xEAme, avec les r\xE9sidus",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "\xC9crire quand m\xEAme \xE9crit les parties qui peuvent \xEAtre traduites. Chaque partie qui ne peut pas l'\xEAtre, et chaque partie qui en utilise une, est ajout\xE9e \xE0 la fin en commentaire, avec sa ligne et la raison."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -3513,7 +3519,9 @@ var uiCatalog = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrare l'interrogazione selezionata nel pannello delle interrogazioni come albero radiale, in una nuova scheda: l'interrogazione al centro, poi le regole che possono concluderla e le loro condizioni, con i risultati dei test degli scenari",
     "decision table": "tabella decisionale",
     "DECISION TABLE": "TABELLA DECISIONALE",
-    "not run (time limit)": "non eseguito (limite di tempo)"
+    "not run (time limit)": "non eseguito (limite di tempo)",
+    "Write anyway, with residues": "Scrivi comunque, con i residui",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si pu\xF2 tradurre, e ogni parte che ne usa una, \xE8 aggiunta alla fine come commento, con la sua riga e il motivo."
   }
 };
 var languages = [

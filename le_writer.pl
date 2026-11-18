@@ -482,6 +482,14 @@ write_header(Header, Target, KBName) :-
         format("~w ~w ~w:~n    ~w.~n~n", [KO, KBName, RI, RList])
     ;   true
     ),
+    %  `the knowledge base <name> includes these scenarios: <file>, ...`
+    (   memberchk(scenarios(SRs), Header), SRs \== []
+    ->  kw(kb_open, KOS), kw(scenarios_include, SIR),
+        maplist(render_resource, SRs, SRTs),
+        atomic_list_concat(SRTs, ',\n    ', SRList),
+        format("~w ~w ~w:~n    ~w.~n~n", [KOS, KBName, SIR, SRList])
+    ;   true
+    ),
     (   memberchk(services(Ss), Header), Ss \== []
     ->  kw(kb_open, KO2), kw(services_include, SI),
         maplist(render_service, Ss, STs),
@@ -3018,7 +3026,10 @@ kb_to_ir_(KB, program(Header, Items)) :-
     findall(R, ( current_predicate(KB:le_included_resource/3), KB:le_included_resource(R, _, _) ), Rs0),
     list_to_set(Rs0, Rs),
     ( Rs == [] -> Inc = [] ; Inc = [includes(Rs)] ),
-    append([[kb(Name), target(Target)], Lang, PR, Inc], Header),
+    findall(R, ( current_predicate(KB:le_included_scenarios/3), KB:le_included_scenarios(R, _, _) ), Ss0),
+    list_to_set(Ss0, Ss),
+    ( Ss == [] -> IncS = [] ; IncS = [scenarios(Ss)] ),
+    append([[kb(Name), target(Target)], Lang, PR, Inc, IncS], Header),
     kb_templates(KB, Templates),
     kb_constants(KB, Constants),
     kb_tables(KB, Tables),
@@ -3260,6 +3271,7 @@ kb_scenarios(KB, Items) :-
             ( current_predicate(KB:scenario/2),
               clause(KB:scenario(Name, Terms), true, Ref),
               catch(KB:le_source_info(Ref, Start, _, _), _, Start = 0),
+              own_range(Start),         % not one of "includes these scenarios:"
               scenario_lines(KB, Name, Terms, Lines) ),
             Pairs),
     keysort(Pairs, Sorted), pairs_values(Sorted, Items).
@@ -3298,6 +3310,7 @@ kb_queries(KB, Items) :-
             ( current_predicate(KB:query_info/3),
               clause(KB:query_info(Name, Goal0, _), true, Ref),
               catch(KB:le_source_info(Ref, Start, _, _), _, Start = 0),
+              own_range(Start),
               query_goal(Goal0, Goal) ),
             Pairs),
     keysort(Pairs, Sorted), pairs_values(Sorted, Items).

@@ -1,0 +1,20 @@
+the target language is: prolog.
+
+% A program that gets its rules from fee_rules.le and two of its scenarios
+% from fee_cases.le (language.md §14). The scenarios and the query of
+% fee_cases.le come in with it; fee_rules.le is read one time, although
+% both files include it.
+
+the knowledge base fee includes these resources:
+    fee_rules.
+
+the knowledge base fee includes these scenarios:
+    fee_cases.
+
+the knowledge base fee includes:
+
+scenario staff is:
+    carol is a member.
+    carol buys opera.
+    opera costs 100.
+    who_pays expects answers ["carol pays 50.0 for opera"].

@@ -803,7 +803,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             const lang = detectProgramLanguage(model.getValue());
             const phrases = (key: string) => [...kwPhrases(lang, key), ...kwPhrases('en', key)]
                 .filter(Boolean).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+'));
-            const includes = new RegExp(`(?:${phrases('resources_include').join('|')})\\s*:`, 'i');
+            const includes = new RegExp(`(?:${[...phrases('resources_include'), ...phrases('scenarios_include')].join('|')})\\s*:`, 'i');
             const extendsKw = new RegExp(`(?:${phrases('kb_open').join('|')})\\b.*?\\b(?:${phrases('kb_extends').join('|')})\\b`, 'i');
             const line: string = model.getLineContent(position.lineNumber);
             const col = position.column - 1;
@@ -5083,7 +5083,9 @@ const queryChannel = new BroadcastChannel('le-query-editor');
 
     const includedResourceNames = (text: string): string[] => {
         const lang = detectProgramLanguage(text);
-        const phrases = [...kwPhrases(lang, 'resources_include'), ...kwPhrases('en', 'resources_include')]
+        // the files of "includes these scenarios:" too: their templates count
+        const phrases = ['resources_include', 'scenarios_include']
+            .flatMap(k => [...kwPhrases(lang, k), ...kwPhrases('en', k)])
             .filter(Boolean).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+'));
         if (phrases.length === 0) return [];
         const header = new RegExp(`(?:${phrases.join('|')})\\s*:`, 'gi');
@@ -5169,7 +5171,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
                     if (offset >= res.start && offset <= res.end) {
                         return {
                             contents: [
-                                { value: `**Included Resource:** ${res.resource}` },
+                                { value: res.scenarios ? `**Included Scenarios:** ${res.resource}` : `**Included Resource:** ${res.resource}` },
                                 { value: `Rules: ${res.rules} | Templates: ${res.templates}` }
                             ]
                         };

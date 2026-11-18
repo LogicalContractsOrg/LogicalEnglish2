@@ -1,0 +1,24 @@
+the target language is: prolog.
+
+% The cases of fee.le, in a file of their own. fee.le gets them with
+% "includes these scenarios:". This file includes the rules that it tests,
+% so it can also be opened and run alone.
+
+the knowledge base fee cases includes these resources:
+    fee_rules.
+
+the knowledge base fee cases includes:
+
+scenario member is:
+    alice is a member.
+    alice buys concert.
+    concert costs 40.
+    who_pays expects answers ["alice pays 20.0 for concert"].
+
+scenario visitor is:
+    bob buys concert.
+    concert costs 40.
+    who_pays expects answers ["bob pays 40 for concert"].
+
+query who_pays is:
+    which person pays which amount for which ticket.

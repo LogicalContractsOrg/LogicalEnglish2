@@ -1,0 +1,23 @@
+the target language is: prolog.
+
+% The rules that fee.le includes, and that fee_cases.le tests.
+
+the templates are:
+    *a person* is a member.
+    *a person* buys *a ticket*.
+    *a ticket* costs *an amount*.
+    *a person* pays *an amount* for *a ticket*.
+
+the knowledge base fee rules includes:
+
+a person pays an amount for a ticket if
+    the person buys the ticket
+    and the ticket costs a full amount
+    and the person is a member
+    and the amount = the full amount * 0.5.
+
+a person pays an amount for a ticket if
+    the person buys the ticket
+    and the ticket costs the amount
+    and it is not the case that
+        the person is a member.

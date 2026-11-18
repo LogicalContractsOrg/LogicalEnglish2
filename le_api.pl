@@ -3200,7 +3200,7 @@ item_occurrence(KB, F, A, query_info(Name, Goal, _), _Body, _ID, Start, End, Occ
 % Everything else that is not a clause of the user's program.
 item_occurrence(_KB, _F, _A, Item, _Body, _ID, _S, _E, _Occ) :-
     functor(Item, IF, IN),
-    memberchk(IF/IN, [le_kb/1, le_expected/4, le_included_resource/3, ontology/1,
+    memberchk(IF/IN, [le_kb/1, le_expected/4, le_included_resource/3, le_included_scenarios/3, ontology/1,
                       le_lps_item/3, le_lps_role/2, le_source_section/2, le_issue/6]),
     !,
     fail.

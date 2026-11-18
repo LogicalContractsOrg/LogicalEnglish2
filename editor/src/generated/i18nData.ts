@@ -43,6 +43,13 @@ export const keywords: Record<string, KeywordTable> = {
         "resources"
       ]
     ],
+    "scenarios_include": [
+      [
+        "includes",
+        "these",
+        "scenarios"
+      ]
+    ],
     "scenario": [
       [
         "scenario"
@@ -1758,6 +1765,13 @@ export const keywords: Record<string, KeywordTable> = {
         "inclui",
         "estes",
         "recursos"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "inclui",
+        "estes",
+        "cenários"
       ]
     ],
     "scenario": [
@@ -3784,6 +3798,13 @@ export const keywords: Record<string, KeywordTable> = {
         "recursos"
       ]
     ],
+    "scenarios_include": [
+      [
+        "incluye",
+        "estos",
+        "escenarios"
+      ]
+    ],
     "scenario": [
       [
         "escenario"
@@ -5736,6 +5757,18 @@ export const keywords: Record<string, KeywordTable> = {
         "inclut",
         "ces",
         "ressources"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "comprend",
+        "ces",
+        "scénarios"
+      ],
+      [
+        "inclut",
+        "ces",
+        "scénarios"
       ]
     ],
     "scenario": [
@@ -7779,6 +7812,13 @@ export const keywords: Record<string, KeywordTable> = {
         "risorse"
       ]
     ],
+    "scenarios_include": [
+      [
+        "include",
+        "questi",
+        "scenari"
+      ]
+    ],
     "scenario": [
       [
         "scenario"
@@ -9734,6 +9774,7 @@ export const keywordCategories: Record<string, string> = {
   "contract_open": "section",
   "contract_states": "section",
   "resources_include": "section",
+  "scenarios_include": "section",
   "scenario": "section",
   "query": "section",
   "ontology": "section",
