@@ -852,6 +852,91 @@ export const keywords: Record<string, KeywordTable> = {
         "a"
       ]
     ],
+    "value_kind": [
+      [
+        "percentage"
+      ],
+      [
+        "amount"
+      ],
+      [
+        "number"
+      ],
+      [
+        "count"
+      ],
+      [
+        "date"
+      ],
+      [
+        "time"
+      ],
+      [
+        "year"
+      ],
+      [
+        "sum"
+      ]
+    ],
+    "money_type": [
+      [
+        "deduction"
+      ],
+      [
+        "allowance"
+      ],
+      [
+        "payment"
+      ],
+      [
+        "premium"
+      ],
+      [
+        "dollars"
+      ],
+      [
+        "amount"
+      ],
+      [
+        "charge"
+      ],
+      [
+        "income"
+      ],
+      [
+        "salary"
+      ],
+      [
+        "pounds"
+      ],
+      [
+        "money"
+      ],
+      [
+        "price"
+      ],
+      [
+        "wages"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "cost"
+      ],
+      [
+        "wage"
+      ],
+      [
+        "sum"
+      ],
+      [
+        "fee"
+      ],
+      [
+        "tax"
+      ]
+    ],
     "image": [
       [
         "image"
@@ -2708,6 +2793,82 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "é"
+      ]
+    ],
+    "value_kind": [
+      [
+        "percentagem"
+      ],
+      [
+        "montante"
+      ],
+      [
+        "quantia"
+      ],
+      [
+        "número"
+      ],
+      [
+        "data"
+      ],
+      [
+        "soma"
+      ],
+      [
+        "ano"
+      ]
+    ],
+    "money_type": [
+      [
+        "rendimento"
+      ],
+      [
+        "pagamento"
+      ],
+      [
+        "montante"
+      ],
+      [
+        "dinheiro"
+      ],
+      [
+        "subsídio"
+      ],
+      [
+        "quantia"
+      ],
+      [
+        "dedução"
+      ],
+      [
+        "salário"
+      ],
+      [
+        "imposto"
+      ],
+      [
+        "dólares"
+      ],
+      [
+        "prémio"
+      ],
+      [
+        "libras"
+      ],
+      [
+        "preço"
+      ],
+      [
+        "custo"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "soma"
+      ],
+      [
+        "taxa"
       ]
     ],
     "image": [
@@ -4647,6 +4808,85 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "o"
+      ]
+    ],
+    "value_kind": [
+      [
+        "porcentaje"
+      ],
+      [
+        "cantidad"
+      ],
+      [
+        "importe"
+      ],
+      [
+        "número"
+      ],
+      [
+        "fecha"
+      ],
+      [
+        "suma"
+      ],
+      [
+        "año"
+      ]
+    ],
+    "money_type": [
+      [
+        "deducción"
+      ],
+      [
+        "cantidad"
+      ],
+      [
+        "subsidio"
+      ],
+      [
+        "impuesto"
+      ],
+      [
+        "importe"
+      ],
+      [
+        "ingreso"
+      ],
+      [
+        "salario"
+      ],
+      [
+        "dólares"
+      ],
+      [
+        "dinero"
+      ],
+      [
+        "precio"
+      ],
+      [
+        "libras"
+      ],
+      [
+        "coste"
+      ],
+      [
+        "costo"
+      ],
+      [
+        "prima"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "suma"
+      ],
+      [
+        "tasa"
+      ],
+      [
+        "pago"
       ]
     ],
     "image": [
@@ -6592,6 +6832,76 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "à"
+      ]
+    ],
+    "value_kind": [
+      [
+        "pourcentage"
+      ],
+      [
+        "montant"
+      ],
+      [
+        "nombre"
+      ],
+      [
+        "somme"
+      ],
+      [
+        "année"
+      ],
+      [
+        "date"
+      ]
+    ],
+    "money_type": [
+      [
+        "allocation"
+      ],
+      [
+        "déduction"
+      ],
+      [
+        "paiement"
+      ],
+      [
+        "montant"
+      ],
+      [
+        "salaire"
+      ],
+      [
+        "dollars"
+      ],
+      [
+        "argent"
+      ],
+      [
+        "revenu"
+      ],
+      [
+        "livres"
+      ],
+      [
+        "somme"
+      ],
+      [
+        "frais"
+      ],
+      [
+        "impôt"
+      ],
+      [
+        "prime"
+      ],
+      [
+        "euros"
+      ],
+      [
+        "prix"
+      ],
+      [
+        "coût"
       ]
     ],
     "image": [
@@ -8545,6 +8855,76 @@ export const keywords: Record<string, KeywordTable> = {
         "è"
       ]
     ],
+    "value_kind": [
+      [
+        "percentuale"
+      ],
+      [
+        "importo"
+      ],
+      [
+        "numero"
+      ],
+      [
+        "somma"
+      ],
+      [
+        "data"
+      ],
+      [
+        "anno"
+      ]
+    ],
+    "money_type": [
+      [
+        "pagamento"
+      ],
+      [
+        "deduzione"
+      ],
+      [
+        "indennità"
+      ],
+      [
+        "sterline"
+      ],
+      [
+        "importo"
+      ],
+      [
+        "reddito"
+      ],
+      [
+        "salario"
+      ],
+      [
+        "imposta"
+      ],
+      [
+        "dollari"
+      ],
+      [
+        "denaro"
+      ],
+      [
+        "prezzo"
+      ],
+      [
+        "premio"
+      ],
+      [
+        "somma"
+      ],
+      [
+        "tassa"
+      ],
+      [
+        "costo"
+      ],
+      [
+        "euro"
+      ]
+    ],
     "image": [
       [
         "immagine"
@@ -9435,6 +9815,8 @@ export const keywordCategories: Record<string, string> = {
   "assuming_and": "answer",
   "article_narrow": "class",
   "connective_heuristic": "class",
+  "value_kind": "class",
+  "money_type": "class",
   "image": "fact_addition",
   "lps_when": "lps",
   "lps_then": "lps",
@@ -10415,7 +10797,9 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrar a consulta selecionada no painel de consultas como árvore radial, num novo separador: a consulta ao centro, depois as regras que a podem concluir e as suas condições, com os resultados dos testes dos cenários",
     "decision table": "tabela de decisão",
     "DECISION TABLE": "TABELA DE DECISÃO",
-    "not run (time limit)": "não executado (limite de tempo)"
+    "not run (time limit)": "não executado (limite de tempo)",
+    "Write anyway, with residues": "Escrever mesmo assim, com resíduos",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que não pode ser traduzida, e cada parte que usa uma, é acrescentada no fim como comentário, com a sua linha e a razão."
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -11293,7 +11677,9 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrar la consulta seleccionada en el panel de consultas como árbol radial, en una nueva pestaña: la consulta en el centro, luego las reglas que pueden concluirla y sus condiciones, con los resultados de las pruebas de los escenarios",
     "decision table": "tabla de decisión",
     "DECISION TABLE": "TABLA DE DECISIÓN",
-    "not run (time limit)": "no ejecutado (límite de tiempo)"
+    "not run (time limit)": "no ejecutado (límite de tiempo)",
+    "Write anyway, with residues": "Escribir de todos modos, con residuos",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se añade al final como comentario, con su línea y el motivo."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -12171,7 +12557,9 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Montrer la requête sélectionnée dans le panneau des requêtes en arbre radial, dans un nouvel onglet : la requête au centre, puis les règles qui peuvent la conclure et leurs conditions, avec les résultats des tests des scénarios",
     "decision table": "table de décision",
     "DECISION TABLE": "TABLE DE DÉCISION",
-    "not run (time limit)": "non exécuté (limite de temps)"
+    "not run (time limit)": "non exécuté (limite de temps)",
+    "Write anyway, with residues": "Écrire quand même, avec les résidus",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Écrire quand même écrit les parties qui peuvent être traduites. Chaque partie qui ne peut pas l'être, et chaque partie qui en utilise une, est ajoutée à la fin en commentaire, avec sa ligne et la raison."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -13049,7 +13437,9 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Mostrare l'interrogazione selezionata nel pannello delle interrogazioni come albero radiale, in una nuova scheda: l'interrogazione al centro, poi le regole che possono concluderla e le loro condizioni, con i risultati dei test degli scenari",
     "decision table": "tabella decisionale",
     "DECISION TABLE": "TABELLA DECISIONALE",
-    "not run (time limit)": "non eseguito (limite di tempo)"
+    "not run (time limit)": "non eseguito (limite di tempo)",
+    "Write anyway, with residues": "Scrivi comunque, con i residui",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si può tradurre, e ogni parte che ne usa una, è aggiunta alla fine come commento, con la sua riga e il motivo."
   }
 } as const;
 

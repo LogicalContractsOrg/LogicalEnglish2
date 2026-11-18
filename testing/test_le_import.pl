@@ -96,7 +96,13 @@ check_arrows(KB, _Options, Problems) :-
     findall(problem(at(S, E), "arrows have no form for this condition"),
             ( catch(clause(KB:is_ready(_), Body), _, fail),
               sub_term(X, Body), compound(X), X = le_at(G, S, E), \+ G = is_ready(_) ),
-            Problems).
+            Problems0),
+    %  and arrows know only `is ready`: a program that concludes `is done`
+    %  has a problem with that predicate as a whole
+    (   catch(clause(KB:is_done(_), _), _, fail)
+    ->  Problems = [problem(predicate(is_done/1), "arrows have no form for is done")|Problems0]
+    ;   Problems = Problems0
+    ).
 
 zip_of(Zip, Members) :-
     setup_call_cleanup(zip_open(Zip, write, Z, []),
@@ -285,6 +291,68 @@ test(constraints_are_problems_for_a_target_without_them) :-
     R.problems = [P],
     assertion(P.line == 9),
     assertion(integer(S)).
+
+%   Partial exports (le_import.pl, "PARTIAL EXPORTS"): asked for, a refused
+%   program is written without the clauses its problems are about, and
+%   without every clause that uses one of their predicates; each of those is
+%   a residue, a comment at the end with its line and the reason. The rule
+%   that needs nothing left out is written.
+test(partial_export_leaves_out_and_cascades) :-
+    Doc = "the target language is: prolog.\n\nthe templates are:\n    *a thing* is ready.\n    *a thing* is done.\n\nthe knowledge base t includes:\n\nb is ready if\n    a is ready.\n\nc is done if\n    b is ready\n    and 3 > 2.\n\nquery one is:\n    which thing is done.\n",
+    le_kbs:load_text(Doc, KB),
+    export_kb(arrows, KB, [text(Doc)], R0),
+    assertion(\+ get_dict(document, R0, _)),                  % not asked: refused
+    export_kb(arrows, KB, [text(Doc), partial(true)], R),
+    assertion(R.partial == true),
+    findall(L, ( member(X, R.residues), L = X.line ), Ls),
+    %  `c is done` (the predicate the problem is about), then the query that
+    %  asks for it; `b is ready if a is ready` uses nothing left out. (The
+    %  cascade is by predicate: a rule that concluded `is ready` from `is
+    %  done` would have taken every user of `is ready` with it.)
+    assertion(Ls == [12, 16]),
+    R.residues = [R1, R2],
+    assertion(R1.reason == "arrows have no form for is done"),
+    assertion(sub_string(R2.reason, _, _, _, "*a thing* is done")),
+    assertion(sub_string(R.document, 0, _, _, "a => b")),
+    assertion(\+ sub_string(R.document, _, _, _, "=> c")),
+    assertion(sub_string(R.document, _, _, _, "# Line 12: arrows have no form for is done")),
+    assertion(sub_string(R.document, _, _, _, "#     query one is: which thing is done.")),
+    R.notes = [Note|_],
+    assertion(sub_string(Note, _, _, _, "2 part(s)")),
+    %  the program export_kb/4 was given is unchanged (the partial export
+    %  worked on a copy of its own)
+    assertion(once(clause(KB:is_done(c), _))).
+
+%   Two problems about one clause (at the rule, and on its predicate) leave
+%   it out once.
+test(partial_export_two_problems_one_clause) :-
+    Doc = "the target language is: prolog.\n\nthe templates are:\n    *a thing* is ready.\n    *a thing* is done.\n\nthe knowledge base t includes:\n\nb is ready if\n    a is ready.\n\nc is done if\n    b is ready.\n",
+    le_kbs:load_text(Doc, KB),
+    sub_string(Doc, S, _, _, "c is done if"), E is S + 10,
+    le_import:partial_export(arrows, arrows, test_le_import:export_arrows,
+                             [problem(at(S, E), "x"), problem(predicate(is_done/1), "y")],
+                             [text(Doc), partial(true)], O),
+    O = ok(_, Text, _, _, Rs),
+    assertion(length(Rs, 1)),
+    assertion(sub_string(Text, 0, _, _, "a => b")).
+
+%   A problem with no place cannot be left out: a partial export of it is
+%   refused, and the reply says why.
+test(partial_export_needs_places) :-
+    Doc = "the target language is: prolog.\n\nthe templates are:\n    *a thing* is ready.\n\nthe knowledge base t includes:\n\nb is ready if\n    a is ready\n    and 3 > 2.\n",
+    le_kbs:load_text(Doc, KB),
+    export_kb(arrows, KB, [partial(true)], R),             % no text: no places
+    assertion(\+ get_dict(document, R, _)),
+    assertion(get_dict(partial_impossible, R, _)).
+
+%   A problem about a predicate as a whole is shown at its template.
+test(predicate_problem_shown_at_its_template) :-
+    Doc = "the target language is: prolog.\n\nthe templates are:\n    *a thing* is ready.\n\nthe knowledge base t includes:\n\nb is ready.\n",
+    le_kbs:load_text(Doc, KB),
+    le_import:resolve_problem_places(KB, [problem(predicate(is_ready/1), "too many places")], Ps),
+    export_refusal("X", Ps, [text(Doc)], R),
+    R.problems = [P],
+    assertion(P.line == 4).
 
 test(export_not_offered_when_it_does_not_apply) :-
     le_kbs:load_text("the target language is: prolog.\n\nthe templates are:\n    *a thing* is green.\n\nthe knowledge base u includes:\n\nb is green.\n", KB),

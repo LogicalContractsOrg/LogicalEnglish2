@@ -111,6 +111,35 @@
     a problem found only while translating. Either way the reply is the
     refusal, `error` plus `problems`, and no `document`.
 
+    Where a problem is matters twice: the refusal shows its line, and a
+    partial export (below) leaves out exactly the clauses it names. Where is
+    one of
+      - at(Start, End)   character offsets in the program's text (le_at/3,
+                         le_source_info/4, an IR item's source/3 option);
+      - line(N)          a line of the program's text;
+      - predicate(F/N)   every clause of F/N: a problem about a template
+                         (too many places for the target) or about a rule
+                         whose own position is unknown (one of an included
+                         resource). The refusal shows the template's line;
+      - none             nowhere: such a problem cannot be left out, and a
+                         partial export of the program is refused.
+    An exporter gives the most precise place it knows, and `none` only for a
+    problem that is about the program as a whole.
+
+    ## Provenance: where each part of the output came from
+
+    Every exporter writes, beside each element of its output that comes from
+    a rule, fact or constraint of the program, the line it came from: as a
+    comment in the target's syntax (`<!-- Logical English line 74 -->`,
+    `-- Logical English line 74`, `# Logical English line 74`), or with the
+    target's own provenance construct where it has one. The line comes from
+    the IR: le_writer:kb_to_ir/3 with the Options' text(Doc) adds
+    source(Line, Start, End) to the options of every rule, fact and
+    constraint (kb_to_ir/2 does not, so that nothing comparing IRs sees a
+    change); item_source_line/2 reads it. A comment carries the line and,
+    where the target's comments allow it, the start of the sentence; never
+    so much of it that the output becomes the program twice.
+
     Applies and the check are deliberately two things: Applies says the
     program is of the kind the exporter writes (a spending policy, an LE
     for LPS program), so the menus offer it; the check says whether this
@@ -120,7 +149,7 @@
 */
 
 :- module(le_import, [import_upload/4, import_formats/1, imported_dir/1,
-                      export_formats/2, export_kb/4, export_refusal/4,
+                      export_formats/2, export_kb/4, export_refusal/4, item_source_line/2,
                       kb_constraint_problems/3]).
 
 :- use_module(library(lists)).
@@ -129,6 +158,11 @@
 :- use_module(library(readutil)).
 :- use_module(library(zip)).
 :- use_module(library(base64)).
+:- use_module(library(option)).
+:- use_module(library(modules)).      % in_temporary_module/3: partial exports
+:- use_module(library(occurs)).       % sub_term/2
+:- use_module(library(yall)).
+:- use_module(library(pairs)).
 :- if(exists_source(library(json))).
 :- use_module(library(json)).
 :- else.
@@ -669,34 +703,35 @@ export_formats(KB, Formats) :-
 %   program's own words there, when known).
 export_kb(Id0, KB, Options, Reply) :-
     atom_string(Id, Id0),
-    (   exporter(Id, Title, _Ext, File, Export, _)
+    (   exporter(Id, Title, Ext, File, Export, _)
     ->  load_exporter(File),
-        (   export_check(Id, Check)
-        ->  catch(( call(Check, KB, Options, Problems0) -> true
-                  ; Problems0 = [problem(none, "the exporter's check failed")] ),
-                  E0, ( error_text(E0, M0), Problems0 = [problem(none, M0)] ))
-        ;   Problems0 = []
+        export_outcome(Id, KB, Export, Options, Outcome0),
+        (   Outcome0 = refused(Problems0),
+            option(partial(true), Options)
+        ->  partial_export(Id, Ext, Export, Problems0, Options, Outcome)
+        ;   Outcome = Outcome0
         ),
-        (   Problems0 \== []
-        ->  Outcome = refused(Problems0)
-        ;   Options1 = [checked(true)|Options],
-            catch(( call(Export, KB, Options1, R) ->
-                    ( R = exported(Name, Text, Notes, Links) -> Outcome = ok
-                    ; R = refused(Ps) -> Outcome = refused(Ps)
-                    ; Outcome = failed("the exporter failed") )
-                  ; Outcome = failed("the exporter failed") ),
-                  E, ( error_text(E, Msg0), Outcome = failed(Msg0) ))
-        ),
-        (   Outcome == ok
+        (   Outcome = ok(Name, Text, Notes, Links, Residues)
         ->  maplist(to_string, Notes, NoteStrs),
             findall(_{title: LT, url: LU},
                     ( member(link(LT0, LU0), Links), to_string(LT0, LT), to_string(LU0, LU) ),
                     LinkDicts),
             to_string(Text, TextS), to_string(Name, NameS),
-            Reply = _{document: TextS, fileName: NameS, exporter: Title,
-                      notes: NoteStrs, links: LinkDicts}
-        ;   Outcome = refused(Problems)
-        ->  export_refusal(Title, Problems, Options, Reply)
+            Reply0 = _{document: TextS, fileName: NameS, exporter: Title,
+                       notes: NoteStrs, links: LinkDicts},
+            (   Residues == []
+            ->  Reply = Reply0
+            ;   maplist(residue_dict, Residues, RDs),
+                Reply = Reply0.put(_{partial: true, residues: RDs})
+            )
+        ;   Outcome = refused(Problems1)
+        ->  resolve_problem_places(KB, Problems1, Problems),
+            export_refusal(Title, Problems, Options, Reply1),
+            (   option(partial(true), Options)
+            ->  le_i18n:le_msg(export_partial_impossible, [], PM),
+                Reply = Reply1.put(partial_impossible, PM)
+            ;   Reply = Reply1
+            )
         ;   Outcome = failed(Msg),
             to_string(Msg, MsgS),
             Reply = _{error: MsgS}
@@ -704,6 +739,371 @@ export_kb(Id0, KB, Options, Reply) :-
     ;   le_i18n:le_msg(export_no_exporter, [id-Id], M),
         Reply = _{error: M}
     ).
+
+%   The check, then the export: ok(Name, Text, Notes, Links, []),
+%   refused(Problems) or failed(Message).
+export_outcome(Id, KB, Export, Options, Outcome) :-
+    (   export_check(Id, Check)
+    ->  catch(( call(Check, KB, Options, Problems0) -> true
+              ; Problems0 = [problem(none, "the exporter's check failed")] ),
+              E0, ( error_text(E0, M0), Problems0 = [problem(none, M0)] ))
+    ;   Problems0 = []
+    ),
+    (   Problems0 \== []
+    ->  Outcome = refused(Problems0)
+    ;   Options1 = [checked(true)|Options],
+        catch(( call(Export, KB, Options1, R) ->
+                ( R = exported(Name, Text, Notes, Links) -> Outcome = ok(Name, Text, Notes, Links, [])
+                ; R = refused(Ps) -> Outcome = refused(Ps)
+                ; Outcome = failed("the exporter failed") )
+              ; Outcome = failed("the exporter failed") ),
+              E, ( error_text(E, Msg0), Outcome = failed(Msg0) ))
+    ).
+
+		 /*******************************
+		 *        PARTIAL EXPORTS       *
+		 *******************************/
+
+/*  A refused program can still be written in part, when the reader asks for
+    it (partial(true) in Options: the "Write anyway, with residues" button of
+    the refusal). Nothing about the refusal changes; this is a second answer
+    the reader chooses, knowing what it lacks.
+
+      1. The program is loaded again, into a temporary module of its own (the
+         one export_kb/4 was given is shared: le_kbs:load_text/3 caches it).
+      2. Every problem is placed on the clauses it is about: at(Start, End)
+         and line(N) on the clauses whose text they overlap, predicate(F/N)
+         on every clause of F/N. A problem with no place (`none`) cannot be
+         left out, and the export stays refused.
+      3. Those clauses are removed, and with them every clause that uses a
+         predicate one of them defined, transitively: a rule left in the
+         output that calls a predicate which lost a clause would mean less
+         than it says. Queries that use one are removed too.
+      4. The exporter's check runs again on what is left, and 2–3 repeat
+         until it passes (or nothing more can be removed: then refused).
+      5. The exporter writes what is left, with partial(Residues) in its
+         Options, and every residue is appended to its text as a comment in
+         the target's syntax (export_comment_style/2): its line, why it was
+         left out, and its Logical English text.
+
+    The reply is the export's, with `partial: true` and `residues` ({line,
+    reason, text}). */
+
+%!  export_comment_style(?Id, ?Style) is nondet.
+%
+%   How the exporter Id's target writes a comment: line(Prefix),
+%   block(Open, Close), or prose (a literate format: the text outside the
+%   code is free text, as in Catala). Without a clause, the style follows the
+%   extension of the file the exporter writes (comment_style_of_extension/2).
+:- multifile export_comment_style/2.
+
+comment_style(Id, Ext, Style) :-
+    (   export_comment_style(Id, S) -> Style = S
+    ;   comment_style_of_extension(Ext, S) -> Style = S
+    ;   Style = line("#")
+    ).
+
+comment_style_of_extension(Ext, block("<!--", "-->")) :- memberchk(Ext, [xml, lrml, dmn, bpmn, rdf, owl, html]).
+comment_style_of_extension(Ext, line("--")) :- memberchk(Ext, [daml, hs, sql, lean, elm]).
+comment_style_of_extension(Ext, line("#")) :- memberchk(Ext, [py, yaml, yml, toml, sh, rb, r, policy]).
+comment_style_of_extension(Ext, line("//")) :- memberchk(Ext, [sol, js, ts, java, c, cpp, rosetta, go, rs, scala, kt, minsc, drl]).
+comment_style_of_extension(Ext, line("%")) :- memberchk(Ext, [pl, le, lps, tex]).
+comment_style_of_extension(Ext, prose) :- memberchk(Ext, [catala_en, catala_fr, md]).
+comment_style_of_extension(json, none).
+
+partial_export(Id, Ext, Export, Problems0, Options, Outcome) :-
+    (   memberchk(text(Doc0), Options), ( string(Doc0) ; atom(Doc0) )
+    ->  to_string(Doc0, Doc),
+        option(base(Base), Options, (-)),
+        catch(in_temporary_module(M, true,
+                  partial_in(M, Doc, Base, Id, Ext, Export, Problems0, Options, Outcome1)),
+              E, ( print_message(warning, E), Outcome1 = refused(Problems0) ))
+    ->  (   Outcome1 = refused(Ps)          % a later round's problems, with the first's
+        ->  append(Problems0, Ps, Ps1), list_to_set(Ps1, Ps2), Outcome = refused(Ps2)
+        ;   Outcome = Outcome1
+        )
+    ;   Outcome = refused(Problems0)
+    ).
+
+partial_in(M, Doc, Base, Id, Ext, Export, Problems0, Options, Outcome) :-
+    le_kbs:load_text(Doc, Base, M),
+    partial_loop(M, Doc, Id, Export, Problems0, Options, [], 0, Outcome0),
+    (   Outcome0 = ok(Name, Text0, Notes, Links, Residues), Residues \== []
+    ->  comment_style(Id, Ext, Style),
+        residue_comments(Style, Residues, Comments),
+        (   Style == none
+        ->  Text = Text0
+        ;   string_concat(Text0, Comments, Text)
+        ),
+        length(Residues, NR),
+        le_i18n:le_msg(export_partial_note, [n-NR], Note),
+        Outcome = ok(Name, Text, [Note|Notes], Links, Residues)
+    ;   Outcome = Outcome0
+    ).
+
+partial_loop(M, Doc, Id, Export, Problems, Options, Done, Round, Outcome) :-
+    problems_clauses(M, Doc, Problems, Placed, Unplaced),
+    (   Unplaced \== []
+    ->  Outcome = refused(Problems)
+    ;   Round > 20
+    ->  Outcome = refused(Problems)
+    ;   cascade(M, Placed, Removed),
+        Removed \== []
+    ->  maplist(removed_residue(M, Doc), Removed, New),
+        maplist(erase_removed, Removed),
+        append(Done, New, Done1),
+        Options1 = [partial(Done1)|Options],
+        export_outcome(Id, M, Export, Options1, O1),
+        (   O1 = ok(Name, Text, Notes, Links, _)
+        ->  sort_residues(Done1, Residues),
+            Outcome = ok(Name, Text, Notes, Links, Residues)
+        ;   O1 = refused(Ps)
+        ->  Round1 is Round + 1,
+            partial_loop(M, Doc, Id, Export, Ps, Options, Done1, Round1, Outcome)
+        ;   Outcome = O1
+        )
+    ;   Outcome = refused(Problems)
+    ).
+
+%   The program's own clauses: Ref-c(Head, Body, Start, End).
+own_clause(M, Ref, c(H, B, S, E)) :-
+    current_predicate(M:F/N),
+    (   \+ le_kbs:is_system_predicate(F/N)
+    ;   memberchk(F/N, [le_constraint/1, query_info/3, le_lps_item/3])
+    ),
+    functor(H, F, N),
+    le_kbs:kb_own_predicate(M, H),
+    clause(M:H, B, Ref),
+    catch(M:le_source_info(Ref, S, E, _), _, fail),
+    integer(S),                     % an included resource's clauses too (S >= 10000000)
+    \+ H = le_lps_item(setting, _, _).
+
+%   Each problem's clauses: Placed is a list of Ref-Reason, Unplaced the
+%   problems that name no place.
+problems_clauses(M, Doc, Problems, Placed, Unplaced) :-
+    foldl(problem_clauses(M, Doc), Problems, []-[], Placed0-Unplaced),
+    keep_first(Placed0, Placed).    % one entry per clause, however many problems name it
+
+problem_clauses(M, Doc, P, Pl0-Un0, Pl-Un) :-
+    (   P = problem(Where, Msg0) -> true ; Where = none, Msg0 = P ),
+    to_string(Msg0, Msg),
+    findall(Ref-because(Msg), where_clause(M, Doc, Where, Ref), Refs),
+    (   Refs == []
+    ->  Pl = Pl0, Un = [P|Un0]
+    ;   append(Pl0, Refs, Pl), Un = Un0
+    ).
+
+where_clause(M, _, at(S, E), Ref) :-
+    integer(S), ( integer(E) -> E1 = E ; E1 = S ),
+    own_clause(M, Ref, c(_, _, CS, CE)),
+    CS =< E1, S =< CE.
+where_clause(M, Doc, line(L), Ref) :-
+    integer(L),
+    line_offsets(Doc, L, S, E),
+    where_clause(M, Doc, at(S, E), Ref).
+where_clause(M, _, predicate(F/N), Ref) :-
+    own_clause(M, Ref, _),
+    clause_defines(Ref, F/N).       % its clauses, or the LPS sentences that change it
+
+line_offsets(Doc, L, S, E) :-
+    split_string(Doc, "\n", "", Lines),
+    length(Before, L0), L0 is L - 1,
+    append(Before, [Line|_], Lines), !,
+    foldl([X, A0, A]>>(string_length(X, XL), A is A0 + XL + 1), Before, 0, S),
+    string_length(Line, LL), E is S + LL.
+
+%   The placed clauses and every clause that depends on one, transitively:
+%   Ref-Reason, Reason because(Message) or uses(F/N).
+cascade(M, Placed, Removed) :-
+    findall(F/N, ( member(Ref-_, Placed), clause_defines(Ref, F/N) ), PIs0),
+    sort(PIs0, PIs),
+    cascade_(M, PIs, Placed, Removed).
+
+cascade_(M, PIs, Acc, Removed) :-
+    findall(Ref-uses(F/N),
+            ( own_clause(M, Ref, c(H, B, _, _)),
+              \+ memberchk(Ref-_, Acc),
+              body_of(H, B, Body),
+              member(F/N, PIs),
+              uses_predicate(Body, F/N) ),
+            New0),
+    keep_first(New0, New),
+    (   New == []
+    ->  Removed = Acc
+    ;   append(Acc, New, Acc1),
+        findall(F/N, ( member(Ref-_, New), clause_defines(Ref, F/N) ), More0),
+        append(PIs, More0, PIs1), sort(PIs1, PIs2),
+        cascade_(M, PIs2, Acc1, Removed)
+    ).
+
+keep_first(Pairs, Kept) :-
+    foldl([R-W, K0, K]>>( memberchk(R-_, K0) -> K = K0 ; K = [R-W|K0] ), Pairs, [], Rev),
+    reverse(Rev, Kept).
+
+%   What leaving a clause out takes away: the predicates whose meaning it
+%   changes. A rule or fact: its own. A query or a constraint: none (nothing
+%   calls them). An LPS sentence of a Logical English for LPS program
+%   (le_lps_item/3, read by le_lps.pl): a head rule its head; a causal law
+%   (`when`) the fluents it changes; `initially` the fluents it sets; a
+%   reactive rule, a constraint or a goal none — what they call keeps its
+%   meaning in the target, it is only not acted on, or not refused.
+clause_defines(Ref, PI) :-
+    clause(H0, _, Ref), strip_module(H0, _, H),
+    (   H = le_lps_item(Kind, Payload, _)
+    ->  lps_item_defines(Kind, Payload, PI)
+    ;   functor(H, F, N),
+        \+ memberchk(F/N, [le_constraint/1, query_info/3]),
+        PI = F/N
+    ).
+
+lps_item_defines(head_rule, h(Head, _), PI) :- !, goal_pis(Head, PI).
+lps_item_defines(when, r(_, Effects), PI) :- !, goal_pis(Effects, PI).
+lps_item_defines(initially, Facts, PI) :- !, goal_pis(Facts, PI).
+
+%   The predicates a goal of an LPS sentence names, through its wrappers.
+goal_pis(G, _) :- var(G), !, fail.
+goal_pis(le_at(G, _, _), PI) :- !, goal_pis(G, PI).
+goal_pis(lps_at(G, _), PI) :- !, goal_pis(G, PI).
+goal_pis(not(G), PI) :- !, goal_pis(G, PI).
+goal_pis(lps_becomes(F, _, _), PI) :- !, goal_pis(F, PI).
+goal_pis(and(A, B), PI) :- !, ( goal_pis(A, PI) ; goal_pis(B, PI) ).
+goal_pis((A, B), PI) :- !, ( goal_pis(A, PI) ; goal_pis(B, PI) ).
+goal_pis([X|Xs], PI) :- !, ( goal_pis(X, PI) ; goal_pis(Xs, PI) ).
+goal_pis(G, F/N) :- callable(G), G \== [], G \== true, functor(G, F, N).
+
+clause_head_pi(Ref, F/N) :-
+    clause_property(Ref, predicate(_:F/N)), !.
+clause_head_pi(Ref, F/N) :-
+    clause(H, _, Ref), strip_module(H, _, H1), functor(H1, F, N).
+
+%   What a clause's conditions are: a rule's body; a query's goal; a
+%   constraint's body.
+body_of(query_info(_, G, _), true, G) :- !.
+body_of(le_lps_item(_, Payload, _), true, Payload) :- !.
+body_of(_, B, B).
+
+uses_predicate(Body, F/N) :-
+    sub_term(T, Body), callable(T), functor(T, F, N), !.
+
+%   erase/1 fails on a clause already erased: never let that fail the export.
+erase_removed(Ref-_) :- ( catch(erase(Ref), _, true) -> true ; true ).
+
+%   A clause about to be removed, as a residue: its line and text, read
+%   before the clause is erased (its source info is keyed by its reference).
+removed_residue(M, Doc, Ref-Why, residue(Line, Reason, Text)) :-
+    (   catch(M:le_source_info(Ref, S, E, _), _, fail),
+        string_length(Doc, Len), integer(S), S < Len
+    ->  where_line(at(S, E), Doc, Line, Text)
+    ;   %  a clause of an included resource: no line of this document
+        Line = null,
+        (   catch(clause(H, B, Ref), _, fail)
+        ->  strip_module(H, _, H1),
+            ( B == true -> format(string(Text), "~q", [H1]) ; format(string(Text), "~q :- ~q", [H1, B]) )
+        ;   Text = null
+        )
+    ),
+    why_text(M, Why, Reason).
+
+why_text(_, because(Msg), Msg) :- !.
+why_text(M, uses(F/N), Msg) :- !,
+    (   catch(le_writer:kb_templates(M, Ts), _, fail),
+        member(template(F, T, _), Ts)
+    ->  format(string(P), "\"~w\"", [T])
+    ;   format(string(P), "~w/~w", [F, N])
+    ),
+    le_i18n:le_msg(export_residue_uses, [predicate-P], Msg).
+
+sort_residues(Rs0, Rs) :-
+    list_to_set(Rs0, Rs1),
+    predsort([O, residue(LA, RA, TA), residue(LB, RB, TB)]>>(
+                 line_key(LA, KA), line_key(LB, KB),
+                 compare(O0, KA-TA-RA, KB-TB-RB), ( O0 == (=) -> O = (<) ; O = O0 )),
+             Rs1, Rs).
+
+residue_dict(residue(L, R, T), _{line: L, reason: R, text: T}).
+
+%   The residues as one comment block, in the target's syntax.
+residue_comments(Style, Residues, Text) :-
+    length(Residues, N),
+    le_i18n:le_msg(export_residues_heading, [n-N], Heading),
+    findall(Ls, ( member(residue(L, R, T), Residues), residue_lines(L, R, T, Ls) ), Lss),
+    append(Lss, Body),
+    comment_block(Style, [Heading, ""|Body], Text).
+
+residue_lines(L, R, T, Lines) :-
+    (   L == null
+    ->  le_i18n:le_msg(export_residue_included, [reason-R], Head)
+    ;   format(string(LS), "~w", [L]),
+        le_i18n:le_msg(export_residue_line, [line-LS, reason-R], Head)
+    ),
+    ( T == null -> TL = [] ; wrap_text(T, 76, TL0), maplist([X, Y]>>string_concat("    ", X, Y), TL0, TL) ),
+    append([[Head], TL, [""]], Lines).
+
+comment_block(line(P), Lines, Text) :-
+    maplist(prefixed_line(P), Lines, Os),
+    atomic_list_concat(["\n"|Os], T), atom_string(T, Text).
+comment_block(block(Open, Close), Lines, Text) :-
+    maplist(block_line(Close), Lines, Os),
+    atomic_list_concat(["\n", Open, "\n"|Os], T0),
+    atomic_list_concat([T0, Close, "\n"], T), atom_string(T, Text).
+comment_block(prose, Lines, Text) :-
+    maplist([L, O]>>format(string(O), "~w~n", [L]), Lines, Os),
+    atomic_list_concat(["\n"|Os], T), atom_string(T, Text).
+comment_block(none, _, "").
+
+prefixed_line(P, L, O) :-
+    (   L == "" -> format(string(O), "~w~n", [P]) ; format(string(O), "~w ~w~n", [P, L]) ).
+
+block_line(Close, L, O) :-
+    safe_in_block(Close, L, L1),
+    format(string(O), "  ~w~n", [L1]).
+
+%   A comment's closing mark (`-->`) and, for XML, `--` may not occur in it.
+safe_in_block("-->", L, L1) :- !,
+    split_string(L, "", "", [L0]),
+    atomic_list_concat(Parts, '--', L0), atomic_list_concat(Parts, '- -', A), atom_string(A, L1).
+safe_in_block(Close, L, L1) :-
+    atomic_list_concat(Parts, Close, L), atomic_list_concat(Parts, ' ', A), atom_string(A, L1).
+
+wrap_text(T, W, Lines) :-
+    split_string(T, " \n\t", " \n\t", Ws0), exclude(==(""), Ws0, Ws),
+    wrap_words(Ws, W, "", Lines).
+wrap_words([], _, "", []) :- !.
+wrap_words([], _, Cur, [Cur]).
+wrap_words([X|Xs], W, "", Ls) :- !, wrap_words(Xs, W, X, Ls).
+wrap_words([X|Xs], W, Cur, Ls) :-
+    string_length(Cur, CL), string_length(X, XL),
+    (   CL + 1 + XL =< W
+    ->  string_concat(Cur, " ", C1), string_concat(C1, X, C2), wrap_words(Xs, W, C2, Ls)
+    ;   Ls = [Cur|Ls1], wrap_words(Xs, W, X, Ls1)
+    ).
+
+%!  resolve_problem_places(+KB, +Problems0, -Problems) is det.
+%
+%   predicate(F/N) shown at the template that declares F/N (or its first
+%   clause), so that the refusal still names a line for it.
+resolve_problem_places(KB, Ps0, Ps) :-
+    maplist(resolve_place(KB), Ps0, Ps).
+
+resolve_place(KB, problem(predicate(F/N), Msg), problem(Where, Msg)) :- !,
+    (   template_span(KB, F/N, S, E) -> Where = at(S, E)
+    ;   own_clause(KB, _, c(H, _, S, E)), functor(H, F, N) -> Where = at(S, E)
+    ;   Where = none
+    ).
+resolve_place(_, P, P).
+
+template_span(KB, F/N, S, E) :-
+    current_predicate(KB:le_dict/1),
+    clause(KB:le_dict(dict([F|Args], _, _, _, _, _, _)), true, Ref),
+    length(Args, N),
+    catch(KB:le_source_info(Ref, S, E, _), _, fail), !.
+
+%!  item_source_line(+ItemOptions, -Line) is semidet.
+%
+%   The program line an IR item (rule, fact, constraint) came from, when the
+%   IR was made with le_writer:kb_to_ir/3 and the program's text.
+item_source_line(Opts, Line) :-
+    is_list(Opts), memberchk(source(Line, _, _), Opts), integer(Line).
 
 %!  export_refusal(+Target, +Problems, +Options, -Reply:dict) is det.
 %

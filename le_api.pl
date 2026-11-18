@@ -676,13 +676,16 @@ handle_export_formats(Dict, _{formats: Fs}) :-
 %!  handle_export_foreign(+Dict, -Response) is det.
 %
 %   The program `le` written by the exporter `exporter`: {document,
-%   fileName, exporter, notes, links} or {error}.
+%   fileName, exporter, notes, links} or {error}. With `partial: true`, a
+%   program the exporter refuses is written in part, with what could not be
+%   translated as residues (le_import.pl, "Partial exports").
 handle_export_foreign(Dict, Response) :-
     get_dict(le, Dict, Doc),
     get_dict(exporter, Dict, Id),
     load_base_of(Dict, Base),
+    ( get_dict(partial, Dict, true) -> P = [partial(true)] ; P = [] ),
     (   catch(le_kbs:load_text(Doc, Base, KB), E, (print_message(error, E), fail))
-    ->  catch(le_import:export_kb(Id, KB, [text(Doc), base(Base)], Response), E2,
+    ->  catch(le_import:export_kb(Id, KB, [text(Doc), base(Base)|P], Response), E2,
               ( print_message(error, E2), term_string(E2, ES), Response = _{error: ES} ))
     ;   Response = _{error: "The program could not be loaded"}
     ).

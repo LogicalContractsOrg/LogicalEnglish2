@@ -81,6 +81,7 @@
     template_text_dict/2,        % +Text, -dict(FA, NTs, WV)
     function_shaped/1,           % +Text          (can it be a `the functions are:` line?)
     kb_to_ir/2,                  % +KB, -IR
+    kb_to_ir/3,                  % +KB, +Options, -IR
     le_write_kb/2,               % +KB, -Text
     prolog_to_ir/3,              % +Terms, +Options, -IR
     prolog_file_to_ir/3,         % +File, +Options, -IR
@@ -2982,7 +2983,29 @@ le_write_kb(KB, Text) :-
 %   The Migration IR of a loaded knowledge base: its own templates, rules,
 %   facts, tables, scenarios and queries (not those of included resources;
 %   not its views).
-kb_to_ir(KB, program(Header, Items)) :-
+kb_to_ir(KB, IR) :-
+    kb_to_ir(KB, [], IR).
+
+%!  kb_to_ir(+KB, +Options, -IR) is det.
+%
+%   As kb_to_ir/2. With text(Doc) in Options (the program's own text, as an
+%   exporter's Options carry it) every rule, fact and constraint also has
+%   source(Line, Start, End) among its options: the line of Doc it starts on
+%   and its character offsets, for an exporter that writes where each part
+%   of its output came from (le_import.pl, "Provenance"). Without it the IR
+%   is exactly kb_to_ir/2's, so that nothing that compares IRs sees a change.
+:- thread_local ir_source_text/1.
+
+kb_to_ir(KB, Options, IR) :-
+    (   memberchk(text(Doc0), Options), ( string(Doc0) ; atom(Doc0) )
+    ->  atom_string(Doc0, Doc),
+        setup_call_cleanup(asserta(ir_source_text(Doc), Ref),
+                           kb_to_ir_(KB, IR),
+                           erase(Ref))
+    ;   kb_to_ir_(KB, IR)
+    ).
+
+kb_to_ir_(KB, program(Header, Items)) :-
     %  the program's own name, not the name of a library it includes
     (   catch(le_kbs:program_kb_name(KB, Name0), _, fail) -> Name = Name0
     ;   catch(KB:le_kb(Name0), _, fail) -> Name = Name0
@@ -3151,12 +3174,37 @@ kb_clauses(KB, Items) :-
               le_kbs:kb_own_predicate(KB, H),
               clause(KB:H, B, Ref),
               \+ B = le_table(_, _),
-              catch(KB:le_source_info(Ref, Start, _, ID), _, fail),
+              catch(KB:le_source_info(Ref, Start, End, ID), _, fail),
               own_range(Start),
-              clause_item(KB, H, B, ID, Start, Item) ),
+              clause_item(KB, H, B, ID, Start, Item0),
+              with_source(Item0, Start, End, Item) ),
             Pairs0),
     keysort(Pairs0, Pairs),
     sections_in(KB, Pairs, Items).
+
+%   source(Line, Start, End) added to an item's options, when kb_to_ir/3 was
+%   given the program's text.
+with_source(Item0, Start, End, Item) :-
+    (   ir_source_text(Doc), integer(Start)
+    ->  offset_line(Doc, Start, Line),
+        item_add_option(Item0, source(Line, Start, End), Item)
+    ;   Item = Item0
+    ).
+
+item_add_option(rule(H, B, Os), O, rule(H, B, [O|Os])) :- !.
+item_add_option(fact(H, Os), O, fact(H, [O|Os])) :- !.
+item_add_option(constraint(B, Os), O, constraint(B, [O|Os])) :- !.
+item_add_option(Item, _, Item).
+
+%!  offset_line(+Doc, +Offset, -Line) is det.
+%
+%   The 1-based line of Doc that character Offset is on.
+offset_line(Doc, Offset, Line) :-
+    string_length(Doc, Len),
+    O is min(Offset, Len),
+    sub_string(Doc, 0, O, _, Before),
+    split_string(Before, "\n", "", Parts),
+    length(Parts, Line).
 
 clause_item(_, le_constraint(_), B, _, _, constraint(B, [])) :- !.
 clause_item(KB, H, true, _, Start, fact(H, Opts)) :- !,

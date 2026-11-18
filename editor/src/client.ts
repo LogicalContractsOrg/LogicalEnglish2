@@ -1932,7 +1932,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
     // export_refusal/4): nothing was written, because the program uses
     // something the target cannot say. Each problem is listed with its
     // line, which jumps to it; the program's own words there are quoted.
-    const showRefusal = (data: any) => {
+    const showRefusal = (data: any, retry?: () => void) => {
         const { overlay, box } = overlayBox('export-refused', `${t('Not translated to')} ${data.exporter}`);
         const p = document.createElement('p');
         p.textContent = data.error;
@@ -1968,12 +1968,26 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             list.appendChild(li);
         }
         box.appendChild(list);
+        //  A refused program can still be written in part (le_import.pl,
+        //  "Partial exports"): what can be translated, with every part that
+        //  cannot — and every part that uses one — as a comment at the end.
+        const note = document.createElement('p');
+        note.style.cssText = 'opacity:.75;font-size:12px';
+        note.textContent = data.partial_impossible
+            || t('Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.');
+        box.appendChild(note);
+        if (retry && !data.partial_impossible) {
+            const b = document.createElement('button');
+            b.textContent = t('Write anyway, with residues');
+            b.onclick = () => { overlay.remove(); retry(); };
+            box.appendChild(b);
+        }
     };
-    const runExport = async (doc: any, id: string) => {
+    const runExport = async (doc: any, id: string, partial = false) => {
         document.body.style.cursor = 'progress';
         try {
-            const data = await leRequest('exportForeign', doc, { exporter: id });
-            if (Array.isArray(data.problems)) { showRefusal(data); return; }
+            const data = await leRequest('exportForeign', doc, partial ? { exporter: id, partial: true } : { exporter: id });
+            if (Array.isArray(data.problems)) { showRefusal(data, partial ? undefined : () => runExport(doc, id, true)); return; }
             if (data.error || typeof data.document !== 'string') { alert(`${t('Could not export')}: ${data.error || t('no answer from the server')}`); return; }
             showExported(data);
         } catch (err: any) {

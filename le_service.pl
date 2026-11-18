@@ -222,10 +222,14 @@ le_export_formats(LEText, Options, Formats) :-
 %
 %   The program written by the exporter Exporter: le_import:export_kb/4's
 %   reply (`document`, `fileName`, `exporter`, `notes`, `links`, or `error`).
+%   Options: base(Dir); partial(true) writes a refused program in part, with
+%   what could not be translated as residues (le_import.pl, "Partial
+%   exports"): the reply then has `partial` and `residues`.
 le_export(LEText, Id, Options, Reply) :-
     option(base(Base), Options, (-)),
     (   catch(le_kbs:load_text(LEText, Base, KB), E, ( print_message(error, E), fail ))
-    ->  le_import:export_kb(Id, KB, [text(LEText), base(Base)], Reply)
+    ->  ( option(partial(true), Options) -> P = [partial(true)] ; P = [] ),
+        le_import:export_kb(Id, KB, [text(LEText), base(Base)|P], Reply)
     ;   Reply = _{error: "The program could not be loaded"}
     ).
 
