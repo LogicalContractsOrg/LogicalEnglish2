@@ -3817,7 +3817,7 @@ runTestsInDir(Dir, Suite, Skip0, Results) :-
     sort(LEFiles1, LEFiles2),
     findall(SF, ( member(LF, LEFiles2), included_scenario_file(LF, SF) ), Named),
     append(Skip0, Named, Skip1), sort(Skip1, Skip),
-    exclude([LF]>>( absolute_file_name(LF, Abs), memberchk(Abs, Skip) ), LEFiles2, LEFiles),
+    exclude({Skip}/[LF]>>( absolute_file_name(LF, Abs), memberchk(Abs, Skip) ), LEFiles2, LEFiles),
     findall(SubResults, (
         member(F, Files),
         \+ sub_atom(F, 0, 1, _, '.'),
