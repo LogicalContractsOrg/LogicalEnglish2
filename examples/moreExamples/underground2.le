@@ -1,0 +1,62 @@
+the target language is: prolog.
+
+the templates are:
+*a passenger* presses the alarm signal button.
+*a passenger* alerts the driver to an emergency.
+the train is in *a station*.
+the train arrives at *a station*.
+the driver stops the train in *a station*.
+the next station is *a location*.
+there is a fire.
+ there is a 50 pound penalty for *a passenger*.
+there is an emergency.
+
+the knowledge base underground includes:
+
+a passenger alerts the driver to an emergency 
+    if the passenger presses the alarm signal button.
+
+the driver stops the train in a station
+    if a passenger alerts the driver to an emergency
+    and the train is in the station.
+
+the driver stops the train in a station
+    if a passenger alerts the driver to an emergency
+    and it is not the case that
+        the train is in an other station
+and the next station is the station
+and the train arrives at the station.
+
+there is a 50 pound penalty for a passenger
+    if the passenger presses the alarm signal button 
+    and it is not the case that 
+	there is an emergency.
+
+there is an emergency
+	if there is a fire.
+
+
+scenario alice fire in station is:
+
+the train is in piccadilly circus.
+    there is a fire.
+ alice presses the alarm signal button.
+    stop in station expects answers ["the driver stops the train in piccadilly circus"].
+
+scenario alice fire between stations is:
+   the next station is piccadilly circus.
+    there is a fire.
+ alice presses the alarm signal button.
+  the train arrives at piccadilly circus.
+    stop in station expects answers ["the driver stops the train in piccadilly circus"].
+
+scenario bob has a panic attack between stations is:
+   the next station is piccadilly circus.
+    bob presses the alarm signal button.
+    penalty expects answers ["there is a 50 pound penalty for bob"].
+
+query stop in station is:
+    the driver stops the train in which location.
+
+query penalty is:
+    there is a 50 pound penalty for which passenger.
