@@ -384,7 +384,13 @@ build_body(anthropic, APIModel, Messages, Options, Body) :- !,
     extract_system(Messages, SysContent, UserMessages),
     Base = _{model:APIModel, max_tokens:MaxTok, messages:UserMessages},
     ( SysContent \= '' -> Body0 = Base.put(system, SysContent); Body0 = Base),
-    option_pairs(Options, [max_tokens], OptionPairs),
+    % The Claude 5 models answer HTTP 400 "`temperature` is deprecated for
+    % this model" to any temperature, even 0 (November 2026).
+    (   anthropic_fixed_temperature(APIModel)
+    ->  Skip = [max_tokens, temperature]
+    ;   Skip = [max_tokens]
+    ),
+    option_pairs(Options, Skip, OptionPairs),
     dict_pairs(Extra, _, OptionPairs),
     Body = Body0.put(Extra).
 
@@ -413,6 +419,11 @@ build_body(_Provider, APIModel, Messages, Options, Body) :-
     Body = Body0.put(Extra).
 
 is_temperature_option(temperature(_)).
+
+anthropic_fixed_temperature(Model) :-
+    atom_string(M, Model),
+    member(Prefix, ['claude-opus-5', 'claude-sonnet-5', 'claude-haiku-5', 'claude-fable']),
+    sub_atom(M, 0, _, _, Prefix), !.
 
 % Pull the system message out of the list for Anthropic
 extract_system(Messages, System, Rest) :-
