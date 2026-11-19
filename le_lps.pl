@@ -165,6 +165,19 @@ template_to_number(Suffix, Tokens, Templates, VMIn) :-
 	integer(N),
 	\+ \+ ( le_grammar:parse_literal(Tokens, Templates, VMIn, _, Lit, _, true),
 	        \+ functor(Lit, le_is, 2) ).
+%   The same for a time written as a bare name (`from T1 to T2`): when the
+%   rule has already named places A and B, `the train goes from A to B` is an
+%   instance of its template and keeps `from A to B`. The template must use
+%   the name itself: a template that ends in a slot takes any words, and
+%   `the train departs from a place A from T1 to T2` would otherwise keep its
+%   time as part of a place.
+template_to_number(_Suffix, Tokens, Templates, VMIn) :-
+	last(Tokens, word(W, _)),
+	le_grammar:is_id(W),
+	le_grammar:member_var_name(W, V, VMIn),
+	\+ \+ ( le_grammar:parse_literal(Tokens, Templates, VMIn, _, Lit, _, true),
+	        \+ functor(Lit, le_is, 2),
+	        sub_term(S, Lit), S == V ).
 
 inner_ctx(lps_from_to(_, A, B), _, from_to(A, B)) :- !.
 inner_ctx(lps_from(_, T), _, from_to(T, _)) :- !.
@@ -327,8 +340,15 @@ match_words([W|Ws], [word(W0, _)|Ts], Rest) :- W0 == W, match_words(Ws, Ts, Rest
 
 %!  time_term(+Tokens, +VMIn, -VMOut, -Term) is semidet.
 %
-%   A time: an integer, or a variable phrase whose head noun is `time`.
+%   A time: an integer, or a variable phrase whose head noun is `time`, or
+%   the bare name of a variable the sentence has already introduced:
+%   `from a time T1 to a time T2 if … from T1 to T2`. The bare name must be
+%   known already, so that `from A to B` naming two new places is not taken
+%   for a time; one that names known places is kept by template_to_number/4.
 time_term([number(N, _)], VM, VM, N) :- !.
+time_term([word(W, _)], VM, VM, Var) :-
+	le_grammar:is_id(W),
+	le_grammar:member_var_name(W, Var, VM), !.
 time_term(Tokens, VMIn, VMOut, Var) :-
 	Tokens \== [],
 	maplist(word_of, Tokens, Words),

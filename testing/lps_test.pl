@@ -92,7 +92,59 @@ main :-
 	foldl(check, Files, 0-0, Pass-Fail),
 	Total is Pass + Fail,
 	format('~nM8c: ~w of ~w programs match their expectation~n', [Pass, Total]),
-	( Fail =:= 0 -> true ; halt(1) ).
+	foldl(check_twin, [named_times, named_places], 0-0, TPass-TFail),
+	TTotal is TPass + TFail,
+	format('M8c: ~w of ~w pairs of equivalent wordings translate alike~n', [TPass, TTotal]),
+	( Fail =:= 0, TFail =:= 0 -> true ; halt(1) ).
+
+		 /*******************************
+		 *	 equivalent wordings	*
+		 *******************************/
+
+%   Two wordings of one program that must translate to the same internal
+%   syntax, up to variable renaming. Each is a regression: the second wording
+%   was once read differently from the first.
+
+%   A time named in the head (`from a time T1 to a time T2`) and then written
+%   in the conditions by its bare name (`from T1 to T2`). The bare name was
+%   not recognised as a time, so `from T1 to T2` stayed in the sentence, the
+%   condition matched no template and became unknown_template/1
+%   (lps2/examples/le/underground2.le, 2026-11-19).
+twin(named_times, Prelude-Original, Prelude-Named) :-
+	Prelude = "the target language is: lps.\n\nthe events are:\n    I alert the driver to an emergency.\n\nthe actions are:\n    I press the alarm signal button.\n\nthe knowledge base underground includes:\n\n",
+	Original = "I alert the driver to an emergency from a time to an other time\nif I press the alarm signal button from the time to the other time.\n",
+	Named = "I alert the driver to an emergency from a time T1 to a time T2\nif I press the alarm signal button from T1 to T2.\n".
+
+%   The other side of the same rule: a bare name that the rule has already
+%   given to a PLACE is not a time when the template uses it. In
+%   `the train goes from B to C`, `from B to C` stays in the sentence.
+twin(named_places, Prelude-Original, Prelude-Named) :-
+	Prelude = "the target language is: lps.\n\nthe events are:\n    the train goes from *a place* to *an other place*.\n    the trip happens.\n    the train departs from *a place*.\n\nthe knowledge base trains includes:\n\n",
+	Original = "the trip happens from a time to an other time\nif the train departs from a place from the time to the other time\nand the train goes from an other place to a third place\nand the train goes from the other place to the third place.\n",
+	Named = "the trip happens from a time T1 to a time T2\nif the train departs from a place A from T1 to T2\nand the train goes from a place B to a place C\nand the train goes from B to C.\n".
+
+check_twin(Name, P0-F0, P-F) :-
+	twin(Name, PA-A, PB-B),
+	string_concat(PA, A, TextA),
+	string_concat(PB, B, TextB),
+	(   translate_text(TextA, TermsA),
+	    translate_text(TextB, TermsB),
+	    \+ ( sub_term(S, TermsB), compound(S), S = unknown_template(_) ),
+	    terms_match(TermsA, TermsB, N)
+	->  format('  ok    ~w (~w terms)~n', [Name, N]), P is P0 + 1, F = F0
+	;   format('  FAIL  ~w — the two wordings do not translate alike~n', [Name]),
+	    (   translate_text(TextA, TA), translate_text(TextB, TB)
+	    ->  report_diff(TA, TB)
+	    ;   true
+	    ),
+	    P = P0, F is F0 + 1
+	).
+
+translate_text(LEText, Terms) :-
+	le_lps:le_lps_text(LEText, Text, _Prov, Issues),
+	\+ ( member(le_lps_issue(error, _, _, _, _), Issues) ),
+	Text \== "",
+	text_terms(Text, Terms).
 
 check(File, P0-F0, P-F) :-
 	file_base_name(File, Base),
