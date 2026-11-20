@@ -361,4 +361,60 @@ query q is:
                   [document("decision D")], LE, _Issues),
     assertion(sub_string(LE, _, _, _, "is \"K0823\", confer \"a K0823 power wheelchair\"")).
 
+% --- two defects met in step A1 of Ratio Tariff (FactsBackground.md §4) ------
+
+table_program("the target language is: prolog.
+
+the templates are:
+    the use of *a good* is *a use*; undefined.
+    the code of *a good* is *a code*.
+    the code for *a use* is *a code* under table uses.
+
+the table uses is, with first match:
+    row | use | code
+    u1  | table use | \"10\"
+    u2  | packing of goods | \"20\"
+    u3  | any | \"90\"
+
+the knowledge base k includes:
+
+the code of a good is a code
+    if the use of the good is a use
+    and the code for the use is the code under table uses.
+
+the code of a good is \"5\"
+    if the use of the good is packing of goods.
+
+scenario s is:
+    the use of box is table use.
+
+query q is:
+    the code of which good is which code.
+").
+
+% A use that none of the table's rows names falls in its last row, "any": the
+% value is read, and must not be reported as one no rule reads.
+test(a_value_a_table_row_accepts_is_not_unread,
+     [setup(stub_replies(["the use of the case is protecting mobile phones."]))]) :-
+    table_program(P),
+    english_to_le(facts, "A phone case.", [], P, "stub-model", [], LE, Issues),
+    assertion(sub_string(LE, _, _, _, "protecting mobile phones")),
+    assertion(\+ nl_has_issue(Issues, "unread_value")).
+
+% A slip close to a value the rules read is still reported there.
+test(a_slip_in_an_open_place_is_still_reported,
+     [setup(stub_replies(["the use of the case is packing of good."]))]) :-
+    table_program(P),
+    english_to_le(facts, "A bag.", [], P, "stub-model", [], _LE, Issues),
+    assertion(nl_has_issue(Issues, "unread_value")).
+
+% A value that begins with "a" would be read as a variable, true of every
+% use: it is quoted, and becomes the text it says.
+test(a_value_beginning_with_an_article_is_quoted,
+     [setup(stub_replies(["the use of the lid is a part of a suitcase."]))]) :-
+    table_program(P),
+    english_to_le(facts, "A suitcase lid.", [], P, "stub-model", [], LE, Issues),
+    assertion(sub_string(LE, _, _, _, "is \"a part of a suitcase\"")),
+    assertion(\+ nl_has_issue(Issues, "single_variable_fact")).
+
 :- end_tests(nl_to_le).

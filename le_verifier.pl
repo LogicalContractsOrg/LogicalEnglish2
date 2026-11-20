@@ -6,7 +6,7 @@
 */
 
 :- module(le_verifier, [verify/2, verify/3, print_issue/1, is_intensional/3, find_in_body/2,
-                        unmatched_sentences/3, slot_values/5, with_rule_index/2,
+                        unmatched_sentences/3, slot_values/5, slot_open/4, with_rule_index/2,
                         read_by_a_rule/3, fact_value_warnings/3]).
 
 :- use_module(le_kbs, [is_system_predicate/1, run_one_test/3, canonical_string/2, ensure_kb_language/1]).
@@ -2426,6 +2426,26 @@ head_argument_value(KB, HF, HA, K, V) :-
     ;   fact_argument(KB, HF, HA, K, V)
     ;   table_column_value(KB, HF, HA, K, V)
     ).
+
+%!  slot_open(+KB, +F, +A, +I) is semidet.
+%
+%   The rules accept any value in place I of F/A: the value flows into a
+%   column of a decision table that has a row reading "any" (or "-") there.
+%   A plastics article whose use is none of those named ("protecting mobile
+%   phones") falls in the table's last row, "other": the value is read, and
+%   a warning that no rule reads it made "Write it in English" delete a
+%   right fact (RatioTariff §3.6). The check of a fresh fragment (nl_to_le.pl)
+%   then reports only a value close to one the rules read: a slip.
+slot_open(KB, F, A, I) :-
+    slot_source(KB, F, A, I, Src),
+    ( Src = head(TF, TA, K) ; Src = facts(TF, TA, K) ),
+    table_column_open(KB, TF, TA, K), !.
+
+table_column_open(KB, HF, HA, K) :-
+    current_predicate(KB:le_table/6),
+    KB:le_table(Name, _, HF/HA, _, _, _),
+    KB:le_table_row(Name, _, _, Cells, _, _),
+    nth1(K, Cells, Cell), Cell == any, !.
 
 % the values of column K of the decision table bound to HF/HA (le_tables.pl):
 % a constant cell, or one of the alternatives of an "or" cell

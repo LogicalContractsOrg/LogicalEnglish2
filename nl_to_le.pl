@@ -425,6 +425,12 @@ unread_issues(check(facts), KB, Starts, Lines, Issues) :- !,
                 ( member(c(F/A/I, V, Head, S), Cands),
                   catch(le_verifier:with_rule_index(KB, le_verifier:slot_values(KB, F, A, I, Values)), _, fail),
                   Values \== [], length(Values, N), N =< 40,
+                  % a place whose value a table's "any" row accepts reads every
+                  % value: only a slip (a value close to one read) is reported
+                  (   catch(le_verifier:with_rule_index(KB, le_verifier:slot_open(KB, F, A, I)), _, fail)
+                  ->  le_verifier:nearest_values(V, Values, [_|_])
+                  ;   true
+                  ),
                   \+ memberchk(V, Values),
                   unread_issue(KB, V, Head, S, Values, Starts, Lines, Issue) ),
                 Issues)
@@ -1045,7 +1051,8 @@ trailer_punctuation(Line0, Line) :-
 program_case_and_times(facts, Program, LE0, LE) :- !,
     program_words(Program, Words),
     split_string(LE0, "\n", "", Lines0),
-    maplist(known_case_line(Words), Lines0, Lines1),
+    maplist(known_case_line(Words), Lines0, Lines1a),
+    article_values(Program, Lines1a, Lines1),
     (   lps_program(Program)
     ->  last_scenario_time(Program, T0),
         timed_lines(Lines1, T0, Lines)
@@ -1054,6 +1061,94 @@ program_case_and_times(facts, Program, LE0, LE) :- !,
     atomic_list_concat(Lines, "\n", LE1),
     atom_string(LE1, LE).
 program_case_and_times(_, _, LE, LE).
+
+%!  article_values(+Program, +Lines0, -Lines) is det.
+%
+%   A value of a fact that begins with "a", "an" or "some" ("the principal
+%   use of item 4 is a part of a suitcase") is read by Logical English as a
+%   variable: the fact then holds of every value, and matches any rule (a
+%   suitcase part became tableware, RatioTariff §3.6). In a scenario a value
+%   is never meant as a variable, so such a value is quoted: it becomes the
+%   text it says. A line is matched against the program's templates by
+%   their words; a value the program itself knows (a constant its rules
+%   read) is left as it is, and so is the first place of a sentence ("a
+%   person is healthy"), which the single_variable_fact warning reports.
+article_values(Program, Lines0, Lines) :-
+    (   catch(load_text(Program, KB), _, fail),
+        findall(Re, ( kb_template_label(KB, Label0, _),
+                      label_words(Label0, Label),
+                      template_regex(Label, Re) ), Res),
+        Res \== []
+    ->  ( catch(le_verifier:program_constants(KB, Known), _, fail) -> true ; empty_assoc(Known) ),
+        maplist(article_line(Res, Known), Lines0, Lines)
+    ;   Lines = Lines0
+    ).
+
+label_words(Label0, Label) :-
+    (   ( sub_string(Label0, B, _, 0, " (judged)") ; sub_string(Label0, B, _, 0, " (derived)") )
+    ->  sub_string(Label0, 0, B, _, Label)
+    ;   Label = Label0
+    ).
+
+% the regular expression of a template: its words, each placeholder a group
+template_regex(Label, Re) :-
+    re_split("\\*[^*]+\\*", Label, Parts),
+    Parts = [_, _|_],
+    template_regex_parts(Parts, 1, Pieces),
+    atomic_list_concat(Pieces, Body),
+    format(string(Re), "^\\s*~w\\s*\\.?\\s*$", [Body]).
+
+template_regex_parts([], _, []).
+template_regex_parts([P|Ps], I, [Q|Qs]) :-
+    (   I mod 2 =:= 1
+    ->  normalize_space(string(P1), P),
+        string_chars(P1, Cs),
+        foldl([C, A0, A]>>( C == ' ' -> string_concat(A0, "\\s+", A)
+                          ; sub_atom('.?*+^$()[]{}|\\/-', _, _, _, C) -> format(string(A), "~w\\~w", [A0, C])
+                          ; string_concat(A0, C, A) ), Cs, "", P3),
+        (   P3 == "" -> Q = "\\s*"
+        ;   I == 1 -> format(string(Q), "~w\\s+", [P3])
+        ;   Ps == [] -> format(string(Q), "\\s+~w", [P3])
+        ;   format(string(Q), "\\s+~w\\s+", [P3])
+        )
+    ;   Q = "(.+?)"
+    ),
+    I1 is I + 1,
+    template_regex_parts(Ps, I1, Qs).
+
+article_line(Res, Known, Line0, Line) :-
+    findall(K, ( member(Key, [confer, according_to, as_stated_in, because]),
+                 kw_phrase(Key, "", K0), K0 \== "", format(string(K), ", ~w ", [K0]) ), Keys),
+    (   findall(B, ( member(K, Keys), sub_string(Line0, B, _, _, K) ), Bs), Bs \== []
+    ->  min_list(Bs, Cut),
+        sub_string(Line0, 0, Cut, _, Fact0), sub_string(Line0, Cut, _, 0, Rest)
+    ;   Fact0 = Line0, Rest = ""
+    ),
+    (   member(Re, Res),
+        catch(re_matchsub(Re, Fact0, Sub, [capture_type(range), caseless(true)]), _, fail)
+    ->  dict_pairs(Sub, _, Pairs),
+        findall(St-Len, ( member(K-(St-Len), Pairs), K \== 0,
+                          % the subject ("a person is healthy") is left to the
+                          % single_variable_fact warning: a modelling slip
+                          sub_string(Fact0, 0, St, _, Before), \+ blank_text(Before),
+                          sub_string(Fact0, St, Len, _, V),
+                          article_value(V, Known) ), Ranges0),
+        sort(1, @>=, Ranges0, Ranges),              % from the end, so offsets hold
+        foldl(quote_range, Ranges, Fact0, Fact),
+        string_concat(Fact, Rest, Line)
+    ;   Line = Line0
+    ).
+
+article_value(V, Known) :-
+    re_match("^(?:a|an|some)\\s+\\S"/i, V),
+    \+ sub_string(V, _, _, _, "\""),
+    atom_string(A, V), \+ get_assoc(A, Known, _).
+
+quote_range(St-Len, S0, S) :-
+    sub_string(S0, 0, St, _, Before),
+    sub_string(S0, St, Len, After, V),
+    sub_string(S0, _, After, 0, Tail),
+    format(string(S), "~w\"~w\"~w", [Before, V, Tail]).
 
 program_words(Program, Words) :-
     split_string(Program, "\n\t .,;:()[]", "\"", Ws0),
