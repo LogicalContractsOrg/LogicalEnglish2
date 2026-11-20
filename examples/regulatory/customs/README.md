@@ -36,9 +36,15 @@ with them.
 |---|---|---|---|
 | `listings.le` | marketplace listings | The fields of a listing: gender, how the fabric is made | The description of the listings, `sources/listings/` |
 | `garments.le` | garments background | Words for garments and fabrics | US Customs' apparel terminology, the tariff's notes, rulings |
+| `articles.le` | articles background | Words for the plastics articles and forms of Chapter 39: pipes, sheets, baths, doors, pellets | Chapter 39's headings and notes, rulings |
 | `materials.le` | materials background | Fibre names, and the names and abbreviations of plastics | EU Regulation 1007/2011, the FTC's labelling guide, US Customs' fibre trade names, Chapter 39, rulings |
 | `trade_usage.le` | trade usage | The rules that no text supports, stated by the authors: "tee", "chiffon", "EVA"; one fibre named is the whole; the first fibre named predominates | The authors |
 | `presumptions.le` | customs presumptions | What is taken to be so when the listing is silent: a T-shirt's fabric is lightweight and plain knit; a sweater is knitted | US Customs' apparel terminology, rulings |
+
+The background programs give their sources as `sources/...`: the link
+`background/sources` points to the folder `sources/` of the model, so that the
+verifier can read the texts and check every quotation (a path that leaves the
+program's folder, such as `../sources/...`, cannot be read).
 
 [marketplace.le](marketplace.le) names them, in that order, and gives three
 readings of a case: the listing and the bridges; with the customs

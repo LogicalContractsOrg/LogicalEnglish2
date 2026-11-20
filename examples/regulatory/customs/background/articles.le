@@ -1,0 +1,361 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the kinds of plastics articles and the forms of plastics, in the words of
+% the tariff. Each word is a name that the tariff's Chapter 39 (its headings
+% and its notes 6, 8, 10 and 11) or a US Customs ruling gives to a kind of
+% good that the rules of Chapter 39 read. Bridges.
+%
+% Left out, because they name a legal category and not a thing a seller
+% names: part, waste, scrap, parings, structural element, building fitting.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a name* is a word for the kind *a kind*.
+    *a field* is a field that names the kind.
+    the kind of *a good* is *a kind*.
+
+the knowledge base articles background includes:
+
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+the listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the listing format is at "sources/listings/marketplace_fields.txt".
+ruling NY N318445 is published at "https://rulings.cbp.gov/ruling/N318445".
+the text of ruling NY N318445 is at "sources/cbp/N318445.txt".
+ruling NY N330412 is published at "https://rulings.cbp.gov/ruling/N330412".
+the text of ruling NY N330412 is at "sources/cbp/N330412.txt".
+ruling NY N357645 is published at "https://rulings.cbp.gov/ruling/N357645".
+the text of ruling NY N357645 is at "sources/cbp/N357645.txt".
+ruling NY N342618 is published at "https://rulings.cbp.gov/ruling/N342618".
+the text of ruling NY N342618 is at "sources/cbp/N342618.txt".
+ruling NY N361538 is published at "https://rulings.cbp.gov/ruling/N361538".
+the text of ruling NY N361538 is at "sources/cbp/N361538.txt".
+
+% The fields of a listing that name what the product is
+"item type" is a field that names the kind,
+    as stated in the listing format, confer "Item Type (64 listings): the kind of product in the seller's words".
+"type" is a field that names the kind,
+    as stated in the listing format, confer "Type (21 listings): a kind of product".
+
+% The primary forms (Chapter 39 note 6)
+"liquid" is a word for the kind liquid,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"liquids" is a word for the kind liquid,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"paste" is a word for the kind paste,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"pastes" is a word for the kind paste,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"dispersion" is a word for the kind dispersion,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"dispersions" is a word for the kind dispersion,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"aqueous dispersion" is a word for the kind dispersion,
+    as stated in HTSUS Section VII and Chapter 39, confer "In aqueous dispersion".
+"emulsion" is a word for the kind emulsion,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"emulsions" is a word for the kind emulsion,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"suspension" is a word for the kind suspension,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"suspensions" is a word for the kind suspension,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"solution" is a word for the kind solution,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"solutions" is a word for the kind solution,
+    as stated in HTSUS Section VII and Chapter 39, confer "Liquids and pastes, including dispersions (emulsions and suspensions) and solutions".
+"block of irregular shape" is a word for the kind irregular block,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"blocks of irregular shape" is a word for the kind irregular block,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"lump" is a word for the kind lumps,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"lumps" is a word for the kind lumps,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"powder" is a word for the kind powder,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"powders" is a word for the kind powder,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"molding powder" is a word for the kind powder,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"molding powders" is a word for the kind powder,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"granule" is a word for the kind granules,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"granules" is a word for the kind granules,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"flake" is a word for the kind flakes,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"flakes" is a word for the kind flakes,
+    as stated in HTSUS Section VII and Chapter 39, confer "Blocks of irregular shape, lumps, powders (including molding powders), granules, flakes and similar bulk forms".
+"pellet" is a word for the kind pellets,
+    as stated in ruling NY N318445, confer "The product will be imported in pellet form.".
+"pellets" is a word for the kind pellets,
+    as stated in ruling NY N318445, confer "The product will be imported in pellet form.".
+
+% Monofilament, rods, sticks and profile shapes (heading 3916)
+"monofilament" is a word for the kind monofilament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Monofilament of which any cross-sectionaldimension exceeds".
+"monofilaments" is a word for the kind monofilament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Monofilament of which any cross-sectionaldimension exceeds".
+"rod" is a word for the kind rod,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+"rods" is a word for the kind rod,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+"stick" is a word for the kind stick,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+"sticks" is a word for the kind stick,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+"profile" is a word for the kind profile,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+"profiles" is a word for the kind profile,
+    as stated in HTSUS Section VII and Chapter 39, confer "Window, door, decking or railing profiles".
+"profile shape" is a word for the kind profile,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+"profile shapes" is a word for the kind profile,
+    as stated in HTSUS Section VII and Chapter 39, confer "1 mm, rods, sticks and profile shapes, whether or not".
+
+% Tubes, pipes and hoses and fittings therefor (heading 3917, note 8)
+"tube" is a word for the kind tube,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"tubes" is a word for the kind tube,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"perforated tube" is a word for the kind tube,
+    as stated in HTSUS Section VII and Chapter 39, confer "garden hose, perforated tubes".
+"perforated tubes" is a word for the kind tube,
+    as stated in HTSUS Section VII and Chapter 39, confer "garden hose, perforated tubes".
+"lay-flat tubing" is a word for the kind tube,
+    as stated in HTSUS Section VII and Chapter 39, confer "This expression also includes sausage casings and other lay-flat tubing".
+"pipe" is a word for the kind pipe,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"pipes" is a word for the kind pipe,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"hose" is a word for the kind hose,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"hoses" is a word for the kind hose,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"garden hose" is a word for the kind hose,
+    as stated in HTSUS Section VII and Chapter 39, confer "garden hose, perforated tubes".
+"sausage casing" is a word for the kind sausage casing,
+    as stated in HTSUS Section VII and Chapter 39, confer "This expression also includes sausage casings and other lay-flat tubing".
+"sausage casings" is a word for the kind sausage casing,
+    as stated in HTSUS Section VII and Chapter 39, confer "This expression also includes sausage casings and other lay-flat tubing".
+"artificial gut" is a word for the kind sausage casing,
+    as stated in HTSUS Section VII and Chapter 39, confer "Artificial guts (sausage casings) of hardened protein or of".
+"artificial guts" is a word for the kind sausage casing,
+    as stated in HTSUS Section VII and Chapter 39, confer "Artificial guts (sausage casings) of hardened protein or of".
+"pipe fitting" is a word for the kind pipe fitting,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"pipe fittings" is a word for the kind pipe fitting,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tubes, pipes and hoses and fittings therefor (for example,".
+"elbow" is a word for the kind pipe fitting,
+    as stated in HTSUS Section VII and Chapter 39, confer "joints, elbows, flanges), of plastics:".
+"elbows" is a word for the kind pipe fitting,
+    as stated in HTSUS Section VII and Chapter 39, confer "joints, elbows, flanges), of plastics:".
+"flange" is a word for the kind pipe fitting,
+    as stated in HTSUS Section VII and Chapter 39, confer "joints, elbows, flanges), of plastics:".
+"flanges" is a word for the kind pipe fitting,
+    as stated in HTSUS Section VII and Chapter 39, confer "joints, elbows, flanges), of plastics:".
+
+% Floor, wall and ceiling coverings (heading 3918, note 9)
+"floor covering" is a word for the kind floor covering,
+    as stated in HTSUS Section VII and Chapter 39, confer "Floor coverings of plastics, whether or not self-adhesive, in".
+"floor coverings" is a word for the kind floor covering,
+    as stated in HTSUS Section VII and Chapter 39, confer "Floor coverings of plastics, whether or not self-adhesive, in".
+"floor tile" is a word for the kind floor tile,
+    as stated in HTSUS Section VII and Chapter 39, confer "rolls or in the form of tiles; wall or ceiling coverings of plastics,".
+"floor tiles" is a word for the kind floor tile,
+    as stated in HTSUS Section VII and Chapter 39, confer "rolls or in the form of tiles; wall or ceiling coverings of plastics,".
+"vinyl tile" is a word for the kind floor tile,
+    as stated in HTSUS Section VII and Chapter 39, confer "Vinyl tile".
+"vinyl tiles" is a word for the kind floor tile,
+    as stated in HTSUS Section VII and Chapter 39, confer "Vinyl tile".
+"wall covering" is a word for the kind wall covering,
+    as stated in HTSUS Section VII and Chapter 39, confer "rolls or in the form of tiles; wall or ceiling coverings of plastics,".
+"wall coverings" is a word for the kind wall covering,
+    as stated in HTSUS Section VII and Chapter 39, confer "rolls or in the form of tiles; wall or ceiling coverings of plastics,".
+"ceiling covering" is a word for the kind wall covering,
+    as stated in HTSUS Section VII and Chapter 39, confer "rolls or in the form of tiles; wall or ceiling coverings of plastics,".
+"ceiling coverings" is a word for the kind wall covering,
+    as stated in HTSUS Section VII and Chapter 39, confer "rolls or in the form of tiles; wall or ceiling coverings of plastics,".
+
+% Plates, sheets, film, foil, tape and strip (headings 3919 to 3921, note 10)
+"plate" is a word for the kind plate,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"plates" is a word for the kind plate,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"sheet" is a word for the kind sheet,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"sheets" is a word for the kind sheet,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"film" is a word for the kind film,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"films" is a word for the kind film,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"foil" is a word for the kind foil,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"foils" is a word for the kind foil,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"strip" is a word for the kind strip,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"strips" is a word for the kind strip,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other plates, sheets, film, foil and strip, of plastics, noncellular".
+"tape" is a word for the kind tape,
+    as stated in HTSUS Section VII and Chapter 39, confer "Self-adhesive plates, sheets, film, foil, tape, strip and other flat".
+"tapes" is a word for the kind tape,
+    as stated in HTSUS Section VII and Chapter 39, confer "Self-adhesive plates, sheets, film, foil, tape, strip and other flat".
+"electrical tape" is a word for the kind tape,
+    as stated in HTSUS Section VII and Chapter 39, confer "Electrical tape".
+"transparent tape" is a word for the kind tape,
+    as stated in HTSUS Section VII and Chapter 39, confer "Transparent tape".
+"pavement marking tape" is a word for the kind tape,
+    as stated in HTSUS Section VII and Chapter 39, confer "Pavement marking tape".
+"filament reinforced tape" is a word for the kind tape,
+    as stated in HTSUS Section VII and Chapter 39, confer "Filament reinforced tape".
+"block of regular geometric shape" is a word for the kind regular block,
+    as stated in HTSUS Section VII and Chapter 39, confer "and to blocks of regular geometric shape, whether or not printed or otherwise surface-worked".
+"blocks of regular geometric shape" is a word for the kind regular block,
+    as stated in HTSUS Section VII and Chapter 39, confer "and to blocks of regular geometric shape, whether or not printed or otherwise surface-worked".
+"sticker" is a word for the kind sticker,
+    as stated in ruling NY N361538, confer "The applicable subheading for the self-adhesive vinyl sticker sets will be 3919.90".
+"stickers" is a word for the kind sticker,
+    as stated in ruling NY N361538, confer "The applicable subheading for the self-adhesive vinyl sticker sets will be 3919.90".
+
+% Sanitary ware (heading 3922)
+"bath" is a word for the kind bath,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"baths" is a word for the kind bath,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"shower bath" is a word for the kind shower bath,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"shower baths" is a word for the kind shower bath,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"sink" is a word for the kind sink,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"sinks" is a word for the kind sink,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"washbasin" is a word for the kind washbasin,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"washbasins" is a word for the kind washbasin,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks and washbasins".
+"bidet" is a word for the kind bidet,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks, washbasins,bidets, lavatory pans,".
+"bidets" is a word for the kind bidet,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks, washbasins,bidets, lavatory pans,".
+"lavatory pan" is a word for the kind lavatory pan,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks, washbasins,bidets, lavatory pans,".
+"lavatory pans" is a word for the kind lavatory pan,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baths, shower baths, sinks, washbasins,bidets, lavatory pans,".
+"lavatory seat" is a word for the kind lavatory seat,
+    as stated in HTSUS Section VII and Chapter 39, confer "Lavatory seats and covers".
+"lavatory seats" is a word for the kind lavatory seat,
+    as stated in HTSUS Section VII and Chapter 39, confer "Lavatory seats and covers".
+"toilet seat" is a word for the kind lavatory seat,
+    as stated in ruling NY N357645, confer "The applicable subheading for the toilet seat incorporating an electronic bidet will be 3922.20".
+"lavatory cover" is a word for the kind lavatory cover,
+    as stated in HTSUS Section VII and Chapter 39, confer "Lavatory seats and covers".
+"lavatory covers" is a word for the kind lavatory cover,
+    as stated in HTSUS Section VII and Chapter 39, confer "Lavatory seats and covers".
+"flushing cistern" is a word for the kind flushing cistern,
+    as stated in HTSUS Section VII and Chapter 39, confer "seats and covers, flushing cisterns and similar sanitary ware,".
+"flushing cisterns" is a word for the kind flushing cistern,
+    as stated in HTSUS Section VII and Chapter 39, confer "seats and covers, flushing cisterns and similar sanitary ware,".
+"toilet" is a word for the kind toilet,
+    as stated in ruling NY N330412, confer "The applicable subheading for the portable bedside toilets will be 3922.90".
+"toilets" is a word for the kind toilet,
+    as stated in ruling NY N330412, confer "The applicable subheading for the portable bedside toilets will be 3922.90".
+"portable bedside toilet" is a word for the kind toilet,
+    as stated in ruling NY N330412, confer "The applicable subheading for the portable bedside toilets will be 3922.90".
+"bedside commode" is a word for the kind toilet,
+    as stated in ruling NY N330412, confer "Pepe Bedside commode, is a portable bedside toilet.".
+
+% Builders' ware (heading 3925, note 11)
+"reservoir" is a word for the kind reservoir,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"reservoirs" is a word for the kind reservoir,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"tank" is a word for the kind tank,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"tanks" is a word for the kind tank,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"septic tank" is a word for the kind tank,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"septic tanks" is a word for the kind tank,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"vat" is a word for the kind vat,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"vats" is a word for the kind vat,
+    as stated in HTSUS Section VII and Chapter 39, confer "(a) Reservoirs, tanks (including septic tanks), vats and similar containers, of a capacity exceeding 300 liters;".
+"gutter" is a word for the kind gutter,
+    as stated in HTSUS Section VII and Chapter 39, confer "(c) Gutters and fittings therefor;".
+"gutters" is a word for the kind gutter,
+    as stated in HTSUS Section VII and Chapter 39, confer "(c) Gutters and fittings therefor;".
+"door" is a word for the kind door,
+    as stated in HTSUS Section VII and Chapter 39, confer "(d) Doors, windows and their frames and thresholds for doors;".
+"doors" is a word for the kind door,
+    as stated in HTSUS Section VII and Chapter 39, confer "(d) Doors, windows and their frames and thresholds for doors;".
+"door frame" is a word for the kind door,
+    as stated in HTSUS Section VII and Chapter 39, confer "Doors and door frames".
+"door frames" is a word for the kind door,
+    as stated in HTSUS Section VII and Chapter 39, confer "Doors and door frames".
+"window" is a word for the kind window,
+    as stated in HTSUS Section VII and Chapter 39, confer "(d) Doors, windows and their frames and thresholds for doors;".
+"windows" is a word for the kind window,
+    as stated in HTSUS Section VII and Chapter 39, confer "(d) Doors, windows and their frames and thresholds for doors;".
+"window frame" is a word for the kind window frame,
+    as stated in HTSUS Section VII and Chapter 39, confer "Windows and window frames".
+"window frames" is a word for the kind window frame,
+    as stated in HTSUS Section VII and Chapter 39, confer "Windows and window frames".
+"threshold" is a word for the kind threshold,
+    as stated in HTSUS Section VII and Chapter 39, confer "(d) Doors, windows and their frames and thresholds for doors;".
+"thresholds" is a word for the kind threshold,
+    as stated in HTSUS Section VII and Chapter 39, confer "(d) Doors, windows and their frames and thresholds for doors;".
+"fencing" is a word for the kind fencing,
+    as stated in HTSUS Section VII and Chapter 39, confer "(e) Balconies, balustrades, fencing, gates and similar barriers;".
+"shutter" is a word for the kind shutter,
+    as stated in HTSUS Section VII and Chapter 39, confer "(f) Shutters, blinds (including venetian blinds) and similar articles and parts and fittings thereof;".
+"shutters" is a word for the kind shutter,
+    as stated in HTSUS Section VII and Chapter 39, confer "(f) Shutters, blinds (including venetian blinds) and similar articles and parts and fittings thereof;".
+"blind" is a word for the kind blind,
+    as stated in HTSUS Section VII and Chapter 39, confer "(f) Shutters, blinds (including venetian blinds) and similar articles and parts and fittings thereof;".
+"blinds" is a word for the kind blind,
+    as stated in HTSUS Section VII and Chapter 39, confer "(f) Shutters, blinds (including venetian blinds) and similar articles and parts and fittings thereof;".
+"venetian blind" is a word for the kind blind,
+    as stated in HTSUS Section VII and Chapter 39, confer "(f) Shutters, blinds (including venetian blinds) and similar articles and parts and fittings thereof;".
+"venetian blinds" is a word for the kind blind,
+    as stated in HTSUS Section VII and Chapter 39, confer "(f) Shutters, blinds (including venetian blinds) and similar articles and parts and fittings thereof;".
+"shade" is a word for the kind shade,
+    as stated in ruling NY N342618, confer "The applicable subheading for the acrylic roller shade will be 3925.30".
+"roller shade" is a word for the kind shade,
+    as stated in ruling NY N342618, confer "The applicable subheading for the acrylic roller shade will be 3925.30".
+
+rule kind_by_name with provenance HTSUS Section VII and Chapter 39,
+        confer "PLASTICS AND ARTICLES THEREOF":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the kind the kind.
+
+rule kind_by_field with provenance the listing format,
+        confer "Item Type (64 listings): the kind of product in the seller's words":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field that names the kind
+    and the value is a word for the kind the kind.
+
+scenario hose is:
+    hose is called "garden hose".
+    seat is called "toilet seat".
+    resin is called "pellets".
+    the field "item type" of wrap reads "film".
+    the field "type" of shade one reads "roller shade".
+    kinds expects answers ["the kind of hose is hose", "the kind of seat is lavatory seat", "the kind of resin is pellets", "the kind of wrap is film", "the kind of shade one is shade"].
+
+query kinds is:
+    the kind of which good is which kind.
