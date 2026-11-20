@@ -157,7 +157,7 @@ background_templates(KB, Noted, Shared) :-
 
 dedup_noted([], []).
 dedup_noted([n(L, B, FA)|Ns], [n(L, B, FA)|Rest]) :-
-    exclude([n(L2, _, _)]>>(L2 == L), Ns, Ns1),
+    exclude({L}/[n(L2, _, _)]>>(L2 == L), Ns, Ns1),
     dedup_noted(Ns1, Rest).
 
 % a template of the main program that the background also declares, and
@@ -432,7 +432,7 @@ run_program(KB, BM, KBName, Text, Base, Input, Before, New) :-
 dedup_derived([], []).
 dedup_derived([D|Ds], [D|Rest]) :-
     D = d(Key, _, _, _, _, _, _),
-    exclude([d(K2, _, _, _, _, _, _)]>>(K2 =@= Key), Ds, Ds1),
+    exclude({Key}/[d(K2, _, _, _, _, _, _)]>>(K2 =@= Key), Ds, Ds1),
     dedup_derived(Ds1, Rest).
 
 % the top of the proof is a fact of the reading scenario

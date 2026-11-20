@@ -40,6 +40,7 @@
 
 :- use_module(library(apply)).
 :- use_module(library(lists)).
+:- use_module(le_verifier, [find_in_body/2]).
 
 %!  unmet_conditions(+SM, +KB, +Why, -Items) is det.
 %
@@ -48,6 +49,7 @@
 %   conditions that held beside it.
 unmet_conditions(SM, KB, Why, Items) :-
     ( is_list(Why) -> Roots = Why ; Roots = [Why] ),
+    b_setval(le_why_not_held, []),
     findall(I, ( member(R, Roots), unmet_node(SM, KB, R, [], I) ), Items0),
     dedup_items(Items0, Items).
 
@@ -55,27 +57,326 @@ unmet_node(SM, KB, repeated_group(_, W), Ctx, I) :- !,
     unmet_node(SM, KB, W, Ctx, I).
 unmet_node(_, _, failure(le_section_checklist(_), _, _, _), _, _) :- !, fail.
 unmet_node(_, _, failure(le_type_check(_, _), _, _, _), _, _) :- !, fail.
-unmet_node(SM, KB, failure(rule_attempt(_, _, _), _, _, Cs), _, I) :- !,
+unmet_node(SM, KB, failure(rule_attempt(Ref, _, _), _, _, Cs), _, I) :- !,
     held(Cs, Facts),
+    ( nb_current(le_why_not_expected, Exp) -> true ; Exp = none ),
+    b_setval(le_why_not_expected, none),
+    % the conditions that held here and in the rules above (backtrackable)
+    ( nb_current(le_why_not_held, Above), is_list(Above) -> true ; Above = [] ),
+    findall(HG, ( member(C0, Cs), unwrap(C0, success(HG0, _, _, _)), strip_at(HG0, HG) ), Here),
+    append(Here, Above, Held),
+    b_setval(le_why_not_held, Held),
     failed_children(Cs, Fs),
     member(F, Fs),
-    unmet_node(SM, KB, F, Facts, I).
+    (   follow_expected(SM, KB, F, Held, Items)
+    ->  member(I, Items)
+    ;   follow_held(SM, KB, F, Held, Items)
+    ->  member(I, Items)
+    ;   Exp = value(Out),
+        follow_rule_table(SM, KB, Ref, Out, F, Items)
+    ->  member(I, Items)
+    ;   absent_aggregate(KB, F, Cs, Facts, Items)
+    ->  member(I, Items)
+    ;   unmet_node(SM, KB, F, Facts, I)
+    ).
 unmet_node(SM, KB, failure(G, R, LE, Cs), Ctx, I) :-
-    rule_attempts(Cs, Attempts),
-    (   Attempts \== []
-    ->  closest(Attempts, Kept),
+    rule_attempts(Cs, Attempts0),
+    (   Attempts0 \== []
+    ->  % the value asked for, when the question names one: only the rules
+        % that can give it are routes to it (FactsBackground.md §5.3)
+        strip_at(G, G1),
+        (   compound(G1), G1 =.. [_|GArgs], last(GArgs, Out), ground(Out)
+        ->  b_setval(le_why_not_expected, value(Out)),
+            include(can_give(KB, Out), Attempts0, Attempts1),
+            ( Attempts1 == [] -> Attempts = Attempts0 ; Attempts = Attempts1 )
+        ;   b_setval(le_why_not_expected, none),
+            Attempts = Attempts0
+        ),
+        closest(Attempts, Kept),
         member(A, Kept),
         unmet_node(SM, KB, A, Ctx, I)
     ;   failed_children(Cs, Fs),
         (   Fs \== []
         ->  held(Cs, Facts),                % the facts of the rule that asks
+            ( nb_current(le_why_not_held, Above), is_list(Above) -> true ; Above = [] ),
+            findall(HG, ( member(C0, Cs), unwrap(C0, success(HG0, _, _, _)), strip_at(HG0, HG) ), Here),
+            append(Here, Above, Held),
+            b_setval(le_why_not_held, Held),
             member(F, Fs),
-            unmet_node(SM, KB, F, Facts, I)
+            (   follow_expected(SM, KB, F, Held, Items)
+            ->  member(I, Items)
+            ;   follow_held(SM, KB, F, Held, Items)
+            ->  member(I, Items)
+            ;   strip_at(G, G2), compound(G2), G2 =.. [_|G2Args],
+                last(G2Args, Out), ground(Out),
+                rule_ref_at(KB, R, Ref),
+                follow_rule_table(SM, KB, Ref, Out, F, Items)
+            ->  member(I, Items)
+            ;   absent_aggregate(KB, F, Cs, Facts, Items)
+            ->  member(I, Items)
+            ;   unmet_node(SM, KB, F, Facts, I)
+            )
         ;   leaf_kind(SM, KB, G, Cs, Kind, Extra),
             append(Ctx, Extra, Facts),
-            I = unmet(Kind, G, LE, R, Facts)
+            table_words(KB, G, LE, LE1),
+            I = unmet(Kind, G, LE1, R, Facts)
         )
     ).
+
+% ---------------------------------------------------------------------------
+% Following the expected value (FactsBackground.md §5.3)
+% ---------------------------------------------------------------------------
+% "Why is the subheading not 6109.10?" The closest route is the one the case
+% took (heading 6110), and it fails at the row of the subheading table: a
+% reason that says nothing. The expected value names the rows of the table
+% that give it; a value that such a row needs and the case does not have
+% (heading 6109 where the case has 6110) was given by a condition that held
+% on the way ("the heading of item 110 is 6110"). The question is then asked
+% of that condition, with the row's value: why is the heading not 6109? Its
+% unmet conditions are the reasons. Two levels at most.
+
+follow_expected(SM, KB, failure(G0, _, _, _), Held, Items) :-
+    strip_at(G0, G),
+    G = le_table(Name, Args),
+    ( nb_current(le_why_not_follow, D0), integer(D0) -> D = D0 ; D = 0 ),
+    D < 2,
+    last(Args, Out), ground(Out),
+    current_predicate(KB:le_table_row/6),
+    findall(Q, ( KB:le_table_row(Name, _, _, Cells, _, _),
+                 last(Cells, OutCell), cell_gives(OutCell, Out),
+                 row_questions(Cells, Args, Held, Qs), Qs \== [],
+                 member(Q, Qs) ), Qs0),
+    list_to_set(Qs0, Questions),
+    Questions \== [],
+    D1 is D + 1,
+    setup_call_cleanup(
+        ( nb_setval(le_why_not_follow, D1), b_setval(le_why_not_held, []) ),
+        findall(I, ( member(Q, Questions),
+                     \+ catch(once(le_kbs:query(SM, Q, _, [], _)), _, fail),
+                     catch(le_kbs:query_explain(SM, Q, _, _, Why), _, fail),
+                     unmet_conditions(SM, KB, Why, Is),
+                     member(I, Is) ),
+                Items0),
+        nb_setval(le_why_not_follow, D)),
+    dedup_items(Items0, Items),
+    Items \== [].
+
+% A rule can give the value asked for: its conclusion is that value, or is
+% looked up in a table with a row that gives it, or is computed otherwise.
+can_give(KB, Out, failure(rule_attempt(Ref, _, _), _, _, _)) :-
+    (   catch(clause(H0, B, Ref), _, fail)
+    ->  strip_module(H0, _, H), H =.. [_|HArgs], last(HArgs, HO),
+        (   var(HO)
+        ->  (   rule_table(KB, B, HO, Name, _)
+            ->  current_predicate(KB:le_table_row/6),
+                KB:le_table_row(Name, _, _, Cells, _, _),
+                last(Cells, OC), cell_gives(OC, Out), !
+            ;   true
+            )
+        ;   same_value(HO, Out)
+        )
+    ;   true
+    ).
+
+% the table of a rule's conditions whose last column is the rule's conclusion
+rule_table(KB, B, HO, Name, TArgs) :-
+    current_predicate(KB:le_table/6),
+    le_verifier:find_in_body(B, Lit0), strip_at(Lit0, Lit),
+    compound(Lit), functor(Lit, TF, TA),
+    KB:le_table(Name, _, TF/TA, _, _, _),
+    Lit =.. [_|TArgs], last(TArgs, TO), TO == HO, !.
+
+% The rule's table gives the value asked for in some rows; a condition before
+% the table failed, whose value is a column of those rows (the heading of a
+% garment, for its subheading). The question is asked of that condition with
+% the row's value: why is the heading not 6204?
+follow_rule_table(SM, KB, Ref, Out, failure(GF0, _, _, _), Items) :-
+    ( nb_current(le_why_not_follow, D0), integer(D0) -> D = D0 ; D = 0 ),
+    D < 2,
+    catch(clause(H0, B, Ref), _, fail),
+    strip_module(H0, _, H),
+    H =.. [_|HArgs], last(HArgs, HO), var(HO),
+    strip_at(GF0, GF), compound(GF), functor(GF, FF, FA),
+    le_verifier:find_in_body(B, Lit0), strip_at(Lit0, Lit),
+    compound(Lit), functor(Lit, FF, FA),
+    Lit =.. [_|LArgs], last(LArgs, LV), var(LV), LV \== HO, !,
+    findall(V, needed_value(KB, B, HO, LV, Out, V), Vs0),
+    sort(Vs0, Vs), Vs \== [],
+    GF =.. [_|GArgs], append(Front, [_], GArgs), ground(Front),
+    findall(Q, ( member(V, Vs), append(Front, [V], QArgs), Q =.. [FF|QArgs] ), Qs),
+    D1 is D + 1,
+    setup_call_cleanup(
+        ( nb_setval(le_why_not_follow, D1), b_setval(le_why_not_held, []) ),
+        findall(I, ( member(Q, Qs),
+                     \+ catch(once(le_kbs:query(SM, Q, _, [], _)), _, fail),
+                     catch(le_kbs:query_explain(SM, Q, _, _, Why), _, fail),
+                     unmet_conditions(SM, KB, Why, Is),
+                     member(I, Is) ),
+                Items0),
+        nb_setval(le_why_not_follow, D)),
+    dedup_items(Items0, Items),
+    Items \== [].
+
+%   needed_value(+KB, +Body, +HO, +LV, +Out, -V): a value of the variable LV
+%   with which the rule's conclusion HO can be Out: LV is a column of the
+%   rule's table, in a row that gives Out; or LV is passed to the condition
+%   that concludes HO, and a rule of that condition gives Out with LV = V (in
+%   its own table, or in its conclusion).
+needed_value(KB, B, HO, LV, Out, V) :-
+    rule_table(KB, B, HO, Name, TArgs),
+    nth1(K, TArgs, TV), TV == LV,
+    KB:le_table_row(Name, _, _, Cells, _, _),
+    last(Cells, OC), cell_gives(OC, Out),
+    nth1(K, Cells, Cell), cell_value(Cell, V).
+needed_value(KB, B, HO, LV, Out, V) :-
+    le_verifier:find_in_body(B, L0), strip_at(L0, L2),
+    compound(L2), L2 =.. [F2|A2], last(A2, O2), O2 == HO,
+    nth1(P, A2, X), X == LV,
+    length(A2, N2), functor(H2, F2, N2),
+    current_predicate(KB:F2/N2),
+    catch(clause(KB:H2, B2), _, fail),
+    H2 =.. [_|HA2], last(HA2, HO2), nth1(P, HA2, VP),
+    (   var(HO2), var(VP)
+    ->  rule_table(KB, B2, HO2, Name, TArgs),
+        nth1(K, TArgs, TV), TV == VP,
+        KB:le_table_row(Name, _, _, Cells, _, _),
+        last(Cells, OC), cell_gives(OC, Out),
+        nth1(K, Cells, Cell), cell_value(Cell, V)
+    ;   nonvar(HO2), same_value(HO2, Out), nonvar(VP)
+    ->  V = VP
+    ).
+
+% the clause of the rule at a range of the program
+rule_ref_at(KB, range(S, E), Ref) :-
+    integer(S),
+    catch(KB:le_source_info(Ref, S, E, _), _, fail),
+    catch(clause(_, B, Ref), _, fail), B \== true, !.
+
+% A condition that failed with its value asked for (the subheading of the
+% good in heading 6110 is 6211.32) where an argument that a condition above
+% gave (heading 6110) is not one with which a rule of that condition gives
+% the value: the question goes to that condition, with the value the rule
+% needs (why is the heading not 6211?).
+follow_held(SM, KB, failure(GF0, _, _, _), Held, Items) :-
+    ( nb_current(le_why_not_follow, D0), integer(D0) -> D = D0 ; D = 0 ),
+    D < 2,
+    strip_at(GF0, GF), compound(GF), GF \= le_table(_, _),
+    GF =.. [F|GArgs], last(GArgs, Out), ground(GArgs),
+    length(GArgs, N), functor(H2, F, N),
+    current_predicate(KB:F/N),
+    findall(P-V, ( catch(clause(KB:H2, B2), _, fail),
+                   H2 =.. [_|HA2], last(HA2, HO2),
+                   nth1(P, HA2, VP), P < N,
+                   (   var(HO2), var(VP)
+                   ->  rule_table(KB, B2, HO2, Name, TArgs),
+                       nth1(K, TArgs, TV), TV == VP,
+                       KB:le_table_row(Name, _, _, Cells, _, _),
+                       last(Cells, OC), cell_gives(OC, Out),
+                       nth1(K, Cells, Cell), cell_value(Cell, V)
+                   ;   nonvar(HO2), same_value(HO2, Out), nonvar(VP)
+                   ->  V = VP
+                   ),
+                   nth1(P, GArgs, Cur), \+ same_value(Cur, V) ), PVs0),
+    sort(PVs0, PVs), PVs \== [],
+    findall(Q, ( member(P-V, PVs), nth1(P, GArgs, Cur),
+                 member(HG, Held), compound(HG), HG \= le_table(_, _),
+                 HG =.. [HF|HArgs], last(HArgs, Last), same_value(Last, Cur),
+                 append(Front, [_], HArgs), ground(Front),
+                 append(Front, [V], QArgs), Q =.. [HF|QArgs] ), Qs0),
+    list_to_set(Qs0, Qs), Qs \== [],
+    D1 is D + 1,
+    setup_call_cleanup(
+        ( nb_setval(le_why_not_follow, D1), b_setval(le_why_not_held, []) ),
+        findall(I, ( member(Q, Qs),
+                     \+ catch(once(le_kbs:query(SM, Q, _, [], _)), _, fail),
+                     catch(le_kbs:query_explain(SM, Q, _, _, Why), _, fail),
+                     unmet_conditions(SM, KB, Why, Is),
+                     member(I, Is) ),
+                Items0),
+        nb_setval(le_why_not_follow, D)),
+    dedup_items(Items0, Items),
+    Items \== [].
+
+strip_at(le_at(G0, _, _), G) :- !, strip_at(G0, G).
+strip_at(G, G).
+
+cell_gives(val(V), Out) :- same_value(V, Out).
+cell_gives(oneof(Vs), Out) :- member(V, Vs), same_value(V, Out), !.
+
+same_value(A, B) :- A == B, !.
+same_value(A, B) :- atomic(A), atomic(B), atom_string(A, SA), atom_string(B, SB), SA == SB.
+
+% the conditions that held, with the row's value in place of the case's: a
+% value of the row that the case does not have, and that a held condition
+% gave as its last argument
+row_questions(Cells, Args, Held, Qs) :-
+    append(InCells, [_], Cells), append(InArgs, [_], Args),
+    findall(Cur-V, ( nth1(K, InCells, Cell), nth1(K, InArgs, Cur),
+                     \+ cell_accepts(Cell, Cur),
+                     cell_value(Cell, V) ), Bads),
+    Bads \== [],
+    findall(Q, ( member(Cur-V, Bads),
+                 member(HG, Held), compound(HG),
+                 HG =.. [F|HArgs], last(HArgs, Last), same_value(Last, Cur),
+                 append(Front, [_], HArgs), append(Front, [V], QArgs),
+                 Q =.. [F|QArgs] ), Qs0),
+    % every value that differs must come from a condition, or the row is out of reach
+    length(Bads, NB), length(Qs0, NQ), NQ >= NB,
+    Qs = Qs0.
+row_questions(_, _, _, []).
+
+cell_accepts(any, _) :- !.
+cell_accepts(val(V), X) :- !, same_value(V, X).
+cell_accepts(oneof(Vs), X) :- !, member(V, Vs), same_value(V, X), !.
+cell_accepts(test(_), _).           % a test on a value: not followed
+
+cell_value(val(V), V).
+cell_value(oneof([V|_]), V).
+
+% ---------------------------------------------------------------------------
+% A comparison after an aggregate over absent facts
+% ---------------------------------------------------------------------------
+% "0 is greater than 0": the share of a fibre is a sum over the facts that
+% state each fibre's percentage, and the case states none. The leaf is the
+% fact that is not stated, not the comparison that failed on its absence.
+
+absent_aggregate(KB, failure(G0, R, _, _), Cs, Facts, Items) :-
+    strip_at(G0, G),
+    compound(G), functor(G, Cmp, 2),
+    memberchk(Cmp, [le_gt, le_ge, le_lt, le_le, le_equal_to, le_not_equal_to, >, >=, <, =<]),
+    findall(unmet(not_stated, Inner, LE, R, Facts),
+            ( member(C0, Cs), unwrap(C0, S), sub_aggregate(S, Agg),
+              Agg = success(_, _, _, ACs),
+              member(AC0, ACs), unwrap(AC0, failure(Inner0, _, LE0, _)),
+              strip_at(Inner0, Inner), callable(Inner),
+              catch(le_flip:changeable(KB, Inner), _, fail),
+              text(LE0, LE) ),
+            Items0),
+    dedup_items(Items0, Items),
+    Items \== [].
+
+sub_aggregate(success(G0, R, LE, Cs), success(G, R, LE, Cs)) :-
+    strip_at(G0, G), compound(G), G =.. [Op, [each|_]|_],
+    memberchk(Op, [sum, count, average, min, max, list]).
+sub_aggregate(success(_, _, _, Cs), A) :-
+    member(C0, Cs), unwrap(C0, S), S = success(_, _, _, _),
+    sub_aggregate(S, A).
+
+% ---------------------------------------------------------------------------
+% A table row in the words of its table
+% ---------------------------------------------------------------------------
+
+table_words(KB, G0, LE0, LE) :-
+    strip_at(G0, G),
+    G = le_table(Name, Args),
+    current_predicate(KB:le_table/6),
+    KB:le_table(Name, _, HF/HA, _, _, _),
+    length(Args, HA),
+    Head =.. [HF|Args],
+    catch(le_kbs:item_to_instance(KB, Head, Toks), _, fail),
+    le_kbs:canonical_string(Toks, LE), !,
+    ignore(LE0 = LE).
+table_words(_, _, LE, LE).
 
 rule_attempts(Cs, As) :-
     findall(A, ( member(C0, Cs), unwrap(C0, A), A = failure(rule_attempt(_, _, _), _, _, _) ), As).

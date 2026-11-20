@@ -147,6 +147,96 @@ test(api_unmet_and_open_questions) :-
     assertion(\+ ( member(M2, Missing), get_dict(literal, M2, Lit2), sub_string(Lit2, _, _, _, "B2") )),
     destroySession(SM).
 
+% --- following the expected value, absent facts under a sum, table rows ------
+% (lpsPlus FactsBackground.md §5.3: the three improvements)
+
+tariff_lite("the target language is: prolog.
+
+the templates are:
+    the kind of *a good* is *a kind*; undefined.
+    the fabric of *a good* is lightweight; undefined.
+    *a good* contains *a number* percent of *a material*; undefined.
+    the heading of *a good* is *a heading*.
+    the share of *a material* in *a good* is *a number*.
+    the material of *a good* is *a material*.
+    the subheading of *a good* is *a code*.
+    the subheading in heading *a heading* of *a material* is *a code* under table codes.
+
+the table codes is, with first match:
+    row | heading | material | code
+    c1  | 6109    | cotton   | \"6109.10\"
+    c2  | 6110    | cotton   | \"6110.20\"
+
+the knowledge base lite includes:
+
+rule tshirt:
+the heading of a good is 6109
+    if the kind of the good is T-shirt
+    and the fabric of the good is lightweight.
+
+rule top:
+the heading of a good is 6110
+    if the kind of the good is T-shirt.
+
+rule share:
+the share of a material in a good is a total
+    if the material is in [cotton, wool]
+    and the total is the sum of each percentage such that
+        the good contains the percentage percent of the material.
+
+rule chief_material:
+the material of a good is a material
+    if the share of the material in the good is a total
+    and the total > 50.
+
+rule subheading:
+the subheading of a good is a code
+    if the heading of the good is a heading
+    and the material of the good is a material
+    and the subheading in heading the heading of the material is the code under table codes.
+
+scenario tee is:
+    the kind of tee is T-shirt.
+    tee contains 100 percent of cotton.
+
+scenario silent is:
+    the kind of tee is T-shirt.
+
+query q is:
+    the subheading of which good is which code.
+").
+
+lite_unmet(Scenario, Query, Items) :-
+    tariff_lite(P), load_text(P, KB),
+    createSession(KB, SM), setScenarion(SM, Scenario),
+    assertz(SM:detailed_failures),
+    le_kbs:parse_custom_query(KB, Query, G),
+    le_kbs:query_explain(SM, G, _, _, Why),
+    le_why_not:unmet_json(SM, KB, Why, Items),
+    destroySession(SM).
+
+% The case went to heading 6110; the expected code is 6109.10. The reason is
+% what heading 6109 needs, not the row of the table on the case's route.
+test(the_expected_value_is_followed) :-
+    lite_unmet(tee, "the subheading of tee is \"6109.10\"", Items),
+    findall(L-K, ( member(I, Items), L = I.literal, K = I.kind ), LKs),
+    assertion(LKs == ["the fabric of tee is lightweight"-not_stated]).
+
+% A comparison after a sum over facts the case does not state: the leaf is
+% the fact that is not stated, not "0 is greater than 50".
+test(a_sum_over_absent_facts_is_not_stated) :-
+    lite_unmet(silent, "the material of tee is cotton", Items),
+    assertion(Items = [_]),
+    Items = [I],
+    assertion(I.kind == not_stated),
+    assertion(sub_string(I.literal, 0, _, _, "tee contains")).
+
+% A row of a table in the words of its template, not le_table(...).
+test(a_table_row_reads_in_its_words) :-
+    tariff_lite(P), load_text(P, KB),
+    le_why_not:table_words(KB, le_table(codes, [6110, cotton, "6109.10"]), _, LE),
+    assertion(LE == "the subheading in heading 6110 of cotton is 6109.10 under table codes").
+
 :- end_tests(why_not).
 
 % ---------------------------------------------------------------------------
