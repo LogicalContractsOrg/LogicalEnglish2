@@ -37,7 +37,7 @@
     rather than forwarded. Verification uses le_verifier:verify/2 in-process.
 */
 
-:- module(nl_to_le, [ english_to_le/8, english_to_le/9, background_instruction/1 ]).
+:- module(nl_to_le, [ english_to_le/8, english_to_le/9, background_instruction/2 ]).
 
 %   Through the broker, not straight at llm_client: an embedder (LPS2) can
 %   substitute its own client, so English→LE uses the keys and the model
@@ -134,8 +134,9 @@ english_to_le(Kind, Sentence, Templates, Program, Model, Options0, LEText, NewIs
 english_to_le_(Kind, Sentence, Templates, Program, Model, Options, LEText, NewIssues, Background) :-
     to_string(Program, ProgramS),
     (   Kind == facts, background_reading(ProgramS, KB, Noted, Regexes)
-    ->  setup_call_cleanup(
-            nb_setval(nl_background, bg(Noted, Regexes)),
+    ->  background_instruction(KB, Instruction),
+        setup_call_cleanup(
+            nb_setval(nl_background, bg(Noted, Regexes, Instruction)),
             english_to_le_1(Kind, Sentence, Templates, Program, Model, Options, LEText0, NewIssues),
             nb_setval(nl_background, none)),
         nonblank_lines(LEText0, Lines0),
@@ -193,19 +194,36 @@ noted_out(Regexes, L0, L) :-
     ( le_background:line_matches(Regexes, L0) -> L = "% noted" ; L = L0 ).
 
 % the noted templates and their line patterns of the reading under way
-%!  background_instruction(-Text) is det.
+%!  background_instruction(+KB, -Text) is det.
 %
-%   What the model is told when the program has a facts background. The
+%   What the model is told when the program KB has a facts background. The
 %   facts of the program's own templates come first, written as they would
 %   be without a background: the background only adds to them. (An earlier
 %   wording, "infer nothing, the background adds the facts that follow",
 %   made readers leave the program's templates to the background, which
 %   cannot know every word of every text: RatioTariff.md §3.9, run B.)
-background_instruction(Text) :-
-    Text = "\n\n--- A facts background ---\nThe templates marked (noted) belong to the facts background: they record what a text says, in words close to its own. Write two kinds of facts.\n1. Every fact that the text states and that a template not marked (noted) can say. Write these facts exactly as you would without a facts background. A text states a fact when it gives the value in the template's own words or in plain words with the same meaning: \"Craft of Weaving: Knit\" states that the fabric is knitted, and \"Men Tee Shirt\" states that the kind is T-shirt. Do not leave out such a fact because the facts background could find it.\n2. Also, what the text says in the templates marked (noted). Write the words of the text as quoted text where the template has a name or a value. The words listed after a noted template are the ones the background knows.\nDo not guess beyond what the text states. A second step applies the background's rules to the noted facts and adds the facts that follow. A fact that you wrote has priority over a fact that the background derives.".
+%   Nothing in the text is about one domain: its example is taken from the
+%   background itself (le_background:background_example/3), and there is
+%   none when the background gives none.
+background_instruction(KB, Text) :-
+    (   catch(le_background:background_example(KB, Noted, Derived), _, fail)
+    ->  format(string(Example),
+               "\nAn example from this program. If a text states it in the program's own words, write: ~w. If the text uses other words, write the noted fact: ~w. From that noted fact the background adds: ~w.",
+               [Derived, Noted, Derived])
+    ;   Example = ""
+    ),
+    format(string(Text),
+"\n\n--- A facts background ---\n\
+The templates marked (noted) belong to the facts background: they record what a text says, in words close to its own. Write two kinds of facts.\n\
+1. Every fact that the text states and that a template not marked (noted) can say. Write these facts exactly as you would without a facts background. A text states a fact when it gives the value in the template's own words, or in plain words with the same meaning. Do not leave out such a fact because the facts background could find it.\n\
+2. Also, what the text says in the templates marked (noted). Write the words of the text as quoted text where the template has a name or a value. Write them also when they are not among the words listed after the template: the system reports a word that the background does not know.~w\n\
+For both kinds:\n\
+- When the text gives different values for the same thing and only one can be right (several names for the same thing, or two statements that contradict each other), do not choose. Write each value with its own passage: in a noted template if one fits the words, otherwise in the program's template. The background's rules choose when they can; otherwise a person is asked.\n\
+- Do not guess beyond what the text states. A second step applies the background's rules to the noted facts and adds the facts that follow. A fact that you wrote has priority over a fact that the background derives.",
+           [Example]).
 
 current_background(Noted, Regexes) :-
-    nb_current(nl_background, bg(Noted, Regexes)).
+    nb_current(nl_background, bg(Noted, Regexes, _)).
 
 english_to_le_1(Kind, Sentence, Templates0, Program, Model, Options0, LEText, NewIssues) :-
     % The fragment must be written in the PROGRAM's language: its keyword set
@@ -252,9 +270,8 @@ english_to_le_1(Kind, Sentence, Templates0, Program, Model, Options0, LEText, Ne
     ensure_temperature(Options2, Options),
     baseline(ProgramS, CheckRegressions, Baseline),
     system_prompt(Kind, Templates, ProgramS, System00),
-    (   Kind == facts, current_background(_, _)
-    ->  background_instruction(Instruction),
-        string_concat(System00, Instruction, System0)
+    (   Kind == facts, nb_current(nl_background, bg(_, _, Instruction))
+    ->  string_concat(System00, Instruction, System0)
     ;   System0 = System00
     ),
     (   Doc == none
@@ -826,9 +843,16 @@ system_prompt(Kind, Templates, Program, Prompt) :-
     pitfalls(Kind, Pitfalls),
     program_context(Kind, Program, Context),
     language_note(LangNote),
+    missing_value_rule(Kind, Missing),
     format(string(Prompt),
-        "You translate a natural-language sentence into Logical English (LE).~w~n~n~w~n~nKeep each template's fixed words EXACTLY, adjusting the sentence's wording and tense to fit them (e.g. 'was born' becomes the template's 'is born'). Replace each *...* placeholder with the matching value from the sentence. If the sentence does NOT give a value for some placeholder, keep the placeholder's own words in its place (for example write 'a date' where no date is stated) — do NOT invent a specific value, and do NOT drop the placeholder. Do not use predicates or wording that is not in a template below. Output plain text only — no Markdown, no code fences, no commentary.~n~n~w~n~nTemplates (each *...* is a placeholder to fill):~n~w~w",
-        [LangNote, Rules, Pitfalls, TemplatesText, Context]).
+        "You translate a natural-language sentence into Logical English (LE).~w~n~n~w~n~nKeep each template's fixed words EXACTLY, adjusting the sentence's wording and tense to fit them (e.g. 'was born' becomes the template's 'is born'). Replace each *...* placeholder with the matching value from the sentence. ~wDo not use predicates or wording that is not in a template below. Output plain text only — no Markdown, no code fences, no commentary.~n~n~w~n~nTemplates (each *...* is a placeholder to fill):~n~w~w",
+        [LangNote, Rules, Missing, Pitfalls, TemplatesText, Context]).
+
+% What to do with a place whose value the sentence does not give. In a
+% rule or a query the placeholder's own words are right ('a date'); in a
+% fact they make it true of everything, so the fact is left out.
+missing_value_rule(facts, "If the sentence does NOT give a value for some placeholder, leave that fact out: do NOT invent a value, and do NOT write the placeholder's own words (in a fact, 'a number' or 'a date' makes it true of everything). ") :- !.
+missing_value_rule(_, "If the sentence does NOT give a value for some placeholder, keep the placeholder's own words in its place (for example write 'a date' where no date is stated) — do NOT invent a specific value, and do NOT drop the placeholder. ").
 
 % ---------------------------------------------------------------------------
 % Facts from a document

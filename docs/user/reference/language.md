@@ -1196,7 +1196,10 @@ the facts background includes these resources:
   2. The reader writes each fact that the text states in a scenario template of the
      program, as without a background. Then the reader also writes what the text says in
      the noted templates, in words close to the words of the text. The reader does not
-     guess facts that the text does not state.
+     guess facts that the text does not state, and does not choose between two values
+     that the text gives. The instruction to the reader has an example. The system takes
+     the example from the background programs: a noted fact, and a fact of the program
+     that the background gives from that noted fact.
   3. The system runs each background program on these facts. It runs the programs in
      the sequence of the section. Each program also gets the facts that the programs
      before it gave.
@@ -1249,6 +1252,10 @@ the reasoner.
   value. It shows a note.
 - **Two background rules that give two values** of a template with one value give no
   fact. The system shows a question to the person who reviews the facts.
+- **Two values that the text states** of a template with one value give no fact. The
+  system does not choose. It keeps neither fact, and shows a question with the passage
+  of each value. (The system finds these values only in a template that a background
+  program also declares.)
 - To put one background rule before another, write the sequence in the background
   program: an `otherwise` cascade (§17.2), or a condition on the noted facts.
 

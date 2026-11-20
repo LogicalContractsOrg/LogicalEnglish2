@@ -67,7 +67,8 @@
     apply_background/4,           % +KB, +Lines, -Result, +Options
     background_issue/2,           % +KB, -Issue   (le_verifier)
     template_regex/2,             % +Label, -Regex
-    line_fact_part/3              % +Line, -Fact, -Trailers
+    line_fact_part/3,             % +Line, -Fact, -Trailers
+    background_example/3          % +KB, -NotedFact, -DerivedFact
 ]).
 
 :- use_module(library(lists)).
@@ -342,6 +343,10 @@ apply_background(KB, Lines0, Result) :-
 %   left out. A measurement uses it to read a case at several levels
 %   (bridges only; with presumptions; with trade usage).
 apply_background(KB, Lines0, Result, Options) :-
+    apply_background_(KB, Lines0, Options, Result, _).
+
+% as apply_background/4; Derived: the derived facts, d(F/A-Head, ...)
+apply_background_(KB, Lines0, Options, Result, Derived) :-
     facts_background(KB, Programs0),
     (   memberchk(programs(Names), Options)
     ->  include(program_named(Names), Programs0, Programs)
@@ -360,9 +365,10 @@ apply_background(KB, Lines0, Result, Options) :-
     % the reader's lines as the backgrounds read them
     findall(L, ( member(C, Classified), ( C = main(L) ; C = noted(L0), lower_quoted(L0, L) ) ), Given),
     run_programs(KB, Programs, Given, [], Derived0),
-    resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions),
+    resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held),
     findall(DL, member(d(_, _, DL, _, _, _, _), Derived), DerivedLines),
-    append(MainLines, DerivedLines, OutLines),
+    exclude(held_line(Held), MainLines, KeptLines),
+    append(KeptLines, DerivedLines, OutLines),
     findall(_{fact: FT, line: DL, program: P, rule: R, passage: Pa, from: Fr},
             member(d(_, FT, DL, P, R, Pa, Fr), Derived), DerivedJSON),
     findall(_{fact: NL, produced: Prod},
@@ -380,6 +386,8 @@ apply_background(KB, Lines0, Result, Options) :-
     Result = _{lines: OutLines, derived: DerivedJSON, noted: NotedJSON,
                unused: Unused, notes: Notes, questions: Questions,
                programs: ProgramsJSON}.
+
+held_line(Held, Line) :- memberchk(Line, Held).
 
 program_named(Names, bg(Name, _, _, Status)) :-
     (   memberchk(Name, Names) -> true
@@ -526,15 +534,124 @@ kw_text(Key, Text) :-
     atomic_list_concat(Ws, ' ', Text).
 
 % ------------------------------------------------------------------------
+% An example for the reader, from the background itself
+% ------------------------------------------------------------------------
+
+%!  background_example(+KB, -NotedFact, -DerivedFact) is semidet.
+%
+%   A noted fact and a fact of the program that the background derives
+%   from it alone, as texts about "the thing": the example that the
+%   instruction to a reader gives (nl_to_le). The background is run once
+%   on one sample fact for each word it knows in the places of its noted
+%   templates (le_verifier:slot_values/5), each about a thing of its own;
+%   the first derived fact that rests on one sample fact is the example.
+%   Nothing in it is about one domain: the words are the background's.
+%   Fails when the background derives nothing from a single noted fact.
+background_example(KB, NotedFact, DerivedFact) :-
+    facts_background(KB, Programs),
+    findall(Id-Text, member(bg(_, Id, _, loaded(_, _, Text, _)), Programs), Key0),
+    Key0 \== [],
+    variant_sha1(Key0, Key),
+    (   example_cache(Key, Example)
+    ->  true
+    ;   ( find_example(KB, Example0) -> true ; Example0 = none ),
+        assertz(example_cache(Key, Example0)),
+        Example = Example0
+    ),
+    Example = ex(NotedFact, DerivedFact).
+
+:- dynamic example_cache/2.
+
+% the noted templates one at a time, in the order of the programs; the
+% first derived fact with a value wins, else the first without one
+find_example(KB, Example) :-
+    noted_templates_all(KB, All),
+    find_example(All, 1, KB, none, Example).
+
+find_example([], _, _, Fallback, Fallback) :- Fallback \== none.
+find_example([n(_, BM, F/A)|Ns], K, KB, Fallback0, Example) :-
+    findall(Line, sample_line(BM, F, A, K, Line), Lines0),
+    list_to_set(Lines0, Lines),
+    (   Lines \== [],
+        apply_background_(KB, Lines, [], _, Derived),
+        findall(ex(N, D)-Arity,
+                ( member(d(_/Arity-_, FT, _, _, _, _, [From]), Derived),
+                  line_fact_part(From, NF0, _),
+                  split_string(NF0, "", ". ", [NF1]),
+                  sample_thing(NF1, Thing),
+                  the_thing(Thing, NF1, N),
+                  the_thing(Thing, FT, D) ),
+                Found),
+        Found \== []
+    ->  (   member(Ex-Ar, Found), Ar >= 2
+        ->  Example = Ex
+        ;   Found = [Ex1-_|_],
+            ( Fallback0 == none -> Fallback = Ex1 ; Fallback = Fallback0 ),
+            K1 is K + 1,
+            find_example(Ns, K1, KB, Fallback, Example)
+        )
+    ;   K1 is K + 1,
+        find_example(Ns, K1, KB, Fallback0, Example)
+    ).
+
+% a noted fact with a word the background knows in each place but one,
+% which names a thing (sample_K_I); at most 40 words in a place
+sample_line(BM, F, A, K, Line) :-
+    findall(I-Vs, ( between(1, A, I),
+                    (   catch(le_verifier:with_rule_index(BM, le_verifier:slot_values(BM, F, A, I, Vs0)), _, fail),
+                        Vs0 \== []
+                    ->  length(Vs0, N), Max is min(N, 40), length(Vs, Max), append(Vs, _, Vs0)
+                    ;   Vs = []
+                    ) ),
+            Places),
+    include([_-[]]>>true, Places, [_]),
+    findall(Args, maplist(place_value(K), Places, Args), Combos0),
+    length(Combos0, NC), MaxC is min(NC, 60), length(Combos, MaxC), append(Combos, _, Combos0),
+    nth1(J, Combos, Args0),
+    maplist(thing_name(K, J), Args0, Args),
+    Head =.. [F|Args],
+    catch(fact_text(BM, Head, Text), _, fail),
+    string_concat(Text, ".", Line).
+
+place_value(_, _-[], thing) :- !.
+place_value(_, _-Vs, V) :- member(V, Vs).
+
+thing_name(K, J, thing, Name) :- !, format(atom(Name), "sample_~w_~w", [K, J]).
+thing_name(_, _, V, V).
+
+sample_thing(Fact, Thing) :-
+    re_matchsub("sample_\\d+_\\d+", Fact, M, []), Thing = M.0.
+
+the_thing(Thing, Text0, Text) :-
+    atomic_list_concat(Parts, Thing, Text0),
+    atomic_list_concat(Parts, 'the thing', TextA),
+    atom_string(TextA, Text).
+
+% ------------------------------------------------------------------------
 % When facts disagree (FactsBackground.md §3.5)
 % ------------------------------------------------------------------------
 
-resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions) :-
-    stated_facts(KB, Programs, Given, Stated),
+resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held) :-
+    stated_facts_lines(KB, Programs, Given, StatedLines),
+    findall(FA-H, member(FA-H-_, StatedLines), Stated1), sort(Stated1, Stated),
+    % 0. the text states two values of a one-valued template: a person
+    %    decides, and both facts are held back from the scenario
+    findall(p(H1, L1, L2), ( member(F/A-H1-L1, StatedLines), one_valued(KB, Programs, F, A),
+                     member(F/A-H2-L2, StatedLines), same_subject(H1, H2),
+                     H1 @< H2, L1 \== "", L2 \== "" ), Pairs0),
+    sort(Pairs0, Pairs),
+    findall(Q, ( member(p(_, L1, L2), Pairs),
+                 line_fact_part(L1, T1, _), line_fact_part(L2, T2, _),
+                 with_passage(L1, T1, S1), with_passage(L2, T2, S2),
+                 format(string(Q), "The text states that ~w, and also that ~w. Which is right?", [S1, S2]) ),
+            StatedQuestions),
+    findall(L, ( member(p(_, L1, L2), Pairs), ( L = L1 ; L = L2 ) ), Held0),
+    sort(Held0, Held),
     % 1. the text states another value of a one-valued template
     beaten(Derived0, KB, Programs, Stated, Beaten, Derived1),
     findall(Note, ( member(d(F/A-H, FT, _, P, R, _, _), Beaten),
-                    member(F/A-S, Stated), same_subject(H, S),
+                    member(F/A-S, Stated), same_subject(H, S), H \=@= S,
+                    \+ ( member(p(HC, _, _), Pairs), same_subject(HC, H) ),
                     stated_text(Programs, S, ST),
                     format(string(Note), "The text states that ~w; ~w (rule ~w) would give that ~w.", [ST, P, R, FT]) ),
             Notes0),
@@ -552,7 +669,15 @@ resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions) :-
                  format(string(Q), "~w (rule ~w) gives that ~w, but ~w (rule ~w) gives that ~w. Which is right?",
                         [P, R, FT, P2, R2, FT2]) ),
              Questions0),
-    sort(Questions0, Questions).
+    append(StatedQuestions, Questions0, Questions1),
+    sort(Questions1, Questions).
+
+% a stated fact, with its passage when the line quotes one
+with_passage(Line, Fact, Text) :-
+    line_passage(Line, P),
+    (   P == "" -> Text = Fact
+    ;   format(string(Text), "~w (\"~w\")", [Fact, P])
+    ).
 
 beaten([], _, _, _, [], []).
 beaten([D|Ds], KB, Programs, Stated, Beaten, Kept) :-
@@ -585,23 +710,40 @@ declared_function(M, FA) :-
 % the facts of shared templates that the reader stated, as the first
 % program that declares their template reads them
 stated_facts(KB, Programs, Given, Stated) :-
-    findall(F/A-H,
+    stated_facts_lines(KB, Programs, Given, WithLines),
+    findall(FA-H, member(FA-H-_, WithLines), Stated0),
+    sort(Stated0, Stated).
+
+% the same, each F/A-Head-Line with the reader's line that states it
+stated_facts_lines(KB, Programs, Given, Stated) :-
+    findall(F/A-H-Line,
             ( member(bg(_, _, _, loaded(BM, _, Text, Base)), Programs),
               given_terms(BM, Text, Base, Given, Terms),
-              member(H, Terms),
+              member(H-Line, Terms),
               functor(H, F, A), shared_template(KB, BM, F, A) ),
             Stated0),
     sort(Stated0, Stated).
 
 given_terms(_BM, Text, Base, Given, Terms) :-
     reading_scenario(SN),
+    format(string(Header), "~w\n\nscenario ~w is:\n", [Text, SN]),
+    string_length(Header, ScStart),
+    foldl([Line, O0-Acc0, O-[r(O0, O1, Line)|Acc0]]>>(
+              string_length(Line, LL), O1 is O0 + 4 + LL, O is O1 + 1 ),
+          Given, ScStart-[], _-RangesRev),
+    reverse(RangesRev, Ranges),
     findall(S, ( member(Line, Given), format(string(S), "    ~w", [Line]) ), Indented),
     atomic_list_concat(Indented, "\n", Body),
-    format(string(Full), "~w\n\nscenario ~w is:\n~w\n", [Text, SN, Body]),
+    format(string(Full), "~w~w\n", [Header, Body]),
     catch(le_kbs:load_text(Full, Base, RM, [skip_tests]), _, fail),
     catch(RM:scenario(SN, Ts), _, fail), !,
-    findall(H, ( member(fact_with_source(H0, _, _), Ts),
-                 ( H0 = (H :- _) -> true ; H = H0 ), compound(H), ground(H) ), Terms).
+    findall(H-Line, ( member(fact_with_source(H0, St, _), Ts),
+                      ( H0 = (H :- _) -> true ; H = H0 ), compound(H), ground(H),
+                      (   integer(St), member(r(B, E, Line), Ranges), St >= B, St =< E
+                      ->  true
+                      ;   Line = ""
+                      ) ),
+            Terms).
 given_terms(_, _, _, _, []).
 
 stated_text(Programs, S, Text) :-

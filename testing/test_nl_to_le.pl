@@ -436,6 +436,11 @@ test(a_facts_background_reads_noted_facts,
     assertion(sub_string(Sys, _, _, _, "*a thing* is called *a name* (noted)")),
     assertion(sub_string(Sys, _, _, _, "\"tee shirt\"")),
     assertion(sub_string(Sys, _, _, _, "Do not leave out such a fact because the facts background could find it")),
+    % the example is the background's own, not one written for one domain
+    assertion(sub_string(Sys, _, _, _, "An example from this program")),
+    assertion(\+ sub_string(Sys, _, _, _, "Craft of Weaving: Knit\" states")),
+    % a fact without a value is left out, not written with a placeholder
+    assertion(sub_string(Sys, _, _, _, "leave that fact out")),
     assertion(\+ nl_has_issue(Issues, "unknown_template")),
     assertion(sub_string(LE, _, _, _, "the kind of item one is T-shirt, according to garments background")),
     assertion(sub_string(LE, _, _, _, "the fabric of item one is lightweight, according to customs presumptions")),

@@ -129,6 +129,43 @@ test(two_derived_values_are_a_question) :-
     % the fabric of the T-shirt is still presumed
     assertion(has_line_with(R.lines, "the fabric of item three is lightweight")).
 
+% Two values of a one-valued template that the text states: no choice is
+% made, both lines are held back, and a person is asked.
+test(two_stated_values_are_a_question) :-
+    fb_main(KB),
+    apply_background(KB, ["item six is called \"t-shirt\", confer \"T-shirt\".",
+                          "the fabric construction of item six is woven, confer \"woven\".",
+                          "the fabric construction of item six is knitted, confer \"Knit\"."], R),
+    assertion(\+ has_line_with(R.lines, "fabric construction of item six")),
+    assertion(\+ has_line_with(R.lines, "item six is knitted")),
+    R.questions = [Q],
+    assertion(sub_string(Q, _, _, _, "The text states that")),
+    assertion(sub_string(Q, _, _, _, "(\"Knit\")")),
+    assertion(R.notes == []).
+
+% The same value stated twice is no question.
+test(the_same_value_stated_twice_is_no_question) :-
+    fb_main(KB),
+    apply_background(KB, ["the fabric construction of item seven is woven, confer \"woven\".",
+                          "the fabric construction of item seven is woven, confer \"Woven fabric\"."], R),
+    assertion(R.questions == []),
+    assertion(has_line_with(R.lines, "the fabric construction of item seven is woven")).
+
+% The example for the reader comes from the background itself: a noted
+% fact, and the fact of the program the background derives from it alone.
+test(the_example_comes_from_the_background) :-
+    fb_main(KB),
+    background_example(KB, Noted, Derived),
+    assertion(sub_string(Noted, _, _, _, "the thing")),
+    assertion(sub_string(Derived, _, _, _, "the thing")),
+    assertion(\+ sub_string(Noted, _, _, _, "sample_")),
+    % the derived fact is one that the noted fact gives
+    format(string(Line), "~w.", [Noted]),
+    re_replace("the thing"/g, "item eight", Line, Line8),
+    apply_background(KB, [Line8], R),
+    re_replace("the thing"/g, "item eight", Derived, Derived8),
+    assertion(has_line_with(R.lines, Derived8)).
+
 % A word that no rule of the background knows is shown, with no expected
 % answer in sight.
 test(a_noted_word_nothing_knows_is_unused) :-
