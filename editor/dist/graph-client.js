@@ -140182,7 +140182,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABELA DE DECIS\xC3O",
     "not run (time limit)": "n\xE3o executado (limite de tempo)",
     "Write anyway, with residues": "Escrever mesmo assim, com res\xEDduos",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que n\xE3o pode ser traduzida, e cada parte que usa uma, \xE9 acrescentada no fim como coment\xE1rio, com a sua linha e a raz\xE3o."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que n\xE3o pode ser traduzida, e cada parte que usa uma, \xE9 acrescentada no fim como coment\xE1rio, com a sua linha e a raz\xE3o.",
+    "The facts to insert (untick a fact to leave it out):": "Os factos a inserir (desmarque um facto para o deixar de fora):",
+    "From the text": "Do texto",
+    "Questions for you (the background rules disagree):": "Perguntas para si (as regras do contexto discordam):",
+    "Left out, because the text states otherwise:": "Deixados de fora, porque o texto diz outra coisa:",
+    "Noted, and no background rule used it:": "Anotado, e nenhuma regra do contexto o usou:",
+    "What the reader noted:": "O que o leitor anotou:",
+    "Applying the facts background\u2026": "A aplicar o contexto dos factos\u2026",
+    "Facts added by the facts background": "Factos acrescentados pelo contexto dos factos",
+    "Apply the facts background": "Aplicar o contexto dos factos",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Executar as regras do contexto dos factos sobre estes factos, e acrescentar os factos que da\xED resultam",
+    "Insert": "Inserir"
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -141062,7 +141073,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABLA DE DECISI\xD3N",
     "not run (time limit)": "no ejecutado (l\xEDmite de tiempo)",
     "Write anyway, with residues": "Escribir de todos modos, con residuos",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se a\xF1ade al final como comentario, con su l\xEDnea y el motivo."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se a\xF1ade al final como comentario, con su l\xEDnea y el motivo.",
+    "The facts to insert (untick a fact to leave it out):": "Los hechos que se insertar\xE1n (desmarque un hecho para dejarlo fuera):",
+    "From the text": "Del texto",
+    "Questions for you (the background rules disagree):": "Preguntas para usted (las reglas del contexto no coinciden):",
+    "Left out, because the text states otherwise:": "Dejados fuera, porque el texto dice otra cosa:",
+    "Noted, and no background rule used it:": "Anotado, y ninguna regla del contexto lo us\xF3:",
+    "What the reader noted:": "Lo que anot\xF3 el lector:",
+    "Applying the facts background\u2026": "Aplicando el contexto de los hechos\u2026",
+    "Facts added by the facts background": "Hechos a\xF1adidos por el contexto de los hechos",
+    "Apply the facts background": "Aplicar el contexto de los hechos",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Ejecutar las reglas del contexto de los hechos sobre estos hechos, y a\xF1adir los hechos que resultan",
+    "Insert": "Insertar"
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -141942,7 +141964,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABLE DE D\xC9CISION",
     "not run (time limit)": "non ex\xE9cut\xE9 (limite de temps)",
     "Write anyway, with residues": "\xC9crire quand m\xEAme, avec les r\xE9sidus",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "\xC9crire quand m\xEAme \xE9crit les parties qui peuvent \xEAtre traduites. Chaque partie qui ne peut pas l'\xEAtre, et chaque partie qui en utilise une, est ajout\xE9e \xE0 la fin en commentaire, avec sa ligne et la raison."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "\xC9crire quand m\xEAme \xE9crit les parties qui peuvent \xEAtre traduites. Chaque partie qui ne peut pas l'\xEAtre, et chaque partie qui en utilise une, est ajout\xE9e \xE0 la fin en commentaire, avec sa ligne et la raison.",
+    "The facts to insert (untick a fact to leave it out):": "Les faits \xE0 ins\xE9rer (d\xE9cochez un fait pour l'exclure) :",
+    "From the text": "Du texte",
+    "Questions for you (the background rules disagree):": "Questions pour vous (les r\xE8gles du contexte ne s'accordent pas) :",
+    "Left out, because the text states otherwise:": "Exclus, parce que le texte dit autre chose :",
+    "Noted, and no background rule used it:": "Not\xE9, et aucune r\xE8gle du contexte ne l'a utilis\xE9 :",
+    "What the reader noted:": "Ce que le lecteur a not\xE9 :",
+    "Applying the facts background\u2026": "Application du contexte des faits\u2026",
+    "Facts added by the facts background": "Faits ajout\xE9s par le contexte des faits",
+    "Apply the facts background": "Appliquer le contexte des faits",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Ex\xE9cuter les r\xE8gles du contexte des faits sur ces faits, et ajouter les faits qui en d\xE9coulent",
+    "Insert": "Ins\xE9rer"
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -142822,7 +142855,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABELLA DECISIONALE",
     "not run (time limit)": "non eseguito (limite di tempo)",
     "Write anyway, with residues": "Scrivi comunque, con i residui",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si pu\xF2 tradurre, e ogni parte che ne usa una, \xE8 aggiunta alla fine come commento, con la sua riga e il motivo."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si pu\xF2 tradurre, e ogni parte che ne usa una, \xE8 aggiunta alla fine come commento, con la sua riga e il motivo.",
+    "The facts to insert (untick a fact to leave it out):": "I fatti da inserire (togli la spunta per escludere un fatto):",
+    "From the text": "Dal testo",
+    "Questions for you (the background rules disagree):": "Domande per te (le regole del contesto non concordano):",
+    "Left out, because the text states otherwise:": "Esclusi, perch\xE9 il testo dice altro:",
+    "Noted, and no background rule used it:": "Annotato, e nessuna regola del contesto lo ha usato:",
+    "What the reader noted:": "Ci\xF2 che il lettore ha annotato:",
+    "Applying the facts background\u2026": "Applicazione del contesto dei fatti\u2026",
+    "Facts added by the facts background": "Fatti aggiunti dal contesto dei fatti",
+    "Apply the facts background": "Applica il contesto dei fatti",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Esegui le regole del contesto dei fatti su questi fatti, e aggiungi i fatti che ne seguono",
+    "Insert": "Inserisci"
   }
 };
 var languages = [

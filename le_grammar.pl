@@ -302,6 +302,8 @@ section_start(provenance_required(S, _), S).
 section_start(table(_, _, _, _, _, S, _), S).
 section_start(services(_, _, S, _), S).
 section_start(scenario_resources(_, _, S, _), S).
+section_start(facts_background(_, S, _), S).
+section_start(facts_background(_, _, S, _), S).
 
 % Only KNOWLEDGE BASE rules count for the "scenario before rules" ordering check.
 % Scenarios (and queries) may legitimately contain their own local rules, so they
@@ -445,6 +447,14 @@ section(resources(Name, Resources, Start, End)) -->
 section(resources(Name, Resources, Start, End)) -->
     any_indent, kw_start(contract_open, Start), kb_name_tokens(Tokens), kw(resources_include), t(punctuation(':', _)),
     { reconstruct_name(Tokens, Name) },
+    resource_list(Resources, End).
+
+% section(facts_background(...)) parses "the facts background includes these
+% resources: <program>, ...": programs used only to read facts from a text
+% (le_background.pl; docs/user/reference/language.md §14.5). They are not
+% read with the includes, and the program never reasons with them.
+section(facts_background(Resources, Start, End)) -->
+    any_indent, kw_start(facts_background_include, Start), t(punctuation(':', _)),
     resource_list(Resources, End).
 
 % section(scenario_resources(...)) parses "the knowledge base <name> includes
@@ -4030,6 +4040,9 @@ single_template_query(Tokens, Templates) :-
     % connective one — WordsAndVars keeps them).
     include(atom, WordsAndVars, FixedWords),
     \+ body_has_free_connective(Words, FixedWords),
+    \+ ( le_i18n:kw_synonym_words(according_to, AccWords),
+         append(_, AccTail, Words), append(AccWords, [_|_], AccTail),
+         \+ ( append(_, FT, FixedWords), append(AccWords, _, FT) ) ),
     copy_term(WordsAndVars, WordsAndVarsCopy),
     catch(match_instance_to_template(CleanTokens, WordsAndVarsCopy, [], _, Templates, true, 0), _, fail),
     !.
@@ -4078,6 +4091,9 @@ has_query_connective(or(_, _)).
 has_query_connective((_ ; _)).
 has_query_connective(not(_)).
 has_query_connective(forall(_, _)).
+%   `<condition> according to <scope>` (§17.5) is a body structure: read as
+%   one literal, the scope was dropped and the query answered unscoped.
+has_query_connective(le_scoped(_, _)).
 %   An aggregate (`N is the sum of each I such that` over its nested lines) is
 %   a body structure too: read as one literal it falls to the generic `is`.
 has_query_connective(G) :-

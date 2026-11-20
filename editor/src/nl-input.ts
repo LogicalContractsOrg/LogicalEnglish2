@@ -71,6 +71,13 @@ function ensureStyles() {
             border: 1px solid var(--input-border, #555); border-radius: 4px; padding: 6px 12px; font: inherit; cursor: pointer; }
         .nl-dialog button.primary { background: var(--accent, #0e639c); color: #fff; border-color: var(--accent, #0e639c); }
         .nl-dialog button:disabled { opacity: 0.5; cursor: default; }
+        .nl-bg { margin: 10px 0 0; font-size: 12px; }
+        .nl-bg-row { display: flex; gap: 6px; align-items: baseline; margin: 3px 0; }
+        .nl-bg-row label { flex: 1; }
+        .nl-bg-badge { font-size: 11px; padding: 0 6px; border-radius: 8px; white-space: nowrap;
+            background: rgba(120,160,220,.25); border: 1px solid rgba(120,160,220,.6); }
+        .nl-bg-list { margin: 6px 0 0; padding-left: 18px; }
+        .nl-bg-head { margin: 8px 0 2px; opacity: .85; }
     `;
     document.head.appendChild(style);
 }
@@ -102,6 +109,70 @@ function makeDraggable(box: HTMLElement, handle: HTMLElement) {
     });
 }
 
+// What the facts background step returned (le_background.pl, language
+// reference §14.5): the facts to insert, which of them a background program
+// derived, the noted facts, and what a reviewer must look at.
+export interface BackgroundDerived { fact: string; line: string; program: string; rule: string; passage: string; from: string[] }
+export interface BackgroundResult {
+    lines: string[];
+    derived: BackgroundDerived[];
+    noted: { fact: string; produced: string[] }[];
+    unused: string[];
+    notes: string[];
+    questions: string[];
+}
+
+// The review list of a reading with a facts background: one row per fact,
+// ticked; a derived fact has a badge with its background program, and its
+// rule and passage on hover. Returns a function that gives the ticked lines.
+export function renderBackgroundReview(host: HTMLElement, bg: BackgroundResult): () => string[] {
+    host.innerHTML = '';
+    host.className = 'nl-bg';
+    const byLine = new Map<string, BackgroundDerived>();
+    for (const d of bg.derived || []) byLine.set(d.line, d);
+    const boxes: { box: HTMLInputElement; line: string }[] = [];
+    const head = document.createElement('div');
+    head.className = 'nl-bg-head';
+    head.textContent = t('The facts to insert (untick a fact to leave it out):');
+    host.appendChild(head);
+    for (const line of bg.lines || []) {
+        const row = document.createElement('div');
+        row.className = 'nl-bg-row';
+        const box = document.createElement('input');
+        box.type = 'checkbox'; box.checked = true;
+        const label = document.createElement('label');
+        const d = byLine.get(line);
+        label.textContent = d ? d.fact : line.replace(/\.$/, '');
+        label.prepend(box);
+        row.appendChild(label);
+        if (d) {
+            const badge = document.createElement('span');
+            badge.className = 'nl-bg-badge';
+            badge.textContent = d.program;
+            badge.title = `${t('Rule')}: ${d.rule}` + (d.passage ? `\n${t('From the text')}: "${d.passage}"` : '');
+            row.appendChild(badge);
+        }
+        host.appendChild(row);
+        boxes.push({ box, line });
+    }
+    const list = (title: string, items: string[]) => {
+        if (!items || !items.length) return;
+        const h = document.createElement('div');
+        h.className = 'nl-bg-head';
+        h.textContent = title;
+        const ul = document.createElement('ul');
+        ul.className = 'nl-bg-list';
+        for (const it of items) { const li = document.createElement('li'); li.textContent = it; ul.appendChild(li); }
+        host.appendChild(h); host.appendChild(ul);
+    };
+    list(t('Questions for you (the background rules disagree):'), bg.questions);
+    list(t('Left out, because the text states otherwise:'), bg.notes);
+    list(t('Noted, and no background rule used it:'), bg.unused);
+    list(t('What the reader noted:'), (bg.noted || []).map(n =>
+        n.produced.length ? `${n.fact} → ${n.produced.join('; ')}` : n.fact));
+    return () => boxes.filter(b => b.box.checked).map(b => b.line);
+}
+
 export function openNlInput(opts: NlInputOptions): void {
     ensureStyles();
 
@@ -128,6 +199,10 @@ export function openNlInput(opts: NlInputOptions): void {
     const preview = document.createElement('pre');
     preview.className = 'nl-preview';
     previewLabel.hidden = true; preview.hidden = true;
+    // the review list of a reading with a facts background
+    const review = document.createElement('div');
+    review.hidden = true;
+    let reviewLines: (() => string[]) | null = null;
 
     const actions = document.createElement('div');
     actions.className = 'nl-actions';
@@ -201,6 +276,7 @@ export function openNlInput(opts: NlInputOptions): void {
     dialog.appendChild(textarea);
     dialog.appendChild(previewLabel);
     dialog.appendChild(preview);
+    dialog.appendChild(review);
     dialog.appendChild(status);
     dialog.appendChild(actions);
     document.body.appendChild(overlay);
@@ -233,6 +309,7 @@ export function openNlInput(opts: NlInputOptions): void {
         generate.textContent = t('Generate');
         regenerate.style.display = 'none';
         previewLabel.hidden = true; preview.hidden = true;
+        review.hidden = true; reviewLines = null;
     }
     textarea.addEventListener('input', () => { if (primaryMode === 'insert') toGenerateMode(); });
 
@@ -274,7 +351,21 @@ export function openNlInput(opts: NlInputOptions): void {
                     res.le = `${res.le.trim()}\n${res.document_facts.map((f: string) => `${f}.`).join('\n')}`;
                 }
                 const warnings: string[] = Array.isArray(res.warnings) ? res.warnings : [];
-                if (warnings.length === 0) {
+                const bg: BackgroundResult | null = res.background && Array.isArray(res.background.lines) ? res.background : null;
+                if (bg) {
+                    // A facts background: the person reviews what the background
+                    // derived before it goes in.
+                    reviewLines = renderBackgroundReview(review, bg);
+                    review.hidden = false;
+                    const extra = Array.isArray(res.document_facts) ? res.document_facts.map((f: string) => `${f}.`) : [];
+                    pendingLe = '';
+                    primaryMode = 'insert';
+                    generate.textContent = t('Insert');
+                    regenerate.style.display = '';
+                    status.className = warnings.length ? 'nl-status warn' : 'nl-status';
+                    status.textContent = warnings.length ? warnings.map(w => `• ${w}`).join('\n') : '';
+                    (review as any).__extra = extra;
+                } else if (warnings.length === 0) {
                     opts.onResult(res.le, { document: documentName });
                     close();
                 } else {
@@ -316,7 +407,13 @@ export function openNlInput(opts: NlInputOptions): void {
         }
     }
     generate.addEventListener('click', () => {
-        if (primaryMode === 'insert') { opts.onResult(pendingLe, { document: docName.value.trim() }); close(); }
+        if (primaryMode === 'insert') {
+            const le = reviewLines
+                ? [...reviewLines(), ...((review as any).__extra || [])].join('\n')
+                : pendingLe;
+            opts.onResult(le, { document: docName.value.trim() });
+            close();
+        }
         else run();
     });
     regenerate.addEventListener('click', run);

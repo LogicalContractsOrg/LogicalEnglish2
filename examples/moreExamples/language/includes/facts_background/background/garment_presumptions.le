@@ -1,0 +1,22 @@
+% Garment presumptions: what is taken to be so when a listing is silent.
+% Each rule cites the text that says it.
+
+the target language is: prolog.
+
+the templates are:
+    the kind of *a garment* is *a kind*; undefined.
+    the fabric of *a garment* is lightweight.
+
+the knowledge base garment presumptions includes:
+
+rule tshirt_fabric with provenance ruling NY N362034,
+        confer "To be classifiable as a T-shirt, a garment must be constructed from lightweight, plain jersey or plain interlock fabric":
+the fabric of a garment is lightweight
+    if the kind of the garment is T-shirt.
+
+scenario tee is:
+    the kind of tee is T-shirt.
+    fabrics expects answers ["the fabric of tee is lightweight"].
+
+query fabrics is:
+    the fabric of which garment is lightweight.

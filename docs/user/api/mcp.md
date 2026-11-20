@@ -288,8 +288,8 @@ The five tools in these steps only read. They do not change data.
 
 ## Tools
 
-A call to `tools/list` gives five tools. A call to `tools/call` runs one of the
-five tools. The server sends the result of a tool as one item of content of type
+A call to `tools/list` gives six tools. A call to `tools/call` runs one of the
+six tools. The server sends the result of a tool as one item of content of type
 `text`. The text of this item is the JSON reply of the tool, written out. When that
 reply contains an `error` field, the server sends the error message instead. Then
 the server marks the result `isError: true`.
@@ -301,6 +301,7 @@ the server marks the result `isError: true`.
 | `query` | `query` (required), `example_name`, `program_text` or `program_file`, `scenario_name`, `facts` | `{results: [{answer, explanation, case?}], notes?}` |
 | `verify` | `program_text` or `program_file` | `{issues, test_results, summary}` |
 | `search_documentation` | `query` (required): a few keywords | `{sections}`: the sections found, each with its link |
+| `read_facts` | `program_text` or `program_file`, `facts` | `{noted_templates}`, and with `facts` also `{lines, derived, noted, unused, notes, questions}` |
 
 **`list_examples`** lists the programs of `examples/moreExamples/`, of the extra
 folders (`regulatory/…`, `migration/…`, …) and of the folders of the other languages
@@ -419,6 +420,15 @@ the arguments whose type is a word for money, for example `amount`, `price`, `fe
 reads (for example `the max of each amount A such that ...`), because there the
 program expects several amounts. The check also ignores a query in a scenario where
 a test of that query passes, because the test gives the answers that you expect.
+
+**`read_facts`** is for a program that names a facts background (the language
+reference, §14.5). Without `facts`, it gives the noted templates of the background:
+the templates in which a model writes what a text says. With `facts` (the facts that
+the model noted, one on each line, each with `confer "<passage>"`), the tool runs the
+background programs and gives `lines`: the facts of the program that follow, each with
+the background program, the rule and the passage that it comes from. Put these lines
+in a scenario. The model must not infer the facts itself: the rules of the background
+do that.
 
 **A program in a file.** A server that runs on your own computer, over standard
 input and output (stdio), can read the program from a file. Give `program_file`,

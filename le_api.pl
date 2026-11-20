@@ -65,7 +65,8 @@
    ;   true
    ).
 :- use_module(llm/llm_client, [llm_list_models/1]).
-:- use_module(nl_to_le, [english_to_le/8]).
+:- use_module(nl_to_le, [english_to_le/8, english_to_le/9]).
+:- use_module(le_background, []).
 :- use_module(restricted_paths).
 :- use_module(le_examples_search).
 :- use_module(le_telemetry).
@@ -253,6 +254,7 @@ handle_operation(Dict, Response) :-
             )
         ; Op == "list_models" -> handle_list_models(Dict, Response)
         ; Op == "nl_to_le" -> handle_nl_to_le(Dict, Response)
+        ; Op == "applyFactsBackground" -> handle_apply_facts_background(Dict, Response)
         ; Op == "importForeign" -> handle_import_foreign(Dict, Response)
         ; Op == "importFormats" -> ( le_import:import_formats(Fs), Response = _{formats: Fs} )
         ; Op == "exportFormats" -> handle_export_formats(Dict, Response)
@@ -638,7 +640,8 @@ handle_list_models(_Dict, Response) :-
 %   api_keys first, then the provider env var) and shapes the JSON. Request fields:
 %   sentence, kind, templates (list of label strings), content (the program source,
 %   for verification), model, api_keys. Response: {result:"ok", le:"<LE text>",
-%   warnings:[<message>...]} (warnings empty when it verified clean) or
+%   warnings:[<message>...], background: null or the facts background step's
+%   lists} (warnings empty when it verified clean) or
 %   {result:"error", error:"<message>"}.
 %!  handle_import_foreign(+Dict, -Response) is det.
 %
@@ -690,6 +693,28 @@ handle_export_foreign(Dict, Response) :-
     ;   Response = _{error: "The program could not be loaded"}
     ).
 
+%!  handle_apply_facts_background(+Dict, -Response) is det.
+%
+%   The background step alone (le_background.pl; language.md §14.5), on facts
+%   that are already written: the Scenario Editor's "Apply the facts
+%   background". Request: `content` (the program), `facts` (the lines of
+%   the facts, or one text), `source`/`base` (to find the background
+%   programs). Response: {result: "ok", background: {lines, derived, noted,
+%   unused, notes, questions, programs}} or {result: "error", error}.
+handle_apply_facts_background(Dict, Response) :-
+    ( get_dict(content, Dict, Program) -> true ; Program = "" ),
+    (   get_dict(facts, Dict, Facts0), is_list(Facts0) -> Lines = Facts0
+    ;   get_dict(facts, Dict, Text), ( string(Text) ; atom(Text) )
+    ->  split_string(Text, "\n", " \t\r", Lines0), exclude(==(""), Lines0, Lines)
+    ;   Lines = []
+    ),
+    load_base_of(Dict, Base),
+    (   catch(le_kbs:load_text(Program, Base, KB), E, (print_message(error, E), fail)),
+        catch(le_background:apply_background(KB, Lines, Result), E2, (print_message(error, E2), fail))
+    ->  Response = _{result: "ok", background: Result}
+    ;   Response = _{result: "error", error: "The facts background could not be applied"}
+    ).
+
 handle_nl_to_le(Dict, Response) :-
     ( get_dict(sentence, Dict, Sentence) -> true ; Sentence = "" ),
     ( get_dict(kind, Dict, "query") -> Kind = query ; Kind = facts ),
@@ -708,12 +733,16 @@ handle_nl_to_le(Dict, Response) :-
     ),
     % Recover with `true` (not `fail`) so a thrown error leaves Err bound and the
     % catch still succeeds; then distinguish success (Err unbound) from an error.
-    (   catch(english_to_le(Kind, Sentence, Templates, Program, Model, Options, LEText, NewIssues), Err, true)
+    (   catch(english_to_le(Kind, Sentence, Templates, Program, Model, Options, LEText, NewIssues, Bg), Err, true)
     ->  (   nonvar(Err)
         ->  nl_error_message(Err, EMsg), Response = _{result: "error", error: EMsg}
         ;   nl_issue_messages(NewIssues, Warnings),
             document_address_facts(Dict, Doc, DocFacts),
-            Response = _{result: "ok", le: LEText, warnings: Warnings, document_facts: DocFacts}
+            % with a facts background (language.md §14.5): what the background
+            % step derived, the noted facts, and what a reviewer must look at
+            ( Bg == none -> BgJSON = null ; BgJSON = Bg ),
+            Response = _{result: "ok", le: LEText, warnings: Warnings, document_facts: DocFacts,
+                         background: BgJSON}
         )
     ;   Response = _{result: "error", error: "LLM request failed"}
     ).

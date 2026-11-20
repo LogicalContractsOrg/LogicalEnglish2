@@ -72,6 +72,19 @@ inline_rule("a tenant owes the late penalty
 
 :- begin_tests(scoped_proof).
 
+% The scope written in a query, on the line under the condition or at its
+% end: it was dropped (the query read as one template instance), and the
+% query answered with every fact (FactsBackground.md §3.4).
+test(scope_in_a_query) :-
+    nested_rule(R),
+    program(R, "", P0),
+    string_concat(P0, "\nquery delivered is:\n    the notice was delivered to which tenant\n        according to the landlord.\n\nquery delivered_inline is:\n    the notice was delivered to which tenant according to the landlord.\n", P),
+    load_text(P, KB),
+    answers(KB, proven, delivered, A1), A1 == ["the notice was delivered to ann according to the landlord"],
+    answers(KB, by_ann, delivered, A2), A2 == [],
+    answers(KB, by_ann, delivered_inline, A3), A3 == [],
+    answers(KB, proven, delivered_inline, A4), A4 == ["the notice was delivered to ann according to the landlord"].
+
 test(example_program) :-
     load('examples/regulatory/scoped_notice.le', KB),
     answers(KB, proven, penalty, A1), A1 == ["ann owes the late penalty"],

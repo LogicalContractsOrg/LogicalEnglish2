@@ -417,4 +417,36 @@ test(a_value_beginning_with_an_article_is_quoted,
     assertion(sub_string(LE, _, _, _, "is \"a part of a suitcase\"")),
     assertion(\+ nl_has_issue(Issues, "single_variable_fact")).
 
+% --- a facts background (language.md §14.5) ----------------------------------
+
+bg_program(P, Base) :-
+    F = 'testing/fixtures/le/facts_background/main.le',
+    read_file_to_string(F, P, []),
+    absolute_file_name('testing/fixtures/le/facts_background', Base).
+
+% The noted templates are offered, with the words the background knows, and
+% the model is told to infer nothing; the noted facts it writes stay behind,
+% and the facts of the program come back with their origin.
+test(a_facts_background_reads_noted_facts,
+     [setup(stub_replies(["item one is called \"Tee Shirt\", confer \"Men Tee Shirt\".\nthe field \"Craft of Weaving\" of item one reads \"Knit\", confer \"Craft of Weaving: Knit\"."]))]) :-
+    bg_program(P, Base),
+    nl_to_le:english_to_le(facts, "Men Tee Shirt. Craft of Weaving: Knit", [], P, "stub-model",
+                           [base(Base)], LE, Issues, Bg),
+    first_system(Sys),
+    assertion(sub_string(Sys, _, _, _, "*a thing* is called *a name* (noted)")),
+    assertion(sub_string(Sys, _, _, _, "\"tee shirt\"")),
+    assertion(sub_string(Sys, _, _, _, "Do not infer anything")),
+    assertion(\+ nl_has_issue(Issues, "unknown_template")),
+    assertion(sub_string(LE, _, _, _, "the kind of item one is T-shirt, according to garments background")),
+    assertion(sub_string(LE, _, _, _, "the fabric of item one is lightweight, according to customs presumptions")),
+    assertion(\+ sub_string(LE, _, _, _, "is called")),
+    assertion(Bg.unused == []).
+
+% Without a background nothing changes, and the background is `none`.
+test(no_facts_background_no_step, [setup(stub_replies(["alice is healthy."]))]) :-
+    nl_program(P), nl_templates(T),
+    nl_to_le:english_to_le(facts, "Alice is healthy.", T, P, "stub-model", [], LE, _, Bg),
+    assertion(LE == "alice is healthy."),
+    assertion(Bg == none).
+
 :- end_tests(nl_to_le).

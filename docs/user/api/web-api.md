@@ -64,6 +64,7 @@ same work, are in [mcp.md](mcp.md).
 - [LLM features](#llm-features)
   - [`list_models`](#list_models--the-llm-models)
   - [`nl_to_le`](#nl_to_le--write-it-in-english)
+  - [`applyFactsBackground`](#applyfactsbackground--apply-the-facts-background)
   - [`assistant_command`](#assistant_command--start-an-le-assistant-job)
   - [`assistant_status`](#assistant_status--poll-an-le-assistant-job)
   - [`assistant_interrupt`](#assistant_interrupt--interrupt-an-le-assistant-job)
@@ -219,6 +220,7 @@ gets none of these translators.
 | `exportForeign` | `le`, `exporter` | write the program for a different system |
 | `list_models` | – | the models of LLMs (large language models), and the providers for which the server has a key |
 | `nl_to_le` | `sentence` | English into LE facts or a query, with one call to an LLM |
+| `applyFactsBackground` | `content`, `facts` | the facts that the facts background of the program gives |
 | `assistant_command` | `command`, `content` | start an LE Assistant job |
 | `assistant_status` | `job_id` | ask for the status of the job |
 | `assistant_interrupt` | `job_id` | interrupt the job |
@@ -1022,6 +1024,27 @@ first. It gives a maximum of six issues, followed by "… and N more".
 `document_facts` contains the statements that tell the program where `document` is.
 It is empty when the request gives no `address`. If the conversion fails, the reply
 is `{ "result": "error", "error": "<message>" }`.
+
+When the program names a facts background (language reference §14.5) and `kind` is
+`"facts"`, the reply also has `background`, else `background` is `null`:
+`{ "lines": [...], "derived": [{ "fact", "line", "program", "rule", "passage", "from" }],
+"noted": [{ "fact", "produced" }], "unused": [...], "notes": [...], "questions": [...],
+"programs": [...] }`. `le` is then the facts of `lines`: the facts of the program that
+the text states, and the facts that the background programs gave, with their trailers.
+
+### `applyFactsBackground` — Apply the facts background
+
+The server runs the facts background of the program on facts that are already written
+(`le_background.pl`). The Scenario Editor's button **Apply the facts background** uses it.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `content` | string | the program |
+| `facts` | list of strings, or string | the facts, one on each line |
+| `source`, `base` | string | optional: the location of the program, to find its background programs |
+
+**Reply**: `{ "result": "ok", "background": { ... } }`, with the same `background` as
+`nl_to_le`, or `{ "result": "error", "error": "<message>" }`.
 
 ### `assistant_command` — Start an LE Assistant job
 

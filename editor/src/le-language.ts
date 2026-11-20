@@ -93,7 +93,7 @@ export function buildLeMonarchTokens(lang: string): any {
     const aggregates = `(?:${alt(T, ['sum', 'count', 'average', 'min', 'max'])})(?=[ \\t]+(?:${alt(T, ['of_each'])})(?!${W}))`;
     const templateHeaders = alt(T, ['predicates', 'templates', 'functions', 'fluents', 'events', 'actions', 'prolog_events']);
     const structural = alt(T, [
-        'resources_include', 'scenarios_include', 'kb_include', 'if', 'only_if', 'either', 'any_of',
+        'resources_include', 'scenarios_include', 'facts_background_include', 'kb_include', 'if', 'only_if', 'either', 'any_of',
         'all_of', 'at_least_one_of', 'unless', 'and_unless', 'forall',
         'it_the_case', 'not_the_case', 'such_that', 'marker',
         // LPS (lps2's docs/user/reference/le-for-lps.md §3): the sentence forms a document with

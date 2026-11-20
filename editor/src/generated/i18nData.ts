@@ -43,6 +43,16 @@ export const keywords: Record<string, KeywordTable> = {
         "resources"
       ]
     ],
+    "facts_background_include": [
+      [
+        "the",
+        "facts",
+        "background",
+        "includes",
+        "these",
+        "resources"
+      ]
+    ],
     "scenarios_include": [
       [
         "includes",
@@ -1762,6 +1772,17 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "resources_include": [
       [
+        "inclui",
+        "estes",
+        "recursos"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "o",
+        "contexto",
+        "dos",
+        "factos",
         "inclui",
         "estes",
         "recursos"
@@ -3798,6 +3819,18 @@ export const keywords: Record<string, KeywordTable> = {
         "recursos"
       ]
     ],
+    "facts_background_include": [
+      [
+        "el",
+        "contexto",
+        "de",
+        "los",
+        "hechos",
+        "incluye",
+        "estos",
+        "recursos"
+      ]
+    ],
     "scenarios_include": [
       [
         "incluye",
@@ -5754,6 +5787,26 @@ export const keywords: Record<string, KeywordTable> = {
         "ressources"
       ],
       [
+        "inclut",
+        "ces",
+        "ressources"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "le",
+        "contexte",
+        "des",
+        "faits",
+        "comprend",
+        "ces",
+        "ressources"
+      ],
+      [
+        "le",
+        "contexte",
+        "des",
+        "faits",
         "inclut",
         "ces",
         "ressources"
@@ -7812,6 +7865,17 @@ export const keywords: Record<string, KeywordTable> = {
         "risorse"
       ]
     ],
+    "facts_background_include": [
+      [
+        "il",
+        "contesto",
+        "dei",
+        "fatti",
+        "include",
+        "queste",
+        "risorse"
+      ]
+    ],
     "scenarios_include": [
       [
         "include",
@@ -9774,6 +9838,7 @@ export const keywordCategories: Record<string, string> = {
   "contract_open": "section",
   "contract_states": "section",
   "resources_include": "section",
+  "facts_background_include": "section",
   "scenarios_include": "section",
   "scenario": "section",
   "query": "section",
@@ -10840,7 +10905,18 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "DECISION TABLE": "TABELA DE DECISÃO",
     "not run (time limit)": "não executado (limite de tempo)",
     "Write anyway, with residues": "Escrever mesmo assim, com resíduos",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que não pode ser traduzida, e cada parte que usa uma, é acrescentada no fim como comentário, com a sua linha e a razão."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que não pode ser traduzida, e cada parte que usa uma, é acrescentada no fim como comentário, com a sua linha e a razão.",
+    "The facts to insert (untick a fact to leave it out):": "Os factos a inserir (desmarque um facto para o deixar de fora):",
+    "From the text": "Do texto",
+    "Questions for you (the background rules disagree):": "Perguntas para si (as regras do contexto discordam):",
+    "Left out, because the text states otherwise:": "Deixados de fora, porque o texto diz outra coisa:",
+    "Noted, and no background rule used it:": "Anotado, e nenhuma regra do contexto o usou:",
+    "What the reader noted:": "O que o leitor anotou:",
+    "Applying the facts background…": "A aplicar o contexto dos factos…",
+    "Facts added by the facts background": "Factos acrescentados pelo contexto dos factos",
+    "Apply the facts background": "Aplicar o contexto dos factos",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Executar as regras do contexto dos factos sobre estes factos, e acrescentar os factos que daí resultam",
+    "Insert": "Inserir"
   },
   "es": {
     "+ Add": "+ Añadir",
@@ -11720,7 +11796,18 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "DECISION TABLE": "TABLA DE DECISIÓN",
     "not run (time limit)": "no ejecutado (límite de tiempo)",
     "Write anyway, with residues": "Escribir de todos modos, con residuos",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se añade al final como comentario, con su línea y el motivo."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se añade al final como comentario, con su línea y el motivo.",
+    "The facts to insert (untick a fact to leave it out):": "Los hechos que se insertarán (desmarque un hecho para dejarlo fuera):",
+    "From the text": "Del texto",
+    "Questions for you (the background rules disagree):": "Preguntas para usted (las reglas del contexto no coinciden):",
+    "Left out, because the text states otherwise:": "Dejados fuera, porque el texto dice otra cosa:",
+    "Noted, and no background rule used it:": "Anotado, y ninguna regla del contexto lo usó:",
+    "What the reader noted:": "Lo que anotó el lector:",
+    "Applying the facts background…": "Aplicando el contexto de los hechos…",
+    "Facts added by the facts background": "Hechos añadidos por el contexto de los hechos",
+    "Apply the facts background": "Aplicar el contexto de los hechos",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Ejecutar las reglas del contexto de los hechos sobre estos hechos, y añadir los hechos que resultan",
+    "Insert": "Insertar"
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -12600,7 +12687,18 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "DECISION TABLE": "TABLE DE DÉCISION",
     "not run (time limit)": "non exécuté (limite de temps)",
     "Write anyway, with residues": "Écrire quand même, avec les résidus",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Écrire quand même écrit les parties qui peuvent être traduites. Chaque partie qui ne peut pas l'être, et chaque partie qui en utilise une, est ajoutée à la fin en commentaire, avec sa ligne et la raison."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Écrire quand même écrit les parties qui peuvent être traduites. Chaque partie qui ne peut pas l'être, et chaque partie qui en utilise une, est ajoutée à la fin en commentaire, avec sa ligne et la raison.",
+    "The facts to insert (untick a fact to leave it out):": "Les faits à insérer (décochez un fait pour l'exclure) :",
+    "From the text": "Du texte",
+    "Questions for you (the background rules disagree):": "Questions pour vous (les règles du contexte ne s'accordent pas) :",
+    "Left out, because the text states otherwise:": "Exclus, parce que le texte dit autre chose :",
+    "Noted, and no background rule used it:": "Noté, et aucune règle du contexte ne l'a utilisé :",
+    "What the reader noted:": "Ce que le lecteur a noté :",
+    "Applying the facts background…": "Application du contexte des faits…",
+    "Facts added by the facts background": "Faits ajoutés par le contexte des faits",
+    "Apply the facts background": "Appliquer le contexte des faits",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Exécuter les règles du contexte des faits sur ces faits, et ajouter les faits qui en découlent",
+    "Insert": "Insérer"
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -13480,7 +13578,18 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "DECISION TABLE": "TABELLA DECISIONALE",
     "not run (time limit)": "non eseguito (limite di tempo)",
     "Write anyway, with residues": "Scrivi comunque, con i residui",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si può tradurre, e ogni parte che ne usa una, è aggiunta alla fine come commento, con la sua riga e il motivo."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si può tradurre, e ogni parte che ne usa una, è aggiunta alla fine come commento, con la sua riga e il motivo.",
+    "The facts to insert (untick a fact to leave it out):": "I fatti da inserire (togli la spunta per escludere un fatto):",
+    "From the text": "Dal testo",
+    "Questions for you (the background rules disagree):": "Domande per te (le regole del contesto non concordano):",
+    "Left out, because the text states otherwise:": "Esclusi, perché il testo dice altro:",
+    "Noted, and no background rule used it:": "Annotato, e nessuna regola del contesto lo ha usato:",
+    "What the reader noted:": "Ciò che il lettore ha annotato:",
+    "Applying the facts background…": "Applicazione del contesto dei fatti…",
+    "Facts added by the facts background": "Fatti aggiunti dal contesto dei fatti",
+    "Apply the facts background": "Applica il contesto dei fatti",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Esegui le regole del contesto dei fatti su questi fatti, e aggiungi i fatti che ne seguono",
+    "Insert": "Inserisci"
   }
 } as const;
 

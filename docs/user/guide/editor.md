@@ -24,6 +24,7 @@ mistakes. Use the web application to write, test and correct Logical English pro
     - [Layout](#layout)
     - [Editing facts](#editing-facts)
     - [Write it in English (LLM-assisted)](#write-it-in-english-llm-assisted)
+      - [With a facts background](#with-a-facts-background)
     - [Saving your work](#saving-your-work)
   - [The Query Editor](#the-query-editor)
   - [Scenario Variations](#scenario-variations)
@@ -615,6 +616,40 @@ new facts come as usual rows that you can edit.
     new problems, the editor adds the facts immediately. If there are new problems,
     the editor **warns** you. You can then select **Insert anyway**, or write your
     sentences again and select **Regenerate**.
+
+#### With a facts background
+
+A program can name a **facts background**: programs that say what the words of a text
+mean in the words of the rules (refer to the
+[language reference, §14.5](../reference/language.md#145-a-facts-background-the-facts-background-includes-these-resources)).
+When the program has one, **Write it in English** operates in two steps:
+
+1.  The model writes what the text says, in the templates of the program and in the
+    **noted templates** of the background. The dialog gives the model these templates,
+    and the words that the background knows. The model infers nothing.
+2.  The system runs the rules of the background on these facts. It adds the facts of
+    the program that follow.
+
+Before it inserts the facts, the dialog shows a list for you to examine:
+
+*   Each fact has a checkbox. Clear the checkbox of a fact that you do not want.
+*   A fact that a background program gave has a **badge** with the name of that
+    program, for example *garment presumptions*. Put the pointer on the badge to see
+    the rule and the passage of the text that the fact comes from.
+*   **Questions for you**: two background rules gave two different values. The dialog
+    inserts neither value. You decide.
+*   **Left out**: the text states a value, and a background rule gives a different
+    value. The value of the text is kept.
+*   **Noted, and no background rule used it**: a word of the text that the background
+    does not know. Tell the author of the background.
+
+Select **Insert** to add the facts that have a check mark.
+
+**Apply the facts background.** When the program has a facts background, the Scenario
+Editor shows the button **Apply the facts background**. Use it when you write the facts
+yourself, in the rows. The system runs the rules of the background on the rows, and
+adds the facts that follow. For example, the row "the kind of tee is T-shirt" can add
+"the fabric of tee is lightweight, according to garment presumptions".
 
 ### Saving your work
 

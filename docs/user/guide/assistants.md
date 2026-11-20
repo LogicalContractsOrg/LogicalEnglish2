@@ -178,6 +178,14 @@ address of its text: a web address, or a file next to the program. Then click
 cites the passage that states it, as `confer "…"`. The scenario gives the name of the
 document.
 
+**With a facts background.** A program can name a facts background (the language
+reference, §14.5). Then the model writes only what the text says, and the rules of the
+background add the facts that follow. The dialog shows each added fact with the name of
+the background program that gave it. Refer to
+[the editor guide](editor.md#with-a-facts-background). The LE Assistant also knows the
+facts background of the program: to add a scenario from a text, it notes the facts and
+uses its action `read_facts`, which runs the same step.
+
 ## The Contract Assistant
 
 The Contract Assistant is a separate web page, at

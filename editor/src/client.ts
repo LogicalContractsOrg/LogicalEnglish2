@@ -803,7 +803,7 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             const lang = detectProgramLanguage(model.getValue());
             const phrases = (key: string) => [...kwPhrases(lang, key), ...kwPhrases('en', key)]
                 .filter(Boolean).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+'));
-            const includes = new RegExp(`(?:${[...phrases('resources_include'), ...phrases('scenarios_include')].join('|')})\\s*:`, 'i');
+            const includes = new RegExp(`(?:${[...phrases('resources_include'), ...phrases('scenarios_include'), ...phrases('facts_background_include')].join('|')})\\s*:`, 'i');
             const extendsKw = new RegExp(`(?:${phrases('kb_open').join('|')})\\b.*?\\b(?:${phrases('kb_extends').join('|')})\\b`, 'i');
             const line: string = model.getLineContent(position.lineNumber);
             const col = position.column - 1;

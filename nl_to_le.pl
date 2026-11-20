@@ -37,7 +37,7 @@
     rather than forwarded. Verification uses le_verifier:verify/2 in-process.
 */
 
-:- module(nl_to_le, [ english_to_le/8 ]).
+:- module(nl_to_le, [ english_to_le/8, english_to_le/9 ]).
 
 %   Through the broker, not straight at llm_client: an embedder (LPS2) can
 %   substitute its own client, so English→LE uses the keys and the model
@@ -49,6 +49,7 @@
 :- use_module(le_verifier, [verify/2, unmatched_sentences/3]).
 :- use_module(le_provenance, [quote_in_text/2]).
 :- use_module(le_issue_feedback).
+:- use_module(le_background, []).
 :- use_module(library(lists)).
 :- use_module(library(apply)).
 :- use_module(library(yall)).
@@ -105,18 +106,83 @@ feedback_caps(caps(8, 4, 2)).
 %   @throws error(type_error(nl_kind, Kind), _) if Kind is neither facts nor query.
 %   Errors from the LLM call propagate from llm_client unchanged.
 english_to_le(Kind, Sentence, Templates, Program, Model, Options0, LEText, NewIssues) :-
+    english_to_le(Kind, Sentence, Templates, Program, Model, Options0, LEText, NewIssues, _).
+
+%!  english_to_le(+Kind, +Sentence, +Templates, +Program, +Model, +Options,
+%!                -LEText, -NewIssues, -Background) is det.
+%
+%   As english_to_le/8. When the program names a facts background
+%   (docs/user/reference/language.md §14.5) and Kind is facts, the model is
+%   also offered the background's noted templates and told to infer nothing;
+%   then the background step (le_background:apply_background/3) runs on the
+%   facts it wrote, and LEText is what that step returns: the facts of the
+%   program, stated and derived, the derived ones with their trailers.
+%   Background is that step's dict (derived, noted, unused, notes,
+%   questions, programs), or `none`.
+english_to_le(Kind, Sentence, Templates, Program, Model, Options0, LEText, NewIssues, Background) :-
     % A program opened from a folder (or a URL) resolves its included
     % resources — and so its templates — against it: option base(Base).
     (   select(base(Base), Options0, Options1), Base \== (-), Base \== ''
     ->  setup_call_cleanup(
             asserta(le_kbs:le_include_base(Base), Ref),
-            english_to_le_(Kind, Sentence, Templates, Program, Model, Options1, LEText, NewIssues),
+            english_to_le_(Kind, Sentence, Templates, Program, Model, Options1, LEText, NewIssues, Background),
             erase(Ref))
     ;   exclude(==(base(-)), Options0, Options1),
-        english_to_le_(Kind, Sentence, Templates, Program, Model, Options1, LEText, NewIssues)
+        english_to_le_(Kind, Sentence, Templates, Program, Model, Options1, LEText, NewIssues, Background)
     ).
 
-english_to_le_(Kind, Sentence, Templates0, Program, Model, Options0, LEText, NewIssues) :-
+english_to_le_(Kind, Sentence, Templates, Program, Model, Options, LEText, NewIssues, Background) :-
+    to_string(Program, ProgramS),
+    (   Kind == facts, background_reading(ProgramS, KB, Noted, Regexes)
+    ->  setup_call_cleanup(
+            nb_setval(nl_background, bg(Noted, Regexes)),
+            english_to_le_1(Kind, Sentence, Templates, Program, Model, Options, LEText0, NewIssues),
+            nb_setval(nl_background, none)),
+        nonblank_lines(LEText0, Lines0),
+        maplist([L0, L]>>( split_string(L0, "", " \t", [L1]), ensure_period(L1, L) ), Lines0, Lines),
+        le_background:apply_background(KB, Lines, Background),
+        atomic_list_concat(Background.lines, "\n", LEA),
+        atom_string(LEA, LEText)
+    ;   english_to_le_1(Kind, Sentence, Templates, Program, Model, Options, LEText, NewIssues),
+        Background = none
+    ).
+
+%!  background_reading(+Program, -KB, -Noted, -Regexes) is semidet.
+%
+%   The program has a facts background with noted templates: Noted are
+%   their labels, each tagged (noted) and followed by the words the
+%   background knows in its places; Regexes match a line of a noted fact.
+background_reading(Program, KB, Noted, Regexes) :-
+    catch(load_text(Program, KB), _, fail),
+    current_predicate(KB:le_facts_background/4),
+    once(KB:le_facts_background(_, _, _, _)),
+    le_background:background_templates(KB, Noted0, _),
+    Noted0 \== [],
+    findall(Hinted,
+            ( member(n(Label, BM, _), Noted0),
+              format(string(Tagged), "~w (noted)", [Label]),
+              (   catch(le_verifier:with_rule_index(BM, nl_to_le:noted_hints(BM, Label, Tagged, Hinted)), _, fail)
+              ->  true
+              ;   Hinted = Tagged
+              ) ),
+            Noted),
+    findall(Re, ( member(n(Label, _, _), Noted0), le_background:template_regex(Label, Re) ), Regexes).
+
+noted_hints(BM, Label, Tagged, Hinted) :-
+    with_value_hints(BM, Label, Hinted0),
+    (   string_concat(Label, Hints, Hinted0)
+    ->  string_concat(Tagged, Hints, Hinted)
+    ;   Hinted = Tagged
+    ).
+
+noted_out(Regexes, L0, L) :-
+    ( le_background:line_matches(Regexes, L0) -> L = "% noted" ; L = L0 ).
+
+% the noted templates and their line patterns of the reading under way
+current_background(Noted, Regexes) :-
+    nb_current(nl_background, bg(Noted, Regexes)).
+
+english_to_le_1(Kind, Sentence, Templates0, Program, Model, Options0, LEText, NewIssues) :-
     % The fragment must be written in the PROGRAM's language: its keyword set
     % drives both the prompt's connective words and the verification parse.
     text_language(Program, ProgLang),
@@ -129,7 +195,7 @@ english_to_le_(Kind, Sentence, Templates0, Program, Model, Options0, LEText, New
     (   select(document(Doc0), Options0, OptionsD), Kind == facts
     ->  to_string(Doc0, Doc), Options0b = OptionsD,
         program_templates(ProgramS, Templates1),
-        ( Templates1 == [] -> Templates = Templates0 ; Templates = Templates1 )
+        ( Templates1 == [] -> Templates2 = Templates0 ; Templates2 = Templates1 )
     ;   Kind == facts
     ->  % A case typed in English is a case too: when the program marks its
         % scenario elements, those are what its facts state — offered with the
@@ -138,8 +204,12 @@ english_to_le_(Kind, Sentence, Templates0, Program, Model, Options0, LEText, New
         % is a Singapore citizen" instead of the nationality the rules read)
         Doc = none, Options0b = Options0,
         program_templates(ProgramS, Templates1),
-        ( Templates1 == [] -> Templates = Templates0 ; Templates = Templates1 )
-    ;   Doc = none, Options0b = Options0, Templates = Templates0
+        ( Templates1 == [] -> Templates2 = Templates0 ; Templates2 = Templates1 )
+    ;   Doc = none, Options0b = Options0, Templates2 = Templates0
+    ),
+    (   Kind == facts, current_background(Noted, _)
+    ->  append(Templates2, Noted, Templates)
+    ;   Templates = Templates2
     ),
     loop_options(Options0b, Limits, CheckRegressions, Options1),
     % A document is transcribed, not reasoned about: little reasoning, and room
@@ -156,7 +226,11 @@ english_to_le_(Kind, Sentence, Templates0, Program, Model, Options0, LEText, New
     ensure_max_tokens(Options1b, Options2),
     ensure_temperature(Options2, Options),
     baseline(ProgramS, CheckRegressions, Baseline),
-    system_prompt(Kind, Templates, ProgramS, System0),
+    system_prompt(Kind, Templates, ProgramS, System00),
+    (   Kind == facts, current_background(_, _)
+    ->  string_concat(System00, "\n\n--- A facts background ---\nThe templates marked (noted) belong to the facts background: they say what a text says, in words close to its own. Write what the text says in the template nearest to its own words, and write the words of the text as quoted text where the template has a name or a value (the words listed after a noted template are the ones the background knows). Do not infer anything: a second step applies the background's rules, and adds the facts that follow. Do not write a fact of another template that only follows from what the text says.", System0)
+    ;   System0 = System00
+    ),
     (   Doc == none
     ->  System = System0
     ;   document_rules(Doc, DocRules),
@@ -299,7 +373,16 @@ check_fragment(_Kind, _Program, _Baseline, LE, New) :-
     New = [_{severity: "error", type: "empty_fragment", message:
              "Your reply was empty. Produce Logical English for the sentence using the templates listed, or — only if no template is even remotely applicable — say nothing at all.",
              fix: "", line: 0, source: ""}].
-check_fragment(Kind, Program, Baseline, LE, New) :-
+check_fragment(Kind, Program, Baseline, LE0, New) :-
+    % A noted fact is a sentence of the facts background: the background step
+    % reads it, and the program does not. It is kept out of the check, its
+    % line replaced by a comment so the lines keep their numbers.
+    (   Kind == facts, current_background(_, Regexes)
+    ->  split_string(LE0, "\n", "", Ls0),
+        maplist(noted_out(Regexes), Ls0, Ls),
+        atomic_list_concat(Ls, "\n", LEA), atom_string(LEA, LE)
+    ;   LE = LE0
+    ),
     candidate_program(Kind, Program, LE, Candidate),
     program_issues(Candidate, check(Kind), Issues, Loaded),
     asterisk_issues(LE, Asterisks),

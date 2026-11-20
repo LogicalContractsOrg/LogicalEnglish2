@@ -16,6 +16,7 @@
 :- use_module(le_documents, []).
 :- use_module(le_views, []).
 :- use_module(le_sheet_cells, []).
+:- use_module(le_background, []).   % the checks of a facts background
 :- use_module(library(ordsets)).
 :- use_module(library(assoc)).
 :- use_module(library(isub)).
@@ -121,6 +122,7 @@ check_issue(KB, _, Issue) :- le_views:view_issue(KB, Issue).
 check_issue(KB, _, Issue) :- le_sheet_cells:cells_issue(KB, Issue).
 check_issue(KB, _, Issue) :- memorable_under_negation(KB, Issue).
 check_issue(KB, _, Issue) :- memorable_calls_prolog(KB, Issue).
+check_issue(KB, _, Issue) :- le_background:background_issue(KB, Issue).
 
 % --- A value no rule reads, and one they do read is close ---
 % A scenario fact puts a constant where the program's rules test constants —

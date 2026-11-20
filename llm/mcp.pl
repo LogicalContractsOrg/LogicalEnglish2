@@ -376,7 +376,7 @@ handle_method(Method, Dict, Response) :-
         UserFacts = Args.get(user_facts, ""),
         Templates = Args.get(templates, ""),
         format(string(PromptText), 
-               "The user provides these facts: \"~w\"~n~nAvailable Logical English templates are:~n~w~n~nYour task is to rewrite the user's facts into a sequence of Logical English facts, each matching one of the templates exactly. ~n- Each fact must end with a period.~n- Use specific values from the user's input.~n- Return ONLY the massaged facts text, one per line.", 
+               "The user provides these facts: \"~w\"~n~nAvailable Logical English templates are:~n~w~n~nYour task is to rewrite the user's facts into a sequence of Logical English facts, each matching one of the templates exactly. ~n- Each fact must end with a period.~n- Use specific values from the user's input.~n- If the program names a facts background, note the facts in its noted templates instead (the tool read_facts gives them), infer nothing, and give them to read_facts.~n- Return ONLY the massaged facts text, one per line.", 
                [UserFacts, Templates]),
         Response = _{
             jsonrpc: "2.0",
@@ -448,6 +448,18 @@ handle_method(Method, Dict, Response) :-
                     query: _{ type: "string", description: "A few keywords, as the documentation would word them (a phrase in double quotes must occur as it is)" }
                 },
                 required: ["query"]
+            }
+        },
+        _{
+            name: "read_facts",
+            description: "For a program that names a facts background (`the facts background includes these resources:`): the background's noted templates, and, given the facts you noted from a text in those templates (one a line, each with `, confer \"<passage>\"`), the facts of the program that follow, each with its origin (`according to`, `because`, `confer`). Put the returned `lines` in a scenario. Infer nothing yourself: the background's rules do",
+            inputSchema: _{
+                type: "object",
+                properties: _{
+                    program_text: _{ type: "string", description: "Logical English program text" },
+                    program_file: _{ type: "string", description: "Instead of program_text, the path of the program's file (only a server that runs on your own machine, over stdio, reads it)" },
+                    facts: _{ type: "string", description: "Optional: the facts noted from the text, one a line. Without it, the tool gives the noted templates" }
+                }
             }
         },
         _{
@@ -633,6 +645,16 @@ call_tool("verify", Args0, Result) :-
     ;   le_tools:le_tool_verify(Args, Result)
     ).
 
+call_tool("read_facts", Args0, Result) :-
+    program_file_args(Args0, Args, Error),
+    (   nonvar(Error)
+    ->  Result = _{error: Error}
+    ;   \+ get_dict(program_text, Args, _)
+    ->  Result = _{error: "Give the program as program_text, or as program_file on a server that runs on your own machine."}
+    ;   catch(le_tools:le_tool_read_facts(Args, Result), E,
+              ( term_string(E, ES), Result = _{error: ES} ))
+    ).
+
 call_tool("search_documentation", Args, _{sections: Text}) :-
     ( get_dict(query, Args, Q) -> true ; Q = "" ),
     module_property(mcp, file(F)), file_directory_name(F, LLMDir), file_directory_name(LLMDir, Root0),
@@ -678,7 +700,7 @@ cap_answers(R0, R) :-
 
 mcp_tool_name(Name) :-
     atom_string(Tool, Name),
-    memberchk(Tool, [list_examples, get_example_details, query, verify, search_documentation]).
+    memberchk(Tool, [list_examples, get_example_details, query, verify, search_documentation, read_facts]).
 
 %!  extension_tool(-ToolDict) is nondet.
 %!  extension_call(+Name, +Args, -Result) is semidet.

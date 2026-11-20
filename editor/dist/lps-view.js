@@ -75,6 +75,16 @@ var keywords = {
         "resources"
       ]
     ],
+    "facts_background_include": [
+      [
+        "the",
+        "facts",
+        "background",
+        "includes",
+        "these",
+        "resources"
+      ]
+    ],
     "scenarios_include": [
       [
         "includes",
@@ -1794,6 +1804,17 @@ var keywords = {
     ],
     "resources_include": [
       [
+        "inclui",
+        "estes",
+        "recursos"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "o",
+        "contexto",
+        "dos",
+        "factos",
         "inclui",
         "estes",
         "recursos"
@@ -3830,6 +3851,18 @@ var keywords = {
         "recursos"
       ]
     ],
+    "facts_background_include": [
+      [
+        "el",
+        "contexto",
+        "de",
+        "los",
+        "hechos",
+        "incluye",
+        "estos",
+        "recursos"
+      ]
+    ],
     "scenarios_include": [
       [
         "incluye",
@@ -5786,6 +5819,26 @@ var keywords = {
         "ressources"
       ],
       [
+        "inclut",
+        "ces",
+        "ressources"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "le",
+        "contexte",
+        "des",
+        "faits",
+        "comprend",
+        "ces",
+        "ressources"
+      ],
+      [
+        "le",
+        "contexte",
+        "des",
+        "faits",
         "inclut",
         "ces",
         "ressources"
@@ -7844,6 +7897,17 @@ var keywords = {
         "risorse"
       ]
     ],
+    "facts_background_include": [
+      [
+        "il",
+        "contesto",
+        "dei",
+        "fatti",
+        "include",
+        "queste",
+        "risorse"
+      ]
+    ],
     "scenarios_include": [
       [
         "include",
@@ -9882,6 +9946,7 @@ function buildLeMonarchTokens(lang) {
   const structural = alt(T, [
     "resources_include",
     "scenarios_include",
+    "facts_background_include",
     "kb_include",
     "if",
     "only_if",

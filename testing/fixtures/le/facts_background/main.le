@@ -1,0 +1,67 @@
+% A rule base with a facts background (docs/user/reference/language.md §14.5).
+% The two background programs are used only to read facts from a text:
+% "Write it in English" offers their templates, and their rules add the
+% facts of this program that follow (le_background.pl). This program never
+% reasons with them: its queries answer as if the section were not there.
+%
+% The fabric construction has one value (it is declared in `the functions
+% are:`): a construction that the text states beats one that a background
+% derives, and two derived constructions that differ are a question.
+%
+% The two readings (§17.5): the strict reading admits the listing and the
+% bridges of the garments background; the full reading also admits the
+% customs presumptions.
+
+the target language is: prolog.
+
+the facts background includes these resources:
+    background/garments, background/presumptions.
+
+the functions are:
+    the fabric construction of *a garment* is *a construction*; undefined.
+
+the templates are:
+    the kind of *a good* is *a kind*; undefined.
+    the fabric of *a garment* is lightweight; undefined.
+    the heading of *a good* is *a heading*.
+    *a good* is classified in *a heading* by *a reading*.
+
+the knowledge base mini tariff includes:
+
+the heading of a good is 6109
+    if the kind of the good is T-shirt
+    and the fabric construction of the good is knitted
+    and the fabric of the good is lightweight.
+
+the heading of a good is 6205
+    if the kind of the good is shirt
+    and the fabric construction of the good is woven.
+
+a good is classified in a heading by a reading
+    if the reading is in [strict reading, full reading]
+    and the heading of the good is the heading
+        according to the reading.
+
+the listing is admissible under strict reading.
+the listing is admissible under full reading.
+garments background is admissible under strict reading.
+garments background is admissible under full reading.
+customs presumptions is admissible under full reading.
+
+scenario stated is, as stated in the listing:
+    the kind of item one is T-shirt.
+    the fabric construction of item one is knitted.
+    the fabric of item one is lightweight.
+    headings expects answers ["the heading of item one is 6109"].
+
+scenario read is, as stated in the listing:
+    the kind of item one is T-shirt, according to garments background, because "kind_by_name", confer "Men Tee Shirt".
+    the fabric construction of item one is knitted, according to garments background, because "construction_by_field", confer "Craft of Weaving: Knit".
+    the fabric of item one is lightweight, according to customs presumptions, because "tshirt_fabric", confer "Men Tee Shirt".
+    readings expects answers ["item one is classified in 6109 by full reading"].
+
+query headings is:
+    the heading of which good is which heading.
+
+query readings is:
+    which good is classified in which heading by which reading.

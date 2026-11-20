@@ -6,7 +6,7 @@
 import { parseScenarioBlocks, ScenarioBlock } from './le-templates';
 import { t, applyI18nDom, installLeApiLang, detectProgramLanguage, kwPhrases } from './i18n';
 import { ScenarioForm } from './scenario-form';
-import { openNlInput, splitStatements } from './nl-input';
+import { openNlInput, splitStatements, BackgroundResult } from './nl-input';
 
 interface ScenarioEditorData {
     source?: string;
@@ -146,6 +146,38 @@ export function initScenarioEditor(data: ScenarioEditorData) {
         setStatus(t('Inserted into editor'));
         setTimeout(() => window.close(), 100);   // once the message has been dispatched
     });
+
+    // "Apply the facts background" (language reference §14.5): the background
+    // rules run on the facts already in the form, and the facts they give are
+    // added — for a person who fills the form by hand.
+    const lang = detectProgramLanguage(source);
+    const bgPhrases = kwPhrases(lang, 'facts_background_include');
+    const hasBackground = bgPhrases.some(p => source.toLowerCase().includes(p.toLowerCase()));
+    const bgBtn = document.getElementById('btn-apply-background') as HTMLButtonElement | null;
+    if (bgBtn) {
+        bgBtn.hidden = !hasBackground;
+        bgBtn.addEventListener('click', async () => {
+            setStatus(t('Applying the facts background…'));
+            try {
+                const res = await fetch('/leapi', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: 'myToken123', operation: 'applyFactsBackground',
+                        content: source, facts: form.factLines().map(f => `${f}.`),
+                        source: documentContext.source, base: documentContext.base }),
+                }).then(r => r.json());
+                const bg: BackgroundResult | undefined = res && res.background;
+                if (!bg) { setStatus(t('Error: ') + ((res && res.error) || '')); return; }
+                const have = new Set(form.factLines().map(f => f.replace(/\s+/g, ' ').trim()));
+                const added = (bg.derived || []).filter(d => !have.has(d.line.replace(/\.$/, '').trim()));
+                added.forEach(d => form.addFact(d.line.replace(/\.$/, '')));
+                if (added.length) markDirty();
+                const extra = [...(bg.questions || []), ...(bg.notes || [])];
+                setStatus(`${t('Facts added by the facts background')}: ${added.length}` + (extra.length ? ` — ${extra.join(' ')}` : ''));
+            } catch {
+                setStatus(t('Could not reach the server.'));
+            }
+        });
+    }
 
     provInput?.addEventListener('input', () => { form.provenance = provInput.value.trim(); markDirty(); });
 

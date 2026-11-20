@@ -1,0 +1,43 @@
+% Bridges: the words of a listing, in the words of the tariff.
+
+the target language is: prolog.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a name* is a word for the kind *a kind*.
+    *a value* is a word for the construction *a construction*.
+    the kind of *a good* is *a kind*.
+    the fabric construction of *a garment* is *a construction*.
+
+the knowledge base garments background includes:
+
+"tee shirt" is a word for the kind T-shirt.
+"t-shirt" is a word for the kind T-shirt.
+"shirt" is a word for the kind shirt.
+"knit" is a word for the construction knitted.
+"woven" is a word for the construction woven.
+
+the marketplace fields is published at "https://example.org/marketplace/fields".
+
+rule kind_by_name with provenance the marketplace fields:
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the kind the kind.
+
+rule construction_by_field with provenance the marketplace fields:
+the fabric construction of a garment is a construction
+    if the field "craft of weaving" of the garment reads a value
+    and the value is a word for the construction the construction.
+
+scenario tee is:
+    item one is called "tee shirt".
+    the field "craft of weaving" of item one reads "knit".
+    kinds expects answers ["the kind of item one is T-shirt"].
+    constructions expects answers ["the fabric construction of item one is knitted"].
+
+query kinds is:
+    the kind of which good is which kind.
+
+query constructions is:
+    the fabric construction of which garment is which construction.

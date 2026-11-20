@@ -37,6 +37,16 @@ var keywords = {
         "resources"
       ]
     ],
+    "facts_background_include": [
+      [
+        "the",
+        "facts",
+        "background",
+        "includes",
+        "these",
+        "resources"
+      ]
+    ],
     "scenarios_include": [
       [
         "includes",
@@ -1756,6 +1766,17 @@ var keywords = {
     ],
     "resources_include": [
       [
+        "inclui",
+        "estes",
+        "recursos"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "o",
+        "contexto",
+        "dos",
+        "factos",
         "inclui",
         "estes",
         "recursos"
@@ -3792,6 +3813,18 @@ var keywords = {
         "recursos"
       ]
     ],
+    "facts_background_include": [
+      [
+        "el",
+        "contexto",
+        "de",
+        "los",
+        "hechos",
+        "incluye",
+        "estos",
+        "recursos"
+      ]
+    ],
     "scenarios_include": [
       [
         "incluye",
@@ -5748,6 +5781,26 @@ var keywords = {
         "ressources"
       ],
       [
+        "inclut",
+        "ces",
+        "ressources"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "le",
+        "contexte",
+        "des",
+        "faits",
+        "comprend",
+        "ces",
+        "ressources"
+      ],
+      [
+        "le",
+        "contexte",
+        "des",
+        "faits",
         "inclut",
         "ces",
         "ressources"
@@ -7801,6 +7854,17 @@ var keywords = {
     ],
     "resources_include": [
       [
+        "include",
+        "queste",
+        "risorse"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "il",
+        "contesto",
+        "dei",
+        "fatti",
         "include",
         "queste",
         "risorse"
@@ -10641,7 +10705,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABELA DE DECIS\xC3O",
     "not run (time limit)": "n\xE3o executado (limite de tempo)",
     "Write anyway, with residues": "Escrever mesmo assim, com res\xEDduos",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que n\xE3o pode ser traduzida, e cada parte que usa uma, \xE9 acrescentada no fim como coment\xE1rio, com a sua linha e a raz\xE3o."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escrever mesmo assim escreve as partes que podem ser traduzidas. Cada parte que n\xE3o pode ser traduzida, e cada parte que usa uma, \xE9 acrescentada no fim como coment\xE1rio, com a sua linha e a raz\xE3o.",
+    "The facts to insert (untick a fact to leave it out):": "Os factos a inserir (desmarque um facto para o deixar de fora):",
+    "From the text": "Do texto",
+    "Questions for you (the background rules disagree):": "Perguntas para si (as regras do contexto discordam):",
+    "Left out, because the text states otherwise:": "Deixados de fora, porque o texto diz outra coisa:",
+    "Noted, and no background rule used it:": "Anotado, e nenhuma regra do contexto o usou:",
+    "What the reader noted:": "O que o leitor anotou:",
+    "Applying the facts background\u2026": "A aplicar o contexto dos factos\u2026",
+    "Facts added by the facts background": "Factos acrescentados pelo contexto dos factos",
+    "Apply the facts background": "Aplicar o contexto dos factos",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Executar as regras do contexto dos factos sobre estes factos, e acrescentar os factos que da\xED resultam",
+    "Insert": "Inserir"
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -11521,7 +11596,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABLA DE DECISI\xD3N",
     "not run (time limit)": "no ejecutado (l\xEDmite de tiempo)",
     "Write anyway, with residues": "Escribir de todos modos, con residuos",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se a\xF1ade al final como comentario, con su l\xEDnea y el motivo."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Escribir de todos modos escribe las partes que se pueden traducir. Cada parte que no se puede traducir, y cada parte que usa una, se a\xF1ade al final como comentario, con su l\xEDnea y el motivo.",
+    "The facts to insert (untick a fact to leave it out):": "Los hechos que se insertar\xE1n (desmarque un hecho para dejarlo fuera):",
+    "From the text": "Del texto",
+    "Questions for you (the background rules disagree):": "Preguntas para usted (las reglas del contexto no coinciden):",
+    "Left out, because the text states otherwise:": "Dejados fuera, porque el texto dice otra cosa:",
+    "Noted, and no background rule used it:": "Anotado, y ninguna regla del contexto lo us\xF3:",
+    "What the reader noted:": "Lo que anot\xF3 el lector:",
+    "Applying the facts background\u2026": "Aplicando el contexto de los hechos\u2026",
+    "Facts added by the facts background": "Hechos a\xF1adidos por el contexto de los hechos",
+    "Apply the facts background": "Aplicar el contexto de los hechos",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Ejecutar las reglas del contexto de los hechos sobre estos hechos, y a\xF1adir los hechos que resultan",
+    "Insert": "Insertar"
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -12401,7 +12487,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABLE DE D\xC9CISION",
     "not run (time limit)": "non ex\xE9cut\xE9 (limite de temps)",
     "Write anyway, with residues": "\xC9crire quand m\xEAme, avec les r\xE9sidus",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "\xC9crire quand m\xEAme \xE9crit les parties qui peuvent \xEAtre traduites. Chaque partie qui ne peut pas l'\xEAtre, et chaque partie qui en utilise une, est ajout\xE9e \xE0 la fin en commentaire, avec sa ligne et la raison."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "\xC9crire quand m\xEAme \xE9crit les parties qui peuvent \xEAtre traduites. Chaque partie qui ne peut pas l'\xEAtre, et chaque partie qui en utilise une, est ajout\xE9e \xE0 la fin en commentaire, avec sa ligne et la raison.",
+    "The facts to insert (untick a fact to leave it out):": "Les faits \xE0 ins\xE9rer (d\xE9cochez un fait pour l'exclure) :",
+    "From the text": "Du texte",
+    "Questions for you (the background rules disagree):": "Questions pour vous (les r\xE8gles du contexte ne s'accordent pas) :",
+    "Left out, because the text states otherwise:": "Exclus, parce que le texte dit autre chose :",
+    "Noted, and no background rule used it:": "Not\xE9, et aucune r\xE8gle du contexte ne l'a utilis\xE9 :",
+    "What the reader noted:": "Ce que le lecteur a not\xE9 :",
+    "Applying the facts background\u2026": "Application du contexte des faits\u2026",
+    "Facts added by the facts background": "Faits ajout\xE9s par le contexte des faits",
+    "Apply the facts background": "Appliquer le contexte des faits",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Ex\xE9cuter les r\xE8gles du contexte des faits sur ces faits, et ajouter les faits qui en d\xE9coulent",
+    "Insert": "Ins\xE9rer"
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -13281,7 +13378,18 @@ var uiCatalog = {
     "DECISION TABLE": "TABELLA DECISIONALE",
     "not run (time limit)": "non eseguito (limite di tempo)",
     "Write anyway, with residues": "Scrivi comunque, con i residui",
-    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si pu\xF2 tradurre, e ogni parte che ne usa una, \xE8 aggiunta alla fine come commento, con la sua riga e il motivo."
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Scrivi comunque scrive le parti che si possono tradurre. Ogni parte che non si pu\xF2 tradurre, e ogni parte che ne usa una, \xE8 aggiunta alla fine come commento, con la sua riga e il motivo.",
+    "The facts to insert (untick a fact to leave it out):": "I fatti da inserire (togli la spunta per escludere un fatto):",
+    "From the text": "Dal testo",
+    "Questions for you (the background rules disagree):": "Domande per te (le regole del contesto non concordano):",
+    "Left out, because the text states otherwise:": "Esclusi, perch\xE9 il testo dice altro:",
+    "Noted, and no background rule used it:": "Annotato, e nessuna regola del contesto lo ha usato:",
+    "What the reader noted:": "Ci\xF2 che il lettore ha annotato:",
+    "Applying the facts background\u2026": "Applicazione del contesto dei fatti\u2026",
+    "Facts added by the facts background": "Fatti aggiunti dal contesto dei fatti",
+    "Apply the facts background": "Applica il contesto dei fatti",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Esegui le regole del contesto dei fatti su questi fatti, e aggiungi i fatti che ne seguono",
+    "Insert": "Inserisci"
   }
 };
 var languages = [
@@ -13753,6 +13861,13 @@ function ensureStyles() {
             border: 1px solid var(--input-border, #555); border-radius: 4px; padding: 6px 12px; font: inherit; cursor: pointer; }
         .nl-dialog button.primary { background: var(--accent, #0e639c); color: #fff; border-color: var(--accent, #0e639c); }
         .nl-dialog button:disabled { opacity: 0.5; cursor: default; }
+        .nl-bg { margin: 10px 0 0; font-size: 12px; }
+        .nl-bg-row { display: flex; gap: 6px; align-items: baseline; margin: 3px 0; }
+        .nl-bg-row label { flex: 1; }
+        .nl-bg-badge { font-size: 11px; padding: 0 6px; border-radius: 8px; white-space: nowrap;
+            background: rgba(120,160,220,.25); border: 1px solid rgba(120,160,220,.6); }
+        .nl-bg-list { margin: 6px 0 0; padding-left: 18px; }
+        .nl-bg-head { margin: 8px 0 2px; opacity: .85; }
     `;
   document.head.appendChild(style);
 }
@@ -13784,6 +13899,61 @@ function makeDraggable(box, handle) {
     e.preventDefault();
   });
 }
+function renderBackgroundReview(host, bg) {
+  host.innerHTML = "";
+  host.className = "nl-bg";
+  const byLine = /* @__PURE__ */ new Map();
+  for (const d of bg.derived || [])
+    byLine.set(d.line, d);
+  const boxes = [];
+  const head = document.createElement("div");
+  head.className = "nl-bg-head";
+  head.textContent = t("The facts to insert (untick a fact to leave it out):");
+  host.appendChild(head);
+  for (const line of bg.lines || []) {
+    const row = document.createElement("div");
+    row.className = "nl-bg-row";
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.checked = true;
+    const label = document.createElement("label");
+    const d = byLine.get(line);
+    label.textContent = d ? d.fact : line.replace(/\.$/, "");
+    label.prepend(box);
+    row.appendChild(label);
+    if (d) {
+      const badge = document.createElement("span");
+      badge.className = "nl-bg-badge";
+      badge.textContent = d.program;
+      badge.title = `${t("Rule")}: ${d.rule}` + (d.passage ? `
+${t("From the text")}: "${d.passage}"` : "");
+      row.appendChild(badge);
+    }
+    host.appendChild(row);
+    boxes.push({ box, line });
+  }
+  const list = (title, items) => {
+    if (!items || !items.length)
+      return;
+    const h = document.createElement("div");
+    h.className = "nl-bg-head";
+    h.textContent = title;
+    const ul = document.createElement("ul");
+    ul.className = "nl-bg-list";
+    for (const it of items) {
+      const li = document.createElement("li");
+      li.textContent = it;
+      ul.appendChild(li);
+    }
+    host.appendChild(h);
+    host.appendChild(ul);
+  };
+  list(t("Questions for you (the background rules disagree):"), bg.questions);
+  list(t("Left out, because the text states otherwise:"), bg.notes);
+  list(t("Noted, and no background rule used it:"), bg.unused);
+  list(t("What the reader noted:"), (bg.noted || []).map((n) => n.produced.length ? `${n.fact} \u2192 ${n.produced.join("; ")}` : n.fact));
+  return () => boxes.filter((b) => b.box.checked).map((b) => b.line);
+}
 function openNlInput(opts) {
   ensureStyles();
   const overlay = document.createElement("div");
@@ -13807,6 +13977,9 @@ function openNlInput(opts) {
   preview.className = "nl-preview";
   previewLabel.hidden = true;
   preview.hidden = true;
+  const review = document.createElement("div");
+  review.hidden = true;
+  let reviewLines = null;
   const actions = document.createElement("div");
   actions.className = "nl-actions";
   const model = assistantModel();
@@ -13878,6 +14051,7 @@ function openNlInput(opts) {
   dialog.appendChild(textarea);
   dialog.appendChild(previewLabel);
   dialog.appendChild(preview);
+  dialog.appendChild(review);
   dialog.appendChild(status);
   dialog.appendChild(actions);
   document.body.appendChild(overlay);
@@ -13914,6 +14088,8 @@ function openNlInput(opts) {
     regenerate.style.display = "none";
     previewLabel.hidden = true;
     preview.hidden = true;
+    review.hidden = true;
+    reviewLines = null;
   }
   textarea.addEventListener("input", () => {
     if (primaryMode === "insert")
@@ -13967,7 +14143,19 @@ function openNlInput(opts) {
 ${res.document_facts.map((f) => `${f}.`).join("\n")}`;
         }
         const warnings = Array.isArray(res.warnings) ? res.warnings : [];
-        if (warnings.length === 0) {
+        const bg = res.background && Array.isArray(res.background.lines) ? res.background : null;
+        if (bg) {
+          reviewLines = renderBackgroundReview(review, bg);
+          review.hidden = false;
+          const extra = Array.isArray(res.document_facts) ? res.document_facts.map((f) => `${f}.`) : [];
+          pendingLe = "";
+          primaryMode = "insert";
+          generate.textContent = t("Insert");
+          regenerate.style.display = "";
+          status.className = warnings.length ? "nl-status warn" : "nl-status";
+          status.textContent = warnings.length ? warnings.map((w) => `\u2022 ${w}`).join("\n") : "";
+          review.__extra = extra;
+        } else if (warnings.length === 0) {
           opts.onResult(res.le, { document: documentName });
           close();
         } else {
@@ -14004,7 +14192,8 @@ ${res.document_facts.map((f) => `${f}.`).join("\n")}`;
   }
   generate.addEventListener("click", () => {
     if (primaryMode === "insert") {
-      opts.onResult(pendingLe, { document: docName.value.trim() });
+      const le = reviewLines ? [...reviewLines(), ...review.__extra || []].join("\n") : pendingLe;
+      opts.onResult(le, { document: docName.value.trim() });
       close();
     } else
       run();

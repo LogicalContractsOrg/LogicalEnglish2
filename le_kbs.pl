@@ -653,6 +653,16 @@ process_section_acc(ontology(Content, Start, End), M) :-
 process_section_acc(resources(_, Resources, Start, End), M) :-
     forall(member(R, Resources), assertz(M:le_included_resource(R, Start, End))).
 
+%   `the facts background includes these resources: ...`: recorded, never
+%   loaded. le_facts_background(Name, Id, Start, End): Id is the resolved
+%   file or address. A background named by an included program comes in with
+%   that program's sections (FactsBackground.md decision 3).
+process_section_acc(facts_background(Rs, Ids, Start, End), M) :-
+    forall(( nth1(I, Rs, R), ( nth1(I, Ids, Id) -> true ; Id = R ) ),
+           (   M:le_facts_background(_, Id, _, _) -> true
+           ;   assertz(M:le_facts_background(R, Id, Start, End))
+           )).
+
 %   `the knowledge base <name> includes these scenarios: ...`: the files were
 %   read with the includes (fetch_resources/3); le_included_scenarios/3 is
 %   the line, for the writer and the knowledge base summary.
@@ -828,7 +838,8 @@ has_reportable_content(Tokens) :-
 %   rules it tests; read once, by the guard above, when the document
 %   includes them as well. Two scenarios, or two queries, of one name are
 %   an error on the "includes these scenarios:" line (case_name_clashes/3).
-fetch_resources(Sections, MergedSections, M) :-
+fetch_resources(Sections0, MergedSections, M) :-
+    maplist(resolve_background_section, Sections0, Sections),
     findall(include(R), ( member(resources(_, Rs, _, _), Sections), member(R, Rs) ), Incs),
     findall(base(Name, R), ( member(extends(Name, Bs, _, _), Sections), member(R, Bs) ), Bases),
     findall(scenarios(R), ( member(scenario_resources(_, Rs, _, _), Sections), member(R, Rs) ), Scens),
@@ -852,6 +863,16 @@ fetch_resources(Sections, MergedSections, M) :-
         )
     ;   MergedSections = Sections
     ).
+
+%   `the facts background includes these resources: ...`: each name is
+%   resolved where it is written (against the folder of the file that names
+%   it), so that a background named by an included program is found from
+%   the program that includes it. The programs are not read here: only the
+%   reading step reads them (le_background.pl).
+resolve_background_section(facts_background(Rs, S, E), facts_background(Rs, Ids, S, E)) :- !,
+    current_include_base(Base),
+    findall(Id, ( member(R, Rs), catch(resolve_resource(R, Base, _, Id), _, fail) ), Ids).
+resolve_background_section(Section, Section).
 
 %!  case_name_clashes(+Sections, +MergedSections, +M) is det.
 %
@@ -3398,6 +3419,8 @@ is_system_predicate(le_template_image/2).
 % Include bookkeeping (see fetch_resources/3 and load_prolog_resource/4).
 is_system_predicate(le_included_resource/3).
 is_system_predicate(le_included_scenarios/3).
+% `the facts background includes these resources:` (le_background.pl).
+is_system_predicate(le_facts_background/4).
 is_system_predicate(le_resource_stats/3).
 is_system_predicate(le_prolog_resource/2).
 % LPS target (lps2's docs/user/reference/le-for-lps.md). le_lps_role/2 says which declaration

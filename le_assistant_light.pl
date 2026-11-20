@@ -168,6 +168,23 @@ agent_loop(JobID, Model, Keys, Messages, Program, Step, LastVerifyStatus, MaxSte
                     Step1 is Step + 1,
                     agent_loop(JobID, Model, Keys, NewMessages, Program, Step1, dirty, MaxSteps, FinalExplanation, FinalProgram)
                 )
+            ;   Action == "read_facts"
+            ->  % The facts background step on the facts the model noted
+                ( get_dict(facts, ActionDict, RFacts) -> true ; RFacts = "" ),
+                assertz(le_assistant:assistant_job_output(JobID, stdout, "Reading the facts with the facts background.\n")),
+                b_getval(le_assistant_base, RBase),
+                (   catch(le_tools:le_tool_read_facts(_{program_text: Program, program_base: RBase, facts: RFacts}, RResult), RErr,
+                          ( term_string(RErr, RES), RResult = _{error: RES} ))
+                ->  true
+                ;   RResult = _{error: "The facts background could not be applied."}
+                ),
+                with_output_to(string(RStr), json_write_dict(current_output, RResult, [width(0)])),
+                append(Messages, [
+                    _{role: assistant, content: Reply},
+                    _{role: user, content: RStr}
+                ], NewMessages),
+                Step1 is Step + 1,
+                agent_loop(JobID, Model, Keys, NewMessages, Program, Step1, LastVerifyStatus, MaxSteps, FinalExplanation, FinalProgram)
             ;   Action == "docs"
             ->  % Search the user documentation
                 ( get_dict(query, ActionDict, DocsQuery) -> true ; DocsQuery = "" ),
@@ -264,10 +281,39 @@ assemble_system_prompt(Program, UserRoles, SystemPrompt) :-
     % Output-language directive (a no-op line for English)
     language_directive(LangDirective),
 
+    % The facts background of the program, if it names one (language.md §14.5)
+    facts_background_part(Program, BackgroundPart),
+
     % Assemble everything
     format(string(SystemPrompt),
-           "~w~w\n\n## Logical English Syntax Summary\n~w\n\n## Curated Examples\n~w\n\n~w\n\n## Your Program\n```\n~w\n```\n",
-           [InstructionBody, LangDirective, SyntaxSummary, ExamplesStr, ToolSpec, Program]).
+           "~w~w\n\n## Logical English Syntax Summary\n~w\n\n## Curated Examples\n~w\n\n~w\n\n## Your Program\n```\n~w\n```\n~w",
+           [InstructionBody, LangDirective, SyntaxSummary, ExamplesStr, ToolSpec, Program, BackgroundPart]).
+
+%!  facts_background_part(+Program, -Text) is det.
+%
+%   When the program names a facts background (language.md §14.5): a part of
+%   the instructions that says it is used to read facts and is not part of
+%   the reasoning, with its noted templates, and how to use the
+%   `read_facts` action. Empty otherwise.
+facts_background_part(Program, Text) :-
+    (   b_getval(le_assistant_base, Base0) -> Base = Base0 ; Base = (-) ),
+    (   catch(le_kbs:load_text(Program, Base, KB), _, fail),
+        current_predicate(KB:le_facts_background/4),
+        once(KB:le_facts_background(_, _, _, _)),
+        catch(le_background:background_templates(KB, Noted0, _), _, fail),
+        Noted0 \== []
+    ->  findall(N, KB:le_facts_background(N, _, _, _), Names),
+        atomic_list_concat(Names, ', ', NamesA),
+        findall(L, member(n(L, _, _), Noted0), Noted),
+        atomic_list_concat(Noted, '\n- ', NotedA),
+        format(string(Text),
+"\n## The facts background of your program\n\
+The program names a facts background: ~w. These programs are used ONLY to read the facts of a case from a text (a listing, a letter, a form). They are NOT part of the reasoning: never copy their rules or templates into the program.\n\
+To add a scenario from a text, note what the text says in these templates (the noted templates of the background), one fact a line, each with `, confer \"<passage>\"` quoting the text, and infer nothing:\n- ~w\n\
+Then use the `read_facts` action with these lines as `facts`. It returns the facts of the program that follow (`lines`), each with its origin. Put those lines in the scenario.\n",
+               [NamesA, NotedA])
+    ;   Text = ""
+    ).
 
 %!  with_extensions_reference(+SummaryPath, +Summary, -Text) is det.
 %
@@ -472,6 +518,14 @@ You MUST respond with EXACTLY one JSON object in one of the following formats:
 {
   \"action\": \"docs\",
   \"query\": \"a few keywords, as the documentation would word them\"
+}
+```
+
+6. When the program names a facts background (see the section \"The facts background of your program\"), to read the facts of a case from a text:
+```json
+{
+  \"action\": \"read_facts\",
+  \"facts\": \"the facts you noted from the text, one a line, in the noted templates of the background\"
 }
 ```
 

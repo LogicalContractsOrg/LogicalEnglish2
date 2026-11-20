@@ -8,6 +8,7 @@
 :- module(le_tools, [
     le_tool_verify/2,
     le_tool_query/2,
+    le_tool_read_facts/2,
     le_tool_query/3,
     example_path_for/3,
     convert_test_result/2,
@@ -24,6 +25,7 @@
 :- use_module(reasoner).
 :- use_module(le_system_templates).
 :- use_module(restricted_paths, [is_path_allowed/2]).
+:- use_module(le_background, []).
 
 %!  le_tool_verify(+ProgramTextOrArgs, -Result) is det.
 %
@@ -32,6 +34,29 @@
 %   program is (a folder or a URL), against which its included resources
 %   resolve (le_kbs:load_text/3); without it they resolve against the
 %   server's folder, and a twin's `includes temporal` is not found.
+%!  le_tool_read_facts(+Args, -Result) is det.
+%
+%   The facts background step (le_background.pl, language.md §14.5) for an
+%   assistant: Args has `program_text`, maybe `program_base`, and `facts`
+%   (the facts the assistant noted from a text, one a line: sentences of the
+%   program's scenario templates or of the background's noted templates).
+%   Result: the noted templates the background offers, and, when facts are
+%   given, what the step returns (lines to put in a scenario, derived facts
+%   with their origin, unused noted facts, notes and questions).
+le_tool_read_facts(Args, Result) :-
+    get_dict(program_text, Args, ProgramText),
+    ( get_dict(program_base, Args, Base) -> true ; Base = (-) ),
+    le_kbs:load_text(ProgramText, Base, KB),
+    le_background:background_templates(KB, Noted0, _),
+    findall(L, member(n(L, _, _), Noted0), Noted),
+    (   get_dict(facts, Args, Facts), Facts \== "", Facts \== null
+    ->  ( is_list(Facts) -> Lines = Facts
+        ; split_string(Facts, "\n", " \t\r", Ls0), exclude(==(""), Ls0, Lines) ),
+        le_background:apply_background(KB, Lines, R),
+        Result = R.put(noted_templates, Noted)
+    ;   Result = _{noted_templates: Noted}
+    ).
+
 le_tool_verify(Args, Result) :-
     is_dict(Args), !,
     get_dict(program_text, Args, ProgramText),

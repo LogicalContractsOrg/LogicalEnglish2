@@ -70,6 +70,7 @@ This document gives a summary of the constructs of Logical English (LE) that the
 You write a program in sections. Each section tells the system how to read the sentences that follow it. Each section header ends with a colon `:`.
 
 - **Included Resources:** `the knowledge base <name> includes these resources:` or `the contract <name> includes these resources:`. This section brings in other LE files, or documents at a web address. (A web address is also known as a URL.) Write this section before the main knowledge base header.
+- **Facts Background:** `the facts background includes these resources:`. This section names the programs that the system uses only to read facts from a text (§14.5).
 - **Included Scenarios:** `the knowledge base <name> includes these scenarios:`. This section brings in the scenarios and the queries of other LE files, with their rules (§14.3). Write this section before the main knowledge base header.
 - **Knowledge Base:** `the knowledge base <name> includes:` or `the contract <name> states that:`
 - **Scenario:** `scenario <name> is:`. This section states the facts of one case. Usually, it is a case that you use to test the program.
@@ -1165,6 +1166,102 @@ A document can use the text of a different file in three ways. The table compare
 | Special abilities | A `.pl` resource gives Prolog clauses to `prolog` goals (§14.1). Only the LE2 reasoner uses them. The LPS translation does not use them. | `this law replaces law L of B.`, and the warnings `lps_replaces` and `lps_extends_clash`. | — |
 
 `includes these scenarios:` (§14.3) is a fourth way. It gets all that `includes these resources:` gets, and also the scenarios and the queries. For LPS, it also keeps the `initially` sentences of the file, because they describe a case.
+
+### 14.5 A facts background: `the facts background includes these resources:`
+A text often does not use the words of the rules. A shop listing says "Tee Shirt" and
+"Craft of Weaving: Knit". The rules read "the kind of the garment is T-shirt" and "the
+fabric construction of the garment is knitted". A **facts background** is the knowledge
+that connects the two sets of words. The system uses it only when it reads facts from a
+text.
+
+**Form.**
+```le
+the facts background includes these resources:
+    background/garment_words, background/garment_presumptions.
+```
+- Write the names as for `includes these resources:` (§14). A name is a path relative to
+  the program, or a web address.
+- Each name is an ordinary Logical English program, a **background program**. You can
+  open, verify and test a background program alone.
+- A program gets the facts background that it names. It also gets the facts backgrounds
+  that its included programs name.
+
+**What the system does with it.**
+- **The system does not reason with a background program.** A query, a test, a view and
+  an export of the program give the same result as without the section.
+- "Write it in English" (refer to the Scenario Editor guide), the editor's assistant and
+  the tools for other assistants use the facts background. They do these steps:
+  1. They give the reader (a language model) the scenario templates of the program and
+     the **noted templates** of the background.
+  2. The reader writes what the text says, in the template that is nearest to the words
+     of the text. The reader infers nothing.
+  3. The system runs each background program on these facts. It runs the programs in
+     the sequence of the section. Each program also gets the facts that the programs
+     before it gave.
+  4. The system returns only facts of the program's scenario templates. It does not
+     return the noted facts.
+
+**The three kinds of templates of a background program.**
+
+| Kind | What it is | Example |
+|---|---|---|
+| Noted template | What a reader can write from a text. Mark it `; undefined` in the background program. | `*a thing* is called *a name*; undefined.` |
+| Own knowledge | Facts and rules of the background. | `*a name* is a word for the kind *a kind*.` |
+| Shared template | A template of the main program, with the same words. The background rules conclude it. | `the kind of *a garment* is *a kind*.` |
+
+The values of a noted fact are compared in lower case. Write the words of a background
+program in lower case: `"tee shirt" is a word for the kind T-shirt.`
+
+**Where each fact comes from.** Each fact that a background program gives has the trailers
+of §17.1:
+```le
+the fabric of tee is lightweight, according to garment presumptions,
+    because "tshirt_fabric", confer "Men Tee Shirt".
+```
+- `according to` gives the name of the knowledge base of the background program.
+- `because` gives the name of the rule.
+- `confer` gives the passage of the text that the noted fact under it quotes.
+
+**Presumptions.** A rule that is always true is a **bridge** ("PVC is polyvinyl
+chloride"). A rule that is true when the text does not say otherwise is a
+**presumption** ("a T-shirt is of lightweight fabric"). The two kinds use the same
+syntax. Put the presumptions in a background program of their own. Then each fact says
+which kind of rule gave it, and the source-scoped proof of §17.5 gives two readings,
+without and with presumptions:
+```le
+a garment is classified in a heading by a reading
+    if the reading is in [strict reading, full reading]
+    and the heading of the garment is the heading
+        according to the reading.
+
+garment words is admissible under strict reading.
+garment words is admissible under full reading.
+garment presumptions is admissible under full reading.
+```
+
+**When facts disagree.** The reading step applies these rules. The rules do not change
+the reasoner.
+- **A fact that the text states is stronger than a fact that a background rule gives.**
+  For a template with one value (a template of `the functions are:`, §2.4), the system
+  does not return a value that a background rule gives when the text states another
+  value. It shows a note.
+- **Two background rules that give two values** of a template with one value give no
+  fact. The system shows a question to the person who reviews the facts.
+- To put one background rule before another, write the sequence in the background
+  program: an `otherwise` cascade (§17.2), or a condition on the noted facts.
+
+**The verifier** shows these warnings on the line of the section:
+
+| Warning | Meaning |
+|---|---|
+| `background_missing` | The system cannot find or load a background program. |
+| `background_decides` | A background rule concludes a template that the rules of the program conclude, such as a heading or a code. A background must not decide the answer. |
+| `background_unread_value` | A background rule concludes a value that no rule of the program reads. |
+| `background_unused_noted` | No rule of the background reads a noted template. |
+| `background_shares_nothing` | The background concludes no template of the program. |
+| `background_without_source` | A background rule has no source (`with provenance`). |
+
+Refer to `examples/moreExamples/language/includes/facts_background/`.
 
 ## 15. LE Extensions
 This section is about features that are not in the core constructs above.
