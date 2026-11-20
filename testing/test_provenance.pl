@@ -386,6 +386,30 @@ test(quote_checked_against_the_text, [setup(resource_dir(Dir)), cleanup(delete_d
     issue_types(KB2, warning, W2),
     memberchk(quote_not_found, W2).
 
+% Typographic apostrophes and quotation marks in a document match plain
+% ones in a quotation, and a quotation mark written \" in a passage is a
+% quotation mark.
+test(quote_with_typographic_marks_and_escaped_quotes) :-
+    le_provenance:normalized_text("Panties are women\u2019s and girl\u2019s; the expression \u201cdenim\u201d means fabrics", N),
+    le_provenance:quote_in_normalized("women's and girl's", N),
+    le_provenance:quote_in_normalized("the expression \\\"denim\\\" means fabrics", N),
+    \+ le_provenance:quote_in_normalized("the expression \\\"satin\\\" means", N).
+
+% A document whose text cannot be read (here: outside the program's folder)
+% is said, not passed over: its quotations would go unchecked.
+test(a_text_that_cannot_be_read_is_said, [setup(resource_dir(Dir)), cleanup(delete_directory_and_contents(Dir))]) :-
+    directory_file_path(Dir, 'act.txt', Act),
+    write_file(Act, "Section 2. A resident is eligible for help."),
+    directory_file_path(Dir, 'sub', Sub), make_directory(Sub),
+    cited_program(P0),
+    re_replace("sources/act.txt"/g, "../act.txt", P0, P1),
+    directory_file_path(Sub, 'p.le', F),
+    write_file(F, P1),
+    load(F, KB),
+    issue_types(KB, warning, W),
+    memberchk(text_not_read, W),
+    \+ memberchk(quote_not_found, W).
+
 % verify/1 (the command-line check) reads the program from its own folder,
 % as load/2 does: the document's relative address is found and a quotation
 % that is not in the text is reported.

@@ -273,13 +273,18 @@ quote_in_text(Quote, Text) :-
 %!  normalized_text(+Text, -Norm) is det.
 %
 %   Text prepared for quote_in_normalized/2: Unicode spaces as plain ones,
+%   typographic quotation marks and apostrophes as plain ones,
 %   white space collapsed, and a lower-case copy — norm(Exact, Lower).
 normalized_text(Text, norm(T, TL)) :-
     plain_spaces(Text, Text1),
     normalize_space(string(T), Text1),
     string_lower(T, TL).
 
-quote_in_normalized(Quote, norm(T, TL)) :-
+quote_in_normalized(Quote0, norm(T, TL)) :-
+    % a quotation mark inside a passage is written \" in the program
+    split_string(Quote0, "", "", [Q0]),
+    atomic_list_concat(Parts, '\\"', Q0), atomic_list_concat(Parts, '"', QA),
+    atom_string(QA, Quote),
     plain_spaces(Quote, Quote1),
     normalize_space(string(Q), Quote1),
     Q \== "",
@@ -300,6 +305,12 @@ plain_space(C0, C) :-
     (   memberchk(C0, [0xA0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004, 0x2005,
                        0x2006, 0x2007, 0x2008, 0x2009, 0x200A, 0x202F, 0x205F, 0x3000])
     ->  C = 0' 
+    % typographic quotation marks and apostrophes as plain ones: a document
+    % has “women’s”, a quotation typed by hand has "women's"
+    ;   memberchk(C0, [0x2018, 0x2019, 0x201A, 0x201B, 0x2032])
+    ->  C = 0''
+    ;   memberchk(C0, [0x201C, 0x201D, 0x201E, 0x201F, 0x2033])
+    ->  C = 0'"
     ;   C = C0
     ).
 

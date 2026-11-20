@@ -1529,9 +1529,13 @@ the text of ruling NY N362700 is at "sources/cbp/N362700.txt".
 **Effects.** With the two facts:
 - **The verifier checks each quotation.** It looks for the passage of a `confer`
   trailer (`confer "a zipper garage at the top of the collar"`) in the text of the
-  document, when that text is a file in the folder of the program. It ignores
-  differences of white space, of no-break spaces and of letter case. It gives the
-  warning `quote_not_found` when it cannot find the passage. A locator in quotes,
+  document, when that text is a file in the folder of the program or in a folder
+  under it. It ignores differences of white space, of no-break spaces, of letter
+  case, and of typographic and plain quotation marks and apostrophes (’ and '). It
+  gives the warning `quote_not_found` when it cannot find the passage. It gives the
+  warning `text_not_read` when it cannot read the file, for example because the
+  address leaves the folder of the program (`../sources/act.txt`). Then it cannot
+  check the quotations of that document. A locator in quotes,
   such as `at "section 4, paragraph a)"`, is a location, not a quotation. The
   verifier does not look for it.
 - **Explanations show the source.** Each step of an explanation that a cited fact or

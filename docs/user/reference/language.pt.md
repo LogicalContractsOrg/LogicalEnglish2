@@ -847,8 +847,10 @@ da página; um PDF não serve. Nenhum destes dois factos precisa de proveniênci
 própria. Com eles:
 - o verificador confere uma **citação** — `confira "..."`, ou um localizador
   entre aspas — contra o texto do documento, quando esse texto é um ficheiro
-  junto do programa. A comparação ignora espaços e maiúsculas, e dá o aviso
-  `quote_not_found` quando não encontra a passagem;
+  junto do programa. A comparação ignora espaços, maiúsculas e a diferença entre
+  aspas e apóstrofos tipográficos e simples, e dá o aviso `quote_not_found` quando
+  não encontra a passagem, e o aviso `text_not_read` quando não consegue ler o
+  ficheiro (por exemplo, um endereço que sai da pasta do programa);
 - cada passo de explicação provado por um facto citado ou por uma regra com
   rótulo leva consigo a sua proveniência, e o editor marca-o com um distintivo
   **§**. O visualizador mostra o texto do documento com a passagem realçada, e

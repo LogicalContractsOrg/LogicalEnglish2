@@ -116,6 +116,7 @@ check_issue(KB, _, Issue) :- judgment_without_provenance(KB, Issue).
 check_issue(KB, _, Issue) :- fact_without_provenance(KB, Issue).
 check_issue(KB, _, Issue) :- service_undeclared(KB, Issue).
 check_issue(KB, _, Issue) :- quote_not_found(KB, Issue).
+check_issue(KB, _, Issue) :- text_not_read(KB, Issue).
 check_issue(KB, _, Issue) :- unread_value(KB, Issue).
 check_issue(KB, _, Issue) :- mistyped_value(KB, Issue).
 check_issue(KB, _, Issue) :- le_views:view_issue(KB, Issue).
@@ -298,6 +299,31 @@ shown_values(Values, Shown) :-
 % file beside it ("the text of <document> is at "sources/x.txt""): the
 % quotation must be in that text (white space and letter case aside). Texts
 % at URLs are not fetched to verify.
+% A document that the program quotes and whose text it gives in a file, but
+% the file cannot be read (it is missing, or outside the program's folder):
+% said once, on the first quotation, instead of leaving its quotations
+% unchecked in silence.
+text_not_read(KB, Issue) :-
+    current_predicate(KB:le_text_at/2),
+    ( current_predicate(KB:le_program_base/1), KB:le_program_base(Base) -> true ; Base = (-) ),
+    KB:le_text_at(Doc, Address0),
+    atom_string(Address0, Address),
+    \+ le_documents:is_url(Address),
+    once(quoted_citation(KB, Doc1, _, Start, End, _)),
+    once(( quoted_citation(KB, Doc1, _, Start, End, _), le_provenance:same_document(Doc, Doc1) )),
+    catch(( le_documents:document_text(Address, Base, [], _) -> Why = none ; Why = "it cannot be read" ),
+          E, text_error_why(E, Why)),
+    Why \== none,
+    le_i18n:le_msg(text_not_read_desc, [document-Doc, address-Address, why-Why], Description),
+    le_i18n:le_msg(text_not_read_fix, [], Fix),
+    Issue = issue(text_not_read, Description, Fix, Start, End).
+
+text_error_why(error(document_error(Why), _), Why) :- !.
+text_error_why(error(existence_error(_, _), _), "the file does not exist") :- !.
+text_error_why(E, Why) :- message_to_codes(E, Why) -> true ; term_string(E, Why).
+
+message_to_codes(E, Why) :- catch(message_to_codes(E, [], Cs), _, fail), string_codes(Why, Cs).
+
 quote_not_found(KB, Issue) :-
     current_predicate(KB:le_text_at/2),
     findall(c(Doc, Quote, Start, End, What),

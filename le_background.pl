@@ -571,7 +571,7 @@ find_example(KB, Example) :-
 
 find_example([], _, _, Fallback, Fallback) :- Fallback \== none.
 find_example([n(_, BM, F/A)|Ns], K, KB, Fallback0, Example) :-
-    findall(Line, sample_line(BM, F, A, K, Line), Lines0),
+    findall(Line, sample_line(BM, F, A, K, 40, Line), Lines0),
     list_to_set(Lines0, Lines),
     (   Lines \== [],
         apply_background_(KB, Lines, [], _, Derived),
@@ -604,13 +604,13 @@ find_example([n(_, BM, F/A)|Ns], K, KB, Fallback0, Example) :-
 %   or false); `words`, for a value given, the noted facts that give it
 %   (at most five); named (true or false): the value is a value of some
 %   fact of a background program. The background is run once on one
-%   sample fact for each word it knows (as background_example/3, at most
-%   40 words a place), so a value that only two noted facts together give
+%   sample fact for each word it knows (every word, unlike
+%   background_example/3), so a value that only two noted facts together give
 %   is not `given`, but it is `named`. A value neither given nor named is
 %   where to look in the texts. Needs no case with a known answer.
 background_coverage(KB, Coverage) :-
     noted_templates_all(KB, All),
-    findall(Line, ( nth1(K, All, n(_, BM, F/A)), sample_line(BM, F, A, K, Line) ), Lines0),
+    findall(Line, ( nth1(K, All, n(_, BM, F/A)), sample_line(BM, F, A, K, 100000, Line) ), Lines0),
     list_to_set(Lines0, Lines),
     (   Lines == [] -> Derived = []
     ;   apply_background_(KB, Lines, [], _, Derived)
@@ -648,17 +648,17 @@ named_in_background(KB, V) :-
 
 % a noted fact with a word the background knows in each place but one,
 % which names a thing (sample_K_I); at most 40 words in a place
-sample_line(BM, F, A, K, Line) :-
+sample_line(BM, F, A, K, MaxWords, Line) :-
     findall(I-Vs, ( between(1, A, I),
                     (   catch(le_verifier:with_rule_index(BM, le_verifier:slot_values(BM, F, A, I, Vs0)), _, fail),
                         Vs0 \== []
-                    ->  length(Vs0, N), Max is min(N, 40), length(Vs, Max), append(Vs, _, Vs0)
+                    ->  length(Vs0, N), Max is min(N, MaxWords), length(Vs, Max), append(Vs, _, Vs0)
                     ;   Vs = []
                     ) ),
             Places),
     include([_-[]]>>true, Places, [_]),
     findall(Args, maplist(place_value(K), Places, Args), Combos0),
-    length(Combos0, NC), MaxC is min(NC, 60), length(Combos, MaxC), append(Combos, _, Combos0),
+    length(Combos0, NC), MaxC is min(NC, max(60, MaxWords)), length(Combos, MaxC), append(Combos, _, Combos0),
     nth1(J, Combos, Args0),
     maplist(thing_name(K, J), Args0, Args),
     Head =.. [F|Args],
