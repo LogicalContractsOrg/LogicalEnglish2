@@ -166,6 +166,19 @@ test(the_example_comes_from_the_background) :-
     re_replace("the thing"/g, "item eight", Derived, Derived8),
     assertion(has_line_with(R.lines, Derived8)).
 
+% The first list of FactsBackground §5.2, with no case: each value that
+% the main rules read in a scenario template, and whether the background
+% can give it from a word it knows.
+test(coverage_lists_the_values_the_rules_read) :-
+    fb_main(KB),
+    background_coverage(KB, C),
+    C \== [],
+    forall(member(D, C), ( get_dict(given, D, G), memberchk(G, [true, false]) )),
+    % the fixture's background gives knitted from "knit"
+    once(( member(D, C), D.value == "knitted" ; member(D, C), D.value == knitted )),
+    assertion(D.given == true),
+    assertion(D.words \== []).
+
 % A word that no rule of the background knows is shown, with no expected
 % answer in sight.
 test(a_noted_word_nothing_knows_is_unused) :-

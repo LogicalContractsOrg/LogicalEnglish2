@@ -68,7 +68,8 @@
     background_issue/2,           % +KB, -Issue   (le_verifier)
     template_regex/2,             % +Label, -Regex
     line_fact_part/3,             % +Line, -Fact, -Trailers
-    background_example/3          % +KB, -NotedFact, -DerivedFact
+    background_example/3,         % +KB, -NotedFact, -DerivedFact
+    background_coverage/2         % +KB, -Coverage:list(dict)
 ]).
 
 :- use_module(library(lists)).
@@ -593,6 +594,57 @@ find_example([n(_, BM, F/A)|Ns], K, KB, Fallback0, Example) :-
     ;   K1 is K + 1,
         find_example(Ns, K1, KB, Fallback0, Example)
     ).
+
+%!  background_coverage(+KB, -Coverage) is det.
+%
+%   The first list of FactsBackground.md §5.2: for each value that the
+%   rules of the main program read in a place of a scenario template, can
+%   the background give it from some word it knows? Coverage is one dict
+%   per template and value: template (its label), value, and given (true
+%   or false); `words`, for a value given, the noted facts that give it
+%   (at most five); named (true or false): the value is a value of some
+%   fact of a background program. The background is run once on one
+%   sample fact for each word it knows (as background_example/3, at most
+%   40 words a place), so a value that only two noted facts together give
+%   is not `given`, but it is `named`. A value neither given nor named is
+%   where to look in the texts. Needs no case with a known answer.
+background_coverage(KB, Coverage) :-
+    noted_templates_all(KB, All),
+    findall(Line, ( nth1(K, All, n(_, BM, F/A)), sample_line(BM, F, A, K, Line) ), Lines0),
+    list_to_set(Lines0, Lines),
+    (   Lines == [] -> Derived = []
+    ;   apply_background_(KB, Lines, [], _, Derived)
+    ),
+    findall(_{template: Label, value: VT, given: Given, named: Named, words: Words},
+            ( main_scenario_template(KB, F, A),
+              le_kbs:template_of(KB, F, A, _, _),
+              between(1, A, I),
+              catch(le_verifier:with_rule_index(KB, le_verifier:slot_values(KB, F, A, I, Vs)), _, fail),
+              member(V, Vs),
+              findall(W, ( member(d(F/A-H, _, _, _, _, _, [From]), Derived),
+                           arg(I, H, V0), V0 == V,
+                           line_fact_part(From, W0, _), split_string(W0, "", ". ", [W1]),
+                           sample_thing(W1, Th), the_thing(Th, W1, W) ), Ws0),
+              list_to_set(Ws0, Ws1),
+              ( Ws1 == [] -> Given = false ; Given = true ),
+              ( Given == false, \+ named_in_background(KB, V) -> Named = false ; Named = true ),
+              length(Ws1, NW), MW is min(NW, 5), length(Words, MW), append(Words, _, Ws1),
+              bg_label(KB, F, A, Label),
+              ( string(V) -> VT = V ; term_string(V, VT) ) ),
+            Coverage0),
+    sort(Coverage0, Coverage).
+
+% the value is an argument of a fact (a clause with no body) of a
+% background program or of a program it includes
+named_in_background(KB, V) :-
+    facts_background(KB, Programs),
+    member(bg(_, _, _, loaded(BM, _, _, _)), Programs),
+    current_predicate(BM:P/N), N > 0,
+    \+ sub_atom(P, 0, _, _, le_),
+    functor(H, P, N),
+    \+ predicate_property(BM:H, imported_from(_)),
+    catch(clause(BM:H, true), _, fail),
+    arg(_, H, X), X == V, !.
 
 % a noted fact with a word the background knows in each place but one,
 % which names a thing (sample_K_I); at most 40 words in a place
