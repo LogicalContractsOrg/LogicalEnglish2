@@ -301,7 +301,7 @@ the server marks the result `isError: true`.
 | `query` | `query` (required), `example_name`, `program_text` or `program_file`, `scenario_name`, `facts` | `{results: [{answer, explanation, case?}], notes?}` |
 | `verify` | `program_text` or `program_file` | `{issues, test_results, summary}` |
 | `search_documentation` | `query` (required): a few keywords | `{sections}`: the sections found, each with its link |
-| `read_facts` | `program_text` or `program_file`, `facts` | `{noted_templates}`, and with `facts` also `{lines, derived, noted, unused, notes, questions}` |
+| `read_facts` | `program_text` or `program_file`, `facts` | `{noted_templates}`, and with `facts` also `{lines, derived, noted, unused, notes, questions, alternatives}` |
 
 **`list_examples`** lists the programs of `examples/moreExamples/`, of the extra
 folders (`regulatory/…`, `migration/…`, …) and of the folders of the other languages

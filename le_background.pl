@@ -69,7 +69,8 @@
     template_regex/2,             % +Label, -Regex
     line_fact_part/3,             % +Line, -Fact, -Trailers
     background_example/3,         % +KB, -NotedFact, -DerivedFact
-    background_coverage/2         % +KB, -Coverage:list(dict)
+    background_coverage/2,        % +KB, -Coverage:list(dict)
+    alternative_variants/2        % +Result, -Variants:list(v(Chosen, Lines))
 ]).
 
 :- use_module(library(lists)).
@@ -329,7 +330,11 @@ lower_parts([P0|Ps0], Where, [P|Ps]) :-
 %       of the background knows);
 %     - notes: a derived fact left out because the text states otherwise;
 %     - questions: two values of a one-valued template that the background
-%       programs gave, for a person to decide;
+%       programs gave, or that the text states, for a person to decide;
+%     - alternatives: those values, kept: one list per thing, of one dict
+%       per value: line (the fact) and with (the derived facts that rest
+%       on it). The lines leave them out; alternative_variants/2 makes the
+%       scenarios that take one value each;
 %     - programs: the background programs, each with its status.
 %
 %   Without a background program, Lines come back as they are.
@@ -348,6 +353,7 @@ apply_background(KB, Lines0, Result, Options) :-
 
 % as apply_background/4; Derived: the derived facts, d(F/A-Head, ...)
 apply_background_(KB, Lines0, Options, Result, Derived) :-
+    retractall(fed_via(_, _)),
     facts_background(KB, Programs0),
     (   memberchk(programs(Names), Options)
     ->  include(program_named(Names), Programs0, Programs)
@@ -366,8 +372,21 @@ apply_background_(KB, Lines0, Options, Result, Derived) :-
     % the reader's lines as the backgrounds read them
     findall(L, ( member(C, Classified), ( C = main(L) ; C = noted(L0), lower_quoted(L0, L) ) ), Given),
     run_programs(KB, Programs, Given, [], Derived0),
-    resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held),
-    findall(DL, member(d(_, _, DL, _, _, _, _), Derived), DerivedLines),
+    resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held, Groups),
+    findall(DL, member(d(_, _, DL, _, _, _, _), Derived), DerivedLines0),
+    % a derived fact that rests on one of the alternatives goes with it
+    findall(Rep-Dep, ( member(Group, Groups), member(alt(Rep, AltLines), Group),
+                       member(Dep, DerivedLines0),
+                       member(AL, AltLines), rests_on(Dep, AL) ), Deps0),
+    sort(Deps0, Deps),
+    findall(Dep, member(_-Dep, Deps), DepLines),
+    exclude(held_line(DepLines), DerivedLines0, DerivedLines),
+    findall(Alts,
+            ( member(Group, Groups),
+              findall(_{line: Rep, with: With},
+                      ( member(alt(Rep, _), Group), findall(Dp, member(Rep-Dp, Deps), With) ),
+                      Alts) ),
+            Alternatives),
     exclude(held_line(Held), MainLines, KeptLines),
     append(KeptLines, DerivedLines, OutLines),
     findall(_{fact: FT, line: DL, program: P, rule: R, passage: Pa, from: Fr},
@@ -386,9 +405,49 @@ apply_background_(KB, Lines0, Options, Result, Derived) :-
             ProgramsJSON),
     Result = _{lines: OutLines, derived: DerivedJSON, noted: NotedJSON,
                unused: Unused, notes: Notes, questions: Questions,
+               alternatives: Alternatives,
                programs: ProgramsJSON}.
 
 held_line(Held, Line) :- memberchk(Line, Held).
+
+% a derived line rests on another line: it was derived from it, directly
+% or through derived lines (fed_via/2, recorded by through_fed/3); or on a
+% reader's line of a stated alternative, which it quotes in its From
+:- thread_local fed_via/2.
+
+rests_on(Line, On) :- rests_on(Line, On, []).
+rests_on(Line, On, _) :- fed_via(Line, On), !.
+rests_on(Line, On, Seen) :-
+    fed_via(Line, Mid), \+ memberchk(Mid, Seen),
+    rests_on(Mid, On, [Mid|Seen]), !.
+
+%!  alternative_variants(+Result, -Variants) is det.
+%
+%   The scenarios that the result of apply_background/3 stands for: its
+%   lines with one value of each alternative (and the facts that rest on
+%   it), every combination, at most 16. Without alternatives, one: the
+%   lines. Each variant is v(Chosen, Lines): Chosen the alternative lines
+%   it takes. A query run on each variant gives the answers of the case:
+%   the same answer for every variant is the answer; different answers
+%   are several answers, each resting on its alternative.
+alternative_variants(Result, Variants) :-
+    get_dict(alternatives, Result, Groups),
+    get_dict(lines, Result, Base),
+    findall(v(Chosen, Lines),
+            ( choose_alternatives(Groups, Chosen, With),
+              append(Base, Chosen, L1), append(L1, With, Lines) ),
+            Variants0),
+    length(Variants0, N), Max is min(N, 16),
+    length(Variants, Max), append(Variants, _, Variants0).
+
+choose_alternatives([], [], []).
+choose_alternatives([G|Gs], [Line|Cs], With) :-
+    member(A, G),
+    get_dict(line, A, Line), get_dict(with, A, W),
+    choose_alternatives(Gs, Cs, With1),
+    append(W, With1, With).
+
+
 
 program_named(Names, bg(Name, _, _, Status)) :-
     (   memberchk(Name, Names) -> true
@@ -419,6 +478,8 @@ run_programs(KB, [bg(_, _, _, Status)|Ps], Given, Derived0, Derived) :-
 % A fact derived from a fact that an earlier program derived rests on the
 % reader's lines under that fact, and quotes their passage.
 through_fed(Before, d(K, FT, DL0, P, R, Pa0, From0), d(K, FT, DL, P, R, Pa, From)) :-
+    forall(( member(L0, From0), memberchk(d(_, _, L0, _, _, _, _), Before) ),
+           assertz(fed_via(DL0, L0))),
     findall(L, ( member(L0, From0),
                  (   member(d(_, _, L0, _, _, _, F0), Before) -> member(L, F0)
                  ;   L = L0
@@ -683,7 +744,7 @@ the_thing(Thing, Text0, Text) :-
 % When facts disagree (FactsBackground.md §3.5)
 % ------------------------------------------------------------------------
 
-resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held) :-
+resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held, Groups) :-
     stated_facts_lines(KB, Programs, Given, StatedLines),
     findall(FA-H, member(FA-H-_, StatedLines), Stated1), sort(Stated1, Stated),
     % 0. the text states two values of a one-valued template: a person
@@ -722,7 +783,33 @@ resolve_conflicts(KB, Programs, Given, Derived0, Derived, Notes, Questions, Held
                         [P, R, FT, P2, R2, FT2]) ),
              Questions0),
     append(StatedQuestions, Questions0, Questions1),
-    sort(Questions1, Questions).
+    sort(Questions1, Questions),
+    % the alternatives: for each thing with two values, one line per value
+    % (all the lines that give that value, the first one representing it)
+    findall(Key-(H-L), ( member(d(F/A-H, _, L, _, _, _, _), Clashing),
+                         subject_key(F/A-H, Key) ), DKV),
+    findall(Key-(H-L), ( member(p(H1, L1, L2), Pairs), functor(H1, F, A),
+                         ( H = H1, L = L1 ; arg_last_swap(H1, L2, StatedLines, H), L = L2 ),
+                         subject_key(F/A-H, Key) ), SKV),
+    append(DKV, SKV, KV),
+    findall(Key, member(Key-_, KV), Keys0), sort(Keys0, Keys),
+    findall(Group,
+            ( member(Key, Keys),
+              findall(H, member(Key-(H-_), KV), Hs0), sort(Hs0, Hs),
+              findall(alt(Rep, Lines),
+                      ( member(H, Hs),
+                        findall(L, member(Key-(H-L), KV), Lines0), list_to_set(Lines0, Lines),
+                        Lines = [Rep|_] ),
+                      Group) ),
+            Groups).
+
+% the thing a value is about: the template and every place but the last
+subject_key(F/A-H, F/A-S) :-
+    H =.. [_|Args], append(S, [_], Args).
+
+% the stated fact of a line, from the stated facts
+arg_last_swap(_, L2, StatedLines, H2) :-
+    member(_-H2-L2, StatedLines), !.
 
 % a stated fact, with its passage when the line quotes one
 with_passage(Line, Fact, Text) :-

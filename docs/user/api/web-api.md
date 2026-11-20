@@ -1029,8 +1029,12 @@ When the program names a facts background (language reference §14.5) and `kind`
 `"facts"`, the reply also has `background`, else `background` is `null`:
 `{ "lines": [...], "derived": [{ "fact", "line", "program", "rule", "passage", "from" }],
 "noted": [{ "fact", "produced" }], "unused": [...], "notes": [...], "questions": [...],
-"programs": [...] }`. `le` is then the facts of `lines`: the facts of the program that
-the text states, and the facts that the background programs gave, with their trailers.
+"alternatives": [[{ "line", "with" }]], "programs": [...] }`. `le` is then the facts of
+`lines`: the facts of the program that the text states, and the facts that the
+background programs gave, with their trailers. `alternatives` gives the values that
+`lines` leaves out: for each thing with two values of a template with one value, one
+entry for each value, with the derived facts that rest on that value (`with`). Run
+the query once for each choice of values to get the answers of the case.
 
 ### `applyFactsBackground` — Apply the facts background
 

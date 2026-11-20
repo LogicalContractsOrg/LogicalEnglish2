@@ -1250,12 +1250,20 @@ the reasoner.
   For a template with one value (a template of `the functions are:`, §2.4), the system
   does not return a value that a background rule gives when the text states another
   value. It shows a note.
-- **Two background rules that give two values** of a template with one value give no
-  fact. The system shows a question to the person who reviews the facts.
-- **Two values that the text states** of a template with one value give no fact. The
-  system does not choose. It keeps neither fact, and shows a question with the passage
-  of each value. (The system finds these values only in a template that a background
-  program also declares.)
+- **Two background rules that give two values** of a template with one value give
+  **alternatives**. The system does not choose. It keeps each value apart, with the
+  facts that rest on that value (a presumption about a T-shirt goes with the value
+  T-shirt). The system also shows a question to the person who reviews the facts.
+- **Two values that the text states** of a template with one value also give
+  alternatives, with the passage of each value. (The system finds these values only
+  in a template that a background program also declares.)
+- **Alternatives give several scenarios.** Each scenario takes one value of each
+  alternative. A query on each scenario gives the answers of the case. When all the
+  scenarios give the same answer, that is the answer. When they give different
+  answers, each answer rests on its value, and the explanation shows it. The
+  operation `applyFactsBackground` gives the alternatives (Web API guide). The
+  dialog of "Write it in English" shows the question, and puts into the scenario
+  only the facts that have one value.
 - To put one background rule before another, write the sequence in the background
   program: an `otherwise` cascade (§17.2), or a condition on the noted facts.
 

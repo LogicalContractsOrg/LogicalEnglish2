@@ -179,6 +179,36 @@ test(coverage_lists_the_values_the_rules_read) :-
     assertion(D.given == true),
     assertion(D.words \== []).
 
+% Two kinds that the words give are kept as alternatives, not dropped:
+% each with the facts that rest on it (the presumptions on a T-shirt go
+% with the T-shirt), and one variant of the scenario for each.
+test(two_values_are_kept_as_alternatives) :-
+    fb_main(KB),
+    apply_background(KB, ["item nine is called \"t-shirt\", confer \"T-shirt\".",
+                          "item nine is called \"shirt\", confer \"Shirt\"."], R),
+    assertion(\+ has_line_with(R.lines, "the kind of item nine")),
+    assertion(\+ has_line_with(R.lines, "the fabric of item nine is lightweight")),
+    R.alternatives = [Group],
+    length(Group, 2),
+    member(T, Group), sub_string(T.line, _, _, _, "is T-shirt"), !,
+    assertion(has_line_with(T.with, "the fabric of item nine is lightweight")),
+    member(S, Group), sub_string(S.line, _, _, _, "is shirt"), !,
+    assertion(S.with == []),
+    alternative_variants(R, Vs),
+    length(Vs, 2),
+    member(v([TL], TLines), Vs), sub_string(TL, _, _, _, "is T-shirt"), !,
+    assertion(has_line_with(TLines, "the fabric of item nine is lightweight")),
+    member(v([SL], SLines), Vs), sub_string(SL, _, _, _, "is shirt"), !,
+    assertion(\+ has_line_with(SLines, "lightweight")).
+
+% Without alternatives, one variant: the lines.
+test(one_variant_without_alternatives) :-
+    fb_main(KB),
+    apply_background(KB, ["item ten is called \"t-shirt\", confer \"T-shirt\"."], R),
+    assertion(R.alternatives == []),
+    alternative_variants(R, [v([], Lines)]),
+    assertion(Lines == R.lines).
+
 % A word that no rule of the background knows is shown, with no expected
 % answer in sight.
 test(a_noted_word_nothing_knows_is_unused) :-
