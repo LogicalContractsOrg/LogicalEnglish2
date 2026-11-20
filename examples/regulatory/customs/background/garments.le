@@ -16,6 +16,8 @@ the templates are:
     the field *a field* of *a thing* reads *a value*; undefined.
     *a thing* is made of the fabric *a name*; undefined.
     *a name* is a word for the kind *a kind*.
+    *a name* is a word for the residual kind *a kind*.
+    *a good* is named by a specific kind.
     *a field* is a field that names the kind.
     *a field* is a field that names the fabric.
     *a name* is a fabric of construction *a construction*.
@@ -27,6 +29,12 @@ the apparel terminology publication is published at "https://www.cbp.gov/trade/r
 the text of the apparel terminology publication is at "../sources/cbp_icp/apparel_terminology.txt".
 the listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
 the text of the listing format is at "../sources/listings/marketplace_fields.txt".
+HTSUS Chapter 61 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2061".
+the text of HTSUS Chapter 61 is at "../sources/hts/chapter_61.txt".
+HTSUS Chapter 62 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2062".
+the text of HTSUS Chapter 62 is at "../sources/hts/chapter_62.txt".
+ruling NY N315788 is published at "https://rulings.cbp.gov/ruling/N315788".
+the text of ruling NY N315788 is at "../sources/cbp/N315788.txt".
 HTSUS Chapter 52 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2052".
 the text of HTSUS Chapter 52 is at "../sources/hts/chapter_52.txt".
 HTSUS Chapter 54 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2054".
@@ -53,10 +61,11 @@ the text of ruling NY N352158 is at "../sources/cbp/N352158.txt".
     as stated in the apparel terminology publication, confer "Tank tops (6109) - are sleeveless garments with oversized armholes".
 "tank tops" is a word for the kind tank top,
     as stated in the apparel terminology publication, confer "Tank tops (6109) - are sleeveless garments with oversized armholes".
-"top" is a word for the kind top,
-    as stated in the apparel terminology publication, confer "Tops (6114) - are upper body garments".
-"tops" is a word for the kind top,
-    as stated in the apparel terminology publication, confer "Tops (6114) - are upper body garments".
+% "top" is the word for what no more specific word names
+"top" is a word for the residual kind top,
+    as stated in the apparel terminology publication, confer "Tops (6114) - are upper body garments that are not included more specifically in headings 6101-6113".
+"tops" is a word for the residual kind top,
+    as stated in the apparel terminology publication, confer "Tops (6114) - are upper body garments that are not included more specifically in headings 6101-6113".
 "sweater" is a word for the kind sweater,
     as stated in the apparel terminology publication, confer "Sweaters (6110, 6111) - are knit garments".
 "sweaters" is a word for the kind sweater,
@@ -108,6 +117,40 @@ the text of ruling NY N352158 is at "../sources/cbp/N352158.txt".
 "denim" is a fabric of construction woven,
     as stated in HTSUS Chapter 52, confer "the expression \"denim\" means fabrics of yarns of different colors".
 
+
+% Added after the diagnostic of FactsBackground.md §5.3 (step 6): words the
+% listings used that the background did not know, each found in a text.
+"dress" is a word for the kind dress,
+    as stated in HTSUS Chapter 61, confer "dresses, skirts, divided skirts, trousers".
+"skirt" is a word for the kind skirt,
+    as stated in HTSUS Chapter 61, confer "dresses, skirts, divided skirts, trousers".
+"skirts" is a word for the kind skirt,
+    as stated in HTSUS Chapter 61, confer "dresses, skirts, divided skirts, trousers".
+"shirts" is a word for the kind shirt,
+    as stated in HTSUS Chapter 61, confer "“Shirts” and “shirt-blouses” are garments designed to cover the upper part of the body".
+"blouses" is a word for the kind blouse,
+    as stated in HTSUS Chapter 61, confer "“Shirts” and “shirt-blouses” are garments designed to cover the upper part of the body".
+"pajamas" is a word for the kind pajamas,
+    as stated in HTSUS Chapter 61, confer "Men's or boys' underpants, briefs, nightshirts, pajamas".
+"robe" is a word for the kind bathrobe,
+    as stated in HTSUS Chapter 61, confer "bathrobes, dressing gowns and similar articles".
+"robes" is a word for the kind bathrobe,
+    as stated in HTSUS Chapter 61, confer "bathrobes, dressing gowns and similar articles".
+"dressing gown" is a word for the kind dressing gown,
+    as stated in HTSUS Chapter 61, confer "bathrobes, dressing gowns and similar articles".
+"jumpsuit" is a word for the kind jumpsuit,
+    as stated in HTSUS Chapter 61, confer "Coveralls, jumpsuits and similar apparel".
+"brassieres" is a word for the kind brassiere,
+    as stated in HTSUS Chapter 62, confer "Brassieres, girdles, corsets, braces, suspenders, garters".
+"camisole" is a word for the kind top,
+    as stated in the apparel terminology publication, confer "Camisoles are garments that provide limited shoulder coverage".
+"romper" is a word for the kind romper,
+    as stated in ruling NY N315788, confer "is a woman’s romper constructed from 100% viscose woven fabric".
+"rompers" is a word for the kind romper,
+    as stated in ruling NY N315788, confer "is a woman’s romper constructed from 100% viscose woven fabric".
+"knitted" is a fabric of construction knitted,
+    as stated in HTSUS Chapter 61, confer "ARTICLES OF APPAREL AND CLOTHING ACCESSORIES, KNITTED OR CROCHETED".
+
 rule kind_by_name with provenance the apparel terminology publication,
         confer "Apparel Terminology under the HTSUS":
 the kind of a good is a kind
@@ -120,6 +163,36 @@ the kind of a good is a kind
     if the field a field of the good reads a value
     and the field is a field that names the kind
     and the value is a word for the kind the kind.
+
+rule specific_kind_by_name with provenance the apparel terminology publication,
+        confer "Tops (6114) - are upper body garments that are not included more specifically in headings 6101-6113":
+a good is named by a specific kind
+    if the good is called a name
+    and the name is a word for the kind a kind.
+
+rule specific_kind_by_field with provenance the apparel terminology publication,
+        confer "Tops (6114) - are upper body garments that are not included more specifically in headings 6101-6113":
+a good is named by a specific kind
+    if the field a field of the good reads a name
+    and the field is a field that names the kind
+    and the name is a word for the kind a kind.
+
+rule residual_kind_by_name with provenance the apparel terminology publication,
+        confer "Tops (6114) - are upper body garments that are not included more specifically in headings 6101-6113":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the residual kind the kind
+    and it is not the case that
+        the good is named by a specific kind.
+
+rule residual_kind_by_field with provenance the apparel terminology publication,
+        confer "Tops (6114) - are upper body garments that are not included more specifically in headings 6101-6113":
+the kind of a good is a kind
+    if the field a field of the good reads a name
+    and the field is a field that names the kind
+    and the name is a word for the residual kind the kind
+    and it is not the case that
+        the good is named by a specific kind.
 
 rule construction_by_fabric with provenance the apparel terminology publication,
         confer "constructed from lightweight, plain jersey or interlock knit fabric":
@@ -140,6 +213,7 @@ scenario tee is:
     hood is called "hoodie".
     the field "fabric type" of blouse reads "broadcloth".
     the field "item type" of skirt one reads "tops".
+    the field "tops type" of tee reads "tops".
     kinds expects answers ["the kind of tee is T-shirt", "the kind of hood is pullover", "the kind of skirt one is top"].
     constructions expects answers ["the fabric construction of tee is knitted", "the fabric construction of blouse is woven"].
 

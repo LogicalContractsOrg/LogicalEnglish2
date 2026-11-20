@@ -51,6 +51,14 @@ rule seller_fabrics with provenance the authors:
 "chiffon" is a seller's fabric of construction woven.
 rule seller_fabrics_2 with provenance the authors:
 "satin" is a seller's fabric of construction woven.
+rule seller_words_7 with provenance the authors:
+"bras" is a seller's word for the kind brassiere.
+rule seller_words_8 with provenance the authors:
+"swimsuit" is a seller's word for the kind swimsuit.
+rule seller_words_9 with provenance the authors:
+"leggings" is a seller's word for the kind leggings.
+rule seller_polymers_4 with provenance the authors:
+"pc" is a seller's word for the polymer polycarbonate.
 rule seller_polymers with provenance the authors:
 "eva" is a seller's word for the polymer ethylene-vinyl acetate copolymer.
 rule seller_polymers_2 with provenance the authors:
@@ -81,6 +89,12 @@ the polymer of a good is a polymer
     and it is not the case that
         the good is a textile article.
 
+rule resin_is_plastics with provenance the authors:
+a good is made of plastics
+    if the good names the material "resin"
+    and it is not the case that
+        the good is a textile article.
+
 rule plastics_by_seller_word with provenance the authors:
 a good is made of plastics
     if the good names the material a name
@@ -93,6 +107,15 @@ rule one_material_whole with provenance the authors:
 a good contains 100 percent of a material
     if the good is a textile article
     and the good names the material a name
+    and the name is a word for the textile material the material
+    and it is not the case that
+        the good names the material an other name
+        and the other name is different from the name.
+
+rule one_material_named_first with provenance the authors:
+a good contains 100 percent of a material
+    if the good is a textile article
+    and the good names first the material a name
     and the name is a word for the textile material the material
     and it is not the case that
         the good names the material an other name
