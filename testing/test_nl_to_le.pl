@@ -425,7 +425,7 @@ bg_program(P, Base) :-
     absolute_file_name('testing/fixtures/le/facts_background', Base).
 
 % The noted templates are offered, with the words the background knows, and
-% the model is told to infer nothing; the noted facts it writes stay behind,
+% the model is told to write the program's facts first; the noted facts it writes stay behind,
 % and the facts of the program come back with their origin.
 test(a_facts_background_reads_noted_facts,
      [setup(stub_replies(["item one is called \"Tee Shirt\", confer \"Men Tee Shirt\".\nthe field \"Craft of Weaving\" of item one reads \"Knit\", confer \"Craft of Weaving: Knit\"."]))]) :-
@@ -435,7 +435,7 @@ test(a_facts_background_reads_noted_facts,
     first_system(Sys),
     assertion(sub_string(Sys, _, _, _, "*a thing* is called *a name* (noted)")),
     assertion(sub_string(Sys, _, _, _, "\"tee shirt\"")),
-    assertion(sub_string(Sys, _, _, _, "Do not infer anything")),
+    assertion(sub_string(Sys, _, _, _, "Do not leave out such a fact because the facts background could find it")),
     assertion(\+ nl_has_issue(Issues, "unknown_template")),
     assertion(sub_string(LE, _, _, _, "the kind of item one is T-shirt, according to garments background")),
     assertion(sub_string(LE, _, _, _, "the fabric of item one is lightweight, according to customs presumptions")),

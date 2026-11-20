@@ -376,7 +376,7 @@ handle_method(Method, Dict, Response) :-
         UserFacts = Args.get(user_facts, ""),
         Templates = Args.get(templates, ""),
         format(string(PromptText), 
-               "The user provides these facts: \"~w\"~n~nAvailable Logical English templates are:~n~w~n~nYour task is to rewrite the user's facts into a sequence of Logical English facts, each matching one of the templates exactly. ~n- Each fact must end with a period.~n- Use specific values from the user's input.~n- If the program names a facts background, note the facts in its noted templates instead (the tool read_facts gives them), infer nothing, and give them to read_facts.~n- Return ONLY the massaged facts text, one per line.", 
+               "The user provides these facts: \"~w\"~n~nAvailable Logical English templates are:~n~w~n~nYour task is to rewrite the user's facts into a sequence of Logical English facts, each matching one of the templates exactly. ~n- Each fact must end with a period.~n- Use specific values from the user's input.~n- If the program names a facts background, write these facts as usual, also note what the user says in the background's noted templates (the tool read_facts gives them), guess nothing the user did not state, and give all the facts to read_facts.~n- Return ONLY the massaged facts text, one per line.", 
                [UserFacts, Templates]),
         Response = _{
             jsonrpc: "2.0",
@@ -452,7 +452,7 @@ handle_method(Method, Dict, Response) :-
         },
         _{
             name: "read_facts",
-            description: "For a program that names a facts background (`the facts background includes these resources:`): the background's noted templates, and, given the facts you noted from a text in those templates (one a line, each with `, confer \"<passage>\"`), the facts of the program that follow, each with its origin (`according to`, `because`, `confer`). Put the returned `lines` in a scenario. Infer nothing yourself: the background's rules do",
+            description: "For a program that names a facts background (`the facts background includes these resources:`): the background's noted templates, and, given the facts you noted from a text in those templates (one a line, each with `, confer \"<passage>\"`), the facts of the program that follow, each with its origin (`according to`, `because`, `confer`). Give also the facts the text states in the program's own templates: they have priority. Put the returned `lines` in a scenario. Guess nothing the text does not state: the background's rules add what follows",
             inputSchema: _{
                 type: "object",
                 properties: _{

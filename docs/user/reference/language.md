@@ -1193,8 +1193,10 @@ the facts background includes these resources:
   the tools for other assistants use the facts background. They do these steps:
   1. They give the reader (a language model) the scenario templates of the program and
      the **noted templates** of the background.
-  2. The reader writes what the text says, in the template that is nearest to the words
-     of the text. The reader infers nothing.
+  2. The reader writes each fact that the text states in a scenario template of the
+     program, as without a background. Then the reader also writes what the text says in
+     the noted templates, in words close to the words of the text. The reader does not
+     guess facts that the text does not state.
   3. The system runs each background program on these facts. It runs the programs in
      the sequence of the section. Each program also gets the facts that the programs
      before it gave.

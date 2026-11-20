@@ -309,8 +309,8 @@ facts_background_part(Program, Text) :-
         format(string(Text),
 "\n## The facts background of your program\n\
 The program names a facts background: ~w. These programs are used ONLY to read the facts of a case from a text (a listing, a letter, a form). They are NOT part of the reasoning: never copy their rules or templates into the program.\n\
-To add a scenario from a text, note what the text says in these templates (the noted templates of the background), one fact a line, each with `, confer \"<passage>\"` quoting the text, and infer nothing:\n- ~w\n\
-Then use the `read_facts` action with these lines as `facts`. It returns the facts of the program that follow (`lines`), each with its origin. Put those lines in the scenario.\n",
+To add a scenario from a text: first write each fact that the text states in the program's own scenario templates, as you would without a background. Then also note what the text says in these templates (the noted templates of the background). Write one fact a line, each with `, confer \"<passage>\"` quoting the text. Do not guess facts that the text does not state:\n- ~w\n\
+Then use the `read_facts` action with all these lines as `facts`. It returns the facts of the program (`lines`): yours, and the facts that follow from the noted ones, each with its origin. A fact you wrote has priority. Put those lines in the scenario.\n",
                [NamesA, NotedA])
     ;   Text = ""
     ).

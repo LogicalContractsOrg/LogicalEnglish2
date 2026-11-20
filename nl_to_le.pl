@@ -37,7 +37,7 @@
     rather than forwarded. Verification uses le_verifier:verify/2 in-process.
 */
 
-:- module(nl_to_le, [ english_to_le/8, english_to_le/9 ]).
+:- module(nl_to_le, [ english_to_le/8, english_to_le/9, background_instruction/1 ]).
 
 %   Through the broker, not straight at llm_client: an embedder (LPS2) can
 %   substitute its own client, so English→LE uses the keys and the model
@@ -193,6 +193,17 @@ noted_out(Regexes, L0, L) :-
     ( le_background:line_matches(Regexes, L0) -> L = "% noted" ; L = L0 ).
 
 % the noted templates and their line patterns of the reading under way
+%!  background_instruction(-Text) is det.
+%
+%   What the model is told when the program has a facts background. The
+%   facts of the program's own templates come first, written as they would
+%   be without a background: the background only adds to them. (An earlier
+%   wording, "infer nothing, the background adds the facts that follow",
+%   made readers leave the program's templates to the background, which
+%   cannot know every word of every text: RatioTariff.md §3.9, run B.)
+background_instruction(Text) :-
+    Text = "\n\n--- A facts background ---\nThe templates marked (noted) belong to the facts background: they record what a text says, in words close to its own. Write two kinds of facts.\n1. Every fact that the text states and that a template not marked (noted) can say. Write these facts exactly as you would without a facts background. A text states a fact when it gives the value in the template's own words or in plain words with the same meaning: \"Craft of Weaving: Knit\" states that the fabric is knitted, and \"Men Tee Shirt\" states that the kind is T-shirt. Do not leave out such a fact because the facts background could find it.\n2. Also, what the text says in the templates marked (noted). Write the words of the text as quoted text where the template has a name or a value. The words listed after a noted template are the ones the background knows.\nDo not guess beyond what the text states. A second step applies the background's rules to the noted facts and adds the facts that follow. A fact that you wrote has priority over a fact that the background derives.".
+
 current_background(Noted, Regexes) :-
     nb_current(nl_background, bg(Noted, Regexes)).
 
@@ -242,7 +253,8 @@ english_to_le_1(Kind, Sentence, Templates0, Program, Model, Options0, LEText, Ne
     baseline(ProgramS, CheckRegressions, Baseline),
     system_prompt(Kind, Templates, ProgramS, System00),
     (   Kind == facts, current_background(_, _)
-    ->  string_concat(System00, "\n\n--- A facts background ---\nThe templates marked (noted) belong to the facts background: they say what a text says, in words close to its own. Write what the text says in the template nearest to its own words, and write the words of the text as quoted text where the template has a name or a value (the words listed after a noted template are the ones the background knows). Do not infer anything: a second step applies the background's rules, and adds the facts that follow. Do not write a fact of another template that only follows from what the text says.", System0)
+    ->  background_instruction(Instruction),
+        string_concat(System00, Instruction, System0)
     ;   System0 = System00
     ),
     (   Doc == none
