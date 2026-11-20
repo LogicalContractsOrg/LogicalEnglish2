@@ -1218,11 +1218,14 @@ remove_variant_duplicates([U|Us0], [U|Us]) :-
 %   (case_breaks_constraint/5).
 %
 %   The variables of Us0 are existential (something is assumed of some
-%   value): they are frozen to fresh constants for the check.
+%   value): they are frozen to fresh constants for the check. The copy drops
+%   their attributes (copy_term/3): an argument of a typed template carries a
+%   delayed type check (when/2), which numbervars/4 refuses, and which a
+%   frozen constant could not pass anyway.
 consistent_assumptions(Us0, Us, SM, KM) :-
     (   \+ has_constraints(SM, KM)
     ->  Us = Us0
-    ;   copy_term(Us0, Frozen0),
+    ;   copy_term(Us0, Frozen0, _),
         term_variables(Us0, Vs),
         numbervars(Frozen0, 0, NV, [functor_name('$le_assumed')]),
         repair_assumptions(Frozen0, SM, KM, NV, 0, Frozen, Outcome),
@@ -1265,7 +1268,7 @@ repair_assumptions(As, SM, KM, NV, N, Out, Outcome) :-
     (   with_saved_reasoner_state(broken_constraint(As, SM, KM, ID, Ref, Whys))
     ->  (   max_added_assumptions(Max), N < Max,
             repair_candidate(Whys, SM, KM, G0),
-            copy_term(G0, G),
+            copy_term(G0, G, _),
             numbervars(G, NV, NV1, [functor_name('$le_assumed')]),
             \+ ( member(A, As), A =@= G )
         ->  append(As, [G], As1),

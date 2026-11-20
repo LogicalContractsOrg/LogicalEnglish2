@@ -107,4 +107,46 @@ test(verifier_counts_constraints_as_rules) :-
     assertion(\+ memberchk(missing_rules, Ks)),
     assertion(\+ memberchk(unconsumed_facts, Ks)).
 
+% An assumption with an unbound argument of a typed template: the argument
+% carries a delayed type check (when/2), which the constraint check must drop
+% before freezing it. Raised "numbervars/4: ... contains attributed variables"
+% on le2.logicalcontracts.com (Sentry, 20 November 2026, an edited
+% underground2.le).
+test(assumption_with_a_typed_unbound_argument) :-
+    load_text("the target language is: prolog.
+
+the templates are:
+*a passenger* presses the alarm signal button; unknown.
+there is a 50 pound penalty for *a passenger*.
+the train is in *a station*.
+there is an emergency.
+there is a fire.
+*a station* is busy.
+
+the knowledge base alarm includes:
+
+there is a 50 pound penalty for a passenger
+    if the passenger presses the alarm signal button
+    and it is not the case that
+        there is an emergency.
+
+there is an emergency
+    if there is a fire.
+
+it must not be true that
+    there is a 50 pound penalty for a passenger
+    and the train is in a station.
+
+scenario between stations is:
+    victoria is busy.
+
+query penalty is:
+    there is a 50 pound penalty for which passenger.
+", KB),
+    le_kbs:createSession(KB, SM),
+    le_kbs:setScenarion(SM, 'between stations'),
+    findall(U, ( le_kbs:query(SM, penalty, _, Us1, _), member(U, Us1) ), Us2),
+    le_kbs:destroySession(SM),
+    assertion(Us2 = [presses_the_alarm_signal_button(_)]).
+
 :- end_tests(constraints).
