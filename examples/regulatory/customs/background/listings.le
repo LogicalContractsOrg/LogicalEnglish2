@@ -1,0 +1,77 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% how a marketplace listing speaks. Its fields, in the words of the tariff.
+% Source: the description of the listings that are read
+% (sources/listings/marketplace_fields.txt). Bridges.
+%
+% Used only to read facts from a listing (language reference §14.5); the
+% tariff never reasons with it. The values of a noted fact are in lower case.
+
+the target language is: prolog.
+
+the functions are:
+    the fabric construction of *a garment* is *a construction*.
+
+the templates are:
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a value* is a gender value for *a gender*.
+    *a value* is a construction value for *a construction*.
+    *a thing* is called *a name*; undefined.
+    the cut of *a garment* indicates *a gender*.
+    *a good* is a manufactured article.
+
+the knowledge base marketplace listings includes:
+
+the listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the listing format is at "../sources/listings/marketplace_fields.txt".
+the HTSUS Chapter 61 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2061".
+the text of the HTSUS Chapter 61 is at "../sources/hts/chapter_61.txt".
+
+"men" is a gender value for men,
+    as stated in the listing format, confer "Gender: Men".
+"women" is a gender value for women,
+    as stated in the listing format, confer "Gender: Women".
+"male" is a gender value for men,
+    as stated in the listing format, confer "Gender (52 listings): for whom the product is made".
+"female" is a gender value for women,
+    as stated in the listing format, confer "Gender (52 listings): for whom the product is made".
+"girls" is a gender value for women,
+    as stated in the HTSUS Chapter 61, confer "Women's or girls' overcoats, carcoats, capes, cloaks, anoraks".
+"boys" is a gender value for men,
+    as stated in the HTSUS Chapter 61, confer "Men's or boys' overcoats, carcoats, capes, cloaks, anoraks".
+
+"knit" is a construction value for knitted,
+    as stated in the listing format, confer "Craft of Weaving: Knit".
+
+rule finished_product with provenance the listing format,
+        confer "A listing offers one finished product for sale":
+a good is a manufactured article
+    if the good is called a name
+    or the field a field of the good reads a value.
+
+rule gender_field with provenance the listing format,
+        confer "Gender (52 listings): for whom the product is made":
+the cut of a garment indicates a gender
+    if the field "gender" of the garment reads a value
+    and the value is a gender value for the gender.
+
+rule craft_of_weaving_field with provenance the listing format,
+        confer "Craft of Weaving (54 listings): how the fabric is made":
+the fabric construction of a garment is a construction
+    if the field "craft of weaving" of the garment reads a value
+    and the value is a construction value for the construction.
+
+scenario tee is:
+    the field "gender" of tee reads "men".
+    the field "craft of weaving" of tee reads "knit".
+    cuts expects answers ["the cut of tee indicates men"].
+    constructions expects answers ["the fabric construction of tee is knitted"].
+    articles expects answers ["tee is a manufactured article"].
+
+query cuts is:
+    the cut of which garment indicates which gender.
+
+query constructions is:
+    the fabric construction of which garment is which construction.
+
+query articles is:
+    which good is a manufactured article.

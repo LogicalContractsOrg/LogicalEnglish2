@@ -1,0 +1,88 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the customs presumptions. What is taken to be so when a text is silent,
+% each rule citing the text that says it: US Customs' publication on apparel
+% terminology, and rulings. A derived fact says "according to customs
+% presumptions"; the strict reading leaves it out (language reference §14.5,
+% §17.5). A stated fact beats a presumed one.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the fabric construction of *a garment* is *a construction*.
+
+the templates are:
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* is made of the fabric *a name*; undefined.
+    the kind of *a good* is *a kind*; undefined.
+    *a kind* is a kind of knitted garments.
+    *a garment* has its construction from a field.
+    the fabric of *a garment* is lightweight.
+    *a garment* is of plain knit fabric.
+    the fabric construction of *a garment* is *a construction*.
+
+the knowledge base customs presumptions includes:
+
+the apparel terminology publication is published at "https://www.cbp.gov/trade/rulings/informed-compliance-publications".
+the text of the apparel terminology publication is at "../sources/cbp_icp/apparel_terminology.txt".
+ruling NY N361819 is published at "https://rulings.cbp.gov/ruling/N361819".
+the text of ruling NY N361819 is at "../sources/cbp/N361819.txt".
+
+T-shirt is a kind of knitted garments,
+    as stated in the apparel terminology publication, confer "T-shirts (6109, 6111) - are underwear style garments, constructed from lightweight, plain jersey or interlock knit fabric".
+sweater is a kind of knitted garments,
+    as stated in the apparel terminology publication, confer "Sweaters (6110, 6111) - are knit garments".
+pullover is a kind of knitted garments,
+    as stated in the apparel terminology publication, confer "Pullovers (6110, 6111) - are upper body knit garments".
+bodysuit is a kind of knitted garments,
+    as stated in the apparel terminology publication, confer "Bodysuits and bodyshirts (6114) - are knit one-piece garments".
+
+rule tshirt_fabric with provenance the apparel terminology publication,
+        confer "T-shirts (6109, 6111) - are underwear style garments, constructed from lightweight, plain jersey or interlock knit fabric":
+the fabric of a garment is lightweight
+    if the kind of the garment is T-shirt.
+
+rule tshirt_plain_knit with provenance the apparel terminology publication,
+        confer "constructed from lightweight, plain jersey or interlock knit fabric":
+a garment is of plain knit fabric
+    if the kind of the garment is T-shirt.
+
+% A listing's field on how the fabric is made comes first (the marketplace
+% listings background reads it); the kind presumes only when it is silent.
+rule construction_field_first with provenance the apparel terminology publication,
+        confer "Apparel Terminology under the HTSUS":
+a garment has its construction from a field
+    if the field "craft of weaving" of the garment reads a value.
+
+rule knitted_by_kind with provenance the apparel terminology publication,
+        confer "are knit garments":
+the fabric construction of a garment is knitted
+    if the kind of the garment is a kind
+    and the kind is a kind of knitted garments
+    and it is not the case that
+        the garment has its construction from a field.
+
+rule fleece_knitted with provenance ruling NY N361819,
+        confer "polyester knit fleece fabric":
+the fabric construction of a garment is knitted
+    if the garment is made of the fabric "fleece"
+    and it is not the case that
+        the garment has its construction from a field.
+
+scenario tee is:
+    the kind of tee is T-shirt.
+    the kind of jumper is sweater.
+    the field "craft of weaving" of jumper reads "tat".
+    fabrics expects answers ["the fabric of tee is lightweight"].
+    constructions expects answers ["the fabric construction of tee is knitted"].
+    plain expects answers ["tee is of plain knit fabric"].
+
+query fabrics is:
+    the fabric of which garment is lightweight.
+
+query constructions is:
+    the fabric construction of which garment is which construction.
+
+query plain is:
+    which garment is of plain knit fabric.

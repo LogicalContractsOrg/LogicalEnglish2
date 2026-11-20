@@ -67,6 +67,8 @@ the templates are:
     *a class* is a fibre class of *a group* ranked *a number*.
     the share of fibre class *a class* in *a garment* is *a number*.
     the textile material of *a garment* is *a group*.
+    the material that predominates by weight in *a garment* is *a material*; undefined.
+    *a garment* states shares.
     the fibre material of *a garment* is *a class*.
     the construction of *a garment* is *a construction*.
     the cut of *a garment* indicates *a gender*; undefined.
@@ -95,6 +97,9 @@ the templates are:
     the fabric of *a garment* is terry; undefined.
     the fabric of *a garment* is lightweight; undefined.
     *a garment* is of plain knit fabric; undefined.
+    the fabric of *a garment* is heavyweight; undefined.
+    *a garment* is presented as a T-shirt.
+    *a garment* departs from a T-shirt.
     *a garment* has shoulder straps; undefined.
     the rear neckline of *a garment* falls below the nape of the neck; undefined.
     *a garment* is designed to be worn as an undergarment; undefined.
@@ -108,7 +113,7 @@ the templates are:
     *a garment* is a blouse-type garment.
     *a garment* has the fabric of a T-shirt.
     *a garment* meets the knit test of its tariff for T-shirts.
-    *a garment* is a T-shirt.
+    *a garment* qualifies as a T-shirt.
     *a garment* is a tank top.
     *a garment* is a singlet.
     *a garment* is of the T-shirt family.
@@ -642,6 +647,23 @@ the textile material of a garment is a group
         it is the case that
             the group at the total percent outweighs the other group at the other total percent.
 
+% A text that names the materials of a garment without their shares (a shop
+% listing: "Material: POLYESTER, Spandex") cannot give the shares, and a
+% presumption cannot invent them. The weaker fact, which material
+% predominates by weight, is what note 2(A) turns on; it is accepted when no
+% share is stated (lpsPlus FactsBackground.md §6.2).
+rule section_xi_2a_stated with provenance HTSUS Section XI and Chapter 50,
+        confer "are to be classified as if consisting wholly of that one textile material which predominates by weight over each other single textile material":
+the textile material of a garment is a group
+    if the material that predominates by weight in the garment is a material
+    and the material belongs to the group
+    and it is not the case that
+        the garment states shares.
+
+rule shares_stated:
+a garment states shares
+    if the garment contains a percentage percent of a material.
+
 rule section_xi_2a_weight with provenance HTSUS Section XI and Chapter 50,
         confer "which predominates by weight over each other single textile material":
 a group at a total percent outweighs an other group at an other total percent
@@ -741,6 +763,17 @@ the fibre material of a garment is a class
             and the share of fibre class the other class in the garment is an other total
         it is the case that
             the class at the total percent outweighs the other class at the other total percent.
+
+% the class of the material that predominates, when no share is stated
+rule xi_2bb_stated_class with provenance HTSUS Section XI and Chapter 50,
+        confer "then the applicable heading within that chapter, disregarding any materials not classified in that chapter":
+the fibre material of a garment is a class
+    if the textile material of the garment is a group
+    and the material that predominates by weight in the garment is a material
+    and the material is of the fibre class the class
+    and the class is a fibre class of the group ranked a rank
+    and it is not the case that
+        the garment states shares.
 
 % within a chapter, a tie goes to the class of the later heading
 rule xi_2a_class_tie with provenance HTSUS Section XI and Chapter 50,
@@ -883,7 +916,7 @@ a garment meets the knit test of its tariff for T-shirts
 % or fastening at the neckline; the Note also excludes collars and has sleeves
 rule en_6109_tshirt with provenance BTI FRBTIFR-BTI-2025-07379,
         confer "les vêtements repris à cette position ne doivent pas comporter de dentelles, d'ouverture à l'encolure ou de bouton ou autre système de fermeture":
-a garment is a T-shirt
+a garment qualifies as a T-shirt
     if the garment is a top
     and it is not the case that
         the garment is sleeveless
@@ -894,6 +927,31 @@ a garment is a T-shirt
         the garment has a high neckline
     and it is not the case that
         the garment has an opening starting at the neckline.
+
+% A garment that the text calls a T-shirt, and of which the text says
+% nothing that departs from a T-shirt, is not a sweater or pullover of
+% heading 6110 by default: the rules ask for the fabric instead of falling
+% through to the residual heading (RatioTariff §3.8, point 2).
+rule tshirt_presented with provenance ruling NY N362034,
+        confer "To be classifiable as a T-shirt, a garment must be constructed from lightweight, plain jersey or plain interlock fabric":
+a garment is presented as a T-shirt
+    if the kind of the garment is T-shirt
+    and it is not the case that
+        the garment departs from a T-shirt.
+
+rule tshirt_departs_heavy with provenance ruling NY N362034,
+        confer "To be classifiable as a T-shirt, a garment must be constructed from lightweight, plain jersey or plain interlock fabric":
+a garment departs from a T-shirt
+    if the fabric of the garment is heavyweight.
+
+rule tshirt_departs_napped with provenance ruling NY N362034,
+        confer "To be classifiable as a T-shirt, a garment must be constructed from lightweight, plain jersey or plain interlock fabric":
+a garment departs from a T-shirt
+    if the garment is napped
+    or the fabric of the garment is terry
+    or the garment has a collar
+    or the garment has a high neckline
+    or the garment has an opening starting at the neckline.
 
 rule cbp_tank_silhouette with provenance ruling NY N360982,
         confer "it lacks a tank silhouette. Specifically, as noted above, the rear neckline does not fall below the nape of the neck, and there is no appearance of straps in the back":
@@ -925,7 +983,7 @@ a garment is a singlet
 rule heading_6109_family with provenance HTSUS Chapter 61,
         confer "T-shirts, singlets, tank tops and similar garments, knitted or crocheted":
 a garment is of the T-shirt family
-    if the garment is a T-shirt
+    if the garment qualifies as a T-shirt
     otherwise the garment is a tank top
     otherwise the garment is a singlet.
 

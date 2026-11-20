@@ -1,0 +1,129 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §5.4,
+% §6.1): trade usage, stated by the authors. The rules for which no text
+% was found: the words of sellers that no public text defines, and what is
+% taken as the share of a fibre when a listing names the fibres without
+% their shares. A derived fact says "according to trade usage"; a reader of
+% the memo can refuse it, and the strict and full readings leave it out.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+    the fabric construction of *a garment* is *a construction*.
+    the material that predominates by weight in *a garment* is *a material*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* is made of the fabric *a name*; undefined.
+    *a thing* names the material *a name*; undefined.
+    *a thing* names first the material *a name*; undefined.
+    *a name* is a seller's word for the kind *a kind*.
+    *a name* is a seller's fabric of construction *a construction*.
+    *a name* is a seller's word for the polymer *a polymer*.
+    the kind of *a good* is *a kind*.
+    the fabric construction of *a garment* is *a construction*.
+    *a good* contains *a number* percent of *a material*.
+    the material that predominates by weight in *a garment* is *a material*.
+
+the knowledge base trade usage includes these resources:
+    materials.
+
+the knowledge base trade usage includes:
+
+the authors is published at "https://github.com/LogicalContractsOrg".
+
+rule seller_words with provenance the authors:
+"tee" is a seller's word for the kind T-shirt.
+rule seller_words_2 with provenance the authors:
+"tees" is a seller's word for the kind T-shirt.
+rule seller_words_3 with provenance the authors:
+"tee shirt" is a seller's word for the kind T-shirt.
+rule seller_words_4 with provenance the authors:
+"tshirt" is a seller's word for the kind T-shirt.
+rule seller_words_5 with provenance the authors:
+"camis" is a seller's word for the kind top.
+rule seller_words_6 with provenance the authors:
+"cami" is a seller's word for the kind top.
+rule seller_fabrics with provenance the authors:
+"chiffon" is a seller's fabric of construction woven.
+rule seller_fabrics_2 with provenance the authors:
+"satin" is a seller's fabric of construction woven.
+rule seller_polymers with provenance the authors:
+"eva" is a seller's word for the polymer ethylene-vinyl acetate copolymer.
+rule seller_polymers_2 with provenance the authors:
+"pe" is a seller's word for the polymer polyethylene.
+rule seller_polymers_3 with provenance the authors:
+"pu" is a seller's word for the polymer polyurethane.
+
+rule kind_by_seller_word with provenance the authors:
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a seller's word for the kind the kind.
+
+rule kind_by_seller_field with provenance the authors:
+the kind of a good is a kind
+    if the field a field of the good reads a name
+    and the field is in ["item type", "tops type"]
+    and the name is a seller's word for the kind the kind.
+
+rule construction_by_seller_fabric with provenance the authors:
+the fabric construction of a garment is a construction
+    if the garment is made of the fabric a name
+    and the name is a seller's fabric of construction the construction.
+
+rule polymer_by_seller_word with provenance the authors:
+the polymer of a good is a polymer
+    if the good names the material a name
+    and the name is a seller's word for the polymer the polymer
+    and it is not the case that
+        the good is a textile article.
+
+rule plastics_by_seller_word with provenance the authors:
+a good is made of plastics
+    if the good names the material a name
+    and the name is a seller's word for the polymer a polymer
+    and it is not the case that
+        the good is a textile article.
+
+% one fibre named, and no share: the whole
+rule one_material_whole with provenance the authors:
+a good contains 100 percent of a material
+    if the good is a textile article
+    and the good names the material a name
+    and the name is a word for the textile material the material
+    and it is not the case that
+        the good names the material an other name
+        and the other name is different from the name.
+
+% several fibres named, and no share: the first named predominates
+rule first_named_predominates with provenance the authors:
+the material that predominates by weight in a good is a material
+    if the good is a textile article
+    and the good names first the material a name
+    and the name is a word for the textile material the material
+    and the good names the material an other name
+    and the other name is different from the name.
+
+scenario dress is:
+    the cut of dress indicates women.
+    dress names first the material "polyester".
+    dress names the material "polyester".
+    dress names the material "spandex".
+    the cut of tee indicates men.
+    tee is called "tees".
+    tee names the material "cotton".
+    chiefs expects answers ["the material that predominates by weight in dress is polyester"].
+    shares expects answers ["tee contains 100 percent of cotton"].
+    kinds expects answers ["the kind of tee is T-shirt"].
+
+query chiefs is:
+    the material that predominates by weight in which garment is which material.
+
+query shares is:
+    which good contains which number percent of which material.
+
+query kinds is:
+    the kind of which good is which kind.

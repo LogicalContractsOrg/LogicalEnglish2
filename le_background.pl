@@ -62,7 +62,9 @@
 :- module(le_background, [
     facts_background/2,           % +KB, -Programs:list(bg)
     background_templates/3,       % +KB, -Noted:list(label), -Shared:list(F/A)
+    noted_templates_all/2,        % +KB, -Noted:list(n(Label, BM, F/A)), every program's
     apply_background/3,           % +KB, +Lines:list(string), -Result:dict
+    apply_background/4,           % +KB, +Lines, -Result, +Options
     background_issue/2,           % +KB, -Issue   (le_verifier)
     template_regex/2,             % +Label, -Regex
     line_fact_part/3              % +Line, -Fact, -Trailers
@@ -154,6 +156,19 @@ background_templates(KB, Noted, Shared) :-
     findall(F/A, ( member(bg(_, _, _, loaded(BM, _, _, _)), Programs),
                    shared_template(KB, BM, F, A) ), Shared0),
     sort(Shared0, Shared).
+
+%!  noted_templates_all(+KB, -Noted) is det.
+%
+%   As the noted templates of background_templates/3, one entry for each
+%   background program that has the template (the words that each knows in
+%   its places differ).
+noted_templates_all(KB, Noted) :-
+    facts_background(KB, Programs),
+    findall(n(Label, BM, F/A),
+            ( member(bg(_, _, _, loaded(BM, _, _, _)), Programs),
+              noted_template(KB, BM, F, A),
+              bg_label(BM, F, A, Label) ),
+            Noted).
 
 dedup_noted([], []).
 dedup_noted([n(L, B, FA)|Ns], [n(L, B, FA)|Rest]) :-
@@ -317,7 +332,21 @@ lower_parts([P0|Ps0], Where, [P|Ps]) :-
 %
 %   Without a background program, Lines come back as they are.
 apply_background(KB, Lines0, Result) :-
-    facts_background(KB, Programs),
+    apply_background(KB, Lines0, Result, []).
+
+%!  apply_background(+KB, +Lines, -Result, +Options) is det.
+%
+%   As apply_background/3. Option programs(Names): only the background
+%   programs of these names (as the section writes them, or as their
+%   knowledge base is named), in the order of the section; the others are
+%   left out. A measurement uses it to read a case at several levels
+%   (bridges only; with presumptions; with trade usage).
+apply_background(KB, Lines0, Result, Options) :-
+    facts_background(KB, Programs0),
+    (   memberchk(programs(Names), Options)
+    ->  include(program_named(Names), Programs0, Programs)
+    ;   Programs = Programs0
+    ),
     exclude([L]>>( split_string(L, "", " \t\r\n", [""]) ), Lines0, Lines1),
     maplist([L0, L]>>( split_string(L0, "", " \t\r\n", [L]) ), Lines1, Lines2),
     % which lines are noted facts
@@ -351,6 +380,11 @@ apply_background(KB, Lines0, Result) :-
     Result = _{lines: OutLines, derived: DerivedJSON, noted: NotedJSON,
                unused: Unused, notes: Notes, questions: Questions,
                programs: ProgramsJSON}.
+
+program_named(Names, bg(Name, _, _, Status)) :-
+    (   memberchk(Name, Names) -> true
+    ;   Status = loaded(_, KBName, _, _), memberchk(KBName, Names)
+    ).
 
 classify_line(NotedRes, Line, Class) :-
     (   NotedRes \== [], line_matches(NotedRes, Line)
@@ -462,15 +496,22 @@ sub_success(success(_, range(S0, _), _, Cs), S) :- !,
     ( S = S0 ; sub_success(Cs, S) ).
 sub_success(T, S) :- compound(T), arg(_, T, A), compound(A), sub_success(A, S).
 
+% the passage of the last line the proof used that quotes one: the
+% conditions that test the case come before the one that reads its words
 from_passage(From, Passage) :-
-    (   member(L, From), line_passage(L, Passage), Passage \== "" -> true
+    reverse(From, Rev),
+    (   member(L, Rev), line_passage(L, Passage), Passage \== "" -> true
     ;   Passage = ""
     ).
 
 % a fact in the words of its template, its text values quoted
 fact_text(RM, Head, Text) :-
     le_kbs:item_to_instance(RM, Head, Tokens),
-    maplist([T, Q]>>( string(T) -> format(string(Q), "\"~w\"", [T]) ; Q = T ), Tokens, Quoted),
+    % a text value keeps its quotes, and a name keeps its underscores
+    % (item_505 must stay the individual the reader named, not "item 505")
+    maplist([T, Q]>>( string(T) -> format(string(Q), "\"~w\"", [T])
+                    ; atom(T), sub_atom(T, _, _, _, '_') -> Q = word(T)
+                    ; Q = T ), Tokens, Quoted),
     le_kbs:canonical_string(Quoted, Text).
 
 derived_line(FT, KBName, Rule, Passage, Line) :-

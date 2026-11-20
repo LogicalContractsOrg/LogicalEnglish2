@@ -1,0 +1,150 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the words of sellers for garments and fabrics, in the words of the tariff.
+% Each word cites the text that says what it means: US Customs' publication
+% on apparel terminology, the tariff's notes, US Customs rulings. Bridges.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+    the fabric construction of *a garment* is *a construction*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* is made of the fabric *a name*; undefined.
+    *a name* is a word for the kind *a kind*.
+    *a field* is a field that names the kind.
+    *a field* is a field that names the fabric.
+    *a name* is a fabric of construction *a construction*.
+    the kind of *a good* is *a kind*.
+
+the knowledge base garments background includes:
+
+the apparel terminology publication is published at "https://www.cbp.gov/trade/rulings/informed-compliance-publications".
+the text of the apparel terminology publication is at "../sources/cbp_icp/apparel_terminology.txt".
+the listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the listing format is at "../sources/listings/marketplace_fields.txt".
+HTSUS Chapter 52 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2052".
+the text of HTSUS Chapter 52 is at "../sources/hts/chapter_52.txt".
+HTSUS Chapter 54 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2054".
+the text of HTSUS Chapter 54 is at "../sources/hts/chapter_54.txt".
+ruling NY N319174 is published at "https://rulings.cbp.gov/ruling/N319174".
+the text of ruling NY N319174 is at "../sources/cbp/N319174.txt".
+ruling NY N352158 is published at "https://rulings.cbp.gov/ruling/N352158".
+the text of ruling NY N352158 is at "../sources/cbp/N352158.txt".
+
+% The fields of a listing that name what the product is
+"item type" is a field that names the kind,
+    as stated in the listing format, confer "Item Type (64 listings): the kind of product in the seller's words".
+"tops type" is a field that names the kind,
+    as stated in the listing format, confer "Tops Type (13 listings): the kind of top".
+"fabric type" is a field that names the fabric,
+    as stated in the listing format, confer "Fabric Type (38 listings): the name of the fabric".
+
+% Garment words (US Customs, Apparel Terminology under the HTSUS, 2008)
+"t-shirt" is a word for the kind T-shirt,
+    as stated in the apparel terminology publication, confer "T-shirts (6109, 6111) - are underwear style garments".
+"t-shirts" is a word for the kind T-shirt,
+    as stated in the apparel terminology publication, confer "T-shirts (6109, 6111) - are underwear style garments".
+"tank top" is a word for the kind tank top,
+    as stated in the apparel terminology publication, confer "Tank tops (6109) - are sleeveless garments with oversized armholes".
+"tank tops" is a word for the kind tank top,
+    as stated in the apparel terminology publication, confer "Tank tops (6109) - are sleeveless garments with oversized armholes".
+"top" is a word for the kind top,
+    as stated in the apparel terminology publication, confer "Tops (6114) - are upper body garments".
+"tops" is a word for the kind top,
+    as stated in the apparel terminology publication, confer "Tops (6114) - are upper body garments".
+"sweater" is a word for the kind sweater,
+    as stated in the apparel terminology publication, confer "Sweaters (6110, 6111) - are knit garments".
+"sweaters" is a word for the kind sweater,
+    as stated in the apparel terminology publication, confer "Sweaters (6110, 6111) - are knit garments".
+"pullover" is a word for the kind pullover,
+    as stated in the apparel terminology publication, confer "Pullovers (6110, 6111) - are upper body knit garments".
+"sweatshirt" is a word for the kind sweatshirt,
+    as stated in the apparel terminology publication, confer "Sweatshirts (6110, 6111) - are pullover style garments".
+"hoodie" is a word for the kind pullover,
+    as stated in ruling NY N319174, confer "Hoodie is a pullover".
+"dresses" is a word for the kind dress,
+    as stated in the apparel terminology publication, confer "Dresses (6104, 6111, 6204, 6209) - are one-piece garments for women or girls".
+"prom dresses" is a word for the kind dress,
+    as stated in the apparel terminology publication, confer "Dresses (6104, 6111, 6204, 6209) - are one-piece garments for women or girls".
+"trousers" is a word for the kind trousers,
+    as stated in the apparel terminology publication, confer "Trousers (6103, 6104, 6111, 6203, 6204, 6209, 6210) - are outerwear garments with leg separations extending below the knee".
+"pants" is a word for the kind trousers,
+    as stated in the apparel terminology publication, confer "Trousers (6103, 6104, 6111, 6203, 6204, 6209, 6210) - are outerwear garments with leg separations extending below the knee".
+"shorts" is a word for the kind shorts,
+    as stated in the apparel terminology publication, confer "Shorts (6103, 6104, 6203, 6204) - are trousers which do not cover the knee or below".
+"briefs" is a word for the kind briefs,
+    as stated in the apparel terminology publication, confer "Briefs (6107, 6108, 6207, 6208, 6210) - are tight fitting short underpants".
+"panties" is a word for the kind panties,
+    as stated in the apparel terminology publication, confer "Panties (6108, 6208) - are women's and girl's short underpants".
+"bodysuit" is a word for the kind bodysuit,
+    as stated in the apparel terminology publication, confer "Bodysuits and bodyshirts (6114) - are knit one-piece garments".
+"swimwear" is a word for the kind swimsuit,
+    as stated in the apparel terminology publication, confer "Swimwear (6112, 6211) - is a term referring to garments designed for swimming".
+"tights" is a word for the kind tights,
+    as stated in the apparel terminology publication, confer "Tights (6115) - are form-fitting hosiery, covering the waist and leg".
+"gloves" is a word for the kind gloves,
+    as stated in the apparel terminology publication, confer "Gloves (6116, 6216) - are".
+"brassiere" is a word for the kind brassiere,
+    as stated in the apparel terminology publication, confer "Brassieres (6212) - are garments worn to mold and/or support the breasts".
+"vest" is a word for the kind vest,
+    as stated in the apparel terminology publication, confer "Vests (6110, 6211) - are upper body garments resembling a sleeveless sweater or jacket".
+
+% Fabric words: the tariff's own definitions, and US Customs rulings
+"jersey" is a fabric of construction knitted,
+    as stated in the apparel terminology publication, confer "constructed from lightweight, plain jersey or interlock knit fabric".
+"interlock" is a fabric of construction knitted,
+    as stated in the apparel terminology publication, confer "constructed from lightweight, plain jersey or interlock knit fabric".
+"rib" is a fabric of construction knitted,
+    as stated in ruling NY N352158, confer "rib knit fabric for the neckband".
+"broadcloth" is a fabric of construction woven,
+    as stated in HTSUS Chapter 54, confer "The term \"poplin or broadcloth\" means plain weave fabrics".
+"poplin" is a fabric of construction woven,
+    as stated in HTSUS Chapter 54, confer "The term \"poplin or broadcloth\" means plain weave fabrics".
+"denim" is a fabric of construction woven,
+    as stated in HTSUS Chapter 52, confer "the expression \"denim\" means fabrics of yarns of different colors".
+
+rule kind_by_name with provenance the apparel terminology publication,
+        confer "Apparel Terminology under the HTSUS":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the kind the kind.
+
+rule kind_by_field with provenance the listing format,
+        confer "Item Type (64 listings): the kind of product in the seller's words":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field that names the kind
+    and the value is a word for the kind the kind.
+
+rule construction_by_fabric with provenance the apparel terminology publication,
+        confer "constructed from lightweight, plain jersey or interlock knit fabric":
+the fabric construction of a garment is a construction
+    if the garment is made of the fabric a name
+    and the name is a fabric of construction the construction.
+
+rule construction_by_fabric_field with provenance the listing format,
+        confer "Fabric Type (38 listings): the name of the fabric":
+the fabric construction of a garment is a construction
+    if the field a field of the garment reads a name
+    and the field is a field that names the fabric
+    and the name is a fabric of construction the construction.
+
+scenario tee is:
+    tee is called "t-shirt".
+    tee is made of the fabric "jersey".
+    hood is called "hoodie".
+    the field "fabric type" of blouse reads "broadcloth".
+    the field "item type" of skirt one reads "tops".
+    kinds expects answers ["the kind of tee is T-shirt", "the kind of hood is pullover", "the kind of skirt one is top"].
+    constructions expects answers ["the fabric construction of tee is knitted", "the fabric construction of blouse is woven"].
+
+query kinds is:
+    the kind of which good is which kind.
+
+query constructions is:
+    the fabric construction of which garment is which construction.

@@ -13,6 +13,7 @@ decisions, and compare the model's code with the office's.
 - [apparel_cbp.le](apparel_cbp.le?scenario=ny_n362700&query=subheading) — men's knitted tops from one ruling, each placed by what the ruling observes (fabric, cut, pockets), with CBP's own judgments marked as such.
 - [plastics_cbp.le](plastics_cbp.le?scenario=ny_n363253&query=household) — a flip: which judgment would have moved a bowl clamp to another heading.
 - [tariff.le](tariff.le) — the whole modelled tariff, which every scenario program includes.
+- [marketplace.le](marketplace.le?scenario=tee&query=readings) — shop listings read with a facts background: the words of a listing in the words of the tariff, each fact with the program and the rule that gave it.
 
 ## Try this
 
@@ -22,6 +23,26 @@ decisions, and compare the model's code with the office's.
 4. Open [the same ruling in the worksheet view](cbp_62.le?view=worksheet&scenario=ny_n346508). It is the screen a customs specialist asked for: facts grouped by article, fabric and composition, then the code, then a draft paragraph of the ruling.
 5. Open [plastics_cbp.le on the bowl clamp](plastics_cbp.le?scenario=ny_n363253&query=household) and press **Query**. CBP put the clamp in 3926. The answer is the one change that would have put it in heading 3924: judging its principal use to be household use.
 6. In [by_hand.le](by_hand.le), use **Scenario Editor → Add → Write it in English…** to draft the facts of a ruling from its text, then check each drafted fact against its passage.
+7. Open [marketplace.le on a T-shirt listing](marketplace.le?scenario=tee&query=readings) and press **Query**. The listing gives 6109.10 only in the readings that admit the customs presumptions: nothing in the listing says that the fabric is lightweight.
+
+## The facts background
+
+A shop listing does not speak the words of the tariff. The folder
+[`background/`](background/) holds the programs that "Write it in English"
+uses to read a listing (language reference §14.5). The tariff never reasons
+with them.
+
+| File | Program | What it holds | Sources |
+|---|---|---|---|
+| `listings.le` | marketplace listings | The fields of a listing: gender, how the fabric is made | The description of the listings, `sources/listings/` |
+| `garments.le` | garments background | Words for garments and fabrics | US Customs' apparel terminology, the tariff's notes, rulings |
+| `materials.le` | materials background | Fibre names, and the names and abbreviations of plastics | EU Regulation 1007/2011, the FTC's labelling guide, US Customs' fibre trade names, Chapter 39, rulings |
+| `trade_usage.le` | trade usage | The rules that no text supports, stated by the authors: "tee", "chiffon", "EVA"; one fibre named is the whole; the first fibre named predominates | The authors |
+| `presumptions.le` | customs presumptions | What is taken to be so when the listing is silent: a T-shirt's fabric is lightweight and plain knit; a sweater is knitted | US Customs' apparel terminology, rulings |
+
+[marketplace.le](marketplace.le) names them, in that order, and gives three
+readings of a case: the listing and the bridges; with the customs
+presumptions; with trade usage too.
 
 ## More
 

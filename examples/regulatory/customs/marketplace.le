@@ -1,0 +1,92 @@
+% Marketplace listings read for the tariff, with the customs background
+% (lpsPlus docs/strategy/FactsBackground.md §6; language reference §14.5).
+%
+% A shop listing does not speak the words of the tariff. This file names the
+% facts background that "Write it in English" uses to read a listing: the
+% listing's fields, the words for garments and fabrics, the names of
+% materials (bridges, each from a public text); the customs presumptions
+% (from US Customs' publications and rulings); and trade usage (the rules
+% no text supports, stated by the authors). The tariff never reasons with
+% the background: it reads the facts that come out of it, each with its
+% origin.
+%
+% Three readings of a case (§17.5): the listing reading admits the listing
+% and the bridges; the presumed reading adds the customs presumptions; the
+% usage reading adds trade usage.
+
+the target language is: prolog.
+
+the facts background includes these resources:
+    background/listings, background/garments, background/materials,
+    background/trade_usage, background/presumptions.
+
+the templates are:
+    *a good* is classified in *a code* by *a reading*.
+
+the knowledge base marketplace includes these resources:
+    tariff.
+
+the knowledge base marketplace includes:
+
+a good is classified in a code by a reading
+    if the reading is in [listing reading, presumed reading, usage reading]
+    and the subheading of the good is the code
+        according to the reading.
+
+the listing is admissible under listing reading.
+the listing is admissible under presumed reading.
+the listing is admissible under usage reading.
+marketplace listings is admissible under listing reading.
+marketplace listings is admissible under presumed reading.
+marketplace listings is admissible under usage reading.
+garments background is admissible under listing reading.
+garments background is admissible under presumed reading.
+garments background is admissible under usage reading.
+materials background is admissible under listing reading.
+materials background is admissible under presumed reading.
+materials background is admissible under usage reading.
+customs presumptions is admissible under presumed reading.
+customs presumptions is admissible under usage reading.
+trade usage is admissible under usage reading.
+
+% A men's T-shirt as a listing describes it ("Men Tee Shirt", "Material:
+% Cotton", "Craft of Weaving: Knit"), read with the background: the T-shirt's
+% fabric is presumed, so only the presumed reading gives a code.
+scenario tee is, as stated in the listing:
+    tee is classified under the US tariff.
+    the cut of tee indicates men, confer "Gender: Men".
+    tee contains 100 percent of cotton, confer "Material: Cotton".
+    the fabric construction of tee is knitted, according to marketplace listings, because "craft_of_weaving_field", confer "Craft of Weaving: Knit".
+    the kind of tee is T-shirt, according to garments background, because "kind_by_name", confer "Men T-shirt".
+    tee is a manufactured article, according to marketplace listings, because "finished_product", confer "Men T-shirt".
+    the fabric of tee is lightweight, according to customs presumptions, because "tshirt_fabric", confer "Men T-shirt".
+    tee is of plain knit fabric, according to customs presumptions, because "tshirt_plain_knit", confer "Men T-shirt".
+    readings expects answers ["tee is classified in 6109.10 by presumed reading", "tee is classified in 6109.10 by usage reading"].
+
+% The same T-shirt with nothing presumed: the rules ask for the fabric
+% instead of falling through to the sweaters of heading 6110.
+scenario tee_unread is, as stated in the listing:
+    tee is classified under the US tariff.
+    the cut of tee indicates men.
+    tee contains 100 percent of cotton.
+    the fabric construction of tee is knitted.
+    the kind of tee is T-shirt.
+    tee is a manufactured article.
+    subheadings expects answers [].
+
+% A dress of "POLYESTER, Spandex" with no shares: trade usage presumes that
+% the first fibre named predominates.
+scenario dress is, as stated in the listing:
+    dress is classified under the US tariff.
+    the cut of dress indicates women, confer "Gender: Women".
+    the kind of dress is dress, confer "Item Type: Prom Dresses".
+    dress is a manufactured article, according to marketplace listings, because "finished_product", confer "Item Type: Prom Dresses".
+    the fabric construction of dress is woven, confer "woven".
+    the material that predominates by weight in dress is polyester, according to trade usage, because "first_named_predominates", confer "Material: POLYESTER,Spandex".
+    readings expects answers ["dress is classified in 6204.43 by usage reading"].
+
+query readings is:
+    which good is classified in which code by which reading.
+
+query subheadings is:
+    the subheading of which good is which code.

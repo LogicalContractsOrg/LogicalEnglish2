@@ -1,0 +1,167 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the names of materials, in the words of the tariff. Fibre names (the
+% fibre-name laws of the European Union and the United States, US Customs'
+% list of trade names) and the names and abbreviations of plastics (the
+% tariff's Chapter 39, US Customs rulings). Bridges.
+%
+% A name that is both a fibre and a plastic ("acrylic", "nylon") is read as a
+% plastic only for a good that is not a textile article.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the polymer of *a good* is *a polymer*.
+
+the templates are:
+    *a thing* names the material *a name*; undefined.
+    *a name* is a word for the textile material *a material*.
+    *a name* is a word for the polymer *a polymer*.
+    *a name* is a word for plastics.
+    *a good* is a textile article.
+    the fabric construction of *a garment* is *a construction*.
+    the cut of *a garment* indicates *a gender*.
+    the polymer of *a good* is *a polymer*.
+    *a thing* is made of plastics.
+
+the knowledge base materials background includes:
+
+the fibre names regulation is published at "https://eur-lex.europa.eu/eli/reg/2011/1007/oj".
+the text of the fibre names regulation is at "../sources/eu/reg_1007_2011.txt".
+the textile labelling guide is published at "https://www.ftc.gov/business-guidance/resources/threading-your-way-through-labeling-requirements-under-textile-wool-acts".
+the text of the textile labelling guide is at "../sources/ftc/threading_your_way.txt".
+the fiber trade names publication is published at "https://www.cbp.gov/trade/rulings/informed-compliance-publications".
+the text of the fiber trade names publication is at "../sources/cbp_icp/fiber_trade_names.txt".
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039".
+the text of HTSUS Section VII and Chapter 39 is at "../sources/hts/chapter_39.txt".
+ruling NY N309957 is published at "https://rulings.cbp.gov/ruling/N309957".
+the text of ruling NY N309957 is at "../sources/cbp/N309957.txt".
+ruling NY N362334 is published at "https://rulings.cbp.gov/ruling/N362334".
+the text of ruling NY N362334 is at "../sources/cbp/N362334.txt".
+ruling NY N334557 is published at "https://rulings.cbp.gov/ruling/N334557".
+the text of ruling NY N334557 is at "../sources/cbp/N334557.txt".
+
+% Fibre names
+"polyester" is a word for the textile material polyester,
+    as stated in the fibre names regulation, confer "polyester".
+"cotton" is a word for the textile material cotton,
+    as stated in the fibre names regulation, confer "cotton".
+"wool" is a word for the textile material wool,
+    as stated in the fibre names regulation, confer "wool".
+"acrylic" is a word for the textile material acrylic,
+    as stated in the fibre names regulation, confer "acrylic".
+"nylon" is a word for the textile material nylon,
+    as stated in the fibre names regulation, confer "polyamide or nylon".
+"polyamide" is a word for the textile material polyamide,
+    as stated in the fibre names regulation, confer "polyamide or nylon".
+"elastane" is a word for the textile material elastane,
+    as stated in the fibre names regulation, confer "elastane".
+"spandex" is a word for the textile material spandex,
+    as stated in the textile labelling guide, confer "the ISO standard uses the name viscose for the predominant form of rayon, and elastane for spandex".
+"viscose" is a word for the textile material viscose,
+    as stated in the fibre names regulation, confer "viscose".
+"rayon" is a word for the textile material rayon,
+    as stated in the textile labelling guide, confer "the ISO standard uses the name viscose for the predominant form of rayon".
+"modal" is a word for the textile material modal,
+    as stated in the fibre names regulation, confer "modal".
+"lyocell" is a word for the textile material lyocell,
+    as stated in the fibre names regulation, confer "lyocell".
+"silk" is a word for the textile material silk,
+    as stated in the fibre names regulation, confer "silk".
+"linen" is a word for the textile material linen,
+    as stated in the fibre names regulation, confer "linen".
+"cashmere" is a word for the textile material cashmere,
+    as stated in the fibre names regulation, confer "cashmere".
+"lycra" is a word for the textile material elastane,
+    as stated in the fiber trade names publication, confer "Lycra*......................... Elastane".
+"dacron" is a word for the textile material polyester,
+    as stated in the fiber trade names publication, confer "Dacron* ...................... Polyester".
+"tencel" is a word for the textile material lyocell,
+    as stated in the fiber trade names publication, confer "Tencel*....................... Lyocell".
+
+% Plastics: the tariff's own names and abbreviations, and rulings
+"plastic" is a word for plastics,
+    as stated in HTSUS Section VII and Chapter 39, confer "the expression \"plastics\" means those materials of headings 3901 to 3914".
+"plastics" is a word for plastics,
+    as stated in HTSUS Section VII and Chapter 39, confer "the expression \"plastics\" means those materials of headings 3901 to 3914".
+"pvc" is a word for the polymer polyvinyl chloride,
+    as stated in ruling NY N309957, confer "polyvinyl chloride (PVC)".
+"pp" is a word for the polymer polypropylene,
+    as stated in ruling NY N362334, confer "polypropylene (PP)".
+"polypropylene" is a word for the polymer polypropylene,
+    as stated in ruling NY N362334, confer "polypropylene (PP)".
+"abs" is a word for the polymer acrylonitrile-butadiene-styrene copolymer,
+    as stated in HTSUS Section VII and Chapter 39, confer "Acrylonitrile-butadiene-styrene (ABS) copolymers".
+"pet" is a word for the polymer polyethylene terephthalate,
+    as stated in HTSUS Section VII and Chapter 39, confer "polyethylene terephthalate (PET)".
+"tpu" is a word for the polymer polyurethane,
+    as stated in ruling NY N334557, confer "thermoplastic polyurethane (TPU)".
+"polyurethane" is a word for the polymer polyurethane,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polyurethanes".
+"silicone" is a word for the polymer silicone,
+    as stated in HTSUS Section VII and Chapter 39, confer "Silicones (heading 3910)".
+"polycarbonate" is a word for the polymer polycarbonate,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polycarbonates".
+"polystyrene" is a word for the polymer polystyrene,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polystyrene".
+"polyethylene" is a word for the polymer polyethylene,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polymers of ethylene, in primary forms".
+"acrylic" is a word for the polymer acrylic polymer,
+    as stated in HTSUS Section VII and Chapter 39, confer "Acrylic polymers in primary forms".
+"nylon" is a word for the polymer polyamide,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polyamides in primary forms".
+
+rule textile_by_construction with provenance HTSUS Section VII and Chapter 39,
+        confer "does not apply to materials regarded as textile materials of Section XI":
+a good is a textile article
+    if the fabric construction of the good is a construction.
+
+rule textile_by_cut with provenance HTSUS Section VII and Chapter 39,
+        confer "does not apply to materials regarded as textile materials of Section XI":
+a good is a textile article
+    if the cut of the good indicates a gender.
+
+rule polymer_by_name with provenance HTSUS Section VII and Chapter 39,
+        confer "the expression \"plastics\" means those materials of headings 3901 to 3914":
+the polymer of a good is a polymer
+    if the good names the material a name
+    and the name is a word for the polymer the polymer
+    and it is not the case that
+        the good is a textile article.
+
+rule plastics_by_polymer with provenance HTSUS Section VII and Chapter 39,
+        confer "the expression \"plastics\" means those materials of headings 3901 to 3914":
+a good is made of plastics
+    if the good names the material a name
+    and the name is a word for the polymer a polymer
+    and it is not the case that
+        the good is a textile article.
+
+rule plastics_by_name with provenance HTSUS Section VII and Chapter 39,
+        confer "the expression \"plastics\" means those materials of headings 3901 to 3914":
+a good is made of plastics
+    if the good names the material a name
+    and the name is a word for plastics
+    and it is not the case that
+        the good is a textile article.
+
+scenario case is:
+    case names the material "pvc".
+    shirt names the material "acrylic".
+    the cut of shirt indicates women.
+    the fabric construction of scarf is woven.
+    scarf names the material "nylon".
+    bead names the material "acrylic".
+    polymers expects answers ["the polymer of case is polyvinyl chloride", "the polymer of bead is acrylic polymer"].
+    plastics expects answers ["case is made of plastics", "bead is made of plastics"].
+    fibres expects answers ["lycra is a word for the textile material elastane"].
+
+query polymers is:
+    the polymer of which good is which polymer.
+
+query plastics is:
+    which thing is made of plastics.
+
+query fibres is:
+    "lycra" is a word for the textile material which material.

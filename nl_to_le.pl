@@ -158,20 +158,34 @@ background_reading(Program, KB, Noted, Regexes) :-
     once(KB:le_facts_background(_, _, _, _)),
     le_background:background_templates(KB, Noted0, _),
     Noted0 \== [],
+    le_background:noted_templates_all(KB, All),
     findall(Hinted,
-            ( member(n(Label, BM, _), Noted0),
+            ( member(n(Label, _, _), Noted0),
+              findall(BM, member(n(Label, BM, _), All), BMs),
               format(string(Tagged), "~w (noted)", [Label]),
-              (   catch(le_verifier:with_rule_index(BM, nl_to_le:noted_hints(BM, Label, Tagged, Hinted)), _, fail)
-              ->  true
-              ;   Hinted = Tagged
-              ) ),
+              noted_hints(BMs, Label, Tagged, Hinted) ),
             Noted),
     findall(Re, ( member(n(Label, _, _), Noted0), le_background:template_regex(Label, Re) ), Regexes).
 
-noted_hints(BM, Label, Tagged, Hinted) :-
-    with_value_hints(BM, Label, Hinted0),
-    (   string_concat(Label, Hints, Hinted0)
-    ->  string_concat(Tagged, Hints, Hinted)
+% the words that the background programs know in each place of a noted
+% template, all programs together
+noted_hints(BMs, Label, Tagged, Hinted) :-
+    BMs = [BM0|_],
+    (   label_template(BM0, Label, _, _, Slots)
+    ->  findall(Hint,
+                ( nth1(I, Slots, SlotName),
+                  findall(V, ( member(BM, BMs),
+                               label_template(BM, Label, F, A, _),
+                               catch(le_verifier:with_rule_index(BM, slot_values(BM, F, A, I, Vs)), _, fail),
+                               member(V, Vs) ), Vs0),
+                  sort(Vs0, Values), Values \== [],
+                  hint_text(SlotName, Values, Hint) ),
+                Hints),
+        (   Hints == []
+        ->  Hinted = Tagged
+        ;   atomic_list_concat(Hints, '; ', HintsA),
+            format(string(Hinted), "~w    [~w]", [Tagged, HintsA])
+        )
     ;   Hinted = Tagged
     ).
 
