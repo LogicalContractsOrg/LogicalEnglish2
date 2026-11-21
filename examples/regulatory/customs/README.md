@@ -1,9 +1,11 @@
-# Customs classification in Logical English: Chapters 39, 61 and 62
+# Customs classification in Logical English: Chapters 39, 61, 62, 67 and 71
 
 The tariff code of a good, worked out as a customs office works it out. The
-programs encode the General Rules of Interpretation and three whole chapters
+programs encode the General Rules of Interpretation and five whole chapters
 of the Harmonized Tariff Schedule of the United States (HTSUS): 39 (plastics),
-61 and 62 (clothing). They run on 225 published rulings of US Customs and
+61 and 62 (clothing), 67 (feathers, artificial flowers, wigs and other
+articles of hair) and 71 (pearls, stones, precious metals, jewelry and
+imitation jewelry, coin). They run on 225 published rulings of US Customs and
 Border Protection (CBP) and 15 European Binding Tariff Information (EBTI)
 decisions, and compare the model's code with the office's.
 
@@ -38,6 +40,7 @@ with them.
 | `garments.le` | garments background | Words for garments and fabrics | US Customs' apparel terminology, the tariff's notes, rulings |
 | `articles.le` | articles background | Words for the plastics articles and forms of Chapter 39: pipes, sheets, baths, doors, pellets | Chapter 39's headings and notes, rulings |
 | `materials.le` | materials background | Fibre names, and the names and abbreviations of plastics | EU Regulation 1007/2011, the FTC's labelling guide, US Customs' fibre trade names, Chapter 39, rulings |
+| `jewellery.le` | jewellery background | Words for jewellery, gems, metals and hallmarks, wigs and hair, artificial flowers | Chapters 67 and 71, the FTC's Jewelry Guides, rulings |
 | `trade_usage.le` | trade usage | The rules that no text supports, stated by the authors: "tee", "chiffon", "EVA"; one fibre named is the whole; the first fibre named predominates | The authors |
 | `presumptions.le` | customs presumptions | What is taken to be so when the listing is silent: a T-shirt's fabric is lightweight and plain knit; a sweater is knitted | US Customs' apparel terminology, rulings |
 

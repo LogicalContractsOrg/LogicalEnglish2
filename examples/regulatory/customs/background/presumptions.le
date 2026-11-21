@@ -34,6 +34,7 @@ the templates are:
     *a thing* is called *a name*; undefined.
     *a name* is a word for a belt.
     the principal use of *a good* is *a use*.
+    *a good* is a set put up for retail sale.
 
 the knowledge base customs presumptions includes these resources:
     materials.
@@ -48,6 +49,24 @@ HTSUS Chapter 61 is published at "https://hts.usitc.gov/reststop/file?release=cu
 the text of HTSUS Chapter 61 is at "sources/hts/chapter_61.txt".
 HTSUS Chapter 62 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2062".
 the text of HTSUS Chapter 62 is at "sources/hts/chapter_62.txt".
+the sets publication is published at "https://www.cbp.gov/trade/rulings/informed-compliance-publications".
+the text of the sets publication is at "sources/cbp_icp/classification_of_sets.txt".
+
+% A listing offers its parts together, as one product, to the buyer who
+% receives it as sold (the listing format: "A listing offers one finished
+% product for sale"). The sets publication's third requirement of a set put
+% up for retail sale is met; whether the set meets the others is for the
+% rules that read it (an ensemble, GRI 3(b) and its essential character).
+% A set has "at least two different articles" (requirement (a)): a listing
+% that names one part only (a dress with its shawl) is not read as a set.
+rule parts_sold_as_one with provenance the sets publication,
+        confer "are put up in a manner suitable for sale directly to users without repacking":
+a good is a set put up for retail sale
+    if a component is a component of the good
+    and the kind of the component is a kind
+    and an other component is a component of the good
+    and the kind of the other component is an other kind
+    and the other kind is different from the kind.
 the children's apparel publication is published at "https://www.cbp.gov/sites/default/files/assets/documents/2020-Feb/ICP-Childrens-Apparel-2008-Final.pdf".
 the text of the children's apparel publication is at "sources/cbp_icp/childrens_apparel.txt".
 ruling NY N336251 is published at "https://rulings.cbp.gov/ruling/N336251".
@@ -251,3 +270,15 @@ query constructions is:
 
 query plain is:
     which garment is of plain knit fabric.
+
+scenario two_piece is:
+    top one is a component of outfit one.
+    pants one is a component of outfit one.
+    the kind of top one is top.
+    the kind of pants one is trousers.
+    shawl one is a component of gown one.
+    the kind of shawl one is shawl.
+    retail sets expects answers ["outfit one is a set put up for retail sale"].
+
+query retail sets is:
+    which good is a set put up for retail sale.

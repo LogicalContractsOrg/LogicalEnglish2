@@ -1,0 +1,321 @@
+% Chapter 67 of the tariff (Section XII): prepared feathers and down and
+% articles made of feathers or of down; artificial flowers; articles of human
+% hair — all four headings (6701 to 6704) and their 8 six-digit subheadings.
+% A library: it includes chapter_39.le (and through it gri.le), because
+% subheading 6702.10 is "of plastics" in the sense of Chapter 39 note 1 and
+% Chapter 39 note 2(q) sends the articles of Section XII out of Chapter 39;
+% tariff.le includes it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 67 notes 1 to 3 and the terms of
+% the headings and subheadings (https://hts.usitc.gov/); Section XII has no
+% notes. Section XI note 1(b) and 1(p), Chapter 39 note 2(q), Chapter 54
+% note 1 (synthetic textile materials). The subheadings are the six-digit HS
+% ones. US Customs rulings name the articles of heading 6704 (wefts, frontals,
+% closures, extensions, eyelashes).
+%
+% How the chapter is read. A good's heading is decided by its family (the
+% kind the ruling names: feathers, an artificial flower, worked human hair,
+% a wig, a hair extension...), with the notes that take goods out: heading
+% 6701 does not cover feathers that are only filling, padding or trimming,
+% nor artificial flowers (note 2); heading 6702 does not cover articles of
+% glass nor flowers obtained in one piece or assembled otherwise than by
+% binding, gluing or fitting (note 3). The subheadings read what the good is
+% classified as consisting of (GRI 3(b), gri.le): of plastics (Chapter 39
+% note 1) or of other materials for flowers; of synthetic textile materials,
+% of human hair or of other materials for wigs and the like, and for the
+% synthetic ones, whether the good is a complete wig.
+% Chapter 67 note 1 excludes goods of headings outside the model (straining
+% cloth of 5911, footwear, headgear, toys and carnival articles, feather
+% dusters): a claim that a good belongs there is answered by the office
+% (gri.le).
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter sixty-seven goods.
+    *a good* has feathers or down only as filling, padding or trimming; undefined.
+    *a thing* is made of glass; undefined.
+    *a good* is obtained in one piece or assembled otherwise than by binding, gluing or fitting; undefined.
+    the hair of *a thing* is *a hair*; undefined.
+    *a hair* is a hair of the class *a class*.
+    the material class of *a good* in heading *a heading* is *a class*.
+    the hair article group of *a good* is *a group*.
+    the subheading in heading *a heading* for *a class* of *a group* is *a code* under table feathers.
+
+% ---------------------------------------------------------------------------
+% GRI 6: the material the subheadings name and, for wigs of synthetic
+% textile materials, whether the good is a complete wig. First match: an
+% "any" row is the heading's "Of other materials" or "Other".
+% ---------------------------------------------------------------------------
+% the six-digit subheadings of headings 6701 to 6704
+the table feathers is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class           | group         | code      | as stated in HTSUS Chapter 67
+    f1  | 6701    | any             | any           | "6701.00" | "6701.00.30"
+    f2  | 6702    | plastics        | any           | "6702.10" | "Of plastics: 6702.10"
+    f3  | 6702    | other materials | any           | "6702.90" | "Of other materials: 6702.90"
+    f4  | 6703    | any             | any           | "6703.00" | "6703.00.30"
+    f5  | 6704    | synthetic       | complete wig  | "6704.11" | "Of synthetic textile materials: Complete wigs"
+    f6  | 6704    | synthetic       | any           | "6704.19" | "6704.19.00"
+    f7  | 6704    | human hair      | any           | "6704.20" | "6704.20.00"
+    f8  | 6704    | other materials | any           | "6704.90" | "6704.90.00"
+
+the knowledge base chapter 67 includes these resources:
+    chapter_39.
+
+the knowledge base chapter 67 includes:
+
+HTSUS Chapter 67 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2067#page=1".
+the text of HTSUS Chapter 67 is at "sources/hts/chapter_67.txt".
+HTSUS Section XI and Chapter 50 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2050#page=1".
+the text of HTSUS Section XI and Chapter 50 is at "sources/hts/chapter_50.txt".
+HTSUS Chapter 54 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2054#page=1".
+the text of HTSUS Chapter 54 is at "sources/hts/chapter_54.txt".
+the CN explanatory notes to Chapter 67 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 67 is at "sources/eu/cn_en_ch67.txt".
+ruling NY N305621 is published at "https://rulings.cbp.gov/ruling/N305621".
+the text of ruling NY N305621 is at "sources/cbp/N305621.txt".
+ruling NY N026086 is published at "https://rulings.cbp.gov/ruling/N026086".
+the text of ruling NY N026086 is at "sources/cbp/N026086.txt".
+ruling NY N352618 is published at "https://rulings.cbp.gov/ruling/N352618".
+the text of ruling NY N352618 is at "sources/cbp/N352618.txt".
+ruling NY K83938 is published at "https://rulings.cbp.gov/ruling/K83938".
+the text of ruling NY K83938 is at "sources/cbp/K83938.txt".
+ruling NY N315045 is published at "https://rulings.cbp.gov/ruling/N315045".
+the text of ruling NY N315045 is at "sources/cbp/N315045.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: the goods of the chapter's families.
+% ---------------------------------------------------------------------------
+
+% the model covers the feathers, artificial flowers and articles of hair of
+% Chapter 67
+rule hair_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter sixty-seven goods.
+
+feathers is a family of chapter sixty-seven goods,
+    as stated in HTSUS Chapter 67, confer "Skins and other parts of birds with their feathers or down, feathers, parts of feathers, down and articles thereof".
+artificial flower is a family of chapter sixty-seven goods,
+    as stated in HTSUS Chapter 67, confer "Artificial flowers, foliage and fruit and parts thereof; articles made of artificial flowers, foliage or fruit".
+prepared hair is a family of chapter sixty-seven goods,
+    as stated in HTSUS Chapter 67, confer "Human hair, dressed, thinned, bleached or otherwise worked; wool or other animal hair or other textile materials, prepared for use in making wigs or the like".
+complete wig is a family of chapter sixty-seven goods,
+    as stated in HTSUS Chapter 67, confer "Of synthetic textile materials: Complete wigs".
+hair article is a family of chapter sixty-seven goods,
+    as stated in HTSUS Chapter 67, confer "Wigs, false beards, eyebrows and eyelashes, switches and the like, of human or animal hair or of textile materials; articles of human hair not elsewhere specified or included".
+
+% The kinds of the chapter's goods and their families
+bird skin falls in the family feathers, as stated in HTSUS Chapter 67, confer "Skins and other parts of birds with their feathers or down".
+feather falls in the family feathers, as stated in HTSUS Chapter 67, confer "feathers, parts of feathers, down and articles thereof".
+down falls in the family feathers, as stated in HTSUS Chapter 67, confer "feathers, parts of feathers, down and articles thereof".
+article of feathers falls in the family feathers, as stated in HTSUS Chapter 67, confer "Articles of feathers or down".
+artificial flower falls in the family artificial flower, as stated in HTSUS Chapter 67, confer "Artificial flowers, foliage and fruit and parts thereof".
+artificial foliage falls in the family artificial flower, as stated in HTSUS Chapter 67, confer "Artificial flowers, foliage and fruit and parts thereof".
+artificial fruit falls in the family artificial flower, as stated in HTSUS Chapter 67, confer "Artificial flowers, foliage and fruit and parts thereof".
+flower wreath falls in the family artificial flower, as stated in HTSUS Chapter 67, confer "articles made of artificial flowers, foliage or fruit".
+worked human hair falls in the family prepared hair, as stated in HTSUS Chapter 67, confer "Human hair, dressed, thinned, bleached or otherwise worked".
+hair prepared for wig making falls in the family prepared hair, as stated in HTSUS Chapter 67, confer "prepared for use in making wigs or the like".
+wig falls in the family complete wig, as stated in HTSUS Chapter 67, confer "Complete wigs".
+false beard falls in the family hair article, as stated in HTSUS Chapter 67, confer "Wigs, false beards, eyebrows and eyelashes, switches and the like".
+false eyebrows falls in the family hair article, as stated in HTSUS Chapter 67, confer "Wigs, false beards, eyebrows and eyelashes, switches and the like".
+false eyelashes falls in the family hair article, as stated in ruling NY N026086, confer "You submitted six samples of false eyelashes".
+switch falls in the family hair article, as stated in HTSUS Chapter 67, confer "Wigs, false beards, eyebrows and eyelashes, switches and the like".
+hair extension falls in the family hair article, as stated in ruling NY N305621, confer "These products would all be considered articles of heading 6704 (e.g. wigs, switches and the like)".
+hair weft falls in the family hair article, as stated in ruling NY N305621, confer "These products would all be considered articles of heading 6704 (e.g. wigs, switches and the like)".
+lace frontal falls in the family hair article, as stated in ruling NY N305621, confer "These products would all be considered articles of heading 6704 (e.g. wigs, switches and the like)".
+lace closure falls in the family hair article, as stated in ruling NY N305621, confer "These products would all be considered articles of heading 6704 (e.g. wigs, switches and the like)".
+
+% The hair and fibres of heading 6704's subheadings: human hair; synthetic
+% textile materials (Chapter 54 note 1(a)); other materials (animal hair,
+% wool, artificial textile materials)
+human hair is a hair of the class human hair,
+    as stated in HTSUS Chapter 67, confer "Of human hair".
+synthetic fibre is a hair of the class synthetic,
+    as stated in ruling NY N352618, confer "synthetic hair extensions made entirely of synthetic textile fibers".
+polyester is a hair of the class synthetic,
+    as stated in HTSUS Chapter 54, confer "By polymerization of organic monomers to produce polymers such as polyamides, polyesters, polyolefins or polyurethanes".
+polyamide is a hair of the class synthetic,
+    as stated in HTSUS Chapter 54, confer "By polymerization of organic monomers to produce polymers such as polyamides, polyesters, polyolefins or polyurethanes".
+polypropylene is a hair of the class synthetic,
+    as stated in HTSUS Chapter 54, confer "By polymerization of organic monomers to produce polymers such as polyamides, polyesters, polyolefins or polyurethanes".
+animal hair is a hair of the class other materials,
+    as stated in HTSUS Chapter 67, confer "of human or animal hair or of textile materials".
+wool is a hair of the class other materials,
+    as stated in HTSUS Chapter 67, confer "wool or other animal hair or other textile materials".
+artificial fibre is a hair of the class other materials,
+    as stated in HTSUS Chapter 54, confer "artificial: fibers as defined at (b)".
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1), each with the notes that take goods out of it.
+% ---------------------------------------------------------------------------
+
+% heading 6701; note 2: not feathers or down that are only filling, padding
+% or trimming (2(a), 2(b)), not artificial flowers (2(c))
+rule heading_6701 with provenance HTSUS Chapter 67,
+        confer "Skins and other parts of birds with their feathers or down, feathers, parts of feathers, down and articles thereof":
+a good is described by heading 6701
+    if the family of the good is feathers.
+
+rule note_67_2ab with provenance HTSUS Chapter 67,
+        confer "Articles in which feathers or down constitute only filling or padding":
+a good is excluded from heading 6701
+    if the good has feathers or down only as filling, padding or trimming.
+
+% heading 6702; note 3: not articles of glass (3(a)), not flowers obtained in
+% one piece or assembled otherwise than by binding, gluing or fitting (3(b))
+rule heading_6702 with provenance HTSUS Chapter 67,
+        confer "Artificial flowers, foliage and fruit and parts thereof; articles made of artificial flowers, foliage or fruit":
+a good is described by heading 6702
+    if the family of the good is artificial flower.
+
+rule note_67_3a with provenance HTSUS Chapter 67, confer "Articles of glass (chapter 70)":
+a good is excluded from heading 6702
+    if the good is classified as consisting of a component
+    and the component is made of glass.
+
+rule note_67_3b with provenance HTSUS Chapter 67,
+        confer "obtained in one piece by molding, forging, carving, stamping or other process, or consisting of parts assembled otherwise than by binding, gluing, fitting into one another or similar methods":
+a good is excluded from heading 6702
+    if the good is obtained in one piece or assembled otherwise than by binding, gluing or fitting.
+
+% heading 6703: worked human hair, and hair or textile prepared for wigs;
+% hair merely cut is of heading 0501 (CN Explanatory Note), outside the model
+rule heading_6703 with provenance HTSUS Chapter 67,
+        confer "Human hair, dressed, thinned, bleached or otherwise worked; wool or other animal hair or other textile materials, prepared for use in making wigs or the like":
+a good is described by heading 6703
+    if the family of the good is prepared hair.
+
+% heading 6704: wigs, false beards, eyebrows and eyelashes, switches and the
+% like (CBP: wefts, frontals, closures and extensions, NY N305621)
+rule heading_6704 with provenance HTSUS Chapter 67,
+        confer "Wigs, false beards, eyebrows and eyelashes, switches and the like, of human or animal hair or of textile materials; articles of human hair not elsewhere specified or included":
+a good is described by heading 6704
+    if the family of the good is a family
+    and the family is in [complete wig, hair article].
+
+% Section XI note 1(p) (and 1(b), human hair): goods of Chapter 67 are not
+% textiles of Section XI
+rule note_xi_1p with provenance HTSUS Section XI and Chapter 50,
+        confer "(p) Goods of chapter 67;":
+a good is excluded from heading a heading
+    if the heading >= 5001
+    and the heading <= 6310
+    and the other heading is in [6701, 6702, 6703, 6704]
+    and the good is described by heading the other heading.
+
+% Chapter 39 note 2(q): the articles of Section XII (here, of Chapter 67) are
+% not of Chapter 39: an artificial flower of plastics is of 6702, not 3926
+rule note_39_2q with provenance HTSUS Section VII and Chapter 39,
+        confer "Articles of section XII (for example, footwear, headgear, umbrellas":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the other heading is in [6701, 6702, 6703, 6704]
+    and the good is described by heading the other heading.
+
+% ---------------------------------------------------------------------------
+% GRI 6.
+% ---------------------------------------------------------------------------
+
+rule hair_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading >= 6701
+    and the heading <= 6704
+    and the material class of the good in heading the heading is a class
+    and the hair article group of the good is a group
+    and the subheading in heading the heading for the class of the group is the code under table feathers.
+
+% 6701 and 6703 have one subheading each
+rule hair_class_single with provenance HTSUS Chapter 67, confer "Articles of feathers or down":
+the material class of a good in heading a heading is any material
+    if the heading is in [6701, 6703]
+    and the good is described by heading the heading.
+
+% 6702: of plastics (Chapter 39 note 1), or of other materials
+rule flower_class_plastics with provenance HTSUS Chapter 67, confer "Of plastics: 6702.10":
+the material class of a good in heading 6702 is plastics
+    if the good is classified as consisting of a component
+    and the component is of plastics.
+
+rule flower_class_other with provenance HTSUS Chapter 67, confer "Of other materials: 6702.90":
+the material class of a good in heading 6702 is other materials
+    if the good is classified as consisting of a component
+    and the component contains a number percent of a material
+    and it is not the case that
+        the component is of plastics.
+
+% 6704: the hair of what the good is classified as consisting of
+rule wig_class with provenance HTSUS Chapter 67,
+        confer "Of synthetic textile materials: Complete wigs":
+the material class of a good in heading 6704 is a class
+    if the good is classified as consisting of a component
+    and the hair of the component is a hair
+    and the hair is a hair of the class the class.
+
+rule group_complete_wig with provenance HTSUS Chapter 67, confer "Complete wigs":
+the hair article group of a good is complete wig
+    if the family of the good is complete wig.
+
+rule group_other_hair with provenance HTSUS Chapter 67,
+        confer "Wigs, false beards, eyebrows and eyelashes, switches and the like":
+the hair article group of a good is other
+    if the family of the good is a family
+    and it is not the case that
+        the family is complete wig.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling or a listing.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query unplaced is:
+    which good is not placed by the model.
+
+scenario feathers_and_flowers is:
+    the kind of the ostrich plume is feather.
+    % an artificial flower of plastics is also a manufactured article of
+    % plastics (3926); Chapter 39 note 2(q) leaves it to 6702
+    the kind of the acrylic rose is artificial flower.
+    the acrylic rose is a manufactured article.
+    the acrylic rose is made of plastics.
+    the kind of the polyester rose is artificial flower.
+    the polyester rose contains 100 percent of polyester.
+    the kind of the glass lily is artificial flower.
+    the glass lily is made of glass.
+    the kind of the cushion is article of feathers.
+    the cushion has feathers or down only as filling, padding or trimming.
+    subheading expects answers ["the subheading of the ostrich plume is 6701.00", "the subheading of the acrylic rose is 6702.10", "the subheading of the polyester rose is 6702.90"].
+    unplaced expects answers ["the glass lily is not placed by the model", "the cushion is not placed by the model"].
+
+% NY K83938 (synthetic fibre wig), NY N352618 (synthetic extensions), NY
+% N305621 (human hair wefts), NY N026086 (eyelashes; here of animal hair)
+scenario hair is:
+    the kind of the bleached hair is worked human hair.
+    the kind of the Snow White wig is wig.
+    the hair of the Snow White wig is synthetic fibre.
+    the kind of the braided extension is hair extension.
+    the hair of the braided extension is synthetic fibre.
+    the kind of the weft is hair weft.
+    the hair of the weft is human hair.
+    the kind of the mink lashes is false eyelashes.
+    the hair of the mink lashes is animal hair.
+    subheading expects answers ["the subheading of the bleached hair is 6703.00", "the subheading of the Snow White wig is 6704.11", "the subheading of the braided extension is 6704.19", "the subheading of the weft is 6704.20", "the subheading of the mink lashes is 6704.90"].

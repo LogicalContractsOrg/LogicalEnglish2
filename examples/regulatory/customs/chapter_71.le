@@ -1,0 +1,1205 @@
+% Chapter 71 of the tariff (Section XIV): natural or cultured pearls,
+% precious or semiprecious stones, precious metals, metals clad with precious
+% metal, and articles thereof; imitation jewelry; coin — all eighteen
+% headings (7101 to 7118) and their 55 six-digit subheadings. A library: it
+% includes chapter_39.le (and through it gri.le), because Chapter 39 note
+% 2(r) and Chapter 71 note 1 decide between a jewel of plastics and an
+% article of plastics; tariff.le includes it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 71 notes 1 to 11 and subheading
+% notes 1 to 3, Additional U.S. note 1, Section XV notes 3 and 5 (base
+% metals), and the terms of the headings and subheadings
+% (https://hts.usitc.gov/); the subheadings are the six-digit HS ones. US
+% Customs rulings where the notes leave a word open (cubic zirconia is a
+% synthetic stone; an article worn as jewelry; titanium is a base metal).
+%
+% How the chapter is read. The facts of a good are what it is (its kind: a
+% ring, a gemstone, an ingot, a coin...), what its body is made of ("the
+% metal of G is sterling silver" — a named metal or alloy, never the
+% plating, which note 6 does not count as precious metal), what covers it
+% by mechanical means ("G is clad with gold", note 7),
+% and the gems it carries ("the gem of G is cubic zirconia"). The notes then
+% decide:
+%   PEARLS AND STONES (7101-7105): a loose gem by its group — pearls,
+%   diamonds, other natural stones, synthetic stones — and whether it is
+%   worked; dust or powder of gems.
+%   PRECIOUS METALS (7106-7112): silver, gold, platinum and the platinum
+%   metals (note 4) and their alloys (note 5: 2 percent of a precious metal
+%   is enough, platinum before gold before silver), unwrought, semi-
+%   manufactured or in powder (Additional U.S. note 1); base metal clad with
+%   precious metal (note 7); waste and scrap (note 8: heading 7112 only).
+%   ARTICLES (7113-7118): an article of jewelry (note 9: small objects of
+%   personal adornment) of precious metal or of metal clad with precious
+%   metal is of 7113, unless the precious metal is a minor constituent only
+%   (note 2(a)); an article that incorporates pearls or stones and no more
+%   than minor precious metal is of 7116 (note 2(b)); an article of jewelry
+%   that incorporates neither pearls, stones nor precious metal (plating
+%   aside) is imitation jewelry, 7117 (note 11) — of base metal (7117.11,
+%   7117.19) or of other materials (7117.90).
+% Chapter 71 note 1 puts in this chapter every article consisting wholly or
+% partly of pearls, stones or precious metal; Chapter 39 note 2(r) sends
+% imitation jewelry of 7117 out of Chapter 39. Both are written as
+% exclusions from the headings of Chapter 39 (below): a bracelet of plastics
+% worn as jewelry is of 7117, not 3926; a band of plastics that is not
+% principally used to adorn the body (CBP, HQ 967922) stays in 3926. Chapter
+% 71 note 3(g) excludes goods of Section XI. The other exclusions of note 3
+% name headings outside the model (watches, toys, works of art...): a claim
+% that a good belongs there is answered by the office (gri.le).
+%
+% Not modelled: the value bands and the statistical lines below six digits;
+% an article incorporating both pearls and stones (7116.10 or 7116.20 by its
+% essential character, which no rule here decides).
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter seventy-one goods.
+    the metal of *a thing* is *a metal*; undefined.
+    *a thing* is clad with *a metal*; undefined.
+    *a thing* has precious metal only as minor constituents; undefined.
+    the gem of *a thing* is *a gem*; undefined.
+    *a good* is unworked; undefined.
+    *a good* is unsorted; undefined.
+    *a good* is of industrial quality; undefined.
+    *a good* is monetary gold; undefined.
+    *a good* is legal tender; undefined.
+    *a good* is not principally used to adorn the body; undefined.
+    *a metal* is a precious metal of the group *a group*.
+    *a metal* is a base metal.
+    *a gem* is a gem of the group *a group*.
+    *a group* is a gem group of heading *a heading*.
+    *a group* is a group of pearls.
+    *a group* is a group of stones.
+    *a kind* is a form of metal *a form*.
+    *a thing* has precious metal of the group *a group*.
+    the precious metal group of *a thing* is *a group*.
+    *a thing* is of metal clad with precious metal.
+    *a thing* contains precious metal beyond minor constituents.
+    *a thing* is of base metal.
+    *a thing* incorporates pearls.
+    *a thing* incorporates stones.
+    *a thing* incorporates pearls or stones.
+    *a good* is an article of jewelry.
+    *a good* is an article of jewelry or a part thereof.
+    *a good* is an article of chapter seventy-one.
+    *a good* is imitation jewelry.
+    the gem class of *a good* is *a class*.
+    the gem state of *a good* is *a state*.
+    the metal class of *a good* is *a class*.
+    the metal form of *a good* is *a form*.
+    the article class of *a good* in heading *a heading* is *a class*.
+    the subheading in heading *a heading* for *a class* in state *a state* is *a code* under table gems.
+    the subheading in heading *a heading* for *a class* in form *a form* is *a code* under table metals.
+    the subheading in heading *a heading* for *a class* is *a code* under table articles.
+
+% ---------------------------------------------------------------------------
+% GRI 6 for pearls and stones (7101-7105): the class of the gem (its group;
+% for diamonds, unsorted or industrial) and whether it is worked. First
+% match: an "any" row is the series' "Other".
+% ---------------------------------------------------------------------------
+% the six-digit subheadings of headings 7101 to 7105
+the table gems is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class                  | state    | code      | as stated in HTSUS Section XIV and Chapter 71
+    g1  | 7101    | natural pearl          | any      | "7101.10" | "Natural pearls: 7101.10"
+    g2  | 7101    | cultured pearl         | unworked | "7101.21" | "7101.21.00"
+    g3  | 7101    | cultured pearl         | any      | "7101.22" | "Worked: 7101.22"
+    g4  | 7102    | unsorted diamond       | any      | "7102.10" | "7102.10.00"
+    g5  | 7102    | industrial diamond     | unworked | "7102.21" | "Unworked or simply sawn, cleaved or bruted: 7102.21"
+    g6  | 7102    | industrial diamond     | any      | "7102.29" | "7102.29.00"
+    g7  | 7102    | any                    | unworked | "7102.31" | "7102.31.00"
+    g8  | 7102    | any                    | any      | "7102.39" | "7102.39.00"
+    g9  | 7103    | any                    | unworked | "7103.10" | "Unworked or simply sawn or roughly shaped: 7103.10"
+    g10 | 7103    | ruby sapphire emerald  | any      | "7103.91" | "7103.91.00"
+    g11 | 7103    | any                    | any      | "7103.99" | "Other: 7103.99"
+    g12 | 7104    | piezo-electric quartz  | any      | "7104.10" | "7104.10.00"
+    g13 | 7104    | synthetic diamond      | unworked | "7104.21" | "7104.21.00"
+    g14 | 7104    | any                    | unworked | "7104.29" | "7104.29.00"
+    g15 | 7104    | synthetic diamond      | any      | "7104.91" | "Diamonds: 7104.91"
+    g16 | 7104    | any                    | any      | "7104.99" | "Other: 7104.99"
+    g17 | 7105    | diamond or unsorted diamond or industrial diamond or synthetic diamond | any | "7105.10" | "7105.10.00"
+    g18 | 7105    | any                    | any      | "7105.90" | "7105.90.00"
+
+% ---------------------------------------------------------------------------
+% GRI 6 for precious metals (7106-7112): the metal (silver, gold, platinum
+% or the platinum metal named, subheading note 3) and the form (powder,
+% subheading note 1; unwrought or semimanufactured, Additional U.S. note 1;
+% monetary gold; ash or waste).
+% ---------------------------------------------------------------------------
+% the six-digit subheadings of headings 7106 to 7112
+the table metals is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class                          | form                 | code      | as stated in HTSUS Section XIV and Chapter 71
+    m1  | 7106    | any                            | powder               | "7106.10" | "7106.10.00"
+    m2  | 7106    | any                            | unwrought            | "7106.91" | "Unwrought: 7106.91"
+    m3  | 7106    | any                            | any                  | "7106.92" | "Semimanufactured: 7106.92"
+    m4  | 7107    | any                            | any                  | "7107.00" | "7107.00.00"
+    m5  | 7108    | any                            | monetary             | "7108.20" | "7108.20.00"
+    m6  | 7108    | any                            | powder               | "7108.11" | "7108.11.00"
+    m7  | 7108    | any                            | unwrought            | "7108.12" | "Other unwrought forms: 7108.12"
+    m8  | 7108    | any                            | any                  | "7108.13" | "Other semimanufactured forms: 7108.13"
+    m9  | 7109    | any                            | any                  | "7109.00" | "7109.00.00"
+    m10 | 7110    | platinum                       | unwrought or powder  | "7110.11" | "7110.11.00"
+    m11 | 7110    | platinum                       | any                  | "7110.19" | "7110.19.00"
+    m12 | 7110    | palladium                      | unwrought or powder  | "7110.21" | "7110.21.00"
+    m13 | 7110    | palladium                      | any                  | "7110.29" | "7110.29.00"
+    m14 | 7110    | rhodium                        | unwrought or powder  | "7110.31" | "7110.31.00"
+    m15 | 7110    | rhodium                        | any                  | "7110.39" | "7110.39.00"
+    m16 | 7110    | iridium or osmium or ruthenium | unwrought or powder  | "7110.41" | "7110.41.00"
+    m17 | 7110    | iridium or osmium or ruthenium | any                  | "7110.49" | "7110.49.00"
+    m18 | 7111    | any                            | any                  | "7111.00" | "7111.00.00"
+    m19 | 7112    | any                            | ash                  | "7112.30" | "7112.30.01"
+    m20 | 7112    | gold                           | any                  | "7112.91" | "7112.91.01"
+    m21 | 7112    | platinum or palladium or rhodium or iridium or osmium or ruthenium | any | "7112.92" | "7112.92.01"
+    m22 | 7112    | any                            | any                  | "7112.99" | "7112.99.01"
+
+% ---------------------------------------------------------------------------
+% GRI 6 for the articles (7113-7118): the class each heading's subheadings
+% name — the precious metal of a jewel or a ware, pearls or stones, base
+% metal or other materials for imitation jewelry, coin that is not legal
+% tender.
+% ---------------------------------------------------------------------------
+% the six-digit subheadings of headings 7113 to 7118
+the table articles is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class                  | code      | as stated in HTSUS Section XIV and Chapter 71
+    a1  | 7113    | silver                 | "7113.11" | "Of silver, whether or not plated or clad with other precious metal: 7113.11"
+    a2  | 7113    | clad                   | "7113.20" | "Of base metal clad with precious metal: 7113.20"
+    a3  | 7113    | other precious metal   | "7113.19" | "Of other precious metal, whether or not plated or clad with precious metal: 7113.19"
+    a4  | 7114    | silver                 | "7114.11" | "Of silver, whether or not plated or clad with other precious metal: 7114.11"
+    a5  | 7114    | clad                   | "7114.20" | "7114.20.00"
+    a6  | 7114    | other precious metal   | "7114.19" | "7114.19.00"
+    a7  | 7115    | catalyst               | "7115.10" | "7115.10.00"
+    a8  | 7115    | any                    | "7115.90" | "Other: 7115.90"
+    a9  | 7116    | pearl                  | "7116.10" | "Of natural or cultured pearls: 7116.10"
+    a10 | 7116    | stone                  | "7116.20" | "Of precious or semiprecious stones (natural, synthetic or reconstructed): 7116.20"
+    a11 | 7117    | cuff link              | "7117.11" | "7117.11.00"
+    a12 | 7117    | base metal             | "7117.19" | "Other: 7117.19"
+    a13 | 7117    | other materials        | "7117.90" | "Other: 7117.90"
+    a14 | 7118    | coin not legal tender  | "7118.10" | "7118.10.00"
+    a15 | 7118    | any                    | "7118.90" | "7118.90.00"
+
+the knowledge base chapter 71 includes these resources:
+    chapter_39.
+
+the knowledge base chapter 71 includes:
+
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+HTSUS Section XV is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2072#page=1".
+the text of HTSUS Section XV is at "sources/hts/section_xv.txt".
+the CN explanatory notes to Chapter 71 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 71 is at "sources/eu/cn_en_ch71.txt".
+the jewelry publication is published at "https://www.cbp.gov/sites/default/files/assets/documents/2020-Feb/ICP-Articles-of-Wax-Artificial-Stone-Jewelry-2010-Final.pdf".
+the text of the jewelry publication is at "sources/cbp_icp/wax_artificial_stone_jewelry.txt".
+ruling HQ H328582 is published at "https://rulings.cbp.gov/ruling/H328582".
+the text of ruling HQ H328582 is at "sources/cbp/H328582.txt".
+ruling HQ H236523 is published at "https://rulings.cbp.gov/ruling/H236523".
+the text of ruling HQ H236523 is at "sources/cbp/H236523.txt".
+ruling HQ 967922 is published at "https://rulings.cbp.gov/ruling/967922".
+the text of ruling HQ 967922 is at "sources/cbp/967922.txt".
+ruling NY N073978 is published at "https://rulings.cbp.gov/ruling/N073978".
+the text of ruling NY N073978 is at "sources/cbp/N073978.txt".
+ruling NY N088048 is published at "https://rulings.cbp.gov/ruling/N088048".
+the text of ruling NY N088048 is at "sources/cbp/N088048.txt".
+ruling NY N101257 is published at "https://rulings.cbp.gov/ruling/N101257".
+the text of ruling NY N101257 is at "sources/cbp/N101257.txt".
+ruling NY N343561 is published at "https://rulings.cbp.gov/ruling/N343561".
+the text of ruling NY N343561 is at "sources/cbp/N343561.txt".
+ruling NY N343560 is published at "https://rulings.cbp.gov/ruling/N343560".
+the text of ruling NY N343560 is at "sources/cbp/N343560.txt".
+ruling NY N325089 is published at "https://rulings.cbp.gov/ruling/N325089".
+the text of ruling NY N325089 is at "sources/cbp/N325089.txt".
+ruling NY N338215 is published at "https://rulings.cbp.gov/ruling/N338215".
+the text of ruling NY N338215 is at "sources/cbp/N338215.txt".
+ruling NY N151556 is published at "https://rulings.cbp.gov/ruling/N151556".
+the text of ruling NY N151556 is at "sources/cbp/N151556.txt".
+ruling NY R03173 is published at "https://rulings.cbp.gov/ruling/R03173".
+the text of ruling NY R03173 is at "sources/cbp/R03173.txt".
+ruling NY N325664 is published at "https://rulings.cbp.gov/ruling/N325664".
+the text of ruling NY N325664 is at "sources/cbp/N325664.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: the goods of the chapter's families, and the forms
+% of precious metal, waste and dust that carry precious metal or gems.
+% ---------------------------------------------------------------------------
+
+% the model covers the articles, gems and coin of Chapter 71
+rule precious_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter seventy-one goods.
+
+% the model covers precious metal in a form of Additional U.S. note 1, and
+% precious metal waste and scrap
+rule precious_scope_metal:
+a good is a good the model describes
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the good contains precious metal beyond minor constituents.
+
+% the model covers dust and powder of gems
+rule precious_scope_dust:
+a good is a good the model describes
+    if the kind of the good is a kind
+    and the kind is in [dust, powder]
+    and the good incorporates pearls or stones.
+
+jewelry is a family of chapter seventy-one goods,
+    as stated in HTSUS Section XIV and Chapter 71, confer "the expression \"articles of jewelry\" means".
+personal article is a family of chapter seventy-one goods,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Articles of personal use of a kind normally carried in the pocket, in the handbag or on the person".
+jewelry part is a family of chapter seventy-one goods,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Articles of jewelry and parts thereof, of precious metal or of metal clad with precious metal".
+goldsmiths ware is a family of chapter seventy-one goods,
+    as stated in HTSUS Section XIV and Chapter 71, confer "the expression \"articles of goldsmiths' or silversmiths' wares\" includes such articles as".
+loose gem is a family of chapter seventy-one goods,
+    as stated in HTSUS Section XIV and Chapter 71, confer "whether or not worked or graded but not strung, mounted or set".
+coin is a family of chapter seventy-one goods,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Coin (other than gold coin), not being legal tender".
+
+% The kinds of the chapter's goods and their families. Note 9(a): small
+% objects of personal adornment; note 9(b): articles of personal use carried
+% on the person; note 10: goldsmiths' and silversmiths' wares; the parts the
+% subheadings of 7113 name; loose pearls and stones; coin.
+ring falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+bracelet falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+necklace falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+brooch falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+earring falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+watch chain falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+fob falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+pendant falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+tie pin falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+cuff link falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+dress stud falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+medal falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+insignia falls in the family jewelry, as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+cigarette case falls in the family personal article, as stated in HTSUS Section XIV and Chapter 71, confer "cigar or cigarette cases, snuff boxes, cachou or pill boxes, powder boxes, chain purses or prayer beads".
+snuff box falls in the family personal article, as stated in HTSUS Section XIV and Chapter 71, confer "cigar or cigarette cases, snuff boxes, cachou or pill boxes, powder boxes, chain purses or prayer beads".
+pill box falls in the family personal article, as stated in HTSUS Section XIV and Chapter 71, confer "cigar or cigarette cases, snuff boxes, cachou or pill boxes, powder boxes, chain purses or prayer beads".
+powder box falls in the family personal article, as stated in HTSUS Section XIV and Chapter 71, confer "cigar or cigarette cases, snuff boxes, cachou or pill boxes, powder boxes, chain purses or prayer beads".
+chain purse falls in the family personal article, as stated in HTSUS Section XIV and Chapter 71, confer "cigar or cigarette cases, snuff boxes, cachou or pill boxes, powder boxes, chain purses or prayer beads".
+prayer beads falls in the family personal article, as stated in HTSUS Section XIV and Chapter 71, confer "cigar or cigarette cases, snuff boxes, cachou or pill boxes, powder boxes, chain purses or prayer beads".
+clasp falls in the family jewelry part, as stated in HTSUS Section XIV and Chapter 71, confer "Clasps and parts thereof".
+jewelry chain falls in the family jewelry part, as stated in HTSUS Section XIV and Chapter 71, confer "Rope, curb, cable, chain and similar articles produced in continuous lengths".
+tableware falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "ornaments, tableware, toilet-ware, smokers' articles and other articles of household, office or religious use".
+toilet ware falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "ornaments, tableware, toilet-ware, smokers' articles and other articles of household, office or religious use".
+smokers article falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "ornaments, tableware, toilet-ware, smokers' articles and other articles of household, office or religious use".
+knife falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "Knives with silver handles".
+fork falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "Forks with silver handles".
+spoon falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "Spoons and ladles".
+ladle falls in the family goldsmiths ware, as stated in HTSUS Section XIV and Chapter 71, confer "Spoons and ladles".
+gemstone falls in the family loose gem, as stated in HTSUS Section XIV and Chapter 71, confer "whether or not worked or graded but not strung, mounted or set".
+stone falls in the family loose gem, as stated in HTSUS Section XIV and Chapter 71, confer "whether or not worked or graded but not strung, mounted or set".
+pearl falls in the family loose gem, as stated in HTSUS Section XIV and Chapter 71, confer "Pearls, natural or cultured, whether or not worked or graded but not strung, mounted or set".
+coin falls in the family coin, as stated in HTSUS Section XIV and Chapter 71, confer "Coin (other than gold coin), not being legal tender".
+
+% The forms of precious metal (Additional U.S. note 1; subheading note 1)
+ingot is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of ingots, blocks, lumps, billets, cakes, slabs".
+block is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of ingots, blocks, lumps, billets, cakes, slabs".
+lump is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of ingots, blocks, lumps, billets, cakes, slabs".
+billet is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of ingots, blocks, lumps, billets, cakes, slabs".
+slab is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of ingots, blocks, lumps, billets, cakes, slabs".
+grain is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "sticks, grains, sponge, pellets, shot".
+sponge is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "sticks, grains, sponge, pellets, shot".
+shot is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "sticks, grains, sponge, pellets, shot".
+bullion is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "Bullion and dore".
+dore is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "Bullion and dore".
+nugget is a form of metal unwrought, as stated in HTSUS Section XIV and Chapter 71, confer "Grain and nuggets of the metal platinum".
+bar is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of bars, rods, sections, plates, sheets, strips".
+rod is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of bars, rods, sections, plates, sheets, strips".
+plate is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of bars, rods, sections, plates, sheets, strips".
+sheet is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of bars, rods, sections, plates, sheets, strips".
+strip is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "in the form of bars, rods, sections, plates, sheets, strips".
+wire is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "wire, tubes, pipes and hollow bars".
+tube is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "wire, tubes, pipes and hollow bars".
+foil is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "The term \"semimanufactured\" refers to wrought metal products".
+leaf is a form of metal semimanufactured, as stated in HTSUS Section XIV and Chapter 71, confer "Gold leaf".
+powder is a form of metal powder, as stated in HTSUS Section XIV and Chapter 71, confer "the expressions \"powder\" and \"in powder form\" mean products of which 90 percent or more by weight passes through a sieve".
+waste is a form of metal waste, as stated in HTSUS Section XIV and Chapter 71, confer "Waste and scrap of precious metal or of metal clad with precious metal".
+scrap is a form of metal waste, as stated in HTSUS Section XIV and Chapter 71, confer "Waste and scrap of precious metal or of metal clad with precious metal".
+ash is a form of metal ash, as stated in HTSUS Section XIV and Chapter 71, confer "Ash containing precious metal or precious metal compounds".
+
+% ---------------------------------------------------------------------------
+% Precious metal. Note 4: silver, gold and platinum, and platinum includes
+% iridium, osmium, palladium, rhodium and ruthenium. Note 5: an alloy with 2
+% percent of a precious metal is an alloy of precious metal — of platinum
+% first, then of gold, then of silver. Note 6: plating is not precious metal.
+% ---------------------------------------------------------------------------
+
+silver is a precious metal of the group silver,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"precious metal\" means silver, gold and platinum".
+gold is a precious metal of the group gold,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"precious metal\" means silver, gold and platinum".
+platinum is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"precious metal\" means silver, gold and platinum".
+iridium is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"platinum\" means platinum, iridium, osmium, palladium, rhodium and ruthenium".
+osmium is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"platinum\" means platinum, iridium, osmium, palladium, rhodium and ruthenium".
+palladium is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"platinum\" means platinum, iridium, osmium, palladium, rhodium and ruthenium".
+rhodium is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"platinum\" means platinum, iridium, osmium, palladium, rhodium and ruthenium".
+ruthenium is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "The expression \"platinum\" means platinum, iridium, osmium, palladium, rhodium and ruthenium".
+platinum alloy is a precious metal of the group platinum,
+    as stated in HTSUS Section XIV and Chapter 71, confer "An alloy containing 2 percent or more, by weight, of platinum is to be treated as an alloy of platinum".
+gold alloy is a precious metal of the group gold,
+    as stated in HTSUS Section XIV and Chapter 71, confer "An alloy containing 2 percent or more, by weight, of gold but no platinum, or less than 2 percent, by weight, of platinum, is to be treated as an alloy of gold".
+silver alloy is a precious metal of the group silver,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Other alloys containing 2 percent or more, by weight, of silver are to be treated as alloys of silver".
+
+% The base metals (Section XV note 3) and alloys of them (Section XV note 5;
+% Chapter 72 note 1(e), stainless steel; Chapter 74, brass and bronze)
+iron is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+steel is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+copper is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+nickel is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+aluminum is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+lead is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+zinc is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+tin is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+tungsten is a base metal, as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel, aluminum, lead, zinc, tin, tungsten".
+titanium is a base metal, as stated in HTSUS Section XV, confer "magnesium, cobalt, bismuth, cadmium, titanium, zirconium".
+stainless steel is a base metal, as stated in HTSUS Section XV, confer "Stainless steel".
+zinc alloy is a base metal, as stated in HTSUS Section XV, confer "An alloy of base metals is to be classified as an alloy of the metal which predominates by weight over each of the other metals".
+brass is a base metal, as stated in HTSUS Section XV, confer "Copper-zinc base alloys (brasses)".
+bronze is a base metal, as stated in HTSUS Section XV, confer "Copper-tin base alloys (bronzes)".
+
+rule note_71_4_metal with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of precious metal or of metal clad with precious metal, are to be classified in this chapter":
+a thing has precious metal of the group a group
+    if the metal of the thing is a metal
+    and the metal is a precious metal of the group the group
+    and it is not the case that
+        the thing has precious metal only as minor constituents.
+
+% Note 5 read on a composition the ruling states
+rule note_71_5_share with provenance HTSUS Section XIV and Chapter 71,
+        confer "any alloy (including a sintered mixture and an inter-metallic compound) containing precious metal is to be treated as an alloy of precious metal if any one precious metal constitutes as much as 2 percent, by weight, of the alloy":
+a thing has precious metal of the group a group
+    if the thing contains a number percent of a metal
+    and the metal is a precious metal of the group the group
+    and the number >= 2
+    and it is not the case that
+        the thing has precious metal only as minor constituents.
+
+% a part of precious metal: a silver post on brass earrings (CBP, NY N151556)
+rule note_71_1_partly with provenance HTSUS Section XIV and Chapter 71,
+        confer "all articles consisting wholly or partly":
+a thing has precious metal of the group a group
+    if a component is a component of the thing
+    and the component has precious metal of the group the group.
+
+rule note_71_5a with provenance HTSUS Section XIV and Chapter 71,
+        confer "An alloy containing 2 percent or more, by weight, of platinum is to be treated as an alloy of platinum":
+the precious metal group of a thing is platinum
+    if the thing has precious metal of the group platinum.
+
+rule note_71_5b with provenance HTSUS Section XIV and Chapter 71,
+        confer "An alloy containing 2 percent or more, by weight, of gold but no platinum, or less than 2 percent, by weight, of platinum, is to be treated as an alloy of gold":
+the precious metal group of a thing is gold
+    if the thing has precious metal of the group gold
+    and it is not the case that
+        the thing has precious metal of the group platinum.
+
+rule note_71_5c with provenance HTSUS Section XIV and Chapter 71,
+        confer "Other alloys containing 2 percent or more, by weight, of silver are to be treated as alloys of silver":
+the precious metal group of a thing is silver
+    if the thing has precious metal of the group silver
+    and it is not the case that
+        the thing has precious metal of the group gold
+    and it is not the case that
+        the thing has precious metal of the group platinum.
+
+% Note 7: a covering of precious metal affixed by mechanical means; note 6:
+% plating is not. A body of precious metal clad with another precious metal
+% stays of precious metal ("whether or not plated or clad").
+rule note_71_7 with provenance HTSUS Section XIV and Chapter 71,
+        confer "the expression \"metal clad with precious metal\" means material made with a base of metal upon one or more surfaces of which there is affixed by soldering, brazing, welding, hot-rolling or similar mechanical means a covering of precious metal":
+a thing is of metal clad with precious metal
+    if the thing is clad with a metal
+    and the metal is a precious metal of the group a group
+    and it is not the case that
+        the thing has precious metal of the group an other group
+    and it is not the case that
+        the thing has precious metal only as minor constituents.
+
+rule note_71_7_partly with provenance HTSUS Section XIV and Chapter 71,
+        confer "all articles consisting wholly or partly":
+a thing is of metal clad with precious metal
+    if a component is a component of the thing
+    and the component is of metal clad with precious metal.
+
+% Note 2(a): precious metal present as minor constituents only does not count
+rule note_71_2a_metal with provenance HTSUS Section XIV and Chapter 71,
+        confer "do not cover articles in which precious metal or metal clad with precious metal is present as minor constituents only":
+a thing contains precious metal beyond minor constituents
+    if the thing has precious metal of the group a group.
+
+rule note_71_2a_clad with provenance HTSUS Section XIV and Chapter 71,
+        confer "do not cover articles in which precious metal or metal clad with precious metal is present as minor constituents only":
+a thing contains precious metal beyond minor constituents
+    if the thing is of metal clad with precious metal.
+
+% Of base metal: what the good is classified as consisting of (GRI 3(b))
+% has a body of base metal, whether or not plated with precious metal
+rule base_metal_body with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of base metal, whether or not plated with precious metal":
+a thing is of base metal
+    if the metal of the thing is a metal
+    and the metal is a base metal.
+
+% ---------------------------------------------------------------------------
+% Pearls and stones (note 1(a)): natural or cultured pearls, precious or
+% semiprecious stones, natural, synthetic or reconstructed. Imitation pearls
+% and imitation stones (glass, plastics) are not gems of the chapter.
+% ---------------------------------------------------------------------------
+
+natural pearl is a gem of the group natural pearl,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Natural pearls".
+cultured pearl is a gem of the group cultured pearl,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Cultured pearls".
+diamond is a gem of the group diamond,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Diamonds, whether or not worked, but not mounted or set".
+ruby is a gem of the group ruby sapphire emerald,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Rubies, sapphires and emeralds".
+sapphire is a gem of the group ruby sapphire emerald,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Rubies, sapphires and emeralds".
+emerald is a gem of the group ruby sapphire emerald,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Rubies, sapphires and emeralds".
+onyx is a gem of the group natural stone,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+tiger eye is a gem of the group natural stone,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+jasper is a gem of the group natural stone,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+jade is a gem of the group natural stone,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+amazonite is a gem of the group natural stone,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+rhodonite is a gem of the group natural stone,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+marcasite is a gem of the group natural stone,
+    as stated in ruling NY N101257, confer "semi-precious stones of Cubic Zirconia (CZ) and Marcasite".
+semiprecious stone is a gem of the group natural stone,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Precious stones (other than diamonds) and semiprecious stones".
+synthetic diamond is a gem of the group synthetic diamond,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Synthetic or reconstructed precious or semiprecious stones".
+synthetic ruby is a gem of the group synthetic stone,
+    as stated in ruling NY N073978, confer "For tariff purposes a created ruby falls under the heading description “of precious or semiprecious stones (natural, synthetic or reconstructed.)”".
+cubic zirconia is a gem of the group synthetic stone,
+    as stated in ruling HQ H328582, confer "that cubic zirconia qualifies as a semi-precious stone for tariff classification purposes".
+synthetic stone is a gem of the group synthetic stone,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Synthetic or reconstructed precious or semiprecious stones".
+piezo-electric quartz is a gem of the group piezo-electric quartz,
+    as stated in HTSUS Section XIV and Chapter 71, confer "Piezo-electric quartz".
+
+natural pearl is a gem group of heading 7101, as stated in HTSUS Section XIV and Chapter 71, confer "Pearls, natural or cultured, whether or not worked or graded".
+cultured pearl is a gem group of heading 7101, as stated in HTSUS Section XIV and Chapter 71, confer "Pearls, natural or cultured, whether or not worked or graded".
+diamond is a gem group of heading 7102, as stated in HTSUS Section XIV and Chapter 71, confer "Diamonds, whether or not worked, but not mounted or set".
+ruby sapphire emerald is a gem group of heading 7103, as stated in HTSUS Section XIV and Chapter 71, confer "Precious stones (other than diamonds) and semiprecious stones".
+natural stone is a gem group of heading 7103, as stated in HTSUS Section XIV and Chapter 71, confer "Precious stones (other than diamonds) and semiprecious stones".
+synthetic diamond is a gem group of heading 7104, as stated in HTSUS Section XIV and Chapter 71, confer "Synthetic or reconstructed precious or semiprecious stones".
+synthetic stone is a gem group of heading 7104, as stated in HTSUS Section XIV and Chapter 71, confer "Synthetic or reconstructed precious or semiprecious stones".
+piezo-electric quartz is a gem group of heading 7104, as stated in HTSUS Section XIV and Chapter 71, confer "Piezo-electric quartz".
+
+natural pearl is a group of pearls, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones".
+cultured pearl is a group of pearls, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones".
+diamond is a group of stones, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed)".
+ruby sapphire emerald is a group of stones, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed)".
+natural stone is a group of stones, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed)".
+synthetic diamond is a group of stones, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed)".
+synthetic stone is a group of stones, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed)".
+piezo-electric quartz is a group of stones, as stated in HTSUS Section XIV and Chapter 71, confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed)".
+
+rule note_71_1a_pearls with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed), or":
+a thing incorporates pearls
+    if the gem of the thing is a gem
+    and the gem is a gem of the group a group
+    and the group is a group of pearls.
+
+rule note_71_1a_stones with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed), or":
+a thing incorporates stones
+    if the gem of the thing is a gem
+    and the gem is a gem of the group a group
+    and the group is a group of stones.
+
+% a part with a gem: the article incorporates it ("An article of personal
+% adornment to which at least one cubic zirconia is affixed", CBP HQ H328582)
+rule gem_part_pearls with provenance ruling HQ H328582,
+        confer "An article of personal adornment to which at least one cubic zirconia is affixed can therefore be described as a product of heading 7116":
+a thing incorporates pearls
+    if a component is a component of the thing
+    and the component incorporates pearls.
+
+rule gem_part_stones with provenance ruling HQ H328582,
+        confer "An article of personal adornment to which at least one cubic zirconia is affixed can therefore be described as a product of heading 7116":
+a thing incorporates stones
+    if a component is a component of the thing
+    and the component incorporates stones.
+
+rule note_71_1a_pearls_or_stones with provenance HTSUS Section XIV and Chapter 71,
+        confer "all articles consisting wholly or partly":
+a thing incorporates pearls or stones
+    if the thing incorporates pearls.
+
+rule note_71_1a_stones_or_pearls with provenance HTSUS Section XIV and Chapter 71,
+        confer "all articles consisting wholly or partly":
+a thing incorporates pearls or stones
+    if the thing incorporates stones.
+
+% ---------------------------------------------------------------------------
+% Articles. Note 9(a): small objects of personal adornment. Worn as jewelry:
+% an article the office finds is not principally used to adorn the body is
+% no article of jewelry (CBP, HQ 967922, a flower bracelet for a corsage).
+% ---------------------------------------------------------------------------
+
+rule note_71_9a with provenance HTSUS Section XIV and Chapter 71,
+        confer "Any small objects of personal adornment":
+a good is an article of jewelry
+    if the family of the good is jewelry
+    and it is not the case that
+        the good is not principally used to adorn the body.
+
+rule note_71_9a_article with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of jewelry and parts thereof":
+a good is an article of jewelry or a part thereof
+    if the good is an article of jewelry.
+
+rule note_71_9a_part with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of jewelry and parts thereof":
+a good is an article of jewelry or a part thereof
+    if the family of the good is jewelry part.
+
+% the goods that can be articles of pearls or stones (heading 7116): the
+% chapter's articles, and any manufactured article (note 1) — not a loose
+% gem, not dust or powder
+rule article_71_family with provenance HTSUS Section XIV and Chapter 71,
+        confer "all articles consisting wholly or partly":
+a good is an article of chapter seventy-one
+    if the family of the good is a family
+    and the family is in [jewelry, jewelry part, personal article, goldsmiths ware].
+
+rule article_71_manufactured with provenance HTSUS Section XIV and Chapter 71,
+        confer "all articles consisting wholly or partly":
+a good is an article of chapter seventy-one
+    if the good is a manufactured article
+    and it is not the case that
+        the family of the good is loose gem
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is in [dust, powder].
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1).
+% ---------------------------------------------------------------------------
+
+% headings 7101 to 7104: a loose pearl or stone, in the heading of its group
+rule heading_loose_gem with provenance HTSUS Section XIV and Chapter 71,
+        confer "whether or not worked or graded but not strung, mounted or set":
+a good is described by heading a heading
+    if the family of the good is loose gem
+    and the gem of the good is a gem
+    and the gem is a gem of the group a group
+    and the group is a gem group of heading the heading.
+
+rule heading_7105 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Dust and powder of natural or synthetic precious or semi- precious stones":
+a good is described by heading 7105
+    if the kind of the good is a kind
+    and the kind is in [dust, powder]
+    and the good incorporates stones.
+
+% headings 7106, 7108 and 7110: the precious metal itself, unwrought, semi-
+% manufactured or in powder; silver plated with gold stays silver, gold
+% plated with platinum stays gold
+rule heading_7106 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Silver (including silver plated with gold or platinum), unwrought or in semimanufactured forms, or in powder form":
+a good is described by heading 7106
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [unwrought, semimanufactured, powder]
+    and the precious metal group of the good is silver
+    and it is not the case that
+        the good is clad with a metal
+        and the metal is a precious metal of the group a group.
+
+rule heading_7108 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Gold (including gold plated with platinum) unwrought or in semi-manufactured forms, or in powder form":
+a good is described by heading 7108
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [unwrought, semimanufactured, powder]
+    and the precious metal group of the good is gold
+    and it is not the case that
+        the good is clad with a metal
+        and the metal is a precious metal of the group platinum.
+
+rule heading_7110 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Platinum, unwrought or in semimanufactured forms, or in powder form":
+a good is described by heading 7110
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [unwrought, semimanufactured, powder]
+    and the precious metal group of the good is platinum.
+
+% headings 7107, 7109 and 7111: metal clad with precious metal, not further
+% worked than semimanufactured (note 7)
+rule heading_7107 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Base metals clad with silver, not further worked than semi- manufactured":
+a good is described by heading 7107
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [unwrought, semimanufactured]
+    and the good is of metal clad with precious metal
+    and the good is clad with a metal
+    and the metal is a precious metal of the group silver.
+
+rule heading_7109 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Base metals or silver, clad with gold, not further worked than semimanufactured":
+a good is described by heading 7109
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [unwrought, semimanufactured]
+    and the good is clad with a metal
+    and the metal is a precious metal of the group gold
+    and it is not the case that
+        the precious metal group of the good is a group
+        and the group is in [gold, platinum].
+
+rule heading_7111 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Base metals, silver or gold, clad with platinum, not further worked than semimanufactured":
+a good is described by heading 7111
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [unwrought, semimanufactured]
+    and the good is clad with a metal
+    and the metal is a precious metal of the group platinum
+    and it is not the case that
+        the precious metal group of the good is platinum.
+
+% heading 7112: waste and scrap, and ash, containing precious metal
+rule heading_7112 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Waste and scrap of precious metal or of metal clad with precious metal; other waste and scrap containing precious metal or precious metal compounds, of a kind used principally for the recovery of precious metal":
+a good is described by heading 7112
+    if the kind of the good is a kind
+    and the kind is a form of metal a form
+    and the form is in [waste, ash]
+    and the good contains precious metal beyond minor constituents.
+
+% Note 8: goods of heading 7112 are of that heading and of no other (in the
+% model, no other heading of this chapter: an article of another chapter that
+% contains precious metal is already sent here by note 1, below)
+rule note_71_8_before with provenance HTSUS Section XIV and Chapter 71,
+        confer "goods answering to a description in heading 7112 are to be classified in that heading and in no other heading of the tariff schedule":
+a good is excluded from heading a heading
+    if the heading >= 7101
+    and the heading < 7112
+    and the good is described by heading 7112.
+
+rule note_71_8_after with provenance HTSUS Section XIV and Chapter 71,
+        confer "goods answering to a description in heading 7112 are to be classified in that heading and in no other heading of the tariff schedule":
+a good is excluded from heading a heading
+    if the heading > 7112
+    and the heading <= 7118
+    and the good is described by heading 7112.
+
+% heading 7113: articles of jewelry (note 9(a) and (b)) and parts thereof,
+% of precious metal or of metal clad with precious metal beyond minor
+% constituents (note 2(a))
+rule heading_7113 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of jewelry and parts thereof, of precious metal or of metal clad with precious metal":
+a good is described by heading 7113
+    if the good is an article of jewelry or a part thereof
+    and the good contains precious metal beyond minor constituents.
+
+rule heading_7113_personal with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of personal use of a kind normally carried in the pocket, in the handbag or on the person":
+a good is described by heading 7113
+    if the family of the good is personal article
+    and the good contains precious metal beyond minor constituents.
+
+% heading 7114: goldsmiths' and silversmiths' wares (note 10)
+rule heading_7114 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of goldsmiths' or silversmiths' wares and parts thereof, of precious metal or of metal clad with precious metal":
+a good is described by heading 7114
+    if the family of the good is goldsmiths ware
+    and the good contains precious metal beyond minor constituents.
+
+% heading 7115: other articles of precious metal (any manufactured article)
+rule heading_7115 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Other articles of precious metal or of metal clad with precious metal":
+a good is described by heading 7115
+    if the good is a manufactured article
+    and the good contains precious metal beyond minor constituents.
+
+% heading 7116: articles of pearls or stones; note 2(b): not with precious
+% metal beyond minor constituents
+rule heading_7116 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of natural or cultured pearls, precious or semiprecious stones (natural, synthetic or reconstructed)":
+a good is described by heading 7116
+    if the good is an article of chapter seventy-one
+    and the good incorporates pearls or stones.
+
+rule note_71_2b with provenance HTSUS Section XIV and Chapter 71,
+        confer "Heading 7116 does not cover articles containing precious metal or metal clad with precious metal (other than as minor constituents)":
+a good is excluded from heading 7116
+    if the good contains precious metal beyond minor constituents.
+
+% heading 7117: imitation jewelry (note 11), of any material other than
+% precious metal or precious or semiprecious stones (CBP's publication)
+rule heading_7117 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Imitation jewelry: 7117":
+a good is described by heading 7117
+    if the good is imitation jewelry.
+
+% Note 11: articles of jewelry of note 9(a), not incorporating pearls or
+% stones nor (except as plating or as minor constituents) precious metal
+rule note_71_11 with provenance HTSUS Section XIV and Chapter 71,
+        confer "the expression \"imitation jewelry\" means articles of jewelry within the meaning of paragraph (a) of note 9 above (but not including buttons or other articles of heading 9606, or dress combs, hair slides or the like, or hairpins, of heading 9615), not incorporating natural or cultured pearls, precious or semiprecious stones (natural, synthetic or reconstructed) nor (except as plating or as minor constituents) precious metal or metal clad with precious metal":
+a good is imitation jewelry
+    if the good is an article of jewelry or a part thereof
+    and it is not the case that
+        the good incorporates pearls or stones
+    and it is not the case that
+        the good contains precious metal beyond minor constituents.
+
+% heading 7118: coin
+rule heading_7118 with provenance HTSUS Section XIV and Chapter 71,
+        confer "Coin (other than gold coin), not being legal tender":
+a good is described by heading 7118
+    if the family of the good is coin.
+
+% Note 3(g): goods of Section XI are not of this chapter
+rule note_71_3g with provenance HTSUS Section XIV and Chapter 71,
+        confer "Goods of section XI (textiles and textile articles)":
+a good is excluded from heading a heading
+    if the heading >= 7101
+    and the heading <= 7118
+    and the good is described by heading an other heading
+    and the other heading >= 5001
+    and the other heading <= 6310.
+
+% Chapter 39 note 2(r): imitation jewelry of heading 7117 is not of Chapter
+% 39 (CBP, HQ H236523: silicone bands worn as bracelets). Written on the
+% definition of note 11, not on heading 7117 itself, so that an exclusion
+% never rests on the absence of another exclusion.
+rule note_39_2r with provenance HTSUS Section VII and Chapter 39,
+        confer "Imitation jewelry of heading 7117":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the good is imitation jewelry.
+
+% Chapter 71 note 1: an article consisting wholly or partly of pearls,
+% stones or precious metal (beyond minor constituents, note 2(a)) is of this
+% chapter, not of Chapter 39
+rule note_71_1a with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of natural or cultured pearls or of precious or semiprecious stones (natural, synthetic or reconstructed), or":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the good incorporates pearls or stones.
+
+rule note_71_1b with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of precious metal or of metal clad with precious metal, are to be classified in this chapter":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the good contains precious metal beyond minor constituents.
+
+% GRI 3(a): 7115 ("Other articles of precious metal") is the residual heading
+% of the precious metal articles; the precious metals themselves, the
+% jewelry and the wares are named by their own headings
+rule gri_3a_7115 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading a heading is more specific than heading 7115
+    if the heading is in [7106, 7107, 7108, 7109, 7110, 7111, 7112, 7113, 7114, 7118].
+
+% ---------------------------------------------------------------------------
+% GRI 6.
+% ---------------------------------------------------------------------------
+
+rule precious_subheading_gems with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading >= 7101
+    and the heading <= 7105
+    and the gem class of the good is a class
+    and the gem state of the good is a state
+    and the subheading in heading the heading for the class in state the state is the code under table gems.
+
+rule precious_subheading_metals with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading >= 7106
+    and the heading <= 7112
+    and the metal class of the good is a class
+    and the metal form of the good is a form
+    and the subheading in heading the heading for the class in form the form is the code under table metals.
+
+rule precious_subheading_articles with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading >= 7113
+    and the heading <= 7118
+    and the article class of the good in heading the heading is a class
+    and the subheading in heading the heading for the class is the code under table articles.
+
+% The class of a gem: its group; a diamond unsorted or industrial
+rule gem_class_group with provenance HTSUS Section XIV and Chapter 71,
+        confer "Synthetic or reconstructed precious or semiprecious stones":
+the gem class of a good is a group
+    if the gem of the good is a gem
+    and the gem is a gem of the group the group
+    and it is not the case that
+        the group is diamond.
+
+rule gem_class_unsorted with provenance HTSUS Section XIV and Chapter 71,
+        confer "7102.10.00":
+the gem class of a good is unsorted diamond
+    if the gem of the good is a gem
+    and the gem is a gem of the group diamond
+    and the good is unsorted.
+
+rule gem_class_industrial with provenance HTSUS Section XIV and Chapter 71,
+        confer "Industrial: Unworked or simply sawn, cleaved or bruted":
+the gem class of a good is industrial diamond
+    if the gem of the good is a gem
+    and the gem is a gem of the group diamond
+    and it is not the case that
+        the good is unsorted
+    and the good is of industrial quality.
+
+rule gem_class_diamond with provenance HTSUS Section XIV and Chapter 71,
+        confer "Nonindustrial: Unworked or simply sawn, cleaved or bruted":
+the gem class of a good is diamond
+    if the gem of the good is a gem
+    and the gem is a gem of the group diamond
+    and it is not the case that
+        the good is unsorted
+    and it is not the case that
+        the good is of industrial quality.
+
+rule gem_state_unworked with provenance HTSUS Section XIV and Chapter 71,
+        confer "Unworked or simply sawn or roughly shaped":
+the gem state of a good is unworked
+    if the good is unworked.
+
+rule gem_state_worked with provenance HTSUS Section XIV and Chapter 71,
+        confer "Otherwise worked":
+the gem state of a good is worked
+    if the gem of the good is a gem
+    and it is not the case that
+        the good is unworked.
+
+% The class of a precious metal: the platinum metal named (subheading note
+% 3), otherwise the group of note 5; waste of metal clad with gold or
+% platinum goes with that metal
+rule metal_class_platinum_metal with provenance HTSUS Section XIV and Chapter 71,
+        confer "each alloy is to be classified with that metal, platinum, palladium, rhodium, iridium, osmium or ruthenium, which predominates by weight over each other of these metals":
+the metal class of a good is a metal
+    if the precious metal group of the good is platinum
+    and the metal of the good is the metal
+    and the metal is in [platinum, palladium, rhodium, iridium, osmium, ruthenium].
+
+rule metal_class_group with provenance HTSUS Section XIV and Chapter 71,
+        confer "The expression \"precious metal\" means silver, gold and platinum":
+the metal class of a good is a group
+    if the precious metal group of the good is the group
+    and it is not the case that
+        the metal of the good is a metal
+        and the metal is in [platinum, palladium, rhodium, iridium, osmium, ruthenium].
+
+rule metal_class_clad with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of gold, including metal clad with gold but excluding sweepings containing other precious metals":
+the metal class of a good is a group
+    if the good is of metal clad with precious metal
+    and the good is clad with a metal
+    and the metal is a precious metal of the group the group.
+
+rule metal_form_monetary with provenance HTSUS Section XIV and Chapter 71, confer "Monetary":
+the metal form of a good is monetary
+    if the good is monetary gold.
+
+rule metal_form_kind with provenance HTSUS Section XIV and Chapter 71,
+        confer "unwrought or in semimanufactured forms, or in powder form":
+the metal form of a good is a form
+    if the kind of the good is a kind
+    and the kind is a form of metal the form
+    and it is not the case that
+        the good is monetary gold.
+
+% The class an article's subheadings name. 7113 and 7114: of silver (no gold
+% or platinum), of other precious metal, or of base metal clad with
+% precious metal.
+rule article_class_silver with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of silver, whether or not plated or clad with other precious metal":
+the article class of a good in heading a heading is silver
+    if the heading is in [7113, 7114]
+    and the precious metal group of the good is silver.
+
+rule article_class_other_precious with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of other precious metal, whether or not plated or clad with precious metal":
+the article class of a good in heading a heading is other precious metal
+    if the heading is in [7113, 7114]
+    and the precious metal group of the good is a group
+    and the group is in [gold, platinum].
+
+rule article_class_clad with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of base metal clad with precious metal":
+the article class of a good in heading a heading is clad
+    if the heading is in [7113, 7114]
+    and it is not the case that
+        the precious metal group of the good is a group
+    and the good is of metal clad with precious metal.
+
+rule article_class_catalyst with provenance HTSUS Section XIV and Chapter 71,
+        confer "Catalysts in the form of wire cloth or grill, of platinum":
+the article class of a good in heading 7115 is catalyst
+    if the kind of the good is catalyst wire cloth
+    and the precious metal group of the good is platinum.
+
+rule article_class_7115_other with provenance HTSUS Section XIV and Chapter 71, confer "Other: 7115.90":
+the article class of a good in heading 7115 is other
+    if the good contains precious metal beyond minor constituents
+    and it is not the case that
+        the kind of the good is catalyst wire cloth
+        and the precious metal group of the good is platinum.
+
+% 7116: of pearls, or of stones (an article with both is left to its
+% essential character, which this model does not decide)
+rule article_class_pearl with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of natural or cultured pearls":
+the article class of a good in heading 7116 is pearl
+    if the good incorporates pearls
+    and it is not the case that
+        the good incorporates stones.
+
+rule article_class_stone with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of precious or semiprecious stones (natural, synthetic or reconstructed)":
+the article class of a good in heading 7116 is stone
+    if the good incorporates stones
+    and it is not the case that
+        the good incorporates pearls.
+
+% 7117: of base metal, whether or not plated with precious metal (cuff links
+% and studs apart), or of other materials. The material is that of what the
+% good is classified as consisting of (GRI 3(b); CBP, NY N338215: zinc and
+% resin, the base metal gives the essential character).
+rule article_class_cuff_link with provenance HTSUS Section XIV and Chapter 71,
+        confer "Cuff links and studs":
+the article class of a good in heading 7117 is cuff link
+    if the kind of the good is a kind
+    and the kind is in [cuff link, dress stud]
+    and the good is classified as consisting of a component
+    and the component is of base metal.
+
+rule article_class_base_metal with provenance HTSUS Section XIV and Chapter 71,
+        confer "Of base metal, whether or not plated with precious metal":
+the article class of a good in heading 7117 is base metal
+    if the good is classified as consisting of a component
+    and the component is of base metal
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is in [cuff link, dress stud].
+
+rule article_class_other_materials with provenance the jewelry publication,
+        confer "Heading 7117 includes imitation jewelry of any material other than precious metal or precious or semiprecious stones such as base metal, plastic, wood, etc.":
+the article class of a good in heading 7117 is other materials
+    if the good is classified as consisting of a component
+    and it is not the case that
+        the component is of base metal.
+
+rule article_class_coin with provenance HTSUS Section XIV and Chapter 71,
+        confer "Coin (other than gold coin), not being legal tender":
+the article class of a good in heading 7118 is coin not legal tender
+    if the family of the good is coin
+    and it is not the case that
+        the good is legal tender
+    and it is not the case that
+        the precious metal group of the good is gold.
+
+rule article_class_coin_other with provenance HTSUS Section XIV and Chapter 71, confer "7118.90.00":
+the article class of a good in heading 7118 is other
+    if the good is legal tender.
+
+rule article_class_gold_coin with provenance HTSUS Section XIV and Chapter 71, confer "7118.90.00":
+the article class of a good in heading 7118 is other
+    if it is not the case that
+        the good is legal tender
+    and the precious metal group of the good is gold.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling or a listing.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+% The rulings' goods (CBP: the codes the rulings give, at six digits)
+scenario rulings is:
+    % NY N343560: stud earrings, cubic zirconia set in sterling silver -> 7113.11
+    the kind of the CZ studs is earring.
+    the metal of the CZ studs is silver alloy.
+    the gem of the CZ studs is cubic zirconia.
+    % NY N325089: silver-plated base metal pendant with cubic zirconia -> 7116.20
+    the kind of the letter C pendant is pendant.
+    the metal of the letter C pendant is zinc alloy.
+    the gem of the letter C pendant is cubic zirconia.
+    % NY N338215: bangle of zinc and resin, the base metal gives the
+    % essential character -> 7117.19
+    the kind of the bangle is bracelet.
+    the bangle is a composite good.
+    the zinc part is a component of the bangle.
+    the resin part is a component of the bangle.
+    the metal of the zinc part is zinc alloy.
+    the resin part is made of plastics.
+    the essential character of the bangle is given by the zinc part,
+        according to CBP, because "the base metal component predominates in both value and weight".
+    % NY R03173: stainless steel cufflinks -> 7117.11
+    the kind of the steel cufflinks is cuff link.
+    the metal of the steel cufflinks is stainless steel.
+    % NY N325664: cultured pearl necklace on a gold clasp, the clasp a
+    % minor constituent -> 7116.10
+    the kind of the pearl necklace is necklace.
+    the gem of the pearl necklace is cultured pearl.
+    the metal of the pearl necklace is gold alloy.
+    the pearl necklace has precious metal only as minor constituents.
+    % NY N151556: brass earrings plated with gold, sterling silver posts ->
+    % 7113.11
+    the kind of the brass earrings is earring.
+    the brass flowers is a component of the brass earrings.
+    the silver posts is a component of the brass earrings.
+    the metal of the brass flowers is brass.
+    the metal of the silver posts is silver alloy.
+    subheading expects answers ["the subheading of the CZ studs is 7113.11", "the subheading of the letter C pendant is 7116.20", "the subheading of the bangle is 7117.19", "the subheading of the steel cufflinks is 7117.11", "the subheading of the pearl necklace is 7116.10", "the subheading of the brass earrings is 7113.11"].
+
+% 7113 against 7117: a ring of gold alloy, a ring of brass (plated with gold
+% or not: note 6, plating is no precious metal), a ring of brass clad with
+% gold, a ring with 95 percent of platinum
+scenario gold_rings is:
+    the kind of ring A is ring.
+    the metal of ring A is gold alloy.
+    the kind of ring B is ring.
+    the metal of ring B is brass.
+    the kind of ring C is ring.
+    the metal of ring C is brass.
+    ring C is clad with gold.
+    the kind of ring D is ring.
+    ring D contains 95 percent of platinum.
+    subheading expects answers ["the subheading of ring A is 7113.19", "the subheading of ring B is 7117.19", "the subheading of ring C is 7113.20", "the subheading of ring D is 7113.19"].
+
+% 3926 against 7117 (Chapter 39 note 2(r)): a bracelet of plastics worn as
+% jewelry is imitation jewelry; a band the office finds is not principally
+% used to adorn the body stays an article of plastics (HQ 967922)
+scenario plastics_jewelry is:
+    the kind of the acrylic bracelet is bracelet.
+    the acrylic bracelet is a manufactured article.
+    the acrylic bracelet is made of plastics.
+    the kind of the corsage band is bracelet.
+    the corsage band is a manufactured article.
+    the corsage band is made of plastics.
+    the corsage band is not principally used to adorn the body,
+        according to CBP.
+    the principal use of the corsage band is other use,
+        according to CBP.
+    subheading expects answers ["the subheading of the acrylic bracelet is 7117.90", "the subheading of the corsage band is 3926.90"].
+
+% Pearls and stones, loose
+scenario loose_gems is:
+    the kind of lot 1 is pearl.
+    the gem of lot 1 is natural pearl.
+    the kind of lot 2 is pearl.
+    the gem of lot 2 is cultured pearl.
+    lot 2 is unworked.
+    the kind of lot 3 is gemstone.
+    the gem of lot 3 is diamond.
+    the kind of lot 4 is gemstone.
+    the gem of lot 4 is diamond.
+    lot 4 is of industrial quality.
+    lot 4 is unworked.
+    the kind of lot 5 is gemstone.
+    the gem of lot 5 is sapphire.
+    the kind of lot 6 is gemstone.
+    the gem of lot 6 is tiger eye.
+    lot 6 is unworked.
+    the kind of lot 7 is gemstone.
+    the gem of lot 7 is cubic zirconia.
+    the kind of lot 8 is gemstone.
+    the gem of lot 8 is synthetic diamond.
+    the kind of lot 9 is dust.
+    the gem of lot 9 is diamond.
+    the kind of lot 10 is gemstone.
+    the gem of lot 10 is diamond.
+    lot 10 is unsorted.
+    subheading expects answers ["the subheading of lot 1 is 7101.10", "the subheading of lot 2 is 7101.21", "the subheading of lot 3 is 7102.39", "the subheading of lot 4 is 7102.21", "the subheading of lot 5 is 7103.91", "the subheading of lot 6 is 7103.10", "the subheading of lot 7 is 7104.99", "the subheading of lot 8 is 7104.91", "the subheading of lot 9 is 7105.10", "the subheading of lot 10 is 7102.10"].
+
+% Precious metals, clad metals, waste
+scenario metals is:
+    the kind of bar 1 is bullion.
+    the metal of bar 1 is silver.
+    the kind of bar 2 is sheet.
+    the metal of bar 2 is gold alloy.
+    the kind of bar 3 is sponge.
+    the metal of bar 3 is palladium.
+    the kind of bar 4 is powder.
+    the metal of bar 4 is platinum.
+    the kind of strip 5 is strip.
+    the metal of strip 5 is copper.
+    strip 5 is clad with silver.
+    the kind of strip 6 is strip.
+    the metal of strip 6 is silver.
+    strip 6 is clad with gold.
+    the kind of strip 7 is wire.
+    the metal of strip 7 is gold.
+    strip 7 is clad with platinum.
+    the kind of lot 8 is scrap.
+    the metal of lot 8 is gold alloy.
+    the kind of lot 9 is ash.
+    lot 9 contains 3 percent of silver.
+    the kind of coin 10 is ingot.
+    the metal of coin 10 is gold.
+    coin 10 is monetary gold.
+    subheading expects answers ["the subheading of bar 1 is 7106.91", "the subheading of bar 2 is 7108.13", "the subheading of bar 3 is 7110.21", "the subheading of bar 4 is 7110.11", "the subheading of strip 5 is 7107.00", "the subheading of strip 6 is 7109.00", "the subheading of strip 7 is 7111.00", "the subheading of lot 8 is 7112.91", "the subheading of lot 9 is 7112.30", "the subheading of coin 10 is 7108.20"].
+
+% Wares, other articles, coin
+scenario articles is:
+    the kind of the spoon is spoon.
+    the metal of the spoon is silver alloy.
+    the kind of case 7 is cigarette case.
+    the metal of case 7 is gold alloy.
+    the kind of the gauze is catalyst wire cloth.
+    the gauze is a manufactured article.
+    the metal of the gauze is platinum.
+    the kind of the frame is picture frame.
+    the frame is a manufactured article.
+    the metal of the frame is silver alloy.
+    the kind of the token is coin.
+    the metal of the token is nickel.
+    the kind of the eagle is coin.
+    the metal of the eagle is gold.
+    the eagle is legal tender.
+    subheading expects answers ["the subheading of the spoon is 7114.11", "the subheading of case 7 is 7113.19", "the subheading of the gauze is 7115.10", "the subheading of the frame is 7115.90", "the subheading of the token is 7118.10", "the subheading of the eagle is 7118.90"].

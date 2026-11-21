@@ -434,14 +434,21 @@ a good is a suit
 
 % A set the ruling itself calls a suit, of matching components, when it does
 % not describe what note 3(a) reads (the jacket's panels): the ruling's
-% characterisation, recorded as such ("the kind of S is suit").
+% characterisation, recorded as such ("the kind of S is suit"). Its upper
+% garment is a suit coat or jacket ("one suit coat or jacket", note 3(a)):
+% a set whose upper part is a top (an upper body garment) is not a suit,
+% whatever it is called (a shop's "Ladies Suits" of a sleeveless top and
+% trousers).
 rule suit_characterised with provenance HTSUS Chapter 61,
         confer "must be of the same fabric construction, color and composition; they must also be of the same style and of corresponding or compatible size":
 a good is a suit
     if the kind of the good is suit
     and the components of the good are matching
     and it is not the case that
-        the good is a suit of note 3.
+        the good is a suit of note 3
+    and it is not the case that
+        a component is a component of the good
+        and the component is an upper body garment.
 
 % a set (a costume of a suit, a tie and a shirtfront) whose essential
 % character the suit gives is classified as the suit (GRI 3(b))

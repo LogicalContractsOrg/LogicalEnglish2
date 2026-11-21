@@ -18,7 +18,7 @@ the target language is: prolog.
 
 the facts background includes these resources:
     background/listings, background/garments, background/articles, background/uses, background/materials,
-    background/trade_usage, background/presumptions.
+    background/jewellery, background/trade_usage, background/presumptions.
 
 the templates are:
     *a good* is classified in *a code* by *a reading*.
@@ -42,6 +42,9 @@ marketplace listings is admissible under usage reading.
 garments background is admissible under listing reading.
 garments background is admissible under presumed reading.
 garments background is admissible under usage reading.
+jewellery background is admissible under listing reading.
+jewellery background is admissible under presumed reading.
+jewellery background is admissible under usage reading.
 materials background is admissible under listing reading.
 materials background is admissible under presumed reading.
 materials background is admissible under usage reading.
@@ -86,6 +89,36 @@ scenario dress is, as stated in the listing:
     the fabric construction of dress is woven, confer "woven".
     the material that predominates by weight in dress is polyester, according to trade usage, because "first_named_predominates", confer "Material: POLYESTER,Spandex".
     readings expects answers ["dress is classified in 6204.43 by usage reading"].
+
+% A bracelet as a listing describes it ("Item Type: BRACELETS", "Metals
+% Type: Zinc Alloy", "Main Stone: cubic zirconia"), read with the jewellery
+% background: a cubic zirconia is a stone of Chapter 71 (US Customs, HQ
+% H328582), so the bracelet is no imitation jewelry but an article of stones.
+scenario bracelet is, as stated in the listing:
+    bracelet is classified under the US tariff.
+    the kind of bracelet is bracelet, according to jewellery background, because "jewellery_kind_by_field", confer "Item Type: BRACELETS".
+    bracelet is a manufactured article, according to marketplace listings, because "finished_product_field", confer "Item Type: BRACELETS".
+    the metal of bracelet is zinc alloy, according to jewellery background, because "metal_by_field", confer "Metals Type: Zinc Alloy".
+    the gem of bracelet is cubic zirconia, according to jewellery background, because "gem_by_field", confer "Main Stone: cubic zirconia".
+    readings expects answers ["bracelet is classified in 7116.20 by listing reading", "bracelet is classified in 7116.20 by presumed reading", "bracelet is classified in 7116.20 by usage reading"].
+
+% The same bracelet with no stone, of plastics: imitation jewelry (Chapter
+% 39 note 2(r) takes it out of heading 3926)
+scenario plastic_bracelet is, as stated in the listing:
+    plastic bracelet is classified under the US tariff.
+    the kind of plastic bracelet is bracelet, according to jewellery background, because "jewellery_kind_by_field", confer "Item Type: BRACELETS".
+    plastic bracelet is a manufactured article, according to marketplace listings, because "finished_product_field", confer "Item Type: BRACELETS".
+    plastic bracelet is made of plastics, according to materials background, because "plastics_by_name", confer "Material: Plastic".
+    readings expects answers ["plastic bracelet is classified in 7117.90 by listing reading", "plastic bracelet is classified in 7117.90 by presumed reading", "plastic bracelet is classified in 7117.90 by usage reading"].
+
+% A lace front wig of human hair ("Lace Wig Type: Lace Front Wigs", "Human
+% Hair Type: Brazilian Hair")
+scenario lace_wig is, as stated in the listing:
+    the lace wig is classified under the US tariff.
+    the kind of the lace wig is wig, according to jewellery background, because "jewellery_kind_by_type_field", confer "Lace Wig Type: Lace Front Wigs".
+    the lace wig is a manufactured article, according to marketplace listings, because "finished_product_field", confer "Lace Wig Type: Lace Front Wigs".
+    the hair of the lace wig is human hair, according to jewellery background, because "hair_by_human_hair_field", confer "Human Hair Type: Brazilian Hair".
+    readings expects answers ["the lace wig is classified in 6704.20 by listing reading", "the lace wig is classified in 6704.20 by presumed reading", "the lace wig is classified in 6704.20 by usage reading"].
 
 query readings is:
     which good is classified in which code by which reading.

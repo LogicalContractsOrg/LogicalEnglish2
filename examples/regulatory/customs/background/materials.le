@@ -20,6 +20,8 @@ the templates are:
     *a name* is a word for the polymer *a polymer*.
     *a name* is a word for plastics.
     *a good* is a textile article.
+    *a good* is said to be no textile.
+    the field *a field* of *a thing* reads *a value*; undefined.
     the fabric construction of *a garment* is *a construction*.
     the cut of *a garment* indicates *a gender*.
     the polymer of *a good* is *a polymer*.
@@ -27,6 +29,8 @@ the templates are:
 
 the knowledge base materials background includes:
 
+the listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the listing format is at "sources/listings/marketplace_fields.txt".
 the fibre names regulation is published at "https://eur-lex.europa.eu/eli/reg/2011/1007/oj".
 the text of the fibre names regulation is at "sources/eu/reg_1007_2011.txt".
 the textile labelling guide is published at "https://www.ftc.gov/business-guidance/resources/threading-your-way-through-labeling-requirements-under-textile-wool-acts".
@@ -460,7 +464,15 @@ a good is a textile article
 rule textile_by_cut with provenance HTSUS Section VII and Chapter 39,
         confer "does not apply to materials regarded as textile materials of Section XI":
 a good is a textile article
-    if the cut of the good indicates a gender.
+    if the cut of the good indicates a gender
+    and it is not the case that
+        the good is said to be no textile.
+
+% the seller's own word that the product is no textile (the listing format)
+rule said_no_textile with provenance the listing format,
+        confer "the seller's statement that the product is neither clothing nor a textile":
+a good is said to be no textile
+    if the field "craft of weaving" of the good reads "not clothing or textiles".
 
 rule polymer_by_name with provenance HTSUS Section VII and Chapter 39,
         confer "the expression \"plastics\" means those materials of headings 3901 to 3914":
@@ -494,8 +506,11 @@ scenario case is:
     scarf names the material "nylon".
     bead names the material "acrylic".
     lens names the material "pmma".
-    polymers expects answers ["the polymer of case is polyvinyl chloride", "the polymer of bead is acrylic polymer", "the polymer of lens is polymethyl methacrylate"].
-    plastics expects answers ["case is made of plastics", "bead is made of plastics", "lens is made of plastics"].
+    top names the material "acrylic".
+    the cut of top indicates women.
+    the field "craft of weaving" of top reads "not clothing or textiles".
+    polymers expects answers ["the polymer of case is polyvinyl chloride", "the polymer of bead is acrylic polymer", "the polymer of lens is polymethyl methacrylate", "the polymer of top is acrylic polymer"].
+    plastics expects answers ["case is made of plastics", "bead is made of plastics", "lens is made of plastics", "top is made of plastics"].
     fibres expects answers ["lycra is a word for the textile material elastane"].
     goat fibres expects answers ["mohair is a word for the textile material mohair"].
 

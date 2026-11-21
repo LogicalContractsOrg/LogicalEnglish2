@@ -1,0 +1,423 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the words of sellers for jewellery, gems, metals, wigs and hair, and
+% artificial flowers, in the words of the tariff (Chapters 67 and 71). Each
+% word cites the text that says what it means: the tariff's headings and
+% notes, the Federal Trade Commission's Jewelry Guides (16 CFR Part 23: what
+% "sterling", "14K", "gold filled", "cultured pearl", "diamond" may mean on a
+% product sold in the United States), US Customs rulings, and the description
+% of the listings' fields (sources/listings/
+% marketplace_fields_jewellery_wigs_flowers.txt) for what a field means.
+% Bridges.
+%
+% Left out, because no saved text says what the word means for the tariff:
+%   - "zircon" (a natural stone, or a seller's word for cubic zirconia?),
+%     "moissanite", "moon stone" — no ruling or guide names them;
+%   - "pearl" and "freshwater pearl" unqualified: the FTC guide forbids
+%     "pearl" for a cultured or an imitation pearl, but marketplace sellers
+%     use it for imitation pearls, and a mistake moves the good between 7116
+%     and 7117 (US Customs, NY N005326, classifies "fresh water pearl
+%     jewelry" one way "if of natural pearls" and another "if of cultured");
+%   - "silver" and "gold" unqualified: the FTC guide forbids the unqualified
+%     word "silver", and both name a colour as often as a metal; "alloy";
+%   - plating ("gold plated", "silver plated", "rhodium plated"): note 6,
+%     plating is not precious metal; the body metal decides;
+%   - "charms", "beads", "jewelry findings": a charm, a bead or a finding is
+%     no article of jewelry of note 9 by itself; US Customs classifies
+%     plastic charms and beads in 3926 (uses background) and charms on a
+%     necklace in 7117 — the word does not decide;
+%   - "hair bundles", "human hair weave", "remy hair": no text; a bare
+%     "rose" (a live rose is of Chapter 6); "Fine or Fashion".
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* names the material *a name*; undefined.
+    *a name* is a word for the kind *a kind*.
+    *a field* is a field that names the kind.
+    *a field* is a field of the kind *a kind*.
+    *a name* is a word for the metal *a metal*.
+    *a name* is a word for cladding with *a metal*.
+    *a field* is a field that names the metal.
+    *a name* is a word for the gem *a gem*.
+    *a field* is a field that names the gem.
+    *a name* is a word for the hair *a hair*.
+    *a field* is a field of human hair.
+    the kind of *a good* is *a kind*.
+    the metal of *a thing* is *a metal*.
+    *a thing* is clad with *a metal*.
+    the gem of *a thing* is *a gem*.
+    the hair of *a thing* is *a hair*.
+
+the knowledge base jewellery background includes:
+
+the jewellery listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the jewellery listing format is at "sources/listings/marketplace_fields_jewellery_wigs_flowers.txt".
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+HTSUS Chapter 67 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2067#page=1".
+the text of HTSUS Chapter 67 is at "sources/hts/chapter_67.txt".
+HTSUS Section XV is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2072#page=1".
+the text of HTSUS Section XV is at "sources/hts/section_xv.txt".
+the jewelry guides is published at "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23".
+the text of the jewelry guides is at "sources/ftc/jewelry_guides.txt".
+ruling NY N338215 is published at "https://rulings.cbp.gov/ruling/N338215".
+the text of ruling NY N338215 is at "sources/cbp/N338215.txt".
+ruling NY R03173 is published at "https://rulings.cbp.gov/ruling/R03173".
+the text of ruling NY R03173 is at "sources/cbp/R03173.txt".
+ruling NY N151556 is published at "https://rulings.cbp.gov/ruling/N151556".
+the text of ruling NY N151556 is at "sources/cbp/N151556.txt".
+ruling NY N343561 is published at "https://rulings.cbp.gov/ruling/N343561".
+the text of ruling NY N343561 is at "sources/cbp/N343561.txt".
+ruling HQ H328582 is published at "https://rulings.cbp.gov/ruling/H328582".
+the text of ruling HQ H328582 is at "sources/cbp/H328582.txt".
+ruling HQ H063616 is published at "https://rulings.cbp.gov/ruling/H063616".
+the text of ruling HQ H063616 is at "sources/cbp/H063616.txt".
+ruling NY N073978 is published at "https://rulings.cbp.gov/ruling/N073978".
+the text of ruling NY N073978 is at "sources/cbp/N073978.txt".
+ruling NY N088048 is published at "https://rulings.cbp.gov/ruling/N088048".
+the text of ruling NY N088048 is at "sources/cbp/N088048.txt".
+ruling NY N101257 is published at "https://rulings.cbp.gov/ruling/N101257".
+the text of ruling NY N101257 is at "sources/cbp/N101257.txt".
+ruling NY N339139 is published at "https://rulings.cbp.gov/ruling/N339139".
+the text of ruling NY N339139 is at "sources/cbp/N339139.txt".
+ruling NY N305621 is published at "https://rulings.cbp.gov/ruling/N305621".
+the text of ruling NY N305621 is at "sources/cbp/N305621.txt".
+ruling NY N352618 is published at "https://rulings.cbp.gov/ruling/N352618".
+the text of ruling NY N352618 is at "sources/cbp/N352618.txt".
+ruling NY N026086 is published at "https://rulings.cbp.gov/ruling/N026086".
+the text of ruling NY N026086 is at "sources/cbp/N026086.txt".
+ruling NY K83938 is published at "https://rulings.cbp.gov/ruling/K83938".
+the text of ruling NY K83938 is at "sources/cbp/K83938.txt".
+ruling NY N008495 is published at "https://rulings.cbp.gov/ruling/N008495".
+the text of ruling NY N008495 is at "sources/cbp/N008495.txt".
+ruling NY N315045 is published at "https://rulings.cbp.gov/ruling/N315045".
+the text of ruling NY N315045 is at "sources/cbp/N315045.txt".
+
+% ---------------------------------------------------------------------------
+% The fields of a listing (the jewellery listing format)
+% ---------------------------------------------------------------------------
+"item type" is a field that names the kind,
+    as stated in the jewellery listing format, confer "Item Type (72 listings): the kind of product in the seller's words".
+"type" is a field that names the kind,
+    as stated in the jewellery listing format, confer "Type (12 listings): a kind of product".
+"bracelets type" is a field of the kind bracelet,
+    as stated in the jewellery listing format, confer "Bracelets Type, Earring Type, Rings Type, Chain Type, Lace Wig Type: the kind of bracelet, earring, ring, chain or wig".
+"earring type" is a field of the kind earring,
+    as stated in the jewellery listing format, confer "Bracelets Type, Earring Type, Rings Type, Chain Type, Lace Wig Type: the kind of bracelet, earring, ring, chain or wig".
+"rings type" is a field of the kind ring,
+    as stated in the jewellery listing format, confer "Bracelets Type, Earring Type, Rings Type, Chain Type, Lace Wig Type: the kind of bracelet, earring, ring, chain or wig".
+"lace wig type" is a field of the kind wig,
+    as stated in the jewellery listing format, confer "Bracelets Type, Earring Type, Rings Type, Chain Type, Lace Wig Type: the kind of bracelet, earring, ring, chain or wig".
+"metals type" is a field that names the metal,
+    as stated in the jewellery listing format, confer "Metals Type (69 listings): the metal".
+"metal stamp" is a field that names the metal,
+    as stated in the jewellery listing format, confer "Metal Stamp (8 listings): the hallmark".
+"main stone" is a field that names the gem,
+    as stated in the jewellery listing format, confer "Main Stone (18 listings) and Side Stone (10 listings): the stones".
+"side stone" is a field that names the gem,
+    as stated in the jewellery listing format, confer "Main Stone (18 listings) and Side Stone (10 listings): the stones".
+"human hair type" is a field of human hair,
+    as stated in the jewellery listing format, confer "Human Hair Type (24 listings), Hair Grade (17 listings), Material Grade (8 listings)".
+
+% ---------------------------------------------------------------------------
+% Kinds: the articles of jewelry of note 9(a), wigs and the articles of
+% heading 6704, artificial flowers
+% ---------------------------------------------------------------------------
+"ring" is a word for the kind ring,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"rings" is a word for the kind ring,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"bracelet" is a word for the kind bracelet,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"bracelets" is a word for the kind bracelet,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"bangle" is a word for the kind bracelet,
+    as stated in ruling NY N338215, confer "The item under consideration is a bangle style bracelet".
+"bangles" is a word for the kind bracelet,
+    as stated in ruling NY N338215, confer "The item under consideration is a bangle style bracelet".
+"necklace" is a word for the kind necklace,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"necklaces" is a word for the kind necklace,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"brooch" is a word for the kind brooch,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"brooches" is a word for the kind brooch,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"earring" is a word for the kind earring,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"earrings" is a word for the kind earring,
+    as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+"stud earrings" is a word for the kind earring,
+    as stated in the jewellery listing format, confer "Earring Type: Stud Earrings".
+"pendant" is a word for the kind pendant,
+    as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+"pendants" is a word for the kind pendant,
+    as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+"tie pin" is a word for the kind tie pin,
+    as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+"cuff links" is a word for the kind cuff link,
+    as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+"cufflinks" is a word for the kind cuff link,
+    as stated in ruling NY R03173, confer "stainless steel cufflinks".
+"medal" is a word for the kind medal,
+    as stated in HTSUS Section XIV and Chapter 71, confer "pendants, tie pins, cuff links, dress studs, religious or other medals and insignia".
+"wig" is a word for the kind wig,
+    as stated in HTSUS Chapter 67, confer "Wigs, false beards, eyebrows and eyelashes, switches and the like".
+"wigs" is a word for the kind wig,
+    as stated in HTSUS Chapter 67, confer "Wigs, false beards, eyebrows and eyelashes, switches and the like".
+"lace front wigs" is a word for the kind wig,
+    as stated in the jewellery listing format, confer "Lace Wig Type: Lace Front Wigs".
+"lace front wig" is a word for the kind wig,
+    as stated in the jewellery listing format, confer "Lace Wig Type: Lace Front Wigs".
+"hair extensions" is a word for the kind hair extension,
+    as stated in ruling NY N352618, confer "synthetic hair extensions made entirely of synthetic textile fibers".
+"hair extension" is a word for the kind hair extension,
+    as stated in ruling NY N352618, confer "synthetic hair extensions made entirely of synthetic textile fibers".
+"hair weft" is a word for the kind hair weft,
+    as stated in ruling NY N305621, confer "“Human Hair Wefts,” “Human Hair Frontal and Closures,” “Human Hair Wigs,”".
+"hair wefts" is a word for the kind hair weft,
+    as stated in ruling NY N305621, confer "“Human Hair Wefts,” “Human Hair Frontal and Closures,” “Human Hair Wigs,”".
+"frontal" is a word for the kind lace frontal,
+    as stated in ruling NY N305621, confer "“Human Hair Wefts,” “Human Hair Frontal and Closures,” “Human Hair Wigs,”".
+"closure" is a word for the kind lace closure,
+    as stated in ruling NY N305621, confer "“Human Hair Wefts,” “Human Hair Frontal and Closures,” “Human Hair Wigs,”".
+"false eyelashes" is a word for the kind false eyelashes,
+    as stated in ruling NY N026086, confer "You submitted six samples of false eyelashes".
+"artificial flower" is a word for the kind artificial flower,
+    as stated in HTSUS Chapter 67, confer "Artificial flowers, foliage and fruit and parts thereof".
+"artificial flowers" is a word for the kind artificial flower,
+    as stated in HTSUS Chapter 67, confer "Artificial flowers, foliage and fruit and parts thereof".
+"artificial rose" is a word for the kind artificial flower,
+    as stated in ruling NY N008495, confer "The submitted illustrations depict polyester and plastic artificial flowers and foliage".
+"artificial roses" is a word for the kind artificial flower,
+    as stated in ruling NY N008495, confer "The submitted illustrations depict polyester and plastic artificial flowers and foliage".
+"flower wreath" is a word for the kind flower wreath,
+    as stated in ruling NY N315045, confer "The first product is described as a “flower wreath,”".
+
+% ---------------------------------------------------------------------------
+% Metals: base metals (Section XV note 3, rulings) and hallmarks of precious
+% metal (the FTC guides; Chapter 71 note 5 reads them as alloys of
+% precious metal)
+% ---------------------------------------------------------------------------
+"zinc alloy" is a word for the metal zinc alloy,
+    as stated in the jewellery listing format, confer "Metals Type: Zinc Alloy".
+"stainless steel" is a word for the metal stainless steel,
+    as stated in ruling NY R03173, confer "European contemporary jewelry made of stainless steel".
+"copper" is a word for the metal copper,
+    as stated in HTSUS Section XV, confer "the expression \"base metals\" means: iron and steel, copper, nickel".
+"brass" is a word for the metal brass,
+    as stated in ruling NY N151556, confer "composed of brass and plated with silver and gold".
+"titanium" is a word for the metal titanium,
+    as stated in ruling NY N343561, confer "Titanium is considered a base metal".
+"925" is a word for the metal silver alloy,
+    as stated in the jewelry guides, confer "unless it is at least 925/1,000ths pure silver".
+"sterling" is a word for the metal silver alloy,
+    as stated in the jewelry guides, confer "Use of the words “solid silver,” “Sterling Silver,” “Sterling,” or the abbreviation “Ster.” to mark, describe, or otherwise represent all or part of an industry product unless it is at least 925/1,000ths pure silver".
+"sterling silver" is a word for the metal silver alloy,
+    as stated in the jewelry guides, confer "Use of the words “solid silver,” “Sterling Silver,” “Sterling,” or the abbreviation “Ster.” to mark, describe, or otherwise represent all or part of an industry product unless it is at least 925/1,000ths pure silver".
+"925 sterling" is a word for the metal silver alloy,
+    as stated in the jewelry guides, confer "unless it is at least 925/1,000ths pure silver".
+"925,sterling" is a word for the metal silver alloy,
+    as stated in the jewelry guides, confer "unless it is at least 925/1,000ths pure silver".
+"18k" is a word for the metal gold alloy,
+    as stated in the jewelry guides, confer "Such product may also be marked and described by a designation of the karat fineness of the gold alloy unaccompanied by the word “Gold” (for example, “14 Karat,” “14Kt.,” “14 K.,” or “9 K.”)".
+"14k" is a word for the metal gold alloy,
+    as stated in the jewelry guides, confer "Such product may also be marked and described by a designation of the karat fineness of the gold alloy unaccompanied by the word “Gold” (for example, “14 Karat,” “14Kt.,” “14 K.,” or “9 K.”)".
+"10k" is a word for the metal gold alloy,
+    as stated in the jewelry guides, confer "Such product may also be marked and described by a designation of the karat fineness of the gold alloy unaccompanied by the word “Gold” (for example, “14 Karat,” “14Kt.,” “14 K.,” or “9 K.”)".
+"9k" is a word for the metal gold alloy,
+    as stated in the jewelry guides, confer "Such product may also be marked and described by a designation of the karat fineness of the gold alloy unaccompanied by the word “Gold” (for example, “14 Karat,” “14Kt.,” “14 K.,” or “9 K.”)".
+"18k gold" is a word for the metal gold alloy,
+    as stated in the jewelry guides, confer "An industry product or part thereof, composed throughout of an alloy of gold may be marked and described as “Gold” when such word “Gold,” wherever appearing, is immediately preceded by a correct designation of the karat fineness of the alloy".
+"14k gold" is a word for the metal gold alloy,
+    as stated in the jewelry guides, confer "An industry product or part thereof, composed throughout of an alloy of gold may be marked and described as “Gold” when such word “Gold,” wherever appearing, is immediately preceded by a correct designation of the karat fineness of the alloy".
+"platinum" is a word for the metal platinum,
+    as stated in the jewelry guides, confer "An industry product consisting of at least 950 parts per thousand pure Platinum may be marked or described as “Platinum.”".
+"gold filled" is a word for cladding with gold,
+    as stated in the jewelry guides, confer "on which there has been affixed on all significant surfaces by soldering, brazing, welding, or other mechanical means a plating of gold alloy".
+
+% ---------------------------------------------------------------------------
+% Gems: stones (natural, synthetic) and cultured pearls. Imitation stones
+% (glass, "crystal", "rhinestone", plastics) and imitation pearls are no gems
+% of Chapter 71: no word here makes them one.
+% ---------------------------------------------------------------------------
+"cubic zirconia" is a word for the gem cubic zirconia,
+    as stated in ruling HQ H328582, confer "that cubic zirconia qualifies as a semi-precious stone for tariff classification purposes".
+"cz" is a word for the gem cubic zirconia,
+    as stated in ruling NY N151556, confer "semiprecious gemstone of Cubic Zirconium (Cubic Zirconia – CZ)".
+"zirconia" is a word for the gem cubic zirconia,
+    as stated in ruling HQ H063616, confer "deeming zirconia a semiprecious stone".
+"cultured pearl" is a word for the gem cultured pearl,
+    as stated in the jewelry guides, confer "Cultured pearl: The composite product created when a nucleus".
+"freshwater cultured pearl" is a word for the gem cultured pearl,
+    as stated in ruling NY N339139, confer "a sterling silver ring with a treated freshwater cultured pearl".
+"diamond" is a word for the gem diamond,
+    as stated in the jewelry guides, confer "It is unfair or deceptive to use the unqualified word “diamond” to describe or identify any object or product not meeting the requirements specified in the definition of diamond".
+"lab grown diamond" is a word for the gem synthetic diamond,
+    as stated in the jewelry guides, confer "The use of the word “cultured” to describe laboratory-created diamonds".
+"lab created diamond" is a word for the gem synthetic diamond,
+    as stated in the jewelry guides, confer "The use of the word “cultured” to describe laboratory-created diamonds".
+"ruby" is a word for the gem ruby,
+    as stated in the jewelry guides, confer "It is unfair or deceptive to use the unqualified words “ruby,” “sapphire,” “emerald,” “topaz,” or the name of any other precious or semi-precious stone to describe any product that is not in fact a mined stone of the type described".
+"sapphire" is a word for the gem sapphire,
+    as stated in the jewelry guides, confer "It is unfair or deceptive to use the unqualified words “ruby,” “sapphire,” “emerald,” “topaz,” or the name of any other precious or semi-precious stone to describe any product that is not in fact a mined stone of the type described".
+"emerald" is a word for the gem emerald,
+    as stated in the jewelry guides, confer "It is unfair or deceptive to use the unqualified words “ruby,” “sapphire,” “emerald,” “topaz,” or the name of any other precious or semi-precious stone to describe any product that is not in fact a mined stone of the type described".
+"created ruby" is a word for the gem synthetic ruby,
+    as stated in ruling NY N073978, confer "This item is a sterling silver ring featuring a created ruby".
+"onyx" is a word for the gem onyx,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"black onyx" is a word for the gem onyx,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"tiger eye" is a word for the gem tiger eye,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"jasper" is a word for the gem jasper,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"jade" is a word for the gem jade,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"amazonite" is a word for the gem amazonite,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"rhodonite" is a word for the gem rhodonite,
+    as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"marcasite" is a word for the gem marcasite,
+    as stated in ruling NY N101257, confer "semi-precious stones of Cubic Zirconia (CZ) and Marcasite".
+
+% ---------------------------------------------------------------------------
+% Hair: human hair, synthetic textile fibres
+% ---------------------------------------------------------------------------
+"human hair" is a word for the hair human hair,
+    as stated in HTSUS Chapter 67, confer "Of human hair".
+"synthetic hair" is a word for the hair synthetic fibre,
+    as stated in ruling NY N352618, confer "synthetic hair extensions made entirely of synthetic textile fibers".
+"synthetic fiber" is a word for the hair synthetic fibre,
+    as stated in ruling NY K83938, confer "is a child’s synthetic fiber wig".
+"synthetic fibre" is a word for the hair synthetic fibre,
+    as stated in ruling NY K83938, confer "is a child’s synthetic fiber wig".
+
+% ---------------------------------------------------------------------------
+% The rules: a word in the name, in a field, or among the materials
+% ---------------------------------------------------------------------------
+rule jewellery_kind_by_name with provenance HTSUS Section XIV and Chapter 71,
+        confer "the expression \"articles of jewelry\" means":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the kind the kind.
+
+rule jewellery_kind_by_field with provenance the jewellery listing format,
+        confer "Item Type (72 listings): the kind of product in the seller's words":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field that names the kind
+    and the value is a word for the kind the kind.
+
+% a field for the kind of bracelet, earring, ring or wig says that the good
+% is one
+rule jewellery_kind_by_type_field with provenance the jewellery listing format,
+        confer "Bracelets Type, Earring Type, Rings Type, Chain Type, Lace Wig Type: the kind of bracelet, earring, ring, chain or wig":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field of the kind the kind.
+
+rule metal_by_field with provenance the jewellery listing format,
+        confer "Metals Type (69 listings): the metal":
+the metal of a thing is a metal
+    if the field a field of the thing reads a value
+    and the field is a field that names the metal
+    and the value is a word for the metal the metal.
+
+rule metal_by_material with provenance the jewellery listing format,
+        confer "Material (87 listings): the materials":
+the metal of a thing is a metal
+    if the thing names the material a name
+    and the name is a word for the metal the metal.
+
+rule cladding_by_field with provenance the jewellery listing format,
+        confer "Metals Type (69 listings): the metal":
+a thing is clad with a metal
+    if the field a field of the thing reads a value
+    and the field is a field that names the metal
+    and the value is a word for cladding with the metal.
+
+rule cladding_by_material with provenance the jewellery listing format,
+        confer "Material (87 listings): the materials":
+a thing is clad with a metal
+    if the thing names the material a name
+    and the name is a word for cladding with the metal.
+
+rule gem_by_field with provenance the jewellery listing format,
+        confer "Main Stone (18 listings) and Side Stone (10 listings): the stones":
+the gem of a thing is a gem
+    if the field a field of the thing reads a value
+    and the field is a field that names the gem
+    and the value is a word for the gem the gem.
+
+rule gem_by_material with provenance the jewellery listing format,
+        confer "Material (87 listings): the materials":
+the gem of a thing is a gem
+    if the thing names the material a name
+    and the name is a word for the gem the gem.
+
+rule hair_by_material with provenance the jewellery listing format,
+        confer "Material (87 listings): the materials":
+the hair of a thing is a hair
+    if the thing names the material a name
+    and the name is a word for the hair the hair.
+
+% a listing with a field for the type of human hair offers an article of
+% human hair
+rule hair_by_human_hair_field with provenance the jewellery listing format,
+        confer "Human Hair Type (24 listings), Hair Grade (17 listings), Material Grade (8 listings)":
+the hair of a thing is human hair
+    if the field a field of the thing reads a value
+    and the field is a field of human hair.
+
+% ---------------------------------------------------------------------------
+% Tests
+% ---------------------------------------------------------------------------
+
+scenario jewels is:
+    the field "item type" of bracelet 1 reads "bracelets".
+    the field "metals type" of bracelet 1 reads "zinc alloy".
+    the field "main stone" of bracelet 1 reads "cubic zirconia".
+    the field "earring type" of studs 2 reads "stud earrings".
+    the field "metal stamp" of studs 2 reads "925,sterling".
+    the field "item type" of ring 3 reads "rings".
+    ring 3 names the material "14k".
+    the field "item type" of ring 4 reads "rings".
+    the field "metals type" of ring 4 reads "gold filled".
+    the field "side stone" of ring 4 reads "diamond".
+    kinds expects answers ["the kind of bracelet 1 is bracelet", "the kind of studs 2 is earring", "the kind of ring 3 is ring", "the kind of ring 4 is ring"].
+    metals expects answers ["the metal of bracelet 1 is zinc alloy", "the metal of studs 2 is silver alloy", "the metal of ring 3 is gold alloy"].
+    gems expects answers ["the gem of bracelet 1 is cubic zirconia", "the gem of ring 4 is diamond"].
+    cladding expects answers ["ring 4 is clad with gold"].
+
+scenario hair_and_flowers is:
+    the field "lace wig type" of wig 1 reads "lace front wigs".
+    the field "human hair type" of wig 1 reads "brazilian hair".
+    the field "item type" of extension 2 reads "hair extensions".
+    extension 2 names the material "synthetic hair".
+    rose 3 is called "artificial rose".
+    kinds expects answers ["the kind of wig 1 is wig", "the kind of extension 2 is hair extension", "the kind of rose 3 is artificial flower"].
+    hairs expects answers ["the hair of wig 1 is human hair", "the hair of extension 2 is synthetic fibre"].
+
+query kinds is:
+    the kind of which good is which kind.
+
+query metals is:
+    the metal of which thing is which metal.
+
+query gems is:
+    the gem of which thing is which gem.
+
+query cladding is:
+    which thing is clad with which metal.
+
+query hairs is:
+    the hair of which thing is which hair.
