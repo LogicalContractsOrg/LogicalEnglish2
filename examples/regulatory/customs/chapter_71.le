@@ -89,6 +89,7 @@ the templates are:
     the precious metal group of *a thing* is *a group*.
     *a thing* is of metal clad with precious metal.
     *a thing* contains precious metal beyond minor constituents.
+    *a good* is a loose bead.
     *a thing* is of base metal.
     *a thing* incorporates pearls.
     *a thing* incorporates stones.
@@ -208,6 +209,14 @@ the jewelry publication is published at "https://www.cbp.gov/sites/default/files
 the text of the jewelry publication is at "sources/cbp_icp/wax_artificial_stone_jewelry.txt".
 ruling HQ H328582 is published at "https://rulings.cbp.gov/ruling/H328582".
 the text of ruling HQ H328582 is at "sources/cbp/H328582.txt".
+ruling NY N038985 is published at "https://rulings.cbp.gov/ruling/N038985".
+the text of ruling NY N038985 is at "sources/cbp/N038985.txt".
+ruling NY N343881 is published at "https://rulings.cbp.gov/ruling/N343881".
+the text of ruling NY N343881 is at "sources/cbp/N343881.txt".
+ruling NY 801226 is published at "https://rulings.cbp.gov/ruling/801226".
+the text of ruling NY 801226 is at "sources/cbp/801226.txt".
+ruling HQ 964709 is published at "https://rulings.cbp.gov/ruling/964709".
+the text of ruling HQ 964709 is at "sources/cbp/964709.txt".
 ruling HQ H236523 is published at "https://rulings.cbp.gov/ruling/H236523".
 the text of ruling HQ H236523 is at "sources/cbp/H236523.txt".
 ruling HQ 967922 is published at "https://rulings.cbp.gov/ruling/967922".
@@ -251,6 +260,16 @@ a good is a good the model describes
     if the kind of the good is a kind
     and the kind is a form of metal a form
     and the good contains precious metal beyond minor constituents.
+
+% the model covers the beads and parts of jewelry that carry precious
+% metal, and the beads of pearls or stones
+rule precious_scope_part:
+a good is a good the model describes
+    if the good is an article of jewelry or a part thereof.
+
+rule precious_scope_bead:
+a good is a good the model describes
+    if the good is a loose bead.
 
 % the model covers dust and powder of gems
 rule precious_scope_dust:
@@ -590,6 +609,37 @@ rule note_71_9a_part with provenance HTSUS Section XIV and Chapter 71,
 a good is an article of jewelry or a part thereof
     if the family of the good is jewelry part.
 
+% the parts that jewelry is made from, of precious metal: bead caps and
+% beads of sterling silver (CBP, NY N038985: 7113.11), a charm set in
+% sterling silver for charm bracelets (NY N343881: 7113.11). Of other
+% materials these words decide nothing (a plastic bead is of Chapter 39).
+rule note_71_9a_precious_part with provenance ruling NY N038985,
+        confer "They are made of sterling silver and complete the bead prior to being made into jewelry":
+a good is an article of jewelry or a part thereof
+    if the kind of the good is a kind
+    and the kind is in [bead, bead cap, jewelry finding]
+    and the good contains precious metal beyond minor constituents.
+
+rule note_71_9a_precious_charm with provenance ruling NY N343881,
+        confer "The charm is intended for use with charm bracelets":
+a good is an article of jewelry or a part thereof
+    if the kind of the good is charm
+    and the good contains precious metal beyond minor constituents.
+
+% A bead of a pearl or a stone, with no precious metal, is the pearl or the
+% stone: drilled, cut and polished, not mounted or set (NY 801226: stone
+% beads "will be used in the manufacture of jewelry", 7103.99). Strung,
+% the beads are an article (HQ H087337, HQ 964709: a design pattern); a
+% listing does not say so, and "temporarily strung for convenience of
+% transport" stays in the heading of the gem.
+rule loose_bead with provenance ruling NY 801226,
+        confer "All of the stones have drilled holes, are cut and polished":
+a good is a loose bead
+    if the kind of the good is bead
+    and the gem of the good is a gem
+    and it is not the case that
+        the good contains precious metal beyond minor constituents.
+
 % the goods that can be articles of pearls or stones (heading 7116): the
 % chapter's articles, and any manufactured article (note 1) — not a loose
 % gem, not dust or powder
@@ -606,6 +656,8 @@ a good is an article of chapter seventy-one
     and it is not the case that
         the family of the good is loose gem
     and it is not the case that
+        the good is a loose bead
+    and it is not the case that
         the kind of the good is a kind
         and the kind is in [dust, powder].
 
@@ -618,6 +670,14 @@ rule heading_loose_gem with provenance HTSUS Section XIV and Chapter 71,
         confer "whether or not worked or graded but not strung, mounted or set":
 a good is described by heading a heading
     if the family of the good is loose gem
+    and the gem of the good is a gem
+    and the gem is a gem of the group a group
+    and the group is a gem group of heading the heading.
+
+rule heading_loose_bead with provenance ruling HQ 964709,
+        confer "The pearls of this heading may be temporarily strung for convenience of transport":
+a good is described by heading a heading
+    if the good is a loose bead
     and the gem of the good is a gem
     and the gem is a gem of the group a group
     and the group is a gem group of heading the heading.
@@ -1156,6 +1216,21 @@ scenario loose_gems is:
     the gem of lot 10 is diamond.
     lot 10 is unsorted.
     subheading expects answers ["the subheading of lot 1 is 7101.10", "the subheading of lot 2 is 7101.21", "the subheading of lot 3 is 7102.39", "the subheading of lot 4 is 7102.21", "the subheading of lot 5 is 7103.91", "the subheading of lot 6 is 7103.10", "the subheading of lot 7 is 7104.99", "the subheading of lot 8 is 7104.91", "the subheading of lot 9 is 7105.10", "the subheading of lot 10 is 7102.10"].
+
+% Beads and parts: a pearl or stone bead is the gem (NY 801226); beads,
+% bead caps and charms of silver are parts of jewelry (NY N038985, N343881)
+scenario beads_and_parts is:
+    the kind of strand 1 is bead.
+    the gem of strand 1 is cultured pearl.
+    the kind of strand 2 is bead.
+    the gem of strand 2 is jasper.
+    the kind of cap 1 is bead cap.
+    the metal of cap 1 is silver alloy.
+    the kind of charm 1 is charm.
+    the metal of charm 1 is silver alloy.
+    the kind of bead 3 is bead.
+    the metal of bead 3 is silver alloy.
+    subheading expects answers ["the subheading of strand 1 is 7101.22", "the subheading of strand 2 is 7103.99", "the subheading of cap 1 is 7113.11", "the subheading of charm 1 is 7113.11", "the subheading of bead 3 is 7113.11"].
 
 % Precious metals, clad metals, waste
 scenario metals is:

@@ -99,6 +99,12 @@ ruling NY N008495 is published at "https://rulings.cbp.gov/ruling/N008495".
 the text of ruling NY N008495 is at "sources/cbp/N008495.txt".
 ruling NY N315045 is published at "https://rulings.cbp.gov/ruling/N315045".
 the text of ruling NY N315045 is at "sources/cbp/N315045.txt".
+ruling NY N038985 is published at "https://rulings.cbp.gov/ruling/N038985".
+the text of ruling NY N038985 is at "sources/cbp/N038985.txt".
+ruling NY N343881 is published at "https://rulings.cbp.gov/ruling/N343881".
+the text of ruling NY N343881 is at "sources/cbp/N343881.txt".
+ruling NY 801226 is published at "https://rulings.cbp.gov/ruling/801226".
+the text of ruling NY 801226 is at "sources/cbp/801226.txt".
 
 % ---------------------------------------------------------------------------
 % The fields of a listing (the jewellery listing format)
@@ -134,6 +140,24 @@ the text of ruling NY N315045 is at "sources/cbp/N315045.txt".
     as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
 "rings" is a word for the kind ring,
     as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
+% beads, bead caps, charms and findings: words of the parts that jewelry is
+% made from. Chapter 71 reads them only with precious metal (a part of
+% jewelry, 7113) or with a pearl or a stone (the gem itself); of other
+% materials they decide nothing here.
+"bead" is a word for the kind bead,
+    as stated in ruling NY 801226, confer "The tariff classification of semiprecious stone beads".
+"beads" is a word for the kind bead,
+    as stated in the jewellery listing format, confer "Item Type: beads".
+"bead cap" is a word for the kind bead cap,
+    as stated in ruling NY N038985, confer "You have submitted samples of bead caps".
+"bead caps" is a word for the kind bead cap,
+    as stated in ruling NY N038985, confer "You have submitted samples of bead caps".
+"charm" is a word for the kind charm,
+    as stated in ruling NY N343881, confer "The charm is intended for use with charm bracelets".
+"charms" is a word for the kind charm,
+    as stated in the jewellery listing format, confer "Item Type: CHARMS".
+"jewelry findings" is a word for the kind jewelry finding,
+    as stated in the jewellery listing format, confer "Item Type: jewelry findings".
 "bracelet" is a word for the kind bracelet,
     as stated in HTSUS Section XIV and Chapter 71, confer "rings, bracelets, necklaces, brooches, earrings, watch chains, fobs".
 "bracelets" is a word for the kind bracelet,
@@ -397,6 +421,12 @@ scenario jewels is:
     metals expects answers ["the metal of bracelet 1 is zinc alloy", "the metal of studs 2 is silver alloy", "the metal of ring 3 is gold alloy"].
     gems expects answers ["the gem of bracelet 1 is cubic zirconia", "the gem of ring 4 is diamond"].
     cladding expects answers ["ring 4 is clad with gold"].
+
+scenario parts is:
+    the field "item type" of lot 1 reads "beads".
+    lot 2 is called "bead caps".
+    the field "item type" of lot 3 reads "charms".
+    kinds expects answers ["the kind of lot 1 is bead", "the kind of lot 2 is bead cap", "the kind of lot 3 is charm"].
 
 scenario hair_and_flowers is:
     the field "lace wig type" of wig 1 reads "lace front wigs".
