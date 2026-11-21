@@ -64,11 +64,81 @@ i(Goal, SessionModule, Unknowns, Whys) :-
             % One assumption reached through several branches of the proof (the
             % same unclassified receipt feeding two sums, say) is one assumption
             % to the caller, and reads as one line in a list of what is missing.
-            remove_variant_duplicates(Unknowns0, Unknowns1),
+            one_decision(Unknowns0, KBmodule, Unknowns00),
+            remove_variant_duplicates(Unknowns00, Unknowns1),
+            \+ assumes_and_denies(Unknowns1),
             consistent_assumptions(Unknowns1, Unknowns, SessionModule, KBmodule)
         ),
         ( memo_exit(Memo), le_kbs:clear_kb_module )
     ).
+
+%   An answer that assumes a fact and also assumes it false (conditional
+%   negation, solve_real_actual/8 on not/1) holds in no case.
+assumes_and_denies(Us) :-
+    member(not(A), Us), member(B, Us), B =@= A, !.
+
+%!  one_decision(+Us0, +KM, -Us) is semidet.
+%
+%   A judged template (or one declared `; one value`) has one decision for
+%   each question: the values of its other places. An answer that assumes
+%   two decisions of one question is no answer (it fails); one that assumes
+%   a decision with its value still open and another with a value takes both
+%   to be the same. An open value that the answer has excluded (dif/2, from a
+%   first-match table whose earlier rows did not apply) is said as a denial:
+%   the principal use is a use, and not office use. A denial that another
+%   decision of the same question already implies is left out.
+one_decision(Us0, KM, Us) :-
+    one_decision_merge(Us0, KM),
+    findall(not(D), ( member(U, Us0), open_value_denial(U, D) ), Ds),
+    append(Us0, Ds, Us1),
+    exclude(implied_denial(Us1, KM), Us1, Us).
+
+one_decision_merge([], _).
+one_decision_merge([A|Us], KM) :-
+    (   decision_question(KM, A, F, Q, VA)
+    ->  merge_same_question(Us, KM, F, Q, VA)
+    ;   true
+    ),
+    one_decision_merge(Us, KM).
+
+% (a loop, not forall/2: the unifications must stay)
+merge_same_question([], _, _, _, _).
+merge_same_question([B|Us], KM, F, Q, VA) :-
+    (   decision_question(KM, B, F, Q2, VB), Q2 == Q
+    ->  VA = VB
+    ;   true
+    ),
+    merge_same_question(Us, KM, F, Q, VA).
+
+decision_question(KM, G, F, Q, V) :-
+    callable(G), G \= not(_), compound(G),
+    KM \== none,
+    one_decision_template(KM, G),
+    G =.. [F|Args], append(Q, [V], Args), Q \== [], ground(Q).
+
+one_decision_template(KM, G) :-
+    (   le_provenance:is_judged_goal(KM, G)
+    ->  true
+    ;   functor(G, F, A), catch(KM:le_one_value(F, A), _, fail)
+    ).
+
+arg_last(G, V) :- G =.. L, last(L, V).
+
+% U has an open last value with dif/2 constraints on it: each excluded value
+open_value_denial(U, D) :-
+    compound(U), U \= not(_),
+    U =.. L, append(Front, [V], L), var(V),
+    copy_term(V, V1, Gs),
+    member(G, Gs), dif_value(G, V1, X), ground(X),
+    append(Front, [X], L2), D =.. L2.
+
+dif_value(dif(A, B), V, X) :- ( A == V -> X = B ; B == V -> X = A ).
+
+% not(G(Q, V)) when the answer assumes G(Q, W), W not V: one decision
+implied_denial(Us, KM, not(D)) :-
+    decision_question(KM, D, F, Q, V),
+    member(U, Us), decision_question(KM, U, F, Q2, W), Q2 == Q,
+    ground(W), W \== V, !.
 
 
 %!  explain(+Goal:term, +SessionModule:atom, -Unknowns:list, -Whys:list) is nondet.
@@ -93,7 +163,9 @@ explain(Goal, SessionModule, Unknowns, Whys) :-
                 member(U, Unknowns0),
                 solve(U, SessionModule, KBmodule, [], 0, none, [], _)
             ),
-            remove_variant_duplicates(Unknowns0, Unknowns1),
+            one_decision(Unknowns0, KBmodule, Unknowns00),
+            remove_variant_duplicates(Unknowns00, Unknowns1),
+            \+ assumes_and_denies(Unknowns1),
             consistent_assumptions(Unknowns1, Unknowns2, SessionModule, KBmodule) ->
             Unknowns = Unknowns2
             ;
@@ -332,25 +404,98 @@ solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negat
     D1 is D + 1,
     next_id(GoalID),
     proof_record(called(MyID, GoalID, Goal)),
-    % not(Goal) fails as soon as Goal succeeds AT ALL — whether definitely or only
-    % by assuming some unknowns true. An assumable success still establishes Goal,
-    % so its negation must fail (it is not merely "unknown"). We therefore
-    % short-circuit on the first success of any kind, recording its why-tree (which
-    % explains, in the surrounding failure explanation, why the negation failed).
-    % Only if Goal has NO proof at all does not(Goal) succeed.
+    % not(Goal) fails as soon as Goal holds outright. When Goal holds only by
+    % assuming some unknowns (a judged fact, an assumable one), the negation
+    % is not false but conditional: it holds if each way Goal could hold
+    % fails, that is, if one assumption of each such proof is false. Its
+    % answer then assumes those denials, not(A) (conditional_negation/7).
+    % Only if Goal has no proof at all does not(Goal) hold outright.
     (   catch(
-            ( solve_real(Goal, SM, KM, Anc, D1, GoalID, _UsA, WhysA),
-              throw('$goal_succeeded'(WhysA)) ),
-            '$goal_succeeded'(SuccWhys),
+            ( solve_real(Goal, SM, KM, Anc, D1, GoalID, UsA, WhysA),
+              throw('$goal_succeeded'(UsA, WhysA)) ),
+            '$goal_succeeded'(FirstUs, SuccWhys),
             true )
-    ->  % Goal succeeded (possibly only under assumptions): not(Goal) fails.
-        proof_record(success_in_not(GoalID, SuccWhys)),
-        fail
+    ->  (   FirstUs \== [],
+            conditional_negation(Goal, SM, KM, Anc, D1, GoalID, Us)
+        ->  FailureTrees = SuccWhys,
+            proof_record(success_in_not(GoalID, SuccWhys))
+        ;   % Goal holds outright, or its assumptions cannot be denied:
+            % not(Goal) fails.
+            proof_record(success_in_not(GoalID, SuccWhys)),
+            fail
+        )
     ;   % Goal has no proof at all: not(Goal) succeeds.
         Us = [],
         failure_tree(GoalID, FailureTrees),
         proof_record(success_in_not(GoalID, FailureTrees))
     ).
+
+%!  mark_assumed_open(+G) is det.
+%
+%   The variables still open in an assumed goal (the principal use of the
+%   good is a use) are values the answer assumes, not values a rule left
+%   unsaid: a first-match table then answers for each of its rows
+%   (le_tables.pl, assumed_open/1). The mark is an attribute that says
+%   nothing and survives unification.
+mark_assumed_open(G) :-
+    term_variables(G, Vs),
+    maplist(mark_open, Vs).   % (not forall/2: the marks must stay)
+
+mark_open(V) :- ( get_attr(V, reasoner, _) -> true ; put_attr(V, reasoner, assumed) ).
+
+%!  assumed_open(@V) is semidet.
+assumed_open(V) :- var(V), get_attr(V, reasoner, assumed).
+
+attr_unify_hook(_, _).
+attribute_goals(_) --> [].
+
+%!  conditional_negation(+Goal, +SM, +KM, +Anc, +D, +ID, -Us) is nondet.
+%
+%   Goal has a proof, and its first proof needed assumptions. The proofs of
+%   Goal (at most max_negation_proofs/1) each assume a set of facts; if one
+%   holds outright, Goal holds and this fails. Otherwise each answer Us
+%   denies one assumption of every proof (a minimal choice), each denial
+%   not(A) of a ground A. A variable still free in Goal is one that only the
+%   negation names ("an other heading"): any value will do, so the proofs
+%   may bind it. A proof that leaves an assumption with a variable in it
+%   cannot be denied fact by fact: the negation then fails, as it did before
+%   conditional negation.
+%   The flag le_conditional_negation (default true) turns this off.
+conditional_negation(Goal, SM, KM, Anc, D, ID, Us) :-
+    \+ current_prolog_flag(le_conditional_negation, false),
+    \+ exploring_cases(_),
+    max_negation_proofs(MaxP),
+    findall(Us0,
+            limit(MaxP, solve_real(Goal, SM, KM, Anc, D, ID, Us0, _)),
+            Proofs0),
+    length(Proofs0, NP), NP < MaxP,
+    forall(member(Us1, Proofs0), ( Us1 \== [], ground(Us1) )),
+    findall(S, ( member(Us1, Proofs0), sort(Us1, S) ), Sets0),
+    sort(Sets0, Sets),
+    findall(Ds, hitting_set(Sets, [], Ds), Ds0),
+    sort(Ds0, Ds1),
+    exclude(has_smaller_set(Ds1), Ds1, Minimal),
+    member(Denied, Minimal),
+    findall(N, ( member(A, Denied), denial(A, N) ), Us).
+
+% to deny an assumed denial is to assume what it denied
+denial(not(A), A) :- !.
+denial(A, not(A)).
+
+max_negation_proofs(32).
+
+% one member of each set; a set already met by the choice is skipped
+hitting_set([], Acc, Ds) :- sort(Acc, Ds).
+hitting_set([S|Ss], Acc, Ds) :-
+    (   member(A, S), memberchk(A, Acc)
+    ->  hitting_set(Ss, Acc, Ds)
+    ;   member(A, S),
+        hitting_set(Ss, [A|Acc], Ds)
+    ).
+
+has_smaller_set(Sets, S) :-
+    member(S2, Sets), S2 \== S,
+    ord_subset(S2, S), !.
 
 % True
 solve_real_actual(true, _, _, _, _, _, [], []) :- !.
@@ -547,7 +692,8 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
           %  does not try to assume G again.)
           \+ ( ground(G), \+ \+ solve(G, SM, KM, [le_unknown(G)|Anc], D1, none, [], _) ),
           solve(UnkBody, SM, KM, [le_unknown(G)|Anc], D1, MyID, [], _) ->  
-            Us = [G], WhysBody = [], Ref = unknown
+            Us = [G], WhysBody = [], Ref = unknown,
+            mark_assumed_open(G)
     ).
 
 %!  in_ancestors(+G, +Anc) is semidet.

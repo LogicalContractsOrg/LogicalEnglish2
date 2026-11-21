@@ -823,11 +823,11 @@ undefined_predicate(KB, issue(Type, Description, Fix, Start, End)) :-
 
 % --- A negated unknown ---
 %   `it is not the case that X`, where X's template is declared `; unknown`:
-%   LE never proves the negation of what it could assume (reasoner.pl,
-%   negation as failure: an assumable success still establishes X), so the
-%   condition never holds and the rule never fires. The usual cause is an
-%   exclusion translated as a negation over a template declared unknown so
-%   that a scenario may leave it unsaid.
+%   when no fact settles X, the condition holds only by assuming X false
+%   (reasoner.pl, conditional negation), and every answer that needs it
+%   lists that assumption. The usual cause is an exclusion translated as a
+%   negation over a template declared unknown so that a scenario may leave
+%   it unsaid; the author may have meant "false unless stated".
 negated_unknown(KB, issue(negated_unknown, Description, Fix, Start, End)) :-
     current_predicate(KB:le_unknown/1),
     current_predicate(KB:F/A), functor(Head, F, A),

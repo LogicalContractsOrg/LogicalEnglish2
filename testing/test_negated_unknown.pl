@@ -1,8 +1,9 @@
 /** <module> The verifier's negated_unknown warning
 
     `it is not the case that X`, where X's template is declared `; unknown`,
-    never holds: LE never proves false what it could assume. The verifier
-    says so, where the negation is written.
+    holds only by assuming X false, when no fact settles X: every answer
+    that needs it lists that assumption. The verifier says so, where the
+    negation is written.
 
     Run with:  swipl -q -g run_tests -t halt testing/test_negated_unknown.pl
 */

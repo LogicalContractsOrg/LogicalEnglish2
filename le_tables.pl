@@ -447,10 +447,47 @@ table_in_force(SM, KM, Name, Key) :-
     ).
 
 table_policy(first, _Name, Inputs, Output, Rows, RowId, RowRange) :-
-    once(( member(_-RowId-Cells-RowRange, Rows),
-           append(InCells, [OutCell], Cells),
-           inputs_match(InCells, Inputs) )),
+    (   \+ ( member(I, Inputs), reasoner:assumed_open(I) )
+    ->  once(( member(_-RowId-Cells-RowRange, Rows),
+               append(InCells, [OutCell], Cells),
+               inputs_match(InCells, Inputs) ))
+    ;   % An input that an answer assumes (reasoner:mark_assumed_open/1),
+        % not known yet: each row in
+        % turn, for the values that no earlier row takes. A row whose cell
+        % leaves the input open (`any`) holds for the values the earlier
+        % rows do not name (dif/2), when one input tells those rows apart.
+        append(Before, [_-RowId-Cells-RowRange|_], Rows),
+        append(InCells, [OutCell], Cells),
+        inputs_match(InCells, Inputs),
+        % (a loop, not forall/2 nor a lambda: the exclusions, dif/2, must
+        % stay on these inputs)
+        earlier_rows_excluded(Before, Inputs)
+    ),
     output_value(OutCell, Output).
+
+earlier_rows_excluded([], _).
+earlier_rows_excluded([_-_-Cells-_|Rows], Inputs) :-
+    earlier_row_excluded(Cells, Inputs),
+    earlier_rows_excluded(Rows, Inputs).
+
+% An earlier row of a first-match table does not apply to these inputs: it
+% fails on a known input, or it names values of the one open input, which
+% are then excluded from it.
+earlier_row_excluded(Cells, Inputs) :-
+    append(InCells, [_], Cells),
+    (   \+ inputs_match(InCells, Inputs)
+    ->  true
+    ;   findall(P, ( nth1(P, Inputs, A), reasoner:assumed_open(A) ), [P]),
+        nth1(P, InCells, Cell),
+        cell_values(Cell, Vs),
+        forall(( nth1(Q, InCells, C), Q \== P ),
+               ( nth1(Q, Inputs, A), cell_matches(C, A) )),
+        nth1(P, Inputs, X),
+        maplist(dif(X), Vs)
+    ).
+
+cell_values(val(V), [V]).
+cell_values(oneof(Vs), Vs).
 table_policy(all, _Name, Inputs, Output, Rows, RowId, RowRange) :-
     member(_-RowId-Cells-RowRange, Rows),
     append(InCells, [OutCell], Cells),

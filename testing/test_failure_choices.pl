@@ -191,9 +191,12 @@ the knowledge base k includes:
     a person is excluded unless the person notifies.
 scenario s is:
     alice is eligible.
-    it is assumable whether alice notifies.
+    alice notifies.
 query q is:
     alice is covered.").
+% (alice notifies: the negation fails outright. Were it assumable, the query
+% would answer on condition that alice does not notify, reasoner.pl,
+% conditional negation.)
 
 test(unless_negation_node_has_range) :-
     unless_program(P),

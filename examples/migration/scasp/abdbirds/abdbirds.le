@@ -40,7 +40,9 @@ a thing flies if
     and it is not the case that the thing is an ab.
 
 scenario the_program is, as stated in the source program:
-    query_1 expects answers ["it is not the case that tweety flies"].
+    % s(CASP) answers by abducing why tweety does not fly (a penguin, a
+    % wounded bird, abnormal): LE lists such an assumption among its unknowns
+    query_1 expects answers ["it is not the case that tweety flies"] and any unknowns.
 
 query query_1 is:
     it is not the case that tweety flies.

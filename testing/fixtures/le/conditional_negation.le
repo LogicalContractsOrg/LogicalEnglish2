@@ -1,0 +1,67 @@
+the target language is: prolog.
+
+% The fixture of testing/test_conditional_negation.pl (language.md §17.1.5):
+% a negation over a judgment that nobody made, a first-match table read with
+% that judgment still open, and one decision for each subject.
+
+the templates are:
+    the principal use of *a good* is *a use*; judged.
+    *a good* is an article.
+    *a good* is described by heading *a heading*.
+    *a good* is classified in heading *a heading*.
+    the subheading of *a good* in heading *a heading* is *a code*.
+    the subheading of *a good* is *a code*.
+    the subheading in heading *a heading* for *a use* is *a code* under table uses.
+    *a use* is a household use.
+
+the knowledge base conditional negation includes:
+
+a good is described by heading 24
+    if the good is an article
+    and a use is a household use
+    and the principal use of the good is the use.
+
+a good is described by heading 26
+    if the good is an article.
+
+% the residual heading: only when no other heading describes the good
+a good is classified in heading 24
+    if the good is described by heading 24.
+
+a good is classified in heading 26
+    if the good is described by heading 26
+    and it is not the case that
+        the good is described by heading 24.
+
+the subheading of a good is a code
+    if the good is classified in heading a heading
+    and the subheading of the good in heading the heading is the code.
+
+the subheading of a good in heading a heading is a code
+    if the principal use of the good is a use
+    and the subheading in heading the heading for the use is the code under table uses.
+
+table use is a household use.
+kitchen use is a household use.
+
+the table uses is, with first match:
+    row | heading | use                      | code
+    u1  | 24      | table use or kitchen use | "24.10"
+    u2  | 24      | any                      | "24.90"
+    u3  | 26      | office use               | "26.10"
+    u4  | 26      | ornament                 | "26.40"
+    u5  | 26      | any                      | "26.90"
+
+scenario open is:
+    the box is an article.
+
+scenario decided is:
+    the box is an article.
+    the principal use of the box is ornament, according to the officer.
+
+scenario household is:
+    the box is an article.
+    the principal use of the box is kitchen use, according to the officer.
+
+query subheading is:
+    the subheading of the box is which code.

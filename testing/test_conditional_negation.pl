@@ -1,0 +1,62 @@
+% Tests for conditional negation (reasoner.pl, solve_real_actual/8 on not/1,
+% one_decision/3; le_tables.pl, the first-match policy with an open input):
+% `it is not the case that G`, when G holds only by assuming a judgment
+% nobody made, holds if that judgment is false, and the answer says so.
+% docs/user/reference/language.md §17.1.5.
+%
+% The fixture is testing/fixtures/le/conditional_negation.le.
+
+:- use_module('../le_kbs').
+
+cn_kb(KB) :- load('testing/fixtures/le/conditional_negation.le', KB).
+
+% Code-[Assumption] pairs of the query in a scenario, as text
+cn_answers(Scenario, Answers) :-
+    cn_kb(KB),
+    createSession(KB, SM), setScenarion(SM, Scenario),
+    findall(C-As,
+            ( query(SM, subheading, I, Us, _), last(I, C0), term_string(C0, C),
+              findall(A, ( member(U, Us), u_text(U, A) ), As0), sort(As0, As) ),
+            Answers0),
+    destroySession(SM),
+    sort(Answers0, Answers).
+
+u_text(not(G), S) :- !, G =.. [_|Args], last(Args, V), format(string(S), "not ~w", [V]).
+u_text(G, S) :- G =.. [_|Args], last(Args, V), ( var(V) -> S = "open" ; format(string(S), "~w", [V]) ).
+
+:- begin_tests(conditional_negation).
+
+test(the_residual_heading_holds_if_the_judgment_is_denied) :-
+    cn_answers(open, As),
+    assertion(memberchk("\"26.90\""-["not kitchen use", "not office use", "not ornament", "not table use", "open"], As)).
+
+test(each_row_of_a_first_match_table_answers_for_its_values) :-
+    cn_answers(open, As),
+    forall(member(C-U, ["\"24.10\""-["kitchen use"], "\"24.10\""-["table use"],
+                        "\"26.10\""-["office use"], "\"26.40\""-["ornament"]]),
+           assertion(memberchk(C-U, As))).
+
+test(one_decision_for_each_subject) :-
+    % heading 24 assumes kitchen use, so its subheading cannot assume
+    % another use, nor take the "any" row that excludes kitchen use
+    cn_answers(open, As),
+    assertion(\+ ( member("\"24.90\""-U, As), member("kitchen use", U) )),
+    assertion(\+ ( member(_-U2, As), member(X, U2), member(Y, U2), X \== Y,
+                   \+ sub_string(X, 0, _, _, "not"), \+ sub_string(Y, 0, _, _, "not"),
+                   X \== "open", Y \== "open" )).
+
+test(a_recorded_judgment_gives_one_firm_answer) :-
+    cn_answers(decided, As),
+    assertion(As == ["\"26.40\""-[]]).
+
+test(a_recorded_judgment_blocks_the_residual_heading) :-
+    cn_answers(household, As),
+    assertion(As == ["\"24.10\""-[]]).
+
+test(the_flag_turns_conditional_negation_off) :-
+    setup_call_cleanup(set_prolog_flag(le_conditional_negation, false),
+                       cn_answers(open, As),
+                       set_prolog_flag(le_conditional_negation, true)),
+    assertion(\+ memberchk("\"26.90\""-_, As)).
+
+:- end_tests(conditional_negation).

@@ -228,11 +228,21 @@ kind of reasoning is abductive logic programming.
   unknown.
 - Integrity constraints set the limits of the assumptions (§3.3).
 
-**Negation.** `it is not the case that` before an assumable sentence is never true.
-The reason is that the system never proves false a sentence that it can assume. To
-require that something is *not* true, and keep it open, declare that requirement as a
-separate assumable template, such as
-`*a counterparty* is not in administration; assumable.`
+**Negation.** `it is not the case that` before an assumable sentence is true only as
+an assumption, when no fact says whether the sentence is true. The answer then lists
+the sentence as false among its unknowns: it is an answer on condition that the
+sentence is false. The same applies when the sentence is proved by rules that need an
+assumption:
+1. If the facts and rules prove the sentence without an assumption, the negation is
+   false.
+2. If no rule proves the sentence, even with assumptions, the negation is true.
+3. Otherwise, the negation is true on condition that each way to prove the sentence
+   fails. For each such way, the answer assumes that one of its assumptions is false.
+
+For example, a residual heading of a tariff applies if no other heading applies. If
+another heading applies only when the principal use of the good is household use,
+the residual heading applies on condition that the principal use is not household
+use. Thus a query gives one answer for each possible decision (§17.1.5).
 
 **Checks.** The verifier gives the warning `negated_unknown` for an assumable
 sentence after `it is not the case that`.
@@ -1594,6 +1604,14 @@ the text of ruling NY N362700 is at "sources/cbp/N362700.txt".
 3. Rule 2 has one exception. When a fact states a decision for a subject, a different
    decision for the same subject cannot be an assumption.
 4. An assumed judgment always has the decision that a condition of a rule names.
+5. An answer assumes at most one decision for each subject. An answer that needs
+   two different decisions about the same subject is not given.
+6. A condition `it is not the case that` over a judgment that nobody made is true on
+   condition that the judgment is false (§2.1.4, *Negation*).
+7. A table with `first match` that reads a judgment that nobody made gives one answer
+   for each row. Each answer assumes a decision that the row names. A row with `any`
+   assumes a decision that the earlier rows do not name. The answer says the decisions
+   that it excludes, for example "the principal use of the box is not ornament".
 
 **Checks.**
 - A rule that concludes a judged template is an **error** (`judged_with_rules`).

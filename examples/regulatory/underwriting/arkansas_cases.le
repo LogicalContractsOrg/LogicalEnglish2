@@ -390,8 +390,9 @@ scenario student_roomers is:
     ineligible expects answers ["application 101 is ineligible under item 5"].
 
 % Item 21: the household keeps a dog, and nobody has yet judged whether it is
-% of a dangerous nature. The proposal is ineligible IF the finding is
-% established; it is not eligible yet.
+% of a dangerous nature. The proposal is declined IF the finding is
+% established, and accepted if it is not: two conditional answers, one for
+% each decision (conditional negation, language.md §2.1.4).
 scenario dog_open is:
     application 101 is for the Oak Street house.
     application 101 is dated 2026-09-01.
@@ -405,7 +406,7 @@ scenario dog_open is:
     the occupancy of the Oak Street house is owner occupied, according to the applicant.
     the household of application 101 keeps Rex, according to the applicant.
     the species of Rex is dog, according to the applicant.
-    decision expects answers ["the decision on application 101 is decline"] and unknowns ["the finding dangerous nature about Rex is established"].
+    decision expects answers ["the decision on application 101 is decline", "the decision on application 101 is accept"] and unknowns ["the finding dangerous nature about Rex is established", "it is not the case that the finding dangerous nature about Rex is established"].
     ineligible expects answers ["application 101 is ineligible under item 21"] and unknowns ["the finding dangerous nature about Rex is established"].
 
 % Item 21: the underwriter finds that the dog is not of a dangerous nature.

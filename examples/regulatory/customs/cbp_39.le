@@ -581,7 +581,7 @@ scenario ny_n361538 is, as stated in ruling NY N361538:
 % NY N317550 (March 2021): polypropylene ribbon from China.
 % CBP: the Aspidistra leaf ribbon (item 1) -> 3920.20
 scenario ny_n317550 is, as stated in ruling NY N317550:
-    % NO CODE: CBP gives 3920.20 — the ribbon is printed, and the ruling
+    % CONDITIONAL (until 21 Nov 2026: no code): CBP gives 3920.20 — the ribbon is printed, and the ruling
     % does not say whether the printing is merely subsidiary to its use
     % (Section VII note 2): the model asks for that judgment.
     the kind of the Aspidistra leaf ribbon is strip,
@@ -596,7 +596,10 @@ scenario ny_n317550 is, as stated in ruling NY N317550:
         confer "It will be imported in 4-inch widths on spools of 50 yards".
     the Aspidistra leaf ribbon is put up in rolls,
         confer "It will be imported in 4-inch widths on spools of 50 yards".
-    subheading expects answers [].
+    % the code, on condition that the printing is not primary (conditional
+    % negation over the judgment, language.md §2.1.4)
+    subheading expects answers ["the subheading of the Aspidistra leaf ribbon is 3920.20"]
+        and unknowns ["it is not the case that the printing of the Aspidistra leaf ribbon is primary"].
 
 % NY N296134 (May 2018): high impact polystyrene sheets from Denmark.
 % CBP: the tri-laminate sheets -> 3920.30
@@ -700,7 +703,7 @@ scenario ny_n348109 is, as stated in ruling NY N348109:
 % NY N351725 (August 2025): cellular polystyrene sheets and shiplap boards from Canada.
 % CBP: the ECO Carbon Foam sheets -> 3921.11; the ECO Carbon Foam shiplap boards -> 3925.90
 scenario ny_n351725 is, as stated in ruling NY N351725:
-    % NO CODE: CBP gives 3921.11 and 3925.90 — both goods are printed, and
+    % CONDITIONAL (until 21 Nov 2026: no code): CBP gives 3921.11 and 3925.90 — both goods are printed, and
     % the ruling does not say whether the printing is merely subsidiary
     % (Section VII note 2); the shiplap boards are also worked beyond
     % cutting (Chapter 39 note 10 keeps them out of 3921) and the ruling
@@ -728,7 +731,10 @@ scenario ny_n351725 is, as stated in ruling NY N351725:
         confer "The sheets are printed with company logo and are then cut to the desired lengths".
     % the ruling does not say whether the printing of the ECO Carbon Foam shiplap boards is merely subsidiary
     % (Section VII note 2): a judgment the model asks for
-    subheading expects answers [].
+    % the code, on condition that the printing is not primary (conditional
+    % negation over the judgment, language.md §2.1.4)
+    subheading expects answers ["the subheading of the ECO Carbon Foam sheets is 3921.11"]
+        and unknowns ["it is not the case that the printing of the ECO Carbon Foam sheets is primary"].
 
 % NY N357381 (January 2026): polyurethane foam blocks from Germany.
 % CBP: the polyurethane foam blocks -> 3921.13
@@ -745,7 +751,7 @@ scenario ny_n357381 is, as stated in ruling NY N357381:
 % NY N352713 (September 2025): regenerated cellulose sponge sheets from Germany and China.
 % CBP: the Swedish Dishcloth (item number 1741726) -> 3921.14
 scenario ny_n352713 is, as stated in ruling NY N352713:
-    % NO CODE: CBP gives 3921.14 — the cloth is printed, and the ruling does
+    % CONDITIONAL (until 21 Nov 2026: no code): CBP gives 3921.14 — the cloth is printed, and the ruling does
     % not say whether the printing is merely subsidiary (Section VII note
     % 2).
     the kind of the Swedish Dishcloth is sheet,
@@ -758,12 +764,15 @@ scenario ny_n352713 is, as stated in ruling NY N352713:
         confer "They are screen printed with various designs but are not further worked".
     % the ruling does not say whether the printing of the Swedish Dishcloth is merely subsidiary
     % (Section VII note 2): a judgment the model asks for
-    subheading expects answers [].
+    % the code, on condition that the printing is not primary (conditional
+    % negation over the judgment, language.md §2.1.4)
+    subheading expects answers ["the subheading of the Swedish Dishcloth is 3921.14"]
+        and unknowns ["it is not the case that the printing of the Swedish Dishcloth is primary"].
 
 % NY N344848 (January 2025): printed microporous polyethylene film from Turkey.
 % CBP: the microporous polyethylene film -> 3921.19
 scenario ny_n344848 is, as stated in ruling NY N344848:
-    % NO CODE: CBP gives 3921.19 — the film is printed, and the ruling does
+    % CONDITIONAL (until 21 Nov 2026: no code): CBP gives 3921.19 — the film is printed, and the ruling does
     % not say whether the printing is merely subsidiary (Section VII note
     % 2).
     the kind of the microporous polyethylene film is film,
@@ -778,7 +787,10 @@ scenario ny_n344848 is, as stated in ruling NY N344848:
     % (Section VII note 2): a judgment the model asks for
     the microporous polyethylene film is put up in rolls,
         confer "The film will be imported in a thickness of 17-20 microns on rolls".
-    subheading expects answers [].
+    % the code, on condition that the printing is not primary (conditional
+    % negation over the judgment, language.md §2.1.4)
+    subheading expects answers ["the subheading of the microporous polyethylene film is 3921.19"]
+        and unknowns ["it is not the case that the printing of the microporous polyethylene film is primary"].
 
 % NY N362111 (June 2026): phenolic resin film reinforced with glass fiber from the United Kingdom.
 % CBP: the phenolic prepreg -> 3921.90
