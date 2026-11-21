@@ -1,0 +1,612 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the principal use of a plastics article, presumed from the name that a
+% listing gives the article, as a customs text names the article. Each word
+% is a name that the tariff's Chapter 39 (headings 3923, 3924 and 3926, their
+% subheadings and statistical lines, and subheading note 5) or a US Customs
+% ruling gives to an article of a use that the rules of Chapter 39 read
+% (table uses). A name that two texts give to two uses (buckets and pails;
+% handles and knobs) gives the two uses as alternatives.
+%
+% The value "other use" is for the articles that the tariff names under
+% "Other" of 3926.90, and the articles that the rulings put there: their
+% principal use is none of the uses that the rules read.
+%
+% Left out, because they name a legal category and not a thing a seller
+% names: household articles, hygienic or toilet articles, clothing
+% accessories, builders' ware. Left out, because a seller uses the word for
+% another thing: case, cap, caps, seal, seals, belt, scarf, runner, panel.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the principal use of *a good* is *a use*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a name* is a word for the use *a use*.
+    *a field* is a field that names the kind.
+    the principal use of *a good* is *a use*.
+
+the knowledge base uses background includes:
+
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+the listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the listing format is at "sources/listings/marketplace_fields.txt".
+ruling NY N340223 is published at "https://rulings.cbp.gov/ruling/N340223".
+the text of ruling NY N340223 is at "sources/cbp/N340223.txt".
+ruling NY N342911 is published at "https://rulings.cbp.gov/ruling/N342911".
+the text of ruling NY N342911 is at "sources/cbp/N342911.txt".
+ruling NY N348109 is published at "https://rulings.cbp.gov/ruling/N348109".
+the text of ruling NY N348109 is at "sources/cbp/N348109.txt".
+ruling NY N356689 is published at "https://rulings.cbp.gov/ruling/N356689".
+the text of ruling NY N356689 is at "sources/cbp/N356689.txt".
+ruling NY N357351 is published at "https://rulings.cbp.gov/ruling/N357351".
+the text of ruling NY N357351 is at "sources/cbp/N357351.txt".
+ruling NY N358418 is published at "https://rulings.cbp.gov/ruling/N358418".
+the text of ruling NY N358418 is at "sources/cbp/N358418.txt".
+ruling NY N358771 is published at "https://rulings.cbp.gov/ruling/N358771".
+the text of ruling NY N358771 is at "sources/cbp/N358771.txt".
+ruling NY N360066 is published at "https://rulings.cbp.gov/ruling/N360066".
+the text of ruling NY N360066 is at "sources/cbp/N360066.txt".
+ruling NY N360188 is published at "https://rulings.cbp.gov/ruling/N360188".
+the text of ruling NY N360188 is at "sources/cbp/N360188.txt".
+ruling NY N360630 is published at "https://rulings.cbp.gov/ruling/N360630".
+the text of ruling NY N360630 is at "sources/cbp/N360630.txt".
+ruling NY N361443 is published at "https://rulings.cbp.gov/ruling/N361443".
+the text of ruling NY N361443 is at "sources/cbp/N361443.txt".
+ruling NY N361872 is published at "https://rulings.cbp.gov/ruling/N361872".
+the text of ruling NY N361872 is at "sources/cbp/N361872.txt".
+ruling NY N361986 is published at "https://rulings.cbp.gov/ruling/N361986".
+the text of ruling NY N361986 is at "sources/cbp/N361986.txt".
+ruling NY N362269 is published at "https://rulings.cbp.gov/ruling/N362269".
+the text of ruling NY N362269 is at "sources/cbp/N362269.txt".
+ruling NY N362285 is published at "https://rulings.cbp.gov/ruling/N362285".
+the text of ruling NY N362285 is at "sources/cbp/N362285.txt".
+ruling NY N362334 is published at "https://rulings.cbp.gov/ruling/N362334".
+the text of ruling NY N362334 is at "sources/cbp/N362334.txt".
+ruling NY N362836 is published at "https://rulings.cbp.gov/ruling/N362836".
+the text of ruling NY N362836 is at "sources/cbp/N362836.txt".
+ruling NY N363173 is published at "https://rulings.cbp.gov/ruling/N363173".
+the text of ruling NY N363173 is at "sources/cbp/N363173.txt".
+ruling NY N363253 is published at "https://rulings.cbp.gov/ruling/N363253".
+the text of ruling NY N363253 is at "sources/cbp/N363253.txt".
+ruling NY N363254 is published at "https://rulings.cbp.gov/ruling/N363254".
+the text of ruling NY N363254 is at "sources/cbp/N363254.txt".
+ruling NY N363384 is published at "https://rulings.cbp.gov/ruling/N363384".
+the text of ruling NY N363384 is at "sources/cbp/N363384.txt".
+ruling NY N363423 is published at "https://rulings.cbp.gov/ruling/N363423".
+the text of ruling NY N363423 is at "sources/cbp/N363423.txt".
+ruling NY N363522 is published at "https://rulings.cbp.gov/ruling/N363522".
+the text of ruling NY N363522 is at "sources/cbp/N363522.txt".
+
+% The fields of a listing that name what the product is
+"item type" is a field that names the kind,
+    as stated in the listing format, confer "Item Type (64 listings): the kind of product in the seller's words".
+"type" is a field that names the kind,
+    as stated in the listing format, confer "Type (21 listings): a kind of product".
+
+% Packing of goods: heading 3923 and its subheadings
+"box" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Boxes, cases, crates and similar articles".
+"boxes" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Boxes, cases, crates and similar articles".
+"crate" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Boxes, cases, crates and similar articles".
+"crates" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Boxes, cases, crates and similar articles".
+"sack" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Sacks and bags (including cones)".
+"sacks" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Sacks and bags (including cones)".
+"bag" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Sacks and bags (including cones)".
+"bags" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Sacks and bags (including cones)".
+"carrier bag" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polyethylene retail carrier bags (PRCBs) with handles".
+"carrier bags" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polyethylene retail carrier bags (PRCBs) with handles".
+"retail carrier bag" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polyethylene retail carrier bags (PRCBs) with handles".
+"retail carrier bags" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polyethylene retail carrier bags (PRCBs) with handles".
+"carboy" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Carboys, bottles, flasks and similar articles".
+"carboys" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Carboys, bottles, flasks and similar articles".
+"bottle" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Carboys, bottles, flasks and similar articles".
+"bottles" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Carboys, bottles, flasks and similar articles".
+"flask" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Carboys, bottles, flasks and similar articles".
+"flasks" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Carboys, bottles, flasks and similar articles".
+"spool" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Spools, cops, bobbins and similar supports".
+"spools" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Spools, cops, bobbins and similar supports".
+"bobbin" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Spools, cops, bobbins and similar supports".
+"bobbins" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Spools, cops, bobbins and similar supports".
+"film reel" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Photographic film reels and reel cans".
+"film reels" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Photographic film reels and reel cans".
+"stopper" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Stoppers, lids, caps and other closures".
+"stoppers" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Stoppers, lids, caps and other closures".
+"lid" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Stoppers, lids, caps and other closures".
+"lids" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Stoppers, lids, caps and other closures".
+"closure" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Stoppers, lids, caps and other closures".
+"closures" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Stoppers, lids, caps and other closures".
+"bucket" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails, with or without lids or other closures".
+"buckets" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails, with or without lids or other closures".
+"pail" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails, with or without lids or other closures".
+"pails" is a word for the use packing of goods,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails, with or without lids or other closures".
+"plastic bag" is a word for the use packing of goods,
+    as stated in ruling NY N360188, confer "The merchandise at issue is a plastic bag manufactured in China.".
+"plastic bags" is a word for the use packing of goods,
+    as stated in ruling NY N360188, confer "The merchandise at issue is a plastic bag manufactured in China.".
+"storage bag" is a word for the use packing of goods,
+    as stated in ruling NY N348109, confer "The applicable subheading for the zip-top storage bags composed of PLA and PBAT".
+"storage bags" is a word for the use packing of goods,
+    as stated in ruling NY N348109, confer "The applicable subheading for the zip-top storage bags composed of PLA and PBAT".
+"zip-top storage bag" is a word for the use packing of goods,
+    as stated in ruling NY N348109, confer "The applicable subheading for the zip-top storage bags composed of PLA and PBAT".
+"zip-top storage bags" is a word for the use packing of goods,
+    as stated in ruling NY N348109, confer "The applicable subheading for the zip-top storage bags composed of PLA and PBAT".
+"food storage bag" is a word for the use packing of goods,
+    as stated in ruling NY N348109, confer "Zip-Top Food Storage Bag".
+"food storage bags" is a word for the use packing of goods,
+    as stated in ruling NY N348109, confer "Zip-Top Food Storage Bag".
+"packaging bag" is a word for the use packing of goods,
+    as stated in ruling NY N342911, confer "The bags are used for packaging products including animal feed, cat litter, home and garden products, charcoal and other items.".
+"packaging bags" is a word for the use packing of goods,
+    as stated in ruling NY N342911, confer "The bags are used for packaging products including animal feed, cat litter, home and garden products, charcoal and other items.".
+"lipstick container" is a word for the use packing of goods,
+    as stated in ruling NY N358771, confer "The product under consideration is described as a lipstick container".
+"lipstick containers" is a word for the use packing of goods,
+    as stated in ruling NY N358771, confer "The product under consideration is described as a lipstick container".
+"packaging insert" is a word for the use packing of goods,
+    as stated in ruling NY N363423, confer "polyethylene foam packaging inserts used to protect a robotic arm during shipment".
+"packaging inserts" is a word for the use packing of goods,
+    as stated in ruling NY N363423, confer "polyethylene foam packaging inserts used to protect a robotic arm during shipment".
+"foam packaging insert" is a word for the use packing of goods,
+    as stated in ruling NY N363423, confer "polyethylene foam packaging inserts used to protect a robotic arm during shipment".
+"foam packaging inserts" is a word for the use packing of goods,
+    as stated in ruling NY N363423, confer "polyethylene foam packaging inserts used to protect a robotic arm during shipment".
+
+% Table use and kitchen use: subheading 3924.10
+"tableware" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tableware and kitchenware".
+"kitchenware" is a word for the use kitchen use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Tableware and kitchenware".
+"plate" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"plates" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"cup" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"cups" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"saucer" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"saucers" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"soup bowl" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"soup bowls" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"cereal bowl" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"cereal bowls" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"sugar bowl" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"sugar bowls" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"creamer" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"creamers" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"gravy boat" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"gravy boats" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"serving dish" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"serving dishes" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"platter" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"platters" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plates, cups, saucers, soup bowls, cereal bowls, sugar bowls, creamers, gravy boats, serving dishes and platters".
+"tray" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Trays".
+"trays" is a word for the use table use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Trays".
+"bowl" is a word for the use table use,
+    as stated in ruling NY N358418, confer "This article is a plastic bowl and is not heatproof.".
+"bowls" is a word for the use table use,
+    as stated in ruling NY N358418, confer "This article is a plastic bowl and is not heatproof.".
+"ramekin" is a word for the use table use,
+    as stated in ruling NY N358418, confer "You refer to this item as a ramekin.".
+"ramekins" is a word for the use table use,
+    as stated in ruling NY N358418, confer "You refer to this item as a ramekin.".
+
+% Household use: subheading 3924.90 and its statistical lines (note 5 of
+% the chapter takes photo albums out of it)
+"nursing nipple" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Nursing nipples and finger cots".
+"nursing nipples" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Nursing nipples and finger cots".
+"finger cot" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Nursing nipples and finger cots".
+"finger cots" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Nursing nipples and finger cots".
+"curtain" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"curtains" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"drape" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"drapes" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"valance" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"valances" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"napkin" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"napkins" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"table cover" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"table covers" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"mat" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"mats" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"doily" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"doilies" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"centerpiece" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"centerpieces" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"antimacassar" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"antimacassars" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"slipcover" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"slipcovers" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"furniture slipcover" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"furniture slipcovers" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Curtains and drapes, including panels and valances; napkins, table covers, mats, scarves, runners, doilies, centerpieces, antimacassars and furniture slipcovers; and like furnishings".
+"picture frame" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Picture frames".
+"picture frames" is a word for the use household use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Picture frames".
+"photo frame" is a word for the use household use,
+    as stated in ruling NY N356689, confer "plastic border photo frames".
+"photo frames" is a word for the use household use,
+    as stated in ruling NY N356689, confer "plastic border photo frames".
+"kitchen rug" is a word for the use household use,
+    as stated in ruling NY N340223, confer "The merchandise is identified as a kitchen rug".
+"kitchen rugs" is a word for the use household use,
+    as stated in ruling NY N340223, confer "The merchandise is identified as a kitchen rug".
+"kitchen mat" is a word for the use household use,
+    as stated in ruling NY N340223, confer "You also requested a determination of the country of origin for the kitchen mat.".
+"kitchen mats" is a word for the use household use,
+    as stated in ruling NY N340223, confer "You also requested a determination of the country of origin for the kitchen mat.".
+"shower curtain" is a word for the use household use,
+    as stated in ruling NY N362285, confer "The item under consideration is identified as a shower vinyl curtain".
+"shower curtains" is a word for the use household use,
+    as stated in ruling NY N362285, confer "The item under consideration is identified as a shower vinyl curtain".
+"shower vinyl curtain" is a word for the use household use,
+    as stated in ruling NY N362285, confer "The item under consideration is identified as a shower vinyl curtain".
+"scrub sponge" is a word for the use household use,
+    as stated in ruling NY N357351, confer "The merchandise is a plastic scrub sponge".
+"scrub sponges" is a word for the use household use,
+    as stated in ruling NY N357351, confer "The merchandise is a plastic scrub sponge".
+"pet toy" is a word for the use household use,
+    as stated in ruling NY N360066, confer "plastic pet toys and plastic pet supplies used by domestic household animals are classified as household articles".
+"pet toys" is a word for the use household use,
+    as stated in ruling NY N360066, confer "plastic pet toys and plastic pet supplies used by domestic household animals are classified as household articles".
+"cat toy" is a word for the use household use,
+    as stated in ruling NY N360066, confer "will be marketed and sold as a cat toy".
+"cat toys" is a word for the use household use,
+    as stated in ruling NY N360066, confer "will be marketed and sold as a cat toy".
+"shoe tree" is a word for the use household use,
+    as stated in ruling NY N360630, confer "The merchandise under consideration is identified as a shoe tree.".
+"shoe trees" is a word for the use household use,
+    as stated in ruling NY N360630, confer "The merchandise under consideration is identified as a shoe tree.".
+"laundry bin" is a word for the use household use,
+    as stated in ruling NY N362334, confer "The item concerned is a white plastic laundry bin".
+"laundry bins" is a word for the use household use,
+    as stated in ruling NY N362334, confer "The item concerned is a white plastic laundry bin".
+"garden rake" is a word for the use household use,
+    as stated in ruling NY N363254, confer "It is a garden rake used in household yards.".
+"garden rakes" is a word for the use household use,
+    as stated in ruling NY N363254, confer "It is a garden rake used in household yards.".
+"rake" is a word for the use household use,
+    as stated in ruling NY N363254, confer "It is a garden rake used in household yards.".
+"rakes" is a word for the use household use,
+    as stated in ruling NY N363254, confer "It is a garden rake used in household yards.".
+
+% Office use and school use: subheading 3926.10 (a shop's category)
+"office supplies" is a word for the use office use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Office or school supplies".
+"school supplies" is a word for the use school use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Office or school supplies".
+
+% Apparel: subheading 3926.20 and its statistical lines
+"glove" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Articles of apparel and clothing accessories (including gloves, mittens and mitts)".
+"gloves" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Articles of apparel and clothing accessories (including gloves, mittens and mitts)".
+"mitten" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Articles of apparel and clothing accessories (including gloves, mittens and mitts)".
+"mittens" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Articles of apparel and clothing accessories (including gloves, mittens and mitts)".
+"mitt" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Articles of apparel and clothing accessories (including gloves, mittens and mitts)".
+"mitts" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Articles of apparel and clothing accessories (including gloves, mittens and mitts)".
+"baseball glove" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baseball and softball gloves and mitts".
+"baseball gloves" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baseball and softball gloves and mitts".
+"softball glove" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baseball and softball gloves and mitts".
+"softball gloves" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Baseball and softball gloves and mitts".
+"rainwear" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"jacket" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"jackets" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"coat" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"coats" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"poncho" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"ponchos" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"parka" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"parkas" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"slicker" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"slickers" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Plasticrainwear,includingjackets,coats, ponchos, parkas and slickers".
+"apron" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Aprons".
+"aprons" is a word for the use apparel,
+    as stated in HTSUS Section VII and Chapter 39, confer "Aprons".
+"faux leather jacket" is a word for the use apparel,
+    as stated in ruling NY N363384, confer "Style CB81426 is a men’s faux leather jacket.".
+"faux leather jackets" is a word for the use apparel,
+    as stated in ruling NY N363384, confer "Style CB81426 is a men’s faux leather jacket.".
+
+% Furniture fittings: subheading 3926.30. Handles and knobs are also named
+% under Other of 3926.90: the two uses are alternatives
+"handle" is a word for the use furniture fittings,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs".
+"handles" is a word for the use furniture fittings,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs".
+"knob" is a word for the use furniture fittings,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs".
+"knobs" is a word for the use furniture fittings,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs".
+"furniture fitting" is a word for the use furniture fittings,
+    as stated in HTSUS Section VII and Chapter 39, confer "Fittings for furniture, coachwork or the like".
+"furniture fittings" is a word for the use furniture fittings,
+    as stated in HTSUS Section VII and Chapter 39, confer "Fittings for furniture, coachwork or the like".
+
+% Ornament: subheading 3926.40 and its statistical lines
+"statuette" is a word for the use ornament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Statuettes and other ornamental articles".
+"statuettes" is a word for the use ornament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Statuettes and other ornamental articles".
+"ornament" is a word for the use ornament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Statuettes and other ornamental articles".
+"ornaments" is a word for the use ornament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Statuettes and other ornamental articles".
+"bow" is a word for the use ornament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Bows and similar products for decorative purposes including gift-packaging and the like".
+"bows" is a word for the use ornament,
+    as stated in HTSUS Section VII and Chapter 39, confer "Bows and similar products for decorative purposes including gift-packaging and the like".
+"alphabet charm" is a word for the use ornament,
+    as stated in ruling NY N361443, confer "The tariff classification of plastic letter charms from China.".
+"alphabet charms" is a word for the use ornament,
+    as stated in ruling NY N361443, confer "The tariff classification of plastic letter charms from China.".
+"letter charm" is a word for the use ornament,
+    as stated in ruling NY N361443, confer "The tariff classification of plastic letter charms from China.".
+"letter charms" is a word for the use ornament,
+    as stated in ruling NY N361443, confer "The tariff classification of plastic letter charms from China.".
+"charm" is a word for the use ornament,
+    as stated in ruling NY N362269, confer "then will assemble the other kit elements to create the finished charm".
+"charms" is a word for the use ornament,
+    as stated in ruling NY N362269, confer "then will assemble the other kit elements to create the finished charm".
+"ornamental craft kit" is a word for the use ornament,
+    as stated in ruling NY N362269, confer "The tariff classification of ornamental craft kits from China.".
+"ornamental craft kits" is a word for the use ornament,
+    as stated in ruling NY N362269, confer "The tariff classification of ornamental craft kits from China.".
+"miniature replica" is a word for the use ornament,
+    as stated in ruling NY N363173, confer "non-functional miniature replicas".
+"miniature replicas" is a word for the use ornament,
+    as stated in ruling NY N363173, confer "non-functional miniature replicas".
+"decoration" is a word for the use ornament,
+    as stated in ruling NY N363173, confer "These articles are intended to serve as collectible decorations".
+"decorations" is a word for the use ornament,
+    as stated in ruling NY N363173, confer "These articles are intended to serve as collectible decorations".
+
+% Other use: the articles that subheading 3926.90 names under Other, and the
+% articles that the rulings put there; the principal use is none of the uses
+% above
+"bucket" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails".
+"buckets" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails".
+"pail" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails".
+"pails" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Buckets and pails".
+"pacifier" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Pacifiers".
+"pacifiers" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Pacifiers".
+"ice bag" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Ice bags; douche bags, enema bags, hot water bottles".
+"ice bags" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Ice bags; douche bags, enema bags, hot water bottles".
+"hot water bottle" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Ice bags; douche bags, enema bags, hot water bottles".
+"hot water bottles" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Ice bags; douche bags, enema bags, hot water bottles".
+"nursing cushion" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "invalid and similar nursing cushions".
+"nursing cushions" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "invalid and similar nursing cushions".
+"dress shield" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "dress shields".
+"dress shields" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "dress shields".
+"handle" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs, not elsewhere specified or included, of plastics".
+"handles" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs, not elsewhere specified or included, of plastics".
+"knob" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs, not elsewhere specified or included, of plastics".
+"knobs" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handles and knobs, not elsewhere specified or included, of plastics".
+"handbag" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handbags".
+"handbags" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Handbags".
+"bead" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Beads, bugles and spangles".
+"beads" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Beads, bugles and spangles".
+"spangle" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Beads, bugles and spangles".
+"spangles" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Beads, bugles and spangles".
+"imitation gemstone" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Imitation gemstones".
+"imitation gemstones" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Imitation gemstones".
+"gasket" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Gaskets, washers and other seals".
+"gaskets" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Gaskets, washers and other seals".
+"washer" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Gaskets, washers and other seals".
+"washers" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Gaskets, washers and other seals".
+"o-ring" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "O-Rings".
+"o-rings" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "O-Rings".
+"photo album" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "does not include photo albums (see subheading 3926.90.48)".
+"photo albums" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "does not include photo albums (see subheading 3926.90.48)".
+"v-belt" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "V-belts".
+"v-belts" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "V-belts".
+"synchronous belt" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Synchronous belts".
+"synchronous belts" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Synchronous belts".
+"clothespin" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Clothespins".
+"clothespins" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Clothespins".
+"waterbed mattress" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Waterbed mattresses and liners".
+"waterbed mattresses" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Waterbed mattresses and liners".
+"document binder" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Flexible plastic document binders with tabs".
+"document binders" is a word for the use other use,
+    as stated in HTSUS Section VII and Chapter 39, confer "Flexible plastic document binders with tabs".
+"rebar" is a word for the use other use,
+    as stated in ruling NY N361872, confer "fiberglass-reinforced plastic (FRP) rebar".
+"record sleeve" is a word for the use other use,
+    as stated in ruling NY N361986, confer "The tariff classification of vinyl record sleeves from China.".
+"record sleeves" is a word for the use other use,
+    as stated in ruling NY N361986, confer "The tariff classification of vinyl record sleeves from China.".
+"vinyl record sleeve" is a word for the use other use,
+    as stated in ruling NY N361986, confer "The tariff classification of vinyl record sleeves from China.".
+"vinyl record sleeves" is a word for the use other use,
+    as stated in ruling NY N361986, confer "The tariff classification of vinyl record sleeves from China.".
+"cellphone case" is a word for the use other use,
+    as stated in ruling NY N363522, confer "As these four cellphone cases would be considered articles of plastic".
+"cellphone cases" is a word for the use other use,
+    as stated in ruling NY N363522, confer "As these four cellphone cases would be considered articles of plastic".
+"phone case" is a word for the use other use,
+    as stated in ruling NY N363522, confer "As these four cellphone cases would be considered articles of plastic".
+"phone cases" is a word for the use other use,
+    as stated in ruling NY N363522, confer "As these four cellphone cases would be considered articles of plastic".
+"bowl clamp" is a word for the use other use,
+    as stated in ruling NY N363253, confer "Self-Feeding Bowl Clamp".
+"bowl clamps" is a word for the use other use,
+    as stated in ruling NY N363253, confer "Self-Feeding Bowl Clamp".
+"dispensing cartridge" is a word for the use other use,
+    as stated in ruling NY N362836, confer "It will be used as a material reservoir and dispensing cartridge".
+"dispensing cartridges" is a word for the use other use,
+    as stated in ruling NY N362836, confer "It will be used as a material reservoir and dispensing cartridge".
+
+% a classification controlled by use is decided by the principal use; the
+% name of an article tells its use, as the tariff names its articles
+rule use_by_name with provenance HTSUS Section VII and Chapter 39,
+        confer "Tableware, kitchenware, other household articles and hygienic":
+the principal use of a good is a use
+    if the good is called a name
+    and the name is a word for the use the use.
+
+rule use_by_field with provenance the listing format,
+        confer "Item Type (64 listings): the kind of product in the seller's words":
+the principal use of a good is a use
+    if the field a field of the good reads a value
+    and the field is a field that names the kind
+    and the value is a word for the use the use.
+
+scenario plate is:
+    plate one is called "plates".
+    frame is called "picture frame".
+    gloves is called "gloves".
+    album is called "photo album".
+    the field "item type" of figure reads "statuette".
+    the field "type" of sack one reads "plastic bag".
+    pail one is called "pail".
+    uses expects answers ["the principal use of plate one is table use", "the principal use of frame is household use", "the principal use of gloves is apparel", "the principal use of album is other use", "the principal use of figure is ornament", "the principal use of sack one is packing of goods", "the principal use of pail one is packing of goods", "the principal use of pail one is other use"].
+
+query uses is:
+    the principal use of which good is which use.

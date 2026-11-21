@@ -59,4 +59,12 @@ test(the_flag_turns_conditional_negation_off) :-
                        set_prolog_flag(le_conditional_negation, true)),
     assertion(\+ memberchk("\"26.90\""-_, As)).
 
+% the values a reader is offered for the judgment include those that only the
+% table's column compares it with (le_verifier:slot_values/5): a reader who
+% is not offered "ornament" cannot state it
+test(the_values_of_a_judgment_include_the_table_cells) :-
+    cn_kb(KB),
+    le_verifier:slot_values(KB, the_principal_use_of_is, 2, 2, Vs),
+    assertion(subtract(['kitchen use', 'office use', ornament, 'table use'], Vs, [])).
+
 :- end_tests(conditional_negation).

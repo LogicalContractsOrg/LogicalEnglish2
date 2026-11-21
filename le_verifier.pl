@@ -2349,7 +2349,12 @@ source_value(KB, Src, V) :-
     ;   source_value_(KB, Src, V)
     ).
 
-source_value_(KB, facts(F2, A2, J), V) :- fact_argument(KB, F2, A2, J, V).
+source_value_(KB, facts(F2, A2, J), V) :-
+    (   fact_argument(KB, F2, A2, J, V)
+    ;   % a condition read from a decision table ("the subheading for the
+        % use is the code under table uses"): the values of its column
+        table_column_value(KB, F2, A2, J, V)
+    ).
 source_value_(KB, head(HF, HA, K), V) :- head_argument_value(KB, HF, HA, K, V).
 
 %   The values of each source, while an index of the rules lives

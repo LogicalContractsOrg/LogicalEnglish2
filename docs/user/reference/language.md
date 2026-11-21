@@ -2243,7 +2243,8 @@ is not limited to a specific kind of document or program:
   header names the document (or `as stated in <document>, confer "..."`);
 - when the program marks its scenario templates with `; undefined` or
   `; judged`, the system offers only those templates. With each template, it gives
-  the values that its rules test for in each place (§17.1.6)
+  the values that its rules test for in each place, also the values of a column
+  of a decision table that the place goes to (§17.1.6)
   (`the kind of *a good* is *a kind*    [*a kind*: coat, dress, jacket, ...]`, a
   maximum of 200 values). The model then writes the words of the rules, and not
   near-synonyms that no rule uses. When the program marks none of its templates,
@@ -2253,8 +2254,13 @@ is not limited to a specific kind of document or program:
   cut a long document in the middle of a fact. In the reply, the system changes a
   `%` outside a quoted passage into the word `percent`, because in LE a `%` starts
   a comment. It moves a full stop before the trailer of a fact to after the trailer;
-- the system writes a `; judged` template only when the text reports the decision of
-  a person (`according to <who>`, `because "..."`). The system never writes a
+- the system writes a `; judged` template when the text reports the decision of
+  a person (`according to <who>`, `because "..."`). It also writes a `; judged`
+  template when the author of the text states the value in plain words. For
+  example, a shop listing says that a product is a decoration. Then the fact names
+  the author: `the principal use of item 74 is ornament, according to the seller,
+  confer "Artificial Decorations"`. A value that the text only suggests is not
+  written. Then the program answers on condition (§2.1.4). The system never writes a
   template that the rules conclude. The conclusions of the document are what the
   rules must calculate again. They are not facts to give to the program;
 - the system checks each passage against the text. It gives the warning

@@ -1235,8 +1235,11 @@ endereço. Cole ou obtenha o texto e carregue em *Gerar*:
 - quando o programa marca os seus modelos de cenário (`; indefinido` ou
   `; julgado`), só esses são oferecidos, cada um com os valores que as regras
   leem em cada lugar; senão todos os modelos são oferecidos;
-- um modelo `; julgado` só é escrito quando o texto relata a decisão de alguém
-  (`de acordo com <quem>`, `porque "..."`); um modelo que as regras concluem
+- um modelo `; julgado` é escrito quando o texto relata a decisão de alguém
+  (`de acordo com <quem>`, `porque "..."`), ou quando o autor do texto declara o
+  valor em palavras simples (então o facto nomeia o autor: `de acordo com o
+  vendedor`); um valor que o texto só sugere não é escrito, e o programa
+  responde sob condição; um modelo que as regras concluem
   nunca é escrito;
 - cada passagem é verificada contra o texto (aviso `quote_not_in_text` quando
   o modelo parafraseou), e os factos são verificados contra o programa;

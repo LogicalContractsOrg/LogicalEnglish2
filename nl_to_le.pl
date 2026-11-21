@@ -863,8 +863,9 @@ missing_value_rule(_, "If the sentence does NOT give a value for some placeholde
 %   The extra instruction for extracting facts from the text of a document:
 %   each fact cites the passage that states it, with the program's own
 %   provenance trailers (docs/user/reference/language.md §17.1) in the program's language;
-%   judged templates only record a decision the text reports; derived ones are
-%   never stated.
+%   a judged template records a decision the text reports, or the value the
+%   text's author states in plain words (who states it: the author); derived
+%   ones are never stated.
 document_rules(Doc, Text) :-
     kw_phrase(confer, "confer", Confer),
     kw_phrase(according_to, "according to", According),
@@ -873,10 +874,10 @@ document_rules(Doc, Text) :-
 "~n~n--- The text is a document ---~n\
 The user's message is the text of the document named ~w. Extract the facts it states about the individuals it describes (the goods, persons, events...): name each individual as the document does (for example by its style, model or reference number), never starting a name with 'a', 'an' or 'the', and without commas, colons, quotes, slashes or % signs in the name.~n\
 After EACH fact, on the same line, point at the passage that states it: , ~w \"<passage>\" — where <passage> is copied WORD FOR WORD from the text (3 to 20 consecutive words, no double quote inside).~n\
-A template marked (judged) records a decision someone made: write such a fact only when the text reports that decision, as: <fact>, ~w <who decided>, ~w \"<passage>\", ~w \"<their reason, in their words>\".~n\
+A template marked (judged) records a decision someone made. Write such a fact when the text reports that decision, as: <fact>, ~w <who decided>, ~w \"<passage>\", ~w \"<their reason, in their words>\". Write it also when the text itself states, in plain words, the value that the decision is about (for example, what the author says a good is for): then the one who states it is the author of the document, and the fact is written as: <fact>, ~w <the author, for example the seller>, ~w \"<the passage that states the value>\". A value that the text only suggests, or that you would have to weigh, is not stated: leave the fact out, and the program answers on condition.~n\
 Never write a fact of a template marked (derived): the program's rules derive those, and the document's conclusions (a classification, an outcome) are what the rules must reproduce, not facts.~n\
 State only what the text states: a feature the text does not mention is simply left out.~nBe exhaustive: a document describes each individual in detail, and every detail a template can express is a fact to write — what the individual is (its kind or type), what it is made of (one fact per material or component, with its share), how it is made, each of its features, its measures. Go through the templates one by one for each individual. A document usually yields many facts per individual (often ten or more); one or two facts is almost never a complete extraction. Keep the facts of each individual together.",
-        [Doc, Confer, According, Confer, Because]).
+        [Doc, Confer, According, Confer, Because, According, Confer]).
 
 kw_phrase(Key, Default, Phrase) :-
     (   le_i18n:kw_main_words(Key, Words), Words \== []
