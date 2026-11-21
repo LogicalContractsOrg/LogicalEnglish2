@@ -11,6 +11,7 @@ the target language is: prolog.
 
 the functions are:
     the fabric construction of *a garment* is *a construction*.
+    the principal use of *a good* is *a use*.
 
 the templates are:
     the field *a field* of *a thing* reads *a value*; undefined.
@@ -22,6 +23,20 @@ the templates are:
     the fabric of *a garment* is lightweight.
     *a garment* is of plain knit fabric.
     the fabric construction of *a garment* is *a construction*.
+    *a thing* names the material *a name*; undefined.
+    *a garment* has an opening starting at the neckline.
+    *a garment* is loose-fitting.
+    *a value* is a word for babies.
+    *a garment* is sized for babies.
+    *a name* is a word for rubber.
+    *a good* has a coating of plastics.
+    *a good* has a coating of rubber.
+    *a thing* is called *a name*; undefined.
+    *a name* is a word for a belt.
+    the principal use of *a good* is *a use*.
+
+the knowledge base customs presumptions includes these resources:
+    materials.
 
 the knowledge base customs presumptions includes:
 
@@ -29,6 +44,16 @@ the apparel terminology publication is published at "https://www.cbp.gov/trade/r
 the text of the apparel terminology publication is at "sources/cbp_icp/apparel_terminology.txt".
 ruling NY N361819 is published at "https://rulings.cbp.gov/ruling/N361819".
 the text of ruling NY N361819 is at "sources/cbp/N361819.txt".
+HTSUS Chapter 61 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2061".
+the text of HTSUS Chapter 61 is at "sources/hts/chapter_61.txt".
+HTSUS Chapter 62 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2062".
+the text of HTSUS Chapter 62 is at "sources/hts/chapter_62.txt".
+the children's apparel publication is published at "https://www.cbp.gov/sites/default/files/assets/documents/2020-Feb/ICP-Childrens-Apparel-2008-Final.pdf".
+the text of the children's apparel publication is at "sources/cbp_icp/childrens_apparel.txt".
+ruling NY N336251 is published at "https://rulings.cbp.gov/ruling/N336251".
+the text of ruling NY N336251 is at "sources/cbp/N336251.txt".
+ruling NY N097520 is published at "https://rulings.cbp.gov/ruling/N097520".
+the text of ruling NY N097520 is at "sources/cbp/N097520.txt".
 
 T-shirt is a kind of knitted garments,
     as stated in the apparel terminology publication, confer "T-shirts (6109, 6111) - are underwear style garments, constructed from lightweight, plain jersey or interlock knit fabric".
@@ -78,6 +103,106 @@ the fabric construction of a garment is knitted
     and it is not the case that
         the garment has its construction from a field.
 
+% Added from the tariff's notes (2026-11-21): what the definition of a kind
+% says of a garment that a listing gives that kind.
+% Note 4 of Chapters 61 and 62: shirts open at the neckline, blouses are
+% loose-fitting
+% Not presumed: an opening at the neckline from the word "shirt", nor
+% loose-fitting from the word "blouse". Note 4 defines the tariff's shirts
+% and blouses, but a shop's "shirt" is often a T-shirt (RatioTariff §3.15).
+
+% Heading 6111 and 6209: a listing for babies is presumed to be of babies'
+% garments (note 6(a) of Chapter 61, note 5(a) of Chapter 62: a body height
+% not exceeding 86 centimeters)
+"baby" is a word for babies,
+    as stated in HTSUS Chapter 61, confer "Babies' garments and clothing accessories, knitted or crocheted".
+"babies" is a word for babies,
+    as stated in HTSUS Chapter 61, confer "Babies' garments and clothing accessories, knitted or crocheted".
+
+% Added from US Customs' publication on children's apparel (2026-11-21):
+% the names of the babies' size ranges. Left out: "toddler", "toddlers"
+% (the publication: "care should be taken not to mistakenly identify items
+% for older children, such as toddlers, as babies").
+"newborn" is a word for babies,
+    as stated in the children's apparel publication, confer "also called newborn sizes".
+"newborns" is a word for babies,
+    as stated in the children's apparel publication, confer "also called newborn sizes".
+"infant" is a word for babies,
+    as stated in the children's apparel publication, confer "also called infants' sizes".
+"infants" is a word for babies,
+    as stated in the children's apparel publication, confer "also called infants' sizes".
+"preemie" is a word for babies,
+    as stated in the children's apparel publication, confer "range for babies born prematurely".
+
+rule babies_by_gender with provenance HTSUS Chapter 62,
+        confer "The expression \"babies' garments and clothing accessories\" means articles for young children of a body height not exceeding 86 centimeters":
+a garment is sized for babies
+    if the field "gender" of the garment reads a value
+    and the value is a word for babies.
+
+% Subheading 6116.10: textile gloves that name a plastic or rubber among
+% their materials are presumed to be impregnated, coated, covered or
+% laminated with it. A fibre name ("nylon", "acrylic") is not a coating.
+"rubber" is a word for rubber,
+    as stated in HTSUS Chapter 61, confer "Impregnated, coated, covered or laminated with plastics or rubber".
+
+rule glove_coating_plastics with provenance HTSUS Chapter 61,
+        confer "Impregnated, coated, covered or laminated with plastics or rubber":
+a good has a coating of plastics
+    if the kind of the good is a kind
+    and the kind is in [gloves, mittens, mitts]
+    and the fabric construction of the good is a construction
+    and the good names the material a name
+    and the name is a word for the polymer a polymer
+    and it is not the case that
+        the name is a word for the textile material a material.
+
+rule glove_coating_rubber with provenance HTSUS Chapter 61,
+        confer "Impregnated, coated, covered or laminated with plastics or rubber":
+a good has a coating of rubber
+    if the kind of the good is a kind
+    and the kind is in [gloves, mittens, mitts]
+    and the fabric construction of the good is a construction
+    and the good names the material a name
+    and the name is a word for rubber.
+
+% Added from rulings (2026-11-21): a belt that a listing sells for women,
+% men or children girds the waist of the wearer, so it is a clothing
+% accessory (3926.20 when it is of plastics). Without a gender the word may
+% name a v-belt or a conveyor belt, and nothing is presumed.
+"belt" is a word for a belt,
+    as stated in ruling NY N336251, confer "The tariff classification of a women’s belt from China".
+"belts" is a word for a belt,
+    as stated in ruling NY N336251, confer "The tariff classification of a women’s belt from China".
+
+rule belt_worn_by_name with provenance ruling NY N097520,
+        confer "The plastic portion of the belt girds the waist and thus constitutes the article known as a belt.":
+the principal use of a good is apparel
+    if the good is called a name
+    and the name is a word for a belt
+    and the field "gender" of the good reads a value.
+
+rule belt_worn_by_field with provenance ruling NY N097520,
+        confer "The plastic portion of the belt girds the waist and thus constitutes the article known as a belt.":
+the principal use of a good is apparel
+    if the field "item type" of the good reads a name
+    and the name is a word for a belt
+    and the field "gender" of the good reads a value.
+
+scenario rulings is:
+    the field "item type" of belt one reads "belts".
+    the field "gender" of belt one reads "women".
+    belt two is called "belt".
+    the field "gender" of bodysuit one reads "newborn".
+    worn expects answers ["the principal use of belt one is apparel"].
+    newborns expects answers ["bodysuit one is sized for babies"].
+
+query worn is:
+    the principal use of which good is which use.
+
+query newborns is:
+    which garment is sized for babies.
+
 scenario tee is:
     the kind of tee is T-shirt.
     the kind of jumper is sweater.
@@ -85,6 +210,38 @@ scenario tee is:
     fabrics expects answers ["the fabric of tee is lightweight"].
     constructions expects answers ["the fabric construction of tee is knitted"].
     plain expects answers ["tee is of plain knit fabric"].
+
+scenario tariff_notes is:
+    the kind of shirt one is shirt.
+    the kind of blouse one is blouse.
+    the field "gender" of romper reads "baby".
+    the kind of glove is gloves.
+    the fabric construction of glove is knitted.
+    glove names the material "polyurethane".
+    glove names the material "nylon".
+    the kind of mitt one is gloves.
+    the fabric construction of mitt one is knitted.
+    mitt one names the material "rubber".
+    openings expects answers [].
+    loose expects answers [].
+    babies expects answers ["romper is sized for babies"].
+    coatings expects answers ["glove has a coating of plastics"].
+    rubber coatings expects answers ["mitt one has a coating of rubber"].
+
+query openings is:
+    which garment has an opening starting at the neckline.
+
+query loose is:
+    which garment is loose-fitting.
+
+query babies is:
+    which garment is sized for babies.
+
+query coatings is:
+    which good has a coating of plastics.
+
+query rubber coatings is:
+    which good has a coating of rubber.
 
 query fabrics is:
     the fabric of which garment is lightweight.

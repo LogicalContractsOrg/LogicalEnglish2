@@ -57,6 +57,18 @@ ruling NY N342978 is published at "https://rulings.cbp.gov/ruling/N342978".
 the text of ruling NY N342978 is at "sources/cbp/N342978.txt".
 ruling NY N284703 is published at "https://rulings.cbp.gov/ruling/N284703".
 the text of ruling NY N284703 is at "sources/cbp/N284703.txt".
+the fibers and yarns publication is published at "https://www.cbp.gov/sites/default/files/assets/documents/2020-Feb/icp005r2_3.pdf".
+the text of the fibers and yarns publication is at "sources/cbp_icp/fibers_and_yarns.txt".
+the household articles publication is published at "https://www.cbp.gov/sites/default/files/assets/documents/2020-Feb/icp031_3.pdf".
+the text of the household articles publication is at "sources/cbp_icp/plastics_household_articles.txt".
+ruling NY N336251 is published at "https://rulings.cbp.gov/ruling/N336251".
+the text of ruling NY N336251 is at "sources/cbp/N336251.txt".
+ruling NY N296512 is published at "https://rulings.cbp.gov/ruling/N296512".
+the text of ruling NY N296512 is at "sources/cbp/N296512.txt".
+ruling NY N286927 is published at "https://rulings.cbp.gov/ruling/N286927".
+the text of ruling NY N286927 is at "sources/cbp/N286927.txt".
+ruling NY N360188 is published at "https://rulings.cbp.gov/ruling/N360188".
+the text of ruling NY N360188 is at "sources/cbp/N360188.txt".
 
 % Fibre names
 "polyester" is a word for the textile material polyester,
@@ -395,6 +407,51 @@ the text of ruling NY N284703 is at "sources/cbp/N284703.txt".
 "ion-exchangers" is a word for the polymer ion-exchanger,
     as stated in HTSUS Section VII and Chapter 39, confer "Ion-exchangers based on polymers of headings 3901 to 3913,".
 
+% Added from the headings and subheadings of Chapter 39 (2026-11-21); the
+% singular "polyester" stays a fibre name only
+"polyesters" is a word for the polymer polyester,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other polyesters:".
+"other polyesters" is a word for the polymer polyester,
+    as stated in HTSUS Section VII and Chapter 39, confer "Other polyesters:".
+"halogenated olefin polymer" is a word for the polymer halogenated olefin polymer,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polymers of vinyl chloride or of other halogenated olefins, in".
+"halogenated olefin polymers" is a word for the polymer halogenated olefin polymer,
+    as stated in HTSUS Section VII and Chapter 39, confer "Polymers of vinyl chloride or of other halogenated olefins, in".
+"vinyl copolymer" is a word for the polymer vinyl copolymer,
+    as stated in HTSUS Section VII and Chapter 39, confer "Copolymers:3905.91".
+"vinyl copolymers" is a word for the polymer vinyl copolymer,
+    as stated in HTSUS Section VII and Chapter 39, confer "Copolymers:3905.91".
+
+% Added from US Customs' publications on fibers and yarns and on household
+% articles of plastics, and from rulings (2026-11-21). "vinyl" names a
+% plastic but not one polymer (polyvinyl chloride or another vinyl
+% polymer): it says only that the good is of plastics. "bamboo" is read as
+% the artificial cellulosic fibre made from bamboo, as the publication
+% speaks of it. "pu" and "eva" were seller's words of trade usage before a
+% ruling stated them.
+"polypropylene" is a word for the textile material polypropylene,
+    as stated in the fibers and yarns publication, confer "The Explanatory Notes to chapter 54 provides a list of the most common synthetic fibers which include acrylic, modacrylic, polypropylene, nylon and other polyamides".
+"viscose rayon" is a word for the textile material viscose,
+    as stated in the fibers and yarns publication, confer "Artificial cellulosic fibers include viscose rayon, cuprammonium rayon, and cellulose acetate including tri-acetate.".
+"cuprammonium rayon" is a word for the textile material cupro,
+    as stated in the fibers and yarns publication, confer "Artificial cellulosic fibers include viscose rayon, cuprammonium rayon, and cellulose acetate including tri-acetate.".
+"bamboo" is a word for the textile material viscose,
+    as stated in the fibers and yarns publication, confer "Bamboo has recently proved to be an important source for cellulosic artificial fibers.".
+"bamboo fiber" is a word for the textile material viscose,
+    as stated in the fibers and yarns publication, confer "Bamboo has recently proved to be an important source for cellulosic artificial fibers.".
+"bamboo fibre" is a word for the textile material viscose,
+    as stated in the fibers and yarns publication, confer "Bamboo has recently proved to be an important source for cellulosic artificial fibers.".
+"pu" is a word for the polymer polyurethane,
+    as stated in ruling NY N336251, confer "The belt is constructed from 100% polyurethane (PU) plastic material.".
+"eva" is a word for the polymer ethylene-vinyl acetate copolymer,
+    as stated in ruling NY N296512, confer "ethylene vinyl acetate (EVA) plastic".
+"hdpe" is a word for the polymer polyethylene,
+    as stated in ruling NY N286927, confer "raw flakes of high-density polyethylene (HDPE)".
+"ldpe" is a word for the polymer polyethylene,
+    as stated in ruling NY N360188, confer "and low-density polyethylene (LDPE)".
+"vinyl" is a word for plastics,
+    as stated in the household articles publication, confer "the type of plastic (e.g., vinyl generally being more substantial than polyethylene)".
+
 rule textile_by_construction with provenance HTSUS Section VII and Chapter 39,
         confer "does not apply to materials regarded as textile materials of Section XI":
 a good is a textile article
@@ -441,6 +498,24 @@ scenario case is:
     plastics expects answers ["case is made of plastics", "bead is made of plastics", "lens is made of plastics"].
     fibres expects answers ["lycra is a word for the textile material elastane"].
     goat fibres expects answers ["mohair is a word for the textile material mohair"].
+
+scenario rulings is:
+    belt names the material "pu".
+    glove names the material "vinyl".
+    the cut of tee indicates men.
+    tee names the material "polypropylene".
+    ruling_polymers expects answers ["the polymer of belt is polyurethane"].
+    ruling_plastics expects answers ["belt is made of plastics", "glove is made of plastics"].
+    ruling_fibres expects answers ["bamboo is a word for the textile material viscose"].
+
+query ruling_polymers is:
+    the polymer of which good is which polymer.
+
+query ruling_plastics is:
+    which thing is made of plastics.
+
+query ruling_fibres is:
+    "bamboo" is a word for the textile material which material.
 
 query polymers is:
     the polymer of which good is which polymer.

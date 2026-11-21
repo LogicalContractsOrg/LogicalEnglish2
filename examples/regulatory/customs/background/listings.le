@@ -21,6 +21,9 @@ the templates are:
     the cut of *a garment* indicates *a gender*.
     *a good* is a manufactured article.
     *a component* is a component of *a good*.
+    *a value* is a sleeve value for sleeveless garments.
+    *a field* is a field of the sleeves.
+    *a garment* is sleeveless.
 
 the knowledge base marketplace listings includes:
 
@@ -48,6 +51,17 @@ the text of the HTSUS Chapter 61 is at "sources/hts/chapter_61.txt".
 
 "knit" is a construction value for knitted,
     as stated in the listing format, confer "Craft of Weaving: Knit".
+"non-woven" is a construction value for nonwoven,
+    as stated in the listing format, confer "Craft of Weaving: Non-Woven".
+
+% The sleeves: "sleeveless" is the tariff's word (Chapter 61 note 4,
+% Chapter 62 note 4: "Heading 6105 does not cover sleeveless garments")
+"sleeve length(cm)" is a field of the sleeves,
+    as stated in the listing format, confer "Sleeve Length(cm) (26 listings), Sleeve Style (20 listings)".
+"sleeve style" is a field of the sleeves,
+    as stated in the listing format, confer "Sleeve Length(cm) (26 listings), Sleeve Style (20 listings)".
+"sleeveless" is a sleeve value for sleeveless garments,
+    as stated in the HTSUS Chapter 61, confer "Heading 6105 does not cover sleeveless garments".
 
 rule finished_product with provenance the listing format,
         confer "A listing offers one finished product for sale":
@@ -69,6 +83,13 @@ rule gender_field with provenance the listing format,
 the cut of a garment indicates a gender
     if the field "gender" of the garment reads a value
     and the value is a gender value for the gender.
+
+rule sleeveless_field with provenance the HTSUS Chapter 61,
+        confer "Heading 6105 does not cover sleeveless garments":
+a garment is sleeveless
+    if the field a field of the garment reads a value
+    and the field is a field of the sleeves
+    and the value is a sleeve value for sleeveless garments.
 
 rule craft_of_weaving_field with provenance the listing format,
         confer "Craft of Weaving (54 listings): how the fabric is made":
@@ -128,6 +149,15 @@ scenario tee is:
     cuts expects answers ["the cut of tee indicates men"].
     constructions expects answers ["the fabric construction of tee is knitted"].
     articles expects answers ["tee is a manufactured article"].
+
+scenario vest is:
+    the field "sleeve length(cm)" of vest reads "sleeveless".
+    the field "craft of weaving" of mask reads "non-woven".
+    sleeves expects answers ["vest is sleeveless"].
+    constructions expects answers ["the fabric construction of mask is nonwoven"].
+
+query sleeves is:
+    which garment is sleeveless.
 
 query cuts is:
     the cut of which garment indicates which gender.

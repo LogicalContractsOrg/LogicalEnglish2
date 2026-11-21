@@ -27,6 +27,7 @@ the templates are:
     the fabric construction of *a garment* is *a construction*.
     *a good* contains *a number* percent of *a material*.
     the material that predominates by weight in *a garment* is *a material*.
+    *a good* has a coating of plastics.
 
 the knowledge base trade usage includes these resources:
     materials.
@@ -140,6 +141,17 @@ a good is made of plastics
     and it is not the case that
         the good is a textile article.
 
+% the presumption of the customs presumptions (glove_coating_plastics, from
+% subheading 6116.10: "Impregnated, coated, covered or laminated with
+% plastics or rubber") for the sellers' abbreviations of plastics
+rule glove_coating_seller_word with provenance the authors:
+a good has a coating of plastics
+    if the kind of the good is a kind
+    and the kind is in [gloves, mittens, mitts]
+    and the fabric construction of the good is a construction
+    and the good names the material a name
+    and the name is a seller's word for the polymer a polymer.
+
 % one fibre named, and no share: the whole
 rule one_material_whole with provenance the authors:
 a good contains 100 percent of a material
@@ -179,6 +191,15 @@ scenario dress is:
     chiefs expects answers ["the material that predominates by weight in dress is polyester"].
     shares expects answers ["tee contains 100 percent of cotton"].
     kinds expects answers ["the kind of tee is T-shirt"].
+
+scenario glove is:
+    the kind of glove is gloves.
+    the fabric construction of glove is knitted.
+    glove names the material "pu".
+    coatings expects answers ["glove has a coating of plastics"].
+
+query coatings is:
+    which good has a coating of plastics.
 
 query chiefs is:
     the material that predominates by weight in which garment is which material.
