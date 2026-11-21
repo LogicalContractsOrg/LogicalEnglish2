@@ -18,6 +18,7 @@ the templates are:
     the kind of *a good* is *a kind*; undefined.
     *a kind* is a kind of knitted garments.
     *a garment* has its construction from a field.
+    *a component* is a component of *a good*.
     the fabric of *a garment* is lightweight.
     *a garment* is of plain knit fabric.
     the fabric construction of *a garment* is *a construction*.
@@ -54,6 +55,13 @@ rule construction_field_first with provenance the apparel terminology publicatio
         confer "Apparel Terminology under the HTSUS":
 a garment has its construction from a field
     if the field "craft of weaving" of the garment reads a value.
+
+% the field of a set speaks of its parts (marketplace listings)
+rule construction_field_of_the_set with provenance the apparel terminology publication,
+        confer "Apparel Terminology under the HTSUS":
+a garment has its construction from a field
+    if the garment is a component of a good
+    and the field "craft of weaving" of the good reads a value.
 
 rule knitted_by_kind with provenance the apparel terminology publication,
         confer "are knit garments":

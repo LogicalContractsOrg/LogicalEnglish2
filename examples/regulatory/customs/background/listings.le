@@ -17,8 +17,10 @@ the templates are:
     *a value* is a construction value for *a construction*.
     *a thing* is called *a name*; undefined.
     *a thing* names the material *a name*; undefined.
+    *a thing* names first the material *a name*; undefined.
     the cut of *a garment* indicates *a gender*.
     *a good* is a manufactured article.
+    *a component* is a component of *a good*.
 
 the knowledge base marketplace listings includes:
 
@@ -73,6 +75,52 @@ rule craft_of_weaving_field with provenance the listing format,
 the fabric construction of a garment is a construction
     if the field "craft of weaving" of the garment reads a value
     and the value is a construction value for the construction.
+
+% A listing offers one product: a set's field on how the fabric is made
+% speaks of each of its parts.
+rule craft_of_weaving_field_parts with provenance the listing format,
+        confer "A listing offers one finished product for sale":
+the fabric construction of a component is a construction
+    if the component is a component of a good
+    and the field "craft of weaving" of the good reads a value
+    and the value is a construction value for the construction.
+
+rule materials_of_the_parts with provenance the listing format,
+        confer "A listing offers one finished product for sale":
+a component names the material a name
+    if the component is a component of a good
+    and the good names the material the name.
+
+rule first_material_of_the_parts with provenance the listing format,
+        confer "A listing offers one finished product for sale":
+a component names first the material a name
+    if the component is a component of a good
+    and the good names first the material the name.
+
+rule cut_of_the_parts with provenance the listing format,
+        confer "A listing offers one finished product for sale":
+the cut of a component indicates a gender
+    if the component is a component of a good
+    and the field "gender" of the good reads a value
+    and the value is a gender value for the gender.
+
+scenario knit_set is:
+    the field "craft of weaving" of outfit reads "knit".
+    outfit top is a component of outfit.
+    outfit names first the material "polyester".
+    the field "gender" of outfit reads "women".
+    part_materials expects answers ["outfit names first the material polyester", "outfit top names first the material polyester"].
+    part_cuts expects answers ["the cut of outfit indicates women", "the cut of outfit top indicates women"].
+    set_constructions expects answers ["the fabric construction of outfit is knitted", "the fabric construction of outfit top is knitted"].
+
+query part_materials is:
+    which component names first the material which name.
+
+query part_cuts is:
+    the cut of which garment indicates which gender.
+
+query set_constructions is:
+    the fabric construction of which garment is which construction.
 
 scenario tee is:
     the field "gender" of tee reads "men".
