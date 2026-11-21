@@ -1,0 +1,940 @@
+% Chapter 64 of the tariff (Section XII): footwear, gaiters and the like;
+% parts of such articles — all six headings (6401 to 6406) and their 25
+% six-digit subheadings. A library: it includes chapter_39.le and
+% section_xi.le (and through them gri.le), because Chapter 39 note 2(q) and
+% Section XI note 1(n) send footwear out of those chapters, and because the
+% materials of an upper or a sole are named as Chapter 39 names plastics and
+% Section XI names textile materials; tariff.le includes it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 64 notes 1 to 4, subheading note 1,
+% Additional U.S. notes 2 and 3, and the terms of the headings and
+% subheadings (https://hts.usitc.gov/); Section XII has no notes. The
+% subheadings are the six-digit HS ones. The EU Combined Nomenclature
+% Explanatory Notes (CN EN) to Chapter 64 say what a textile material is
+% (textile flock) and where uppers of composition leather go. US Customs
+% rulings name the kinds of footwear and show how the notes are read.
+%
+% How the chapter is read. The facts of a shoe are its kind (a boot, a
+% sandal, a sneaker...), the constituent material of its upper and of its
+% outer sole, and the features the subheadings name:
+%   the constituent material of the upper of G is M
+%       (note 4(a): the material with the greatest external surface area; or
+%       "the upper of G has N percent of its external surface area of M")
+%   the constituent material of the outer sole of G is M
+%       (note 4(b): the material with the greatest surface in contact with
+%       the ground)
+%   G is designed to protect against penetration by water   (6401)
+%   the upper of G is fixed to the sole by P / is assembled by P  (6401)
+%   G covers the ankle;  G covers the knee
+%   G incorporates a protective metal toe-cap
+%   G is designed for a sporting activity; G has provision for the
+%       attachment of spikes or the like   (subheading note 1)
+%   G is styled as athletic footwear       (a judgment of the office:
+%       Additional U.S. note 2, "tennis shoes ... and the like")
+%   G has upper straps or thongs assembled to the sole by means of plugs
+%   the upper of G consists of straps across the instep and around the big
+%       toe
+% Each material has a footwear class (note 3): rubber-plastics, leather,
+% composition leather, textile or other. The heading follows from the two
+% classes: 6401 and 6402 (rubber or plastics for both), 6403 (upper of
+% leather), 6404 (upper of textile), 6405 (all other footwear). Heading 6406
+% takes parts, removable insoles, gaiters and leggings.
+% Note 1 excludes disposable coverings without applied soles, textile
+% footwear without an applied outer sole, and skating boots with skates
+% attached (written below). Worn footwear (6309), articles of asbestos
+% (6812), orthopedic footwear (9021) and toy footwear (Chapter 95) are
+% outside the model: a claim that a good belongs there is answered by the
+% office (gri.le).
+%
+% Not modelled: the lines below six digits (value bands, the 90 percent
+% rubber or plastics uppers, foxing, protective footwear, men's and women's
+% sizes); "similar processes" of heading 6401 beyond the five the heading
+% names.
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter sixty-four goods.
+    *a thing* is wholly or mainly of *a material*; undefined.
+    the constituent material of the upper of *a good* is *a material*; undefined.
+    the upper of *a good* has *a number* percent of its external surface area of *a material*; undefined.
+    the constituent material of the outer sole of *a good* is *a material*; undefined.
+    *a material* is of the footwear class *a class*.
+    the upper material of *a good* is *a material*.
+    the upper class of *a good* is *a class*.
+    the outer sole class of *a good* is *a class*.
+    *a good* is designed to protect against penetration by water; undefined.
+    the upper of *a good* is fixed to the sole by *a process*; undefined.
+    the upper of *a good* is assembled by *a process*; undefined.
+    *a process* is a process named by heading 6401.
+    *a good* incorporates a protective metal toe-cap; undefined.
+    *a good* covers the ankle; undefined.
+    *a good* covers the knee; undefined.
+    *a good* is designed for a sporting activity; undefined.
+    *a good* has provision for the attachment of spikes or the like; undefined.
+    *a good* is styled as athletic footwear; judged.
+    *a good* has upper straps or thongs assembled to the sole by means of plugs; undefined.
+    the upper of *a good* consists of straps across the instep and around the big toe; undefined.
+    *a good* is a disposable covering of flimsy material without applied soles; undefined.
+    *a good* is of textile material without an outer sole applied to the upper; undefined.
+    *a good* has ice or roller skates attached; undefined.
+    *a kind* is a kind of ski footwear.
+    *a kind* is a kind of sports footwear.
+    *a kind* is a kind of athletic footwear.
+    *a good* is sports footwear.
+    *a good* is athletic footwear.
+    the sport class of *a good* is *a class*.
+    the athletic class of *a good* is *a class*.
+    the height class of *a good* is *a class*.
+    the toe cap of *a good* is *a cap*.
+    the strap fixing of *a good* is *a fixing*.
+    the upper form of *a good* is *a form*.
+    the part class of *a good* is *a class*.
+    the subheading in heading *a heading* for sole *a sole* with upper *an upper* with sport *a sport* with fixing *a fixing* with form *a form* with cap *a cap* with height *a height* is *a code* under table footwear.
+    the subheading in heading *a heading* for sole *a sole* with sport *a sport* with athletic class *a class* is *a code* under table textile uppers.
+    the subheading in heading *a heading* for the part *a class* is *a code* under table footwear parts.
+
+% ---------------------------------------------------------------------------
+% GRI 6: the six-digit subheadings of headings 6401, 6402, 6403 and 6405.
+% First match: a row with "any" is the heading's "Other". The columns are
+% the class of the outer sole, the class of the upper, the sport class (ski
+% footwear, other sports footwear, none), plugs, an upper of straps across
+% the instep, a metal toe-cap, and the height (below the ankle, the ankle,
+% the knee).
+% ---------------------------------------------------------------------------
+the table footwear is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | sole    | upper                          | sport  | fixing | form   | cap   | height        | code      | as stated in HTSUS Section XII and Chapter 64
+    f1  | 6401    | any     | any                            | any    | any    | any    | metal | any           | "6401.10" | "Footwear incorporating a protective metal toe-cap"
+    f2  | 6401    | any     | any                            | any    | any    | any    | any   | ankle         | "6401.92" | "Covering the ankle but not covering the knee: 6401.92"
+    f3  | 6401    | any     | any                            | any    | any    | any    | any   | any           | "6401.99" | "Other: 6401.99"
+    f4  | 6402    | any     | any                            | ski    | any    | any    | any   | any           | "6402.12" | "6402.12.00"
+    f5  | 6402    | any     | any                            | sports | any    | any    | any   | any           | "6402.19" | "Other: 6402.19"
+    f6  | 6402    | any     | any                            | any    | plugs  | any    | any   | any           | "6402.20" | "assembled to the sole by means of plugs (zoris)"
+    f7  | 6402    | any     | any                            | any    | any    | any    | any   | ankle or knee | "6402.91" | "Covering the ankle: 6402.91"
+    f8  | 6402    | any     | any                            | any    | any    | any    | any   | any           | "6402.99" | "Other: 6402.99"
+    f9  | 6403    | any     | any                            | ski    | any    | any    | any   | any           | "6403.12" | "snowboard boots: 6403.12"
+    f10 | 6403    | any     | any                            | sports | any    | any    | any   | any           | "6403.19" | "Other: 6403.19"
+    f11 | 6403    | leather | any                            | any    | any    | straps | any   | any           | "6403.20" | "consist of leather straps across the instep and around the big toe"
+    f12 | 6403    | any     | any                            | any    | any    | any    | metal | any           | "6403.40" | "Other footwear, incorporating a protective metal toe-cap: 6403.40"
+    f13 | 6403    | leather | any                            | any    | any    | any    | any   | ankle or knee | "6403.51" | "Other footwear with outer soles of leather: Covering the ankle: 6403.51"
+    f14 | 6403    | leather | any                            | any    | any    | any    | any   | any           | "6403.59" | "Other: 6403.59"
+    f15 | 6403    | any     | any                            | any    | any    | any    | any   | ankle or knee | "6403.91" | "Covering the ankle: 6403.91"
+    f16 | 6403    | any     | any                            | any    | any    | any    | any   | any           | "6403.99" | "Other: 6403.99"
+    f17 | 6405    | any     | leather or composition leather | any    | any    | any    | any   | any           | "6405.10" | "With uppers of leather or composition leather"
+    f18 | 6405    | any     | textile                        | any    | any    | any    | any   | any           | "6405.20" | "With uppers of textile materials: 6405.20"
+    f19 | 6405    | any     | any                            | any    | any    | any    | any   | any           | "6405.90" | "Other: 6405.90"
+
+% GRI 6 for heading 6404 (uppers of textile materials): the sole, and for a
+% sole of rubber or plastics, whether the shoe is sports footwear or
+% athletic footwear ("tennis shoes, basketball shoes, gym shoes, training
+% shoes and the like")
+the table textile uppers is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | sole            | sport         | class    | code      | as stated in HTSUS Section XII and Chapter 64
+    t1  | 6404    | rubber-plastics | ski or sports | any      | "6404.11" | "Sports footwear; tennis shoes, basketball shoes, gym shoes, training shoes and the like: 6404.11"
+    t2  | 6404    | rubber-plastics | any           | athletic | "6404.11" | "Sports footwear; tennis shoes, basketball shoes, gym shoes, training shoes and the like: 6404.11"
+    t3  | 6404    | rubber-plastics | any           | any      | "6404.19" | "Other: 6404.19"
+    t4  | 6404    | any             | any           | any      | "6404.20" | "Footwear with outer soles of leather or composition leather: 6404.20"
+
+% GRI 6 for heading 6406: uppers; outer soles and heels of rubber or
+% plastics; other parts, removable insoles, gaiters and leggings
+the table footwear parts is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class                | code      | as stated in HTSUS Section XII and Chapter 64
+    p1  | 6406    | upper                | "6406.10" | "Uppers and parts thereof, other than stiffeners: 6406.10"
+    p2  | 6406    | sole of rubber-plastics | "6406.20" | "Outer soles and heels, of rubber or plastics"
+    p3  | 6406    | any                  | "6406.90" | "Other: 6406.90"
+
+the knowledge base chapter 64 includes these resources:
+    chapter_39, section_xi.
+
+the knowledge base chapter 64 includes:
+
+HTSUS Section XII and Chapter 64 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2064#page=3".
+the text of HTSUS Section XII and Chapter 64 is at "sources/hts/chapter_64.txt".
+HTSUS Section XI and Chapter 50 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2050#page=1".
+the text of HTSUS Section XI and Chapter 50 is at "sources/hts/chapter_50.txt".
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+HTSUS Chapter 67 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2067#page=1".
+the text of HTSUS Chapter 67 is at "sources/hts/chapter_67.txt".
+the CN explanatory notes to Chapter 64 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 64 is at "sources/eu/cn_en_ch64.txt".
+ruling NY N320055 is published at "https://rulings.cbp.gov/ruling/N320055".
+the text of ruling NY N320055 is at "sources/cbp/N320055.txt".
+ruling NY J84976 is published at "https://rulings.cbp.gov/ruling/J84976".
+the text of ruling NY J84976 is at "sources/cbp/J84976.txt".
+ruling NY N253189 is published at "https://rulings.cbp.gov/ruling/N253189".
+the text of ruling NY N253189 is at "sources/cbp/N253189.txt".
+ruling NY N196497 is published at "https://rulings.cbp.gov/ruling/N196497".
+the text of ruling NY N196497 is at "sources/cbp/N196497.txt".
+ruling NY N302745 is published at "https://rulings.cbp.gov/ruling/N302745".
+the text of ruling NY N302745 is at "sources/cbp/N302745.txt".
+ruling NY N274653 is published at "https://rulings.cbp.gov/ruling/N274653".
+the text of ruling NY N274653 is at "sources/cbp/N274653.txt".
+ruling NY N172458 is published at "https://rulings.cbp.gov/ruling/N172458".
+the text of ruling NY N172458 is at "sources/cbp/N172458.txt".
+ruling NY N276145 is published at "https://rulings.cbp.gov/ruling/N276145".
+the text of ruling NY N276145 is at "sources/cbp/N276145.txt".
+ruling NY N223310 is published at "https://rulings.cbp.gov/ruling/N223310".
+the text of ruling NY N223310 is at "sources/cbp/N223310.txt".
+ruling NY N346339 is published at "https://rulings.cbp.gov/ruling/N346339".
+the text of ruling NY N346339 is at "sources/cbp/N346339.txt".
+ruling NY N346370 is published at "https://rulings.cbp.gov/ruling/N346370".
+the text of ruling NY N346370 is at "sources/cbp/N346370.txt".
+ruling NY J84062 is published at "https://rulings.cbp.gov/ruling/J84062".
+the text of ruling NY J84062 is at "sources/cbp/J84062.txt".
+ruling HQ H338307 is published at "https://rulings.cbp.gov/ruling/H338307".
+the text of ruling HQ H338307 is at "sources/cbp/H338307.txt".
+ruling NY N313433 is published at "https://rulings.cbp.gov/ruling/N313433".
+the text of ruling NY N313433 is at "sources/cbp/N313433.txt".
+ruling NY N323257 is published at "https://rulings.cbp.gov/ruling/N323257".
+the text of ruling NY N323257 is at "sources/cbp/N323257.txt".
+ruling NY N296600 is published at "https://rulings.cbp.gov/ruling/N296600".
+the text of ruling NY N296600 is at "sources/cbp/N296600.txt".
+ruling NY N345909 is published at "https://rulings.cbp.gov/ruling/N345909".
+the text of ruling NY N345909 is at "sources/cbp/N345909.txt".
+ruling NY N340527 is published at "https://rulings.cbp.gov/ruling/N340527".
+the text of ruling NY N340527 is at "sources/cbp/N340527.txt".
+ruling NY N260162 is published at "https://rulings.cbp.gov/ruling/N260162".
+the text of ruling NY N260162 is at "sources/cbp/N260162.txt".
+ruling NY N275349 is published at "https://rulings.cbp.gov/ruling/N275349".
+the text of ruling NY N275349 is at "sources/cbp/N275349.txt".
+ruling NY N099969 is published at "https://rulings.cbp.gov/ruling/N099969".
+the text of ruling NY N099969 is at "sources/cbp/N099969.txt".
+ruling NY N318559 is published at "https://rulings.cbp.gov/ruling/N318559".
+the text of ruling NY N318559 is at "sources/cbp/N318559.txt".
+ruling NY L84631 is published at "https://rulings.cbp.gov/ruling/L84631".
+the text of ruling NY L84631 is at "sources/cbp/L84631.txt".
+ruling NY N252193 is published at "https://rulings.cbp.gov/ruling/N252193".
+the text of ruling NY N252193 is at "sources/cbp/N252193.txt".
+ruling NY N251118 is published at "https://rulings.cbp.gov/ruling/N251118".
+the text of ruling NY N251118 is at "sources/cbp/N251118.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: footwear, parts of footwear, gaiters and the like.
+% ---------------------------------------------------------------------------
+
+% the model covers the footwear, the parts and the gaiters of Chapter 64
+rule footwear_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter sixty-four goods.
+
+footwear is a family of chapter sixty-four goods,
+    as stated in HTSUS Section XII and Chapter 64, confer "FOOTWEAR, GAITERS AND THE LIKE; PARTS OF SUCH ARTICLES".
+footwear part is a family of chapter sixty-four goods,
+    as stated in HTSUS Section XII and Chapter 64, confer "Parts of footwear (including uppers whether or not attached to soles other than outer soles); removable insoles, heel cushions and similar articles".
+gaiter is a family of chapter sixty-four goods,
+    as stated in HTSUS Section XII and Chapter 64, confer "gaiters, leggings and similar articles, and parts thereof".
+
+% The kinds of footwear: the tariff's own words, and the words of the
+% rulings
+boot falls in the family footwear, as stated in ruling NY N320055, confer "is a woman’s, closed toe/closed heel, tall boot".
+rain boot falls in the family footwear, as stated in ruling NY N276145, confer "slip-on waterproof rain boot".
+shoe falls in the family footwear, as stated in ruling NY J84976, confer "are the lace-up closure shoes that are the type traditionally worn by men".
+loafer falls in the family footwear, as stated in ruling NY J84976, confer "are also men’s shoes of the slip-on loafer type".
+sneaker falls in the family footwear, as stated in ruling NY N253189, confer "over-the-ankle, lace-up sneakers".
+athletic shoe falls in the family footwear, as stated in ruling NY N253189, confer "Ryan Mid Lace athletic shoe".
+sandal falls in the family footwear, as stated in ruling NY N196497, confer "is a women’s open toe/heel sandal with a rubber or plastics outer sole".
+mule falls in the family footwear, as stated in ruling NY N274653, confer "slip-on, mule-type sandal".
+thong sandal falls in the family footwear, as stated in ruling NY N172458, confer "is a pair of women’s open-toe/heel thong sandals".
+zori falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "assembled to the sole by means of plugs (zoris)".
+slipper falls in the family footwear, as stated in ruling NY N302745, confer "is a closed-toe/open-heel, below-the-ankle slipper".
+ski boot falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Ski-boots, cross-country ski footwear and snowboard boots".
+cross-country ski footwear falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Ski-boots, cross-country ski footwear and snowboard boots".
+snowboard boot falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Ski-boots, cross-country ski footwear and snowboard boots".
+skating boot falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+wrestling boot falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+boxing boot falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+cycling shoe falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+tennis shoe falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+basketball shoe falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+gym shoe falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+training shoe falls in the family footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+running shoe falls in the family footwear, as stated in the CN explanatory notes to Chapter 64, confer "they are designed for a specific sporting activity that generally requires running".
+
+% The kinds of parts and of gaiters (heading 6406; leg warmers: NY N223310)
+upper falls in the family footwear part, as stated in HTSUS Section XII and Chapter 64, confer "Uppers and parts thereof, other than stiffeners".
+outer sole falls in the family footwear part, as stated in HTSUS Section XII and Chapter 64, confer "Outer soles and heels, of rubber or plastics".
+heel falls in the family footwear part, as stated in HTSUS Section XII and Chapter 64, confer "Outer soles and heels, of rubber or plastics".
+removable insole falls in the family footwear part, as stated in HTSUS Section XII and Chapter 64, confer "removable insoles, heel cushions and similar articles".
+heel cushion falls in the family footwear part, as stated in HTSUS Section XII and Chapter 64, confer "removable insoles, heel cushions and similar articles".
+gaiter falls in the family gaiter, as stated in HTSUS Section XII and Chapter 64, confer "gaiters, leggings and similar articles, and parts thereof".
+leg warmer falls in the family gaiter, as stated in ruling NY N223310, confer "articles that are designed to cover the whole or part of the leg are more specifically provided for in heading 6406 as gaiters, leggings, and similar articles".
+knee warmer falls in the family gaiter, as stated in ruling NY N223310, confer "The applicable subheading for the “leg warmers” and the “knee warmers” will be 6406.90.1510".
+
+% Subheading note 1: the kinds that are sports footwear by name (1(b)), and
+% among them the ski footwear of subheadings 6402.12 and 6403.12
+ski boot is a kind of ski footwear, as stated in HTSUS Section XII and Chapter 64, confer "Ski-boots, cross-country ski footwear and snowboard boots".
+cross-country ski footwear is a kind of ski footwear, as stated in HTSUS Section XII and Chapter 64, confer "Ski-boots, cross-country ski footwear and snowboard boots".
+snowboard boot is a kind of ski footwear, as stated in HTSUS Section XII and Chapter 64, confer "Ski-boots, cross-country ski footwear and snowboard boots".
+skating boot is a kind of sports footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+wrestling boot is a kind of sports footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+boxing boot is a kind of sports footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+cycling shoe is a kind of sports footwear, as stated in HTSUS Section XII and Chapter 64, confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes".
+
+% Additional U.S. note 2: the athletic footwear the tariff names, and
+% running shoes (CN EN to subheading 6404 11 00)
+tennis shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+basketball shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+gym shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+training shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+athletic shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "covers athletic footwear other than sports footwear".
+running shoe is a kind of athletic footwear, as stated in the CN explanatory notes to Chapter 64, confer "they are designed for a specific sporting activity that generally requires running".
+
+% ---------------------------------------------------------------------------
+% The materials of the upper and of the outer sole (notes 3 and 4).
+% ---------------------------------------------------------------------------
+
+% Note 3(a): rubber and plastics, and textile products with a visible
+% external layer of rubber or plastics
+rubber is of the footwear class rubber-plastics,
+    as stated in HTSUS Section XII and Chapter 64, confer "Footwear with outer soles and uppers of rubber or plastics".
+vulcanized rubber is of the footwear class rubber-plastics,
+    as stated in ruling NY N346339, confer "The uppers of all styles are made of vulcanized rubber".
+thermoplastic rubber is of the footwear class rubber-plastics,
+    as stated in ruling NY N346370, confer "obscured the rubber/plastics underneath".
+plastics is of the footwear class rubber-plastics,
+    as stated in HTSUS Section XII and Chapter 64, confer "Footwear with outer soles and uppers of rubber or plastics".
+textile with an external layer of plastics is of the footwear class rubber-plastics,
+    as stated in HTSUS Section XII and Chapter 64, confer "the terms \"rubber\" and \"plastics\" include woven fabrics or other textile products with an external layer of rubber or plastics being visible to the naked eye".
+textile with an external layer of rubber is of the footwear class rubber-plastics,
+    as stated in HTSUS Section XII and Chapter 64, confer "the terms \"rubber\" and \"plastics\" include woven fabrics or other textile products with an external layer of rubber or plastics being visible to the naked eye".
+% Note 3(b): leather is the leather of headings 4107 and 4112 to 4114;
+% composition leather is a class of its own (CN EN: heading 6405)
+leather is of the footwear class leather,
+    as stated in HTSUS Section XII and Chapter 64, confer "the term \"leather\" refers to the goods of headings 4107 and 4112 to 4114".
+suede leather is of the footwear class leather,
+    as stated in ruling NY N252193, confer "outer surface of 85% suede leather".
+split leather is of the footwear class leather,
+    as stated in ruling NY N251118, confer "a layer of polyurethane coating and a layer of split leather".
+composition leather is of the footwear class composition leather,
+    as stated in the CN explanatory notes to Chapter 64, confer "footwear with furskin uppers or with uppers of composition leather, for example, is excluded from this heading and classified in heading 6405".
+% textile materials (CN EN, general note 5: fibres, flock, yarns, fabrics)
+textile materials is of the footwear class textile,
+    as stated in HTSUS Section XII and Chapter 64, confer "composition leather and uppers of textile materials".
+textile flock is of the footwear class textile,
+    as stated in the CN explanatory notes to Chapter 64, confer "the fibres (for example, textile flock), yarns, fabrics, felts, nonwovens".
+
+% a polymer of Chapter 39 is plastics (Chapter 39 note 1), unless it is
+% named as a textile fibre (polyester, nylon...: Section XI)
+rule note_64_3a_polymer with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear with outer soles and uppers of rubber or plastics":
+a material is of the footwear class rubber-plastics
+    if the material is a polymer of a monomer
+    and it is not the case that
+        the material belongs to a group.
+
+% a textile fibre of Section XI is a textile material
+rule note_64_textile_fibre with provenance the CN explanatory notes to Chapter 64,
+        confer "the fibres (for example, textile flock), yarns, fabrics, felts, nonwovens":
+a material is of the footwear class textile
+    if the material belongs to a group.
+
+% Note 4(a): the material of the upper is the constituent material with the
+% greatest external surface area, as the ruling states it or from the
+% shares of the external surface area it gives
+rule note_64_4a_stated with provenance HTSUS Section XII and Chapter 64,
+        confer "The material of the upper shall be taken to be the constituent material having the greatest external surface area":
+the upper material of a good is a material
+    if the constituent material of the upper of the good is the material.
+
+rule note_64_4a_shares with provenance HTSUS Section XII and Chapter 64,
+        confer "The material of the upper shall be taken to be the constituent material having the greatest external surface area":
+the upper material of a good is a material
+    if the upper of the good has a number percent of its external surface area of the material
+    and it is not the case that
+        the constituent material of the upper of the good is an other material
+    and it is not the case that
+        the upper of the good has an other number percent of its external surface area of a second material
+        and the other number > the number.
+
+rule upper_class with provenance HTSUS Section XII and Chapter 64,
+        confer "The material of the upper shall be taken to be the constituent material having the greatest external surface area":
+the upper class of a good is a class
+    if the upper material of the good is a material
+    and the material is of the footwear class the class.
+
+% a material of no class named above (wood, cork, paper, furskin...) is of
+% the class "other"
+rule upper_class_other with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+the upper class of a good is other
+    if the upper material of the good is a material
+    and it is not the case that
+        the material is of the footwear class a class.
+
+% Note 4(b): the constituent material of the outer sole is the material with
+% the greatest surface area in contact with the ground
+rule note_64_4b with provenance HTSUS Section XII and Chapter 64,
+        confer "The constituent material of the outer sole shall be taken to be the material having the greatest surface area in contact with":
+the outer sole class of a good is a class
+    if the constituent material of the outer sole of the good is a material
+    and the material is of the footwear class the class.
+
+rule outer_sole_class_other with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+the outer sole class of a good is other
+    if the constituent material of the outer sole of the good is a material
+    and it is not the case that
+        the material is of the footwear class a class.
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1), each with the notes that take goods out of it.
+% ---------------------------------------------------------------------------
+
+% heading 6401: waterproof footwear (Additional U.S. note 3) of rubber or
+% plastics whose upper is neither fixed to the sole nor assembled by
+% stitching, riveting, nailing, screwing or plugging. Molding and cementing
+% are other ways (NY J84062).
+rule heading_6401 with provenance HTSUS Section XII and Chapter 64,
+        confer "Waterproof footwear with outer soles and uppers of rubber or plastics, the uppers of which are neither fixed to the sole nor assembled by stitching, riveting, nailing, screwing, plugging or similar processes":
+a good is described by heading 6401
+    if the family of the good is footwear
+    and the outer sole class of the good is rubber-plastics
+    and the upper class of the good is rubber-plastics
+    and the good is designed to protect against penetration by water
+    and it is not the case that
+        the upper of the good is fixed to the sole by a process
+        and the process is a process named by heading 6401
+    and it is not the case that
+        the upper of the good is assembled by a second process
+        and the second process is a process named by heading 6401.
+
+stitching is a process named by heading 6401,
+    as stated in HTSUS Section XII and Chapter 64, confer "assembled by stitching, riveting, nailing, screwing, plugging or similar processes".
+riveting is a process named by heading 6401,
+    as stated in HTSUS Section XII and Chapter 64, confer "assembled by stitching, riveting, nailing, screwing, plugging or similar processes".
+nailing is a process named by heading 6401,
+    as stated in HTSUS Section XII and Chapter 64, confer "assembled by stitching, riveting, nailing, screwing, plugging or similar processes".
+screwing is a process named by heading 6401,
+    as stated in HTSUS Section XII and Chapter 64, confer "assembled by stitching, riveting, nailing, screwing, plugging or similar processes".
+plugging is a process named by heading 6401,
+    as stated in HTSUS Section XII and Chapter 64, confer "assembled by stitching, riveting, nailing, screwing, plugging or similar processes".
+
+% heading 6402: other footwear with outer soles and uppers of rubber or
+% plastics
+rule heading_6402 with provenance HTSUS Section XII and Chapter 64,
+        confer "Other footwear with outer soles and uppers of rubber or plastics":
+a good is described by heading 6402
+    if the family of the good is footwear
+    and the outer sole class of the good is rubber-plastics
+    and the upper class of the good is rubber-plastics.
+
+% heading 6403: uppers of leather; outer soles of rubber, plastics, leather
+% or composition leather
+rule heading_6403 with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear with outer soles of rubber, plastics, leather or composition leather and uppers of leather":
+a good is described by heading 6403
+    if the family of the good is footwear
+    and the outer sole class of the good is a class
+    and the class is in [rubber-plastics, leather, composition leather]
+    and the upper class of the good is leather.
+
+% heading 6404: uppers of textile materials; the same outer soles
+rule heading_6404 with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear with outer soles of rubber, plastics, leather or composition leather and uppers of textile materials":
+a good is described by heading 6404
+    if the family of the good is footwear
+    and the outer sole class of the good is a class
+    and the class is in [rubber-plastics, leather, composition leather]
+    and the upper class of the good is textile.
+
+% heading 6405: other footwear — any footwear whose upper and outer sole
+% are known; GRI 3(a) below prefers the headings 6401 to 6404
+rule heading_6405 with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+a good is described by heading 6405
+    if the family of the good is footwear
+    and the outer sole class of the good is a class
+    and the upper class of the good is an other class.
+
+% heading 6406: parts of footwear, removable insoles, heel cushions,
+% gaiters, leggings and similar articles
+rule heading_6406 with provenance HTSUS Section XII and Chapter 64,
+        confer "Parts of footwear (including uppers whether or not attached to soles other than outer soles); removable insoles, heel cushions and similar articles; gaiters, leggings and similar articles, and parts thereof":
+a good is described by heading 6406
+    if the family of the good is a family
+    and the family is in [footwear part, gaiter].
+
+% Note 1(a): disposable foot or shoe coverings of flimsy material without
+% applied soles are classified by their material
+rule note_64_1a with provenance HTSUS Section XII and Chapter 64,
+        confer "Disposable foot or shoe coverings of flimsy material (for example, paper, sheeting of plastics) without applied soles":
+a good is excluded from heading a heading
+    if the heading >= 6401
+    and the heading <= 6406
+    and the good is a disposable covering of flimsy material without applied soles.
+
+% Note 1(b): footwear of textile material without an outer sole glued,
+% sewn or otherwise applied to the upper (Section XI)
+rule note_64_1b with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear of textile material, without an outer sole glued, sewn or otherwise affixed or applied to the upper (section XI)":
+a good is excluded from heading a heading
+    if the heading >= 6401
+    and the heading <= 6406
+    and the good is of textile material without an outer sole applied to the upper.
+
+% Note 1(f): skating boots with ice or roller skates attached (Chapter 95)
+rule note_64_1f with provenance HTSUS Section XII and Chapter 64,
+        confer "Toy footwear or skating boots with ice or roller skates attached":
+a good is excluded from heading a heading
+    if the heading >= 6401
+    and the heading <= 6406
+    and the good has ice or roller skates attached.
+
+% Note 2: pegs, protectors, eyelets, hooks, buckles, ornaments, braid,
+% laces, pompons, trimmings and buttons are not parts of heading 6406
+rule note_64_2 with provenance HTSUS Section XII and Chapter 64,
+        confer "the term \"parts\" does not include pegs, protectors, eyelets, hooks, buckles, ornaments, braid, laces, pompons or other trimmings":
+a good is excluded from heading 6406
+    if the kind of the good is a kind
+    and the kind is in [peg, protector, eyelet, hook, buckle, ornament, braid, lace, shoelace, pompon, trimming, button].
+
+% GRI 3(a): waterproof footwear of 6401 is a more specific description than
+% the "other footwear" of rubber or plastics of 6402; 6405 is the
+% chapter's residual heading of footwear
+rule gri_3a_6401 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading 6401 is more specific than heading 6402.
+
+rule gri_3a_6405 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading a heading is more specific than heading 6405
+    if the heading >= 6401
+    and the heading <= 6404.
+
+% Section XI note 1(n): footwear, parts of footwear, gaiters and leggings of
+% Chapter 64 are not textiles of Section XI (leg warmers: NY N223310)
+rule note_xi_1n with provenance HTSUS Section XI and Chapter 50,
+        confer "(n) Footwear or parts of footwear, gaiters or leggings or similar articles of chapter 64;":
+a good is excluded from heading a heading
+    if the heading >= 5001
+    and the heading <= 6310
+    and the other heading is in [6401, 6402, 6403, 6404, 6405, 6406]
+    and the good is described by heading the other heading.
+
+% Chapter 39 note 2(q): footwear (Section XII) is not of Chapter 39
+rule note_39_2q_footwear with provenance HTSUS Section VII and Chapter 39,
+        confer "Articles of section XII (for example, footwear, headgear, umbrellas":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the other heading is in [6401, 6402, 6403, 6404, 6405, 6406]
+    and the good is described by heading the other heading.
+
+% Chapter 71 note 3(h): footwear is not of Chapter 71
+rule note_71_3h with provenance HTSUS Section XIV and Chapter 71,
+        confer "Footwear, headgear or other articles of chapter 64 or 65;":
+a good is excluded from heading a heading
+    if the heading >= 7101
+    and the heading <= 7118
+    and the other heading is in [6401, 6402, 6403, 6404, 6405, 6406]
+    and the good is described by heading the other heading.
+
+% Chapter 67 note 1(c): footwear is not of Chapter 67
+rule note_67_1c with provenance HTSUS Chapter 67, confer "Footwear (chapter 64);":
+a good is excluded from heading a heading
+    if the heading >= 6701
+    and the heading <= 6704
+    and the other heading is in [6401, 6402, 6403, 6404, 6405, 6406]
+    and the good is described by heading the other heading.
+
+% ---------------------------------------------------------------------------
+% GRI 6: what the subheadings read.
+% ---------------------------------------------------------------------------
+
+rule footwear_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [6401, 6402, 6403, 6405]
+    and the outer sole class of the good is a sole
+    and the upper class of the good is an upper
+    and the sport class of the good is a sport
+    and the strap fixing of the good is a fixing
+    and the upper form of the good is a form
+    and the toe cap of the good is a cap
+    and the height class of the good is a height
+    and the subheading in heading the heading for sole the sole with upper the upper with sport the sport with fixing the fixing with form the form with cap the cap with height the height is the code under table footwear.
+
+rule footwear_subheading_6404 with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6404 is a code
+    if the outer sole class of the good is a sole
+    and the sport class of the good is a sport
+    and the athletic class of the good is a class
+    and the subheading in heading 6404 for sole the sole with sport the sport with athletic class the class is the code under table textile uppers.
+
+rule footwear_subheading_6406 with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6406 is a code
+    if the part class of the good is a class
+    and the subheading in heading 6406 for the part the class is the code under table footwear parts.
+
+% Subheading note 1: sports footwear is (a) footwear designed for a
+% sporting activity with spikes, cleats or the like, or provision for them
+% (crampons: HQ H338307), or (b) the boots and shoes the note names
+rule sports_footwear_1a with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear which is designed for a sporting activity and has, or has provision for the attachment of spikes, sprigs, cleats, stops, clips, bars or the like":
+a good is sports footwear
+    if the good is designed for a sporting activity
+    and the good has provision for the attachment of spikes or the like.
+
+rule sports_footwear_1b with provenance HTSUS Section XII and Chapter 64,
+        confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes":
+a good is sports footwear
+    if the kind of the good is a kind
+    and the kind is a kind of sports footwear.
+
+rule sports_footwear_ski with provenance HTSUS Section XII and Chapter 64,
+        confer "Skating boots, ski-boots and cross-country ski footwear, snowboard boots, wrestling boots, boxing boots and cycling shoes":
+a good is sports footwear
+    if the kind of the good is a kind
+    and the kind is a kind of ski footwear.
+
+rule sport_class_ski with provenance HTSUS Section XII and Chapter 64,
+        confer "Ski-boots, cross-country ski footwear and snowboard boots":
+the sport class of a good is ski
+    if the kind of the good is a kind
+    and the kind is a kind of ski footwear.
+
+rule sport_class_sports with provenance HTSUS Section XII and Chapter 64,
+        confer "the expression \"sports footwear\" applies only to":
+the sport class of a good is sports
+    if the good is sports footwear
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is a kind of ski footwear.
+
+rule sport_class_none with provenance HTSUS Section XII and Chapter 64,
+        confer "the expression \"sports footwear\" applies only to":
+the sport class of a good is none
+    if the family of the good is footwear
+    and it is not the case that
+        the good is sports footwear.
+
+% Additional U.S. note 2: athletic footwear other than sports footwear —
+% by its kind, or as the office judges its construction and styling (NY
+% N253189: "it does resemble athletic footwear in construction and
+% styling")
+rule athletic_by_kind with provenance HTSUS Section XII and Chapter 64,
+        confer "covers athletic footwear other than sports footwear":
+a good is athletic footwear
+    if the kind of the good is a kind
+    and the kind is a kind of athletic footwear.
+
+rule athletic_by_judgment with provenance HTSUS Section XII and Chapter 64,
+        confer "covers athletic footwear other than sports footwear":
+a good is athletic footwear
+    if the good is styled as athletic footwear.
+
+rule athletic_class with provenance HTSUS Section XII and Chapter 64,
+        confer "covers athletic footwear other than sports footwear":
+the athletic class of a good is athletic
+    if the outer sole class of the good is rubber-plastics
+    and the good is athletic footwear.
+
+rule athletic_class_other with provenance HTSUS Section XII and Chapter 64,
+        confer "covers athletic footwear other than sports footwear":
+the athletic class of a good is other
+    if the outer sole class of the good is rubber-plastics
+    and it is not the case that
+        the good is athletic footwear.
+
+% the subheadings of 6404 with an outer sole of leather or composition
+% leather do not ask whether the shoe is athletic
+rule athletic_class_unread with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear with outer soles of leather or composition leather: 6404.20":
+the athletic class of a good is not read
+    if the outer sole class of the good is a class
+    and it is not the case that
+        the class is rubber-plastics.
+
+% the height: covering the knee, covering the ankle (but not the knee), or
+% below the ankle
+rule height_knee with provenance HTSUS Section XII and Chapter 64,
+        confer "Covering the ankle but not covering the knee":
+the height class of a good is knee
+    if the good covers the knee.
+
+rule height_ankle with provenance HTSUS Section XII and Chapter 64,
+        confer "Covering the ankle but not covering the knee":
+the height class of a good is ankle
+    if the good covers the ankle
+    and it is not the case that
+        the good covers the knee.
+
+rule height_below with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+the height class of a good is below
+    if the family of the good is footwear
+    and it is not the case that
+        the good covers the ankle
+    and it is not the case that
+        the good covers the knee.
+
+rule toe_cap_metal with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear incorporating a protective metal toe-cap":
+the toe cap of a good is metal
+    if the good incorporates a protective metal toe-cap.
+
+rule toe_cap_none with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+the toe cap of a good is none
+    if the family of the good is footwear
+    and it is not the case that
+        the good incorporates a protective metal toe-cap.
+
+rule strap_fixing_plugs with provenance HTSUS Section XII and Chapter 64,
+        confer "Footwear with upper straps or thongs assembled to the sole by means of plugs":
+the strap fixing of a good is plugs
+    if the good has upper straps or thongs assembled to the sole by means of plugs.
+
+rule strap_fixing_none with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+the strap fixing of a good is none
+    if the family of the good is footwear
+    and it is not the case that
+        the good has upper straps or thongs assembled to the sole by means of plugs.
+
+rule upper_form_straps with provenance HTSUS Section XII and Chapter 64,
+        confer "consist of leather straps across the instep and around the big toe":
+the upper form of a good is straps
+    if the upper of the good consists of straps across the instep and around the big toe.
+
+rule upper_form_other with provenance HTSUS Section XII and Chapter 64, confer "Other footwear:":
+the upper form of a good is other
+    if the family of the good is footwear
+    and it is not the case that
+        the upper of the good consists of straps across the instep and around the big toe.
+
+% the parts of heading 6406: uppers; outer soles and heels of rubber or
+% plastics; the rest
+rule part_class_upper with provenance HTSUS Section XII and Chapter 64,
+        confer "Uppers and parts thereof, other than stiffeners":
+the part class of a good is upper
+    if the kind of the good is upper.
+
+rule part_class_sole with provenance HTSUS Section XII and Chapter 64,
+        confer "Outer soles and heels, of rubber or plastics":
+the part class of a good is sole of rubber-plastics
+    if the kind of the good is a kind
+    and the kind is in [outer sole, heel]
+    and the good is wholly or mainly of a material
+    and the material is of the footwear class rubber-plastics.
+
+rule part_class_other with provenance HTSUS Section XII and Chapter 64, confer "Other: 6406.90":
+the part class of a good is other
+    if the family of the good is a family
+    and the family is in [footwear part, gaiter]
+    and it is not the case that
+        the kind of the good is upper
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is in [outer sole, heel]
+        and the good is wholly or mainly of a material
+        and the material is of the footwear class rubber-plastics.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+query unplaced is:
+    which good is not placed by the model.
+
+% Boots and shoes of rubber or plastics (CBP: the codes the rulings give,
+% at six digits)
+scenario rubber_and_plastics is:
+    % NY N320055: woman's tall boot, upper over 90 percent polyurethane,
+    % rubber/plastics lug sole flocked with leather fibres that do not count
+    % (note 4(b)), stitched upper -> 6402.91
+    the kind of style WP-RYLEEP is boot.
+    the constituent material of the upper of style WP-RYLEEP is polyurethane.
+    the constituent material of the outer sole of style WP-RYLEEP is rubber.
+    the upper of style WP-RYLEEP is assembled by stitching.
+    style WP-RYLEEP covers the ankle.
+    % NY N313433: duck boot, molded bottom and sewn-on shaft, protective
+    % against inclement weather: the stitching keeps it out of 6401 -> 6402.91
+    the kind of style SC-HEIDIE is boot.
+    the constituent material of the upper of style SC-HEIDIE is polyurethane.
+    the constituent material of the outer sole of style SC-HEIDIE is rubber.
+    style SC-HEIDIE is designed to protect against penetration by water.
+    the upper of style SC-HEIDIE is fixed to the sole by stitching.
+    style SC-HEIDIE covers the ankle.
+    % NY N323257: children's waterproof boots of rubber or plastic, covering
+    % the ankle but not the knee -> 6401.92
+    the kind of item 2500100300T5 is rain boot.
+    the constituent material of the upper of item 2500100300T5 is plastics.
+    the constituent material of the outer sole of item 2500100300T5 is rubber.
+    item 2500100300T5 is designed to protect against penetration by water.
+    item 2500100300T5 covers the ankle.
+    % NY N346339: children's rain boots, uppers of vulcanized rubber, outsole
+    % rubber with a dusting of leather flocking (a similar attachment) -> 6401.92
+    the kind of style K1367 is rain boot.
+    the constituent material of the upper of style K1367 is vulcanized rubber.
+    the constituent material of the outer sole of style K1367 is rubber.
+    style K1367 is designed to protect against penetration by water.
+    style K1367 covers the ankle.
+    % NY N172458: "Ribbon Flip Flop", PVC strap upper plugged into a
+    % polyethylene sole -> 6402.20
+    the kind of the ribbon flip flop is thong sandal.
+    the constituent material of the upper of the ribbon flip flop is polyvinyl chloride.
+    the constituent material of the outer sole of the ribbon flip flop is polyethylene.
+    the ribbon flip flop has upper straps or thongs assembled to the sole by means of plugs.
+    % HQ H338307: mountaineering boots, upper 88.59 percent rubber/plastics,
+    % crampon compatible: sports footwear -> 6402.19
+    the kind of the winter reboot is boot.
+    the upper of the winter reboot has 88.59 percent of its external surface area of plastics.
+    the upper of the winter reboot has 11.41 percent of its external surface area of textile materials.
+    the constituent material of the outer sole of the winter reboot is rubber.
+    the winter reboot covers the ankle.
+    the winter reboot is designed for a sporting activity.
+    the winter reboot has provision for the attachment of spikes or the like.
+    subheading expects answers ["the subheading of style WP-RYLEEP is 6402.91", "the subheading of style SC-HEIDIE is 6402.91", "the subheading of item 2500100300T5 is 6401.92", "the subheading of style K1367 is 6401.92", "the subheading of the ribbon flip flop is 6402.20", "the subheading of the winter reboot is 6402.19"].
+
+% Uppers of leather, of textile and of other materials
+scenario leather_and_textile is:
+    % NY J84976: men's lace-up shoes with leather uppers and rubber/plastic
+    % soles, below the ankle -> 6403.99
+    the kind of style BM5027 is shoe.
+    the constituent material of the upper of style BM5027 is leather.
+    the constituent material of the outer sole of style BM5027 is rubber.
+    % NY N274653: mule-type sandal, upper 69.42 percent leather and 30.58
+    % percent PU -> 6403.99
+    the kind of style A7-NARSISI is mule.
+    the upper of style A7-NARSISI has 69.42 percent of its external surface area of leather.
+    the upper of style A7-NARSISI has 30.58 percent of its external surface area of polyurethane.
+    the constituent material of the outer sole of style A7-NARSISI is plastics.
+    % NY N296600: woman's below-the-ankle shoe, textile upper, rubber or
+    % plastics sole, resembles athletic footwear -> 6404.11
+    the kind of style Sprinkle is sneaker.
+    the constituent material of the upper of style Sprinkle is textile materials.
+    the constituent material of the outer sole of style Sprinkle is rubber.
+    style Sprinkle is styled as athletic footwear,
+        according to CBP, because "it does resemble athletic footwear in construction and styling".
+    % NY N302745: house slipper, polyester upper, outer sole of textile with
+    % widely spaced traction dots -> 6405.20
+    the kind of the house slipper is slipper.
+    the constituent material of the upper of the house slipper is polyester.
+    the constituent material of the outer sole of the house slipper is textile materials.
+    % NY N346370: casual shoe, upper 100 percent polyurethane, TPR sole
+    % covered with leather flocking that counts as composition leather ->
+    % 6405.90
+    the kind of style KLN00001 is shoe.
+    the constituent material of the upper of style KLN00001 is polyurethane.
+    the constituent material of the outer sole of style KLN00001 is composition leather.
+    % NY N223310: knitted leg warmers of synthetic fabric -> 6406.90 (not
+    % 6117, Section XI note 1(n))
+    the kind of the cycling leg warmers is leg warmer.
+    the fabric construction of the cycling leg warmers is knitted.
+    the cycling leg warmers contains 100 percent of polyester.
+    subheading expects answers ["the subheading of style BM5027 is 6403.99", "the subheading of style A7-NARSISI is 6403.99", "the subheading of style Sprinkle is 6404.11", "the subheading of the house slipper is 6405.20", "the subheading of style KLN00001 is 6405.90", "the subheading of the cycling leg warmers is 6406.90"].
+
+% The subheadings the rulings above do not reach: a toe-cap, leather soles,
+% straps across the instep, ski boots, parts
+scenario subheadings is:
+    the kind of boot A is boot.
+    the constituent material of the upper of boot A is plastics.
+    the constituent material of the outer sole of boot A is plastics.
+    boot A is designed to protect against penetration by water.
+    boot A incorporates a protective metal toe-cap.
+    boot A covers the ankle.
+    the kind of sandal B is sandal.
+    the constituent material of the upper of sandal B is leather.
+    the constituent material of the outer sole of sandal B is leather.
+    the upper of sandal B consists of straps across the instep and around the big toe.
+    the kind of boot C is boot.
+    the constituent material of the upper of boot C is leather.
+    the constituent material of the outer sole of boot C is leather.
+    boot C covers the ankle.
+    the kind of boot D is ski boot.
+    the constituent material of the upper of boot D is leather.
+    the constituent material of the outer sole of boot D is rubber.
+    the kind of shoe E is shoe.
+    the constituent material of the upper of shoe E is cotton.
+    the constituent material of the outer sole of shoe E is leather.
+    the kind of shoe F is shoe.
+    the constituent material of the upper of shoe F is textile materials.
+    the constituent material of the outer sole of shoe F is rubber.
+    the kind of sole G is outer sole.
+    sole G is wholly or mainly of rubber.
+    the kind of upper H is upper.
+    subheading expects answers ["the subheading of boot A is 6401.10", "the subheading of sandal B is 6403.20", "the subheading of boot C is 6403.51", "the subheading of boot D is 6403.12", "the subheading of shoe E is 6404.20", "the subheading of shoe F is 6404.11", "the subheading of shoe F is 6404.19", "the subheading of sole G is 6406.20", "the subheading of upper H is 6406.10"] and unknowns ["it is not the case that shoe F is styled as athletic footwear", "shoe F is styled as athletic footwear"].
+
+% More of the rulings' footwear
+scenario more_rulings is:
+    % NY N345909: man's rubber scout boot, waterproof, over the ankle and
+    % below the knee -> 6401.92
+    the kind of style CHN17020 is boot.
+    the constituent material of the upper of style CHN17020 is rubber.
+    the constituent material of the outer sole of style CHN17020 is rubber.
+    style CHN17020 is designed to protect against penetration by water.
+    style CHN17020 covers the ankle.
+    % NY N340527: man's boot, upper of polyurethane with less than 10
+    % percent textile at the topline -> 6402.91
+    the kind of style 130591001 is boot.
+    the upper of style 130591001 has 90 percent of its external surface area of polyurethane.
+    the upper of style 130591001 has 10 percent of its external surface area of textile materials.
+    the constituent material of the outer sole of style 130591001 is rubber.
+    style 130591001 covers the ankle.
+    % NY N260162: fashion boot, upper 97 percent polyurethane and 3 percent
+    % PVC, stitched, cemented-on sole -> 6402.91
+    the kind of the ladies boot is boot.
+    the upper of the ladies boot has 97 percent of its external surface area of polyurethane.
+    the upper of the ladies boot has 3 percent of its external surface area of polyvinyl chloride.
+    the upper of the ladies boot is assembled by stitching.
+    the constituent material of the outer sole of the ladies boot is rubber.
+    the ladies boot covers the ankle.
+    % NY N275349: woman's lace-up boot, upper predominantly polyurethane,
+    % faux fur collar -> 6402.91
+    the kind of style INCPAMELIA is boot.
+    the constituent material of the upper of style INCPAMELIA is polyurethane.
+    the constituent material of the outer sole of style INCPAMELIA is rubber.
+    style INCPAMELIA covers the ankle.
+    % NY N099969: thong sandal, upper over half plastics with the ankle
+    % strap, open toe and heel -> 6402.99
+    the kind of style Shelly is thong sandal.
+    the constituent material of the upper of style Shelly is plastics.
+    the constituent material of the outer sole of style Shelly is rubber.
+    % NY N318559: woman's sneaker, flyknit textile upper, outer sole of
+    % injection molded EVA -> 6404.11
+    the kind of style Brooklyn is sneaker.
+    the constituent material of the upper of style Brooklyn is textile materials.
+    the constituent material of the outer sole of style Brooklyn is ethylene-vinyl acetate copolymer.
+    style Brooklyn is styled as athletic footwear,
+        according to CBP, because "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
+    % NY L84631: indoor slippers covering the ankle, polyester fleece
+    % upper, stitched-on textile outer sole -> 6405.20
+    the kind of the leopard print slippers is slipper.
+    the constituent material of the upper of the leopard print slippers is polyester.
+    the constituent material of the outer sole of the leopard print slippers is textile materials.
+    the leopard print slippers covers the ankle.
+    subheading expects answers ["the subheading of style CHN17020 is 6401.92", "the subheading of style 130591001 is 6402.91", "the subheading of the ladies boot is 6402.91", "the subheading of style INCPAMELIA is 6402.91", "the subheading of style Shelly is 6402.99", "the subheading of style Brooklyn is 6404.11", "the subheading of the leopard print slippers is 6405.20"].
+
+% Note 1: goods the chapter does not cover
+scenario exclusions is:
+    the kind of cover 1 is shoe.
+    the constituent material of the upper of cover 1 is plastics.
+    the constituent material of the outer sole of cover 1 is plastics.
+    cover 1 is a disposable covering of flimsy material without applied soles.
+    the kind of skate 2 is skating boot.
+    the constituent material of the upper of skate 2 is leather.
+    the constituent material of the outer sole of skate 2 is leather.
+    skate 2 has ice or roller skates attached.
+    unplaced expects answers ["cover 1 is not placed by the model", "skate 2 is not placed by the model"].

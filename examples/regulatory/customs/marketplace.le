@@ -18,7 +18,7 @@ the target language is: prolog.
 
 the facts background includes these resources:
     background/listings, background/garments, background/articles, background/uses, background/materials,
-    background/jewellery, background/trade_usage, background/presumptions.
+    background/jewellery, background/footwear, background/trade_usage, background/presumptions.
 
 the templates are:
     *a good* is classified in *a code* by *a reading*.
@@ -45,6 +45,9 @@ garments background is admissible under usage reading.
 jewellery background is admissible under listing reading.
 jewellery background is admissible under presumed reading.
 jewellery background is admissible under usage reading.
+footwear background is admissible under listing reading.
+footwear background is admissible under presumed reading.
+footwear background is admissible under usage reading.
 materials background is admissible under listing reading.
 materials background is admissible under presumed reading.
 materials background is admissible under usage reading.
@@ -119,6 +122,31 @@ scenario lace_wig is, as stated in the listing:
     the lace wig is a manufactured article, according to marketplace listings, because "finished_product_field", confer "Lace Wig Type: Lace Front Wigs".
     the hair of the lace wig is human hair, according to jewellery background, because "hair_by_human_hair_field", confer "Human Hair Type: Brazilian Hair".
     readings expects answers ["the lace wig is classified in 6704.20 by listing reading", "the lace wig is classified in 6704.20 by presumed reading", "the lace wig is classified in 6704.20 by usage reading"].
+
+% A boot as a listing describes it ("Item Type: BOOTS", "Upper Material:
+% PU", "Outsole Material: Rubber", "Upper coverage: Above the ankle but not
+% to the knee"), read with the footwear background: other footwear of
+% rubber or plastics covering the ankle (Chapter 39 note 2(q) takes it out
+% of heading 3926).
+scenario boots is, as stated in the listing:
+    the boots is classified under the US tariff.
+    the kind of the boots is boot, according to footwear background, because "footwear_kind_by_field", confer "Item Type: BOOTS".
+    the boots is a manufactured article, according to marketplace listings, because "finished_product_field", confer "Item Type: BOOTS".
+    the constituent material of the upper of the boots is polyurethane, according to footwear background, because "upper_material_field", confer "Upper Material: PU".
+    the constituent material of the outer sole of the boots is rubber, according to footwear background, because "outsole_material_field", confer "Outsole Material: Rubber".
+    the boots covers the ankle, according to footwear background, because "coverage_ankle", confer "Upper coverage: Above the ankle but not to the knee".
+    readings expects answers ["the boots is classified in 6402.91 by listing reading", "the boots is classified in 6402.91 by presumed reading", "the boots is classified in 6402.91 by usage reading"].
+
+% A shoulder bag of PU ("Handbags Type: Shoulder Bags", "Main Material:
+% PU"): a handbag with an outer surface of sheeting of plastics (Chapter 39
+% note 2(m) takes it out of heading 3926)
+scenario shoulder_bag is, as stated in the listing:
+    the shoulder bag is classified under the US tariff.
+    the kind of the shoulder bag is handbag, according to footwear background, because "footwear_kind_by_field", confer "Handbags Type: Shoulder Bags".
+    the shoulder bag is a manufactured article, according to marketplace listings, because "finished_product_field", confer "Handbags Type: Shoulder Bags".
+    the outer surface of the shoulder bag is of sheeting of plastics, according to footwear background, because "bag_material_field", confer "Main Material: PU".
+    the shoulder bag is wholly or mainly of sheeting of plastics, according to footwear background, because "main_material_field", confer "Main Material: PU".
+    readings expects answers ["the shoulder bag is classified in 4202.22 by listing reading", "the shoulder bag is classified in 4202.22 by presumed reading", "the shoulder bag is classified in 4202.22 by usage reading"].
 
 query readings is:
     which good is classified in which code by which reading.

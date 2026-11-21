@@ -1,0 +1,462 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the words of sellers for footwear, bags, cases and other leather goods, in
+% the words of the tariff (Chapters 42 and 64). Each word cites the text
+% that says what it means: the tariff's headings and notes, US Customs
+% rulings, the Federal Trade Commission's Guides for Select Leather and
+% Imitation Leather Products (16 CFR Part 24: what "leather" may mean on a
+% bag, a belt or a shoe sold in the United States), the EU explanatory
+% notes, and the description of the listings' fields (sources/listings/
+% marketplace_fields_bags_footwear.txt) for what a field means. Bridges.
+%
+% The fields read: the kind (Item Type, Type, Shoes Type, Boot Type,
+% Handbags Type, Types of bags, Shape); the material of the upper (Upper
+% Material) and of the outer sole (Outsole Material); the material of a bag
+% (Main Material); how high the shoe reaches (Upper coverage, Boot Height);
+% a metal toe cap; waterproof; how the upper is fixed to the sole.
+%
+% Left out, because no saved text says what the word means for the tariff:
+%   - "Storage Bags": US Customs puts storage bags in 3923 (plastics, for
+%     packing), 4202 or 6307 (made up textile articles) by their design and
+%     material; the word does not decide;
+%   - "Protective Shell/Skin": a phone case that holds only the phone is no
+%     container of 4202 (HQ H284146); the uses background reads "phone case"
+%     for Chapter 39;
+%   - "Sports shoes": the sports footwear of subheading note 1 needs spikes,
+%     cleats or the like, and athletic footwear is the office's judgment;
+%   - "Boot Height: ANKLE": an ankle boot may or may not cover the ankle;
+%   - "Microfiber" (a polyester fabric or a polyurethane imitation leather),
+%     "PU leather", "Velvet", "Lining Material", "Insole Material" (the
+%     lining and the insole are no part of the upper's external surface,
+%     CN EN to Chapter 64), "Shaft Material" (part of the upper only);
+%   - "Upper fixing method: sticking" is read as cementing, which heading
+%     6401 does not name (NY J84062).
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a name* is a word for the kind *a kind*.
+    *a field* is a field of the kind of shoe or bag.
+    *a name* is a word for the footwear material *a material*.
+    *a name* is a word for the bag material *a material*.
+    *a value* is an upper coverage that covers the ankle.
+    *a value* is an upper coverage that covers the knee.
+    *a value* is a word for the upper fixing *a process*.
+    *a value* is a word for straps across the instep and around the big toe.
+    the kind of *a good* is *a kind*.
+    the constituent material of the upper of *a good* is *a material*.
+    the constituent material of the outer sole of *a good* is *a material*.
+    the outer surface of *a good* is of *a material*.
+    *a thing* is wholly or mainly of *a material*.
+    *a good* covers the ankle.
+    *a good* covers the knee.
+    *a good* incorporates a protective metal toe-cap.
+    *a good* is designed to protect against penetration by water.
+    the upper of *a good* is fixed to the sole by *a process*.
+    the upper of *a good* consists of straps across the instep and around the big toe.
+
+the knowledge base footwear background includes:
+
+the bags and footwear listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the bags and footwear listing format is at "sources/listings/marketplace_fields_bags_footwear.txt".
+HTSUS Section XII and Chapter 64 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2064#page=3".
+the text of HTSUS Section XII and Chapter 64 is at "sources/hts/chapter_64.txt".
+HTSUS Chapter 42 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2042#page=1".
+the text of HTSUS Chapter 42 is at "sources/hts/chapter_42.txt".
+the CN explanatory notes to Chapter 64 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 64 is at "sources/eu/cn_en_ch64.txt".
+the leather guides is published at "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-24".
+the text of the leather guides is at "sources/ftc/leather_guides.txt".
+ruling NY N320055 is published at "https://rulings.cbp.gov/ruling/N320055".
+the text of ruling NY N320055 is at "sources/cbp/N320055.txt".
+ruling NY N276145 is published at "https://rulings.cbp.gov/ruling/N276145".
+the text of ruling NY N276145 is at "sources/cbp/N276145.txt".
+ruling NY N196497 is published at "https://rulings.cbp.gov/ruling/N196497".
+the text of ruling NY N196497 is at "sources/cbp/N196497.txt".
+ruling NY N302745 is published at "https://rulings.cbp.gov/ruling/N302745".
+the text of ruling NY N302745 is at "sources/cbp/N302745.txt".
+ruling NY N253189 is published at "https://rulings.cbp.gov/ruling/N253189".
+the text of ruling NY N253189 is at "sources/cbp/N253189.txt".
+ruling NY N223310 is published at "https://rulings.cbp.gov/ruling/N223310".
+the text of ruling NY N223310 is at "sources/cbp/N223310.txt".
+ruling NY N125027 is published at "https://rulings.cbp.gov/ruling/N125027".
+the text of ruling NY N125027 is at "sources/cbp/N125027.txt".
+ruling NY N172458 is published at "https://rulings.cbp.gov/ruling/N172458".
+the text of ruling NY N172458 is at "sources/cbp/N172458.txt".
+ruling NY N346370 is published at "https://rulings.cbp.gov/ruling/N346370".
+the text of ruling NY N346370 is at "sources/cbp/N346370.txt".
+ruling NY N296512 is published at "https://rulings.cbp.gov/ruling/N296512".
+the text of ruling NY N296512 is at "sources/cbp/N296512.txt".
+ruling NY N307346 is published at "https://rulings.cbp.gov/ruling/N307346".
+the text of ruling NY N307346 is at "sources/cbp/N307346.txt".
+ruling NY N252193 is published at "https://rulings.cbp.gov/ruling/N252193".
+the text of ruling NY N252193 is at "sources/cbp/N252193.txt".
+ruling NY N251118 is published at "https://rulings.cbp.gov/ruling/N251118".
+the text of ruling NY N251118 is at "sources/cbp/N251118.txt".
+ruling NY N359019 is published at "https://rulings.cbp.gov/ruling/N359019".
+the text of ruling NY N359019 is at "sources/cbp/N359019.txt".
+ruling NY L82909 is published at "https://rulings.cbp.gov/ruling/L82909".
+the text of ruling NY L82909 is at "sources/cbp/L82909.txt".
+ruling NY N065202 is published at "https://rulings.cbp.gov/ruling/N065202".
+the text of ruling NY N065202 is at "sources/cbp/N065202.txt".
+ruling NY M83255 is published at "https://rulings.cbp.gov/ruling/M83255".
+the text of ruling NY M83255 is at "sources/cbp/M83255.txt".
+ruling NY N338202 is published at "https://rulings.cbp.gov/ruling/N338202".
+the text of ruling NY N338202 is at "sources/cbp/N338202.txt".
+ruling NY N303997 is published at "https://rulings.cbp.gov/ruling/N303997".
+the text of ruling NY N303997 is at "sources/cbp/N303997.txt".
+ruling NY J84062 is published at "https://rulings.cbp.gov/ruling/J84062".
+the text of ruling NY J84062 is at "sources/cbp/J84062.txt".
+
+% ---------------------------------------------------------------------------
+% The fields of a listing that name the kind (the listing format)
+% ---------------------------------------------------------------------------
+"item type" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Item Type (34 listings): the kind of product in the seller's words".
+"type" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Type (6 listings): for example \"Type: Storage Bags\"".
+"shoes type" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Shoes Type, Boot Type, Handbags Type, Types of bags, Shape: the kind of shoe, boot or bag".
+"boot type" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Shoes Type, Boot Type, Handbags Type, Types of bags, Shape: the kind of shoe, boot or bag".
+"handbags type" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Shoes Type, Boot Type, Handbags Type, Types of bags, Shape: the kind of shoe, boot or bag".
+"types of bags" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Shoes Type, Boot Type, Handbags Type, Types of bags, Shape: the kind of shoe, boot or bag".
+"shape" is a field of the kind of shoe or bag,
+    as stated in the bags and footwear listing format, confer "Shoes Type, Boot Type, Handbags Type, Types of bags, Shape: the kind of shoe, boot or bag".
+
+% ---------------------------------------------------------------------------
+% Kinds of footwear (Chapter 64). The shop's categories place pumps,
+% slippers, sneakers and dance shoes among shoes.
+% ---------------------------------------------------------------------------
+"boot" is a word for the kind boot,
+    as stated in ruling NY N320055, confer "is a woman’s, closed toe/closed heel, tall boot".
+"boots" is a word for the kind boot,
+    as stated in the bags and footwear listing format, confer "Item Type: BOOTS".
+"women's boots" is a word for the kind boot,
+    as stated in the bags and footwear listing format, confer "Shoes > Women's Shoes > Women's Boots".
+"motorcycle boots" is a word for the kind boot,
+    as stated in the bags and footwear listing format, confer "Boot Type: Motorcycle boots".
+"rainboots" is a word for the kind rain boot,
+    as stated in ruling NY N276145, confer "slip-on waterproof rain boot".
+"rain boots" is a word for the kind rain boot,
+    as stated in ruling NY N276145, confer "slip-on waterproof rain boot".
+"sandal" is a word for the kind sandal,
+    as stated in ruling NY N196497, confer "is a women’s open toe/heel sandal".
+"sandals" is a word for the kind sandal,
+    as stated in the bags and footwear listing format, confer "Item Type: sandals".
+"flip flops" is a word for the kind thong sandal,
+    as stated in ruling NY N172458, confer "is a pair of women’s open-toe/heel thong sandals".
+"pumps" is a word for the kind shoe,
+    as stated in the bags and footwear listing format, confer "Shoes > Women's Shoes > Pumps".
+"flats" is a word for the kind shoe,
+    as stated in the bags and footwear listing format, confer "Item Type: flats".
+"casual shoes" is a word for the kind shoe,
+    as stated in the bags and footwear listing format, confer "Item Type: Casual Shoes".
+"dance shoes" is a word for the kind shoe,
+    as stated in the bags and footwear listing format, confer "Sports Shoes,Clothing&Accessories > Dance > Dance Shoes".
+"slipper" is a word for the kind slipper,
+    as stated in ruling NY N302745, confer "below-the-ankle slipper".
+"slippers" is a word for the kind slipper,
+    as stated in the bags and footwear listing format, confer "Item Type: slippers".
+"women's slippers" is a word for the kind slipper,
+    as stated in the bags and footwear listing format, confer "Shoes > Women's Shoes > Women's Slippers".
+"sneakers" is a word for the kind sneaker,
+    as stated in ruling NY N253189, confer "over-the-ankle, lace-up sneakers".
+"casual sneakers" is a word for the kind sneaker,
+    as stated in the bags and footwear listing format, confer "Shoes > Men's Shoes > Casual Sneakers".
+"running shoes" is a word for the kind running shoe,
+    as stated in the bags and footwear listing format, confer "Sports Shoes,Clothing&Accessories > Sneakers > Running Shoes".
+"leg warmers" is a word for the kind leg warmer,
+    as stated in ruling NY N223310, confer "Two submitted samples, identified as “leg warmers” and “knee warmers”".
+
+% ---------------------------------------------------------------------------
+% Kinds of bags and harness (Chapter 42)
+% ---------------------------------------------------------------------------
+"handbag" is a word for the kind handbag,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+"handbags" is a word for the kind handbag,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+"shoulder bags" is a word for the kind handbag,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+"shoulder & crossbody bags" is a word for the kind handbag,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+"clutch" is a word for the kind handbag,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+"backpacks" is a word for the kind backpack,
+    as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+"backpack" is a word for the kind backpack,
+    as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+"casual tote" is a word for the kind tote bag,
+    as stated in ruling NY L82909, confer "is a double handle, open top tote bag designed to contain personal effects and accessories on a daily basis".
+"tote bags" is a word for the kind tote bag,
+    as stated in ruling NY N338202, confer "You submitted three tote bags".
+"wallets" is a word for the kind wallet,
+    as stated in HTSUS Chapter 42, confer "handbags, shopping bags, wallets, purses, map cases, cigarette cases, tobacco pouches".
+"collars,dogs" is a word for the kind dog collar,
+    as stated in ruling NY N303997, confer "The submitted sample is a dog collar".
+"dog collar" is a word for the kind dog collar,
+    as stated in ruling NY N303997, confer "The submitted sample is a dog collar".
+"dog leash" is a word for the kind dog leash,
+    as stated in ruling NY M83255, confer "consists of a nylon dogs’ leash".
+
+% ---------------------------------------------------------------------------
+% Materials of uppers and outer soles: plastics and rubber by their
+% abbreviations, leather (the FTC guides), textile materials
+% ---------------------------------------------------------------------------
+"pu" is a word for the footwear material polyurethane,
+    as stated in ruling NY N125027, confer "polyurethane (PU)".
+"pvc" is a word for the footwear material polyvinyl chloride,
+    as stated in ruling NY N172458, confer "polyvinyl chloride (PVC)".
+"tpu" is a word for the footwear material polyurethane,
+    as stated in ruling NY N307346, confer "thermoplastic polyurethane (TPU)".
+"eva" is a word for the footwear material ethylene-vinyl acetate copolymer,
+    as stated in ruling NY N296512, confer "ethylene vinyl acetate (EVA) plastic".
+"tpr" is a word for the footwear material thermoplastic rubber,
+    as stated in ruling NY N346370, confer "thermoplastic rubber (TPR)".
+"rubber" is a word for the footwear material rubber,
+    as stated in HTSUS Section XII and Chapter 64, confer "outer soles and uppers of rubber or plastics".
+"leather" is a word for the footwear material leather,
+    as stated in the leather guides, confer "It is unfair or deceptive to use the unqualified term “leather” or other unqualified terms suggestive of leather to describe industry products unless the industry product so described is composed in all substantial parts of leather".
+"genuine leather" is a word for the footwear material leather,
+    as stated in the leather guides, confer "It is unfair or deceptive to use the unqualified term “leather” or other unqualified terms suggestive of leather to describe industry products unless the industry product so described is composed in all substantial parts of leather".
+"cow leather" is a word for the footwear material leather,
+    as stated in the leather guides, confer "An industry product made wholly of top grain cowhide".
+"cowhide" is a word for the footwear material leather,
+    as stated in the leather guides, confer "An industry product made wholly of top grain cowhide".
+"split leather" is a word for the footwear material split leather,
+    as stated in ruling NY N251118, confer "a layer of polyurethane coating and a layer of split leather".
+"suede" is a word for the footwear material suede leather,
+    as stated in ruling NY N252193, confer "outer surface of 85% suede leather".
+"bonded leather" is a word for the footwear material composition leather,
+    as stated in the leather guides, confer "An industry product made of a composition material consisting of 60% shredded leather fibers may be described as: Bonded Leather".
+"mesh" is a word for the footwear material textile materials,
+    as stated in ruling NY N359019, confer "100% polyester mesh knit fabric".
+"air mesh" is a word for the footwear material textile materials,
+    as stated in ruling NY N359019, confer "100% polyester mesh knit fabric".
+"flock" is a word for the footwear material textile flock,
+    as stated in the CN explanatory notes to Chapter 64, confer "the fibres (for example, textile flock), yarns, fabrics, felts, nonwovens".
+"canvas" is a word for the footwear material textile materials,
+    as stated in ruling NY L82909, confer "an exterior surface of 100% cotton canvas textile material".
+"polyester" is a word for the footwear material polyester,
+    as stated in ruling NY N065202, confer "an outer surface of 100% polyester textile material".
+"nylon" is a word for the footwear material nylon,
+    as stated in ruling NY M83255, confer "The lead is made of sturdy nylon woven webbing material".
+"cotton" is a word for the footwear material cotton,
+    as stated in ruling NY L82909, confer "an exterior surface of 100% cotton canvas textile material".
+
+% ---------------------------------------------------------------------------
+% Materials of the outer surface of a bag: PU is sheeting of plastics in a
+% bag (NY N125027); leather and textiles as for footwear
+% ---------------------------------------------------------------------------
+"pu" is a word for the bag material sheeting of plastics,
+    as stated in ruling NY N125027, confer "is a handbag constructed with an outer surface of polyurethane (PU) plastic sheeting".
+"genuine leather" is a word for the bag material leather,
+    as stated in the leather guides, confer "It is unfair or deceptive to use the unqualified term “leather” or other unqualified terms suggestive of leather to describe industry products unless the industry product so described is composed in all substantial parts of leather".
+"leather" is a word for the bag material leather,
+    as stated in the leather guides, confer "It is unfair or deceptive to use the unqualified term “leather” or other unqualified terms suggestive of leather to describe industry products unless the industry product so described is composed in all substantial parts of leather".
+"cow leather" is a word for the bag material leather,
+    as stated in the leather guides, confer "An industry product made wholly of top grain cowhide".
+"split leather" is a word for the bag material split leather,
+    as stated in ruling NY N251118, confer "a layer of polyurethane coating and a layer of split leather".
+"suede" is a word for the bag material suede leather,
+    as stated in ruling NY N252193, confer "outer surface of 85% suede leather".
+"polyester" is a word for the bag material polyester,
+    as stated in ruling NY N065202, confer "an outer surface of 100% polyester textile material".
+"nylon" is a word for the bag material nylon,
+    as stated in ruling NY M83255, confer "The lead is made of sturdy nylon woven webbing material".
+"canvas" is a word for the bag material textile materials,
+    as stated in ruling NY L82909, confer "an exterior surface of 100% cotton canvas textile material".
+"cotton" is a word for the bag material cotton,
+    as stated in ruling NY L82909, confer "an exterior surface of 100% cotton canvas textile material".
+"paper yarn" is a word for the bag material paper yarn,
+    as stated in ruling NY N338202, confer "constructed with an outer surface of twisted/rolled paper yarns".
+
+% ---------------------------------------------------------------------------
+% How high the shoe reaches, toe caps, waterproof, how the upper is fixed
+% ---------------------------------------------------------------------------
+"above the ankle but not to the knee" is an upper coverage that covers the ankle,
+    as stated in the bags and footwear listing format, confer "\"Upper coverage: Above the ankle but not to the knee\"".
+"above the knee" is an upper coverage that covers the ankle,
+    as stated in the bags and footwear listing format, confer "\"Upper coverage: Above the knee\"".
+"above the knee" is an upper coverage that covers the knee,
+    as stated in the bags and footwear listing format, confer "\"Upper coverage: Above the knee\"".
+"knee-high" is an upper coverage that covers the ankle,
+    as stated in the bags and footwear listing format, confer "\"Boot Height: Knee-High\"".
+"over-the-knee" is an upper coverage that covers the ankle,
+    as stated in the bags and footwear listing format, confer "\"Boot Height: Over-the-Knee\"".
+"over-the-knee" is an upper coverage that covers the knee,
+    as stated in the bags and footwear listing format, confer "\"Boot Height: Over-the-Knee\"".
+"stitching" is a word for the upper fixing stitching,
+    as stated in the bags and footwear listing format, confer "\"Upper fixing method: stitching\"".
+"injection molding" is a word for the upper fixing molding,
+    as stated in ruling NY J84062, confer "(but may be assembled by ways other than those mentioned such as by molding or cementing)".
+"sticking" is a word for the upper fixing cementing,
+    as stated in ruling NY J84062, confer "(but may be assembled by ways other than those mentioned such as by molding or cementing)".
+"straps across the instep and around the big toe" is a word for straps across the instep and around the big toe,
+    as stated in HTSUS Section XII and Chapter 64, confer "consist of leather straps across the instep and around the big toe".
+
+% ---------------------------------------------------------------------------
+% The rules: a word in the name or in a field
+% ---------------------------------------------------------------------------
+rule footwear_kind_by_name with provenance the bags and footwear listing format,
+        confer "A listing offers one finished product for sale":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the kind the kind.
+
+rule footwear_kind_by_field with provenance the bags and footwear listing format,
+        confer "Shoes Type, Boot Type, Handbags Type, Types of bags, Shape: the kind of shoe, boot or bag":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field of the kind of shoe or bag
+    and the value is a word for the kind the kind.
+
+rule upper_material_field with provenance the bags and footwear listing format,
+        confer "Upper Material (37 listings): the outer surface of the upper":
+the constituent material of the upper of a good is a material
+    if the field "upper material" of the good reads a value
+    and the value is a word for the footwear material the material.
+
+rule outsole_material_field with provenance the bags and footwear listing format,
+        confer "Outsole Material (36 listings)":
+the constituent material of the outer sole of a good is a material
+    if the field "outsole material" of the good reads a value
+    and the value is a word for the footwear material the material.
+
+rule bag_material_field with provenance the bags and footwear listing format,
+        confer "Main Material (13 listings) and Material (19 listings): the material of a bag or another product":
+the outer surface of a good is of a material
+    if the field "main material" of the good reads a value
+    and the value is a word for the bag material the material.
+
+rule main_material_field with provenance the bags and footwear listing format,
+        confer "Main Material (13 listings) and Material (19 listings): the material of a bag or another product":
+a thing is wholly or mainly of a material
+    if the field "main material" of the thing reads a value
+    and the value is a word for the bag material the material.
+
+rule coverage_ankle with provenance the bags and footwear listing format,
+        confer "Upper coverage (27 listings)":
+a good covers the ankle
+    if the field a field of the good reads a value
+    and the field is in ["upper coverage", "boot height"]
+    and the value is an upper coverage that covers the ankle.
+
+rule coverage_knee with provenance the bags and footwear listing format,
+        confer "Upper coverage (27 listings)":
+a good covers the knee
+    if the field a field of the good reads a value
+    and the field is in ["upper coverage", "boot height"]
+    and the value is an upper coverage that covers the knee.
+
+rule metal_toe_cap_field with provenance the bags and footwear listing format,
+        confer "Whether with metal toe cap (19 listings)":
+a good incorporates a protective metal toe-cap
+    if the field "whether with metal toe cap" of the good reads "yes".
+
+% Additional U.S. note 3: waterproof footwear is footwear designed to
+% protect against penetration by water
+rule waterproof_field with provenance HTSUS Section XII and Chapter 64,
+        confer "\"waterproof footwear\" means footwear specified in the heading, designed to protect against penetration by water or other liquids":
+a good is designed to protect against penetration by water
+    if the field "whether waterproof" of the good reads "yes".
+
+rule upper_fixing_field with provenance the bags and footwear listing format,
+        confer "Upper fixing method (33 listings): how the upper is fixed to the sole":
+the upper of a good is fixed to the sole by a process
+    if the field "upper fixing method" of the good reads a value
+    and the value is a word for the upper fixing the process.
+
+rule upper_straps_field with provenance the bags and footwear listing format,
+        confer "Upper fixing method (33 listings): how the upper is fixed to the sole":
+the upper of a good consists of straps across the instep and around the big toe
+    if the field "upper fixing method" of the good reads a value
+    and the value is a word for straps across the instep and around the big toe.
+
+% ---------------------------------------------------------------------------
+% Tests
+% ---------------------------------------------------------------------------
+
+scenario shoes is:
+    the field "item type" of boot 1 reads "boots".
+    the field "upper material" of boot 1 reads "pu".
+    the field "outsole material" of boot 1 reads "rubber".
+    the field "upper coverage" of boot 1 reads "above the ankle but not to the knee".
+    the field "upper fixing method" of boot 1 reads "stitching".
+    the field "boot type" of boot 2 reads "rainboots".
+    the field "upper material" of boot 2 reads "pvc".
+    the field "outsole material" of boot 2 reads "tpr".
+    the field "whether waterproof" of boot 2 reads "yes".
+    the field "boot height" of boot 2 reads "over-the-knee".
+    the field "upper fixing method" of boot 2 reads "injection molding".
+    the field "item type" of shoe 3 reads "casual shoes".
+    the field "upper material" of shoe 3 reads "genuine leather".
+    the field "outsole material" of shoe 3 reads "eva".
+    the field "whether with metal toe cap" of shoe 3 reads "yes".
+    the field "item type" of sandal 4 reads "sandals".
+    the field "upper material" of sandal 4 reads "air mesh".
+    the field "outsole material" of sandal 4 reads "rubber".
+    the field "upper fixing method" of sandal 4 reads "straps across the instep and around the big toe".
+    the field "type" of warmers 5 reads "leg warmers".
+    kinds expects answers ["the kind of boot 1 is boot", "the kind of boot 2 is rain boot", "the kind of shoe 3 is shoe", "the kind of sandal 4 is sandal", "the kind of warmers 5 is leg warmer"].
+    uppers expects answers ["the constituent material of the upper of boot 1 is polyurethane", "the constituent material of the upper of boot 2 is polyvinyl chloride", "the constituent material of the upper of shoe 3 is leather", "the constituent material of the upper of sandal 4 is textile materials"].
+    soles expects answers ["the constituent material of the outer sole of boot 1 is rubber", "the constituent material of the outer sole of boot 2 is thermoplastic rubber", "the constituent material of the outer sole of shoe 3 is ethylene-vinyl acetate copolymer", "the constituent material of the outer sole of sandal 4 is rubber"].
+    ankles expects answers ["boot 1 covers the ankle", "boot 2 covers the ankle"].
+    knees expects answers ["boot 2 covers the knee"].
+    waterproof expects answers ["boot 2 is designed to protect against penetration by water"].
+    toe caps expects answers ["shoe 3 incorporates a protective metal toe-cap"].
+    fixings expects answers ["the upper of boot 1 is fixed to the sole by stitching", "the upper of boot 2 is fixed to the sole by molding"].
+    straps expects answers ["the upper of sandal 4 consists of straps across the instep and around the big toe"].
+
+scenario bags is:
+    the field "handbags type" of bag 1 reads "shoulder bags".
+    the field "main material" of bag 1 reads "pu".
+    the field "item type" of bag 2 reads "backpacks".
+    the field "main material" of bag 2 reads "polyester".
+    the field "shape" of bag 3 reads "casual tote".
+    the field "main material" of bag 3 reads "genuine leather".
+    the field "type" of collar 4 reads "collars,dogs".
+    kinds expects answers ["the kind of bag 1 is handbag", "the kind of bag 2 is backpack", "the kind of bag 3 is tote bag", "the kind of collar 4 is dog collar"].
+    surfaces expects answers ["the outer surface of bag 1 is of sheeting of plastics", "the outer surface of bag 2 is of polyester", "the outer surface of bag 3 is of leather"].
+    bodies expects answers ["bag 1 is wholly or mainly of sheeting of plastics", "bag 2 is wholly or mainly of polyester", "bag 3 is wholly or mainly of leather"].
+
+query kinds is:
+    the kind of which good is which kind.
+
+query uppers is:
+    the constituent material of the upper of which good is which material.
+
+query soles is:
+    the constituent material of the outer sole of which good is which material.
+
+query ankles is:
+    which good covers the ankle.
+
+query knees is:
+    which good covers the knee.
+
+query waterproof is:
+    which good is designed to protect against penetration by water.
+
+query toe caps is:
+    which good incorporates a protective metal toe-cap.
+
+query fixings is:
+    the upper of which good is fixed to the sole by which process.
+
+query straps is:
+    the upper of which good consists of straps across the instep and around the big toe.
+
+query bodies is:
+    which thing is wholly or mainly of which material.
+
+query surfaces is:
+    the outer surface of which good is of which material.

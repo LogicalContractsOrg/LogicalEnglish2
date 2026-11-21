@@ -1,0 +1,767 @@
+% Chapter 42 of the tariff (Section VIII): articles of leather; saddlery and
+% harness; travel goods, handbags and similar containers; articles of animal
+% gut (other than silkworm gut) — all five headings (4201, 4202, 4203, 4205,
+% 4206; 4204 is no longer used) and their 20 six-digit subheadings. A
+% library: it includes chapter_64.le (and through it chapter_39.le,
+% section_xi.le and gri.le) and chapter_71.le, because the notes of
+% Chapters 39, 42, 64 and 71 and of Section XI send goods between these
+% chapters; tariff.le includes it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 42 notes 1 to 4 and Additional
+% U.S. notes 1 and 2, and the terms of the headings and subheadings
+% (https://hts.usitc.gov/); Section VIII has no notes. Chapter 39 note 2(m),
+% Section XI note 1(l), Chapter 71 note 3(e). The subheadings are the
+% six-digit HS ones. US Customs rulings name the containers and say how the
+% outer surface is read; HQ H284146 quotes the Explanatory Note to heading
+% 4202 on its two parts.
+%
+% How the chapter is read. Heading 4202 has two lists of containers,
+% divided by a semicolon. The containers of the first list (trunks,
+% suitcases, briefcases, spectacle cases, camera cases, holsters and similar
+% containers) may be of any material. The containers of the second list
+% (travelling bags, backpacks, handbags, shopping bags, wallets, purses,
+% tool bags, jewelry boxes and similar containers) must be of leather or
+% composition leather, of sheeting of plastics, of textile materials, of
+% vulcanized fiber or of paperboard, or be covered with such materials or
+% with paper (Explanatory Note, quoted in HQ H284146). The facts of a
+% container are its kind (a handbag, a backpack, a wallet...) and its outer
+% surface:
+%   the outer surface of G is of M
+%   the outer surface of G is N percent of M   (the material that covers
+%       the greatest part gives the essential character, NY N252193)
+% The subheadings read the group of the kind (trunks and similar
+% containers; handbags; articles carried in the pocket or in the handbag;
+% other) and the class of the outer surface (leather; sheeting of plastics
+% or textile; other plastics; other). Additional U.S. note 2 (a textile
+% coated with plastics is read by its exterior surface) is the reader's
+% judgment when the fact is written (NY N297423).
+% Heading 4201 takes saddlery and harness for any animal, of any material.
+% Heading 4203 takes articles of apparel and clothing accessories of leather
+% or of composition leather (note 4: gloves, belts, braces); heading 4205
+% other articles of leather; heading 4206 articles of gut, goldbeater's
+% skin, bladders or tendons. A good is of leather when what it is
+% classified as consisting of is wholly or mainly of leather (GRI 3(b): the
+% leather that girds the waist gives a belt its essential character, NY
+% N291699).
+% Note 2 excludes footwear (Chapter 64), imitation jewelry (7117) and
+% netting (5608), written below; the other goods of note 2 (catgut of 3006,
+% articles lined with fur, headgear, whips, harness fittings, musical
+% instruments, furniture, toys, buttons) are outside the model: a claim that
+% a good belongs there is answered by the office (gri.le).
+%
+% A protective phone case that holds only the device and leaves it fully
+% working is not a container of heading 4202 (HQ H284146, following the
+% court in Otter Products): it is an article of its material (3926 for
+% plastics). A phone case that also holds cards is a container of the
+% first list.
+%
+% Not modelled: the lines below six digits; whether a container is of the
+% second list when its outer surface is of no listed material but is
+% covered with paper (the reader writes "paper" as its outer surface).
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter forty-two goods.
+    *a family* is a family of the first part of heading 4202.
+    *a family* is a family of the second part of heading 4202.
+    *a family* is a family of the group *a group*.
+    the outer surface of *a good* is of *a material*; undefined.
+    the outer surface of *a good* is *a number* percent of *a material*; undefined.
+    the outer surface material of *a good* is *a material*.
+    *a material* is of the outer surface class *a class*.
+    the outer surface class of *a good* is *a class*.
+    *a material* is a material of the second part of heading 4202.
+    *a good* is not designed for prolonged use; undefined.
+    *a good* is a made up article of netting; undefined.
+    *a good* is specially designed for use in sports; undefined.
+    *a good* is a sterile surgical suture material; undefined.
+    *a good* is of leather or of composition leather.
+    *a material* is a material of heading 4206.
+    *a good* has parts of chapter seventy-one that give its essential character.
+    the container group of *a good* is *a group*.
+    the leather article group of *a good* is *a group*.
+    the subheading in heading *a heading* for *a group* with surface *a class* is *a code* under table containers.
+    the subheading in heading *a heading* for the leather article *a group* is *a code* under table leather articles.
+
+% ---------------------------------------------------------------------------
+% GRI 6 for heading 4202: the group of the container and the class of its
+% outer surface. First match: an "any" row is the group's "Other".
+% ---------------------------------------------------------------------------
+the table containers is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | group    | class                       | code      | as stated in HTSUS Chapter 42
+    c1  | 4202    | luggage  | leather                     | "4202.11" | "4202.11.00"
+    c2  | 4202    | luggage  | sheeting-textile or plastics | "4202.12" | "With outer surface of plastics or of textile materials: 4202.12"
+    c3  | 4202    | luggage  | any                         | "4202.19" | "4202.19.00"
+    c4  | 4202    | handbag  | leather                     | "4202.21" | "With outer surface of leather or of composition leather: 4202.21"
+    c5  | 4202    | handbag  | sheeting-textile            | "4202.22" | "With outer surface of sheeting of plastics or of textile materials: 4202.22"
+    c6  | 4202    | handbag  | any                         | "4202.29" | "Other: 4202.29"
+    c7  | 4202    | pocket   | leather                     | "4202.31" | "With outer surface of leather or of composition leather: 4202.31"
+    c8  | 4202    | pocket   | sheeting-textile            | "4202.32" | "With outer surface of sheeting of plastics or of textile materials: 4202.32"
+    c9  | 4202    | pocket   | any                         | "4202.39" | "Other: 4202.39"
+    c10 | 4202    | other    | leather                     | "4202.91" | "With outer surface of leather or of composition leather: 4202.91"
+    c11 | 4202    | other    | sheeting-textile            | "4202.92" | "With outer surface of sheeting of plastics or of textile materials: 4202.92"
+    c12 | 4202    | other    | any                         | "4202.99" | "Other: 4202.99"
+
+% GRI 6 for headings 4201, 4203, 4205 and 4206
+the table leather articles is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | group         | code      | as stated in HTSUS Chapter 42
+    l1  | 4201    | any           | "4201.00" | "and the like), of any material: 4201.00"
+    l2  | 4203    | apparel       | "4203.10" | "Articles of apparel: 4203.10"
+    l3  | 4203    | sports gloves | "4203.21" | "Specially designed for use in sports: 4203.21"
+    l4  | 4203    | gloves        | "4203.29" | "Other: 4203.29"
+    l5  | 4203    | belt          | "4203.30" | "Belts and bandoliers with or without buckles"
+    l6  | 4203    | any           | "4203.40" | "Other clothing accessories: 4203.40"
+    l7  | 4205    | any           | "4205.00" | "Other articles of leather or of composition leather: 4205.00"
+    l8  | 4206    | any           | "4206.00" | "of bladders or of tendons: 4206.00"
+
+the knowledge base chapter 42 includes these resources:
+    chapter_64, chapter_71.
+
+the knowledge base chapter 42 includes:
+
+HTSUS Chapter 42 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2042#page=1".
+the text of HTSUS Chapter 42 is at "sources/hts/chapter_42.txt".
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+HTSUS Section XI and Chapter 50 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2050#page=1".
+the text of HTSUS Section XI and Chapter 50 is at "sources/hts/chapter_50.txt".
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+the CN explanatory notes to Chapter 42 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 42 is at "sources/eu/cn_en_ch42.txt".
+ruling HQ H284146 is published at "https://rulings.cbp.gov/ruling/H284146".
+the text of ruling HQ H284146 is at "sources/cbp/H284146.txt".
+ruling NY N252193 is published at "https://rulings.cbp.gov/ruling/N252193".
+the text of ruling NY N252193 is at "sources/cbp/N252193.txt".
+ruling NY N338202 is published at "https://rulings.cbp.gov/ruling/N338202".
+the text of ruling NY N338202 is at "sources/cbp/N338202.txt".
+ruling NY L82909 is published at "https://rulings.cbp.gov/ruling/L82909".
+the text of ruling NY L82909 is at "sources/cbp/L82909.txt".
+ruling NY N303997 is published at "https://rulings.cbp.gov/ruling/N303997".
+the text of ruling NY N303997 is at "sources/cbp/N303997.txt".
+ruling NY M83255 is published at "https://rulings.cbp.gov/ruling/M83255".
+the text of ruling NY M83255 is at "sources/cbp/M83255.txt".
+ruling NY N291699 is published at "https://rulings.cbp.gov/ruling/N291699".
+the text of ruling NY N291699 is at "sources/cbp/N291699.txt".
+ruling NY N251118 is published at "https://rulings.cbp.gov/ruling/N251118".
+the text of ruling NY N251118 is at "sources/cbp/N251118.txt".
+ruling NY N065202 is published at "https://rulings.cbp.gov/ruling/N065202".
+the text of ruling NY N065202 is at "sources/cbp/N065202.txt".
+ruling NY N125027 is published at "https://rulings.cbp.gov/ruling/N125027".
+the text of ruling NY N125027 is at "sources/cbp/N125027.txt".
+ruling NY N258431 is published at "https://rulings.cbp.gov/ruling/N258431".
+the text of ruling NY N258431 is at "sources/cbp/N258431.txt".
+ruling NY N291664 is published at "https://rulings.cbp.gov/ruling/N291664".
+the text of ruling NY N291664 is at "sources/cbp/N291664.txt".
+ruling NY N248322 is published at "https://rulings.cbp.gov/ruling/N248322".
+the text of ruling NY N248322 is at "sources/cbp/N248322.txt".
+ruling NY N334121 is published at "https://rulings.cbp.gov/ruling/N334121".
+the text of ruling NY N334121 is at "sources/cbp/N334121.txt".
+ruling HQ H285905 is published at "https://rulings.cbp.gov/ruling/H285905".
+the text of ruling HQ H285905 is at "sources/cbp/H285905.txt".
+ruling NY N297423 is published at "https://rulings.cbp.gov/ruling/N297423".
+the text of ruling NY N297423 is at "sources/cbp/N297423.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: the goods of the chapter's families. Articles of
+% leather, of gut or of plastics are manufactured articles (chapter_39.le);
+% garments and clothing accessories of leather are garments (section_xi.le).
+% ---------------------------------------------------------------------------
+
+% the model covers the saddlery, containers and belts of Chapter 42
+rule leather_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter forty-two goods.
+
+saddlery is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "Saddlery and harness for any animal".
+luggage is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+case is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "spectacle cases, binocular cases, camera cases, musical instrument cases, gun cases, holsters and similar containers".
+pocket case is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "Articles of a kind normally carried in the pocket or in the handbag".
+handbag is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+pocket article is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "Articles of a kind normally carried in the pocket or in the handbag".
+travel bag is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "the expression \"travel, sports and similar bags\" means goods".
+other container is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+belt is a family of chapter forty-two goods,
+    as stated in HTSUS Chapter 42, confer "Belts and bandoliers with or without buckles".
+
+% The two parts of heading 4202, divided by the semicolon (EN 42.02, quoted
+% in HQ H284146)
+luggage is a family of the first part of heading 4202,
+    as stated in ruling HQ H284146, confer "Subject to Notes 2 and 3 to this Chapter, the articles covered by the first part of the heading may be of any material".
+case is a family of the first part of heading 4202,
+    as stated in ruling HQ H284146, confer "Subject to Notes 2 and 3 to this Chapter, the articles covered by the first part of the heading may be of any material".
+pocket case is a family of the first part of heading 4202,
+    as stated in ruling HQ H284146, confer "Subject to Notes 2 and 3 to this Chapter, the articles covered by the first part of the heading may be of any material".
+handbag is a family of the second part of heading 4202,
+    as stated in ruling HQ H284146, confer "The articles covered by the second part of the heading must, however, be only of the materials specified therein".
+pocket article is a family of the second part of heading 4202,
+    as stated in ruling HQ H284146, confer "The articles covered by the second part of the heading must, however, be only of the materials specified therein".
+travel bag is a family of the second part of heading 4202,
+    as stated in ruling HQ H284146, confer "The articles covered by the second part of the heading must, however, be only of the materials specified therein".
+other container is a family of the second part of heading 4202,
+    as stated in ruling HQ H284146, confer "The articles covered by the second part of the heading must, however, be only of the materials specified therein".
+
+% The groups of the subheadings
+luggage is a family of the group luggage,
+    as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+handbag is a family of the group handbag,
+    as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+pocket case is a family of the group pocket,
+    as stated in ruling HQ H284146, confer "These subheadings cover articles of a kind normally carried in the pocket or in the handbag and include spectacle cases".
+pocket article is a family of the group pocket,
+    as stated in ruling HQ H284146, confer "These subheadings cover articles of a kind normally carried in the pocket or in the handbag and include spectacle cases".
+case is a family of the group other,
+    as stated in HTSUS Chapter 42, confer "Other: 4202.99".
+travel bag is a family of the group other,
+    as stated in HTSUS Chapter 42, confer "other than those falling in subheadings 4202.11 through 4202.39".
+other container is a family of the group other,
+    as stated in HTSUS Chapter 42, confer "Other: 4202.99".
+
+% The kinds and their families: the heading's own words, and the rulings'
+dog collar falls in the family saddlery, as stated in ruling NY N303997, confer "Dog leashes, collars, muzzles, harnesses and similar dog equipment".
+dog leash falls in the family saddlery, as stated in ruling NY M83255, confer "consists of a nylon dogs’ leash".
+harness falls in the family saddlery, as stated in HTSUS Chapter 42, confer "Dog leashes, collars, muzzles, harnesses and similar dog equipment".
+muzzle falls in the family saddlery, as stated in HTSUS Chapter 42, confer "Dog leashes, collars, muzzles, harnesses and similar dog equipment".
+lead falls in the family saddlery, as stated in HTSUS Chapter 42, confer "(including traces, leads, knee pads, muzzles, saddle cloths, saddle bags, dog coats".
+saddle falls in the family saddlery, as stated in HTSUS Chapter 42, confer "Saddlery and harness for any animal".
+saddle cloth falls in the family saddlery, as stated in HTSUS Chapter 42, confer "(including traces, leads, knee pads, muzzles, saddle cloths, saddle bags, dog coats".
+saddle bag falls in the family saddlery, as stated in HTSUS Chapter 42, confer "(including traces, leads, knee pads, muzzles, saddle cloths, saddle bags, dog coats".
+dog coat falls in the family saddlery, as stated in HTSUS Chapter 42, confer "(including traces, leads, knee pads, muzzles, saddle cloths, saddle bags, dog coats".
+trunk falls in the family luggage, as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+suitcase falls in the family luggage, as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+vanity case falls in the family luggage, as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+attache case falls in the family luggage, as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+briefcase falls in the family luggage, as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+school satchel falls in the family luggage, as stated in HTSUS Chapter 42, confer "Trunks, suitcases, vanity cases, attache cases, briefcases, school satchels and similar containers".
+spectacle case falls in the family pocket case, as stated in ruling HQ H284146, confer "These subheadings cover articles of a kind normally carried in the pocket or in the handbag and include spectacle cases".
+phone wallet case falls in the family pocket case, as stated in ruling HQ H284146, confer "because it is specially shaped or fitted to organize, store, protect and carry a cell phone and credit cards or IDs".
+binocular case falls in the family case, as stated in HTSUS Chapter 42, confer "spectacle cases, binocular cases, camera cases, musical instrument cases, gun cases, holsters and similar containers".
+camera case falls in the family case, as stated in HTSUS Chapter 42, confer "spectacle cases, binocular cases, camera cases, musical instrument cases, gun cases, holsters and similar containers".
+musical instrument case falls in the family case, as stated in HTSUS Chapter 42, confer "spectacle cases, binocular cases, camera cases, musical instrument cases, gun cases, holsters and similar containers".
+gun case falls in the family case, as stated in HTSUS Chapter 42, confer "spectacle cases, binocular cases, camera cases, musical instrument cases, gun cases, holsters and similar containers".
+holster falls in the family case, as stated in HTSUS Chapter 42, confer "spectacle cases, binocular cases, camera cases, musical instrument cases, gun cases, holsters and similar containers".
+handbag falls in the family handbag, as stated in HTSUS Chapter 42, confer "Handbags, whether or not with shoulder strap, including those without handle".
+wallet falls in the family pocket article, as stated in HTSUS Chapter 42, confer "handbags, shopping bags, wallets, purses, map cases, cigarette cases, tobacco pouches".
+purse falls in the family pocket article, as stated in HTSUS Chapter 42, confer "handbags, shopping bags, wallets, purses, map cases, cigarette cases, tobacco pouches".
+map case falls in the family pocket article, as stated in HTSUS Chapter 42, confer "handbags, shopping bags, wallets, purses, map cases, cigarette cases, tobacco pouches".
+tobacco pouch falls in the family pocket article, as stated in HTSUS Chapter 42, confer "handbags, shopping bags, wallets, purses, map cases, cigarette cases, tobacco pouches".
+traveling bag falls in the family travel bag, as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+insulated food or beverage bag falls in the family travel bag, as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+toiletry bag falls in the family travel bag, as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+knapsack falls in the family travel bag, as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+backpack falls in the family travel bag, as stated in HTSUS Chapter 42, confer "traveling bags, insulated food or beverage bags, toiletry bags, knapsacks and backpacks".
+shopping bag falls in the family travel bag, as stated in HTSUS Chapter 42, confer "including backpacks and shopping bags of this heading".
+sports bag falls in the family travel bag, as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+tote bag falls in the family travel bag, as stated in ruling NY N338202, confer "The bags are designed and sized to provide storage, protection, organization, and portability to personal effects during travel".
+tool bag falls in the family other container, as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+bottle case falls in the family other container, as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+jewelry box falls in the family other container, as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+powder case falls in the family other container, as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+cutlery case falls in the family other container, as stated in HTSUS Chapter 42, confer "tool bags, sports bags, bottle cases, jewelry boxes, powder cases, cutlery cases and similar containers".
+belt falls in the family belt, as stated in HTSUS Chapter 42, confer "Belts and bandoliers with or without buckles".
+bandolier falls in the family belt, as stated in HTSUS Chapter 42, confer "Belts and bandoliers with or without buckles".
+
+% ---------------------------------------------------------------------------
+% The outer surface and its class.
+% ---------------------------------------------------------------------------
+
+% the outer surface material: as the ruling states it; or the material that
+% covers the greatest part of the outer surface (NY N252193); or, when the
+% ruling names no outer surface, the material the good is wholly or mainly
+% of (the heading: "or wholly or mainly covered with such materials")
+rule outer_surface_stated with provenance HTSUS Chapter 42,
+        confer "of leather or of composition leather, of sheeting of plastics, of textile materials, of vulcanized fiber or of paperboard, or wholly or mainly covered with such materials or with paper":
+the outer surface material of a good is a material
+    if the outer surface of the good is of the material.
+
+rule outer_surface_shares with provenance ruling NY N252193,
+        confer "The suede covers the majority of the outer surface. As such, it is the suede that gives the wallet its essential character":
+the outer surface material of a good is a material
+    if the outer surface of the good is a number percent of the material
+    and it is not the case that
+        the outer surface of the good is of an other material
+    and it is not the case that
+        the outer surface of the good is an other number percent of a second material
+        and the other number > the number.
+
+rule outer_surface_body with provenance HTSUS Chapter 42,
+        confer "of leather or of composition leather, of sheeting of plastics, of textile materials, of vulcanized fiber or of paperboard, or wholly or mainly covered with such materials or with paper":
+the outer surface material of a good is a material
+    if the good is wholly or mainly of the material
+    and it is not the case that
+        the outer surface of the good is of an other material
+    and it is not the case that
+        the outer surface of the good is a number percent of a second material.
+
+rule outer_surface_class with provenance HTSUS Chapter 42,
+        confer "With outer surface of sheeting of plastics or of textile materials":
+the outer surface class of a good is a class
+    if the outer surface material of the good is a material
+    and the material is of the outer surface class the class.
+
+rule outer_surface_class_other with provenance HTSUS Chapter 42, confer "Other: 4202.99":
+the outer surface class of a good is other
+    if the outer surface material of the good is a material
+    and it is not the case that
+        the material is of the outer surface class a class.
+
+% Note 1: leather includes chamois, patent, patent laminated and metalized
+% leather; the subheadings put composition leather with leather
+leather is of the outer surface class leather,
+    as stated in HTSUS Chapter 42, confer "With outer surface of leather or of composition leather".
+composition leather is of the outer surface class leather,
+    as stated in HTSUS Chapter 42, confer "With outer surface of leather or of composition leather".
+chamois leather is of the outer surface class leather,
+    as stated in HTSUS Chapter 42, confer "the term \"leather\" includes chamois (including combination chamois) leather, patent leather, patent laminated leather and metalized leather".
+patent leather is of the outer surface class leather,
+    as stated in HTSUS Chapter 42, confer "the term \"leather\" includes chamois (including combination chamois) leather, patent leather, patent laminated leather and metalized leather".
+patent laminated leather is of the outer surface class leather,
+    as stated in HTSUS Chapter 42, confer "the term \"leather\" includes chamois (including combination chamois) leather, patent leather, patent laminated leather and metalized leather".
+metalized leather is of the outer surface class leather,
+    as stated in HTSUS Chapter 42, confer "the term \"leather\" includes chamois (including combination chamois) leather, patent leather, patent laminated leather and metalized leather".
+suede leather is of the outer surface class leather,
+    as stated in ruling NY N252193, confer "outer surface of 85% suede leather".
+split leather is of the outer surface class leather,
+    as stated in ruling NY N251118, confer "It is the split leather that girds the waist and provides the essential character of the belt".
+% sheeting of plastics and textile materials (paper yarn is a textile
+% material, NY N338202; a textile fibre of Section XI, below)
+sheeting of plastics is of the outer surface class sheeting-textile,
+    as stated in HTSUS Chapter 42, confer "With outer surface of sheeting of plastics or of textile materials".
+textile materials is of the outer surface class sheeting-textile,
+    as stated in HTSUS Chapter 42, confer "With outer surface of sheeting of plastics or of textile materials".
+paper yarn is of the outer surface class sheeting-textile,
+    as stated in ruling NY N338202, confer "This construction is considered to be a textile material for tariff purposes".
+% plastics other than sheeting (a molded case): subheading 4202.12 names
+% plastics, the others sheeting of plastics only
+plastics is of the outer surface class plastics,
+    as stated in HTSUS Chapter 42, confer "With outer surface of plastics or of textile materials: 4202.12".
+
+rule outer_surface_textile_fibre with provenance HTSUS Chapter 42,
+        confer "With outer surface of sheeting of plastics or of textile materials":
+a material is of the outer surface class sheeting-textile
+    if the material belongs to a group.
+
+rule outer_surface_polymer with provenance HTSUS Chapter 42,
+        confer "With outer surface of plastics or of textile materials: 4202.12":
+a material is of the outer surface class plastics
+    if the material is a polymer of a monomer
+    and it is not the case that
+        the material belongs to a group.
+
+% the materials of the second part of the heading
+rule second_part_material with provenance HTSUS Chapter 42,
+        confer "of leather or of composition leather, of sheeting of plastics, of textile materials, of vulcanized fiber or of paperboard, or wholly or mainly covered with such materials or with paper":
+a material is a material of the second part of heading 4202
+    if the material is of the outer surface class a class
+    and the class is in [leather, sheeting-textile].
+
+vulcanized fiber is a material of the second part of heading 4202,
+    as stated in HTSUS Chapter 42, confer "of textile materials, of vulcanized fiber or of paperboard".
+paperboard is a material of the second part of heading 4202,
+    as stated in HTSUS Chapter 42, confer "of textile materials, of vulcanized fiber or of paperboard".
+paper is a material of the second part of heading 4202,
+    as stated in HTSUS Chapter 42, confer "or wholly or mainly covered with such materials or with paper".
+
+% a good is of leather when what it is classified as consisting of (GRI
+% 3(b)) is wholly or mainly of leather or of composition leather
+rule of_leather with provenance HTSUS Chapter 42,
+        confer "Articles of apparel and clothing accessories, of leather or of composition leather":
+a good is of leather or of composition leather
+    if the good is classified as consisting of a component
+    and the component is wholly or mainly of a material
+    and the material is of the outer surface class leather.
+
+gut is a material of heading 4206,
+    as stated in HTSUS Chapter 42, confer "Articles of gut (other than silkworm gut), of goldbeater's skin".
+goldbeater's skin is a material of heading 4206,
+    as stated in HTSUS Chapter 42, confer "Articles of gut (other than silkworm gut), of goldbeater's skin".
+bladder is a material of heading 4206,
+    as stated in HTSUS Chapter 42, confer "of bladders or of tendons".
+tendon is a material of heading 4206,
+    as stated in HTSUS Chapter 42, confer "of bladders or of tendons".
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1), each with the notes that take goods out of it.
+% ---------------------------------------------------------------------------
+
+rule heading_4201 with provenance HTSUS Chapter 42,
+        confer "Saddlery and harness for any animal (including traces, leads, knee pads, muzzles, saddle cloths, saddle bags, dog coats and the like), of any material":
+a good is described by heading 4201
+    if the family of the good is saddlery.
+
+% heading 4202, first part: of any material
+rule heading_4202_first with provenance ruling HQ H284146,
+        confer "Subject to Notes 2 and 3 to this Chapter, the articles covered by the first part of the heading may be of any material":
+a good is described by heading 4202
+    if the family of the good is a family
+    and the family is a family of the first part of heading 4202.
+
+% heading 4202, second part: of the materials the heading names
+rule heading_4202_second with provenance ruling HQ H284146,
+        confer "The articles covered by the second part of the heading must, however, be only of the materials specified therein or must be wholly or mainly covered with such materials or with paper":
+a good is described by heading 4202
+    if the family of the good is a family
+    and the family is a family of the second part of heading 4202
+    and the outer surface material of the good is a material
+    and the material is a material of the second part of heading 4202.
+
+% cigarette cases and powder cases are named by the second part; Chapter 71
+% names them as personal articles (its kinds cigarette case, powder box)
+rule heading_4202_personal with provenance HTSUS Chapter 42,
+        confer "wallets, purses, map cases, cigarette cases, tobacco pouches":
+a good is described by heading 4202
+    if the kind of the good is a kind
+    and the kind is in [cigarette case, powder box]
+    and the outer surface material of the good is a material
+    and the material is a material of the second part of heading 4202.
+
+% heading 4203: apparel and clothing accessories of leather (note 4:
+% gloves, aprons, braces, belts, bandoliers, wrist straps)
+rule heading_4203_apparel with provenance HTSUS Chapter 42,
+        confer "Articles of apparel and clothing accessories, of leather or of composition leather":
+a good is described by heading 4203
+    if the family of the good is a family
+    and the family is a family of garments
+    and the good is of leather or of composition leather.
+
+rule heading_4203_accessory with provenance HTSUS Chapter 42,
+        confer "the expression \"articles of apparel and clothing accessories\" applies, inter alia, to gloves, mittens and mitts (including those for sport or for protection), aprons and other protective clothing, braces, belts, bandoliers and wrist straps":
+a good is described by heading 4203
+    if the family of the good is a family
+    and the family is a family of clothing accessories
+    and the good is of leather or of composition leather.
+
+rule heading_4203_belt with provenance HTSUS Chapter 42,
+        confer "the expression \"articles of apparel and clothing accessories\" applies, inter alia, to gloves, mittens and mitts (including those for sport or for protection), aprons and other protective clothing, braces, belts, bandoliers and wrist straps":
+a good is described by heading 4203
+    if the family of the good is belt
+    and the good is of leather or of composition leather.
+
+% heading 4205: other articles of leather (GRI 3(a) below prefers the
+% headings that name the article)
+rule heading_4205 with provenance HTSUS Chapter 42,
+        confer "Other articles of leather or of composition leather":
+a good is described by heading 4205
+    if the good is a manufactured article
+    and the good is of leather or of composition leather.
+
+% heading 4206: articles of gut, goldbeater's skin, bladders or tendons
+rule heading_4206 with provenance HTSUS Chapter 42,
+        confer "Articles of gut (other than silkworm gut), of goldbeater's skin, of bladders or of tendons":
+a good is described by heading 4206
+    if the good is a manufactured article
+    and the good is classified as consisting of a component
+    and the component is wholly or mainly of a material
+    and the material is a material of heading 4206.
+
+% Note 2(a): sterile surgical catgut (heading 3006)
+rule note_42_2a with provenance HTSUS Chapter 42,
+        confer "Sterile surgical catgut or similar sterile suture materials (heading 3006)":
+a good is excluded from heading a heading
+    if the heading >= 4201
+    and the heading <= 4206
+    and the good is a sterile surgical suture material.
+
+% Note 2(c): made up articles of netting (heading 5608)
+rule note_42_2c with provenance HTSUS Chapter 42, confer "Made up articles of netting (heading 5608)":
+a good is excluded from heading a heading
+    if the heading >= 4201
+    and the heading <= 4206
+    and the good is a made up article of netting.
+
+% Note 2(d): articles of Chapter 64
+rule note_42_2d with provenance HTSUS Chapter 42, confer "Articles of chapter 64;":
+a good is excluded from heading a heading
+    if the heading >= 4201
+    and the heading <= 4206
+    and the other heading is in [6401, 6402, 6403, 6404, 6405, 6406]
+    and the good is described by heading the other heading.
+
+% Note 2(g): imitation jewelry of heading 7117
+rule note_42_2g with provenance HTSUS Chapter 42,
+        confer "Cuff-links, bracelets or other imitation jewelry (heading 7117)":
+a good is excluded from heading a heading
+    if the heading >= 4201
+    and the heading <= 4206
+    and the good is imitation jewelry.
+
+% Note 3(A)(a): bags of sheeting of plastics with handles, not designed for
+% prolonged use (heading 3923)
+rule note_42_3Aa with provenance HTSUS Chapter 42,
+        confer "Bags made of sheeting of plastics, whether or not printed, with handles, not designed for prolonged use (heading 3923)":
+a good is excluded from heading 4202
+    if the outer surface material of the good is sheeting of plastics
+    and the good is not designed for prolonged use.
+
+% Note 3(A)(b): articles of plaiting materials (heading 4602)
+rule note_42_3Ab with provenance HTSUS Chapter 42, confer "Articles of plaiting materials (heading 4602)":
+a good is excluded from heading 4202
+    if the outer surface material of the good is plaiting materials.
+
+% Note 3(B): an article of 4202 or 4203 with parts of precious metal,
+% pearls or stones stays in Chapter 42, unless those parts give it its
+% essential character (then Chapter 71; Chapter 71 note 3(e))
+rule note_42_3B with provenance HTSUS Chapter 42,
+        confer "If, on the other hand, the parts give the articles their essential character, the articles are to be classified in chapter 71":
+a good has parts of chapter seventy-one that give its essential character
+    if a component is a component of the good
+    and the essential character of the good is given by the component
+    and the component incorporates pearls or stones.
+
+rule note_42_3B_metal with provenance HTSUS Chapter 42,
+        confer "If, on the other hand, the parts give the articles their essential character, the articles are to be classified in chapter 71":
+a good has parts of chapter seventy-one that give its essential character
+    if a component is a component of the good
+    and the essential character of the good is given by the component
+    and the component contains precious metal beyond minor constituents.
+
+rule note_42_3B_out with provenance HTSUS Chapter 42,
+        confer "If, on the other hand, the parts give the articles their essential character, the articles are to be classified in chapter 71":
+a good is excluded from heading a heading
+    if the heading is in [4202, 4203]
+    and the good has parts of chapter seventy-one that give its essential character.
+
+rule note_71_3e with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of heading 4202 or 4203 referred to in note 3(B) to chapter 42;":
+a good is excluded from heading a heading
+    if the heading >= 7101
+    and the heading <= 7118
+    and the other heading is in [4202, 4203]
+    and the good is described by heading the other heading
+    and it is not the case that
+        the good has parts of chapter seventy-one that give its essential character.
+
+% Chapter 39 note 2(m): saddlery and harness of 4201, containers of 4202
+rule note_39_2m with provenance HTSUS Section VII and Chapter 39,
+        confer "(m) Saddlery or harness (heading 4201) or trunks, suitcases, handbags or other containers of heading 4202;":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the other heading is in [4201, 4202]
+    and the good is described by heading the other heading.
+
+% Section XI note 1(l): textile articles of 4201 and 4202
+rule note_xi_1l with provenance HTSUS Section XI and Chapter 50,
+        confer "(l) Articles of textile materials of heading 4201 or 4202;":
+a good is excluded from heading a heading
+    if the heading >= 5001
+    and the heading <= 6310
+    and the other heading is in [4201, 4202]
+    and the good is described by heading the other heading.
+
+% GRI 3(a): 4205 is the residual heading of the articles of leather; the
+% leather apparel and accessories of 4203 are named there, not in the
+% textile headings of Section XI (note 4 names braces, which heading 6212
+% also names "whether or not knitted")
+rule gri_3a_4205 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading a heading is more specific than heading 4205
+    if the heading is in [4201, 4202, 4203].
+
+rule gri_3a_4203 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading 4203 is more specific than heading a heading
+    if the heading >= 5001
+    and the heading <= 6310.
+
+% ---------------------------------------------------------------------------
+% GRI 6.
+% ---------------------------------------------------------------------------
+
+rule container_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 4202 is a code
+    if the container group of the good is a group
+    and the outer surface class of the good is a class
+    and the subheading in heading 4202 for the group with surface the class is the code under table containers.
+
+rule container_group with provenance HTSUS Chapter 42,
+        confer "Articles of a kind normally carried in the pocket or in the handbag":
+the container group of a good is a group
+    if the family of the good is a family
+    and the family is a family of the group the group.
+
+rule container_group_personal with provenance HTSUS Chapter 42,
+        confer "Articles of a kind normally carried in the pocket or in the handbag":
+the container group of a good is pocket
+    if the kind of the good is a kind
+    and the kind is in [cigarette case, powder box].
+
+rule leather_article_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [4201, 4203, 4205, 4206]
+    and the leather article group of the good is a group
+    and the subheading in heading the heading for the leather article the group is the code under table leather articles.
+
+rule group_apparel with provenance HTSUS Chapter 42, confer "Articles of apparel: 4203.10":
+the leather article group of a good is apparel
+    if the family of the good is a family
+    and the family is a family of garments.
+
+rule group_sports_gloves with provenance HTSUS Chapter 42, confer "Specially designed for use in sports: 4203.21":
+the leather article group of a good is sports gloves
+    if the family of the good is gloves
+    and the good is specially designed for use in sports.
+
+rule group_gloves with provenance HTSUS Chapter 42, confer "Gloves, mittens and mitts:":
+the leather article group of a good is gloves
+    if the family of the good is gloves
+    and it is not the case that
+        the good is specially designed for use in sports.
+
+rule group_belt with provenance HTSUS Chapter 42, confer "Belts and bandoliers with or without buckles":
+the leather article group of a good is belt
+    if the family of the good is belt.
+
+rule group_other with provenance HTSUS Chapter 42, confer "Other clothing accessories: 4203.40":
+the leather article group of a good is other
+    if the good is within the scope of the model
+    and it is not the case that
+        the family of the good is a family
+        and the family is in [gloves, belt]
+    and it is not the case that
+        the family of the good is a family
+        and the family is a family of garments.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+% The rulings' containers (CBP: the codes the rulings give, at six digits)
+scenario containers is:
+    % NY N125027: handbag, outer surface of polyurethane plastic sheeting ->
+    % 4202.22
+    the kind of style D-0209605NW is handbag.
+    the outer surface of style D-0209605NW is of sheeting of plastics.
+    % NY N252193: wallet, outer surface 85 percent suede leather and 15
+    % percent PU sheeting -> 4202.31; wristlet handbag of PU sheeting ->
+    % 4202.22; briefcase, 55 percent suede and 45 percent PU -> 4202.11
+    the kind of style 2759 is wallet.
+    the outer surface of style 2759 is 85 percent of suede leather.
+    the outer surface of style 2759 is 15 percent of sheeting of plastics.
+    the kind of style 3022 is handbag.
+    the outer surface of style 3022 is of sheeting of plastics.
+    the kind of style 2869 is briefcase.
+    the outer surface of style 2869 is 55 percent of suede leather.
+    the outer surface of style 2869 is 45 percent of sheeting of plastics.
+    % NY N065202: backpack, outer surface of 100 percent polyester -> 4202.92
+    the kind of style 8763 is backpack.
+    the outer surface of style 8763 is of polyester.
+    % NY N338202: tote bag, outer surface of paper yarns (a textile) -> 4202.92
+    the kind of style 220381001 is tote bag.
+    the outer surface of style 220381001 is of paper yarn.
+    % NY L82909: tote bag of cotton canvas -> 4202.92
+    the kind of style 602 is tote bag.
+    the outer surface of style 602 is of cotton.
+    % HQ H284146: Vault phone case of molded plastics with slots for cards ->
+    % 4202.39; Protector case that only holds the phone -> 3926.90
+    the kind of the Vault case is phone wallet case.
+    the outer surface of the Vault case is of plastics.
+    the kind of the Protector case is protective phone case.
+    the Protector case is a manufactured article.
+    the Protector case is made of plastics.
+    the principal use of the Protector case is other use,
+        according to CBP, because "although the Commuter and Defender series cases protected the device, they did not organize, store, or carry".
+    subheading expects answers ["the subheading of style D-0209605NW is 4202.22", "the subheading of style 2759 is 4202.31", "the subheading of style 3022 is 4202.22", "the subheading of style 2869 is 4202.11", "the subheading of style 8763 is 4202.92", "the subheading of style 220381001 is 4202.92", "the subheading of style 602 is 4202.92", "the subheading of the Vault case is 4202.39", "the subheading of the Protector case is 3926.90"].
+
+% Saddlery, belts and other articles of leather
+scenario leather_articles is:
+    % NY N303997: dog collar of man-made textile -> 4201.00 (not Section XI,
+    % note 1(l))
+    the kind of the textile collar is dog collar.
+    the textile collar is wholly or mainly of polyester.
+    % NY M83255: nylon dog leash -> 4201.00
+    the kind of style 946510 is dog leash.
+    style 946510 is wholly or mainly of nylon.
+    % NY N291699: men's belt, outer layer of PU, middle of bonded leather
+    % fibres, bottom of split cowhide: the leather girds the waist -> 4203.30
+    the kind of style 75518C is belt.
+    style 75518C is a composite good.
+    the PU layer is a component of style 75518C.
+    the cowhide layer is a component of style 75518C.
+    the PU layer is wholly or mainly of polyurethane.
+    the cowhide layer is wholly or mainly of split leather.
+    the essential character of style 75518C is given by the cowhide layer,
+        according to CBP, because "the leather girds the waist and thus constitutes the essential character of the belt".
+    % articles the rulings above do not reach
+    the kind of the leather jacket is jacket.
+    the leather jacket is wholly or mainly of leather.
+    the kind of the work gloves is gloves.
+    the work gloves is wholly or mainly of leather.
+    the kind of the batting gloves is gloves.
+    the batting gloves is wholly or mainly of leather.
+    the batting gloves is specially designed for use in sports.
+    the coaster is a manufactured article.
+    the coaster is wholly or mainly of leather.
+    the string is a manufactured article.
+    the string is wholly or mainly of gut.
+    subheading expects answers ["the subheading of the textile collar is 4201.00", "the subheading of style 946510 is 4201.00", "the subheading of style 75518C is 4203.30", "the subheading of the leather jacket is 4203.10", "the subheading of the work gloves is 4203.29", "the subheading of the batting gloves is 4203.21", "the subheading of the coaster is 4205.00", "the subheading of the string is 4206.00"].
+
+% More of the rulings' containers and harness
+scenario more_rulings is:
+    % NY N291664: handbag with an outer surface of plastic sheeting -> 4202.22
+    the kind of lot 174062 is handbag.
+    the outer surface of lot 174062 is of sheeting of plastics.
+    % NY N258431: wallet, outer surface 100 percent leather -> 4202.31
+    the kind of style SL4266001 is wallet.
+    the outer surface of style SL4266001 is of leather.
+    % NY N248322: backpack, outer surface of man-made textile -> 4202.92
+    the kind of the food backpack is backpack.
+    the outer surface of the food backpack is of textile materials.
+    % NY N334121: dog collars of metal chain -> 4201.00 (of any material)
+    the kind of collar 50036 is dog collar.
+    % HQ H285905: wrap phone case that also holds cards, exterior of
+    % leather coated with polyurethane sheeting -> 4202.32
+    the kind of the wrap case is phone wallet case.
+    the outer surface of the wrap case is of sheeting of plastics.
+    subheading expects answers ["the subheading of lot 174062 is 4202.22", "the subheading of style SL4266001 is 4202.31", "the subheading of the food backpack is 4202.92", "the subheading of collar 50036 is 4201.00", "the subheading of the wrap case is 4202.32"].
+
+% The notes that send goods out of the chapter: a thin plastic carrier bag
+% (note 3(A)(a), heading 3923) and a leather shoe (note 2(d), Chapter 64)
+scenario exclusions is:
+    the kind of the carrier bag is shopping bag.
+    the carrier bag is a manufactured article.
+    the carrier bag is made of plastics.
+    the outer surface of the carrier bag is of sheeting of plastics.
+    the carrier bag is not designed for prolonged use.
+    the principal use of the carrier bag is packing of goods,
+        according to CBP.
+    the kind of the loafer is loafer.
+    the loafer is a manufactured article.
+    the loafer is wholly or mainly of leather.
+    the constituent material of the upper of the loafer is leather.
+    the constituent material of the outer sole of the loafer is leather.
+    heading expects answers ["the heading of the carrier bag is 3923", "the heading of the loafer is 6403"].

@@ -1,11 +1,12 @@
-# Customs classification in Logical English: Chapters 39, 61, 62, 67 and 71
+# Customs classification in Logical English: Chapters 39, 42, 61, 62, 64, 67 and 71
 
 The tariff code of a good, worked out as a customs office works it out. The
-programs encode the General Rules of Interpretation and five whole chapters
+programs encode the General Rules of Interpretation and seven whole chapters
 of the Harmonized Tariff Schedule of the United States (HTSUS): 39 (plastics),
-61 and 62 (clothing), 67 (feathers, artificial flowers, wigs and other
-articles of hair) and 71 (pearls, stones, precious metals, jewelry and
-imitation jewelry, coin). They run on 225 published rulings of US Customs and
+42 (articles of leather, saddlery, handbags, travel goods and cases), 61 and
+62 (clothing), 64 (footwear, gaiters and parts), 67 (feathers, artificial
+flowers, wigs and other articles of hair) and 71 (pearls, stones, precious
+metals, jewelry and imitation jewelry, coin). They run on 225 published rulings of US Customs and
 Border Protection (CBP) and 15 European Binding Tariff Information (EBTI)
 decisions, and compare the model's code with the office's.
 
