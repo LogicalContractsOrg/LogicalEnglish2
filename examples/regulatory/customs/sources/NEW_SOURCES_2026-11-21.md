@@ -83,6 +83,15 @@ Fetched from https://rulings.cbp.gov/api/ruling/<number> (JSON field "text"), in
 
 ## Looked for and not found
 
-- A public glossary of the marketplace attribute "Craft of Weaving" and its values ("Knit", "Tat", "Non-Woven", "Other"): none found. "Tat" is most likely a machine translation of 梭织 (shuttle-woven, i.e. woven), but no public text that states this was found; the guess is not a source. The tariff texts themselves give the knitted/not knitted split: HTSUS and CN Chapter 61 "knitted or crocheted" versus Chapter 62 "not knitted or crocheted".
+- A public glossary of the marketplace attribute "Craft of Weaving" and its values ("Knit", "Tat", "Non-Woven", "Other"): none found. No marketplace page shows "Tat" next to its Chinese name. The two other links of the chain have texts, in `trade_usage/` (below); the step between them is the authors' (trade usage, rule `construction_by_rendered_term`).
+
+## Added later on 21 November 2026: what "Tat" means (`trade_usage/`)
+
+- `trade_usage/zhwiki_suozhi.txt` — the Chinese Wikipedia, article 梭织 — https://zh.wikipedia.org/wiki/%E6%A2%AD%E7%BB%87 — "梭织（英语：Weaving）指将纱线经纬交错织成布料的方法。" (梭织 is weaving: warp and weft yarns interlaced into cloth). CC BY-SA 4.0.
+- `trade_usage/youdao_suozhi.txt` — the Youdao dictionary, entry 梭织 — https://dict.youdao.com/result?word=%E6%A2%AD%E7%BB%87&lang=en — the first English words are "1 tat", "2 tatting", "3 weaving"; the textile meaning is "woven"; "梭织是区别于针织的称法" (梭织 is the name set against 针织, knitting). Short excerpt; copyright NetEase Youdao.
+- `trade_usage/iciba_suozhi.txt` — the iCIBA dictionary — https://www.iciba.com/word?w=%E6%A2%AD%E7%BB%87 — "梭织 释义 tat ... ; tatting ...". Short excerpt; copyright Kingsoft.
+- `trade_usage/dictcn_suozhi.txt` — the Dict.cn dictionary — https://dict.cn/%E6%A2%AD%E7%BB%87 — "基本释义 tatting tat tatt". Short excerpt; copyright Dict.cn.
+- Not found: Reverso Context (answers 403), a Hong Kong government or Chinese standard bilingual text with 梭织 = woven. CC-CEDICT and the English and Chinese Wiktionary have no entry for 梭织.
+
 - HTSUS General Notes and Section notes: not re-fetched; the Section VII and XI notes are already in `hts/chapter_39.txt` and `hts/chapter_50.txt`, and the General Rules in `hts/general_rules.txt`.
 - Rulings H83450, H88314, H88824, G83378: the CROSS API answers 404 for these numbers (older rulings found by web search on mirrors; not saved).

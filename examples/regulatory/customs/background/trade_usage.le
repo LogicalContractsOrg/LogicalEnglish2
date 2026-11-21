@@ -28,6 +28,9 @@ the templates are:
     *a good* contains *a number* percent of *a material*.
     the material that predominates by weight in *a garment* is *a material*.
     *a good* has a coating of plastics.
+    *a thing* is a component of *a good*.
+    *a name* is a dictionary rendering of the Chinese term *a term*.
+    *a term* is a Chinese term for the construction *a construction*.
 
 the knowledge base trade usage includes these resources:
     materials.
@@ -35,6 +38,38 @@ the knowledge base trade usage includes these resources:
 the knowledge base trade usage includes:
 
 the authors is published at "https://github.com/LogicalContractsOrg".
+the Youdao dictionary entry is published at "https://dict.youdao.com/result?word=%E6%A2%AD%E7%BB%87&lang=en".
+the text of the Youdao dictionary entry is at "sources/trade_usage/youdao_suozhi.txt".
+the Chinese Wikipedia article is published at "https://zh.wikipedia.org/wiki/%E6%A2%AD%E7%BB%87".
+the text of the Chinese Wikipedia article is at "sources/trade_usage/zhwiki_suozhi.txt".
+
+% The value "Tat" of the field "Craft of Weaving" (the listing format). The
+% Chinese-English dictionaries give "tat" and "tatting" as the first English
+% words for 梭织 (Youdao; also iciba and dict.cn, in sources/trade_usage), and
+% 梭织 is weaving, the name set against 针织, knitting (the Chinese Wikipedia;
+% Youdao: "梭织是区别于针织的称法", "纺织科学技术 woven"). No text says that
+% the marketplace renders its Chinese values with that dictionary word: that
+% one step is the authors'. "tatting" is left out: in English it is also a
+% lace made by hand, so the word can mean what it says.
+"tat" is a dictionary rendering of the Chinese term "梭织",
+    as stated in the Youdao dictionary entry, confer "1 tat 用梭织法编织".
+"梭织" is a Chinese term for the construction woven,
+    as stated in the Chinese Wikipedia article, confer "梭织（英语：Weaving）指将纱线经纬交错织成布料的方法".
+
+rule construction_by_rendered_term with provenance the authors:
+the fabric construction of a garment is a construction
+    if the field "craft of weaving" of the garment reads a value
+    and the value is a dictionary rendering of the Chinese term a term
+    and the term is a Chinese term for the construction the construction.
+
+% the field of a set speaks of its parts (the listing format: "A listing
+% offers one finished product for sale")
+rule construction_by_rendered_term_parts with provenance the authors:
+the fabric construction of a component is a construction
+    if the component is a component of a good
+    and the field "craft of weaving" of the good reads a value
+    and the value is a dictionary rendering of the Chinese term a term
+    and the term is a Chinese term for the construction the construction.
 
 % a set of garments sold together (the apparel terminology publication:
 % "Ensembles ... are sets of garments")
@@ -197,6 +232,16 @@ scenario glove is:
     the fabric construction of glove is knitted.
     glove names the material "pu".
     coatings expects answers ["glove has a coating of plastics"].
+
+scenario tat is:
+    the field "craft of weaving" of dress reads "tat".
+    the field "craft of weaving" of outfit reads "tat".
+    skirt is a component of outfit.
+    the field "craft of weaving" of tee reads "knit".
+    constructions expects answers ["the fabric construction of dress is woven", "the fabric construction of outfit is woven", "the fabric construction of skirt is woven"].
+
+query constructions is:
+    the fabric construction of which garment is which construction.
 
 query coatings is:
     which good has a coating of plastics.
