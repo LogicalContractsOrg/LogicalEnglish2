@@ -3598,7 +3598,10 @@ second_pass_item(Templates, fact(Head, Start, End), clause(NewHead, NewBody, Sta
 % range (see record_fact_provenance/5).
 second_pass_item(Templates, fact_prov(Head0, Trailers0, Full, Start, End), NewItem, M) :-
     ( provenance_split(Full, Templates, Head, Trailers) -> true ; Head = Head0, Trailers = Trailers0 ),
-    second_pass_item(Templates, fact(Head, Start, End), NewItem, M),
+    (   naf_prefix_tokens(Head, Negated), Negated \== []
+    ->  second_pass_item(Templates, negated_fact(Negated, Start, End), NewItem, M)
+    ;   second_pass_item(Templates, fact(Head, Start, End), NewItem, M)
+    ),
     (   Trailers == [] -> true
     ;   le_provenance:record_fact_provenance(M, NewItem, Trailers, Start, End)
     ).
@@ -3848,9 +3851,14 @@ arg_type(NTs, Arg, FormalArg, Arg-Type) :-
 
 % A scenario fact with provenance trailers: a plain scenario fact plus its
 % provenance record.
+% "it is not the case that <fact>, confer "...". " is a negated fact with its
+% provenance: without this case it was read as a fact of no template and was lost.
 second_pass_scenario_item(Templates, fact_prov(Head0, Trailers0, Full, Start, End), NewItem, M) :-
     ( provenance_split(Full, Templates, Head, Trailers) -> true ; Head = Head0, Trailers = Trailers0 ),
-    second_pass_scenario_item(Templates, fact(Head, Start, End), NewItem, M),
+    (   naf_prefix_tokens(Head, Negated), Negated \== []
+    ->  second_pass_scenario_item(Templates, negated_fact(Negated, Start, End), NewItem, M)
+    ;   second_pass_scenario_item(Templates, fact(Head, Start, End), NewItem, M)
+    ),
     (   Trailers == [] -> true
     ;   le_provenance:record_fact_provenance(M, NewItem, Trailers, Start, End)
     ).

@@ -31,3 +31,10 @@ scenario planning is:
 
 query plan is:
     alice likes you.
+
+% A scenario can say that an assumable sentence is false, and give its source.
+% Then the system does not assume it, and the plan has no answer.
+scenario no_sunglasses is, as stated in the house rules:
+    it is not the case that you wears sunglasses,
+        confer "No sunglasses indoors".
+    plan expects answers [].
