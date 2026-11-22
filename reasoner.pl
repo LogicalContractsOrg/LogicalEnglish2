@@ -211,12 +211,12 @@ solve_real(G, SM, KM, Anc, D, MyID, Us, Whys) :-
 
 solve_real_actual((A, B), SM, KM, Anc, D, MyID, Us, Whys) :- !,
     solve(A, SM, KM, Anc, D, MyID, UsA, WhysA),
-    solve(B, SM, KM, Anc, D, MyID, UsB, WhysB),
+    with_branch_assumed(UsA, solve(B, SM, KM, Anc, D, MyID, UsB, WhysB)),
     append(UsA, UsB, Us),
     append(WhysA, WhysB, Whys).
 solve_real_actual(and(A, B), SM, KM, Anc, D, MyID, Us, Whys) :- !,
     solve(A, SM, KM, Anc, D, MyID, UsA, WhysA),
-    solve(B, SM, KM, Anc, D, MyID, UsB, WhysB),
+    with_branch_assumed(UsA, solve(B, SM, KM, Anc, D, MyID, UsB, WhysB)),
     append(UsA, UsB, Us),
     append(WhysA, WhysB, Whys).
 % If-then-else, as Prolog reads it: the condition's first proof commits.
@@ -467,8 +467,14 @@ conditional_negation(Goal, SM, KM, Anc, D, ID, Us) :-
     max_negation_proofs(MaxP),
     findall(Us0,
             limit(MaxP, solve_real(Goal, SM, KM, Anc, D, ID, Us0, _)),
-            Proofs0),
-    length(Proofs0, NP), NP < MaxP,
+            ProofsAll),
+    length(ProofsAll, NP), NP < MaxP,
+    %  What the answer has already assumed decides some proofs: a proof that
+    %  needs the contrary cannot hold in this answer, and a proof whose
+    %  assumptions the answer already makes holds in it.
+    branch_assumed(Assumed),
+    exclude(contradicts_branch(Assumed, KM), ProofsAll, Proofs0),
+    \+ ( member(Us1, Proofs0), held_by_branch(Assumed, Us1) ),
     forall(member(Us1, Proofs0), ( Us1 \== [], ground(Us1) )),
     findall(S, ( member(Us1, Proofs0), sort(Us1, S) ), Sets0),
     sort(Sets0, Sets),
@@ -477,6 +483,66 @@ conditional_negation(Goal, SM, KM, Anc, D, ID, Us) :-
     exclude(has_smaller_set(Ds1), Ds1, Minimal),
     member(Denied, Minimal),
     findall(N, ( member(A, Denied), denial(A, N) ), Us).
+
+%!  branch_assumed(-Us) is det.
+%!  with_branch_assumed(+Us, :Goal) is nondet.
+%
+%   The assumptions that the answer under construction has already made: the
+%   unknowns of the conditions of a conjunction to the left of the current
+%   one, in every enclosing conjunction (a backtrackable global, so that a
+%   branch given up takes its assumptions with it). conditional_negation/7
+%   reads them. Without them, a negation was decided as if nothing were
+%   assumed: "no other heading applies" failed because another heading could
+%   be proved by assuming that the sole is of another class, although the
+%   answer had already assumed that the sole is of rubber or plastics.
+branch_assumed(Us) :-
+    (   nb_current(le_branch_assumed, Us0) -> Us = Us0 ; Us = [] ).
+
+:- meta_predicate with_branch_assumed(+, 0), without_branch_assumed(0).
+with_branch_assumed([], Goal) :- !,
+    call(Goal).
+with_branch_assumed(UsA, Goal) :-
+    branch_assumed(Old),
+    append(Old, UsA, New),
+    b_setval(le_branch_assumed, New),
+    call(Goal),
+    b_setval(le_branch_assumed, Old).
+
+%   A memorable call keeps its answers for later calls, made in other
+%   answers: it is computed as if nothing were assumed.
+without_branch_assumed(Goal) :-
+    branch_assumed(Old),
+    b_setval(le_branch_assumed, []),
+    call(Goal),
+    b_setval(le_branch_assumed, Old).
+
+%   A proof contradicts the answer when, together, they assume two values
+%   of one question (one_decision/3), or a fact and its denial.
+contradicts_branch([], _, _) :- !, fail.
+contradicts_branch(Assumed, KM, Proof) :-
+    \+ \+ ( append(Assumed, Proof, All),
+            (   \+ one_decision_merge(All, KM)
+            ->  true
+            ;   assumes_and_denies(All)
+            ) ).
+
+%!  branch_decision(+G, +KM, -Value) is semidet.
+%
+%   The answer under construction has already assumed a value for the
+%   question of G (a judged or `; one value` template, one_decision/3): a
+%   second call of the question, as a decision table makes with the value
+%   still open, takes that value instead of assuming a new one.
+branch_decision(G, KM, Value) :-
+    decision_question(KM, G, F, Q, _),
+    branch_assumed(Assumed),
+    member(A, Assumed),
+    decision_question(KM, A, F, Q2, Value),
+    Q2 == Q, !.
+
+%   Every assumption of the proof is one the answer already makes.
+held_by_branch(Assumed, Proof) :-
+    Assumed \== [],
+    forall(member(A, Proof), ( member(B, Assumed), B =@= A )).
 
 % to deny an assumed denial is to assume what it denied
 denial(not(A), A) :- !.
@@ -677,6 +743,12 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
           % Checking a constraint (consistent_assumptions/4): what the answer
           % assumed holds, and nothing more may be assumed.
           member(G, Assumed), Us = [], WhysBody = [], Ref = unknown
+        ; branch_decision(G, KM, Decided) ->
+          % The answer has already assumed a decision of this question (a
+          % judged or `; one value` template): it is the value, and no other
+          % may be assumed.
+          arg_last(G, V), V = Decided,
+          Us = [G], WhysBody = [], Ref = unknown
         ; get_clause(le_unknown(G), SM, KM, UnkBody, _UnkRef),
           \+ SM:le_neg(le_unknown(G)),
           \+ SM:le_neg(G),                 % the scenario says it is not so
@@ -870,7 +942,7 @@ memo_solve(G, SM, KM, Anc, D, MyID, Us, Whys) :-
         flag(le_memo_birth, Start, Start),
         setup_call_cleanup(
             assertz(memo_active(Key, Gen)),
-            memo_nested(D, D1, memo_fixpoint(G, SM, KM, Anc, D1, MyID, Key, Gen, Outside, Answers0-Floor)),
+            memo_nested(D, D1, without_branch_assumed(memo_fixpoint(G, SM, KM, Anc, D1, MyID, Key, Gen, Outside, Answers0-Floor))),
             ( retractall(memo_active(Key, Gen)),
               retractall(memo_provisional(Key, Gen, _)),
               retractall(memo_consumed(Key, Gen)),

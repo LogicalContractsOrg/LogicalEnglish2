@@ -67,4 +67,53 @@ test(the_values_of_a_judgment_include_the_table_cells) :-
     le_verifier:slot_values(KB, the_principal_use_of_is, 2, 2, Vs),
     assertion(subtract(['kitchen use', 'office use', ornament, 'table use'], Vs, [])).
 
+
+% A negation sees what its answer has already assumed. Heading "plastics"
+% assumes that the sole is rubber; heading "other" can be proved by assuming
+% that the sole is of a class left open, and not rubber. That proof
+% cannot be denied fact by fact, so "no other heading applies" used to fail,
+% and the answer "plastics" was lost. In the answer that assumes a rubber
+% sole, the proof of "other" contradicts the answer (one value of the sole),
+% so it does not count.
+branch_program("the target language is: prolog.
+
+the templates are:
+    the sole of *a shoe* is *a class*; one value; assumable.
+    *a shoe* is described by *a heading*.
+    *a shoe* goes to *a heading*.
+    the colour of *a shoe* is *a colour*.
+
+the knowledge base k includes:
+
+a shoe is described by plastics if
+    the sole of the shoe is rubber.
+
+a shoe is described by other if
+    the sole of the shoe is a class
+    and it is not the case that
+        the shoe is described by plastics.
+
+a shoe goes to a heading if
+    the shoe is described by the heading
+    and it is not the case that
+        the shoe is described by an other heading
+        and the other heading is different from the heading.
+
+scenario s is:
+    the colour of shoe1 is red.
+
+query q is:
+    shoe1 goes to which heading.
+").
+
+test(a_negation_sees_the_assumptions_of_its_answer) :-
+    branch_program(P),
+    load_text(P, test_conditional_negation_branch, KB),
+    createSession(KB, SM), setScenarion(SM, s),
+    findall(H-N, ( query(SM, q, I, Us, _), last(I, H), length(Us, N) ), As0),
+    destroySession(SM),
+    sort(As0, As),
+    assertion(memberchk(plastics-1, As)),
+    assertion(memberchk(other-2, As)).
+
 :- end_tests(conditional_negation).

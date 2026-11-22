@@ -238,6 +238,11 @@ assumption:
 2. If no rule proves the sentence, even with assumptions, the negation is true.
 3. Otherwise, the negation is true on condition that each way to prove the sentence
    fails. For each such way, the answer assumes that one of its assumptions is false.
+4. The negation sees what its answer has already assumed in the conditions before
+   it. A way to prove the sentence that needs the contrary of those assumptions does
+   not count: for example, two values of a `; one value` template (§2.1.8), or a
+   sentence that the answer assumes false. A way whose assumptions the answer
+   already makes proves the sentence, and the negation is false.
 
 For example, a residual heading of a tariff applies if no other heading applies. If
 another heading applies only when the principal use of the good is household use,
