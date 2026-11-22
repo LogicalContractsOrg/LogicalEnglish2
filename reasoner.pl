@@ -484,66 +484,6 @@ conditional_negation(Goal, SM, KM, Anc, D, ID, Us) :-
     member(Denied, Minimal),
     findall(N, ( member(A, Denied), denial(A, N) ), Us).
 
-%!  branch_assumed(-Us) is det.
-%!  with_branch_assumed(+Us, :Goal) is nondet.
-%
-%   The assumptions that the answer under construction has already made: the
-%   unknowns of the conditions of a conjunction to the left of the current
-%   one, in every enclosing conjunction (a backtrackable global, so that a
-%   branch given up takes its assumptions with it). conditional_negation/7
-%   reads them. Without them, a negation was decided as if nothing were
-%   assumed: "no other heading applies" failed because another heading could
-%   be proved by assuming that the sole is of another class, although the
-%   answer had already assumed that the sole is of rubber or plastics.
-branch_assumed(Us) :-
-    (   nb_current(le_branch_assumed, Us0) -> Us = Us0 ; Us = [] ).
-
-:- meta_predicate with_branch_assumed(+, 0), without_branch_assumed(0).
-with_branch_assumed([], Goal) :- !,
-    call(Goal).
-with_branch_assumed(UsA, Goal) :-
-    branch_assumed(Old),
-    append(Old, UsA, New),
-    b_setval(le_branch_assumed, New),
-    call(Goal),
-    b_setval(le_branch_assumed, Old).
-
-%   A memorable call keeps its answers for later calls, made in other
-%   answers: it is computed as if nothing were assumed.
-without_branch_assumed(Goal) :-
-    branch_assumed(Old),
-    b_setval(le_branch_assumed, []),
-    call(Goal),
-    b_setval(le_branch_assumed, Old).
-
-%   A proof contradicts the answer when, together, they assume two values
-%   of one question (one_decision/3), or a fact and its denial.
-contradicts_branch([], _, _) :- !, fail.
-contradicts_branch(Assumed, KM, Proof) :-
-    \+ \+ ( append(Assumed, Proof, All),
-            (   \+ one_decision_merge(All, KM)
-            ->  true
-            ;   assumes_and_denies(All)
-            ) ).
-
-%!  branch_decision(+G, +KM, -Value) is semidet.
-%
-%   The answer under construction has already assumed a value for the
-%   question of G (a judged or `; one value` template, one_decision/3): a
-%   second call of the question, as a decision table makes with the value
-%   still open, takes that value instead of assuming a new one.
-branch_decision(G, KM, Value) :-
-    decision_question(KM, G, F, Q, _),
-    branch_assumed(Assumed),
-    member(A, Assumed),
-    decision_question(KM, A, F, Q2, Value),
-    Q2 == Q, !.
-
-%   Every assumption of the proof is one the answer already makes.
-held_by_branch(Assumed, Proof) :-
-    Assumed \== [],
-    forall(member(A, Proof), ( member(B, Assumed), B =@= A )).
-
 % to deny an assumed denial is to assume what it denied
 denial(not(A), A) :- !.
 denial(A, not(A)).
@@ -2060,6 +2000,66 @@ judged_question_decided(G, SM, KM) :-
     ),
     get_clause(Recorded, SM, KM, Body, _),
     Body == true, !.
+
+%!  branch_assumed(-Us) is det.
+%!  with_branch_assumed(+Us, :Goal) is nondet.
+%
+%   The assumptions that the answer under construction has already made: the
+%   unknowns of the conditions of a conjunction to the left of the current
+%   one, in every enclosing conjunction (a backtrackable global, so that a
+%   branch given up takes its assumptions with it). conditional_negation/7
+%   reads them. Without them, a negation was decided as if nothing were
+%   assumed: "no other heading applies" failed because another heading could
+%   be proved by assuming that the sole is of another class, although the
+%   answer had already assumed that the sole is of rubber or plastics.
+branch_assumed(Us) :-
+    (   nb_current(le_branch_assumed, Us0) -> Us = Us0 ; Us = [] ).
+
+:- meta_predicate with_branch_assumed(+, 0), without_branch_assumed(0).
+with_branch_assumed([], Goal) :- !,
+    call(Goal).
+with_branch_assumed(UsA, Goal) :-
+    branch_assumed(Old),
+    append(Old, UsA, New),
+    b_setval(le_branch_assumed, New),
+    call(Goal),
+    b_setval(le_branch_assumed, Old).
+
+%   A memorable call keeps its answers for later calls, made in other
+%   answers: it is computed as if nothing were assumed.
+without_branch_assumed(Goal) :-
+    branch_assumed(Old),
+    b_setval(le_branch_assumed, []),
+    call(Goal),
+    b_setval(le_branch_assumed, Old).
+
+%   A proof contradicts the answer when, together, they assume two values
+%   of one question (one_decision/3), or a fact and its denial.
+contradicts_branch([], _, _) :- !, fail.
+contradicts_branch(Assumed, KM, Proof) :-
+    \+ \+ ( append(Assumed, Proof, All),
+            (   \+ one_decision_merge(All, KM)
+            ->  true
+            ;   assumes_and_denies(All)
+            ) ).
+
+%!  branch_decision(+G, +KM, -Value) is semidet.
+%
+%   The answer under construction has already assumed a value for the
+%   question of G (a judged or `; one value` template, one_decision/3): a
+%   second call of the question, as a decision table makes with the value
+%   still open, takes that value instead of assuming a new one.
+branch_decision(G, KM, Value) :-
+    decision_question(KM, G, F, Q, _),
+    branch_assumed(Assumed),
+    member(A, Assumed),
+    decision_question(KM, A, F, Q2, Value),
+    Q2 == Q, !.
+
+%   Every assumption of the proof is one the answer already makes.
+held_by_branch(Assumed, Proof) :-
+    Assumed \== [],
+    forall(member(A, Proof), ( member(B, Assumed), B =@= A )).
 
 %!  value_question_decided(+Goal, +SM, +KM, +Anc, +D) is semidet.
 %

@@ -53,6 +53,7 @@ the templates are:
     *a field* is a field of human hair.
     the kind of *a good* is *a kind*.
     the metal of *a thing* is *a metal*.
+    *a thing* names only materials other than metal.
     *a thing* is clad with *a metal*.
     the gem of *a thing* is *a gem*.
     the hair of *a thing* is *a hair*.
@@ -68,6 +69,8 @@ the knowledge base jewellery background includes:
 Open English WordNet 2025 is published at "https://en-word.net".
 
 the jewellery listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the Cambridge dictionary entry tinplate is published at "https://dictionary.cambridge.org/dictionary/english/tinplate".
+the text of the Cambridge dictionary entry tinplate is at "sources/trade_usage/cambridge_tinplate.txt".
 the text of the jewellery listing format is at "sources/listings/marketplace_fields_jewellery_wigs_flowers.txt".
 HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
 the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
@@ -93,6 +96,8 @@ ruling NY N073978 is published at "https://rulings.cbp.gov/ruling/N073978".
 the text of ruling NY N073978 is at "sources/cbp/N073978.txt".
 ruling NY N088048 is published at "https://rulings.cbp.gov/ruling/N088048".
 the text of ruling NY N088048 is at "sources/cbp/N088048.txt".
+ruling NY J86633 is published at "https://rulings.cbp.gov/ruling/J86633".
+the text of ruling NY J86633 is at "sources/cbp/J86633.txt".
 ruling NY N101257 is published at "https://rulings.cbp.gov/ruling/N101257".
 the text of ruling NY N101257 is at "sources/cbp/N101257.txt".
 ruling NY N339139 is published at "https://rulings.cbp.gov/ruling/N339139".
@@ -242,6 +247,10 @@ the text of ruling NY 801226 is at "sources/cbp/801226.txt".
 % ---------------------------------------------------------------------------
 "zinc alloy" is a word for the metal zinc alloy,
     as stated in the jewellery listing format, confer "Metals Type: Zinc Alloy".
+"tin plate" is a word for the metal steel,
+    as stated in the Cambridge dictionary entry tinplate, confer "thin sheets of iron or steel covered with a thin layer of tin".
+"tinplate" is a word for the metal steel,
+    as stated in the Cambridge dictionary entry tinplate, confer "thin sheets of iron or steel covered with a thin layer of tin".
 "stainless steel" is a word for the metal stainless steel,
     as stated in ruling NY R03173, confer "European contemporary jewelry made of stainless steel".
 "copper" is a word for the metal copper,
@@ -312,6 +321,8 @@ the text of ruling NY 801226 is at "sources/cbp/801226.txt".
     as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
 "tiger eye" is a word for the gem tiger eye,
     as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+"rose quartz" is a word for the gem rose quartz,
+    as stated in ruling NY J86633, confer "Genuine Semiprecious Stone Bracelet with Heart Dangle".
 "jasper" is a word for the gem jasper,
     as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
 "jade" is a word for the gem jade,
@@ -403,6 +414,21 @@ the metal of a thing is a metal
     if the thing names the material a name
     and the name is a word for the metal the metal.
 
+% The listing names its materials, and none is a metal ("Material: Wood",
+% "Material: Leather"); its metal comes from another field ("Metals Type:
+% Zinc Alloy"). The good then consists of different materials (GRI 3(b)),
+% and the chapter does not take it to be of base metal without a judgment.
+rule only_other_materials with provenance the jewellery listing format,
+        confer "Material (87 listings): the materials":
+a thing names only materials other than metal
+    if the thing names the material a name
+    and it is not the case that
+        the thing names the material an other name
+        and the other name is a word for the metal a metal
+    and it is not the case that
+        the thing names the material a third name
+        and the third name is in ["metal", "alloy", "metal alloy"].
+
 rule cladding_by_field with provenance the jewellery listing format,
         confer "Metals Type (69 listings): the metal":
 a thing is clad with a metal
@@ -477,6 +503,22 @@ scenario hair_and_flowers is:
     rose 3 is called "artificial rose".
     kinds expects answers ["the kind of wig 1 is wig", "the kind of extension 2 is hair extension", "the kind of rose 3 is artificial flower"].
     hairs expects answers ["the hair of wig 1 is human hair", "the hair of extension 2 is synthetic fibre"].
+
+% A listing that names only materials other than metal, beside its metal
+% field; a tinplate badge names a metal
+scenario materials is:
+    the field "metals type" of bracelet 5 reads "zinc alloy".
+    bracelet 5 names the material "leather".
+    the field "metals type" of charm 6 reads "zinc alloy".
+    charm 6 names the material "metal".
+    charm 6 names the material "rhinestone".
+    badge 7 names the material "plastic".
+    badge 7 names the material "tin plate".
+    others expects answers ["bracelet 5 names only materials other than metal"].
+    metals expects answers ["the metal of bracelet 5 is zinc alloy", "the metal of charm 6 is zinc alloy", "the metal of badge 7 is steel"].
+
+query others is:
+    which thing names only materials other than metal.
 
 query kinds is:
     the kind of which good is which kind.

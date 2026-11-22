@@ -91,6 +91,8 @@ the templates are:
     *a thing* contains precious metal beyond minor constituents.
     *a good* is a loose bead.
     *a thing* is of base metal.
+    *a thing* names only materials other than metal; undefined.
+    *a thing* has its essential character from its base metal; judged.
     *a thing* incorporates pearls.
     *a thing* incorporates stones.
     *a thing* incorporates pearls or stones.
@@ -225,6 +227,8 @@ ruling NY N073978 is published at "https://rulings.cbp.gov/ruling/N073978".
 the text of ruling NY N073978 is at "sources/cbp/N073978.txt".
 ruling NY N088048 is published at "https://rulings.cbp.gov/ruling/N088048".
 the text of ruling NY N088048 is at "sources/cbp/N088048.txt".
+ruling NY J86633 is published at "https://rulings.cbp.gov/ruling/J86633".
+the text of ruling NY J86633 is at "sources/cbp/J86633.txt".
 ruling NY N101257 is published at "https://rulings.cbp.gov/ruling/N101257".
 the text of ruling NY N101257 is at "sources/cbp/N101257.txt".
 ruling NY N343561 is published at "https://rulings.cbp.gov/ruling/N343561".
@@ -483,7 +487,22 @@ rule base_metal_body with provenance HTSUS Section XIV and Chapter 71,
         confer "Of base metal, whether or not plated with precious metal":
 a thing is of base metal
     if the metal of the thing is a metal
-    and the metal is a base metal.
+    and the metal is a base metal
+    and it is not the case that
+        the thing names only materials other than metal.
+
+% A thing whose listing names only materials other than metal, and a base
+% metal besides, consists of different materials: it is of base metal if
+% the base metal gives its essential character, a judgment of the office
+% (GRI 3(b); NY N338215 weighs the visual appeal, the value and the weight
+% of zinc and resin).
+rule base_metal_by_essential_character with provenance HTSUS General Rules of Interpretation,
+        confer "composite goods consisting of different materials or made up of different components":
+a thing is of base metal
+    if the metal of the thing is a metal
+    and the metal is a base metal
+    and the thing names only materials other than metal
+    and the thing has its essential character from its base metal.
 
 % ---------------------------------------------------------------------------
 % Pearls and stones (note 1(a)): natural or cultured pearls, precious or
@@ -507,6 +526,8 @@ onyx is a gem of the group natural stone,
     as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
 tiger eye is a gem of the group natural stone,
     as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
+rose quartz is a gem of the group natural stone,
+    as stated in ruling NY J86633, confer "an “endless” bracelet composed of elastomer cord onto which a genuine rose quartz heart stone".
 jasper is a gem of the group natural stone,
     as stated in ruling NY N088048, confer "The interchangeable stones include Black Onyx, Tiger Eye, Red Jasper, Lavender Jade, Green Jade, Amazonite and Rhodonite".
 jade is a gem of the group natural stone,
@@ -1187,6 +1208,16 @@ scenario plastics_jewelry is:
     the principal use of the corsage band is other use,
         according to CBP.
     subheading expects answers ["the subheading of the acrylic bracelet is 7117.90", "the subheading of the corsage band is 3926.90"].
+
+% GRI 3(b): a bracelet whose listing names only leather, with a zinc alloy
+% metal besides, is of base metal only if the office judges that the base
+% metal gives its essential character
+scenario other_materials is:
+    the kind of the wrap bracelet is bracelet.
+    the wrap bracelet is a manufactured article.
+    the metal of the wrap bracelet is zinc alloy.
+    the wrap bracelet names only materials other than metal.
+    subheading expects answers ["the subheading of the wrap bracelet is 7117.19", "the subheading of the wrap bracelet is 7117.90"] and unknowns ["the wrap bracelet has its essential character from its base metal", "it is not the case that the wrap bracelet has its essential character from its base metal"].
 
 % Pearls and stones, loose
 scenario loose_gems is:
