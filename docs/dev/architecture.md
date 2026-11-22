@@ -176,6 +176,14 @@ in [editor/README.md](../../editor/README.md).
   1 MB, is answered here ("Session expired": the editor reloads). Off fly.io
   nothing changes; `LE_MACHINE_ID` sets the id for tests, `LE_MACHINE_REPLAY=off`
   turns the sending back off. `testing/test_machine.pl`.
+- **Published ontologies on the server** (`le_ontology.pl`): the image does not
+  hold WordNet. The first query that needs it downloads it (10 MB) and
+  converts it (about 13 s) into `/app/tmp/ontologies/`. A fly.io machine that
+  stops and starts again loses that folder, so the next query downloads it
+  again. Future work: to keep the cache, add
+  `RUN swipl -q -g "use_module(le_ontology), ontology_install(wordnet)" -t halt`
+  to the `Dockerfile` (about 10 MB more in the image), or mount a fly volume
+  and set `LE_ONTOLOGY_DIR` to it.
 - **Sibling repositories**: InsurLE2 (`le_extensions.pl` and the examples of
   those constructs), lpsPlus (`le_importers.pl` and the translators behind it,
   the domain models and the twins whose sources may not be published) and lps2
