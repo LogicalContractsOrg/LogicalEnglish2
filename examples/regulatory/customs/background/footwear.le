@@ -103,6 +103,24 @@ ruling NY N359019 is published at "https://rulings.cbp.gov/ruling/N359019".
 the text of ruling NY N359019 is at "sources/cbp/N359019.txt".
 ruling NY L82909 is published at "https://rulings.cbp.gov/ruling/L82909".
 the text of ruling NY L82909 is at "sources/cbp/L82909.txt".
+ruling NY N342555 is published at "https://rulings.cbp.gov/ruling/N342555".
+the text of ruling NY N342555 is at "sources/cbp/N342555.txt".
+ruling NY N047755 is published at "https://rulings.cbp.gov/ruling/N047755".
+the text of ruling NY N047755 is at "sources/cbp/N047755.txt".
+ruling NY N303395 is published at "https://rulings.cbp.gov/ruling/N303395".
+the text of ruling NY N303395 is at "sources/cbp/N303395.txt".
+ruling NY N330842 is published at "https://rulings.cbp.gov/ruling/N330842".
+the text of ruling NY N330842 is at "sources/cbp/N330842.txt".
+ruling NY N349467 is published at "https://rulings.cbp.gov/ruling/N349467".
+the text of ruling NY N349467 is at "sources/cbp/N349467.txt".
+ruling NY N110433 is published at "https://rulings.cbp.gov/ruling/N110433".
+the text of ruling NY N110433 is at "sources/cbp/N110433.txt".
+ruling NY N319780 is published at "https://rulings.cbp.gov/ruling/N319780".
+the text of ruling NY N319780 is at "sources/cbp/N319780.txt".
+the Cambridge dictionary entry boot is published at "https://dictionary.cambridge.org/dictionary/english/boot".
+the text of the Cambridge dictionary entry boot is at "sources/trade_usage/cambridge_boot.txt".
+the encyclopedia article flannel is published at "https://en.wikipedia.org/wiki/Flannel".
+the text of the encyclopedia article flannel is at "sources/trade_usage/wikipedia_flannel.txt".
 ruling NY N065202 is published at "https://rulings.cbp.gov/ruling/N065202".
 the text of ruling NY N065202 is at "sources/cbp/N065202.txt".
 ruling NY M83255 is published at "https://rulings.cbp.gov/ruling/M83255".
@@ -279,6 +297,33 @@ the text of ruling NY J84062 is at "sources/cbp/J84062.txt".
 "paper yarn" is a word for the bag material paper yarn,
     as stated in ruling NY N338202, confer "constructed with an outer surface of twisted/rolled paper yarns".
 
+
+% words added from the diagnostic half of run H (RatioTariff 3.21), each from a text
+"crossbody bag" is a word for the kind handbag,
+    as stated in ruling NY N342555, confer "which you referred to as the “Drape Crossbody,” is a handbag".
+"messenger bag" is a word for the kind messenger bag,
+    as stated in ruling NY N047755, confer "The messenger bag is more specifically classified under subheading 4202.12.8030".
+"shoulder messenger bag" is a word for the kind messenger bag,
+    as stated in ruling NY N047755, confer "The messenger bag is more specifically classified under subheading 4202.12.8030".
+"insole" is a word for the kind removable insole,
+    as stated in ruling NY N303395, confer "is a removable insole for a woman’s shoe".
+"insoles" is a word for the kind removable insole,
+    as stated in ruling NY N303395, confer "is a removable insole for a woman’s shoe".
+"credit card holder" is a word for the kind card case,
+    as stated in ruling NY N330842, confer "The submitted article is a men’s credit card case constructed of genuine leather".
+"card holder" is a word for the kind card case,
+    as stated in ruling NY N349467, confer "The applicable subheading for the card holder will be 4202.31.6000".
+"card case" is a word for the kind card case,
+    as stated in ruling NY N330842, confer "The submitted article is a men’s credit card case constructed of genuine leather".
+"wallet" is a word for the kind wallet,
+    as stated in HTSUS Chapter 42, confer "handbags, shopping bags, wallets, purses, map cases".
+"shoe bag" is a word for the kind shoe bag,
+    as stated in ruling NY N110433, confer "The applicable subheading of the shoe bag when imported by itself will be 4202.92.3031".
+"flannel" is a word for the footwear material textile materials,
+    as stated in the encyclopedia article flannel, confer "Flannel is a soft woven fabric of varying fineness".
+"mid-calf" is an upper coverage that covers the ankle,
+    as stated in ruling NY N319780, confer "above the ankle, below the knee mid-calf boot".
+
 % ---------------------------------------------------------------------------
 % How high the shoe reaches, toe caps, waterproof, how the upper is fixed
 % ---------------------------------------------------------------------------
@@ -357,6 +402,15 @@ a good covers the knee
     and the field is in ["upper coverage", "boot height"]
     and the value is an upper coverage that covers the knee.
 
+% a boot covers the foot and the lower part of the leg, so it covers the
+% ankle, unless the listing says that the upper does not reach above it
+rule boot_covers_ankle with provenance the Cambridge dictionary entry boot,
+        confer "a type of shoe that covers the whole foot and the lower part of the leg":
+a good covers the ankle
+    if the kind of the good is boot
+    and it is not the case that
+        the field "upper coverage" of the good reads "not above ankle".
+
 rule metal_toe_cap_field with provenance the bags and footwear listing format,
         confer "Whether with metal toe cap (19 listings)":
 a good incorporates a protective metal toe-cap
@@ -427,6 +481,21 @@ scenario bags is:
     kinds expects answers ["the kind of bag 1 is handbag", "the kind of bag 2 is backpack", "the kind of bag 3 is tote bag", "the kind of collar 4 is dog collar"].
     surfaces expects answers ["the outer surface of bag 1 is of sheeting of plastics", "the outer surface of bag 2 is of polyester", "the outer surface of bag 3 is of leather"].
     bodies expects answers ["bag 1 is wholly or mainly of sheeting of plastics", "bag 2 is wholly or mainly of polyester", "bag 3 is wholly or mainly of leather"].
+
+scenario more_words is:
+    the field "item type" of boot 6 reads "boots".
+    the field "boot height" of boot 7 reads "mid-calf".
+    the field "item type" of boot 8 reads "boots".
+    the field "upper coverage" of boot 8 reads "not above ankle".
+    the field "upper material" of sandal 9 reads "flannel".
+    insole 10 is called "insole".
+    holder 11 is called "credit card holder".
+    bag 12 is called "shoulder messenger bag".
+    bag 13 is called "crossbody bag".
+    bag 14 is called "shoe bag".
+    kinds expects answers ["the kind of boot 6 is boot", "the kind of boot 8 is boot", "the kind of insole 10 is removable insole", "the kind of holder 11 is card case", "the kind of bag 12 is messenger bag", "the kind of bag 13 is handbag", "the kind of bag 14 is shoe bag"].
+    ankles expects answers ["boot 6 covers the ankle", "boot 7 covers the ankle"].
+    uppers expects answers ["the constituent material of the upper of sandal 9 is textile materials"].
 
 query kinds is:
     the kind of which good is which kind.
