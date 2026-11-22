@@ -683,6 +683,7 @@ solve_literal(G, SM, KM, Anc, D, MyID, Us, [success(G, Ref, WhysBody)]) :-
           \+ ancestor_unifies(le_unknown(G), Anc),
           \+ judged_question_decided(G, SM, KM),
           D1 is D + 1,
+          \+ value_question_decided(G, SM, KM, Anc, D1),
           %  A goal the scenario already proves is not also assumed: i/4 would
           %  drop that answer anyway ("a definite proof wins"), but only after
           %  the search had tried both ways for every such goal — 2^n branches
@@ -1987,6 +1988,29 @@ judged_question_decided(G, SM, KM) :-
     ),
     get_clause(Recorded, SM, KM, Body, _),
     Body == true, !.
+
+%!  value_question_decided(+Goal, +SM, +KM, +Anc, +D) is semidet.
+%
+%   Goal is an instance of a template that is both assumable and `; one
+%   value` (§2.1.8), and the facts and rules already prove a value for its
+%   question (every place but the last), without any assumption. The other
+%   values are then not open, as for a judged question
+%   (judged_question_decided/3). Without this, a call with the value still
+%   open assumed every value the rules could use beside the proved one ("the
+%   upper is textile" for a shoe whose upper the rules prove is of plastics):
+%   one branch per value, and each negation over those branches multiplied
+%   them (docs/project RatioTariff §3.24).
+value_question_decided(G, SM, KM, Anc, D) :-
+    compound(G),
+    KM \== none,
+    functor(G, F, A),
+    catch(KM:le_one_value(F, A), _, fail),
+    G =.. [F|Args],
+    append(Question, [_], Args), Question \== [],
+    ground(Question),
+    append(Question, [_], Args1),
+    Open =.. [F|Args1],
+    \+ \+ solve(Open, SM, KM, [le_unknown(Open)|Anc], D, none, [], _).
 
 % get_clause(+Goal, +SM, +KM, -Body, -Ref)
 get_clause(G, SM, _KM, Body, Ref) :-

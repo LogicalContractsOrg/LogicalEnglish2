@@ -304,12 +304,19 @@ this method is tabling, or memoization. §2.5 gives the full description.
 **Form.** `<template>; one value`. The synonym is `; single valued`.
 
 **Meaning.** The **last place of the template has one value** for each choice of
-values in the other places. In logic, this is a functional dependency. Only the case
-search reads this addition (§17.11). The case search takes two facts of such a
-template about the same things to be one fact. Thus a case never needs a person with
-two incomes, or a report with two reporting parties. Queries give the same answers
-with and without the addition. A scenario that states two values still has the two
-values.
+values in the other places. In logic, this is a functional dependency. Two parts of
+the system read this addition:
+- **The case search** (§17.11) takes two facts of such a template about the same
+  things to be one fact. Thus a case never needs a person with two incomes, or a
+  report with two reporting parties.
+- **An assumable template** (§2.1.4) with this addition is not assumed with a new
+  value when the facts and rules already prove a value for the same things. One
+  answer also never assumes two values for the same things. Thus
+  `the income of *a person* is *an amount*; one value; assumable.` assumes an income
+  only for a person whose income the program cannot prove.
+
+Otherwise, queries give the same answers with and without the addition. A scenario
+that states two values still has the two values.
 
 **Example.** `the income of *a person* is *an amount*; one value.` A person has one
 income.
