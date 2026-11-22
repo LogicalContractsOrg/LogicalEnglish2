@@ -95,6 +95,7 @@ the templates are:
     *a kind* is a kind of ski footwear.
     *a kind* is a kind of sports footwear.
     *a kind* is a kind of athletic footwear.
+    *a kind* is a kind of non-athletic footwear.
     *a good* is sports footwear.
     *a good* is athletic footwear.
     the sport class of *a good* is *a class*.
@@ -181,6 +182,12 @@ ruling NY J84976 is published at "https://rulings.cbp.gov/ruling/J84976".
 the text of ruling NY J84976 is at "sources/cbp/J84976.txt".
 ruling NY N253189 is published at "https://rulings.cbp.gov/ruling/N253189".
 the text of ruling NY N253189 is at "sources/cbp/N253189.txt".
+ruling HQ 963395 is published at "https://rulings.cbp.gov/ruling/963395".
+the text of ruling HQ 963395 is at "sources/cbp/963395.txt".
+ruling NY N316838 is published at "https://rulings.cbp.gov/ruling/N316838".
+the text of ruling NY N316838 is at "sources/cbp/N316838.txt".
+ruling NY N255233 is published at "https://rulings.cbp.gov/ruling/N255233".
+the text of ruling NY N255233 is at "sources/cbp/N255233.txt".
 ruling NY N196497 is published at "https://rulings.cbp.gov/ruling/N196497".
 the text of ruling NY N196497 is at "sources/cbp/N196497.txt".
 ruling NY N302745 is published at "https://rulings.cbp.gov/ruling/N302745".
@@ -297,6 +304,15 @@ gym shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chap
 training shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "tennis shoes, basketball shoes, gym shoes, training shoes and the like".
 athletic shoe is a kind of athletic footwear, as stated in HTSUS Section XII and Chapter 64, confer "covers athletic footwear other than sports footwear".
 running shoe is a kind of athletic footwear, as stated in the CN explanatory notes to Chapter 64, confer "they are designed for a specific sporting activity that generally requires running".
+
+% Kinds that are not "like" the named athletic footwear: a sandal is open
+% at the toes or the heel (HQ 963395); a loafer is a slip-on (NY N316838),
+% and a slip-on without laces or another secure closure is not athletic
+% (NY N255233)
+sandal is a kind of non-athletic footwear, as stated in ruling HQ 963395, confer "None of the named exemplars is generally considered to be footwear that is open at the toes or the heel".
+thong sandal is a kind of non-athletic footwear, as stated in ruling HQ 963395, confer "Customs generally considers sandals to be casual footwear designed with an emphasis on comfort".
+loafer is a kind of non-athletic footwear, as stated in ruling NY N316838, confer "Across the top of the vamp is a decorative band giving the footwear a loafer-type style".
+loafer is a kind of non-athletic footwear, as stated in ruling NY N255233, confer "Because the shoe is a slip-on and does not have laces, or another secure form of closure, it is precluded from classification as “athletic” footwear".
 
 % ---------------------------------------------------------------------------
 % The materials of the upper and of the outer sole (notes 3 and 4).
@@ -639,7 +655,10 @@ a good is athletic footwear
 rule athletic_by_judgment with provenance HTSUS Section XII and Chapter 64,
         confer "covers athletic footwear other than sports footwear":
 a good is athletic footwear
-    if the good is styled as athletic footwear.
+    if the good is styled as athletic footwear
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is a kind of non-athletic footwear.
 
 rule athletic_class with provenance HTSUS Section XII and Chapter 64,
         confer "covers athletic footwear other than sports footwear":
@@ -938,3 +957,15 @@ scenario exclusions is:
     the constituent material of the outer sole of skate 2 is leather.
     skate 2 has ice or roller skates attached.
     unplaced expects answers ["cover 1 is not placed by the model", "skate 2 is not placed by the model"].
+
+% Additional U.S. note 2: a sandal and a loafer are not "like" the named
+% athletic footwear (HQ 963395, NY N316838, NY N255233), so the office is
+% not asked whether they are styled as athletic footwear
+scenario non_athletic is:
+    the kind of sandal 1 is sandal.
+    the constituent material of the upper of sandal 1 is textile materials.
+    the constituent material of the outer sole of sandal 1 is rubber.
+    the kind of loafer 2 is loafer.
+    the constituent material of the upper of loafer 2 is textile materials.
+    the constituent material of the outer sole of loafer 2 is rubber.
+    subheading expects answers ["the subheading of sandal 1 is 6404.19", "the subheading of loafer 2 is 6404.19"].

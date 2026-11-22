@@ -1,0 +1,64 @@
+% A shop puts each product on a shelf by what the product is called. The
+% shop's own words come first. A name that the shop does not know gets the
+% shelf of its nearest WordNet ancestor that is a shelf word.
+%
+% WordNet (wordnet.le) gives the general meaning of a word: a loafer is a
+% kind of shoe, and a shoe is a kind of footwear. The shop's own words give
+% the meanings that WordNet does not have, or that the shop reads in its
+% own way ("pumps" are shoes in a shoe shop).
+
+the target language is: prolog.
+
+the knowledge base shop words includes these resources:
+    wordnet.
+
+the templates are:
+    *a product* is called *a name*.
+    *a name* is a shop word for the shelf *a shelf*.
+    *a product* goes on the shelf *a shelf*.
+    *a word* is a WordNet class of the shop.
+
+the knowledge base shop words includes:
+
+"pumps" is a shop word for the shelf shoes.
+"trainers" is a shop word for the shelf sports.
+"shoe" is a shop word for the shelf shoes.
+"bag" is a shop word for the shelf bags.
+
+"footwear" is a WordNet class of the shop.
+"container" is a WordNet class of the shop.
+
+a product goes on the shelf a shelf
+    if the product is called a name
+    and the name is a shop word for the shelf the shelf.
+
+% A name that the shop does not know: the most frequent sense of the name
+% under a class of the shop, and its nearest ancestor that is a shop word.
+a product goes on the shelf a shelf
+    if the product is called a name
+    and it is not the case that
+        the name is a shop word for the shelf an other shelf
+    and a class is a WordNet class of the shop
+    and the first sense of the name under the class in WordNet is a sense
+    and a word is a shop word for the shelf the shelf
+    and the name is a kind of the word in WordNet at the distance a number through the sense the sense
+    and it is not the case that
+        an other word is a shop word for the shelf an other shelf
+        and the name is a kind of the other word in WordNet at the distance an other number through the sense the sense
+        and the other number < the number.
+
+scenario delivery is:
+    product 1 is called "pumps".
+    product 2 is called "loafers".
+    product 3 is called "women's sandals".
+    product 4 is called "chest bag".
+    product 5 is called "teapot".
+    shelves expects answers [
+        "product 1 goes on the shelf shoes",
+        "product 2 goes on the shelf shoes",
+        "product 3 goes on the shelf shoes",
+        "product 4 goes on the shelf bags"
+    ].
+
+query shelves is:
+    which product goes on the shelf which shelf.

@@ -54,15 +54,25 @@ the templates are:
     the constituent material of the outer sole of *a good* is *a material*.
     the outer surface of *a good* is of *a material*.
     *a thing* is wholly or mainly of *a material*.
+    *a thing* names the material *a name*; undefined.
     *a good* covers the ankle.
     *a good* covers the knee.
     *a good* incorporates a protective metal toe-cap.
     *a good* is designed to protect against penetration by water.
     the upper of *a good* is fixed to the sole by *a process*.
     the upper of *a good* consists of straps across the instep and around the big toe.
+    *a word* is a WordNet class of footwear and bags.
+    *a word* names in this program the kind *a kind*.
+
+% WordNet (examples/ontologies/wordnet.le): a name that no word of this
+% program knows takes the kind of its nearest WordNet ancestor that is a
+% word of this program, under one of the classes of the two chapters.
+the knowledge base footwear background includes these resources:
+    ../../../ontologies/wordnet.
 
 the knowledge base footwear background includes:
 
+Open English WordNet 2025 is published at "https://en-word.net".
 the bags and footwear listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
 the text of the bags and footwear listing format is at "sources/listings/marketplace_fields_bags_footwear.txt".
 HTSUS Section XII and Chapter 64 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2064#page=3".
@@ -348,6 +358,11 @@ the text of ruling NY J84062 is at "sources/cbp/J84062.txt".
 "straps across the instep and around the big toe" is a word for straps across the instep and around the big toe,
     as stated in HTSUS Section XII and Chapter 64, confer "consist of leather straps across the instep and around the big toe".
 
+"footwear" is a WordNet class of footwear and bags,
+    as stated in HTSUS Section XII and Chapter 64, confer "FOOTWEAR, GAITERS AND THE LIKE; PARTS OF".
+"container" is a WordNet class of footwear and bags,
+    as stated in HTSUS Chapter 42, confer "TRAVEL GOODS, HANDBAGS AND SIMILAR CONTAINERS".
+
 % ---------------------------------------------------------------------------
 % The rules: a word in the name or in a field
 % ---------------------------------------------------------------------------
@@ -363,6 +378,35 @@ the kind of a good is a kind
     if the field a field of the good reads a value
     and the field is a field of the kind of shoe or bag
     and the value is a word for the kind the kind.
+
+% A name that no word knows, when no other name or field of the good gives
+% its kind: the nearest WordNet ancestor, through one sense of the name,
+% that is a word of this program, if that sense is under a class of the
+% two chapters. A loafer is a kind of shoe ("pumps", "flats" are shoes).
+rule footwear_kind_by_wordnet with provenance Open English WordNet 2025:
+the kind of a good is a kind
+    if the good is called a name
+    and it is not the case that
+        the good is called an other name
+        and the other name is a word for the kind an other kind
+    and it is not the case that
+        the field a field of the good reads a value
+        and the field is a field of the kind of shoe or bag
+        and the value is a word for the kind an other kind
+    and a class is a WordNet class of footwear and bags
+    and the first sense of the name under the class in WordNet is a sense
+    and a word names in this program the kind the kind
+    and the name is a kind of the word in WordNet at the distance a number through the sense the sense
+    and it is not the case that
+        an other word names in this program the kind an other kind
+        and the name is a kind of the other word in WordNet at the distance an other number through the sense the sense
+        and the other number < the number.
+
+% The words of this program for kinds, and the names of the kinds.
+a word names in this program the kind a kind
+    if the word is a word for the kind the kind.
+a kind names in this program the kind the kind
+    if a name is a word for the kind the kind.
 
 rule upper_material_field with provenance the bags and footwear listing format,
         confer "Upper Material (37 listings): the outer surface of the upper":
@@ -381,6 +425,46 @@ rule bag_material_field with provenance the bags and footwear listing format,
 the outer surface of a good is of a material
     if the field "main material" of the good reads a value
     and the value is a word for the bag material the material.
+
+% A listing of footwear that gives no material of the upper or of the
+% outer sole, and names one material only ("Material: PVC"): the product,
+% so both its upper and its outer sole, is of that material.
+rule footwear_named_material_upper with provenance the bags and footwear listing format,
+        confer "Main Material (13 listings) and Material (19 listings): the material of a bag or another product":
+the constituent material of the upper of a good is a material
+    if the good names the material a name
+    and the name is a word for the footwear material the material
+    and it is not the case that
+        the field a field of the good reads a value
+        and the field is in ["upper material", "outsole material"]
+    and it is not the case that
+        the good names the material an other name
+        and the other name is different from the name.
+
+rule footwear_named_material_sole with provenance the bags and footwear listing format,
+        confer "Main Material (13 listings) and Material (19 listings): the material of a bag or another product":
+the constituent material of the outer sole of a good is a material
+    if the good names the material a name
+    and the name is a word for the footwear material the material
+    and it is not the case that
+        the field a field of the good reads a value
+        and the field is in ["upper material", "outsole material"]
+    and it is not the case that
+        the good names the material an other name
+        and the other name is different from the name.
+
+% A listing that gives no "Main Material" but names one material only
+% ("Material: POLYESTER"): that material is the material of the bag.
+rule bag_named_material with provenance the bags and footwear listing format,
+        confer "Main Material (13 listings) and Material (19 listings): the material of a bag or another product":
+the outer surface of a good is of a material
+    if the good names the material a name
+    and the name is a word for the bag material the material
+    and it is not the case that
+        the field "main material" of the good reads a value
+    and it is not the case that
+        the good names the material an other name
+        and the other name is different from the name.
 
 rule main_material_field with provenance the bags and footwear listing format,
         confer "Main Material (13 listings) and Material (19 listings): the material of a bag or another product":
@@ -478,8 +562,10 @@ scenario bags is:
     the field "shape" of bag 3 reads "casual tote".
     the field "main material" of bag 3 reads "genuine leather".
     the field "type" of collar 4 reads "collars,dogs".
+    the field "item type" of bag 5 reads "storage bags".
+    bag 5 names the material "polyester".
     kinds expects answers ["the kind of bag 1 is handbag", "the kind of bag 2 is backpack", "the kind of bag 3 is tote bag", "the kind of collar 4 is dog collar"].
-    surfaces expects answers ["the outer surface of bag 1 is of sheeting of plastics", "the outer surface of bag 2 is of polyester", "the outer surface of bag 3 is of leather"].
+    surfaces expects answers ["the outer surface of bag 1 is of sheeting of plastics", "the outer surface of bag 2 is of polyester", "the outer surface of bag 3 is of leather", "the outer surface of bag 5 is of polyester"].
     bodies expects answers ["bag 1 is wholly or mainly of sheeting of plastics", "bag 2 is wholly or mainly of polyester", "bag 3 is wholly or mainly of leather"].
 
 scenario more_words is:
@@ -529,3 +615,25 @@ query bodies is:
 
 query surfaces is:
     the outer surface of which good is of which material.
+
+scenario wordnet_words is:
+    item 20 is called "loafers".
+    item 21 is called "chelsea boots".
+    item 22 is called "gun bag".
+    item 23 is called "loafers".
+    item 23 is called "pumps".
+    kinds expects answers [
+        "the kind of item 20 is shoe",
+        "the kind of item 21 is boot",
+        "the kind of item 23 is shoe"
+    ].
+
+% A listing that names one material only, and no material of a part
+scenario one_material is:
+    the field "item type" of slipper 6 reads "slippers".
+    slipper 6 names the material "pvc".
+    the field "item type" of shoe 7 reads "casual shoes".
+    shoe 7 names the material "canvas".
+    the field "outsole material" of shoe 7 reads "rubber".
+    uppers expects answers ["the constituent material of the upper of slipper 6 is polyvinyl chloride"].
+    soles expects answers ["the constituent material of the outer sole of slipper 6 is polyvinyl chloride", "the constituent material of the outer sole of shoe 7 is rubber"].

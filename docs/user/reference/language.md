@@ -1290,6 +1290,64 @@ the reasoner.
 
 Refer to `examples/moreExamples/language/includes/facts_background/`.
 
+### 14.6 Published ontologies (`examples/ontologies/`)
+An **ontology** is a published table of words and of the links between them. The most
+important link is "is a kind of": a loafer is a kind of shoe, and a shoe is a kind of
+footwear. A program can use an ontology for the general meaning of a word. Then the
+program needs its own words only where a text gives a more specific meaning.
+
+**What LE2 has.**
+- **WordNet** (Open English WordNet 2025, https://en-word.net). WordNet is a dictionary
+  of English. Each sense of a noun has its words, a definition, and the senses that it
+  is a kind of. The licence is Creative Commons Attribution 4.0.
+- The ontology layer is `examples/ontologies/wordnet.le`. It is a small LE program with
+  templates. Include it as a resource:
+  ```le
+  the knowledge base shop words includes these resources:
+      ../ontologies/wordnet.
+  ```
+  A program anywhere can include a file of `lib/` or of `examples/ontologies/`. Write
+  the path relative to the program.
+
+**The templates of `wordnet.le`.**
+
+| Template | What it gives |
+|---|---|
+| `*a name* is a kind of *a word* in WordNet at the distance *a number* through the sense *a sense*.` | A sense of the name is a kind of a sense with the word. The distance is the number of "is a kind of" links (0: the same sense). |
+| `the first sense of *a name* under *a class* in WordNet is *a sense*.` | The most frequent sense of the name that is a kind of the class. Use it to read a name in one domain: "loafer" under "footwear" is the shoe, not the idle person. |
+| `the WordNet definition of *a sense* is *a text*.` | The definition of the sense. |
+| `the WordNet words of *a sense* are *a text*.` | The words of the sense, for example "footwear, footgear". |
+
+- A name can be singular or plural, in any case ("Slippers" is read as "slipper").
+- WordNet does not have every phrase. When it does not have a phrase, the system reads
+  the longest ending of the phrase that WordNet has, one link further up. Thus "chest
+  bag" is a kind of "bag".
+
+**Where the ontology is kept.**
+1. The repository does not keep the ontology. The first query that needs it downloads
+   the release once (10 megabytes). This takes about 15 seconds.
+2. The system converts the release to Prolog facts and keeps them in a cache folder:
+   `tmp/ontologies/` under the repository, or the folder that the environment variable
+   `LE_ONTOLOGY_DIR` names. Later loads take less than one second.
+3. To prepare a server or a computer that has no connection later, download the
+   ontology in advance:
+   `swipl -g "use_module(le_ontology), ontology_install(wordnet)" -t halt`.
+   Then copy the cache folder.
+- When the download is not possible, the query stops with an error that says how to
+  install the ontology. The browser version of LE2 cannot download an ontology.
+
+**Use an ontology for a general meaning, and a text for a specific meaning.** An
+ontology is not the law. In WordNet, the first sense of "pants" is women's underpants
+("bloomers, pants, drawers, knickers"). The tariff reads "pants" as trousers. Write a rule that uses the ontology only when no
+word of the program knows the name. Then each word of a cited text is used first.
+`examples/regulatory/customs/background/footwear.le` has such a rule
+(`footwear_kind_by_wordnet`). The rule gives a name that no word knows the kind of its
+nearest WordNet ancestor that is a kind of the program, and only through the most
+frequent sense of the name under "footwear" or "container".
+
+The ontology module is `le_ontology.pl`. Its predicates only read the tables, so a
+`prolog` condition can call them (§15.6). Refer to `examples/ontologies/`.
+
 ## 15. LE Extensions
 This section is about features that are not in the core constructs above.
 Three of these features are part of core LE, and this document describes them:

@@ -12,6 +12,8 @@ the functions are:
     the fabric construction of *a garment* is *a construction*.
 
 the templates are:
+    *a word* is a WordNet class of clothing.
+    *a word* names in this program the kind *a kind*.
     *a thing* is called *a name*; undefined.
     the field *a field* of *a thing* reads *a value*; undefined.
     *a thing* is made of the fabric *a name*; undefined.
@@ -34,7 +36,15 @@ the templates are:
     *a garment* is sized for babies.
     *a name* is a word for a garment for babies.
 
+% WordNet (examples/ontologies/wordnet.le): a name that no word of this
+% program knows takes the kind of its nearest WordNet ancestor that is a
+% kind of this program, under one of the classes of its chapters.
+the knowledge base garments background includes these resources:
+    ../../../ontologies/wordnet.
+
 the knowledge base garments background includes:
+
+Open English WordNet 2025 is published at "https://en-word.net".
 
 the apparel terminology publication is published at "https://www.cbp.gov/trade/rulings/informed-compliance-publications".
 the text of the apparel terminology publication is at "sources/cbp_icp/apparel_terminology.txt".
@@ -829,6 +839,44 @@ the kind of a good is a kind
     and it is not the case that
         the good is named by a specific kind.
 
+"clothing" is a WordNet class of clothing,
+    as stated in HTSUS Chapter 61, confer "ARTICLES OF APPAREL AND CLOTHING ACCESSORIES, KNITTED OR CROCHETED".
+
+% A name that no word knows, when no other name or field of the good gives
+% its kind: the nearest WordNet ancestor, through the most frequent sense
+% of the name under a class of the chapters, that is a kind of this program.
+rule wordnet_kind with provenance Open English WordNet 2025:
+the kind of a good is a kind
+    if the good is called a name
+    and it is not the case that
+        the good is called an other name
+        and the other name is a word for the kind an other kind
+    and it is not the case that
+        the good is called an other name
+        and the other name is a word for the residual kind an other kind
+    and it is not the case that
+        the field a field of the good reads a value
+        and the field is a field that names the kind
+        and the value is a word for the kind an other kind
+    and it is not the case that
+        the field a field of the good reads a value
+        and the field is a field that names the kind
+        and the value is a word for the residual kind an other kind
+    and a class is a WordNet class of clothing
+    and the first sense of the name under the class in WordNet is a sense
+    and a word names in this program the kind the kind
+    and the name is a kind of the word in WordNet at the distance a number through the sense the sense
+    and it is not the case that
+        an other word names in this program the kind an other kind
+        and the name is a kind of the other word in WordNet at the distance an other number through the sense the sense
+        and the other number < the number.
+
+% The words of this program for kinds, and the names of the kinds.
+a word names in this program the kind a kind
+    if the word is a word for the kind the kind.
+a kind names in this program the kind the kind
+    if a name is a word for the kind the kind.
+
 rule construction_by_fabric with provenance the apparel terminology publication,
         confer "constructed from lightweight, plain jersey or interlock knit fabric":
 the fabric construction of a garment is a construction
@@ -928,7 +976,7 @@ scenario european_notes is:
     the field "item type" of bag one reads "romper bag".
     top one is made of the fabric "single jersey".
     jacket two is made of the fabric "leathercloth".
-    european_kinds expects answers ["the kind of coat one is carcoat", "the kind of jacket one is windbreaker", "the kind of nightwear is pajamas"].
+    european_kinds expects answers ["the kind of coat one is carcoat", "the kind of jacket one is windbreaker", "the kind of nightwear is pajamas", "the kind of gown one is dress"].
     european_babies expects answers ["gown one is sized for babies", "bag one is sized for babies"].
     european_constructions expects answers ["the fabric construction of top one is knitted"].
     european_headings expects answers ["jacket two is made up of fabric of heading 5903"].
@@ -1006,3 +1054,15 @@ query kinds is:
 
 query constructions is:
     the fabric construction of which garment is which construction.
+
+% Names that no word of this program knows, read with WordNet. A parka is
+% at the same distance from anorak and from windbreaker: two kinds, which
+% the background keeps as alternatives (both are in headings 6201 and 6202).
+scenario wordnet_words is:
+    garment 40 is called "parka".
+    garment 41 is called "kimono".
+    kinds expects answers [
+        "the kind of garment 40 is anorak",
+        "the kind of garment 40 is windbreaker",
+        "the kind of garment 41 is bathrobe"
+    ].

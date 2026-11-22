@@ -1,0 +1,66 @@
+% WordNet as Logical English templates: a thin layer over le_ontology.pl.
+%
+% WordNet is a published dictionary of English in which each sense of a
+% noun (a "synset") has its words, a definition, and the senses it is a
+% kind of. LE2 uses Open English WordNet 2025 (https://en-word.net), under
+% the Creative Commons Attribution 4.0 licence.
+%
+% The repository does not keep WordNet. The first query that needs it
+% downloads the release (10 MB) once and keeps it, as Prolog facts, in the
+% cache folder of le_ontology.pl (tmp/ontologies/, or $LE_ONTOLOGY_DIR).
+% Include this program as a resource, and use its templates like any others
+% (docs/user/reference/language.md §14.6).
+
+the target language is: prolog.
+
+the templates are:
+    *a name* is a kind of *a word* in WordNet at the distance *a number* through the sense *a sense*.
+    the first sense of *a name* under *a class* in WordNet is *a sense*.
+    the WordNet definition of *a sense* is *a text*.
+    the WordNet words of *a sense* are *a text*.
+
+the knowledge base wordnet includes:
+
+% A name (a word or a phrase, singular or plural) has a sense that is a
+% kind of a sense with the word, some links up; 0 links: the same sense.
+% A phrase that WordNet does not have is read by its longest ending that
+% WordNet has, one link further up ("chest bag" is a kind of "bag").
+a name is a kind of a word in WordNet at the distance a number through the sense a sense if
+    prolog le_ontology:wordnet_ancestor(the name, the word, the number, the sense).
+
+% The most frequent sense of a name that is a kind of the class: a rule
+% that reads a name in one domain ("footwear") uses that sense only.
+the first sense of a name under a class in WordNet is a sense if
+    prolog le_ontology:wordnet_first_sense(the name, the class, the sense).
+
+the WordNet definition of a sense is a text if
+    prolog le_ontology:wordnet_gloss(the sense, the text).
+
+the WordNet words of a sense are a text if
+    prolog le_ontology:wordnet_words(the sense, the text).
+
+query footwear is:
+    "women's slippers" is a kind of "footwear" in WordNet at the distance which number through the sense which sense.
+
+query first is:
+    the first sense of "loafers" under "footwear" in WordNet is which sense.
+
+query definition is:
+    the WordNet definition of "oewn-03614484-n" is which text.
+
+query words is:
+    the WordNet words of "oewn-02758842-n" are which text.
+
+scenario slippers is:
+    footwear expects answers [
+        "women's slippers is a kind of footwear in WordNet at the distance 2 through the sense oewn-03614484-n"
+    ].
+    first expects answers [
+        "the first sense of loafers under footwear in WordNet is oewn-03055354-n"
+    ].
+    definition expects answers [
+        "the WordNet definition of oewn-03614484-n is low footwear that can be slipped on and off easily; usually worn indoors"
+    ].
+    words expects answers [
+        "the WordNet words of oewn-02758842-n are footwear, footgear"
+    ].

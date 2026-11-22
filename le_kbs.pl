@@ -60,6 +60,7 @@
 :- use_module(le_services).
 :- use_module(le_flip).
 :- use_module(le_cases).
+:- use_module(le_ontology, []).   % published ontologies, fetched on demand; called qualified
 :- use_module(library(time)).      % call_with_time_limit/2; the WASM build substitutes wasm/shims/time.pl
 :- use_module(library(uuid)).
 :- use_module(le_machine).
@@ -93,10 +94,13 @@ language_examples_dir(Lang, Dir) :-
 %       services, flip queries, views), docs/user/reference/language.md §17;
 %     - examples/migration/: the twins the translators of other systems wrote
 %       (docs/dev/migration.md), one directory per source system;
+%     - examples/ontologies/: published ontologies as LE templates
+%       (WordNet; le_ontology.pl, language.md §14.6);
 %     - testing/fixtures/le/: the programs the test suites load, listed only
 %       to logged-in users (restricted_paths.pl).
 le_extra_examples_dir(regulatory, 'examples/regulatory').
 le_extra_examples_dir(migration, 'examples/migration').
+le_extra_examples_dir(ontologies, 'examples/ontologies').
 le_extra_examples_dir(fixtures, 'testing/fixtures/le').
 
 %!  le_private_examples_dir(?Name:atom, ?Dir:atom) is semidet.
@@ -1166,12 +1170,23 @@ local_resource_allowed(Abs, Base) :-
     ( is_url(Base) -> working_directory(BaseDir, BaseDir) ; BaseDir = Base ),
     (   sub_atom(Abs, 0, _, _, BaseDir)
     ->  true
+    ;   shipped_library_file(Abs)
+    ->  true
     ;   under_directory(Abs, BaseDir)
     ->  true
     ;   working_directory(CWD, CWD),
         sub_atom(Abs, 0, _, _, CWD),
         catch(restricted_paths:is_path_allowed(Abs, []), _, fail)
     ).
+
+%   shipped_library_file(+File): File is in one of LE2's own public
+%   libraries, which any program may include wherever it is: lib/ (§14.2)
+%   and the ontology layers of examples/ontologies/ (§14.6).
+shipped_library_file(File) :-
+    \+ is_url(File),
+    member(Rel, ['lib', 'examples/ontologies']),
+    absolute_file_name(le2(Rel), Dir, [file_type(directory), file_errors(fail)]),
+    under_directory(File, Dir), !.
 
 %   under_directory(+File, +Dir): File lies in Dir's tree, Dir and the
 %   file's folders compared as folders on disk, not as text. A program
