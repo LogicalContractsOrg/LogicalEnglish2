@@ -430,79 +430,6 @@ solve_real_actual(not(Goal), SM, KM, Anc, D, MyID, Us, [success(not(Goal), negat
         proof_record(success_in_not(GoalID, FailureTrees))
     ).
 
-%!  mark_assumed_open(+G) is det.
-%
-%   The variables still open in an assumed goal (the principal use of the
-%   good is a use) are values the answer assumes, not values a rule left
-%   unsaid: a first-match table then answers for each of its rows
-%   (le_tables.pl, assumed_open/1). The mark is an attribute that says
-%   nothing and survives unification.
-mark_assumed_open(G) :-
-    term_variables(G, Vs),
-    maplist(mark_open, Vs).   % (not forall/2: the marks must stay)
-
-mark_open(V) :- ( get_attr(V, reasoner, _) -> true ; put_attr(V, reasoner, assumed) ).
-
-%!  assumed_open(@V) is semidet.
-assumed_open(V) :- var(V), get_attr(V, reasoner, assumed).
-
-attr_unify_hook(_, _).
-attribute_goals(_) --> [].
-
-%!  conditional_negation(+Goal, +SM, +KM, +Anc, +D, +ID, -Us) is nondet.
-%
-%   Goal has a proof, and its first proof needed assumptions. The proofs of
-%   Goal (at most max_negation_proofs/1) each assume a set of facts; if one
-%   holds outright, Goal holds and this fails. Otherwise each answer Us
-%   denies one assumption of every proof (a minimal choice), each denial
-%   not(A) of a ground A. A variable still free in Goal is one that only the
-%   negation names ("an other heading"): any value will do, so the proofs
-%   may bind it. A proof that leaves an assumption with a variable in it
-%   cannot be denied fact by fact: the negation then fails, as it did before
-%   conditional negation.
-%   The flag le_conditional_negation (default true) turns this off.
-conditional_negation(Goal, SM, KM, Anc, D, ID, Us) :-
-    \+ current_prolog_flag(le_conditional_negation, false),
-    \+ exploring_cases(_),
-    max_negation_proofs(MaxP),
-    findall(Us0,
-            limit(MaxP, solve_real(Goal, SM, KM, Anc, D, ID, Us0, _)),
-            ProofsAll),
-    length(ProofsAll, NP), NP < MaxP,
-    %  What the answer has already assumed decides some proofs: a proof that
-    %  needs the contrary cannot hold in this answer, and a proof whose
-    %  assumptions the answer already makes holds in it.
-    branch_assumed(Assumed),
-    exclude(contradicts_branch(Assumed, KM), ProofsAll, Proofs0),
-    \+ ( member(Us1, Proofs0), held_by_branch(Assumed, Us1) ),
-    forall(member(Us1, Proofs0), ( Us1 \== [], ground(Us1) )),
-    findall(S, ( member(Us1, Proofs0), sort(Us1, S) ), Sets0),
-    sort(Sets0, Sets),
-    findall(Ds, hitting_set(Sets, [], Ds), Ds0),
-    sort(Ds0, Ds1),
-    exclude(has_smaller_set(Ds1), Ds1, Minimal),
-    member(Denied, Minimal),
-    findall(N, ( member(A, Denied), denial(A, N) ), Us).
-
-% to deny an assumed denial is to assume what it denied
-denial(not(A), A) :- !.
-denial(A, not(A)).
-
-max_negation_proofs(32).
-
-% one member of each set; a set already met by the choice is skipped
-hitting_set([], Acc, Ds) :- sort(Acc, Ds).
-hitting_set([S|Ss], Acc, Ds) :-
-    (   member(A, S), memberchk(A, Acc)
-    ->  hitting_set(Ss, Acc, Ds)
-    ;   member(A, S),
-        hitting_set(Ss, [A|Acc], Ds)
-    ).
-
-has_smaller_set(Sets, S) :-
-    member(S2, Sets), S2 \== S,
-    ord_subset(S2, S), !.
-
 % True
 solve_real_actual(true, _, _, _, _, _, [], []) :- !.
 
@@ -607,6 +534,79 @@ solve_real_actual(G, SM, KM, Anc, D, MyID, Us, Whys) :-
     ->  Us = [], Whys = [success(G, Ref, [])]
     ;   solve_literal(G, SM, KM, Anc, D, MyID, Us, Whys)
     ).
+
+%!  mark_assumed_open(+G) is det.
+%
+%   The variables still open in an assumed goal (the principal use of the
+%   good is a use) are values the answer assumes, not values a rule left
+%   unsaid: a first-match table then answers for each of its rows
+%   (le_tables.pl, assumed_open/1). The mark is an attribute that says
+%   nothing and survives unification.
+mark_assumed_open(G) :-
+    term_variables(G, Vs),
+    maplist(mark_open, Vs).   % (not forall/2: the marks must stay)
+
+mark_open(V) :- ( get_attr(V, reasoner, _) -> true ; put_attr(V, reasoner, assumed) ).
+
+%!  assumed_open(@V) is semidet.
+assumed_open(V) :- var(V), get_attr(V, reasoner, assumed).
+
+attr_unify_hook(_, _).
+attribute_goals(_) --> [].
+
+%!  conditional_negation(+Goal, +SM, +KM, +Anc, +D, +ID, -Us) is nondet.
+%
+%   Goal has a proof, and its first proof needed assumptions. The proofs of
+%   Goal (at most max_negation_proofs/1) each assume a set of facts; if one
+%   holds outright, Goal holds and this fails. Otherwise each answer Us
+%   denies one assumption of every proof (a minimal choice), each denial
+%   not(A) of a ground A. A variable still free in Goal is one that only the
+%   negation names ("an other heading"): any value will do, so the proofs
+%   may bind it. A proof that leaves an assumption with a variable in it
+%   cannot be denied fact by fact: the negation then fails, as it did before
+%   conditional negation.
+%   The flag le_conditional_negation (default true) turns this off.
+conditional_negation(Goal, SM, KM, Anc, D, ID, Us) :-
+    \+ current_prolog_flag(le_conditional_negation, false),
+    \+ exploring_cases(_),
+    max_negation_proofs(MaxP),
+    findall(Us0,
+            limit(MaxP, solve_real(Goal, SM, KM, Anc, D, ID, Us0, _)),
+            ProofsAll),
+    length(ProofsAll, NP), NP < MaxP,
+    %  What the answer has already assumed decides some proofs: a proof that
+    %  needs the contrary cannot hold in this answer, and a proof whose
+    %  assumptions the answer already makes holds in it.
+    branch_assumed(Assumed),
+    exclude(contradicts_branch(Assumed, KM), ProofsAll, Proofs0),
+    \+ ( member(Us1, Proofs0), held_by_branch(Assumed, Us1) ),
+    forall(member(Us1, Proofs0), ( Us1 \== [], ground(Us1) )),
+    findall(S, ( member(Us1, Proofs0), sort(Us1, S) ), Sets0),
+    sort(Sets0, Sets),
+    findall(Ds, hitting_set(Sets, [], Ds), Ds0),
+    sort(Ds0, Ds1),
+    exclude(has_smaller_set(Ds1), Ds1, Minimal),
+    member(Denied, Minimal),
+    findall(N, ( member(A, Denied), denial(A, N) ), Us).
+
+% to deny an assumed denial is to assume what it denied
+denial(not(A), A) :- !.
+denial(A, not(A)).
+
+max_negation_proofs(32).
+
+% one member of each set; a set already met by the choice is skipped
+hitting_set([], Acc, Ds) :- sort(Acc, Ds).
+hitting_set([S|Ss], Acc, Ds) :-
+    (   member(A, S), memberchk(A, Acc)
+    ->  hitting_set(Ss, Acc, Ds)
+    ;   member(A, S),
+        hitting_set(Ss, [A|Acc], Ds)
+    ).
+
+has_smaller_set(Sets, S) :-
+    member(S2, Sets), S2 \== S,
+    ord_subset(S2, S), !.
 
 stated_fact(G, SM, KM, MyID, Ref) :-
     current_scope(none),              % a scoped proof judges its evidence itself

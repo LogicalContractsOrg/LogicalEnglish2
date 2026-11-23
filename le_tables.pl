@@ -465,6 +465,26 @@ table_policy(first, _Name, Inputs, Output, Rows, RowId, RowRange) :-
     ),
     output_value(OutCell, Output).
 
+table_policy(all, _Name, Inputs, Output, Rows, RowId, RowRange) :-
+    member(_-RowId-Cells-RowRange, Rows),
+    append(InCells, [OutCell], Cells),
+    inputs_match(InCells, Inputs),
+    output_value(OutCell, Output).
+table_policy(unique, Name, Inputs, Output, Rows, RowId, RowRange) :-
+    findall(Id-Cells-Rg-Inputs,
+            ( member(_-Id-Cells-Rg, Rows),
+              append(InCells, [_], Cells),
+              inputs_match(InCells, Inputs) ),
+            Matches),
+    (   Matches = [_, _|_], ground(Inputs)
+    ->  findall(Id, member(Id-_-_-_, Matches), Ids),
+        throw(error(le_table_error(unique_violation(Name, Ids)),
+                    context(le_tables, 'unique match violated')))
+    ;   member(RowId-Cells-RowRange-Inputs, Matches),
+        last(Cells, OutCell),
+        output_value(OutCell, Output)
+    ).
+
 earlier_rows_excluded([], _).
 earlier_rows_excluded([_-_-Cells-_|Rows], Inputs) :-
     earlier_row_excluded(Cells, Inputs),
@@ -488,26 +508,6 @@ earlier_row_excluded(Cells, Inputs) :-
 
 cell_values(val(V), [V]).
 cell_values(oneof(Vs), Vs).
-table_policy(all, _Name, Inputs, Output, Rows, RowId, RowRange) :-
-    member(_-RowId-Cells-RowRange, Rows),
-    append(InCells, [OutCell], Cells),
-    inputs_match(InCells, Inputs),
-    output_value(OutCell, Output).
-table_policy(unique, Name, Inputs, Output, Rows, RowId, RowRange) :-
-    findall(Id-Cells-Rg-Inputs,
-            ( member(_-Id-Cells-Rg, Rows),
-              append(InCells, [_], Cells),
-              inputs_match(InCells, Inputs) ),
-            Matches),
-    (   Matches = [_, _|_], ground(Inputs)
-    ->  findall(Id, member(Id-_-_-_, Matches), Ids),
-        throw(error(le_table_error(unique_violation(Name, Ids)),
-                    context(le_tables, 'unique match violated')))
-    ;   member(RowId-Cells-RowRange-Inputs, Matches),
-        last(Cells, OutCell),
-        output_value(OutCell, Output)
-    ).
-
 % A condition cell needs its argument known; say which column when it is not.
 inputs_bound_or_values(Name, Columns, Inputs, Rows) :-
     length(Inputs, NI),
