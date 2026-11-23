@@ -1,0 +1,1050 @@
+% Chapter 91 of the tariff (Section XVIII): clocks and watches and parts
+% thereof — all fourteen headings (9101 to 9114) and their 48 six-digit
+% subheadings. A library: it includes chapter_42.le (and through it
+% chapter_64.le, chapter_71.le, chapter_39.le, section_xi.le and gri.le),
+% because the notes of Chapters 39, 42 and 71 send the articles of this
+% chapter out of those chapters, and because this chapter reads the metals
+% of Chapter 71; tariff.le includes it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 91 notes 1 to 4, Additional U.S.
+% notes 1 to 3, and the terms of the headings and subheadings
+% (https://hts.usitc.gov/). Chapter 91 has no subheading notes. The
+% subheadings are the six-digit HS ones. US Customs rulings say how the
+% notes are read: a case with a steel bezel or a steel back is not wholly of
+% precious metal (HQ 968150); a bracelet of steel inlaid with gold is of
+% metal clad with precious metal (HQ 965207); watch straps of any material
+% are of heading 9113 (HQ 951467, HQ H276954); a smart watch is no watch of
+% heading 9102 (HQ H260060).
+%
+% How the chapter is read. The facts of a good are what it is (its kind: a
+% wrist watch, an alarm clock, a watch movement, a watch strap, a dial...),
+% and the features the headings and subheadings name:
+%   G is electrically operated               (a quartz or a digital watch)
+%   G has a mechanical movement               (driven by a spring)
+%   G has automatic winding
+%   G has a mechanical display / an opto-electronic display
+%   G incorporates a stand                    (Additional U.S. note 1(a))
+%   G has a watch movement                    (a clock, heading 9103)
+%   G measures N mm in thickness / in width   (a movement, note 3)
+%   G is for a watch                          (a movement set, heading 9110)
+%   the case metal of W is M; the case of W is clad with M; the case of W
+%       has a part of M                       (a watch, note 2)
+% and for straps and cases the metal of Chapter 71 ("the metal of G is
+% stainless steel", "G is clad with gold"), "G is inlaid with gold", "G is
+% made of plastics" (Chapter 39), "G is wholly or mainly of leather".
+% The chapter then decides:
+%   WATCHES (9101, 9102): a timepiece for wearing or carrying on the person
+%   (Additional U.S. note 1(a)) with a case wholly of precious metal or of
+%   metal clad with precious metal is of 9101 (note 2); every other watch is
+%   of 9102. The subheadings read the form (wrist watch or other), the power
+%   (electrically operated or not), the display and automatic winding.
+%   CLOCKS (9103 to 9105): a clock with a watch movement is of 9103; a clock
+%   for a vehicle is of 9104; every other clock is of 9105, by its group
+%   (alarm clock, wall clock, other) and its power.
+%   APPARATUS (9106, 9107): time recorders, parking meters, time switches.
+%   MOVEMENTS (9108 to 9110): a watch movement (note 3: not over 12 mm thick
+%   and not over 50 mm wide), a clock movement (Additional U.S. note 1(d)),
+%   movement sets, incomplete and rough movements.
+%   CASES, STRAPS, PARTS (9111 to 9114): watch cases by their material,
+%   clock cases, watch straps by their material (precious metal, base metal,
+%   other), dials, plates and bridges, and the other parts.
+% Note 1 takes some goods out of the chapter: clock or watch glasses and
+% weights, watch chains, bearing balls, ball bearings; Additional U.S. note 3
+% takes batteries entered alone. Chapter 39 note 2(v) and Chapter 71 note
+% 3(l) send the articles of this chapter out of those chapters; Chapter 42
+% note 4 takes watch straps out of heading 4203 (all written below).
+% A smart watch is no watch of heading 9102 (HQ H260060): it is no article of
+% this chapter, and the claim that it belongs to heading 8517 is answered by
+% the office (gri.le).
+%
+% Not modelled: the lines below six digits (jewels, values, the material of
+% the strap of a watch); note 1(c) (parts of general use: section XV), 1(e)
+% and 1(g) (articles of chapters 84 and 85); note 4. A watch whose display
+% or power the facts do not state gets its heading but no subheading.
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter ninety-one goods.
+    *a family* is the family of heading *a heading*.
+    *a kind* is a kind that chapter ninety-one does not cover.
+    *a good* is an article of chapter ninety-one.
+    *a kind* is a kind of wrist watch.
+    *a kind* is a kind of alarm clock.
+    *a kind* is a kind of wall clock.
+    *a kind* is a kind of case part.
+    *a kind* is a kind of movement plate.
+    *a good* differs substantially from the watches of heading 9102.
+    *a good* is a watch.
+    *a good* is a clock.
+    *a good* incorporates a stand; undefined.
+    *a good* is electrically operated; undefined.
+    *a good* has a mechanical movement; undefined.
+    *a good* has automatic winding; undefined.
+    *a good* has a mechanical display; undefined.
+    *a good* has an opto-electronic display; undefined.
+    *a good* has a watch movement; undefined.
+    *a good* measures *a number* mm in thickness; undefined.
+    *a good* measures *a number* mm in width; undefined.
+    *a good* is for a watch; undefined.
+    *a good* is of watch size.
+    *a good* is of clock size.
+    *a good* is a watch movement.
+    *a good* is a clock movement.
+    the case metal of *a watch* is *a metal*; undefined.
+    the case of *a watch* is clad with *a metal*; undefined.
+    the case of *a watch* has a part of *a metal*; undefined.
+    *a watch* has a case of precious metal.
+    *a thing* is inlaid with *a metal*; undefined.
+    *a good* is entered with *a watch*; undefined.
+    *a thing* is of a material other than metal.
+    the material class of *a thing* is *a class*.
+    the timepiece form of *a good* is *a form*.
+    the power class of *a good* is *a power*.
+    the display class of *a good* is *a display*.
+    the winding class of *a good* is *a winding*.
+    the part class of *a good* in heading *a heading* is *a class*.
+    the subheading in heading *a heading* for the form *a form* with power *a power* with display *a display* with winding *a winding* is *a code* under table timepieces.
+    the subheading in heading *a heading* for the part class *a class* is *a code* under table timepiece parts.
+
+% ---------------------------------------------------------------------------
+% GRI 6 for the watches, the clocks and the movements (9101 to 9105, 9108,
+% 9109). First match: an "any" row is the series' "Other". The form is that
+% of a watch (wrist watch, other watch), of a clock (alarm, wall, other) or
+% "movement"; the power is electric or mechanical; the display is
+% mechanical, opto-electronic, combined (both) or unstated; the winding is
+% automatic or none. An electrically operated wrist watch or movement whose
+% display is unstated matches no row: its subheading is left open.
+% ---------------------------------------------------------------------------
+% the six-digit subheadings of the timepieces
+the table timepieces is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | form        | power      | display                       | winding   | code      | as stated in HTSUS Chapter 91
+    t1  | 9101    | wrist       | electric   | mechanical                    | any       | "9101.11" | "With mechanical display only: 9101.11"
+    t2  | 9101    | wrist       | electric   | opto-electronic or combined   | any       | "9101.19" | "Other: 9101.19"
+    t3  | 9101    | wrist       | mechanical | any                           | automatic | "9101.21" | "With automatic winding: 9101.21"
+    t4  | 9101    | wrist       | mechanical | any                           | any       | "9101.29" | "Other: 9101.29"
+    t5  | 9101    | other watch | electric   | any                           | any       | "9101.91" | "Electrically operated: 9101.91"
+    t6  | 9101    | other watch | mechanical | any                           | any       | "9101.99" | "Other: 9101.99"
+    t7  | 9102    | wrist       | electric   | mechanical                    | any       | "9102.11" | "With mechanical display only: 9102.11"
+    t8  | 9102    | wrist       | electric   | opto-electronic               | any       | "9102.12" | "With opto-electronic display only: 9102.12"
+    t9  | 9102    | wrist       | electric   | combined                      | any       | "9102.19" | "Other: 9102.19"
+    t10 | 9102    | wrist       | mechanical | any                           | automatic | "9102.21" | "With automatic winding: 9102.21"
+    t11 | 9102    | wrist       | mechanical | any                           | any       | "9102.29" | "Other: 9102.29"
+    t12 | 9102    | other watch | electric   | any                           | any       | "9102.91" | "Electrically operated: 9102.91"
+    t13 | 9102    | other watch | mechanical | any                           | any       | "9102.99" | "Other: 9102.99"
+    t14 | 9103    | any         | electric   | any                           | any       | "9103.10" | "Electrically operated: 9103.10"
+    t15 | 9103    | any         | mechanical | any                           | any       | "9103.90" | "9103.90.00"
+    t16 | 9105    | alarm       | electric   | any                           | any       | "9105.11" | "Alarm clocks: Electrically operated: 9105.11"
+    t17 | 9105    | alarm       | mechanical | any                           | any       | "9105.19" | "Other: 9105.19"
+    t18 | 9105    | wall        | electric   | any                           | any       | "9105.21" | "Wall clocks: Electrically operated: 9105.21"
+    t19 | 9105    | wall        | mechanical | any                           | any       | "9105.29" | "Other: 9105.29"
+    t20 | 9105    | other clock | electric   | any                           | any       | "9105.91" | "Electrically operated: 9105.91"
+    t21 | 9105    | other clock | mechanical | any                           | any       | "9105.99" | "Other: 9105.99"
+    t22 | 9108    | movement    | electric   | mechanical                    | any       | "9108.11" | "a mechanical display can be incorporated: 9108.11"
+    t23 | 9108    | movement    | electric   | opto-electronic               | any       | "9108.12" | "9108.12.00"
+    t24 | 9108    | movement    | electric   | combined                      | any       | "9108.19" | "Other: 9108.19"
+    t25 | 9108    | movement    | mechanical | any                           | automatic | "9108.20" | "With automatic winding: 9108.20"
+    t26 | 9108    | movement    | mechanical | any                           | any       | "9108.90" | "Other: 9108.90"
+    t27 | 9109    | movement    | electric   | any                           | any       | "9109.10" | "Electrically operated: 9109.10"
+    t28 | 9109    | movement    | mechanical | any                           | any       | "9109.90" | "Other: 9109.90"
+
+% ---------------------------------------------------------------------------
+% GRI 6 for the other headings (9104, 9106, 9107, 9110 to 9114): the class
+% of the good in its heading — its material, or what part it is.
+% ---------------------------------------------------------------------------
+% the six-digit subheadings of the apparatus, the movement sets, the cases,
+% the straps and the parts
+the table timepiece parts is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class                  | code      | as stated in HTSUS Chapter 91
+    p1  | 9104    | any                    | "9104.00" | "vessels: 9104.00"
+    p2  | 9106    | time recorder          | "9106.10" | "9106.10.00"
+    p3  | 9106    | any                    | "9106.90" | "Other: 9106.90"
+    p4  | 9107    | any                    | "9107.00" | "synchronous motor: 9107.00"
+    p5  | 9110    | movement set           | "9110.11" | "9110.11.00"
+    p6  | 9110    | incomplete movement    | "9110.12" | "9110.12.00"
+    p7  | 9110    | rough movement         | "9110.19" | "9110.19.00"
+    p8  | 9110    | any                    | "9110.90" | "Other: 9110.90"
+    p9  | 9111    | precious               | "9111.10" | "9111.10.00"
+    p10 | 9111    | base metal             | "9111.20" | "Cases of base metal, whether or not gold- or silver-plated: 9111.20"
+    p11 | 9111    | other                  | "9111.80" | "9111.80.00"
+    p12 | 9111    | part                   | "9111.90" | "Parts: 9111.90"
+    p13 | 9112    | case                   | "9112.20" | "Cases: 9112.20"
+    p14 | 9112    | part                   | "9112.90" | "9112.90.00"
+    p15 | 9113    | precious               | "9113.10" | "9113.10.00"
+    p16 | 9113    | base metal             | "9113.20" | "Of base metal, whether or not gold- or silver-plated: 9113.20"
+    p17 | 9113    | other                  | "9113.90" | "Other: 9113.90"
+    p18 | 9114    | dial                   | "9114.30" | "Dials: 9114.30"
+    p19 | 9114    | plate                  | "9114.40" | "Plates and bridges: 9114.40"
+    p20 | 9114    | any                    | "9114.90" | "Other: 9114.90"
+
+the knowledge base chapter 91 includes these resources:
+    chapter_42.
+
+the knowledge base chapter 91 includes:
+
+HTSUS Chapter 91 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2091#page=1".
+the text of HTSUS Chapter 91 is at "sources/hts/chapter_91.txt".
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039#page=1".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+HTSUS Chapter 42 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2042#page=1".
+the text of HTSUS Chapter 42 is at "sources/hts/chapter_42.txt".
+HTSUS Section XV is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2072#page=1".
+the text of HTSUS Section XV is at "sources/hts/section_xv.txt".
+the Wikipedia article Watch is published at "https://en.wikipedia.org/wiki/Watch".
+the text of the Wikipedia article Watch is at "sources/trade_usage/wikipedia_watch.txt".
+ruling HQ 968150 is published at "https://rulings.cbp.gov/ruling/968150".
+the text of ruling HQ 968150 is at "sources/cbp/968150.txt".
+ruling HQ 965207 is published at "https://rulings.cbp.gov/ruling/965207".
+the text of ruling HQ 965207 is at "sources/cbp/965207.txt".
+ruling HQ 951467 is published at "https://rulings.cbp.gov/ruling/951467".
+the text of ruling HQ 951467 is at "sources/cbp/951467.txt".
+ruling HQ H276954 is published at "https://rulings.cbp.gov/ruling/H276954".
+the text of ruling HQ H276954 is at "sources/cbp/H276954.txt".
+ruling HQ H260060 is published at "https://rulings.cbp.gov/ruling/H260060".
+the text of ruling HQ H260060 is at "sources/cbp/H260060.txt".
+ruling NY N170879 is published at "https://rulings.cbp.gov/ruling/N170879".
+the text of ruling NY N170879 is at "sources/cbp/N170879.txt".
+ruling NY N233953 is published at "https://rulings.cbp.gov/ruling/N233953".
+the text of ruling NY N233953 is at "sources/cbp/N233953.txt".
+ruling NY 884636 is published at "https://rulings.cbp.gov/ruling/884636".
+the text of ruling NY 884636 is at "sources/cbp/884636.txt".
+ruling NY N342931 is published at "https://rulings.cbp.gov/ruling/N342931".
+the text of ruling NY N342931 is at "sources/cbp/N342931.txt".
+ruling NY N172320 is published at "https://rulings.cbp.gov/ruling/N172320".
+the text of ruling NY N172320 is at "sources/cbp/N172320.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: the goods of the chapter's families.
+% ---------------------------------------------------------------------------
+
+% the model covers the clocks, the watches and their parts
+rule timepiece_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter ninety-one goods.
+
+watch is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches, including stop watches".
+clock is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Other clocks".
+vehicle clock is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Instrument panel clocks and clocks of a similar type for vehicles, aircraft, spacecraft or vessels".
+time apparatus is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Time of day recording apparatus and apparatus for measuring, recording or otherwise indicating intervals of time".
+time switch is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Time switches with clock or watch movement or with synchronous motor".
+movement is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Watch movements, complete and assembled".
+movement set is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Complete watch or clock movements, unassembled or partly assembled (movement sets)".
+watch case is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Watch cases and parts thereof".
+clock case is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Clock cases and cases of a similar type for other goods of this chapter, and parts thereof".
+watch strap is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets, and parts thereof".
+watch part is a family of chapter ninety-one goods,
+    as stated in HTSUS Chapter 91, confer "Other clock or watch parts".
+
+% the families that a heading names alone
+vehicle clock is the family of heading 9104,
+    as stated in HTSUS Chapter 91, confer "Instrument panel clocks and clocks of a similar type for vehicles, aircraft, spacecraft or vessels".
+time apparatus is the family of heading 9106,
+    as stated in HTSUS Chapter 91, confer "Time of day recording apparatus and apparatus for measuring, recording or otherwise indicating intervals of time".
+time switch is the family of heading 9107,
+    as stated in HTSUS Chapter 91, confer "Time switches with clock or watch movement or with synchronous motor".
+movement set is the family of heading 9110,
+    as stated in HTSUS Chapter 91, confer "Complete watch or clock movements, unassembled or partly assembled (movement sets); incomplete watch or clock movements, assembled; rough watch or clock movements".
+watch case is the family of heading 9111,
+    as stated in HTSUS Chapter 91, confer "Watch cases and parts thereof".
+clock case is the family of heading 9112,
+    as stated in HTSUS Chapter 91, confer "Clock cases and cases of a similar type for other goods of this chapter, and parts thereof".
+watch strap is the family of heading 9113,
+    as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets, and parts thereof".
+watch part is the family of heading 9114,
+    as stated in HTSUS Chapter 91, confer "Other clock or watch parts".
+
+% The kinds of the chapter's goods and their families: the tariff's own
+% words, and the words of the rulings
+wrist watch falls in the family watch, as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches, including stop watches".
+pocket watch falls in the family watch, as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches, including stop watches".
+stop watch falls in the family watch, as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches, including stop watches".
+watch head falls in the family watch, as stated in ruling HQ 968150, confer "“Watch head” is the industry term given to a watch sold without a strap, band, or bracelet".
+pendant watch falls in the family watch, as stated in ruling NY N233953, confer "The necklace watch is a gold-plated pendent watch".
+smart watch falls in the family watch, as stated in ruling HQ H260060, confer "wearable electronic device in the form of a wrist-watch".
+wrist watch is a kind of wrist watch, as stated in HTSUS Chapter 91, confer "Wrist watches, electrically operated, whether or not incorporating a stop watch facility".
+smart watch is a kind of wrist watch, as stated in ruling HQ H260060, confer "wearable electronic device in the form of a wrist-watch".
+
+clock falls in the family clock, as stated in HTSUS Chapter 91, confer "Other clocks".
+alarm clock falls in the family clock, as stated in HTSUS Chapter 91, confer "Alarm clocks".
+wall clock falls in the family clock, as stated in HTSUS Chapter 91, confer "Wall clocks".
+desk clock falls in the family clock, as stated in HTSUS Chapter 91, confer "Other clocks".
+table clock falls in the family clock, as stated in HTSUS Chapter 91, confer "Other clocks".
+alarm clock is a kind of alarm clock, as stated in HTSUS Chapter 91, confer "Alarm clocks".
+wall clock is a kind of wall clock, as stated in HTSUS Chapter 91, confer "Wall clocks".
+instrument panel clock falls in the family vehicle clock, as stated in HTSUS Chapter 91, confer "Instrument panel clocks and clocks of a similar type for vehicles".
+time recorder falls in the family time apparatus, as stated in HTSUS Chapter 91, confer "Time registers; time-recorders".
+time register falls in the family time apparatus, as stated in HTSUS Chapter 91, confer "Time registers; time-recorders".
+parking meter falls in the family time apparatus, as stated in HTSUS Chapter 91, confer "Parking meters".
+time switch falls in the family time switch, as stated in HTSUS Chapter 91, confer "Time switches with clock or watch movement or with synchronous motor".
+
+watch movement falls in the family movement, as stated in HTSUS Chapter 91, confer "Watch movements, complete and assembled".
+clock movement falls in the family movement, as stated in HTSUS Chapter 91, confer "Clock movements, complete and assembled".
+movement falls in the family movement, as stated in HTSUS Chapter 91, confer "the expression \"watch movements\" means devices regulated by a balance wheel and hairspring".
+movement set falls in the family movement set, as stated in HTSUS Chapter 91, confer "Complete movements, unassembled or partly assembled (movement sets)".
+incomplete movement falls in the family movement set, as stated in HTSUS Chapter 91, confer "Incomplete movements, assembled".
+rough movement falls in the family movement set, as stated in HTSUS Chapter 91, confer "Rough movements".
+
+watch case falls in the family watch case, as stated in HTSUS Chapter 91, confer "Watch cases and parts thereof".
+case back falls in the family watch case, as stated in HTSUS Chapter 91, confer "The term \"cases\" embraces inner and outer cases, containers and housings for movements, together with parts or pieces".
+case part falls in the family watch case, as stated in HTSUS Chapter 91, confer "The term \"cases\" embraces inner and outer cases, containers and housings for movements, together with parts or pieces".
+bezel falls in the family watch case, as stated in ruling HQ 968150, confer "Accordingly, the bezels are embraced in the definition of “cases” set forth in Additional U.S. Note 1(b)".
+spring bar falls in the family watch case, as stated in ruling HQ 951467, confer "the spring-bars are classifiable under 9111.90.70, HTSUS".
+case back is a kind of case part, as stated in HTSUS Chapter 91, confer "such as, but not limited to, rings, feet, posts, bases and outer frames".
+case part is a kind of case part, as stated in HTSUS Chapter 91, confer "together with parts or pieces".
+bezel is a kind of case part, as stated in ruling HQ 968150, confer "the bezels on the watches at issue are parts that “serve to complete” the watches at issue".
+spring bar is a kind of case part, as stated in ruling HQ 951467, confer "the spring-bars are classifiable under 9111.90.70, HTSUS".
+clock case falls in the family clock case, as stated in HTSUS Chapter 91, confer "Clock cases and cases of a similar type".
+clock case part falls in the family clock case, as stated in HTSUS Chapter 91, confer "Clock cases and cases of a similar type for other goods of this chapter, and parts thereof".
+clock case part is a kind of case part, as stated in HTSUS Chapter 91, confer "Clock cases and cases of a similar type for other goods of this chapter, and parts thereof".
+
+watch strap falls in the family watch strap, as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets, and parts thereof".
+watch band falls in the family watch strap, as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets, and parts thereof".
+watch bracelet falls in the family watch strap, as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets, and parts thereof".
+watch strap part falls in the family watch strap, as stated in ruling NY 884636, confer "is an unfinished part of a watch bracelet known in the trade as a \"stick.\"".
+
+dial falls in the family watch part, as stated in HTSUS Chapter 91, confer "Dials".
+watch hand falls in the family watch part, as stated in ruling NY N170879, confer "The applicable subheading for the watch hands and stems will be 9114.90.40".
+stem falls in the family watch part, as stated in ruling NY N170879, confer "The applicable subheading for the watch hands and stems will be 9114.90.40".
+crown falls in the family watch part, as stated in the Wikipedia article Watch, confer "a small knob, called the crown, that can be used to adjust the time and, in mechanical watches, wind the spring".
+watch plate falls in the family watch part, as stated in HTSUS Chapter 91, confer "Plates and bridges".
+bridge falls in the family watch part, as stated in HTSUS Chapter 91, confer "Plates and bridges".
+spring falls in the family watch part, as stated in HTSUS Chapter 91, confer "clock or watch springs are, however, to be classified as clock or watch parts (heading 9114)".
+hairspring falls in the family watch part, as stated in HTSUS Chapter 91, confer "Springs, including hairsprings".
+mainspring falls in the family watch part, as stated in HTSUS Chapter 91, confer "clock or watch springs are, however, to be classified as clock or watch parts (heading 9114)".
+watch jewel falls in the family watch part, as stated in HTSUS Chapter 91, confer "The term \"jewels\" includes substitutes for jewels".
+watch part falls in the family watch part, as stated in HTSUS Chapter 91, confer "Other clock or watch parts".
+clock part falls in the family watch part, as stated in HTSUS Chapter 91, confer "Other clock or watch parts".
+watch plate is a kind of movement plate, as stated in HTSUS Chapter 91, confer "Plates and bridges".
+bridge is a kind of movement plate, as stated in HTSUS Chapter 91, confer "Plates and bridges".
+% the parts that note 1 names, so that note 1 can take them out
+watch glass falls in the family watch part, as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights".
+watch crystal falls in the family watch part, as stated in the Wikipedia article Watch, confer "The crystal, also called the window or watch glass, is the transparent part of the case".
+clock glass falls in the family watch part, as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights".
+clock weight falls in the family watch part, as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights".
+watch battery falls in the family watch part, as stated in HTSUS Chapter 91, confer "Batteries entered with battery powered watches or clocks".
+
+% ---------------------------------------------------------------------------
+% Note 1: what the chapter does not cover. Additional U.S. note 3: a
+% battery entered alone.
+% ---------------------------------------------------------------------------
+watch glass is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights (classified according to their constituent material)".
+watch crystal is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights (classified according to their constituent material)".
+clock glass is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights (classified according to their constituent material)".
+clock weight is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Clock or watch glasses or weights (classified according to their constituent material)".
+watch chain is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Watch chains (heading 7113 or 7117, as the case may be)".
+bearing ball is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Bearing balls (heading 7326 or 8482, as the case may be)".
+ball bearing is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Ball bearings (heading 8482)".
+watch battery is a kind that chapter ninety-one does not cover,
+    as stated in HTSUS Chapter 91, confer "Batteries are otherwise classifiable in heading 8506 or 8507, whether or not suitable for use with watches or clocks".
+
+% An article of the chapter: a good of one of its families, which note 1
+% does not take out. A set or a composite good that names no kind of its
+% own has the family of the component that gives it its essential
+% character (gri.le).
+rule note_91_1 with provenance HTSUS Chapter 91, confer "This chapter does not cover":
+a good is an article of chapter ninety-one
+    if the family of the good is a family
+    and the family is a family of chapter ninety-one goods
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is a kind that chapter ninety-one does not cover.
+
+% Additional U.S. note 1(a): a watch is a timepiece for wearing or carrying
+% on the person; a timepiece with a stand is no watch. A smart watch is no
+% watch of heading 9102 (HQ H260060, below).
+rule us_note_91_1a with provenance HTSUS Chapter 91,
+        confer "The term \"watches\" embraces timepieces (including timepieces having special features, such as chronographs, calendar watches and watches designed for use in skin diving) of a kind for wearing or carrying on the person":
+a good is a watch
+    if the good is an article of chapter ninety-one
+    and the family of the good is watch
+    and it is not the case that
+        the good incorporates a stand
+    and it is not the case that
+        the good differs substantially from the watches of heading 9102.
+
+rule us_note_91_1a_stand with provenance HTSUS Chapter 91,
+        confer "Timepieces incorporating a stand, however simple, are not classifiable as watches":
+a good is a clock
+    if the good is an article of chapter ninety-one
+    and the family of the good is watch
+    and the good incorporates a stand.
+
+rule clock_family with provenance HTSUS Chapter 91, confer "Other clocks":
+a good is a clock
+    if the good is an article of chapter ninety-one
+    and the family of the good is clock.
+
+% A smart watch: a wearable electronic device in the form of a wrist watch
+% whose principal design is to display, manipulate and store data. CBP
+% finds that it differs substantially from the watches of heading 9102 and
+% classifies it in heading 8517 (HQ H260060; also HQ H257947, HQ H273382).
+% A quartz watch with an activity tracker stays a watch (HQ H271909): its
+% kind is wrist watch, not smart watch.
+rule smart_watch with provenance ruling HQ H260060,
+        confer "Accordingly, CBP finds that the Apple Watch substantially differs from the articles described by heading 9102, HTSUS, and cannot be classified under the heading by application of GRI 1":
+a good differs substantially from the watches of heading 9102
+    if the kind of the good is smart watch.
+
+% ---------------------------------------------------------------------------
+% The case of a watch (note 2). A case wholly of precious metal or of metal
+% clad with precious metal, with or without pearls or stones; plating is no
+% precious metal (Chapter 71 note 6). A case with a part of base metal (a
+% steel back, a steel bezel) is not wholly of precious metal (HQ 968150,
+% quoting the Explanatory Note), nor is a case of base metal inlaid with
+% precious metal.
+% ---------------------------------------------------------------------------
+rule note_91_2_metal with provenance HTSUS Chapter 91,
+        confer "Heading 9101 covers only watches with case wholly of precious metal or of metal clad with precious metal":
+a watch has a case of precious metal
+    if the case metal of the watch is a metal
+    and the metal is a precious metal of the group a group
+    and it is not the case that
+        the case of the watch has a part of an other metal
+        and the other metal is a base metal.
+
+rule note_91_2_clad with provenance HTSUS Chapter 91,
+        confer "Heading 9101 covers only watches with case wholly of precious metal or of metal clad with precious metal":
+a watch has a case of precious metal
+    if the case of the watch is clad with a metal
+    and the metal is a precious metal of the group a group
+    and it is not the case that
+        the case of the watch has a part of an other metal
+        and the other metal is a base metal.
+
+% a ruling that names only "a base metal" (NY N170879: "watch cases of base
+% metal")
+base metal is a base metal,
+    as stated in HTSUS Section XV, confer "the expression \"base metals\" means".
+
+% ---------------------------------------------------------------------------
+% Movements. Note 3: a watch movement does not exceed 12 mm in thickness
+% and 50 mm in width, length or diameter; Additional U.S. note 1(d): a
+% clock movement exceeds one of them.
+% ---------------------------------------------------------------------------
+rule note_91_3 with provenance HTSUS Chapter 91,
+        confer "Such watch movements shall not exceed 12 mm in thickness and 50 mm in width, length or diameter":
+a good is of watch size
+    if the good measures a number mm in thickness
+    and the number =< 12
+    and the good measures an other number mm in width
+    and the other number =< 50.
+
+rule us_note_91_1d_thickness with provenance HTSUS Chapter 91,
+        confer "Such clock movements shall either exceed 12 mm in thickness or 50 mm in width, length or diameter, or both":
+a good is of clock size
+    if the good measures a number mm in thickness
+    and the number > 12.
+
+rule us_note_91_1d_width with provenance HTSUS Chapter 91,
+        confer "Such clock movements shall either exceed 12 mm in thickness or 50 mm in width, length or diameter, or both":
+a good is of clock size
+    if the good measures a number mm in width
+    and the number > 50.
+
+rule watch_movement_kind with provenance HTSUS Chapter 91, confer "Watch movements, complete and assembled":
+a good is a watch movement
+    if the kind of the good is watch movement.
+
+rule watch_movement_size with provenance HTSUS Chapter 91,
+        confer "the expression \"watch movements\" means devices regulated by a balance wheel and hairspring, quartz crystal or any other system capable of determining intervals of time":
+a good is a watch movement
+    if the kind of the good is movement
+    and the good is of watch size.
+
+rule clock_movement_kind with provenance HTSUS Chapter 91, confer "Clock movements, complete and assembled":
+a good is a clock movement
+    if the kind of the good is clock movement.
+
+rule clock_movement_size with provenance HTSUS Chapter 91,
+        confer "The term \"clock movements\" means devices regulated by a balance wheel and hairspring, quartz crystal or any other system capable of determining intervals of time":
+a good is a clock movement
+    if the kind of the good is movement
+    and the good is of clock size.
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1).
+% ---------------------------------------------------------------------------
+
+% heading 9101: watches with a case of precious metal (note 2)
+rule heading_9101 with provenance HTSUS Chapter 91,
+        confer "Wrist watches, pocket watches and other watches, including stop watches, with case of precious metal or of metal clad with precious metal":
+a good is described by heading 9101
+    if the good is a watch
+    and the good is classified as consisting of a component
+    and the component has a case of precious metal.
+
+% heading 9102: every other watch
+rule heading_9102 with provenance HTSUS Chapter 91,
+        confer "Wrist watches, pocket watches and other watches, including stop watches, other than those of heading 9101":
+a good is described by heading 9102
+    if the good is a watch
+    and the good is classified as consisting of a component
+    and it is not the case that
+        the component has a case of precious metal.
+
+% heading 9103: clocks with watch movements; heading 9105: other clocks
+rule heading_9103 with provenance HTSUS Chapter 91,
+        confer "Clocks with watch movements, excluding clocks of heading 9104":
+a good is described by heading 9103
+    if the good is a clock
+    and the good is classified as consisting of a component
+    and the component has a watch movement.
+
+rule heading_9105 with provenance HTSUS Chapter 91, confer "Other clocks":
+a good is described by heading 9105
+    if the good is a clock
+    and the good is classified as consisting of a component
+    and it is not the case that
+        the component has a watch movement.
+
+% headings 9108 and 9109: movements, complete and assembled
+rule heading_9108 with provenance HTSUS Chapter 91, confer "Watch movements, complete and assembled":
+a good is described by heading 9108
+    if the good is an article of chapter ninety-one
+    and the good is classified as consisting of a component
+    and the component is a watch movement.
+
+rule heading_9109 with provenance HTSUS Chapter 91, confer "Clock movements, complete and assembled":
+a good is described by heading 9109
+    if the good is an article of chapter ninety-one
+    and the good is classified as consisting of a component
+    and the component is a clock movement.
+
+% headings 9104, 9106, 9107, 9110 to 9114: the family the heading names
+rule heading_by_family with provenance HTSUS Chapter 91, confer "CLOCKS AND WATCHES AND PARTS THEREOF":
+a good is described by heading a heading
+    if the good is an article of chapter ninety-one
+    and the family of the good is a family
+    and the family is the family of heading the heading.
+
+% Additional U.S. note 2: a strap, band or bracelet entered with a wrist
+% watch, of a kind normally sold with it, is classified with the watch in
+% heading 9101 or 9102 (the tariff gives it its own lines there, below six
+% digits: NY N248589, 9102.12.40); otherwise it is of heading 9113 (NY
+% N342931: a box set of a watch and an additional strap, 9102.11).
+rule us_note_91_2 with provenance HTSUS Chapter 91,
+        confer "Watch straps, watch bands and watch bracelets entered with wrist watches and of a kind normally sold therewith, whether or not attached, are classified with the watch in heading 9101 or 9102":
+a good is described by heading a heading
+    if the good is entered with a watch
+    and the family of the good is watch strap
+    and the heading is in [9101, 9102]
+    and the watch is described by heading the heading.
+
+rule us_note_91_2_otherwise with provenance HTSUS Chapter 91,
+        confer "Otherwise, watch straps, watch bands and watch bracelets shall be classified in heading 9113":
+a good is excluded from heading 9113
+    if the good is entered with a watch
+    and the watch is a watch.
+
+% ---------------------------------------------------------------------------
+% Exclusions from other chapters.
+% ---------------------------------------------------------------------------
+
+% Chapter 39 note 2(v): articles of Chapter 91 (clock or watch cases) are
+% not of Chapter 39
+rule note_39_2v with provenance HTSUS Section VII and Chapter 39,
+        confer "Articles of chapter 91 (for example, clock or watch cases)":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the other heading is in [9101, 9102, 9103, 9104, 9105, 9106, 9107, 9108, 9109, 9110, 9111, 9112, 9113, 9114]
+    and the good is described by heading the other heading.
+
+% Chapter 71 note 3(l): clocks and watches are not of Chapter 71
+rule note_71_3l with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles of chapter 90, 91 or 92 (scientific instruments, clocks and watches, musical instruments)":
+a good is excluded from heading a heading
+    if the heading >= 7101
+    and the heading <= 7118
+    and the other heading is in [9101, 9102, 9103, 9104, 9105, 9106, 9107, 9108, 9109, 9110, 9111, 9112, 9113, 9114]
+    and the good is described by heading the other heading.
+
+% Chapter 42 note 4: watch straps are no clothing accessories of heading
+% 4203
+rule note_42_4 with provenance HTSUS Chapter 42,
+        confer "wrist straps, but excluding watch straps (heading 9113)":
+a good is excluded from heading 4203
+    if the good is described by heading 9113.
+
+% GRI 3(a): heading 4205 ("Other articles of leather") is a general
+% description; a watch case, a clock case, a watch strap or a watch part of
+% leather is named by its own heading (HQ 951467: leather watch straps,
+% 9113.90)
+rule gri_3a_4205 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading a heading is more specific than heading 4205
+    if the heading is in [9111, 9112, 9113, 9114].
+
+% ---------------------------------------------------------------------------
+% GRI 6: what the subheadings read.
+% ---------------------------------------------------------------------------
+
+rule timepiece_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [9101, 9102, 9103, 9105, 9108, 9109]
+    and the good is classified as consisting of a component
+    and the timepiece form of the component is a form
+    and the power class of the component is a power
+    and the display class of the component is a display
+    and the winding class of the component is a winding
+    and the subheading in heading the heading for the form the form with power the power with display the display with winding the winding is the code under table timepieces.
+
+% the subheading of a strap entered with a watch is the watch's
+rule us_note_91_2_subheading with provenance HTSUS Chapter 91,
+        confer "are classified with the watch in heading 9101 or 9102":
+the subheading of a good in heading a heading is a code
+    if the good is entered with a watch
+    and the heading is in [9101, 9102]
+    and the subheading of the watch in heading the heading is the code.
+
+rule timepiece_part_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [9104, 9106, 9107, 9110, 9111, 9112, 9113, 9114]
+    and the part class of the good in heading the heading is a class
+    and the subheading in heading the heading for the part class the class is the code under table timepiece parts.
+
+% The form: of a watch, wrist watch or other (a pocket watch, a pendant
+% watch); of a clock, its group; of a movement
+rule form_wrist with provenance HTSUS Chapter 91,
+        confer "Wrist watches, electrically operated, whether or not incorporating a stop watch facility":
+the timepiece form of a good is wrist
+    if the good is a watch
+    and the kind of the good is a kind
+    and the kind is a kind of wrist watch.
+
+rule form_other_watch with provenance HTSUS Chapter 91, confer "Other: Electrically operated: 9101.91":
+the timepiece form of a good is other watch
+    if the good is a watch
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is a kind of wrist watch.
+
+rule form_alarm with provenance HTSUS Chapter 91, confer "Alarm clocks":
+the timepiece form of a good is alarm
+    if the good is a clock
+    and the kind of the good is a kind
+    and the kind is a kind of alarm clock.
+
+rule form_wall with provenance HTSUS Chapter 91, confer "Wall clocks":
+the timepiece form of a good is wall
+    if the good is a clock
+    and the kind of the good is a kind
+    and the kind is a kind of wall clock.
+
+rule form_other_clock with provenance HTSUS Chapter 91, confer "Other clocks":
+the timepiece form of a good is other clock
+    if the good is a clock
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is a kind of alarm clock
+    and it is not the case that
+        the kind of the good is an other kind
+        and the other kind is a kind of wall clock.
+
+rule form_movement with provenance HTSUS Chapter 91, confer "Watch movements, complete and assembled":
+the timepiece form of a good is movement
+    if the family of the good is movement.
+
+% The power: electrically operated (a battery powered quartz movement, NY
+% N172320), or mechanical (driven by a spring)
+rule power_electric with provenance ruling NY N172320,
+        confer "which provides for other clocks: alarm clocks: electrically operated: other":
+the power class of a good is electric
+    if the good is electrically operated.
+
+rule power_mechanical with provenance HTSUS Chapter 91, confer "Other wrist watches, whether or not incorporating a stop watch facility":
+the power class of a good is mechanical
+    if the good has a mechanical movement
+    and it is not the case that
+        the good is electrically operated.
+
+% The display: mechanical (hands) or opto-electronic (digital), or both
+rule display_mechanical with provenance HTSUS Chapter 91, confer "With mechanical display only":
+the display class of a good is mechanical
+    if the good has a mechanical display
+    and it is not the case that
+        the good has an opto-electronic display.
+
+rule display_opto with provenance HTSUS Chapter 91, confer "With opto-electronic display only":
+the display class of a good is opto-electronic
+    if the good has an opto-electronic display
+    and it is not the case that
+        the good has a mechanical display.
+
+rule display_combined with provenance HTSUS Chapter 91, confer "Other: 9102.19":
+the display class of a good is combined
+    if the good has a mechanical display
+    and the good has an opto-electronic display.
+
+% a device of this model, with no provenance: a display the facts do not
+% state, which only the rows that do not read the display accept
+rule display_unstated:
+the display class of a good is unstated
+    if the family of the good is a family
+    and it is not the case that
+        the good has a mechanical display
+    and it is not the case that
+        the good has an opto-electronic display.
+
+rule winding_automatic with provenance HTSUS Chapter 91, confer "With automatic winding":
+the winding class of a good is automatic
+    if the good has automatic winding.
+
+rule winding_none with provenance HTSUS Chapter 91, confer "Other: 9102.29":
+the winding class of a good is none
+    if the family of the good is a family
+    and it is not the case that
+        the good has automatic winding.
+
+% The material of a case or a strap: what the good is classified as
+% consisting of (GRI 3(b); HQ 951467: a leather strap with spring bars is
+% classified by the strap). Precious metal or metal clad with precious
+% metal beyond minor constituents (Chapter 71 notes 2(a), 4, 5, 7); base
+% metal, whether or not plated; or another material, which the facts must
+% name.
+rule material_precious with provenance HTSUS Chapter 91,
+        confer "Of precious metal or of metal clad with precious metal":
+the material class of a thing is precious
+    if the thing is classified as consisting of a component
+    and the component contains precious metal beyond minor constituents.
+
+rule material_base_metal with provenance HTSUS Chapter 91,
+        confer "Of base metal, whether or not gold- or silver-plated":
+the material class of a thing is base metal
+    if the thing is classified as consisting of a component
+    and the component is of base metal
+    and it is not the case that
+        the component contains precious metal beyond minor constituents.
+
+rule material_other with provenance ruling HQ H276954,
+        confer "Watch straps, watch bands and watch bracelets may be of any material, for example, base metal, precious metal, leather, plastics or textile material":
+the material class of a thing is other
+    if the thing is classified as consisting of a component
+    and the component is of a material other than metal
+    and it is not the case that
+        the component contains precious metal beyond minor constituents
+    and it is not the case that
+        the component is of base metal.
+
+rule other_material_plastics with provenance ruling HQ H276954,
+        confer "the Modal and Modal Sports bands of bovine leather and plastic, respectively, are classified in subheading 9113.90.80":
+a thing is of a material other than metal
+    if the thing is of plastics.
+
+rule other_material_named with provenance ruling HQ H276954,
+        confer "the Modal and Modal Sports bands of bovine leather and plastic, respectively, are classified in subheading 9113.90.80":
+a thing is of a material other than metal
+    if the thing is wholly or mainly of a material.
+
+rule other_material_listing with provenance ruling HQ H276954,
+        confer "the Modal and Modal Sports bands of bovine leather and plastic, respectively, are classified in subheading 9113.90.80":
+a thing is of a material other than metal
+    if the thing names only materials other than metal.
+
+% Chapter 71 note 7: base metal inlaid with precious metal is metal clad
+% with precious metal, except where the context requires otherwise (note 2
+% to this chapter, for the case of a watch). A steel bracelet inlaid with
+% gold is of 9113.10 (HQ 965207).
+rule note_71_7_inlaid with provenance HTSUS Section XIV and Chapter 71,
+        confer "Except where the context otherwise requires, the expression also covers base metal inlaid with precious metal":
+a thing is of metal clad with precious metal
+    if the thing is inlaid with a metal
+    and the metal is a precious metal of the group a group.
+
+% The class of a good in its heading
+rule class_9104 with provenance HTSUS Chapter 91, confer "vessels: 9104.00":
+the part class of a good in heading 9104 is any
+    if the family of the good is vehicle clock.
+
+rule class_9106_recorder with provenance HTSUS Chapter 91, confer "Time registers; time-recorders":
+the part class of a good in heading 9106 is time recorder
+    if the kind of the good is a kind
+    and the kind is in [time recorder, time register].
+
+rule class_9106_other with provenance HTSUS Chapter 91, confer "Other: 9106.90":
+the part class of a good in heading 9106 is other
+    if the family of the good is time apparatus
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is in [time recorder, time register].
+
+rule class_9107 with provenance HTSUS Chapter 91, confer "synchronous motor: 9107.00":
+the part class of a good in heading 9107 is any
+    if the family of the good is time switch.
+
+% heading 9110: of watches (for a watch, or of the size of a watch
+% movement), the three kinds of sets; otherwise "Other"
+rule class_9110_watch with provenance HTSUS Chapter 91, confer "Of watches":
+the part class of a good in heading 9110 is a kind
+    if the kind of the good is the kind
+    and the good is for a watch
+    and the kind is in [movement set, incomplete movement, rough movement].
+
+rule class_9110_watch_size with provenance HTSUS Chapter 91, confer "Of watches":
+the part class of a good in heading 9110 is a kind
+    if the kind of the good is the kind
+    and the good is of watch size
+    and it is not the case that
+        the good is for a watch
+    and the kind is in [movement set, incomplete movement, rough movement].
+
+rule class_9110_other with provenance HTSUS Chapter 91, confer "Other: 9110.90":
+the part class of a good in heading 9110 is other
+    if the family of the good is movement set
+    and it is not the case that
+        the good is for a watch
+    and it is not the case that
+        the good is of watch size.
+
+% heading 9111: cases by their material; parts of cases
+rule class_9111_case with provenance HTSUS Chapter 91, confer "Watch cases and parts thereof":
+the part class of a good in heading 9111 is a class
+    if the kind of the good is watch case
+    and the material class of the good is the class.
+
+rule class_9111_part with provenance HTSUS Chapter 91, confer "Parts: 9111.90":
+the part class of a good in heading 9111 is part
+    if the kind of the good is a kind
+    and the kind is a kind of case part.
+
+rule class_9112_case with provenance HTSUS Chapter 91, confer "Cases: 9112.20":
+the part class of a good in heading 9112 is case
+    if the kind of the good is clock case.
+
+rule class_9112_part with provenance HTSUS Chapter 91, confer "9112.90.00":
+the part class of a good in heading 9112 is part
+    if the kind of the good is a kind
+    and the kind is a kind of case part.
+
+% heading 9113: straps, bands and bracelets and their parts, by material
+rule class_9113 with provenance HTSUS Chapter 91,
+        confer "Watch straps, watch bands and watch bracelets, and parts thereof":
+the part class of a good in heading 9113 is a class
+    if the material class of the good is the class.
+
+% heading 9114: dials, plates and bridges, the other parts
+rule class_9114_dial with provenance HTSUS Chapter 91, confer "Dials: 9114.30":
+the part class of a good in heading 9114 is dial
+    if the kind of the good is dial.
+
+rule class_9114_plate with provenance HTSUS Chapter 91, confer "Plates and bridges: 9114.40":
+the part class of a good in heading 9114 is plate
+    if the kind of the good is a kind
+    and the kind is a kind of movement plate.
+
+rule class_9114_other with provenance HTSUS Chapter 91, confer "Other: 9114.90":
+the part class of a good in heading 9114 is other
+    if the family of the good is watch part
+    and it is not the case that
+        the kind of the good is dial
+    and it is not the case that
+        the kind of the good is a kind
+        and the kind is a kind of movement plate.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling or a listing.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+query unplaced is:
+    which good is not placed by the model.
+
+% Watches: the case (note 2), the form, the power, the display, the winding
+scenario watches is:
+    % a quartz wrist watch with a case of 18 karat gold
+    the kind of watch A is wrist watch.
+    watch A is electrically operated.
+    watch A has a mechanical display.
+    the case metal of watch A is gold alloy.
+    % a case of sterling silver with a steel bezel (HQ 968150) -> 9102
+    the kind of watch B is wrist watch.
+    watch B is electrically operated.
+    watch B has a mechanical display.
+    the case metal of watch B is silver alloy.
+    the case of watch B has a part of stainless steel.
+    % a gold-plated case with a stainless steel back (NY E83962) -> 9102.11
+    the kind of watch C is wrist watch.
+    watch C is electrically operated.
+    watch C has a mechanical display.
+    the case metal of watch C is brass.
+    % an LED watch (NY N248589) -> 9102.12
+    the kind of watch D is wrist watch.
+    watch D is electrically operated.
+    watch D has an opto-electronic display.
+    % hands and a digital display
+    the kind of watch E is wrist watch.
+    watch E is electrically operated.
+    watch E has a mechanical display.
+    watch E has an opto-electronic display.
+    % an automatic watch (NY N303322) -> 9102.21
+    the kind of watch F is wrist watch.
+    watch F has a mechanical movement.
+    watch F has automatic winding.
+    watch F has a mechanical display.
+    % a hand-wound watch with a gold case
+    the kind of watch G is wrist watch.
+    watch G has a mechanical movement.
+    watch G has a mechanical display.
+    the case metal of watch G is gold alloy.
+    % a quartz pendant watch (NY N233953) -> 9102.91
+    the kind of watch H is pendant watch.
+    watch H is electrically operated.
+    watch H has a mechanical display.
+    % a mechanical pocket watch with a case clad with gold
+    the kind of watch I is pocket watch.
+    watch I has a mechanical movement.
+    the case of watch I is clad with gold.
+    % a quartz watch whose display is not stated: the heading only
+    the kind of watch J is wrist watch.
+    watch J is electrically operated.
+    subheading expects answers ["the subheading of watch A is 9101.11", "the subheading of watch B is 9102.11", "the subheading of watch C is 9102.11", "the subheading of watch D is 9102.12", "the subheading of watch E is 9102.19", "the subheading of watch F is 9102.21", "the subheading of watch G is 9101.29", "the subheading of watch H is 9102.91", "the subheading of watch I is 9101.99"].
+    heading expects answers ["the heading of watch A is 9101", "the heading of watch B is 9102", "the heading of watch C is 9102", "the heading of watch D is 9102", "the heading of watch E is 9102", "the heading of watch F is 9102", "the heading of watch G is 9101", "the heading of watch H is 9102", "the heading of watch I is 9101", "the heading of watch J is 9102"].
+
+% Clocks and apparatus: a watch with a stand is a clock (Additional U.S.
+% note 1(a)); a clock with a watch movement is of 9103
+scenario clocks is:
+    the kind of clock A is alarm clock.
+    clock A is electrically operated.
+    the kind of clock B is wall clock.
+    clock B is electrically operated.
+    the kind of clock C is desk clock.
+    clock C has a mechanical movement.
+    the kind of clock D is table clock.
+    clock D is electrically operated.
+    clock D has a watch movement.
+    the kind of clock E is wrist watch.
+    clock E incorporates a stand.
+    clock E has a mechanical movement.
+    clock E has a watch movement.
+    the kind of clock F is instrument panel clock.
+    the kind of recorder G is time recorder.
+    the kind of meter H is parking meter.
+    the kind of switch I is time switch.
+    subheading expects answers ["the subheading of clock A is 9105.11", "the subheading of clock B is 9105.21", "the subheading of clock C is 9105.99", "the subheading of clock D is 9103.10", "the subheading of clock E is 9103.90", "the subheading of clock F is 9104.00", "the subheading of recorder G is 9106.10", "the subheading of meter H is 9106.90", "the subheading of switch I is 9107.00"].
+
+% Movements: by kind, or by size (note 3, Additional U.S. note 1(d)); sets
+scenario movements is:
+    % a quartz analog watch movement (NY 809582) -> 9108.11
+    the kind of movement A is watch movement.
+    movement A is electrically operated.
+    movement A has a mechanical display.
+    the kind of movement B is movement.
+    movement B measures 4.5 mm in thickness.
+    movement B measures 26 mm in width.
+    movement B has a mechanical movement.
+    movement B has automatic winding.
+    the kind of movement C is movement.
+    movement C measures 15 mm in thickness.
+    movement C measures 56 mm in width.
+    movement C is electrically operated.
+    the kind of set D is movement set.
+    set D is for a watch.
+    the kind of set E is rough movement.
+    set E measures 5 mm in thickness.
+    set E measures 30 mm in width.
+    the kind of set F is incomplete movement.
+    subheading expects answers ["the subheading of movement A is 9108.11", "the subheading of movement B is 9108.20", "the subheading of movement C is 9109.10", "the subheading of set D is 9110.11", "the subheading of set E is 9110.19", "the subheading of set F is 9110.90"].
+
+% Cases, straps and parts, by material and by kind
+scenario cases_straps_parts is:
+    the kind of case A is watch case.
+    the metal of case A is gold alloy.
+    the kind of case B is watch case.
+    the metal of case B is stainless steel.
+    the kind of case C is watch case.
+    case C is made of plastics.
+    the kind of bezel D is bezel.
+    the kind of case E is clock case.
+    the kind of strap F is watch bracelet.
+    the metal of strap F is stainless steel.
+    strap F is inlaid with gold.
+    the kind of strap G is watch bracelet.
+    the metal of strap G is stainless steel.
+    the kind of strap H is watch strap.
+    strap H is wholly or mainly of leather.
+    the kind of part I is dial.
+    the kind of part J is watch plate.
+    the kind of part K is watch hand.
+    subheading expects answers ["the subheading of case A is 9111.10", "the subheading of case B is 9111.20", "the subheading of case C is 9111.80", "the subheading of bezel D is 9111.90", "the subheading of case E is 9112.20", "the subheading of strap F is 9113.10", "the subheading of strap G is 9113.20", "the subheading of strap H is 9113.90", "the subheading of part I is 9114.30", "the subheading of part J is 9114.40", "the subheading of part K is 9114.90"].
+
+% The notes of other chapters: a strap of plastics is not of 3926 (Chapter
+% 39 note 2(v)); a strap of leather not of 4205 (GRI 3(a)); a case of gold
+% not of 7115 (Chapter 71 note 3(l)). Note 1 to this chapter: a watch
+% chain of gold stays in 7113; a watch glass is classified by its material,
+% which the model does not have.
+scenario other_chapters is:
+    the kind of strap A is watch band.
+    strap A is a manufactured article.
+    strap A is made of plastics.
+    the kind of strap B is watch strap.
+    strap B is a manufactured article.
+    strap B is wholly or mainly of leather.
+    the kind of case C is watch case.
+    case C is a manufactured article.
+    the metal of case C is gold alloy.
+    the kind of chain D is watch chain.
+    chain D is a manufactured article.
+    the metal of chain D is gold alloy.
+    the kind of glass E is watch glass.
+    glass E is a manufactured article.
+    subheading expects answers ["the subheading of strap A is 9113.90", "the subheading of strap B is 9113.90", "the subheading of case C is 9111.10", "the subheading of chain D is 7113.19"].
+    unplaced expects answers ["glass E is not placed by the model"].
+
+% A smart watch is no watch of heading 9102 (HQ H260060): no code of this
+% chapter. A strap entered with a watch is classified with the watch
+% (Additional U.S. note 2; NY N342931).
+scenario smart_and_sets is:
+    the kind of device A is smart watch.
+    device A is electrically operated.
+    device A has an opto-electronic display.
+    the kind of watch B is wrist watch.
+    watch B is electrically operated.
+    watch B has a mechanical display.
+    the case metal of watch B is stainless steel.
+    the kind of strap C is watch strap.
+    strap C is wholly or mainly of leather.
+    strap C is entered with watch B.
+    subheading expects answers ["the subheading of watch B is 9102.11", "the subheading of strap C is 9102.11"].

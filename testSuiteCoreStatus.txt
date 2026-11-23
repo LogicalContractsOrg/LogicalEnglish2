@@ -5,17 +5,17 @@ To gate CI, use the exit status of testing/run_tests.sh.
 Suite:      core (this repository alone; extension-dependent trees excluded)
 Command:    testing/run_tests.sh le   (or: runTests)
 Sibling:    testSuiteStatus.txt — all (core + trees requiring the proprietary le_extensions.pl)
-Generated:  2026-11-22 23:40:54 UTC
+Generated:  2026-11-23 12:35:46 UTC
 SWI-Prolog: 10.1.12
 Tree:       /work/
 
 Test Summary:
 -------------
-Files processed: 659
-Total tests:     7665
-Passed:          7665
+Files processed: 669
+Total tests:     7760
+Passed:          7757
 Failed:          0
-Errors/Timeouts: 0
+Errors/Timeouts: 3
 -------------
 
 Detailed File Summary:
@@ -132,18 +132,23 @@ Detailed File Summary:
   [PASS] examples/regulatory/customs/cbp_39.le: 45 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/cbp_61.le: 50 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/cbp_62.le: 30 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/cbp_91.le: 32 Pass, 0 Fail, 0 Error
   [NONE] examples/regulatory/customs/chapter_39.le: 0 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/chapter_42.le: 4 Pass, 0 Fail, 0 Error
   [NONE] examples/regulatory/customs/chapter_61.le: 0 Pass, 0 Fail, 0 Error
   [NONE] examples/regulatory/customs/chapter_62.le: 0 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/chapter_63.le: 9 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/chapter_64.le: 6 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/chapter_67.le: 3 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/chapter_71.le: 8 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/chapter_91.le: 8 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/chapter_95.le: 11 Pass, 0 Fail, 0 Error
   [NONE] examples/regulatory/customs/gri.le: 0 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/heldout_apparel_cbp.le: 11 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/heldout_cbp_2.le: 25 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/heldout_plastics_cbp.le: 5 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/marketplace.le: 8 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/outside_cbp.le: 9 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/plastics_cbp.le: 22 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/plastics_ebti.le: 4 Pass, 0 Fail, 0 Error
   [NONE] examples/regulatory/customs/section_xi.le: 0 Pass, 0 Fail, 0 Error
@@ -152,11 +157,16 @@ Detailed File Summary:
   [PASS] examples/regulatory/customs/background/footwear.le: 18 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/background/garments.le: 15 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/background/jewellery.le: 10 Pass, 0 Fail, 0 Error
-  [PASS] examples/regulatory/customs/background/listings.le: 8 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/background/listings.le: 9 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/background/materials.le: 7 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/background/outside.le: 5 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/background/presumptions.le: 11 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/background/textile_articles.le: 4 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/background/toys.le: 5 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/background/trade_usage.le: 5 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/customs/background/uses.le: 4 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/background/watch_usage.le: 1 Pass, 0 Fail, 0 Error
+  [PASS] examples/regulatory/customs/background/watches.le: 10 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/uk_civil_legal_aid_means/civil_legal_aid_means.le: 77 Pass, 0 Fail, 0 Error
   [PASS] examples/regulatory/medicaid_community_engagement/medicaid_community_engagement.le: 72 Pass, 0 Fail, 0 Error
   [NONE] examples/regulatory/medicaid_community_engagement/temporal.le: 0 Pass, 0 Fail, 0 Error
@@ -521,7 +531,7 @@ Detailed File Summary:
   [PASS] examples/migration/catala/prestations_familiales/prestations_familiales.le: 4 Pass, 0 Fail, 0 Error
   [PASS] examples/migration/catala/section_121/section_121.le: 6 Pass, 0 Fail, 0 Error
   [PASS] examples/migration/catala/apl_foyer/apl_foyer.le: 14 Pass, 0 Fail, 0 Error
-  [PASS] examples/migration/catala/apl_locatif/apl_locatif.le: 49 Pass, 0 Fail, 0 Error
+  [FAIL] examples/migration/catala/apl_locatif/apl_locatif.le: 46 Pass, 0 Fail, 3 Error
   [PASS] examples/migration/catala/al_locatif/al_locatif.le: 5 Pass, 0 Fail, 0 Error
   [NONE] examples/migration/catala/eligibilite_apl/eligibilite_apl.le: 0 Pass, 0 Fail, 0 Error
   [PASS] examples/migration/catala/bmaf/bmaf.le: 6 Pass, 0 Fail, 0 Error

@@ -1118,7 +1118,9 @@ for the translators). Thus a program and its libraries are in one directory.
   a number without a `.0` at the end, a date as 2026-10-15),
   `the text of *a value* is *a text*`, `the length of *a text* is *a number*`,
   `*a text* contains *a part*`, `*a text* ends with *a part*` (`starts with` is part
-  of LE itself, §7). The rule systems that the translators read make messages and
+  of LE itself, §7), `*a text* split at *a separator* has the part *a part*` (each
+  piece between two separators, without the spaces at its ends: the levels of a
+  shop's category "toys & hobbies > remote control toys", split at ">"). The rule systems that the translators read make messages and
   HTML in this way (in Oracle Intelligent Advisor: `"Feedback for " + the parent form`,
   `Contains(the screen, "&")`). Refer to
   `testing/fixtures/libraries/uses_text_maths_lists.le` (run by

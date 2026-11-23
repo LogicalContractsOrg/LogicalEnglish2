@@ -304,11 +304,15 @@ token_match(Idx, date(date(Y, M, D), loc(Idx, End)), End) -->
       End is Idx + Ly + Lm + Ld + 2 }.
 
 % Quoted String: "..."
+% A quotation mark inside the string is written \" and does not end it (a
+% passage that quotes a field, confer "the field \"Occasion: Christmas\""):
+% the string has the mark itself. Before, the string ended at the backslash,
+% the rest of the passage became words and punctuation, and a colon in it
+% ended a rule's label: the rule was lost without an error.
 token_match(Idx, doubleQuoteString(S, loc(Idx, End)), End) -->
     "\"", !,
-    string_until_ending("\"", Codes),
+    string_until_double_quote(Codes, L),
     { string_codes(S, Codes),
-      length(Codes, L),
       End is Idx + L + 2 }.
 
 % Quoted String: '...'
@@ -373,6 +377,12 @@ decimal_part(DecCode, Fraction) -->
 % --- Helpers ---
 
 % Match characters, consuming the delimiter
+%   The codes of a double-quoted string up to its closing mark, \" read as a
+%   mark; L is the number of codes in the program's text (with the backslashes).
+string_until_double_quote([], 0) --> "\"", !.
+string_until_double_quote([0'"|Cs], L) --> "\\\"", !, string_until_double_quote(Cs, L0), { L is L0 + 2 }.
+string_until_double_quote([C|Cs], L) --> [C], string_until_double_quote(Cs, L0), { L is L0 + 1 }.
+
 string_until_ending(Delimiter, []) --> Delimiter, !.
 string_until_ending(Delimiter, [C|Cs]) --> [C], string_until_ending(Delimiter, Cs).
 

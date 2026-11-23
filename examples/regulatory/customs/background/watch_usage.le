@@ -1,0 +1,66 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §5.4,
+% §6.1): trade usage for watches, stated by the authors. The rules for
+% which no text was found. A seller names a quartz watch or a mechanical
+% watch without saying how it shows the time; the subheadings of an
+% electrically operated wrist watch read the display (9102.11 hands, 9102.12
+% digits, 9102.19 both). The authors take the usual case:
+%   - a quartz wrist watch whose listing names no digital display has hands
+%     (a mechanical display);
+%   - a watch with a mechanical movement has hands.
+% A derived fact says "according to watch trade usage"; the listing and the
+% presumed readings leave it out (marketplace.le).
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* is named by the word *a name*.
+    *a name* is a word for electrically operated timepieces.
+    *a name* is a word for mechanical movements.
+    *a name* is a word for opto-electronic displays.
+    the kind of *a good* is *a kind*.
+    *a good* has a mechanical display.
+
+the knowledge base watch trade usage includes these resources:
+    watches.
+
+the knowledge base watch trade usage includes:
+
+the authors is published at "https://github.com/LogicalContractsOrg".
+
+rule quartz_watch_has_hands with provenance the authors:
+a good has a mechanical display
+    if the kind of the good is wrist watch
+    and the good is named by the word a name
+    and the name is a word for electrically operated timepieces
+    and it is not the case that
+        the good is named by the word an other name
+        and the other name is a word for opto-electronic displays.
+
+rule mechanical_watch_has_hands with provenance the authors:
+a good has a mechanical display
+    if the good is named by the word a name
+    and the name is a word for mechanical movements
+    and it is not the case that
+        the good is named by the word an other name
+        and the other name is a word for opto-electronic displays.
+
+% ---------------------------------------------------------------------------
+% Tests
+% ---------------------------------------------------------------------------
+
+query displays is:
+    which good has a mechanical display.
+
+scenario quartz_and_digital is:
+    watch 1 is called "quartz wristwatches".
+    watch 2 is called "quartz wristwatches".
+    watch 2 is called "digital".
+    watch 3 is called "automatic watch".
+    displays expects answers ["watch 1 has a mechanical display", "watch 3 has a mechanical display"].

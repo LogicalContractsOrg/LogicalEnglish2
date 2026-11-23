@@ -1,0 +1,1137 @@
+% Chapter 95 of the tariff (Section XX): toys, games and sports equipment;
+% parts and accessories thereof — all six headings (9503 to 9508) and their
+% 39 six-digit subheadings. A library: it includes chapter_42.le (and
+% through it chapter_64.le, chapter_71.le, chapter_39.le, section_xi.le and
+% gri.le), chapter_61.le, chapter_62.le and chapter_67.le, because those
+% chapters send the articles of Chapter 95 out of their headings (Chapter
+% 39 note 2(y), Chapter 42 note 2(l), Section XI note 1(t), Chapter 67
+% note 1(e), Chapter 71 note 3(n)), and because note 1 of this chapter
+% sends sports bags, apparel, footwear and gloves back to them. tariff.le
+% includes it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 95 notes 1 to 6, subheading note
+% 1, and the terms of the headings and subheadings (https://hts.usitc.gov/);
+% Section XX has no notes. The subheadings are the six-digit HS ones. The
+% EU Combined Nomenclature Explanatory Notes (CN EN) to Chapter 95 say what
+% a stuffed toy, a building block, a toy drone, a festive article and a
+% playing card are. US Customs rulings name the kinds of goods and show
+% how the notes are read.
+%
+% How the chapter is read. The facts of a good are its kind (a doll, a
+% puzzle, a yoga mat, a fishing reel...), and the features the notes and
+% the subheadings name:
+%   G is a part or accessory suitable for use solely or principally with K
+%       (note 3: classified with the article of kind K)
+%   G is marketed as a decoration for F   (heading 9505: a decoration made
+%       for a festivity F, such as Christmas, Halloween or a birthday)
+%   G is inflatable                       (subheading 9506.62)
+%   G is operated by coins or other means of payment    (subheading 9504.30)
+%   G has ice or roller skates attached   (subheading 9506.70; the template
+%       of chapter_64.le)
+% and the facts that take a good out of the chapter (note 1): it has a
+% utilitarian function, it is a part of general use, it is identifiable as
+% intended exclusively for animals (note 5), it is not principally designed
+% for amusement (a finding of the office), its kind is one that note 1
+% names. Each kind falls in a family: toy (9503), game (9504), festive
+% article (9505), sports equipment (9506), fishing tackle (9507),
+% fairground amusement (9508). Heading 9506 is residual: it covers only the
+% articles "not specified or included elsewhere in this chapter".
+%
+% Not modelled: the lines below six digits (the age bands of heading 9503,
+% the values of fishing reels); note 4 is read only through a judgment of
+% the office (the combination has the essential character of toys); note 6
+% (amusement park rides) is read through the kinds only; the goods of other
+% chapters that note 1 names (candles, fireworks, bicycles, drones that are
+% aircraft, radio remote controls, lighting strings...) are outside the
+% model: such a good is reported, not classified.
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter ninety-five goods.
+    *a kind* is a kind of the subheading class *a class*.
+    *a kind* is a kind of decoration.
+    *a kind* is a kind named by note 1 to chapter ninety-five.
+    *a good* is a part or accessory suitable for use solely or principally with *a kind*; undefined.
+    *a good* is marketed as a decoration for *a festivity*; undefined.
+    *a good* is inflatable; undefined.
+    *a good* is operated by coins or other means of payment; undefined.
+    *a good* has a utilitarian function; undefined.
+    *a good* is a part of general use; undefined.
+    *a good* is identifiable as intended exclusively for animals; undefined.
+    *a good* is not principally designed for amusement; undefined.
+    *a thing* has pearls or stones only as minor constituents; undefined.
+    *a good* is put up for retail sale; undefined.
+    *a good* is a combination put up for retail sale with items of other headings; undefined.
+    *a good* has the essential character of toys; judged.
+    *a good* is barred from heading *a heading*.
+    *a good* is a good of heading *a heading* of chapter ninety-five.
+    the subheading class of *a thing* is *a class*.
+    the inflation of *a thing* is *a state*.
+    the payment of *a thing* is *a means*.
+    the festivity of *a thing* is *a festivity*.
+    the chapter ninety-five code of *a thing* in heading *a heading* is *a code*.
+    the subheading in heading *a heading* for the class *a class* with inflation *a state* with payment *a means* with festivity *a festivity* is *a code* under table toys and sports.
+    the numerical order of *a code* is *a number* under table subheading order.
+
+% ---------------------------------------------------------------------------
+% GRI 6: the six-digit subheadings of headings 9503 to 9508. First match: a
+% row with "any" in the class is the heading's "Other". The columns are the
+% class of the article (from its kind, below), whether it is inflatable,
+% whether it is operated by coins or other means of payment, and the
+% festivity it is marketed for.
+% ---------------------------------------------------------------------------
+the table toys and sports is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | class                   | inflation  | payment | festivity | code      | as stated in HTSUS Chapter 95
+    s1  | 9503    | any                     | any        | any     | any       | "9503.00" | "9503.00.00"
+    s2  | 9504    | billiards               | any        | any     | any       | "9504.20" | "Articles and accessories for billiards of all kinds"
+    s3  | 9504    | any                     | any        | coins   | any       | "9504.30" | "Other games, operated by coins, banknotes, bank cards, tokens or by any other means of payment"
+    s4  | 9504    | playing cards           | any        | any     | any       | "9504.40" | "Playing cards"
+    s5  | 9504    | video game              | any        | any     | any       | "9504.50" | "Video game consoles and machines, other than those of subheading 9504.30, and parts and accessories thereof"
+    s6  | 9504    | any                     | any        | any     | any       | "9504.90" | "9504.90"
+    s7  | 9505    | any                     | any        | any     | Christmas | "9505.10" | "Articles for Christmas festivities and parts and accessories thereof"
+    s8  | 9505    | Christmas article       | any        | any     | any       | "9505.10" | "Articles for Christmas festivities and parts and accessories thereof"
+    s9  | 9505    | any                     | any        | any     | any       | "9505.90" | "9505.90"
+    s10 | 9506    | skis                    | any        | any     | any       | "9506.11" | "Skis and parts and accessories thereof, except ski poles"
+    s11 | 9506    | ski bindings            | any        | any     | any       | "9506.12" | "Ski bindings and parts and accessories thereof"
+    s12 | 9506    | snow-ski equipment      | any        | any     | any       | "9506.19" | "9506.19"
+    s13 | 9506    | sailboards              | any        | any     | any       | "9506.21" | "Sailboards and parts and accessories thereof"
+    s14 | 9506    | water-sport equipment   | any        | any     | any       | "9506.29" | "9506.29.00"
+    s15 | 9506    | golf clubs              | any        | any     | any       | "9506.31" | "Golf clubs, complete"
+    s16 | 9506    | golf balls              | any        | any     | any       | "9506.32" | "9506.32.00"
+    s17 | 9506    | golf equipment          | any        | any     | any       | "9506.39" | "9506.39.00"
+    s18 | 9506    | table-tennis equipment  | any        | any     | any       | "9506.40" | "Articles and equipment for table-tennis, and parts and accessories thereof"
+    s19 | 9506    | lawn-tennis rackets     | any        | any     | any       | "9506.51" | "Lawn-tennis rackets, whether or not strung, and parts and accessories thereof"
+    s20 | 9506    | rackets                 | any        | any     | any       | "9506.59" | "9506.59"
+    s21 | 9506    | lawn-tennis balls       | any        | any     | any       | "9506.61" | "9506.61.00"
+    s22 | 9506    | inflatable balls        | any        | any     | any       | "9506.62" | "Inflatable balls"
+    s23 | 9506    | balls                   | inflatable | any     | any       | "9506.62" | "Inflatable balls"
+    s24 | 9506    | balls                   | any        | any     | any       | "9506.69" | "9506.69"
+    s25 | 9506    | skates                  | any        | any     | any       | "9506.70" | "Ice skates and roller skates, including skating boots with skates attached"
+    s26 | 9506    | exercise equipment      | any        | any     | any       | "9506.91" | "Articles and equipment for general physical exercise, gymnastics or athletics; parts and accessories thereof"
+    s27 | 9506    | any                     | any        | any     | any       | "9506.99" | "9506.99"
+    s28 | 9507    | fishing rods            | any        | any     | any       | "9507.10" | "Fishing rods and parts and accessories thereof"
+    s29 | 9507    | fish hooks              | any        | any     | any       | "9507.20" | "Fish hooks, whether or not snelled"
+    s30 | 9507    | fishing reels           | any        | any     | any       | "9507.30" | "Fishing reels and parts and accessories thereof"
+    s31 | 9507    | any                     | any        | any     | any       | "9507.90" | "9507.90"
+    s32 | 9508    | circuses                | any        | any     | any       | "9508.10" | "Traveling circuses and traveling menageries"
+    s33 | 9508    | roller coasters         | any        | any     | any       | "9508.21" | "Roller coasters"
+    s34 | 9508    | carousels               | any        | any     | any       | "9508.22" | "Carousels, swings and roundabouts"
+    s35 | 9508    | bumper cars             | any        | any     | any       | "9508.23" | "9508.23.00"
+    s36 | 9508    | motion simulators       | any        | any     | any       | "9508.24" | "Motion simulators and moving theaters"
+    s37 | 9508    | water rides             | any        | any     | any       | "9508.25" | "Water rides"
+    s38 | 9508    | water park amusements   | any        | any     | any       | "9508.26" | "Water park amusements"
+    s39 | 9508    | amusement park rides    | any        | any     | any       | "9508.29" | "9508.29.00"
+    s40 | 9508    | fairground amusements   | any        | any     | any       | "9508.30" | "Fairground amusements"
+    s41 | 9508    | traveling theaters      | any        | any     | any       | "9508.40" | "Traveling theaters"
+
+% GRI 3(c) read at the level of the subheadings (GRI 6: "the foregoing
+% rules, mutatis mutandis"): of the subheadings that equally merit
+% consideration, the one that occurs last in numerical order
+the table subheading order is, with unique match, with provenance HTSUS General Rules of Interpretation,
+        confer "they shall be classified under the heading which occurs last in numerical order among those which equally merit consideration":
+    code      | number
+    "9503.00" | 950300
+    "9504.20" | 950420
+    "9504.30" | 950430
+    "9504.40" | 950440
+    "9504.50" | 950450
+    "9504.90" | 950490
+    "9505.10" | 950510
+    "9505.90" | 950590
+    "9506.11" | 950611
+    "9506.12" | 950612
+    "9506.19" | 950619
+    "9506.21" | 950621
+    "9506.29" | 950629
+    "9506.31" | 950631
+    "9506.32" | 950632
+    "9506.39" | 950639
+    "9506.40" | 950640
+    "9506.51" | 950651
+    "9506.59" | 950659
+    "9506.61" | 950661
+    "9506.62" | 950662
+    "9506.69" | 950669
+    "9506.70" | 950670
+    "9506.91" | 950691
+    "9506.99" | 950699
+    "9507.10" | 950710
+    "9507.20" | 950720
+    "9507.30" | 950730
+    "9507.90" | 950790
+    "9508.10" | 950810
+    "9508.21" | 950821
+    "9508.22" | 950822
+    "9508.23" | 950823
+    "9508.24" | 950824
+    "9508.25" | 950825
+    "9508.26" | 950826
+    "9508.29" | 950829
+    "9508.30" | 950830
+    "9508.40" | 950840
+
+the knowledge base chapter 95 includes these resources:
+    chapter_42, chapter_61, chapter_62, chapter_67.
+
+the knowledge base chapter 95 includes:
+
+HTSUS Chapter 95 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2095#page=1".
+the text of HTSUS Chapter 95 is at "sources/hts/chapter_95.txt".
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039#page=1".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+HTSUS Chapter 42 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2042#page=1".
+the text of HTSUS Chapter 42 is at "sources/hts/chapter_42.txt".
+HTSUS Section XI and Chapter 50 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2050#page=1".
+the text of HTSUS Section XI and Chapter 50 is at "sources/hts/chapter_50.txt".
+HTSUS Chapter 67 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2067#page=1".
+the text of HTSUS Chapter 67 is at "sources/hts/chapter_67.txt".
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=3".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+the CN explanatory notes to Chapter 95 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 95 is at "sources/eu/cn_en_ch95.txt".
+ruling NY N268990 is published at "https://rulings.cbp.gov/ruling/N268990".
+the text of ruling NY N268990 is at "sources/cbp/N268990.txt".
+ruling NY N349980 is published at "https://rulings.cbp.gov/ruling/N349980".
+the text of ruling NY N349980 is at "sources/cbp/N349980.txt".
+ruling NY N286657 is published at "https://rulings.cbp.gov/ruling/N286657".
+the text of ruling NY N286657 is at "sources/cbp/N286657.txt".
+ruling NY N353849 is published at "https://rulings.cbp.gov/ruling/N353849".
+the text of ruling NY N353849 is at "sources/cbp/N353849.txt".
+ruling NY N244089 is published at "https://rulings.cbp.gov/ruling/N244089".
+the text of ruling NY N244089 is at "sources/cbp/N244089.txt".
+ruling NY N293728 is published at "https://rulings.cbp.gov/ruling/N293728".
+the text of ruling NY N293728 is at "sources/cbp/N293728.txt".
+ruling NY N323959 is published at "https://rulings.cbp.gov/ruling/N323959".
+the text of ruling NY N323959 is at "sources/cbp/N323959.txt".
+ruling NY N174717 is published at "https://rulings.cbp.gov/ruling/N174717".
+the text of ruling NY N174717 is at "sources/cbp/N174717.txt".
+ruling NY N347069 is published at "https://rulings.cbp.gov/ruling/N347069".
+the text of ruling NY N347069 is at "sources/cbp/N347069.txt".
+ruling NY N340079 is published at "https://rulings.cbp.gov/ruling/N340079".
+the text of ruling NY N340079 is at "sources/cbp/N340079.txt".
+ruling NY N366610 is published at "https://rulings.cbp.gov/ruling/N366610".
+the text of ruling NY N366610 is at "sources/cbp/N366610.txt".
+ruling NY N250079 is published at "https://rulings.cbp.gov/ruling/N250079".
+the text of ruling NY N250079 is at "sources/cbp/N250079.txt".
+ruling NY N339261 is published at "https://rulings.cbp.gov/ruling/N339261".
+the text of ruling NY N339261 is at "sources/cbp/N339261.txt".
+ruling NY N314335 is published at "https://rulings.cbp.gov/ruling/N314335".
+the text of ruling NY N314335 is at "sources/cbp/N314335.txt".
+ruling NY N217140 is published at "https://rulings.cbp.gov/ruling/N217140".
+the text of ruling NY N217140 is at "sources/cbp/N217140.txt".
+ruling NY N327482 is published at "https://rulings.cbp.gov/ruling/N327482".
+the text of ruling NY N327482 is at "sources/cbp/N327482.txt".
+ruling NY N329078 is published at "https://rulings.cbp.gov/ruling/N329078".
+the text of ruling NY N329078 is at "sources/cbp/N329078.txt".
+ruling NY N352820 is published at "https://rulings.cbp.gov/ruling/N352820".
+the text of ruling NY N352820 is at "sources/cbp/N352820.txt".
+ruling NY N336171 is published at "https://rulings.cbp.gov/ruling/N336171".
+the text of ruling NY N336171 is at "sources/cbp/N336171.txt".
+ruling NY N346694 is published at "https://rulings.cbp.gov/ruling/N346694".
+the text of ruling NY N346694 is at "sources/cbp/N346694.txt".
+ruling NY N302865 is published at "https://rulings.cbp.gov/ruling/N302865".
+the text of ruling NY N302865 is at "sources/cbp/N302865.txt".
+ruling NY N353478 is published at "https://rulings.cbp.gov/ruling/N353478".
+the text of ruling NY N353478 is at "sources/cbp/N353478.txt".
+ruling NY N340898 is published at "https://rulings.cbp.gov/ruling/N340898".
+the text of ruling NY N340898 is at "sources/cbp/N340898.txt".
+ruling NY N357738 is published at "https://rulings.cbp.gov/ruling/N357738".
+the text of ruling NY N357738 is at "sources/cbp/N357738.txt".
+ruling NY N233886 is published at "https://rulings.cbp.gov/ruling/N233886".
+the text of ruling NY N233886 is at "sources/cbp/N233886.txt".
+ruling NY N346125 is published at "https://rulings.cbp.gov/ruling/N346125".
+the text of ruling NY N346125 is at "sources/cbp/N346125.txt".
+ruling NY N303881 is published at "https://rulings.cbp.gov/ruling/N303881".
+the text of ruling NY N303881 is at "sources/cbp/N303881.txt".
+ruling NY N346126 is published at "https://rulings.cbp.gov/ruling/N346126".
+the text of ruling NY N346126 is at "sources/cbp/N346126.txt".
+ruling NY N233894 is published at "https://rulings.cbp.gov/ruling/N233894".
+the text of ruling NY N233894 is at "sources/cbp/N233894.txt".
+ruling NY N365995 is published at "https://rulings.cbp.gov/ruling/N365995".
+the text of ruling NY N365995 is at "sources/cbp/N365995.txt".
+ruling NY N283135 is published at "https://rulings.cbp.gov/ruling/N283135".
+the text of ruling NY N283135 is at "sources/cbp/N283135.txt".
+ruling NY N269567 is published at "https://rulings.cbp.gov/ruling/N269567".
+the text of ruling NY N269567 is at "sources/cbp/N269567.txt".
+ruling NY N340501 is published at "https://rulings.cbp.gov/ruling/N340501".
+the text of ruling NY N340501 is at "sources/cbp/N340501.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: the toys, games, festive articles, sports
+% equipment, fishing tackle and amusements of Chapter 95.
+% ---------------------------------------------------------------------------
+
+% the model covers the goods of the families of Chapter 95
+rule toys_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter ninety-five goods.
+
+toy is a family of chapter ninety-five goods,
+    as stated in HTSUS Chapter 95, confer "dolls, other toys".
+game is a family of chapter ninety-five goods,
+    as stated in HTSUS Chapter 95, confer "Video game consoles and machines, table or parlor games".
+festive article is a family of chapter ninety-five goods,
+    as stated in HTSUS Chapter 95, confer "Festive, carnival or other entertainment articles, including magic tricks and practical joke articles".
+sports equipment is a family of chapter ninety-five goods,
+    as stated in HTSUS Chapter 95, confer "Articles and equipment for general physical exercise, gymnastics, athletics, other sports (including table-tennis) or outdoor games".
+fishing tackle is a family of chapter ninety-five goods,
+    as stated in HTSUS Chapter 95, confer "Fishing rods, fish hooks and other line fishing tackle".
+fairground amusement is a family of chapter ninety-five goods,
+    as stated in HTSUS Chapter 95, confer "fairground amusements, including shooting galleries".
+
+% Heading 9503: the tariff's own words, the CN EN and the rulings
+tricycle falls in the family toy, as stated in HTSUS Chapter 95, confer "Tricycles, scooters, pedal cars and similar wheeled toys".
+scooter falls in the family toy, as stated in HTSUS Chapter 95, confer "Tricycles, scooters, pedal cars and similar wheeled toys".
+kick scooter falls in the family toy, as stated in HTSUS Chapter 95, confer "Tricycles, scooters, pedal cars and similar wheeled toys".
+pedal car falls in the family toy, as stated in HTSUS Chapter 95, confer "Tricycles, scooters, pedal cars and similar wheeled toys".
+wheeled toy falls in the family toy, as stated in HTSUS Chapter 95, confer "Tricycles, scooters, pedal cars and similar wheeled toys".
+doll falls in the family toy, as stated in HTSUS Chapter 95, confer "dolls, other toys".
+toy falls in the family toy, as stated in HTSUS Chapter 95, confer "dolls, other toys".
+toy set falls in the family toy, as stated in HTSUS Chapter 95, confer "dolls, other toys".
+toy footwear falls in the family toy, as stated in HTSUS Section XII and Chapter 64, confer "Toy footwear or skating boots with ice or roller skates attached".
+doll accessory falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "clothing, shoes, hats, bags and toiletries for dolls".
+doll clothes falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "clothing, shoes, hats, bags and toiletries for dolls".
+scale model falls in the family toy, as stated in HTSUS Chapter 95, confer "and similar recreational models, working or not".
+recreational model falls in the family toy, as stated in HTSUS Chapter 95, confer "and similar recreational models, working or not".
+model kit falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "construction sets and constructional toys other than reduced-size ('scale') model assembly kits".
+die-cast model falls in the family toy, as stated in ruling NY N244089, confer "The replica car is made of die-cast metal and plastic components".
+toy vehicle falls in the family toy, as stated in ruling NY N244089, confer "die-cast toy vehicles".
+puzzle falls in the family toy, as stated in HTSUS Chapter 95, confer "puzzles of all kinds".
+jigsaw puzzle falls in the family toy, as stated in ruling NY N250079, confer "Both of the items requested contain 100 puzzle pieces".
+balloon falls in the family toy, as stated in HTSUS Chapter 95, confer "Inflatable toy balls, balloons and punchballs, of rubber".
+toy ball falls in the family toy, as stated in HTSUS Chapter 95, confer "Inflatable toy balls, balloons and punchballs, of rubber".
+punchball falls in the family toy, as stated in HTSUS Chapter 95, confer "Inflatable toy balls, balloons and punchballs, of rubber".
+anti-stress ball falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "The 'anti-stress balls' and similar 'anti-stress items' of various shapes and designs are classified in heading 9503".
+stuffed toy falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "Stuffed toys of this subheading usually have an outer fabric of a soft material".
+plush toy falls in the family toy, as stated in ruling NY N353849, confer "The plush toy soccer ball is principally designed for the amusement of children 3 years of age and older".
+action figure falls in the family toy, as stated in ruling NY N268990, confer "The item provides significant manipulative play value as would any other action figure".
+toy figure falls in the family toy, as stated in ruling NY N349980, confer "is described as a toy figurine designed for interactive play".
+collectible toy figure falls in the family toy, as stated in ruling NY N286657, confer "two collectible plastic toy dog figurines".
+humanoid figurine falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "These subheadings include humanoid figurines, for example, in the form of film, fairy-tale or comic-book characters".
+building blocks falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "These subheadings also include building blocks".
+construction set falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "These subheadings include construction sets and constructional toys".
+toy drone falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "multi-rotor helicopters (so-called 'drones') of different sizes".
+quadcopter falls in the family toy, as stated in ruling NY N323959, confer "it operates like any other remote controlled toy vehicle and provides similar amusement".
+remote-control toy falls in the family toy, as stated in ruling NY N323959, confer "it operates like any other remote controlled toy vehicle and provides similar amusement".
+remote-control car falls in the family toy, as stated in ruling NY N323959, confer "It is of the same class or kind as other RC vehicles".
+remote-control helicopter falls in the family toy, as stated in ruling NY N174717, confer "The item consists of a toy RC helicopter".
+fidget toy falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "designed to be repeatedly squeezed in the hand as an anti-stress exercise".
+inflatable toy falls in the family toy, as stated in the CN explanatory notes to Chapter 95, confer "inflatable articles, in different forms and sizes, intended for play in the water".
+
+% Heading 9504
+video game console falls in the family game, as stated in HTSUS Chapter 95, confer "Video game consoles from which the image is reproduced on a television receiver, a monitor or other external screen or surface".
+handheld video game machine falls in the family game, as stated in HTSUS Chapter 95, confer "Video game machines having a self-contained video screen, whether or not portable".
+video game controller falls in the family game, as stated in ruling NY N327482, confer "are wired controllers which operate when plugged directly into a game console".
+wireless video game controller falls in the family game, as stated in ruling NY N327482, confer "Model number NSAC0072-01 is a wireless controller that operates via radio frequency".
+playing cards falls in the family game, as stated in HTSUS Chapter 95, confer "Playing cards".
+trading cards falls in the family game, as stated in ruling NY N352820, confer "The items under consideration are trading cards for use in connection with the Yu-Gi-Oh! Official Card Game".
+card game falls in the family game, as stated in the CN explanatory notes to Chapter 95, confer "These cards have the objective characteristics of other parlour games".
+board game falls in the family game, as stated in HTSUS Chapter 95, confer "other games played on boards of a special design".
+chess set falls in the family game, as stated in HTSUS Chapter 95, confer "Chess, checkers, parchisi, backgammon, darts".
+checkers falls in the family game, as stated in HTSUS Chapter 95, confer "Chess, checkers, parchisi, backgammon, darts".
+backgammon falls in the family game, as stated in HTSUS Chapter 95, confer "Chess, checkers, parchisi, backgammon, darts".
+darts falls in the family game, as stated in HTSUS Chapter 95, confer "Chess, checkers, parchisi, backgammon, darts".
+mah-jong falls in the family game, as stated in HTSUS Chapter 95, confer "mah-jong and dominoes".
+dominoes falls in the family game, as stated in HTSUS Chapter 95, confer "mah-jong and dominoes".
+dice falls in the family game, as stated in HTSUS Chapter 95, confer "poker chips and dice".
+poker chips falls in the family game, as stated in HTSUS Chapter 95, confer "poker chips and dice".
+billiard table falls in the family game, as stated in HTSUS Chapter 95, confer "Articles and accessories for billiards of all kinds".
+billiard ball falls in the family game, as stated in HTSUS Chapter 95, confer "Articles and accessories for billiards of all kinds".
+billiard cue falls in the family game, as stated in HTSUS Chapter 95, confer "Articles and accessories for billiards of all kinds".
+pinball machine falls in the family game, as stated in HTSUS Chapter 95, confer "including pinball machines, billiards, special tables for casino games".
+casino table falls in the family game, as stated in HTSUS Chapter 95, confer "including pinball machines, billiards, special tables for casino games".
+bowling ball falls in the family game, as stated in HTSUS Chapter 95, confer "Bowling balls".
+game machine falls in the family game, as stated in HTSUS Chapter 95, confer "Game machines, other than those operated by coins".
+
+% Heading 9505
+Christmas ornament falls in the family festive article, as stated in HTSUS Chapter 95, confer "Christmas ornaments".
+artificial Christmas tree falls in the family festive article, as stated in HTSUS Chapter 95, confer "Artificial Christmas trees".
+nativity scene falls in the family festive article, as stated in HTSUS Chapter 95, confer "Nativity scenes and figures thereof".
+magic trick falls in the family festive article, as stated in HTSUS Chapter 95, confer "Magic tricks and practical joke articles".
+practical joke article falls in the family festive article, as stated in HTSUS Chapter 95, confer "Magic tricks and practical joke articles".
+confetti falls in the family festive article, as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+streamer falls in the family festive article, as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+party favor falls in the family festive article, as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+noisemaker falls in the family festive article, as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+carnival article falls in the family festive article, as stated in HTSUS Chapter 95, confer "Festive, carnival or other entertainment articles".
+
+% Heading 9506 (and the ski, golf, racket and ball subheadings)
+ski falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Skis and parts and accessories thereof, except ski poles".
+snowboard falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Snowboards".
+ski binding falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Ski bindings and parts and accessories thereof".
+ski pole falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Ski poles and parts and accessories".
+sailboard falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Sailboards and parts and accessories thereof".
+water ski falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Water skis, surf boards, sailboards and other water- sport equipment".
+surf board falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Water skis, surf boards, sailboards and other water- sport equipment".
+swimming aid falls in the family sports equipment, as stated in the CN explanatory notes to Chapter 95, confer "inflatable arm rings, neck rings, belts or similar articles, not constructed for security or rescuing purposes, providing buoyancy for a person learning to swim".
+golf club falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Golf clubs and other golf equipment".
+golf ball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Golf clubs and other golf equipment".
+golf tee falls in the family sports equipment, as stated in ruling NY N303881, confer "Also included are 2 plastic regulation golf tees without any printing".
+table-tennis ball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Articles and equipment for table-tennis".
+table-tennis paddle falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Articles and equipment for table-tennis".
+tennis racket falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Lawn-tennis rackets, whether or not strung".
+badminton racket falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Badminton rackets".
+squash racket falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Squash rackets".
+racquetball racket falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Racquetball rackets".
+tennis ball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Lawn-tennis balls".
+soccer ball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Footballs and soccer balls".
+football falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Footballs and soccer balls".
+basketball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Basketballs".
+volleyball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Volleyballs".
+baseball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Baseballs and softballs".
+softball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Baseballs and softballs".
+polo ball falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Polo balls".
+juggling ball falls in the family sports equipment, as stated in the CN explanatory notes to Chapter 95, confer "This subheading includes 'juggling balls' of all sizes, design and weight".
+ice skate falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Ice skates and roller skates, including skating boots with skates attached".
+roller skate falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Roller skates and parts and accessories thereof".
+exercise equipment falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Articles and equipment for general physical exercise, gymnastics or athletics".
+exercise cycle falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Exercise cycles".
+rowing machine falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Exercise rowing machines".
+treadmill falls in the family sports equipment, as stated in the CN explanatory notes to Chapter 95, confer "rowing machines, ergometric bicycles, stepper and treadmills".
+yoga mat falls in the family sports equipment, as stated in ruling NY N357738, confer "A yoga mat provides a non-slip cushioned surface for practicing yoga and other floor-based exercises".
+jump rope falls in the family sports equipment, as stated in ruling NY N233886, confer "the items belong to the class of merchandise used in general physical exercise".
+skateboard falls in the family sports equipment, as stated in ruling NY N346125, confer "is a 31” x 7.75” skateboard with a 7-ply, high density, wood deck".
+bow falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Bows and bow parts".
+arrow falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Arrows and arrow parts".
+hockey stick falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Ice-hockey sticks".
+lacrosse stick falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Lacrosse sticks".
+skeet target falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Skeet targets".
+sled falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Sleds, bobsleds, toboggans and the like".
+toboggan falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Sleds, bobsleds, toboggans and the like".
+snowshoe falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "Snowshoes and parts and accessories thereof".
+swimming pool falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "swimming pools and wading pools".
+wading pool falls in the family sports equipment, as stated in HTSUS Chapter 95, confer "swimming pools and wading pools".
+frisbee falls in the family sports equipment, as stated in the CN explanatory notes to Chapter 95, confer "This subheading includes 'frisbees', whether for children or adults".
+
+% Heading 9507
+fishing rod falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fishing rods and parts and accessories thereof".
+fish hook falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fish hooks, whether or not snelled".
+fishing reel falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fishing reels and parts and accessories thereof".
+fishing line falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fishing line put up and packaged for retail sale".
+fishing leader falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fishing casts or leaders".
+landing net falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fish landing nets, butterfly nets and similar nets".
+butterfly net falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fish landing nets, butterfly nets and similar nets".
+fishing lure falls in the family fishing tackle, as stated in ruling NY N365995, confer "If imported without a hook, fishing lures are classified as artificial bait under heading 9507".
+artificial bait falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Artificial baits and flies".
+fishing fly falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Artificial baits and flies".
+fishing sinker falls in the family fishing tackle, as stated in ruling NY N283135, confer "The worm sinker acts as a weight".
+fishing float falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "Fishing rods, fish hooks and other line fishing tackle".
+decoy bird falls in the family fishing tackle, as stated in HTSUS Chapter 95, confer "and similar hunting or shooting equipment".
+
+% Heading 9508 and note 6
+traveling circus falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Traveling circuses and traveling menageries".
+roller coaster falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Roller coasters".
+carousel falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Carousels, swings and roundabouts".
+bumper car falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Bumper (dodge'em) cars".
+motion simulator falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Motion simulators and moving theaters".
+water ride falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Water rides".
+water park amusement falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Water park amusements".
+amusement park ride falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "The expression “amusement park rides” means a device or combination of devices or equipment".
+fairground game falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "The expression “fairground amusements” means games of chance, strength or skill".
+shooting gallery falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "fairground amusements, including shooting galleries".
+traveling theater falls in the family fairground amusement, as stated in HTSUS Chapter 95, confer "Traveling theaters".
+
+% ---------------------------------------------------------------------------
+% The subheading class of each kind (the class column of the table above).
+% A kind with no class here goes to the "Other" of its heading.
+% ---------------------------------------------------------------------------
+billiard table is a kind of the subheading class billiards, as stated in HTSUS Chapter 95, confer "Articles and accessories for billiards of all kinds".
+billiard ball is a kind of the subheading class billiards, as stated in HTSUS Chapter 95, confer "Articles and accessories for billiards of all kinds".
+billiard cue is a kind of the subheading class billiards, as stated in HTSUS Chapter 95, confer "Articles and accessories for billiards of all kinds".
+playing cards is a kind of the subheading class playing cards, as stated in HTSUS Chapter 95, confer "Playing cards".
+trading cards is a kind of the subheading class playing cards, as stated in ruling NY N352820, confer "You suggest classification of the cards under 9504.40.0000".
+video game console is a kind of the subheading class video game, as stated in HTSUS Chapter 95, confer "Video game consoles from which the image is reproduced on a television receiver, a monitor or other external screen or surface".
+handheld video game machine is a kind of the subheading class video game, as stated in HTSUS Chapter 95, confer "Video game machines having a self-contained video screen, whether or not portable".
+video game controller is a kind of the subheading class video game, as stated in ruling NY N327482, confer "are wired controllers which operate when plugged directly into a game console".
+Christmas ornament is a kind of the subheading class Christmas article, as stated in HTSUS Chapter 95, confer "Christmas ornaments".
+artificial Christmas tree is a kind of the subheading class Christmas article, as stated in HTSUS Chapter 95, confer "Artificial Christmas trees".
+nativity scene is a kind of the subheading class Christmas article, as stated in HTSUS Chapter 95, confer "Nativity scenes and figures thereof".
+ski is a kind of the subheading class skis, as stated in HTSUS Chapter 95, confer "Skis and parts and accessories thereof, except ski poles".
+snowboard is a kind of the subheading class skis, as stated in HTSUS Chapter 95, confer "Snowboards".
+ski binding is a kind of the subheading class ski bindings, as stated in HTSUS Chapter 95, confer "Ski bindings and parts and accessories thereof".
+ski pole is a kind of the subheading class snow-ski equipment, as stated in HTSUS Chapter 95, confer "Ski poles and parts and accessories".
+sailboard is a kind of the subheading class sailboards, as stated in HTSUS Chapter 95, confer "Sailboards and parts and accessories thereof".
+water ski is a kind of the subheading class water-sport equipment, as stated in HTSUS Chapter 95, confer "Water skis, surf boards, sailboards and other water- sport equipment".
+surf board is a kind of the subheading class water-sport equipment, as stated in HTSUS Chapter 95, confer "Water skis, surf boards, sailboards and other water- sport equipment".
+swimming aid is a kind of the subheading class water-sport equipment, as stated in the CN explanatory notes to Chapter 95, confer "This subheading includes inflatable arm rings, neck rings, belts or similar articles".
+golf club is a kind of the subheading class golf clubs, as stated in HTSUS Chapter 95, confer "Golf clubs, complete".
+golf ball is a kind of the subheading class golf balls, as stated in HTSUS Chapter 95, confer "9506.32.00".
+golf tee is a kind of the subheading class golf equipment, as stated in ruling NY N303881, confer "The applicable subheading for the golf tees will be 9506.39.0080".
+table-tennis ball is a kind of the subheading class table-tennis equipment, as stated in HTSUS Chapter 95, confer "Articles and equipment for table-tennis".
+table-tennis paddle is a kind of the subheading class table-tennis equipment, as stated in HTSUS Chapter 95, confer "Articles and equipment for table-tennis".
+tennis racket is a kind of the subheading class lawn-tennis rackets, as stated in HTSUS Chapter 95, confer "Lawn-tennis rackets, whether or not strung".
+badminton racket is a kind of the subheading class rackets, as stated in HTSUS Chapter 95, confer "Badminton rackets".
+squash racket is a kind of the subheading class rackets, as stated in HTSUS Chapter 95, confer "Squash rackets".
+racquetball racket is a kind of the subheading class rackets, as stated in HTSUS Chapter 95, confer "Racquetball rackets".
+tennis ball is a kind of the subheading class lawn-tennis balls, as stated in HTSUS Chapter 95, confer "Lawn-tennis balls".
+soccer ball is a kind of the subheading class inflatable balls, as stated in HTSUS Chapter 95, confer "Footballs and soccer balls".
+football is a kind of the subheading class inflatable balls, as stated in HTSUS Chapter 95, confer "Footballs and soccer balls".
+basketball is a kind of the subheading class inflatable balls, as stated in HTSUS Chapter 95, confer "Basketballs".
+volleyball is a kind of the subheading class inflatable balls, as stated in HTSUS Chapter 95, confer "Volleyballs".
+baseball is a kind of the subheading class balls, as stated in HTSUS Chapter 95, confer "Baseballs and softballs".
+softball is a kind of the subheading class balls, as stated in HTSUS Chapter 95, confer "Baseballs and softballs".
+polo ball is a kind of the subheading class balls, as stated in HTSUS Chapter 95, confer "Polo balls".
+juggling ball is a kind of the subheading class balls, as stated in the CN explanatory notes to Chapter 95, confer "This subheading includes 'juggling balls' of all sizes, design and weight".
+ice skate is a kind of the subheading class skates, as stated in HTSUS Chapter 95, confer "Ice skates and roller skates, including skating boots with skates attached".
+roller skate is a kind of the subheading class skates, as stated in HTSUS Chapter 95, confer "Roller skates and parts and accessories thereof".
+exercise equipment is a kind of the subheading class exercise equipment, as stated in HTSUS Chapter 95, confer "Articles and equipment for general physical exercise, gymnastics or athletics".
+exercise cycle is a kind of the subheading class exercise equipment, as stated in HTSUS Chapter 95, confer "Exercise cycles".
+rowing machine is a kind of the subheading class exercise equipment, as stated in HTSUS Chapter 95, confer "Exercise rowing machines".
+treadmill is a kind of the subheading class exercise equipment, as stated in the CN explanatory notes to Chapter 95, confer "rowing machines, ergometric bicycles, stepper and treadmills".
+yoga mat is a kind of the subheading class exercise equipment, as stated in ruling NY N357738, confer "A yoga mat provides a non-slip cushioned surface for practicing yoga and other floor-based exercises".
+jump rope is a kind of the subheading class exercise equipment, as stated in ruling NY N233886, confer "the jump ropes are more appropriately described under subheading 9506.91.00".
+fishing rod is a kind of the subheading class fishing rods, as stated in HTSUS Chapter 95, confer "Fishing rods and parts and accessories thereof".
+fish hook is a kind of the subheading class fish hooks, as stated in HTSUS Chapter 95, confer "Fish hooks, whether or not snelled".
+fishing reel is a kind of the subheading class fishing reels, as stated in HTSUS Chapter 95, confer "Fishing reels and parts and accessories thereof".
+traveling circus is a kind of the subheading class circuses, as stated in HTSUS Chapter 95, confer "Traveling circuses and traveling menageries".
+roller coaster is a kind of the subheading class roller coasters, as stated in HTSUS Chapter 95, confer "Roller coasters".
+carousel is a kind of the subheading class carousels, as stated in HTSUS Chapter 95, confer "Carousels, swings and roundabouts".
+bumper car is a kind of the subheading class bumper cars, as stated in HTSUS Chapter 95, confer "Bumper (dodge'em) cars".
+motion simulator is a kind of the subheading class motion simulators, as stated in HTSUS Chapter 95, confer "Motion simulators and moving theaters".
+water ride is a kind of the subheading class water rides, as stated in HTSUS Chapter 95, confer "Water rides".
+water park amusement is a kind of the subheading class water park amusements, as stated in HTSUS Chapter 95, confer "Water park amusements".
+amusement park ride is a kind of the subheading class amusement park rides, as stated in HTSUS Chapter 95, confer "Amusement park rides and water park amusements".
+fairground game is a kind of the subheading class fairground amusements, as stated in HTSUS Chapter 95, confer "Fairground amusements".
+shooting gallery is a kind of the subheading class fairground amusements, as stated in HTSUS Chapter 95, confer "fairground amusements, including shooting galleries".
+traveling theater is a kind of the subheading class traveling theaters, as stated in HTSUS Chapter 95, confer "Traveling theaters".
+
+% The kinds of decoration that are festive articles when they are made for
+% a festivity (CN EN: "decorative value (design and ornament)"; a Christmas
+% decoration, NY N346694; a decoration for Halloween, NY N353478; a party
+% decoration, NY N340898)
+decoration is a kind of decoration, as stated in the CN explanatory notes to Chapter 95, confer "products to be classified as festive articles must be of a decorative value (design and ornament)".
+figurine is a kind of decoration, as stated in the CN explanatory notes to Chapter 95, confer "figurines decorated with festive outfits, representing seasonal themes or engaged in seasonal activities".
+garland is a kind of decoration, as stated in the CN explanatory notes to Chapter 95, confer "products to be classified as festive articles must be of a decorative value (design and ornament)".
+banner is a kind of decoration, as stated in the CN explanatory notes to Chapter 95, confer "printed paper decorations, which are associated with a particular festivity".
+yard sign is a kind of decoration, as stated in ruling NY N340898, confer "The single-use item will be marketed and sold as a party decoration".
+
+% ---------------------------------------------------------------------------
+% Note 1: the goods the chapter does not cover. The kinds it names belong
+% to headings outside the model (or to Chapters 42, 61, 62 and 64, below).
+% ---------------------------------------------------------------------------
+candle is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Candles (heading 3406)".
+firework is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Fireworks or other pyrotechnic articles of heading 3604".
+flag is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Textile flags or bunting, or sails for boats, sailboards or land craft, of chapter 63".
+bunting is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Textile flags or bunting, or sails for boats, sailboards or land craft, of chapter 63".
+sail is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Textile flags or bunting, or sails for boats, sailboards or land craft, of chapter 63".
+sports headgear is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "or sports headgear of chapter 65".
+helmet is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "or sports headgear of chapter 65".
+walking-stick is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Walking-sticks, whips, riding-crops or the like (heading 6602)".
+whip is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Walking-sticks, whips, riding-crops or the like (heading 6602)".
+glass eye for dolls is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Unmounted glass eyes for dolls or other toys, of heading 7018".
+bell is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Bells, gongs or the like of heading 8306".
+gong is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Bells, gongs or the like of heading 8306".
+electric motor is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "electric motors (heading 8501)".
+memory card is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "solid-state non-volatile storage devices".
+radio remote control is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "radio remote control apparatus (heading 8526)".
+wireless video game controller is a kind named by note 1 to chapter ninety-five, as stated in ruling NY N329078, confer "This product is a dedicated accessory for a wireless game controller, which is not classifiable in chapter 95 in accordance with note 1(m)".
+bicycle is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Sports vehicles (other than sleds, bobsleds, toboggans and the like) of section XVII".
+children's bicycle is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Children's bicycles (heading 8712)".
+unmanned aircraft is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Unmanned aircraft (heading 8806)".
+canoe is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Sports craft such as canoes and skiffs (chapter 89)".
+goggles is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Spectacles, goggles or the like, for sports or outdoor games (heading 9004)".
+whistle is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Decoy calls or whistles (heading 9208)".
+lighting string is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Lighting strings of all kinds (heading 9405)".
+tripod is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Monopods, bipods, tripods and similar articles (heading 9620)".
+racket string is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Racket strings, tents or other camping goods, or gloves, mittens and mitts".
+tent is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Racket strings, tents or other camping goods, or gloves, mittens and mitts".
+glove is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Racket strings, tents or other camping goods, or gloves, mittens and mitts".
+gloves is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Racket strings, tents or other camping goods, or gloves, mittens and mitts".
+mitts is a kind named by note 1 to chapter ninety-five, as stated in HTSUS Chapter 95, confer "Racket strings, tents or other camping goods, or gloves, mittens and mitts".
+cycling glove is a kind named by note 1 to chapter ninety-five, as stated in ruling NY N233894, confer "The culmination of features shows a design for use in the sport of cycling".
+
+% ---------------------------------------------------------------------------
+% Families that do not come from the kind alone.
+% ---------------------------------------------------------------------------
+
+% Note 3: a part or an accessory suitable for use solely or principally
+% with an article of this chapter is classified with that article
+rule note_95_3_family with provenance HTSUS Chapter 95,
+        confer "parts and accessories which are suitable for use solely or principally with articles of this chapter are to be classified with those articles":
+the family of a good is a family
+    if the good is a part or accessory suitable for use solely or principally with a kind
+    and the kind falls in the family the family
+    and the family is a family of chapter ninety-five goods
+    and it is not the case that
+        the kind is a kind named by note 1 to chapter ninety-five.
+
+% Heading 9505: a decoration made for a festivity is a festive article
+% (CN EN: "intended to be used for a specific festivity"; CBP, NY N346694:
+% "marketed and sold exclusively as a Christmas decoration")
+rule festive_decoration with provenance the CN explanatory notes to Chapter 95,
+        confer "These products are, according to their construction and design (imprints, ornaments, symbols or inscriptions), intended to be used for a specific festivity":
+the family of a good is festive article
+    if the kind of the good is a kind
+    and the kind is a kind of decoration
+    and the good is marketed as a decoration for a festivity.
+
+% Heading 9506: "including skating boots with skates attached" (a skating
+% boot is footwear of Chapter 64 until skates are attached to it)
+rule skating_boots_with_skates with provenance HTSUS Chapter 95,
+        confer "Ice skates and roller skates, including skating boots with skates attached":
+the family of a good is sports equipment
+    if the good has ice or roller skates attached.
+
+% Note 4: a toy combined with items of other headings that are no set of
+% GRI 3(b), put up together for retail sale, is of heading 9503 if the
+% combination has the essential character of toys (the office's judgment)
+rule note_95_4 with provenance HTSUS Chapter 95,
+        confer "provided the articles are put up together for retail sale and the combinations have the essential character of toys":
+the family of a good is toy
+    if the good is a combination put up for retail sale with items of other headings
+    and the good has the essential character of toys.
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1).
+% ---------------------------------------------------------------------------
+
+rule heading_9503 with provenance HTSUS Chapter 95,
+        confer "Tricycles, scooters, pedal cars and similar wheeled toys":
+a good is described by heading 9503
+    if the family of the good is toy.
+
+rule heading_9504 with provenance HTSUS Chapter 95,
+        confer "Video game consoles and machines, table or parlor games, including pinball machines, billiards, special tables for casino games and automatic bowling equipment":
+a good is described by heading 9504
+    if the family of the good is game.
+
+rule heading_9505 with provenance HTSUS Chapter 95,
+        confer "Festive, carnival or other entertainment articles, including magic tricks and practical joke articles; parts and accessories thereof":
+a good is described by heading 9505
+    if the family of the good is festive article.
+
+rule heading_9506 with provenance HTSUS Chapter 95,
+        confer "Articles and equipment for general physical exercise, gymnastics, athletics, other sports (including table-tennis) or outdoor games, not specified or included elsewhere in this chapter":
+a good is described by heading 9506
+    if the family of the good is sports equipment.
+
+rule heading_9507 with provenance HTSUS Chapter 95,
+        confer "Fishing rods, fish hooks and other line fishing tackle; fish landing nets, butterfly nets and similar nets":
+a good is described by heading 9507
+    if the family of the good is fishing tackle.
+
+rule heading_9508 with provenance HTSUS Chapter 95,
+        confer "Traveling circuses and traveling menageries; amusement park rides and water park amusements; fairground amusements, including shooting galleries; traveling theaters":
+a good is described by heading 9508
+    if the family of the good is fairground amusement.
+
+% Heading 9506 covers only what no other heading of the chapter specifies
+rule heading_9506_residual with provenance HTSUS Chapter 95,
+        confer "not specified or included elsewhere in this chapter":
+a good is excluded from heading 9506
+    if the other heading is in [9503, 9504, 9505, 9507, 9508]
+    and the good is described by heading the other heading.
+
+% ---------------------------------------------------------------------------
+% What bars a good from the chapter's headings: the facts of note 1, notes
+% 2 and 5, and the finding that a good is not a toy. These rest on facts
+% only, so that the other chapters can read them (below).
+% ---------------------------------------------------------------------------
+
+% note 1: the kinds it names
+rule note_95_1_kinds with provenance HTSUS Chapter 95, confer "This chapter does not cover:":
+a good is barred from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the kind of the good is a kind
+    and the kind is a kind named by note 1 to chapter ninety-five.
+
+% note 1(k): parts of general use (Section XV note 2) of base metal, and
+% similar goods of plastics
+rule note_95_1k with provenance HTSUS Chapter 95,
+        confer "Parts of general use, as defined in note 2 to section XV, of base metal (section XV), or similar goods of plastics (chapter 39)":
+a good is barred from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good is a part of general use.
+
+% note 1(x): tableware, kitchenware, toilet articles, apparel, linen and
+% similar articles having a utilitarian function; the CN EN excludes from
+% heading 9505 the "articles with utilitarian functions"
+rule note_95_1x with provenance HTSUS Chapter 95,
+        confer "and similar articles having a utilitarian function (classified according to their constituent material)":
+a good is barred from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good has a utilitarian function.
+
+% note 1(c): fishing line not made up is of Chapter 39 or Section XI; the
+% fishing line of subheading 9507.90 is "put up and packaged for retail
+% sale"
+rule note_95_1c with provenance HTSUS Chapter 95,
+        confer "Yarns, monofilament, cords or gut or the like for fishing, cut to length but not made up into fishing lines":
+a good is barred from heading 9507
+    if the kind of the good is fishing line
+    and it is not the case that
+        the good is put up for retail sale.
+
+% note 2 read with Chapter 71 note 1: the chapter keeps an article whose
+% pearls, stones or precious metal are minor constituents only; an article
+% with more of them is of Chapter 71
+rule note_95_2_metal with provenance HTSUS Chapter 95,
+        confer "precious metal or metal clad with precious metal constitute only minor constituents":
+a good is barred from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good contains precious metal beyond minor constituents.
+
+rule note_95_2_stones with provenance HTSUS Chapter 95,
+        confer "This chapter includes articles in which natural or cultured pearls, precious or semiprecious stones (natural, synthetic or reconstructed)":
+a good is barred from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good incorporates pearls or stones
+    and it is not the case that
+        the good has pearls or stones only as minor constituents.
+
+% note 5: pet toys are not of heading 9503
+rule note_95_5 with provenance HTSUS Chapter 95,
+        confer "Heading 9503 does not cover articles which, on account of their design, shape or constituent material, are identifiable as intended exclusively for animals":
+a good is barred from heading 9503
+    if the good is identifiable as intended exclusively for animals.
+
+% A toy is principally designed for amusement: a statue that is "not
+% principally designed for amusement, but rather serves a utilitarian
+% purpose as an article for decoration or display" is no toy (NY N314335).
+% A doll is named by the heading itself, and stays a doll when it is made
+% for display (NY N366610).
+rule toy_amusement with provenance ruling NY N314335,
+        confer "we find that the merchandise concerned is not principally designed for amusement, but rather serves a utilitarian purpose as an article for decoration or display":
+a good is barred from heading 9503
+    if the good is not principally designed for amusement
+    and it is not the case that
+        the kind of the good is doll.
+
+rule toy_heading_exclusion with provenance HTSUS Chapter 95, confer "This chapter does not cover:":
+a good is excluded from heading a heading
+    if the good is barred from heading the heading.
+
+% a good of a heading of this chapter: described by it, and not barred
+rule good_of_chapter_95 with provenance HTSUS Chapter 95,
+        confer "TOYS, GAMES AND SPORTS EQUIPMENT; PARTS AND ACCESSORIES THEREOF":
+a good is a good of heading a heading of chapter ninety-five
+    if the family of the good is a family
+    and the family is a family of chapter ninety-five goods
+    and the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good is described by heading the heading
+    and it is not the case that
+        the good is barred from heading the heading.
+
+% ---------------------------------------------------------------------------
+% Note 1: the goods it sends to the chapters of the model.
+% ---------------------------------------------------------------------------
+
+% note 1(d): sports bags and other containers of heading 4202
+rule note_95_1d with provenance HTSUS Chapter 95,
+        confer "Sports bags or other containers of heading 4202, 4303 or 4304":
+a good is excluded from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good is described by heading 4202.
+
+% note 1(e) and 1(x): fancy dress, sports clothing and other apparel of
+% textiles, of Chapters 61 and 62
+rule note_95_1e with provenance HTSUS Chapter 95,
+        confer "Fancy dress of textiles, of chapter 61 or 62; sports clothing and special articles of apparel of textiles, of chapter 61 or 62":
+a good is excluded from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good is described by heading an other heading
+    and the other heading >= 6101
+    and the other heading <= 6217.
+
+% note 1(g): sports footwear of Chapter 64, other than skating boots with
+% ice or roller skates attached
+rule note_95_1g with provenance HTSUS Chapter 95,
+        confer "Sports footwear (other than skating boots with ice or roller skates attached) of chapter 64":
+a good is excluded from heading a heading
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the other heading is in [6401, 6402, 6403, 6404, 6405, 6406]
+    and the good is described by heading the other heading
+    and it is not the case that
+        the good has ice or roller skates attached.
+
+% ---------------------------------------------------------------------------
+% The other chapters' notes that send the articles of Chapter 95 here.
+% Each rests on "a good of heading H of chapter ninety-five" (described by
+% H, and not barred by facts), never on another exclusion.
+% ---------------------------------------------------------------------------
+
+% Chapter 39 note 2(y)
+rule note_39_2y with provenance HTSUS Section VII and Chapter 39,
+        confer "Articles of chapter 95 (for example, toys, games, sports equipment)":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the good is a good of heading an other heading of chapter ninety-five.
+
+% Chapter 42 note 2(l); a container of heading 4202 stays in Chapter 42
+% (Chapter 95 note 1(d))
+rule note_42_2l with provenance HTSUS Chapter 42,
+        confer "Articles of chapter 95 (for example, toys, games, sports equipment)":
+a good is excluded from heading a heading
+    if the heading >= 4201
+    and the heading <= 4206
+    and the good is a good of heading an other heading of chapter ninety-five
+    and it is not the case that
+        the good is described by heading 4202.
+
+% Section XI note 1(t); apparel of Chapters 61 and 62 stays there (Chapter
+% 95 note 1(e))
+rule note_xi_1t with provenance HTSUS Section XI and Chapter 50,
+        confer "(t) Articles of chapter 95 (for example, toys, games, sports requisites and nets);":
+a good is excluded from heading a heading
+    if the heading >= 5001
+    and the heading <= 6310
+    and the good is a good of heading an other heading of chapter ninety-five
+    and it is not the case that
+        the good is described by heading a third heading
+        and the third heading >= 6101
+        and the third heading <= 6217.
+
+% Chapter 67 note 1(e)
+rule note_67_1e with provenance HTSUS Chapter 67,
+        confer "Toys, sports equipment, or carnival articles (chapter 95)":
+a good is excluded from heading a heading
+    if the heading >= 6701
+    and the heading <= 6704
+    and the good is a good of heading an other heading of chapter ninety-five.
+
+% Chapter 71 note 3(n): the articles of note 2 to Chapter 95 (a good of
+% the chapter is one whose pearls, stones or precious metal are minor
+% constituents only, above)
+rule note_71_3n with provenance HTSUS Section XIV and Chapter 71,
+        confer "Articles covered by note 2 to chapter 95;":
+a good is excluded from heading a heading
+    if the heading >= 7101
+    and the heading <= 7118
+    and the good is a good of heading an other heading of chapter ninety-five.
+
+% ---------------------------------------------------------------------------
+% GRI 6: what the subheadings read.
+% ---------------------------------------------------------------------------
+
+% the subheading of what the good is classified as consisting of (GRI
+% 3(b)); of several components that equally merit consideration (GRI
+% 3(c)), the subheading that occurs last in numerical order (CBP, NY
+% N269567: a rod and reel combination goes to the reels)
+rule toys_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [9503, 9504, 9505, 9506, 9507, 9508]
+    and the good is classified as consisting of a component
+    and the chapter ninety-five code of the component in heading the heading is the code
+    and the numerical order of the code is a number under table subheading order
+    and it is not the case that
+        the good is classified as consisting of an other component
+        and the chapter ninety-five code of the other component in heading the heading is an other code
+        and the numerical order of the other code is an other number under table subheading order
+        and the other number > the number.
+
+rule toys_code with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the chapter ninety-five code of a thing in heading a heading is a code
+    if the subheading class of the thing is a class
+    and the inflation of the thing is a state
+    and the payment of the thing is a means
+    and the festivity of the thing is a festivity
+    and the subheading in heading the heading for the class the class with inflation the state with payment the means with festivity the festivity is the code under table toys and sports.
+
+% the class of a thing: of its kind; of the article it is a part or
+% accessory of (note 3); skates attached to boots; otherwise "other"
+rule class_by_kind with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading class of a thing is a class
+    if the kind of the thing is a kind
+    and the kind is a kind of the subheading class the class.
+
+rule class_by_part with provenance HTSUS Chapter 95,
+        confer "parts and accessories which are suitable for use solely or principally with articles of this chapter are to be classified with those articles":
+the subheading class of a thing is a class
+    if the thing is a part or accessory suitable for use solely or principally with a kind
+    and the kind is a kind of the subheading class the class.
+
+rule class_skates with provenance HTSUS Chapter 95,
+        confer "Ice skates and roller skates, including skating boots with skates attached":
+the subheading class of a thing is skates
+    if the thing has ice or roller skates attached.
+
+rule class_other with provenance HTSUS Chapter 95, confer "Other: 9504.90":
+the subheading class of a thing is other
+    if it is not the case that
+        the kind of the thing is a kind
+        and the kind is a kind of the subheading class a class
+    and it is not the case that
+        the thing is a part or accessory suitable for use solely or principally with an other kind
+        and the other kind is a kind of the subheading class a second class
+    and it is not the case that
+        the thing has ice or roller skates attached.
+
+% subheading 9506.62: inflatable balls
+rule inflation_inflatable with provenance HTSUS Chapter 95, confer "Inflatable balls":
+the inflation of a thing is inflatable
+    if the thing is inflatable.
+
+rule inflation_none with provenance HTSUS Chapter 95, confer "Other: 9506.69":
+the inflation of a thing is none
+    if the subheading class of the thing is a class
+    and it is not the case that
+        the thing is inflatable.
+
+% subheading 9504.30 and subheading note 1: games and video game machines
+% operated by coins or any other means of payment
+rule payment_coins with provenance HTSUS Chapter 95,
+        confer "This subheading does not cover video game consoles or machines operated by coins, banknotes, bank cards, tokens or by any other means of payment (subheading 9504.30)":
+the payment of a thing is coins
+    if the thing is operated by coins or other means of payment.
+
+rule payment_none with provenance HTSUS Chapter 95, confer "Game machines, other than those operated by coins":
+the payment of a thing is none
+    if the subheading class of the thing is a class
+    and it is not the case that
+        the thing is operated by coins or other means of payment.
+
+% subheading 9505.10: articles for Christmas festivities
+rule festivity_marketed with provenance HTSUS Chapter 95,
+        confer "Articles for Christmas festivities and parts and accessories thereof":
+the festivity of a thing is a festivity
+    if the thing is marketed as a decoration for the festivity.
+
+rule festivity_none with provenance HTSUS Chapter 95, confer "Other: 9505.90":
+the festivity of a thing is none
+    if the subheading class of the thing is a class
+    and it is not the case that
+        the thing is marketed as a decoration for a festivity.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+query unplaced is:
+    which good is not placed by the model.
+
+% Toys of heading 9503 (CBP: the codes the rulings give, at six digits)
+scenario toys is:
+    % NY N268990: Teenage Mutant Ninja Turtle clip light, an action figure
+    % with articulated arms, legs and head -> 9503.00
+    the kind of the TMNT clip light is action figure.
+    the TMNT clip light is a manufactured article.
+    the TMNT clip light is made of plastics.
+    % NY N349980: "Booksy", a plastic toy figurine that opens to reveal a
+    % tiny comic book -> 9503.00 (Chapter 39 note 2(y): not 3926)
+    the kind of Booksy is toy figure.
+    Booksy is a manufactured article.
+    Booksy is made of plastics.
+    % NY N353849: a plush soccer ball of polyester boucle fabric and
+    % stuffing -> 9503.00 (a toy, not a ball of 9506)
+    the kind of item JF79250WCD is plush toy.
+    item JF79250WCD contains 100 percent of polyester.
+    % NY N244089: "Welly" replica cars of die-cast metal and plastic -> 9503.00
+    the kind of item 18003RW-Yellow is die-cast model.
+    % NY N293728: "Max Build More Blocks", 759 interlocking plastic blocks
+    % -> 9503.00
+    the kind of item 8347 is building blocks.
+    item 8347 is a manufactured article.
+    item 8347 is made of plastics.
+    % NY N323959: a wireless quadcopter with a Wi-Fi camera, not an aircraft
+    % of 8806 -> 9503.00
+    the kind of CVS item 902411 is quadcopter.
+    % NY N174717: "Micro Lightning" remote control helicopter -> 9503.00
+    the kind of Costco item 814368 is remote-control helicopter.
+    % NY N250079: two jigsaw puzzles of 100 pieces -> 9503.00
+    the kind of item IK-3412 is jigsaw puzzle.
+    % NY N339261: latex balloons -> 9503.00
+    the kind of the latex balloons is balloon.
+    % NY N340079: American Girl "Styling Set for Doll", 34 pieces for doll
+    % hairstyles -> 9503.00
+    the kind of item GPV22 is doll accessory.
+    % NY N366610: a handmade collectable doll for display only -> 9503.00 (a
+    % doll is named by the heading; Chapter 97 does not apply)
+    the kind of Armand is doll.
+    Armand is not principally designed for amusement,
+        according to CBP, because "This item is not intended for children's play but rather for display purposes only".
+    subheading expects answers ["the subheading of the TMNT clip light is 9503.00", "the subheading of Booksy is 9503.00", "the subheading of item JF79250WCD is 9503.00", "the subheading of item 18003RW-Yellow is 9503.00", "the subheading of item 8347 is 9503.00", "the subheading of CVS item 902411 is 9503.00", "the subheading of Costco item 814368 is 9503.00", "the subheading of item IK-3412 is 9503.00", "the subheading of the latex balloons is 9503.00", "the subheading of item GPV22 is 9503.00", "the subheading of Armand is 9503.00"].
+
+% Sets and composite goods of heading 9503
+scenario toy_sets is:
+    % NY N286657: "Chubby Puppies and Friends", two collectible plastic toy
+    % dog figurines and a doughnut-shaped holder, a set whose essential
+    % character the figurines give -> 9503.00
+    the Chubby Puppies set is a set put up for retail sale.
+    the figurines of the Chubby Puppies set is a component of the Chubby Puppies set.
+    the holder of the Chubby Puppies set is a component of the Chubby Puppies set.
+    the kind of the figurines of the Chubby Puppies set is collectible toy figure.
+    the figurines of the Chubby Puppies set is made of plastics.
+    the holder of the Chubby Puppies set is made of plastics.
+    the essential character of the Chubby Puppies set is given by the figurines of the Chubby Puppies set,
+        according to CBP, because "The essential character is imparted by the toy dog figurines".
+    % NY N347069: Monster High doll with a stand, a plastic pet cobra and
+    % paper posters (the large poster de minimis) -> 9503.00
+    the kind of item JDR65 is doll.
+    subheading expects answers ["the subheading of the Chubby Puppies set is 9503.00", "the subheading of item JDR65 is 9503.00"].
+
+% Games of heading 9504
+scenario games is:
+    % NY N217140: "Atari Flashback 4", a console with built-in games that
+    % plugs into a television -> 9504.50
+    the kind of item 9017710 is video game console.
+    % NY N327482: wired controllers for the Nintendo Switch -> 9504.50; the
+    % wireless controller is radio remote control apparatus (note 1(m), 8526)
+    the kind of model NSAC0069-01 is video game controller.
+    the kind of model NSAC0072-01 is wireless video game controller.
+    % NY N329078: plastic grips for wireless controllers: no accessory of an
+    % article of Chapter 95, so of Chapter 39 -> 3926.90
+    the C2Gripz is a part or accessory suitable for use solely or principally with wireless video game controller.
+    the C2Gripz is a manufactured article.
+    the C2Gripz is made of plastics.
+    the principal use of the C2Gripz is other use,
+        according to CBP, because "This product is a dedicated accessory for a wireless game controller".
+    % NY N352820: Yu-Gi-Oh! trading cards of paper -> 9504.40
+    the kind of the Yu-Gi-Oh cards is trading cards.
+    % NY N336171: 48 foam dice -> 9504.90
+    the kind of model PT166 is dice.
+    subheading expects answers ["the subheading of item 9017710 is 9504.50", "the subheading of model NSAC0069-01 is 9504.50", "the subheading of the C2Gripz is 3926.90", "the subheading of the Yu-Gi-Oh cards is 9504.40", "the subheading of model PT166 is 9504.90"].
+    unplaced expects answers ["model NSAC0072-01 is not placed by the model"].
+
+% Festive articles of heading 9505
+scenario festive is:
+    % NY N346694: a glass nutcracker figurine sold exclusively as a
+    % Christmas decoration -> 9505.10
+    the kind of item BCZW2024006L is figurine.
+    item BCZW2024006L is marketed as a decoration for Christmas,
+        confer "The item is marketed and sold exclusively as a Christmas decoration for the home".
+    % NY N302865: artificial Christmas trees of polyvinyl chloride -> 9505.10
+    the kind of model 9043390 is artificial Christmas tree.
+    model 9043390 is a manufactured article.
+    model 9043390 is made of plastics.
+    % NY N353478: a wooden tabletop decoration in the shape of vampire lips,
+    % sold as a decoration for Halloween -> 9505.90
+    the kind of SKU BCLF22895H-1 is decoration.
+    SKU BCLF22895H-1 is marketed as a decoration for Halloween,
+        confer "The item will be marketed and sold as a decoration for Halloween".
+    % NY N340898: "Paw Patrol Birthday Yard Decor Kit", flimsy printed yard
+    % signs for a birthday party -> 9505.90
+    the kind of style OEM23-0833 is yard sign.
+    style OEM23-0833 is marketed as a decoration for birthday,
+        confer "The single-use item will be marketed and sold as a party decoration".
+    subheading expects answers ["the subheading of item BCZW2024006L is 9505.10", "the subheading of model 9043390 is 9505.10", "the subheading of SKU BCLF22895H-1 is 9505.90", "the subheading of style OEM23-0833 is 9505.90"].
+
+% Sports equipment of heading 9506
+scenario sports is:
+    % NY N357738: a yoga mat of polyvinyl chloride -> 9506.91
+    the kind of item YS-STICKY-6MM-SG is yoga mat.
+    item YS-STICKY-6MM-SG is a manufactured article.
+    item YS-STICKY-6MM-SG is made of plastics.
+    % NY N233886: Everlast jump ropes -> 9506.91
+    the kind of item JMP1U is jump rope.
+    % NY N346125: Element Popsicle skateboard -> 9506.99
+    the kind of SKU 51795 is skateboard.
+    % NY N303881: regulation golf balls -> 9506.32; plastic golf tees ->
+    % 9506.39 (the same heading, so no set)
+    the kind of the golf balls of CVS item 285697 is golf ball.
+    the kind of the golf tees of CVS item 285697 is golf tee.
+    % NY N346126: "Gem Roller Skates", roller skates with adjustable boots
+    % -> 9506.70
+    the kind of SKU 51207 is roller skate.
+    subheading expects answers ["the subheading of item YS-STICKY-6MM-SG is 9506.91", "the subheading of item JMP1U is 9506.91", "the subheading of SKU 51795 is 9506.99", "the subheading of the golf balls of CVS item 285697 is 9506.32", "the subheading of the golf tees of CVS item 285697 is 9506.39", "the subheading of SKU 51207 is 9506.70"].
+
+% Fishing tackle of heading 9507
+scenario fishing is:
+    % NY N365995: a metal casting lure of brass and lead with one hook: the
+    % lure gives the essential character -> 9507.90
+    the Hoko lure is a composite good.
+    the lure of the Hoko lure is a component of the Hoko lure.
+    the hook of the Hoko lure is a component of the Hoko lure.
+    the kind of the Hoko lure is fishing lure.
+    the kind of the lure of the Hoko lure is fishing lure.
+    the kind of the hook of the Hoko lure is fish hook.
+    the essential character of the Hoko lure is given by the lure of the Hoko lure,
+        according to CBP, because "Since the hook cannot perform its ultimate function without the lure, the lure imparts the essential character to the complete article".
+    % NY N283135: tungsten worm sinkers -> 9507.90
+    the kind of the worm sinkers is fishing sinker.
+    % NY N269567: "Alpha Spin Combo Fishing Rod", a rod with a reel attached,
+    % equally essential: GRI 3(c), the reel occurs last -> 9507.30
+    the Alpha Spin Combo is a composite good.
+    the rod of the Alpha Spin Combo is a component of the Alpha Spin Combo.
+    the reel of the Alpha Spin Combo is a component of the Alpha Spin Combo.
+    the kind of the Alpha Spin Combo is fishing rod.
+    the kind of the rod of the Alpha Spin Combo is fishing rod.
+    the kind of the reel of the Alpha Spin Combo is fishing reel.
+    the essential character of the Alpha Spin Combo is given by no single component,
+        according to CBP, because "Being that the reel and the rod are equally essential to the article's performance, no essential character can be determined".
+    % NY N340501: a boat landing net on an aluminum pole -> 9507.90
+    the kind of item UL-31-P is landing net.
+    subheading expects answers ["the subheading of the Hoko lure is 9507.90", "the subheading of the worm sinkers is 9507.90", "the subheading of the Alpha Spin Combo is 9507.30", "the subheading of item UL-31-P is 9507.90"].
+
+% Goods the chapter does not take: a statue for display (NY N314335), a
+% cycling glove (note 1(w); NY N233894 classifies it in 6116), and the
+% facts of note 1 and note 5
+scenario exclusions is:
+    % NY N314335: a plastic statue of a video game character on a base, not
+    % principally designed for amusement -> 3926.40 (not 9503)
+    the kind of the Ellie statue is humanoid figurine.
+    the Ellie statue is a manufactured article.
+    the Ellie statue is made of plastics.
+    the Ellie statue is not principally designed for amusement,
+        according to CBP, because "we find that the merchandise concerned is not principally designed for amusement".
+    the principal use of the Ellie statue is ornament,
+        according to CBP, because "serves a utilitarian purpose as an article for decoration or display".
+    % NY N233894: a knitted cycling glove: note 1(w) keeps it out of Chapter 95
+    the kind of the RL Liner is cycling glove.
+    % note 5: a toy identifiable as intended exclusively for animals
+    the kind of toy A is toy.
+    toy A is identifiable as intended exclusively for animals.
+    % note 1(w): a racket string is no accessory of heading 9506
+    the kind of string B is racket string.
+    string B is a part or accessory suitable for use solely or principally with tennis racket.
+    % note 1(x): a festive article with a utilitarian function
+    the kind of ornament C is Christmas ornament.
+    ornament C has a utilitarian function.
+    subheading expects answers ["the subheading of the Ellie statue is 3926.40"].
+    unplaced expects answers ["toy A is not placed by the model", "string B is not placed by the model", "ornament C is not placed by the model"].
+
+% The subheadings the rulings above do not reach, and notes 1(d), 3 and 4
+scenario subheadings is:
+    the kind of ball A is basketball.
+    the kind of ball B is baseball.
+    the kind of ball C is baseball.
+    ball C is inflatable.
+    the kind of game D is pinball machine.
+    game D is operated by coins or other means of payment.
+    the kind of game E is video game console.
+    game E is operated by coins or other means of payment.
+    the kind of racket F is tennis racket.
+    the kind of racket G is badminton racket.
+    the kind of ski H is snowboard.
+    the kind of ride I is roller coaster.
+    the kind of cue J is billiard cue.
+    the kind of reel K is fishing reel.
+    the kind of the boots L is skating boot.
+    the constituent material of the upper of the boots L is leather.
+    the constituent material of the outer sole of the boots L is leather.
+    the boots L has ice or roller skates attached.
+    part M is a part or accessory suitable for use solely or principally with fishing rod.
+    the kind of bag N is sports bag.
+    the outer surface of bag N is of polyester.
+    bag N is a part or accessory suitable for use solely or principally with golf club.
+    combination O is a combination put up for retail sale with items of other headings.
+    combination O has the essential character of toys,
+        according to the office, because "the toys give the combination its character".
+    subheading expects answers ["the subheading of ball A is 9506.62", "the subheading of ball B is 9506.69", "the subheading of ball C is 9506.62", "the subheading of game D is 9504.30", "the subheading of game E is 9504.30", "the subheading of racket F is 9506.51", "the subheading of racket G is 9506.59", "the subheading of ski H is 9506.11", "the subheading of ride I is 9508.21", "the subheading of cue J is 9504.20", "the subheading of reel K is 9507.30", "the subheading of the boots L is 9506.70", "the subheading of part M is 9507.10", "the subheading of bag N is 4202.92", "the subheading of combination O is 9503.00"].
+    heading expects answers ["the heading of ball A is 9506", "the heading of ball B is 9506", "the heading of ball C is 9506", "the heading of game D is 9504", "the heading of game E is 9504", "the heading of racket F is 9506", "the heading of racket G is 9506", "the heading of ski H is 9506", "the heading of ride I is 9508", "the heading of cue J is 9504", "the heading of reel K is 9507", "the heading of the boots L is 9506", "the heading of part M is 9507", "the heading of bag N is 4202", "the heading of combination O is 9503"].

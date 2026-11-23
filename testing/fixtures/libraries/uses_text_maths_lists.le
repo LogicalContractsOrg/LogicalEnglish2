@@ -12,6 +12,7 @@ the templates are:
     the monthly repayment for *an amount* at *a rate* over *a number* months is *a repayment*.
     *a name* might include HTML.
     the countdown from *a number* is *a list*.
+    *a text* has the level *a level*.
 
 the knowledge base uses_text_maths_lists includes:
 
@@ -38,11 +39,15 @@ the countdown from a number N is a list L if
     N = 0
     and L is 0 followed by [].
 
+a text has the level a level if
+    the text split at ">" has the part the level.
+
 scenario libraries is:
     the subject expects answers ["the subject for CCMS is Feedback for CCMS (70)"].
     the repayment expects answers ["the monthly repayment for 400000 at 6 over 360 months is 2398.20"].
     html expects answers ["amp&amp; might include HTML"].
     countdown expects answers ["the countdown from 3 is [3, 2, 1, 0]"].
+    levels expects answers ["toys & hobbies > remote control toys has the level toys & hobbies", "toys & hobbies > remote control toys has the level remote control toys"].
 
 query the subject is:
     the subject for "CCMS" is which text.
@@ -55,3 +60,6 @@ query html is:
 
 query countdown is:
     the countdown from 3 is which list.
+
+query levels is:
+    "toys & hobbies > remote control toys" has the level which level.

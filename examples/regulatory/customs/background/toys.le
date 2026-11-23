@@ -1,0 +1,541 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the words of sellers for toys, games, festive articles, sports equipment
+% and fishing tackle, in the words of the tariff (Chapter 95). Each word
+% cites the text that says what it means: the tariff's headings and notes,
+% the EU explanatory notes to Chapter 95, US Customs rulings, and the
+% description of the listings' fields (sources/listings/
+% marketplace_fields_other_products.txt) for what a field means. Bridges.
+%
+% The fields read: the kind (Item Type, Type, Category, Product Type,
+% Features, Use); the shop's category ("Toys & Hobbies > Stuffed Animals &
+% Plush"); the occasion of a decoration (Occasion: Christmas); the words
+% that name a pet toy (note 5).
+%
+% Left out, because no saved text says what the word means for the tariff:
+%   - "model" alone: "Item Type: Model" is a scale model only in a toys
+%     category of the shop (the rule below); elsewhere it can be a mannequin,
+%     a display model or a part;
+%   - "drone": a toy drone is of heading 9503 and an unmanned aircraft of
+%     heading 8806 (CN EN to 9503: weight, height, range, no load); the word
+%     does not decide;
+%   - "scooter": a kick scooter is a toy (NY N272198), a scooter with a
+%     motor is of heading 8711 above the CN EN limits;
+%   - "game controller": a wired controller is of 9504.50, a wireless one of
+%     8526 (NY N327482); the word does not say which;
+%   - "Dolls & Accessories" as a shop category: it does not say whether the
+%     product is a doll or an accessory (both are of heading 9503, but the
+%     kind must be one of them);
+%   - "blind box", "mystery box": no ruling names them; the toy inside
+%     decides (NY N314012 classifies the surprise toy by itself);
+%   - "Recommend Age": the age bands of heading 9503 are statistical lines
+%     below six digits;
+%   - "Sports & Entertainment > Cycling": most cycling goods are not of
+%     Chapter 95 (bicycles, helmets, gloves, bells: note 1).
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* is in the shop category *a category*.
+    *a name* is a word for the kind *a kind*.
+    *a field* is a field that names the kind.
+    *a category* is a category of toys.
+    *a name* is a word for the festivity *a festivity*.
+    *a name* is a name of a decoration for *a festivity*.
+    *a kind* is among the decoration kinds.
+    *a name* is a pet toy word.
+    the kind of *a good* is *a kind*.
+    *a good* is marketed as a decoration for *a festivity*.
+    *a good* is identifiable as intended exclusively for animals.
+
+the knowledge base toys background includes:
+
+the other products listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the other products listing format is at "sources/listings/marketplace_fields_other_products.txt".
+HTSUS Chapter 95 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2095#page=1".
+the text of HTSUS Chapter 95 is at "sources/hts/chapter_95.txt".
+the CN explanatory notes to Chapter 95 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 95 is at "sources/eu/cn_en_ch95.txt".
+ruling NY N268990 is published at "https://rulings.cbp.gov/ruling/N268990".
+the text of ruling NY N268990 is at "sources/cbp/N268990.txt".
+ruling NY N349980 is published at "https://rulings.cbp.gov/ruling/N349980".
+the text of ruling NY N349980 is at "sources/cbp/N349980.txt".
+ruling NY N353849 is published at "https://rulings.cbp.gov/ruling/N353849".
+the text of ruling NY N353849 is at "sources/cbp/N353849.txt".
+ruling NY N244089 is published at "https://rulings.cbp.gov/ruling/N244089".
+the text of ruling NY N244089 is at "sources/cbp/N244089.txt".
+ruling NY N293728 is published at "https://rulings.cbp.gov/ruling/N293728".
+the text of ruling NY N293728 is at "sources/cbp/N293728.txt".
+ruling NY N323959 is published at "https://rulings.cbp.gov/ruling/N323959".
+the text of ruling NY N323959 is at "sources/cbp/N323959.txt".
+ruling NY N174717 is published at "https://rulings.cbp.gov/ruling/N174717".
+the text of ruling NY N174717 is at "sources/cbp/N174717.txt".
+ruling NY N340079 is published at "https://rulings.cbp.gov/ruling/N340079".
+the text of ruling NY N340079 is at "sources/cbp/N340079.txt".
+ruling NY N250079 is published at "https://rulings.cbp.gov/ruling/N250079".
+the text of ruling NY N250079 is at "sources/cbp/N250079.txt".
+ruling NY N339261 is published at "https://rulings.cbp.gov/ruling/N339261".
+the text of ruling NY N339261 is at "sources/cbp/N339261.txt".
+ruling NY N352820 is published at "https://rulings.cbp.gov/ruling/N352820".
+the text of ruling NY N352820 is at "sources/cbp/N352820.txt".
+ruling NY N336171 is published at "https://rulings.cbp.gov/ruling/N336171".
+the text of ruling NY N336171 is at "sources/cbp/N336171.txt".
+ruling NY N217140 is published at "https://rulings.cbp.gov/ruling/N217140".
+the text of ruling NY N217140 is at "sources/cbp/N217140.txt".
+ruling NY N346694 is published at "https://rulings.cbp.gov/ruling/N346694".
+the text of ruling NY N346694 is at "sources/cbp/N346694.txt".
+ruling NY N302865 is published at "https://rulings.cbp.gov/ruling/N302865".
+the text of ruling NY N302865 is at "sources/cbp/N302865.txt".
+ruling NY N353478 is published at "https://rulings.cbp.gov/ruling/N353478".
+the text of ruling NY N353478 is at "sources/cbp/N353478.txt".
+ruling NY N340898 is published at "https://rulings.cbp.gov/ruling/N340898".
+the text of ruling NY N340898 is at "sources/cbp/N340898.txt".
+ruling NY N357738 is published at "https://rulings.cbp.gov/ruling/N357738".
+the text of ruling NY N357738 is at "sources/cbp/N357738.txt".
+ruling NY N233886 is published at "https://rulings.cbp.gov/ruling/N233886".
+the text of ruling NY N233886 is at "sources/cbp/N233886.txt".
+ruling NY N346125 is published at "https://rulings.cbp.gov/ruling/N346125".
+the text of ruling NY N346125 is at "sources/cbp/N346125.txt".
+ruling NY N303881 is published at "https://rulings.cbp.gov/ruling/N303881".
+the text of ruling NY N303881 is at "sources/cbp/N303881.txt".
+ruling NY N346126 is published at "https://rulings.cbp.gov/ruling/N346126".
+the text of ruling NY N346126 is at "sources/cbp/N346126.txt".
+ruling NY N365995 is published at "https://rulings.cbp.gov/ruling/N365995".
+the text of ruling NY N365995 is at "sources/cbp/N365995.txt".
+ruling NY N283135 is published at "https://rulings.cbp.gov/ruling/N283135".
+the text of ruling NY N283135 is at "sources/cbp/N283135.txt".
+ruling NY N269567 is published at "https://rulings.cbp.gov/ruling/N269567".
+the text of ruling NY N269567 is at "sources/cbp/N269567.txt".
+ruling NY N340501 is published at "https://rulings.cbp.gov/ruling/N340501".
+the text of ruling NY N340501 is at "sources/cbp/N340501.txt".
+ruling NY N360066 is published at "https://rulings.cbp.gov/ruling/N360066".
+the text of ruling NY N360066 is at "sources/cbp/N360066.txt".
+
+% ---------------------------------------------------------------------------
+% The fields of a listing that name the kind (the listing format)
+% ---------------------------------------------------------------------------
+"item type" is a field that names the kind,
+    as stated in the other products listing format, confer "Item Type (99 listings): the kind of product in the seller's words".
+"type" is a field that names the kind,
+    as stated in the other products listing format, confer "Type (124 listings): for example".
+"category" is a field that names the kind,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+"product type" is a field that names the kind,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+"features" is a field that names the kind,
+    as stated in the other products listing format, confer "Features, Feature, Function, Special Features: for example \"Features: Diecast\", \"Features: Stuffed & Plush\"".
+"feature" is a field that names the kind,
+    as stated in the other products listing format, confer "Features, Feature, Function, Special Features: for example \"Features: Diecast\", \"Features: Stuffed & Plush\"".
+"special features" is a field that names the kind,
+    as stated in the other products listing format, confer "Features, Feature, Function, Special Features: for example \"Features: Diecast\", \"Features: Stuffed & Plush\"".
+"use" is a field that names the kind,
+    as stated in the other products listing format, confer "Use (39 listings) and Application (27 listings): for example \"Use: Home DIY\", \"Use: Vehicles & Remote Control Toys\"".
+
+% The shop's categories of toys
+"toys & hobbies" is a category of toys,
+    as stated in the other products listing format, confer "\"Toys & Hobbies\" (31)".
+"toys & hobbies > action & toy figures" is a category of toys,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Action & Toy Figures\"".
+"toys & hobbies > remote control toys" is a category of toys,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Remote Control Toys\"".
+"toys & hobbies > stuffed animals & plush" is a category of toys,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Stuffed Animals & Plush\"".
+"toys & hobbies > dolls & accessories" is a category of toys,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Dolls & Accessories\"".
+
+% ---------------------------------------------------------------------------
+% Kinds of toys (heading 9503)
+% ---------------------------------------------------------------------------
+"action figure" is a word for the kind action figure,
+    as stated in ruling NY N268990, confer "as would any other action figure".
+"action figures" is a word for the kind action figure,
+    as stated in ruling NY N268990, confer "as would any other action figure".
+"toys & hobbies > action & toy figures" is a word for the kind toy figure,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Action & Toy Figures\"".
+"action & toy figures" is a word for the kind toy figure,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Action & Toy Figures\"".
+"toy figure" is a word for the kind toy figure,
+    as stated in ruling NY N349980, confer "is described as a toy figurine designed for interactive play".
+"toy figurine" is a word for the kind toy figure,
+    as stated in ruling NY N349980, confer "is described as a toy figurine designed for interactive play".
+"stuffed toy" is a word for the kind stuffed toy,
+    as stated in the CN explanatory notes to Chapter 95, confer "Stuffed toys of this subheading usually have an outer fabric of a soft material".
+"stuffed toys" is a word for the kind stuffed toy,
+    as stated in the CN explanatory notes to Chapter 95, confer "Stuffed toys of this subheading usually have an outer fabric of a soft material".
+"stuffed animal" is a word for the kind stuffed toy,
+    as stated in the CN explanatory notes to Chapter 95, confer "Stuffed toy representing a bear made of soft fabric".
+"stuffed & plush" is a word for the kind stuffed toy,
+    as stated in the other products listing format, confer "\"Features: Stuffed & Plush\"".
+"stuffed animals & plush" is a word for the kind stuffed toy,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Stuffed Animals & Plush\"".
+"toys & hobbies > stuffed animals & plush" is a word for the kind stuffed toy,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Stuffed Animals & Plush\"".
+"plush toy" is a word for the kind plush toy,
+    as stated in ruling NY N353849, confer "The plush toy soccer ball is principally designed for the amusement of children".
+"plush toys" is a word for the kind plush toy,
+    as stated in ruling NY N353849, confer "The plush toy soccer ball is principally designed for the amusement of children".
+"doll" is a word for the kind doll,
+    as stated in HTSUS Chapter 95, confer "dolls, other toys".
+"dolls" is a word for the kind doll,
+    as stated in HTSUS Chapter 95, confer "dolls, other toys".
+"doll accessories" is a word for the kind doll accessory,
+    as stated in the other products listing format, confer "\"Item Type: Doll Accessories\"".
+"doll clothes" is a word for the kind doll clothes,
+    as stated in the CN explanatory notes to Chapter 95, confer "clothing, shoes, hats, bags and toiletries for dolls".
+"styling set for doll" is a word for the kind doll accessory,
+    as stated in ruling NY N340079, confer "is a 34-piece hair styling set designed and marketed for use with the American Girl doll".
+"diecast" is a word for the kind die-cast model,
+    as stated in ruling NY N244089, confer "The replica car is made of die-cast metal and plastic components".
+"die-cast" is a word for the kind die-cast model,
+    as stated in ruling NY N244089, confer "The replica car is made of die-cast metal and plastic components".
+"scale model" is a word for the kind scale model,
+    as stated in HTSUS Chapter 95, confer "and similar recreational models, working or not".
+"scale models" is a word for the kind scale model,
+    as stated in HTSUS Chapter 95, confer "and similar recreational models, working or not".
+"building blocks" is a word for the kind building blocks,
+    as stated in the CN explanatory notes to Chapter 95, confer "These subheadings also include building blocks".
+"building block" is a word for the kind building blocks,
+    as stated in the CN explanatory notes to Chapter 95, confer "These subheadings also include building blocks".
+"interlocking blocks" is a word for the kind building blocks,
+    as stated in ruling NY N293728, confer "759 pieces of colorful interlocking plastic blocks".
+"puzzle" is a word for the kind puzzle,
+    as stated in HTSUS Chapter 95, confer "puzzles of all kinds".
+"puzzles" is a word for the kind puzzle,
+    as stated in HTSUS Chapter 95, confer "puzzles of all kinds".
+"jigsaw puzzle" is a word for the kind jigsaw puzzle,
+    as stated in ruling NY N250079, confer "The tariff classification of two jigsaw puzzles from China".
+"jigsaw puzzles" is a word for the kind jigsaw puzzle,
+    as stated in ruling NY N250079, confer "The tariff classification of two jigsaw puzzles from China".
+"balloon" is a word for the kind balloon,
+    as stated in HTSUS Chapter 95, confer "Inflatable toy balls, balloons and punchballs, of rubber".
+"balloons" is a word for the kind balloon,
+    as stated in HTSUS Chapter 95, confer "Inflatable toy balls, balloons and punchballs, of rubber".
+"latex balloons" is a word for the kind balloon,
+    as stated in ruling NY N339261, confer "The tariff classification for latex balloons from Sri Lanka".
+"remote control toys" is a word for the kind remote-control toy,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Remote Control Toys\"".
+"toys & hobbies > remote control toys" is a word for the kind remote-control toy,
+    as stated in the other products listing format, confer "\"Toys & Hobbies > Remote Control Toys\"".
+"vehicles & remote control toys" is a word for the kind remote-control toy,
+    as stated in the other products listing format, confer "\"Use: Vehicles & Remote Control Toys\"".
+"rc car" is a word for the kind remote-control car,
+    as stated in ruling NY N323959, confer "It is of the same class or kind as other RC vehicles".
+"remote control car" is a word for the kind remote-control car,
+    as stated in ruling NY N323959, confer "it operates like any other remote controlled toy vehicle".
+"rc helicopter" is a word for the kind remote-control helicopter,
+    as stated in ruling NY N174717, confer "The item consists of a toy RC helicopter".
+"remote control helicopter" is a word for the kind remote-control helicopter,
+    as stated in ruling NY N174717, confer "The tariff classification of a Remote Control Helicopter from China".
+"quadcopter" is a word for the kind quadcopter,
+    as stated in ruling NY N323959, confer "The Quadcopter is a helicopter-like remote controlled (RC) vehicle".
+"fidget toy" is a word for the kind fidget toy,
+    as stated in the CN explanatory notes to Chapter 95, confer "designed to be repeatedly squeezed in the hand as an anti-stress exercise".
+"anti-stress ball" is a word for the kind anti-stress ball,
+    as stated in the CN explanatory notes to Chapter 95, confer "so-called 'anti-stress balls' which have the shape of a ball".
+"stress ball" is a word for the kind anti-stress ball,
+    as stated in the CN explanatory notes to Chapter 95, confer "so-called 'anti-stress balls' which have the shape of a ball".
+
+% ---------------------------------------------------------------------------
+% Kinds of games (heading 9504)
+% ---------------------------------------------------------------------------
+"handheld game players" is a word for the kind handheld video game machine,
+    as stated in the other products listing format, confer "\"Category: Handheld Game Players\"".
+"handheld game player" is a word for the kind handheld video game machine,
+    as stated in HTSUS Chapter 95, confer "Video game machines having a self-contained video screen, whether or not portable".
+"video game console" is a word for the kind video game console,
+    as stated in ruling NY N217140, confer "The item consists of a video game console".
+"game console" is a word for the kind video game console,
+    as stated in ruling NY N217140, confer "The console features plug and play connectivity to a television".
+"playing cards" is a word for the kind playing cards,
+    as stated in HTSUS Chapter 95, confer "Playing cards".
+"poker cards" is a word for the kind playing cards,
+    as stated in the CN explanatory notes to Chapter 95, confer "bridge cards, poker game cards, lexicon cards, tarot cards".
+"tarot cards" is a word for the kind playing cards,
+    as stated in the CN explanatory notes to Chapter 95, confer "bridge cards, poker game cards, lexicon cards, tarot cards".
+"trading cards" is a word for the kind trading cards,
+    as stated in ruling NY N352820, confer "The items under consideration are trading cards".
+"dice" is a word for the kind dice,
+    as stated in ruling NY N336171, confer "The dice are designed to be used in the same manner as traditional dice".
+"chess" is a word for the kind chess set,
+    as stated in HTSUS Chapter 95, confer "Chess, checkers, parchisi, backgammon, darts".
+"chess set" is a word for the kind chess set,
+    as stated in HTSUS Chapter 95, confer "Chess, checkers, parchisi, backgammon, darts".
+"board game" is a word for the kind board game,
+    as stated in HTSUS Chapter 95, confer "other games played on boards of a special design".
+"board games" is a word for the kind board game,
+    as stated in HTSUS Chapter 95, confer "other games played on boards of a special design".
+"mahjong" is a word for the kind mah-jong,
+    as stated in HTSUS Chapter 95, confer "mah-jong and dominoes".
+
+% ---------------------------------------------------------------------------
+% Festive articles (heading 9505)
+% ---------------------------------------------------------------------------
+"christmas ornament" is a word for the kind Christmas ornament,
+    as stated in HTSUS Chapter 95, confer "Christmas ornaments".
+"christmas ornaments" is a word for the kind Christmas ornament,
+    as stated in HTSUS Chapter 95, confer "Christmas ornaments".
+"christmas decoration" is a word for the kind Christmas ornament,
+    as stated in ruling NY N346694, confer "The item is marketed and sold exclusively as a Christmas decoration".
+"christmas decorations" is a word for the kind Christmas ornament,
+    as stated in ruling NY N346694, confer "The item is marketed and sold exclusively as a Christmas decoration".
+"artificial christmas tree" is a word for the kind artificial Christmas tree,
+    as stated in HTSUS Chapter 95, confer "Artificial Christmas trees".
+"christmas tree" is a word for the kind artificial Christmas tree,
+    as stated in ruling NY N302865, confer "will be marketed and sold exclusively for Christmas".
+"nativity scene" is a word for the kind nativity scene,
+    as stated in HTSUS Chapter 95, confer "Nativity scenes and figures thereof".
+"confetti" is a word for the kind confetti,
+    as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+"streamers" is a word for the kind streamer,
+    as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+"party favors" is a word for the kind party favor,
+    as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+"noisemakers" is a word for the kind noisemaker,
+    as stated in HTSUS Chapter 95, confer "Confetti, paper spirals or streamers, party favors and noisemakers".
+"magic tricks" is a word for the kind magic trick,
+    as stated in HTSUS Chapter 95, confer "Magic tricks and practical joke articles".
+"magic trick" is a word for the kind magic trick,
+    as stated in HTSUS Chapter 95, confer "Magic tricks and practical joke articles".
+"party decoration" is a word for the kind decoration,
+    as stated in ruling NY N340898, confer "will be marketed and sold as a party decoration".
+"party decorations" is a word for the kind decoration,
+    as stated in ruling NY N340898, confer "will be marketed and sold as a party decoration".
+"halloween decoration" is a word for the kind decoration,
+    as stated in ruling NY N353478, confer "The tariff classification of a Halloween decoration from China".
+"halloween decorations" is a word for the kind decoration,
+    as stated in ruling NY N353478, confer "The tariff classification of a Halloween decoration from China".
+"decoration" is a word for the kind decoration,
+    as stated in the CN explanatory notes to Chapter 95, confer "products to be classified as festive articles must be of a decorative value (design and ornament)".
+"garland" is a word for the kind garland,
+    as stated in the CN explanatory notes to Chapter 95, confer "products to be classified as festive articles must be of a decorative value (design and ornament)".
+"banner" is a word for the kind banner,
+    as stated in the CN explanatory notes to Chapter 95, confer "printed paper decorations, which are associated with a particular festivity".
+
+decoration is among the decoration kinds,
+    as stated in the CN explanatory notes to Chapter 95, confer "products to be classified as festive articles must be of a decorative value (design and ornament)".
+garland is among the decoration kinds,
+    as stated in the CN explanatory notes to Chapter 95, confer "products to be classified as festive articles must be of a decorative value (design and ornament)".
+banner is among the decoration kinds,
+    as stated in the CN explanatory notes to Chapter 95, confer "printed paper decorations, which are associated with a particular festivity".
+
+% The festivities (CN EN: "Examples of such events are Christmas, Easter,
+% Halloween, St. Valentine, birthdays and weddings"; a party decoration,
+% NY N340898)
+"christmas" is a word for the festivity Christmas,
+    as stated in the other products listing format, confer "\"Occasion: Christmas\"".
+"halloween" is a word for the festivity Halloween,
+    as stated in the CN explanatory notes to Chapter 95, confer "Examples of such events are Christmas, Easter, Halloween, St. Valentine, birthdays and weddings".
+"easter" is a word for the festivity Easter,
+    as stated in the CN explanatory notes to Chapter 95, confer "Examples of such events are Christmas, Easter, Halloween, St. Valentine, birthdays and weddings".
+"valentine's day" is a word for the festivity Valentine,
+    as stated in the CN explanatory notes to Chapter 95, confer "Examples of such events are Christmas, Easter, Halloween, St. Valentine, birthdays and weddings".
+"birthday" is a word for the festivity birthday,
+    as stated in the CN explanatory notes to Chapter 95, confer "Examples of such events are Christmas, Easter, Halloween, St. Valentine, birthdays and weddings".
+"wedding" is a word for the festivity wedding,
+    as stated in the CN explanatory notes to Chapter 95, confer "Examples of such events are Christmas, Easter, Halloween, St. Valentine, birthdays and weddings".
+"party" is a word for the festivity party,
+    as stated in ruling NY N340898, confer "will be marketed and sold as a party decoration".
+
+"party decoration" is a name of a decoration for party,
+    as stated in ruling NY N340898, confer "will be marketed and sold as a party decoration".
+"party decorations" is a name of a decoration for party,
+    as stated in ruling NY N340898, confer "will be marketed and sold as a party decoration".
+"halloween decoration" is a name of a decoration for Halloween,
+    as stated in ruling NY N353478, confer "The item will be marketed and sold as a decoration for Halloween".
+"halloween decorations" is a name of a decoration for Halloween,
+    as stated in ruling NY N353478, confer "The item will be marketed and sold as a decoration for Halloween".
+
+% ---------------------------------------------------------------------------
+% Sports equipment (heading 9506)
+% ---------------------------------------------------------------------------
+"yoga mat" is a word for the kind yoga mat,
+    as stated in ruling NY N357738, confer "A yoga mat provides a non-slip cushioned surface".
+"yoga mats" is a word for the kind yoga mat,
+    as stated in ruling NY N357738, confer "A yoga mat provides a non-slip cushioned surface".
+"jump rope" is a word for the kind jump rope,
+    as stated in ruling NY N233886, confer "The tariff classification of various Everlast jump ropes from China".
+"jump ropes" is a word for the kind jump rope,
+    as stated in ruling NY N233886, confer "The tariff classification of various Everlast jump ropes from China".
+"skipping rope" is a word for the kind jump rope,
+    as stated in ruling NY N233886, confer "the items belong to the class of merchandise used in general physical exercise".
+"skateboard" is a word for the kind skateboard,
+    as stated in ruling NY N346125, confer "The tariff classification of a skateboard from China".
+"skateboards" is a word for the kind skateboard,
+    as stated in ruling NY N346125, confer "The tariff classification of a skateboard from China".
+"roller skates" is a word for the kind roller skate,
+    as stated in ruling NY N346126, confer "are roller skates with adjustable boots".
+"golf balls" is a word for the kind golf ball,
+    as stated in ruling NY N303881, confer "The item contains 3 regulation golf balls".
+"golf tees" is a word for the kind golf tee,
+    as stated in ruling NY N303881, confer "Also included are 2 plastic regulation golf tees".
+"tennis racket" is a word for the kind tennis racket,
+    as stated in HTSUS Chapter 95, confer "Lawn-tennis rackets, whether or not strung".
+"badminton racket" is a word for the kind badminton racket,
+    as stated in HTSUS Chapter 95, confer "Badminton rackets".
+"soccer ball" is a word for the kind soccer ball,
+    as stated in HTSUS Chapter 95, confer "Footballs and soccer balls".
+"basketball" is a word for the kind basketball,
+    as stated in HTSUS Chapter 95, confer "Basketballs".
+"volleyball" is a word for the kind volleyball,
+    as stated in HTSUS Chapter 95, confer "Volleyballs".
+
+% ---------------------------------------------------------------------------
+% Fishing tackle (heading 9507)
+% ---------------------------------------------------------------------------
+"lure" is a word for the kind fishing lure,
+    as stated in the other products listing format, confer "\"Category: LURE\"".
+"fishing lure" is a word for the kind fishing lure,
+    as stated in ruling NY N365995, confer "fishing lures are classified as artificial bait under heading 9507".
+"fishing lures" is a word for the kind fishing lure,
+    as stated in ruling NY N365995, confer "fishing lures are classified as artificial bait under heading 9507".
+"fishing reel" is a word for the kind fishing reel,
+    as stated in HTSUS Chapter 95, confer "Fishing reels and parts and accessories thereof".
+"fishing reels" is a word for the kind fishing reel,
+    as stated in HTSUS Chapter 95, confer "Fishing reels and parts and accessories thereof".
+"fishing rod" is a word for the kind fishing rod,
+    as stated in HTSUS Chapter 95, confer "Fishing rods and parts and accessories thereof".
+"fishing rods" is a word for the kind fishing rod,
+    as stated in HTSUS Chapter 95, confer "Fishing rods and parts and accessories thereof".
+"fish hooks" is a word for the kind fish hook,
+    as stated in HTSUS Chapter 95, confer "Fish hooks, whether or not snelled".
+"fishing hooks" is a word for the kind fish hook,
+    as stated in HTSUS Chapter 95, confer "Fish hooks, whether or not snelled".
+"sinker" is a word for the kind fishing sinker,
+    as stated in ruling NY N283135, confer "The worm sinker acts as a weight".
+"sinkers" is a word for the kind fishing sinker,
+    as stated in ruling NY N283135, confer "The tariff classification of fishing sinkers from China".
+"landing net" is a word for the kind landing net,
+    as stated in ruling NY N340501, confer "is a pear shaped landing net attached to an aluminum pole".
+
+% ---------------------------------------------------------------------------
+% Note 5: the words of a toy for animals (pet toys; a cat toy is a
+% household article of plastics, NY N360066)
+% ---------------------------------------------------------------------------
+"pet toy" is a pet toy word,
+    as stated in HTSUS Chapter 95, confer "for example, \"pet toys\"".
+"pet toys" is a pet toy word,
+    as stated in HTSUS Chapter 95, confer "for example, \"pet toys\"".
+"dog toy" is a pet toy word,
+    as stated in HTSUS Chapter 95, confer "are identifiable as intended exclusively for animals".
+"dog toys" is a pet toy word,
+    as stated in HTSUS Chapter 95, confer "are identifiable as intended exclusively for animals".
+"cat toy" is a pet toy word,
+    as stated in ruling NY N360066, confer "will be marketed and sold as a cat toy".
+"cat toys" is a pet toy word,
+    as stated in ruling NY N360066, confer "will be marketed and sold as a cat toy".
+
+% ---------------------------------------------------------------------------
+% The rules: a word in the name, in a field, or in the shop's category
+% ---------------------------------------------------------------------------
+rule toys_kind_by_name with provenance the other products listing format,
+        confer "A listing offers one finished product for sale":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the kind the kind.
+
+rule toys_kind_by_field with provenance the other products listing format,
+        confer "Item Type (99 listings): the kind of product in the seller's words":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field that names the kind
+    and the value is a word for the kind the kind.
+
+rule toys_kind_by_category with provenance the other products listing format,
+        confer "It has a title, the categories of the shop, a price, and attributes":
+the kind of a good is a kind
+    if the good is in the shop category a category
+    and the category is a word for the kind the kind.
+
+% "Item Type: Model" in a toys category of the shop: a reduced-scale model
+% (heading 9503: "reduced-scale (\"scale\") models and similar recreational
+% models")
+rule toys_model_in_toys_category with provenance HTSUS Chapter 95,
+        confer "and similar recreational models, working or not":
+the kind of a good is scale model
+    if the field "item type" of the good reads "model"
+    and the good is in the shop category a category
+    and the category is a category of toys.
+
+% A decoration whose listing names the occasion: made for that festivity
+% (heading 9505; "Occasion: Christmas")
+rule decoration_occasion_field with provenance the other products listing format,
+        confer "Theme (20 listings), Occasion (20 listings)":
+a good is marketed as a decoration for an occasion
+    if the field "occasion" of the good reads a value
+    and the value is a word for the festivity the occasion
+    and the kind of the good is a kind
+    and the kind is among the decoration kinds.
+
+rule decoration_name with provenance the other products listing format,
+        confer "A listing offers one finished product for sale":
+a good is marketed as a decoration for an occasion
+    if the good is called a name
+    and the name is a name of a decoration for the occasion.
+
+% note 5: a listing that names a toy for animals
+rule pet_toy_name with provenance HTSUS Chapter 95,
+        confer "are identifiable as intended exclusively for animals":
+a good is identifiable as intended exclusively for animals
+    if the good is called a name
+    and the name is a pet toy word.
+
+rule pet_toy_field with provenance HTSUS Chapter 95,
+        confer "are identifiable as intended exclusively for animals":
+a good is identifiable as intended exclusively for animals
+    if the field a field of the good reads a value
+    and the field is a field that names the kind
+    and the value is a pet toy word.
+
+% ---------------------------------------------------------------------------
+% Tests
+% ---------------------------------------------------------------------------
+
+query kinds is:
+    the kind of which good is which kind.
+
+query festivities is:
+    which good is marketed as a decoration for which festivity.
+
+query pets is:
+    which good is identifiable as intended exclusively for animals.
+
+scenario toys is:
+    the field "item type" of figure 1 reads "action figures".
+    the field "features" of bear 2 reads "stuffed & plush".
+    car 3 is in the shop category "toys & hobbies".
+    car 3 is in the shop category "remote control toys".
+    the field "use" of car 4 reads "vehicles & remote control toys".
+    the field "item type" of model 5 reads "model".
+    model 5 is in the shop category "toys & hobbies".
+    the field "features" of car 6 reads "diecast".
+    the field "item type" of set 7 reads "doll accessories".
+    blocks 8 is called "building blocks".
+    kinds expects answers ["the kind of figure 1 is action figure", "the kind of bear 2 is stuffed toy", "the kind of car 3 is remote-control toy", "the kind of car 4 is remote-control toy", "the kind of model 5 is scale model", "the kind of car 6 is die-cast model", "the kind of set 7 is doll accessory", "the kind of blocks 8 is building blocks"].
+
+scenario games_and_sports is:
+    the field "category" of player 1 reads "handheld game players".
+    cards 2 is called "playing cards".
+    mat 3 is called "yoga mat".
+    the field "category" of lure 4 reads "lure".
+    reel 5 is called "fishing reel".
+    kinds expects answers ["the kind of player 1 is handheld video game machine", "the kind of cards 2 is playing cards", "the kind of mat 3 is yoga mat", "the kind of lure 4 is fishing lure", "the kind of reel 5 is fishing reel"].
+
+scenario festive is:
+    the field "item type" of garland 1 reads "garland".
+    the field "occasion" of garland 1 reads "christmas".
+    decor 2 is called "halloween decorations".
+    the field "occasion" of dress 3 reads "christmas".
+    ornament 4 is called "christmas ornaments".
+    kinds expects answers ["the kind of garland 1 is garland", "the kind of decor 2 is decoration", "the kind of ornament 4 is Christmas ornament"].
+    festivities expects answers ["garland 1 is marketed as a decoration for Christmas", "decor 2 is marketed as a decoration for Halloween"].
+
+scenario pets is:
+    toy 1 is called "cat toy".
+    the field "type" of toy 2 reads "dog toys".
+    pets expects answers ["toy 1 is identifiable as intended exclusively for animals", "toy 2 is identifiable as intended exclusively for animals"].

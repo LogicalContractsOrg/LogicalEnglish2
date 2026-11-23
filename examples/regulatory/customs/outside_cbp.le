@@ -1,0 +1,190 @@
+% Goods of chapters that the model does not have, from rulings of U.S.
+% Customs and Border Protection (CROSS, rulings.cbp.gov), run through the
+% whole modelled tariff (tariff.le) with the claims that the outside
+% background (background/outside.le) raises from their words.
+%
+% Each good is of plastics, so the model alone puts it in heading 3926
+% ("other articles of plastics"). But Chapter 39 note 2 sends a part of an
+% electrical apparatus to Section XVI, a lamp and furniture to Chapter 94,
+% sunglasses to Chapter 90, a pen and a tripod to Chapter 96. The model
+% does not have those chapters. The outside background reads the good's
+% name and raises a claim to the other heading. While the office has not
+% answered the claim, the model's code is conditional: the answer names the
+% judgment that it needs ("the claim ... is rejected"). When the office
+% accepts the claim, as CBP did in each ruling, the model gives no code: the
+% good belongs to a chapter that the model does not have.
+%
+% One scenario per ruling, named after it; each fact quotes the passage of
+% the ruling that states it ("confer"). The claim is a fact of the outside
+% background ("according to outside background, because <rule>"). CBP's
+% code is in the comment above each scenario, not in the facts.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+scenario facts require provenance.
+
+the knowledge base outside cbp includes these resources:
+    marketplace.
+
+the knowledge base outside cbp includes:
+
+% Where each cited ruling is published, and a copy of its text (sources/).
+ruling NY J86705 is published at "https://rulings.cbp.gov/ruling/J86705".
+the text of ruling NY J86705 is at "sources/cbp/J86705.txt".
+ruling NY 803818 is published at "https://rulings.cbp.gov/ruling/803818".
+the text of ruling NY 803818 is at "sources/cbp/803818.txt".
+ruling NY N304395 is published at "https://rulings.cbp.gov/ruling/N304395".
+the text of ruling NY N304395 is at "sources/cbp/N304395.txt".
+ruling NY N317961 is published at "https://rulings.cbp.gov/ruling/N317961".
+the text of ruling NY N317961 is at "sources/cbp/N317961.txt".
+ruling NY 882350 is published at "https://rulings.cbp.gov/ruling/882350".
+the text of ruling NY 882350 is at "sources/cbp/882350.txt".
+ruling NY I84085 is published at "https://rulings.cbp.gov/ruling/I84085".
+the text of ruling NY I84085 is at "sources/cbp/I84085.txt".
+
+query subheading is:
+    the subheading of which good is which code.
+
+query unplaced is:
+    which good is not placed by the model.
+
+query readings is:
+    which good is classified in which code by which reading.
+
+% NY J86705 (July 2003): a switch housing of plastic, the top of a control
+% box with five buttons. CBP: 8538.90 (parts of apparatus of heading 8537).
+% Before CBP answered: the code of Chapter 39 rests on the claim.
+scenario ny_j86705_request is, as stated in ruling NY J86705:
+    the switch housing is a manufactured article,
+        confer "the switch housing, identified as item F29864-02, is the top portion of a control box".
+    the switch housing is made of plastics,
+        confer "It is comprised of plastic and contains five buttons".
+    the principal use of the switch housing is closing a control box,
+        according to CBP, confer "is the top portion of a control box".
+    the switch housing is claimed to belong to machinery of section XVI,
+        according to outside background, because "claim_by_name",
+        confer "The tariff classification of a switch housing from Japan".
+    subheading expects answers ["the subheading of the switch housing is 3926.90"]
+        and unknowns ["the claim that the switch housing belongs to machinery of section XVI is rejected"].
+
+% The same good once CBP has answered: the claim is accepted, and the model
+% gives no code and does not report the good as unplaced.
+scenario ny_j86705 is, as stated in ruling NY J86705:
+    the switch housing is a manufactured article,
+        confer "the switch housing, identified as item F29864-02, is the top portion of a control box".
+    the switch housing is made of plastics,
+        confer "It is comprised of plastic and contains five buttons".
+    the principal use of the switch housing is closing a control box,
+        according to CBP, confer "is the top portion of a control box".
+    the switch housing is claimed to belong to machinery of section XVI,
+        according to outside background, because "claim_by_name",
+        confer "The tariff classification of a switch housing from Japan".
+    the claim that the switch housing belongs to machinery of section XVI is accepted,
+        according to CBP,
+        confer "The applicable subheading for the switch housing, item F29864-02, will be 8538.90.6000".
+    subheading expects answers [].
+    unplaced expects answers [].
+
+% NY 803818 (November 1994): halogen desk lamps with a base and a head of
+% plastics. CBP: 9405.20 (electric table and desk lamps).
+scenario ny_803818 is, as stated in ruling NY 803818:
+    the desk lamp is a manufactured article,
+        confer "consists of halogen desk lamps".
+    the desk lamp is made of plastics,
+        confer "possessing base and head portions of plastics".
+    the principal use of the desk lamp is lighting a desk,
+        according to CBP, confer "consists of halogen desk lamps".
+    the desk lamp is claimed to belong to lighting fittings of heading 9405,
+        according to outside background, because "claim_by_name",
+        confer "The tariff classification of plastic desk lamps from Taiwan".
+    subheading expects answers ["the subheading of the desk lamp is 3926.90"]
+        and unknowns ["the claim that the desk lamp belongs to lighting fittings of heading 9405 is rejected"].
+
+% NY N304395 (June 2019): promotional ball point pens of plastic. CBP:
+% 9608.10 (ball point pens).
+scenario ny_n304395 is, as stated in ruling NY N304395:
+    the promotional pen is a manufactured article,
+        confer "is described as a white plastic pen with removable plastic cap with clip".
+    the promotional pen is made of plastics,
+        confer "is described as a white plastic pen with removable plastic cap with clip".
+    the principal use of the promotional pen is writing,
+        according to CBP, confer "containing black ink".
+    the promotional pen is claimed to belong to pens of heading 9608,
+        according to outside background, because "claim_by_name",
+        confer "identified as promotional ball point pens".
+    subheading expects answers ["the subheading of the promotional pen is 3926.90"]
+        and unknowns ["the claim that the promotional pen belongs to pens of heading 9608 is rejected"].
+
+% NY N317961 (March 2021): a tabletop tripod of plastic that holds a
+% smartphone. CBP: 9620.00 (tripods, of plastics).
+scenario ny_n317961 is, as stated in ruling NY N317961:
+    style 7258 is a manufactured article,
+        confer "This merchandise is a tabletop tripod stand designed to hold a smartphone for podcasting purposes".
+    style 7258 is made of plastics,
+        confer "According to the information provided, it is made primarily of plastic".
+    the principal use of style 7258 is holding a smartphone,
+        according to CBP, confer "This merchandise is a tabletop tripod stand designed to hold a smartphone for podcasting purposes".
+    style 7258 is claimed to belong to tripods of heading 9620,
+        according to outside background, because "claim_by_name",
+        confer "This merchandise is a tabletop tripod stand designed to hold a smartphone for podcasting purposes".
+    subheading expects answers ["the subheading of style 7258 is 3926.90"]
+        and unknowns ["the claim that style 7258 belongs to tripods of heading 9620 is rejected"].
+
+% NY 882350 (February 1993): children's sunglasses of plastic. CBP:
+% 9004.10 (sunglasses).
+scenario ny_882350 is, as stated in ruling NY 882350:
+    the sunglasses is a manufactured article,
+        confer "They are sized for children and are not imported in a case.".
+    the sunglasses is made of plastics,
+        confer "The sunglasses are made of plastic and have plastic lenses.".
+    the principal use of the sunglasses is protecting the eyes,
+        according to CBP, confer "spectacles, goggles and the like".
+    the sunglasses is claimed to belong to instruments of chapter 90,
+        according to outside background, because "claim_by_name",
+        confer "The sunglasses are made of plastic and have plastic lenses.".
+    subheading expects answers ["the subheading of the sunglasses is 3926.90"]
+        and unknowns ["the claim that the sunglasses belongs to instruments of chapter 90 is rejected"].
+
+% NY I84085 (July 2002): tables of woven resin wicker on metal frames.
+% CBP: 9403.70 (furniture of plastics, household). The model alone reads a
+% household article of plastics of heading 3924.
+scenario ny_i84085 is, as stated in ruling NY I84085:
+    the wicker table is a manufactured article,
+        confer "The applicable subheading for the tables will be 9403.70.8010".
+    the wicker table is made of plastics,
+        confer "furniture items made of woven resin wicker on metal frames".
+    the principal use of the wicker table is household use,
+        according to CBP, confer "furniture of plastics: other, household".
+    the wicker table is claimed to belong to furniture of chapter 94,
+        according to outside background, because "claim_by_name",
+        confer "The applicable subheading for the tables will be 9403.70.8010".
+    subheading expects answers ["the subheading of the wicker table is 3924.90"]
+        and unknowns ["the claim that the wicker table belongs to furniture of chapter 94 is rejected"].
+
+% A listing of a phone case of plastics that holds a lithium battery ("Is
+% Electric: Lithium Battery"), read with the background: the uses
+% background gives the use of a phone case (HQ H284146), and the outside
+% background raises a claim to Section XVI, because a case with a battery
+% is a power bank of heading 8507 (NY N265396). The listing reading does
+% not admit the uses background, so it gives no code; the two readings that
+% do give a code conditional on the claim, because each reading admits the
+% outside background.
+scenario battery_case is, as stated in the listing:
+    the battery case is classified under the US tariff.
+    the battery case is a manufactured article, according to marketplace listings, because "finished_product", confer "Phone Case".
+    the battery case is made of plastics, according to materials background, because "plastics_by_name", confer "Material: Plastic".
+    the principal use of the battery case is other use, according to uses background, because "use_by_name", confer "Phone Case".
+    the battery case is claimed to belong to machinery of section XVI, according to outside background, because "claim_by_power_field", confer "Is Electric: Lithium Battery".
+    readings expects answers [
+        "the battery case is classified in 3926.90 by presumed reading",
+        "the battery case is classified in 3926.90 by usage reading"]
+        and unknowns ["the claim that the battery case belongs to machinery of section XVI is rejected"].

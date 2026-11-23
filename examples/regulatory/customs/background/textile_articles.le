@@ -1,0 +1,427 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the words of sellers for made up textile articles, in the words of the
+% tariff (Chapter 63). Each word cites the text that says what it means:
+% the tariff's headings and notes, US Customs rulings, the EU explanatory
+% notes to Chapter 63, a dictionary or an encyclopedia, and the description
+% of the listings' fields (sources/listings/
+% marketplace_fields_other_products.txt) for what a field means. Bridges.
+%
+% The fields read: the kind (Item Type, Type, Category, Product Type); how
+% the textile is made (Technics); the material named (Material: Cloth,
+% Canvas, Terry); the shop's category "Home & Garden > Home Textile".
+% "Material: 100% Polyester" is a share of a fibre: the reader writes it as
+% "the good contains 100 percent of polyester", and the materials
+% background reads the fibre names.
+%
+% Left out, because no saved text says what the word means for the tariff:
+%   - "mask" (a face mask of 6307, or a costume mask of Chapter 95), "cover"
+%     and "car seat cover" (a furnishing of 6304, or a part of a motor
+%     vehicle of heading 8708: HQ H249319), "mat" and "car mat" (a floor
+%     covering of Chapter 57 or 39, a placemat of 6302);
+%   - "pillow" and "cushion" (bedding of heading 9404, which the model does
+%     not cover), "duvet cover", "table runner", "tapestry" (heading 5805);
+%   - "Technics: Embroidered" (embroidery is in the lines below six digits)
+%     and "Technics: Spray Painting" (not the printing of the fabric);
+%   - "Microfiber": a synthetic fibre, but the listing does not say which.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+    the fabric construction of *a garment* is *a construction*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* names the material *a name*; undefined.
+    *a thing* is in the shop category *a category*.
+    *a name* is a word for the textile kind *a kind*.
+    *a field* is a field of the kind of a textile article.
+    *a value* is a technics value for *a construction*.
+    *a name* is a word for a textile fabric.
+    *a name* is a word for a terry fabric.
+    *a category* is a shop category of textile articles.
+    the kind of *a good* is *a kind*.
+    the fabric construction of *a garment* is *a construction*.
+    *a good* is of textile material.
+    the fabric of *a garment* is terry.
+
+the knowledge base textile articles background includes:
+
+the other products listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the other products listing format is at "sources/listings/marketplace_fields_other_products.txt".
+HTSUS Chapter 63 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2063#page=1".
+the text of HTSUS Chapter 63 is at "sources/hts/chapter_63.txt".
+the CN explanatory notes to Chapter 63 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 63 is at "sources/eu/cn_en_ch63.txt".
+the Cambridge dictionary entry cloth is published at "https://dictionary.cambridge.org/dictionary/english/cloth".
+the text of the Cambridge dictionary entry cloth is at "sources/trade_usage/cambridge_cloth.txt".
+the Cambridge dictionary entry canvas is published at "https://dictionary.cambridge.org/dictionary/english/canvas".
+the text of the Cambridge dictionary entry canvas is at "sources/trade_usage/cambridge_canvas.txt".
+the encyclopedia article canvas is published at "https://en.wikipedia.org/wiki/Canvas".
+the text of the encyclopedia article canvas is at "sources/trade_usage/wikipedia_canvas.txt".
+the encyclopedia article terrycloth is published at "https://en.wikipedia.org/wiki/Terrycloth".
+the text of the encyclopedia article terrycloth is at "sources/trade_usage/wikipedia_terrycloth.txt".
+ruling NY E80466 is published at "https://rulings.cbp.gov/ruling/E80466".
+the text of ruling NY E80466 is at "sources/cbp/E80466.txt".
+ruling NY N360755 is published at "https://rulings.cbp.gov/ruling/N360755".
+the text of ruling NY N360755 is at "sources/cbp/N360755.txt".
+ruling NY N223636 is published at "https://rulings.cbp.gov/ruling/N223636".
+the text of ruling NY N223636 is at "sources/cbp/N223636.txt".
+ruling NY N323770 is published at "https://rulings.cbp.gov/ruling/N323770".
+the text of ruling NY N323770 is at "sources/cbp/N323770.txt".
+ruling NY N275351 is published at "https://rulings.cbp.gov/ruling/N275351".
+the text of ruling NY N275351 is at "sources/cbp/N275351.txt".
+ruling NY N240083 is published at "https://rulings.cbp.gov/ruling/N240083".
+the text of ruling NY N240083 is at "sources/cbp/N240083.txt".
+ruling NY N348141 is published at "https://rulings.cbp.gov/ruling/N348141".
+the text of ruling NY N348141 is at "sources/cbp/N348141.txt".
+ruling HQ H346161 is published at "https://rulings.cbp.gov/ruling/H346161".
+the text of ruling HQ H346161 is at "sources/cbp/H346161.txt".
+ruling NY N008927 is published at "https://rulings.cbp.gov/ruling/N008927".
+the text of ruling NY N008927 is at "sources/cbp/N008927.txt".
+ruling NY E89875 is published at "https://rulings.cbp.gov/ruling/E89875".
+the text of ruling NY E89875 is at "sources/cbp/E89875.txt".
+ruling NY N326879 is published at "https://rulings.cbp.gov/ruling/N326879".
+the text of ruling NY N326879 is at "sources/cbp/N326879.txt".
+ruling NY R02116 is published at "https://rulings.cbp.gov/ruling/R02116".
+the text of ruling NY R02116 is at "sources/cbp/R02116.txt".
+ruling NY N113736 is published at "https://rulings.cbp.gov/ruling/N113736".
+the text of ruling NY N113736 is at "sources/cbp/N113736.txt".
+ruling NY L88233 is published at "https://rulings.cbp.gov/ruling/L88233".
+the text of ruling NY L88233 is at "sources/cbp/L88233.txt".
+ruling NY N306396 is published at "https://rulings.cbp.gov/ruling/N306396".
+the text of ruling NY N306396 is at "sources/cbp/N306396.txt".
+ruling NY I87447 is published at "https://rulings.cbp.gov/ruling/I87447".
+the text of ruling NY I87447 is at "sources/cbp/I87447.txt".
+ruling NY N102637 is published at "https://rulings.cbp.gov/ruling/N102637".
+the text of ruling NY N102637 is at "sources/cbp/N102637.txt".
+ruling NY N311153 is published at "https://rulings.cbp.gov/ruling/N311153".
+the text of ruling NY N311153 is at "sources/cbp/N311153.txt".
+ruling NY N222082 is published at "https://rulings.cbp.gov/ruling/N222082".
+the text of ruling NY N222082 is at "sources/cbp/N222082.txt".
+ruling NY N330109 is published at "https://rulings.cbp.gov/ruling/N330109".
+the text of ruling NY N330109 is at "sources/cbp/N330109.txt".
+ruling NY N349766 is published at "https://rulings.cbp.gov/ruling/N349766".
+the text of ruling NY N349766 is at "sources/cbp/N349766.txt".
+ruling NY N317873 is published at "https://rulings.cbp.gov/ruling/N317873".
+the text of ruling NY N317873 is at "sources/cbp/N317873.txt".
+ruling NY N332242 is published at "https://rulings.cbp.gov/ruling/N332242".
+the text of ruling NY N332242 is at "sources/cbp/N332242.txt".
+
+% ---------------------------------------------------------------------------
+% The fields of a listing that name the kind (the listing format)
+% ---------------------------------------------------------------------------
+"item type" is a field of the kind of a textile article,
+    as stated in the other products listing format, confer "Item Type (99 listings): the kind of product in the seller's words".
+"type" is a field of the kind of a textile article,
+    as stated in the other products listing format, confer "Type (124 listings): for example".
+"category" is a field of the kind of a textile article,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+"product type" is a field of the kind of a textile article,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+
+% ---------------------------------------------------------------------------
+% Kinds of made up textile articles (Chapter 63)
+% ---------------------------------------------------------------------------
+% blankets (6301)
+"blanket" is a word for the textile kind blanket,
+    as stated in HTSUS Chapter 63, confer "Blankets and traveling rugs:".
+"blankets" is a word for the textile kind blanket,
+    as stated in HTSUS Chapter 63, confer "Blankets and traveling rugs:".
+"throw" is a word for the textile kind throw,
+    as stated in ruling NY E80466, confer "The subject merchandise, referred to as a textile throw, is considered a blanket".
+"throw blanket" is a word for the textile kind blanket,
+    as stated in ruling NY N360755, confer "is considered a blanket".
+"fleece blanket" is a word for the textile kind blanket,
+    as stated in ruling NY E80466, confer "requesting a classification and country of origin determination for a fleece blanket".
+"electric blanket" is a word for the textile kind electric blanket,
+    as stated in HTSUS Chapter 63, confer "Electric blankets (666)".
+% bed linen, table linen, toilet and kitchen linen (6302)
+"bed sheet" is a word for the textile kind bed sheet,
+    as stated in HTSUS Chapter 63, confer "Other bed linen:".
+"bed sheets" is a word for the textile kind bed sheet,
+    as stated in HTSUS Chapter 63, confer "Other bed linen:".
+"flat sheet" is a word for the textile kind flat sheet,
+    as stated in ruling NY N223636, confer "The set consists of a flat sheet, fitted sheet and two pillowcases".
+"fitted sheet" is a word for the textile kind fitted sheet,
+    as stated in ruling NY N223636, confer "The set consists of a flat sheet, fitted sheet and two pillowcases".
+"sheet set" is a word for the textile kind bed sheet,
+    as stated in ruling NY N223636, confer "as the components of the set are classifiable under the same subheading".
+"pillowcase" is a word for the textile kind pillowcase,
+    as stated in HTSUS Chapter 63, confer "Pillowcases, other than bolster cases".
+"pillowcases" is a word for the textile kind pillowcase,
+    as stated in HTSUS Chapter 63, confer "Pillowcases, other than bolster cases".
+"pillow case" is a word for the textile kind pillowcase,
+    as stated in HTSUS Chapter 63, confer "Pillow cases (666)".
+"tablecloth" is a word for the textile kind tablecloth,
+    as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+"tablecloths" is a word for the textile kind tablecloth,
+    as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+"table cloth" is a word for the textile kind tablecloth,
+    as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+"napkin" is a word for the textile kind napkin,
+    as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+"napkins" is a word for the textile kind napkin,
+    as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+"placemat" is a word for the textile kind placemat,
+    as stated in ruling NY N323770, confer "Item #895 is a placemat".
+"placemats" is a word for the textile kind placemat,
+    as stated in ruling NY N323770, confer "Item #895 is a placemat".
+"towel" is a word for the textile kind towel,
+    as stated in HTSUS Chapter 63, confer "Towels:".
+"towels" is a word for the textile kind towel,
+    as stated in HTSUS Chapter 63, confer "Towels:".
+"bath towel" is a word for the textile kind bath towel,
+    as stated in ruling NY N275351, confer "The set consists of a bath towel, hand towel, and washcloth".
+"hand towel" is a word for the textile kind hand towel,
+    as stated in ruling NY N275351, confer "The set consists of a bath towel, hand towel, and washcloth".
+"washcloth" is a word for the textile kind washcloth,
+    as stated in ruling NY N275351, confer "The set consists of a bath towel, hand towel, and washcloth".
+"face towel" is a word for the textile kind face towel,
+    as stated in the CN explanatory notes to Chapter 63, confer "hand or face towels, facecloths".
+"kitchen towel" is a word for the textile kind kitchen towel,
+    as stated in ruling NY N323770, confer "the designs suggest the towels are intended for use in the kitchen".
+"dish towel" is a word for the textile kind dish towel,
+    as stated in HTSUS Chapter 63, confer "Towels: Dish (369)".
+"tea towel" is a word for the textile kind tea towel,
+    as stated in the CN explanatory notes to Chapter 63, confer "kitchen linen such as tea towels or glass cloth".
+% curtains (6303)
+"curtain" is a word for the textile kind curtain,
+    as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds".
+"curtains" is a word for the textile kind curtain,
+    as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds".
+"window curtain" is a word for the textile kind curtain,
+    as stated in HTSUS Chapter 63, confer "Window curtains (including drapes) and window".
+"curtain panel" is a word for the textile kind curtain panel,
+    as stated in ruling NY N240083, confer "The submitted sample is a curtain panel".
+"drapes" is a word for the textile kind drape,
+    as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds".
+"valance" is a word for the textile kind valance,
+    as stated in HTSUS Chapter 63, confer "curtain or bed valances".
+% bedspreads, bed nets and other furnishing articles (6304)
+"bedspread" is a word for the textile kind bedspread,
+    as stated in HTSUS Chapter 63, confer "Bedspreads:".
+"bedspreads" is a word for the textile kind bedspread,
+    as stated in HTSUS Chapter 63, confer "Bedspreads:".
+"bed net" is a word for the textile kind bed net,
+    as stated in HTSUS Chapter 63, confer "Bed nets specified in subheading note 1 to this chapter".
+"cushion cover" is a word for the textile kind cushion cover,
+    as stated in ruling NY N348141, confer "consists of a chaise cushion cover of 100 percent polyester".
+"cushion covers" is a word for the textile kind cushion cover,
+    as stated in ruling NY N348141, confer "consists of a chaise cushion cover of 100 percent polyester".
+"pillow cover" is a word for the textile kind pillow cover,
+    as stated in ruling HQ H346161, confer "The pillow cover is classified in subheading 6304.93.00".
+"pillow covers" is a word for the textile kind pillow cover,
+    as stated in ruling HQ H346161, confer "The pillow cover is classified in subheading 6304.93.00".
+"futon cover" is a word for the textile kind futon cover,
+    as stated in ruling NY N008927, confer "The submitted sample is an unstuffed futon cover".
+"slipcover" is a word for the textile kind slipcover,
+    as stated in ruling NY N008927, confer "slipcovers have been classified under heading 6304".
+"wall hanging" is a word for the textile kind wall hanging,
+    as stated in HTSUS Chapter 63, confer "Wall hangings of wool or fine animal hair:".
+% sacks and bags for packing (6305)
+"sack" is a word for the textile kind sack,
+    as stated in HTSUS Chapter 63, confer "Sacks and bags, of a kind used for the packing of goods:".
+"sacks" is a word for the textile kind sack,
+    as stated in HTSUS Chapter 63, confer "Sacks and bags, of a kind used for the packing of goods:".
+"shipping bag" is a word for the textile kind shipping bag,
+    as stated in ruling NY E89875, confer "The sample submitted is a shipping bag".
+"flexible intermediate bulk container" is a word for the textile kind flexible intermediate bulk container,
+    as stated in HTSUS Chapter 63, confer "Flexible intermediate bulk containers".
+% tarpaulins, tents, sails, camping goods (6306)
+"tarpaulin" is a word for the textile kind tarpaulin,
+    as stated in HTSUS Chapter 63, confer "Tarpaulins, awnings and sunblinds:".
+"tarp" is a word for the textile kind tarpaulin,
+    as stated in ruling NY N326879, confer "Self Help Tarp,” is a tarpaulin".
+"awning" is a word for the textile kind awning,
+    as stated in HTSUS Chapter 63, confer "Tarpaulins, awnings and sunblinds:".
+"tent" is a word for the textile kind tent,
+    as stated in HTSUS Chapter 63, confer "Tents (including temporary canopies and similar articles):".
+"tents" is a word for the textile kind tent,
+    as stated in HTSUS Chapter 63, confer "Tents (including temporary canopies and similar articles):".
+"camping tent" is a word for the textile kind tent,
+    as stated in ruling NY R02116, confer "The tariff classification of a camping tent from China".
+"dome tent" is a word for the textile kind dome tent,
+    as stated in ruling NY N113736, confer "The items in question are dome tents".
+"sail" is a word for the textile kind sail,
+    as stated in HTSUS Chapter 63, confer "sails for boats, sailboards or".
+"pneumatic mattress" is a word for the textile kind pneumatic mattress,
+    as stated in HTSUS Chapter 63, confer "Pneumatic mattresses:".
+% cleaning cloths, lifejackets, other made up articles (6307)
+"cleaning cloth" is a word for the textile kind cleaning cloth,
+    as stated in ruling NY L88233, confer "The merchandise at issue is a cleaning cloth".
+"cleaning cloths" is a word for the textile kind cleaning cloth,
+    as stated in ruling NY L88233, confer "The merchandise at issue is a cleaning cloth".
+"microfiber cleaning cloth" is a word for the textile kind cleaning cloth,
+    as stated in ruling NY L88233, confer "The microfiber cleaning cloth is made from 100 percent polyester knit terry fabric".
+"auto detailing cloths" is a word for the textile kind cleaning cloth,
+    as stated in ruling NY N306396, confer "will be sold to retailers and detail shops in packages of 12 as auto detailing cloths".
+"dishcloth" is a word for the textile kind dishcloth,
+    as stated in HTSUS Chapter 63, confer "Floorcloths, dishcloths, dusters and similar cleaning cloths:".
+"dish cloth" is a word for the textile kind dishcloth,
+    as stated in HTSUS Chapter 63, confer "Dish cloths:".
+"duster" is a word for the textile kind duster,
+    as stated in HTSUS Chapter 63, confer "Floorcloths, dishcloths, dusters and similar cleaning cloths:".
+"mop cloth" is a word for the textile kind mop cloth,
+    as stated in HTSUS Chapter 63, confer "Dustcloths, mop cloths and polishing cloths".
+"polishing cloth" is a word for the textile kind polishing cloth,
+    as stated in HTSUS Chapter 63, confer "Dustcloths, mop cloths and polishing cloths".
+"life jacket" is a word for the textile kind life jacket,
+    as stated in ruling NY I87447, confer "The sample submitted is an adult life jacket".
+"lifejacket" is a word for the textile kind lifejacket,
+    as stated in HTSUS Chapter 63, confer "Lifejackets and lifebelts".
+"shoelaces" is a word for the textile kind shoelace,
+    as stated in the other products listing format, confer "\"Item Type: SHOELACES\"".
+"shoelace" is a word for the textile kind shoelace,
+    as stated in ruling NY N102637, confer "The submitted samples are various boot and shoelaces".
+"boot laces" is a word for the textile kind shoelace,
+    as stated in ruling NY N102637, confer "The applicable subheading for the boot and shoelaces of knit or braided fabrics will be 6307.90.5020".
+"face mask" is a word for the textile kind face mask,
+    as stated in HTSUS Chapter 63, confer "Face masks, including respirators without".
+"face masks" is a word for the textile kind face mask,
+    as stated in ruling NY N311153, confer "The tariff classification of disposable nonwoven face masks from China".
+"flag" is a word for the textile kind flag,
+    as stated in HTSUS Chapter 63, confer "National flags:".
+"flags" is a word for the textile kind flag,
+    as stated in HTSUS Chapter 63, confer "National flags:".
+"garden flag" is a word for the textile kind garden flag,
+    as stated in ruling NY N222082, confer "Garden flags such as the one subject to this ruling are classified in subheading 6307.90.9889".
+"banner" is a word for the textile kind banner,
+    as stated in ruling NY N222082, confer "The applicable subheading for garden banners will be 6307.90.9889".
+"banners" is a word for the textile kind banner,
+    as stated in ruling NY N222082, confer "The applicable subheading for garden banners will be 6307.90.9889".
+"wall banner" is a word for the textile kind wall banner,
+    as stated in HTSUS Chapter 63, confer "Wall banners, of man-made fibers".
+"dog bed" is a word for the textile kind dog bed,
+    as stated in ruling NY N330109, confer "is a dog bed intended to be used as a comfortable place for a dog to sleep".
+"pet bed" is a word for the textile kind pet bed,
+    as stated in ruling NY N349766, confer "is a pet bed intended to be used as a comfortable place".
+"storage bag" is a word for the textile kind storage bag,
+    as stated in ruling NY N317873, confer "described as a storage bag, is intended to be used to store a handbag, tote, or travel bag".
+"storage bags" is a word for the textile kind storage bag,
+    as stated in ruling NY N317873, confer "described as a storage bag, is intended to be used to store a handbag, tote, or travel bag".
+"storage box" is a word for the textile kind storage box,
+    as stated in ruling NY N332242, confer "are collapsible, stackable textile storage boxes intended to store clothing and household items on a shelf".
+"dress pattern" is a word for the textile kind dress pattern,
+    as stated in HTSUS Chapter 63, confer "Other made up articles, including dress patterns:".
+% needlecraft sets (6308) and rags (6310)
+"needlecraft set" is a word for the textile kind needlecraft set,
+    as stated in HTSUS Chapter 63, confer "Needlecraft sets consisting of woven fabric and yarn".
+"rags" is a word for the textile kind rag,
+    as stated in HTSUS Chapter 63, confer "Used or new rags, scrap twine, cordage, rope and cables".
+
+% ---------------------------------------------------------------------------
+% How the textile is made, and the materials that are textile
+% ---------------------------------------------------------------------------
+"woven" is a technics value for woven,
+    as stated in the other products listing format, confer "\"Technics: Woven\"".
+"knitted" is a technics value for knitted,
+    as stated in the other products listing format, confer "\"Technics: Knitted\"".
+
+"cloth" is a word for a textile fabric,
+    as stated in the Cambridge dictionary entry cloth, confer "material made by weaving cotton, wool, or other fibers, or a piece of such material".
+"canvas" is a word for a textile fabric,
+    as stated in the Cambridge dictionary entry canvas, confer "strong, rough cloth made from cotton or other fibers, used for making tents, sails, strong bags, or work clothes".
+"fabric" is a word for a textile fabric,
+    as stated in the Cambridge dictionary entry cloth, confer "material made by weaving cotton, wool, or other fibers, or a piece of such material".
+
+"terry" is a word for a terry fabric,
+    as stated in the encyclopedia article terrycloth, confer "or simply terry is a fabric woven with many protruding loops of thread".
+"terry cloth" is a word for a terry fabric,
+    as stated in the encyclopedia article terrycloth, confer "Terrycloth, terry cloth, terry cotton, terry towelling".
+"terrycloth" is a word for a terry fabric,
+    as stated in the encyclopedia article terrycloth, confer "Terrycloth, terry cloth, terry cotton, terry towelling".
+
+"home textile" is a shop category of textile articles,
+    as stated in the other products listing format, confer "\"Home & Garden > Home Textile\"".
+
+% ---------------------------------------------------------------------------
+% The rules: a word in the name or in a field
+% ---------------------------------------------------------------------------
+rule textile_kind_by_name with provenance the other products listing format,
+        confer "A listing offers one finished product for sale":
+the kind of a good is a kind
+    if the good is called a name
+    and the name is a word for the textile kind the kind.
+
+rule textile_kind_by_field with provenance the other products listing format,
+        confer "Item Type (99 listings): the kind of product in the seller's words":
+the kind of a good is a kind
+    if the field a field of the good reads a value
+    and the field is a field of the kind of a textile article
+    and the value is a word for the textile kind the kind.
+
+rule technics_field with provenance the other products listing format,
+        confer "Technics (19 listings): how a textile product is made":
+the fabric construction of a good is a construction
+    if the field "technics" of the good reads a value
+    and the value is a technics value for the construction.
+
+% canvas is a woven fabric (a plain weave)
+rule canvas_woven with provenance the encyclopedia article canvas,
+        confer "Canvas is a durable plain-woven fabric":
+the fabric construction of a good is woven
+    if the good names the material "canvas"
+    and it is not the case that
+        the field "technics" of the good reads a value.
+
+rule textile_by_material_word with provenance the other products listing format,
+        confer "Material (153 listings): for example":
+a good is of textile material
+    if the good names the material a name
+    and the name is a word for a textile fabric.
+
+% the shop's category says that the product is a home textile
+rule textile_by_category with provenance the other products listing format,
+        confer "Home & Garden > Home Textile":
+a good is of textile material
+    if the good is in the shop category a category
+    and the category is a shop category of textile articles.
+
+rule terry_by_material_word with provenance the encyclopedia article terrycloth,
+        confer "or simply terry is a fabric woven with many protruding loops of thread":
+the fabric of a good is terry
+    if the good names the material a name
+    and the name is a word for a terry fabric.
+
+% ---------------------------------------------------------------------------
+% Tests
+% ---------------------------------------------------------------------------
+
+query kinds is:
+    the kind of which good is which kind.
+
+query constructions is:
+    the fabric construction of which good is which construction.
+
+query textiles is:
+    which good is of textile material.
+
+query terry is:
+    the fabric of which good is terry.
+
+scenario home_textiles is:
+    the field "item type" of item 1 reads "blankets".
+    the field "technics" of item 1 reads "knitted".
+    item 2 is called "throw blanket".
+    the field "type" of item 3 reads "cushion covers".
+    the field "technics" of item 3 reads "woven".
+    item 3 is in the shop category "home & garden".
+    item 3 is in the shop category "home textile".
+    item 4 is called "curtain panel".
+    item 4 names the material "cloth".
+    item 5 is called "kitchen towel".
+    item 5 names the material "terry".
+    the field "item type" of item 6 reads "shoelaces".
+    item 7 is called "storage bags".
+    item 7 names the material "canvas".
+    the field "category" of item 8 reads "garden flag".
+    item 9 is called "auto detailing cloths".
+    item 10 is called "tarp".
+    kinds expects answers ["the kind of item 1 is blanket", "the kind of item 2 is blanket", "the kind of item 3 is cushion cover", "the kind of item 4 is curtain panel", "the kind of item 5 is kitchen towel", "the kind of item 6 is shoelace", "the kind of item 7 is storage bag", "the kind of item 8 is garden flag", "the kind of item 9 is cleaning cloth", "the kind of item 10 is tarpaulin"].
+    constructions expects answers ["the fabric construction of item 1 is knitted", "the fabric construction of item 3 is woven", "the fabric construction of item 7 is woven"].
+    textiles expects answers ["item 3 is of textile material", "item 4 is of textile material", "item 7 is of textile material"].
+    terry expects answers ["the fabric of item 5 is terry"].

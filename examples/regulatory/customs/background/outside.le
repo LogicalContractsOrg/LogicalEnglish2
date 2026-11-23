@@ -1,0 +1,745 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the outside background. A shop listing can offer a good of a chapter that
+% the model does not have: a lamp, a pen, a speaker, a chair. Then the
+% model must not give a code of a modelled chapter as if it were sure. This
+% program reads the words of a listing that show such a good. It does not
+% exclude the good. It raises a claim: "the good is claimed to belong to
+% lighting fittings of heading 9405". A claim is an open question for the
+% office (gri.le, "Headings outside the model"). While the office has not
+% rejected the claim, the model's answer is conditional on that judgment.
+% The listing's words are evidence, not proof.
+%
+% The model has Chapters 39, 42, 61, 62, 63, 64, 67, 71, 91 and 95. This
+% program never claims one of them.
+%
+% Each word cites a public text:
+%   (a) the exclusion notes of the modelled chapters, which give examples of
+%       the goods that they send to other chapters: Chapter 39 note 2,
+%       Section XI note 1, Chapter 42 note 2, Chapter 64 note 1, Chapter 67
+%       note 1, Chapter 71 notes 3 and 11. The note's own text is the citation;
+%   (b) the headings of the other chapters (84, 85, 90, 94, 96, 65, 66),
+%       and US Customs rulings that name a good of those headings;
+%   (c) the description of the listing fields
+%       (sources/listings/marketplace_fields_other_products.txt): the fields
+%       of a powered product ("Power Source: Battery", "Electronic: Yes",
+%       "Voltage: 12 V") and the shop's categories ("Consumer Electronics",
+%       "Lights & Lighting", "Furniture").
+%
+% Four rules raise a claim:
+%   claim_by_name      the name of the good is a word of this program;
+%   claim_by_field     a field that names the product (Item Type, Type,
+%                      Category, Product Type, Use, Application) reads a word
+%                      of this program;
+%   claim_by_category  a shop category of the good is a category of goods of
+%                      another chapter;
+%   claim_by_power_field, claim_by_power_value
+%                      a field of a powered product shows that the good uses
+%                      electricity: a claim to the machinery of Section XVI.
+%
+% How the rules keep false claims few:
+%   - The words are whole names. "pen" raises a claim; "pen holder" does
+%     not, because no word of this program is "pen holder".
+%   - A category and a power field are weak evidence. They raise no claim
+%     when an earlier background program gave the good a kind (a garment, a
+%     shoe, a bag, a piece of jewellery: their chapters are modelled), or
+%     when the shop's category is one of toys or of watches (Section XVI
+%     note 1 sends toys to Chapter 95 and watches to Chapter 91, and the
+%     model will have both). A category also raises no claim when the uses
+%     background gave the good a principal use (a phone case of plastics in
+%     "Consumer Electronics" is an article of Chapter 39, HQ H284146).
+%   - A power field raises no claim when a word or a category of the good
+%     already raises one (a battery LED light string is a lamp of 9405, NY
+%     N239763, not a machine of Section XVI).
+%
+% How the rules treat goods that the model classifies now:
+%   - A phone case of plastics: no claim, unless the listing says that it
+%     has a battery ("Is Electric: Lithium Battery"). A case with a battery
+%     is a power bank, an accumulator of heading 8507 (NY N265396), so the
+%     claim is right.
+%   - A plastic part of a toy with batteries: the shop's category "Toys &
+%     Hobbies" stops the power-field claim. A listing that gives no category
+%     gets the claim: a false claim, which the office rejects.
+%   - A battery-powered garment (a heated jacket or pullover): the garments
+%     background gives the kind, so no claim. Chapter 85 note 1(a) excludes
+%     electrically warmed clothing, and NY N287133 puts a heated pullover in
+%     6110.
+%   - Light-up shoes: the footwear background gives the kind, so no claim
+%     (NY N341830 puts light-up shoes in 6402).
+%   - A bag with a USB port: the footwear background gives the kind, so no
+%     claim.
+%
+% Left out, because the word does not decide the chapter or because no
+% saved text supports it:
+%   - "bedding", "pillow", "cushion" (heading 9404 or bed linen of 6302,
+%     Chapter 63, which the model will have);
+%   - "buckle", "eyelet", "laces" (Chapter 64 note 2 sends them to "their
+%     appropriate headings": of plastics they stay in Chapter 39);
+%   - "Certification: CE,FCC,RoHS": sellers give it to goods of every kind;
+%   - "Tools", "Home Improvement", "Beauty & Health", "Sports &
+%     Entertainment", "Office & School Supplies" as categories: they hold
+%     goods of modelled chapters too;
+%   - "machine", "appliance", "device" as names: no listing names a good
+%     by that word alone;
+%   - "eyewear", "zipper", "stool", "smartwatch": no saved text.
+%
+% Used only to read facts from a text (language reference §14.5).
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a thing* is in the shop category *a category*.
+    *a name* is a word for an article of *a kind*.
+    *a field* is a field that names the product.
+    *a category* is a shop category of articles of *a kind*.
+    *a category* is a shop category of goods of a modelled chapter.
+    *a field* reading *a value* shows a powered product.
+    *a field* is a field of a powered product.
+    *a value* is a word for no value.
+    *a good* has a word of goods of another chapter.
+    the kind of *a good* is *a kind*.
+    the principal use of *a good* is *a use*.
+    *a good* is claimed to belong to *a kind*.
+
+the knowledge base outside background includes:
+
+the other products listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the other products listing format is at "sources/listings/marketplace_fields_other_products.txt".
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039#page=3".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+HTSUS Section XI is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2050#page=1".
+the text of HTSUS Section XI is at "sources/hts/chapter_50.txt".
+HTSUS Chapter 42 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2042#page=1".
+the text of HTSUS Chapter 42 is at "sources/hts/chapter_42.txt".
+HTSUS Section XII and Chapter 64 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2064#page=3".
+the text of HTSUS Section XII and Chapter 64 is at "sources/hts/chapter_64.txt".
+HTSUS Chapter 67 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2067#page=1".
+the text of HTSUS Chapter 67 is at "sources/hts/chapter_67.txt".
+HTSUS Section XIV and Chapter 71 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2071#page=1".
+the text of HTSUS Section XIV and Chapter 71 is at "sources/hts/chapter_71.txt".
+HTSUS Section XVI and Chapter 84 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2084#page=1".
+the text of HTSUS Section XVI and Chapter 84 is at "sources/hts/chapter_84.txt".
+HTSUS Section XVI and Chapter 85 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2085#page=1".
+the text of HTSUS Section XVI and Chapter 85 is at "sources/hts/chapter_85.txt".
+HTSUS Section XVIII and Chapter 90 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2090#page=1".
+the text of HTSUS Section XVIII and Chapter 90 is at "sources/hts/chapter_90.txt".
+HTSUS Section XX and Chapter 94 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2094#page=1".
+the text of HTSUS Section XX and Chapter 94 is at "sources/hts/chapter_94.txt".
+HTSUS Chapter 96 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2096#page=1".
+the text of HTSUS Chapter 96 is at "sources/hts/chapter_96.txt".
+HTSUS Chapter 65 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2065#page=1".
+the text of HTSUS Chapter 65 is at "sources/hts/chapter_65.txt".
+HTSUS Chapter 66 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2066#page=1".
+the text of HTSUS Chapter 66 is at "sources/hts/chapter_66.txt".
+ruling NY J86705 is published at "https://rulings.cbp.gov/ruling/J86705".
+the text of ruling NY J86705 is at "sources/cbp/J86705.txt".
+ruling HQ 962145 is published at "https://rulings.cbp.gov/ruling/962145".
+the text of ruling HQ 962145 is at "sources/cbp/962145.txt".
+ruling NY N311614 is published at "https://rulings.cbp.gov/ruling/N311614".
+the text of ruling NY N311614 is at "sources/cbp/N311614.txt".
+ruling NY N313554 is published at "https://rulings.cbp.gov/ruling/N313554".
+the text of ruling NY N313554 is at "sources/cbp/N313554.txt".
+ruling NY N306364 is published at "https://rulings.cbp.gov/ruling/N306364".
+the text of ruling NY N306364 is at "sources/cbp/N306364.txt".
+ruling NY N265396 is published at "https://rulings.cbp.gov/ruling/N265396".
+the text of ruling NY N265396 is at "sources/cbp/N265396.txt".
+ruling NY 803818 is published at "https://rulings.cbp.gov/ruling/803818".
+the text of ruling NY 803818 is at "sources/cbp/803818.txt".
+ruling NY N239763 is published at "https://rulings.cbp.gov/ruling/N239763".
+the text of ruling NY N239763 is at "sources/cbp/N239763.txt".
+ruling HQ H320199 is published at "https://rulings.cbp.gov/ruling/H320199".
+the text of ruling HQ H320199 is at "sources/cbp/H320199.txt".
+ruling NY I84085 is published at "https://rulings.cbp.gov/ruling/I84085".
+the text of ruling NY I84085 is at "sources/cbp/I84085.txt".
+ruling NY 894394 is published at "https://rulings.cbp.gov/ruling/894394".
+the text of ruling NY 894394 is at "sources/cbp/894394.txt".
+ruling NY R00565 is published at "https://rulings.cbp.gov/ruling/R00565".
+the text of ruling NY R00565 is at "sources/cbp/R00565.txt".
+ruling NY N304395 is published at "https://rulings.cbp.gov/ruling/N304395".
+the text of ruling NY N304395 is at "sources/cbp/N304395.txt".
+ruling NY N317961 is published at "https://rulings.cbp.gov/ruling/N317961".
+the text of ruling NY N317961 is at "sources/cbp/N317961.txt".
+ruling NY N298912 is published at "https://rulings.cbp.gov/ruling/N298912".
+the text of ruling NY N298912 is at "sources/cbp/N298912.txt".
+ruling NY N297982 is published at "https://rulings.cbp.gov/ruling/N297982".
+the text of ruling NY N297982 is at "sources/cbp/N297982.txt".
+ruling NY N335861 is published at "https://rulings.cbp.gov/ruling/N335861".
+the text of ruling NY N335861 is at "sources/cbp/N335861.txt".
+ruling NY 882350 is published at "https://rulings.cbp.gov/ruling/882350".
+the text of ruling NY 882350 is at "sources/cbp/882350.txt".
+ruling NY N287133 is published at "https://rulings.cbp.gov/ruling/N287133".
+the text of ruling NY N287133 is at "sources/cbp/N287133.txt".
+ruling NY N341830 is published at "https://rulings.cbp.gov/ruling/N341830".
+the text of ruling NY N341830 is at "sources/cbp/N341830.txt".
+
+% ---------------------------------------------------------------------------
+% The fields of a listing that name the product (the listing format)
+% ---------------------------------------------------------------------------
+"item type" is a field that names the product,
+    as stated in the other products listing format, confer "Item Type (99 listings): the kind of product in the seller's words".
+"type" is a field that names the product,
+    as stated in the other products listing format, confer "Type (124 listings)".
+"category" is a field that names the product,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+"product type" is a field that names the product,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+"use" is a field that names the product,
+    as stated in the other products listing format, confer "Use (39 listings) and Application (27 listings)".
+"application" is a field that names the product,
+    as stated in the other products listing format, confer "Use (39 listings) and Application (27 listings)".
+
+% ---------------------------------------------------------------------------
+% Section XVI: machines and mechanical or electrical appliances (Chapter 39
+% note 2(s), Chapter 71 note 3(k)). Chapters 84 and 85.
+% ---------------------------------------------------------------------------
+"switch housing" is a word for an article of machinery of section XVI,
+    as stated in ruling NY J86705, confer "The tariff classification of a switch housing from Japan".
+"switch housings" is a word for an article of machinery of section XVI,
+    as stated in ruling NY J86705, confer "The tariff classification of a switch housing from Japan".
+"connector housing" is a word for an article of machinery of section XVI,
+    as stated in ruling HQ 962145, confer "Plastic electrical connector housings are classified in subheading 8538.90.60".
+"connector housings" is a word for an article of machinery of section XVI,
+    as stated in ruling HQ 962145, confer "Plastic electrical connector housings are classified in subheading 8538.90.60".
+"electrical connector housing" is a word for an article of machinery of section XVI,
+    as stated in ruling HQ 962145, confer "Plastic electrical connector housings are classified in subheading 8538.90.60".
+"smart watch" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N311614, confer "The tariff classification of an electronic smart watch from China".
+"smart watches" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N311614, confer "The tariff classification of an electronic smart watch from China".
+"speaker" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N313554, confer "The tariff classification of a Bluetooth-enabled speaker from China".
+"speakers" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N313554, confer "The tariff classification of a Bluetooth-enabled speaker from China".
+"bluetooth speaker" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N313554, confer "The tariff classification of a Bluetooth-enabled speaker from China".
+"wireless speaker" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N313554, confer "The item concerned is referred to as the Drips Wireless Speaker".
+"smart speaker" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N306364, confer "The tariff classification of a smart speaker from China".
+"loudspeaker" is a word for an article of machinery of section XVI,
+    as stated in HTSUS Section XVI and Chapter 85, confer "Loudspeakers, whether or not mounted in their enclosures:".
+"loudspeakers" is a word for an article of machinery of section XVI,
+    as stated in HTSUS Section XVI and Chapter 85, confer "Loudspeakers, whether or not mounted in their enclosures:".
+"headphones" is a word for an article of machinery of section XVI,
+    as stated in HTSUS Section XVI and Chapter 85, confer "Headphones and earphones, whether or not combined".
+"earphones" is a word for an article of machinery of section XVI,
+    as stated in HTSUS Section XVI and Chapter 85, confer "Headphones and earphones, whether or not combined".
+"voltage regulator" is a word for an article of machinery of section XVI,
+    as stated in HTSUS Section XVI and Chapter 85, confer "electronic controls (voltage regulator, inverter, etc.)".
+"power bank" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N265396, confer "The Tagplate is described as a 6000 mAh mobile power bank".
+"mobile power bank" is a word for an article of machinery of section XVI,
+    as stated in ruling NY N265396, confer "The Tagplate is described as a 6000 mAh mobile power bank".
+
+% ---------------------------------------------------------------------------
+% Chapter 94: furniture, luminaires and lighting fittings, illuminated signs,
+% prefabricated buildings (Chapter 39 note 2(x), Section XI note 1(s),
+% Chapter 42 note 2(k))
+% ---------------------------------------------------------------------------
+"luminaire" is a word for an article of lighting fittings of heading 9405,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"luminaires" is a word for an article of lighting fittings of heading 9405,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"lighting fittings" is a word for an article of lighting fittings of heading 9405,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"illuminated sign" is a word for an article of lighting fittings of heading 9405,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"illuminated signs" is a word for an article of lighting fittings of heading 9405,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"lamp" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY 803818, confer "which provides for other electric household table and desk lamps".
+"lamps" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY 803818, confer "which provides for other electric household table and desk lamps".
+"desk lamp" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY 803818, confer "The tariff classification of plastic desk lamps from Taiwan".
+"desk lamps" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY 803818, confer "The tariff classification of plastic desk lamps from Taiwan".
+"table lamp" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY 803818, confer "which provides for other electric household table and desk lamps".
+"table lamps" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY 803818, confer "which provides for other electric household table and desk lamps".
+"led light string" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY N239763, confer "The tariff classification of a Battery Operated LED Light String from China".
+"light string" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling NY N239763, confer "The tariff classification of a Battery Operated LED Light String from China".
+"lighting strings" is a word for an article of lighting fittings of heading 9405,
+    as stated in HTSUS Section XX and Chapter 94, confer "Lighting strings of a kind used for Christmas trees:".
+"string lights" is a word for an article of lighting fittings of heading 9405,
+    as stated in ruling HQ H320199, confer "classification of Happy Birthday string lights".
+"stage lighting effect" is a word for an article of lighting fittings of heading 9405,
+    as stated in the other products listing format, confer "Item Type: Stage Lighting Effect".
+"daily lighting" is a word for an article of lighting fittings of heading 9405,
+    as stated in the other products listing format, confer "Use: Daily Lighting".
+
+"furniture" is a word for an article of furniture of chapter 94,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"prefabricated building" is a word for an article of furniture of chapter 94,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"prefabricated buildings" is a word for an article of furniture of chapter 94,
+    as stated in HTSUS Section VII and Chapter 39, confer "(x) Articles of chapter 94 (for example, furniture, luminaires and lighting fittings, illuminated signs, prefabricated buildings);".
+"chair" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "Chairs, Sofas, Rocking Chairs and other seats".
+"chairs" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "Chairs, Sofas, Rocking Chairs and other seats".
+"rocking chair" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "Chairs, Sofas, Rocking Chairs and other seats".
+"sofa" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "Chairs, Sofas, Rocking Chairs and other seats".
+"sofas" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "Chairs, Sofas, Rocking Chairs and other seats".
+"table" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "The applicable subheading for the tables will be 9403.70.8010".
+"tables" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY I84085, confer "The applicable subheading for the tables will be 9403.70.8010".
+"folding chair" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY 894394, confer "The tariff classification of a folding chair from Taiwan".
+"stacking chair" is a word for an article of furniture of chapter 94,
+    as stated in ruling NY R00565, confer "The tariff classification of a stacking chair from China".
+
+% ---------------------------------------------------------------------------
+% Chapter 90: optical elements, spectacle frames, drawing instruments
+% (Chapter 39 note 2(u)), scientific instruments (Chapter 71 note 3(l)),
+% orthopedic footwear and appliances (Chapter 64 note 1(e))
+% ---------------------------------------------------------------------------
+"optical elements" is a word for an article of instruments of chapter 90,
+    as stated in HTSUS Section VII and Chapter 39, confer "(u) Articles of chapter 90 (for example, optical elements, spectacle frames, drawing instruments);".
+"spectacle frames" is a word for an article of instruments of chapter 90,
+    as stated in HTSUS Section VII and Chapter 39, confer "(u) Articles of chapter 90 (for example, optical elements, spectacle frames, drawing instruments);".
+"drawing instruments" is a word for an article of instruments of chapter 90,
+    as stated in HTSUS Section VII and Chapter 39, confer "(u) Articles of chapter 90 (for example, optical elements, spectacle frames, drawing instruments);".
+"scientific instruments" is a word for an article of instruments of chapter 90,
+    as stated in HTSUS Section XIV and Chapter 71, confer "(scientific instruments, clocks and watches, musical instruments);".
+"sunglasses" is a word for an article of instruments of chapter 90,
+    as stated in ruling NY 882350, confer "The sunglasses are made of plastic and have plastic lenses.".
+"spectacles" is a word for an article of instruments of chapter 90,
+    as stated in HTSUS Section XVIII and Chapter 90, confer "Spectacles, goggles and the like, corrective, protective or other:".
+"goggles" is a word for an article of instruments of chapter 90,
+    as stated in HTSUS Section XVIII and Chapter 90, confer "Spectacles, goggles and the like, corrective, protective or other:".
+"orthopedic footwear" is a word for an article of orthopedic appliances of heading 9021,
+    as stated in HTSUS Section XII and Chapter 64, confer "Orthopedic footwear or other orthopedic appliances, or parts thereof (heading 9021)".
+
+% Chapter 92 (Chapter 39 note 2(w), Chapter 71 note 3(l))
+"musical instrument" is a word for an article of musical instruments of chapter 92,
+    as stated in HTSUS Section VII and Chapter 39, confer "(w) Articles of chapter 92 (for example, musical instruments or parts thereof);".
+"musical instruments" is a word for an article of musical instruments of chapter 92,
+    as stated in HTSUS Section VII and Chapter 39, confer "(w) Articles of chapter 92 (for example, musical instruments or parts thereof);".
+
+% Chapters 65 and 66: headgear, umbrellas, walking-sticks, whips, riding-crops
+% (Chapter 39 note 2(q), Section XI note 1(o), Chapter 42 note 2(e) and (f),
+% Chapter 67 note 1(d), Chapter 71 note 3(h) and (ij))
+"headgear" is a word for an article of headgear of chapter 65,
+    as stated in HTSUS Section VII and Chapter 39, confer "(q) Articles of section XII (for example, footwear, headgear, umbrellas, sun umbrellas, walking-sticks, whips, riding-crops or".
+"hair-net" is a word for an article of headgear of chapter 65,
+    as stated in HTSUS Section XI, confer "(o) Hair-nets or other headgear or parts thereof of chapter 65;".
+"hair-nets" is a word for an article of headgear of chapter 65,
+    as stated in HTSUS Section XI, confer "(o) Hair-nets or other headgear or parts thereof of chapter 65;".
+"hair net" is a word for an article of headgear of chapter 65,
+    as stated in HTSUS Section XI, confer "(o) Hair-nets or other headgear or parts thereof of chapter 65;".
+"umbrella" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Section VII and Chapter 39, confer "(q) Articles of section XII (for example, footwear, headgear, umbrellas, sun umbrellas, walking-sticks, whips, riding-crops or".
+"umbrellas" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Section VII and Chapter 39, confer "(q) Articles of section XII (for example, footwear, headgear, umbrellas, sun umbrellas, walking-sticks, whips, riding-crops or".
+"sun umbrella" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Section VII and Chapter 39, confer "(q) Articles of section XII (for example, footwear, headgear, umbrellas, sun umbrellas, walking-sticks, whips, riding-crops or".
+"garden umbrella" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Chapter 66, confer "umbrellas, garden umbrellas and similar umbrellas):".
+"walking-stick" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Section VII and Chapter 39, confer "(q) Articles of section XII (for example, footwear, headgear, umbrellas, sun umbrellas, walking-sticks, whips, riding-crops or".
+"walking stick" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Section VII and Chapter 39, confer "(q) Articles of section XII (for example, footwear, headgear, umbrellas, sun umbrellas, walking-sticks, whips, riding-crops or".
+"whip" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Chapter 42, confer "Whips, riding-crops or other articles of heading 6602;".
+"riding crop" is a word for an article of umbrellas of chapter 66,
+    as stated in HTSUS Chapter 42, confer "Whips, riding-crops or other articles of heading 6602;".
+
+% Chapter 46 (Chapter 39 note 2(n), Section XI note 1(g))
+"wickerwork" is a word for an article of wickerwork of chapter 46,
+    as stated in HTSUS Section VII and Chapter 39, confer "(n) Plaits, wickerwork or other articles of chapter 46;".
+"basketware" is a word for an article of wickerwork of chapter 46,
+    as stated in HTSUS Section XI, confer "apparent width exceeding 5 mm, of plastics (chapter 39), or plaits or fabrics or other basketware or wickerwork of such".
+
+% Heading 3306 (Section XI note 1(e))
+"dental floss" is a word for an article of dental floss of heading 3306,
+    as stated in HTSUS Section XI, confer "yarn used to clean between the teeth, in individual retail packages (dental floss), of heading".
+
+% ---------------------------------------------------------------------------
+% Chapter 96 (Chapter 39 note 2(z), Section XI note 1(u), Chapter 42 note
+% 2(m), Chapter 67 note 1(f), Chapter 71 note 11)
+% ---------------------------------------------------------------------------
+"brush" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"brushes" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"makeup brush" is a word for an article of brushes of heading 9603,
+    as stated in ruling NY N335861, confer "The tariff classification of a set of five makeup brushes with holder from China".
+"makeup brushes" is a word for an article of brushes of heading 9603,
+    as stated in ruling NY N335861, confer "The tariff classification of a set of five makeup brushes with holder from China".
+"toothbrush" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Chapter 96, confer "Toothbrushes, shaving brushes, hair brushes, nail brushes,".
+"toothbrushes" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Chapter 96, confer "Toothbrushes, shaving brushes, hair brushes, nail brushes,".
+"hair brush" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Chapter 96, confer "Toothbrushes, shaving brushes, hair brushes, nail brushes,".
+"nail brush" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Chapter 96, confer "Toothbrushes, shaving brushes, hair brushes, nail brushes,".
+"feather duster" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Chapter 67, confer "Feather dusters, powder-puffs or hair sieves (chapter 96).".
+"feather dusters" is a word for an article of brushes of heading 9603,
+    as stated in HTSUS Chapter 67, confer "Feather dusters, powder-puffs or hair sieves (chapter 96).".
+"powder-puff" is a word for an article of powder puffs of heading 9616,
+    as stated in HTSUS Chapter 67, confer "Feather dusters, powder-puffs or hair sieves (chapter 96).".
+"powder puff" is a word for an article of powder puffs of heading 9616,
+    as stated in HTSUS Chapter 67, confer "Feather dusters, powder-puffs or hair sieves (chapter 96).".
+"button" is a word for an article of buttons of heading 9606,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"buttons" is a word for an article of buttons of heading 9606,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"snap-fasteners" is a word for an article of buttons of heading 9606,
+    as stated in HTSUS Chapter 42, confer "Buttons, press-fasteners, snap-fasteners, press-studs, button molds or other parts of these articles, button blanks, of heading".
+"press-studs" is a word for an article of buttons of heading 9606,
+    as stated in HTSUS Chapter 42, confer "Buttons, press-fasteners, snap-fasteners, press-studs, button molds or other parts of these articles, button blanks, of heading".
+"slide fastener" is a word for an article of slide fasteners of heading 9607,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"slide fasteners" is a word for an article of slide fasteners of heading 9607,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"comb" is a word for an article of combs of heading 9615,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"combs" is a word for an article of combs of heading 9615,
+    as stated in HTSUS Section VII and Chapter 39, confer "(z) Articles of chapter 96 (for example, brushes, buttons, slide fasteners, combs, mouthpieces or stems for smoking pipes,".
+"hair slide" is a word for an article of combs of heading 9615,
+    as stated in HTSUS Section XIV and Chapter 71, confer "(a) of note 9 above (but not including buttons or other articles of heading 9606, or dress combs, hair slides or the like, or hairpins,".
+"hair slides" is a word for an article of combs of heading 9615,
+    as stated in HTSUS Section XIV and Chapter 71, confer "(a) of note 9 above (but not including buttons or other articles of heading 9606, or dress combs, hair slides or the like, or hairpins,".
+"hairpin" is a word for an article of combs of heading 9615,
+    as stated in HTSUS Section XIV and Chapter 71, confer "(a) of note 9 above (but not including buttons or other articles of heading 9606, or dress combs, hair slides or the like, or hairpins,".
+"hairpins" is a word for an article of combs of heading 9615,
+    as stated in HTSUS Section XIV and Chapter 71, confer "(a) of note 9 above (but not including buttons or other articles of heading 9606, or dress combs, hair slides or the like, or hairpins,".
+"hair clip" is a word for an article of combs of heading 9615,
+    as stated in ruling NY N297982, confer "The tariff classification of five decorative hair clips from China.".
+"hair clips" is a word for an article of combs of heading 9615,
+    as stated in ruling NY N297982, confer "The tariff classification of five decorative hair clips from China.".
+"pen" is a word for an article of pens of heading 9608,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"pens" is a word for an article of pens of heading 9608,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"mechanical pencil" is a word for an article of pens of heading 9608,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"mechanical pencils" is a word for an article of pens of heading 9608,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"ball point pen" is a word for an article of pens of heading 9608,
+    as stated in ruling NY N304395, confer "which provides for ball point pens".
+"ball point pens" is a word for an article of pens of heading 9608,
+    as stated in ruling NY N304395, confer "which provides for ball point pens".
+"ballpoint pen" is a word for an article of pens of heading 9608,
+    as stated in ruling NY N304395, confer "which provides for ball point pens".
+"ballpoint pens" is a word for an article of pens of heading 9608,
+    as stated in ruling NY N304395, confer "which provides for ball point pens".
+"cigarette holder" is a word for an article of cigarette holders of heading 9614,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"cigarette holders" is a word for an article of cigarette holders of heading 9614,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"lighter" is a word for an article of lighters of heading 9613,
+    as stated in HTSUS Chapter 96, confer "Cigarette lighters and other lighters, whether or not mechanical".
+"lighters" is a word for an article of lighters of heading 9613,
+    as stated in HTSUS Chapter 96, confer "Cigarette lighters and other lighters, whether or not mechanical".
+"cigarette lighter" is a word for an article of lighters of heading 9613,
+    as stated in HTSUS Chapter 96, confer "Cigarette lighters and other lighters, whether or not mechanical".
+"vacuum flask" is a word for an article of vacuum flasks of heading 9617,
+    as stated in HTSUS Chapter 96, confer "Vacuum flasks and other vacuum vessels, complete; parts".
+"vacuum flasks" is a word for an article of vacuum flasks of heading 9617,
+    as stated in HTSUS Chapter 96, confer "Vacuum flasks and other vacuum vessels, complete; parts".
+"monopod" is a word for an article of tripods of heading 9620,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"bipod" is a word for an article of tripods of heading 9620,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"tripod" is a word for an article of tripods of heading 9620,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"tripods" is a word for an article of tripods of heading 9620,
+    as stated in HTSUS Section VII and Chapter 39, confer "cigarette holders or the like, parts of vacuum flasks or the like, pens, mechanical pencils, and monopods, bipods, tripods".
+"selfie stick" is a word for an article of tripods of heading 9620,
+    as stated in ruling NY N298912, confer "The tariff classification of a selfie stick from China".
+"sanitary pads" is a word for an article of sanitary articles of heading 9619,
+    as stated in HTSUS Chapter 96, confer "Sanitary pads (towels) and tampons, diapers (napkins), diaper".
+"tampons" is a word for an article of sanitary articles of heading 9619,
+    as stated in HTSUS Chapter 96, confer "Sanitary pads (towels) and tampons, diapers (napkins), diaper".
+"diaper" is a word for an article of sanitary articles of heading 9619,
+    as stated in HTSUS Section XI, confer "and tampons, diapers (napkins) and diaper liners); or".
+"diapers" is a word for an article of sanitary articles of heading 9619,
+    as stated in HTSUS Section XI, confer "and tampons, diapers (napkins) and diaper liners); or".
+"diaper liners" is a word for an article of sanitary articles of heading 9619,
+    as stated in HTSUS Section XI, confer "and tampons, diapers (napkins) and diaper liners); or".
+
+% ---------------------------------------------------------------------------
+% The shop's categories (the listing format), and the categories of goods of
+% the chapters that the model has or will have: toys and games (Chapter 95),
+% watches (Chapter 91). Section XVI note 1 sends both out of the machinery
+% of Section XVI.
+% ---------------------------------------------------------------------------
+"consumer electronics" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Consumer Electronics".
+"electronic components & supplies" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Electronic Components & Supplies".
+"active components" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Electronic Components & Supplies > Active Components".
+"electrical equipment & supplies" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Home Improvement > Electrical Equipment & Supplies".
+"home appliances" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Home Appliances".
+"portable audio & video" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Consumer Electronics > Portable Audio & Video".
+"computer & office" is a shop category of articles of machinery of section XVI,
+    as stated in the other products listing format, confer "Computer & Office".
+"lights & lighting" is a shop category of articles of lighting fittings of heading 9405,
+    as stated in the other products listing format, confer "Lights & Lighting".
+"furniture" is a shop category of articles of furniture of chapter 94,
+    as stated in the other products listing format, confer "Furniture".
+"outdoor furniture" is a shop category of articles of furniture of chapter 94,
+    as stated in the other products listing format, confer "Furniture > Outdoor Furniture".
+"measurement & analysis instruments" is a shop category of articles of instruments of chapter 90,
+    as stated in the other products listing format, confer "Tools > Measurement & Analysis Instruments".
+"automobiles, parts & accessories" is a shop category of articles of vehicle parts of section XVII,
+    as stated in the other products listing format, confer "Automobiles, Parts & Accessories".
+
+"toys & hobbies" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Articles of chapter 95; or".
+"remote control toys" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Articles of chapter 95; or".
+"games & accessories" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Articles of chapter 95; or".
+"action & toy figures" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Articles of chapter 95; or".
+"dolls & accessories" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Articles of chapter 95; or".
+"stuffed animals & plush" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Articles of chapter 95; or".
+"watches" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Clocks, watches or other articles of chapter 91;".
+"watches accessories" is a shop category of goods of a modelled chapter,
+    as stated in HTSUS Section XVI and Chapter 84, confer "Clocks, watches or other articles of chapter 91;".
+
+% ---------------------------------------------------------------------------
+% The fields of a powered product (the listing format)
+% ---------------------------------------------------------------------------
+"power source" reading "ac" shows a powered product,
+    as stated in the other products listing format, confer "Power Source (14 listings: \"AC\", \"DC\", \"Battery\", \"Electric\")".
+"power source" reading "dc" shows a powered product,
+    as stated in the other products listing format, confer "Power Source (14 listings: \"AC\", \"DC\", \"Battery\", \"Electric\")".
+"power source" reading "battery" shows a powered product,
+    as stated in the other products listing format, confer "Power Source (14 listings: \"AC\", \"DC\", \"Battery\", \"Electric\")".
+"power source" reading "electric" shows a powered product,
+    as stated in the other products listing format, confer "Power Source (14 listings: \"AC\", \"DC\", \"Battery\", \"Electric\")".
+"is electric" reading "lithium battery" shows a powered product,
+    as stated in the other products listing format, confer "Is Electric (12: \"No Battery\", \"Lithium Battery\", \"Button Battery\")".
+"is electric" reading "button battery" shows a powered product,
+    as stated in the other products listing format, confer "Is Electric (12: \"No Battery\", \"Lithium Battery\", \"Button Battery\")".
+"electronic" reading "yes" shows a powered product,
+    as stated in the other products listing format, confer "Electronic (12: \"Yes\" or \"No\")".
+"is smart device" reading "yes" shows a powered product,
+    as stated in the other products listing format, confer "Is Smart Device (11)".
+
+% a field whose every value, but a word for no value, shows a powered product
+"voltage" is a field of a powered product,
+    as stated in the other products listing format, confer "Voltage (23)".
+"power (w)" is a field of a powered product,
+    as stated in the other products listing format, confer "Power (W) (7)".
+
+% the words for no value, as the listings write them
+"none" is a word for no value,
+    as stated in the other products listing format, confer "Certification (88: \"CE\", \"CE,FCC,RoHS\", \"None\")".
+"no" is a word for no value,
+    as stated in the other products listing format, confer "Electronic (12: \"Yes\" or \"No\")".
+
+% ---------------------------------------------------------------------------
+% The rules
+% ---------------------------------------------------------------------------
+rule claim_by_name with provenance the other products listing format,
+        confer "A listing offers one finished product for sale":
+a good is claimed to belong to a kind
+    if the good is called a name
+    and the name is a word for an article of the kind.
+
+rule claim_by_field with provenance the other products listing format,
+        confer "The fields that describe what the product is:":
+a good is claimed to belong to a kind
+    if the field a field of the good reads a value
+    and the field is a field that names the product
+    and the value is a word for an article of the kind.
+
+% A category is weak evidence: no claim when an earlier background gave the
+% good a kind or a principal use, or when the good is also in a category of
+% goods of a modelled chapter.
+rule claim_by_category with provenance the other products listing format,
+        confer "The shop's first category is, for example:":
+a good is claimed to belong to a kind
+    if the good is in the shop category a category
+    and the category is a shop category of articles of the kind
+    and it is not the case that
+        the kind of the good is an other kind
+    and it is not the case that
+        the principal use of the good is a use
+    and it is not the case that
+        the good is in the shop category an other category
+        and the other category is a shop category of goods of a modelled chapter.
+
+% A word or a category of the good names an article of another chapter.
+rule other_chapter_by_name with provenance the other products listing format,
+        confer "A listing offers one finished product for sale":
+a good has a word of goods of another chapter
+    if the good is called a name
+    and the name is a word for an article of a kind.
+rule other_chapter_by_field with provenance the other products listing format,
+        confer "The fields that describe what the product is:":
+a good has a word of goods of another chapter
+    if the field a field of the good reads a value
+    and the field is a field that names the product
+    and the value is a word for an article of a kind.
+rule other_chapter_by_category with provenance the other products listing format,
+        confer "The shop's first category is, for example:":
+a good has a word of goods of another chapter
+    if the good is in the shop category a category
+    and the category is a shop category of articles of a kind.
+
+% A powered product: a claim to the machinery of Section XVI, unless a word
+% or a category already names the other chapter, an earlier background gave
+% the good a kind, or the good is in a category of toys or watches.
+rule claim_by_power_field with provenance the other products listing format,
+        confer "Fields of a powered product:":
+a good is claimed to belong to machinery of section XVI
+    if the field a field of the good reads a value
+    and the field reading the value shows a powered product
+    and it is not the case that
+        the good has a word of goods of another chapter
+    and it is not the case that
+        the kind of the good is a kind
+    and it is not the case that
+        the good is in the shop category a category
+        and the category is a shop category of goods of a modelled chapter.
+
+rule claim_by_power_value with provenance the other products listing format,
+        confer "Fields of a powered product:":
+a good is claimed to belong to machinery of section XVI
+    if the field a field of the good reads a value
+    and the field is a field of a powered product
+    and it is not the case that
+        the value is a word for no value
+    and it is not the case that
+        the good has a word of goods of another chapter
+    and it is not the case that
+        the kind of the good is a kind
+    and it is not the case that
+        the good is in the shop category a category
+        and the category is a shop category of goods of a modelled chapter.
+
+% ---------------------------------------------------------------------------
+% Tests, each from the facts of a ruling or from the listing format
+% ---------------------------------------------------------------------------
+
+% Goods of Section XVI by their names: NY J86705 (a plastic switch housing,
+% 8538.90), HQ 962145 (a plastic connector housing, 8538.90), NY N313554 (a
+% Bluetooth speaker with a rechargeable battery, 8518.21), NY N265396 (a
+% power bank, 8507.60), NY N311614 (a smart watch, 8517.62, named in the
+% field "Category").
+scenario machinery is:
+    switch housing 1 is called "switch housing".
+    housing 2 is called "electrical connector housing".
+    speaker 3 is called "bluetooth speaker".
+    the field "power source" of speaker 3 reads "battery".
+    bank 4 is called "mobile power bank".
+    watch 5 is called "suunto 7".
+    the field "category" of watch 5 reads "smart watches".
+    the field "is smart device" of watch 5 reads "yes".
+    claims expects answers [
+        "switch housing 1 is claimed to belong to machinery of section XVI",
+        "housing 2 is claimed to belong to machinery of section XVI",
+        "speaker 3 is claimed to belong to machinery of section XVI",
+        "bank 4 is claimed to belong to machinery of section XVI",
+        "watch 5 is claimed to belong to machinery of section XVI"
+    ].
+
+% Lamps and furniture: NY 803818 (plastic desk lamps, 9405), NY N239763 (a
+% battery LED light string: the lamp claim only, no machinery claim), NY
+% I84085 (tables and chairs of resin wicker, 9403 and 9401).
+scenario lamps_and_furniture is:
+    lamp 1 is called "desk lamp".
+    string 2 is called "led light string".
+    the field "power source" of string 2 reads "battery".
+    table 3 is called "tables".
+    chair 4 is called "rocking chair".
+    light 5 is in the shop category "lights & lighting".
+    the field "voltage" of light 5 reads "220v".
+    claims expects answers [
+        "lamp 1 is claimed to belong to lighting fittings of heading 9405",
+        "string 2 is claimed to belong to lighting fittings of heading 9405",
+        "table 3 is claimed to belong to furniture of chapter 94",
+        "chair 4 is claimed to belong to furniture of chapter 94",
+        "light 5 is claimed to belong to lighting fittings of heading 9405"
+    ].
+
+% Chapter 96 and Chapter 90: NY N304395 (plastic ball point pens, 9608.10),
+% NY N317961 (a plastic tripod that holds a phone, 9620.00), NY N297982
+% (hair clips, 9615), NY N335861 (makeup brushes with ABS handles, 9603),
+% NY 882350 (plastic sunglasses, 9004.10).
+scenario articles_of_chapter_96 is:
+    pen 1 is called "ball point pens".
+    stand 2 is called "tripod".
+    clip 3 is called "hair clips".
+    brush 4 is called "makeup brushes".
+    glasses 5 is called "sunglasses".
+    holder 6 is called "pen holder".
+    claims expects answers [
+        "pen 1 is claimed to belong to pens of heading 9608",
+        "stand 2 is claimed to belong to tripods of heading 9620",
+        "clip 3 is claimed to belong to combs of heading 9615",
+        "brush 4 is claimed to belong to brushes of heading 9603",
+        "glasses 5 is claimed to belong to instruments of chapter 90"
+    ].
+
+% No claim: a heated pullover (NY N287133, 6110.30: Chapter 85 note 1(a)
+% excludes electrically warmed clothing) and light-up shoes (NY N341830,
+% 6402.99) get their kind from the garments and footwear backgrounds; a toy
+% with a battery is in "Toys & Hobbies"; a phone case in "Consumer
+% Electronics" has a principal use from the uses background; a listing with
+% "Voltage: None" says that it has no voltage.
+scenario no_claims is:
+    the kind of pullover 1 is pullover.
+    the field "power source" of pullover 1 reads "battery".
+    the kind of shoe 2 is shoe.
+    the field "is electric" of shoe 2 reads "button battery".
+    toy 3 is in the shop category "toys & hobbies".
+    the field "power source" of toy 3 reads "battery".
+    case 4 is in the shop category "consumer electronics".
+    the principal use of case 4 is other use.
+    part 5 is called "decorative part".
+    the field "voltage" of part 5 reads "none".
+    the field "power (w)" of part 5 reads "no".
+    claims expects answers [].
+
+% Weak evidence that raises a claim: a phone case with a battery (a power
+% bank, NY N265396), a plastic part in "Electronic Components & Supplies",
+% a good with "Electronic: Yes" and no other word.
+scenario weak_evidence is:
+    case 1 is called "phone case".
+    the principal use of case 1 is other use.
+    the field "is electric" of case 1 reads "lithium battery".
+    part 2 is in the shop category "electronic components & supplies".
+    gadget 3 is called "gadget".
+    the field "electronic" of gadget 3 reads "yes".
+    claims expects answers [
+        "case 1 is claimed to belong to machinery of section XVI",
+        "part 2 is claimed to belong to machinery of section XVI",
+        "gadget 3 is claimed to belong to machinery of section XVI"
+    ].
+
+query claims is:
+    which good is claimed to belong to which kind.

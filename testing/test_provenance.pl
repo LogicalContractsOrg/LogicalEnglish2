@@ -723,4 +723,30 @@ query q is:
     sort(As, Sorted),
     assertion(Sorted == ["ann is entitled"-[], "bob is entitled"-[]]).
 
+% A passage that quotes a field writes its quotation marks as \" inside the
+% string; with a colon among them the string used to end at the backslash,
+% the colon ended the label, and the rule was lost without an error.
+test(escaped_quotes_with_a_colon_in_a_rule_passage, [nondet]) :-
+    load_text("the target language is: prolog.
+
+the templates are:
+    *a thing* is red.
+    *a thing* is bright.
+the knowledge base eq includes:
+
+the guide is published at \"https://example.org\".
+
+rule quoted with provenance the guide, confer \"the field \\\"Colour: red\\\"\":
+a thing is red
+    if the thing is bright.
+
+scenario s is:
+    cup is bright.
+query q is:
+    which thing is red.
+", KB),
+    \+ KB:le_issue(error, _, _, _, _, _),
+    answers(KB, s, q, As),
+    assertion(As == ["cup is red"-[]]).
+
 :- end_tests(provenance).

@@ -1,0 +1,820 @@
+% Rulings of U.S. Customs and Border Protection (CROSS, rulings.cbp.gov) run
+% through the whole modelled tariff (tariff.le): Chapter 91 (clocks and
+% watches and parts thereof) — watch straps of steel, leather, plastics,
+% textile and rubber; watch cases, bezels, dials and hands; quartz,
+% digital and automatic wrist watches; watches in other forms; alarm and
+% wall clocks; a watch movement; smart watches.
+%
+% One scenario per ruling, which the scenario names ("scenario ny_n352742
+% is, as stated in ruling NY N352742:"); each good is described by the
+% facts the ruling states, each quoting its passage ("confer \"...\""), and
+% the office's judgments — essential character, answers to claims — say who
+% made them ("according to CBP"). The ruling's code is NOT a fact: it is in
+% the comment "% CBP: <good> -> <code>" above each scenario; the
+% expectation is the six-digit subheading the model derives, and where it
+% differs from CBP's the comment says so (DISAGREES) and why.
+%
+% Selection (November 2026): rulings on the marketplace goods of Chapter 91
+% that CROSS serves by number, found by web search (the CROSS search
+% service asks for a browser token): watch straps and bracelets, watch cases
+% and parts, wrist watches of each kind, clocks, a movement, smart watches.
+% No ruling on a watch repair kit was found. Transcribed by hand, with
+% every quotation checked against the ruling's text by the verifier.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+scenario facts require provenance.
+
+the knowledge base cbp 91 includes these resources:
+    tariff.
+
+the knowledge base cbp 91 includes:
+
+% Where each cited ruling is published, and a copy of its text (sources/).
+ruling NY N352742 is published at "https://rulings.cbp.gov/ruling/N352742".
+the text of ruling NY N352742 is at "sources/cbp/N352742.txt".
+ruling NY N263082 is published at "https://rulings.cbp.gov/ruling/N263082".
+the text of ruling NY N263082 is at "sources/cbp/N263082.txt".
+ruling HQ H276954 is published at "https://rulings.cbp.gov/ruling/H276954".
+the text of ruling HQ H276954 is at "sources/cbp/H276954.txt".
+ruling NY 856783 is published at "https://rulings.cbp.gov/ruling/856783".
+the text of ruling NY 856783 is at "sources/cbp/856783.txt".
+ruling NY 872221 is published at "https://rulings.cbp.gov/ruling/872221".
+the text of ruling NY 872221 is at "sources/cbp/872221.txt".
+ruling NY N292811 is published at "https://rulings.cbp.gov/ruling/N292811".
+the text of ruling NY N292811 is at "sources/cbp/N292811.txt".
+ruling HQ 951467 is published at "https://rulings.cbp.gov/ruling/951467".
+the text of ruling HQ 951467 is at "sources/cbp/951467.txt".
+ruling HQ 957242 is published at "https://rulings.cbp.gov/ruling/957242".
+the text of ruling HQ 957242 is at "sources/cbp/957242.txt".
+ruling NY 884636 is published at "https://rulings.cbp.gov/ruling/884636".
+the text of ruling NY 884636 is at "sources/cbp/884636.txt".
+ruling HQ 965207 is published at "https://rulings.cbp.gov/ruling/965207".
+the text of ruling HQ 965207 is at "sources/cbp/965207.txt".
+ruling NY K88403 is published at "https://rulings.cbp.gov/ruling/K88403".
+the text of ruling NY K88403 is at "sources/cbp/K88403.txt".
+ruling NY I89112 is published at "https://rulings.cbp.gov/ruling/I89112".
+the text of ruling NY I89112 is at "sources/cbp/I89112.txt".
+ruling NY N170879 is published at "https://rulings.cbp.gov/ruling/N170879".
+the text of ruling NY N170879 is at "sources/cbp/N170879.txt".
+ruling NY N329214 is published at "https://rulings.cbp.gov/ruling/N329214".
+the text of ruling NY N329214 is at "sources/cbp/N329214.txt".
+ruling HQ 968150 is published at "https://rulings.cbp.gov/ruling/968150".
+the text of ruling HQ 968150 is at "sources/cbp/968150.txt".
+ruling NY E83962 is published at "https://rulings.cbp.gov/ruling/E83962".
+the text of ruling NY E83962 is at "sources/cbp/E83962.txt".
+ruling NY N248589 is published at "https://rulings.cbp.gov/ruling/N248589".
+the text of ruling NY N248589 is at "sources/cbp/N248589.txt".
+ruling NY L80530 is published at "https://rulings.cbp.gov/ruling/L80530".
+the text of ruling NY L80530 is at "sources/cbp/L80530.txt".
+ruling NY N303322 is published at "https://rulings.cbp.gov/ruling/N303322".
+the text of ruling NY N303322 is at "sources/cbp/N303322.txt".
+ruling NY N343557 is published at "https://rulings.cbp.gov/ruling/N343557".
+the text of ruling NY N343557 is at "sources/cbp/N343557.txt".
+ruling NY N233953 is published at "https://rulings.cbp.gov/ruling/N233953".
+the text of ruling NY N233953 is at "sources/cbp/N233953.txt".
+ruling NY N342931 is published at "https://rulings.cbp.gov/ruling/N342931".
+the text of ruling NY N342931 is at "sources/cbp/N342931.txt".
+ruling HQ H271909 is published at "https://rulings.cbp.gov/ruling/H271909".
+the text of ruling HQ H271909 is at "sources/cbp/H271909.txt".
+ruling HQ 955278 is published at "https://rulings.cbp.gov/ruling/955278".
+the text of ruling HQ 955278 is at "sources/cbp/955278.txt".
+ruling HQ H260060 is published at "https://rulings.cbp.gov/ruling/H260060".
+the text of ruling HQ H260060 is at "sources/cbp/H260060.txt".
+ruling HQ H257947 is published at "https://rulings.cbp.gov/ruling/H257947".
+the text of ruling HQ H257947 is at "sources/cbp/H257947.txt".
+ruling HQ H273382 is published at "https://rulings.cbp.gov/ruling/H273382".
+the text of ruling HQ H273382 is at "sources/cbp/H273382.txt".
+ruling NY N172320 is published at "https://rulings.cbp.gov/ruling/N172320".
+the text of ruling NY N172320 is at "sources/cbp/N172320.txt".
+ruling NY E85357 is published at "https://rulings.cbp.gov/ruling/E85357".
+the text of ruling NY E85357 is at "sources/cbp/E85357.txt".
+ruling NY N244846 is published at "https://rulings.cbp.gov/ruling/N244846".
+the text of ruling NY N244846 is at "sources/cbp/N244846.txt".
+ruling NY M87378 is published at "https://rulings.cbp.gov/ruling/M87378".
+the text of ruling NY M87378 is at "sources/cbp/M87378.txt".
+ruling NY 809582 is published at "https://rulings.cbp.gov/ruling/809582".
+the text of ruling NY 809582 is at "sources/cbp/809582.txt".
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+% ---------------------------------------------------------------------------
+% Watch straps, bands and bracelets (heading 9113)
+% ---------------------------------------------------------------------------
+
+% NY N352742 (September 2025): a band for a smart watch, 75 percent rubber
+% (HNBR) with nylon, titanium and stainless steel, not entered with the
+% watch.
+% CBP: the Peakform band -> 9113.90
+scenario ny_n352742 is, as stated in ruling NY N352742:
+    the kind of the Peakform band is watch band,
+        confer "is a watch band designed to fit a smart device".
+    the Peakform band is a manufactured article,
+        confer "is a watch band designed to fit a smart device".
+    the Peakform band is wholly or mainly of rubber,
+        confer "the material composition of the watch strap is 75% Hydrogenated Nitrile Butadiene Rubber (HNBR)".
+    subheading expects answers ["the subheading of the Peakform band is 9113.90"].
+
+% NY N263082 (April 2015): replacement bands for smart watches, of nylon,
+% and of polyurethane and leather, all with stainless steel buckles.
+% CBP: the Woven watch band -> 9113.90; the Corsica watch band -> 9113.90
+scenario ny_n263082 is, as stated in ruling NY N263082:
+    the kind of the Woven watch band is watch band,
+        confer "The Woven watch band, designed for the Apple smart watch, is composed of nylon".
+    the Woven watch band is a manufactured article,
+        confer "The Woven watch band, designed for the Apple smart watch, is composed of nylon".
+    the Woven watch band is wholly or mainly of nylon,
+        confer "The Woven watch band, designed for the Apple smart watch, is composed of nylon".
+    the kind of the Corsica watch band is watch band,
+        confer "The Corsica watch band, designed for the Apple smart watch, is composed of polyurethane and leather".
+    the Corsica watch band is a manufactured article,
+        confer "The Corsica watch band, designed for the Apple smart watch, is composed of polyurethane and leather".
+    the Corsica watch band is wholly or mainly of leather,
+        confer "is composed of polyurethane and leather".
+    subheading expects answers ["the subheading of the Woven watch band is 9113.90", "the subheading of the Corsica watch band is 9113.90"].
+
+% HQ H276954 (January 2017): bands for the Apple Watch, of leather, of
+% plastics and of stainless steel mesh; the importer's claim that they are
+% parts of the watch of heading 8517 is rejected.
+% CBP: the Modal band -> 9113.90; the Modal Sports band -> 9113.90; the
+% Platinum band -> 9113.20
+scenario hq_h276954 is, as stated in ruling HQ H276954:
+    the kind of the Modal band is watch band,
+        confer "The “Modal Band” is a pebbled leather band made of top grain leather with a metal buckle".
+    the Modal band is a manufactured article,
+        confer "The “Modal Band” is a pebbled leather band made of top grain leather with a metal buckle".
+    the Modal band is wholly or mainly of leather,
+        confer "is a pebbled leather band made of top grain leather".
+    the Modal band is claimed to belong to parts of apparatus of heading 8517,
+        confer "it is your position that the Bands are appropriately classified as parts of the Apple Watch in heading 8517 HTSUS".
+    the claim that the Modal band belongs to parts of apparatus of heading 8517 is rejected,
+        according to CBP, confer "they serve solely to keep the Apple Watch affixed to the user’s wrist in the same manner that watch bands affix traditional watches to users’ wrists".
+    the kind of the Modal Sports band is watch band,
+        confer "The “Modal Sports Band” is a plastic watch band".
+    the Modal Sports band is a manufactured article,
+        confer "The “Modal Sports Band” is a plastic watch band".
+    the Modal Sports band is made of plastics,
+        confer "is a plastic watch band with a thermoplastic polyurethane bumper".
+    the Modal Sports band is claimed to belong to parts of apparatus of heading 8517,
+        confer "it is your position that the Bands are appropriately classified as parts of the Apple Watch in heading 8517 HTSUS".
+    the claim that the Modal Sports band belongs to parts of apparatus of heading 8517 is rejected,
+        according to CBP, confer "they serve solely to keep the Apple Watch affixed to the user’s wrist in the same manner that watch bands affix traditional watches to users’ wrists".
+    the kind of the Platinum band is watch band,
+        confer "The “Platinum Band” is a band made of stainless steel metal mesh".
+    the Platinum band is a manufactured article,
+        confer "The “Platinum Band” is a band made of stainless steel metal mesh".
+    the metal of the Platinum band is stainless steel,
+        confer "is a band made of stainless steel metal mesh".
+    the Platinum band is claimed to belong to parts of apparatus of heading 8517,
+        confer "it is your position that the Bands are appropriately classified as parts of the Apple Watch in heading 8517 HTSUS".
+    the claim that the Platinum band belongs to parts of apparatus of heading 8517 is rejected,
+        according to CBP, confer "they serve solely to keep the Apple Watch affixed to the user’s wrist in the same manner that watch bands affix traditional watches to users’ wrists".
+    subheading expects answers ["the subheading of the Modal band is 9113.90", "the subheading of the Modal Sports band is 9113.90", "the subheading of the Platinum band is 9113.20"].
+
+% NY 856783 (October 1990): nylon watch straps.
+% CBP: strap BW/F24 -> 9113.90
+scenario ny_856783 is, as stated in ruling NY 856783:
+    the kind of strap BW/F24 is watch strap,
+        confer "A sample nylon watch strap, reference number BW/F24, was submitted".
+    strap BW/F24 is a manufactured article,
+        confer "A sample nylon watch strap, reference number BW/F24, was submitted".
+    strap BW/F24 is wholly or mainly of nylon,
+        confer "all of which are nylon watch straps".
+    subheading expects answers ["the subheading of strap BW/F24 is 9113.90"].
+
+% NY 872221 (March 1992): a man's leather watch strap.
+% CBP: the Crocostyle strap -> 9113.90
+scenario ny_872221 is, as stated in ruling NY 872221:
+    the kind of the Crocostyle strap is watch strap,
+        confer "is a man's leather watch strap packaged in a plastic container".
+    the Crocostyle strap is a manufactured article,
+        confer "is a man's leather watch strap packaged in a plastic container".
+    the Crocostyle strap is wholly or mainly of leather,
+        confer "is a man's leather watch strap".
+    subheading expects answers ["the subheading of the Crocostyle strap is 9113.90"].
+
+% NY N292811 (January 2018): a watch strap of leather and denim; the
+% leather gives it its essential character (GRI 3(b)).
+% CBP: the leather/denim strap -> 9113.90
+scenario ny_n292811 is, as stated in ruling NY N292811:
+    the kind of the leather/denim strap is watch strap,
+        confer "The product under consideration is identified as a watch strap that is made to be attached to a watch head".
+    the leather/denim strap is a manufactured article,
+        confer "The product under consideration is identified as a watch strap".
+    the leather/denim strap is a composite good,
+        confer "The watch strap in question is a composite article that is comprised of leather and denim material".
+    the leather of the strap is a component of the leather/denim strap,
+        confer "The leather is on the inside of the strap".
+    the denim of the strap is a component of the leather/denim strap,
+        confer "the denim is stitched to the outer side".
+    the leather of the strap is wholly or mainly of leather,
+        confer "The leather is on the inside of the strap".
+    the denim of the strap is wholly or mainly of denim,
+        confer "the denim is stitched to the outer side".
+    the essential character of the leather/denim strap is given by the leather of the strap,
+        according to CBP, confer "it is the opinion of this office that the leather components impart the essential character to the watch strap".
+    subheading expects answers ["the subheading of the leather/denim strap is 9113.90"].
+
+% HQ 951467 (June 1992): leather and plastic watch straps with spring bars
+% inserted; the straps give the composite good its essential character.
+% CBP: the leather strap with spring bars -> 9113.90; the plastic strap
+% with spring bars -> 9113.90
+scenario hq_951467 is, as stated in ruling HQ 951467:
+    the kind of the leather strap with spring bars is watch strap,
+        confer "Two were plastic watch straps and five were leather watch straps, all with spring-bars inserted in the ends of both sections of each strap".
+    the leather strap with spring bars is a manufactured article,
+        confer "five were leather watch straps".
+    the leather strap with spring bars is a composite good,
+        confer "Watch strap and spring-bar combinations are composite goods".
+    the leather strap is a component of the leather strap with spring bars,
+        confer "five were leather watch straps".
+    the spring bars of the leather strap is a component of the leather strap with spring bars,
+        confer "all with spring-bars inserted in the ends of both sections of each strap".
+    the leather strap is wholly or mainly of leather,
+        confer "five were leather watch straps".
+    the essential character of the leather strap with spring bars is given by the leather strap,
+        according to CBP, confer "the essential character of the subject composite good is derived from the leather or plastic watch straps".
+    the kind of the plastic strap with spring bars is watch strap,
+        confer "Two were plastic watch straps".
+    the plastic strap with spring bars is a manufactured article,
+        confer "Two were plastic watch straps".
+    the plastic strap with spring bars is a composite good,
+        confer "Watch strap and spring-bar combinations are composite goods".
+    the plastic strap is a component of the plastic strap with spring bars,
+        confer "Two were plastic watch straps".
+    the spring bars of the plastic strap is a component of the plastic strap with spring bars,
+        confer "all with spring-bars inserted in the ends of both sections of each strap".
+    the plastic strap is made of plastics,
+        confer "Two were plastic watch straps".
+    the essential character of the plastic strap with spring bars is given by the plastic strap,
+        according to CBP, confer "the essential character of the subject composite good is derived from the leather or plastic watch straps".
+    subheading expects answers ["the subheading of the leather strap with spring bars is 9113.90", "the subheading of the plastic strap with spring bars is 9113.90"].
+
+% HQ 957242 (March 1995): a band of leather and nylon webbing; the leather
+% gives it its essential character.
+% CBP: the leather/nylon band -> 9113.90
+scenario hq_957242 is, as stated in ruling HQ 957242:
+    the kind of the leather/nylon band is watch band,
+        confer "the classification of a leather watch band and a combination leather/nylon watch band".
+    the leather/nylon band is a manufactured article,
+        confer "a combination leather/nylon watch band".
+    the leather/nylon band is a composite good,
+        confer "the leather/textile watch band is a composite good consisting of leather and textile material".
+    the leather of the band is a component of the leather/nylon band,
+        confer "All submitted straps contain between 60 and 70 percent leather".
+    the nylon webbing of the band is a component of the leather/nylon band,
+        confer "contain between 25 and 35 percent nylon webbing".
+    the leather of the band is wholly or mainly of leather,
+        confer "All submitted straps contain between 60 and 70 percent leather".
+    the nylon webbing of the band is wholly or mainly of nylon,
+        confer "contain between 25 and 35 percent nylon webbing".
+    the essential character of the leather/nylon band is given by the leather of the band,
+        according to CBP, confer "We find that the leather portion of the band imparts the article's essential character".
+    subheading expects answers ["the subheading of the leather/nylon band is 9113.90"].
+
+% NY 884636 (April 1993): an unfinished part of a watch bracelet of base
+% metal, a "stick".
+% CBP: the stick -> 9113.20
+scenario ny_884636 is, as stated in ruling NY 884636:
+    the kind of the stick is watch strap part,
+        confer "is an unfinished part of a watch bracelet known in the trade as a \"stick.\"".
+    the stick is a manufactured article,
+        confer "is an unfinished part of a watch bracelet".
+    the metal of the stick is base metal,
+        confer "The stick is made of a base metal".
+    subheading expects answers ["the subheading of the stick is 9113.20"].
+
+% HQ 965207 (March 2002): Santos de Cartier watches, cases of base metal
+% with gold bezels, and their bracelets of stainless steel inlaid with gold
+% screws. The case is not wholly of precious metal (note 2): 9102; the
+% bracelet imported alone is of base metal inlaid with precious metal,
+% that is metal clad with precious metal (Chapter 71 note 7): 9113.10.
+% CBP: watch model W20030C4 -> 9102.11; watch model W20036R3 -> 9102.21;
+% the bracelet imported alone -> 9113.10
+scenario hq_965207 is, as stated in ruling HQ 965207:
+    the kind of watch model W20030C4 is wrist watch,
+        confer "The Santos de Cartier line includes various types of watches of stainless steel".
+    watch model W20030C4 is a manufactured article,
+        confer "The Santos de Cartier line includes various types of watches of stainless steel".
+    watch model W20030C4 is electrically operated,
+        confer "Models W20030C4, W2003R73, W20011C4 watches have battery operated quartz movements with seven jewels".
+    watch model W20030C4 has a mechanical display,
+        confer "wrist watches, electrically operated, whether or not incorporating a stop watch facility: with mechanical display only".
+    the case metal of watch model W20030C4 is stainless steel,
+        confer "The watches have base metal cases with 18-carat gold (circular or square) bezels".
+    the kind of watch model W20036R3 is wrist watch,
+        confer "The Santos de Cartier line includes various types of watches of stainless steel".
+    watch model W20036R3 is a manufactured article,
+        confer "The Santos de Cartier line includes various types of watches of stainless steel".
+    watch model W20036R3 has a mechanical movement,
+        confer "Model W20036R3 has an automatic winding mechanical movement with 17 jewels".
+    watch model W20036R3 has automatic winding,
+        confer "Model W20036R3 has an automatic winding mechanical movement with 17 jewels".
+    the case metal of watch model W20036R3 is stainless steel,
+        confer "The watches have base metal cases with 18-carat gold (circular or square) bezels".
+    the kind of the Santos bracelet is watch bracelet,
+        confer "Occasionally, the bracelets will be imported separately as replacements for damaged bracelets".
+    the Santos bracelet is a manufactured article,
+        confer "Occasionally, the bracelets will be imported separately as replacements for damaged bracelets".
+    the metal of the Santos bracelet is stainless steel,
+        confer "are composed of stainless steel and inlaid with 18-carat gold".
+    the Santos bracelet is inlaid with gold alloy,
+        confer "are composed of stainless steel and inlaid with 18-carat gold".
+    subheading expects answers ["the subheading of watch model W20030C4 is 9102.11", "the subheading of watch model W20036R3 is 9102.21", "the subheading of the Santos bracelet is 9113.10"].
+
+% NY K88403 (August 2004): an analog watch head sold with two frame and
+% strap assemblies; CBP classifies the additional gold plated metal frame
+% and metal band apart from the watch, by the metal band (GRI 3(b)).
+% CBP: the watch with leather strap -> 9102.11; the additional frame and
+% band -> 9113.20
+scenario ny_k88403 is, as stated in ruling NY K88403:
+    the kind of the watch with leather strap is wrist watch,
+        confer "The applicable subheading for the watch with base metal frame and leather strap will be 9102.11.45".
+    the watch with leather strap is a manufactured article,
+        confer "The watch head is an analog watch with no jewels in the movement".
+    the watch with leather strap is electrically operated,
+        confer "wrist watches, electrically operated, with mechanical display only".
+    the watch with leather strap has a mechanical display,
+        confer "The watch head is an analog watch with no jewels in the movement".
+    the kind of the additional frame and band is watch band,
+        confer "the other metal frame is attached to a metal watch band".
+    the additional frame and band is a manufactured article,
+        confer "the additional gold plated metal frame and metal band assembly".
+    the additional frame and band is a composite good,
+        confer "We consider the gold plated metal frame and metal watch band assembly to be a composite good under GRI 3".
+    the metal band is a component of the additional frame and band,
+        confer "the other metal frame is attached to a metal watch band".
+    the gold plated frame is a component of the additional frame and band,
+        confer "the additional gold plated metal frame and metal band assembly".
+    the metal of the metal band is base metal,
+        confer "watch straps, watch bands and watch bracelets, and parts thereof; of base metal, whether or not gold- or silver-plated".
+    the essential character of the additional frame and band is given by the metal band,
+        according to CBP, confer "The metal watch band imparts the essential character to the composite good".
+    subheading expects answers ["the subheading of the watch with leather strap is 9102.11", "the subheading of the additional frame and band is 9113.20"].
+
+% NY I89112 (January 2003): an LCD watch sold with four nylon bands, which
+% CBP classifies with the watch (Additional U.S. note 2); an analog watch
+% sold with an additional steel band and a leather strap, which CBP
+% classifies apart.
+% CBP: the Mickey Mouse LCD watch -> 9102.12; the nylon bands -> 9102.12;
+% the Men's Interchangeable watch -> 9102.11; the additional steel band ->
+% 9113.20; the leather strap -> 9113.90
+scenario ny_i89112 is, as stated in ruling NY I89112:
+    the kind of the Mickey Mouse LCD watch is wrist watch,
+        confer "is a wrist watch that will be imported and sold packaged in a blister display pack with four interchangeable nylon bands".
+    the Mickey Mouse LCD watch is a manufactured article,
+        confer "The submitted Mickey Mouse Interchangeable Body Parts LCD Watch is a wrist watch".
+    the Mickey Mouse LCD watch is electrically operated,
+        confer "The watch contains a battery operated electronic watch movement with a liquid crystal display (LCD)".
+    the Mickey Mouse LCD watch has an opto-electronic display,
+        confer "The watch contains a battery operated electronic watch movement with a liquid crystal display (LCD)".
+    the kind of the nylon bands is watch band,
+        confer "with four interchangeable nylon bands".
+    the nylon bands is a manufactured article,
+        confer "with four interchangeable nylon bands".
+    the nylon bands is wholly or mainly of nylon,
+        confer "with four interchangeable nylon bands".
+    the nylon bands is entered with the Mickey Mouse LCD watch,
+        confer "straps, bands or bracelets entered with watches of subheading 9102.12.80 and classifiable therewith pursuant to additional U.S. note 2 to this chapter".
+    the kind of the Men's Interchangeable watch is wrist watch,
+        confer "The Men’s Interchangeable Quartz Analog Watch is a wrist watch".
+    the Men's Interchangeable watch is a manufactured article,
+        confer "The Men’s Interchangeable Quartz Analog Watch is a wrist watch".
+    the Men's Interchangeable watch is electrically operated,
+        confer "The watch is a men’s battery operated quartz analog wrist watch".
+    the Men's Interchangeable watch has a mechanical display,
+        confer "has a black dial with silver tone hour, minute and second hands".
+    the case metal of the Men's Interchangeable watch is stainless steel,
+        confer "wrist watch in a stainless steel case".
+    the kind of the additional steel band is watch band,
+        confer "features an additional two-tone gold-plated stainless steel band".
+    the additional steel band is a manufactured article,
+        confer "features an additional two-tone gold-plated stainless steel band".
+    the metal of the additional steel band is stainless steel,
+        confer "features an additional two-tone gold-plated stainless steel band".
+    the kind of the leather strap is watch strap,
+        confer "and a black leather watch strap".
+    the leather strap is a manufactured article,
+        confer "and a black leather watch strap".
+    the leather strap is wholly or mainly of leather,
+        confer "and a black leather watch strap".
+    subheading expects answers ["the subheading of the Mickey Mouse LCD watch is 9102.12", "the subheading of the nylon bands is 9102.12", "the subheading of the Men's Interchangeable watch is 9102.11", "the subheading of the additional steel band is 9113.20", "the subheading of the leather strap is 9113.90"].
+
+% NY N342931 (October 2024): a box set of a quartz analog watch with a
+% stainless steel case and bracelet, and an additional leather strap, all
+% classified with the watch (Additional U.S. note 2).
+% CBP: the box set watch -> 9102.11; the additional leather strap ->
+% 9102.11 (with the set)
+scenario ny_n342931 is, as stated in ruling NY N342931:
+    the kind of the box set watch is wrist watch,
+        confer "Each box set will consist of a quartz analog wrist watch with a stainless steel case".
+    the box set watch is a manufactured article,
+        confer "Each box set will consist of a quartz analog wrist watch with a stainless steel case".
+    the box set watch is electrically operated,
+        confer "Wrist watches, electrically operated, whether or not incorporating a stop watch facility: With mechanical display only".
+    the box set watch has a mechanical display,
+        confer "Each box set will consist of a quartz analog wrist watch".
+    the case metal of the box set watch is stainless steel,
+        confer "with a stainless steel case, stainless steel bracelet".
+    the kind of the additional leather strap is watch strap,
+        confer "The first box set will include an additional unattached leather strap".
+    the additional leather strap is a manufactured article,
+        confer "The first box set will include an additional unattached leather strap".
+    the additional leather strap is wholly or mainly of leather,
+        confer "The first box set will include an additional unattached leather strap".
+    the additional leather strap is entered with the box set watch,
+        confer "Each box set will be imported in a single retail package".
+    subheading expects answers ["the subheading of the box set watch is 9102.11", "the subheading of the additional leather strap is 9102.11"].
+
+% ---------------------------------------------------------------------------
+% Watch cases and parts (headings 9111, 9114)
+% ---------------------------------------------------------------------------
+
+% NY N170879 (July 2011): watch cases of precious metal, of base metal
+% plated and not plated, other cases; dials; hands and stems; bracelets of
+% base metal.
+% CBP: the gold cases -> 9111.10; the plated cases -> 9111.20; the steel
+% cases -> 9111.20; the dials -> 9114.30; the hands -> 9114.90; the stems ->
+% 9114.90; the metal bracelets -> 9113.20
+scenario ny_n170879 is, as stated in ruling NY N170879:
+    the kind of the gold cases is watch case,
+        confer "The applicable subheading for watch cases of precious metal or metal clad with precious metal will be 9111.10.00".
+    the gold cases is a manufactured article,
+        confer "Watch cases will be imported from China or from other countries".
+    the metal of the gold cases is gold,
+        confer "watch cases of precious metal or metal clad with precious metal".
+    the kind of the plated cases is watch case,
+        confer "The applicable subheading for watch cases of base metal which are gold- or silver-plated will be 9111.20.20".
+    the plated cases is a manufactured article,
+        confer "Watch cases will be imported from China or from other countries".
+    the metal of the plated cases is base metal,
+        confer "watch cases of base metal which are gold- or silver-plated".
+    the kind of the dials is dial,
+        confer "Dials, hands and stems and other watch parts will also be imported from Switzerland".
+    the dials is a manufactured article,
+        confer "Dials, hands and stems and other watch parts will also be imported from Switzerland".
+    the kind of the hands is watch hand,
+        confer "Dials, hands and stems and other watch parts will also be imported from Switzerland".
+    the hands is a manufactured article,
+        confer "Dials, hands and stems and other watch parts will also be imported from Switzerland".
+    the kind of the stems is stem,
+        confer "Dials, hands and stems and other watch parts will also be imported from Switzerland".
+    the stems is a manufactured article,
+        confer "Dials, hands and stems and other watch parts will also be imported from Switzerland".
+    the kind of the metal bracelets is watch bracelet,
+        confer "Metal watch bracelets may be sourced from China".
+    the metal bracelets is a manufactured article,
+        confer "Metal watch bracelets may be sourced from China".
+    the metal of the metal bracelets is base metal,
+        confer "The applicable subheading for the base metal watch bracelets".
+    subheading expects answers ["the subheading of the gold cases is 9111.10", "the subheading of the plated cases is 9111.20", "the subheading of the dials is 9114.30", "the subheading of the hands is 9114.90", "the subheading of the stems is 9114.90", "the subheading of the metal bracelets is 9113.20"].
+
+% NY N329214 (November 2022): the aluminum housing, two buttons and the
+% steel bezel of a health tracking watch, which CBP classifies as other
+% watch parts. The importer's claim to Chapter 85 is rejected.
+% CBP: the housing -> 9114.90; the buttons -> 9114.90; the bezel -> 9114.90
+% DISAGREES for the housing and the bezel: the model reads Additional U.S.
+% note 1(b) ("cases" embraces the housings for movements and the parts that
+% complete them) as HQ 968150 reads it for a bezel, so the housing is a
+% case of base metal (9111.20) and the bezel a part of a case (9111.90).
+scenario ny_n329214 is, as stated in ruling NY N329214:
+    the kind of the housing is watch case,
+        confer "The housing holds the workings of the Masimo W1 Health Tracking Watch".
+    the housing is a manufactured article,
+        confer "The housing is made of aluminum that has been machined and anodized".
+    the metal of the housing is aluminum,
+        confer "The housing is made of aluminum that has been machined and anodized".
+    the housing is claimed to belong to parts of the goods of chapter 85,
+        confer "You suggested classification for the housing, two buttons and bezel of the Masimo W1 Health Tracking Watch in Chapter 85".
+    the claim that the housing belongs to parts of the goods of chapter 85 is rejected,
+        according to CBP, confer "As such, classification within Chapter 85 would be inapplicable".
+    the kind of the buttons is watch part,
+        confer "will have two buttons that attach to the housing".
+    the buttons is a manufactured article,
+        confer "The buttons for the watch are made of aluminum that has been machined and anodized".
+    the buttons is claimed to belong to parts of the goods of chapter 85,
+        confer "You suggested classification for the housing, two buttons and bezel of the Masimo W1 Health Tracking Watch in Chapter 85".
+    the claim that the buttons belongs to parts of the goods of chapter 85 is rejected,
+        according to CBP, confer "As such, classification within Chapter 85 would be inapplicable".
+    the kind of the bezel is bezel,
+        confer "The bezel of the watch is made of stainless steel that has a physical vapor deposition (PVD) coating".
+    the bezel is a manufactured article,
+        confer "The bezel of the watch is made of stainless steel".
+    the bezel is claimed to belong to parts of the goods of chapter 85,
+        confer "You suggested classification for the housing, two buttons and bezel of the Masimo W1 Health Tracking Watch in Chapter 85".
+    the claim that the bezel belongs to parts of the goods of chapter 85 is rejected,
+        according to CBP, confer "As such, classification within Chapter 85 would be inapplicable".
+    subheading expects answers ["the subheading of the housing is 9111.20", "the subheading of the buttons is 9114.90", "the subheading of the bezel is 9111.90"].
+
+% ---------------------------------------------------------------------------
+% Watches (headings 9101, 9102)
+% ---------------------------------------------------------------------------
+
+% HQ 968150 (May 2006): watch heads for ladies' wrist watches, the case of
+% sterling silver but the bezel of steel: the case is not wholly of
+% precious metal (note 2), so heading 9102.
+% CBP: the T4 Madison watch -> 9102.11
+scenario hq_968150 is, as stated in ruling HQ 968150:
+    the kind of the T4 Madison watch is wrist watch,
+        confer "The articles at issue are actually watch heads for ladies wrist watches".
+    the T4 Madison watch is a manufactured article,
+        confer "The articles at issue are actually watch heads for ladies wrist watches".
+    the T4 Madison watch is electrically operated,
+        confer "The watches are made in Switzerland and are electrically operated (battery powered)".
+    the T4 Madison watch has a mechanical display,
+        confer "Wrist watches, electrically operated, whether or not incorporating a stop watch facility: With mechanical display only".
+    the case metal of the T4 Madison watch is silver alloy,
+        confer "he case is made of solid sterling silver".
+    the case of the T4 Madison watch has a part of steel,
+        confer "Only the bezel (or front) is made of a non-precious metal, specifically steel".
+    subheading expects answers ["the subheading of the T4 Madison watch is 9102.11"].
+
+% NY E83962 (July 1999): a quartz analog wrist watch in a gold-plated case
+% with a stainless steel back (plating is no precious metal).
+% CBP: the Birthstone Watch -> 9102.11
+scenario ny_e83962 is, as stated in ruling NY E83962:
+    the kind of the Birthstone Watch is wrist watch,
+        confer "is a women’s battery operated quartz analog gold-plated wrist watch".
+    the Birthstone Watch is a manufactured article,
+        confer "A sample of the Birthstone Watch was submitted".
+    the Birthstone Watch is electrically operated,
+        confer "is a women’s battery operated quartz analog gold-plated wrist watch".
+    the Birthstone Watch has a mechanical display,
+        confer "The watch has a round dial with gold hour, minute and second hands".
+    the case of the Birthstone Watch has a part of stainless steel,
+        confer "in a shiny gold-plated case with a stainless steel back".
+    subheading expects answers ["the subheading of the Birthstone Watch is 9102.11"].
+
+% NY N248589 (January 2014): an LED wrist watch with a silicone band.
+% CBP: the Touch LED Watch -> 9102.12; its strap -> 9102.12
+scenario ny_n248589 is, as stated in ruling NY N248589:
+    the kind of the Touch LED Watch is wrist watch,
+        confer "It is a wrist watch with a silicon watch band".
+    the Touch LED Watch is a manufactured article,
+        confer "Item 957355 is described as a Touch LED Watch".
+    the Touch LED Watch is electrically operated,
+        confer "The watch requires a button cell battery which is included".
+    the Touch LED Watch has an opto-electronic display,
+        confer "the time is displayed by red light emitting diodes (LEDs)".
+    the kind of the silicone band is watch band,
+        confer "It is a wrist watch with a silicon watch band".
+    the silicone band is a manufactured article,
+        confer "It is a wrist watch with a silicon watch band".
+    the silicone band is made of plastics,
+        confer "with a silicon watch band".
+    the silicone band is entered with the Touch LED Watch,
+        confer "The applicable subheading for the strap for the Touch LED Watch will be 9102.12.40".
+    subheading expects answers ["the subheading of the Touch LED Watch is 9102.12", "the subheading of the silicone band is 9102.12"].
+
+% NY L80530 (November 2004): a digital spy watch with a telescope and a
+% night vision beam; the claim that it is a toy is rejected.
+% CBP: the XP-6 Spy Watch -> 9102.12
+scenario ny_l80530 is, as stated in ruling NY L80530:
+    the kind of the XP-6 Spy Watch is wrist watch,
+        confer "is a battery-operated digital combination wrist watch and telescope".
+    the XP-6 Spy Watch is a manufactured article,
+        confer "The submitted XP-6 Spy Watch is a battery-operated digital combination wrist watch and telescope".
+    the XP-6 Spy Watch is electrically operated,
+        confer "is a battery-operated digital combination wrist watch".
+    the XP-6 Spy Watch has an opto-electronic display,
+        confer "The watch features a liquid crystal display (LCD)".
+    the XP-6 Spy Watch is claimed to belong to toys of chapter 95,
+        confer "You have indicated in your letter that you believe the XP-6 Spy Watch is a toy".
+    the claim that the XP-6 Spy Watch belongs to toys of chapter 95 is rejected,
+        according to CBP, confer "the XP-6 Spy Watch is a working, functional watch classifiable in Chapter 91 as a watch".
+    subheading expects answers ["the subheading of the XP-6 Spy Watch is 9102.12"].
+
+% NY N303322 (March 2019): an automatic wrist watch with a base metal case.
+% CBP: the Miyota 8217 watch -> 9102.21
+scenario ny_n303322 is, as stated in ruling NY N303322:
+    the kind of the Miyota 8217 watch is wrist watch,
+        confer "is identified as an automatic wrist watch with a Japan Miyota 8217 movement".
+    the Miyota 8217 watch is a manufactured article,
+        confer "is identified as an automatic wrist watch".
+    the Miyota 8217 watch has a mechanical movement,
+        confer "The wrist watch features a mechanical self winding movement".
+    the Miyota 8217 watch has automatic winding,
+        confer "The wrist watch features a mechanical self winding movement".
+    the Miyota 8217 watch has a mechanical display,
+        confer "The watch has a round dial with a second hand, a minute hand, an hour hand and a 24 hour hand".
+    the case metal of the Miyota 8217 watch is base metal,
+        confer "a base metal case with a stainless steel back".
+    subheading expects answers ["the subheading of the Miyota 8217 watch is 9102.21"].
+
+% HQ 955278 (November 1993): a Seiko Kinetic watch, whose movement turns
+% the motion of the arm into electrical energy: an electrically operated
+% watch, not one with automatic winding.
+% CBP: the Kinetic watch -> 9102.11
+scenario hq_955278 is, as stated in ruling HQ 955278:
+    the kind of the Kinetic watch is wrist watch,
+        confer "The Seiko Kinetic quartz analogue automatic wrist watch (model no. SHF032) is a product of Japan".
+    the Kinetic watch is a manufactured article,
+        confer "is a product of Japan".
+    the Kinetic watch is electrically operated,
+        confer "The AGS converts the rotational energy generated by the movement of the arm of the watch wearer into electrical energy, and thus powers the watch".
+    the Kinetic watch has a mechanical display,
+        confer "the second hand starts moving at two-second intervals".
+    the Kinetic watch has automatic winding,
+        confer "Seiko Kinetic quartz analogue automatic wrist watch".
+    the case of the Kinetic watch has a part of steel,
+        confer "in a gold-plated case, with a steel back".
+    subheading expects answers ["the subheading of the Kinetic watch is 9102.11"].
+
+% HQ H271909 (July 2016): a quartz analog wrist watch with an
+% accelerometer and Bluetooth: a watch, not a smart watch.
+% CBP: the Metropolitan+ Watch -> 9102.11
+scenario hq_h271909 is, as stated in ruling HQ H271909:
+    the kind of the Metropolitan+ Watch is wrist watch,
+        confer "is a battery-operated, quartz analog wristwatch equipped with an accelerometer sensor".
+    the Metropolitan+ Watch is a manufactured article,
+        confer "is a battery-operated, quartz analog wristwatch".
+    the Metropolitan+ Watch is electrically operated,
+        confer "is a battery-operated, quartz analog wristwatch".
+    the Metropolitan+ Watch has a mechanical display,
+        confer "is a battery-operated, quartz analog wristwatch".
+    subheading expects answers ["the subheading of the Metropolitan+ Watch is 9102.11"].
+
+% NY N343557 (November 2024): a quartz analog watch head fastened to a neck
+% choker; the watch head gives the composite good its essential character.
+% CBP: the watch choker -> 9102.91
+scenario ny_n343557 is, as stated in ruling NY N343557:
+    the watch choker is a manufactured article,
+        confer "The product under consideration is identified as a watch choker".
+    the watch choker is a composite good,
+        confer "The watch choker is a composite article that is comprised of a watch head and a neck choker".
+    the watch head of the choker is a component of the watch choker,
+        confer "quartz analog watch head incorporated in a neck choker".
+    the neck choker is a component of the watch choker,
+        confer "The choker will be made from leather wrapped in a microfiber".
+    the kind of the watch head of the choker is watch head,
+        confer "quartz analog watch head incorporated in a neck choker".
+    the watch head of the choker is electrically operated,
+        confer "quartz analog watch head incorporated in a neck choker".
+    the watch head of the choker has a mechanical display,
+        confer "The watch head features a rectangular dial with a second hand, a minute hand, and an hour hand".
+    the case metal of the watch head of the choker is stainless steel,
+        confer "The watch head is made of stainless steel".
+    the neck choker is wholly or mainly of leather,
+        confer "The choker will be made from leather wrapped in a microfiber".
+    the essential character of the watch choker is given by the watch head of the choker,
+        according to CBP, confer "it is the opinion of this office that the watch head imparts the essential character to the composite article".
+    subheading expects answers ["the subheading of the watch choker is 9102.91"].
+
+% NY N233953 (October 2012): a pendant watch on a chain bracelet, worn on
+% the wrist, and a pendant watch on a necklace chain.
+% CBP: the bracelet wrist watch -> 9102.11; the necklace watch -> 9102.91
+scenario ny_n233953 is, as stated in ruling NY N233953:
+    the kind of the bracelet wrist watch is wrist watch,
+        confer "The bracelet wrist watch is a gold-plated base metal pendent watch".
+    the bracelet wrist watch is a manufactured article,
+        confer "The bracelet wrist watch is a gold-plated base metal pendent watch".
+    the bracelet wrist watch is electrically operated,
+        confer "The watch is a battery operated analog watch with a quartz movement with no jewels".
+    the bracelet wrist watch has a mechanical display,
+        confer "The watch is a battery operated analog watch".
+    the case metal of the bracelet wrist watch is base metal,
+        confer "is a gold-plated base metal pendent watch".
+    the kind of the necklace watch is pendant watch,
+        confer "The necklace watch is a gold-plated pendent watch".
+    the necklace watch is a manufactured article,
+        confer "The necklace watch is a gold-plated pendent watch".
+    the necklace watch is electrically operated,
+        confer "The watch is a battery operated analog watch with a quartz movement with no jewels".
+    the necklace watch has a mechanical display,
+        confer "The watch is a battery operated analog watch".
+    subheading expects answers ["the subheading of the bracelet wrist watch is 9102.11", "the subheading of the necklace watch is 9102.91"].
+
+% ---------------------------------------------------------------------------
+% Smart watches: CBP holds that they differ substantially from the watches
+% of heading 9102 and classifies them in heading 8517 (GRI 3(b), the radio
+% transceiver). No code of the modelled tariff.
+% ---------------------------------------------------------------------------
+
+% HQ H260060 (July 2015): the Apple Watch.
+% CBP: the Apple Watch -> 8517.62 (outside the model)
+scenario hq_h260060 is, as stated in ruling HQ H260060:
+    the kind of the Apple Watch is smart watch,
+        confer "The Apple Watch is a battery-operated, wearable electronic device in the form of a wrist-watch".
+    the Apple Watch is a manufactured article,
+        confer "The Apple Watch is a battery-operated, wearable electronic device".
+    the Apple Watch is electrically operated,
+        confer "The Apple Watch is a battery-operated, wearable electronic device".
+    the Apple Watch has an opto-electronic display,
+        confer "active-matrix organic light-emitting diode (AMOLED) display".
+    the Apple Watch is claimed to belong to transmission apparatus of heading 8517,
+        confer "By application of GRI 3(b), the Apple Watch wearable electronic device is classified in heading 8517, HTSUS".
+    the claim that the Apple Watch belongs to transmission apparatus of heading 8517 is accepted,
+        according to CBP, confer "By application of GRI 3(b), the Apple Watch wearable electronic device is classified in heading 8517, HTSUS".
+    subheading expects answers [].
+
+% HQ H257947 (July 2015): the Samsung Gear Live smartwatch.
+% CBP: the Gear Live -> 8517.62 (outside the model)
+scenario hq_h257947 is, as stated in ruling HQ H257947:
+    the kind of the Gear Live is smart watch,
+        confer "Tariff classification of the Samsung “Gear™ Live Android™ Smartwatch” wearable electronic device".
+    the Gear Live is a manufactured article,
+        confer "Tariff classification of the Samsung “Gear™ Live Android™ Smartwatch” wearable electronic device".
+    the Gear Live is claimed to belong to transmission apparatus of heading 8517,
+        confer "By application of GRI 3(b), the Samsung Gear Live is classified in heading 8517, HTSUS".
+    the claim that the Gear Live belongs to transmission apparatus of heading 8517 is accepted,
+        according to CBP, confer "By application of GRI 3(b), the Samsung Gear Live is classified in heading 8517, HTSUS".
+    subheading expects answers [].
+
+% HQ H273382 (January 2017): the Garmin VivoActive smartwatch.
+% CBP: the VivoActive -> 8517.62 (outside the model)
+scenario hq_h273382 is, as stated in ruling HQ H273382:
+    the kind of the VivoActive is smart watch,
+        confer "The VivoActive is described as a Global Position System (“GPS”) smartwatch with wrist-based heart rate".
+    the VivoActive is a manufactured article,
+        confer "The VivoActive is worn on a user’s wrist and designed to manage data and support personal fitness".
+    the VivoActive is claimed to belong to transmission apparatus of heading 8517,
+        confer "By application of GRI 3(b), the VivoActive and VivoSmart are classified in heading 8517, HTSUS".
+    the claim that the VivoActive belongs to transmission apparatus of heading 8517 is accepted,
+        according to CBP, confer "By application of GRI 3(b), the VivoActive and VivoSmart are classified in heading 8517, HTSUS".
+    subheading expects answers [].
+
+% ---------------------------------------------------------------------------
+% Clocks (heading 9105) and a movement (heading 9108)
+% ---------------------------------------------------------------------------
+
+% NY N172320 (July 2011): a twin bell alarm clock with a quartz movement.
+% CBP: the twin bell alarm clock -> 9105.11
+scenario ny_n172320 is, as stated in ruling NY N172320:
+    the kind of the twin bell alarm clock is alarm clock,
+        confer "The article is a twin bell alarm clock, item number 69690".
+    the twin bell alarm clock is a manufactured article,
+        confer "It is composed of iron which is chrome plated".
+    the twin bell alarm clock is electrically operated,
+        confer "the clock actually contains a battery-operated quartz movement".
+    subheading expects answers ["the subheading of the twin bell alarm clock is 9105.11"].
+
+% NY E85357 (August 1999): an LCD folding alarm clock in a plastic case.
+% CBP: the LCD folding alarm clock -> 9105.11
+scenario ny_e85357 is, as stated in ruling NY E85357:
+    the kind of the LCD folding alarm clock is alarm clock,
+        confer "is a battery operated, digital table/desk alarm clock with a LCD display".
+    the LCD folding alarm clock is a manufactured article,
+        confer "is identified as a Matte Silver Plastic LCD Folding Alarm Clock".
+    the LCD folding alarm clock is made of plastics,
+        confer "is housed in a matte silver plastic case".
+    the LCD folding alarm clock is electrically operated,
+        confer "is a battery operated, digital table/desk alarm clock".
+    the LCD folding alarm clock has an opto-electronic display,
+        confer "digital table/desk alarm clock with a LCD display".
+    subheading expects answers ["the subheading of the LCD folding alarm clock is 9105.11"].
+
+% NY N244846 (September 2013): an analog wall clock of plastic with a
+% hidden compartment, and a quartz battery powered movement.
+% CBP: the Wall Clock Safe -> 9105.21
+scenario ny_n244846 is, as stated in ruling NY N244846:
+    the kind of the Wall Clock Safe is wall clock,
+        confer "The product is an analog wall clock made of plastic with a quartz battery powered movement".
+    the Wall Clock Safe is a manufactured article,
+        confer "The product is an analog wall clock made of plastic".
+    the Wall Clock Safe is made of plastics,
+        confer "The product is an analog wall clock made of plastic".
+    the Wall Clock Safe is electrically operated,
+        confer "with a quartz battery powered movement".
+    the Wall Clock Safe has a mechanical display,
+        confer "The product is an analog wall clock".
+    subheading expects answers ["the subheading of the Wall Clock Safe is 9105.21"].
+
+% NY M87378 (October 2006): a battery-operated analog wall clock of plastic.
+% CBP: the 13-Hour clock -> 9105.21
+scenario ny_m87378 is, as stated in ruling NY M87378:
+    the kind of the 13-Hour clock is wall clock,
+        confer "The 13-Hour clock is a battery-operated analog wall clock".
+    the 13-Hour clock is a manufactured article,
+        confer "It is made of plastic and is approximately 9 inches in diameter".
+    the 13-Hour clock is made of plastics,
+        confer "It is made of plastic and is approximately 9 inches in diameter".
+    the 13-Hour clock is electrically operated,
+        confer "The 13-Hour clock is a battery-operated analog wall clock".
+    subheading expects answers ["the subheading of the 13-Hour clock is 9105.21"].
+
+% NY 809582 (April 1995): quartz analog battery powered watch movements,
+% for hour meters.
+% CBP: the watch movements -> 9108.11
+scenario ny_809582 is, as stated in ruling NY 809582:
+    the kind of the watch movements is watch movement,
+        confer "The submitted samples are quartz analog battery powered watch movements with one jewel".
+    the watch movements is a manufactured article,
+        confer "The submitted samples are quartz analog battery powered watch movements with one jewel".
+    the watch movements is electrically operated,
+        confer "quartz analog battery powered watch movements".
+    the watch movements has a mechanical display,
+        confer "quartz analog battery powered watch movements".
+    subheading expects answers ["the subheading of the watch movements is 9108.11"].

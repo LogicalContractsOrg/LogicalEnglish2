@@ -10,7 +10,8 @@
     Loaded assert-only as a Prolog resource (docs/user/reference/language.md
     §14.1). No cuts in this file: LE's reasoner runs a resource's clauses
     itself, and a cut there does not prune — so each clause carries the test
-    that tells it from the others.
+    that tells it from the others. Nor does it call library predicates such
+    as member/2: a list is walked by a clause of this file (le_text_part/2).
 */
 
 le_text_piece(X, X) :- string(X).
@@ -35,3 +36,10 @@ the_text_of_is(X, S) :- le_text_piece(X, S).
 the_length_of_is(T, N) :- le_text_string(T, S), string_length(S, N).
 contains(T, P) :- le_text_string(T, S), le_text_string(P, Q), sub_string(S, _, _, _, Q).
 ends_with(T, P) :- le_text_string(T, S), le_text_string(P, Q), string_concat(_, Q, S).
+%   Each piece of the text between two separators, without the spaces at its
+%   ends ("toys & hobbies" and "remote control toys" of "toys & hobbies >
+%   remote control toys" split at ">"); an empty piece is not a part.
+split_at_has_the_part(T, Sep, P) :- le_text_string(T, S), le_text_string(Sep, D), split_string(S, D, " ", Ps), le_text_part(Ps, P).
+
+le_text_part([P|_], P) :- P \== "".
+le_text_part([_|Ps], P) :- le_text_part(Ps, P).

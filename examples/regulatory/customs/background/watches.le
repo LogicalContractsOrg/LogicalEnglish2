@@ -1,0 +1,453 @@
+% The customs background (lpsPlus docs/strategy/FactsBackground.md §6.1):
+% the words of sellers for clocks, watches and their parts, in the words of
+% the tariff (Chapter 91). Each word cites the text that says what it
+% means: the tariff's headings and notes, US Customs rulings, the
+% encyclopedia (Wikipedia: what a quartz, a mechanical, an automatic watch
+% is; what a crown, a crystal, a watch strap is), and the description of
+% the listings' fields (sources/listings/marketplace_fields_other_products.txt)
+% for what a field means. Bridges.
+%
+% What it reads: the name of a good and the fields that name its kind
+% ("Item Type: Watchbands", "Type: Watches for Parts", "Category: Smart
+% Watches"). The words give the kind (a wrist watch, a watch strap, a dial
+% ...), and the features the subheadings read: electrically operated (a
+% quartz or a digital watch), a mechanical movement, automatic winding, a
+% mechanical display (hands) or an opto-electronic display (digits). The
+% shop's category "Watches > Watches Accessories" says that a part is for a
+% watch. The metal of a strap or a case ("Material: Stainless Steel",
+% "Metals Type: Zinc Alloy") is read by the jewellery background, plastics
+% ("Material: Silicone") by the materials background.
+%
+% Two words are claims to headings outside the model (gri.le). A smart
+% watch is a data apparatus of heading 8517 (US Customs, HQ H260060); a
+% watch repair kit is a set of hand tools of Chapter 82. The office answers
+% the claim; the model gives such a good no code of Chapter 91.
+%
+% Left out, because no saved text says what the word means for the tariff:
+%   - "watch box", "watch winder", "watch stand", "watch holder": a box for
+%     watches is a container of heading 4202, a winder a machine; no ruling
+%     is saved;
+%   - "Function: Alarm Clock,...,Chronograph": the functions of a watch,
+%     not its kind (a wrist watch with an alarm is no alarm clock);
+%   - "kinetic", "solar", "eco-drive": the power of a watch that no saved
+%     ruling names in the seller's word;
+%   - "sapphire crystal", "mineral glass": a watch glass is classified by
+%     its material (note 1(a)), which the word does not always say.
+% "Item Type: Watch Cases" is read as the case of a watch (heading 9111), as
+% the tariff uses the word; a seller may also mean a box to keep watches in.
+%
+% Used only to read facts from a text (language reference §14.5).
+
+the target language is: prolog.
+
+the functions are:
+    the kind of *a good* is *a kind*.
+
+the templates are:
+    *a thing* is called *a name*; undefined.
+    the field *a field* of *a thing* reads *a value*; undefined.
+    *a field* is a field that names the timepiece kind.
+    *a name* is a word for the timepiece kind *a kind*.
+    *a name* is a word for electrically operated timepieces.
+    *a name* is a word for mechanical movements.
+    *a name* is a word for automatic winding.
+    *a name* is a word for mechanical displays.
+    *a name* is a word for opto-electronic displays.
+    *a name* is a word for parts for watches.
+    *a name* is a word for a claim to *a kind*.
+    *a thing* is named by the word *a name*.
+    the kind of *a good* is *a kind*.
+    *a good* is electrically operated.
+    *a good* has a mechanical movement.
+    *a good* has automatic winding.
+    *a good* has a mechanical display.
+    *a good* has an opto-electronic display.
+    *a good* is for a watch.
+    *a good* is claimed to belong to *a kind*.
+
+the knowledge base watches background includes:
+
+the other products listing format is published at "https://huggingface.co/datasets/ATH-MaaS/HSCodeComp".
+the text of the other products listing format is at "sources/listings/marketplace_fields_other_products.txt".
+HTSUS Chapter 91 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2091#page=1".
+the text of HTSUS Chapter 91 is at "sources/hts/chapter_91.txt".
+HTSUS Chapter 82 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2082#page=1".
+the text of HTSUS Chapter 82 is at "sources/hts/chapter_82.txt".
+the Wikipedia article Watch is published at "https://en.wikipedia.org/wiki/Watch".
+the text of the Wikipedia article Watch is at "sources/trade_usage/wikipedia_watch.txt".
+the Wikipedia article Quartz clock is published at "https://en.wikipedia.org/wiki/Quartz_clock".
+the text of the Wikipedia article Quartz clock is at "sources/trade_usage/wikipedia_quartz_clock.txt".
+the Wikipedia article Mechanical watch is published at "https://en.wikipedia.org/wiki/Mechanical_watch".
+the text of the Wikipedia article Mechanical watch is at "sources/trade_usage/wikipedia_mechanical_watch.txt".
+the Wikipedia article Automatic watch is published at "https://en.wikipedia.org/wiki/Automatic_watch".
+the text of the Wikipedia article Automatic watch is at "sources/trade_usage/wikipedia_automatic_watch.txt".
+the Wikipedia article Watch strap is published at "https://en.wikipedia.org/wiki/Watch_strap".
+the text of the Wikipedia article Watch strap is at "sources/trade_usage/wikipedia_watch_strap.txt".
+ruling HQ H260060 is published at "https://rulings.cbp.gov/ruling/H260060".
+the text of ruling HQ H260060 is at "sources/cbp/H260060.txt".
+ruling HQ H273382 is published at "https://rulings.cbp.gov/ruling/H273382".
+the text of ruling HQ H273382 is at "sources/cbp/H273382.txt".
+ruling HQ H271909 is published at "https://rulings.cbp.gov/ruling/H271909".
+the text of ruling HQ H271909 is at "sources/cbp/H271909.txt".
+ruling HQ 951467 is published at "https://rulings.cbp.gov/ruling/951467".
+the text of ruling HQ 951467 is at "sources/cbp/951467.txt".
+ruling HQ 968150 is published at "https://rulings.cbp.gov/ruling/968150".
+the text of ruling HQ 968150 is at "sources/cbp/968150.txt".
+ruling NY N170879 is published at "https://rulings.cbp.gov/ruling/N170879".
+the text of ruling NY N170879 is at "sources/cbp/N170879.txt".
+ruling NY N248589 is published at "https://rulings.cbp.gov/ruling/N248589".
+the text of ruling NY N248589 is at "sources/cbp/N248589.txt".
+ruling NY N303322 is published at "https://rulings.cbp.gov/ruling/N303322".
+the text of ruling NY N303322 is at "sources/cbp/N303322.txt".
+ruling NY N172320 is published at "https://rulings.cbp.gov/ruling/N172320".
+the text of ruling NY N172320 is at "sources/cbp/N172320.txt".
+ruling NY N244846 is published at "https://rulings.cbp.gov/ruling/N244846".
+the text of ruling NY N244846 is at "sources/cbp/N244846.txt".
+ruling NY E85357 is published at "https://rulings.cbp.gov/ruling/E85357".
+the text of ruling NY E85357 is at "sources/cbp/E85357.txt".
+ruling NY L80530 is published at "https://rulings.cbp.gov/ruling/L80530".
+the text of ruling NY L80530 is at "sources/cbp/L80530.txt".
+ruling NY 809582 is published at "https://rulings.cbp.gov/ruling/809582".
+the text of ruling NY 809582 is at "sources/cbp/809582.txt".
+ruling NY N233953 is published at "https://rulings.cbp.gov/ruling/N233953".
+the text of ruling NY N233953 is at "sources/cbp/N233953.txt".
+
+% ---------------------------------------------------------------------------
+% The fields of a listing (the other products listing format)
+% ---------------------------------------------------------------------------
+"item type" is a field that names the timepiece kind,
+    as stated in the other products listing format, confer "Item Type (99 listings): the kind of product in the seller's words".
+"type" is a field that names the timepiece kind,
+    as stated in the other products listing format, confer "Type (124 listings): for example".
+"category" is a field that names the timepiece kind,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+"product type" is a field that names the timepiece kind,
+    as stated in the other products listing format, confer "Category (16 listings) and Product Type (10 listings)".
+
+% ---------------------------------------------------------------------------
+% Kinds: watches
+% ---------------------------------------------------------------------------
+"wristwatch" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Watch, confer "A wristwatch is worn around the wrist".
+"wristwatches" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Watch, confer "A wristwatch is worn around the wrist".
+"wrist watch" is a word for the timepiece kind wrist watch,
+    as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches".
+"wrist watches" is a word for the timepiece kind wrist watch,
+    as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches".
+"quartz wristwatch" is a word for the timepiece kind wrist watch,
+    as stated in ruling HQ H271909, confer "is a battery-operated, quartz analog wristwatch".
+"quartz wristwatches" is a word for the timepiece kind wrist watch,
+    as stated in ruling HQ H271909, confer "is a battery-operated, quartz analog wristwatch".
+"quartz watch" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Watch, confer "In the 1960s the electronic quartz watch was invented".
+"mechanical wristwatches" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Watch, confer "the first digital mechanical wristwatches appeared".
+"mechanical watch" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Mechanical watch, confer "A mechanical watch is a watch that uses a clockwork mechanism to measure the passage of time".
+"automatic watch" is a word for the timepiece kind wrist watch,
+    as stated in ruling NY N303322, confer "is identified as an automatic wrist watch".
+"digital watch" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Watch, confer "The first digital electronic watch, a Pulsar LED prototype in 1970".
+"digital wristwatches" is a word for the timepiece kind wrist watch,
+    as stated in the Wikipedia article Watch, confer "the first digital mechanical wristwatches appeared".
+"led watch" is a word for the timepiece kind wrist watch,
+    as stated in ruling NY N248589, confer "Item 957355 is described as a Touch LED Watch. It is a wrist watch".
+"pocket watch" is a word for the timepiece kind pocket watch,
+    as stated in the Wikipedia article Watch, confer "A pocket watch is carried in a pocket, often attached to a chain".
+"pocket watches" is a word for the timepiece kind pocket watch,
+    as stated in HTSUS Chapter 91, confer "Wrist watches, pocket watches and other watches".
+"stopwatch" is a word for the timepiece kind stop watch,
+    as stated in the Wikipedia article Watch, confer "A stopwatch is a type of watch that measures intervals of time".
+"stop watch" is a word for the timepiece kind stop watch,
+    as stated in HTSUS Chapter 91, confer "including stop watches".
+"pendant watch" is a word for the timepiece kind pendant watch,
+    as stated in ruling NY N233953, confer "The necklace watch is a gold-plated pendent watch".
+"necklace watch" is a word for the timepiece kind pendant watch,
+    as stated in ruling NY N233953, confer "The necklace watch is a gold-plated pendent watch".
+"smart watch" is a word for the timepiece kind smart watch,
+    as stated in ruling HQ H260060, confer "wearable electronic device in the form of a wrist-watch".
+"smart watches" is a word for the timepiece kind smart watch,
+    as stated in the other products listing format, confer "Category: Smart Watches".
+"smartwatch" is a word for the timepiece kind smart watch,
+    as stated in ruling HQ H273382, confer "The VivoActive is described as a Global Position System (“GPS”) smartwatch".
+"smartwatches" is a word for the timepiece kind smart watch,
+    as stated in the Wikipedia article Watch, confer "In the 2010s, smartwatches emerged, small wrist-worn computers with touchscreens".
+
+% ---------------------------------------------------------------------------
+% Kinds: clocks
+% ---------------------------------------------------------------------------
+"alarm clock" is a word for the timepiece kind alarm clock,
+    as stated in ruling NY N172320, confer "The article is a twin bell alarm clock".
+"alarm clocks" is a word for the timepiece kind alarm clock,
+    as stated in HTSUS Chapter 91, confer "Alarm clocks".
+"digital alarm clock" is a word for the timepiece kind alarm clock,
+    as stated in ruling NY E85357, confer "digital table/desk alarm clock with a LCD display".
+"wall clock" is a word for the timepiece kind wall clock,
+    as stated in ruling NY N244846, confer "The product is an analog wall clock".
+"wall clocks" is a word for the timepiece kind wall clock,
+    as stated in HTSUS Chapter 91, confer "Wall clocks".
+"desk clock" is a word for the timepiece kind desk clock,
+    as stated in ruling NY E85357, confer "digital table/desk alarm clock".
+"table clock" is a word for the timepiece kind table clock,
+    as stated in ruling NY E85357, confer "digital table/desk alarm clock".
+"clock" is a word for the timepiece kind clock,
+    as stated in HTSUS Chapter 91, confer "Other clocks".
+"clocks" is a word for the timepiece kind clock,
+    as stated in HTSUS Chapter 91, confer "Other clocks".
+
+% ---------------------------------------------------------------------------
+% Kinds: straps, cases, parts, movements
+% ---------------------------------------------------------------------------
+"watchbands" is a word for the timepiece kind watch band,
+    as stated in the other products listing format, confer "Item Type: Watchbands".
+"watchband" is a word for the timepiece kind watch band,
+    as stated in the other products listing format, confer "Item Type: Watchbands".
+"watch band" is a word for the timepiece kind watch band,
+    as stated in the Wikipedia article Watch strap, confer "A watch strap, watch band, watch bracelet or watch belt is a bracelet that straps a wrist watch onto the wrist".
+"watch bands" is a word for the timepiece kind watch band,
+    as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets".
+"watch strap" is a word for the timepiece kind watch strap,
+    as stated in the Wikipedia article Watch strap, confer "A watch strap, watch band, watch bracelet or watch belt is a bracelet that straps a wrist watch onto the wrist".
+"watch straps" is a word for the timepiece kind watch strap,
+    as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets".
+"watch bracelet" is a word for the timepiece kind watch bracelet,
+    as stated in the Wikipedia article Watch strap, confer "A watch strap, watch band, watch bracelet or watch belt is a bracelet that straps a wrist watch onto the wrist".
+"watch bracelets" is a word for the timepiece kind watch bracelet,
+    as stated in HTSUS Chapter 91, confer "Watch straps, watch bands and watch bracelets".
+"watch belt" is a word for the timepiece kind watch strap,
+    as stated in the Wikipedia article Watch strap, confer "A watch strap, watch band, watch bracelet or watch belt is a bracelet that straps a wrist watch onto the wrist".
+"watch case" is a word for the timepiece kind watch case,
+    as stated in HTSUS Chapter 91, confer "Watch cases and parts thereof".
+"watch cases" is a word for the timepiece kind watch case,
+    as stated in the other products listing format, confer "Item Type: Watch Cases".
+"bezel" is a word for the timepiece kind bezel,
+    as stated in ruling HQ 968150, confer "the bezels are embraced in the definition of “cases”".
+"watch bezel" is a word for the timepiece kind bezel,
+    as stated in ruling HQ 968150, confer "the bezels are embraced in the definition of “cases”".
+"spring bar" is a word for the timepiece kind spring bar,
+    as stated in ruling HQ 951467, confer "The spring-bars are used to attached the straps to the end lugs of a watch case".
+"spring bars" is a word for the timepiece kind spring bar,
+    as stated in ruling HQ 951467, confer "The spring-bars are used to attached the straps to the end lugs of a watch case".
+"dial" is a word for the timepiece kind dial,
+    as stated in HTSUS Chapter 91, confer "Dials".
+"watch dial" is a word for the timepiece kind dial,
+    as stated in ruling NY N170879, confer "The applicable subheading for dials which do not exceed 50 mm in width will be 9114.30.40".
+"watch hands" is a word for the timepiece kind watch hand,
+    as stated in ruling NY N170879, confer "The applicable subheading for the watch hands and stems will be 9114.90.40".
+"crown" is a word for the timepiece kind crown,
+    as stated in the Wikipedia article Watch, confer "a small knob, called the crown, that can be used to adjust the time".
+"watch crown" is a word for the timepiece kind crown,
+    as stated in the Wikipedia article Watch, confer "a small knob, called the crown, that can be used to adjust the time".
+"watch crystal" is a word for the timepiece kind watch crystal,
+    as stated in the Wikipedia article Watch, confer "The crystal, also called the window or watch glass, is the transparent part of the case".
+"watch glass" is a word for the timepiece kind watch glass,
+    as stated in the Wikipedia article Watch, confer "The crystal, also called the window or watch glass, is the transparent part of the case".
+"watch movement" is a word for the timepiece kind watch movement,
+    as stated in ruling NY 809582, confer "The submitted samples are quartz analog battery powered watch movements".
+"watch movements" is a word for the timepiece kind watch movement,
+    as stated in ruling NY 809582, confer "The submitted samples are quartz analog battery powered watch movements".
+"clock movement" is a word for the timepiece kind clock movement,
+    as stated in HTSUS Chapter 91, confer "Clock movements, complete and assembled".
+"watch parts" is a word for the timepiece kind watch part,
+    as stated in HTSUS Chapter 91, confer "Other clock or watch parts".
+"watches for parts" is a word for the timepiece kind watch part,
+    as stated in the other products listing format, confer "Type: Watches for Parts".
+
+% ---------------------------------------------------------------------------
+% Features: the power, the movement, the winding, the display
+% ---------------------------------------------------------------------------
+"quartz" is a word for electrically operated timepieces,
+    as stated in the Wikipedia article Quartz clock, confer "Quartz clocks and quartz watches are timepieces that use an electronic oscillator regulated by a quartz crystal to keep time".
+"quartz watch" is a word for electrically operated timepieces,
+    as stated in the Wikipedia article Watch, confer "the electronic quartz watch was invented, powered by a battery".
+"quartz wristwatch" is a word for electrically operated timepieces,
+    as stated in ruling HQ H271909, confer "is a battery-operated, quartz analog wristwatch".
+"quartz wristwatches" is a word for electrically operated timepieces,
+    as stated in ruling HQ H271909, confer "is a battery-operated, quartz analog wristwatch".
+"quartz movement" is a word for electrically operated timepieces,
+    as stated in ruling NY N172320, confer "the clock actually contains a battery-operated quartz movement".
+"digital watch" is a word for electrically operated timepieces,
+    as stated in the Wikipedia article Watch, confer "The first digital electronic watch, a Pulsar LED prototype in 1970".
+"led watch" is a word for electrically operated timepieces,
+    as stated in ruling NY N248589, confer "The watch requires a button cell battery which is included".
+"digital alarm clock" is a word for electrically operated timepieces,
+    as stated in ruling NY E85357, confer "is a battery operated, digital table/desk alarm clock".
+"mechanical" is a word for mechanical movements,
+    as stated in the Wikipedia article Mechanical watch, confer "A mechanical watch is driven by a mainspring which must be wound either periodically by hand or via a self-winding mechanism".
+"mechanical watch" is a word for mechanical movements,
+    as stated in the Wikipedia article Mechanical watch, confer "A mechanical watch is driven by a mainspring which must be wound either periodically by hand or via a self-winding mechanism".
+"mechanical wristwatches" is a word for mechanical movements,
+    as stated in the Wikipedia article Mechanical watch, confer "A mechanical watch is driven by a mainspring which must be wound either periodically by hand or via a self-winding mechanism".
+"automatic" is a word for mechanical movements,
+    as stated in the Wikipedia article Automatic watch, confer "is a mechanical watch where the natural motion of the wearer provides energy to wind the mainspring".
+"automatic watch" is a word for mechanical movements,
+    as stated in the Wikipedia article Automatic watch, confer "is a mechanical watch where the natural motion of the wearer provides energy to wind the mainspring".
+"self-winding watch" is a word for mechanical movements,
+    as stated in the Wikipedia article Automatic watch, confer "An automatic watch, also known as a self-winding watch or simply an automatic, is a mechanical watch".
+"automatic" is a word for automatic winding,
+    as stated in the Wikipedia article Automatic watch, confer "An automatic watch, also known as a self-winding watch or simply an automatic".
+"automatic watch" is a word for automatic winding,
+    as stated in ruling NY N303322, confer "The wrist watch features a mechanical self winding movement".
+"self-winding watch" is a word for automatic winding,
+    as stated in the Wikipedia article Automatic watch, confer "An automatic watch, also known as a self-winding watch or simply an automatic".
+"analog" is a word for mechanical displays,
+    as stated in the Wikipedia article Watch, confer "Traditionally, watches have displayed the time in analog form, with a numbered dial upon which are mounted at least a rotating hour hand and a longer, rotating minute hand".
+"analog watch" is a word for mechanical displays,
+    as stated in the Wikipedia article Watch, confer "Traditionally, watches have displayed the time in analog form, with a numbered dial upon which are mounted at least a rotating hour hand and a longer, rotating minute hand".
+"analog wall clock" is a word for mechanical displays,
+    as stated in ruling NY N244846, confer "The product is an analog wall clock".
+"digital" is a word for opto-electronic displays,
+    as stated in the Wikipedia article Watch, confer "A digital display shows the time as a number".
+"digital watch" is a word for opto-electronic displays,
+    as stated in the Wikipedia article Watch, confer "A digital display shows the time as a number".
+"digital wristwatches" is a word for opto-electronic displays,
+    as stated in the Wikipedia article Watch, confer "A digital display shows the time as a number".
+"led watch" is a word for opto-electronic displays,
+    as stated in ruling NY N248589, confer "the time is displayed by red light emitting diodes (LEDs)".
+"lcd watch" is a word for opto-electronic displays,
+    as stated in ruling NY L80530, confer "The watch features a liquid crystal display (LCD)".
+"digital alarm clock" is a word for opto-electronic displays,
+    as stated in ruling NY E85357, confer "digital table/desk alarm clock with a LCD display".
+
+% The shop's category of the accessories of watches: the part is for a
+% watch (heading 9110: "Of watches")
+"watches > watches accessories" is a word for parts for watches,
+    as stated in the other products listing format, confer "Watches > Watches Accessories".
+
+% ---------------------------------------------------------------------------
+% Claims to headings outside the model (gri.le)
+% ---------------------------------------------------------------------------
+"smart watch" is a word for a claim to transmission apparatus of heading 8517,
+    as stated in ruling HQ H260060, confer "By application of GRI 3(b), the Apple Watch wearable electronic device is classified in heading 8517, HTSUS".
+"smart watches" is a word for a claim to transmission apparatus of heading 8517,
+    as stated in ruling HQ H260060, confer "By application of GRI 3(b), the Apple Watch wearable electronic device is classified in heading 8517, HTSUS".
+"smartwatch" is a word for a claim to transmission apparatus of heading 8517,
+    as stated in ruling HQ H273382, confer "By application of GRI 3(b), the VivoActive and VivoSmart are classified in heading 8517, HTSUS".
+"smartwatches" is a word for a claim to transmission apparatus of heading 8517,
+    as stated in ruling HQ H273382, confer "By application of GRI 3(b), the VivoActive and VivoSmart are classified in heading 8517, HTSUS".
+"repair tools & kits" is a word for a claim to tools of chapter 82,
+    as stated in HTSUS Chapter 82, confer "Tools of two or more of headings 8202 to 8205, put up in sets for retail sale".
+"watch repair kit" is a word for a claim to tools of chapter 82,
+    as stated in HTSUS Chapter 82, confer "Tools of two or more of headings 8202 to 8205, put up in sets for retail sale".
+"watch repair tool kit" is a word for a claim to tools of chapter 82,
+    as stated in HTSUS Chapter 82, confer "Tools of two or more of headings 8202 to 8205, put up in sets for retail sale".
+"watch repair tools" is a word for a claim to tools of chapter 82,
+    as stated in HTSUS Chapter 82, confer "Handtools (including glass cutters) not elsewhere specified or included".
+"watch repair tool" is a word for a claim to tools of chapter 82,
+    as stated in HTSUS Chapter 82, confer "Handtools (including glass cutters) not elsewhere specified or included".
+
+% ---------------------------------------------------------------------------
+% The rules: a word in the name, or in a field that names the kind
+% ---------------------------------------------------------------------------
+rule named_by_name with provenance the other products listing format,
+        confer "A listing offers one finished product for sale":
+a thing is named by the word a name
+    if the thing is called the name.
+
+rule named_by_field with provenance the other products listing format,
+        confer "Item Type (99 listings): the kind of product in the seller's words":
+a thing is named by the word a name
+    if the field a field of the thing reads the name
+    and the field is a field that names the timepiece kind.
+
+rule timepiece_kind with provenance HTSUS Chapter 91, confer "CLOCKS AND WATCHES AND PARTS THEREOF":
+the kind of a good is a kind
+    if the good is named by the word a name
+    and the name is a word for the timepiece kind the kind.
+
+rule timepiece_electric with provenance the Wikipedia article Quartz clock,
+        confer "Quartz clocks and quartz watches are timepieces that use an electronic oscillator regulated by a quartz crystal to keep time":
+a good is electrically operated
+    if the good is named by the word a name
+    and the name is a word for electrically operated timepieces.
+
+rule timepiece_mechanical with provenance the Wikipedia article Mechanical watch,
+        confer "A mechanical watch is a watch that uses a clockwork mechanism to measure the passage of time":
+a good has a mechanical movement
+    if the good is named by the word a name
+    and the name is a word for mechanical movements.
+
+rule timepiece_automatic with provenance the Wikipedia article Automatic watch,
+        confer "An automatic watch, also known as a self-winding watch or simply an automatic":
+a good has automatic winding
+    if the good is named by the word a name
+    and the name is a word for automatic winding.
+
+rule timepiece_mechanical_display with provenance the Wikipedia article Watch,
+        confer "Traditionally, watches have displayed the time in analog form":
+a good has a mechanical display
+    if the good is named by the word a name
+    and the name is a word for mechanical displays.
+
+rule timepiece_opto_display with provenance the Wikipedia article Watch,
+        confer "A digital display shows the time as a number":
+a good has an opto-electronic display
+    if the good is named by the word a name
+    and the name is a word for opto-electronic displays.
+
+rule for_watches with provenance the other products listing format,
+        confer "Watches > Watches Accessories":
+a good is for a watch
+    if the good is called a name
+    and the name is a word for parts for watches.
+
+rule timepiece_claim with provenance HTSUS Chapter 91, confer "CLOCKS AND WATCHES AND PARTS THEREOF":
+a good is claimed to belong to a kind
+    if the good is named by the word a name
+    and the name is a word for a claim to the kind.
+
+% ---------------------------------------------------------------------------
+% Tests
+% ---------------------------------------------------------------------------
+
+query kinds is:
+    the kind of which good is which kind.
+
+query features is:
+    which good is electrically operated.
+
+query movements is:
+    which good has a mechanical movement.
+
+query windings is:
+    which good has automatic winding.
+
+query mechanical_displays is:
+    which good has a mechanical display.
+
+query opto_displays is:
+    which good has an opto-electronic display.
+
+query claims is:
+    which good is claimed to belong to which kind.
+
+query watch_parts is:
+    which good is for a watch.
+
+scenario watches is:
+    watch 1 is called "quartz wristwatches".
+    watch 1 is called "analog".
+    the field "item type" of watch 2 reads "digital watch".
+    watch 3 is called "automatic watch".
+    watch 3 is called "analog watch".
+    the field "category" of watch 4 reads "smart watches".
+    clock 5 is called "digital alarm clock".
+    kinds expects answers ["the kind of watch 1 is wrist watch", "the kind of watch 2 is wrist watch", "the kind of watch 3 is wrist watch", "the kind of watch 4 is smart watch", "the kind of clock 5 is alarm clock"].
+    features expects answers ["watch 1 is electrically operated", "watch 2 is electrically operated", "clock 5 is electrically operated"].
+    movements expects answers ["watch 3 has a mechanical movement"].
+    windings expects answers ["watch 3 has automatic winding"].
+    mechanical_displays expects answers ["watch 1 has a mechanical display", "watch 3 has a mechanical display"].
+    opto_displays expects answers ["watch 2 has an opto-electronic display", "clock 5 has an opto-electronic display"].
+    claims expects answers ["watch 4 is claimed to belong to transmission apparatus of heading 8517"].
+
+scenario accessories is:
+    the field "item type" of band 1 reads "watchbands".
+    the field "item type" of case 2 reads "watch cases".
+    case 2 is called "watches > watches accessories".
+    the field "type" of part 3 reads "watches for parts".
+    the field "item type" of kit 4 reads "repair tools & kits".
+    bezel 5 is called "watch bezel".
+    kinds expects answers ["the kind of band 1 is watch band", "the kind of case 2 is watch case", "the kind of part 3 is watch part", "the kind of bezel 5 is bezel"].
+    claims expects answers ["kit 4 is claimed to belong to tools of chapter 82"].
+    watch_parts expects answers ["case 2 is for a watch"].

@@ -1,0 +1,1405 @@
+% Chapter 63 of the tariff (Section XI): other made up textile articles;
+% needlecraft sets; worn clothing and worn textile articles; rags — all ten
+% headings (6301 to 6310) and their 52 six-digit subheadings. A library: it
+% includes chapter_42.le (and through it chapter_64.le, chapter_71.le,
+% chapter_39.le, section_xi.le and gri.le), chapter_61.le, chapter_62.le
+% and chapter_67.le, because the notes of Chapters 39, 61, 62, 63 and 64
+% and of Section XI send goods between these chapters; tariff.le includes
+% it.
+%
+% Text: HTSUS Revision 23 (2026), Chapter 63 notes 1 to 3, subheading note
+% 1, and the terms of the headings and subheadings (https://hts.usitc.gov/);
+% Section XI note 7 ("made up") and note 2 (the textile material that
+% predominates, in section_xi.le); Chapter 39 note 2(p), Chapter 61 note
+% 2(b), Chapter 62 note 2(a), Chapter 64 note 1(c). The subheadings are
+% the six-digit HS ones. The EU Combined Nomenclature Explanatory Notes (CN
+% EN) to Chapter 63 name some articles (beds for animals, camping goods, tea
+% towels). US Customs rulings name the articles and show how the headings
+% are read.
+%
+% How the chapter is read. The facts of an article are its kind (a blanket,
+% a tablecloth, a curtain, a shoelace...), the fabric and the material:
+%   the kind of G is K                    (a kind listed below; its family
+%                                          names the heading)
+%   G is made up by P                     (Section XI note 7: hemming,
+%                                          sewing, knitting to shape...)
+%   the fabric construction of G is knitted | woven | nonwoven
+%   G contains N percent of M             (the textile material, Section XI
+%                                          note 2, section_xi.le)
+%   G is of textile material              (when the text gives no fibre)
+%   the fabric of G is printed            (bed linen, 6302.21 to 6302.29)
+%   the fabric of G is terry              (toilet linen, 6302.60)
+%   G is made from warp knit fabric impregnated or coated with an
+%       insecticide of subheading note one        (bed nets, 6304.20)
+%   G shows signs of appreciable wear; G is entered in bulk or in bales,
+%       sacks or similar packings                 (6309, note 3)
+%   G is put up in packings for retail sale       (6308)
+%   G is sorted                                   (rags, 6310.10)
+% Subchapter I (6301 to 6307) takes only made up articles of a textile
+% fabric (note 1). A finished article of a kind that the headings name is
+% made up: the title of the subchapter names these articles "made up". A
+% good of Chapters 56 to 62, and worn articles of 6309, are not of
+% subchapter I (note 2). Heading 6307 is the subchapter's residual
+% heading: it takes the other made up articles the chapter names, and a
+% made up textile article that names no kind. GRI 3(a) prefers the headings
+% 6301 to 6306 to it.
+%
+% The subheadings read the textile material of what the good is classified
+% as consisting of (GRI 3(b): a set of sheets takes the material of the
+% sheet that gives it its essential character): cotton, wool or fine
+% animal hair, synthetic or artificial fibres (Section XI subheading note
+% 2), jute and the other bast fibres of heading 5303, strip of polyethylene
+% or polypropylene (6305.33), or other.
+%
+% Outside the model: bedding of heading 9404 (pillows, cushions, quilts,
+% sleeping bags: Section XI note 1(s)), toys of Chapter 95 (note 1(t)),
+% headgear of Chapter 65 (note 1(o)), carpets of Chapter 57, fabrics of
+% Chapters 56 to 60, seat covers of motor vehicles (heading 8708, HQ
+% H249319). A claim that a good belongs there is answered by the office
+% (gri.le). Fabrics coated with plastics that are of Chapter 39 (Section
+% XI note 1(h)) are not told apart.
+%
+% Not modelled: the lines below six digits (napped, embroidery or lace,
+% pile or tufted construction, damask, backpacking tents, labels, cords,
+% lacings, surgical drapes, flags, face masks, wall banners).
+%
+% Provenance: every rule and table is labelled and cites the passage it
+% encodes; the documents say where their text is (sources/), so the editor
+% shows each passage and the verifier checks every quotation.
+%
+% DISCLAIMER. This program is an example of Logical English. It is provided
+% "as is", without warranty of any kind, express or implied, including any
+% warranty that it is accurate, complete, up to date or fit for a particular
+% purpose. It is not an official reading of the tariff or of the rulings it
+% cites, it is not a binding classification ruling, and it is not legal or
+% customs advice. Its answers may be wrong: do not rely on them for a real
+% import, export or declaration; consult the official texts, the customs
+% authority and a qualified professional. Its authors accept no liability for
+% any loss or damage arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    *a family* is a family of chapter sixty-three goods.
+    *a family* is a family of subchapter one.
+    *a good* is made up by *a process*; undefined.
+    *a process* is a process of section eleven note seven.
+    *a good* is made up.
+    *a good* is of textile material; undefined.
+    *a good* is of textile fabric.
+    *a good* is a made up textile article; memorable.
+    the fabric of *a good* is printed; undefined.
+    *a good* is made from warp knit fabric impregnated or coated with an insecticide of subheading note one; undefined.
+    *a good* shows signs of appreciable wear; undefined.
+    *a good* is entered in bulk or in bales, sacks or similar packings; undefined.
+    *a family* is a family of the textile articles of note three.
+    *a good* is an article of chapter sixty-three note three.
+    *a good* is put up in packings for retail sale; undefined.
+    *a good* is sorted; undefined.
+    *a material* is a textile bast fibre of heading 5303.
+    *a material* is a strip of polyethylene or polypropylene.
+    *a good* is of bast fibres of heading 5303.
+    *a good* is a bed net of subheading note one.
+    the chapter sixty-three material of *a good* is *a class*; memorable.
+    the knit class of *a good* is *a class*.
+    the print class of *a good* is *a class*.
+    the towel fabric of *a good* is *a class*.
+    the sack form of *a good* is *a form*.
+    the furnishing group of *a good* is *a group*.
+    the subheading in heading *a heading* for the material *a material* is *a code* under table blankets.
+    the subheading in heading *a heading* for *a group* with knit *a knit* with material *a material* with print *a print* is *a code* under table bed and table linen.
+    the subheading in heading *a heading* for the towel material *a material* with fabric *a fabric* is *a code* under table toilet linen.
+    the subheading in heading *a heading* for the knit *a knit* with curtain material *a material* is *a code* under table curtains.
+    the subheading in heading *a heading* for the furnishing *a group* with knit *a knit* with material *a material* is *a code* under table furnishings.
+    the subheading in heading *a heading* for the sack material *a material* with form *a form* is *a code* under table sacks.
+    the subheading in heading *a heading* for the cover *a group* of material *a material* is *a code* under table tarpaulins and tents.
+    the subheading in heading *a heading* for the article *a group* is *a code* under table other made up articles.
+
+% ---------------------------------------------------------------------------
+% GRI 6: the six-digit subheadings. First match: a row with "any" is the
+% "Other" of its group.
+% ---------------------------------------------------------------------------
+
+% heading 6301 (electric blankets: rule blanket_electric below)
+the table blankets is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | material  | code      | as stated in HTSUS Chapter 63
+    b1  | 6301    | wool      | "6301.20" | "Blankets (other than electric blankets) and traveling rugs, of wool or fine animal hair"
+    b2  | 6301    | cotton    | "6301.30" | "Blankets (other than electric blankets) and traveling rugs, of cotton"
+    b3  | 6301    | synthetic | "6301.40" | "Blankets (other than electric blankets) and traveling rugs, of synthetic fibers"
+    b4  | 6301    | any       | "6301.90" | "Other blankets and traveling rugs"
+
+% heading 6302, bed linen and table linen: knitted or not, the material, and
+% for bed linen whether printed
+the table bed and table linen is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | group       | knit    | material                | print   | code      | as stated in HTSUS Chapter 63
+    l1  | 6302    | bed linen   | knitted | any                     | any     | "6302.10" | "Bed linen, knitted or crocheted"
+    l2  | 6302    | bed linen   | any     | cotton                  | printed | "6302.21" | "Other bed linen, printed:"
+    l3  | 6302    | bed linen   | any     | synthetic or artificial | printed | "6302.22" | "Of man-made fibers: 6302.22"
+    l4  | 6302    | bed linen   | any     | any                     | printed | "6302.29" | "6302.29.00"
+    l5  | 6302    | bed linen   | any     | cotton                  | any     | "6302.31" | "Other bed linen: Of cotton: 6302.31"
+    l6  | 6302    | bed linen   | any     | synthetic or artificial | any     | "6302.32" | "Of man-made fibers: 6302.32"
+    l7  | 6302    | bed linen   | any     | any                     | any     | "6302.39" | "6302.39.00"
+    l8  | 6302    | table linen | knitted | any                     | any     | "6302.40" | "Table linen, knitted or crocheted: 6302.40"
+    l9  | 6302    | table linen | any     | cotton                  | any     | "6302.51" | "Other table linen: Of cotton: 6302.51"
+    l10 | 6302    | table linen | any     | synthetic or artificial | any     | "6302.53" | "6302.53.00"
+    l11 | 6302    | table linen | any     | any                     | any     | "6302.59" | "Of other textile materials: 6302.59"
+
+% heading 6302, toilet linen and kitchen linen
+the table toilet linen is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | material                | fabric | code      | as stated in HTSUS Chapter 63
+    k1  | 6302    | cotton                  | terry  | "6302.60" | "Toilet linen and kitchen linen, of terry toweling or similar terry fabrics, of cotton"
+    k2  | 6302    | cotton                  | any    | "6302.91" | "6302.91.00"
+    k3  | 6302    | synthetic or artificial | any    | "6302.93" | "Of man-made fibers: 6302.93"
+    k4  | 6302    | any                     | any    | "6302.99" | "Of other textile materials: 6302.99"
+
+% heading 6303
+the table curtains is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | knit    | material  | code      | as stated in HTSUS Chapter 63
+    c1  | 6303    | knitted | synthetic | "6303.12" | "6303.12.00"
+    c2  | 6303    | knitted | any       | "6303.19" | "Of other textile materials: 6303.19"
+    c3  | 6303    | any     | cotton    | "6303.91" | "6303.91.00"
+    c4  | 6303    | any     | synthetic | "6303.92" | "Of synthetic fibers: 6303.92"
+    c5  | 6303    | any     | any       | "6303.99" | "6303.99.00"
+
+% heading 6304, other than bedspreads and bed nets (rules below)
+the table furnishings is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | group | knit    | material  | code      | as stated in HTSUS Chapter 63
+    u1  | 6304    | other | knitted | any       | "6304.91" | "6304.91.01"
+    u2  | 6304    | other | any     | cotton    | "6304.92" | "Not knitted or crocheted, of cotton"
+    u3  | 6304    | other | any     | synthetic | "6304.93" | "Not knitted or crocheted, of synthetic fibers"
+    u4  | 6304    | other | any     | any       | "6304.99" | "Not knitted or crocheted, of other textile materials:"
+
+% heading 6305: the material, and among man-made textile materials the
+% flexible intermediate bulk containers and the bags of strip
+the table sacks is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | material                                | form | code      | as stated in HTSUS Chapter 63
+    s1  | 6305    | bast fibres                             | any  | "6305.10" | "Of jute or of other textile bast fibers of heading 5303"
+    s2  | 6305    | cotton                                  | any  | "6305.20" | "Of cotton (369)"
+    s3  | 6305    | synthetic or artificial or man-made strip | fibc | "6305.32" | "Of man-made textile materials: Flexible intermediate bulk containers"
+    s4  | 6305    | man-made strip                          | any  | "6305.33" | "Other, of polyethylene or polypropylene strip or the like"
+    s5  | 6305    | synthetic or artificial                 | any  | "6305.39" | "Of man-made textile materials:"
+    s6  | 6305    | any                                     | any  | "6305.90" | "Of other textile materials (899)"
+
+% heading 6306: tarpaulins and tents by material (sails, pneumatic
+% mattresses and the other camping goods: table other made up articles). A
+% tarpaulin of strip of polyethylene is of synthetic fibres for US Customs
+% (NY E82317).
+the table tarpaulins and tents is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | group     | material                   | code      | as stated in HTSUS Chapter 63
+    t1  | 6306    | tarpaulin | synthetic or man-made strip | "6306.12" | "Tarpaulins, awnings and sunblinds: Of synthetic fibers"
+    t2  | 6306    | tarpaulin | any                        | "6306.19" | "Of other textile materials: 6306.19"
+    t3  | 6306    | tent      | synthetic                  | "6306.22" | "Of synthetic fibers: 6306.22"
+    t4  | 6306    | tent      | any                        | "6306.29" | "Of other textile materials: 6306.29"
+
+% headings 6306 (other than tarpaulins and tents), 6307, 6308 and 6309
+the table other made up articles is, with first match, with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+    row | heading | group              | code      | as stated in HTSUS Chapter 63
+    o1  | 6306    | sail               | "6306.30" | "6306.30.00"
+    o2  | 6306    | pneumatic mattress | "6306.40" | "Pneumatic mattresses: 6306.40"
+    o3  | 6306    | any                | "6306.90" | "Other: 6306.90"
+    o4  | 6307    | cleaning cloth     | "6307.10" | "Floorcloths, dishcloths, dusters and similar cleaning cloths: 6307.10"
+    o5  | 6307    | lifejacket         | "6307.20" | "6307.20.00"
+    o6  | 6307    | any                | "6307.90" | "Other: 6307.90"
+    o7  | 6308    | any                | "6308.00" | "6308.00.00"
+    o8  | 6309    | any                | "6309.00" | "6309.00.00"
+
+the knowledge base chapter 63 includes these resources:
+    chapter_42, chapter_61, chapter_62, chapter_67.
+
+the knowledge base chapter 63 includes:
+
+HTSUS Chapter 63 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2063#page=1".
+the text of HTSUS Chapter 63 is at "sources/hts/chapter_63.txt".
+HTSUS Section XI and Chapter 50 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2050#page=1".
+the text of HTSUS Section XI and Chapter 50 is at "sources/hts/chapter_50.txt".
+HTSUS Chapter 53 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2053#page=1".
+the text of HTSUS Chapter 53 is at "sources/hts/chapter_53.txt".
+HTSUS Chapter 54 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2054#page=1".
+the text of HTSUS Chapter 54 is at "sources/hts/chapter_54.txt".
+HTSUS Chapter 61 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2061#page=1".
+the text of HTSUS Chapter 61 is at "sources/hts/chapter_61.txt".
+HTSUS Chapter 62 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2062#page=1".
+the text of HTSUS Chapter 62 is at "sources/hts/chapter_62.txt".
+HTSUS Section XII and Chapter 64 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2064#page=3".
+the text of HTSUS Section XII and Chapter 64 is at "sources/hts/chapter_64.txt".
+HTSUS Section VII and Chapter 39 is published at "https://hts.usitc.gov/reststop/file?release=currentRelease&filename=Chapter%2039#page=3".
+the text of HTSUS Section VII and Chapter 39 is at "sources/hts/chapter_39.txt".
+the CN explanatory notes to Chapter 63 is published at "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02019XC0329(02)-20260213".
+the text of the CN explanatory notes to Chapter 63 is at "sources/eu/cn_en_ch63.txt".
+ruling NY E80466 is published at "https://rulings.cbp.gov/ruling/E80466".
+the text of ruling NY E80466 is at "sources/cbp/E80466.txt".
+ruling NY N223636 is published at "https://rulings.cbp.gov/ruling/N223636".
+the text of ruling NY N223636 is at "sources/cbp/N223636.txt".
+ruling NY N323770 is published at "https://rulings.cbp.gov/ruling/N323770".
+the text of ruling NY N323770 is at "sources/cbp/N323770.txt".
+ruling NY N275351 is published at "https://rulings.cbp.gov/ruling/N275351".
+the text of ruling NY N275351 is at "sources/cbp/N275351.txt".
+ruling NY L88352 is published at "https://rulings.cbp.gov/ruling/L88352".
+the text of ruling NY L88352 is at "sources/cbp/L88352.txt".
+ruling NY N240083 is published at "https://rulings.cbp.gov/ruling/N240083".
+the text of ruling NY N240083 is at "sources/cbp/N240083.txt".
+ruling NY N348141 is published at "https://rulings.cbp.gov/ruling/N348141".
+the text of ruling NY N348141 is at "sources/cbp/N348141.txt".
+ruling HQ H346161 is published at "https://rulings.cbp.gov/ruling/H346161".
+the text of ruling HQ H346161 is at "sources/cbp/H346161.txt".
+ruling NY N008927 is published at "https://rulings.cbp.gov/ruling/N008927".
+the text of ruling NY N008927 is at "sources/cbp/N008927.txt".
+ruling NY E89875 is published at "https://rulings.cbp.gov/ruling/E89875".
+the text of ruling NY E89875 is at "sources/cbp/E89875.txt".
+ruling NY E82317 is published at "https://rulings.cbp.gov/ruling/E82317".
+the text of ruling NY E82317 is at "sources/cbp/E82317.txt".
+ruling NY N113736 is published at "https://rulings.cbp.gov/ruling/N113736".
+the text of ruling NY N113736 is at "sources/cbp/N113736.txt".
+ruling NY I87447 is published at "https://rulings.cbp.gov/ruling/I87447".
+the text of ruling NY I87447 is at "sources/cbp/I87447.txt".
+ruling NY N311153 is published at "https://rulings.cbp.gov/ruling/N311153".
+the text of ruling NY N311153 is at "sources/cbp/N311153.txt".
+ruling NY N102637 is published at "https://rulings.cbp.gov/ruling/N102637".
+the text of ruling NY N102637 is at "sources/cbp/N102637.txt".
+ruling NY N222082 is published at "https://rulings.cbp.gov/ruling/N222082".
+the text of ruling NY N222082 is at "sources/cbp/N222082.txt".
+ruling NY N330109 is published at "https://rulings.cbp.gov/ruling/N330109".
+the text of ruling NY N330109 is at "sources/cbp/N330109.txt".
+ruling NY N317873 is published at "https://rulings.cbp.gov/ruling/N317873".
+the text of ruling NY N317873 is at "sources/cbp/N317873.txt".
+ruling NY N332242 is published at "https://rulings.cbp.gov/ruling/N332242".
+the text of ruling NY N332242 is at "sources/cbp/N332242.txt".
+ruling NY L88233 is published at "https://rulings.cbp.gov/ruling/L88233".
+the text of ruling NY L88233 is at "sources/cbp/L88233.txt".
+ruling HQ H249319 is published at "https://rulings.cbp.gov/ruling/H249319".
+the text of ruling HQ H249319 is at "sources/cbp/H249319.txt".
+
+% ---------------------------------------------------------------------------
+% What the model covers: the articles of the chapter's families, and made
+% up textile articles.
+% ---------------------------------------------------------------------------
+
+% the model covers the made up articles, sets, worn articles and rags of
+% Chapter 63
+rule textile_articles_scope_family:
+a good is a good the model describes
+    if the family of the good is a family
+    and the family is a family of chapter sixty-three goods.
+
+% the model covers a made up textile article that names no kind (heading
+% 6307 below)
+rule textile_articles_scope_made_up:
+a good is a good the model describes
+    if the good is a made up textile article
+    and it is not the case that
+        the family of the good is a family.
+
+blanket is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Blankets and traveling rugs:".
+bed linen is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen:".
+table linen is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen:".
+toilet linen is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen:".
+kitchen linen is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen:".
+curtain is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds; curtain or bed".
+bedspread is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Bedspreads:".
+bed net is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Bed nets specified in subheading note 1 to this chapter".
+furnishing article is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Other furnishing articles, excluding those of heading 9404:".
+packing sack is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Sacks and bags, of a kind used for the packing of goods:".
+tarpaulin is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Tarpaulins, awnings and sunblinds:".
+tent is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Tents (including temporary canopies and similar articles):".
+sail is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "sails for boats, sailboards or".
+pneumatic mattress is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Pneumatic mattresses:".
+camping goods is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "landcraft; camping goods:".
+cleaning cloth is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Floorcloths, dishcloths, dusters and similar cleaning cloths:".
+lifejacket is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Lifejackets and lifebelts".
+other made up article is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Other made up articles, including dress patterns:".
+needlecraft set is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "II. NEEDLECRAFT SETS".
+rag is a family of chapter sixty-three goods, as stated in HTSUS Chapter 63, confer "Used or new rags, scrap twine, cordage, rope and cables".
+
+% the families of subchapter I (made up articles, note 1)
+rule subchapter_one_family with provenance HTSUS Chapter 63, confer "I. OTHER MADE UP TEXTILE ARTICLES":
+a family is a family of subchapter one
+    if the family is a family of chapter sixty-three goods
+    and it is not the case that
+        the family is in [needlecraft set, rag].
+
+% The kinds of articles: the tariff's own words, and the rulings'
+blanket falls in the family blanket, as stated in HTSUS Chapter 63, confer "Blankets and traveling rugs:".
+traveling rug falls in the family blanket, as stated in HTSUS Chapter 63, confer "Blankets and traveling rugs:".
+electric blanket falls in the family blanket, as stated in HTSUS Chapter 63, confer "Electric blankets (666)".
+throw falls in the family blanket, as stated in ruling NY E80466, confer "The subject merchandise, referred to as a textile throw, is considered a blanket".
+bed sheet falls in the family bed linen, as stated in HTSUS Chapter 63, confer "Sheets (361)".
+flat sheet falls in the family bed linen, as stated in ruling NY N223636, confer "The set consists of a flat sheet, fitted sheet and two pillowcases".
+fitted sheet falls in the family bed linen, as stated in ruling NY N223636, confer "The set consists of a flat sheet, fitted sheet and two pillowcases".
+pillowcase falls in the family bed linen, as stated in HTSUS Chapter 63, confer "Pillowcases, other than bolster cases".
+bolster case falls in the family bed linen, as stated in HTSUS Chapter 63, confer "Bolster cases (360)".
+tablecloth falls in the family table linen, as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+napkin falls in the family table linen, as stated in HTSUS Chapter 63, confer "Tablecloths and napkins:".
+placemat falls in the family table linen, as stated in ruling NY N323770, confer "Item #895 is a placemat comprised of two layers of 100 percent polyester woven fabric".
+towel falls in the family toilet linen, as stated in HTSUS Chapter 63, confer "Towels:".
+bath towel falls in the family toilet linen, as stated in ruling NY N275351, confer "The set consists of a bath towel, hand towel, and washcloth".
+hand towel falls in the family toilet linen, as stated in ruling NY N275351, confer "The set consists of a bath towel, hand towel, and washcloth".
+washcloth falls in the family toilet linen, as stated in ruling NY N275351, confer "The set consists of a bath towel, hand towel, and washcloth".
+face towel falls in the family toilet linen, as stated in the CN explanatory notes to Chapter 63, confer "articles having the clear characteristics of toilet linen (for example, hand or face towels, facecloths)".
+hooded towel falls in the family toilet linen, as stated in ruling NY L88352, confer "The applicable subheading for the hooded towel will be 6302.60.0020".
+kitchen towel falls in the family kitchen linen, as stated in ruling NY N323770, confer "the designs suggest the towels are intended for use in the kitchen and will be classified as such".
+dish towel falls in the family kitchen linen, as stated in HTSUS Chapter 63, confer "Towels: Dish (369)".
+tea towel falls in the family kitchen linen, as stated in the CN explanatory notes to Chapter 63, confer "kitchen linen such as tea towels or glass cloth (heading 6302 )".
+curtain falls in the family curtain, as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds; curtain or bed".
+drape falls in the family curtain, as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds; curtain or bed".
+curtain panel falls in the family curtain, as stated in ruling NY N240083, confer "The submitted sample is a curtain panel".
+interior blind falls in the family curtain, as stated in HTSUS Chapter 63, confer "Curtains (including drapes) and interior blinds; curtain or bed".
+window shade falls in the family curtain, as stated in HTSUS Chapter 63, confer "Window shades and window blinds (666)".
+valance falls in the family curtain, as stated in HTSUS Chapter 63, confer "Window curtains (including drapes) and window".
+bedspread falls in the family bedspread, as stated in HTSUS Chapter 63, confer "Bedspreads:".
+bed net falls in the family bed net, as stated in HTSUS Chapter 63, confer "Bed nets specified in subheading note 1 to this chapter".
+cushion cover falls in the family furnishing article, as stated in ruling NY N348141, confer "consists of a chaise cushion cover of 100 percent polyester, dyed, woven fabric".
+pillow cover falls in the family furnishing article, as stated in ruling HQ H346161, confer "The pillow cover is classified in subheading 6304.93.00".
+futon cover falls in the family furnishing article, as stated in ruling NY N008927, confer "The futon cover at issue is similar in function to a cushion cover".
+slipcover falls in the family furnishing article, as stated in ruling NY N008927, confer "slipcovers have been classified under heading 6304".
+wall hanging falls in the family furnishing article, as stated in HTSUS Chapter 63, confer "Wall hangings of wool or fine animal hair:".
+sack falls in the family packing sack, as stated in HTSUS Chapter 63, confer "Sacks and bags, of a kind used for the packing of goods:".
+shipping bag falls in the family packing sack, as stated in ruling NY E89875, confer "The sample submitted is a shipping bag".
+flexible intermediate bulk container falls in the family packing sack, as stated in HTSUS Chapter 63, confer "Flexible intermediate bulk containers".
+tarpaulin falls in the family tarpaulin, as stated in HTSUS Chapter 63, confer "Tarpaulins, awnings and sunblinds:".
+awning falls in the family tarpaulin, as stated in HTSUS Chapter 63, confer "Tarpaulins, awnings and sunblinds:".
+sunblind falls in the family tarpaulin, as stated in HTSUS Chapter 63, confer "Tarpaulins, awnings and sunblinds:".
+tent falls in the family tent, as stated in HTSUS Chapter 63, confer "Tents (including temporary canopies and similar articles):".
+canopy falls in the family tent, as stated in HTSUS Chapter 63, confer "Tents (including temporary canopies and similar articles):".
+dome tent falls in the family tent, as stated in ruling NY N113736, confer "The items in question are dome tents".
+screen house falls in the family tent, as stated in HTSUS Chapter 63, confer "Screen houses".
+sail falls in the family sail, as stated in HTSUS Chapter 63, confer "sails for boats, sailboards or".
+pneumatic mattress falls in the family pneumatic mattress, as stated in HTSUS Chapter 63, confer "Pneumatic mattresses:".
+inflatable textile chair falls in the family camping goods, as stated in the CN explanatory notes to Chapter 63, confer "This subheading includes camping goods such as inflatable textile chairs, inflatable textile lounge chairs and similar articles".
+floorcloth falls in the family cleaning cloth, as stated in HTSUS Chapter 63, confer "Floorcloths, dishcloths, dusters and similar cleaning cloths:".
+dishcloth falls in the family cleaning cloth, as stated in HTSUS Chapter 63, confer "Floorcloths, dishcloths, dusters and similar cleaning cloths:".
+duster falls in the family cleaning cloth, as stated in HTSUS Chapter 63, confer "Floorcloths, dishcloths, dusters and similar cleaning cloths:".
+cleaning cloth falls in the family cleaning cloth, as stated in ruling NY L88233, confer "The merchandise at issue is a cleaning cloth".
+mop cloth falls in the family cleaning cloth, as stated in HTSUS Chapter 63, confer "Dustcloths, mop cloths and polishing cloths".
+polishing cloth falls in the family cleaning cloth, as stated in HTSUS Chapter 63, confer "Dustcloths, mop cloths and polishing cloths".
+shop towel falls in the family cleaning cloth, as stated in HTSUS Chapter 63, confer "Shop towels dedicated for use in garages, filling".
+lifejacket falls in the family lifejacket, as stated in HTSUS Chapter 63, confer "Lifejackets and lifebelts".
+lifebelt falls in the family lifejacket, as stated in HTSUS Chapter 63, confer "Lifejackets and lifebelts".
+life jacket falls in the family lifejacket, as stated in ruling NY I87447, confer "The sample submitted is an adult life jacket".
+dress pattern falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Other made up articles, including dress patterns:".
+label falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Labels".
+tassel falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Cords and tassels".
+shoelace falls in the family other made up article, as stated in ruling NY N102637, confer "The submitted samples are various boot and shoelaces".
+footwear lacing falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Corset lacings, footwear lacings or similar lacings".
+corset lacing falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Corset lacings, footwear lacings or similar lacings".
+surgical drape falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Surgical drapes:".
+toy for pets falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Toys for pets, of textile materials".
+wall banner falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Wall banners, of man-made fibers".
+banner falls in the family other made up article, as stated in ruling NY N222082, confer "The applicable subheading for garden banners will be 6307.90.9889".
+flag falls in the family other made up article, as stated in HTSUS Chapter 63, confer "National flags:".
+garden flag falls in the family other made up article, as stated in ruling NY N222082, confer "Garden flags such as the one subject to this ruling are classified in subheading 6307.90.9889".
+face mask falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Face masks, including respirators without".
+furniture movers pad falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Furniture movers' pads of cotton".
+pillow shell falls in the family other made up article, as stated in HTSUS Chapter 63, confer "Pillow shells, of cotton (369)".
+pet bed falls in the family other made up article, as stated in the CN explanatory notes to Chapter 63, confer "articles of textile materials in the shape of baskets or dens for animals or similar articles designed for animals to rest inside or upon".
+dog bed falls in the family other made up article, as stated in ruling NY N330109, confer "is a dog bed intended to be used as a comfortable place for a dog to sleep".
+storage bag falls in the family other made up article, as stated in ruling NY N317873, confer "described as a storage bag, is intended to be used to store a handbag, tote, or travel bag".
+storage box falls in the family other made up article, as stated in ruling NY N332242, confer "In this case, we find the essential character of the collapsible storage boxes to be the made-up textile component".
+needlecraft set falls in the family needlecraft set, as stated in HTSUS Chapter 63, confer "Needlecraft sets consisting of woven fabric and yarn".
+rag falls in the family rag, as stated in HTSUS Chapter 63, confer "Used or new rags, scrap twine, cordage, rope and cables".
+scrap twine falls in the family rag, as stated in HTSUS Chapter 63, confer "Used or new rags, scrap twine, cordage, rope and cables".
+
+% ---------------------------------------------------------------------------
+% Made up articles of a textile fabric (Chapter 63 note 1; Section XI note
+% 7).
+% ---------------------------------------------------------------------------
+
+% Section XI note 7: the ways that make an article "made up"
+cutting otherwise than into squares or rectangles is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(a) Cut otherwise than into squares or rectangles;".
+production in the finished state is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(b) Produced in the finished state, ready for use".
+heat-sealing is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "Cut to size and with at least one heat-sealed edge with a visibly tapered or compressed border".
+hemming is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(d) Hemmed or with rolled edges, or with a knotted fringe at any of the edges".
+drawn thread work is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(e) Cut to size and having undergone a process of drawn thread work;".
+sewing is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(f) Assembled by sewing, gumming or otherwise".
+gumming is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(f) Assembled by sewing, gumming or otherwise".
+knitting to shape is a process of section eleven note seven,
+    as stated in HTSUS Section XI and Chapter 50, confer "(g) Knitted or crocheted to shape".
+
+% A finished article of a kind that subchapter I names (a blanket, a towel,
+% a curtain...) is made up too: the subchapter names these articles "made
+% up", and a listing offers a finished product.
+rule note_xi_7 with provenance HTSUS Section XI and Chapter 50,
+        confer "For the purposes of this section, the expression \"made up\" means:":
+a good is made up
+    if the good is made up by a process
+        and the process is a process of section eleven note seven
+    otherwise the good is a manufactured article
+        and the family of the good is a family
+        and the family is a family of subchapter one.
+
+% of a textile fabric: a fabric construction, a textile material that the
+% composition gives, or the text's word that the good is of textile
+rule note_63_1_fabric with provenance HTSUS Chapter 63,
+        confer "Subchapter 1 applies only to made up articles, of any textile fabric.":
+a good is of textile fabric
+    if the fabric construction of the good is a construction
+    otherwise the good is of textile material
+    otherwise the textile material of the good is a group.
+
+% the good, or what it is classified as consisting of (GRI 3(b)), is made
+% up and of a textile fabric
+rule note_63_1 with provenance HTSUS Chapter 63,
+        confer "Subchapter 1 applies only to made up articles, of any textile fabric.":
+a good is a made up textile article
+    if the good is made up
+    and the good is classified as consisting of the good
+    and the good is of textile fabric.
+
+rule note_63_1_component with provenance HTSUS Chapter 63,
+        confer "Subchapter 1 applies only to made up articles, of any textile fabric.":
+a good is a made up textile article
+    if a component is a component of the good
+    and the good is classified as consisting of the component
+    and the component is made up
+    and the component is of textile fabric.
+
+% ---------------------------------------------------------------------------
+% The headings (GRI 1), each with the notes that take goods out of it.
+% ---------------------------------------------------------------------------
+
+rule heading_6301 with provenance HTSUS Chapter 63, confer "Blankets and traveling rugs:":
+a good is described by heading 6301
+    if the family of the good is blanket
+    and the good is a made up textile article.
+
+rule heading_6302 with provenance HTSUS Chapter 63,
+        confer "Bed linen, table linen, toilet linen and kitchen linen:":
+a good is described by heading 6302
+    if the family of the good is a family
+    and the family is in [bed linen, table linen, toilet linen, kitchen linen]
+    and the good is a made up textile article.
+
+rule heading_6303 with provenance HTSUS Chapter 63,
+        confer "Curtains (including drapes) and interior blinds; curtain or bed":
+a good is described by heading 6303
+    if the family of the good is curtain
+    and the good is a made up textile article.
+
+rule heading_6304 with provenance HTSUS Chapter 63,
+        confer "Other furnishing articles, excluding those of heading 9404:":
+a good is described by heading 6304
+    if the family of the good is a family
+    and the family is in [bedspread, bed net, furnishing article]
+    and the good is a made up textile article.
+
+rule heading_6305 with provenance HTSUS Chapter 63,
+        confer "Sacks and bags, of a kind used for the packing of goods:":
+a good is described by heading 6305
+    if the family of the good is packing sack
+    and the good is a made up textile article.
+
+% a bag that names no kind of the chapter, of a kind used for packing: the
+% principal use is a judgment of the office (HTSUS Additional U.S. Rule of
+% Interpretation 1(a), chapter_39.le)
+rule heading_6305_use with provenance HTSUS Chapter 63,
+        confer "Sacks and bags, of a kind used for the packing of goods:":
+a good is described by heading 6305
+    if the good is a made up textile article
+    and the principal use of the good is packing of goods
+    and it is not the case that
+        the family of the good is a family.
+
+rule heading_6306 with provenance HTSUS Chapter 63,
+        confer "Tarpaulins, awnings and sunblinds; tents (including temporary":
+a good is described by heading 6306
+    if the family of the good is a family
+    and the family is in [tarpaulin, tent, sail, pneumatic mattress, camping goods]
+    and the good is a made up textile article.
+
+rule heading_6307 with provenance HTSUS Chapter 63,
+        confer "Other made up articles, including dress patterns:":
+a good is described by heading 6307
+    if the family of the good is a family
+    and the family is in [cleaning cloth, lifejacket, other made up article]
+    and the good is a made up textile article.
+
+% the residual heading: a made up textile article that names no kind (a
+% kind that the model does not list leaves the good unplaced)
+rule heading_6307_other with provenance HTSUS Chapter 63,
+        confer "Other made up articles, including dress patterns:":
+a good is described by heading 6307
+    if the good is a made up textile article
+    and it is not the case that
+        the kind of the good is a kind
+    and it is not the case that
+        the family of the good is a family.
+
+rule heading_6308 with provenance HTSUS Chapter 63,
+        confer "Needlecraft sets consisting of woven fabric and yarn, whether":
+a good is described by heading 6308
+    if the family of the good is needlecraft set
+    and the good is put up in packings for retail sale.
+
+% Note 3: heading 6309 takes only the articles the note lists, with signs
+% of appreciable wear, entered in bulk or in bales, sacks or similar
+% packings
+rule heading_6309 with provenance HTSUS Chapter 63,
+        confer "Heading 6309 applies only to the following goods:":
+a good is described by heading 6309
+    if the good is an article of chapter sixty-three note three
+    and the good shows signs of appreciable wear
+    and the good is entered in bulk or in bales, sacks or similar packings.
+
+rule note_63_3a_clothing with provenance HTSUS Chapter 63,
+        confer "Clothing and clothing accessories, and parts thereof;":
+a good is an article of chapter sixty-three note three
+    if the good is a garment
+    or the good is a clothing accessory.
+
+rule note_63_3a_textiles with provenance HTSUS Chapter 63, confer "Articles of textile materials:":
+a good is an article of chapter sixty-three note three
+    if the family of the good is a family
+    and the family is a family of the textile articles of note three
+    and the good is of textile fabric.
+
+% (b) footwear of any material other than asbestos (headgear of Chapter 65
+% is not modelled)
+rule note_63_3b with provenance HTSUS Chapter 63,
+        confer "Footwear and headgear of any material other than asbestos.":
+a good is an article of chapter sixty-three note three
+    if the family of the good is footwear.
+
+blanket is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Blankets and traveling rugs;".
+bed linen is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen;".
+table linen is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen;".
+toilet linen is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen;".
+kitchen linen is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Bed linen, table linen, toilet linen and kitchen linen;".
+curtain is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Furnishings, other than carpets of headings 5701 to 5705 and tapestries of heading 5805.".
+bedspread is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Furnishings, other than carpets of headings 5701 to 5705 and tapestries of heading 5805.".
+furnishing article is a family of the textile articles of note three, as stated in HTSUS Chapter 63, confer "Furnishings, other than carpets of headings 5701 to 5705 and tapestries of heading 5805.".
+
+rule heading_6310 with provenance HTSUS Chapter 63,
+        confer "Used or new rags, scrap twine, cordage, rope and cables, and":
+a good is described by heading 6310
+    if the family of the good is rag.
+
+% Note 2(a): goods of Chapters 56 to 62 are not of subchapter I (here, the
+% garments and clothing accessories of Chapters 61 and 62)
+rule note_63_2a with provenance HTSUS Chapter 63, confer "Goods of chapters 56 to 62; or":
+a good is excluded from heading a heading
+    if the heading >= 6301
+    and the heading <= 6307
+    and the good is described by heading an other heading
+    and the other heading >= 6101
+    and the other heading <= 6217.
+
+% Note 2(b): worn articles of heading 6309 are not of subchapter I
+rule note_63_2b with provenance HTSUS Chapter 63,
+        confer "Worn clothing or other worn articles of heading 6309.":
+a good is excluded from heading a heading
+    if the heading >= 6301
+    and the heading <= 6307
+    and the good is described by heading 6309.
+
+% Chapter 61 note 2(b) and Chapter 62 note 2(a): worn clothing of 6309 is
+% not of Chapters 61 and 62
+rule note_61_2b with provenance HTSUS Chapter 61,
+        confer "(b) Worn clothing or other worn articles of heading 6309;":
+a good is excluded from heading a heading
+    if the heading >= 6101
+    and the heading <= 6117
+    and the good is described by heading 6309.
+
+rule note_62_2a with provenance HTSUS Chapter 62,
+        confer "(a) Worn clothing or other worn articles of heading 6309;":
+a good is excluded from heading a heading
+    if the heading >= 6201
+    and the heading <= 6217
+    and the good is described by heading 6309.
+
+% Chapter 64 note 1(c): worn footwear is of heading 6309
+rule note_64_1c with provenance HTSUS Section XII and Chapter 64, confer "Worn footwear of heading 6309;":
+a good is excluded from heading a heading
+    if the heading >= 6401
+    and the heading <= 6406
+    and the good is described by heading 6309.
+
+% Chapter 39 note 2(p): goods of Section XI (here, of Chapter 63) are not of
+% Chapter 39
+rule note_39_2p with provenance HTSUS Section VII and Chapter 39,
+        confer "(p) Goods of section XI (textiles and textile articles);":
+a good is excluded from heading a heading
+    if the heading >= 3901
+    and the heading <= 3926
+    and the other heading is in [6301, 6302, 6303, 6304, 6305, 6306, 6307, 6308, 6309, 6310]
+    and the good is described by heading the other heading.
+
+% GRI 3(a): heading 6307 is the residual heading of subchapter I ("Other
+% made up articles")
+rule gri_3a_6307 with provenance HTSUS General Rules of Interpretation,
+        confer "The heading which provides the most specific description shall be preferred to headings providing a more general description":
+heading a heading is more specific than heading 6307
+    if the heading >= 6301
+    and the heading <= 6306.
+
+% ---------------------------------------------------------------------------
+% The materials the subheadings name, read on what the good is classified
+% as consisting of (GRI 3(b)) with Section XI note 2 (section_xi.le).
+% ---------------------------------------------------------------------------
+
+jute is a textile bast fibre of heading 5303,
+    as stated in HTSUS Chapter 53, confer "Jute and other textile bast fibers (excluding flax, true hemp".
+kenaf is a textile bast fibre of heading 5303,
+    as stated in HTSUS Chapter 53, confer "Jute and other textile bast fibers (excluding flax, true hemp".
+
+% strip of polyethylene or polypropylene (heading 5404) is a man-made
+% textile material of Chapter 54, but not a man-made fibre (Chapter 54
+% note 1)
+polyethylene strip belongs to man-made fibres,
+    as stated in HTSUS Chapter 54, confer "STRIP AND THE LIKE OF MAN-MADE TEXTILE MATERIALS".
+polypropylene strip belongs to man-made fibres,
+    as stated in HTSUS Chapter 54, confer "STRIP AND THE LIKE OF MAN-MADE TEXTILE MATERIALS".
+polyethylene strip is a strip of polyethylene or polypropylene,
+    as stated in HTSUS Chapter 63, confer "Other, of polyethylene or polypropylene strip or the".
+polypropylene strip is a strip of polyethylene or polypropylene,
+    as stated in HTSUS Chapter 63, confer "Other, of polyethylene or polypropylene strip or the".
+
+rule material_cotton with provenance HTSUS Chapter 63, confer "Of cotton (369)":
+the chapter sixty-three material of a good is cotton
+    if the good is classified as consisting of a component
+    and the textile material of the component is cotton.
+
+rule material_wool with provenance HTSUS Chapter 63, confer "of wool or fine animal hair":
+the chapter sixty-three material of a good is wool
+    if the good is classified as consisting of a component
+    and the textile material of the component is wool fibres.
+
+rule material_synthetic with provenance HTSUS Chapter 63, confer "of synthetic fibers":
+the chapter sixty-three material of a good is synthetic
+    if the good is classified as consisting of a component
+    and the textile material of the component is man-made fibres
+    and the fibre material of the component is synthetic fibres.
+
+rule material_artificial with provenance HTSUS Chapter 63, confer "Of artificial fibers (666)":
+the chapter sixty-three material of a good is artificial
+    if the good is classified as consisting of a component
+    and the textile material of the component is man-made fibres
+    and the fibre material of the component is artificial fibres.
+
+% man-made textile material of strip only: no synthetic or artificial
+% fibre in it
+rule material_strip with provenance HTSUS Chapter 63,
+        confer "Other, of polyethylene or polypropylene strip or the":
+the chapter sixty-three material of a good is man-made strip
+    if the good is classified as consisting of a component
+    and the textile material of the component is man-made fibres
+    and the component contains a percentage percent of a material
+    and the material is a strip of polyethylene or polypropylene
+    and it is not the case that
+        the fibre material of the component is a class.
+
+% jute and the other bast fibres of heading 5303: every vegetable fibre of
+% the good is one of them, or the one that predominates is
+rule material_bast_shares with provenance HTSUS Chapter 63,
+        confer "Of jute or of other textile bast fibers of heading 5303":
+a good is of bast fibres of heading 5303
+    if the good is classified as consisting of a component
+    and the textile material of the component is vegetable fibres
+    and the component states shares
+    and for all cases in which
+            the component contains a percentage percent of a material
+            and the material belongs to vegetable fibres
+        it is the case that
+            the material is a textile bast fibre of heading 5303.
+
+rule material_bast_stated with provenance HTSUS Chapter 63,
+        confer "Of jute or of other textile bast fibers of heading 5303":
+a good is of bast fibres of heading 5303
+    if the good is classified as consisting of a component
+    and the material that predominates by weight in the component is a material
+    and the material is a textile bast fibre of heading 5303
+    and it is not the case that
+        the component states shares.
+
+rule material_bast with provenance HTSUS Chapter 63,
+        confer "Of jute or of other textile bast fibers of heading 5303":
+the chapter sixty-three material of a good is bast fibres
+    if the good is of bast fibres of heading 5303.
+
+% silk, vegetable fibres other than bast fibres, metalized yarn: "of other
+% textile materials"
+rule material_other with provenance HTSUS Chapter 63, confer "Of other textile materials":
+the chapter sixty-three material of a good is other
+    if the good is classified as consisting of a component
+    and the textile material of the component is a group
+    and it is not the case that
+        the group is in [cotton, wool fibres, man-made fibres]
+    and it is not the case that
+        the good is of bast fibres of heading 5303.
+
+% knitted or crocheted, or not (the fabric of what the good is classified
+% as consisting of: section_xi.le)
+rule knit_class_knitted with provenance HTSUS Chapter 63, confer "Knitted or crocheted:":
+the knit class of a good is knitted
+    if the construction of the good is a construction
+    and the construction is in [knitted, crocheted].
+
+rule knit_class_other with provenance HTSUS Chapter 63, confer "Not knitted or crocheted, of cotton":
+the knit class of a good is other
+    if the construction of the good is a construction
+    and it is not the case that
+        the construction is in [knitted, crocheted].
+
+rule print_class_printed with provenance HTSUS Chapter 63, confer "Other bed linen, printed:":
+the print class of a good is printed
+    if the good is classified as consisting of a component
+    and the fabric of the component is printed.
+
+rule print_class_other with provenance HTSUS Chapter 63, confer "Other bed linen:":
+the print class of a good is not printed
+    if the good is classified as consisting of a component
+    and it is not the case that
+        the fabric of the component is printed.
+
+rule towel_fabric_terry with provenance HTSUS Chapter 63,
+        confer "Toilet linen and kitchen linen, of terry toweling or similar terry fabrics, of cotton":
+the towel fabric of a good is terry
+    if the good is classified as consisting of a component
+    and the fabric of the component is terry.
+
+rule towel_fabric_other with provenance HTSUS Chapter 63, confer "6302.91.00":
+the towel fabric of a good is other
+    if the good is classified as consisting of a component
+    and it is not the case that
+        the fabric of the component is terry.
+
+rule sack_form_fibc with provenance HTSUS Chapter 63, confer "Flexible intermediate bulk containers":
+the sack form of a good is fibc
+    if the kind of the good is flexible intermediate bulk container.
+
+rule sack_form_other with provenance HTSUS Chapter 63, confer "Other (669)":
+the sack form of a good is other
+    if the good is described by heading 6305
+    and it is not the case that
+        the kind of the good is flexible intermediate bulk container.
+
+% Subheading note 1: the bed nets of 6304.20 are of warp knit fabric
+% impregnated or coated with one of the insecticides the note names
+rule furnishing_bed_net with provenance HTSUS Chapter 63,
+        confer "Subheading 6304.20 covers articles made from warp knit fabrics, impregnated or coated with alpha-cypermethrin (ISO)":
+a good is a bed net of subheading note one
+    if the family of the good is bed net
+    and the good is made from warp knit fabric impregnated or coated with an insecticide of subheading note one.
+
+rule furnishing_bed_net_group with provenance HTSUS Chapter 63,
+        confer "Bed nets specified in subheading note 1 to this chapter":
+the furnishing group of a good is bed net of note one
+    if the good is a bed net of subheading note one.
+
+rule furnishing_bedspread with provenance HTSUS Chapter 63, confer "Bedspreads:":
+the furnishing group of a good is bedspread
+    if the family of the good is bedspread.
+
+rule furnishing_other with provenance HTSUS Chapter 63, confer "Knitted or crocheted":
+the furnishing group of a good is other
+    if the family of the good is a family
+    and the family is in [bed net, furnishing article]
+    and it is not the case that
+        the good is a bed net of subheading note one.
+
+% ---------------------------------------------------------------------------
+% GRI 6: what the subheadings read.
+% ---------------------------------------------------------------------------
+
+rule blanket_electric with provenance HTSUS Chapter 63, confer "Electric blankets (666)":
+the subheading of a good in heading 6301 is "6301.10"
+    if the kind of the good is electric blanket.
+
+rule blanket_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6301 is a code
+    if it is not the case that
+        the kind of the good is electric blanket
+    and the chapter sixty-three material of the good is a material
+    and the subheading in heading 6301 for the material the material is the code under table blankets.
+
+rule linen_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6302 is a code
+    if the family of the good is a group
+    and the group is in [bed linen, table linen]
+    and the knit class of the good is a knit
+    and the chapter sixty-three material of the good is a material
+    and the print class of the good is a print
+    and the subheading in heading 6302 for the group with knit the knit with material the material with print the print is the code under table bed and table linen.
+
+rule toilet_linen_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6302 is a code
+    if the family of the good is a group
+    and the group is in [toilet linen, kitchen linen]
+    and the chapter sixty-three material of the good is a material
+    and the towel fabric of the good is a fabric
+    and the subheading in heading 6302 for the towel material the material with fabric the fabric is the code under table toilet linen.
+
+rule curtain_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6303 is a code
+    if the knit class of the good is a knit
+    and the chapter sixty-three material of the good is a material
+    and the subheading in heading 6303 for the knit the knit with curtain material the material is the code under table curtains.
+
+rule bedspread_knitted with provenance HTSUS Chapter 63, confer "Bedspreads: Knitted or crocheted: 6304.11":
+the subheading of a good in heading 6304 is "6304.11"
+    if the furnishing group of the good is bedspread
+    and the knit class of the good is knitted.
+
+rule bedspread_other with provenance HTSUS Chapter 63, confer "Other: 6304.19":
+the subheading of a good in heading 6304 is "6304.19"
+    if the furnishing group of the good is bedspread
+    and the knit class of the good is other.
+
+rule bed_net_subheading with provenance HTSUS Chapter 63, confer "Bed nets specified in subheading note 1 to this chapter":
+the subheading of a good in heading 6304 is "6304.20"
+    if the furnishing group of the good is bed net of note one.
+
+rule furnishing_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6304 is a code
+    if the furnishing group of the good is other
+    and the knit class of the good is a knit
+    and the chapter sixty-three material of the good is a material
+    and the subheading in heading 6304 for the furnishing other with knit the knit with material the material is the code under table furnishings.
+
+rule sack_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6305 is a code
+    if the chapter sixty-three material of the good is a material
+    and the sack form of the good is a form
+    and the subheading in heading 6305 for the sack material the material with form the form is the code under table sacks.
+
+rule cover_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6306 is a code
+    if the family of the good is a group
+    and the group is in [tarpaulin, tent]
+    and the chapter sixty-three material of the good is a material
+    and the subheading in heading 6306 for the cover the group of material the material is the code under table tarpaulins and tents.
+
+rule camping_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading 6306 is a code
+    if the family of the good is a group
+    and the group is in [sail, pneumatic mattress, camping goods]
+    and the subheading in heading 6306 for the article the group is the code under table other made up articles.
+
+rule made_up_subheading with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [6307, 6308, 6309]
+    and the family of the good is a group
+    and the subheading in heading the heading for the article the group is the code under table other made up articles.
+
+% an article of 6307 that names no kind, and a worn article of 6309 whose
+% family the rules do not read
+rule made_up_subheading_no_family with provenance HTSUS General Rules of Interpretation,
+        confer "the classification of goods in the subheadings of a heading shall be determined according to the terms of those subheadings and any related subheading notes":
+the subheading of a good in heading a heading is a code
+    if the heading is in [6307, 6309]
+    and the good is described by heading the heading
+    and it is not the case that
+        the family of the good is a family
+    and the subheading in heading the heading for the article none is the code under table other made up articles.
+
+rule rags_sorted with provenance HTSUS Chapter 63, confer "Sorted: 6310.10":
+the subheading of a good in heading 6310 is "6310.10"
+    if the good is sorted.
+
+rule rags_other with provenance HTSUS Chapter 63, confer "Other: 6310.90":
+the subheading of a good in heading 6310 is "6310.90"
+    if the family of the good is rag
+    and it is not the case that
+        the good is sorted.
+
+% ---------------------------------------------------------------------------
+% Tests: goods with the facts a reader writes from a ruling.
+% ---------------------------------------------------------------------------
+
+query subheading is:
+    the subheading of which good is which code.
+
+query heading is:
+    the heading of which good is which heading.
+
+query unplaced is:
+    which good is not placed by the model.
+
+% Blankets (CBP: the codes the rulings give, at six digits)
+scenario blankets is:
+    % NY N345228: "2-Tone Cable Knit Throw", a blanket of a 100 percent
+    % polyester face knit to shape and a polyester plush back -> 6301.40
+    the kind of style 377083 is throw.
+    style 377083 contains 100 percent of polyester.
+    the fabric construction of style 377083 is knitted.
+    style 377083 is made up by knitting to shape.
+    % NY N360755: "Halloween Throw Blanket", 100 percent polyester woven,
+    % self-fringe -> 6301.40; "Day of the Dead Throw Blanket", polyester
+    % knitted plush, hemmed -> 6301.40
+    the kind of item 541944 is blanket.
+    item 541944 contains 100 percent of polyester.
+    the fabric construction of item 541944 is woven.
+    item 541944 is made up by production in the finished state.
+    the kind of item 542467 is blanket.
+    item 542467 contains 100 percent of polyester.
+    the fabric construction of item 542467 is knitted.
+    item 542467 is made up by hemming.
+    % NY E80466: a textile throw of 100 percent polyester knit fleece, edges
+    % finished with an overcast stitch -> 6301.40
+    the kind of the fleece throw is throw.
+    the fleece throw contains 100 percent of polyester.
+    the fabric construction of the fleece throw is knitted.
+    the fleece throw is made up by sewing.
+    % NY N255059: a throw and a tote bag sold together, not a set: each is
+    % classified alone. The throw -> 6301.40; the tote bag of polyester ->
+    % 4202.92 (Section XI note 1(l))
+    the kind of the gift throw is throw.
+    the gift throw contains 100 percent of polyester.
+    the fabric construction of the gift throw is knitted.
+    the gift throw is made up by sewing.
+    the kind of the gift tote is tote bag.
+    the outer surface of the gift tote is of polyester.
+    the gift tote is made up by sewing.
+    subheading expects answers ["the subheading of style 377083 is 6301.40", "the subheading of item 541944 is 6301.40", "the subheading of item 542467 is 6301.40", "the subheading of the fleece throw is 6301.40", "the subheading of the gift throw is 6301.40", "the subheading of the gift tote is 4202.92"].
+
+% Bed linen, table linen, toilet and kitchen linen
+scenario linen is:
+    % NY N223636: a flat sheet, a fitted sheet and pillowcases of polyester
+    % woven fabric, not printed; each classified alone -> 6302.32
+    the kind of the plain flat sheet is flat sheet.
+    the plain flat sheet contains 100 percent of polyester.
+    the fabric construction of the plain flat sheet is woven.
+    the plain flat sheet is made up by hemming.
+    the kind of the plain fitted sheet is fitted sheet.
+    the plain fitted sheet contains 100 percent of polyester.
+    the fabric construction of the plain fitted sheet is woven.
+    the plain fitted sheet is made up by sewing.
+    the kind of the plain pillowcase is pillowcase.
+    the plain pillowcase contains 100 percent of polyester.
+    the fabric construction of the plain pillowcase is woven.
+    the plain pillowcase is made up by sewing.
+    % NY N012552: tablecloth, 100 percent polyester plain weave, hemmed ->
+    % 6302.53; NY N079143: tablecloth of recycled polyester yarns, hemmed
+    % -> 6302.53
+    the kind of the square tablecloth is tablecloth.
+    the square tablecloth contains 100 percent of polyester.
+    the fabric construction of the square tablecloth is woven.
+    the square tablecloth is made up by hemming.
+    the kind of style 1786 is tablecloth.
+    style 1786 contains 100 percent of polyester.
+    the fabric construction of style 1786 is woven.
+    style 1786 is made up by hemming.
+    % NY N323770: placemat of two layers of polyester woven fabric ->
+    % 6302.53; microfiber towels of polyester knit pile for the kitchen ->
+    % 6302.93
+    the kind of item 895 is placemat.
+    item 895 contains 100 percent of polyester.
+    the fabric construction of item 895 is woven.
+    item 895 is made up by sewing.
+    the kind of item 4541 is kitchen towel.
+    item 4541 contains 100 percent of polyester.
+    the fabric construction of item 4541 is knitted.
+    item 4541 is made up by sewing.
+    % NY N275351: bath towel and washcloth of cotton terry toweling,
+    % hemmed -> 6302.60; NY L88352: hooded towel of cotton terry -> 6302.60
+    the kind of the cotton bath towel is bath towel.
+    the cotton bath towel contains 100 percent of cotton.
+    the fabric of the cotton bath towel is terry.
+    the cotton bath towel is made up by hemming.
+    the kind of the cotton washcloth is washcloth.
+    the cotton washcloth contains 100 percent of cotton.
+    the fabric of the cotton washcloth is terry.
+    the cotton washcloth is made up by hemming.
+    the kind of the Spongebob towel is hooded towel.
+    the Spongebob towel contains 100 percent of cotton.
+    the fabric of the Spongebob towel is terry.
+    the Spongebob towel is made up by hemming.
+    subheading expects answers ["the subheading of the plain flat sheet is 6302.32", "the subheading of the plain fitted sheet is 6302.32", "the subheading of the plain pillowcase is 6302.32", "the subheading of the square tablecloth is 6302.53", "the subheading of style 1786 is 6302.53", "the subheading of item 895 is 6302.53", "the subheading of item 4541 is 6302.93", "the subheading of the cotton bath towel is 6302.60", "the subheading of the cotton washcloth is 6302.60", "the subheading of the Spongebob towel is 6302.60"].
+
+% Sets of bed linen put up for retail sale (GRI 3(b))
+scenario sheet_sets is:
+    % NY N318864: a sheet set of printed polyester sheets and pillowcases
+    % that are not printed -> 6302.22
+    sheet set 2 is a set put up for retail sale.
+    the plain flat sheet of set 2 is a component of sheet set 2.
+    the plain pillowcase of set 2 is a component of sheet set 2.
+    the essential character of sheet set 2 is given by the plain flat sheet of set 2,
+        according to CBP, because "the sheets are printed".
+    the kind of the plain flat sheet of set 2 is flat sheet.
+    the plain flat sheet of set 2 contains 100 percent of polyester.
+    the fabric construction of the plain flat sheet of set 2 is woven.
+    the fabric of the plain flat sheet of set 2 is printed.
+    the plain flat sheet of set 2 is made up by hemming.
+    the kind of the plain pillowcase of set 2 is pillowcase.
+    the plain pillowcase of set 2 contains 100 percent of polyester.
+    the fabric construction of the plain pillowcase of set 2 is woven.
+    the plain pillowcase of set 2 is made up by sewing.
+    % NY N362388: "Ladder Lace Cotton Sheet Set" of cotton woven sheets and
+    % pillowcases; the embroidered items give the essential character ->
+    % 6302.31
+    the ladder lace set is a set put up for retail sale.
+    the ladder lace flat sheet is a component of the ladder lace set.
+    the ladder lace fitted sheet is a component of the ladder lace set.
+    the essential character of the ladder lace set is given by the ladder lace flat sheet,
+        according to CBP, because "The embroidered items impart the essential character to the sheet set".
+    the kind of the ladder lace flat sheet is flat sheet.
+    the ladder lace flat sheet contains 100 percent of cotton.
+    the fabric construction of the ladder lace flat sheet is woven.
+    the ladder lace flat sheet is made up by hemming.
+    the kind of the ladder lace fitted sheet is fitted sheet.
+    the ladder lace fitted sheet contains 100 percent of cotton.
+    the fabric construction of the ladder lace fitted sheet is woven.
+    the ladder lace fitted sheet is made up by sewing.
+    subheading expects answers ["the subheading of sheet set 2 is 6302.22", "the subheading of the ladder lace set is 6302.31"].
+
+% Curtains and furnishing articles
+scenario furnishings is:
+    % NY N240083: curtain panel of polyester woven sheer, hemmed -> 6303.92;
+    % NY N224378: curtains of polyester woven fabric, cut and sewn -> 6303.92
+    the kind of the sheer panel is curtain panel.
+    the sheer panel contains 100 percent of polyester.
+    the fabric construction of the sheer panel is woven.
+    the sheer panel is made up by hemming.
+    the kind of the Canadian curtains is curtain.
+    the Canadian curtains contains 100 percent of polyester.
+    the fabric construction of the Canadian curtains is woven.
+    the Canadian curtains is made up by sewing.
+    % NY N348141: "Chaise Chili" cushion cover of polyester woven fabric ->
+    % 6304.93; HQ H346161: pillow cover of polyester woven fabric, stuffed
+    % after importation -> 6304.93; NY N008927: futon cover of polyester
+    % woven fabric -> 6304.93
+    the kind of the Chaise Chili is cushion cover.
+    the Chaise Chili contains 100 percent of polyester.
+    the fabric construction of the Chaise Chili is woven.
+    the Chaise Chili is made up by sewing.
+    the kind of SKU 05600002 is pillow cover.
+    SKU 05600002 contains 100 percent of polyester.
+    the fabric construction of SKU 05600002 is woven.
+    SKU 05600002 is made up by sewing.
+    the kind of the Ramtex futon cover is futon cover.
+    the Ramtex futon cover contains 100 percent of polyester.
+    the fabric construction of the Ramtex futon cover is woven.
+    the Ramtex futon cover is made up by sewing.
+    subheading expects answers ["the subheading of the sheer panel is 6303.92", "the subheading of the Canadian curtains is 6303.92", "the subheading of the Chaise Chili is 6304.93", "the subheading of SKU 05600002 is 6304.93", "the subheading of the Ramtex futon cover is 6304.93"].
+
+% Bags, tarpaulins and tents
+scenario bags_and_covers is:
+    % NY E89875: shipping bag of polypropylene nonwoven fabric -> 6305.39
+    the kind of item 1001 is shipping bag.
+    item 1001 contains 100 percent of polypropylene.
+    the fabric construction of item 1001 is nonwoven.
+    item 1001 is made up by sewing.
+    % NY M83709: a nonwoven polypropylene bag for packing automobile parts
+    % for shipping -> 6305.39
+    the automotive bag contains 100 percent of polypropylene.
+    the fabric construction of the automotive bag is nonwoven.
+    the automotive bag is made up by sewing.
+    the principal use of the automotive bag is packing of goods,
+        according to CBP, because "this product is to be used in the automobile industry as packaging for automobile parts".
+    % NY N238404: reusable shopping tote bags of nonwoven polypropylene ->
+    % 4202.92, not Chapter 63 (Section XI note 1(l))
+    the kind of the shopping tote is tote bag.
+    the outer surface of the shopping tote is of polypropylene.
+    the shopping tote contains 100 percent of polypropylene.
+    the fabric construction of the shopping tote is nonwoven.
+    the shopping tote is made up by sewing.
+    % NY N317873: drawstring storage bag of nonwoven polypropylene, hemmed
+    % -> 6307.90
+    the kind of style FH-2 is storage bag.
+    style FH-2 contains 100 percent of polypropylene.
+    the fabric construction of style FH-2 is nonwoven.
+    style FH-2 is made up by hemming.
+    % NY N332242: collapsible storage boxes, a composite good of a made up
+    % textile box, a steel frame and a PEVA window; the textile gives the
+    % essential character -> 6307.90
+    item JNST81 is a composite good.
+    the textile box of item JNST81 is a component of item JNST81.
+    the frame of item JNST81 is a component of item JNST81.
+    the essential character of item JNST81 is given by the textile box of item JNST81,
+        according to CBP, because "we find the essential character of the collapsible storage boxes to be the made-up textile component".
+    the kind of the textile box of item JNST81 is storage box.
+    the textile box of item JNST81 contains 100 percent of polyester.
+    the fabric construction of the textile box of item JNST81 is woven.
+    the textile box of item JNST81 is made up by sewing.
+    % NY E82317: tarpaulin of a fabric of polyethylene strips, coated ->
+    % 6306.12
+    the kind of the strip tarpaulin is tarpaulin.
+    the strip tarpaulin contains 100 percent of polyethylene strip.
+    the fabric construction of the strip tarpaulin is woven.
+    the strip tarpaulin is made up by sewing.
+    % NY N113736: dome tents, body and rain-fly of polyester woven fabric ->
+    % 6306.22
+    the kind of style WMT-108065 is dome tent.
+    style WMT-108065 contains 100 percent of polyester.
+    the fabric construction of style WMT-108065 is woven.
+    style WMT-108065 is made up by sewing.
+    subheading expects answers ["the subheading of item 1001 is 6305.39", "the subheading of the automotive bag is 6305.39", "the subheading of the shopping tote is 4202.92", "the subheading of style FH-2 is 6307.90", "the subheading of item JNST81 is 6307.90", "the subheading of the strip tarpaulin is 6306.12", "the subheading of style WMT-108065 is 6306.22"].
+
+% Other made up articles (heading 6307)
+scenario other_articles is:
+    % NY L88233: microfiber cleaning cloth of polyester knit terry, edges
+    % finished -> 6307.10
+    the kind of the microfiber cloth is cleaning cloth.
+    the microfiber cloth contains 100 percent of polyester.
+    the fabric construction of the microfiber cloth is knitted.
+    the microfiber cloth is made up by hemming.
+    % NY N306396: knit pile microfiber cleaning cloth, 80 percent polyester
+    % and 20 percent polyamide, edges bound -> 6307.10
+    the kind of the detailing cloth is cleaning cloth.
+    the detailing cloth contains 80 percent of polyester.
+    the detailing cloth contains 20 percent of polyamide.
+    the fabric construction of the detailing cloth is knitted.
+    the detailing cloth is made up by sewing.
+    % NY I87447: adult life jacket of nylon woven fabric filled with foam ->
+    % 6307.20
+    the kind of style ES-SHA is life jacket.
+    style ES-SHA contains 100 percent of nylon.
+    the fabric construction of style ES-SHA is woven.
+    style ES-SHA is made up by sewing.
+    % NY N311153: disposable face masks of nonwoven man-made fibres ->
+    % 6307.90
+    the kind of item AM001 is face mask.
+    the fabric construction of item AM001 is nonwoven.
+    item AM001 is made up by sewing.
+    % NY N313119: a face gaiter of 95 percent polyester and 5 percent
+    % spandex knit jersey, a non-medical face covering -> 6307.90
+    the kind of style P23716 is face mask.
+    style P23716 contains 95 percent of polyester.
+    style P23716 contains 5 percent of spandex.
+    the fabric construction of style P23716 is knitted.
+    style P23716 is made up by sewing.
+    % NY N102637: boot and shoelaces of polyester knit or braided fabric ->
+    % 6307.90
+    the kind of item 83001 is shoelace.
+    item 83001 contains 100 percent of polyester.
+    the fabric construction of item 83001 is knitted.
+    item 83001 is made up by production in the finished state.
+    % NY N222082: garden banner of polyester fabric -> 6307.90; NY M87579:
+    % banner/flag of nylon fabric with a fold for a pole -> 6307.90
+    the kind of item A026FA01266 is banner.
+    item A026FA01266 contains 100 percent of polyester.
+    item A026FA01266 is made up by sewing.
+    the kind of the kite banner is banner.
+    the kite banner contains 100 percent of nylon.
+    the kite banner is made up by sewing.
+    % NY N348612: flag of polyester knitted fabric, laser cut and hemmed ->
+    % 6307.90
+    the kind of item 3 is flag.
+    item 3 contains 100 percent of polyester.
+    the fabric construction of item 3 is knitted.
+    item 3 is made up by hemming.
+    % NY N319591: a decorative flag of polyester woven fabric and an iron
+    % stand, a set put up for retail sale; the flag gives the essential
+    % character -> 6307.90
+    item L190200 is a set put up for retail sale.
+    the flag of item L190200 is a component of item L190200.
+    the stand of item L190200 is a component of item L190200.
+    the essential character of item L190200 is given by the flag of item L190200,
+        according to CBP, because "The essential character of the set is, therefore, imparted by the decorative textile flag".
+    the kind of the flag of item L190200 is garden flag.
+    the flag of item L190200 contains 100 percent of polyester.
+    the fabric construction of the flag of item L190200 is woven.
+    the flag of item L190200 is made up by sewing.
+    % NY N330109: dog bed, cover of polyester woven faux fur and a coated
+    % polyester bottom -> 6307.90; NY N349766: pet bed of polyester
+    % knitted faux fur and a coated polyester oxford bottom -> 6307.90
+    the kind of the Sammy Bed is dog bed.
+    the Sammy Bed contains 100 percent of polyester.
+    the fabric construction of the Sammy Bed is woven.
+    the Sammy Bed is made up by sewing.
+    the kind of item 1943569 is pet bed.
+    item 1943569 contains 100 percent of polyester.
+    the fabric construction of item 1943569 is knitted.
+    item 1943569 is made up by sewing.
+    subheading expects answers ["the subheading of the microfiber cloth is 6307.10", "the subheading of the detailing cloth is 6307.10", "the subheading of style ES-SHA is 6307.20", "the subheading of item AM001 is 6307.90", "the subheading of style P23716 is 6307.90", "the subheading of item 83001 is 6307.90", "the subheading of item A026FA01266 is 6307.90", "the subheading of the kite banner is 6307.90", "the subheading of item 3 is 6307.90", "the subheading of item L190200 is 6307.90", "the subheading of the Sammy Bed is 6307.90", "the subheading of item 1943569 is 6307.90"].
+
+% NY N325857: a seat protector for the back seat of a motor vehicle, of
+% polyester. CBP rejects 6307.90 and classifies it in heading 8708, which
+% the model does not cover (HQ H249319): no subheading of the model.
+scenario seat_protector is:
+    item 1330403 contains 100 percent of polyester.
+    item 1330403 is made up by sewing.
+    item 1330403 is claimed to belong to parts of motor vehicles.
+    the claim that item 1330403 belongs to parts of motor vehicles is accepted,
+        according to CBP, because "The seat protector is more specifically provided for in Heading 8708 and will be classified therein".
+    subheading expects answers [].
+
+% The subheadings the rulings above do not reach
+scenario subheadings is:
+    the kind of blanket A is electric blanket.
+    blanket A is made up by sewing.
+    blanket A is of textile material.
+    the kind of blanket B is blanket.
+    blanket B contains 100 percent of wool.
+    blanket B is made up by hemming.
+    the kind of blanket C is blanket.
+    blanket C contains 100 percent of cotton.
+    blanket C is made up by hemming.
+    the kind of blanket D is blanket.
+    blanket D contains 100 percent of viscose.
+    blanket D is made up by hemming.
+    the kind of sheet E is bed sheet.
+    sheet E contains 100 percent of cotton.
+    the fabric construction of sheet E is knitted.
+    sheet E is made up by sewing.
+    the kind of sheet F is bed sheet.
+    sheet F contains 100 percent of cotton.
+    the fabric construction of sheet F is woven.
+    the fabric of sheet F is printed.
+    sheet F is made up by hemming.
+    the kind of sheet G is bed sheet.
+    sheet G contains 100 percent of silk.
+    the fabric construction of sheet G is woven.
+    the fabric of sheet G is printed.
+    sheet G is made up by hemming.
+    the kind of sheet H is bed sheet.
+    sheet H contains 100 percent of linen.
+    the fabric construction of sheet H is woven.
+    sheet H is made up by hemming.
+    the kind of napkin I is napkin.
+    napkin I contains 100 percent of cotton.
+    the fabric construction of napkin I is knitted.
+    napkin I is made up by hemming.
+    the kind of napkin J is napkin.
+    napkin J contains 100 percent of cotton.
+    the fabric construction of napkin J is woven.
+    napkin J is made up by hemming.
+    the kind of napkin K is napkin.
+    napkin K contains 100 percent of linen.
+    the fabric construction of napkin K is woven.
+    napkin K is made up by hemming.
+    the kind of towel L is towel.
+    towel L contains 100 percent of cotton.
+    the fabric construction of towel L is woven.
+    towel L is made up by hemming.
+    the kind of towel M is tea towel.
+    towel M contains 100 percent of linen.
+    the fabric construction of towel M is woven.
+    towel M is made up by hemming.
+    the kind of curtain N is curtain.
+    curtain N contains 100 percent of polyester.
+    the fabric construction of curtain N is knitted.
+    curtain N is made up by sewing.
+    the kind of curtain O is curtain.
+    curtain O contains 100 percent of cotton.
+    the fabric construction of curtain O is knitted.
+    curtain O is made up by sewing.
+    the kind of curtain P is curtain.
+    curtain P contains 100 percent of cotton.
+    the fabric construction of curtain P is woven.
+    curtain P is made up by sewing.
+    the kind of curtain Q is curtain.
+    curtain Q contains 100 percent of viscose.
+    the fabric construction of curtain Q is woven.
+    curtain Q is made up by sewing.
+    the kind of bedspread R is bedspread.
+    bedspread R contains 100 percent of cotton.
+    the fabric construction of bedspread R is knitted.
+    bedspread R is made up by sewing.
+    the kind of bedspread S is bedspread.
+    bedspread S contains 100 percent of cotton.
+    the fabric construction of bedspread S is woven.
+    bedspread S is made up by sewing.
+    the kind of net T is bed net.
+    net T contains 100 percent of polyester.
+    the fabric construction of net T is knitted.
+    net T is made from warp knit fabric impregnated or coated with an insecticide of subheading note one.
+    net T is made up by sewing.
+    the kind of cover U is cushion cover.
+    cover U contains 100 percent of polyester.
+    the fabric construction of cover U is knitted.
+    cover U is made up by sewing.
+    the kind of cover V is cushion cover.
+    cover V contains 100 percent of cotton.
+    the fabric construction of cover V is woven.
+    cover V is made up by sewing.
+    the kind of hanging W is wall hanging.
+    hanging W contains 100 percent of wool.
+    the fabric construction of hanging W is woven.
+    hanging W is made up by hemming.
+    the kind of sack X is sack.
+    sack X contains 100 percent of jute.
+    the fabric construction of sack X is woven.
+    sack X is made up by sewing.
+    the kind of sack Y is sack.
+    sack Y contains 100 percent of cotton.
+    the fabric construction of sack Y is woven.
+    sack Y is made up by sewing.
+    the kind of bag Z is flexible intermediate bulk container.
+    bag Z contains 100 percent of polypropylene.
+    the fabric construction of bag Z is woven.
+    bag Z is made up by sewing.
+    the kind of sack AA is sack.
+    sack AA contains 100 percent of polypropylene strip.
+    the fabric construction of sack AA is woven.
+    sack AA is made up by sewing.
+    the kind of sack AB is sack.
+    sack AB contains 100 percent of linen.
+    the fabric construction of sack AB is woven.
+    sack AB is made up by sewing.
+    the kind of tarpaulin AC is tarpaulin.
+    tarpaulin AC contains 100 percent of cotton.
+    tarpaulin AC is made up by sewing.
+    the kind of tent AD is tent.
+    tent AD contains 100 percent of cotton.
+    tent AD is made up by sewing.
+    the kind of sail AE is sail.
+    sail AE contains 100 percent of polyester.
+    sail AE is made up by sewing.
+    the kind of mattress AF is pneumatic mattress.
+    mattress AF contains 100 percent of nylon.
+    mattress AF is made up by sewing.
+    the kind of chair AG is inflatable textile chair.
+    chair AG contains 100 percent of polyester.
+    chair AG is made up by sewing.
+    the kind of set AH is needlecraft set.
+    set AH is put up in packings for retail sale.
+    the kind of rags AI is rag.
+    rags AI is sorted.
+    the kind of rags AJ is rag.
+    subheading expects answers ["the subheading of blanket A is 6301.10", "the subheading of blanket B is 6301.20", "the subheading of blanket C is 6301.30", "the subheading of blanket D is 6301.90", "the subheading of sheet E is 6302.10", "the subheading of sheet F is 6302.21", "the subheading of sheet G is 6302.29", "the subheading of sheet H is 6302.39", "the subheading of napkin I is 6302.40", "the subheading of napkin J is 6302.51", "the subheading of napkin K is 6302.59", "the subheading of towel L is 6302.91", "the subheading of towel M is 6302.99", "the subheading of curtain N is 6303.12", "the subheading of curtain O is 6303.19", "the subheading of curtain P is 6303.91", "the subheading of curtain Q is 6303.99", "the subheading of bedspread R is 6304.11", "the subheading of bedspread S is 6304.19", "the subheading of net T is 6304.20", "the subheading of cover U is 6304.91", "the subheading of cover V is 6304.92", "the subheading of hanging W is 6304.99", "the subheading of sack X is 6305.10", "the subheading of sack Y is 6305.20", "the subheading of bag Z is 6305.32", "the subheading of sack AA is 6305.33", "the subheading of sack AB is 6305.90", "the subheading of tarpaulin AC is 6306.19", "the subheading of tent AD is 6306.29", "the subheading of sail AE is 6306.30", "the subheading of mattress AF is 6306.40", "the subheading of chair AG is 6306.90", "the subheading of set AH is 6308.00", "the subheading of rags AI is 6310.10", "the subheading of rags AJ is 6310.90"].
+
+% Notes 2 and 3: worn articles go to 6309; garments are not of subchapter
+% I; a textile article is not of Chapter 39
+scenario worn_and_excluded is:
+    % worn jeans of cotton, entered in bales: 6309, not 6203 (Chapter 62
+    % note 2(a))
+    the kind of bale 1 is jeans.
+    the cut of bale 1 indicates men.
+    bale 1 contains 100 percent of cotton.
+    the fabric construction of bale 1 is woven.
+    bale 1 shows signs of appreciable wear.
+    bale 1 is entered in bulk or in bales, sacks or similar packings.
+    % worn towels in bales: 6309, not 6302 (note 2(b))
+    the kind of bale 2 is towel.
+    bale 2 contains 100 percent of cotton.
+    the fabric of bale 2 is terry.
+    bale 2 is made up by hemming.
+    bale 2 shows signs of appreciable wear.
+    bale 2 is entered in bulk or in bales, sacks or similar packings.
+    % an apron of woven cotton: a garment of 6211, not of 6307 (note 2(a))
+    the kind of apron 3 is apron.
+    apron 3 contains 100 percent of cotton.
+    the fabric construction of apron 3 is woven.
+    apron 3 is made up by sewing.
+    % a cushion cover of nylon that is also a manufactured article: 6304,
+    % not 3926 (Chapter 39 note 2(p))
+    the kind of cover 4 is cushion cover.
+    cover 4 is a manufactured article.
+    cover 4 is made of plastics.
+    cover 4 contains 100 percent of nylon.
+    the fabric construction of cover 4 is woven.
+    heading expects answers ["the heading of bale 1 is 6309", "the heading of bale 2 is 6309", "the heading of apron 3 is 6211", "the heading of cover 4 is 6304"].

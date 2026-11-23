@@ -20,13 +20,20 @@ test(included_libraries_answer, [setup(tmp_dir(Dir)), cleanup(delete_directory_a
     atomic_list_concat([Dir, '/uses_text_maths_lists.le'], File),
     copy_file('testing/fixtures/libraries/uses_text_maths_lists.le', File),
     le_kbs:runTestsFor(File, test_file(_, Results)),
-    assertion(Results = [_, _, _, _]),
+    assertion(Results = [_, _, _, _, _]),
     assertion(forall(member(R, Results), R = pass(_, _))).
 
 test(text_of_number_without_point_zero) :-
     consult_lib(text),
     text:the_text_of_is(70.0, S1), assertion(S1 == "70"),
     text:the_joining_of_is(["a", 1, 2.5, date(2026, 10, 5)], S2), assertion(S2 == "a12.52026-10-05").
+
+test(parts_of_a_text_split_at_a_separator) :-
+    consult_lib(text),
+    findall(P, text:split_at_has_the_part("toys & hobbies > remote control toys", ">", P), Ps),
+    assertion(Ps == ["toys & hobbies", "remote control toys"]),
+    findall(P, text:split_at_has_the_part("a >> b", ">", P), Qs),
+    assertion(Qs == ["a", "b"]).
 
 test(expected_decimals_match_rounded_answer) :-
     assertion(le_kbs:answers_match(["x is 2398.2"], ["x is 2398.2021006110276"])),
