@@ -530,7 +530,7 @@ load_common_sync(NewModule, ParseGoal, Sections, ErrorMsg, Options) :-
                   collect_and_assert_types(NewModule) ),
                 retractall(current_compiling_module(_))
             ) ->  
-            forall(member(S, Sections), process_section(S, NewModule)),
+            forall(member(S, Sections), process_section_or_issue(S, NewModule)),
             findall(D, le_system_template(D), SysDicts),
             forall(member(D, SysDicts), assert_le_dict(NewModule, D)),
             (   memberchk(skip_tests, Options)
@@ -586,6 +586,36 @@ error_issue_type(cells_twice).
 error_issue_type(cells_unknown_service).
 error_issue_type(cells_missing).
 error_issue_type(sheet_address_port).
+
+%!  process_section_or_issue(+Section, +M) is det.
+%
+%   A section that cannot be processed is an error at that section, not a
+%   load that fails: a failed section used to fail the whole load, which the
+%   web API could only answer "the program could not be loaded (load_text)"
+%   and report to Sentry with nothing to say which section. The report now
+%   names the kind of section, and the author sees where.
+process_section_or_issue(S, M) :-
+    (   process_section(S, M)
+    ->  true
+    ;   functor(S, Kind, _),
+        section_span(S, Start, End),
+        le_i18n:le_msg(section_not_processed_desc, [kind-Kind], Desc),
+        le_i18n:le_msg(section_not_processed_fix, [], Fix),
+        assertz(M:le_issue(error, section_not_processed, Desc, Fix, Start, End)),
+        (   current_predicate(le_telemetry:telemetry_report/2)
+        ->  catch(le_telemetry:telemetry_report(failed(process_section(Kind)), [operation(load)]), _, true)
+        ;   true
+        )
+    ).
+
+%   Where a section is in the text, as far as its term says: 0-0 for the
+%   declaration sections, which carry no position.
+section_span(S, Start, End) :-
+    (   le_grammar:section_start(S, Start0), integer(Start0) -> Start = Start0 ; Start = 0 ),
+    (   compound(S), functor(S, _, N), N >= 2, arg(N, S, End0), integer(End0), End0 >= Start
+    ->  End = End0
+    ;   End = Start
+    ).
 
 process_section(S, M) :-
     ( do_log -> print_message(informational,'Processing section: ~w' - [S]); true),

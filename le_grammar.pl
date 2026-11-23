@@ -1686,6 +1686,11 @@ constant_line(Dicts, fact(Head, Start, End), End) -->
                  punctuation(';', loc(Start, Start))],
                 DGToks, NameToks, [punctuation('.', loc(End, End))]], TToks),
         phrase(template(Dicts), TToks, _),
+        %   The template read must carry the constant's name. A `;` in the
+        %   line (`the rate is 5 ; opposite: …`) ends the template before
+        %   the name, and a constant with no name is not a constant: the
+        %   line is left for the rest of the grammar to report.
+        Dicts = [MainDict|_], arg(6, MainDict, [_|_]),
         append([VOToks, NameToks, [IsTok], ValueToks], Head)
     }.
 
