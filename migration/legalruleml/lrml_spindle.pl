@@ -1,15 +1,21 @@
 /** <module> The oracle of the LegalRuleML twins: SPINdle on the source
 
     A LegalRuleML document has no engine of its own and ships no tests
-    (the design notes roadmap.md §5.8). What its authors reason with is
-    defeasible deontic logic, and SPINdle (Lam & Governatori, NICTA/Data61,
-    LGPL; oracle/fetch_spindle.sh) is their reasoner: this module grounds a
+    (the design notes roadmap.md §5.8). The specification acknowledges
+    SPINdle (H.-P. Lam and G. Governatori; copyright NICTA; LGPL version 3;
+    downloaded by oracle/fetch_spindle.sh, never kept in this repository)
+    as the engine used for testing LegalRuleML. SPINdle is a defeasible
+    (deontic) logic reasoner and does not read LegalRuleML: this module grounds a
     document's statements over a scenario's facts, writes the theory in
     SPINdle's DFL, runs SPINdle, and reads back what is defeasibly proved
     (+d). The twin's expected answers are these conclusions — never the LE
     program's own.
 
-    The reading of the document is the standard's, stated in DFL:
+    The reading of the document follows the specification's prose and its
+    section 29 example; where the specification leaves a choice open (the
+    closed world of the case, an Override between conclusions that do not
+    conflict) the choice is this module's, and lrml_twin.pl makes the same
+    one. Stated in DFL:
 
       - a Constitutive rule is a strict (->), defeasible (=>) or defeater
         (~>) rule, per its strength (a Context's appliesStrength wins);
@@ -118,7 +124,7 @@ theory(Model, scenario(_, Facts, Opts), Text, names(Rels, Consts)) :-
           forall(member(L, FactLits), ( write('>> '), write_lit(L), nl )),
           forall(member(L, CWA), ( write('>> '), write_lit(L), nl )),
           nl,
-          %  (SPINdle refuses a theory of facts alone)
+          %  (SPINdle 2.2.4 did not accept a theory of facts alone)
           format("r0: le_nothing => le_nothing_follows~n"),
           forall(member(inst(Lab, _, Type, _, B, H), Insts), write_rule(Lab, Type, B, H)),
           forall(member(vr(Lab, B, H), VRules), write_rule(Lab, strict, B, H)),
@@ -395,10 +401,9 @@ write_lit(l(Mode, Sign, N, Vs)) :-
     ( Mode == none -> true ; format("[~w] ", [Mode]) ),
     ( Sign == neg -> write('-') ; true ),
     dfl_name(N, DN), write(DN),
-    %  the arguments are part of the name: SPINdle 2.2.4's defeater removal
-    %  conflates literals of one predicate with different arguments (a
-    %  defeater of p(a) defeated p(b)), so the theory is written ground and
-    %  propositional: p__c1_c2
+    %  the arguments are part of the name: with literals that carry
+    %  arguments we observed, in SPINdle 2.2.4, a defeater of p(a) defeating
+    %  p(b), so the theory is written ground and propositional: p__c1_c2
     (   Vs == [] -> true
     ;   maplist(dfl_const, Vs, Ts), atomic_list_concat(Ts, '_', A), format("__~w", [A])
     ).

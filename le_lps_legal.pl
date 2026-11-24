@@ -33,8 +33,8 @@
     (`it is allowed that <action>`, `<action> has as a result that <fluent>`),
     which need no morphology.
 
-    Nothing here knows any source system: the Solidity twins of the InsurLE
-    migrations use it, and so does any hand-written LPS program.
+    Nothing here knows any source system: the Solidity twins
+    use it, and so does any hand-written LPS program.
 
     Entry points:
       legal_view_text(+LEText, +Options, -Text, -Issues)   a document -> the view's text

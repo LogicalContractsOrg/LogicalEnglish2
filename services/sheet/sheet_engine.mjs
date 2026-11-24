@@ -3,7 +3,7 @@
 // One module, two users:
 //   - the `sheet:` services address (le_services.pl, language.md §17.6): a
 //     template answered by a workbook, through sheet_service.mjs;
-//   - the spreadsheet importer of lpsPlus (migration/spreadsheet), which
+//   - the spreadsheet importer (migration/spreadsheet), which
 //     reads the workbook's structure here and uses the same evaluation as the
 //     oracle of its tests: the sheet computes the expected answers.
 //

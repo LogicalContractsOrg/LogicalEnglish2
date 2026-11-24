@@ -1,7 +1,7 @@
 # Migration ledger: cosigning_service
 
 Source: A user and a co-signing service, the user alone after 90 days — https://bitcoin.sipa.be/miniscript/
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

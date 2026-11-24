@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""The Socotra oracle: runs a product's ORIGINAL Liquid scripts on generated
-quotes, so that the LE twin can be checked against the source's own behaviour.
+"""The reference run for Socotra products: runs a product's ORIGINAL Liquid
+scripts on generated quotes, so that the LE twin can be checked against them.
+
+This is not Socotra's software, and no Socotra software runs here: the Liquid
+interpreter is python-liquid, and the filters that Socotra adds to Liquid are
+written again below (the shims). The results were not compared with those of
+Socotra's platform.
 
     python3 oracle.py <product-dir> <out.json> [--max-cases N]
 
 For each generated quote (a policy with one exposure of each type the product
 declares, every peril of it covered, and field values varied one at a time)
-it runs, as Socotra's classic rating does:
+it runs these scripts of a Socotra Liquid configuration, in this order:
 
   1. each peril's  exposures/<exposure>/perils/<peril>.premium.liquid,
   2. each tax's    taxes/<tax>.premium.liquid on every peril's yearly premium,

@@ -82,7 +82,7 @@ replay_ir(W, program(H, Items), _{events: NE, transfers: NT, mints: NM, burns: N
     format(string(Cm),
 "Replay of ~w (USDC) on Ethereum mainnet, blocks ~w to ~w, against the FiatToken twin (E11).
 Instance binding: the proxy's implementation at block ~w is ~w,
-a full Sourcify match of FiatTokenV2_2 (solc 0.6.12); the twin is contracts/FiatTokenSubset.sol,
+a verified Sourcify match of FiatTokenV2_2 (solc 0.6.12); the twin is contracts/FiatTokenSubset.sol,
 the FiatTokenV1 logic that V2_2 keeps for transfer, mint and burn.
 The initial state is the chain's at block ~w; each log of the window is one observed call.
 Data: replay_fetch.js over ~w, fetched ~w.
@@ -161,7 +161,7 @@ results_markdown(W, report(NA, NR, Rows, Meta), MD) :-
         format("# Replay: ~w against its LE twin~n~n", [W.token]),
         format("Ethereum mainnet blocks ~w–~w (state before: block ~w), fetched ~w from ~w.~n~n",
                [W.window.first, W.window.last, W.window.before, W.fetched, W.rpc]),
-        format("Implementation behind the proxy: ~w (Sourcify full match: FiatTokenV2_2).~n~n", [W.implementation]),
+        format("Implementation behind the proxy: ~w (Sourcify match: FiatTokenV2_2).~n~n", [W.implementation]),
         format("| | |~n|---|---|~n| logs replayed | ~w (~w transfers, ~w mints, ~w burns) |~n",
                [Meta.events, Meta.transfers, Meta.mints, Meta.burns]),
         format("| values compared | ~w (the total supply and the balance of every account the logs touch) |~n", [NR]),

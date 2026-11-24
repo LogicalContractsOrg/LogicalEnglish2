@@ -3,8 +3,9 @@
     fetch_sources.sh clones each repository at the commit below into .cache/
     and installs it (with its engine, openfisca-core or policyengine-core,
     from pip) into .cache/venv, which both of_extract.py and of_oracle.py
-    run in. All the packages are AGPL-3.0: the twins stay in this repository
-    (decision 2 of the October plan).
+    run in. All the packages are AGPL-3.0, and a twin is a translation of
+    its package: the twins are never written into this repository, they go
+    to the private place of ../le2_paths.pl (decision 2 of the October plan).
 
     programme(Name, Dialect, Group, Roots, Tests): the twin of the variables
     that Roots read, with the package's tests under Tests (paths relative to
@@ -23,8 +24,9 @@
 repo_commit('country-template', 'https://github.com/openfisca/country-template.git', '9877d0f514c13a616333bbbbd9e7e2886807e985').
 repo_commit('policyengine-us', 'https://github.com/PolicyEngine/policyengine-us.git', 'b44d435ce4a3b06617380476709013aebc653421').
 repo_commit('policyengine-uk', 'https://github.com/PolicyEngine/policyengine-uk.git', 'b5b092312df7aa56a4e89c4b9b7c133507dea114').
-%  openfisca-france needs openfisca-core 44, the other packages 45, so it is
-%  installed in an environment of its own (.cache/venv-fr; Phase 3b′).
+%  openfisca-france needs an openfisca-core below 45 (the country template
+%  was installed with 45; the PolicyEngine packages run on policyengine-core),
+%  so it is installed in an environment of its own (.cache/venv-fr; Phase 3b′).
 repo_commit('openfisca-france', 'https://github.com/openfisca/openfisca-france.git', '16b2e69').
 
 
@@ -64,7 +66,7 @@ programme(aides_logement, france, openfisca,
 programme_within(aides_logement, ['prestations/aides_logement']).
 
 %  The same variables, on the situations of the cross-check with the Catala
-%  twin of the CNAF's programme (of_crosscheck.py gen writes the tests; the
+%  twin of Catala's example (of_crosscheck.py gen writes the tests; the
 %  package's engine gives their expected values; roadmap Phase 3b′, step 5).
 programme(aides_logement_croise, france, openfisca,
           [aide_logement_montant, aide_logement_loyer_plafond, aide_logement_charges,

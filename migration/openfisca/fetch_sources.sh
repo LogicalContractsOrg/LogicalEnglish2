@@ -19,10 +19,11 @@ sed -n "s/^repo_commit('\([^']*\)', '\([^']*\)', '\([0-9a-f]*\)').*/\1 \2 \3/p" 
     echo "$name at $(git -c safe.directory=* -C .cache/$name rev-parse --short HEAD)"
 done
 [ -x .cache/venv/bin/python ] || python3 -m venv .cache/venv
-#  One environment per engine: pip will not resolve openfisca-core 45 (what
-#  PolicyEngine asks for) together with openfisca-country-template 8.1.0,
-#  which pins another core, and openfisca-france needs core 44. PyYAML is for
-#  of_roundtrip_run.py.
+#  One environment per engine: the PolicyEngine packages run on
+#  policyengine-core (they do not ask for openfisca-core), the country
+#  template 8.1.0 on openfisca-core 44.1 or later, and openfisca-france on an
+#  openfisca-core below 45 (.cache/venv-fr, made by hand: see README.md).
+#  PyYAML is for of_roundtrip_run.py.
 .cache/venv/bin/pip install -q PyYAML -e .cache/policyengine-us -e .cache/policyengine-uk
 [ -d .cache/venv-ct ] || python3 -m venv .cache/venv-ct
 .cache/venv-ct/bin/pip install -q PyYAML -e .cache/country-template

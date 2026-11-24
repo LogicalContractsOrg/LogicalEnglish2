@@ -5,12 +5,13 @@ conditions under which a coin can be spent), rewritten in Logical English by
 a translator. Such a rewrite is a **twin**: each rule is one way of spending
 the coin. Each twin's opening comment shows the policy as written, laid out,
 and in words. Its scenarios are the policy's satisfaction analysis, the loss
-of each key, and recorded spending attempts on the public Tape test network.
+of each key, and recorded spending attempts on Tape, a test chain that
+RewindBitcoin operates and opens to the public.
 
 ## Start here
 - [Two of three](core_2of3_multisig/core_2of3_multisig.le?scenario=two_of_three_1&query=spendable) — any two of three cosigners.
-- [Liana inheritance](liana_inheritance/liana_inheritance.le?scenario=family_1&query=spendable) — the manager, or two of the family after a year, or a third party later.
-- [Revault unvault](revault_unvault/revault_unvault.le) — a vault with a delay and an emergency path.
+- [Liana inheritance](liana_inheritance/liana_inheritance.le?scenario=family_1&query=spendable) — the manager, or two of the family after a year, or a third party later. The policy was written for this example from the words of Liana's README; Liana did not publish it as a policy.
+- [Revault unvault](revault_unvault/revault_unvault.le) — Bitcoin Core's test variant of the unvault output of Revault: the managers with the cosigning servers after a lock time, or all four stakeholders.
 
 ## Try this
 1. Open [two of three](core_2of3_multisig/core_2of3_multisig.le?scenario=two_of_three_1&query=spendable) and click **Query**: "the coin can be spent", with the signatures of cosigners A and B.
@@ -24,7 +25,7 @@ of each key, and recorded spending attempts on the public Tape test network.
 - Miniscript: https://bitcoin.sipa.be/miniscript/ and BIP 379, https://github.com/bitcoin/bips/blob/master/bip-0379.md
 - Each twin cites "the policy in Minsc", which opens the policy in the Minsc playground, https://min.sc
 - `sources/` holds the cited excerpt, the originals, the policy as File > Open takes it back, and the recorded run on the chain (`<id>.chain.json`).
-- Written by `lpsPlus/migration/miniscript/build.pl`; do not edit by hand.
+- The twins are written by `migration/miniscript/build.pl` of this repository; do not edit them by hand.
 
 ## Disclaimer
 A twin is written by a translator (a program that rewrites another

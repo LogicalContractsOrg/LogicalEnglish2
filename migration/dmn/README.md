@@ -24,11 +24,11 @@ numbers of the last runs are in `runs/` and in the tables below.
 
 | Collection | Models | Twins in | Tests | Result |
 |---|---|---|---|---|
-| DMN TCK, compliance level 2 (`dmn-tck/tck`, Apache-2.0) | 28 | LE2 `examples/migration/dmn/tck/` | the kit's test cases | 138 of 138 |
+| DMN TCK, compliance level 2 (`dmn-tck/tck`, Apache-2.0) | 28 | LE2 `examples/migration/dmn/tck/` | the kit's 116 test cases, which expect 138 values | 138 of 138 |
 | RONL examples (`sgort/linked-data-explorer`, EUPL-1.2) | 16 distinct (32 files) | LE2 `examples/migration/dmn/ronl/` | generated; the 13 models of Camunda Modeler answered by Camunda 7.23's own engine (every input given, null where the case leaves it), the 3 others by Drools | 399 of 399, in 16 models |
 | Benefit Decision Toolkit (Code for Philly, MIT) | 37 | LE2 `examples/migration/dmn/bdt/` | its Bruno requests | 195 of 195, in 25 models |
-| The Omgevingswet's bruidsschat, STTR (KOOP) | 196 | this repository's `examples/migration/dmn/sttr/` (terms of reuse not confirmed) | generated, answered by Drools | 6,364 of 6,364, in 196 models |
-| DMN TCK, compliance level 3 (FEEL) | 128 | this repository's `examples/migration/dmn/tck3/` (a measurement, not examples) | the kit's test cases | 1,745 of 3,559 (49%) |
+| The Omgevingswet's bruidsschat, STTR (KOOP) | 196 | not published: the private place's `examples/migration/dmn/sttr/` (`../le2_paths.pl`, `private_root/1`; terms of reuse not confirmed) | generated, answered by Drools | 6,364 of 6,364, in 196 models |
+| DMN TCK, compliance level 3 (FEEL) | 128 | not published: the private place's `examples/migration/dmn/tck3/` (a measurement, not examples) | the kit's test cases | 1,745 of 3,559 (49%) |
 | The client examples' models: Kogito's Traffic Violation, Camunda's Dinner Decisions (Apache-2.0) | 2 | LE2 `examples/migration/dmn/clients/` | `clients/*.cases.json`, answered by Drools and by Camunda 7.23's own engine | 33 of 33 |
 
 **The way back** (`dmn_export.pl`, File ▸ Export ▸ DMN; checked by
@@ -46,10 +46,10 @@ caller sends it, `runs/adapter-check.txt`): TCK 126 of 126, BDT 195 of 195,
 RONL 179 of 183, clients 26 of 26. The four RONL results that differ
 (Heusdenpas Eindresultaat) are a rule of Camunda's that matches and gives
 only nulls: Camunda answers a structure of nulls, the twin has no value and
-the adapter answers null. Kogito's README request, Red Hat's
-`kie-server-client` (Java), Camunda's `@camunda8/sdk` (Node, no sign-in and
+the adapter answers null. Kogito's README request, KIE Server's
+Java client (`kie-server-client`), Camunda's `@camunda8/sdk` (Node, no sign-in and
 OAuth) and Camunda 7's REST calls ran unchanged but for the address
-(lpsPlus `examples/dmn_adapter_demo/`, whose `compare.mjs` gets 26 of 26
+(a demonstration that is not in this repository; its comparison gets 26 of 26
 answers equal to Drools' and Camunda's on the original models).
 
 The gate of step 1: every FEEL text of the four collections parses
@@ -63,7 +63,7 @@ compiles: 28 of 28 (TCK level 2), 196 of 196 (bruidsschat), 38 of 38 (BDT),
 | `fetch_sources.sh`, `corpus.pl` | the four collections at pinned commits into `.cache/` (gitignored); the bruidsschat's July 2023 STTR files unpacked into `.cache/sttr`; the client examples' two models (`client_file/3`) into `.cache/clients`; where each collection's twins go |
 | `clients/` | the cases of the client examples' models (`<model>.cases.json`): the requests of the examples' own documentation, and a few more |
 | `oracle-camunda/` | the second oracle: Camunda 7.23's DMN engine (camunda-engine-dmn with the Scala FEEL engine) as one jar, for Camunda Modeler's DMN 1.1 dialect (unqualified type names, process variables as inputs), which Drools does not run; reports each decision's result list and matched rules |
-| `oracle/` | the oracle: Apache KIE Drools DMN 10.2.0 as one jar (`oracle/build.sh`, Java 21 and Maven): `eval` (cases in, results out, JSON), `drg` (Drools' reading of a model), `tck` (the kit's runner; 3,389 of the 3,391 published cases, one more than Drools' published result). `oracle/README.md` |
+| `oracle/` | the oracle: Apache KIE Drools DMN 10.2.0 as one jar (`oracle/build.sh`, Java 21 and Maven): `eval` (cases in, results out, JSON), `drg` (Drools' reading of a model), `tck` (the kit's cases, run as the kit's Drools runner runs them: 3,389 of the 3,391 cases of Drools' published result pass, where the published run has 3,388; `oracle/src/.../Tck.java` is a port of a part of that runner, Apache-2.0). `oracle/README.md` |
 | `dmn_reader.pl` | DMN XML (1.1 to 1.6, STTR's extensions) → one model term |
 | `feel_parser.pl` | FEEL → a syntax tree: expressions and unary tests, names with spaces resolved against the names in scope |
 | `dmn_names.pl` | DMN names → template words (camelCase, STTR's escapes, numbers, articles, LE's reserved words and the copula) |
@@ -81,9 +81,36 @@ compiles: 28 of 28 (TCK level 2), 196 of 196 (bruidsschat), 38 of 38 (BDT),
 | `gate.pl` | the gate: the parse of every FEEL text, the DRG against Drools' |
 | `test_dmn.pl` | plunit: the parser, the names, three small models (hit policies, FEEL's three values, STTR's idiom), File ▸ Open, a TCK model, the last gate runs |
 
+## The collections: whose they are, and their licences
+
+Nothing of another project is in this folder but one port (below). The
+models are downloaded into `.cache/` (`fetch_sources.sh`), which git
+ignores. The build copies each published model, unchanged, into
+`sources/` beside its twin in `examples/migration/dmn/`, and the README of
+each collection there gives the licence.
+
+| Collection | Whose | Licence | What the twins' folder holds for it |
+|---|---|---|---|
+| DMN TCK (`dmn-tck/tck`) | the DMN TCK contributors | Apache-2.0 (`LICENSE-ASL-2.0.txt`; no `NOTICE` file) | the notice in `tck/README.md`; the licence text is LE2's own `LICENSE` |
+| RONL examples (`sgort/linked-data-explorer`) | RONL, Regels Overheid Nederland (the author that the repository's `package.json` names; the repository has no copyright notice) | EUPL-1.2 (`LICENSE`) | `ronl/LICENSE` (the text, copied from the repository) and the notice in `ronl/README.md`. The EUPL-1.2 is a copyleft licence and the Apache License is not among its compatible licences, so the twins of these models are under the EUPL-1.2 too |
+| Benefit Decision Toolkit (`CodeForPhilly/benefit-decision-toolkit`) | Code for Philly | MIT (`LICENSE.md`) | `bdt/BDT_LICENSE` (the copyright notice and the text, copied from the repository) |
+| Kogito's and Camunda's examples | the Apache Software Foundation's Apache KIE (incubating); Camunda Services GmbH | Apache-2.0 | the notices in `clients/README.md` |
+| The bruidsschat (`koop/PR04/bruidsschat-teruglevering`) | the Dutch government (KOOP) | none stated | nothing: not published |
+
+`oracle/src/main/java/org/lpsplus/dmnoracle/Tck.java` reads a TCK test
+file as `DroolsTCKTest` of the kit's Drools runner does
+(`runners/dmn-tck-runner-drools`, Apache License 2.0): its value parsing is
+a port of that class's `parseType`, and its comparison follows
+`CompareValuesUtil`. The two oracles call Apache KIE Drools and Camunda 7
+as libraries that Maven downloads; none of their code is copied here. No
+schema file of the OMG is in this repository.
+
+DMN is a trademark of the Object Management Group. The projects named here
+did not take part in this work and do not endorse it.
+
 ## How to run
 
-From the LE2 checkout (`/work`):
+From the root of the LE2 checkout:
 
 ```sh
 migration/dmn/fetch_sources.sh                 # the corpus

@@ -1,7 +1,8 @@
 # Blawx twins
 
 Fifteen Acts encoded in Blawx, a visual tool for writing legal rules (the
-example projects of Blawx v1.6.22-alpha, by Lexpedite, MIT licence), each
+example projects of Blawx v1.6.22-alpha, by Lexpedite Legal Technologies, MIT
+licence: `sources/BLAWX_LICENSE` in each folder), each
 rewritten in Logical English by a translator. Such a rewrite is a **twin**:
 each rule is a section of the Act in the words of Blawx's own sentence
 forms, citing its section. The project's tests, and cases written from its
@@ -23,8 +24,8 @@ rules, are the scenarios, and they expect the answers Blawx itself gives.
 ## More
 - Each twin's migration ledger (`<id>.ledger.md`, for example [the Rock Paper Scissors one](rps/rps.ledger.md)) says what was translated from what; `sources/` holds the Blawx project and the Act's text.
 - [Blawx in Logical English](/docs/user/integrations/blawx): how the translation works.
-- Blawx: https://www.blawx.com and https://github.com/Lexpedite/blawx
-- Written by `lpsPlus/migration/blawx/build.pl`; do not edit by hand.
+- Blawx: https://github.com/Lexpedite/blawx (version 1, the open-source release that these examples come from) and https://app.blawx.dev (the hosted service, a later version)
+- The twins are written by `migration/blawx/build.pl` of this repository; do not edit them by hand.
 
 ## Disclaimer
 A twin is written by a translator (a program that rewrites another

@@ -1,7 +1,7 @@
 % lib/l4_daydate.pl — the Prolog half of lib/l4_daydate.le: L4's dates as
 % LE dates, date(Y, M, D), and L4's serial day numbers (its DATE_SERIAL:
 % 1 January 2025 is day 739616). Written for the L4 translator
-% (lpsPlus/docs/migration/l4.md, §3).
+% (the design notes l4.md, §3).
 
 %   l4_date_serial(?Date, ?Serial): a date and its day number
 l4_date_serial(Date, S) :- nonvar(Date), !,

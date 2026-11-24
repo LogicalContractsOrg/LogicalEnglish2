@@ -5,10 +5,10 @@
 
     Each twin is the program File ▸ Open writes for the workbook (xlsx_import),
     with its workbook in sources/ beside it. Where it goes depends on what the
-    publisher allows: a public-domain workbook (a US federal work) beside the
-    public examples of LE2 (examples/migration/spreadsheet/), any other in this
-    repository's examples/migration/spreadsheet/, unpublished. The workbooks
-    come from fetch_sources.sh.
+    publisher allows: a public-domain workbook (a US federal work) among the
+    published examples of LE2 (examples/migration/spreadsheet/), any other in
+    the private place (le2_paths:private_root/1), which is not published. The
+    workbooks come from fetch_sources.sh.
 */
 
 :- use_module('../le2_paths').

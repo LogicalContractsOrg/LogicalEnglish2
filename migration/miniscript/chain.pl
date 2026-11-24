@@ -7,7 +7,8 @@
         NETWORK=regtest ./myswipl.sh -q migration/miniscript/chain.pl -- cosigning_service
 
     Each run is recorded in chain/runs/<id>.<network>.json; build.pl then
-    writes the Tape run into the twin as its chain-confirmed scenarios.
+    writes the Tape run into the twin as its chain scenarios (what the
+    chain's node accepted and what it refused).
     Needs node and `npm install` in chain/ (and, for regtest, bitcoind:
     fetch_bitcoind.sh).
 */

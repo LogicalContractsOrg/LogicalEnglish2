@@ -7,10 +7,11 @@
     examples' own drivers, restated. Facts are written Type(Field, ...) in
     the type's field order, a reference to another object by its name.
 
-    Sources: Apache KIE Drools, drools-examples (Apache License 2.0):
-    Fire (fire/simple), HonestPolitician; LPS2's own rule bases
-    (examples/drools), written out as valid DRL (quoted strings, `$`
-    bindings, `;`) so that Drools can run them.
+    Sources: the drools-examples of Drools (Apache KIE (incubating);
+    Apache License 2.0; unchanged, see corpus/NOTICE.txt): Fire
+    (fire/simple), HonestPolitician; LPS2's own rule bases
+    (examples/migration/drools/drl in LPS2), written out as valid DRL
+    (quoted strings, `$` bindings, `;`) so that Drools can run them.
 */
 
 :- module(drools_corpus, [case/2]).

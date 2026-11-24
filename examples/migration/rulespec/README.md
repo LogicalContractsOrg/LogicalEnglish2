@@ -23,7 +23,8 @@ provision's tests as scenarios. Axiom's own engine gives the same answers.
 - Each twin's migration ledger (`<name>.ledger.md`) says what was translated from what; each folder's `sources/` holds the RuleSpec originals and their tests.
 - [Axiom RuleSpec and Logical English](/docs/user/integrations/rulespec): how the translation works.
 - Axiom Foundation: https://axiom.org and https://github.com/TheAxiomFoundation/rulespec-us
-- Written by `lpsPlus/migration/rulespec/build.pl`; do not edit by hand.
+- Licence: the RuleSpec programs and their tests are the Axiom Foundation's, under the Creative Commons Attribution 4.0 International licence (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/). The copies in `sources/` are unchanged; the twins are translations of them (changed copies) and name the Axiom Foundation in their opening comment. See the `NOTICE.txt` in each `sources/` folder. The Axiom Foundation did not make the twins.
+- The twins and their ledgers are written by `migration/rulespec/build.pl`; do not edit them by hand.
 
 ## Disclaimer
 A twin is written by a translator (a program that rewrites another

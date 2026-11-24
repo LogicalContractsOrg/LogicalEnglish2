@@ -21,9 +21,10 @@
     language they are written in, under examples/migration/<source>/: LE2 for
     timeless Logical English, LPS2 for Logical English for LPS. The twins of
     sources whose licence does not allow a changed copy to be published
-    (Oracle Intelligent Advisor projects, Socotra's product library,
-    OpenFisca and PolicyEngine, which are AGPL-3.0, ISDA's reporting rules)
-    are never written into either: they go to a private place, private_root/1.
+    (the Oracle Intelligent Advisor projects that state no licence, Socotra's
+    product library, ISDA's reporting rules), or allows it only under a
+    licence that an Apache-2.0 repository cannot carry (OpenFisca and
+    PolicyEngine: AGPL-3.0), are never written into either: they go to a private place, private_root/1.
     twins_dir/2 says where.
 */
 
@@ -112,7 +113,7 @@ twins_home(drools, lps2).
 twins_home(solidity, lps2).
 twins_home(epilog, le2).           % public (Stanford, October 2026); the rulesets here, the games (LE for LPS) in LPS2: epilog_twin:twin_dir/4
 twins_home(socotra, private).      % no licence file: kept private
-twins_home(oia, private).          % Oracle's sample projects: no licence that allows publication
+twins_home(oia, private).          % the public projects (third parties') state no licence
 twins_home(oipa, le2).
 twins_home(l4, le2).              % Apache-2.0 (L4 rules, timeless LE)
 twins_home(rulespec, le2).        % CC-BY-4.0 (Axiom RuleSpec), with attribution

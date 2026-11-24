@@ -1,7 +1,7 @@
 # Migration ledger: us_statutes_26_24_d
 
 Source: Axiom RuleSpec — sources/us/statutes/26/112.yaml, sources/us/statutes/26/32/c/2.yaml, sources/us/statutes/26/152/c.yaml, sources/us/statutes/26/911/a.yaml, sources/us/statutes/26/931.yaml, sources/us/statutes/26/933.yaml, sources/us/statutes/26/151.yaml, sources/us/statutes/26/7703.yaml, sources/us/policies/irs/rev-proc-2025-32/earned-income-credit.yaml, sources/us/statutes/26/32.yaml, sources/us/statutes/26/24/d.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

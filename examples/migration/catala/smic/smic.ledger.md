@@ -1,7 +1,7 @@
 # Migration ledger: cat_smic
 
 Source: Catala (catala-examples) — sources/cat/smic.yaml
-Translator: lpsPlus migration/catala
+Translator: LE2 migration/catala
 Date: 2026-10-09
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 

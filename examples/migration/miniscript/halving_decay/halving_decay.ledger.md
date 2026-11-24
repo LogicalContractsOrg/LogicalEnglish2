@@ -1,7 +1,7 @@
 # Migration ledger: halving_decay
 
 Source: A 4-of-4 that decays to 3, 2 and 1 of 4 at each of the next halvings — https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

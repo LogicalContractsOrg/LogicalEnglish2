@@ -1,7 +1,7 @@
 # Migration ledger: revault_unvault
 
 Source: A Revault unvault output: the managers with the cosigning servers after a lock time, or all four stakeholders — https://github.com/bitcoin/bitcoin/blob/master/test/functional/wallet_miniscript.py
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

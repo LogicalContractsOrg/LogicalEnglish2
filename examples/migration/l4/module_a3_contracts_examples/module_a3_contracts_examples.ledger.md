@@ -1,7 +1,7 @@
 # Migration ledger: module_a3_contracts_examples
 
 Source: an L4 program (smucclaw/l4-ide) — module-a3-contracts-examples.l4
-Translator: lpsPlus/migration/l4 (l4_twin.pl)
+Translator: LE2 migration/l4 (l4_twin.pl)
 Date: 2026-10-26
 Source licence: Apache-2.0, Singapore Management University
 

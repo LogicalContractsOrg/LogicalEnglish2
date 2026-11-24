@@ -1,8 +1,8 @@
 #!/bin/sh
 # The Catala corpus and toolchain for Phase 3c (corpus.pl), without root:
 #   - catala-examples at the commit corpus.pl pins, in .cache/catala-examples;
-#   - the Catala team's own build (the newest published package,
-#     1.2.0+git20260822r08832f46b), unpacked in .cache/deb;
+#   - the Catala team's own nightly build (a pre-release; the twins were
+#     built with 1.2.0+git20260822r08832f46b), unpacked in .cache/deb;
 #   - OCaml 5.3 with zarith and findlib, and ninja, from Debian's packages,
 #     unpacked in ~/ocamlroot (Catala compiles a module's external functions
 #     to OCaml), with zig as the C compiler and assembler (the zig of

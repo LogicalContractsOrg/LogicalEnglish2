@@ -1606,7 +1606,7 @@ product_migration(ProductDir, OracleFile, Options, migration(Meta, program(Heade
     product_words(Name, KB),
     get_time(Now), format_time(atom(Date), '%Y-%m-%d', Now),
     licence_note(Licence),
-    format(string(C1), "~w: a Logical English twin of the Socotra product library's \"~w\" product,~ntranslated by the Socotra translator (~w).~nSource licence: ~w", [KB, Name, Date, Licence]),
+    format(string(C1), "~w: a Logical English twin of the Socotra product library's \"~w\" product,~ntranslated by the Logical English translator for Socotra (~w).~nSource licence: ~w", [KB, Name, Date, Licence]),
     (   g_template(year_of, _, _)
     ->  Header = [kb(KB), comment(C1), includes([temporal])]
     ;   Header = [kb(KB), comment(C1)]
@@ -1617,7 +1617,7 @@ product_migration(ProductDir, OracleFile, Options, migration(Meta, program(Heade
             translator('LE2 migration/socotra/socotra_reader.pl'), date(Date), licence(Licence)],
     findall(E, g_ledger(E), Ledger).
 
-licence_note("socotra/product-library carries no licence file; this twin is a derived work kept in the private InsurLE repository, and publication awaits confirmation of the licence").
+licence_note("socotra/product-library carries no licence file; this twin is a derived work, kept private and not published").
 
 header_cell(C, A) :- ( string(C) -> atom_string(A0, C) ; A0 = C ), normalize_space(atom(A), A0).
 

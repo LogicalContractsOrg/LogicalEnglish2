@@ -4,9 +4,10 @@
     for LPS program's LPS reading (le_lps:le_lps_module/5) written as a Daml
     module with a Daml Script, ready for `dpm build` and a Canton sandbox.
 
-      - the whole state is ONE contract, `State` (Daml 3 has no contract
-        keys: a fluent cannot be looked up by its values, so the fluents
-        are lists of records in one contract); an operator party is its
+      - the whole state is ONE contract, `State` (no contract keys are
+        used — Daml 3 had none before Canton 3.5, whose keys are not unique
+        and need Daml-LF 2.3: a fluent cannot be looked up by its values, so
+        the fluents are lists of records in one contract); an operator party is its
         signatory, every party of the program an observer;
       - each action is a choice of State, its controller the acting party
         (the action's first place) — or the operator when the action's first
@@ -42,7 +43,8 @@
     ReactiveCycle, which the script exercises once per LPS cycle.
 
     What has no straight translation — a reactive rule that reacts to an
-    event (a Daml trigger would be one) or takes a party's action, composite
+    event (a program off the ledger would be one, as Daml 2's triggers, now
+    deprecated, were) or takes a party's action, composite
     events, constraints relating two actions, a place that holds a party and
     elsewhere a list, a predicate left to Prolog with no Daml companion — is
     refused, each with its reason, never dropped silently. Each refusal says
@@ -254,7 +256,7 @@ note(N) :- nb_getval(daml_export_notes, Ns), ( memberchk(N, Ns) -> true ; nb_set
 %   script exercises it once per cycle) when its conditions read the state
 %   and the rules, and it takes actions: one whose conditions are events, or
 %   whose conclusion is not a list of actions, still has no Daml form.
-refusal(reactive_rule(Cs, Ts), "a reactive rule (if ... then the program acts on its own) whose condition is an event, or whose conclusion is not a list of actions: Daml has no agent watching events — a Daml trigger would be one") :-
+refusal(reactive_rule(Cs, Ts), "a reactive rule (if ... then the program acts on its own) whose condition is an event, or whose conclusion is not a list of actions: Daml has no agent watching events — a program off the ledger must do that") :-
     \+ cycle_rule(Cs, Ts).
 refusal(reactive_rule(_, _, _), "a reactive rule (if ... then the program acts on its own) with times of its own: not translated to Daml").
 refusal(d_pre(Cs), "a constraint relating two actions at once: Daml submits one command at a time") :-

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""The oracle of the OIPA twins: an interpreter of OIPA transaction math.
+"""The reference calculator of the OIPA twins (their test oracle): an
+interpreter of OIPA transaction math. It is not Oracle's engine: it was
+written for this repository from Oracle's public XML Configuration Guide.
 
 Phase 2b (the design notes roadmap.md): there is no public
 OIPA, so the expected policy values are computed independently of the

@@ -104,16 +104,23 @@ def main():
         with open(os.path.join(out, 'README.md'), 'w') as r:
             r.write(f"# {title}\n\n")
             r.write(f"{summary}\n\n")
-            r.write(f"The {len(pol_ids)} policies of the Ponens pack `{pack}`, as a program of Logical "
+            #  `ponens-defaults` is this translator's name for the policies of no pack
+            which = (f"the Ponens pack `{pack}`" if meta else
+                     f"Ponens that are in no pack (this translator calls them `{pack}`)")
+            r.write(f"The {len(pol_ids)} policies of {which}, as a program of Logical "
                     f"English for LPS: each policy is a law that records a breach, and each of the "
                     f"{len(specs)} traces under `sources/traces/` is a scenario. Choose a scenario and "
                     f"press **Run**: the breaches are on the timeline, at the step where each policy "
                     f"failed, and the comment above each scenario says what Ponens's own evaluator "
                     f"found on the same trace.\n\n")
             r.write(f"Ledger: {counts.get('encoded', 0)} policies encoded, {counts.get('residue', 0)} kept as residue "
-                    f"(formulas Ponens's own parser cannot read).\n\n")
+                    f"(formulas that Ponens's own parser cannot read, or that the translator does not cover: "
+                    f"the ledger says which).\n\n")
             if meta.get('source'):
-                r.write(f"The pack restates: {meta['source']}\n\n")
+                r.write(f"The source that the pack names: {meta['source']}\n\n")
+            r.write("Under `sources/`, `policies.json` (the pack's policies as one file) and "
+                    "`traces/*.verdicts.json` (the output of `ponens trace check`) were made for this "
+                    "twin. The other files are copies from Ponens without changes.\n\n")
             r.write(f"Written by Logical English's Ponens translator from github.com/imandra-ai/ponens "
                     f"(commit {commit}, MIT licence; `sources/LICENSE`).\n")
         index.append((folder_name(pack), title, len(pol_ids), len(specs), counts))

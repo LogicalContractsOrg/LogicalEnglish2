@@ -5,7 +5,8 @@
 Phase 2f of the design notes `roadmap.md` (§5.8, §8): an XML reader
 over the OASIS LegalRuleML Core 1.0 standard, its twins in Logical English
 with the **deontic pattern library** (`lib/deontic.le` in LE2 core, N4), an
-oracle that is the reasoner LegalRuleML's authors use (SPINdle), and the way
+oracle (SPINdle, the reasoner that the specification acknowledges as the
+engine used for testing LegalRuleML), and the way
 back: **LE → LegalRuleML**, from the LE editor and from the LPS2 IDE.
 
 | File | What it does |
@@ -13,8 +14,8 @@ back: **LE → LegalRuleML**, from the LE editor and from the LPS2 IDE.
 | `lrml_reader.pl` | a document, compact or normalized (the normalized form's wrapper edges dropped first), → `model(Items)`: statements, rules (strength, if/then, paraphrase), atoms, And/Or/Naf/Neg, Obligation/Permission/Prohibition/Right with Bearer, SuborderList, Violation/Compliance/Reparation, penalties, reparations, overrides, sources, associations and contexts, temporal characteristics, alternatives; keyrefs resolved (a rule or atom takes what it does not restate from the one it names); what a statement's associations give it (`statement_props/3`, `statement_strength/3`, `statement_period/4`) |
 | `lrml_twin.pl` | model → migration (`le_migration.pl`): templates, rules, the deontic library, exceptions, provenance, guards, the drafted scenarios' tests (answers from SPINdle), the ledger |
 | `lrml_spindle.pl` | the oracle: the document grounded over a scenario's facts, written in SPINdle's DFL, run, and read back |
-| `oracle/fetch_spindle.sh` | SPINdle 2.2.4 (NICTA, LGPL) into `oracle/spindle/` (gitignored); needs Java |
-| `corpus.pl`, `corpus/oasis/` | the specification's fifteen examples, both serialisations, unmodified (OASIS notice in `corpus/oasis/NOTICE.txt`); the reviewer's wording and the drafted scenarios |
+| `oracle/fetch_spindle.sh` | downloads SPINdle 2.2.4 (copyright 2009-2014 NICTA Ltd.; GNU Lesser General Public License, version 3) from its SourceForge project into `oracle/spindle/` (gitignored: nothing of SPINdle is kept in this repository); needs Java |
+| `corpus.pl`, `corpus/oasis/` | the specification's fifteen examples, both serialisations, unmodified (copyright OASIS Open; the specification's Notices section in full in `corpus/oasis/NOTICE.txt`); the reviewer's wording and the drafted scenarios |
 | `build.pl` | the twins into `LogicalEnglish2/examples/migration/legalruleml/<example>/` |
 | `lrml_export.pl` | LE → LegalRuleML (File ▸ Export to Another System…; Misc ▸ Export in the LPS2 IDE) |
 | `roundtrip.pl` | LE → LegalRuleML → LE over LE2's English example corpus |
@@ -99,22 +100,29 @@ From the LE2 checkout (`/work`), with Java for the oracle:
 
 ## The oracle: SPINdle
 
-LegalRuleML ships no tests, and has no engine: it is a serialisation.
-The reasoner its authors use is SPINdle (Lam & Governatori), a defeasible
-(and modal defeasible) logic prover. `lrml_spindle.pl` grounds the document
+LegalRuleML ships no tests, and its specification includes no engine: it is
+an interchange language. The specification acknowledges SPINdle (Ho-Pun Lam
+and Guido Governatori, NICTA), a defeasible (and modal defeasible) logic
+prover, as the engine used for testing LegalRuleML. SPINdle does not read
+LegalRuleML, so the theory it runs on is this translator's:
+`lrml_spindle.pl` reads the document with the same reader as the twin
+(`lrml_reader.pl`), grounds it
 over a scenario's constants (a base atom of a rule instance must be a fact, so
 the theory stays small), writes it in DFL and reads back what is defeasibly
-proved (+∂). The reading is the standard's: strict / defeasible / defeater
+proved (+∂). The reading follows the specification's prose and its worked
+example of section 29 (`ps2 > ps1`, penalties as obligations); where the
+specification leaves a choice open, the choice is ours, and the twin and the
+theory make the same one: strict / defeasible / defeater
 rules; Obligation(p) = [OBL] p, Prohibition(p) = [OBL] ¬p, Permission(p) =
 [PER] p (OBL and PER declared in conflict), the bearer an argument of the
 deontic literal; violation rules; an Override is superiority between the
 instances that agree on shared variables, and — where the two conclusions do
 not conflict — a defeater of the under rule's applicability; the closed world
 of the case (a fact not stated is false; an atom a rule concludes is false by
-default below its rules). Two SPINdle 2.2.4 quirks it works around: a theory
-of facts alone is refused (a dummy rule is added), and its defeater removal
-conflates literals of one predicate with different arguments (`p(a)`
-defeated `p(b)`), so the theory is written fully ground and propositional
+default below its rules). Two things we observed in SPINdle 2.2.4 shape the
+theory: it did not accept a theory of facts alone (a dummy rule is added),
+and with literals that carry arguments a defeater of `p(a)` also defeated
+`p(b)`, so the theory is written fully ground and propositional
 (`p__c1_c2`).
 
 ## Results (14 September 2026)
@@ -128,7 +136,10 @@ defeated `p(b)`), so the theory is written fully ground and propositional
 | `ex9b_alternatives` | Alternatives: prescriptive vs constitutive reading | 2 | 8/8 | 3/2/6 |
 | `ex1_curies`, `ex2_references`, `ex9_alternatives`, `ex10_mix`, `ex11_maternity_alternatives` | CURIEs, references, alternatives, mixed metadata, the Italian maternity-benefit alternatives | — | (structure only: schematic relations, or a function the document does not define) | |
 
-68 of 68 expectations reproduce SPINdle's answers. ex4, ex6 and ex7 hold
+68 of 68 expectations, in the seven twins that have scenarios, reproduce
+SPINdle's answers. The section 29 example has the penalties of the Act as
+made in 2009 (civil penalty 2,000 penalty units; criminal penalty 200 penalty
+units, or 2 years imprisonment, or both), which the Act no longer has. ex4, ex6 and ex7 hold
 metadata only and are read, not translated; both serialisations of all
 fifteen read to the same model.
 
@@ -162,10 +173,11 @@ stays a note.
 
 ## What the specification's examples taught
 
-The examples are demonstrations of syntax, not of law, and several do not
-hold together: ex12's Contexts name rule keys (`rule2`, `rule1-tblock1`) the
+The examples illustrate the elements of the standard; they are not complete
+models of the laws they cite, and some of their references resolve to
+nothing: ex12's Contexts name rule keys (`rule2`, `rule1-tblock1`) the
 document does not define, so its temporal characteristics and strengths apply
-to nothing, and its third block's overrides name `rule3-tblock3` while the
+to nothing, and its third block's override names `rule2-tblock3` while the
 rule is keyed `rule2-tblock23`; ex12 also misspells `claimStatutoryDamanges`
 in two of its three blocks (the reviewer keeps it a relation of its own, and
 the scenarios state both); ex3 violates `ps0`, which does not exist; ex5
@@ -191,11 +203,15 @@ a bare Naf would read "for some") are declared by an `Exists` inside the
 cascade, which LE compiles to `A or (not A and B)`, is exported faithfully as
 `Or`/`Naf` with its guards so scoped; provenance becomes LegalSources and
 Associations; each scenario a `scenario-<name>` Statements block of facts.
-Queries and expected answers are not LegalRuleML's: a note says so. From the
+Queries and expected answers are not LegalRuleML's: a note says so. The
+exported documents are checked by reading them back (`roundtrip.pl`); they
+are not validated against the standard's RelaxNG or XSD schemas, which this
+repository does not hold. From the
 LPS2 IDE, an LE for LPS program is written as norms — a reactive rule an
 obligation of the one who acts, a constraint on an action a prohibition, a
 causal law a constitutive rule from the event to its effect — with a note
-that time does not carry over. An LE for LPS program's IR holds only its
+that the time of events does not carry over (LegalRuleML's temporal
+characteristics say when a norm is in force, not when something happens). An LE for LPS program's IR holds only its
 templates, so `applies_lrml/1` asks its LPS reading instead: both IDEs' export
 menus (`le_import:export_formats/2`, which the LPS2 IDE reaches through its
 `export_formats` operation) offer LegalRuleML when that reading has anything

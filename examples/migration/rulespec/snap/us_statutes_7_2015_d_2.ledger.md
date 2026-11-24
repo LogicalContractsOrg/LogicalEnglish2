@@ -1,7 +1,7 @@
 # Migration ledger: us_statutes_7_2015_d_2
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2015/d/2/A.yaml, sources/us/statutes/7/2015/d/2/B.yaml, sources/us/statutes/7/2015/e.yaml, sources/us/statutes/7/2015/d/2/C.yaml, sources/us/statutes/7/2015/d/2/D.yaml, sources/us/statutes/7/2015/d/2/E.yaml, sources/us/statutes/7/2015/d/2/F.yaml, sources/us/statutes/7/2015/d/2.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

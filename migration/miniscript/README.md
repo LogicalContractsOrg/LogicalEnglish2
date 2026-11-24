@@ -17,13 +17,13 @@ lives in LE2.
 | `ms_twin.pl` | policy → Migration IR, source tests, flip tests, view and ledger; `build_twin/3` writes a twin directory |
 | `policies.pl`, `core_wallet_policies.pl` | the twelve real policies, their key legends and citations |
 | `sources/` | the cited text excerpts (copied beside each twin, so quotations are checked) |
-| `build.pl` | builds the twins into `LogicalEnglish2/examples/migration/miniscript/<id>/` |
+| `build.pl` | builds the twins into this repository's `examples/migration/miniscript/<id>/` |
 | `ms_import.pl` | the File ▸ Open adapter (LE2's `le_import.pl` registry, `migration/le_importers.pl`): a file of policies → twins |
 | `ms_export.pl` | the way back, File ▸ Export (LE2's `exporter/6` registry): an LE program in the twins' vocabulary → the policy, sipa's Miniscript, the descriptor (when the program states the keys) and a Minsc link |
-| `ms_chain.pl`, `chain/ms_chain.cjs` | the twin on a real chain — Rewind Bitcoin's public **Tape** network, or a private regtest `bitcoind` — and in **Minsc**; sipa's policy compiler (`@bitcoinerlab/miniscript-policies`) |
+| `ms_chain.pl`, `chain/ms_chain.cjs` | the twin on a real chain — RewindBitcoin's **Tape** test chain, or a private regtest `bitcoind` — and in **Minsc**; sipa's policy compiler (`@bitcoinerlab/miniscript-policies`) |
 | `chain.pl` | runs every twin's spending attempts on a chain and records them (`chain/runs/<id>.tape.json`) |
 | `chain/check_minsc.cjs` | opens every twin's Minsc link in a headless browser and reports what Minsc compiles |
-| `sources/originals/` | the pages and files the cited excerpts come from, whole (sipa's page as saved HTML; Bitcoin Core's and Liana's files with their licences) |
+| `sources/originals/` | the files the cited excerpts come from, whole: Bitcoin Core's and Liana's files with their licences. The Miniscript page states no licence, so the page is not copied — see [Sources and licences](#sources-and-licences) |
 | `fetch_bitcoind.sh` | Bitcoin Core for the private regtest backend, into `.cache/` |
 | `test_miniscript.pl` | plunit: parser, lifting, semantics, an end-to-end twin, LE–policy agreement on every attempt, the File ▸ Open adapter, the export round trip, the re-import of every twin's `.policy` original, the chain scenarios |
 
@@ -54,9 +54,10 @@ chain runs need the network:
 ./myswipl.sh -q migration/miniscript/chain.pl                  # every twin, on Tape
 NETWORK=regtest ./myswipl.sh -q migration/miniscript/chain.pl -- cosigning_service
 (cd migration/miniscript/chain && npm run check-minsc)         # every Minsc link
-``` The twins also run in LE2's
-`testing/run_tests.sh le --with-extensions` through the `insureLE2` link; the
-twelve load and run in about five seconds.
+```
+
+The twins also run in LE2's core example suite (`testing/run_tests.sh le`);
+the twelve load and run in about five seconds.
 
 ## Reading the source in a twin
 
@@ -117,13 +118,13 @@ ms_import:detect_miniscript(+File).
 ## The originals, and the way back (File ▸ Export)
 
 Every twin keeps what it was translated from beside it (LE2's `sources/`
-convention, File ▸ Show the Original): the cited excerpt, the page or files
-it comes from whole (`sources/originals/`: sipa's page as saved HTML,
+convention, File ▸ Show the Original): the cited excerpt, the files it
+comes from whole (`sources/originals/`:
 Bitcoin Core's `descriptors.md`, `miniscript_tests.cpp`,
 `wallet_miniscript.py` with `COPYING` (MIT), Liana's `README.md` and
 `RECOVER.md` with `LICENCE` (BSD-3)), and **`<id>.policy`**, the policy in
-the format File ▸ Open reads. `sources/extract_sipa.py` re-extracts the
-excerpt from the saved page byte for byte.
+the format File ▸ Open reads. For the Miniscript page, which states no
+licence, only the quoted example policies are kept, not the page.
 
 The twin states what a descriptor needs, so the program is complete
 without its sources: `the public key of the primary key is "[a5c6b76e/…]tpub…"`
@@ -144,7 +145,8 @@ refuses the export, each with its line, rather than being dropped: the check
 runs before anything is written (`check_miniscript/3`, le_import's
 `export_check`).
 The program need not be a twin: any program in this vocabulary exports, so
-a spending policy can be *written* in Logical English and deployed.
+a spending policy can be *written* in Logical English and exported as a
+policy, to be checked like any other policy before a coin is sent to it.
 
 Two tests close the loop on all twelve twins: exporting the twin gives back
 the source's policy (the same spending paths, keys and hashes by role,
@@ -165,12 +167,14 @@ spendpath"* — two preimages spend it with no signature, which is a verdict
 on the policy (Bitcoin Core's test vector is deliberately so), not on the
 link.
 
-**The Tape network** (Rewind Bitcoin's public test chain,
-<https://tape.rewindbitcoin.com>: a regtest chain run in the open, with a
-faucet anyone may call, an Esplora API and an explorer; blocks every ten
-minutes) is where the twins are *run*. Public signet and testnet faucets
-all want a login or a captcha; Tape's does not, and it runs Bitcoin Core's
-own consensus and mempool rules. `chain.pl` takes each twin's satisfaction
+**The Tape network** (RewindBitcoin's test chain,
+<https://tape.rewindbitcoin.com>, which its operator runs on one node and
+opens to the public: regtest addresses, a faucet, an Esplora API and an
+explorer; a block about every ten minutes during the run) is where the twins
+are *run*. The public signet and testnet faucets tried in September 2026
+wanted a login or a captcha; Tape's did not. Tape's page does not name its
+node software: the refusals in the record are Bitcoin Core's
+(`sendrawtransaction RPC error -26: non-BIP68-final`). `chain.pl` takes each twin's satisfaction
 analysis — for each spending path, all it needs, then each signature or
 preimage left out, and nothing at all — as the material a spender has, and
 `chain/ms_chain.cjs` does what a wallet does: it asks the Miniscript
@@ -183,7 +187,9 @@ part left out (an empty signature, a wrong preimage), so the chain still
 judges a transaction. One faucet coin per twin; each accepted spend pays
 back to the policy, and the next attempt spends that.
 
-`build.pl` writes each run into its twin as **chain-confirmed scenarios**
+`build.pl` writes each run into its twin as **chain scenarios** (the code
+and older notes call them *chain-confirmed*: the chain's verdict, accepted or
+refused, confirms the twin's answer — not a transaction confirmed in a block)
 (`chain_revocation`, `chain_family_2_without_1`, …, named after the rule
 the path satisfies, as the satisfaction scenarios are — a run recorded
 before 16 September 2026 numbered its attempts `path_<i>` in the analysis's
@@ -197,8 +203,14 @@ record is the document (`sources/<id>.chain.json`), its explorer page the
 address.
 
 *Results (14 September 2026):* 90 attempts on eleven twins, 16 accepted and
-74 refused — by script failure (a missing signature: *Script failed an
-OP_CHECKSIGVERIFY operation*, *Signature must be zero for failed CHECK*; a
+74 refused. *Accepted* is the node taking the transaction into its mempool:
+the run does not wait for a block, and every coin was still unconfirmed when
+it was spent, so a scenario's block of the coin and of the spend is the
+chain's next block. The 16 accepted spends are all of paths without a lock
+(`nLockTime` 0, an `nSequence` that sets no relative lock): on Tape every path with `older` or
+`after` is checked by its refusal only (the private regtest below accepts
+the `older` paths). The refusals are by script failure (a missing
+signature: *Script failed an OP_CHECKSIGVERIFY operation*, *Signature must be zero for failed CHECK*; a
 wrong preimage: *OP_EQUALVERIFY*), by BIP 68 (*non-BIP68-final*: the coin
 too young for `older`) or by BIP 65/113 (*non-final*: a lock time not yet
 past). **Every verdict agrees with its twin** (all 361 expectations of the
@@ -294,7 +306,7 @@ the block heights).
 | `liquid_federation` | Bitcoin Core wallet test (time-based `older`) | 8 | 4 | 21 | 2 | 21/21 | 20/1/0 |
 | `revault_unvault` | Bitcoin Core wallet test (`andor`, `multi`, `after`) | 10 | 2 | 16 | 2 | 16/16 | 20/1/0 |
 
-On 14 September 2026 the twins gained the chain-confirmed scenarios of the
+On 14 September 2026 the twins gained the chain scenarios of the
 Tape run (above): 361 of 361 expectations pass — the 271 of the analysis
 (unchanged by the finality condition) and 90 chain verdicts (core_2of3 7,
 liana_recovery 3, liana_inheritance 9, cosigning_service 4, decaying 8,
@@ -316,12 +328,14 @@ changes nothing.
 ## Sources and licences
 
 - Pieter Wuille, Andrew Poelstra, Sanket Kanjalkar, *Miniscript*,
-  <https://bitcoin.sipa.be/miniscript/> — the policy examples; the excerpt
-  in `sources/sipa_miniscript.txt` is the page's Introduction and policy
-  compiler sections as plain text, one paragraph or list item per line (the
-  inline code the first scrape broke across lines joined back), with each
-  demo link written as its title followed by the policy it loads.
-  `sources/extract_sipa.py` re-extracts it from the saved page.
+  <https://bitcoin.sipa.be/miniscript/> — the policy examples. The page and
+  its repository (<https://github.com/sipa/miniscript>) state no licence for
+  the page's text (checked 24 November 2026). So the page is not copied
+  here. `sources/sipa_miniscript.txt` quotes, with attribution, only the
+  page's example policies: the title of each example link, followed by the
+  policy that the link loads. The authors of the page keep all rights.
+  `sources/extract_sipa.py` writes that file from a copy of the page that
+  you save yourself (into `.cache/`, which git ignores).
 - BIP 379, *Miniscript* <https://github.com/bitcoin/bips/blob/master/bip-0379.md>
   — the semantics the lifting follows.
 - Bitcoin Core (MIT): `doc/descriptors.md`, `src/test/miniscript_tests.cpp`,
@@ -336,8 +350,9 @@ changes nothing.
   (after 1 year)"); the policy, and the conversion of 1 year and 15 months at
   144 blocks a day, are ours — the four elements concerned are `approximated`
   in its ledger, each path citing its own line of the README. The fifteen
-  months were first written `older(65664)`, which the Miniscript expert's
-  review (a review that is not published) caught: BIP 68 reads only the low
+  months were first written `older(65664)`, which a role-play review caught
+  (an AI agent reading as a Miniscript expert; the review is not published,
+  and no Miniscript developer took part): BIP 68 reads only the low
   16 bits of a relative lock, so consensus reads 65664 as 128 blocks, and the
   longest relative lock is 65535 blocks (about 455 days — one day short of the
   README's 1 year and 3 months). The policy is now `older(65535)`, run again on

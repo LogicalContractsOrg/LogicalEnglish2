@@ -3,9 +3,9 @@
 *Copyright Miguel Calejo · Apache License 2.0 · published "as is": the tests pass on the versions named below, and there is no promise to follow later versions of the other system. The translators' overview is [`../README.md`](../README.md).*
 
 The translator of the design notes roadmap.md §5.7 / §8 Phase 2d: Epilog
-programs (Stanford's Dynamic Logic Programming language, Genesereth; the
-language of the Epilog site, http://epilog.stanford.edu, and of its
-interpreter EpilogJS) as Logical English. It is deterministic: the same
+programs (the Stanford language based on Michael Genesereth's Dynamic Logic
+Programming; the language of the Epilog site, http://epilog.stanford.edu, and
+of its interpreter EpilogJS) as Logical English. It is deterministic: the same
 Epilog text always gives the same twin, and no twin is edited by hand.
 
 Epilog separates **data** (facts), **view definitions** (`h :- b1 & ~b2`,
@@ -36,8 +36,8 @@ its outcome, and how to check a new Epilog program.
 No grammar of Epilog was used: the site publishes none. Its Vocabulary page
 lists the predefined relations and functions, and a few operators (`:-` as
 `rule(…)`, `==>` as `transition(…)`, `:=` as `definition(…)`), and refers to
-the course book (*Logic Programming*, Genesereth and Chaudhri) for the
-syntax. The reader was written from three things:
+the course book (*Introduction to Logic Programming*, Genesereth and
+Chaudhri) for the syntax. The reader was written from three things:
 
 1. **The Epilog texts themselves**: the rule sheets, data sheets, worksheet
    programs and game libraries of the site (113 texts in October 2026).
@@ -169,7 +169,8 @@ state`) and, for the reader's agreement with EpilogJS, `.cache/epilog.js`
   libraries): public. Stanford confirmed in October 2026 that everything on
   the Epilog site is public except EpilogJS. The twins keep them under
   `sources/`, in the public LE2 and LPS2 repositories.
-- **EpilogJS** (`javascript/epilog.js`): for academic use. Its header:
+- **EpilogJS** (`javascript/epilog.js`): for nonprofit research
+  institutions, for non-profit purposes. Its header:
   "Copyright (c) 2020 The Board of Trustees of the Leland Stanford Junior
   University. All nonprofit research institutions may use this Software for
   any non-profit purpose ... This Software may not be redistributed. It may
@@ -178,9 +179,9 @@ state`) and, for the reader's agreement with EpilogJS, `.cache/epilog.js`
   repositories or in File ▸ Open depends on it: the Prolog reader
   (`epilog_syntax.pl`) reads Epilog, and EpilogJS is used only as the oracle
   when building, testing and validating. A commercial product must not ship
-  or run it; a licence holder who validates new programs (`validate.pl`)
-  fetches it and complies with its licence, or obtains a commercial licence
-  from Stanford.
+  or run it; whoever validates new programs (`validate.pl`) fetches it and
+  complies with its licence, or asks Stanford's Office of Technology
+  Licensing first.
 - EpilogJS's recorded runs (`<name>.epilog.json`) are our outputs.
 
 ## Results

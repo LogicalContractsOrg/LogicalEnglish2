@@ -650,7 +650,7 @@ load_importer(File) :-
 %       %   such as `mode`); Reply: {result: <dict>, fileName, notes}
 %
 %   The first is RUML's: a rulemap and the values of a case in, a
-%   `.ruml-result` out (docs/migration/ruml.md §7 in lpsPlus).
+%   `.ruml-result` out (migration/ruml/README.md; docs/user/integrations/ruml.md).
 
 %!  evaluate_formats(-Formats:list(dict)) is det.
 evaluate_formats(Formats) :-

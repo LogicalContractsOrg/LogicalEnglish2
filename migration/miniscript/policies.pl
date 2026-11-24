@@ -46,6 +46,7 @@ twin(liana_inheritance, [
     legend([manager-'the wallet manager', spouse-'the spouse', first_child-'the elder child',
             second_child-'the younger child', third_party-'the third party']),
     paths([manager, family, third_party]),
+    reading(ours),
     quotes([manager-"Wallet Manager's key (can always spend)",
             family-"Any 2 keys from the owner's spouse and two kids (after 1 year)",
             third_party-"A third party, in case [all else failed](https://wizardsardine.com/liana/plans#section-safety-net)"]),

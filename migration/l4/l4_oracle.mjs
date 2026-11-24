@@ -12,6 +12,13 @@
 // The evaluator reads one file: an IMPORT of a library it ships (prelude,
 // daydate, math, …) works; an IMPORT of another file of the corpus does
 // not (the WebAssembly build has no store of the project's files).
+//
+// The function load() below (the WASI stubs and the instantiation) is adapted
+// from ts-apps/jl4-web/scripts/test-wasm-integration.mjs of L4
+// (github.com/smucclaw/l4-ide at commit 5e082cf), Copyright 2025 Singapore
+// Management University, licensed under the Apache License, Version 2.0
+// (http://www.apache.org/licenses/LICENSE-2.0); it was shortened, and its
+// console messages were removed. The rest of this file is new.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'

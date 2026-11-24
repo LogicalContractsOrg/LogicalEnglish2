@@ -2,10 +2,11 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-11-24)*
 
-RUML (the Rulemapping Logic Format) is a file format for the decision logic
-of laws. The Law as Code Institut of Berlin published version 1.0.0 on 15
-November 2026. A RUML file is a JSON file. JSON is a common text format for
-structured data. The file holds a **rulemap**: a tree of questions that
+RUML (the Rulemapping Logic Format) is an open file format for the decision
+logic of laws. The company Law as Code Institut GmbH, of Berlin, published
+version 1.0.0 on 15 November 2026. The company Rulemapping Group GmbH holds
+the rights to the specification. A RUML file is a JSON file. JSON is a
+common text format for structured data. The file holds a **rulemap**: a tree of questions that
 each have the answer yes or no. Each question is a **node**. The top node is
 the **root**. A node can have **children**, and an **operator** tells how
 the answers of the children give the answer of the node. A node without
@@ -26,6 +27,12 @@ English has the translator. On the hosted service, sign in to use the
 translator. The translator is free for each visitor who signed in. Every
 installation also has the twins of the examples of the RUML specification and
 of the fixtures of its conformance tests.
+
+RUML is a trademark of Rulemapping Group GmbH. The translator is an
+independent work. Rulemapping Group GmbH and Law as Code Institut GmbH did
+not make the translator, and they did not examine it. The translator does
+not claim conformance with the specification: refer to
+[What is not supported yet](#what-is-not-supported-yet).
 
 ## Contents
 
@@ -80,9 +87,9 @@ scenario one is:
 |---|---|
 | Reads | `.ruml` (a rulemap), `.ruml-ext` (a file of additions to a rulemap), `.rumlc` (a zip archive with a rulemap, its additions and its texts), and a zip archive of these |
 | Writes | `.ruml` (File ▸ Export), `.ruml-result` (the operation `evaluateForeign`) |
-| Checked against | the 90 validation tests and the 103 evaluation tests of RUML; an evaluator written from the specification; a second, independent evaluator |
-| Results | The 90 validation tests: 90 pass. The twins: 3,508 of 3,508 expected answers, in 80 rulemaps. The evaluator: 103 of 103 evaluation tests, in both modes, and each result file is valid. The way back: 80 of 80 twins come back with the same results (1,575 of 1,575 node results, in 473 cases) |
-| Twins | `examples/migration/ruml/spec/` (the examples of the specification) and `examples/migration/ruml/tests/` (the fixtures of the tests). Licence: Apache-2.0, Rulemapping Group GmbH |
+| Checked against | the 90 validation tests and the 103 evaluation tests of RUML; an evaluator that the authors of the translator wrote from the specification (the two libraries of the publisher of RUML read a rulemap, and they do not evaluate it); a second evaluator, which is an experiment of a different author |
+| Results | The 90 validation tests: 90 pass, with the published JSON Schemas of RUML and the checks of the reader together. The twins: 3,508 of 3,508 expected answers, in 80 rulemaps. The 48 evaluation tests of RUML in the `complete` mode give 384 of these answers. The evaluator of the authors of the translator gives the others, for cases that the translator makes. The evaluator: 103 of 103 evaluation tests (55 in the `optimized` mode and 48 in the `complete` mode), and each result file is valid. The second evaluator agrees in 527 of 562 evaluations. The way back: 80 of 80 twins come back with the same results (1,575 of 1,575 node results, in 473 cases) |
+| Twins | `examples/migration/ruml/spec/` (the examples of the specification) and `examples/migration/ruml/tests/` (the fixtures of the tests). The originals are copies without changes, in the `sources/` folder of each twin. Licence of the originals: Apache-2.0, copyright 2026 Rulemapping Group GmbH |
 
 ## How to use it
 
@@ -100,8 +107,9 @@ To open a rulemap:
 6. Select **File ▸ Show the Original…** to see the rulemap and its texts.
 
 The scenarios of an opened twin are cases that the translator makes from the
-values that the expressions compare. An evaluator that was written from the
-RUML specification gives their expected answers. This evaluator needs
+values that the expressions compare. An evaluator that the authors of the
+translator wrote from the RUML specification gives their expected answers.
+These answers are not answers of the publisher of RUML. This evaluator needs
 Node.js on the server. Without Node.js, the twin has no scenarios.
 
 When the rulemap was written by Logical English (File ▸ Export), the twin
@@ -118,7 +126,7 @@ also keeps the program that it was written from, under `sources/`.
 | DELEGATED, with `ruml:expression` | The expression as conditions. A count of the children that are true is a count of the sentences `child *a number* of <label> counts for *a case*` |
 | A leaf with `ruml:query` | A rule. Its conditions are the expression |
 | A leaf with no question | A person answers it. The answer is a fact of the case: `the answer to <label> for case 1 is true` (or `false`). Without an answer, the leaf is undefined, as in RUML |
-| A leaf with `ruml:ai-query` | A judged sentence: a person decides it. The answer says *(judgment needed)* |
+| A leaf with `ruml:ai-query` (in RUML, an AI model decides the leaf) | A judged sentence. LE does not ask an AI model: a person decides the sentence. The answer says *(judgment needed)* |
 | A data point | A sentence that only scenarios state: `the <name> of *a case* is *a number*` |
 | A set (a group of data points, for example a person) | A relation between the case and each member: `*a case* has guarantor *a person*`, and a sentence for each field of the member |
 | A computed data point | A rule that calculates the value |
@@ -213,6 +221,14 @@ number: `"leaves": {"5": "true", "6": "false"}`. Appendix A of the
 specification gives such statuses to leaves too. When the rulemap asks for an
 evaluation protocol (`ruml:protocol`), the result holds it.
 
+The evaluator passes the 103 evaluation tests of RUML 1.0.0. These tests
+examine the operators (chapter 3.6 of the specification). They do not examine
+all of RUML. Chapter 1.4 of the specification tells what a conformant
+evaluator must do. This evaluator does not do all of it, and it does not claim
+conformance. For example, when a leaf uses a JSONata function that the
+translator does not translate, the evaluator gives `undefined` for the leaf.
+Refer to [What is not supported yet](#what-is-not-supported-yet).
+
 ## The way back: from Logical English to RUML
 
 **File ▸ Export to Another System… ▸ RUML** writes the program as one
@@ -242,8 +258,9 @@ the data points and the expressions of the original. A node that the twin
 could not translate (for example an expression with `$random`, or an include
 of a different rulemap) is written back as the original has it.
 
-The export refuses a program that RUML cannot say. Nothing is written, and
-each problem links to its line. RUML cannot say:
+The export refuses a program that it cannot write as one rulemap. Nothing is
+written, and each problem links to its line. These are limits of the export.
+They are not always limits of RUML. The export does not write:
 
 - a relation between two or more things, for example `*a person* is a parent
   of *a person*`;
@@ -265,14 +282,21 @@ each problem links to its line. RUML cannot say:
   others) are not translated yet. A leaf that uses them is residue: it is
   marked in the twin, and the ledger tells why.
 - `decisionMode` `agreement` and `majority` are residue.
-- Two examples of the specification require a capability of a different
-  organisation (`com.example/...`). The specification says that a tool that
-  does not know such a capability must refuse the file. The translator
-  refuses it.
+- **File ▸ Open…** does the checks of the reader only. It does not use the
+  JSON Schemas of RUML. Thus it can open a file that only a schema rejects.
+- The reader does not examine the signature of a container (`.rumlc`): it
+  tells you that the signature was not examined. It does not examine the
+  hash values that the list of files of a container gives. It refuses an
+  encrypted container.
+- Three examples of the specification require a capability with an example
+  name of a different organisation (`com.example/...`). The specification
+  says that a tool that does not know such a capability must refuse the
+  file. The translator refuses it.
 
 ## See also
 
-- [DMN and Logical English](dmn.md): the other standard of decision logic.
+- [DMN and Logical English](dmn.md): a standard for decision logic, of the
+  Object Management Group.
 - [The Migration Gallery](gallery.md): all the systems that Logical English
   reads.
 - [Adapters](adapters.md): the LE server answers the applications of a

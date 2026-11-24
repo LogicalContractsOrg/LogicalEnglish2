@@ -99,7 +99,7 @@ import_ponens(Input, OutDir0, _Options, imported(LEFile, Notes)) :-
     setup_call_cleanup(open(LEFile, write, Out, [encoding(utf8)]), write(Out, Text), close(Out)),
     include([E]>>(get_dict(verdict, E, residue)), Ledger, Res), length(Res, NR),
     length(Policies, NP),
-    format(string(N1), "~w Ponens policies, each a law that records a breach; ~w kept as residue (formulas Ponens's own parser cannot read).", [NP, NR]),
+    format(string(N1), "~w Ponens policies, each a law that records a breach; ~w kept as residue (formulas that Ponens's own parser cannot read, or that this translator does not cover: the comment at each formula says which).", [NP, NR]),
     Notes = [N1, TNote].
 
 		 /*******************************

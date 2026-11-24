@@ -1,7 +1,7 @@
 # Migration ledger: ex8b_defeasible
 
 Source: a LegalRuleML document (OASIS LegalRuleML Core 1.0) — ex8b-defeasible-normal.lrml
-Translator: lpsPlus/migration/legalruleml (lrml_twin.pl)
+Translator: LE2 migration/legalruleml (lrml_twin.pl)
 Date: 2026-09-23
 
 ## Summary

@@ -31,12 +31,15 @@ when asked for by name: several need a download, another system's engine or
 LPS2 beside this checkout, and skip what they cannot check.
 
 The twins they write live with the language they are written in: timeless LE
-twins in this repository's `examples/migration/<source>/` (Blawx, LegalRuleML,
-Miniscript, OIPA, s(CASP)), LE-for-LPS twins in `lps2/examples/migration/<source>/`
-(Daml, Drools, Solidity). The twins of sources that may not be republished
-(Oracle Intelligent Advisor's samples, Socotra, OpenFisca and PolicyEngine,
-which are AGPL-3.0, ISDA's DRR for Rune, the Dutch bruidsschat DMN files,
-the spreadsheets of publishers that state no licence) are
+twins in this repository's `examples/migration/<source>/` (Blawx, Catala, DMN,
+the Epilog rulesets, the rules of L4, LegalRuleML, Miniscript, OIPA, RuleSpec,
+RUML, s(CASP), one spreadsheet), LE-for-LPS twins in
+`lps2/examples/migration/<source>/` (Daml, Drools, Ponens, Solidity, the
+contracts of L4, the Epilog games). The twins of sources that may not be
+republished here (the Oracle Intelligent Advisor projects that state no
+licence, Socotra, ISDA's DRR for Rune, the Dutch bruidsschat DMN files, the
+spreadsheets of publishers that state no licence; and OpenFisca and
+PolicyEngine, whose AGPL-3.0 would apply to the twins) are
 never written into either: they go to a private place, `$LE_PRIVATE_TWINS_DIR`
 or, without one, `build/private/` inside LE2 (`twins_dir/2` and
 `private_root/1` of `migration/le2_paths.pl` say which).

@@ -1,7 +1,7 @@
 # Migration ledger: decaying_multisig
 
 Source: A 3-of-3 multisig that turns into a 2-of-3 after 90 days — https://bitcoin.sipa.be/miniscript/
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

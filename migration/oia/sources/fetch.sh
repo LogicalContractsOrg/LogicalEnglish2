@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Fetch the public Oracle Intelligent Advisor (Oracle Policy Automation)
 # projects the OIA reader is developed and tested on, into sources/.cache/.
-# None of the repositories states a licence: the full projects stay in this
-# local cache; each twin (kept in the private InsurLE repository, not
-# redistributed) has a copy of its project's text files beside it, in
+# Most of the repositories state no licence (Oracle's ia-tools-samples is
+# under the Universal Permissive License 1.0, two of the Ministry of Justice's
+# under the MIT licence): the full projects stay in this local cache; each
+# twin (written to the private place, le2_paths:private_root/1, and not
+# published) has a copy of its project's text files beside it, in
 # sources/project/, for the editors' Show the Original. Re-run to refresh.
 set -euo pipefail
 cd "$(dirname "$0")"

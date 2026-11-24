@@ -1,16 +1,20 @@
 # Catala and Logical English
 
-*Kind: integration guide · Audience: users · Status: current (2026-10-06)*
+*Kind: integration guide · Audience: users · Status: current (2026-11-24)*
 
-**Catala** is a programming language for laws. Inria made Catala. Inria is the French
-national research institute for computer science. A Catala program is *literate*.
+**Catala** is a programming language for laws. Inria develops Catala. Inria is the
+French national research institute for computer science. Catala is open source, with
+the Apache 2.0 licence. A Catala program is *literate*.
 This means that the text of the law and the code that tells its meaning are side by
 side in one file. Each piece of code is below the article that it translates.
 
-Catala has two dialects with the same meaning: English (`.catala_en`) and French
-(`.catala_fr`). The CNAF (Caisse nationale des allocations familiales) is the French
-social security agency for family benefits. In June 2026, the CNAF decided to
-calculate its housing allowance in Catala.
+Catala has dialects with the same meaning. The translator reads two of them: English
+(`.catala_en`) and French (`.catala_fr`). Catala also has a Polish dialect, and the
+translator does not read it.
+
+The CNAF (Caisse nationale des allocations familiales) is the French social security
+agency for family benefits. In June 2026, the CNAF and Inria agreed to develop Catala
+together. The CNAF plans to calculate its housing allowance with Catala.
 
 Logical English (LE) can read a Catala program, and LE can also write one. **File ▸
 Open…** (or **File ▸ Import from Another System…**) reads a `.catala_en` or
@@ -102,12 +106,14 @@ answers. Logical English uses the first answer. Thus the ledger of the program m
 as an approximation each rule where a conflict can occur. The ledger is the record of
 what was translated from what.
 
-The translator compares its reading of each exception with the reading of Catala. The
-comparison found one conflict in the minimum wage example of Catala itself. For
-Mayotte, the amount of the decree of November 2024 starts on 1 January 2024. Thus
-from January to October 2024, two amounts apply. Catala stops in that case. The twin
-does not contain that case, and it gives the reason of Catala. (A twin is the
-translation of a program from a different system.)
+The translator compares its reading of each exception with the reading of Catala.
+When the interpreter of Catala ran the cases of the minimum wage example
+(`smic/Smic.catala_fr` in `catala-examples`), it found one conflict. The decree of 23
+October 2024 applies from 1 November 2024. For Mayotte, the example starts the amount
+of that decree on 1 January 2024. Thus from January to October 2024, two amounts
+apply for Mayotte. Catala stops in that case. The twin does not contain that case,
+and it gives the reason of Catala. (A twin is the translation of a program from a
+different system.)
 
 A *context* variable is a value that the scope calculates when its caller or a test
 does not give one. In the program, a context variable becomes a rule with two parts.
@@ -175,7 +181,16 @@ rounding up or down.
 ## The examples
 
 The examples in `examples/migration/catala` come from the examples of Catala
-(`catala-examples`, Apache-2.0 licence):
+(`catala-examples`, Apache-2.0 licence, commit `e67e424` of 30 June 2026). The Catala
+team and its contributors wrote these examples. The `sources/` folder of each program
+contains the Catala files that the translator read. These files are copies without
+changes. The `sources/` folder does not contain the other files of the Catala
+example.
+
+The expected answers come from the interpreter of a *nightly build* of Catala (22
+August 2026, version `1.2.0+git20260822r08832f46b`). A nightly build is a build that
+the Catala team makes from its newest code. A nightly build is not a release of
+Catala.
 
 | Program | Dialect | Checked |
 |---|---|---|
@@ -184,15 +199,24 @@ The examples in `examples/migration/catala` come from the examples of Catala
 | The monthly base of French family allowances, 2019 to 2024 | French | 6 cases, checked in the same way |
 | United States tax code, section 121 (sale of a principal residence) | English | in full: its 6 tests, for one person and for two persons, pass |
 | French family benefits, eligibility | French | in full: its test, about four children, becomes four scenarios, and all pass |
-| French housing allowance (*aides au logement*, the programme of the CNAF): the rental calculation (`apl_locatif`) | French | in full: its 9 tests, 49 answers, all pass |
+| French housing allowance (*aides au logement*, the largest example of Catala): the rental calculation of the *aide personnalisée au logement* (`apl_locatif`) | French | in full: its 9 tests, 49 answers, all pass |
+| French housing allowance: the allowance for a residence (`apl_foyer`) | French | 14 of 14 answers. 4 more answers wait for a part that is not translated |
+| French housing allowance: the *allocation de logement* for a rented home (`al_locatif`) | French | in full: 5 of 5 answers |
+| French housing allowance: the allowance for the purchase of a home (`apl_accession`) | French | 8 of 8 answers. 8 more answers wait for a part that is not translated |
+| French housing allowance: the two eligibility calculations (`eligibilite_apl`, `eligibilite_al`) and the full calculator (`calculette_globale`) | French | no answers yet. 3 answers wait for parts that are not translated. The tests of the full calculator are not scenarios yet |
+
+The CNAF pays the housing allowance. The Catala program of the housing allowance in
+this table is the example in `catala-examples`.
+
+In total, 129 of 129 answers agree in 9 programs, and 15 more answers wait.
 
 The export writes back to Catala section 132, the minimum wage, the monthly base and
 the family benefits. These programs pass each test on the interpreter of Catala.
 The export does not write back section 121 yet. Its sums over lists of periods have
-no Catala form in the exporter. The export does not write back the housing allowance
-either. Two of its rules are cascades inside cascades, and the exporter cannot read
-these cascades yet. The export does not write back a program that contains residue
-blocks.
+no Catala form in the exporter. The export does not write back the rental calculation
+of the housing allowance either. Two of its rules are cascades inside cascades, and
+the exporter cannot read these cascades yet. The export does not write back a program
+that contains residue blocks.
 
 ## See also
 

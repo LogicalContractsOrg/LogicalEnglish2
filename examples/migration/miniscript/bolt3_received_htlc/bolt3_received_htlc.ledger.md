@@ -1,7 +1,7 @@
 # Migration ledger: bolt3_received_htlc
 
 Source: A Lightning received HTLC (BOLT #3) — https://bitcoin.sipa.be/miniscript/
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

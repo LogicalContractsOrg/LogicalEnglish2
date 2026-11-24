@@ -1,7 +1,7 @@
 # Migration ledger: bolt3_to_local
 
 Source: A Lightning to_local output (BOLT #3) — https://bitcoin.sipa.be/miniscript/
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

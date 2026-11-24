@@ -43,6 +43,9 @@ the **adapter kit** (`le_adapter.pl`), is a part of the open engine. The kit
 reads the mapping files, loads the twins and answers the cases. Each adapter
 adds the addresses and the formats of one system.
 
+The adapters are not products of Oracle, Red Hat, IBM or Camunda. The adapters
+contain no code and no files of those systems.
+
 ## The mapping file
 
 A twin uses its own sentences: `the points of the driver is 2`. A caller uses

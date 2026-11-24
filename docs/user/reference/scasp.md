@@ -10,9 +10,9 @@ are:
   direction through the rules (SLDNF). An interpreter that we wrote in Prolog,
   `reasoner.pl`, controls this engine.
 - An **s(CASP)** engine. s(CASP) is a goal-directed form of Answer Set Programming.
-  This engine also starts from the question. It calculates the complete sets of facts
-  that agree with each other and in which the answer is true. These sets are the
-  stable models. `library(scasp)` gives this engine. Logical English runs the library
+  This engine also starts from the question. It calculates the part of a stable model
+  that the answer needs: facts that agree with each other and that make the answer
+  true. `library(scasp)` gives this engine. Logical English runs the library
   inside its own process. It does not call a separate program.
 
 This document tells how the s(CASP) support operates now. For the reasons for the
@@ -25,7 +25,8 @@ in `editor/`.
 
 > **Why two engines?** Prolog is fast. Prolog calculates totals and counts over many
 > facts. Prolog can do `prolog` goals and large collections of facts. Prolog stays the
-> default. s(CASP) adds four things that Prolog does not do well:
+> default. s(CASP) adds four things that the Prolog engine of Logical English does not
+> do well:
 >
 > - s(CASP) can answer **with a condition instead of a value**, for example *any
 >   amount over 25000*.

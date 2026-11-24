@@ -1,7 +1,7 @@
 # Migration ledger: hash_threshold
 
 Source: Two of a signature, a SHA-256 preimage and a HASH160 preimage — https://github.com/bitcoin/bitcoin/blob/master/src/test/miniscript_tests.cpp
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

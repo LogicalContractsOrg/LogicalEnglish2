@@ -1,7 +1,13 @@
-"""Clean text of the Miniscript page's Introduction and Policy compiler cards.
-Block elements start new lines; inline elements (em, samp, code, a) stay in the
-running text; list items become "- ..." lines; a demo link is written as its
-title followed by the policy it loads."""
+"""The example policies of the Miniscript page, as plain text: the title of
+each demo link of the page, followed by the policy that the link loads.
+
+The page states no licence, so only these short lines are kept in the
+repository, as quotations with attribution; the page itself is not. To run
+this script, save https://bitcoin.sipa.be/miniscript/ and give the file as
+the argument (fetch it into ../.cache/, which git ignores):
+
+    python3 extract_sipa.py ../.cache/sipa_miniscript.html > sipa_miniscript.txt
+"""
 import re, sys
 from html.parser import HTMLParser
 
@@ -69,7 +75,8 @@ for l in x.out:
 text = '\n'.join(lines).strip() + '\n'
 text = text.replace('\nPolicy\nand(pk(A)', '\nPolicy (the input box, pre-filled): and(pk(A)')
 text = text.replace('Fill field with:', 'Example policies (the page\'s demo links: each title, then the policy it loads):')
-hdr = ("Text of https://bitcoin.sipa.be/miniscript/ (Pieter Wuille, Andrew Poelstra, Sanket Kanjalkar), retrieved 2026-09-13:\n"
-       "the Introduction and the \"Policy to Miniscript compiler\" sections, as plain text (one paragraph or list item per line).\n"
-       "Each example link of the page is written as its title followed by the policy it loads (the link's target).\n\n")
-sys.stdout.write(hdr + text)
+keep = text[text.index('Example policies'):]
+hdr = ("Quoted from https://bitcoin.sipa.be/miniscript/ (Pieter Wuille, Andrew Poelstra, Sanket Kanjalkar), retrieved 2026-09-13.\n"
+       "The page states no licence: its authors keep all rights. Only the example policies of the page are quoted here,\n"
+       "each as the title of the page's example link followed by the policy that the link loads.\n\n")
+sys.stdout.write(hdr + keep)

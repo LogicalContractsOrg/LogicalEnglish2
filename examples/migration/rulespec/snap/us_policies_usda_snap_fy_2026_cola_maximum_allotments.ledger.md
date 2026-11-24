@@ -1,7 +1,7 @@
 # Migration ledger: us_policies_usda_snap_fy_2026_cola_maximum_allotments
 
 Source: Axiom RuleSpec — sources/us/policies/usda/snap/fy-2026-cola/maximum-allotments.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

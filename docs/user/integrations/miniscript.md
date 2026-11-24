@@ -22,8 +22,11 @@ English (LE) program. The program has these parts:
 
 **File ▸ Export to Another System…** writes a program that uses the same
 vocabulary back as a policy. You get the Miniscript that the compiler of sipa
-makes from the policy. You also get the descriptor, when the program states the
-keys. You also get a link that opens the policy in the Minsc playground.
+makes from the policy. *sipa* is the name that Pieter Wuille, an author of
+Miniscript, uses on the Internet. The compiler of sipa is the policy compiler
+that the Miniscript page shows. You also get the descriptor, when the program
+states the keys. You also get a link that opens the policy in the Minsc
+playground.
 
 The two translators are open source. The translators are in the folder
 `migration/miniscript/` of Logical English 2. Thus each installation of Logical
@@ -184,16 +187,17 @@ They are in the examples, in `migration/miniscript/`. To open them, select
 | Twin | Source |
 |---|---|
 | `core_2of3_multisig` | the descriptor documentation of Bitcoin Core: a 2-of-3 multisig |
-| `liana_recovery`, `liana_inheritance` | the recovery descriptor of Liana, and the inheritance wallet that its README describes |
+| `liana_recovery`, `liana_inheritance` | the recovery descriptor of Liana, and the inheritance wallet that its README describes in words (the authors of the twin wrote the policy from those words; Liana did not publish that policy) |
 | `cosigning_service`, `decaying_multisig` | the Miniscript page of sipa: a 2FA service; a 3-of-3 that becomes 2-of-3 after 90 days |
 | `bolt3_to_local`, `bolt3_offered_htlc`, `bolt3_received_htlc` | the page of sipa: the Lightning outputs of BOLT #3, with hash locks |
-| `halving_decay`, `hash_threshold`, `liquid_federation`, `revault_unvault` | the test policies of Bitcoin Core: a decaying 4-of-4, a threshold of hashes, a federation with a time-based lock, the unvault output of Revault with `after` |
+| `halving_decay`, `hash_threshold`, `liquid_federation`, `revault_unvault` | the test policies of Bitcoin Core: a decaying 4-of-4, a threshold of hashes, a federation with a time-based lock, a variant of the unvault output of Revault with `after` in the place of `older` |
 
 On a twin, **File ▸ Show the Original…** gives a list of the sources of the
 translation:
 
 - the cited excerpt as plain text;
-- the full page or files that the excerpt comes from (`originals/`);
+- the full files that the excerpt comes from (`originals/`), when the licence of
+  the files lets us copy them;
 - `<id>.policy`, which is the policy in the form that File ▸ Open reads, with
   the compilation of sipa and the Minsc link;
 - `<id>.chain.json`.
@@ -201,10 +205,13 @@ translation:
 LE also *ran* all the twins except `hash_threshold`. LE made each spending
 attempt of the satisfaction analysis of a twin into a real transaction. This
 includes each path, each near miss, and the empty witness. LE sent each
-transaction to a network. The network was **Tape**, the public regtest network
-of Rewind Bitcoin. Tape is a test network with no real money. It runs the
-consensus and mempool rules of Bitcoin Core. The decisions of the node of the
-network are in the twins, as the scenarios with names that start with `chain_…`:
+transaction to a network.
+
+The network was **Tape**, the test chain of RewindBitcoin. RewindBitcoin
+operates Tape on one node, and each person can use Tape. Tape has no real
+money. Tape uses the addresses of *regtest*, the test mode of Bitcoin Core, and
+its node gives the refusal messages of Bitcoin Core. The decisions of the node
+are in the twins, as the scenarios with names that start with `chain_…`:
 
 ```le
 scenario chain_user_and_service_1 is, as stated in the Tape run of 2026-09-14 at the refusal of attempt path_1:
@@ -218,7 +225,12 @@ scenario chain_user_and_service_1 is, as stated in the Tape run of 2026-09-14 at
 An accepted spend cites its transaction. The document `the Tape run of …` has a
 link to the address on the explorer of Tape. In the run of 14 September 2026,
 LE did 90 attempts on eleven twins. The result was 16 accepted spends and 74
-refusals. These were the causes of the refusals:
+refusals.
+
+*Accepted* means that the node took the transaction for its next block. The run
+did not wait for that block. Thus the block numbers in a `chain_…` scenario are
+the number of that next block. The 16 accepted spends used paths that have no
+lock. These were the causes of the refusals:
 
 - missing signatures;
 - incorrect preimages;
@@ -352,8 +364,10 @@ these facts.
   network reads (`N >= 128`). The export gives the policy back as it is
   written. The longest relative lock is 65535 blocks, approximately 455 days.
   Thus you cannot write "one year and three months" in blocks.
-- **Mixed lock types.** Some spending paths need a lock by block height and a
-  lock by time. No transaction can meet such a path. File ▸ Open gives a
+- **Mixed lock types.** Some spending paths need two absolute locks (`after`),
+  one by block height and one by time. Other paths need two relative locks
+  (`older`), one by blocks and one by time. No transaction can meet such a
+  path. File ▸ Open gives a
   warning about such a path (BIP 379 calls it timelock mixing). Apart from
   that warning, the editor does not examine the type system of Miniscript. The
   type system is the rules that tell which fragments can go together.

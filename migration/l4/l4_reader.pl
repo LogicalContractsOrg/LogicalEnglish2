@@ -2,7 +2,9 @@
 
     Step 1 of the design notes l4.md (§6): a reader of L4's text written in
     Prolog, so that it runs wherever LE2 runs. It follows the parser of L4's
-    own implementation (jl4-core/src/L4/Parser.hs, Apache-2.0) construct by
+    own implementation (jl4-core/src/L4/Parser.hs of smucclaw/l4-ide at
+    commit 5e082cf, Copyright 2025 Singapore Management University,
+    Apache-2.0) construct by
     construct, including its use of indentation: a construct's parts must
     start to the right of the column where the construct started, lists of
     things (parameters, fields, branches, events) are one per line at the

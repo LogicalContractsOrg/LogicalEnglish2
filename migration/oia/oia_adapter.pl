@@ -1,12 +1,18 @@
 /** <module> The OIA adapter: Oracle Intelligent Advisor's APIs, answered by LE twins
 
-    A customer moving off Oracle Intelligent Advisor (OIA) has applications
-    that call it: a claims system posting a case to Batch Assess, a portal's
-    JavaScript calling a decision service, a Siebel or Java client built on
-    the SOAP Assess WSDL. This module answers those calls, in OIA's own
-    shapes, from the Logical English twin the OIA translator wrote — so that
-    the migration changes the address the callers use, not the callers
-    (README.md describes it with the translator).
+    An organisation that moves rules from Oracle Intelligent Advisor (OIA)
+    to Logical English has applications that call OIA: a claims system
+    posting a case to Batch Assess, a portal's JavaScript calling a decision
+    service, a Siebel or Java client built on the SOAP Assess WSDL. This
+    module answers those calls, in OIA's own shapes, from the Logical
+    English twin the OIA translator wrote — so that the migration changes
+    the address the callers use, not the callers (the user guides
+    docs/user/integrations/oia.md and adapters.md describe it).
+
+    This module is not an Oracle product. It holds no Oracle code, WSDL or
+    schema: it reads and writes the requests and replies that Oracle
+    documents publicly. It answers the calls listed below and nothing else
+    of OIA.
 
     Routes (registered on LE2's server: classic_web_api.pl loads this file):
 
@@ -38,8 +44,8 @@
     the translator writes beside the twin (oia_ir:oia_adapter_map/3): every
     attribute's public name, type, entity and template. The deployments are
     the twins under examples/migration/oia/ of the private place
-    (le2_paths:private_root/1: Oracle's samples carry no licence that lets
-    their twins be published) and under the
+    (le2_paths:private_root/1: most of the public OIA projects carry no
+    licence that lets their twins be published) and under the
     directories of $OIA_ADAPTER_DIRS (colon-separated: a customer's twins),
     each found by any of its names (`do_i_need_to_file`, `doINeedToFile`,
     "Do I Need to File"), case ignored.
@@ -290,8 +296,8 @@ oia_deployments(Names) :-
     sort(Ps0, Names).
 
 deployment_roots(Roots) :-
-    %  the twins of Oracle's samples are not published: they are in the
-    %  private place (../le2_paths.pl, private_root/1)
+    %  the twins of the public OIA projects are not published: they are in
+    %  the private place (../le2_paths.pl, private_root/1)
     le2_paths:private_root(LP),
     atomic_list_concat([LP, '/examples/migration/oia'], Own),
     (   getenv('OIA_ADAPTER_DIRS', Extra), Extra \== ''
@@ -371,7 +377,7 @@ oia_swagger(Dep, S) :-
     dict_pairs(Paths, _, [PathA-_{post: Op}, BPathA-_{post: BOp}]),
     S = _{swagger: "2.0",
           info: _{title: Map.title, version: "1",
-                  description: "An Oracle Intelligent Advisor decision service, answered by its Logical English twin"},
+                  description: "The decision service of an Oracle Intelligent Advisor project, answered by its Logical English twin. This server is not an Oracle product."},
           basePath: "/determinations-server/v2",
           securityDefinitions: _{bearer: _{type: apiKey, name: "Authorization", in: header}},
           security: [_{bearer: []}],
@@ -407,7 +413,7 @@ oia_page(Request) :-
             Rows),
     reply_html_page(title('OIA adapter'),
         [ h1('The OIA adapter'),
-          p(['Oracle Intelligent Advisor\'s APIs, answered by the Logical English twins of OIA projects. Access: ', Access, '.']),
+          p(['Oracle Intelligent Advisor\'s APIs, answered by the Logical English twins of OIA projects. This server is not an Oracle product. Access: ', Access, '.']),
           table([border(1), cellpadding(4)],
                 [ tr([th('Deployment'), th('Names'), th('Decision service'), th('Batch Assess'), th('SOAP Assess')])
                 | Rows ]),

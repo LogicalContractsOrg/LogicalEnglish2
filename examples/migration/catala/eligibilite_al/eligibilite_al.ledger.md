@@ -1,7 +1,7 @@
 # Migration ledger: cat_eligibilite_al
 
 Source: Catala (catala-examples) — sources/cat/eligibilite_al.yaml
-Translator: lpsPlus migration/catala
+Translator: LE2 migration/catala
 Date: 2026-10-10
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 

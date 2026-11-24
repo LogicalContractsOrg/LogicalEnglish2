@@ -6,7 +6,11 @@
     means here what it means to Ponens's evaluator. Where Ponens's parser
     gives up (a `ParseError`, which makes the policy `RawStructural`, "too
     complex for runtime evaluation"), this one answers raw(Text) the same
-    way.
+    way. The word lists below are that file's own lists.
+
+    Ponens is under the MIT licence. Its copyright notice and the licence
+    text, which that licence asks to be kept with a copy or a port of its
+    code, are in the file PONENS_LICENSE of this folder.
 
     The formula, as a term:
 

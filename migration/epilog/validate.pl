@@ -21,12 +21,13 @@
     (default ./epilog-twins/<name>/).
 
     **EpilogJS is needed, and is not distributed with this file.** Its
-    licence allows academic, non-commercial use only and forbids
-    redistribution. Fetch it yourself (fetch_sources.sh, or
+    licence allows nonprofit research institutions to use it for
+    non-profit purposes only, and forbids redistribution. Fetch it
+    yourself (fetch_sources.sh, or
     http://epilog.stanford.edu/javascript/epilog.js) into
     migration/epilog/.cache/epilog.js, or name it with EPILOG_JS, and use it
-    only as that licence allows — or obtain a commercial licence from
-    Stanford. node must be on the PATH.
+    only as that licence allows — or ask Stanford's Office of Technology
+    Licensing first. node must be on the PATH.
 */
 
 :- module(epilog_validate, [
@@ -63,7 +64,7 @@ main(Argv) :-
         ;   format(user_error, "usage: validate.pl -- ruleset RULES [DATA] | game LIBRARY [--moves N] | program LIBRARY DATA OPERATION... [--out DIR]~n", []),
             halt(2)
         )
-    ;   format(user_error, "EpilogJS is not here: put epilog.js in migration/epilog/.cache/ (fetch_sources.sh) or name it with EPILOG_JS. Its licence allows academic, non-commercial use only.~n", []),
+    ;   format(user_error, "EpilogJS is not here: put epilog.js in migration/epilog/.cache/ (fetch_sources.sh) or name it with EPILOG_JS. Its licence allows nonprofit research institutions to use it for non-profit purposes only.~n", []),
         halt(2)
     ).
 

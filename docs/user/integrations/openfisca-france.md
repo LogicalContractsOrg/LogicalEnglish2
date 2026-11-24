@@ -7,8 +7,8 @@
 Python. Python est un langage de programmation. Le modèle calcule l'impôt sur le
 revenu, les aides au logement, le revenu de solidarité active (RSA), la prime
 d'activité, les cotisations sociales, et beaucoup d'autres montants. Des
-administrations et des chercheurs utilisent le modèle. Le simulateur public
-mes-aides.gouv.fr utilise aussi le modèle.
+administrations et des chercheurs utilisent le modèle. Le simulateur public des aides
+pour les jeunes (`mes-aides.1jeune1solution.beta.gouv.fr`) utilise aussi le modèle.
 
 **Français Logique** est Logical English écrit en français. Un programme en Français
 Logique contient des règles en phrases françaises. Un ordinateur sait appliquer ces
@@ -64,9 +64,11 @@ Les jumeaux décrits plus bas sont faits d'une autre façon. Ils sont faits à p
 modèle installé avec son moteur de calcul. Ainsi, chaque paramètre a la valeur que le
 moteur lui donne. Aussi, chaque test est passé sur le moteur pour le contrôler.
 
-Le modèle est publié sous la licence AGPL-3.0. Cette licence oblige à publier les
-œuvres qui dérivent du modèle sous la même licence. Les jumeaux restent donc privés.
-Ils sont sur le service hébergé, et pas parmi les exemples de chaque installation.
+Le modèle est publié sous la licence AGPL-3.0 (la licence publique générale GNU
+Affero, version 3). Un jumeau est une traduction du modèle. La licence AGPL-3.0
+s'applique donc aussi au jumeau, quand on le donne à une autre personne. Logical
+English 2 a une autre licence, la licence Apache 2.0. Les jumeaux ne sont donc pas
+parmi les exemples de chaque installation. Ils sont sur le service hébergé.
 
 ## Ce que la traduction écrit
 
@@ -150,9 +152,10 @@ du 12 octobre 2026) :
 La même loi des aides au logement est écrite deux fois :
 
 - dans OpenFisca-France,
-- par la Caisse nationale des allocations familiales (CNAF) en Catala. Catala est un
-  autre langage de programmation de la loi (voir [Catala et Logical
-  English](catala.md)).
+- dans l'exemple `aides_logement` de Catala (`catala-examples`), écrit par l'équipe
+  de Catala. Catala est un autre langage de programmation de la loi (voir [Catala et
+  Logical English](catala.md)). La Caisse nationale des allocations familiales (CNAF)
+  verse ces aides.
 
 Le traducteur écrit les deux en Français Logique. Aucune des deux sources ne vérifie
 l'autre. Les deux jumeaux permettent de faire cette vérification.
@@ -171,23 +174,24 @@ ressources. Le contrôle compare cinq valeurs que les deux codages nomment.
 | la participation personnelle | 0 | 36 | 0 |
 
 **Tous les désaccords ont la même cause, et cette cause est dans les sources.** Le
-programme de la CNAF arrondit au centime la participation minimale. Il arrondit aussi
+programme Catala arrondit au centime la participation minimale. Il arrondit aussi
 au centime chacun des deux termes de la participation personnelle, avant de les
-additionner. OpenFisca-France ne fait pas ces arrondis.
+additionner. La version d'OpenFisca-France que le traducteur a lue (la version
+176.1.2) ne fait pas ces arrondis. Elle arrondit le montant de l'aide lui-même.
 
 Exemple : un couple avec trois enfants, avec un loyer de 900 €, en novembre 2022. La
-participation minimale est 48,654 € dans OpenFisca-France, et 48,65 € pour la CNAF.
+participation minimale est 48,654 € dans OpenFisca-France, et 48,65 € dans le programme Catala.
 La participation personnelle est 52,4969 € dans OpenFisca-France, et 48,65 € + 3,84 €
-= 52,49 € pour la CNAF. Chaque jumeau donne la valeur de sa propre source. L'écart
-est d'un ou deux centimes. Cet écart peut changer d'un euro une aide que la loi
-arrondit à l'euro.
+= 52,49 € dans le programme Catala. Chaque jumeau donne la valeur de sa propre source. L'écart
+est d'un ou deux centimes. Le contrôle croisé ne compare pas le montant final de
+l'aide. Il ne dit pas lequel des deux codages suit la loi sur ce point.
 
 Une situation restait sans loyer plafond (une personne seule en zone 3, en mars
 2024). La cause était une erreur du traducteur, pas de la loi. En français, « me
 est » s'écrit « m'est ». Le traducteur appliquait cette règle à un nom de valeur
 écrit en capitales, ME. Alors la règle lisait une autre valeur. Le traducteur ne
-raccourcit plus un mot en capitales. Depuis le 12 octobre 2026, le jumeau de la CNAF
-donne pour cette situation le même loyer plafond qu'OpenFisca-France.
+raccourcit plus un mot en capitales. Depuis le 12 octobre 2026, le jumeau du programme
+Catala donne pour cette situation le même loyer plafond qu'OpenFisca-France.
 
 ## Ce qui reste à traduire
 
@@ -196,13 +200,20 @@ donne pour cette situation le même loyer plafond qu'OpenFisca-France.
   *la zone*), *le pensions alimentaires versees* (pour *les pensions*). Les mots
   propres au traducteur sont parfois encore en anglais (*member part of*, *counts
   for*, *step*).
-- **Le RSA lui-même.** Le montant de base du RSA lit un paramètre. Le modèle n'a plus
-  ce paramètre pour les années de ses tests. La plupart des cas du RSA attendent donc
-  cette partie, qui n'est pas traduite.
+- **Le RSA lui-même.** Le montant de base du RSA a deux formules dans le modèle. La
+  formule en vigueur depuis juin 2009 lit un paramètre que le modèle a. La formule
+  d'avant juin 2009 lit un paramètre sous un nom que le modèle n'a pas. Les tests du
+  modèle commencent en 2009. Le traducteur ne traduit pas encore le montant de base,
+  parce qu'il ne sait pas lire la formule d'avant juin 2009. La plupart des cas du RSA
+  attendent donc cette partie.
 - **L'impôt lui-même.** Le jumeau répond à toutes les 1 948 réponses vérifiées. Sur
   ces 1 948 réponses, 1 934 sont d'accord avec le moteur. La réduction
   Duflot-Pinel-Denormandie est juste dans les 119 réponses. Il reste ces écarts :
-  - 6 écarts d'un euro, qui viennent des arrondis du moteur lui-même,
+  - 6 écarts d'un euro. Les tests du modèle acceptent un écart d'un euro pour ces
+    valeurs. Le contrôle fait calculer le moteur en double précision, qui n'est pas
+    le réglage habituel du moteur. Dans ce réglage, la somme de douze salaires
+    mensuels est un peu plus petite que le salaire annuel, et un arrondi à l'euro
+    change. Ces écarts ne sont donc pas des erreurs d'OpenFisca-France,
   - 5 écarts sur les cotisations syndicales,
   - 3 écarts sur la contribution exceptionnelle sur les hauts revenus de 2026.
 
@@ -210,6 +221,6 @@ donne pour cette situation le même loyer plafond qu'OpenFisca-France.
 
 - [OpenFisca, PolicyEngine and Logical English](openfisca.md), le guide général, en
   anglais
-- [Catala et Logical English](catala.md) : le programme des aides au logement de la
-  CNAF
+- [Catala et Logical English](catala.md) : l'exemple des aides au logement de
+  Catala
 - OpenFisca-France : https://github.com/openfisca/openfisca-france

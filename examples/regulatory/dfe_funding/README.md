@@ -3,9 +3,11 @@
 *Kind: example · Audience: readers of rules for public services · Status: written 13 October 2026*
 
 England's Department for Education calculates the funding of each student aged
-16 to 19 with a rulebase built in Oracle Intelligent Advisor (formerly Oracle
-Policy Automation). Each year it publishes the rules of that rulebase, as they
-are written in the rulebase's Word documents, in a technical specification.
+16 to 19 with a rulebase that, as its specification says, is built with Oracle
+Policy Modeling and runs on Oracle Policy Automation, the product that Oracle
+now names Oracle Intelligent Advisor. Each year it publishes the rules of that
+rulebase, as they are written in the rulebase's Word documents, in a technical
+specification.
 This folder holds **all of those rules** for 2026 to 2027 (section 4 of the
 specification, pages 37 to 89) written in **Logical English**: rules in English
 that a computer runs, giving the reasons for every answer.
@@ -115,7 +117,8 @@ The second reading's notes, `check/ref/NOTES.md`, list 26 such points.
 
 Contains public sector information licensed under the
 [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
-The program is an adaptation of that information. It is not published or
-endorsed by the Department for Education. It is provided "as is", without
-warranty of any kind, and is not advice: check it against the specification
-before relying on it.
+The specification is © Crown copyright 2026 (Department for Education). The
+program is an adaptation of that information. It is not published or endorsed
+by the Department for Education, and it is not a product of Oracle or endorsed
+by Oracle. It is provided "as is", without warranty of any kind, and is not
+advice: check it against the specification before relying on it.

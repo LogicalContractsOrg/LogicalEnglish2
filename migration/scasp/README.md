@@ -15,13 +15,13 @@ generates s(CASP), has its own translator in `../blawx/`.
 |---|---|
 | `scasp_source.pl` | reads a source: its terms (and the statements s(CASP) does not read or only clingo means, kept with their text) with their lines and variable names (s(CASP)'s operators), LE1's scenarios (`/* Scenario x … % */`, commented out, or live between `/* Scenario x */` and `/* % */`), its `?-` queries, and LE1's metadata (`source_lang/1`) left out |
 | `scasp_twin.pl` | the migration: the core reader's IR, the scenarios with their rules, the expected answers from **s(CASP) on the source**, LE1's dates and `is_days_after/3`, the ledger |
-| `corpus.pl`, `build.pl` | the corpus (the sCASP pack's `test/le_programs` and four classics of `test/all_programs`) and the build into `LogicalEnglish2/examples/migration/scasp/` |
+| `corpus.pl`, `build.pl` | the corpus (the sCASP pack's `test/le_programs` and four classics of `test/all_programs`; the pack is https://github.com/SWI-Prolog/sCASP, Apache License 2.0, copyright 2019 Joaquin Arias) and the build into `LogicalEnglish2/examples/migration/scasp/` |
 | `scasp_import.pl` | the File ▸ Open adapter for `.pl`, `.scasp`, `.lp` (LE2's `le_import.pl` registry, `migration/le_importers.pl`) |
 | `test_scasp.pl` | plunit: the source reader, the oracle, every twin, the adapter |
 
 ## How to run
 
-The s(CASP) pack must be installed (`pack_install(scasp)`); from `/work`:
+The s(CASP) pack must be installed (`pack_install(scasp)`); from the root of LE2:
 
 ```sh
 ./myswipl.sh -q migration/scasp/build.pl                    # the corpus
@@ -53,6 +53,9 @@ LE's own form; `[H|T]` patterns → residue. This translator:
 
 ## Results (14 September 2026)
 
+LE2's documents of that month name version 1.1.4 of the s(CASP) pack
+(`docs/user/reference/scasp.md` §8).
+
 | Twin | Source | Scenarios | Expectations passing | Pending | Ledger (enc/approx/residue) |
 |---|---|---|---|---|---|
 | `citizenshiptrust` | LE1 | 4 | 4/4 | 0 | 20/0/0 |
@@ -73,17 +76,20 @@ LE's own form; `[H|T]` patterns → residue. This translator:
 | `classic_negation_inconstistent` | sCASP classic | 1 | 1/1 | 0 | 2/0/0 |
 | `abdbirds` | sCASP classic (abducibles) | 1 | 1/1 | 0 | 8/0/0 |
 
-23 of 23 expectations reproduce s(CASP)'s answers on the sources; two are
-pending with their reasons. `escrow-scasp.jump` and `bec_theory.incl` of
+21 of 21 expectations reproduce s(CASP)'s answers on the sources; two more
+are pending with their reasons. `escrow-scasp.jump` and `bec_theory.incl` of
 `le_programs` are not Prolog files and are not in the corpus.
 
-**The adjudication (`loanwithcure`).** s(CASP) answers that the borrower
+**The adjudication (`loanwithcure`).** The source calls `is_days_after/3` and
+does not define it, so s(CASP) ran the source with the oracle's definition
+(the table above). With it, s(CASP) answers that the borrower
 defaults on 2016-06-06, yet the program's own cure rule holds on that date
 (payment on 2016-06-05, notice on 2016-06-06: `cures_the_failure_of_on_or_before(the_borrower, obligation2, …06-06)`
 succeeds when asked alone), so by the program's rules the default's
-not-cured condition fails. The difference is s(CASP)'s constructive
-negation over the anonymous variable in `is_that/2`; the twin follows the
-rules (no default). The expectation is kept, pending, with that reason; the
+not-cured condition fails. The likely cause is the pack's constructive
+negation over the anonymous variable in `is_that/2`: a reading made here by
+hand, and this repository records no report of it to the s(CASP) authors.
+The twin gives no default. The expectation is kept, pending, with that reason; the
 twin is never the oracle.
 
 ## What building this found in LE2 core (fixed there)

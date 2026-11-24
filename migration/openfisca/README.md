@@ -4,8 +4,10 @@
 
 The translator of the design notes `roadmap.md` §5.5 and §8, Phase 3b, for
 **OpenFisca** (the tax-and-benefit microsimulation framework; the country
-template, France, New Zealand…) and **PolicyEngine** (its 2022 fork, with
-the models of the United States and the United Kingdom). A country package
+template, France, New Zealand…) and **PolicyEngine** (a separate non-profit
+organisation: its engine, PolicyEngine Core, is a fork of OpenFisca-Core made
+in 2022, and it has its own models of the United States and the United
+Kingdom). A country package
 is Python: a `Variable` class per quantity, with dated `formula` methods
 written over NumPy arrays, parameters in YAML, and tests in YAML. A
 *programme* — the variables one root variable reads, within its folder of
@@ -15,16 +17,33 @@ reference, the package's tests as scenarios. And a Logical English
 program can be written back as an OpenFisca package (one module) that
 openfisca-core runs.
 
-All the packages are AGPL-3.0, so the twins stay in this repository
-(`examples/migration/{openfisca,policyengine}/`; decision 2 of the October
-plan).
+All the packages are under the GNU Affero General Public License, version 3
+(AGPL-3.0; openfisca-core and the country template say "or later"). A twin is
+a translation of its package, so the AGPL-3.0 applies to the twin too. This
+repository is Apache-2.0, so no twin of these packages is written into it:
+`of_build.pl` writes them to the private place of `../le2_paths.pl`
+(`private_root/1`), under `examples/migration/{openfisca,policyengine}/`
+there. The record below was written when the translator was in a private
+repository: where it says "this repository" of a twin, or names
+`examples/migration/openfisca/…`, it means that private place. Whoever gives
+a twin to someone else must give it under the AGPL-3.0, with the package's
+licence and notices.
+
+None of the files here contains code of OpenFisca or PolicyEngine. The reader
+of an upload (`of_static.py`) reads the upload's files as text and needs
+neither a package nor an engine. The scripts that load a
+package or its engine (`of_extract.py`, `of_oracle.py`, `of_run.py`,
+`of_survey.py`, `of_crosscheck.py gen`, `of_roundtrip_run.py`) are separate
+programs: each runs in a Python environment where the user installed the
+package (`fetch_sources.sh`), and nothing of that environment is in this
+repository.
 
 **Where it stands (13 October 2026; first written 5 October)** — five
 rounds of 12–13 October took the list of 11 October and the two programmes
 of the October plan that were never built: **six twins of
 `openfisca-france`** now (the income tax, **2,286 of the 2,302 expectations
 it checks, with no residue left**; the housing allowance, 50 of 50, and its cross-check with the
-Catala twin of the CNAF's programme, 216 of 216; the RSA and prime
+twin of Catala's housing allowance example, 216 of 216; the RSA and prime
 d'activité, 28 of 28; the family benefits and the payslip contributions,
 both new and both still behind their residue), their sentences French
 throughout, and no writer error in any of them. The English-language
@@ -145,10 +164,24 @@ loops); `openfisca-aotearoa` 23 of 217 (11%: it reads people through its own
 
 The engines on the package's own tests (the gate), as the reader converts
 them on 7 October (a test is one case per period it asks about): the
-country template 28 of 28 in the twin's reach, SNAP 769 of 788 (19 where
-PolicyEngine disagrees with its own test file), EITC 42 of 42, CTC 47 of 48,
+country template 28 of 28 in the twin's reach, SNAP 769 of 788 (19 that this
+translator's oracle did not reproduce), EITC 42 of 42, CTC 47 of 48,
 Universal Credit 179 of 180, Child Benefit 4 of 4. (On 5 October: 27 of 27,
 842 of 884, 46 of 46, 52 of 53, 190 of 190, 4 of 4.)
+
+> **What "the engine reproduces" means in this record.** The oracle
+> (`of_oracle.py`) is this translator's own program. It is not the test
+> runner of OpenFisca or of PolicyEngine. It builds each case with the
+> engine's `SimulationBuilder`, one case per period, and since 8 October it
+> sets the engine to double precision. A case the oracle does not reproduce
+> is therefore not a test that the package fails: in the last SNAP run kept
+> in `.cache/out/of/snap.run.json`, 65 of the 69 such cases are tests that
+> give a parameter of the model among their inputs (`gov.usda.snap.…`).
+> PolicyEngine's own test runner applies such an input as a reform
+> (`policyengine_core/tools/test_runner.py`); the oracle's call cannot set
+> it ("the engine cannot run this test"). The figures say what the twins
+> could be checked on. They say nothing about the packages' own test
+> results.
 
 | Twin | Package | Variables (translated / residue / facts of the case) | Parameters | Tests: engine reproduces, in the twin's reach | Ledger: encoded / approx. / residue | Expectations pass / fail | Cases left out |
 |---|---|---|---|---|---|---|---|
@@ -219,8 +252,8 @@ member only the inputs of its own entity, and write `round`, `abs` and
 tables keyed by a code. Making the video found two more, fixed: an upload's
 `formula_1980` (a year without a month) starts in 1980, not at the
 beginning of time; and a rule whose aggregate comes before any condition
-naming its subject names it first. The review is
-a review that is not published.
+naming its subject names it first. The review of this work is not
+published.
 
 ## The work left, 7 October 2026
 
@@ -607,7 +640,9 @@ limit.
 
 **The environment split, finished.** `fetch_sources.sh` was changed on 9
 October to give the country template an environment of its own (`venv-ct`:
-pip will not resolve its core beside PolicyEngine's 45), but the environment
+pip did not resolve its core in the environment of the PolicyEngine
+packages, which themselves run on policyengine-core and do not ask for
+openfisca-core), but the environment
 was never made, so every country-template build failed. It is made, and the
 template builds again (openfisca-core 45.0.5).
 
@@ -856,8 +891,8 @@ writes `runs/croise/report.md`:
 | minimal participation (P0) | 18 | 18 | 0 |
 | personal participation | 0 | 36 | 0 |
 
-All 54 disagreements have one cause, **in the sources**: the CNAF's Catala
-programme rounds P0, and each of the two terms of the personal
+All 54 disagreements have one cause, **in the sources**: Catala's housing
+allowance example (`aides_logement`, by the Catala team) rounds P0, and each of the two terms of the personal
 participation, to the cent before adding them; openfisca-france keeps them
 unrounded (48.654 against 48.65; 52.4969 against 48.65 + 3.84 = 52.49).
 Each twin gives its own source's value. The one unanswered value is the
@@ -910,8 +945,9 @@ is where to pick the RSA up. What the RSA needed, all general:
   were not built in this session.
 
 **Step 7 — the review and the French document.**
-a review that is not published
-(a DGFiP engineer and a CNAF engineer, role-played); LE2
+A review that is not published (the parts of an engineer of the tax
+administration and of an engineer of the family allowance fund were played:
+nobody of the DGFiP or of the CNAF took part); LE2
 `docs/user/integrations/openfisca-france.md`, in French, in the Help menu.
 
 **The income-tax twin's open items.** Reading the reader's output for the
@@ -1210,10 +1246,15 @@ short: the net taxable income of `maj_nbp_2` is 89,999.99999999999, of
 is then 4,791.4999999999 (exactly 4,791.50 in the twin), which rounds to
 4,791 in the engine and to 4,792 in the twin; the décote of the second case
 (84 against 83) and the reductions of the third (7,105 against 7,106)
-follow the same way. The tests' expected values agree with the engine.
-The twin computes with the twelfths the scenario states, so its sums are
-whole; matching the engine would mean copying its rounding error, which is
-not the law. Left as it is, and recorded here
+follow the same way. The package's tests allow a margin of one euro here
+(`absolute_error_margin: 1`), so the package passes them with either figure;
+for `maj_nbp_2` the test file itself expects 4,792, the twin's figure. The
+engine's figures above were measured in double precision, which the oracle
+sets (`of_oracle.py`, `double_precision`) and which is not the engine's
+default; they were not measured in its default single precision. So this is
+a difference of one euro inside the tests' own margin, not a defect of
+openfisca-france. The twin computes with the twelfths the scenario states,
+so its sums are whole. Left as it is, and recorded here
 (`.cache/venv-fr/bin/python`, a SimulationBuilder run of the source test).
 
 **Articles of the French twins.** A first word that reads as a plural now
@@ -1636,7 +1677,9 @@ work this round leaves.
 ## openfisca-france: the survey of 9 October 2026
 
 `openfisca-france` runs in an environment of its own (`.cache/venv-fr`:
-it needs openfisca-core 44, the other packages 45). `of_survey.py france`
+it needs an openfisca-core below 45; the country template was installed
+with 45, and the PolicyEngine packages run on policyengine-core).
+`of_survey.py france`
 reads every computed variable as the twins are read: 524 of 988 translate
 (53%); the residue by need, the reads of another period and the areas of
 the model are in `runs/france_survey.json`. The plan built on it is the

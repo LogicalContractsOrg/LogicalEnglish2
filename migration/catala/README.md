@@ -12,13 +12,24 @@ surface language, not its Python output), and the French programs come out
 in Français Logique, which this phase polished first (below).
 
 The examples are Apache-2.0: the twins are published in LE2's
-`examples/migration/catala/`, with attribution.
+`examples/migration/catala/`, with attribution (see [Sources and
+licences](#sources-and-licences)).
+
+**As published (24 November 2026).** Twelve twins are in
+`examples/migration/catala/`, built on 9 to 11 October. Their ledgers and
+LE2's `testSuiteCoreStatus.txt` give **129 of 129 answers in 9 programmes,
+15 more waiting**: the six whole twins named below, and `apl_foyer` 14 of
+14 (4 waiting), `al_locatif` 5 of 5, `apl_accession` 8 of 8 (8 waiting).
+`eligibilite_apl`, `eligibilite_al` and `calculette_globale` answer nothing
+yet (3 answers waiting; the calculator's two tests are not scenarios yet).
+The dated sections below are the record of each day, and their figures are
+that day's.
 
 **Where it stands (9 October 2026)** — see [Results](#results) and the work left, done on [7 October](#the-work-left-7-october-2026), [8 October](#the-work-left-8-october-2026) and [9 October](#the-work-left-9-october-2026). **Six whole twins**, no residue, every answer agreeing with Catala's interpreter: section 132 (8), the SMIC (29), the BMAF (6), section 121 for one and two persons (6), family-benefit eligibility (4), and the rental calculation of the CNAF's housing allowance (`aides_logement`, scope `CalculAidePersonnaliséeLogementLocatif`, 49 of 49 answers of its 9 tests). **Two more programmes that do not answer yet**: the housing allowance's two eligibility scopes (`eligibilite_apl`, `eligibilite_al`), read and lowered but waiting on a list's cardinality, a list mapped or filtered, and a rule body core LE cannot open a group with. The gate: 46 of 46.
 
 | File | What it does |
 |---|---|
-| `fetch_sources.sh`, `corpus.pl` | `catala-examples` at the commit pinned, the Catala team's own build of 22 August 2026 (the newest published package), OCaml 5.3 from Debian's packages unpacked as a user (no root), zig as the C compiler; the programmes written as twins |
+| `fetch_sources.sh`, `corpus.pl` | `catala-examples` at the commit pinned, the Catala team's own nightly build of 22 August 2026 (a pre-release, `1.2.0+git20260822r08832f46b`: the newest package published when the twins were built; the releases 1.3.0 and later were not tried), OCaml 5.3 from Debian's packages unpacked as a user (no root), zig as the C compiler; the programmes written as twins |
 | `catala_reader.pl` | the reader: Catala's literate files after the compiler's own lexer and grammar (`lexer_en`, `lexer_fr`, `parser.mly`), both dialects into one tree |
 | `catala_lower.pl` | the lowering: a scope's variables as rules in the shape of RuleSpec (the twin builder of Phase 3a writes the program, as for Phase 3b), the exception trees as ordered cascades, sub-scopes copied under their instance's name, test scopes as test cases |
 | `catala_gate.pl` | the gate: the reader's exception tree of every variable against the compiler's (`catala exceptions --output-format=json`) |
@@ -125,8 +136,9 @@ period their texts define, three regions for the SMIC), written as Catala
 test scopes and run by the interpreter, whose answers are the expectations.
 One of the 30 SMIC cases has no answer: for Mayotte in mid-2024 Catala stops
 with a **conflict** between two decrees' amounts, because the example dates
-the November 2024 decree's amount for Mayotte from 1 January 2024 (the
-decree says 1 November). The case is kept, left out of the twin with
+the amount of the decree of 23 October 2024 for Mayotte from 1 January 2024
+(the decree says 1 November; `smic/Smic.catala_fr`, line 484 at the commit
+pinned). The case is kept, left out of the twin with
 Catala's reason. A twin takes the first part of its cascade that applies
 where Catala stops with a conflict: each variable where that can happen
 carries a note in the ledger (found by the review, below).
@@ -396,8 +408,8 @@ the housing allowance back at once.
   for the two eligibility scopes; folds; lists built in a definition; the way
   back for sums over lists and for nested cascades; item 8's form.
 
-The review is a review that is not published.
-Its follow-up made amounts round to the cent and `round of` to the unit as
+The translator was reviewed (the review is not published).
+The follow-up of the review made amounts round to the cent and `round of` to the unit as
 Catala does, kept two scopes of one programme apart, read assertions on
 conditions and left out (with the reason) a test whose assertions it cannot
 read, noted every possible conflict in the ledger, gave residue blocks the
@@ -406,3 +418,31 @@ back from exporting a twin with residue. Open: a `context` variable a caller
 replaces (the twin gives both values), the law's own assertions (Logical
 English's integrity constraints are built, not wired), a twin that refuses
 to answer where Catala finds a conflict.
+
+## Sources and licences
+
+- **The examples.** `catala-examples` (https://github.com/CatalaLang/catala-examples)
+  is under the Apache License 2.0 (its `LICENSE.txt`; its package file names
+  the authors: Denis Merigoux, Nicolas Chataing, Emile Rolley, Louis Gesbert,
+  Aymeric Fromherz, Alain Delaët-Tixeuil, Raphaël Monat). Each twin's
+  `sources/` folder holds the Catala files the twin was read from, copied
+  byte for byte from the commit `corpus.pl` pins
+  (`e67e42414c8bcd2dca450a6a21c94db593fc909b`, 30 June 2026). It is a
+  selection: the files `corpus.pl` lists for the programme, not the whole
+  example (for the housing allowance, the master file
+  `Aides_logement.catala_fr` and the other test files are not copied). The
+  files under `sources/cat/` are not Catala's: they are what the lowering
+  made of the Catala files, and the test cases.
+- **The law texts** inside the Catala files are the public texts of French
+  law (each article's heading carries its Légifrance identifier) and of the
+  United States Code.
+- **The reader** (`catala_reader.pl`) is written in Prolog after the lexers
+  and the grammar of the Catala compiler (`compiler/surface/lexer_en.cppo.ml`,
+  `lexer_fr.cppo.ml`, `parser.mly`, at release 1.2.0; copyright Inria and
+  contributors, Apache License 2.0): the keywords of the two dialects and
+  the precedences are theirs. No file of the compiler is copied.
+- **The toolchain** (the Catala package, OCaml, the cache of the examples)
+  is downloaded by `fetch_sources.sh` into `.cache/`, which git ignores.
+  Nothing of it is in this repository.
+- Catala is developed by Inria. This translator is not part of the Catala
+  project.

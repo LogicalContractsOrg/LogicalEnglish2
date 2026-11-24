@@ -52,7 +52,7 @@ import_spreadsheet(Input, OutDir, Result) :-
 import_workbook(Input, OutDir0, Options, imported(LEFile, Notes)) :-
     file_name_extension(_, Ext0, Input), downcase_atom(Ext0, Ext),
     (   memberchk(Ext, [xls, ods])
-    ->  throw(error(format("~w is an .~w file: save it as .xlsx (Excel's own format) and open that; the sheet engine reads .xlsx and .xlsm", [Input, Ext]), _))
+    ->  throw(error(format("~w is an .~w file: save it as .xlsx (Excel's current format) and open that; the sheet engine reads .xlsx and .xlsm", [Input, Ext]), _))
     ;   true
     ),
     absolute_file_name(OutDir0, OutDir),

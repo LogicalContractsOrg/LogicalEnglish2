@@ -1,7 +1,7 @@
 # Migration ledger: cat_al_locatif
 
 Source: Catala (catala-examples) — sources/cat/al_locatif.yaml
-Translator: lpsPlus migration/catala
+Translator: LE2 migration/catala
 Date: 2026-10-11
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 

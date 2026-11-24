@@ -77,7 +77,7 @@ le_import:importer(drools, "Drools rule base (DRL): LE for LPS, and a decision s
                    drl_import:import_drl, drl_import:detect_drl) :-
     adapter('drools/drl_import.pl', File).
 
-le_import:importer(epilog, "Epilog program (Stanford's Dynamic Logic Programming): a ruleset, or a game in LE for LPS",
+le_import:importer(epilog, "Epilog program (Stanford): a ruleset, or a game in LE for LPS",
                    [epilog, epi, hrf, txt], File,
                    epilog_import:import_epilog, epilog_import:detect_epilog) :-
     adapter('epilog/epilog_import.pl', File).

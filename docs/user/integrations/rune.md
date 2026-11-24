@@ -4,14 +4,22 @@
 
 **Rune** is a language to write financial rules as programs that a computer runs.
 These rules tell what a trade is, what occurs to the trade during its life, and what
-a bank must report about the trade to its regulators. Rune is free software. FINOS,
-the Fintech Open Source Foundation, keeps Rune. Two large models are written in Rune:
+a bank must report about the trade to its regulators.
+
+The full name of Rune is the Rune DSL. (A DSL is a domain-specific language: a
+language for one field of work.) Its earlier name was the Rosetta DSL. The company
+REGnosys made Rune. Rune is open source software, and its licence is the Apache
+License 2.0. FINOS, the Fintech Open Source Foundation, keeps Rune now. Two large
+models are written in Rune:
 
 - The **Common Domain Model** (the CDM). The CDM is a description of trades and of
   the events in their lives (a new trade, an amendment, a termination). Banks and
-  other firms share the CDM, so that they all describe a trade in the same way.
-- **Digital Regulatory Reporting** (DRR). ISDA, the International Swaps and
-  Derivatives Association, publishes DRR. Nine regulators in eight jurisdictions ask
+  other firms share the CDM, so that they all describe a trade in the same way. The
+  CDM is an open standard, and FINOS keeps it. ISDA, the International Swaps and
+  Derivatives Association, is one of the three trade associations that take part in
+  the CDM. The licence of the CDM is the Community Specification License 1.0.
+- **Digital Regulatory Reporting** (DRR). ISDA publishes DRR, with a licence of its
+  own (the ISDA DRR License). Nine regulators in eight jurisdictions ask
   for 28 reports. For each of these reports, DRR contains the rules that calculate
   each field of the report from a trade. The CDM describes the trade.
 
@@ -148,7 +156,7 @@ The export does these actions:
 3. It writes the type of the report again, as a new type. The new type is different
    from the type of DRR only in the fields that use a changed rule. (Rune attaches a
    rule to a field in the type of the report.) It also writes the report with that
-   type. Each rule that you did not change stays the rule of DRR, as ISDA wrote it.
+   type. Each rule that you did not change stays the rule of DRR, without changes.
 4. When the server has the engine of DRR, the export runs the result on that engine.
    The checker of Rune reads the file. The generator of Rune changes the file into a
    program. The program of DRR calculates the report of each instruction of the test
@@ -240,9 +248,11 @@ different in a small number of fields:
 - Some values change during the life of a trade. DRR reports each of these events
   separately. Thus these values did not need Logical English for LPS: each report
   reads one instruction at a time.
-- DRR belongs to ISDA and has the ISDA DRR License. This licence lets you use DRR
-  without changes. Thus Logical English does not publish the translations of the
-  reports of DRR. The CDM is open, thus the translations of the CDM can be published.
+- DRR belongs to ISDA and has the ISDA DRR License (September 2023). This licence
+  lets you use and share DRR only without changes. A translation is a changed copy.
+  Thus Logical English does not publish the translations of the reports of DRR. The
+  licence of the CDM permits changed copies, thus the translations of the CDM can be
+  published.
 
 ## The examples
 
@@ -256,7 +266,8 @@ Logical English 2.
 The translation of the product qualification of the CDM is
 `cdm_product_qualification`. It tells what a product is, for example an interest rate
 swap of a fixed rate against a floating rate. This translation is checked against the
-program of the CDM, on the products of the test pack of DRR.
+program of the CDM, on the products of the test pack of DRR. This translation is not
+published yet, because its scenarios come from the test pack of DRR.
 
 ## See also
 
@@ -265,3 +276,6 @@ program of the CDM, on the products of the test pack of DRR.
   programs
 - [The Logical English reference](../reference/language.md), section 14 about
   included resources
+
+*Logical English is not a product of FINOS, ISDA or REGnosys. These organisations do
+not endorse Logical English.*

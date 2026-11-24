@@ -236,7 +236,7 @@ retitle(migration(Meta0, program(H0, Items), Ledger, Tests), Name, Skipped, migr
     (   Skipped == none -> SC = ""
     ;   format(string(SC), "~nNo quote scenarios: ~w.", [Skipped])
     ),
-    format(string(C), "~w: a Logical English twin of the Socotra product configuration \"~w\",~nimported with File > Open and translated by the Socotra translator (~w).~nEvery rule cites the source file it comes from (copied into sources/~w/ beside this program) and its passage there;~na script the translator cannot follow is kept as a TODO block with its Liquid.~w", [KB, Name, Date, Name, SC]),
+    format(string(C), "~w: a Logical English twin of the Socotra product configuration \"~w\",~nimported with File > Open and translated by the Logical English translator for Socotra (~w).~nEvery rule cites the source file it comes from (copied into sources/~w/ beside this program) and its passage there;~na script the translator cannot follow is kept as a TODO block with its Liquid.~w", [KB, Name, Date, Name, SC]),
     maplist(header_comment(C), H0, H),
     exclude([X]>>( X = source(_) ; X = licence(_) ; X = date(_) ), Meta0, Meta1),
     append(Meta1, [source('an imported Socotra product configuration'), date(Date)], Meta).

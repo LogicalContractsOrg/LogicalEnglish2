@@ -2,10 +2,11 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-10-31)*
 
-Epilog is the logic programming language of the Stanford course on Dynamic Logic
-Programming. The course teaches Epilog with the Epilog web site and with EpilogJS.
-EpilogJS runs Epilog programs inside a web browser. An Epilog program keeps three
-things separate:
+Epilog is a logic programming language from Stanford University. The Epilog web
+site says that Epilog is based on Dynamic Logic Programming. The online Stanford
+course on Logic Programming teaches Epilog. EpilogJS is the software from Stanford
+that runs Epilog programs, in a web browser or in Node.js. An Epilog program keeps
+three things separate:
 
 - The *data* are the facts.
 - The *view definitions* are rules, for example
@@ -121,9 +122,10 @@ finds the translator in the Logical English installation next to that editor.
 
 ### The example twins
 
-The translator translated every program of the Epilog site. The translations are
-the *twins*. Each twin was checked against EpilogJS. A twin is published only when
-it gives the same results as EpilogJS. The Epilog programs and their twins are
+The translator read every program of the Epilog site. The translations are the
+*twins*. Each twin was checked against EpilogJS. A twin is published only when it
+gives the same results as EpilogJS. Thus some programs of the site have no twin.
+Stanford University did not make or examine this translator. The Epilog programs and their twins are
 public. To open a twin, select **File ▸ Open example from server…**.
 
 - The rulesets are in `migration/epilog/` (6 twins: `base`, `blocks`, `graphs`,

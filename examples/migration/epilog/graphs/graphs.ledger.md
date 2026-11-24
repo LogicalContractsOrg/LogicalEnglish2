@@ -1,7 +1,7 @@
 # Migration ledger: graphs
 
 Source: an Epilog ruleset — graphs.rules, graphs.data
-Translator: lpsPlus/migration/epilog (epilog_twin.pl)
+Translator: LE2 migration/epilog (epilog_twin.pl)
 Date: 2026-10-31
 
 ## Summary

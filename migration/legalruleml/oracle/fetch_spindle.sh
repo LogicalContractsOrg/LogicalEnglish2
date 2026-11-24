@@ -1,7 +1,10 @@
 #!/bin/sh
 # Fetches SPINdle 2.2.4 (the defeasible deontic logic reasoner of
-# Lam & Governatori, NICTA; LGPL) into oracle/spindle/, where
+# H.-P. Lam and G. Governatori; copyright 2009-2014 NICTA Ltd.; GNU Lesser
+# General Public License, version 3) into oracle/spindle/, where
 # lrml_spindle.pl looks for it (or set SPINDLE_JAR). Needs Java 6+.
+# SPINdle is run as a separate program and is not part of this repository
+# (oracle/.gitignore keeps the download out of git).
 set -e
 cd "$(dirname "$0")"
 mkdir -p spindle

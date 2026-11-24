@@ -1,7 +1,7 @@
 # Migration ledger: itispermittedthat
 
 Source: an s(CASP) program — itispermittedthat-scasp.pl
-Translator: lpsPlus/migration/scasp (scasp_twin.pl)
+Translator: LE2 migration/scasp (scasp_twin.pl)
 Date: 2026-09-23
 
 ## Summary

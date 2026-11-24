@@ -39,7 +39,8 @@
     on an action a prohibition of it under its other conditions, a causal
     law a constitutive rule from the event and its conditions to the effect,
     a timeless rule a constitutive rule, the initial state and the timeless
-    facts a block of facts. Time is what LegalRuleML does not have: the
+    facts a block of facts. The time of events is what LegalRuleML does not
+    have (its temporal characteristics say when a norm is in force): the
     notes say so. A term with no norm (a composite event, a goal, a
     default, an invariant, a constraint over two actions, a consequent that
     is not an action, a condition it cannot write) makes the export refuse.
@@ -756,9 +757,9 @@ lps_statements(KB, Options, _Items, Stmts, Facts) :-
     findall(src(Ls, F), ( nth1(I, Terms, T), timeless_fact(T), lps_where(Prov, I), lps_lines(Prov, I, Ls),
                           lps_fact_or_problem(T, F) ), Facts1),
     append(Facts0, Facts1, Facts),
-    note("LegalRuleML has no time: the LPS program's reactive rules are written as obligations of the one who acts, its constraints on actions as prohibitions, its causal laws as constitutive rules from the event to the effect; when each holds is not carried"),
+    note("LegalRuleML has no time of events (its temporal characteristics tell when a norm is in force, not when a thing occurs): the LPS program's reactive rules are written as obligations of the one who acts, its constraints on actions as prohibitions, its causal laws as constitutive rules from the event to the effect; when each holds is not carried"),
     (   member(observe(_, _), Terms)
-    ->  note("the scenario's observations (what happens when) are not exported: LegalRuleML has no time")
+    ->  note("the scenario's observations (what happens when) are not exported: LegalRuleML has no time of events")
     ;   true
     ).
 lps_statements(KB, Options, _, [], []) :-

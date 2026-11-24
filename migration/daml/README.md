@@ -26,7 +26,8 @@ Both adapters are registered in `../le_importers.pl`.
 
 ## How to run
 
-The Daml SDK (`dpm` 3.5.x, `~/.dpm/bin/dpm`; it brings Java and Canton) is
+The Daml SDK (`dpm` 3.5.x, `~/.dpm/bin/dpm`; it brings Canton, and needs a
+JDK, version 17 or later) is
 needed to fetch the corpus, to make the oracle's runs and to run the gate;
 the twins and the tests need neither Daml nor the sandbox (the runs are
 cached). From `/work`:
@@ -80,7 +81,9 @@ payloads, contract ids left out (the ledger's are hashes).
 
 ### The way back (File ▸ Export to Another System ▸ Daml)
 
-Daml 3 has no contract keys, so a fluent cannot be looked up by its values:
+The exporter does not use contract keys (Daml 3 had none before Canton 3.5,
+whose keys are not unique and need `--target=2.3`, Daml-LF 2.3), so a fluent
+cannot be looked up by its values:
 the exporter writes the whole LPS state as **one** contract, `State`, its
 fluents lists of records (a fluent with no places a `Bool`). An operator
 party is its signatory and every party of the program an observer; each
@@ -138,8 +141,9 @@ program's maximum time, the events observed in between. LPS takes one
 cycle's actions together; the module takes them one after another, which
 differs only for actions of one cycle that bear on each other.
 
-Refused, with the reason: a reactive rule that reacts to an event (a Daml
-trigger would be one), or that takes an action of a party (only that party
+Refused, with the reason: a reactive rule that reacts to an event (it needs
+a program off the ledger that watches it; Daml 2's triggers, now deprecated,
+were such programs), or that takes an action of a party (only that party
 can take it in Daml, not the operator's cycle); composite events;
 constraints relating two actions; a goal to plan; a place that holds a party
 in one statement and a list in another (Daml's types differ); a predicate
@@ -263,8 +267,9 @@ as `the knowledge base … extends …` and `implements` as `this law replaces
   first, so each script has its own scenario and final state.
 - **Daml itself is the oracle**, on a real Canton sandbox, with its runs
   cached so builds and tests need neither.
-- **The way back as one `State` contract**: Daml 3 has no contract keys, so
-  a fluent cannot be a contract looked up by its values; one contract with
+- **The way back as one `State` contract**: without contract keys (none in
+  Daml 3 before Canton 3.5; not unique, and opt-in, since), a fluent cannot
+  be a contract looked up by its values; one contract with
   lists keeps LPS's reading (a set of fluents, laws computed on the state
   before) exact, at the price of every choice consuming the one contract.
 

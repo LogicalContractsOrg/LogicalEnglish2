@@ -1,7 +1,7 @@
 # Migration ledger: cms_mlr
 
 Source: Spreadsheet (Excel) — cms_mlr_2025.xlsm
-Translator: lpsPlus migration/spreadsheet
+Translator: LE2 migration/spreadsheet
 Date: 2026-10-13
 Source licence: as the workbook's publisher states
 

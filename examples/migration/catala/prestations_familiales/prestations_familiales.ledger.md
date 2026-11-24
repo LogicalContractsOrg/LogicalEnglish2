@@ -1,7 +1,7 @@
 # Migration ledger: cat_prestations_familiales
 
 Source: Catala (catala-examples) — sources/cat/prestations_familiales.yaml
-Translator: lpsPlus migration/catala
+Translator: LE2 migration/catala
 Date: 2026-10-09
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 

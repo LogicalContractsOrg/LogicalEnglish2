@@ -7,7 +7,9 @@ deferred annuity and a level term life policy, rewritten in Logical English
 by a translator. Such a rewrite is a **twin**. The configuration is
 synthetic, written by us from the forms of Oracle's public OIPA XML
 Configuration Guide 9.7; it is not Oracle's. The expected values come from an
-independent interpreter of OIPA's arithmetic, never from the twin.
+independent interpreter of OIPA's arithmetic, never from the twin. That
+interpreter is ours too, written from the same guide: it is not Oracle's
+engine, and nothing here was run on OIPA.
 
 ## Start here
 - [Annuity withdrawal](annuity_withdrawal/annuity_withdrawal.le?scenario=drained_w1&query=net_amount) — free amount, surrender charge, net amount.
@@ -26,7 +28,8 @@ independent interpreter of OIPA's arithmetic, never from the twin.
 - [OIPA in Logical English](/docs/user/integrations/oipa): how the translation works.
 - Oracle's OIPA documentation: https://docs.oracle.com/en/industries/insurance/policy-administration/
 - Each twin loads its rate tables (`*.csv`) and the date library beside it; its ledger and the configuration (`sources/`) sit there too.
-- Written by `lpsPlus/migration/oipa/build.pl`; do not edit by hand.
+- Written by `migration/oipa/build.pl` (the translator, open source in this repository); do not edit by hand.
+- Oracle is a registered trademark of Oracle and/or its affiliates. Logical English is not a product of Oracle, and Oracle does not endorse it.
 
 ## Disclaimer
 A twin is written by a translator (a program that rewrites another

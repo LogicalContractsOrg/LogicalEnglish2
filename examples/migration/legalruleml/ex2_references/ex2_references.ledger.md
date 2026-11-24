@@ -1,7 +1,7 @@
 # Migration ledger: ex2_references
 
 Source: a LegalRuleML document (OASIS LegalRuleML Core 1.0) — ex2-references-normal.lrml
-Translator: lpsPlus/migration/legalruleml (lrml_twin.pl)
+Translator: LE2 migration/legalruleml (lrml_twin.pl)
 Date: 2026-09-15
 
 ## Summary

@@ -4,7 +4,7 @@
 
 Many rules are in spreadsheets. For example, a tax office publishes a calculator, a
 legal aid group publishes a benefit worksheet, and a court publishes a child support
-form. Each of these spreadsheets is an Excel workbook. A workbook is a file of cells.
+form. Each of these spreadsheets is a Microsoft Excel workbook. A workbook is a file of cells.
 In some cells, a person types a number. Other cells contain a **formula**. A formula
 is a small calculation that finds a value from other cells, for example
 `=IF(B27<=B31,"PASSED","FAILED")`.
@@ -115,7 +115,7 @@ format (`.ods`). LE gives the reason: save the workbook as `.xlsx` first.
 |---|---|
 | A cell where a person types a value: an unlocked cell on a protected sheet, a cell with a list of permitted values, or an empty cell that a formula uses | A template with the mark scenario element: each scenario states the value |
 | A different number or text that a formula uses (for example a rate or a limit) | A fact of the program. The fact tells the cell that it came from |
-| A range where `LOOKUP`, `VLOOKUP`, `HLOOKUP` or `INDEX` and `MATCH` look up values | A decision table. Sometimes the formula searches a range of numbers for the nearest lower value. That range becomes a table of bands, for example `>= 12000 and < 50000` |
+| A range where `LOOKUP`, `VLOOKUP`, `HLOOKUP` or `INDEX` and `MATCH` look up values | A decision table. Sometimes the formula searches a range of numbers for the largest number that is not more than the number that the formula looks up. That range becomes a table of bands, for example `>= 12000 and < 50000` |
 | A formula | A rule. An `IF` becomes an `otherwise` cascade: the first branch, or if not, the next branch |
 | A formula that no other formula uses | An *output*: a query, and an expected answer in each scenario |
 | A column of copies of one formula, for example one row for each employee | One rule for all the rows. The row is the first slot of the template, for example `the withholding of *a row* is *an amount*`. A scenario gives the names of the rows that it fills, for example `row_7` |
@@ -148,6 +148,12 @@ There are three sources:
   with worked examples. A worked example is the same workbook, filled in for a
   typical case. Each example can become a separate scenario. The values that the
   example contains become the expected answers.
+
+The spreadsheet engine inside LE is Formualizer, an open-source program. Formualizer
+is not Microsoft Excel. Formualizer calculates most formulas as Excel does, but not
+all formulas. Thus only the scenario `as_saved` contains answers that Excel itself
+calculated. The person who runs the translator can select a different number of
+cases. The published example has six cases.
 
 The cases that LE makes stay realistic. A percentage is between 0 and 100%. A count
 is a small number. A date is within approximately one year of the date in the file.
@@ -321,6 +327,10 @@ C5 = 5000, D5 = 3000*.
   error such as `#VALUE!`. Then the answer to the question is **unknown**, and the
   query continues to answer on that condition. The log of the server gives the
   reason.
+- LE calculates the workbook with its own spreadsheet engine (Formualizer), and not
+  with Microsoft Excel. For some formulas, the engine can give a value that is
+  different from the value in Excel. Before you use a workbook as an authority,
+  compare some answers with the answers that Excel shows.
 - To ask a workbook, you need a server that has the spreadsheet engine (Node and the
   packages of `services/sheet`). Some editions of LE run fully in the browser. In
   these editions, the answer to the question is unknown.
@@ -335,12 +345,13 @@ among the private examples, because its workbook states no licence.
 - Macros: LE does not read macros. Macros are the programs that some workbooks run
   when you click a button. A workbook with its rules in macros becomes a twin with
   little content.
-- Some functions become residue blocks. These functions are text functions such as
-  `CONCATENATE` and `TEXT`, and also `TODAY`, `EOMONTH`, `INDIRECT`, `OFFSET` and
-  array formulas. (LE reads these functions: `IF`, `AND`, `OR`, `CHOOSE`, the
-  lookups, `SUM`, `SUMIF`, `COUNTIF` and their plural forms over a maximum of 400
-  cells, `MIN`, `MAX`, `ROUND` and the related functions, `EDATE`, `YEAR`, `MONTH`,
-  `DAY` and date calculations.)
+- Each function that the translator does not read becomes a residue block. Examples
+  are text functions such as `CONCATENATE` and `TEXT`, and also `TODAY`, `EOMONTH`,
+  `INDIRECT`, `OFFSET`, `XLOOKUP`, `IFS`, `SUMPRODUCT` and array formulas. (LE reads
+  these functions: `IF`, `AND`, `OR`, `CHOOSE`, `LOOKUP`, `VLOOKUP`, `HLOOKUP`,
+  `INDEX` with `MATCH`, `SUM`, `SUMIF`, `COUNTIF` and their plural forms over a
+  maximum of 400 cells, `MIN`, `MAX`, `ROUND` and the related functions, `EDATE`,
+  `YEAR`, `MONTH`, `DAY` and date calculations.)
 - A very large model, for example the template of the European Union for the carbon
   border adjustment, with tens of thousands of formulas: give the cells that contain
   the answers (refer to [Large workbooks](#large-workbooks)). The twin then contains
@@ -358,3 +369,7 @@ among the private examples, because its workbook states no licence.
   §17.2 (`otherwise` cascades) and §17.6 (services).
 - `examples/regulatory/medicare/vitamin_d_bmi.le`: a rule that asks a workbook for
   the body mass index code of a patient.
+
+*Microsoft and Excel are trademarks of the Microsoft group of companies. Logical
+English is not a product of Microsoft, and Microsoft does not endorse Logical
+English.*

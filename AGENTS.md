@@ -9,9 +9,10 @@ see `docs/dev/migration.md`. The translators themselves are in `migration/`, one
 system, registered in `migration/le_importers.pl` (`migration/README.md`). They came from the
 private lpsPlus repository in November 2026: their copyright holder is Miguel Calejo (`NOTICE`),
 they are Apache-2.0 like the rest, and they are published "as is". A twin of a source whose
-licence does not allow a changed copy to be published (Oracle Intelligent Advisor samples,
-Socotra, OpenFisca and PolicyEngine, ISDA's reporting rules) is never written into this
-repository: `migration/le2_paths.pl` sends it to a private place.
+licence does not allow a changed copy to be published (the Oracle Intelligent Advisor projects
+that state no licence, Socotra, ISDA's reporting rules), or allows it only under a licence that
+this Apache-2.0 repository cannot carry (OpenFisca and PolicyEngine: AGPL-3.0), is never
+written into this repository: `migration/le2_paths.pl` sends it to a private place.
 Ignore docs/vibeCodingNotes.md, it contains the user's private notes.
 Documentation lives in `docs/` by kind (`docs/README.md`): `docs/user/` is the
 published user documentation (its table of contents, `docs/user/nav.json`,

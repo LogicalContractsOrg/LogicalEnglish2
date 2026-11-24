@@ -22,9 +22,10 @@ The translator is open source. The translator is in the folder
 `migration/dmn/` of Logical English 2. Thus each installation of Logical
 English has the translator. On the hosted service, sign in to use the
 translator. The translator is free for each visitor who signed in. Every
-installation also has the twins of the TCK, of examples of Dutch government
-rules (RONL), of the Benefit Decision Toolkit of Philadelphia, and of the
-models that the client examples of Kogito and Camunda call.
+installation also has the twins of the TCK (compliance level 2), of examples
+of Dutch government rules (RONL), of the Benefit Decision Toolkit of Code for
+Philly (Philadelphia tax relief), and of the models that the client examples
+of Kogito and Camunda call.
 
 The translation also goes the other way. **File ▸ Export to Another
 System… ▸ DMN** writes a Logical English program as a DMN 1.6 model, with its
@@ -92,9 +93,9 @@ scenario t001 is, as stated in "0004-simpletable-U-test-01.xml" at test case 001
 | Reads | a DMN model of version 1.1 to 1.6 (`.dmn`, or `.xml` with a DMN namespace, as the Dutch STTR files), alone or in a zip file with the models that it imports |
 | Writes | one Logical English program. The program keeps the model in its `sources/` folder |
 | Tests | a TCK test file next to the model (`<model>-test-01.xml`): one scenario for each test case |
-| Way back | **File ▸ Export to Another System… ▸ DMN**: a DMN 1.6 model, the scenarios as a TCK test file. Checked on Drools with the runner of the TCK: the 84 twins and examples of the check, 424 of 424 test cases |
-| Adapter | the DMN adapter answers the callers of Kogito, KIE Server, Camunda 7 and Camunda 8 from the twins. Checked: 521 of 521 expected results of the four public collections, through the adapter |
-| Checked against | the expected results of the TCK (compliance level 2: 138 of 138 test cases) and of the Benefit Decision Toolkit (195 of 195); for the models without tests, the answers of Apache KIE Drools 10.2.0 to generated cases (RONL: 346 of 346; the 196 models of the Omgevingswet's rules: 6,364 of 6,364); for the client examples, the answers of Drools and of Camunda's own engine (33 of 33) |
+| Way back | **File ▸ Export to Another System… ▸ DMN**: a DMN 1.6 model, the scenarios as a TCK test file. Checked on Drools with the runner of the TCK: the 84 twins and examples of the check, 422 of 424 test cases. The 2 other cases have a date that is the text "anders": the exported model gives no value there |
+| Adapter | the DMN adapter answers the callers of Kogito, KIE Server, Camunda 7 and Camunda 8 from the twins. Checked: 526 of 530 expected results of the four public collections, through the adapter (RONL: 179 of 183) |
+| Checked against | the expected results of the TCK (compliance level 2: 138 of 138 expected answers, in the 116 test cases of its 28 models) and of the Benefit Decision Toolkit (195 of 195); for the models without tests, the answers of a DMN engine to generated cases (RONL: 399 of 399, 13 models on the engine of Camunda 7.23 and 3 on Drools 10.2.0 of Apache KIE (incubating); with Drools, the 196 models of the Omgevingswet's rules: 6,364 of 6,364); for the client examples, the answers of Drools and of Camunda's own engine (33 of 33) |
 
 ## How to use it
 
@@ -119,6 +120,13 @@ Decision Toolkit of Code for Philly: Philadelphia tax relief) and
 `clients/` (Traffic Violation, the model of Kogito's example, and Dinner
 Decisions, the model of Camunda's example). Start with
 `tck/0004_simpletable_u` and `bdt/homestead_exemption`.
+
+Each model keeps the licence of its authors. The README of each folder gives
+the licence. The RONL models and their twins are under the European Union
+Public Licence 1.2 (EUPL-1.2), not under the Apache License of Logical
+English. The models of RONL and of the Benefit Decision Toolkit are the work
+of their authors. They are not the official texts of the rules that they
+describe.
 
 > Note: a model that is a set of questions to a citizen (the Dutch STTR
 > models) also gets a **view**. The view asks the questions one at a time,
@@ -236,9 +244,12 @@ problems, when the program has:
 
 **How the export was checked.** The script `dmn_roundtrip.pl` of the
 translators exports a set of programs. It runs the test cases of each model
-with the runner of the TCK on Apache KIE Drools 10.2. On 26 October 2026:
-the 83 public DMN twins and the example `childcare_support`, 84 programs,
-424 of 424 test cases pass. Of 99 other example programs written in Logical
+with the runner of the TCK on Drools 10.2 of Apache KIE (incubating). On 27
+October 2026: the 83 public DMN twins and the example `childcare_support`, 84
+programs, 422 of 424 test cases pass. In the 2 other cases, a date of a RONL
+model is the text "anders". For these cases, the twin and Camunda answer 0, and
+the exported model answers no value on Drools.
+Of 99 other example programs written in Logical
 English, 20 export, 38 of 38 test cases pass, and 79 are refused with the
 reason.
 
@@ -263,8 +274,8 @@ sentences. The adapter uses the mapping file that the translator writes
 next to each twin. Refer to [Adapters](adapters.md) for the mapping file and
 for the sign-in.
 
-The folder `migration/dmn/clients/` has the twins of the models that the
-client examples of Kogito and Camunda call. With those twins, these clients
+The examples folder `migration/dmn/clients/` has the twins of the models that
+the client examples of Kogito and Camunda call. With those twins, these clients
 ran without a change, except for the address:
 
 - the request of Kogito's own example (`curl … /Traffic%20Violation`);
@@ -289,3 +300,7 @@ services of Kogito.
 - The DMN TCK: https://github.com/dmn-tck/tck (Apache-2.0)
 - The Benefit Decision Toolkit: https://github.com/CodeForPhilly/benefit-decision-toolkit (MIT)
 - RONL examples: https://github.com/sgort/linked-data-explorer (EUPL-1.2)
+
+DMN is a trademark of the Object Management Group. The names Drools, Kogito,
+KIE Server, Camunda and Trisotech belong to their owners. The owners of these
+names, and the authors of the models, did not take part in this work.

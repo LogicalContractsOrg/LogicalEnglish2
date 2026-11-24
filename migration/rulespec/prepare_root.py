@@ -3,8 +3,8 @@
 
 The engine reads a checkout named rulespec-<country> holding only its
 jurisdiction folders, and refuses the whole root when one file breaks its
-rules. rulespec-us at the pinned commit lists 643 modules its own pinned engine
-does not load (tools/known-engine-load-failures.txt); every class of those
+rules. rulespec-us at the pinned commit lists 636 load failures, of 527
+modules, on its own pinned engine (tools/known-engine-load-failures.txt); every class of those
 failures but one is metadata the engine does not execute. This copies the
 jurisdiction folders and normalises only that metadata:
 

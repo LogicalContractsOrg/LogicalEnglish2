@@ -1,7 +1,7 @@
 # Migration ledger: annuity_deposit
 
 Source: an OIPA transaction (Rules Palette XML) — Deposit/Transaction.xml
-Translator: lpsPlus/migration/oipa (oipa_twin.pl)
+Translator: LE2 migration/oipa (oipa_twin.pl)
 Date: 2026-10-26
 
 ## Summary

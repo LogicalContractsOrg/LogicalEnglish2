@@ -403,19 +403,21 @@ ledger, the tests of its source written as scenarios, and its `sources/` folder.
   corpus of Axiom (SNAP food assistance, the Child Tax Credit, the Earned Income Tax
   Credit, Supplemental Security Income);
 - `migration/miniscript/…`: Bitcoin spending policies. Each policy has a custody
-  view, flip queries for lost keys, and scenarios that a recorded run on the public
-  Tape network confirmed;
+  view, flip queries for lost keys, and scenarios from a recorded run on the Tape
+  test chain;
 - `migration/scasp/…`: s(CASP) programs, including the programs of LE1.
 
 The twins written in Logical English for LPS (Daml, Drools, Solidity, the contracts
 of L4, the Epilog games) are among the examples of LPS2.
 
-Some twins are not published, because we do not have permission to publish their
-sources again. These are the twins of the sample projects of Oracle Intelligent
-Advisor, of Socotra, of OpenFisca and PolicyEngine, of the Digital Regulatory
-Reporting (DRR) rules of ISDA, of the Dutch *bruidsschat* DMN files, and of the
-spreadsheets whose publishers state no licence. The translators of these systems are
-open source, as the other translators are.
+Some twins are not published, because the licence of their sources does not let us
+publish them here. These are the twins of the public projects of Oracle Intelligent
+Advisor that state no licence, of the product library of Socotra, of the Digital
+Regulatory Reporting (DRR) rules of ISDA, of the Dutch *bruidsschat* DMN files, and
+of the spreadsheets whose publishers state no licence. The models of OpenFisca and
+PolicyEngine have the licence AGPL-3.0. That licence applies also to a twin. Thus
+these twins cannot be part of the examples, which have the Apache License 2.0. The
+translators of these systems are open source, as the other translators are.
 
 When you make these twins on your own installation, the translator writes the twins
 to a private folder. The private folder is the folder that the setting

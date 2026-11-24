@@ -8,23 +8,39 @@ Palette's XML for a transaction and its attached rules — and one Logical
 English twin per transaction, in the timeless reading (an activity's values
 from its fields, the policy it finds and the plan). There is no public OIPA
 and no public configuration, so the phase is built, as the plan says, on a
-**synthetic corpus** written from the forms of the public *OIPA XML
-Configuration Guide* (release 9.7, docs.oracle.com), with the expected
-values computed **independently** of the translator.
+**synthetic corpus** written from the forms of Oracle's public *XML
+Configuration Guide* for OIPA (release 9.7, docs.oracle.com), with the
+expected values computed **independently** of the translator. Nothing here
+was run on an OIPA installation: the translator is checked against this
+repository's own reading of the guide, not against Oracle's engine.
+
+Oracle is a registered trademark of Oracle and/or its affiliates. This
+translator is not an Oracle product, and Oracle does not endorse it. No
+Oracle configuration or code is copied here: the names of elements,
+attributes and functions are the guide's, and everything else was written
+for this repository.
+
+**Where the corpus departs from the guide.** The layout of a plan as a
+folder (`<Transaction>/Transaction.xml`, `Rates.csv`, `PlanFields.csv`) is
+this repository's: OIPA keeps a configuration in its database. The spawns
+of a transaction are read from a file `SpawnActivities.xml` (`<Spawn>` with
+`<Tests>`), which is this corpus's form: in the guide they are the
+`<Spawns>` section of the transaction's XML (`<Spawn IF="...">`), and the
+reader does not read that section yet.
 
 | File | What it does |
 |---|---|
 | `corpus/annuity/`, `corpus/termlife/` | two synthetic plans: a deferred annuity (Deposit, Withdrawal with a free amount, a surrender charge by policy year and a MathIF, FullSurrender spawned by a withdrawal that leaves too little) and a level term life policy (Issue with ANB issue age, a premium rate by age, gender and tobacco, modal premiums; PremiumPayment advancing the paid-to date; GraceCheck spawning a lapse); per transaction `Transaction.xml` and its attached rules `ValidateExpressions.xml`, `SpawnActivities.xml`, `CopyToPolicyFields.xml`; per plan `Rates.csv` (AsRate), `PlanFields.csv` (AsPlanField) and `cases.json` (policy lives: activities in order) |
 | `oipa_reader.pl` | a plan directory → transactions: fields, MathVariables in order (FIELD, POLICYFIELD, PLANFIELD, VALUE, EXPRESSION, FUNCTION, IIF, RATE) and MathIFs, validations, spawns, copies; the guide's expression operators (`And Or Not = <> != < > <= >= + - * / ^ %`, functions) |
 | `oipa_twin.pl` | a transaction → a migration (`le_migration.pl`): templates, rules, a loaded decision table per rate description, plan facts, checks, spawns, the policy after the activity, a View, queries, the policy lives' activities as scenarios, the ledger |
-| `oipa_eval.py` | **the oracle**: an interpreter of OIPA transaction math in Python, sharing no code with the translator (Decimal arithmetic, ROUND half up, the guide's definitions of DurationOf, ANBAgeOf, DaysDiffOf, MonthsAdd, TruncateNumber, MinOf, MaxOf; RATE by exact criteria with DEFAULT; attached rules; a refused activity changes nothing; a spawned transaction runs at once) — it plays each policy life and reports every activity's values |
+| `oipa_eval.py` | **the reference calculator** (the test oracle of this folder; it is not Oracle's engine): an interpreter of OIPA transaction math in Python, written from the guide and sharing no code with the translator (Decimal arithmetic, ROUND half up, the guide's definitions of DurationOf, ANBAgeOf, DaysDiffOf, MonthsAdd, TruncateNumber, MinOf, MaxOf; RATE by exact criteria with DEFAULT; attached rules; a refused activity changes nothing; a spawned transaction runs at once) — it plays each policy life and reports every activity's values |
 | `build.pl` | the twins into LE2's `examples/migration/oipa/<plan>_<transaction>/` (`le2_paths:twins_dir/2`) |
 | `oipa_import.pl` | File ▸ Open of a transaction's `.xml` (root `<Transaction>` with a Math or Fields section), or of a `.zip` of a plan folder or of one transaction's folder: the attached rules and the plan's `Rates.csv` / `PlanFields.csv` are read when they sit beside the transaction; the twin laid out as `build.pl`'s (`sources/<Transaction>/Transaction.xml`, where the citations point); the note says what was read and what was not |
 | `test_oipa.pl` | plunit: the operators, the reader, every twin passing, File ▸ Open |
 
 ## How to run
 
-From the LE2 checkout (`/work`), with Python 3:
+From the root of the LE2 checkout, with Python 3:
 
     ./myswipl.sh -q migration/oipa/build.pl
     ./myswipl.sh -q -g run_tests -t halt migration/oipa/test_oipa.pl
@@ -84,7 +100,9 @@ other element of the Math section the reader does not know) is one residue
 block with its XML, concluding the MathVariables set inside it, with a
 ledger row for the loop and one per variable. A check, spawn or copy that
 reads what cannot be translated is left out with a ledger note. Assignments
-to funds (Assignment elements) and Valuation are not read.
+to funds (Assignment elements) and Valuation are not read; nor is any other
+section of the transaction's XML than `Fields` and `Math` (the `<Spawns>`
+section among them), and the ledger has no row for those.
 
 ## Results (14 September 2026)
 

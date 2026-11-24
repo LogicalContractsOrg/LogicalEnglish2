@@ -1,7 +1,7 @@
 # Migration ledger: textual_vs_symbolic_example
 
 Source: an L4 program (smucclaw/l4-ide) — textual-vs-symbolic-example.l4
-Translator: lpsPlus/migration/l4 (l4_twin.pl)
+Translator: LE2 migration/l4 (l4_twin.pl)
 Date: 2026-10-26
 Source licence: Apache-2.0, Singapore Management University
 

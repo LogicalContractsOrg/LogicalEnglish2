@@ -1,10 +1,11 @@
 /** <module> The s(CASP) corpus the twins are built from
 
-    The SWI-Prolog sCASP pack's tests (Apache 2.0): test/le_programs, the
-    15 s(CASP) programs LE1 generated from its own examples — the nearest
-    thing to an LE1 -> LE2 migration corpus — and a few classics of
-    test/all_programs that use what LE1's do not (classical negation,
-    abducibles, denials).
+    The SWI-Prolog sCASP pack's tests (https://github.com/SWI-Prolog/sCASP;
+    Apache License 2.0, copyright 2019 Joaquin Arias): test/le_programs, the
+    13 s(CASP) programs LE1 generated from its own examples (its two other
+    files are not Prolog) — the nearest thing to an LE1 -> LE2 migration
+    corpus — and a few classics of test/all_programs that use what LE1's do
+    not (classical negation, abducibles, denials).
 */
 
 :- module(scasp_corpus, [corpus_file/1, scasp_test_dir/1]).

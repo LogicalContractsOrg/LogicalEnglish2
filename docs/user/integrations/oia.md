@@ -25,8 +25,9 @@ visitor who signed in.
 The **OIA adapter** is open source in the same way. With the adapter, the server
 answers the calls that applications make to Oracle Intelligent Advisor: its decision
 services, Batch Assess and SOAP Assess. The server answers in the formats of Oracle,
-from the translated program. Thus an application that was written for OIA needs a new address
-and new credentials, but no new code. Refer to [The OIA adapter](#the-oia-adapter).
+from the translated program. Thus an application that makes only these calls needs a new
+address and new credentials, but no new code. The adapter is not a product of Oracle.
+Refer to [The OIA adapter](#the-oia-adapter).
 
 ## Contents
 
@@ -77,8 +78,8 @@ the forms into which Policy Modeling compiles them. Upload one of these items:
   document into a file `bin/<Document>.docx.xgen`. Upload that file. The `.xgen` file
   contains these items:
   - the sentences, as their author wrote them;
-  - the reading of Oracle of each sentence (which words are the subject, and other
-    parts);
+  - the reading of Policy Modeling of each sentence (which words are the subject, and
+    other parts);
   - the rules, with their levels;
   - the paragraphs of the document.
 - **A deployed rulebase.** Upload `rulebase.xml`. This is the rulebase that somebody
@@ -101,7 +102,8 @@ the forms into which Policy Modeling compiles them. Upload one of these items:
 
 The two methods of reading give the same result. Four public projects have both their
 Word documents and the `.xgen` files of Policy Modeling. For these projects, the rules
-from Word are the same as the rules from the compilation of Oracle: 120 of 120.
+from Word are the same as the rules from the compilation of Policy Modeling: 120 of
+120.
 
 The server reads the Excel test files only when it has `python3` with the `openpyxl`
 package installed. Without that package, the server does not read the test files. The
@@ -206,11 +208,15 @@ have access to them. On the hosted service, the names of these examples start wi
 - `lpsPlus/migration/oia/laa_feedback_form` and `check_answers`: two rulebases of
   the Ministry of Justice that make the text of emails and web pages;
 - `lpsPlus/migration/oia/simple_benefits`, `insurance_fraud_score`,
-  `aged_care_approval` and `social_services_screening`: four example projects from
-  the documentation of Oracle. We made them again from their documentation, with
-  entities, `ForAll`, `Exists`, sums and dates. Simple Benefits also answers the two
-  cases that the documentation of Oracle publishes, with the same results that Oracle
-  published.
+  `aged_care_approval` and `social_services_screening`: four projects that we wrote,
+  with entities, `ForAll`, `Exists`, sums and dates. They are not projects of Oracle.
+  Simple Benefits follows the rules that the documentation of Oracle gives for its
+  example of that name. The other three have the names and the subjects of examples
+  that the documentation of Oracle describes in one or two sentences. Their rules are
+  ours. Simple Benefits also answers the two cases that the documentation of Oracle
+  publishes, with the same results that Oracle published. One rule of Simple Benefits
+  is our assumption: Oracle publishes the amount of the low income allowance for
+  those two cases, but not the rule that calculates the amount.
 
 Each example has its ledger and its `sources/` folder. Together, the examples give 953
 of the 953 answers that their tests expect. Some of the public projects do not state a
@@ -254,8 +260,8 @@ licence. Thus we do not publish their translations in other locations.
 ### Roles of the global entity
 
 The OIA rules about one case refer by name to the people and things in that case:
-"the Father", "the Child", "the claim". Oracle reads each sentence and finds its
-subject. Sometimes one phrase is the subject of two or more attributes. Then the
+"the Father", "the Child", "the claim". Policy Modeling reads each sentence and finds
+its subject. Sometimes one phrase is the subject of two or more attributes. Then the
 translator changes that phrase into a **role**. Each template that refers to the role
 gets a place for it, and the type of the place is the role. A named constant (the
 language reference §2.3) then tells which individual of the case the role refers to.
@@ -273,7 +279,7 @@ Two kinds of sentence keep their own words:
   becomes a place.
 
 The translator finds roles only in `.xgen` documents. The reason is that the `.stxt`
-file of a rulebase does not tell how Oracle read each sentence.
+file of a rulebase does not tell how Policy Modeling read each sentence.
 
 ### Rule tables
 
@@ -338,7 +344,8 @@ point (`the fee is 70`). A scenario of this kind says
 The server that runs the editor can also answer **the interfaces of Oracle Intelligent
 Advisor**, from the translated programs. The adapter is open source
 (`migration/oia/oia_adapter.pl` in Logical English 2). Thus each installation that
-runs a server has the adapter:
+runs a server has the adapter. The adapter is not a product of Oracle. It contains no
+code and no files of Oracle. It answers only the calls in this table:
 
 | An application that called OIA through | Calls this server at |
 |---|---|
@@ -367,7 +374,8 @@ the outcomes. Refer to [Adapters](adapters.md).
 ## Traps
 
 - **Unknown is false.** OIA works with three values, not two. An input that nobody
-  answered is *unknown*. Each result that depends on that input is also unknown.
+  answered is *unknown*. A result that the rules cannot decide without that input is
+  also unknown.
   Logical English reads a case as a closed world. In a closed world, an input that
   nobody answered is false. Also, Logical English does not give a conclusion that OIA
   calls unknown. The ledger marks as *approximated* each rule whose meaning that
@@ -407,7 +415,7 @@ the outcomes. Refer to [Adapters](adapters.md).
   `the contract`.
 - **Typing errors and unusual items stay as they are.** The translator corrects
   nothing in the rulebase. These items all arrive exactly as OIA had them:
-  - "the product is faculty" and "have been engaged";
+  - typing errors in the sentences;
   - Word headings that Policy Modeling changed into conclusions without conditions
     (these stay as facts);
   - a condition that repeats what the levels below it already define.
@@ -438,3 +446,6 @@ the outcomes. Refer to [Adapters](adapters.md).
     residue* mode of the Contract Assistant translates residue blocks
 - The documentation of Oracle Intelligent Advisor:
   [Oracle Intelligent Advisor](https://docs.oracle.com/en/cloud/saas/intelligent-advisor/index.html)
+
+*Oracle is a registered trademark of Oracle and/or its affiliates. Logical English is
+not a product of Oracle, and Oracle does not endorse Logical English.*

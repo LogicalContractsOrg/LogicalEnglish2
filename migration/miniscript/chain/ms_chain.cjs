@@ -36,9 +36,11 @@
     the chain still judges a transaction.
 
     Networks:
-      tape     Rewind Bitcoin's public test chain (a regtest chain run in the
-               open, with a faucet and an Esplora API; blocks every ten
-               minutes): https://tape.rewindbitcoin.com — the default.
+      tape     RewindBitcoin's Tape test chain (run by its operator on one
+               node and open to the public: regtest addresses, a faucet and
+               an Esplora API): https://tape.rewindbitcoin.com — the default.
+               Its faucet is a courtesy of its operator: one coin per twin,
+               at most two requests a minute.
       regtest  a private bitcoind started by this tool (BITCOIND=path to
                the binary; the bitcoind under ../.cache by default):
                blocks are mined on demand, so relative locks can be met.

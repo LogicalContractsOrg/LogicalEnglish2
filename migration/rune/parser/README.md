@@ -6,7 +6,7 @@ offered on their own later (a Rune parser for Prolog):
 | File | What it does |
 |---|---|
 | `rosetta2json.py` | the structure of a Rune model: namespaces, imports, types, enumerations, choices, functions, reporting and eligibility rules, reports, rule sources, as one JSON file per namespace. Python 3, standard library only |
-| `rune_expr.pl` | Rune's expression language in Prolog: the lexer, the parser (a DCG written after Rune's own grammar, `Rosetta.xtext` of finos/rune-dsl 9.95.0) and the printer |
+| `rune_expr.pl` | Rune's expression language in Prolog: the lexer, the parser (a DCG written after Rune's own grammar, `Rosetta.xtext` of finos/rune-dsl 9.95.0; the Rune DSL is a FINOS project, copyright 2019 - 2024 REGnosys, Apache License 2.0) and the printer |
 | `rune_reader.pl` | the model in Prolog: the JSON of `rosetta2json.py` loaded as facts of the module `rune_model`, names resolved through the imports, every expression parsed by `rune_expr.pl` |
 
 ```sh
@@ -27,7 +27,8 @@ for now: a change made in one should be made in the other.
 `rosetta2json.README.md` is cdmLOG's description of the tool.
 
 **Its tests**: `python3 parser/test_rosetta2json.py`. The demo model in
-`testdata/demo/` is a copy of cdmLOG's; the corpus tests read the CDM and
+`testdata/demo/` is a copy of cdmLOG's, and it is not in this repository
+(the `DemoGolden` tests need it); the corpus tests read the CDM and
 DRR files that `../fetch_sources.sh` downloads (or `$CDM_ROSETTA`).
 Three tests check figures of cdmLOG's CDM 8 copy and run only with
 `CDM_VERSION=8`.

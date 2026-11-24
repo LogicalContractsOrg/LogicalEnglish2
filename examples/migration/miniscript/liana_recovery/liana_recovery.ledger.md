@@ -1,7 +1,7 @@
 # Migration ledger: liana_recovery
 
 Source: A Liana wallet: a primary key, or a recovery key after a delay — https://github.com/wizardsardine/liana/blob/master/doc/RECOVER.md
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

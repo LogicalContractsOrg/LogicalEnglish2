@@ -1,7 +1,7 @@
 # Migration ledger: us_statutes_7_2012_m_4
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2012/m/4.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

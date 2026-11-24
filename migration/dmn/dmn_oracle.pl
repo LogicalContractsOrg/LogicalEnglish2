@@ -127,7 +127,7 @@ temporal_value(T, S, v(V)) :- atom_string(TA, T), V =.. [TA, S].
 %   A model of Camunda Modeler in Camunda 7's dialect (DMN 1.1 with type
 %   names unqualified, process variables as the tables' inputs), which
 %   Drools does not run: its oracle is Camunda's own engine
-%   (oracle-camunda/README.md).
+%   (oracle-camunda/, described in README.md).
 camunda_file(File) :-
     read_file_to_string(File, S, []),
     sub_string(S, _, _, _, "http://camunda.org/schema/1.0/dmn"),

@@ -1,8 +1,8 @@
-# Epilog twins — every program of the Epilog site, translated and checked
+# Epilog twins — the programs of the Epilog site, each twin checked against EpilogJS
 
 Epilog is the logic programming language of Stanford's Epilog site
-(http://epilog.stanford.edu). The Epilog translator of the Logical English
-Translators rewrote the programs of that site in Logical English. The
+(http://epilog.stanford.edu). The Epilog translator of Logical English
+rewrote the programs of that site in Logical English. The
 translator is a program: nothing in a twin was written by hand. Such a rewrite
 is a **twin**. Each twin keeps its Epilog original in `sources/`, and a
 **ledger** that tells what each part of the program became. Every twin was
@@ -10,8 +10,17 @@ checked against EpilogJS, the Epilog interpreter of Stanford. A twin is here
 only when it gives the same results as EpilogJS.
 
 The Epilog programs, and their twins, are public. EpilogJS is not part of this
-repository: its licence allows academic, non-commercial use only. The section
-"Checking a new Epilog program", at the end, tells how to use it.
+repository: its licence allows nonprofit research institutions to use it for
+non-profit purposes only, and does not allow copies to be given to others. The
+section "Checking a new Epilog program", at the end, tells how to use it.
+
+**Where the Epilog texts come from.** The files in the `sources/` folders
+(`.rules`, `.data`, and in LPS2 `.hrf`) are copies of the texts of the Epilog
+site, made in October 2026. The first comment of each twin gives the address
+of its text. The copies are not changed, with these exceptions: the data
+sheets of mapcoloring, metalevel and grapheditor, which say in their first
+lines what is ours. The Epilog texts are the work of the authors of the Epilog
+site, not of the authors of Logical English.
 
 ## Two kinds of twin
 
@@ -179,21 +188,23 @@ they define with `:=`. *Approximated* means that a view uses `symless` or
 
 ## Checking a new Epilog program
 
-The translator is part of the Logical English Translators licence. A holder of
-that licence can translate any Epilog program with **File ▸ Open…**. A program
-opened in this way is not checked. To check a new program against EpilogJS, do
-these steps.
+The translator is open source. It is in the folder `migration/epilog/` of
+Logical English 2 (this repository). You can translate any Epilog program with
+**File ▸ Open…** (on the hosted service, sign in first). A program opened in
+this way is not checked. To check a new program against EpilogJS, do these
+steps.
 
 **First, the licence of EpilogJS.** EpilogJS belongs to Stanford University.
-Its licence allows non-profit institutions to use it for non-commercial
-purposes only. It does not allow you to give copies to other persons. Use
-EpilogJS only as its licence allows. For a commercial use, get a commercial
-licence from Stanford first.
+Its licence allows nonprofit research institutions to use it for non-profit
+purposes only. It does not allow commercial use. It does not allow you to give
+copies to other persons. Use EpilogJS only as its licence allows. For a
+different use, ask the Office of Technology Licensing of Stanford University
+first.
 
-1. Get the lpsPlus repository, which holds the translator in
-   `migration/epilog/`. Also get a checkout of LE2 (this repository) and a
-   checkout of LPS2. Put the three folders side by side, or set `LE2_DIR` and
-   `LPS2_DIR` to the LE2 and LPS2 folders.
+1. Get a checkout of LE2 (this repository), which holds the translator in
+   `migration/epilog/`. Also get a checkout of LPS2. Put the two folders side
+   by side, or set `LPS2_DIR` to the LPS2 folder. Run the commands below from
+   the LE2 folder.
 2. Install SWI-Prolog and Node.js.
 3. Get EpilogJS. Either run `migration/epilog/fetch_sources.sh` (it also gets
    the texts of the Epilog site), or download
@@ -204,13 +215,13 @@ licence from Stanford first.
 
    ```sh
    # a ruleset: its rule sheet, and its data sheet if it has one
-   swipl lpsPlus/migration/epilog/validate.pl -- ruleset myrules.epilog mydata.epilog
+   swipl migration/epilog/validate.pl -- ruleset myrules.epilog mydata.epilog
    # a data sheet with no rules
-   swipl lpsPlus/migration/epilog/validate.pl -- ruleset none mydata.epilog
+   swipl migration/epilog/validate.pl -- ruleset none mydata.epilog
    # a game library: EpilogJS plays 12 moves (change the number with --moves N)
-   swipl lpsPlus/migration/epilog/validate.pl -- game mygame.hrf
+   swipl migration/epilog/validate.pl -- game mygame.hrf
    # operations with no game rules: the data, then the operations in turn
-   swipl lpsPlus/migration/epilog/validate.pl -- program myprogram.epilog mydata.epilog "invert(c)" "copy(a,e)"
+   swipl migration/epilog/validate.pl -- program myprogram.epilog mydata.epilog "invert(c)" "copy(a,e)"
    ```
 
 5. Read the last line. `AGREES with EpilogJS` means that the twin gives the
@@ -227,5 +238,5 @@ with operations of your own).
 
 ## More
 - How Epilog maps to Logical English: [the Epilog guide](/docs/user/integrations/epilog).
-- The Epilog translator of `lpsPlus/migration/epilog` (not public) writes these twins: its `build.pl` writes this folder and the folder of LPS2. Do not edit them by hand.
+- The Epilog translator (the folder `migration/epilog/` of this repository) writes these twins: its `build.pl` writes this folder and the folder of LPS2. Do not edit them by hand.
 - **Disclaimer.** A twin is written by a translator, and it is provided "as is", without warranty of any kind, express or implied, including any warranty that it is accurate, complete or fit for a particular purpose. A translation may be wrong: check a twin against its source before relying on it. A twin is not legal, tax, insurance, financial or other professional advice. Its authors accept no liability for any loss or damage arising from its use.

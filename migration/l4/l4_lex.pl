@@ -1,7 +1,9 @@
 /** <module> The L4 lexer: text → tokens with their lines and columns
 
     Part of the L4 reader (the design notes l4.md §6, step 1). It follows the
-    lexer of L4's own implementation (jl4-core/src/L4/Lexer.hs, Apache-2.0)
+    lexer of L4's own implementation (jl4-core/src/L4/Lexer.hs of
+    smucclaw/l4-ide at commit 5e082cf, Copyright 2025 Singapore Management
+    University, Apache-2.0)
     token for token, because L4's layout depends on the exact column of each
     token:
 

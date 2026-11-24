@@ -1,7 +1,7 @@
 # Migration ledger: liana_inheritance
 
 Source: A Liana inheritance wallet: the wallet manager, or two of the family after a year, or a third party after fifteen months — https://github.com/wizardsardine/liana#about
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

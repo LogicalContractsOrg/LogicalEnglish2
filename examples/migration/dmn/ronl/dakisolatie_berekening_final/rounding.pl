@@ -1,6 +1,6 @@
 /*  lib/rounding.pl — the arithmetic behind lib/rounding.le
 
-    Need N8 of lpsPlus/docs/migration/roadmap.md (§7.5): rounding at a
+    Need N8 of the design notes roadmap.md (§7.5): rounding at a
     number of decimals, half up (half away from zero), half even (banker's
     rounding), down (towards minus infinity), up (towards plus infinity),
     and to the nearest multiple of a step (0.05, 10). Exact: the number is

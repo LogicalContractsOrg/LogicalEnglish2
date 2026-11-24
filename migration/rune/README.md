@@ -5,10 +5,19 @@
 The translator of the design notes `rune.md` (the author's working papers, not published):
 ISDA's Digital Regulatory Reporting (DRR), written in **Rune** over the
 Common Domain Model (CDM), read into Logical English (LE) as a readable,
-cited view of what DRR computes. DRR is ISDA's, under the ISDA DRR License
-(September 2023), which allows its use "without modifications": the twins
-are private, in `lpsPlus/examples/migration/rune/`, and never published
-(rune.md §6).
+cited view of what DRR computes. Rune (the Rune DSL, earlier the Rosetta
+DSL) is a FINOS project made by REGnosys, under the Apache License 2.0. The
+CDM is a FINOS project, under the Community Specification License 1.0. DRR
+is ISDA's, under the ISDA DRR License (September 2023), which allows its
+use "without modifications": the twins are never published (rune.md §6).
+The translator writes them to the private place (`$LE_PRIVATE_TWINS_DIR`,
+or `build/private/` in this repository; [`../README.md`](../README.md)),
+under `examples/migration/rune/`: a path below that starts with
+`examples/migration/rune/` is in that place. The results of the runs
+(`runs/`) name DRR's rules and fields, and `data/` holds a private
+document: neither is in this repository (`.gitignore`). No file of DRR or
+of the CDM is copied here; `fetch_sources.sh` downloads them. This work is
+not a product of FINOS, ISDA or REGnosys, and they do not endorse it.
 
 **Where it stands (7 October 2026)** — steps 0 to 6 of rune.md §8; the
 review of step 5 is a review that is not published.
@@ -23,7 +32,8 @@ on its own; no dependency on cdmLOG (see *§14* below).
 | `java/`, `oracle.sh` | the oracle: DRR's own Java (`DrrOracle.java`) run on the instructions of a test pack, as DRR's test harness runs it (references resolved, DRR's testing clock) |
 | `flat.py` | a report as field-to-value pairs, and the comparison of two directories of reports |
 | `parser/` | the Rune parser, three files that work together ([parser/README.md](parser/README.md)): `rosetta2json.py` (the structure, a copy of cdmLOG's converter maintained beside it), `rune_expr.pl` (Rune's expression language: the lexer, the parser, a DCG after Rune's own grammar, and the printer) and `rune_reader.pl` (the model in Prolog: the JSON loaded as facts, names resolved, every expression parsed) |
-| `data/csa1/` | CSA 1 and cdmLOG's gold-standard reading of it (copies; step 4) |
+| `data/csa1/` | CSA 1 and cdmLOG's gold-standard reading of it (step 4). Not in this repository: `csa_chain.pl` looks for it here and then in the private place |
+| `csa_chain.pl` | step 4: the margin call of CSA 1 in LE. Not in this repository either: the script holds the terms of the annex and quotes ISDA's 1995 Credit Support Annex. It is kept in the private place; copy it into this folder (git ignores it here) to run step 4 |
 | `gate.pl` | the gate: every expression of DRR, printed back, gives the tokens of its source |
 | `rune_types.pl` | the typing: every name of an expression resolved (an input, an attribute of the implicit item, a function or rule, an enumeration value), every node given a type and a cardinality |
 | `rune_closure.pl` | a report's fields (which rule computes which field, from the report type's annotations), and the closure of the rules, functions, attributes and enumerations they need |
@@ -58,14 +68,17 @@ migration/rune/oracle.sh cftc-part45 drr.regulation.cftc.rewrite.trade.reports.C
 ./myswipl.sh -q migration/rune/gate.pl
 ./myswipl.sh -q migration/rune/measure.pl -- 'CFTC Part45'
 ./myswipl.sh -q migration/rune/hand_build.pl
-./myswipl.sh -g "use_module(le_kbs), runTestsFor('/lpsPlus/examples/migration/rune/hand/cftc_part45_hand.le', R), print_test_result(R), halt."
+./myswipl.sh -g "use_module(le_kbs), runTestsFor('$LE_PRIVATE_TWINS_DIR/examples/migration/rune/hand/cftc_part45_hand.le', R), print_test_result(R), halt."
 ./myswipl.sh -q migration/rune/build.pl -- 'CFTC Part45'
-./myswipl.sh -q migration/rune/check.pl -- /lpsPlus/examples/migration/rune/cftc_part45/rates.le
+./myswipl.sh -q migration/rune/check.pl -- "$LE_PRIVATE_TWINS_DIR/examples/migration/rune/cftc_part45/rates.le"
 python3 migration/rune/summary.py cftc_part45 > migration/rune/runs/cftc_part45.txt
 ```
 
-The twins need `le_extensions.pl` (a few nested conditions open with a
-negation, which core LE cannot write).
+(`$LE_PRIVATE_TWINS_DIR` is the private place of the twins, above.)
+
+The first twins needed `le_extensions.pl` (a few nested conditions open with
+a negation, which core LE cannot write). Since §14 the twins are core
+Logical English (*Core LE only*, below).
 
 ## Step 0: the spike
 
@@ -356,7 +369,7 @@ the end.
    **64 of 64 expectations pass**: the twin, computing the balance from the
    annex's paragraphs, reports what DRR's Java reports.
 
-The margin type is a reading for the former ISDA lawyer to confirm: the
+The margin type is a reading for a lawyer to confirm: the
 1995 annex is taken as a variation margin agreement. The collateralisation
 category stays what DRR reads from the instruction (rune.md §7, the caution
 of question 5).

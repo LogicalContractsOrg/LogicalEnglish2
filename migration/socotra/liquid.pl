@@ -15,9 +15,10 @@
          | and(C, C) | or(C, C)
 
     Comments are dropped (their content is not parsed). The reader is lenient
-    where Socotra's own engine is and the reference Liquid is not, in the same
-    ways as the oracle's normalisation (oracle.py): a number written `.05`,
-    a `{% case x}` missing its `%`, parentheses around a condition.
+    where the reference Liquid is not, in the same ways as the oracle's
+    normalisation (oracle.py): a number written `.05`, a `{% case x}` missing
+    its `%`, parentheses around a condition. These forms occur in the public
+    product library; how Socotra's own engine reads them was not checked.
 */
 
 :- module(liquid, [liquid_parse/2, liquid_parse_file/2, liquid_normalize/2]).
@@ -33,8 +34,8 @@ liquid_parse_file(File, Stmts) :-
 
 %!  liquid_normalize(+Text, -Normalized) is det.
 %
-%   The source fixes the oracle applies too (a source defect the reference
-%   Liquid rejects and Socotra's engine evidently tolerated).
+%   The source fixes the oracle applies too (a form the reference Liquid
+%   rejects; how Socotra's engine reads it was not checked).
 liquid_normalize(Text, Norm) :-
     string_codes(Text, Cs0),
     fix_case_brace(Cs0, Cs1),

@@ -1,7 +1,7 @@
 # Migration ledger: liquid_federation
 
 Source: A Liquid-like federated peg-in: five functionaries, or two of three emergency keys after about 90 days — https://github.com/bitcoin/bitcoin/blob/master/test/functional/wallet_miniscript.py
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

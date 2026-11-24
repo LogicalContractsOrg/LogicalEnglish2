@@ -2,8 +2,9 @@
 
 *Kind: integration guide · Audience: users · Status: current (2026-09-16)*
 
-LegalRuleML is a published standard to write legal rules (LegalRuleML Core
-Specification 1.0, 2021, from the OASIS standards body). A LegalRuleML document
+LegalRuleML is a published standard to write legal rules. Its text is the
+LegalRuleML Core Specification Version 1.0, an OASIS Standard since 2021.
+OASIS is a standards body. A LegalRuleML document
 is in XML. XML is a way to mark text, so that a program can read it. LegalRuleML
 adds to an older rule language, RuleML, the items that legal rules need. These
 are the items of LegalRuleML:
@@ -18,8 +19,9 @@ are the items of LegalRuleML:
 - links to legal sources;
 - alternative interpretations of one provision.
 
-LegalRuleML is only a way to write rules. No program runs a LegalRuleML
-document, and a document has no tests.
+LegalRuleML is a format to write rules and to exchange them. The standard does
+not include a program that runs a document. The examples of the standard have
+no tests.
 
 Logical English reads LegalRuleML, and also writes it. **File ▸ Open…** (or
 **File ▸ Import from Another System…**) reads a `.lrml` document. It also reads
@@ -58,7 +60,7 @@ These translations have the name *twins*.
 
 | Direction | Where (menu item) | Files | What you get | Checked against |
 |---|---|---|---|---|
-| LegalRuleML → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | `.lrml`, or `.xml` with a `lrml:LegalRuleML` root; compact or normalized serialisation | rules, facts, obligations, permissions and prohibitions (the deontic library, `deontic.le`, adjacent to the program), exceptions as conditions, legal sources as documents, a ledger | for the examples of the specification: the answers of SPINdle (a reasoner for defeasible deontic logic) on scenarios that a person wrote from the examples |
+| LegalRuleML → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | `.lrml`, or `.xml` with a `lrml:LegalRuleML` root; compact or normalized serialisation | rules, facts, obligations, permissions and prohibitions (the deontic library, `deontic.le`, adjacent to the program), exceptions as conditions, legal sources as documents, a ledger | for the examples of the specification: the answers of SPINdle (a reasoner for defeasible deontic logic) on scenarios that were written for the twins, in 7 of the 12 twins |
 | Logical English → LegalRuleML | **File ▸ Export to Another System…** | writes `<program>.lrml` | a Statements block of rules (constitutive or prescriptive, each with its Logical English as the paraphrase), the facts, legal sources, the facts of each scenario | the round trip on the English examples of LE2: a program that LE exports and opens again gives the same rules, facts and scenario facts |
 
 The LPS2 IDE is the integrated development environment, or editor, for LPS
@@ -127,18 +129,27 @@ server…**:
 
 | Twin | What it shows |
 |---|---|
-| `ex5_section29new` | section 29 of the National Consumer Credit Protection Act 2009 of Australia: a prohibition, a permission that overrides it, penalties, a chain of reparations |
+| `ex5_section29new` | section 29 of the National Consumer Credit Protection Act 2009 of Australia, with the penalties of 2009: a prohibition, a permission that overrides it, penalties, a chain of reparations |
 | `ex12_usc_17_504_context` | 17 USC 504 in three historical versions: a prohibition, statutory, increased and reduced damages, overrides |
 | `ex3_deontic` | obligations, permissions, reparations, compliance, overrides between statements |
 | `ex8_defeasible`, `ex8b_defeasible`, `ex8c_defeasible` | defeaters, strict and defeasible strength |
 | `ex9b_alternatives` | alternative interpretations of one provision |
 | `ex1_curies`, `ex2_references`, `ex9_alternatives`, `ex10_mix`, `ex11_maternity_alternatives` | structure only: CURIEs, references, metadata, the alternatives of the Italian maternity benefit |
 
-The specification has no tests. Thus a person wrote the scenarios in the twins.
-The person used the plain-English paraphrases in the examples, and the law that
-the examples encode. The answer that each scenario expects is the answer of
-SPINdle on the original document. SPINdle is a reasoner for defeasible deontic
-logic. That is, it reasons about duties that other rules can override.
+The specification has no tests. Thus the scenarios in the twins are not from
+the specification. A coding assistant (Claude Code) wrote the scenarios for the
+twins. The assistant used the plain-English paraphrases in the examples, and
+the law that the examples encode. Seven twins have scenarios. The other five
+twins show structure only.
+
+The answer that each scenario expects comes from SPINdle. SPINdle is a reasoner
+for defeasible deontic logic, by Ho-Pun Lam and Guido Governatori. That is, it
+reasons about duties that other rules can override. The specification names
+SPINdle as the engine that was used to test LegalRuleML. SPINdle does not read
+LegalRuleML. Thus a second program of the translator writes each example, with
+the facts of the scenario, as a theory in the format of SPINdle. The expected
+answer is the answer of SPINdle on that theory.
+
 **Misc ▸ Run the Program's Tests…** shows that the twins give the same answers.
 If you open one of the documents of the specification with **File ▸ Open…**,
 you get the same wording and the same scenarios as its twin.
@@ -174,8 +185,8 @@ In step 5, the original wording comes back. The reason is that the exporter
 writes the text of each relation as the Logical English template that it came
 from.
 
-No public web site runs LegalRuleML documents. Thus this window has no button
-to try the document in a different place.
+We know no public web site that runs LegalRuleML documents. Thus this window
+has no button to try the document in a different place.
 
 ### When the export is refused
 
@@ -223,8 +234,9 @@ the changes:
 - A causal law becomes a constitutive rule from the event to its effect.
 - The initial state becomes facts.
 
-LegalRuleML says nothing about time. Thus a note tells that the export does not
-keep the times when each norm is true. The translator refuses the items that
+LegalRuleML can tell when a rule is in force. But LegalRuleML has no events,
+and no state that changes when an event occurs. Thus a note tells that the
+export does not keep the times when each norm is true. The translator refuses the items that
 have no corresponding norm. These items are a composite event, a goal, the
 default value of a fluent, a constraint between two actions or with no action,
 and a consequence that is not an action.
@@ -357,8 +369,23 @@ LE exports and opens again gives the same program.
 
 - **A document is not a test suite.** LegalRuleML has no queries and no
   expected answers. Thus a document that you open has no scenarios. The twins
-  of the specification have scenarios that a person wrote. The expected
-  answers of these scenarios come from SPINdle.
+  of the specification have scenarios that a coding assistant wrote for them.
+  The expected answers of these scenarios come from SPINdle.
+- **The check with SPINdle is a check of one reading.** The specification does
+  not give one formal meaning to each element. The translator makes some
+  decisions, and the theory for SPINdle has the same decisions. Two examples
+  are the closed world of a case (below), and an Override between two rules
+  that do not conclude opposite things. Thus the check shows that the twin
+  agrees with defeasible logic for that reading. The check does not show that
+  the authors of a document had that reading.
+- **The examples are not the law of today.** The example of section 29 has the
+  penalties of the Act of 2009: a civil penalty of 2,000 penalty units, and a
+  criminal penalty of 200 penalty units, or 2 years of imprisonment, or both.
+  The Act changed after 2009. In the compilation of 12 June 2024, the civil
+  penalty is 5,000 penalty units, and the criminal penalty is 2 years of
+  imprisonment. Also, the Act gives the largest penalty that a court can
+  order. The example states each penalty as an obligation, and thus the twin
+  does the same.
 - **The closed world of a case.** A fact that the scenario does not state is
   false. Thus `Neg` of a fact that nobody stated is true. LE ran SPINdle with
   that same interpretation. But a different program that reads LegalRuleML can
@@ -397,8 +424,9 @@ LE exports and opens again gives the same program.
 - **Numbers inside words.** In `ex12_usc_17_504_context`, the damages read
   `between $250 and "$10,000"`. LE writes a figure with a thousands separator
   as quoted text.
-- **The examples of the specification do not always agree with each other.**
-  `ex12` gives rule keys that `ex12` never defines. Thus its temporal
+- **Some references in the examples of the specification point to nothing.**
+  The examples show the elements of the standard. They are not full models of
+  the laws. `ex12` gives rule keys that `ex12` never defines. Thus its temporal
   characteristics and its strengths apply to nothing (*residue* in the ledger).
   `ex3` violates a statement `ps0` that does not exist (*approximated*).
   `ex12` spells a relation incorrectly in two of its three versions. The
@@ -411,6 +439,12 @@ LE exports and opens again gives the same program.
 - **Documents that hold only metadata.** Examples are ex4, ex6 and ex7 of the
   specification, which describe the document and do not state rules. LE reads
   these documents, but they give no rules.
+- **LE does not check an exported document against the schemas of the
+  standard.** The standard has schemas (RelaxNG and XSD) that tell which
+  documents are valid. The tests of the translator check only that Logical
+  English reads the exported document back as the same program. Before you
+  give an exported document to a different program, check the document with
+  the schemas.
 - **Constants of more than one word that contain `and`.** They come back as
   pieces of text when LE exports the document and opens it again. The reason
   is that Logical English reads a quoted constant as text.
@@ -426,3 +460,6 @@ LE exports and opens again gives the same program.
 - The documentation of LegalRuleML:
   - [LegalRuleML Core Specification Version 1.0](https://docs.oasis-open.org/legalruleml/legalruleml-core-spec/v1.0/legalruleml-core-spec-v1.0.html) (OASIS Standard, 30 August 2021), with its examples;
   - [the OASIS LegalRuleML Technical Committee](https://www.oasis-open.org/committees/legalruleml/).
+- [SPINdle](https://sourceforge.net/projects/spindlereasoner/), version 2.2.4.
+  SPINdle has the GNU Lesser General Public License. Logical English does not
+  include SPINdle. The script that builds the twins downloads SPINdle.

@@ -22,9 +22,10 @@ original.
 
 ## More
 - [s(CASP) and Prolog in Logical English](/docs/user/integrations/scasp): how the translation works, and the way back.
-- s(CASP): https://github.com/SWI-Prolog/sCASP
+- s(CASP), by Joaquín Arias and others: https://github.com/SWI-Prolog/sCASP (the version for SWI-Prolog, by Jan Wielemaker, which these twins were checked against) and https://gitlab.software.imdea.org/ciao-lang/sCASP (the original, for Ciao Prolog).
+- The originals in each `sources/` folder are copied unchanged from the tests of the s(CASP) package for SWI-Prolog, which is under the Apache License 2.0 (copyright 2019 Joaquin Arias). [MAKING_OF.md](MAKING_OF.md) says where each one came from.
 - Each twin's ledger (`<name>.ledger.md`) and `sources/` sit beside it.
-- Written by `lpsPlus/migration/scasp/build.pl`; do not edit by hand.
+- The twins are written by `migration/scasp/build.pl` of this repository; do not edit them by hand.
 
 ## Disclaimer
 A twin is written by a translator (a program that rewrites another

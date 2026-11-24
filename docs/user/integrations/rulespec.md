@@ -28,6 +28,13 @@ installation also has the translations of the Axiom programs for food
 assistance, two tax credits and Supplemental Security Income. These
 translations have the name *twins*.
 
+The Axiom Foundation publishes the programs of `rulespec-us` under the
+Creative Commons Attribution 4.0 licence (CC BY 4.0). Each twin is a changed
+copy of an Axiom program, and each twin names the Axiom Foundation as its
+source. The Axiom files are in the `sources/` folder adjacent to the twins,
+without changes. The Axiom Foundation did not make the translator or the
+twins.
+
 ## Contents
 
 - [RuleSpec in brief: a small example](#rulespec-in-brief-a-small-example)
@@ -106,7 +113,7 @@ scenario household_not_certified_eligible_receives_no_regular_month_allotment is
 | Writes | one Logical English program: the file and each file that it uses, each provision below a comment that gives its name |
 | Tests | the companion `.test.yaml`, if it is there: one scenario for each test case |
 | Way back | **File ▸ Export to Another System… ▸ Axiom RuleSpec**: one RuleSpec file, with the scenarios as its tests |
-| Checked against | the engine of Axiom, `axiom-rules-engine`. Axiom has 39 programs that come as twins. The twins give all 473 answers that the tests expect. LE wrote the 39 twins back as RuleSpec, and 37 of them pass all their tests on the engine of Axiom |
+| Checked against | the engine of Axiom, `axiom-rules-engine`. Axiom has 39 programs that come as twins. The twins give all 473 answers that the checked tests expect. The check does not include 13 more answers, in 3 test cases of section 2014(c) of title 7: the check could not get those answers from the engine of Axiom. LE wrote 37 of the 39 twins back as RuleSpec, and each of the 37 passes all its tests on the engine of Axiom. The export refused the other 2 twins, and gave the reason |
 
 ## How to use it
 
@@ -152,11 +159,11 @@ Income). Start with `snap/us_statutes_7_2017_a.le`. That program is section
 
 Two differences of meaning are important:
 
-- **A missing fact.** RuleSpec calls a yes-or-no question *undetermined* when
-  the case does not give a necessary fact. Logical English thinks that a
-  sentence that is not stated is false. The scenarios of a twin state all the
-  facts that the tests give, thus the answers agree. A case that you write must
-  also state its facts.
+- **A missing fact.** When a rule reads a fact that the case does not give,
+  the engine of Axiom usually stops with an error that names the missing
+  fact. Logical English thinks that a sentence that is not stated is false.
+  The scenarios of a twin state all the facts that the tests give, thus the
+  answers agree. A case that you write must also state its facts.
 - **Numbers.** The engine of Axiom calculates money with exact decimals.
   Logical English calculates with ordinary computer numbers. These numbers are
   very slightly inexact: for a computer, 386.5 × 0.3 is 115.94999999999999. An
@@ -199,4 +206,5 @@ refuses these parts:
 - [Other systems: importing and exporting](index.md)
 - Axiom Foundation: https://axiom.org, and its programs:
   https://github.com/TheAxiomFoundation/rulespec-us (CC-BY-4.0)
+- The engine of Axiom: https://github.com/TheAxiomFoundation/axiom-rules-engine (MIT licence)
 - The format: https://github.com/TheAxiomFoundation/axiom-rules-engine/blob/main/docs/rulespec-format.md

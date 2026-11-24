@@ -5,10 +5,13 @@
 #                            NO licence file: the twins generated from it, and
 #                            the copies of each product's configuration files
 #                            beside them (sources/, for the editors' Show the
-#                            Original), are kept in this private repository and
-#                            not published until its licence is confirmed.
-#   socotra/public           MIT (its README); fetched for reference only (the
+#                            Original), are written to a private place
+#                            (../le2_paths.pl, private_root/1) and are not
+#                            published.
+#   socotra/public           MIT (the licence text is in its README, Copyright
+#                            (c) 2022 Socotra); fetched for reference only (the
 #                            premium_test harness the oracle's shims follow).
+#                            Nothing of it is copied into this repository.
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 cache="$here/sources/.cache"

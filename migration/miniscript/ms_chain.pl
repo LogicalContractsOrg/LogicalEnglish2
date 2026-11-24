@@ -8,11 +8,13 @@
                            (https://min.sc/#c=<the code>): the policy compiled
                            to Miniscript, Script and an address in the browser;
       - chain_run/4        the spending attempts of a twin's satisfaction
-                           analysis put in front of a real chain — Rewind
-                           Bitcoin's public Tape network, or a private regtest
+                           analysis put in front of a real chain —
+                           RewindBitcoin's Tape test chain, or a private regtest
                            bitcoind — and recorded (chain/runs/<id>.<net>.json);
-      - chain_tests/5      a recorded run as the twin's chain-confirmed
-                           scenarios: each attempt's witness and timing as
+      - chain_tests/5      a recorded run as the twin's chain scenarios
+                           (the verdict is the node's acceptance into its
+                           mempool, or its refusal: the run does not wait for
+                           a block): each attempt's witness and timing as
                            facts, the chain's verdict (accepted or refused) as
                            the expectation, the transaction as the citation.
 

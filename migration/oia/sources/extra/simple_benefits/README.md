@@ -29,6 +29,9 @@ Policy Modeling would hold them:
   here, 50 + 10 for each child, gives 70 for both published cases and is an
   assumption, marked as such in the rule document.
 
-`assess/` holds Oracle's two published Assess exchanges (request and
-response, SOAP), which the translator replays as test cases: the outcomes
-Oracle's own engine returned.
+Oracle's two published Assess exchanges (request and response, SOAP) are
+not copied into this repository: they are text of Oracle's documentation.
+When they are in the private place (`oia_migrate:extra_path/2`, under
+`assess/`), the translator replays them as test cases: the outcomes Oracle's
+own engine returned. Without them, the project is translated with the five
+cases of `tests.json`.

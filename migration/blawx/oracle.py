@@ -12,6 +12,16 @@ This script does exactly that (the Blawx source it reads is the one in
 for reproducibility: the clock is fixed (blawx_now / blawx_today at the
 date below, where Blawx reads the machine's), and extra facts may be given
 (the scenarios the twin builder generates from the ontology).
+Blawx's server itself (Django, swiplserver, its `blawxrun` predicate) is not
+started: the query is asked of library(scasp) as installed here, which may
+be a later version than a Blawx installation has.
+
+Parts of this file come from Blawx: `get_variables` and `simplify_rule` are
+copied from blawx/reasoner.py, and the loop of `assemble` follows that of its
+`run_test`. Blawx is Copyright (c) 2022 Lexpedite Legal Technologies Ltd.,
+under the MIT licence; the licence text is in BLAWX_LICENSE, beside this
+file. The rest of this file is Copyright Miguel Calejo, Apache License 2.0,
+as the rest of this folder (README.md).
 
     python3 oracle.py <project.yaml> <test_name> [--facts FILE]    -> JSON
     python3 oracle.py <project.yaml> --all                          -> JSON per test
@@ -44,10 +54,12 @@ def load_yaml(path):
     import yaml
     return yaml.safe_load(open(path, encoding='utf8'))
 
+#  The next two functions are Blawx's (blawx/reasoner.py, MIT licence,
+#  Copyright (c) 2022 Lexpedite Legal Technologies Ltd.; BLAWX_LICENSE).
 def get_variables(query):
     return re.findall(r"[^\w]([A-Z_]\w*)", query)
 
-def simplify_rule(rule):          # reasoner.py's, verbatim in effect
+def simplify_rule(rule):          # reasoner.py's, without its comments
     variables = get_variables(rule)
     replacements = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q']
     for index, var in enumerate(variables):

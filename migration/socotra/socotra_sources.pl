@@ -6,10 +6,11 @@
     navigable:
 
       - each cited file is a DOCUMENT of the twin — for the product library,
-        its page on GitHub at the pinned commit (`is published at`) and its
-        raw text there (`the text of ... is at`), so nothing of the carrier's
-        is redistributed; for an imported configuration, the copy beside
-        the program;
+        its page on GitHub at the pinned commit (`is published at`) and the
+        copy of its text in the twin's sources/ (`the text of ... is at`);
+        that copy is of a file with no licence, which is one reason why the
+        product library's twins are not published; for an imported
+        configuration, the copy beside the program;
       - each rule points at its PASSAGE of the file: the Liquid lines that
         compute it, quoted (`confer "{% assign ... %}"`, which the source
         viewer highlights) when the passage is short and quotable, else a

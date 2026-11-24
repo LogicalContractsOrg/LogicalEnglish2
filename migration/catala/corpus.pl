@@ -3,8 +3,9 @@
     fetch_sources.sh clones catala-examples at the commit below into .cache/
     and unpacks the Catala toolchain beside it. The commit is the last whose
     project file the toolchain reads: the toolchain is the Catala team's own
-    build of 22 August 2026 (1.2.0+git20260822r08832f46b, the newest built
-    package; 1.3.0, of 1 October 2026, publishes no build). The examples are
+    nightly build of 22 August 2026 (a pre-release,
+    1.2.0+git20260822r08832f46b, the newest built package when the twins were
+    built; 1.3.0, of 1 October 2026, publishes no build). The examples are
     Apache-2.0: the twins are published in LE2, with attribution.
 
     programme(Name, Lang, Files, Roots, Includes): the twin of the scopes
@@ -41,7 +42,8 @@ programme(prestations_familiales, fr,
            'prestations_familiales/tests/tests_ouverture_droits.catala_fr'],
           ['ÉligibilitéPrestationsFamiliales'], [prestations_familiales, smic, prologue_france]).
 
-%   The housing allowance (aides_logement, the CNAF's programme), scope by
+%   The housing allowance (aides_logement, the largest of Catala's examples;
+%   the allowance is the one the CNAF pays), scope by
 %   scope: its law and the modules it uses, one twin per scope with the
 %   test scopes that call it.
 aides_logement_files(Test, Files) :-
@@ -61,7 +63,7 @@ programme(apl_locatif, fr, Files, ['CalculAidePersonnaliséeLogementLocatif'], I
 %   The other scopes of the housing allowance (Phase 3c work left, 8 October):
 %   the allowance for a residence (logement-foyer), for an owner buying a home
 %   (accession à la propriété), the allocation logement in a rented home, the
-%   eligibility scope, and the whole calculator the CNAF calls.
+%   eligibility scope, and the whole calculator (CalculetteAidesAuLogement).
 programme(apl_foyer, fr, Files, ['CalculAidePersonnaliséeLogementFoyer'], Inc) :-
     aides_logement_includes(Inc),
     aides_logement_files('aides_logement/tests/tests_calcul_apl_logement_foyer.catala_fr', Files).

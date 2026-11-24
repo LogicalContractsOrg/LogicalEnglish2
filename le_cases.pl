@@ -9,8 +9,7 @@
                 a person gets benefit a
                 and the person gets benefit b.
 
-    docs/user/reference/language.md §17.11. lpsPlus docs/strategy/AboutImandra.md
-    §5.1 and §5.2.
+    docs/user/reference/language.md §17.11.
 
     A *case* is what a scenario would have to say for the goal to hold: the
     facts of the scenario-element templates (le_flip:changeable/2: the

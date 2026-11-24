@@ -326,7 +326,7 @@ that states two values still has the two values.
 **Example.** `the income of *a person* is *an amount*; one value.` A person has one
 income.
 
-The translator from Rune, the language of the Common Domain Model of ISDA, marks with
+The translator from Rune, the language of the Common Domain Model (a FINOS project), marks with
 `; one value` each attribute that has only one value in Rune.
 
 #### 2.1.9 `; via service <name>`
@@ -919,7 +919,7 @@ In an explanation, the system shows a type check as the statement that it checks
   - Dates: `2023-10-27`
 
 ## 7. Arithmetic and Comparisons
-- **Math:** `+`, `-`, `*`, `/`, `( )`, integer division `//` and remainder `mod` (`S = B // 3 + B mod 3`). Contract code that keeps a fixed number of decimals uses this arithmetic. (For example, the Ethereum Virtual Machine, the EVM, keeps amounts in units of 1e18.)
+- **Math:** `+`, `-`, `*`, `/`, `( )`, integer division `//` and remainder `mod` (`S = B // 3 + B mod 3`). Contract code that keeps a fixed number of decimals uses this arithmetic. (For example, contracts on Ethereum keep an amount as a whole number of a small unit: 1 ether is 10^18 wei.)
 - **Functions:** the arithmetic functions `ceiling`, `floor`, `round`, `truncate`, `integer`, `abs`, `sign` and `sqrt` each take one argument in brackets, as in `the result is the multiple * ceiling(the amount / the multiple)`. Prolog calculates them with `is/2` while the query runs.
 - **Constants and functions as operands:** the name of a constant (§2.3) and a function written without its last place (§2.4) can be operands, as in `the total is the price of a cup with capacity 200 ml + the fee`.
 - **Comparison:** `=`, `>`, `<`, `>=`, `<=`, `==`, `!=` (`==` is `is equal to`, `!=` is `is different from`). A formula can be on **each side**: `N mod 3 = 2`, `2 = N mod 3`, `N mod 3 == 2` and `N mod 3 is equal to 2` all calculate `N mod 3` and compare the numbers. When one side has no value yet, `=` gives it the value of the other side, as in `R = N mod 3`. The system compares values that are not formulas (names, pieces of text, dates) exactly as they are written.
@@ -1157,7 +1157,7 @@ for the translators). Thus a program and its libraries are in one directory.
   that concludes a new obligation from a violation:
   `a person is obliged that the person pays 200 penalty units if the prohibition of the person that the person engages in a credit activity is violated`.
   The library says nothing about time. It says who has an obligation, and what is
-  violated, in one case. The translator for LegalRuleML (InsurLE2 Phase 2f) writes
+  violated, in one case. The translator for LegalRuleML (`migration/legalruleml/`) writes
   its programs with this library.
 
 ### 14.3 Scenarios from other files (`includes these scenarios:`)

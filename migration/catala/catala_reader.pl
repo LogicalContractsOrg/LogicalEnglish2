@@ -9,9 +9,11 @@
 The reader of roadmap.md §5.4 and §8, Phase 3c: a literate Catala file
 (`.catala_en`, `.catala_fr`), its law text, headings and directives, and its
 code blocks, read after the compiler's own lexer and grammar
-(compiler/surface/lexer_en.cppo.ml, lexer_fr.cppo.ml, parser.mly, at the
-release pinned by corpus.pl). Both dialects give one tree; keywords are kept
-by their English names.
+(compiler/surface/lexer_en.cppo.ml, lexer_fr.cppo.ml, parser.mly of
+https://github.com/CatalaLang/catala, copyright Inria and contributors,
+Apache License 2.0; at release 1.2.0). The keywords of the two dialects and
+the precedences are theirs; no file of the compiler is copied. Both dialects
+give one tree; keywords are kept by their English names.
 
 The tree:
 

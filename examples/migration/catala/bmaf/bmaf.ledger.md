@@ -1,7 +1,7 @@
 # Migration ledger: cat_bmaf
 
 Source: Catala (catala-examples) — sources/cat/bmaf.yaml
-Translator: lpsPlus migration/catala
+Translator: LE2 migration/catala
 Date: 2026-10-09
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 

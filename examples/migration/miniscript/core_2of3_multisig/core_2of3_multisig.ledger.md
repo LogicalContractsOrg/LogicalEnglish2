@@ -1,7 +1,7 @@
 # Migration ledger: core_2of3_multisig
 
 Source: A 2-of-3 multisig (P2WSH) — https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md
-Translator: InsurLE2/migration/miniscript (ms_twin.pl)
+Translator: LE2 migration/miniscript (ms_twin.pl)
 Date: 2026-09-16
 
 ## Summary

@@ -1,17 +1,77 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 AND MIT
 //
-// A USDC-style FiatToken subset: the logic of Circle's FiatTokenV1 (with its
-// Ownable, Pausable and Blacklistable), transcribed from
-// https://github.com/circlefin/stablecoin-evm (contracts/v1/*.sol, Apache-2.0)
-// into Solidity 0.8 for the LE front end: SafeMath's add/sub become checked
-// arithmetic (both revert on overflow), balanceAndBlacklistStates is a plain
-// balance mapping and _deprecatedBlacklisted the blacklist, and `initialize`
-// is the constructor. Proxy, EIP-2612/3009 (V2) and rescue functions are left
-// out. The require messages are Circle's.
+// FiatTokenSubset: a changed copy of a part of Circle's stablecoin-evm
+// (https://github.com/circlefin/stablecoin-evm, contracts/v1/). It is not
+// Circle's contract, and Circle did not review it. It was written in
+// September 2026 as a test contract for the Logical English translator of
+// Solidity.
+//
+// The files it was transcribed from, each with the notice it carries there:
+//
+// 1. FiatTokenV1.sol and Blacklistable.sol (the parts marked "FiatTokenV1"
+//    and "Blacklistable" below), under the Apache License 2.0:
+//
+//     Copyright 2023 Circle Internet Group, Inc. All rights reserved.
+//
+//     Licensed under the Apache License, Version 2.0 (the "License");
+//     you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+//         http://www.apache.org/licenses/LICENSE-2.0
+//
+//     Unless required by applicable law or agreed to in writing, software
+//     distributed under the License is distributed on an "AS IS" BASIS,
+//     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+//     limitations under the License.
+//
+// 2. Ownable.sol and Pausable.sol (the parts marked "Ownable" and "Pausable"
+//    below), which Circle forked from OpenZeppelin, under the MIT licence.
+//    Ownable.sol:
+//
+//     Copyright (c) 2018 zOS Global Limited.
+//     Copyright (c) 2018-2020 CENTRE SECZ
+//
+//    Pausable.sol:
+//
+//     Copyright (c) 2016 Smart Contract Solutions, Inc.
+//     Copyright (c) 2018-2020 CENTRE SECZ
+//
+//    Both, after those lines:
+//
+//     Permission is hereby granted, free of charge, to any person obtaining a copy
+//     of this software and associated documentation files (the "Software"), to deal
+//     in the Software without restriction, including without limitation the rights
+//     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//     copies of the Software, and to permit persons to whom the Software is
+//     furnished to do so, subject to the following conditions:
+//
+//     The above copyright notice and this permission notice shall be included in
+//     copies or substantial portions of the Software.
+//
+//     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//     SOFTWARE.
+//
+// The changes. The code is in Solidity 0.8 (Circle's is 0.6.12), in one
+// contract. SafeMath's add/sub become checked arithmetic (both revert on
+// overflow). balanceAndBlacklistStates is a plain balance mapping and
+// _deprecatedBlacklisted the blacklist, and the internal helpers (setOwner,
+// _setBalance, _balanceOf, _blacklist, _unBlacklist, _isBlacklisted) are
+// written in place. `initialize` is the constructor, without the name, the
+// symbol, the currency and the decimals of the token. Left out: the proxy,
+// EIP-2612/3009 (V2), the rescue functions, the views owner, allowance,
+// minterAllowance, isMinter and isBlacklisted, and the events PauserChanged,
+// BlacklisterChanged and MasterMinterChanged. The require messages are those
+// of Circle's files.
 pragma solidity ^0.8.20;
 
 contract FiatTokenSubset {
-    // --- Ownable (Circle)
+    // --- Ownable (Circle's fork of OpenZeppelin's; MIT)
     address private _owner;
     event OwnershipTransferred(address previousOwner, address newOwner);
 
@@ -26,7 +86,7 @@ contract FiatTokenSubset {
         _owner = newOwner;
     }
 
-    // --- Pausable (Circle)
+    // --- Pausable (Circle's fork of OpenZeppelin's; MIT)
     event Pause();
     event Unpause();
     address public pauser;
@@ -57,7 +117,7 @@ contract FiatTokenSubset {
         pauser = _newPauser;
     }
 
-    // --- Blacklistable (Circle)
+    // --- Blacklistable (Circle; Apache-2.0)
     address public blacklister;
     mapping(address account => bool) internal blacklisted;
     event Blacklisted(address indexed _account);
@@ -88,7 +148,7 @@ contract FiatTokenSubset {
         blacklister = _newBlacklister;
     }
 
-    // --- FiatTokenV1 (Circle)
+    // --- FiatTokenV1 (Circle; Apache-2.0)
     address public masterMinter;
     mapping(address account => uint256) internal balances;
     mapping(address owner => mapping(address spender => uint256)) internal allowed;

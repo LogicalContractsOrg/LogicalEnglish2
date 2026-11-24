@@ -1,7 +1,7 @@
 # Migration ledger: ny_environmental_7_3
 
 Source: an L4 program (smucclaw/l4-ide) — ny-environmental-7.3.l4
-Translator: lpsPlus/migration/l4 (l4_twin.pl)
+Translator: LE2 migration/l4 (l4_twin.pl)
 Date: 2026-09-29
 Source licence: Apache-2.0, Singapore Management University
 

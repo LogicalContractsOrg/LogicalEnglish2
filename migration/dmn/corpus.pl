@@ -55,7 +55,7 @@ twin_place(sttr, private).
 collection_title(tck, "The DMN Technology Compatibility Kit, compliance level 2 (decision tables and simple expressions)").
 collection_title(tck3, "The DMN Technology Compatibility Kit, compliance level 3 (FEEL)").
 collection_title(sttr, "The applicable rules of the Dutch Environment and Planning Act (the Omgevingswet's bruidsschat), in STTR").
-collection_title(ronl, "Rules for Government (RONL) examples of Dutch municipalities and agencies").
+collection_title(ronl, "Examples of Regels Overheid Nederland (RONL) about Dutch municipalities and agencies").
 collection_title(bdt, "The Benefit Decision Toolkit of Code for Philly (Philadelphia tax relief)").
 collection_title(clients, "The decision models of the client examples of Kogito (Traffic Violation) and Camunda (Dinner Decisions)").
 

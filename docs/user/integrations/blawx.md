@@ -12,11 +12,12 @@ s(CASP), and uses s(CASP) to answer the tests. (s(CASP) is a reasoning language 
 is related to Prolog.)
 
 **Which versions.** The translator reads projects of **Blawx version 1**. Blawx
-version 1 is the open-source release that its user installs and runs. Its last
-version is 1.6.22-alpha, of October 2023. Blawx 2 and 3 are the hosted versions at
-app.blawx.dev. These versions keep each project inside the service, and do not give
-a file to export. Thus at this time there is nothing that **File ▸ Open…** can read.
-Projects of these versions are not supported.
+version 1 is the open-source release (MIT licence) that its user installs and runs.
+Its last version is 1.6.22-alpha, of October 2023. Blawx 2 and 3 are the hosted
+versions at app.blawx.dev. In October 2026, these versions kept each project inside
+the service. The authors of the translator found no file to export. Thus at this
+time there is nothing that **File ▸ Open…** can read. Projects of these versions are
+not supported. The translator was not tested with these versions.
 
 The translation goes in one direction only, into Logical English. **File ▸ Open…**
 (or **File ▸ Import from Another System…**) reads a Blawx project. The project can be
@@ -52,7 +53,7 @@ visitor who signed in. The translations of the example projects of Blawx, the
 
 | Direction | Where (menu item) | Files | What you get | Checked against |
 |---|---|---|---|---|
-| Blawx version 1 → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | `.blawx`, `.yaml`, `.yml`, or a `.zip` that contains one of them | the rules of the Act in the words of the sentence forms of Blawx, each with a citation of its section; facts with a citation of their section; constraints; the tests of the project and the cases that the translator writes from each rule, as scenarios; a view; a ledger; the text of the Act in `sources/` | the answers of Blawx itself: the reasoner of Blawx runs on the project and answers each test and each generated case |
+| Blawx version 1 → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | `.blawx`, `.yaml`, `.yml`, or a `.zip` that contains one of them | the rules of the Act in the words of the sentence forms of Blawx, each with a citation of its section; facts with a citation of their section; constraints; the tests of the project and the cases that the translator writes from each rule, as scenarios; a view; a ledger; the text of the Act in `sources/` | the answers of the reasoner of Blawx version 1: the preamble of Blawx and the s(CASP) text of the project, which the s(CASP) library of SWI-Prolog runs for each test and each generated case |
 | Logical English → Blawx | none | — | — | — |
 
 ## How to use it
@@ -88,13 +89,19 @@ part:
 - *residue*: not translated.
 
 The answers that the scenarios expect come from the reasoner of Blawx. The server
-runs that reasoner on the project. To run the reasoner, the server needs three
-things:
+does not start Blawx itself. A script of the translator, `oracle.py`, makes an
+s(CASP) program in the same way as Blawx version 1 does for a test. The program has
+three parts: the preamble of Blawx, the s(CASP) text that the project file keeps for
+each section, and the test. Then the s(CASP) library of SWI-Prolog answers the query
+of the test. To do this, the server needs three things:
 
 - The preamble of Blawx. The preamble is the block of rules that Blawx puts before
-  each project. The server downloads the preamble.
+  each project. The preamble is not part of Logical English. The script
+  `migration/blawx/fetch_sources.sh` downloads Blawx v1.6.22-alpha, which contains
+  the preamble.
 - Python with the PyYAML package.
-- The s(CASP) library of SWI-Prolog.
+- The s(CASP) library of SWI-Prolog. This library can be a later version than the
+  version in an installation of Blawx.
 
 If the reasoner cannot run, the scenarios have no expected answers. A second note
 tells which of the three things is missing.
@@ -258,9 +265,10 @@ s(CASP). A project where the defeats come back in a circle needs
 
 ## Traps
 
-- **The expected answers are the answers of Blawx, with its mistakes.** A twin
-  follows the encoding, not the meaning of the Act. In the New Bird Act, section 5
-  says "…, except for pingu". But Blawx never connects that exception to the rule.
+- **The expected answers are the answers of Blawx, also where the encoding and the
+  Act are different.** A twin follows the encoding, not the meaning of the Act. In
+  the New Bird Act, section 5 says "…, except for pingu". But the s(CASP) text of the
+  example never connects that exception to the rule.
   Thus Blawx answers that pingu with a jetpack can fly. But the name of the test is
   `pingu_with_jetpack_cant_fly`. The twin expects the answer of Blawx, and tells this
   in a `NOTE`. The twin has the fact
@@ -269,8 +277,8 @@ s(CASP). A project where the defeats come back in a circle needs
 - **Without the reasoner of Blawx, there are no expected answers.** Sometimes you
   open a project on a server that cannot run the reasoner. Then the scenarios have
   their facts, but no `expects answers` lines. The generated cases also expect
-  nothing. All the counts are then zero. The second note gives the reason: the server
-  did not download the preamble, or PyYAML is missing, or s(CASP) is missing.
+  nothing. All the counts are then zero. The second note gives the reason: the
+  preamble is not on the server, or PyYAML is missing, or s(CASP) is missing.
 - **Abductive tests and answers that are not values wait, and do not run.** A test
   can let s(CASP) assume its own facts (`#abducible`). Such a test gets these
   assumptions back from Blawx. But a Logical English scenario states a fact or does
@@ -289,11 +297,15 @@ s(CASP). A project where the defeats come back in a circle needs
   and its aggregates over lists (the Lists Demonstration) stay word for word inside
   `% RESIDUE` blocks. A value that events change belongs in a program in Logical
   English for LPS, or in the periods of the temporal library.
+- **The translator reads the s(CASP) text that the project file keeps.** The
+  translator does not make that text again from the blocks. Thus that text can be
+  older than the installed version of Blawx. The change log of Blawx tells that,
+  after some releases, it can be necessary to open each section and save it again
+  (v1.6.12-alpha).
 - **Rules that the reasoner of Blawx never applies.** Two kinds of rule stay as
   residue. The first kind calls predicates that Blawx v1.6.22 never defines (the
-  `datetime_add` and `not_after` of the OAS Act). The second kind is clauses that
-  Blawx wrote in a form that its own reasoner cannot read (paragraphs 4 and 5 of Rule
-  34). Each block tells that the rule never applies in Blawx either. The answers
+  `datetime_add` and `not_after` of the OAS Act). The second kind is clauses in the
+  example file that s(CASP) cannot read (paragraphs 4 and 5 of Rule 34). Each block tells that the rule never applies in Blawx either. The answers
   stay the answers that the Act gives without these rules, exactly as in Blawx.
 - **LE does not include a rule that defines a thing from itself.** Section 9(a) of
   Rule 34 defines `business` with `business`. The definition adds nothing. In

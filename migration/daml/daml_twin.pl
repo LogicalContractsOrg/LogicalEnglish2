@@ -926,7 +926,7 @@ script_scenario(Twin, Header, Items, Fun, Options, Scen, Skipped, MaxT) :-
     length(Obs, NO), MaxT is NO + 2,
     (   option(final_states(FSs), Options), memberchk(SN-FS, FSs)
     ->  findall(X, ( member(F, FS), format(string(X), "  - ~q", [F]) ), Xs), atomic_list_concat(Xs, '\n', XT),
-        format(string(FC), "Daml (the script run on a Canton sandbox) ends with these active contracts (their payloads;~nthe ids are the ledger's):~n~w~nThe twin's final state under LPS2 (`lps state`) is compared with it by test_daml.pl.", [XT]),
+        format(string(FC), "Daml (the script run on a Canton sandbox, or on the IDE Ledger of Daml Script when the script sets the time) ends with these active contracts (their payloads;~nthe ids are the ledger's):~n~w~nThe twin's final state under LPS2 (`lps state`) is compared with it by test_daml.pl.", [XT]),
         Final = [comment(FC)]
     ;   Final = []
     ),

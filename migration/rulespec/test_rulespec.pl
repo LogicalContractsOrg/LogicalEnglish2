@@ -1,6 +1,6 @@
 /** <module> Tests of the RuleSpec translator (Phase 3a)
 
-    Run from the LE2 checkout (/work), after fetch_sources.sh and
+    Run from the root of the LE2 checkout, after fetch_sources.sh and
     prepare_root.py:
 
         ./myswipl.sh -q -g run_tests -t halt migration/rulespec/test_rulespec.pl

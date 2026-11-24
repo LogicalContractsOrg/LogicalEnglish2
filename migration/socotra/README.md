@@ -5,9 +5,17 @@
 Phase 1a of the design notes `roadmap.md` §8 ("Socotra — build and
 prove"): a reader that turns a Socotra product configuration (the classic
 JSON + Liquid configuration of `socotra/product-library`) into a Logical
-English twin, with a migration ledger and the product's own quotes as
-scenarios. The twins are in
-`examples/migration/socotra/`.
+English twin, with a migration ledger and generated quotes, priced by the
+product's own Liquid, as scenarios. The twins are not published (see
+[Licence status](#licence-status)): they are written to the private place of
+`../le2_paths.pl` (`$LE_PRIVATE_TWINS_DIR`, or `build/private/` in LE2, which
+git ignores), under `examples/migration/socotra/` there.
+
+This translator is not Socotra's: Socotra (the company) did not make it and
+did not examine it. Nothing here runs Socotra's software. The Liquid premium
+calculations it reads are the ones that Socotra's documentation marks as
+deprecated ("Premium Calculations (Legacy)", in favour of the JavaScript
+Rating Plugin); plugins are not read.
 
 | File | What it is |
 |---|---|
@@ -22,23 +30,29 @@ scenarios. The twins are in
 ## Licence status
 
 `socotra/product-library` has **no licence file**. Its files are never
-vendored here: `fetch_sources.sh` clones it into `sources/.cache/`
-(git-ignored) and the twins are generated from that cache. The twins are
-derived works; they are kept in this private repository and **publication
-awaits confirmation of the product-library licence** — every ledger header
-says so (`licence` in its meta). `socotra/public` is MIT (its README); it is
+copied into this repository: `fetch_sources.sh` clones it into
+`sources/.cache/` (git-ignored) and the twins are generated from that cache.
+The twins are derived works, and each carries a copy of its product's
+configuration files in `sources/`; so the twins are **not published**. They
+are written only to the private place (`le2_paths:twins_dir(socotra, Dir)`),
+never to `examples/migration/` of this repository — every ledger header
+states the licence status (`licence` in its meta). `socotra/public` is MIT
+(the licence text is in its README: "Copyright (c) 2022 Socotra"); it is
 fetched for reference only (its `premium_test` harness is what the oracle's
-shims follow) and nothing from it is copied.
+shims follow) and nothing from it is copied. Its `product_examples/` folder
+holds four product configurations under that MIT licence; the rating files of
+its `pet` example are the same as those of the product library's `Pet`.
 
 ## How to run
 
 ```sh
-cd LE2 migration/socotra
+cd migration/socotra        # in LE2
 ./fetch_sources.sh                                   # sources/.cache/{product-library,public}
-# one product (LE2: $LE2_DIR, or a checkout beside this repository — ../le2_paths.pl)
-swipl -g "use_module(socotra_reader), build_product('sources/.cache/product-library/Pet', '../../examples/migration/socotra', R), print(R), halt."
+# The twins go to the private place (Out), never to this repository's examples/.
+# one product
+swipl -g "use_module(socotra_reader), le2_paths:twins_dir(socotra, Out), build_product('sources/.cache/product-library/Pet', Out, R), print(R), halt."
 # all 17 (about 25 s)
-swipl -g "use_module(socotra_reader), build_all('sources/.cache/product-library', '../../examples/migration/socotra'), halt."
+swipl -g "use_module(socotra_reader), le2_paths:twins_dir(socotra, Out), build_all('sources/.cache/product-library', Out), halt."
 # tests
 swipl -q -g run_tests -t halt test_socotra.pl
 ```
@@ -47,7 +61,7 @@ The oracle needs Python 3 with `python-liquid` 2.x (run as `python3` from
 the PATH). On a machine without it, `build_product/4` and `build_all/3` with
 the option `reuse_quotes(true)` keep each twin's `quotes.json` of an earlier
 run instead (the reference run is deterministic), e.g.
-`build_all('sources/.cache/product-library', '../../examples/migration/socotra', [reuse_quotes(true)])`.
+`build_all('sources/.cache/product-library', Out, [reuse_quotes(true)])`.
 `build_product/3` runs it (10 quotes per product), translates,
 writes `<product>/<product>.le`, the CSV tables, `quotes.json`, the ledger
 (`.ledger.md`, `.ledger.json`) and runs the twin's scenarios; its report is
@@ -67,8 +81,8 @@ the text of "Contract Surety/policy/exposures/bid/perils/license.premium.liquid"
 
 — the public GitHub page at the pinned commit, and the text of the copy in the
 twin's `sources/` folder (`build_product/4` copies the product's Liquid, JSON
-and CSV files there; they are kept, like the twin, in this private repository —
-see `fetch_sources.sh`), so the viewer needs no network and **File ▸ Show the
+and CSV files there; they are kept, like the twin, in the private place and
+are not published — see `fetch_sources.sh`), so the viewer needs no network and **File ▸ Show the
 Original** lists them. Each rule also points at **its
 passage** of the file (`socotra_sources.pl`): a short passage without double
 quotes is quoted (`confer "{{ premium | set_year_premium }}"`, which the
@@ -142,7 +156,7 @@ Conventions (the ledgers record each use):
 - **Source defects** (a variable never assigned, a table the product lacks,
   a misspelt variable) are translated as Liquid reads them (nil) and listed.
 
-## Scenarios: the product's own quotes
+## Scenarios: generated quotes, priced by the product's own Liquid
 
 There are no rating tests in the product library, and `socotra/public`'s
 `premium_test` prices a single peril against a live Socotra tenant (its
@@ -159,6 +173,9 @@ whose script the reference run itself cannot execute is left uncovered in
 the quote.
 
 ## Results
+
+These figures compare each twin with the reference run (`oracle.py`), not
+with Socotra's platform, which was not run.
 
 17 twins, 519 rules, 25 tables, 140 quote scenarios; **all 992 tests that
 can run pass, and 14 of 17 products reproduce every quote**; the 100 other
@@ -188,14 +205,14 @@ comments, restored when the block is translated.
 Assistant's residue mode (`le_contract_assistant.pl`, `mode: "residue"`, the
 twin as skeleton) with `gpt-5.5`: one draft and one repair call, 61 s, and the
 block came back translated with 0 errors and **80/80** tests passing (from
-60/80). The rules and the run: `examples/migration/socotra/homeowners/residue_r1_live_run.md`.
+60/80). The rules and the run: `homeowners/residue_r1_live_run.md`, beside the (private) twin.
 The twin itself keeps the block as residue until a person adopts them.
 
 ## Implementation status (for §8, Phase 1a)
 
 *Implementation status (13 September 2026): done, in `migration/socotra/`
 (reader, Liquid parser, reference-run oracle, fetch script, tests; README) and
-`examples/migration/socotra/` (17 twins with ledgers, quote scenarios and a
+the private twins' folder (17 twins with ledgers, quote scenarios and a
 quote-desk View each).* The reader translates the product model into
 templates and the Liquid rating, tax, fee and underwriting scripts into rules
 by symbolic execution (branches as `otherwise` cascades, loops as existential
@@ -208,5 +225,5 @@ can run passes (992), 14 of the 17 products reproduce every quote, and the
 100 expectations that depend on the four residue blocks (one underwriting
 script, three peril scripts) are pending, as comments counted in the ledgers;
 and the Contract Assistant's residue mode, run live on the Homeowners block,
-brought that product to 80/80. The twins stay private until the
-product-library licence (no licence file) is confirmed.
+brought that product to 80/80. The twins are not published: the product
+library states no licence.

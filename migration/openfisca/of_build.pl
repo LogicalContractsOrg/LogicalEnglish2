@@ -1,5 +1,8 @@
-/*  Build the OpenFisca and PolicyEngine twins (le2_paths:twins_dir/2: this
-    repository's examples/migration/{openfisca,policyengine}).
+/*  Build the OpenFisca and PolicyEngine twins. The packages are AGPL-3.0 and
+    a twin is a translation of its package, so the twins are never written
+    into this repository (Apache-2.0): le2_paths:twins_dir/2 names the
+    private place, examples/migration/{openfisca,policyengine} under
+    le2_paths:private_root/1.
 
         ./myswipl.sh -q migration/openfisca/of_build.pl [-- programme ...]
 
@@ -61,10 +64,10 @@ extract(Dialect, Ps) :-
                  ; member(T0, Tests), member(A, ['--tests', T0]) ) ), Args),
     run(C, Py, [Run, Dialect, Out|Args]).
 
-%   One environment per engine: openfisca-france needs openfisca-core 44
-%   (Phase 3b′), and the country template pins a core that pip will not
-%   resolve beside PolicyEngine's 45 (fetch_sources.sh). PolicyEngine's two
-%   packages share `venv`.
+%   One environment per engine: openfisca-france needs an openfisca-core
+%   below 45 (Phase 3b′), and the country template has an environment of its
+%   own (fetch_sources.sh). PolicyEngine's two packages run on
+%   policyengine-core, not on openfisca-core, and share `venv`.
 venv(france, 'venv-fr') :- !.
 venv(template, 'venv-ct') :- !.
 venv(_, venv).
@@ -89,9 +92,9 @@ build(P) :-
     get_dict(package, Info, Pkg),
     programme(P, Dialect, _, _, _), twin_language(Dialect, Lang),
     (   Lang == fr
-    ->  format(string(Header), "~w — un jumeau des variables de ~w que ~w lisent, avec les paramètres qu'elles utilisent et les tests du paquet lui-même.~nTraduit par LE2 migration/openfisca. Source : AGPL-3.0 (gardée privée).",
+    ->  format(string(Header), "~w — un jumeau des variables de ~w que ~w lisent, avec les paramètres qu'elles utilisent et les tests du paquet lui-même.~nTraduit par LE2 migration/openfisca. Source : licence AGPL-3.0, qui s'applique aussi à cette traduction (un jumeau non publié).",
                [P, Pkg, Roots])
-    ;   format(string(Header), "~w — a twin of the variables of ~w that ~w read, with the parameters they use and the package's own tests.~nTranslated by LE2 migration/openfisca. Source: AGPL-3.0 (kept private).",
+    ;   format(string(Header), "~w — a twin of the variables of ~w that ~w read, with the parameters they use and the package's own tests.~nTranslated by LE2 migration/openfisca. Source: AGPL-3.0, which applies to this translation too (a twin that is not published).",
                [P, Pkg, Roots])
     ),
     with_upload([Id-ModFile], [],

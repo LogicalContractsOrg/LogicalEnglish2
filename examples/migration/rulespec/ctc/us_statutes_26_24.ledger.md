@@ -1,7 +1,7 @@
 # Migration ledger: us_statutes_26_24
 
 Source: Axiom RuleSpec — sources/us/statutes/26/24/h.yaml, sources/us/statutes/26/24.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

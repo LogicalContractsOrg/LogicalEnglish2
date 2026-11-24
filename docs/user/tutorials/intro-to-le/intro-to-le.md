@@ -1307,7 +1307,7 @@ into facts that use *your* templates.
 All the examples above used the **Prolog** engine of LE. An engine is the software
 that does the reasoning. LE can also run the *same program* on a second engine,
 **s(CASP)**. s(CASP) also starts from the question and works backwards. s(CASP) gives
-three things that Prolog cannot give:
+three things that the Prolog engine of LE does not give:
 
 - answers that are **constraints**: conditions, not fixed values;
 - **more than one possible world** for one query (the makers of s(CASP) call these
@@ -1394,9 +1394,9 @@ Use **s(CASP)** in these conditions:
 - Your program goes in a circle through a denial. Prolog can operate incorrectly with
   this shape, and the editor gives a warning about it.
 
-Sometimes s(CASP) cannot express a program correctly. Then s(CASP) does not run the
-program incorrectly. s(CASP) refuses the program, gives a list of the problems and
-their lines, and tells you to use Prolog. For all the data, refer to
+Sometimes LE cannot write a program correctly in s(CASP). Then LE does not run the
+program on s(CASP). LE gives a list of the problems and their lines, and tells you to
+use Prolog. For all the data, refer to
 [s(CASP) on Logical English](../../reference/scasp.md).
 
 ---

@@ -102,13 +102,17 @@ build_twin(File, Id, Root, Report) :-
     %  Blawx's MIT licence travels with the copy of its example
     here(H), format(atom(Lic), '~w/.cache/blawx/LICENSE', [H]),
     ( exists_file(Lic) -> atomic_list_concat([SD, '/BLAWX_LICENSE'], LicCopy), copy_file(Lic, LicCopy) ; true ),
-    project_migration(File, Id, [dir(Dir)], Migration),
+    project_migration(File, Id, [dir(Dir), example(true)], Migration),
     write_migration(Migration, Dir, Id, Report).
 
 %!  project_migration(+File, +Id, +Options, -Migration) is det.
 %
 %   Options: dir(Dir) — where the Act's text is written (sources/<Id>.md);
-%   oracle(Answers) — the tests' answers, else computed by oracle.py.
+%   oracle(Answers) — the tests' answers, else computed by oracle.py;
+%   example(true) — the project is one of the examples of Blawx itself
+%   (build.pl): only then do the header and the ledger name Blawx's release,
+%   its commit and its licence. A project that a user opens (File ▸ Open) is
+%   the user's own, and nothing is said about its licence.
 project_migration(File, Id, Opts, migration(Meta, program(Header, Items), Ledger, Tests)) :-
     blawx_project(File, Project),
     Project = project(Title, RDName, RuleText, Sections, BTests),
@@ -153,7 +157,7 @@ project_migration(File, Id, Opts, migration(Meta, program(Header, Items), Ledger
     ->  view_item(Title, Ctx, RuleItems, CQueries, Queries, View), Views = [View]
     ;   Views = []                         % nothing to ask: no screen
     ),
-    header_comment(Title, RDName, FB, Sections, Header0),
+    header_comment(Title, RDName, FB, Sections, Opts, Header0),
     Header = [kb(Id), comment(Header0)],
     append([Templates, Docs, ClockItems, [comment("The Act, section by section.")], RuleItems,
             DenialItems, Queries, CQueries, Views], Items),
@@ -161,11 +165,16 @@ project_migration(File, Id, Opts, migration(Meta, program(Header, Items), Ledger
     template_notes(Ctx, Id, Templates, Items, Tests, TLedger, TLedger1),
     append([TLedger1, CLedger, RLedger, DLedger, BLedger, XLedger], Ledger),
     get_time(Now), format_time(atom(Date), '%Y-%m-%d', Now),
-    blawx_commit(Commit), atom_concat('https://github.com/Lexpedite/blawx/tree/', Commit, CommitUrl),
-    Meta = [program(Id), source(Title),
-            artifacts([ProjText, CommitUrl]),
-            translator('LE2 migration/blawx (blawx_twin.pl)'), date(Date),
-            licence('Blawx: MIT')].
+    (   option(example(true), Opts)
+    ->  blawx_commit(Commit), atom_concat('https://github.com/Lexpedite/blawx/tree/', Commit, CommitUrl),
+        Meta = [program(Id), source(Title),
+                artifacts([ProjText, CommitUrl]),
+                translator('LE2 migration/blawx (blawx_twin.pl)'), date(Date),
+                licence('Blawx: MIT')]
+    ;   Meta = [program(Id), source(Title),
+                artifacts([ProjText]),
+                translator('LE2 migration/blawx (blawx_twin.pl)'), date(Date)]
+    ).
 
 		 /*******************************
 		 *     WHAT THE SOURCE LEAVES   *
@@ -260,12 +269,16 @@ act_document(Title0, Doc) :-
 blawx_documents(Doc, ActText, ProjText, [document(Doc, [text(ActText)]),
                                           document('the Blawx project', [text(ProjText)])]).
 
-header_comment(Title, RDName, FB, Sections, C) :-
-    blawx_release(Rel), blawx_commit(Commit),
+header_comment(Title, RDName, FB, Sections, Opts, C) :-
     length(Sections, NS),
-    format(string(C),
-"~w~n~nThe Logical English twin of a Blawx encoding, written by the Blawx translator.~nEach rule is a rule of the Act as Blawx encodes it,~nin the words of Blawx's own sentence forms, citing its section; the project's~ntests are the scenarios, with Blawx's own answers as the expectations.~n~nSource: the Blawx project \"~w\" (~w, ~w sections), an example of~n        Blawx ~w (Lexpedite, MIT licence), commit ~w.",
-           [Title, RDName, FB, NS, Rel, Commit]).
+    format(string(C0),
+"~w~n~nThe Logical English twin of a Blawx encoding, written by Logical English's translator for Blawx.~nEach rule is a rule of the Act as Blawx encodes it,~nin the words of Blawx's own sentence forms, citing its section; the project's~ntests are the scenarios, with Blawx's own answers as the expectations.~n~nSource: the Blawx project \"~w\" (~w, ~w sections)",
+           [Title, RDName, FB, NS]),
+    (   option(example(true), Opts)
+    ->  blawx_release(Rel), blawx_commit(Commit),
+        format(string(C), "~w, an example of~n        Blawx ~w (Lexpedite, MIT licence), commit ~w.", [C0, Rel, Commit])
+    ;   string_concat(C0, ".", C)
+    ).
 
 		 /*******************************
 		 *    WHAT THE SECTIONS HOLD    *

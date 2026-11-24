@@ -16,13 +16,13 @@ Drools door needs LPS2 as well as LE2.
 | File | What it does |
 |---|---|
 | `drl_twin.pl` | the twins: the stateful reading (LE for LPS) of every rule base and the stateless reading (timeless LE) of a rule base that only inserts; the oracle's cases; the final-state comparison |
-| `oracle/` | the Drools oracle: `DrlOracle.java` (Drools 10.2, a KieSession with an agenda listener) runs a rule base on a working memory and the steps a Java driver takes, and reports every rule that fired with what it inserted, updated and deleted, and the final working memory; `describe` reads a fact model's fields. `mvn -q package`, then `drl-oracle.sh spec.json` |
-| `corpus/` | the rule bases (`drl/`) and the Java fact model of the Drools examples (`java/`, Apache License 2.0); `compile_model.sh` compiles it into `model/` |
+| `oracle/` | the Drools oracle: `DrlOracle.java` (Drools 10.2.0 of Apache KIE (incubating), which Maven downloads: no part of Drools is copied here; a KieSession with an agenda listener) runs a rule base on a working memory and the steps a Java driver takes, and reports every rule that fired with what it inserted, updated and deleted, and the final working memory; `describe` reads a fact model's fields. `mvn -q package`, then `drl-oracle.sh spec.json` |
+| `corpus/` | the rule bases (`drl/`) and the Java fact model of the Drools examples (`java/`). `Fire.drl`, `HonestPolitician.drl` and the Java classes are Apache KIE's, unchanged, under the Apache License 2.0: `corpus/NOTICE.txt` gives their paths and repeats the attribution notices of Apache KIE. The other three rule bases were written for LPS2 and this translator. `compile_model.sh` compiles the classes into `model/` |
 | `corpus.pl`, `build.pl` | the cases (DRL, model, initial working memory, driver steps) and the build into `lps2/examples/migration/drools/` |
 | `drl_import.pl` | File ▸ Open of a `.drl` (LE2's `le_import.pl` registry) |
-| `test_drools.pl` | plunit: each stateful twin ends where Drools ends; each decision twin passes; the adapter |
+| `test_drools.pl` | plunit: each stateful twin ends where Drools ended (the run of the oracle that the build recorded in the twin's `sources/<name>.drools.json`); each decision twin passes; the adapter |
 | LPS2's `src/syntax/lps_drools.pl` | **LPS2's DRL front end** (its M12d): DRL to LPS internal syntax, and the world reading everything above is written from |
-| LPS2's `tools/drools_test.pl`, `tools/drools_fixtures/` | that reader's own gate: eighteen rule bases against their expected firing sequences and eleven readings of one construct each |
+| LPS2's `tools/drools_test.pl`, `tools/drools_fixtures/` | that reader's own gate: eighteen cases (thirteen rule bases, some with two sets of facts) against their expected firing sequences and eleven readings of one construct each |
 
 ## How to run
 
@@ -33,8 +33,7 @@ Drools door needs LPS2 as well as LE2.
 ```
 
 The reader's own gate, from this repository's root (it needs an LPS2 checkout
-beside it, or `$LPS2_DIR`; it points LPS2's `LPS_PLUS_DIR` back at itself, so
-it tests these files):
+beside it, or `$LPS2_DIR`):
 
 ```sh
 (cd ../lps2 && ./myswipl.sh -q -g "consult('tools/drools_test.pl')" -g "drools_test:main" -t halt)
@@ -123,8 +122,10 @@ inserts and deletes between two `fireAllRules` are a scenario of observed
 service): timeless LE. Each inserted type is concluded by rules, **one LE
 rule per DRL rule, in salience order**, each with its name and salience in
 the comment above it — the reading closest to the rule base, and a
-deterministic one. Drools fires only the first (by salience) of the rules
-matching one case; a rule whose conditions do not already exclude those of a
+deterministic one. Drools fires every rule that matches, in salience order;
+where each rule guards itself with a `not` of the type it inserts (as in
+`discount.drl`), only the first (by salience) of the rules matching one case
+fires, and the reading takes every rule base that only inserts so: a rule whose conditions do not already exclude those of a
 rule of higher salience (one being the negation of the other's, as in
 `discount.drl`) says so with `it is not the case that` and that rule's own
 conditions. The
@@ -176,7 +177,7 @@ corrected accordingly, 8/8). 15 September: the *world reading* (above) —
 `drl_reading/3` with the working memory's facts and the wording table,
 `drl_world_facts/3`, `drl_driver_events/4`, `drl_event_laws/3`,
 `drl_templates/2`; the consequence's events start at the conditions' time.
-LPS2's own `examples/drools/fire-alarm.drl` now reads `if fire(A) at T1, not
+LPS2's own `examples/migration/drools/drl/fire-alarm.drl` (then `examples/drools/`) now reads `if fire(A) at T1, not
 alarm at T1 then alarm_goes_on from T1 to T2` (with `fire-alarm.wording`).
 
 16 September (bugs found by running both doors on real DRL files): a field a

@@ -4,7 +4,8 @@
 
 The translator of the design notes `ruml.md` (the author's working papers, not published)
 for **RUML**, the Rulemapping Logic Format (version 1.0.0, 15 November 2026,
-Law as Code Institut GmbH for the Rulemapping Group GmbH). A RUML file is a
+published by Law as Code Institut GmbH, Berlin; Rulemapping Group GmbH holds
+the rights to the specification). A RUML file is a
 tree of yes-or-no questions about one case, in JSON, with the data each
 question reads (data points), JSONata expressions, and the texts of the law.
 Each rulemap becomes a Logical English program, its **twin**; a Logical
@@ -15,19 +16,48 @@ out.
 It uses the shared migration machinery of LE2 (`le_writer.pl`,
 `le_migration.pl`, `le_import.pl`; LE2's `docs/dev/migration.md`).
 
+## RUML's name, licence and files
+
+- **An independent work.** RUML is a trademark of Rulemapping Group GmbH (an
+  application for registration as an EU trade mark has been filed, as the
+  specification says). Neither Rulemapping Group GmbH nor Law as Code Institut
+  GmbH made this translator or examined it.
+- **No claim of conformance.** The specification defines conformance without
+  levels (chapter 1.4): a parser or an evaluator conforms or it does not.
+  This translator passes the published tests named below, and does not
+  claim to conform. Among other things: a leaf whose expression uses a
+  JSONata function for texts or dates, or whose `decisionMode` is
+  `agreement` or `majority`, is not evaluated (it is undefined); File ▸ Open
+  applies the reader's checks and not the JSON Schemas; a container's
+  signatures and the hashes of its manifest are not verified, and an
+  encrypted container is refused.
+- **The licence of what is fetched.** `Law-as-Code-Institute/ruml`, release
+  1.0.0 (commit `d2ac818`): Copyright 2026 Rulemapping Group GmbH; the
+  specification text (`spec/`) under CC BY-SA 4.0; the examples inside the
+  specification (`spec/**/*.examples/`), the schemas and the tests under
+  Apache-2.0 (its `LICENSE.md` and `REUSE.toml`). Nothing of it is in this
+  folder: `fetch_sources.sh` downloads it into `.cache/`, which git ignores,
+  and the schemas are read from there.
+- **What is copied, and where.** The 80 rulemaps that have twins (52
+  examples of the specification, 28 fixtures of the tests; all Apache-2.0)
+  are copied unchanged into `examples/migration/ruml/<collection>/<twin>/sources/`,
+  with the notice in `examples/migration/ruml/NOTICE.txt` and in the first
+  lines of each twin. No text of the specification is copied.
+
 ## Where it stands (24 November 2026)
 
 Steps 1 to 6 and 8 of the plan are done; step 7 (the LPS companion for
 `ruml:actions`) waits, as decided; step 0 (real rulemaps from the publisher)
-and the messages to the publisher wait too (`TODO.md`).
+waits too, and the open points below have not been sent to the publisher
+yet.
 
 | Step | Gate | Result |
 |---|---|---|
 | 1. The reader | RUML's 90 validation tests: accepted or rejected as each expects, by the published schema with the reader's own checks | **90 of 90** (`runs/validation-gate.txt`) |
-| 2. The twins | Every public rulemap translates; RUML's evaluation tests pass as scenarios (the `complete` mode) | **80 of 83** rulemaps built; the 3 others require another vendor's capability and are refused, as the specification demands (CAP-01). **3,508 of 3,508** expectations pass: the tests' fixtures 1,442, the specification's examples 2,066 (`runs/build-*.txt`); a few more are pending, written as comments, where they wait for a residue block |
-| 3. Generated cases, the oracle, the second opinion | Twin and oracle agree on every generated case; each disagreement with the second evaluator explained | The oracle passes **103 of 103** of RUML's evaluation tests (`runs/oracle-check.txt`). The twins agree with it on every generated case (in the counts above). The unofficial evaluator agrees on **527 of 562** evaluations of the cases with data points; every difference at the root comes from one open question of the specification (§ below). (The cases that answer leaves came later and were not put to it: it takes leaf statuses by path.) |
+| 2. The twins | Every public rulemap translates; RUML's evaluation tests pass as scenarios (the `complete` mode) | **80 of 83** rulemaps built; the 3 others require another vendor's capability and are refused, as the specification demands (CAP-01). **3,508 of 3,508** expectations pass: the tests' fixtures 1,442, the specification's examples 2,066 (`runs/build-*.txt`). Of these, 384 are what RUML's own 48 `complete`-mode tests assert; the others are the answers of this translator's oracle (step 3) to generated cases, and are not the publisher's. A few more are pending, written as comments, where they wait for a residue block |
+| 3. Generated cases, the oracle, the second opinion | Twin and oracle agree on every generated case; each disagreement with the second evaluator explained | The oracle passes **103 of 103** of RUML's evaluation tests (`runs/oracle-check.txt`). The twins agree with it on every generated case (in the counts above). The second evaluator (`TechPrototyper/ruml-tooling`, MIT licence, which its author calls experimental; it is not the publisher's) agrees on **527 of 562** evaluations of the cases with data points; every difference at the root comes from one open question of the specification (§ below). (The cases that answer leaves came later and were not put to it: it takes leaf statuses by path.) |
 | 4. Texts, File ▸ Open | The specification's law examples open with their texts | Texts under `sources/`: plain text, and a law in RUML Text written as Akoma Ntoso XML and as text; anchors as rule provenance; File ▸ Open of `.ruml`, `.rumlc`, `.ruml-ext`, zip; a Playwright test |
-| 5. The evaluator | RUML's 103 evaluation tests through Logical English; every result valid | **103 of 103**, both modes; **103 of 103** result files valid against `ruml-result.schema.json` (`runs/evaluation-gate.txt`). LE2's operation `evaluateForeign` |
+| 5. The evaluator | RUML's 103 evaluation tests through Logical English; every result valid | **103 of 103** (55 in the `optimized` mode, 48 in the `complete` mode; all of them test the operators of §3.6 on seven fixtures); **103 of 103** result files valid against `ruml-result.schema.json` (`runs/evaluation-gate.txt`). LE2's operation `evaluateForeign` |
 | 6. The way back | Every twin exports and comes back with the same results; counts for other programs; every export valid | **80 of 80** twins export, all valid (and 218 of 625 other programs, all valid: § below); on the originals' generated cases (473, with data and with answers to leaves), **1,575 of 1,575** node results are the same as the original's, but for one node whose expression draws a random number (`runs/roundtrip.txt`); the counts for LE2's own programs and the other doors' twins are in the same file |
 
 ## The way back on programs that did not come from RUML
@@ -96,11 +126,15 @@ program beside the twin, as `sources/<name>.original.le`. The scenarios are
 sentence about two things, rules that use themselves, aggregates other than
 a twin's count, integrity constraints, LPS.
 
-## Findings for the publisher (not sent: `TODO.md`)
+## Open points of the specification, as this translator reads it
+
+These are questions that the work met in version 1.0.0. They have not been
+sent to the publisher yet (its repository takes them as issues), so the
+publisher has not answered them, and this reading may be the wrong one.
 
 1. **A missing value under `=`.** JSONata gives `false` for `dp_x = true`
    when `dp_x` has no value; §4.8 says the result is the node's status, so
-   the node is false. The unofficial evaluator says undefined (missing data,
+   the node is false. The second evaluator says undefined (missing data,
    §5.0). No conformance test covers it. This translator follows the text of
    §4.8; every root-level difference with the second evaluator is this.
 2. **Node identifiers.** Seven examples of the specification use the file's
@@ -137,11 +171,10 @@ a twin's count, integrity constraints, LPS.
 | `ruml_roundtrip.pl` | the way back checked |
 | `gate.pl` | the validation gate (step 1) and the evaluation gate (step 5) |
 | `test_ruml.pl` | plunit: JSONata, labels, the checks, the three results, both modes, a reason, export and refusal, File ▸ Open |
-| `spike/` | the experiments behind the plan |
 
 ## How to run
 
-From the LE2 checkout (`/work`):
+From the LE2 checkout:
 
 ```sh
 migration/ruml/fetch_sources.sh
@@ -167,6 +200,7 @@ swipl -q -g run_tests -t halt migration/ruml/test_ruml.pl
 - A value of one or two capital letters (`BY`) in a rule is a variable in LE:
   the twin writes constants in quotation marks.
 - `pnpm install` run inside `.cache/ruml-tooling` puts its store at the root
-  of the repository unless told otherwise: delete `/lpsPlus/.pnpm-store`.
+  of the repository unless told otherwise: delete the `.pnpm-store` folder
+  that it leaves there.
 - A comment that contains `/*` (a glob such as `examples/*.le`) ends a
   Prolog block comment early.

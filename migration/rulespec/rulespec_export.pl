@@ -94,8 +94,8 @@ export_rulespec(KB, Options, Result) :-
                [Module, Name, Commented]),
         format(atom(File), '~w.yaml', [Name]),
         Notes = ["The module is one RuleSpec file; its test cases (the program's scenarios, with the answers they expect) follow it as a commented block, to be saved as the companion .test.yaml.",
-                 "Run it with Axiom's engine: axiom-rules-engine compile --program <module> --rulespec-root <a rulespec-us checkout>, then run-compiled; or paste the module in the Axiom playground."],
-        Result = exported(File, Text, Notes, [link("Axiom playground", "https://axiom-playground.vercel.app")])
+                 "Run it with Axiom's engine: axiom-rules-engine compile --program <module> --rulespec-root <a rulespec-us checkout>, then run-compiled (with an engine built from its `main` branch)."],
+        Result = exported(File, Text, Notes, [])
     ).
 
 %!  export_files(+KB, +ModuleId, -ModuleText, -TestText) is det.

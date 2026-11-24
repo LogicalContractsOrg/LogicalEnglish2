@@ -2,7 +2,7 @@
 """The housing allowance written twice, checked against itself (roadmap
 Phase 3b′, step 5).
 
-openfisca-france's `aides_logement` and the CNAF's Catala programme
+openfisca-france's `aides_logement` and Catala's housing allowance example
 (`CalculAidePersonnaliséeLogementLocatif`, the Catala twin `apl_locatif`)
 encode the same law. Neither source checks one against the other. This
 script writes the same rental situations for both twins:

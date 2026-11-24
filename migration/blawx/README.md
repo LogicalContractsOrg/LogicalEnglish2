@@ -10,7 +10,24 @@ s(CASP), and the project's tests — becomes a Logical English program in the
 as scenarios whose expected answers are **Blawx's own** (its reasoner, run),
 plus cases written from each rule and answered by Blawx the same way. It uses
 the shared migration machinery of LE2 (`le_writer.pl`, `le_migration.pl`;
-LE2's `docs/dev/migration.md`); nothing Blawx-specific lives in LE2.
+LE2's `docs/dev/migration.md`); outside this folder, the only Blawx-specific
+code is the translator's row in `../le_importers.pl`.
+
+**Which Blawx.** Version 1, the open-source release (MIT licence, Copyright
+(c) 2022 Lexpedite Legal Technologies Ltd.), at v1.6.22-alpha. The hosted
+service at `app.blawx.dev` is a later version (Blawx 2 and 3), and the
+translator does not read its projects. "Blawx's reasoner, run" means this
+(see [Fidelity](#fidelity)): `oracle.py` puts the s(CASP) program together as
+`run_test` of Blawx's `reasoner.py` does, from Blawx's own preamble files and
+the s(CASP) text the project file stores for each section, and asks the query
+of `library(scasp)` as installed here. Blawx's server is not started, and the
+blocks are not compiled again.
+
+**Code and files of Blawx here.** `oracle.py` copies two functions of Blawx's
+`blawx/reasoner.py` (`get_variables`, `simplify_rule`), and the loop of its
+`assemble` follows that of `run_test`; `runs/` holds the answers to the
+queries of Blawx's examples. Blawx's MIT licence is in
+[`BLAWX_LICENSE`](BLAWX_LICENSE), copied unchanged from Blawx's `LICENSE`.
 
 | File | What it does |
 |---|---|
@@ -27,7 +44,7 @@ LE2's `docs/dev/migration.md`); nothing Blawx-specific lives in LE2.
 
 ## How to run
 
-From the LE2 checkout (`/work`), with `library(scasp)` installed
+From the root of the LE2 checkout, with `library(scasp)` installed
 (`pack_install(scasp)`) and Python 3 with PyYAML:
 
 ```sh
@@ -40,8 +57,9 @@ python3 migration/blawx/oracle.py <project.yaml> --all   # Blawx's answers to it
 
 Each twin directory holds `<id>.le`, `<id>.ledger.md` / `.ledger.json` and
 `sources/` (the project file and the Act's text as `sources/<id>.md`, which
-the program cites). The twins run in LE2's `testing/run_tests.sh le
---with-extensions` through the `insureLE2` link.
+the program cites), with Blawx's licence beside the project file
+(`sources/BLAWX_LICENSE`). The twins run in LE2's core example suite
+(`testing/run_tests.sh le`).
 
 ## The mapping
 
@@ -152,12 +170,21 @@ expectations are the projects' own tests; the Life Act and the Lists
 Demonstration have none that can be active (events and list aggregates are
 residue), and the Logical Constraints' one test is the inconsistency itself
 (no answer, in Blawx and in the twin).
-Every twin loads without errors and runs in the `--with-extensions` suite in
+Every twin loads without errors and runs in the core example suite in
 about three seconds altogether.
 
 ## Findings
 
-- **Blawx's own exception does not take effect.** The New Bird Act's section
+These findings are about the fifteen example files as v1.6.22-alpha ships
+them, answered as described above. The translator reads the s(CASP) text that
+each file stores (`scasp_encoding`); it does not compile the blocks again.
+Blawx's CHANGELOG says, at v1.6.12-alpha, that after a change of the code
+generator a user may need to open each section and save it again, so a stored
+encoding can be older than the release. For example, v1.6.22-alpha's
+generator (`scasp_generator.js`) writes no call of `datetime_add/3` or
+`not_after/2`, which the OAS Act's stored encoding calls.
+
+- **The Bird Act's "except for pingu" does not take effect.** The New Bird Act's section
   5 reads "…, except for pingu" (a span of the text); Blawx encodes the span
   as `holds(sec_5__span_pingu_section, -blawx_applies, sec_5_section, pingu)`
   and section 5's applicability as `blawx_applies(sec_5_section, A) :- not
@@ -201,7 +228,7 @@ about three seconds altogether.
   conditions. (Before LE had integrity constraints, the twin answered 40 and
   50, and a query `denial_1` named the violation; both expectations were
   pending. This example is what showed that the convention lost meaning.)
-- **Blawx's generator writes clauses that do not parse.** Two are in the
+- **Four stored clauses do not parse.** Two are in the
   temporal boilerplate (Rock Paper Scissors: `-throwA,B,C),…`) and are left
   out with it; two are the rules of Rule 34's paragraphs (4) and (5), whose
   "no law-related service" condition came out as `not

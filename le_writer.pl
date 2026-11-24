@@ -1561,8 +1561,8 @@ or_alternatives(B, Alts) :-
 %   parsing, and a twin written that way answers nothing while reporting no
 %   error of its own. It cost `universal_credit` 39 of its 146 answers and
 %   left the housing allowance's two eligibility twins with no answers at
-%   all (lpsPlus/migration/openfisca/README.md, lpsPlus/migration/catala/
-%   README.md, 9 October 2026).
+%   all (migration/openfisca/README.md, migration/catala/README.md,
+%   9 October 2026).
 %
 %   This pass gives such a group a name instead: the group becomes a rule of
 %   its own, whose head is a judgment about the variables the group shares

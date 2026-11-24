@@ -1,7 +1,7 @@
 # Migration ledger: us_statutes_7_2017_a
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2014/e/2/B.yaml, sources/us/statutes/7/2014/e/2.yaml, sources/us/statutes/7/2014/e/6/A.yaml, sources/us/policies/usda/snap/fy-2026-cola/maximum-allotments.yaml, sources/us/statutes/7/2017/a.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

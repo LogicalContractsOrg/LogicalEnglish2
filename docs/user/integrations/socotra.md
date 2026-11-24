@@ -14,6 +14,15 @@ contains three kinds of file:
 - Scripts in the Liquid template language calculate the premiums, the commissions,
   the taxes, the fees and the underwriting decision.
 
+This guide is about the product configurations that calculate with Liquid scripts.
+The documentation of Socotra tells that these Liquid premium calculations are
+deprecated (the page "Premium Calculations (Legacy)"). That documentation recommends
+the Rating Plugin, which is a script in JavaScript. The translator does not read
+plugins.
+
+Socotra is the name of the platform and of the company that makes it. That company
+did not make this translator and did not examine it.
+
 The editor translates a classic Socotra product configuration, JSON and Liquid
 together, into Logical English (LE). The fields become templates. A template is a
 sentence pattern that the program declares. The Liquid scripts become rules, and the
@@ -50,7 +59,7 @@ visitor who signed in.
 
 | Direction | Where (menu item) | Files | What you get | Checked against |
 |---|---|---|---|---|
-| Socotra → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | A `.zip` of a product configuration (a folder with `policy/policy.json`). Or one `policy.json` or `exposure.json`, for its fields only | A program with the rating, tax, fee and underwriting rules of the product, its rate tables, generated quotes as scenarios, a quote desk view, a ledger, and the files of the product in `sources/` | The Liquid scripts of the product. A reference Liquid interpreter runs them on the generated quotes, and copies the filters of Socotra |
+| Socotra → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | A `.zip` of a product configuration (a folder with `policy/policy.json`). Or one `policy.json` or `exposure.json`, for its fields only | A program with the rating, tax, fee and underwriting rules of the product, its rate tables, generated quotes as scenarios, a quote desk view, a ledger, and the files of the product in `sources/` | The Liquid scripts of the product. A separate Liquid interpreter (`python-liquid`) runs them on the generated quotes, with its own versions of the filters of Socotra. The check does not use the platform of Socotra |
 | Logical English → Socotra | none | | | |
 
 ## How to use it
@@ -204,7 +213,7 @@ product library of Socotra. A twin is the translation of a product. The products
 include Pet, Personal Auto, Homeowners, Workers Compensation, Term Life, Cyber, Drone
 and others. These twins are not published, because the product library of Socotra
 has no licence that lets us publish it again. You can see those examples only on
-installations that have them, and only if you have access. On the hosted service,
+installations that have them, and only if you have access. On such an installation,
 the names of these examples start with `lpsPlus/`. To open a twin, select
 **File ▸ Open example from server…**:
 
@@ -244,6 +253,10 @@ GitHub.
 | `for` over the exposures or perils | An existential condition (a condition about one item), or a `sum` aggregate for an accumulator |
 | `timestamp_millis_print: "YYYY"` of a date | `the year of *a date* is *a number*` (lib/temporal, copied next to the program) |
 | All other items | A residue block with the Liquid text, unchanged |
+
+The short passages of Liquid that this guide quotes are from the Pet product.
+Socotra publishes the same files in its repository `socotra/public` (folder
+`product_examples/pet`), with the MIT License: Copyright (c) 2022 Socotra.
 
 ### Liquid scripts become rules
 
@@ -364,8 +377,10 @@ scenario quote_exposure_Pet_pet_type_Lion is, as stated in Pet rating quotes at 
 ```
 
 The expected values are the results of the scripts of the product, not the results of
-the translation. The values do not come from Socotra. The reference run copies the
-filters and the arithmetic of Socotra, without the platform.
+the translation. The values do not come from the platform of Socotra. The reference
+run is a program of the translator. It has its own versions of the filters of
+Socotra, and it uses the arithmetic of Liquid. We did not compare the results of the
+reference run with the results of the platform.
 
 ## Traps
 
@@ -477,9 +492,13 @@ filters and the arithmetic of Socotra, without the platform.
 - The documentation of Socotra:
   - [Socotra](https://www.socotra.com)
   - [Socotra documentation](https://docs.socotra.com)
+  - [Premium Calculations (Legacy)](https://ccdocs.socotra.com/financials/premium-legacy.html):
+    the Liquid premium calculations. Socotra tells that these calculations are
+    deprecated
   - [socotra/product-library](https://github.com/socotra/product-library): the
-    public product configurations that we made the twins from
+    public product configurations that we made the twins from. This repository
+    states no licence
   - [socotra/public](https://github.com/socotra/public): code samples, example
-    configurations and test utilities
+    configurations and test utilities, with the MIT License
   - [Liquid](https://shopify.github.io/liquid/): the template language of the
     scripts

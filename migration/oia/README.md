@@ -6,7 +6,16 @@ A deterministic translator from Oracle Intelligent Advisor (OIA, formerly
 Oracle Policy Automation) projects to Logical English twins, following the
 mapping of the design notes `roadmap.md` §5.1 on the shared LE2
 infrastructure of Phase 0 (`le_writer.pl`, `le_migration.pl`,
-`lib/temporal`). The twins are in `examples/migration/oia/`.
+`lib/temporal`). The twins are not published: the translator writes them
+under `examples/migration/oia/` of the private place
+(`le2_paths:private_root/1`, [`../README.md`](../README.md)).
+
+Oracle is a registered trademark of Oracle and/or its affiliates. This
+translator and its adapter are not Oracle products, and Oracle does not
+endorse them. No Oracle code, WSDL or schema is copied here. The READMEs
+of `sources/extra/` quote a few sentences of Oracle's documentation, each
+marked and attributed, and Simple Benefits restates the rules of an example
+that Oracle's documentation gives (its README says which pages).
 
 | File | What it is |
 |---|---|
@@ -21,15 +30,24 @@ infrastructure of Phase 0 (`le_writer.pl`, `le_migration.pl`,
 | `oia_docx.py` | Word `.docx` → JSON lines (paragraph styles, levels, rule tables), standard library only |
 | `oia_assess.pl` | Oracle's Assess messages: a SOAP Assess request/response pair → a test case (a customer's logged traffic replays as regression tests); Assess responses written back (`oia_adapter.pl`) |
 | `sources/fetch.sh` | clones the public projects into `sources/.cache/` (gitignored) |
-| `sources/extra/` | what this repository adds: synthetic test cases for the projects that publish none (each with the `make_tests.py` that computes its expected values, independently of the twin), Oracle's published Assess exchanges, and four projects reconstructed from Oracle's documentation (their README says from what); `make_docx.py` writes their Word rule documents |
+| `sources/extra/` | what this repository adds: synthetic test cases for the projects that publish none (each with the `make_tests.py` that computes its expected values, independently of the twin), and four projects written for this repository (their README says from what); `make_docx.py` writes their Word rule documents. Oracle's two published Assess exchanges of Simple Benefits are not copied here: they are read from the private place when they are there |
 
 ## Sources
 
-None of the public OIA repositories states a licence, so nothing is
-vendored: `sources/fetch.sh` clones them into `sources/.cache/`, and only the
-twins — **derived works, kept in this private repository and not
-redistributed** — are committed. Every twin and ledger says so in its
-header (`licence` in the ledger metadata).
+None of the three repositories of the first corpus states a licence, so
+nothing of them is copied here: `sources/fetch.sh` clones them into
+`sources/.cache/`, which git ignores, and their twins — **derived works** —
+are written to the private place and are not published. Every twin and
+ledger says so in its header (`licence` in the ledger metadata).
+
+Oracle's own samples, `oracle-samples/ia-tools-samples`, are different:
+they are under the Universal Permissive License 1.0 (copyright Oracle and/or
+its affiliates). The samples themselves are not copied here either. The test
+cases that this repository wrote for three of them
+(`sources/extra/do_i_need_to_file/`, `student_benefits/`,
+`taxpayer_information/`) name the samples' attributes and values, so the
+samples' copyright notice and licence are beside them, unchanged:
+`sources/extra/LICENSE-UPL-1.0.txt`.
 
 | Repository | Projects used | Format |
 |---|---|---|
@@ -43,13 +61,17 @@ form all of them use, so that is what is read (`.tsc` is a gap, below).
 
 ### The second corpus (15 October 2026)
 
-Ten more projects, chosen for what an experienced OIA team brings to a
-demonstration: Oracle's own samples, a government's production rulebases,
+Ten more projects, chosen for the features that experienced OIA authors
+use: Oracle's own samples, a government's production rulebases,
 entities, inferred instances, string building, the Hub's newer formats. The
-public web holds few OIA projects (Policy Modeling projects are customers'
-property, and the well-known sets of example projects are sold); this is all that
-could be found, and four of Oracle's documented example projects are
-reconstructed from their documentation.
+public web holds few OIA projects (Policy Modeling projects are their owners'
+property, and the example projects that Oracle's documentation describes
+come with the product, under its licence); this is all that could be found.
+Four more projects were written for this repository: Simple Benefits, from
+the rules that Oracle's documentation gives for its example of that name,
+and three that take the name and the theme of an example that Oracle's
+documentation describes in a sentence or two. The rules of those three are
+this repository's, not Oracle's.
 
 | Project | Source | Format | Tests |
 |---|---|---|---|
@@ -59,10 +81,15 @@ reconstructed from their documentation.
 | `student_benefits` | Oracle sample, `samples/flows/student-benefits` | Hub **flow** project's rule documents (any/all groups 4 deep, a table with a formula row, `= null`) | 11 cases from US Federal Student Aid criteria |
 | `laa_feedback_form` | Ministry of Justice, `laa-ccms-opa-feedback-form-v23-ruletxt` (the Legal Aid Agency's production feedback form) | `.ruletxt` (Word rules as text): HTML built with `+`, `is currently known`, `it is certain whether`, switched-off rows and lines, `currentdatetime()`, `trunc` | 7 synthetic cases |
 | `check_answers` | Ministry of Justice, `govuk-elements-for-oracle-policy-automation`, `CheckAnswers.zip` | **Word `.docx`** + data model (an entity; HTML with exact spaces; `Contains`, `StartsWith`, `EndsWith`) | 3 synthetic cases |
-| `simple_benefits` | Oracle's *SimpleBenefits*, reconstructed from the Determinations Server documentation | Word `.docx` written by `make_docx.py`; `Exists`, `InstanceCount` | **Oracle's two published Assess exchanges** (SOAP) + 5 cases |
-| `insurance_fraud_score` | Oracle's *Insurance Fraud Score* example, reconstructed from its description | Word; `InstanceSum`, `InstanceCountIf`, `Exists`, `AddMonths`, `DayDifference`, `Minimum`, Word rule tables | 6 synthetic cases |
-| `aged_care_approval` | Oracle's *Aged Care Approval* example, reconstructed | Word; `YearDifference`, `DayDifference`, `AddMonths`, current date, an entity summed | 8 synthetic cases |
-| `social_services_screening` | Oracle's *Social Services Screening* example, reconstructed | Word; `ForAll`, `Exists`, `InstanceCountIf`, `InstanceSum`, a table with a formula row | 6 synthetic cases |
+| `simple_benefits` | Oracle's *SimpleBenefits*, reconstructed from the Determinations Server documentation (one rule, the allowance amount, is an assumption: its README) | Word `.docx` written by `make_docx.py`; `Exists`, `InstanceCount` | **Oracle's two published Assess exchanges** (SOAP; kept in the private place, not here) + 5 cases |
+| `insurance_fraud_score` | written for this repository after Oracle's description of its *Insurance Fraud Score* example; the rules are ours | Word; `InstanceSum`, `InstanceCountIf`, `Exists`, `AddMonths`, `DayDifference`, `Minimum`, Word rule tables | 6 synthetic cases |
+| `aged_care_approval` | written for this repository after Oracle's description of its *Aged Care Approval* example; the rules are ours | Word; `YearDifference`, `DayDifference`, `AddMonths`, current date, an entity summed | 8 synthetic cases |
+| `social_services_screening` | written for this repository after Oracle's description of its *Social Services Screening* example; the rules are ours | Word; `ForAll`, `Exists`, `InstanceCountIf`, `InstanceSum`, a table with a formula row | 6 synthetic cases |
+
+Licences of the second corpus: `oracle-samples/ia-tools-samples` is under the
+Universal Permissive License 1.0; `govuk-elements-for-oracle-policy-automation`
+is under the MIT licence (Ministry of Justice); the other two repositories
+state none. No file of any of them is copied here.
 
 Every expected value of a synthetic case is computed by the `make_tests.py`
 beside it — a Python model of the rules, written from the source, never the
@@ -74,7 +101,8 @@ Policy Modeling's compiled `.xgen` (Warranty Claims, MOM Paternity Leave,
 GST at Settlement, Check Answers), `oia_text.pl` reads the Word documents
 and the result is compared, rule by rule, with what `oia_reader.pl` reads
 from Oracle's compilation: **120 of 120 rules identical** (the test
-`word_equals_oracle_compilation`). Getting there settled four of Policy
+`word_equals_oracle_compilation` repeats the comparison for MOM Paternity
+Leave). Getting there settled four of Policy
 Modeling's conventions: a line without a connector takes the connective of
 its group (`and` under a conclusion, `or` under `either`); a line with no
 connector before an `either` block is a conjunct, not an inline conclusion;
@@ -85,8 +113,7 @@ recognised against the data model.
 ## How to run
 
 ```sh
-LE2 migration/oia/sources/fetch.sh                      # once
-cd /work        # LE2
+migration/oia/sources/fetch.sh                          # once, from the root of LE2
 ./myswipl.sh -q -g "consult('migration/oia/oia_migrate.pl')" -g "oia_migrate:main" -t halt
 ./myswipl.sh -q -g run_tests -t halt migration/oia/test_oia.pl
 ```
@@ -390,8 +417,9 @@ openpyxl (without it they are skipped, with a note).
 
 ## Implementation status (§8 Phase 1c)
 
-*13 September 2026: done, in `LE2 migration/oia` (reader, mapping,
-tests) and `examples/migration/oia` (five twins with ledgers and Views).*
+*13 September 2026: done, in `migration/oia` (reader, mapping,
+tests) and `examples/migration/oia` of the private place (five twins with
+ledgers and Views).*
 The reader takes both compiled forms — the `.xgen` of Policy Modeling
 projects (Word rule documents with their paragraphs, levels, citations and
 Oracle's own sentence parse) and the `rulebase.xml`/`.stxt` of deployed

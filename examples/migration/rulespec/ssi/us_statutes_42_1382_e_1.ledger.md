@@ -1,7 +1,7 @@
 # Migration ledger: us_statutes_42_1382_e_1
 
 Source: Axiom RuleSpec — sources/us/statutes/42/1382f/a.yaml, sources/us/statutes/42/1382/b.yaml, sources/us/statutes/42/1382/e/1.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

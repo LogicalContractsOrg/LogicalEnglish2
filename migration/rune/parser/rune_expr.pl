@@ -9,7 +9,9 @@
 
 The expressions of conditions, functions and reporting rules, after Rune's
 own grammar (finos/rune-dsl 9.95.0, `rune-lang/.../Rosetta.xtext`, the rules
-`Expression` down to `PrimaryExpression`). Precedence, lowest first:
+`Expression` down to `PrimaryExpression`). The Rune DSL is a FINOS project
+(copyright 2019 - 2024 REGnosys, Apache License 2.0); this parser is written
+in Prolog after that grammar. Precedence, lowest first:
 
     then  <  or  <  and  <  = <>  <  < <= > >=  <  + -  <  * /
           <  contains disjoint default join  <  postfix operations  <  primary

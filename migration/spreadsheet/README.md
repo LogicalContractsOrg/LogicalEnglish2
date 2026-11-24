@@ -41,16 +41,22 @@ Every expected answer of the twin is a value the workbook itself computed
 A value the sheet shows as an error (`#N/A`, `#VALUE!`) is not correct, so
 it is not expected; the scenario says so in a comment.
 
+The sheet engine is Formualizer, not Microsoft Excel: only `as_saved` holds
+values Excel itself computed. `survey.md` and `survey_corpus.md` give, for
+each workbook surveyed, how many formula cells the engine recomputes to the
+value Excel saved: all 583 of the published `cms_mlr_2025.xlsm`, and fewer
+for some other workbooks.
+
 ## The pieces
 
 | File | What it does |
 |---|---|
-| LE2 `services/sheet/sheet_engine.mjs` | reads the workbook (cells, saved values, styles, names, validations, comments) and evaluates it with Formualizer, an Excel formula engine compiled to WebAssembly. The same module serves LE2's `sheet:` services and runs in a browser |
+| LE2 `services/sheet/sheet_engine.mjs` | reads the workbook (cells, saved values, styles, names, validations, comments) and evaluates it with Formualizer, an open-source engine for Excel formulas (not a Microsoft product) compiled to WebAssembly. The same module serves LE2's `sheet:` services and runs in a browser |
 | `xlsx_front.mjs` | the workbook as JSON (`read`), cases evaluated (`eval`), the coverage survey (`survey`) |
 | `xlsx_ir.pl` | structure recovery, labels, formulas as rules, tables, ledger entries |
 | `xlsx_tests.pl` | the scenarios, from the saved values and the oracle |
 | `xlsx_import.pl` | the adapter File ▸ Open calls (`le_importers.pl`), and `import_workbook/4` |
-| `build.pl` | the twins (`build_all`): public-domain ones beside LE2's examples, the others in this repository's `examples/migration/spreadsheet/` |
+| `build.pl` | the twins (`build_all`): the twin of a public-domain workbook in this repository's `examples/migration/spreadsheet/`, the others in the private place (`le2_paths:private_root/1`, see [`../README.md`](../README.md)), which is not published |
 | `fetch_sources.sh` | the workbooks of the survey and the pilots, into `.cache/files` |
 | `survey.sh`, `survey_corpus.sh`, `harvest_corpus.py`, `survey_report.py` | phase 0: how much of each workbook the engine recomputes as Excel saved it; `survey.md`, `survey_corpus.md`, `corpus.json` |
 | `crosscheck/snap_crosscheck.pl` | phase 2: the Massachusetts SNAP sheet against the RuleSpec twin of 7 USC 2017(a); `crosscheck/snap_crosscheck.md` |
@@ -79,8 +85,9 @@ which cells answer each template, followed by the list of the input and
 answer cells with their labels. No file is written beside the workbook: the
 binding is part of the program. `test_spreadsheet.pl` copies the draft out of
 its comment and asks the workbook with it.
-`examples/migration/spreadsheet/ok_child_support_service/` asks Oklahoma's own
-calculator for each parent's base obligation, and LE2's
+`examples/migration/spreadsheet/ok_child_support_service/`, among the private
+twins (its workbook states no licence, so it is not in this repository), asks
+Oklahoma's own calculator for each parent's base obligation, and LE2's
 `examples/regulatory/medicare/vitamin_d_bmi.le` asks a BMI workbook for a
 patient's ICD-10 code.
 
@@ -133,5 +140,18 @@ as an exact match.
 ## Requirements
 
 Node 18 or later and `npm ci` in LE2's `services/sheet` (formualizer 0.11.1,
-fflate 0.8.2). Nothing else: no Python, no LibreOffice. `.xls` and `.ods`
-files are refused with the reason (save them as `.xlsx`).
+fflate 0.8.2). Nothing else is needed: no Excel, no Python, no LibreOffice.
+`.xls` and `.ods` files are refused with the reason (save them as `.xlsx`).
+
+Both packages are installed by `npm`, and neither is copied into this
+repository: Formualizer (<https://github.com/PSU3D0/formualizer>, by Frank
+Colson and the Formualizer contributors; MIT or Apache License 2.0, at the
+user's choice) and fflate (by Arjun Barrett; MIT licence). Python is
+optional, and no Python package is copied here either: when oletools'
+`olevba` is installed, the importer keeps the text of a workbook's macros
+beside the workbook (`sources/<name>.vba.txt`); `testdata/make_fixtures.py`
+writes the test workbooks with openpyxl; the corpus survey scripts
+(`harvest_corpus.py`, `survey_report.py`) use Python alone.
+
+Microsoft and Excel are trademarks of the Microsoft group of companies. This
+translator is not a Microsoft product, and Microsoft does not endorse it.

@@ -1,4 +1,12 @@
 #!/usr/bin/env node
+// Adapted from ts-apps/jl4-web/scripts/test-wasm-integration.mjs of L4
+// (github.com/smucclaw/l4-ide at commit 5e082cf), Copyright 2025 Singapore
+// Management University, licensed under the Apache License, Version 2.0
+// (http://www.apache.org/licenses/LICENSE-2.0).
+// Changes made for this folder: the evaluator is loaded from ./oracle/, the
+// console messages of the loader are removed, and the tests of the original
+// are replaced by one call of l4_eval on the file named on the command line
+// (node l4run.mjs FILE.l4). The comment below is the original's.
 /**
  * Test script for L4 WASM integration
  *

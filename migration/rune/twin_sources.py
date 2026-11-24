@@ -10,8 +10,8 @@ sources (`namespace drr.base.margin` on the first line: the -func, -type,
 <twin>/sources/rosetta/, so that "View ▸ The original this was converted
 from" (LE2 le_original_text.pl) finds each definition in them.
 
-DRR is ISDA's, under its own licence, and the twins stay in this private
-repository for that reason (README.md); so do their sources.
+DRR is ISDA's, under its own licence, and the twins are not published for
+that reason (README.md); neither are these copies of their sources.
 
     python3 twin_sources.py              every twin under examples/migration/rune
     python3 twin_sources.py cftc_part45  one twin (a folder name)
@@ -20,7 +20,21 @@ import collections, os, re, shutil, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RUNE = os.path.join(HERE, '.cache', 'drr', 'drr', 'rosetta')
-TWINS = os.path.normpath(os.path.join(HERE, '..', '..', 'examples', 'migration', 'rune'))
+def private_root():
+    """Where the twins that may not be published are (le2_paths:private_root/1):
+    $LE_PRIVATE_TWINS_DIR; a private checkout beside LE2 that already holds such
+    twins; otherwise build/private/ in LE2, which git ignores. Never LE2's own
+    examples/: DRR's files are copied beside the twins, and DRR's licence does
+    not allow them, or a twin of them, to be published."""
+    env = os.environ.get('LE_PRIVATE_TWINS_DIR')
+    if env:
+        return env
+    for d in (os.path.join(HERE, '..', '..', '..', 'lpsPlus'), '/lpsPlus'):
+        if os.path.isdir(os.path.join(d, 'examples', 'migration')):
+            return d
+    return os.path.join(HERE, '..', '..', 'build', 'private')
+
+TWINS = os.path.normpath(os.path.join(private_root(), 'examples', 'migration', 'rune'))
 # A twin without a ledger of its own, and the twin whose ledger covers it:
 # the hand-made twin of five CFTC Part 45 fields (hand_build.pl).
 LEDGER_OF = {'hand': 'cftc_part45'}
@@ -77,7 +91,7 @@ def main(names):
                     'that declare the namespaces of the definitions this twin was translated from\n'
                     '(its ledger names each definition). Written by\n'
                     '`migration/rune/twin_sources.py`; do not edit. DRR is ISDA\'s, under ISDA\'s\n'
-                    'licence: these files stay in this private repository.\n\n'
+                    'licence: these files are not to be published.\n\n'
                     + ''.join('- `rosetta/%s`\n' % f for f in files))
         print('%-28s %3d namespaces, %3d files%s' % (d, len(nss), len(files),
               (', not found: ' + ' '.join(missing)) if missing else ''))

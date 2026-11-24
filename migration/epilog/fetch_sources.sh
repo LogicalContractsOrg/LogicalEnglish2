@@ -1,8 +1,9 @@
 #!/bin/sh
 # The Epilog sources of the twins, into .cache/ (gitignored), from the Epilog
 # site (http://epilog.stanford.edu):
-#   - the EpilogJS interpreter (Stanford's; for academic, non-commercial use
-#     only, and not to be redistributed — see README), the oracle;
+#   - the EpilogJS interpreter (Stanford's; for nonprofit research
+#     institutions, for non-profit purposes only, and not to be redistributed
+#     — see README), the oracle;
 #   - every rule sheet and data sheet the Examples page links to;
 #   - the Epilog program (`library`) and data (`lambda`) of each worksheet the
 #     Examples page links to (Game of Life, Portico, Schedule, Solar System);

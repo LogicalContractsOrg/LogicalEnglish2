@@ -9,8 +9,11 @@ benefit system of France is written in OpenFisca. Smaller models are also writte
 OpenFisca, for example the *country template* of OpenFisca, which is a teaching
 example.
 
-**PolicyEngine** is a version of OpenFisca. PolicyEngine has its own models of the
-taxes and benefits of the United States and the United Kingdom.
+**PolicyEngine** is a different organisation, which does not work for profit. In
+2022, PolicyEngine made its own copy of the engine of OpenFisca (a *fork*).
+PolicyEngine develops this copy separately, with the name PolicyEngine Core.
+PolicyEngine has its own models of the taxes and benefits of the United States and
+the United Kingdom.
 
 A model is a package of Python files. Python is a programming language. Each
 *variable* in a model is an amount, a yes-or-no question or a code, and each variable
@@ -36,12 +39,18 @@ of Logical English 2. Thus each installation of Logical English has the translat
 On the hosted service, sign in to use the translator. The translator is free for each
 visitor who signed in.
 
-The models have the AGPL licence. Thus the hosted service keeps the translations of
-the models of PolicyEngine and OpenFisca. These translations are called *twins*. The
-examples of each installation do not contain the twins. When you make the twins on
-your own installation, the translator writes the twins to a private folder. The
-private folder is the folder that the setting `LE_PRIVATE_TWINS_DIR` names, or the
-folder `build/private/` in Logical English 2.
+A translation of a model is called a *twin*. The models of OpenFisca and
+PolicyEngine have the licence AGPL-3.0 (the GNU Affero General Public License,
+version 3). A twin is a changed copy of its model. Thus the licence AGPL-3.0 applies
+to the twin also. Logical English 2 has a different licence, the Apache License 2.0.
+Thus the examples of each installation do not contain the twins of these models. The
+hosted service has the twins.
+
+When you make the twins on your own installation, the translator writes the twins to
+a private folder. The private folder is the folder that the setting
+`LE_PRIVATE_TWINS_DIR` names, or the folder `build/private/` in Logical English 2.
+When you give a twin to a different person, give the twin with the licence AGPL-3.0
+and with the notices of the model.
 
 ## Contents
 
@@ -56,8 +65,9 @@ folder `build/private/` in Logical English 2.
 When you open a model, the translator reads the files of the model as text. The
 translator does not run the Python.
 
-(The twins of the PolicyEngine models were made in a different way. They were made
-from the model that was installed with its engine. Thus each parameter has the values
+(The twins of the models of PolicyEngine and OpenFisca that the gallery reports were
+made in a different way. They were made from the model that was installed with its
+engine. Thus each parameter has the values
 of the engine. Also, each test was run on the engine to check the test.)
 
 The translator starts from the variables that nothing else in the upload reads.
@@ -172,8 +182,8 @@ person.
 
 - [Other systems: importing and exporting](index.md)
 - [OpenFisca-France et Français Logique](openfisca-france.md): the model of France as
-  twins in Français Logique, and its housing allowance compared with the Catala
-  programme of the CNAF (in French)
+  twins in Français Logique, and its housing allowance compared with the housing
+  allowance example of Catala (in French)
 - [Axiom RuleSpec and Logical English](rulespec.md): the same benefit rules, written
   by the Axiom Foundation
 - OpenFisca: https://openfisca.org · PolicyEngine: https://policyengine.org

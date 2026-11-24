@@ -83,8 +83,8 @@ build_twin(twin(Id, Opts), Root, Report) :-
     twin_migration(twin(Id, Opts), Dir, Migration),
     write_migration(Migration, Dir, Id, Report).
 
-%   The pages and files the cited excerpts were taken from, whole (the
-%   licensed ones with their licence), under sources/originals/.
+%   The files the cited excerpts were taken from, whole and with their
+%   licence, under sources/originals/ (Bitcoin Core's and Liana's).
 copy_originals(Opts, Dir) :-
     (   option(source(_, _, TextFile, _), Opts), TextFile \== none
     ->  file_base_name(TextFile, B),
@@ -96,7 +96,8 @@ copy_originals(Opts, Dir) :-
     ;   true
     ).
 
-original_of('sipa_miniscript.txt', 'sipa_miniscript.html').
+%   The Miniscript page states no licence: only the quoted lines are kept
+%   (sources/sipa_miniscript.txt), and the page itself is not copied.
 original_of('core_descriptors.txt', F) :- member(F, ['bitcoin_core/descriptors.md', 'bitcoin_core/COPYING']).
 original_of('core_miniscript_tests.txt', F) :- member(F, ['bitcoin_core/miniscript_tests.cpp', 'bitcoin_core/COPYING']).
 original_of('core_wallet_miniscript.txt', F) :- member(F, ['bitcoin_core/wallet_miniscript.py', 'bitcoin_core/COPYING']).
@@ -235,7 +236,15 @@ twin_migration(twin(Id, Opts), _Dir, migration(Meta, program(Header, Items), Led
     option(legend(Legend0), Opts, []),
     naming(Policy, Legend0, Names),
     option(source(Doc, Url, TextFile, Quote), Opts, source(none, none, none, none)),
-    header_comment(Title, Doc, Url, Text, Tree, Policy, Names, HeaderComment0),
+    header_comment(Title, Doc, Url, Text, Tree, Policy, Names, HeaderComment00),
+    %  A policy that the catalogue wrote from a source's words (reading(ours))
+    %  is not presented as the source's own text.
+    (   option(reading(ours), Opts)
+    ->  atomic_list_concat(Parts, 'The source, as written', HeaderComment00),
+        atomic_list_concat(Parts, 'The policy, written for this twin from the words of the source', HC1),
+        atom_string(HC1, HeaderComment0)
+    ;   HeaderComment0 = HeaderComment00
+    ),
     (   minsc_link(Title, Policy, Names, MUrl)
     ->  format(string(HeaderComment), "~w~n~nTry it in Minsc (the policy compiled to Miniscript, Script and an address,~nin the browser): the document \"the policy in Minsc\" below.", [HeaderComment0]),
         ignore(MUrl = _)

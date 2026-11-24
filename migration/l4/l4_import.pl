@@ -181,5 +181,5 @@ trace_values(Input, VPs) :-
 licence_note(SD) :-
     atomic_list_concat([SD, '/NOTICE.txt'], N),
     setup_call_cleanup(open(N, write, S),
-        format(S, "The L4 file here is the one that was opened. The L4 translator is described in~nthe design notes l4.md; L4 itself is https://github.com/smucclaw/l4-ide.~n", []),
+        format(S, "The L4 file here is the one that was opened. The L4 translator is described in~nthe guide docs/user/integrations/l4.md of Logical English 2; L4 itself is~nhttps://github.com/legalese/l4-ide (until April 2026, https://github.com/smucclaw/l4-ide).~n", []),
         close(S)).

@@ -38,3 +38,13 @@ services/sheet/node_modules/
 # Twins that may not be published, when no private place is named
 # (migration/le2_paths.pl, private_root/1)
 build/private/
+
+# Twins that must never be published here (migration/README.md, "Twins that
+# are not published"): a translator run with a wrong output folder would
+# write them, and their sources, into these places.
+/examples/migration/oia/
+/examples/migration/socotra/
+/examples/migration/openfisca/
+/examples/migration/policyengine/
+/examples/migration/rune/
+/examples/migration/dmn/sttr/

@@ -3,10 +3,12 @@
 The examples of the LegalRuleML Core Specification (OASIS, 2021), an XML
 standard for legal rules, rewritten in Logical English by a translator.
 Such a rewrite is a **twin**. Obligations, permissions and prohibitions come
-from a small deontic library, `deontic.le`, beside each twin. The expected
-answers are those of SPINdle, a reasoner for defeasible deontic logic, on the
-original; the scenarios were drafted from the examples and the law they
-encode, since LegalRuleML ships no tests.
+from a small deontic library, `deontic.le`, beside each twin. LegalRuleML
+ships no tests, so the scenarios were drafted from the examples and the law
+they encode. The expected answers are those of SPINdle, a reasoner for
+defeasible deontic logic, on a theory that the translator writes from the
+original and the scenario's facts. Seven of the twelve twins have scenarios;
+the other five show structure only.
 
 ## Start here
 - [US copyright damages, 17 U.S.C. §504](ex12_usc_17_504_context/ex12_usc_17_504_context.le?scenario=statutory_damages&query=obligations) — what an infringer must pay.
@@ -23,7 +25,8 @@ encode, since LegalRuleML ships no tests.
 ## More
 - [LegalRuleML in Logical English](/docs/user/integrations/legalruleml): how the translation works, and the way back.
 - LegalRuleML Core Specification: https://docs.oasis-open.org/legalruleml/legalruleml-core-spec/v1.0/legalruleml-core-spec-v1.0.html
-- Written by `lpsPlus/migration/legalruleml/build.pl`; do not edit by hand.
+- Written by `migration/legalruleml/build.pl` of this repository; do not edit by hand.
+- The originals in each `sources/` folder are unmodified examples of the specification, copyright OASIS Open 2021. `NOTICE.txt` in this folder holds the notice of the specification in full. The twins are not OASIS work products.
 - The few warnings the editor still shows on these twins come from the originals, and the ledger says why. The schematic examples' rules are about one individual, x, as the specification writes them. In ex3, the statements depend on one another through negation. In ex12, a rule makes everyone an infringer.
 
 ## Disclaimer

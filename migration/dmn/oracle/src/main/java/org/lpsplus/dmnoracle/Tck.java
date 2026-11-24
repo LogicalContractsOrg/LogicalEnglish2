@@ -51,6 +51,10 @@ import static org.lpsplus.dmnoracle.Json.F;
  * Runs DMN TCK test files the way the official Drools runner (runners/dmn-tck-runner-drools, DroolsTCKTest) does:
  * same model loading (main model + every .dmn in the folder), same value parsing (a port of parseType, on DOM
  * instead of JAXB) and the same comparison (CompareValuesUtil: numbers equal within 1e-8).
+ *
+ * DroolsTCKTest and CompareValuesUtil are files of the DMN TCK (https://github.com/dmn-tck/tck), licensed under the
+ * Apache License, Version 2.0. The parts of this file that follow them are changed: they read the test file with
+ * DOM, and they report results as JSON.
  */
 public final class Tck {
 

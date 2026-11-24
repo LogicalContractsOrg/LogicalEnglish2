@@ -1,7 +1,7 @@
 # Migration ledger: cat_calculette_globale
 
 Source: Catala (catala-examples) — sources/cat/calculette_globale.yaml
-Translator: lpsPlus migration/catala
+Translator: LE2 migration/catala
 Date: 2026-10-10
 Source licence: Apache-2.0 (catala-examples, Inria and contributors)
 

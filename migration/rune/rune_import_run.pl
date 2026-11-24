@@ -115,7 +115,7 @@ prebuilt_notes(R, Twin, More, TwinDir, Notes) :-
     ->  format(string(C), "~w definitions encoded, ~w approximated, ~w residue.", [EN, AN, RN])
     ;   C = ""
     ),
-    format(string(N1), "~w (DRR 7.14.0), translated from ISDA's Rune into Logical English: this file holds the report's own rules and its fields; ~w_drr.le the rules of DRR's other namespaces it uses, and ~w_cdm.le those of the Common Domain Model, both included, so that an explanation goes down to the CDM. ~w", [R, Twin, Twin, C]),
+    format(string(N1), "~w (DRR 7.14.0), translated from Rune into Logical English: this file holds the report's own rules and its fields; ~w_drr.le the rules of DRR's other namespaces it uses, and ~w_cdm.le those of the Common Domain Model, both included, so that an explanation goes down to the CDM. ~w", [R, Twin, Twin, C]),
     N2 = "The scenarios of DRR's own test pack are beside it, one file per group (rates, credit, ...), each instruction with the values of DRR's expected report: Misc > Run the Program's Tests on one of them.",
     N3 = "DRR is ISDA's, under the ISDA DRR License (September 2023): this translation is not to be published.",
     (   More == [] -> Ns = [N1, N2, N3]

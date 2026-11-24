@@ -48,7 +48,7 @@ visitor who signed in.
 
 | Direction | Where (menu item) | Files | What you get | Checked against |
 |---|---|---|---|---|
-| OIPA → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | The Rules Palette XML of one transaction (`.xml`, root element `<Transaction>` with a `Math` or `Fields` section). Or a `.zip` of a plan folder or of the folder of a transaction | A program with a template for each field and MathVariable, and a rule for each MathVariable that cites it. Decision tables for rates. Checks, spawns and copies from the attached rules. Queries for the logged values, and a view. A migration ledger. The XML and the CSV files of the plan in `sources/` | For the example twins, an independent interpreter of OIPA transaction math, which runs the policy lives of each plan. An uploaded transaction has no tests |
+| OIPA → Logical English | **File ▸ Open…**, **File ▸ Import from Another System…** | The Rules Palette XML of one transaction (`.xml`, root element `<Transaction>` with a `Math` or `Fields` section). Or a `.zip` of a plan folder or of the folder of a transaction | A program with a template for each field and MathVariable, and a rule for each MathVariable that cites it. Decision tables for rates. Checks, spawns and copies from the attached rules. Queries for the logged values, and a view. A migration ledger. The XML and the CSV files of the plan in `sources/` | For the example twins, a separate program that we wrote from the public XML Configuration Guide of Oracle. That program calculates the math of a transaction, and it runs the policy lives of each plan. It is not the engine of Oracle: the example twins were not run on OIPA. An uploaded transaction has no tests |
 
 ## How to use it
 
@@ -56,11 +56,14 @@ visitor who signed in.
 
 Upload one of these items:
 
-- **A zip of a plan folder**, with the same layout as the configuration of the Rules
-  Palette. There is one folder for each transaction. Each folder contains its
+- **A zip of a plan folder**, with the layout of the example plans. This layout is
+  our own. OIPA keeps a configuration in its database, not in a folder of files.
+  There is one folder for each transaction. Each folder contains its
   `Transaction.xml` and its attached rules (`ValidateExpressions.xml`,
-  `SpawnActivities.xml`, `CopyToPolicyFields.xml`). The `Rates.csv` (AsRate) and
-  `PlanFields.csv` (AsPlanField) of the plan are next to those folders. The
+  `SpawnActivities.xml`, `CopyToPolicyFields.xml`). Two files are next to those
+  folders: `Rates.csv`, with the rates of the plan (AsRate in OIPA), and
+  `PlanFields.csv`, with the plan fields (AsPlanField in OIPA). The folder `sources/`
+  of each example twin shows the form of the two files. The
   translator reads all of these files. It translates the first transaction in
   alphabetical sequence. The note gives the names of the other transactions. The
   name of the program comes from the plan and the transaction
@@ -210,9 +213,11 @@ lives, for example:
 - an issue that the program refuses because of the age and the face amount;
 - and more.
 
-A separate program calculated the expected values. That program calculates the math
-of OIPA, and it shares no code with the translator. The six twins give all 103 of
-those expected values.
+A separate program calculated the expected values. We wrote that program from the
+public guide. It calculates the math of a transaction as the guide describes it, and
+it shares no code with the translator. It is not the engine of Oracle, and the twins
+were not checked on an installation of OIPA. The six twins give all 103 of those
+expected values.
 
 ## How OIPA maps to Logical English
 
@@ -398,6 +403,12 @@ calculates.
   - Each plan field uses the `DEFAULT` of its MathVariable, or it has no value.
 
   Upload a zip of the plan folder instead.
+- **The translator reads spawns from a separate file only.** The example plans keep
+  the spawns of a transaction in a file `SpawnActivities.xml`. That file is a form of
+  the example plans. It is not a form of OIPA. In the XML Configuration Guide of
+  Oracle, the spawns of a transaction are in the `<Spawns>` section of the XML of the
+  transaction. The translator does not read that section, and the ledger has no row
+  for it. Write the spawns of such a transaction in the program manually.
 - **One transaction for each upload.** For a zipped plan folder, the translator
   translates its first transaction. The note gives the names of the other
   transactions.
@@ -461,3 +472,6 @@ calculates.
     (XML Configuration Guide, release 10.1.2.0)
   - [Math Pane](https://docs.oracle.com/cd/E40981_01/rules_palette/Content/Transactions/Math_Pane.htm)
     (Rules Palette 10.0)
+
+*Oracle is a registered trademark of Oracle and/or its affiliates. Logical English is
+not a product of Oracle, and Oracle does not endorse Logical English.*

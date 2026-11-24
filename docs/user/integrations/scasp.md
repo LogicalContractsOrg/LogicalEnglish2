@@ -6,8 +6,10 @@ s(CASP) is a reasoner. You give it a question, and it goes backwards from the
 question, through the rules, to the facts. s(CASP) reasons in Answer Set
 Programming with constraints. Answer Set Programming is a form of logic
 programming. In this form, a program can have more than one consistent set of
-conclusions. People run s(CASP) from SWI-Prolog, and Blawx also runs it. An
-s(CASP) program is similar to Prolog, with more items in it:
+conclusions. Joaquín Arias and other researchers made s(CASP), first for Ciao
+Prolog. Jan Wielemaker made the version for SWI-Prolog, and Logical English
+uses that version. Blawx also runs s(CASP). An s(CASP) program is similar to
+Prolog, with more items in it:
 
 - classical negation (`-flies(X)`);
 - abducibles, which are facts that the reasoner can assume;
@@ -177,12 +179,19 @@ select **File ▸ Open copy from server…**. The twins are:
 - classic examples of s(CASP): `birds` (classical negation), `family`,
   `classic_negation_inconstistent`, `abdbirds` (abducibles).
 
+The original programs come from the tests of the s(CASP) pack for SWI-Prolog,
+with no changes. The licence of that pack is the Apache License 2.0
+(copyright 2019 Joaquin Arias). The file `MAKING_OF.md` in the folder of the
+twins tells where each program came from.
+
 Each answer that a twin expects is the answer that s(CASP) gave on the original
 file. Two of these expected answers are comments, not live tests. Each of them
 has its reason adjacent to it. In `obligation`, s(CASP) answers with a
-constraint, not a value. In `loanwithcure`, s(CASP) says that the borrower
-defaults. But the cure rule of the program is true on that date. The twin
-follows the rules.
+constraint, not a value. The second is in `loanwithcure`. That program calls
+`is_days_after/3` but does not define it, and the translator gives s(CASP) a
+definition. With that definition, s(CASP) says that the borrower defaults. But
+the cure rule of the program is true on that date. Thus the twin gives no
+default.
 
 ### See s(CASP): the program in s(CASP)
 
@@ -212,9 +221,9 @@ can_fly(A) :-
     is_an_ab(A).
 ```
 
-Possibly the program uses an item that s(CASP) cannot say correctly. Examples are
-an aggregate, a `prolog` goal, a decision table, `is in`, date arithmetic and
-`according to`. In that case the editor does not show a program. The editor
+Possibly the program uses an item that Logical English cannot write correctly
+in s(CASP). Examples are an aggregate, a `prolog` goal, a decision table, date
+arithmetic and `according to`. In that case the editor does not show a program. The editor
 shows the *Not translated* window, which a refused export also uses. The window
 gives each problem, adjacent to its line. The full list of the items that s(CASP)
 cannot say is in
@@ -232,7 +241,8 @@ declaration when the original file has abducibles, classical negation or
 constraints. The editor keeps your selection in the web address of the page, as
 `engine=scasp`.
 
-s(CASP) gives you three things that Prolog does not give:
+s(CASP) gives you three things that the Prolog engine of Logical English does
+not give:
 
 - answers that are constraints, not values;
 - more than one possible world for one question;
@@ -280,7 +290,7 @@ changes into, not a different system to translate to. To use Prolog code
 | `-p(X)` (classical negation), with `#pred -p(X) :: …` | the opposite form of p: `*a thing* can fly; opposite: *a thing* can not fly` |
 | `#abducible p(X)` | `; unknown` on the template |
 | `:- Body.` or `false :- Body.` | an integrity constraint: `it must not be true that …` |
-| `X #> Y`, `#>=`, `#<`, `#=<`, `#<>` | comparisons; `#=` is an assignment |
+| `X #> Y`, `#>=`, `#<`, `#=<`, `#<>` | comparisons. `#=` is an equality constraint in s(CASP). It becomes an assignment when it gives the value of an expression to a variable, and an equality in other cases |
 | `?- Goal.` | a query `query_<n>` |
 | `is_a/2` | the LE `is a` |
 | a `forall/2` of the program | a universal, `for all cases in which … it is the case that …` |
@@ -360,8 +370,9 @@ same s(CASP) program for 83 of the 88 programs that s(CASP) can state
   classical negation are two different things. Logical English writes negation
   as failure as `it is not the case that`. Classical negation is the opposite
   form. Think of a program in which a rule negates a conclusion that depends on
-  the same rule. If Prolog runs this program, possibly it goes round in circles
-  or gives an unsound answer. s(CASP) calculates the stable models instead. The
+  the same rule. If the Prolog engine of Logical English runs this program,
+  possibly it goes round in circles or gives an unsound answer. s(CASP) answers
+  such a program by the stable model semantics. The
   verifier gives a warning about this type of program. Run it with
   `the target language is: scasp.`
 - **An opposite form in a condition is not a negation.** `the thing can not
@@ -374,10 +385,11 @@ same s(CASP) program for 83 of the 88 programs that s(CASP) can state
   the constraint gives no answers. Also, nothing that the reasoner assumes can
   meet the constraint.
 - **s(CASP) and Logical English can disagree.** The twin `loanwithcure` is an
-  example of a disagreement. The cause is how s(CASP) negates a condition that
-  holds an anonymous variable. The twin follows the rules, and keeps the answer
-  of s(CASP) as a waiting comment. The twin is never the final decision about
-  the meaning of the rules.
+  example of a disagreement. The probable cause is how the s(CASP) library
+  negates a condition that holds an anonymous variable. The twin gives the
+  answer of the Prolog engine of Logical English, and keeps the answer of
+  s(CASP) as a waiting comment. The twin is never the final decision about the
+  meaning of the rules.
 - **Constants that end in `_<digits>`.** The s(CASP) library reads `x_1` back
   as `x`. Thus, for s(CASP), `x_1` and `x_2` are the same individual. Give your
   individuals names such as `person_a` and `person_b`.
@@ -403,4 +415,5 @@ same s(CASP) program for 83 of the 88 programs that s(CASP) can state
 - In the LPS2 IDE: [integrations](https://lps2.logicalcontracts.com/docs/user/integrations/index).
 - The documentation of s(CASP) and of LE1:
   - [s(CASP) for SWI-Prolog](https://github.com/SWI-Prolog/sCASP);
+  - [s(CASP) for Ciao Prolog, the original](https://gitlab.software.imdea.org/ciao-lang/sCASP);
   - [LE1, the first Logical English](https://github.com/LogicalContractsOrg/LogicalEnglish).

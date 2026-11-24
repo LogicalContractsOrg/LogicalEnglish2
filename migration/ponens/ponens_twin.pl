@@ -32,9 +32,11 @@
       - Ponens decides eight policies by name, in code of its own rather than
         from their formulas (`STRUCTURAL_POLICIES`: data flow, goal targets,
         declared files, decompositions behind generated tests, and four on
-        the residual surface). Their laws are written from that code, over
-        the facts it reads (`artifact a1 is made by step 2`, `residual r1
-        has severity "critical"`, …).
+        the residual surface). Their laws are written from that code
+        (`evaluate_structural` in `cli/ponens/trace.py`; MIT licence, the
+        file PONENS_LICENSE of this folder), over the facts it reads
+        (`artifact a1 is made by step 2`, `residual r1 has severity
+        "critical"`, …).
       - A policy's `oracle` (or `reasoner`) field is part of its formula, as
         Ponens's `effective_formula` makes it: the evidence its atoms name
         must be produced by that oracle.
@@ -241,7 +243,8 @@ header(Pack, Policies, NT, Header) :-
     format(atom(Header),
 '% The Ponens policies ~w, as a program of Logical English for LPS.
 %
-% Written by LE2\'s migration/ponens/ponens_twin.pl (the design notes ponens.md) from ~w
+% Written by LE2\'s migration/ponens/ponens_twin.pl (the guide: LPS2\'s
+% docs/user/integrations/ponens.md) from ~w
 % Ponens policies, whose files are in sources/ (Ponens: github.com/imandra-ai/
 % ponens, MIT licence), with ~w Ponens traces as its scenarios.
 %

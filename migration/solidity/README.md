@@ -123,15 +123,25 @@ subset; `test_solidity.pl`, `round_trip_*`).
 | `erc20` | OpenZeppelin 5.0.2 `ERC20` + an initial mint (`contracts/RefERC20.sol`) | 18 | 6 calls: a transfer beyond the balance and a `transferFrom` beyond the allowance refused, a transfer to oneself unchanged — 5 expected values |
 | `ownable` | OpenZeppelin `Ownable` | 6 | 4 calls: a stranger and the old owner refused, hand-over, renouncement — no owner at the end |
 | `pausable` | OpenZeppelin `Pausable` + `Ownable` — extends `ownable` | 12 | 5 calls: a stranger refused, pausing twice refused (`EnforcedPause`) — owner, paused |
-| `mytoken` | the OpenZeppelin Wizard token: ERC20 + Ownable + Pausable, owner mints — extends `erc20` and `pausable` | 38 (flattened) | 8 calls: an overdraft, a mint by a non-owner and a transfer while paused refused, a transfer to oneself unchanged — 4 expected values |
+| `mytoken` | a token after those of the OpenZeppelin Contracts Wizard: ERC20 + Ownable + Pausable, owner mints (`contracts/MyToken.sol`, written for this folder; the Wizard's own output inherits `ERC20Pausable`) — extends `erc20` and `pausable` | 38 (flattened) | 8 calls: an overdraft, a mint by a non-owner and a transfer while paused refused, a transfer to oneself unchanged — 4 expected values |
 | `fiat_token` | Circle's FiatTokenV1 logic (Ownable, Pausable, Blacklistable, minters with allowances), `contracts/FiatTokenSubset.sol` | 71 | 14 calls: a mint beyond the minter's allowance, transfers from and to a blacklisted account, a `transferFrom` beyond the allowance, a burn beyond the balance and a transfer while paused refused — 8 expected values |
 | `airdrop` | batch calls, `contracts/Airdrop.sol`: an airdrop to a list, a burn of a list of amounts, and an order-dependent search (residue) | 7 | 4 calls: a recipient listed twice credited twice, a burn beyond the balance and an airdrop to the zero address refused — 4 expected values |
+
+The expected values of these scenarios were worked out by hand from the
+Solidity sources (the catalogue in `sol_migrate.pl`): the reference contracts
+themselves were not run on an EVM for them. The checks made by a machine are
+the replay below, against the chain, and LPS2's gate, which writes five of
+the twins back as contracts (`airdrop` and `vault` are not in its list) and
+runs each on an EVM against LPS2's own run.
 
 An instance is bound to a reference model by `initially` facts — its
 constructor's arguments, or the state read from the chain — and the twin's
 header comment cites the match (for USDC: the implementation behind the proxy
-at the replayed block, `0x43506849…02dd`, a full Sourcify match of
-FiatTokenV2_2). `initially` takes no provenance trailer, hence the comment.
+at the replayed block, `0x43506849…02dd`, which Sourcify lists as a verified
+match of FiatTokenV2_2 — `match`, not `exact_match`, when read again on 24
+November 2026; the comment's words "full match" are a fixed text of
+`sol_replay.pl`, not a lookup). `initially` takes no provenance trailer, hence
+the comment.
 
 ## Validation by replay (§6.1)
 
@@ -279,20 +289,38 @@ residue (`vault/vault.le`). Filled by the convention (no syntax):
 
 ## Licences
 
-- OpenZeppelin Contracts 5.0.2 — MIT (installed by npm, not vendored).
-- Circle `stablecoin-evm` — Apache-2.0; `contracts/FiatTokenSubset.sol` is a
-  transcription of its v1 logic into Solidity 0.8, credited in its header.
-- solc-js — GPL-3.0 (a build tool, invoked, not distributed).
-- Chain data — public (Ethereum mainnet via publicnode.com); Sourcify match
-  metadata — public.
+- OpenZeppelin Contracts 5.0.2 — MIT, copyright zOS Global Limited and
+  contributors (installed by npm, not vendored). The twins `erc20`,
+  `ownable`, `pausable` and `mytoken` are translations of its contracts: its
+  licence text is beside them, `LICENSE-OpenZeppelin.txt` in LPS2's
+  `examples/migration/solidity/`.
+- Circle `stablecoin-evm` — since its release 2.2.0 `contracts/v1/FiatTokenV1.sol`
+  and `Blacklistable.sol` are Apache-2.0, copyright Circle Internet Group,
+  Inc. (releases 2.0.0 and 2.1.0 were MIT, copyright CENTRE SECZ);
+  `contracts/v1/Ownable.sol` and `Pausable.sol` are still MIT: Circle's forks
+  of OpenZeppelin's, copyright zOS Global Limited, Smart Contract Solutions,
+  Inc. and CENTRE SECZ. `contracts/FiatTokenSubset.sol` is a changed copy of
+  parts of those four files in Solidity 0.8; its header carries their notices
+  and lists the changes.
+- The other contracts in `contracts/` (`RefERC20.sol`, `RefOwnable.sol`,
+  `RefPausable.sol`, `MyToken.sol`, `Airdrop.sol`, `Vault.sol`) were written
+  for this folder. Their first line offers them under the MIT licence.
+- The Solidity compiler — GPL-3.0. It comes inside the npm package `solc`
+  (solc-js, whose own JavaScript is MIT), which `npm install` downloads: a
+  tool that is run, never copied into this repository. No compiled bytecode
+  is kept here either.
+- Chain data — public (Ethereum mainnet, read through the public endpoint
+  of publicnode.com, without a key); Sourcify match metadata — public.
+- Solidity, OpenZeppelin, Circle and USDC are named to say what was read and
+  replayed. Their makers took no part in this work and did not review it.
 
 ## Gaps
 
 - Solidity subset: loops only over one array parameter and by the patterns
   above; no structs, storage arrays, `delegatecall`/proxies (the proxy is
   bound, not translated), assembly, try/catch, external calls (all residue);
-  integer overflow is not modelled (0.8's checked arithmetic reverts on it; a
-  twin's arithmetic is unbounded), nor the gas bound of a loop.
+  the gas bound of a loop is not modelled (the overflow of checked arithmetic
+  is: the `Panic 0x11` constraints of the table above).
 - Solidity 0.4–0.7 sources (USDT, the real FiatTokenV2_2) are not compiled by
   solc 0.8; the FiatToken model is a transcription, bound to USDC by the
   Sourcify match of the logic it keeps.

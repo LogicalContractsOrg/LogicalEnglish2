@@ -10,8 +10,9 @@
                                         or the facts of $EPILOG_DATA), and
                                         after each move (compexecute on the
                                         state) the state and the legal moves;
-                                        with no moves, it plays the first legal
-                                        move until terminal or 12 moves
+                                        with no moves, it plays legal moves
+                                        chosen by a fixed rule (below) until
+                                        terminal or 12 moves
 */
 'use strict';
 const fs = require('fs');

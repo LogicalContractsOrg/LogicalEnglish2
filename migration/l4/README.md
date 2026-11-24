@@ -5,7 +5,10 @@
 The translator of the design notes `l4.md` (the author's working papers, not published) for
 L4, the language for laws and contracts of Singapore Management University's
 Centre for Computational Law, now developed by Legalese
-(`smucclaw/l4-ide`, Apache 2.0). L4's rules become Logical English (LE), and
+(`smucclaw/l4-ide`, copyright Singapore Management University, Apache
+License 2.0; the last commit of that repository is of 21 April 2026, and
+Legalese continues L4 in `legalese/l4-ide`, under the same licence). L4's
+rules become Logical English (LE), and
 its contracts become LE for LPS (Logic Production Systems, LE's companion
 language for rules about time and change), run by LPS2.
 
@@ -17,8 +20,22 @@ below. Step 2, the rules half (`l4_twin.pl`, `build.pl`), is described in
 [The rules half](#the-rules-half) below; step 3, the contracts half, in
 `l4_contracts.pl`, `l4_history.pl` and `l4_contracts_build.pl`. Step 4 is
 File ▸ Open (`l4_import.pl`, below), the users' documentation (LE2's and
-LPS2's `docs/user/integrations/l4.md`) and the expert's review
-(a review that is not published).
+LPS2's `docs/user/integrations/l4.md`) and a role-play review, written
+from the point of view of an L4 developer (it is not published, and it is
+not a review by the makers of L4).
+
+**Files that come from L4.** Five files here are copied or adapted from
+`smucclaw/l4-ide` at commit `5e082cf` (Copyright 2025 Singapore Management
+University, Apache License 2.0, the licence of this repository's
+`LICENSE`): `step0/promissory_note_traces.l4` (after its three-line
+heading, its lines 4 to 328 are L4's `jl4/examples/legal/promissory-note.l4`,
+unchanged; the rest was written here), `spike/rules.l4`, `spike/sale.l4`
+and `spike/l4run.mjs` ([`spike/NOTICE.txt`](spike/NOTICE.txt) says where
+each comes from and what was changed), and the function `load` of
+`l4_oracle.mjs` (its heading says so). `l4_lex.pl` and `l4_reader.pl` are
+new Prolog code that follows the order of L4's `Lexer.hs` and `Parser.hs`.
+The L4 files under `sources/` in the published twins are unchanged copies,
+each with L4's `LICENSE`.
 
 | File | What it does |
 |---|---|
@@ -26,7 +43,7 @@ LPS2's `docs/user/integrations/l4.md`) and the expert's review
 | `l4_reader.pl` | the reader: tokens → the model below, following L4's own parser (`jl4-core/src/L4/Parser.hs`) construct by construct, including its use of columns; what it cannot read is kept as an `unparsed` item, never dropped |
 | `l4_print.pl` | the model written back as L4, for the gate's round trip |
 | `l4_oracle.mjs`, `fetch_oracle.sh` | the oracle: L4's own evaluator, compiled to WebAssembly by its authors (release `vscode-wasm-build-117`, fetched into `oracle/`), run by Node.js: every directive's result, the type at a position (`hover`), and the cache of runs |
-| `corpus.pl`, `fetch_sources.sh` | the corpus: 87 files of `l4-ide` at commit `5e082cf`, fetched into `.cache/l4-ide` |
+| `corpus.pl`, `fetch_sources.sh` | the corpus: 87 files of `smucclaw/l4-ide` at commit `5e082cf` (21 April 2026, the commit that release `vscode-wasm-build-117` was built from), fetched into `.cache/l4-ide` |
 | `runs/` | the evaluator's results for each corpus file (`<Id>.json`) and the gate's last results (`gate.txt`) |
 | `gate.pl` | the gate of step 1 (below) |
 | `test_l4.pl` | plunit: the lexer, the reader, the corpus, the gate's last run, the two step 0 twins |
@@ -80,17 +97,19 @@ argument given to the wrong function, a branch attached to the wrong
 a result. The five refused files are read too; three have parts the reader
 keeps as `unparsed`, where L4 also stops.
 
-Two things found on the way, both in L4's own tools:
+Two things found on the way, both in L4's own tools as they were in that
+release (April 2026; a later L4 may differ):
 
 - **L4's parser takes time exponential in the depth of brackets.** It tries
   a bracketed expression as the start of a field access (`x's f`), and reads
   it again from the start when that fails. A file written with a bracket
   around every subexpression did not finish in a minute. The printer
   therefore writes brackets only where they are needed.
-- **The evaluator runs one file only.** Its WebAssembly build has an empty
-  store of project files, so an `IMPORT` of another file of the program
-  fails. Only the libraries it ships (`prelude`, `daydate`, `math`, …) can be
-  imported.
+- **The WebAssembly build of the evaluator runs one file only.** It has an
+  empty store of project files, so an `IMPORT` of another file of the
+  program fails there (L4's other tools do read a program in several
+  files). Only the libraries it ships (`prelude`, `daydate`, `math`, …) can
+  be imported.
 
 ## The model
 

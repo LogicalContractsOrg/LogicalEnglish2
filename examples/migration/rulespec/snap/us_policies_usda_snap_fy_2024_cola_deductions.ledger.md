@@ -1,7 +1,7 @@
 # Migration ledger: us_policies_usda_snap_fy_2024_cola_deductions
 
 Source: Axiom RuleSpec — sources/us/statutes/7/2012/j.yaml, sources/us/policies/usda/snap/fy-2024-cola/deductions.yaml
-Translator: lpsPlus migration/rulespec
+Translator: LE2 migration/rulespec
 Date: 2026-10-07
 Source licence: CC-BY-4.0 (rulespec-us, Axiom Foundation)
 

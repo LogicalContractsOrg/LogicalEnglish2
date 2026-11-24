@@ -17,17 +17,22 @@ It uses the shared migration machinery of LE2 (`le_writer.pl`,
 
 **Where it stands (5 October 2026): steps 0 to 3 are done.**
 
-- **The gate (step 1).** Axiom's engine reproduces 172 of the 175 test
+- **The gate (step 1).** Axiom's engine, run by this translator's own
+  runner (`rulespec_oracle.py`; Axiom's harness itself was not run),
+  reproduces 172 of the 175 test
   cases of the 44 modules in scope (SNAP, the Child Tax Credit, the EITC,
-  SSI); the 3 others give one input two values in their test file (7 U.S.C.
-  2014(c)). The reader's parse of every formula equals the engine's own
+  SSI). In the 3 others (7 U.S.C. 2014(c)) the test file gives two values
+  under two qualified names
+  (`us:regulations/7-cfr/273/10#snap_total_gross_income` and
+  `us:statutes/7/2014/c#input.snap_total_gross_income`), which the runner
+  hands to the engine as one input. The reader's parse of every formula equals the engine's own
   lowering of it: **351 of 351** (`gate.pl`, `runs/gate.txt`).
 - **The twins (step 2).** 39 twins (89 modules counting imports) in LE2's
   `examples/migration/rulespec/{snap,ctc,eitc,ssi}/`: **1,248 ledger
   elements encoded, 10 approximated (a rule reading a value another entity
   declares, noted), no residue; 473 of 473
-  expectations pass**; 13 more are pending, the cases of 2014(c) the engine
-  does not reproduce.
+  expectations pass**; 13 more are pending, those of the 3 cases of 2014(c)
+  that the runner does not reproduce on the engine.
 - **File ▸ Open and the way back (step 3).** `rulespec_import.pl` opens a
   module, alone or zipped with its imports. `rulespec_export.pl` writes a
   Logical English program as a RuleSpec module with its scenarios as test
@@ -51,7 +56,7 @@ It uses the shared migration machinery of LE2 (`le_writer.pl`,
 
 ## How to run
 
-From the LE2 checkout (`/work`):
+From the root of the LE2 checkout:
 
 ```sh
 migration/rulespec/fetch_sources.sh     # the corpus, normalised
@@ -66,8 +71,8 @@ python3 migration/rulespec/rulespec_oracle.py --all-under us/statutes/7   # the 
 
 **The engine and the corpus are a moving pair.** The released binaries
 (v0.2.2, 20 August 2026) refuse fields the corpus has used since September,
-and the corpus itself lists 643 modules its own pinned engine does not load
-(`tools/known-engine-load-failures.txt`). Every class of those failures but
+and the corpus itself lists 636 load failures, of 527 modules, on its own
+pinned engine (`tools/known-engine-load-failures.txt` at the commit above). Every class of those failures but
 one is metadata the engine does not execute, so `prepare_root.py` copies the
 jurisdiction folders and changes only that: a list of citation paths keeps
 its first, an unknown `source_verification` field (a copy of the parameter
@@ -92,7 +97,7 @@ composition`) are compiled by another command and are not translated.
 | `+ - * /`, `max`, `min`, `floor`, `ceil` | LE arithmetic, `the maximum of A and B is C`, `floor()`, `ceiling()` |
 | `table[expr]` | a condition on the table's fact at the index |
 | `if … : … elif … : … else: …` | an `otherwise` cascade; inside arithmetic, a cascade of its own binding the value |
-| `match x:` with `_` | the same, comparing `x` with each pattern; without `_`, the cascade has no last branch: no value, as the engine has none |
+| `match x:` with `_` | the same, comparing `x` with each pattern; without `_`, the cascade has no last branch: no value, where the engine stops with an evaluation error (the format reference asks for the `_` arm) |
 | `and`, `or`, `not` in a judgment | the conditions in disjunctive normal form: each alternative a rule of its own (`rule …_1`, `…_2`), negations pushed inward, a comparison one unit; past 12 alternatives, nested |
 | `exactly_one(a, b, c)` | the alternatives written out: a and not b and not c, … |
 | `data_relation` (`arguments: [Person, Household]`) | a two-place sentence, `*a person* is a member of *a household*` |
@@ -173,7 +178,30 @@ engine does not reproduce are pending in the twin.
 
 ## Licence
 
-`rulespec-us` is CC-BY-4.0 (Axiom Foundation): the twins are published in
-LE2 with the attribution in each program's opening comment and the
-originals under `sources/`. The translator is part of the Logical English
-Translators (the `converters` capability).
+This translator is not a product of the Axiom Foundation, and nothing here
+implies that the Axiom Foundation endorses it or the twins.
+
+- **The programs.** `rulespec-us` is the Axiom Foundation's
+  (<https://github.com/TheAxiomFoundation/rulespec-us>). Its `NOTICE` puts
+  the encodings, their test cases, the parameter values and the provenance
+  metadata under the Creative Commons Attribution 4.0 International licence
+  (CC BY 4.0, <https://creativecommons.org/licenses/by/4.0/legalcode>), its
+  incidental tooling under the Apache License 2.0, and claims no licence
+  over the law itself. The attribution it suggests is: "Axiom Foundation
+  RuleSpec corpus (CC BY 4.0), https://github.com/TheAxiomFoundation".
+- **What of them is in LE2.** The modules of the twins and their test
+  files, unchanged, under each group's `sources/` in
+  `examples/migration/rulespec/` (a `NOTICE.txt` beside them); the twins,
+  which are translations of those modules (changed copies), with the
+  attribution in each program's opening comment and in its ledger; and
+  `runs/*.json` here, which hold the names and expected values of the test
+  cases and the formulas as the engine lowers them (`runs/NOTICE.txt`).
+  That material stays under CC BY 4.0; the Apache License 2.0 of this
+  repository covers the translator and what the translator adds.
+- **The engine and the harness.** `axiom-rules-engine` and `axiom-encode`
+  are the Axiom Foundation's, MIT licence. Neither is copied here:
+  `fetch_oracle.sh` downloads the engine, and `rulespec_oracle.py` is
+  written anew after the way `axiom-encode` builds its requests.
+- **Who may use the translator.** It is open source, and on the hosted
+  service it is free for a visitor who has signed in (the `converters`
+  capability of `le_entitlements.pl`).

@@ -10,13 +10,16 @@ gives, so running them checks the translation.
 ## Start here
 - [Blawx](blawx/) — Acts encoded in Blawx, a visual tool for legal rules.
 - [Catala](catala/) — tax and benefit law written in Catala, in English and in French (Français Logique), the rental calculation of the French housing allowance among them.
-- [DMN](dmn/) — decision models of the OMG standard: the DMN Technology Compatibility Kit, Dutch government rules and Philadelphia's benefit checks.
-- [Epilog](epilog/README.md) — every program of Stanford's Epilog site, checked against EpilogJS: the rulesets here, the games among LPS2's examples.
+- [DMN](dmn/) — decision models of the OMG standard: the DMN Technology Compatibility Kit, example models of Dutch government rules (RONL) and Code for Philly's benefit checks for Philadelphia.
+- [Epilog](epilog/README.md) — programs of the Epilog site (Stanford University), each twin checked against EpilogJS: the rulesets here, the games among LPS2's examples.
+- [L4](l4/) — rules written in L4, a language for legal rules and contracts: the rules here, the contracts among LPS2's examples.
 - [LegalRuleML](legalruleml/) — the examples of the OASIS LegalRuleML standard: duties, permissions, prohibitions.
 - [Miniscript](miniscript/) — Bitcoin spending policies: who can spend a coin, and when.
 - [OIPA](oipa/) — insurance transactions of Oracle Insurance Policy Administration, on two plans we wrote.
-- [RuleSpec](rulespec/) — United States food assistance, tax credit and disability benefit rules from the Axiom Foundation's RuleSpec programs.
+- [RuleSpec](rulespec/) — United States food assistance, tax credit and Supplemental Security Income rules from the Axiom Foundation's RuleSpec programs.
+- [RUML](ruml/) — the examples of the RUML specification and the fixtures of its tests (the Rulemapping Logic Format, published by Law as Code Institut GmbH); some cite German statutes.
 - [s(CASP)](scasp/) — logic programs of the s(CASP) reasoner, including Logical English 1's own.
+- [Spreadsheets](spreadsheet/) — calculators kept in Excel workbooks: formulas as rules, the workbook's own values as tests.
 
 ## Try this
 1. Open [the Rock Paper Scissors Act](blawx/rps/rps.le?scenario=bobjane&query=bobjane) and click **Query**: the answer is "the winner of testgame is jane".
@@ -27,8 +30,8 @@ gives, so running them checks the translation.
 
 ## More
 - How translation works, for each system: [the integrations guide](/docs/user/integrations/index).
-- The twins are written by the translators of `lpsPlus/migration` (not public); do not edit them by hand.
-- The twins in Logical English for LPS (Daml, Drools, Solidity, the Epilog games) are among LPS2's examples, in its `examples/migration/`.
+- The twins are written by the translators in the folder `migration/` of this repository (its `README.md` lists them); do not edit them by hand. One correction was made in place, on 24 November 2026, when the translators became open source: the lines of each twin and ledger that name the translator now give its present place, `migration/<system>`.
+- The twins in Logical English for LPS (Daml, Drools, Ponens, Solidity, the contracts of L4, the Epilog games) are among LPS2's examples, in its `examples/migration/`.
 
 ## Disclaimer
 A twin is written by a translator, and it is provided **"as is", without
