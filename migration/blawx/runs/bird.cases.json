@@ -1,0 +1,165 @@
+{
+  "answers": [
+    {
+      "answers": [ {"A":"penguin_a"},  {"A":"pingu"} ],
+      "constraints": [ [],  [] ],
+      "query":"bird(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"thing_a"} ],
+      "constraints": [ [] ],
+      "query":"flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"flies(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_with_sec_3_section",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"penguin_a"},  {"A":"pingu"} ],
+      "constraints": [ [],  [] ],
+      "query":"-flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_3",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"pingu"} ],
+      "constraints": [ [] ],
+      "query":"-flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_3_with_sec_4_section",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"pingu"} ],
+      "constraints": [ [] ],
+      "query":"-flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_3_with_sec_5_section",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"penguin_a"},  {"A":"penguin_a"} ],
+      "constraints": [ [],  [] ],
+      "query":"flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_4",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"flies(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_4_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"flies(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_4_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"thing_a"},  {"A":"thing_a"},  {"A":"thing_a"},  {"A":"thing_a"} ],
+      "constraints": [ [],  [],  [],  [] ],
+      "query":"flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_5",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"thing_a"},  {"A":"thing_a"} ],
+      "constraints": [ [],  [] ],
+      "query":"flies(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_5_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"flies(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_5_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"flies(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_5_without_fact_3",
+      "variables": ["A" ]
+    }
+  ],
+  "cases": [
+    {"facts":"penguin(penguin_a).\n","id":"case_1","query":"bird(A)"},
+    {"facts":"bird(thing_a).\n","id":"case_2","query":"flies(A)"},
+    {
+      "facts":"bird(thing_a).\npenguin(thing_a).\n",
+      "id":"case_2_with_sec_3_section",
+      "query":"flies(A)"
+    },
+    {"facts":"penguin(penguin_a).\n","id":"case_3","query":"-flies(A)"},
+    {
+      "facts":"penguin(penguin_a).\non_plane(penguin_a).\n",
+      "id":"case_3_with_sec_4_section",
+      "query":"-flies(A)"
+    },
+    {
+      "facts":"penguin(penguin_a).\nblawx_applies(sec_5_section,penguin_a).\ncartoon_jetpack(penguin_a).\n",
+      "id":"case_3_with_sec_5_section",
+      "query":"-flies(A)"
+    },
+    {"facts":"penguin(penguin_a).\non_plane(penguin_a).\n","id":"case_4","query":"flies(A)"},
+    {"facts":"on_plane(penguin_a).\n","id":"case_4_without_fact_1","query":"flies(A)"},
+    {"facts":"penguin(penguin_a).\n","id":"case_4_without_fact_2","query":"flies(A)"},
+    {
+      "facts":"blawx_applies(sec_5_section,thing_a).\npenguin(thing_a).\ncartoon_jetpack(thing_a).\n",
+      "id":"case_5",
+      "query":"flies(A)"
+    },
+    {
+      "facts":"penguin(thing_a).\ncartoon_jetpack(thing_a).\n",
+      "id":"case_5_without_fact_1",
+      "query":"flies(A)"
+    },
+    {
+      "facts":"blawx_applies(sec_5_section,thing_a).\ncartoon_jetpack(thing_a).\n",
+      "id":"case_5_without_fact_2",
+      "query":"flies(A)"
+    },
+    {
+      "facts":"blawx_applies(sec_5_section,thing_a).\npenguin(thing_a).\n",
+      "id":"case_5_without_fact_3",
+      "query":"flies(A)"
+    }
+  ],
+  "flags": []
+}

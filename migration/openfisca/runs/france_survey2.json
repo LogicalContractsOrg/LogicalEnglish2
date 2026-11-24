@@ -1,0 +1,625 @@
+{
+ "dialect": "france",
+ "load_seconds": 8,
+ "stats": {
+  "inputs": 2195,
+  "computed": 988,
+  "translated": 778,
+  "reads another period": 141,
+  "residue": 210
+ },
+ "residue_reasons": [
+  [
+   "the call …",
+   63
+  ],
+  [
+   "f(), helpers calling helpers too deep",
+   33
+  ],
+  [
+   "the attribute …",
+   14
+  ],
+  [
+   "constant None",
+   12
+  ],
+  [
+   "a period built in the formula (f())",
+   12
+  ],
+  [
+   "astype(datetime64[M])",
+   9
+  ],
+  [
+   "the name …",
+   8
+  ],
+  [
+   "a date so many periods before the one asked about",
+   6
+  ],
+  [
+   "an assert this translator does not read (period used as a value)",
+   6
+  ],
+  [
+   "a loop over something that is not written in the program",
+   4
+  ],
+  [
+   "a range whose bounds the case decides",
+   3
+  ],
+  [
+   "parameters read at a date the formula computes",
+   3
+  ],
+  [
+   "a subscript",
+   3
+  ],
+  [
+   "period used as a value",
+   2
+  ],
+  [
+   "rsa of another period, read through a group or its members",
+   2
+  ],
+  [
+   "Dict",
+   2
+  ],
+  [
+   "ListComp",
+   2
+  ],
+  [
+   "rente_viagere_titre_onereux of another period, read through a group or its members",
+   2
+  ],
+  [
+   "Expr statement",
+   2
+  ],
+  [
+   "no return",
+   1
+  ],
+  [
+   "Assign statement",
+   1
+  ],
+  [
+   "salaire_de_base read for a period the twin cannot name",
+   1
+  ],
+  [
+   "bourse_criteres_sociaux read for a period the twin cannot name",
+   1
+  ],
+  [
+   "astype(M8[M])",
+   1
+  ],
+  [
+   "a duration that is not a number",
+   1
+  ],
+  [
+   "astype(datetime64[Y])",
+   1
+  ],
+  [
+   "the operator Mod",
+   1
+  ],
+  [
+   "salaire_net read for a period the twin cannot name",
+   1
+  ],
+  [
+   "select over a computed list",
+   1
+  ],
+  [
+   "a loop over a list that is not written in the program",
+   1
+  ],
+  [
+   "famille.any(role=…) of something that is not its members' values",
+   1
+  ],
+  [
+   "parameter …",
+   1
+  ],
+  [
+   "rfr read for a period the twin cannot name",
+   1
+  ],
+  [
+   "While statement",
+   1
+  ],
+  [
+   "has_role asked of something that is not a person",
+   1
+  ],
+  [
+   "exprs used as a value",
+   1
+  ],
+  [
+   "ass of another period, read through a group or its members",
+   1
+  ],
+  [
+   "rpns_autres_revenus_chiffre_affaires of another period, read through a group or its members",
+   1
+  ],
+  [
+   "individu.foyer_fiscal.f() of a role",
+   1
+  ],
+  [
+   "the operator Pow",
+   1
+  ],
+  [
+   "individu.f()",
+   1
+  ]
+ ],
+ "approximations": [
+  [
+   "… of another period: the value the case states, which the engine gives, rather than the tw",
+   66
+  ],
+  [
+   "… read through the demandeur of the famille: the value of the menage of the one member who",
+   57
+  ],
+  [
+   "… read for period.this_year: the case's one value",
+   47
+  ],
+  [
+   "… read for period.first_month: the case's one value",
+   37
+  ],
+  [
+   "… read through the declarant_principal of the foyer_fiscal: the value of the one member wh",
+   12
+  ],
+  [
+   "… read through the personne_de_reference of the menage: the value of the one member who ho",
+   8
+  ],
+  [
+   "… read through the conjoint of the foyer_fiscal: the value of the one member who holds the",
+   7
+  ],
+  [
+   "… read through the demandeur of the famille: the value of the one member who holds the rol",
+   6
+  ],
+  [
+   "… read through the conjoint of the famille: the value of the one member who holds the role",
+   5
+  ],
+  [
+   "… calculation date < 2016-01-01 is False at every date of the tests: the if decided when t",
+   5
+  ],
+  [
+   "… written as the year of the calculation date",
+   4
+  ],
+  [
+   "… read through the personne_de_reference of the menage: the value of the famille of the on",
+   2
+  ],
+  [
+   "… written as the month of the calculation date",
+   1
+  ],
+  [
+   "… calculation date < 2022-07-01 is False at every date of the tests: the if decided when t",
+   1
+  ],
+  [
+   "… calculation date < 2023-01-01 is False at every date of the tests: the if decided when t",
+   1
+  ]
+ ],
+ "other_periods": {
+  "last_year": 23,
+  "offset": 84,
+  "last_month": 11,
+  "n_2": 41,
+  "options ADD": 96,
+  "first_month": 51,
+  "this_year": 23,
+  "period arithmetic": 28,
+  "options DIVIDE": 16
+ },
+ "folders": [
+  [
+   "prelevements_obligatoires/impot_revenu",
+   218
+  ],
+  [
+   "prelevements_obligatoires/prelevements_sociaux",
+   170
+  ],
+  [
+   "prestations/minima_sociaux",
+   109
+  ],
+  [
+   "prestations/prestations_familiales",
+   72
+  ],
+  [
+   "prestations/aides_logement.py",
+   58
+  ],
+  [
+   "revenus/remplacement",
+   52
+  ],
+  [
+   "revenus/activite",
+   49
+  ],
+  [
+   "prelevements_obligatoires/taxe_habitation",
+   28
+  ],
+  [
+   "prelevements_obligatoires/isf.py",
+   27
+  ],
+  [
+   "prestations/enseignement_superieur",
+   20
+  ],
+  [
+   "prestations/complement_are.py",
+   16
+  ],
+  [
+   "prestations/jeunes",
+   15
+  ],
+  [
+   "prestations/aides_exceptionnelles",
+   14
+  ],
+  [
+   "caracteristiques_socio_demographiques/logement.py",
+   12
+  ],
+  [
+   "prestations/autonomie.py",
+   10
+  ],
+  [
+   "caracteristiques_socio_demographiques/demographie.py",
+   10
+  ],
+  [
+   "prestations/education.py",
+   8
+  ],
+  [
+   "prestations/locapass.py",
+   7
+  ],
+  [
+   "revenus/capital",
+   7
+  ],
+  [
+   "prestations/cheque_energie.py",
+   6
+  ],
+  [
+   "prestations/aide_mobilite.py",
+   5
+  ],
+  [
+   "prestations/agepi.py",
+   5
+  ],
+  [
+   "prestations/visale.py",
+   4
+  ],
+  [
+   "prestations/transport.py",
+   4
+  ],
+  [
+   "prestations/logement_social.py",
+   4
+  ],
+  [
+   "prestations/mon_job_mon_logement.py",
+   4
+  ],
+  [
+   "covid19/activite.py",
+   4
+  ],
+  [
+   "prestations/reduction_loyer_solidarite.py",
+   3
+  ],
+  [
+   "prestations/alimentation.py",
+   3
+  ],
+  [
+   "prestations/bail_reel_solidaire.py",
+   3
+  ],
+  [
+   "prestations/aide_permis_demandeur_emploi.py",
+   3
+  ],
+  [
+   "patrimoine/livret_epargne_populaire.py",
+   3
+  ],
+  [
+   "covid19/jeunes.py",
+   3
+  ],
+  [
+   "prestations/mobilite_jeunes.py",
+   2
+  ],
+  [
+   "prestations/depart1825.py",
+   2
+  ],
+  [
+   "prestations/aide_permis_pro_btp.py",
+   1
+  ],
+  [
+   "prestations/aide_alimentation_etudiants_eloignes.py",
+   1
+  ],
+  [
+   "prestations/pass_culture.py",
+   1
+  ],
+  [
+   "prestations/anah",
+   1
+  ],
+  [
+   "prestations/sante_psy",
+   1
+  ]
+ ],
+ "parameters": 4688,
+ "per_variable": {
+  "aah": "a date so many periods before the one asked about",
+  "aah_base_ressources_activite_eval_trimestrielle": "the call offset()",
+  "aah_base_ressources_conjugalisee": "the call offset()",
+  "aah_base_ressources_deconjugalisee": "the call offset()",
+  "aah_base_ressources_hors_activite_eval_trimestrielle": "the call offset()",
+  "abt_condition_modeste_th_commune": "the call offset()",
+  "abt_condition_modeste_th_epci": "the call offset()",
+  "abt_general_base_th_commune": "the call offset()",
+  "abt_general_base_th_epci": "the call offset()",
+  "abt_pac_1_2_th_commune": "the call offset()",
+  "abt_pac_1_2_th_epci": "the call offset()",
+  "abt_pac_3pl_th_commune": "the call offset()",
+  "abt_pac_3pl_th_epci": "the call offset()",
+  "acs": "no return",
+  "ada": "period used as a value",
+  "aefa": "the call hasattr()",
+  "aes": "Assign statement",
+  "af_allocation_forfaitaire_nb_enfants": "an assert this translator does not read (period used as a value)",
+  "af_nbenf_fonc": "salaire_de_base read for a period the twin cannot name",
+  "agepi_eligible": "the call offset()",
+  "agff_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "agirc_arrco_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "agirc_arrco_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "agirc_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "agirc_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "ags": "iter_cotisations(), helpers calling helpers too deep",
+  "aide_jeunes_diplomes_anciens_boursiers_base_ressources": "bourse_criteres_sociaux read for a period the twin cannot name",
+  "aide_logement_base_ressources": "the attribute .stop",
+  "aide_logement_base_ressources_eval_forfaitaire": "the call Instant()",
+  "aide_logement_base_ressources_individu": "the call offset()",
+  "aide_logement_loyer_plafond": "the attribute .personnes_seules",
+  "aide_logement_montant_brut": "the attribute .degressivite",
+  "aide_merite_eligibilite": "the attribute .month",
+  "aide_mobilite": "the call offset()",
+  "aide_mobilite_eligible": "astype(M8[M])",
+  "aide_mobilite_internationale_eligibilite": "a duration that is not a number",
+  "aide_mobilite_ressources_eligibles": "the call fabs()",
+  "aides_logement_foyer_conventionne_plafond": "the attribute .personne_isolee_sans_enfant",
+  "aides_logement_primo_accedant_eligibilite": "constant None",
+  "aides_logement_primo_accedant_k": "constant None",
+  "aides_logement_primo_accedant_plafond_mensualite": "the attribute .personne_isolee_sans_enfant",
+  "al_nb_personnes_a_charge": "an assert this translator does not read (period used as a value)",
+  "allegement_cotisation_allocations_familiales_base": "the call get_subperiods()",
+  "allegement_cotisation_maladie_base": "the call get_subperiods()",
+  "allegement_general": "the call get_subperiods()",
+  "allocation_retour_emploi_montant": "the call offset()",
+  "apa_domicile": "the call Period()",
+  "apa_eligibilite": "the call Period()",
+  "apa_etablissement": "the call Period()",
+  "apa_urgence_institution": "the call Period()",
+  "ape_avant_cumul": "an assert this translator does not read (period used as a value)",
+  "apec_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "apec_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "api": "an assert this translator does not read (period used as a value)",
+  "apje_avant_cumul": "the call offset()",
+  "are_age_fin_contrat": "astype(datetime64[Y])",
+  "are_crds_tx_deg": "constant None",
+  "are_crds_tx_plein": "constant None",
+  "are_csg_deductible_tx_deg": "constant None",
+  "are_csg_deductible_tx_plein": "constant None",
+  "are_csg_non_deductible_tx_deg": "constant None",
+  "are_csg_non_deductible_tx_plein": "constant None",
+  "are_date_debut_degressivite": "the operator Mod",
+  "are_debut_indemnisation": "astype(datetime64[M])",
+  "are_debut_prc": "a loop over something that is not written in the program",
+  "are_duree_nette_gelee": "astype(datetime64[M])",
+  "are_fin_indemnisation": "astype(datetime64[M])",
+  "are_jours_indemnises_mensuels": "astype(datetime64[M])",
+  "are_jours_indemnises_mensuels_tx_plein": "astype(datetime64[M])",
+  "are_jours_travailles": "a range whose bounds the case decides",
+  "are_sjr_gele": "astype(datetime64[M])",
+  "are_sr": "a range whose bounds the case decides",
+  "arrco_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "arrco_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "ars": "the call Period()",
+  "asi": "the call demandeur()",
+  "asi_aspa_base_ressources_individu": "the call offset()",
+  "asi_eligibilite": "the call offset()",
+  "ass_base_ressources_conjoint": "the call offset()",
+  "ass_base_ressources_individu": "the call offset()",
+  "ass_eligibilite_cumul_individu": "a range whose bounds the case decides",
+  "autonomie_financiere": "salaire_net read for a period the twin cannot name",
+  "avantage_en_nature": "the name period",
+  "avantage_en_nature_valeur_forfaitaire": "the name period",
+  "bail_reel_solidaire": "constant None",
+  "bail_reel_solidaire_plafond_total": "select over a computed list",
+  "bail_reel_solidaire_zones_menage": "the call fromiter()",
+  "biactivite": "parameters read at a date the formula computes",
+  "bourse_college": "the attribute .first_month",
+  "bourse_college_echelon": "parameters read at a date the formula computes",
+  "bourse_criteres_sociaux_eligibilite_etude": "a loop over a list that is not written in the program",
+  "bourse_lycee": "the attribute .first_month",
+  "bourse_lycee_echelon": "parameters read at a date the formula computes",
+  "bourse_lycee_nombre_parts": "the call format()",
+  "chomage_cotisation_retraite_complementaire": "period used as a value",
+  "chomage_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "chomage_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "cmu_c_plafond": "the call get_rank()",
+  "cmu_eligible_majoration_dom": "the name famille",
+  "coefficient_proratisation": "the call offset()",
+  "complement_are_nombre_jours_indemnisables": "the call divide()",
+  "contrat_engagement_jeune_eligibilite": "rsa of another period, read through a group or its members",
+  "contribution_developpement_apprentissage": "iter_cotisations(), helpers calling helpers too deep",
+  "contribution_equilibre_general_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "contribution_equilibre_general_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "contribution_equilibre_technique_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "contribution_equilibre_technique_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "contribution_exceptionnelle_solidarite": "a subscript",
+  "contribution_solidarite_autonomie": "iter_cotisations(), helpers calling helpers too deep",
+  "cotisation_exceptionnelle_temporaire_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "cotisation_exceptionnelle_temporaire_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "covid_aide_exceptionnelle_famille_montant": "famille.any(role=…) of something that is not its members' values",
+  "crds_chomage": "constant None",
+  "csg_deductible_chomage": "constant None",
+  "csg_imposable_chomage": "constant None",
+  "css_cmu_acs_eligibilite": "the call offset()",
+  "css_cmu_base_ressources": "the call offset()",
+  "css_cmu_base_ressources_individu": "the call offset()",
+  "degrevement_plafonnement_taxe_habitation": "the call offset()",
+  "depense_cantine_titre_restaurant_employe": "the name period",
+  "depense_cantine_titre_restaurant_employeur": "the name period",
+  "domaine_specialites_formation": "a loop over something that is not written in the program",
+  "eligibilite_caah": "the call offset()",
+  "eligibilite_indemnite_inflation_demandeur_emploi": "a period built in the formula (period())",
+  "eligibilite_indemnite_inflation_jeune": "a period built in the formula (period())",
+  "eligibilite_indemnite_inflation_non_salarie": "a period built in the formula (period())",
+  "eligibilite_indemnite_inflation_prest_soc": "a period built in the formula (period())",
+  "eligibilite_indemnite_inflation_public": "a period built in the formula (period())",
+  "eligibilite_indemnite_inflation_retraite": "a period built in the formula (period())",
+  "eligibilite_indemnite_inflation_salarie_prive": "a period built in the formula (period())",
+  "eligibilite_per": "a period built in the formula (period())",
+  "eligibilite_per_etudiant": "a period built in the formula (period())",
+  "eligibilite_per_ppa": "a period built in the formula (period())",
+  "exoneration_cotisations_employeur_jei": "a loop over something that is not written in the program",
+  "exoneration_cotisations_employeur_zfu": "parameter prelevements_sociaux.autres_taxes_participations_assises_salaires.fnal.contribution_plus_de_20_salaries is not a value",
+  "exoneration_cotisations_employeur_zrd": "Dict",
+  "exoneration_cotisations_salarie_stagiaire": "a subscript",
+  "exoneration_is_creation_zrr": "a loop over something that is not written in the program",
+  "famille": "iter_cotisations(), helpers calling helpers too deep",
+  "fin_dernier_contrat": "ListComp",
+  "financement_organisations_syndicales": "iter_cotisations(), helpers calling helpers too deep",
+  "fnal_contribution": "iter_cotisations(), helpers calling helpers too deep",
+  "fnal_cotisation": "iter_cotisations(), helpers calling helpers too deep",
+  "formation_professionnelle": "iter_cotisations(), helpers calling helpers too deep",
+  "garantie_jeunes_eligibilite_ressources": "rsa of another period, read through a group or its members",
+  "indice_majore": "the call offset()",
+  "ir_taux_marginal": "the call rate_from_bracket_indice()",
+  "ir_tranche": "the call bracket_indices()",
+  "ircantec_salarie": "a subscript",
+  "livret_epargne_populaire_plafond": "the attribute .valeur_de_base",
+  "locapass_eligibilite": "a date so many periods before the one asked about",
+  "logement_social_eligible": "rfr read for a period the twin cannot name",
+  "maladie_maternite_artisan_commercant_taux": "the call zeros()",
+  "mmid_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "mmid_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "mon_job_mon_logement_eligibilite": "a date so many periods before the one asked about",
+  "mon_job_mon_logement_eligibilite_jeunes_actifs": "a date so many periods before the one asked about",
+  "mon_job_mon_logement_eligibilite_logement": "a date so many periods before the one asked about",
+  "motif_fin_dernier_contrat": "ListComp",
+  "nombre_jours_calendaires": "the call partial()",
+  "nombre_jours_travailles": "the call partial()",
+  "paje_adoption": "astype(datetime64[M])",
+  "paje_cmg": "an assert this translator does not read (period used as a value)",
+  "paje_naissance": "astype(datetime64[M])",
+  "participation_effort_construction": "iter_cotisations(), helpers calling helpers too deep",
+  "pass_colo": "a date so many periods before the one asked about",
+  "ppa": "the attribute .last_3_months",
+  "ppa_indice_du_mois_trimestre_reference": "astype(datetime64[M])",
+  "ppa_ressources_hors_activite_individu": "rente_viagere_titre_onereux of another period, read through a group or its members",
+  "ppe_tp_sa": "While statement",
+  "ppv_eligibilite_exceptionnelle": "the call offset()",
+  "prestations_familiales_base_ressources_communes": "has_role asked of something that is not a person",
+  "prime_exceptionnelle_pouvoir_achat_exoneree": "the call offset()",
+  "prime_exceptionnelle_rentree_etudiant": "a period built in the formula (period())",
+  "prime_exceptionnelle_rentree_non_etudiant": "a period built in the formula (period())",
+  "quotite_de_travail": "Dict",
+  "reduction_loyer_solidarite_montant": "the attribute .personnes_seules",
+  "reduction_loyer_solidarite_plafond_ressources": "the attribute .personnes_seules",
+  "region": "exprs used as a value",
+  "remuneration_apprenti": "the call dict()",
+  "remuneration_professionnalisation": "the call dict()",
+  "rente_accident_travail": "the call offset()",
+  "rente_accident_travail_exploitant_agricole": "the call offset()",
+  "rente_accident_travail_salaire_utile": "the call offset()",
+  "rente_accident_travail_salarie": "the call offset()",
+  "rpns_micro_entreprise_revenus_net": "the name rpns_micro_entreprise_CA_bic_vente_imp",
+  "rsa_base_ressources_individu": "rente_viagere_titre_onereux of another period, read through a group or its members",
+  "rsa_base_ressources_minima_sociaux": "ass of another period, read through a group or its members",
+  "rsa_eligibilite_tns": "rpns_autres_revenus_chiffre_affaires of another period, read through a group or its members",
+  "rsa_indemnites_journalieres_activite": "the attribute .start",
+  "rsa_majore_eligibilite": "an assert this translator does not read (period used as a value)",
+  "rsa_non_calculable_tns_individu": "the call offset()",
+  "rsa_revenu_activite_individu": "the attribute .last_3_months",
+  "salaire_super_brut": "the name period",
+  "statut_marital": "individu.foyer_fiscal.nb_persons() of a role",
+  "taux_allegement_general": "the operator Pow",
+  "taux_th_commune": "the call offset()",
+  "taux_th_epci": "the call offset()",
+  "taux_versement_transport": "Expr statement",
+  "taxe_apprentissage": "iter_cotisations(), helpers calling helpers too deep",
+  "taxe_salaires": "individu.filled_array()",
+  "travailleur_non_salarie": "the call offset()",
+  "valeur_locative_moyenne_th_commune": "the call offset()",
+  "valeur_locative_moyenne_th_epci": "the call offset()",
+  "vieillesse_deplafonnee_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "vieillesse_deplafonnee_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "vieillesse_plafonnee_employeur": "iter_cotisations(), helpers calling helpers too deep",
+  "vieillesse_plafonnee_salarie": "iter_cotisations(), helpers calling helpers too deep",
+  "zone_apl": "Expr statement",
+  "zone_logement_social": "the name paris_communes_limitrophes"
+ }
+}

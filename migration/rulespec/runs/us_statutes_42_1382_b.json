@@ -1,0 +1,510 @@
+{
+ "module": "us:statutes/42/1382/b",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "base_rates_apply_when_section_1382f_amounts_are_lower",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/b#annual_benefit_without_eligible_spouse": {
+     "expected": 1552,
+     "actual": "1552",
+     "agrees": true
+    },
+    "us:statutes/42/1382/b#annual_benefit_with_eligible_spouse": {
+     "expected": 2328,
+     "actual": "2328",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "section_1382f_amounts_apply_when_greater_than_statutory_base_rates",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/b#annual_benefit_without_eligible_spouse": {
+     "expected": 1700,
+     "actual": "1700",
+     "agrees": true
+    },
+    "us:statutes/42/1382/b#annual_benefit_with_eligible_spouse": {
+     "expected": 2500,
+     "actual": "2500",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "income_reduction_cannot_make_payable_benefit_negative",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/b#annual_benefit_without_eligible_spouse": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382/b#annual_benefit_with_eligible_spouse": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "prior_rounding_carryover_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_after_paragraph_1_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "input",
+       "name": "dollar_amount_in_effect_for_month"
+      },
+      {
+       "kind": "derived",
+       "name": "prior_rounding_carryover_increase"
+      }
+     ]
+    }
+   }
+  ],
+  "subsection_a_applicable_increase_percentage": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "subchapter_ii_increase_was_determined_on_wage_increase_percentage"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "input",
+        "name": "subchapter_ii_benefit_increase_percentage_for_month"
+       },
+       {
+        "kind": "input",
+        "name": "cpi_basis_subchapter_ii_increase_percentage_for_month"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "input",
+      "name": "subchapter_ii_benefit_increase_percentage_for_month"
+     }
+    }
+   }
+  ],
+  "amount_after_subsection_a_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "derived",
+         "name": "amount_after_paragraph_1_increase"
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase_for_section_1382_b_1_amount": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "section_1382_b_1_dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_determined_under_section_1382f_for_section_1382_b_1": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "input",
+           "name": "section_1382_b_1_dollar_amount_in_effect_for_month"
+          },
+          {
+           "kind": "derived",
+           "name": "prior_rounding_carryover_increase_for_section_1382_b_1_amount"
+          }
+         ]
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase_for_section_1382_b_2_amount": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "section_1382_b_2_dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_determined_under_section_1382f_for_section_1382_b_2": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "input",
+           "name": "section_1382_b_2_dollar_amount_in_effect_for_month"
+          },
+          {
+           "kind": "derived",
+           "name": "prior_rounding_carryover_increase_for_section_1382_b_2_amount"
+          }
+         ]
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "annual_benefit_without_eligible_spouse": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "parameter_lookup",
+          "parameter": "statutory_base_annual_rate_without_eligible_spouse",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         },
+         {
+          "kind": "derived",
+          "name": "amount_determined_under_section_1382f_for_section_1382_b_1"
+         }
+        ]
+       },
+       "right": {
+        "kind": "input",
+        "name": "individual_income_not_excluded_pursuant_to_section_1382a_b"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "annual_benefit_with_eligible_spouse": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "parameter_lookup",
+          "parameter": "statutory_base_annual_rate_with_eligible_spouse",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         },
+         {
+          "kind": "derived",
+          "name": "amount_determined_under_section_1382f_for_section_1382_b_2"
+         }
+        ]
+       },
+       "right": {
+        "kind": "input",
+        "name": "individual_and_spouse_income_not_excluded_pursuant_to_section_1382a_b"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

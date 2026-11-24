@@ -1,0 +1,158 @@
+{
+ "module": "us:statutes/7/2015/d/2/B",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "dependent_child_under_age_six_care_responsibility_exempts_person",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "incapacitated_person_care_responsibility_exempts_person",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "dependent_child_age_six_or_older_and_no_incapacitated_person_no_exemption",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "person_not_otherwise_required_has_no_exemption_under_this_branch",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/B#care_responsibility_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "care_responsibility_exemption_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_is_parent_or_other_household_member_with_responsibility_for_care_of_dependent_child"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "dependent_child_age_years"
+           },
+           "op": "lt",
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "dependent_child_age_exemption_threshold_years",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_parent_or_other_household_member_with_responsibility_for_care_of_incapacitated_person"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

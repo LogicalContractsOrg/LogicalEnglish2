@@ -1,0 +1,55 @@
+IMPORT prelude
+
+DECLARE Person HAS
+    name IS A STRING
+    age IS A NUMBER
+    citizenship IS A STRING
+    `annual income` IS A NUMBER
+    `criminal record` IS A BOOLEAN
+
+GIVEN `the applicant` IS A Person
+GIVETH A BOOLEAN
+DECIDE `the applicant is eligible for benefit` IF
+    `the applicant is a qualifying resident`
+    AND `the applicant is of age`
+    AND `the applicant meets income threshold`
+    AND NOT `the applicant is disqualified`
+    WHERE
+        `the applicant is a qualifying resident` MEANS
+            `the applicant`'s citizenship = "citizen"
+        `the applicant is of age` MEANS
+            `the applicant`'s age >= 21
+            AND `the applicant`'s age < 65
+        `the applicant meets income threshold` MEANS
+            `the applicant`'s `annual income` < 30000
+        `the applicant is disqualified` MEANS
+            `the applicant`'s `criminal record`
+
+GIVEN `the income` IS A NUMBER
+GIVETH A NUMBER
+`the income tax owed` MEANS
+    `tax on first bracket` + `tax on second bracket`
+    WHERE
+        `tax on first bracket` MEANS `amount in first bracket` * 0.10
+        `tax on second bracket` MEANS `amount in second bracket` * 0.20
+        `amount in first bracket` MEANS
+            BRANCH
+                IF `the income` <= 10000 THEN `the income`
+                OTHERWISE 10000
+        `amount in second bracket` MEANS
+            BRANCH
+                IF `the income` <= 10000 THEN 0
+                OTHERWISE `the income` - 10000
+
+GIVEN xs IS A LIST OF NUMBER
+GIVETH A BOOLEAN
+DECIDE `all positive` xs IF all (GIVEN n YIELD n > 0) xs
+
+ann MEANS Person "ann" 30 "citizen" 20000 FALSE
+bob MEANS Person "bob" 30 "citizen" 20000 TRUE
+#EVAL `the applicant is eligible for benefit` ann
+#EVAL `the applicant is eligible for benefit` bob
+#EVAL `the income tax owed` 8000
+#EVAL `the income tax owed` 25000
+#EVAL `all positive` (LIST 1, 2, 3)
+#EVAL `all positive` (LIST 1, -2, 3)

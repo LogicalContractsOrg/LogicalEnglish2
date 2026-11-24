@@ -268,8 +268,8 @@ handle_operation(Dict, Response) :-
         ; Response = _{error: "Unknown operation"}
     ).
 
-%   The Contract Assistant's operations. They belong to the Logical English
-%   Translators licence (capability `contract_assistant`, le_entitlements.pl).
+%   The Contract Assistant's operations. They belong to the LE Contract
+%   Assistant licence (capability `contract_assistant`, le_entitlements.pl).
 contract_operation("contract_start", handle_contract_start).
 contract_operation("contract_status", handle_contract_status).
 contract_operation("contract_result", handle_contract_result).

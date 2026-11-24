@@ -1,0 +1,519 @@
+{
+ "module": "us:statutes/26/32/c/2",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "employee compensation plus self-employment earnings",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/32/c/2#earned_income": {
+     "expected": 42000,
+     "actual": "42000",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "explicit exclusions reduce earned income",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/32/c/2#earned_income": {
+     "expected": 15000,
+     "actual": "15000",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "section 112 election adds excluded combat-zone amount",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/32/c/2#earned_income": {
+     "expected": 16000,
+     "actual": "16000",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_output_earned_income_before_section_112_election",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/32/c/2#earned_income_before_section_112_election": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "amount_excluded_from_gross_income_by_reason_of_section_112": [
+   {
+    "effective_from": "1990-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "add",
+       "items": [
+        {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "if",
+           "condition": {
+            "kind": "and",
+            "items": [
+             {
+              "kind": "comparison",
+              "left": {
+               "kind": "input",
+               "name": "member_below_grade_of_commissioned_officer_in_armed_forces"
+              },
+              "op": "eq",
+              "right": {
+               "kind": "literal",
+               "value": {
+                "kind": "bool",
+                "value": true
+               }
+              }
+             },
+             {
+              "kind": "or",
+              "items": [
+               {
+                "kind": "comparison",
+                "left": {
+                 "kind": "input",
+                 "name": "served_in_combat_zone_during_month"
+                },
+                "op": "eq",
+                "right": {
+                 "kind": "literal",
+                 "value": {
+                  "kind": "bool",
+                  "value": true
+                 }
+                }
+               },
+               {
+                "kind": "and",
+                "items": [
+                 {
+                  "kind": "and",
+                  "items": [
+                   {
+                    "kind": "comparison",
+                    "left": {
+                     "kind": "input",
+                     "name": "hospitalized_resulting_from_combat_zone_wounds_disease_or_injury"
+                    },
+                    "op": "eq",
+                    "right": {
+                     "kind": "literal",
+                     "value": {
+                      "kind": "bool",
+                      "value": true
+                     }
+                    }
+                   },
+                   {
+                    "kind": "comparison",
+                    "left": {
+                     "kind": "input",
+                     "name": "months_beginning_after_combatant_activities_termination"
+                    },
+                    "op": "lte",
+                    "right": {
+                     "kind": "parameter_lookup",
+                     "parameter": "hospitalization_after_combat_zone_termination_limit_years",
+                     "index": {
+                      "kind": "literal",
+                      "value": {
+                       "kind": "integer",
+                       "value": 0
+                      }
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 {
+                  "kind": "not",
+                  "item": {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "vietnam_combat_zone_hospitalization_month_after_january_1978"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "then_expr": {
+            "kind": "input",
+            "name": "active_service_compensation_as_enlisted_member_excluding_pensions_and_retirement_pay"
+           },
+           "else_expr": {
+            "kind": "literal",
+            "value": {
+             "kind": "decimal",
+             "value": "0"
+            }
+           }
+          },
+          {
+           "kind": "if",
+           "condition": {
+            "kind": "and",
+            "items": [
+             {
+              "kind": "comparison",
+              "left": {
+               "kind": "input",
+               "name": "commissioned_officer_in_armed_forces_excluding_commissioned_warrant_officer"
+              },
+              "op": "eq",
+              "right": {
+               "kind": "literal",
+               "value": {
+                "kind": "bool",
+                "value": true
+               }
+              }
+             },
+             {
+              "kind": "or",
+              "items": [
+               {
+                "kind": "comparison",
+                "left": {
+                 "kind": "input",
+                 "name": "served_in_combat_zone_during_month"
+                },
+                "op": "eq",
+                "right": {
+                 "kind": "literal",
+                 "value": {
+                  "kind": "bool",
+                  "value": true
+                 }
+                }
+               },
+               {
+                "kind": "and",
+                "items": [
+                 {
+                  "kind": "and",
+                  "items": [
+                   {
+                    "kind": "comparison",
+                    "left": {
+                     "kind": "input",
+                     "name": "hospitalized_resulting_from_combat_zone_wounds_disease_or_injury"
+                    },
+                    "op": "eq",
+                    "right": {
+                     "kind": "literal",
+                     "value": {
+                      "kind": "bool",
+                      "value": true
+                     }
+                    }
+                   },
+                   {
+                    "kind": "comparison",
+                    "left": {
+                     "kind": "input",
+                     "name": "months_beginning_after_combatant_activities_termination"
+                    },
+                    "op": "lte",
+                    "right": {
+                     "kind": "parameter_lookup",
+                     "parameter": "hospitalization_after_combat_zone_termination_limit_years",
+                     "index": {
+                      "kind": "literal",
+                      "value": {
+                       "kind": "integer",
+                       "value": 0
+                      }
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 {
+                  "kind": "not",
+                  "item": {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "vietnam_combat_zone_hospitalization_month_after_january_1978"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  }
+                 }
+                ]
+               }
+              ]
+             }
+            ]
+           },
+           "then_expr": {
+            "kind": "min",
+            "items": [
+             {
+              "kind": "input",
+              "name": "active_service_compensation_as_commissioned_officer_excluding_pensions_and_retirement_pay"
+             },
+             {
+              "kind": "input",
+              "name": "maximum_enlisted_amount_for_commissioned_officer_months"
+             }
+            ]
+           },
+           "else_expr": {
+            "kind": "literal",
+            "value": {
+             "kind": "decimal",
+             "value": "0"
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "if",
+         "condition": {
+          "kind": "and",
+          "items": [
+           {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "armed_forces_member_in_missing_status_during_vietnam_conflict_as_result_of_conflict"
+            },
+            "op": "eq",
+            "right": {
+             "kind": "literal",
+             "value": {
+              "kind": "bool",
+              "value": true
+             }
+            }
+           },
+           {
+            "kind": "not",
+            "item": {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "officially_absent_from_post_of_duty_without_authority"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            }
+           }
+          ]
+         },
+         "then_expr": {
+          "kind": "input",
+          "name": "armed_forces_missing_status_active_service_compensation"
+         },
+         "else_expr": {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "if",
+       "condition": {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "civilian_employee_in_missing_status_during_vietnam_conflict_as_result_of_conflict"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       },
+       "then_expr": {
+        "kind": "input",
+        "name": "civilian_employee_missing_status_active_service_compensation"
+       },
+       "else_expr": {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "earned_income_before_section_112_election": [
+   {
+    "effective_from": "1990-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "sub",
+        "left": {
+         "kind": "sub",
+         "left": {
+          "kind": "sub",
+          "left": {
+           "kind": "add",
+           "items": [
+            {
+             "kind": "input",
+             "name": "employee_compensation_includible_in_gross_income"
+            },
+            {
+             "kind": "input",
+             "name": "net_earnings_from_self_employment_after_self_employment_tax_deduction"
+            }
+           ]
+          },
+          "right": {
+           "kind": "input",
+           "name": "pension_or_annuity_amount"
+          }
+         },
+         "right": {
+          "kind": "input",
+          "name": "nonresident_alien_income_not_connected_with_united_states_business"
+         }
+        },
+        "right": {
+         "kind": "input",
+         "name": "penal_institution_service_compensation"
+        }
+       },
+       "right": {
+        "kind": "input",
+        "name": "subsidized_state_work_activity_service_compensation"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "earned_income": [
+   {
+    "effective_from": "1990-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "derived",
+       "name": "earned_income_before_section_112_election"
+      },
+      {
+       "kind": "if",
+       "condition": {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "taxpayer_elects_to_treat_section_112_excluded_amounts_as_earned_income"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       },
+       "then_expr": {
+        "kind": "derived",
+        "name": "amount_excluded_from_gross_income_by_reason_of_section_112"
+       },
+       "else_expr": {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

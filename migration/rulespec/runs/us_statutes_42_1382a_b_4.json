@@ -1,0 +1,859 @@
+{
+ "module": "us:statutes/42/1382a/b/4",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "blind_branch_excludes_initial_amount_remainder_expenses_and_pass_other_income",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded": {
+     "expected": 1280,
+     "actual": "1280",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded": {
+     "expected": 300,
+     "actual": "300",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded": {
+     "expected": 400,
+     "actual": "400",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "disabled_branch_excludes_initial_amount_work_expenses_and_half_remaining",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded": {
+     "expected": 1380,
+     "actual": "1380",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded": {
+     "expected": 400,
+     "actual": "400",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "age_sixty_five_branch_excludes_initial_amount_and_half_remainder",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/4#blind_branch_earned_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#blind_branch_earning_expenses_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#blind_branch_self_support_plan_other_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#disabled_branch_earned_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#disabled_branch_self_support_plan_other_income_excluded": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/42/1382a/b/4#age_sixty_five_branch_earned_income_excluded": {
+     "expected": 1280,
+     "actual": "1280",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "oracle_parameter_annual_earned_income_initial_exclusion_limit",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/4#annual_earned_income_initial_exclusion_limit": {
+     "expected": 780,
+     "actual": 780,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "oracle_parameter_earned_income_remainder_exclusion_rate",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/4#earned_income_remainder_exclusion_rate": {
+     "expected": 0.5,
+     "actual": "0.5",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "earned_income_remainder_exclusion_rate": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "div",
+     "left": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "1"
+      }
+     },
+     "right": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "2"
+      }
+     }
+    }
+   }
+  ],
+  "blind_branch_earned_income_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "individual_or_spouse_satisfies_blind_branch_status_condition"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "add",
+      "items": [
+       {
+        "kind": "min",
+        "items": [
+         {
+          "kind": "max",
+          "items": [
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "decimal",
+             "value": "0"
+            }
+           },
+           {
+            "kind": "input",
+            "name": "earned_income_not_excluded_by_preceding_paragraphs"
+           }
+          ]
+         },
+         {
+          "kind": "parameter_lookup",
+          "parameter": "annual_earned_income_initial_exclusion_limit",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        ]
+       },
+       {
+        "kind": "mul",
+        "left": {
+         "kind": "derived",
+         "name": "earned_income_remainder_exclusion_rate"
+        },
+        "right": {
+         "kind": "max",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "0"
+           }
+          },
+          {
+           "kind": "sub",
+           "left": {
+            "kind": "input",
+            "name": "earned_income_not_excluded_by_preceding_paragraphs"
+           },
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "annual_earned_income_initial_exclusion_limit",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          }
+         ]
+        }
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "blind_branch_earning_expenses_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "individual_or_spouse_satisfies_blind_branch_status_condition"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "input",
+        "name": "expenses_reasonably_attributable_to_earning_income"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "blind_branch_self_support_plan_other_income_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "and",
+      "items": [
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "individual_or_spouse_satisfies_blind_branch_status_condition"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       },
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "individual_has_commissioner_approved_plan_for_achieving_self_support"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       }
+      ]
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "input",
+        "name": "other_income_amount_necessary_for_fulfillment_of_self_support_plan"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "disabled_branch_earned_income_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "add",
+      "items": [
+       {
+        "kind": "add",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "max",
+            "items": [
+             {
+              "kind": "literal",
+              "value": {
+               "kind": "decimal",
+               "value": "0"
+              }
+             },
+             {
+              "kind": "input",
+              "name": "earned_income_not_excluded_by_preceding_paragraphs"
+             }
+            ]
+           },
+           {
+            "kind": "parameter_lookup",
+            "parameter": "annual_earned_income_initial_exclusion_limit",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          ]
+         },
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "max",
+            "items": [
+             {
+              "kind": "literal",
+              "value": {
+               "kind": "decimal",
+               "value": "0"
+              }
+             },
+             {
+              "kind": "sub",
+              "left": {
+               "kind": "input",
+               "name": "earned_income_not_excluded_by_preceding_paragraphs"
+              },
+              "right": {
+               "kind": "min",
+               "items": [
+                {
+                 "kind": "max",
+                 "items": [
+                  {
+                   "kind": "literal",
+                   "value": {
+                    "kind": "decimal",
+                    "value": "0"
+                   }
+                  },
+                  {
+                   "kind": "input",
+                   "name": "earned_income_not_excluded_by_preceding_paragraphs"
+                  }
+                 ]
+                },
+                {
+                 "kind": "parameter_lookup",
+                 "parameter": "annual_earned_income_initial_exclusion_limit",
+                 "index": {
+                  "kind": "literal",
+                  "value": {
+                   "kind": "integer",
+                   "value": 0
+                  }
+                 }
+                }
+               ]
+              }
+             }
+            ]
+           },
+           {
+            "kind": "max",
+            "items": [
+             {
+              "kind": "literal",
+              "value": {
+               "kind": "decimal",
+               "value": "0"
+              }
+             },
+             {
+              "kind": "input",
+              "name": "disability_work_expense_amount_necessary_and_within_commissioner_limits"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "kind": "mul",
+        "left": {
+         "kind": "derived",
+         "name": "earned_income_remainder_exclusion_rate"
+        },
+        "right": {
+         "kind": "max",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "0"
+           }
+          },
+          {
+           "kind": "sub",
+           "left": {
+            "kind": "sub",
+            "left": {
+             "kind": "input",
+             "name": "earned_income_not_excluded_by_preceding_paragraphs"
+            },
+            "right": {
+             "kind": "min",
+             "items": [
+              {
+               "kind": "max",
+               "items": [
+                {
+                 "kind": "literal",
+                 "value": {
+                  "kind": "decimal",
+                  "value": "0"
+                 }
+                },
+                {
+                 "kind": "input",
+                 "name": "earned_income_not_excluded_by_preceding_paragraphs"
+                }
+               ]
+              },
+              {
+               "kind": "parameter_lookup",
+               "parameter": "annual_earned_income_initial_exclusion_limit",
+               "index": {
+                "kind": "literal",
+                "value": {
+                 "kind": "integer",
+                 "value": 0
+                }
+               }
+              }
+             ]
+            }
+           },
+           "right": {
+            "kind": "min",
+            "items": [
+             {
+              "kind": "max",
+              "items": [
+               {
+                "kind": "literal",
+                "value": {
+                 "kind": "decimal",
+                 "value": "0"
+                }
+               },
+               {
+                "kind": "sub",
+                "left": {
+                 "kind": "input",
+                 "name": "earned_income_not_excluded_by_preceding_paragraphs"
+                },
+                "right": {
+                 "kind": "min",
+                 "items": [
+                  {
+                   "kind": "max",
+                   "items": [
+                    {
+                     "kind": "literal",
+                     "value": {
+                      "kind": "decimal",
+                      "value": "0"
+                     }
+                    },
+                    {
+                     "kind": "input",
+                     "name": "earned_income_not_excluded_by_preceding_paragraphs"
+                    }
+                   ]
+                  },
+                  {
+                   "kind": "parameter_lookup",
+                   "parameter": "annual_earned_income_initial_exclusion_limit",
+                   "index": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "integer",
+                     "value": 0
+                    }
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             },
+             {
+              "kind": "max",
+              "items": [
+               {
+                "kind": "literal",
+                "value": {
+                 "kind": "decimal",
+                 "value": "0"
+                }
+               },
+               {
+                "kind": "input",
+                "name": "disability_work_expense_amount_necessary_and_within_commissioner_limits"
+               }
+              ]
+             }
+            ]
+           }
+          }
+         ]
+        }
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "disabled_branch_self_support_plan_other_income_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "and",
+      "items": [
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "individual_or_spouse_satisfies_disabled_not_blind_branch_status_condition"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       },
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "individual_has_commissioner_approved_plan_for_achieving_self_support"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       }
+      ]
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "input",
+        "name": "other_income_amount_necessary_for_fulfillment_of_self_support_plan"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "age_sixty_five_branch_earned_income_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "individual_or_spouse_has_attained_age_sixty_five_and_is_not_included_under_subparagraph_a_or_b"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "add",
+      "items": [
+       {
+        "kind": "min",
+        "items": [
+         {
+          "kind": "max",
+          "items": [
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "decimal",
+             "value": "0"
+            }
+           },
+           {
+            "kind": "input",
+            "name": "earned_income_not_excluded_by_preceding_paragraphs"
+           }
+          ]
+         },
+         {
+          "kind": "parameter_lookup",
+          "parameter": "annual_earned_income_initial_exclusion_limit",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        ]
+       },
+       {
+        "kind": "mul",
+        "left": {
+         "kind": "derived",
+         "name": "earned_income_remainder_exclusion_rate"
+        },
+        "right": {
+         "kind": "max",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "0"
+           }
+          },
+          {
+           "kind": "sub",
+           "left": {
+            "kind": "input",
+            "name": "earned_income_not_excluded_by_preceding_paragraphs"
+           },
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "annual_earned_income_initial_exclusion_limit",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          }
+         ]
+        }
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../relaxng/lrml-normal.rnc" type="application/relax-ng-normal-syntax"?>
+<lrml:LegalRuleML xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex4-meta-compact#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:appex="http://docs.oasis-open.org/legalruleml/examples/approved/" key="doc" xml:base="http://docs.oasis-open.org/legalruleml/examples/compatified/ex4-meta-compact" xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/normal/lrml-normal.xsd">
+  <lrml:hasAgents>
+    <lrml:Agents>
+      <lrml:hasAgent>
+        <lrml:Agent key="mp" sameAs="http:example.org/agents#MonicaPalmirani">
+          <lrml:hasComment>
+            <lrml:Comment>An unassociated agent.</lrml:Comment>
+          </lrml:hasComment>
+          <lrml:hasType iri="http://example.org/types#Person"/>
+        </lrml:Agent>
+      </lrml:hasAgent>
+      <lrml:hasAgent>
+        <lrml:Agent key="ta" sameAs="http://example.org/agents#TaraAthan"/>
+      </lrml:hasAgent>
+    </lrml:Agents>
+  </lrml:hasAgents>
+  <lrml:hasFigures>
+    <lrml:Figures>
+      <lrml:hasMemberType iri="http://example.org/figure-types#LegislativeFigure"/>
+      <lrml:hasFigure>
+        <lrml:Figure key="fs">
+          <lrml:hasFunction iri="http://example.org/functions#Senator"/>
+          <lrml:hasActor keyref="#ta"/>
+        </lrml:Figure>
+      </lrml:hasFigure>
+    </lrml:Figures>
+  </lrml:hasFigures>
+  <lrml:hasRoles>
+    <lrml:Roles>
+      <lrml:hasRole>
+        <lrml:Role key="role1" iri="http://example.org/roles#author">
+          <lrml:filledBy keyref="#mp"/>
+          <lrml:forExpression keyref="#rule1a"/>
+        </lrml:Role>
+      </lrml:hasRole>
+      <lrml:hasRole>
+        <lrml:Role key="role2" iri="http://example.org/roles#author">
+          <lrml:filledBy keyref="#mp"/>
+          <lrml:filledBy keyref="#ta"/>
+          <lrml:forExpression keyref="#rule1a"/>
+        </lrml:Role>
+      </lrml:hasRole>
+      <lrml:hasRole>
+        <lrml:Role key="role3" iri="http://example.org/roles#author">
+          <lrml:filledBy keyref="#mp"/>
+          <lrml:forExpression keyref="#atom2a"/>
+          <lrml:forExpression keyref="#atom2b"/>
+        </lrml:Role>
+      </lrml:hasRole>
+    </lrml:Roles>
+  </lrml:hasRoles>
+  <lrml:hasAuthorities>
+    <lrml:Authorities>
+      <lrml:hasAuthority>
+        <lrml:Authority key="house" sameAs="http://example.org/authority#house-of-representatives"/>
+      </lrml:hasAuthority>
+    </lrml:Authorities>
+  </lrml:hasAuthorities>
+  <lrml:hasJurisdictions>
+    <lrml:Jurisdictions>
+      <lrml:hasJurisdiction>
+        <lrml:Jurisdiction key="us" sameAs="http://example.org/jurisdiction#united-states-of-america"/>
+      </lrml:hasJurisdiction>
+    </lrml:Jurisdictions>
+  </lrml:hasJurisdictions>
+  <lrml:hasAssociations>
+    <lrml:Associations key="sourceBlock1">
+      <lrml:hasAssociation>
+        <lrml:Association>
+          <lrml:appliesAuthority keyref="#house"/>
+          <lrml:appliesJurisdiction keyref="#us"/>
+          <lrml:toTarget keyref="#atom_1b"/>
+        </lrml:Association>
+      </lrml:hasAssociation>
+    </lrml:Associations>
+  </lrml:hasAssociations>
+  <lrml:hasContext>
+    <lrml:Context key="ruleInfo1">
+      <lrml:appliesAssociations keyref="#sourceBlock1"/>
+      <lrml:inScope keyref="#stmt_1a"/>
+    </lrml:Context>
+  </lrml:hasContext>
+</lrml:LegalRuleML>

@@ -1,0 +1,827 @@
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex12-USC-17_504_context-compact#" xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:ruleml="http://ruleml.org/spec" xml:base="http://docs.oasis-open.org/legalruleml/examples/compactified/ex12-USC-17_504_context-compact" xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+	<lrml:Prefix pre="lrmlv" refID="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#"/>
+	<lrml:Prefix pre="glevo" refID="http://example.org/general/legal/vocab#"/>
+	<lrml:Prefix pre="deovo" refID="http://example.org/deontic/vocab#"/>
+	<lrml:Prefix pre="lovo" refID="http://docs.oasis-open.org/legalruleml/examples/compactified/ex12-USC-17_504_context-compact/vocab#"/>
+	<lrml:Prefix pre="UScode" refID="http://akomantoso.org/us/codes;us/main#"/>
+	<!-- 
+    US Code sec. 504 in three different versions, URI are works with these parameters  
+  -->
+	<!-- LegalSources  -->
+	<lrml:LegalSources>
+		<lrml:LegalSource key="sec_504__cls_a__pnt_1" sameAs="UScode:title17-chp5-sec504-clsa-lst1-pnt1"/>
+		<lrml:LegalSource key="sec_504__cls_a_pnt_2" sameAs="UScode:title17-chp5-sec504-clsa-lst1-pnt2"/>
+		<lrml:LegalSource key="sec_504__cls_b" sameAs="UScode:title17-chp5-sec504-clsb"/>
+		<lrml:LegalSource key="sec_504__cls_c__pnt_1" sameAs="UScode:title17-chp5-sec504-clsc-lst1-pnt1"/>
+		<lrml:LegalSource key="sec_504__cls_c__pnt_2__sb_1" sameAs="UScode:title17-chp5-sec504-clsc-lst1-pnt2-subpar1"/>
+		<lrml:LegalSource key="sec_504__cls_c__pnt_2__sb_2" sameAs="UScode:title17-chp5-sec504-clsc-lst1-pnt2-subpar2"/>
+		<lrml:LegalSource key="sec_504__cls_c__pnt_2__sb_3" sameAs="UScode:title17-chp5-sec504-clsc-lst1-pnt2-subpar3"/>
+	</lrml:LegalSources>
+	<!-- Times  -->
+	<lrml:Times>
+		<ruleml:Time key=":t1">
+			<ruleml:Data xsi:type="xs:dateTime">1978-01-01T01:01:00.0Z</ruleml:Data>
+		</ruleml:Time>
+		<ruleml:Time key=":t2">
+			<ruleml:Data xsi:type="xs:dateTime">1989-03-01T01:01:00.0Z</ruleml:Data>
+		</ruleml:Time>
+		<ruleml:Time key=":t3">
+			<ruleml:Data xsi:type="xs:dateTime">1999-12-09T01:01:00.0Z</ruleml:Data>
+		</ruleml:Time>
+		<ruleml:Time key=":t4">
+			<ruleml:Data xsi:type="xs:dateTime">2015-04-20T01:01:00.0Z</ruleml:Data>
+		</ruleml:Time>
+	</lrml:Times>
+	<!-- TemporalCharacteristics  -->
+	<lrml:TemporalCharacteristics key="tblock1">
+		<lrml:TemporalCharacteristic key="e1-b">
+			<lrml:forStatus iri="lrmlv:Efficacious"/>
+			<lrml:hasStatusDevelopment iri="lrmlv:Starts"/>
+			<lrml:atTime keyref="#t1"/>
+		</lrml:TemporalCharacteristic>
+		<lrml:TemporalCharacteristic key="e1-e">
+			<lrml:forStatus iri="lrmlv:Efficacious"/>
+			<lrml:hasStatusDevelopment iri="lrmlv:Ends"/>
+			<lrml:atTime keyref="#t2"/>
+		</lrml:TemporalCharacteristic>
+	</lrml:TemporalCharacteristics>
+	<lrml:TemporalCharacteristics key="tblock2">
+		<lrml:TemporalCharacteristic key="e2-b">
+			<lrml:forStatus iri="lrmlv:Efficacious"/>
+			<lrml:hasStatusDevelopment iri="lrmlv:Starts"/>
+			<lrml:atTime keyref="#t2"/>
+		</lrml:TemporalCharacteristic>
+		<lrml:TemporalCharacteristic key="e2-e">
+			<lrml:forStatus iri="lrmlv:Efficacious"/>
+			<lrml:hasStatusDevelopment iri="lrmlv:Ends"/>
+			<lrml:atTime keyref="#t3"/>
+		</lrml:TemporalCharacteristic>
+	</lrml:TemporalCharacteristics>
+	<lrml:TemporalCharacteristics key="tblock3">
+		<lrml:TemporalCharacteristic key="e5-b">
+			<lrml:forStatus iri="lrmlv:Efficacious"/>
+			<lrml:hasStatusDevelopment iri="lrmlv:Starts"/>
+			<lrml:atTime keyref="#t3"/>
+		</lrml:TemporalCharacteristic>
+	</lrml:TemporalCharacteristics>
+	<!-- Agents  -->
+	<lrml:Agents>
+		<lrml:Agent key="mp" sameAs="http://www.unibo.it/SitoWebDocente/default.aspx?UPN=monica.palmirani%40unibo.it#MP"/>
+		<lrml:Agent key="gg" sameAs="http://jucs.org:8181/d2rq/resource/Authors/3034"/>
+		<lrml:Agent key="ta" sameAs="http://athant.com/#TA"/>
+	</lrml:Agents>
+	<!-- Figures  -->
+	<lrml:Figures>
+		<lrml:hasMemberType iri="http://example.org/figure-types#professor"/>
+		<lrml:Figure key="legalExpert">
+			<lrml:hasFunction iri="http://example.org/functions#legalExpert"/>
+			<lrml:hasActor keyref="#mp"/>
+		</lrml:Figure>
+		<lrml:Figure key="teacher">
+			<lrml:hasFunction iri="http://example.org/functions#teacher"/>
+			<lrml:hasActor keyref="#gg"/>
+		</lrml:Figure>
+		<lrml:Figure key="logician">
+			<lrml:hasFunction iri="http://example.org/functions#logician"/>
+			<lrml:hasActor keyref="#ta"/>
+		</lrml:Figure>
+	</lrml:Figures>
+	<!-- Roles  -->
+	<lrml:Roles>
+		<lrml:Role iri="lrmlv:Author">
+			<lrml:filledBy keyref="#teacher"/>
+			<lrml:forExpression keyref="#statements-tblock1"/>
+			<lrml:forExpression keyref="#statements-tblock2"/>
+			<lrml:forExpression keyref="#statements-tblock3"/>
+		</lrml:Role>
+		<lrml:Role iri="lrmlv:Author">
+			<lrml:filledBy keyref="#gg"/>
+			<lrml:forExpression keyref="#repStatement-tblock1"/>
+			<lrml:forExpression keyref="#repStatement-tblock2"/>
+			<lrml:forExpression keyref="#repStatement-tblock3"/>
+		</lrml:Role>
+		<lrml:Role iri="lrmlv:Author">
+			<lrml:filledBy keyref="#legalExpert"/>
+			<lrml:forExpression keyref="#ps1"/>
+			<lrml:forExpression keyref="#ps2-tblock1"/>
+			<lrml:forExpression keyref="#ps2-tblock2"/>
+			<lrml:forExpression keyref="#ps2-tblock3"/>
+			<lrml:forExpression keyref="#ps3-tblock1"/>
+			<lrml:forExpression keyref="#ps3-tblock2"/>
+			<lrml:forExpression keyref="#ps3-tblock3"/>
+		</lrml:Role>
+	</lrml:Roles>
+	<!-- Authorities  -->
+	<lrml:Authorities>
+		<lrml:Authority key="congress" sameAs="glevo:usaCongress">
+			<lrml:hasType iri="http://example.org/authority-types#Legislature"/>
+		</lrml:Authority>
+	</lrml:Authorities>
+	<!-- Jurisdiction  -->
+	<lrml:Jurisdictions>
+		<lrml:Jurisdiction key="us" sameAs="glevo:usa"/>
+	</lrml:Jurisdictions>
+	<!-- Associations -->
+	<lrml:Associations key="sourceBlock1">
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt1"/>
+			<lrml:toTarget keyref="#penalty1-tblock1"/>
+		</lrml:Association>
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt2-sb1"/>
+			<lrml:toTarget keyref="#penalty2-tblock1"/>
+		</lrml:Association>
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt2-sb2"/>
+			<lrml:toTarget keyref="#penalty3-tblock1"/>
+		</lrml:Association>
+	</lrml:Associations>
+	<lrml:Associations key="sourceBlock2">
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt1"/>
+			<lrml:toTarget keyref="#penalty1-tblock2"/>
+		</lrml:Association>
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt2-sb1"/>
+			<lrml:toTarget keyref="#penalty2-tblock2"/>
+		</lrml:Association>
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt2-sb2"/>
+			<lrml:toTarget keyref="#penalty3-tblock2"/>
+		</lrml:Association>
+	</lrml:Associations>
+	<lrml:Associations key="sourceBlock3">
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt1"/>
+			<lrml:toTarget keyref="#penalty1-tblock3"/>
+		</lrml:Association>
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt2-sb1"/>
+			<lrml:toTarget keyref="#penalty2-tblock3"/>
+		</lrml:Association>
+		<lrml:Association>
+			<lrml:appliesSource keyref="#sec504-clsc-pnt2-sb2"/>
+			<lrml:toTarget keyref="#penalty3-tblock3"/>
+		</lrml:Association>
+	</lrml:Associations>
+	<!-- Context  -->
+	<lrml:Context key="ruleInfo1" hasCreationDate="#t4">
+		<lrml:appliesTemporalCharacteristics keyref="#tblock1"/>
+		<lrml:appliesStrength iri="lrmlv:Defeasible"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:appliesAssociations keyref="#sourceBlock1"/>
+		<lrml:inScope keyref="#rule1-tblock1"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo2" hasCreationDate="#t4">
+		<lrml:appliesTemporalCharacteristics keyref="#tblock2"/>
+		<lrml:appliesStrength iri="lrmlv:Defeasible"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:appliesAssociations keyref="#sourceBlock2"/>
+		<lrml:inScope keyref="#rule2"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo3" hasCreationDate="#t4">
+		<lrml:appliesTemporalCharacteristics keyref="#tblock3"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:appliesAssociations keyref="#sourceBlock3"/>
+		<lrml:inScope keyref="#rule3"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo4" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock1"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule4"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo5" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2-sp1"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock1"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule5"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo6" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2-sp2"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock1"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule6"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo7" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt1"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock2"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule7"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo8" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2-sp1"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock2"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule8"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo9" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2-sp2"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock2"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule9"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo10" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt1"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock3"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule10"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo11" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2-sp1"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock3"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule11"/>
+	</lrml:Context>
+	<lrml:Context key="ruleInfo12" hasCreationDate="#t4">
+		<lrml:appliesSource keyref="#sec504-clsc-pnt2-sp2"/>
+		<lrml:appliesTemporalCharacteristics keyref="#tblock3"/>
+		<lrml:appliesStrength iri="lrmlv:Defeater"/>
+		<lrml:appliesAuthority keyref="#congress"/>
+		<lrml:appliesJurisdiction keyref="#us"/>
+		<lrml:inScope keyref="#rule12"/>
+	</lrml:Context>
+	<lrml:Statements key="rulebase1">
+		<!-- reparation  -->
+		<!-- tblock1 -->
+		<lrml:Statements key="repStatement-tblock1">
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep1-tblock1">
+					<lrml:appliesPenalty keyref="#penalty1-tblock1"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep2-tblock1">
+					<lrml:appliesPenalty keyref="#penalty2-tblock1"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep3-tblock1">
+					<lrml:appliesPenalty keyref="#penalty3-tblock1"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+		</lrml:Statements>
+		<!-- tblock2-->
+		<lrml:Statements key="repStatement-tblock2">
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep1-tblock2">
+					<lrml:appliesPenalty keyref="#penalty1-tblock2"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep2-tblock2">
+					<lrml:appliesPenalty keyref="#penalty2-tblock2"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep3-tblock2">
+					<lrml:appliesPenalty keyref="#penalty3-tblock2"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+		</lrml:Statements>
+		<!-- tblock3-->
+		<lrml:Statements key="repStatement-tblock3">
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep1-tblock3">
+					<lrml:appliesPenalty keyref="#penalty1-tblock3"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep2-tblock3">
+					<lrml:appliesPenalty keyref="#penalty2-tblock3"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+			<lrml:ReparationStatement>
+				<lrml:Reparation key="rep3-tblock3">
+					<lrml:appliesPenalty keyref="#penalty3-tblock3"/>
+					<lrml:toPrescriptiveStatement keyref="#ps1"/>
+				</lrml:Reparation>
+			</lrml:ReparationStatement>
+		</lrml:Statements>
+		<!-- penalty  -->
+		<!-- tblock1 -->
+		<lrml:Statements key="statements-tblock1">
+			<lrml:PenaltyStatement key="penalty1-tblock1">
+				<lrml:Obligation key="penalty1-tblock1-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty1-tblock1-obl1-axm1">
+						<ruleml:Rel iri="lovo:payStatutoryDamages"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$250</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$10,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+			<lrml:PenaltyStatement key="penalty2-tblock1">
+				<lrml:Obligation key="penalty2-tblock1-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty2-tblock1-obl1-axm1">
+						<ruleml:Rel iri="lovo:payWillfullyInfringement"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$250</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$50,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+			<lrml:PenaltyStatement key="penalty3-tblock1">
+				<lrml:Obligation key="penalty3-tblock1-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty3-tblock1-obl1-axm1">
+						<ruleml:Rel iri="lovo:payNotWillfullyInfringement"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$100</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$10,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+		</lrml:Statements>
+		<!-- tblock2-->
+		<lrml:Statements key="statements-tblock2">
+			<lrml:PenaltyStatement key="penalty1-tblock2">
+				<lrml:Obligation key="penalty1-tblock2-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty1-tblock2-obl1-axm1">
+						<ruleml:Rel iri="lovo:payStatutoryDamages"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$500</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$20,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+			<lrml:PenaltyStatement key="penalty2-tblock2">
+				<lrml:Obligation key="penalty2-tblock2-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty2-tblock2-obl1-axm1">
+						<ruleml:Rel iri="lovo:payWillfullyInfringement"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$500</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$100,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+			<lrml:PenaltyStatement key="penalty3-tblock2">
+				<lrml:Obligation key="penalty3-tblock2-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty3-tblock2-obl1-axm1">
+						<ruleml:Rel iri="lovo:payNotWillfullyInfringement"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$200</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$20,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+		</lrml:Statements>
+		<!-- tblock3 -->
+		<lrml:Statements key="statements-tblock3">
+			<lrml:PenaltyStatement key="penalty1-tblock3">
+				<lrml:Obligation key="penalty1-tblock3-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty1-tblock3-obl1-axm1">
+						<ruleml:Rel iri="lovo:payStatutoryDamages"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$750</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$30,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+			<lrml:PenaltyStatement key="penalty2-tblock3">
+				<lrml:Obligation key="penalty2-tblock3-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty2-tblock3-obl1-axm1">
+						<ruleml:Rel iri="lovo:payWillfullyInfringement"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$750</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$150,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+			<lrml:PenaltyStatement key="penalty3-tblock3">
+				<lrml:Obligation key="penalty3-tblock3-obl1">
+					<ruleml:slot>
+						<lrml:Bearer iri="deovo:oblBearer"/>
+						<ruleml:Var>Y</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:slot>
+						<lrml:AuxiliaryParty iri="deovo:auxParty"/>
+						<ruleml:Var>X</ruleml:Var>
+					</ruleml:slot>
+					<ruleml:Atom key=":penalty3-tblock3-obl1-axm1">
+						<ruleml:Rel iri="lovo:payNotWillfullyInfringement"/>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMin"/>
+							<ruleml:Ind>$200</ruleml:Ind>
+						</ruleml:slot>
+						<ruleml:slot>
+							<ruleml:Ind iri="lovo:payMax"/>
+							<ruleml:Ind>$30,000</ruleml:Ind>
+						</ruleml:slot>
+					</ruleml:Atom>
+				</lrml:Obligation>
+			</lrml:PenaltyStatement>
+		</lrml:Statements>
+		<!-- rules  -->
+		<lrml:Statements>
+			<lrml:ConstitutiveStatement key="cs1">
+				<ruleml:Rule key=":rule0">
+					<ruleml:then>
+						<ruleml:Atom key=":rule0-ruleml-Atom1">
+							<ruleml:Rel iri="lovo:Infringer"/>
+							<ruleml:Var>infringer</ruleml:Var>
+						</ruleml:Atom>
+					</ruleml:then>
+				</ruleml:Rule>
+			</lrml:ConstitutiveStatement>
+			<lrml:PrescriptiveStatement key="ps1">
+				<ruleml:Rule key=":rule1" closure="universal">
+					<ruleml:if>
+						<ruleml:And>
+							<ruleml:Atom key=":rule1-ruleml-Atom1">
+								<ruleml:Rel iri="lovo:isWork">is a work covered by copyright</ruleml:Rel>
+								<ruleml:Var type="lovo:work">Z</ruleml:Var>
+							</ruleml:Atom>
+							<ruleml:Atom key=":rule1-ruleml-Atom2">
+								<ruleml:Rel iri="lovo:isOwner">is owner</ruleml:Rel>
+								<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+								<ruleml:Var type="lovo:work">Z</ruleml:Var>
+							</ruleml:Atom>
+							<ruleml:Atom key=":rule1-ruleml-Atom3">
+								<ruleml:Rel iri="glevo:isNotEqual">is not equal</ruleml:Rel>
+								<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+								<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+							</ruleml:Atom>
+						</ruleml:And>
+					</ruleml:if>
+					<ruleml:then>
+						<lrml:Prohibition>
+							<ruleml:Atom key=":rule1-ruleml-Atom4">
+								<ruleml:Rel iri="lovo:notUse">use, distribute, publish, disseminate, communicate, sell, resell</ruleml:Rel>
+								<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+								<ruleml:Var type="lovo:work">Z</ruleml:Var>
+							</ruleml:Atom>
+						</lrml:Prohibition>
+					</ruleml:then>
+				</ruleml:Rule>
+			</lrml:PrescriptiveStatement>
+			<!-- tblock1  -->
+			<lrml:PrescriptiveStatement key="ps2-tblock1">
+				<ruleml:Rule key=":rule2-tblock1" closure="universal">
+					<ruleml:if>
+						<ruleml:And>
+							<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+							<ruleml:Atom key=":rule2-tblock1-ruleml-Atom1">
+								<ruleml:Rel iri="glevo:claimStatutoryDamages">
+									claims statutory damages
+								</ruleml:Rel>
+								<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+							</ruleml:Atom>
+						</ruleml:And>
+					</ruleml:if>
+					<ruleml:then>
+						<lrml:Reparation keyref="#rep1-tblock1"/>
+					</ruleml:then>
+				</ruleml:Rule>
+			</lrml:PrescriptiveStatement>
+			<lrml:PrescriptiveStatement key="ps3-tblock1">
+				<ruleml:Rule key=":rule3-tblock1" closure="universal">
+					<ruleml:if>
+						<ruleml:And>
+							<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+							<ruleml:Atom key=":rule3-tblock1-ruleml-Atom1">
+								<ruleml:Rel iri="glevo:sustainBurdenProving">
+									sustains  burden of proof
+								</ruleml:Rel>
+								<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+							</ruleml:Atom>
+							<ruleml:Atom key=":rule3-tblock1-ruleml-Atom2">
+								<ruleml:Rel iri="lovo:willfullyInfringing">
+									willfully infringed copyright
+								</ruleml:Rel>
+								<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+							</ruleml:Atom>
+						</ruleml:And>
+					</ruleml:if>
+					<ruleml:then>
+						<lrml:Reparation keyref="#rep2-tblock1"/>
+					</ruleml:then>
+				</ruleml:Rule>
+			</lrml:PrescriptiveStatement>
+			<lrml:PrescriptiveStatement key="ps4-tblock1">
+				<ruleml:Rule key=":rule4-tblock1" closure="universal">
+					<ruleml:if>
+						<ruleml:And>
+							<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+							<ruleml:Atom key=":rule4-tblock1-ruleml-Atom1">
+								<ruleml:Rel iri="glevo:sustainBurdenProving">
+									sustains burden of proof
+								</ruleml:Rel>
+								<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+							</ruleml:Atom>
+							<ruleml:Neg>
+								<ruleml:Atom key=":rule4-tblock1-ruleml-Atom2">
+									<ruleml:Rel iri="lovo:willfullyInfringing">
+										willfully infringed copyright
+									</ruleml:Rel>
+									<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+								</ruleml:Atom>
+							</ruleml:Neg>
+						</ruleml:And>
+					</ruleml:if>
+					<ruleml:then>
+						<lrml:Reparation keyref="#rep3-tblock1"/>
+					</ruleml:then>
+				</ruleml:Rule>
+			</lrml:PrescriptiveStatement>
+		</lrml:Statements>
+		<lrml:Statements key="override1">
+			<lrml:OverrideStatement>
+				<lrml:Override over="#rule3-tblock1" under="#rule2-tblock1"/>
+			</lrml:OverrideStatement>
+			<lrml:OverrideStatement>
+				<lrml:Override over="#rule4-tblock1" under="#rule3-tblock1"/>
+			</lrml:OverrideStatement>
+		</lrml:Statements>
+	</lrml:Statements>
+	<!-- tblock2  -->
+	<lrml:Statements>
+		<lrml:PrescriptiveStatement key="ps2-tblock2">
+			<ruleml:Rule key=":rule2-tblock2" closure="universal">
+				<ruleml:if>
+					<ruleml:And>
+						<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+						<ruleml:Atom key=":rule2-tblock2-ruleml-Atom1">
+							<ruleml:Rel iri="glevo:claimStatutoryDamanges">
+								claims statutory damages
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+						</ruleml:Atom>
+					</ruleml:And>
+				</ruleml:if>
+				<ruleml:then>
+					<lrml:Reparation keyref="#rep1-tblock2"/>
+				</ruleml:then>
+			</ruleml:Rule>
+		</lrml:PrescriptiveStatement>
+		<lrml:PrescriptiveStatement key="ps3-tblock2">
+			<ruleml:Rule key=":rule3-tblock2" closure="universal">
+				<ruleml:if>
+					<ruleml:And>
+						<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+						<ruleml:Atom key=":rule3-tblock2-ruleml-Atom1">
+							<ruleml:Rel iri="glevo:sustainBurdenProving">
+								sustains  burden of proof
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+						</ruleml:Atom>
+						<ruleml:Atom key=":rule3-tblock2-ruleml-Atom2">
+							<ruleml:Rel iri="lovo:willfullyInfringing">
+								willfully infringed copyright
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+						</ruleml:Atom>
+					</ruleml:And>
+				</ruleml:if>
+				<ruleml:then>
+					<lrml:Reparation keyref="#rep2-tblock2"/>
+				</ruleml:then>
+			</ruleml:Rule>
+		</lrml:PrescriptiveStatement>
+		<lrml:PrescriptiveStatement key="ps4-tblock2">
+			<ruleml:Rule key=":rule4-tblock2" closure="universal">
+				<ruleml:if>
+					<ruleml:And>
+						<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+						<ruleml:Atom key=":rule4-tblock2-ruleml-Atom1">
+							<ruleml:Rel iri="glevo:sustainBurdenProving">
+								sustains burden of proof
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+						</ruleml:Atom>
+						<ruleml:Neg>
+							<ruleml:Atom key=":rule4-tblock2-ruleml-Atom2">
+								<ruleml:Rel iri="lovo:willfullyInfringing">
+									willfully infringed copyright
+								</ruleml:Rel>
+								<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+							</ruleml:Atom>
+						</ruleml:Neg>
+					</ruleml:And>
+				</ruleml:if>
+				<ruleml:then>
+					<lrml:Reparation keyref="#rep3-tblock2"/>
+				</ruleml:then>
+			</ruleml:Rule>
+		</lrml:PrescriptiveStatement>
+		<lrml:Statements key="override2">
+			<lrml:OverrideStatement>
+				<lrml:Override over="#rule3-tblock2" under="#rule2-tblock2"/>
+			</lrml:OverrideStatement>
+			<lrml:OverrideStatement>
+				<lrml:Override over="#rule4-tblock2" under="#rule3-tblock2"/>
+			</lrml:OverrideStatement>
+		</lrml:Statements>
+	</lrml:Statements>
+	<!-- tblock3  -->
+	<lrml:Statements>
+		<lrml:PrescriptiveStatement key="ps2-tblock3">
+			<ruleml:Rule key=":rule2-tblock23" closure="universal">
+				<ruleml:if>
+					<ruleml:And>
+						<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+						<ruleml:Atom key=":rule2-tblock3-ruleml-Atom1">
+							<ruleml:Rel iri="glevo:claimStatutoryDamanges">
+								claims statutory damages
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+						</ruleml:Atom>
+					</ruleml:And>
+				</ruleml:if>
+				<ruleml:then>
+					<lrml:Reparation keyref="#rep1-tblock3"/>
+				</ruleml:then>
+			</ruleml:Rule>
+		</lrml:PrescriptiveStatement>
+		<lrml:PrescriptiveStatement key="ps3-tblock3">
+			<ruleml:Rule key=":rule3-tblock3" closure="universal">
+				<ruleml:if>
+					<ruleml:And>
+						<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+						<ruleml:Atom key=":rule3-tblock3-ruleml-Atom1">
+							<ruleml:Rel iri="glevo:sustainBurdenProving">
+								sustains  burden of proof
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:copyrightOwner">X</ruleml:Var>
+						</ruleml:Atom>
+						<ruleml:Atom key=":rule3-tblock3-ruleml-Atom2">
+							<ruleml:Rel iri="lovo:willfullyInfringing">
+								willfully infringed copyright
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+						</ruleml:Atom>
+					</ruleml:And>
+				</ruleml:if>
+				<ruleml:then>
+					<lrml:Reparation keyref="#rep2-tblock3"/>
+				</ruleml:then>
+			</ruleml:Rule>
+		</lrml:PrescriptiveStatement>
+		<lrml:PrescriptiveStatement key="ps4-tblock3">
+			<ruleml:Rule key=":rule4-tblock2" closure="universal">
+				<ruleml:if>
+					<ruleml:And>
+						<ruleml:Atom keyref=":rule0-ruleml-Atom1"/>
+						<ruleml:Atom key=":rule4-tblock3-ruleml-Atom1">
+							<ruleml:Rel iri="glevo:sustainBurdenProving">
+								sustains burden of proof
+							</ruleml:Rel>
+							<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+						</ruleml:Atom>
+						<ruleml:Neg>
+							<ruleml:Atom key=":rule4-tblock3-ruleml-Atom2">
+								<ruleml:Rel iri="lovo:willfullyInfringing">
+									willfully infringed copyright
+								</ruleml:Rel>
+								<ruleml:Var type="lovo:infringer">Y</ruleml:Var>
+							</ruleml:Atom>
+						</ruleml:Neg>
+					</ruleml:And>
+				</ruleml:if>
+				<ruleml:then>
+					<lrml:Reparation keyref="#rep3-tblock3"/>
+				</ruleml:then>
+			</ruleml:Rule>
+		</lrml:PrescriptiveStatement>
+		<lrml:Statements key="override3">
+			<lrml:OverrideStatement>
+				<lrml:Override over="#rule3-tblock3" under="#rule2-tblock3"/>
+			</lrml:OverrideStatement>
+			<lrml:OverrideStatement>
+				<lrml:Override over="#rule4-tblock3" under="#rule3-tblock3"/>
+			</lrml:OverrideStatement>
+		</lrml:Statements>
+	</lrml:Statements>
+</lrml:LegalRuleML>

@@ -22,7 +22,7 @@ FROM swipl:latest
 # absent). poppler-utils is pdftotext, with which the Contract Assistant reads a
 # wording that comes as a PDF (lpsPlus contract_assistant/le_contract_assistant.pl,
 # ensure_text_file/5, vendored by vendor_lpsplus.sh). python3 runs the Rune
-# reader (lpsPlus migration/rune/parser/rosetta2json.py, standard library only)
+# reader (migration/rune/parser/rosetta2json.py, standard library only)
 # when a .rosetta file is opened.
 RUN apt-get update && apt-get install -y curl git gnupg make poppler-utils python3 && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
@@ -45,37 +45,39 @@ COPY *.pl ./
 #  classic_web_api.pl loads wasm/pack.pl (which example trees a static export
 #  leaves out); the rest of wasm/ is the WebAssembly build, not for the image.
 COPY wasm/pack.pl ./wasm/pack.pl
+# The translators of other systems (File ▸ Open, File ▸ Export, the two
+# adapters): migration/README.md. Their downloads and build outputs are kept
+# out of the image (.dockerignore).
+COPY migration/ ./migration/
 # The parts of the private lpsPlus repository this server uses — signing in
-# and the licences table (accounts/), the translators (migration/) — copied
-# there by vendor_lpsplus.sh, which buildPush.sh runs. Without them the image
-# still works: every visitor is anonymous and only Logical English's own
-# formats are offered (le_plus.pl).
+# and the licences table (accounts/), the LE Contract Assistant — copied
+# there by vendor_lpsplus.sh, which buildPush.sh runs; and vendor/caches, the
+# downloads a translator reads at run time (vendor_caches.sh). Without
+# vendor/lpsplus the image still works: every visitor is anonymous (le_plus.pl).
 COPY vendor/ ./vendor/
 ENV LPS_PLUS_DIR=/app/vendor/lpsplus
-# Where LE2 is, for the translators that run in a child process (lpsPlus
-# migration/le2_paths.pl looks beside lpsPlus or at /work, neither of which
-# exists in this image).
+# Where LE2 is, for the translators that run in a child process.
 ENV LE2_DIR=/app
 # The Solidity door (File ▸ Open of a `.sol`) runs solcjs against
-# OpenZeppelin's sources: npm packages, gitignored in lpsPlus and so not
-# vendored, installed here for this image's platform. Without them a `.sol`
+# OpenZeppelin's sources: npm packages, gitignored and so not copied,
+# installed here for this image's platform. Without them a `.sol`
 # opens as a TODO comment (9 October 2026), so the build checks they load.
-RUN if [ -f vendor/lpsplus/migration/solidity/package.json ]; then \
-      cd vendor/lpsplus/migration/solidity && \
+RUN cd migration/solidity && \
       npm ci --omit=dev --no-audit --no-fund && \
-      node -e "require('solc'); require.resolve('@openzeppelin/contracts/package.json')" ; \
-    fi
+      node -e "require('solc'); require.resolve('@openzeppelin/contracts/package.json')"
 # The Rune door (File ▸ Open of a .rosetta, or a zip of them) translates over
-# DRR 7.14.0, whose Rune files and test pack vendor_lpsplus.sh copies from
-# lpsPlus's gitignored download: without them a .rosetta opened as a TODO
+# DRR 7.14.0, whose Rune files and test pack vendor_caches.sh copies from
+# the gitignored download: without them a .rosetta opened as a TODO
 # comment (18 October 2026), so the build checks they are here; and Export ▸
 # Rune loads the model as JSON (.cache/json), without which the export was
-# refused for a missing folder (19 October 2026).
-RUN if [ -d vendor/lpsplus/migration/rune ]; then \
-      ls vendor/lpsplus/migration/rune/.cache/drr/drr/rosetta/*.rosetta > /dev/null && \
-      ls vendor/lpsplus/migration/rune/.cache/json/*.json > /dev/null && \
+# refused for a missing folder (19 October 2026). An image built without the
+# download says so here and goes on: its Rune door does not work.
+RUN if [ -d vendor/caches/rune ]; then \
+      mkdir -p migration/rune/.cache && cp -R vendor/caches/rune/. migration/rune/.cache/ && rm -rf vendor/caches/rune && \
+      ls migration/rune/.cache/drr/drr/rosetta/*.rosetta > /dev/null && \
+      ls migration/rune/.cache/json/*.json > /dev/null && \
       python3 --version ; \
-    fi
+    else echo "no vendor/caches/rune: File > Open of .rosetta will not work in this image" ; fi
 # The sheet engine (services/sheet): Formualizer, an Excel formula engine
 # compiled to WebAssembly, run by Node. It answers the sheet: services
 # address (language.md §17.6) and evaluates workbooks for the spreadsheet

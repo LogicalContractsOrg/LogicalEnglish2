@@ -1,15 +1,16 @@
 /** <module> Where the private lpsPlus repository is, when this installation has one
 
-    Two things this server offers come from the private lpsPlus repository
-    rather than from this one:
+    Two things the hosted server offers come from the private lpsPlus
+    repository rather than from this one:
 
       - `accounts/lc_accounts.pl` — signing in (Google, GitHub, or an account
         we created), and which licences each account holds;
-      - `migration/le_importers.pl` — the translators of other systems that
-        File ▸ Open and File ▸ Export offer.
+      - `contract_assistant/` — the LE Contract Assistant, which the licence
+        of that name gives.
 
-    Neither is needed: without lpsPlus every visitor is anonymous, and the
-    editor offers Logical English's own formats only.
+    Neither is needed: without lpsPlus every visitor is anonymous, and
+    everything in this repository works, the translators of other systems
+    included (migration/, which was in lpsPlus until November 2026).
 
     Where it looks, in order — the same order as LPS2's
     `src/syntax/lps_plus.pl`, so one setting serves both:
@@ -52,7 +53,7 @@ candidate('/lpsPlus').
 candidate(D) :- repo_dir(Root), atom_concat(Root, '/vendor/lpsplus', D).
 
 marker('accounts/lc_accounts.pl').
-marker('migration/le_importers.pl').
+marker('contract_assistant/le_contract_assistant.pl').
 
 %!  le_plus_root(-Dir) is semidet.
 %

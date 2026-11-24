@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root product-version="12.2.7.797">
+  <entities>
+    <entity ref="global">
+      <attribute name="eligible_low_income_allowance" public-name="eligible_low_income_allowance" type="boolean"><text><base>the claimant is eligible for the low income allowance</base></text></attribute>
+      <attribute name="eligible_teenage_allowance" public-name="eligible_teenage_allowance" type="boolean"><text><base>the claimant is eligible for the teenage child allowance</base></text></attribute>
+      <attribute name="low_income_allowance_payment" public-name="low_income_allowance_payment" type="currency"><text><base>the claimant's low income allowance amount</base></text></attribute>
+      <attribute name="claimant_income" public-name="claimant_income" type="currency"><text><base>the claimant's annual income</base></text></attribute>
+      <attribute name="claimant_public_housing_client" public-name="claimant_public_housing_client" type="boolean"><text><base>the claimant is a public housing client</base></text></attribute>
+      <attribute name="claimant_date_of_birth" public-name="claimant_date_of_birth" type="date"><text><base>the claimant's date of birth</base></text></attribute>
+    </entity>
+    <entity id="child" name="the child" containment-relationship-id="claimantschildren" containment-parent-id="global">
+      <attribute name="child_age" public-name="child_age" type="number"><text><base>the child's age</base></text></attribute>
+      <attribute name="child_teenager" public-name="child_teenager" type="boolean"><text><base>the child is a teenager</base></text></attribute>
+    </entity>
+  </entities>
+  <relationships>
+    <relationship relationship-id="claimantschildren" public-id="claimantschildren" source="global" target="child" is-containment="true" text="the claimant's children" type="OneToMany" />
+  </relationships>
+</root>

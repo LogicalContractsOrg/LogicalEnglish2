@@ -11,13 +11,14 @@
 %
 %     le_extensions      the licence "InsurLE": InsurLE2's language extensions,
 %                        and InsurLE2's own examples, which need them to parse
-%     extended_examples  the licence "with extensions": every example
+%     extended_examples  the licence "LE Contract Assistant" (`with_extensions`
+%                        in the licences table): every example
 %
 %   The InsurLE examples, under the two names they are mounted with.
 restricted_access_for('examples/moreExamples/insureLE2', [le_extensions]).
 restricted_access_for('examples/moreExamples/InsurLE2', [le_extensions]).
-% The lpsPlus tree: the twins of other systems whose sources carry no licence
-% that allows publication. (The customs and Medicare models, and the OIPA
+% The lpsPlus tree (private, when an installation links it): the twins of
+% other systems whose sources carry no licence that allows publication. (The customs and Medicare models, and the OIPA
 % twins, left it for examples/regulatory/ and examples/migration/: public.)
 restricted_access_for('examples/moreExamples/lpsPlus', [extended_examples]).
 % The test suites' fixtures: shown to licensed users only.

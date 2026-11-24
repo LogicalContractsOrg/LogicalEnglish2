@@ -1,0 +1,201 @@
+the target language is: prolog.
+
+% The library of the Rune twins: the operations of Rune's expression
+% language that are not a condition of their own in Logical English (the
+% only element of a list, its distinct values, ...), and the functions DRR
+% implements in Java rather than in Rune. Written for the translator of
+% migration/rune (its README.md). The builder copies both files beside
+% every twin it writes.
+
+the knowledge base rune includes these resources:
+    rune.pl.
+
+the templates are:
+    the only element of *a list* is *a value*.
+    the first element of *a list* is *a value*.
+    the last element of *a list* is *a value*.
+    the least of *a list* is *a value*.
+    the value or nothing of *a list* is *a value*.
+    the element of *a list* with the least of the keys *a second list* is *a value*.
+    the element of *a list* with the greatest of the keys *a second list* is *a value*.
+    the elements of *a list* sorted by the keys *a second list* are *a third list*.
+    the greatest of *a list* is *a value*.
+    the distinct values of *a list* are *a second list*.
+    the reverse of *a list* is *a second list*.
+    the sorted values of *a list* are *a second list*.
+    the concatenation of *a text* and *a second text* is *a third text*.
+    the text of *a value* is *a text*.
+    the number of *a value* is *a number*.
+    *a list* contains every element of *a second list*.
+    *a list* shares no element with *a second list*.
+    *a value* comes before *a second value*.
+    the joining of *a list* with *a separator* is *a text*.
+    the time of the report is *a time*.
+    *a text* contains the text *a second text*.
+    the date *a date* plus *a number* days is *a second date*.
+    the date part of *a time* is *a date*.
+    the time part of *a time* is *a time of day*.
+    the time zone part of *a time* is *a zone*.
+    the year part of *a date* is *a year*.
+    the month part of *a date* is *a month*.
+    the day part of *a date* is *a day*.
+    the day of the week of *a date* is *a day*.
+    the days from *a date* to *a second date* are *a number*.
+    the leap days from *a date* to *a second date* are *a number*.
+    the number *a number* rounded to *a precision* decimal places towards *a direction* is *a value*.
+    the number *a number* rounded to *a count* significant figures towards *a direction* is *a value*.
+    the object built at *a site* with *an input* with *a second input* with *a third input* with *a fourth input* with *a fifth input* with *a sixth input* with *a seventh input* with *an eighth input* is *a value*.
+    the object built at *a site* with *an input* with *a second input* with *a third input* with *a fourth input* with *a fifth input* with *a sixth input* with *a seventh input* is *a value*.
+    the object built at *a site* with *an input* with *a second input* with *a third input* with *a fourth input* with *a fifth input* with *a sixth input* is *a value*.
+    the object built at *a site* with *an input* with *a second input* with *a third input* with *a fourth input* with *a fifth input* is *a value*.
+    the object built at *a site* with *an input* with *a second input* with *a third input* with *a fourth input* is *a value*.
+    the object built at *a site* with *an input* with *a second input* with *a third input* is *a value*.
+    the object built at *a site* with *an input* with *a second input* is *a value*.
+    the object built at *a site* with *an input* is *a value*.
+    the object built at *a site* is *a value*.
+
+the knowledge base rune includes:
+
+% Rune's only-element: the value of a list of exactly one value.
+the only element of a list is a value if
+    prolog rune_only_element(the list, the value).
+
+the first element of a list is a value if
+    prolog rune_first(the list, the value).
+
+the last element of a list is a value if
+    prolog rune_last(the list, the value).
+
+% An input of one value or none: the value of a list of one, else nothing.
+the value or nothing of a list is a value if
+    prolog rune_or_nothing(the list, the value).
+
+% Rune's min [key], max [key] and sort [key]: the second list holds the keys of
+% the first list's elements, in the same order.
+the element of a list with the least of the keys a second list is a value if
+    prolog rune_min_by(the list, the second list, the value).
+
+the element of a list with the greatest of the keys a second list is a value if
+    prolog rune_max_by(the list, the second list, the value).
+
+the elements of a list sorted by the keys a second list are a third list if
+    prolog rune_sorted_by(the list, the second list, the third list).
+
+% Rune's min and max.
+the least of a list is a value if
+    prolog rune_min(the list, the value).
+
+the greatest of a list is a value if
+    prolog rune_max(the list, the value).
+
+% The values of the list, each once, in the order of their first appearance.
+the distinct values of a list are a second list if
+    prolog rune_distinct(the list, the second list).
+
+the reverse of a list is a second list if
+    prolog rune_reverse(the list, the second list).
+
+the sorted values of a list are a second list if
+    prolog rune_sorted(the list, the second list).
+
+% Rune's + on texts.
+the concatenation of a text and a second text is a third text if
+    prolog rune_concat(the text, the second text, the third text).
+
+the text of a value is a text if
+    prolog rune_to_string(the value, the text).
+
+the number of a value is a number if
+    prolog rune_to_number(the value, the number).
+
+% Rune's contains: neither list is empty, and the first has every element
+% of the second.
+a list contains every element of a second list if
+    prolog rune_contains_all(the list, the second list).
+
+% Rune's disjoint.
+a list shares no element with a second list if
+    prolog rune_disjoint(the list, the second list).
+
+% The order of dates and times, written as ISO 8601 texts.
+a value comes before a second value if
+    prolog rune_earlier(the value, the second value).
+
+the joining of a list with a separator is a text if
+    prolog rune_join(the list, the separator, the text).
+
+% Rune's Now, as DRR's tests run it: the reporting time of the test packs.
+the time of the report is a time if
+    prolog rune_now(the time).
+
+% CDM's DayOfWeek.
+the day of the week of a date is a day if
+    prolog rune_day_of_week(the date, the day).
+
+% CDM's AddDays, DateDifference and LeapYearDateDifference.
+the date a date plus a number days is a second date if
+    prolog rune_add_days(the date, the number, the second date).
+
+the days from a date to a second date are a number if
+    prolog rune_date_difference(the date, the second date, the number).
+
+the leap days from a date to a second date are a number if
+    prolog rune_leap_days(the date, the second date, the number).
+
+% CDM's RoundToPrecision and RoundToSignificantFigures: Up, Down or Nearest.
+the number a number rounded to a precision decimal places towards a direction is a value if
+    prolog rune_round_to_precision(the number, the precision, the direction, the value).
+
+the number a number rounded to a count significant figures towards a direction is a value if
+    prolog rune_round_to_significant(the number, the count, the direction, the value).
+
+% DRR's StringContains.
+a text contains the text a second text if
+    prolog rune_string_contains(the text, the second text).
+
+% The object a Rune constructor builds, from the place it is built at and the
+% values it is built from: the same object whenever they are the same.
+the object built at a site is a value if
+    prolog rune_object_0(the site, the value).
+
+the object built at a site with an input is a value if
+    prolog rune_object_1(the site, the input, the value).
+
+the object built at a site with an input with a second input is a value if
+    prolog rune_object_2(the site, the input, the second input, the value).
+
+the object built at a site with an input with a second input with a third input is a value if
+    prolog rune_object_3(the site, the input, the second input, the third input, the value).
+
+the object built at a site with an input with a second input with a third input with a fourth input is a value if
+    prolog rune_object_4(the site, the input, the second input, the third input, the fourth input, the value).
+
+the object built at a site with an input with a second input with a third input with a fourth input with a fifth input is a value if
+    prolog rune_object_5(the site, the input, the second input, the third input, the fourth input, the fifth input, the value).
+
+the object built at a site with an input with a second input with a third input with a fourth input with a fifth input with a sixth input is a value if
+    prolog rune_object_6(the site, the input, the second input, the third input, the fourth input, the fifth input, the sixth input, the value).
+
+the object built at a site with an input with a second input with a third input with a fourth input with a fifth input with a sixth input with a seventh input is a value if
+    prolog rune_object_7(the site, the input, the second input, the third input, the fourth input, the fifth input, the sixth input, the seventh input, the value).
+
+the object built at a site with an input with a second input with a third input with a fourth input with a fifth input with a sixth input with a seventh input with an eighth input is a value if
+    prolog rune_object_8(the site, the input, the second input, the third input, the fourth input, the fifth input, the sixth input, the seventh input, the eighth input, the value).
+
+the date part of a time is a date if
+    prolog rune_date_part(the time, the date).
+
+the time part of a time is a time of day if
+    prolog rune_time_part(the time, the time of day).
+
+the time zone part of a time is a zone if
+    prolog rune_timezone_part(the time, the zone).
+
+the year part of a date is a year if
+    prolog rune_year_part(the date, the year).
+
+the month part of a date is a month if
+    prolog rune_month_part(the date, the month).
+
+the day part of a date is a day if
+    prolog rune_day_part(the date, the day).

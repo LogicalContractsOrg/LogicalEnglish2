@@ -1,0 +1,77 @@
+{
+  "acs": {
+    "c1": [],
+    "c2": [
+      {
+	"_1":"00c4e67ff53fe8951427b1c0c329d126219dc8d607297e7ef857581f59039f3d26ca12122024b4a4b89bcfc04b44610961cd290310f0742d5abb760433cd3ccaa1f40edd6a",
+	"_2": {
+	  "cash": {"amount":100.0,"currency":"USD"},
+	  "issuer":"Alice_r30592394-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Bob_r30592394-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"000ff87fde58045e869fb9d671b49a3a6c33c8aded53dbb2f0cb9ecee57048cf72ca1212208bc856650b7c13e9621e6f1a18d6df745ea44ace9d34e2996e694a915ebb1c97",
+	"_2": {
+	  "cash": {"amount":100.0,"currency":"USD"},
+	  "issuer":"Alice_r30592394-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Charlie_r30592394-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"00be285bb93c1c94c9ebdfb2bb16e325e14c38ea3ee50576024ff8e3ae969a6426ca121220c4d26979cd2792a87a93146b80ea1a4437421cb32995eaa49dec4fa3277ef400",
+	"_2": {
+	  "cash": {"amount":100.0,"currency":"USD"},
+	  "issuer":"Alice_r30592394-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Charlie_r30592394-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      }
+    ],
+    "c3": [],
+    "c4": [],
+    "c5": [
+      {
+	"_1":"00ac53cc9ba8bba632fd143fed9c5599423ae0ffe422c209e844b07a726608318cca121220550672c24088867ebb21893fb7616f4feb5e6a4a05ed210f92a8c9d577eeda06",
+	"_2": {
+	  "receiver":"Bob_r30592394-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "sender":"Alice_r30592394-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"006b862f85b9f1905ca21a07a64babba4b9c1f0780abe82638ec09a12d7aad7943ca1212200e00973b8a87d8360f24c4d91b768522d0a5262bca8935826dbe28debca544fd",
+	"_2": {
+	  "receiver":"Charlie_r30592394-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "sender":"Bob_r30592394-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      }
+    ],
+    "c6": [
+      {
+	"_1":"003a0015f1ac6f8a8882822c4c04e026212f4bfddb4671031accb1cb19add7190dca1212207e81fcc38ee4f746d913bb70f68843d7bd68249c37328bcbc84ac9a87a25f80d",
+	"_2": {
+	  "partyA":"Alice_r30592394-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "partyB":"Bob_r30592394-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"0063c757f1aabe006a5227f5f16bbdb5b4fcfa5dcc7276a7bdac5d7be1723587dfca121220b5641240193ff706035123fe6719879da513be6ebb7f06f24848ea5e600e79ef",
+	"_2": {
+	  "partyA":"Alice_r30592394-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "partyB":"Bob_r30592394-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      }
+    ]
+  },
+  "ledger":"a Canton 3.5 sandbox (dpm sandbox), over the Ledger API",
+  "project":"parties",
+  "script":"iou_test",
+  "tag":"r30592394",
+  "templates": [
+    {"field":"c1","module":"Parties","template":"SimpleIou"},
+    {"field":"c2","module":"Parties","template":"Iou"},
+    {"field":"c3","module":"Parties","template":"IouProposal"},
+    {"field":"c4","module":"Parties","template":"IouTransferProposal"},
+    {"field":"c5","module":"Parties","template":"IouSender"},
+    {"field":"c6","module":"Parties","template":"NonTransitive"}
+  ]
+}

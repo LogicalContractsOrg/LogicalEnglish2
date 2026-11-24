@@ -8,6 +8,11 @@
 #   le    Logical English example tests (the examples/ trees).
 #   e2e   Playwright browser tests in editor/tests  — needs Node deps + browsers,
 #         and starts its own Prolog server (see editor/playwright.config.ts).
+#   migration  The tests of the translators of other rule systems
+#         (migration/*/test_*.pl), each file in a process of its own. Run only
+#         when asked for by name: several need a download, another system's
+#         engine or LPS2 beside this checkout, and skip what they cannot check
+#         (migration/README.md).
 #
 # LE example suite: CORE vs CORE + EXTENSIONS
 #   By default the `le` suite runs the CORE example set — the programs that run
@@ -32,6 +37,8 @@
 #   testing/run_tests.sh e2e                # run only the Playwright suite
 #   testing/run_tests.sh unit le            # run a subset (space-separated)
 #   testing/run_tests.sh --no-e2e           # run everything except e2e
+#   testing/run_tests.sh migration          # the translators' tests (not part of "all")
+#   testing/run_tests.sh migration dmn l4   # the tests of the named translators only
 #
 # Environment:
 #   SWIPL   swipl binary to use (default: swipl on PATH).
@@ -52,7 +59,8 @@ cd "$TESTING_DIR/.."
 SWIPL="${SWIPL:-./myswipl.sh}"
 
 # --- argument parsing --------------------------------------------------------
-run_unit=0 run_le=0 run_e2e=0
+run_unit=0 run_le=0 run_e2e=0 run_migration=0
+migration_only=()
 no_e2e=0
 explicit=0
 # LE example suite: core (this repo alone) or all (core + extension-dependent trees).
@@ -62,13 +70,15 @@ for arg in "$@"; do
     unit) run_unit=1; explicit=1 ;;
     le)   run_le=1;   explicit=1 ;;
     e2e)  run_e2e=1;  explicit=1 ;;
+    migration) run_migration=1; explicit=1 ;;
     --with-extensions) le_suite=all ;;
     --core) le_suite=core ;;
     --no-e2e) no_e2e=1 ;;
     -h|--help)
       awk 'NR==1{next} /^#/{sub(/^# ?/,""); print; next} {exit}' "$0"
       exit 0 ;;
-    *) echo "Unknown argument: $arg" >&2; exit 2 ;;
+    *) if [ "$run_migration" -eq 1 ] && [ -d "migration/$arg" ]; then migration_only+=("$arg")
+       else echo "Unknown argument: $arg" >&2; exit 2; fi ;;
   esac
 done
 if [ "$explicit" -eq 0 ]; then
@@ -161,6 +171,33 @@ if [ "$run_le" -eq 1 ]; then
     record "le (examples, $le_suite)" PASS
   else
     record "le (examples, $le_suite)" FAIL
+  fi
+fi
+
+# --- migration: the translators' own tests ----------------------------------
+if [ "$run_migration" -eq 1 ]; then
+  hr; echo "[migration] The translators' tests (migration/*/test_*.pl)"; hr
+  shopt -s nullglob
+  if [ ${#migration_only[@]} -gt 0 ]; then
+    mig_files=()
+    for d in "${migration_only[@]}"; do mig_files+=(migration/"$d"/test_*.pl); done
+  else
+    mig_files=(migration/*/test_*.pl)
+  fi
+  shopt -u nullglob
+  if [ ${#mig_files[@]} -eq 0 ]; then
+    echo "No migration/*/test_*.pl files found."
+    record "migration" SKIP
+  else
+    for f in "${mig_files[@]}"; do
+      door="$(basename "$(dirname "$f")")/$(basename "$f")"
+      echo "Running: $f"
+      if "$SWIPL" -q -l "$f" -g "(run_tests -> halt(0) ; halt(1))" < /dev/null; then
+        record "migration ($door)" PASS
+      else
+        record "migration ($door)" FAIL
+      fi
+    done
   fi
 fi
 

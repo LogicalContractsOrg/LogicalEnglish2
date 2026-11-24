@@ -1,0 +1,31 @@
+% E13, experiment 2: laws are independent. With an update law alone, a transfer to an
+% account that holds no balance fluent debits the payer and credits no one: 10 tokens vanish.
+% (What a naive translation of Solidity's zero-default mappings would do.)
+
+the target language is: lps.
+
+the maximum time is 4.
+
+the actions are:
+    *a payer* transfers *an amount* to *a payee*; known as transfer.
+
+the fluents are:
+    the balance of *a person* is *an amount*; known as balance.
+
+the knowledge base atom2 includes:
+
+initially the balance of bob is 0
+    and the balance of fariba is 100.
+
+when a payer transfers an amount to a payee
+then the balance of the payee that is a number becomes number + amount
+    and the balance of the payer that is a second number becomes second number - amount.
+
+it must not be true that
+    a payer transfers an amount to a payee from a first time to a second time
+    and the balance of the payer is a second amount at the first time
+    and the second amount < the amount.
+
+scenario one is:
+    fariba transfers 1000 to bob from 1 to 2.
+    fariba transfers 10 to carol from 2 to 3.

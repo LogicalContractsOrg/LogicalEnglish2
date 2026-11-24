@@ -1,0 +1,30 @@
+% E13, experiment 1: a call refused by an integrity constraint has no effect at all.
+% fariba's transfer of 1000 is refused as a whole; the transfer of 10 applies.
+
+the target language is: lps.
+
+the maximum time is 4.
+
+the actions are:
+    *a payer* transfers *an amount* to *a payee*; known as transfer.
+
+the fluents are:
+    the balance of *a person* is *an amount*; known as balance.
+
+the knowledge base atom1 includes:
+
+initially the balance of bob is 0
+    and the balance of fariba is 100.
+
+when a payer transfers an amount to a payee
+then the balance of the payee that is a number becomes number + amount
+    and the balance of the payer that is a second number becomes second number - amount.
+
+it must not be true that
+    a payer transfers an amount to a payee from a first time to a second time
+    and the balance of the payer is a second amount at the first time
+    and the second amount < the amount.
+
+scenario one is:
+    fariba transfers 1000 to bob from 1 to 2.
+    fariba transfers 10 to bob from 2 to 3.

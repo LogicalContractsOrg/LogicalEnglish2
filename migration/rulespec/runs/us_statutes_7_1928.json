@@ -1,0 +1,170 @@
+{
+ "module": "us:statutes/7/1928",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "full faith and credit obligation holds",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/7/1928#contract_obligation_supported_by_full_faith_and_credit": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/1928#contract_incontestable": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "fraud known at execution makes contract contestable",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/7/1928#contract_incontestable": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "fraud participated in or condoned makes contract contestable",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/7/1928#contract_incontestable": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "fraud without lender or holder knowledge participation or condonation remains incontestable",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/7/1928#contract_incontestable": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "contract_obligation_supported_by_full_faith_and_credit": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "comparison",
+     "left": {
+      "kind": "literal",
+      "value": {
+       "kind": "bool",
+       "value": true
+      }
+     },
+     "op": "eq",
+     "right": {
+      "kind": "literal",
+      "value": {
+       "kind": "bool",
+       "value": true
+      }
+     }
+    }
+   }
+  ],
+  "contract_incontestable": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "not",
+     "item": {
+      "kind": "and",
+      "items": [
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "contract_involves_fraud_or_misrepresentation"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       },
+       {
+        "kind": "or",
+        "items": [
+         {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "lender_or_holder_had_actual_knowledge_of_fraud_or_misrepresentation_at_execution"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         },
+         {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "lender_or_holder_participated_in_or_condoned_fraud_or_misrepresentation"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

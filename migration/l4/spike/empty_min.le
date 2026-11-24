@@ -1,0 +1,35 @@
+the target language is: prolog.
+
+% Spike: the trap of the design notes l4.md, section 7 -- in the Prolog
+% target the min of an empty set is 0, so both queries answer 0, not nothing.
+
+the templates are:
+    *a party* pays at *a time*; undefined.
+    the first payment in the window is at *a time*.
+    the first payment in the window from *a start* to *an end* is at *a time*.
+
+the knowledge base agg includes:
+
+the first payment in the window is at a time if
+    the time is the min of each moment such that
+        bob pays at the moment
+        and the moment >= 10
+        and the moment =< 40.
+
+the first payment in the window from a start to an end is at a time if
+    the time is the min of each moment such that
+        bob pays at the moment
+        and the moment >= the start
+        and the moment =< the end.
+
+query q is:
+    the first payment in the window is at which time.
+
+query r is:
+    the first payment in the window from 10 to 40 is at which time.
+
+scenario s is:
+    bob pays at 5.
+    bob pays at 50.
+    q expects answers ["the first payment in the window is at nothing"].
+    r expects answers ["the first payment in the window from 10 to 40 is at nothing"].

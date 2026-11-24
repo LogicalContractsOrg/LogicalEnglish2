@@ -1,0 +1,149 @@
+{
+ "module": "us:statutes/7/2015/d/2/E",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "employed_minimum_thirty_hours_per_week_exemption_applies",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "weekly_earnings_equal_flsa_rate_times_thirty_hours_exemption_applies",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "insufficient_hours_and_earnings_no_exemption",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "person_not_otherwise_required_has_no_exemption_under_this_branch",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/E#employment_or_earnings_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "employment_or_earnings_exemption_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "employed_hours_per_week"
+         },
+         "op": "gte",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "minimum_employment_hours_per_week",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "weekly_earnings"
+         },
+         "op": "gte",
+         "right": {
+          "kind": "mul",
+          "left": {
+           "kind": "input",
+           "name": "minimum_hourly_rate_under_fair_labor_standards_act"
+          },
+          "right": {
+           "kind": "parameter_lookup",
+           "parameter": "minimum_employment_hours_per_week",
+           "index": {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 0
+            }
+           }
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

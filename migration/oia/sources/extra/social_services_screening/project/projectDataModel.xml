@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root product-version="12.2.7.797">
+  <entities>
+    <entity ref="global">
+      <attribute name="countable_assets" public-name="countable_assets" type="currency"><text><base>the household's countable assets</base></text></attribute>
+      <attribute name="household_size" public-name="household_size" type="number"><text><base>the household size</base></text></attribute>
+      <attribute name="household_income" public-name="household_income" type="currency"><text><base>the household's monthly income</base></text></attribute>
+      <attribute name="income_limit" public-name="income_limit" type="currency"><text><base>the income limit for the household</base></text></attribute>
+      <attribute name="food_assistance" public-name="food_assistance" type="boolean"><text><base>the household is eligible for food assistance</base></text></attribute>
+      <attribute name="child_care_assistance" public-name="child_care_assistance" type="boolean"><text><base>the household is eligible for child care assistance</base></text></attribute>
+      <attribute name="energy_assistance" public-name="energy_assistance" type="boolean"><text><base>the household is eligible for energy assistance</base></text></attribute>
+      <attribute name="energy_credit" public-name="energy_credit" type="currency"><text><base>the energy assistance credit</base></text></attribute>
+      <attribute name="vulnerable_members" public-name="vulnerable_members" type="number"><text><base>the number of vulnerable members</base></text></attribute>
+    </entity>
+    <entity id="member" name="the household member" containment-relationship-id="members" containment-parent-id="global">
+      <attribute name="member_age" public-name="member_age" type="number"><text><base>the household member's age</base></text></attribute>
+      <attribute name="member_income" public-name="member_income" type="currency"><text><base>the household member's monthly income</base></text></attribute>
+      <attribute name="member_employed" public-name="member_employed" type="boolean"><text><base>the household member is employed</base></text></attribute>
+      <attribute name="member_student" public-name="member_student" type="boolean"><text><base>the household member is a full-time student</base></text></attribute>
+      <attribute name="member_disability" public-name="member_disability" type="boolean"><text><base>the household member has a disability</base></text></attribute>
+      <attribute name="member_child" public-name="member_child" type="boolean"><text><base>the household member is a child</base></text></attribute>
+      <attribute name="member_available" public-name="member_available" type="boolean"><text><base>the household member is available for child care</base></text></attribute>
+      <attribute name="member_vulnerable" public-name="member_vulnerable" type="boolean"><text><base>the household member is vulnerable</base></text></attribute>
+    </entity>
+  </entities>
+  <relationships>
+    <relationship relationship-id="members" public-id="members" source="global" target="member" is-containment="true" text="the household members" type="OneToMany" />
+  </relationships>
+</root>

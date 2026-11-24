@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML   xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex4-meta-compact#"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" key="doc"
+  xml:base="http://docs.oasis-open.org/legalruleml/examples/compatified/ex4-meta-compact"
+  xmlns:appex="http://docs.oasis-open.org/legalruleml/examples/approved/"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <lrml:Agents>
+    <lrml:Agent key="mp" sameAs="http:example.org/agents#MonicaPalmirani">
+      <lrml:Comment>An unassociated agent.</lrml:Comment>
+      <lrml:hasType iri="http://example.org/types#Person"/>
+    </lrml:Agent>
+    <lrml:Agent key="ta" sameAs="http://example.org/agents#TaraAthan"/>
+  </lrml:Agents>
+  <lrml:Figures>
+    <lrml:hasMemberType iri="http://example.org/figure-types#LegislativeFigure"/>
+    <lrml:Figure key="fs">
+      <lrml:hasFunction iri="http://example.org/functions#Senator"/>
+      <lrml:hasActor keyref="#ta"/>
+    </lrml:Figure>
+  </lrml:Figures>
+  <lrml:Roles>
+    <lrml:Role key="role1" iri="http://example.org/roles#author">
+      <lrml:filledBy keyref="#mp"/>
+      <lrml:forExpression keyref="#rule1a"/>
+    </lrml:Role>
+    <lrml:Role key="role2" iri="http://example.org/roles#author">
+      <lrml:filledBy keyref="#mp"/>
+      <lrml:filledBy keyref="#ta"/>
+      <lrml:forExpression keyref="#rule1a"/>
+    </lrml:Role>
+    <lrml:Role key="role3" iri="http://example.org/roles#author">
+      <lrml:filledBy keyref="#mp"/>
+      <lrml:forExpression keyref="#atom2a"/>
+      <lrml:forExpression keyref="#atom2b"/>
+    </lrml:Role>
+  </lrml:Roles>
+
+
+  <lrml:Authorities>
+    <lrml:Authority key="house" sameAs="http://example.org/authority#house-of-representatives"/>
+  </lrml:Authorities>
+  <lrml:Jurisdictions>
+    <lrml:Jurisdiction key="us" sameAs="http://example.org/jurisdiction#united-states-of-america"/>
+  </lrml:Jurisdictions>
+  <lrml:Associations key="sourceBlock1">
+    <lrml:Association>
+      <lrml:appliesAuthority keyref="#house"/>
+      <lrml:appliesJurisdiction keyref="#us"/>
+      <lrml:toTarget keyref="#atom_1b"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <lrml:Context key="ruleInfo1">
+    <lrml:appliesAssociations keyref="#sourceBlock1"/>
+    <lrml:inScope keyref="#stmt_1a"/>
+  </lrml:Context>
+</lrml:LegalRuleML>

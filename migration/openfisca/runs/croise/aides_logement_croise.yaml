@@ -1,0 +1,1176 @@
+- name: croise_2022_02_zone1_seul_0enf_loyer450_res9000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id001
+      - parent1
+      aide_logement_base_ressources: 9000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id001
+  output:
+    aide_logement_loyer_plafond: 298.07
+    aide_logement_charges: 54.22
+    aide_logement_participation_minimale: 35.39
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 175.04495
+    aide_logement_montant: 121.71
+- name: croise_2022_02_zone1_seul_3enf_loyer450_res24000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id003
+      - parent1
+      aide_logement_base_ressources: 24000
+      enfants: &id002
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id002
+    foyer_fiscal:
+      declarants: *id003
+      personnes_a_charge: *id002
+  output:
+    aide_logement_loyer_plafond: 524.2
+    aide_logement_charges: 91.09
+    aide_logement_participation_minimale: 45.99265
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 402.1425
+    aide_logement_montant: 46.03
+- name: croise_2022_02_zone1_couple_1enf_loyer900_res9000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id005
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+      enfants: &id004
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id004
+    foyer_fiscal:
+      declarants: *id005
+      personnes_a_charge: *id004
+  output:
+    aide_logement_loyer_plafond: 406.3
+    aide_logement_charges: 66.51
+    aide_logement_participation_minimale: 40.18885
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 71.09691
+    aide_logement_montant: 326.98
+- name: croise_2022_02_zone2_seul_0enf_loyer900_res24000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id006
+      - parent1
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id006
+  output:
+    aide_logement_loyer_plafond: 259.78
+    aide_logement_charges: 54.22
+    aide_logement_participation_minimale: 35.39
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 640.97795
+    aide_logement_montant: 0.0
+- name: croise_2022_02_zone2_couple_0enf_loyer450_res9000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+    famille:
+      parents: &id007
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+    foyer_fiscal:
+      declarants: *id007
+  output:
+    aide_logement_loyer_plafond: 317.97
+    aide_logement_charges: 54.22
+    aide_logement_participation_minimale: 35.39
+    aide_logement_taux_famille: 0.0315
+    aide_logement_participation_personnelle: 114.54405
+    aide_logement_montant: 198.25
+- name: croise_2022_02_zone2_couple_3enf_loyer450_res24000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id009
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+      enfants: &id008
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id008
+    foyer_fiscal:
+      declarants: *id009
+      personnes_a_charge: *id008
+  output:
+    aide_logement_loyer_plafond: 461.96
+    aide_logement_charges: 91.09
+    aide_logement_participation_minimale: 45.99265
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 402.1425
+    aide_logement_montant: 133.28
+- name: croise_2022_02_zone3_seul_1enf_loyer900_res9000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+    famille:
+      parents: &id011
+      - parent1
+      aide_logement_base_ressources: 9000
+      enfants: &id010
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id010
+    foyer_fiscal:
+      declarants: *id011
+      personnes_a_charge: *id010
+  output:
+    aide_logement_loyer_plafond: 330.94
+    aide_logement_charges: 66.51
+    aide_logement_participation_minimale: 35.39
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 64.87092
+    aide_logement_montant: 149.63
+- name: croise_2022_02_zone3_couple_0enf_loyer900_res24000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+    famille:
+      parents: &id012
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+    foyer_fiscal:
+      declarants: *id012
+  output:
+    aide_logement_loyer_plafond: 295.15
+    aide_logement_charges: 54.22
+    aide_logement_participation_minimale: 35.39
+    aide_logement_taux_famille: 0.0315
+    aide_logement_participation_personnelle: 624.32146
+    aide_logement_montant: 0.0
+- name: croise_2022_02_zone3_couple_1enf_loyer450_res9000
+  period: 2022-02
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id014
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+      enfants: &id013
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id013
+    foyer_fiscal:
+      declarants: *id014
+      personnes_a_charge: *id013
+  output:
+    aide_logement_loyer_plafond: 330.94
+    aide_logement_charges: 66.51
+    aide_logement_participation_minimale: 35.39
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 64.87092
+    aide_logement_montant: 270.71
+- name: croise_2022_11_zone1_seul_0enf_loyer450_res24000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id015
+      - parent1
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id015
+  output:
+    aide_logement_loyer_plafond: 308.5
+    aide_logement_charges: 56.12
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 655.4855
+    aide_logement_montant: 0.0
+- name: croise_2022_11_zone1_seul_3enf_loyer900_res9000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id017
+      - parent1
+      aide_logement_base_ressources: 9000
+      enfants: &id016
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id016
+    foyer_fiscal:
+      declarants: *id017
+      personnes_a_charge: *id016
+  output:
+    aide_logement_loyer_plafond: 542.54
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 54.1297
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 58.12532
+    aide_logement_montant: 487.3
+- name: croise_2022_11_zone1_couple_1enf_loyer900_res24000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id019
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+      enfants: &id018
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id018
+    foyer_fiscal:
+      declarants: *id019
+      personnes_a_charge: *id018
+  output:
+    aide_logement_loyer_plafond: 420.52
+    aide_logement_charges: 68.84
+    aide_logement_participation_minimale: 41.5956
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 527.14326
+    aide_logement_montant: 0.0
+- name: croise_2022_11_zone2_seul_1enf_loyer450_res9000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+    famille:
+      parents: &id021
+      - parent1
+      aide_logement_base_ressources: 9000
+      enfants: &id020
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id020
+    foyer_fiscal:
+      declarants: *id021
+      personnes_a_charge: *id020
+  output:
+    aide_logement_loyer_plafond: 370.32
+    aide_logement_charges: 68.84
+    aide_logement_participation_minimale: 37.3286
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 57.7025
+    aide_logement_montant: 317.6
+- name: croise_2022_11_zone2_couple_0enf_loyer450_res24000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+    famille:
+      parents: &id022
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+    foyer_fiscal:
+      declarants: *id022
+  output:
+    aide_logement_loyer_plafond: 329.1
+    aide_logement_charges: 56.12
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.0315
+    aide_logement_participation_personnelle: 624.77465
+    aide_logement_montant: 0.0
+- name: croise_2022_11_zone2_couple_3enf_loyer900_res9000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id024
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+      enfants: &id023
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id023
+    foyer_fiscal:
+      declarants: *id024
+      personnes_a_charge: *id023
+  output:
+    aide_logement_loyer_plafond: 478.12
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 48.654
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 52.4969
+    aide_logement_montant: 438.77
+- name: croise_2022_11_zone3_seul_1enf_loyer900_res24000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+    famille:
+      parents: &id026
+      - parent1
+      aide_logement_base_ressources: 24000
+      enfants: &id025
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id025
+    foyer_fiscal:
+      declarants: *id026
+      personnes_a_charge: *id025
+  output:
+    aide_logement_loyer_plafond: 342.52
+    aide_logement_charges: 68.84
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 499.75812
+    aide_logement_montant: 0.0
+- name: croise_2022_11_zone3_seul_3enf_loyer450_res9000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id028
+      - parent1
+      aide_logement_base_ressources: 9000
+      enfants: &id027
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id027
+    foyer_fiscal:
+      declarants: *id028
+      personnes_a_charge: *id027
+  output:
+    aide_logement_loyer_plafond: 440.7
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 45.4733
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 49.22822
+    aide_logement_montant: 410.48
+- name: croise_2022_11_zone3_couple_1enf_loyer450_res24000
+  period: 2022-11
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id030
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+      enfants: &id029
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id029
+    foyer_fiscal:
+      declarants: *id030
+      personnes_a_charge: *id029
+  output:
+    aide_logement_loyer_plafond: 342.52
+    aide_logement_charges: 68.84
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 499.75812
+    aide_logement_montant: 0.0
+- name: croise_2023_03_zone1_seul_0enf_loyer900_res9000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id031
+      - parent1
+      aide_logement_base_ressources: 9000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id031
+  output:
+    aide_logement_loyer_plafond: 308.5
+    aide_logement_charges: 56.12
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 167.67985
+    aide_logement_montant: 140.12
+- name: croise_2023_03_zone1_seul_3enf_loyer900_res24000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id033
+      - parent1
+      aide_logement_base_ressources: 24000
+      enfants: &id032
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id032
+    foyer_fiscal:
+      declarants: *id033
+      personnes_a_charge: *id032
+  output:
+    aide_logement_loyer_plafond: 542.54
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 54.1297
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 415.73331
+    aide_logement_montant: 125.67
+- name: croise_2023_03_zone1_couple_3enf_loyer450_res9000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id035
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+      enfants: &id034
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id034
+    foyer_fiscal:
+      declarants: *id035
+      personnes_a_charge: *id034
+  output:
+    aide_logement_loyer_plafond: 542.54
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 46.2638
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 46.78705
+    aide_logement_montant: 400.69
+- name: croise_2023_03_zone2_seul_1enf_loyer450_res24000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+    famille:
+      parents: &id037
+      - parent1
+      aide_logement_base_ressources: 24000
+      enfants: &id036
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id036
+    foyer_fiscal:
+      declarants: *id037
+      personnes_a_charge: *id036
+  output:
+    aide_logement_loyer_plafond: 370.32
+    aide_logement_charges: 68.84
+    aide_logement_participation_minimale: 37.3286
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 504.4258
+    aide_logement_montant: 0.0
+- name: croise_2023_03_zone2_couple_0enf_loyer900_res9000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+    famille:
+      parents: &id038
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+    foyer_fiscal:
+      declarants: *id038
+  output:
+    aide_logement_loyer_plafond: 329.1
+    aide_logement_charges: 56.12
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.0315
+    aide_logement_participation_personnelle: 102.6205
+    aide_logement_montant: 111.8
+- name: croise_2023_03_zone2_couple_3enf_loyer900_res24000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id040
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+      enfants: &id039
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id039
+    foyer_fiscal:
+      declarants: *id040
+      personnes_a_charge: *id039
+  output:
+    aide_logement_loyer_plafond: 478.12
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 48.654
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 396.43645
+    aide_logement_montant: 170.11
+- name: croise_2023_03_zone3_seul_0enf_loyer450_res9000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id041
+      - parent1
+      aide_logement_base_ressources: 9000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id041
+  output:
+    aide_logement_loyer_plafond: 252.0
+    aide_logement_charges: 56.12
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 161.88692
+    aide_logement_montant: 98.83
+- name: croise_2023_03_zone3_seul_3enf_loyer450_res24000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id043
+      - parent1
+      aide_logement_base_ressources: 24000
+      enfants: &id042
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id042
+    foyer_fiscal:
+      declarants: *id043
+      personnes_a_charge: *id042
+  output:
+    aide_logement_loyer_plafond: 440.7
+    aide_logement_charges: 94.28
+    aide_logement_participation_minimale: 45.4733
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 385.29356
+    aide_logement_montant: 143.97
+- name: croise_2023_03_zone3_couple_1enf_loyer900_res9000
+  period: 2023-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id045
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+      enfants: &id044
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id044
+    foyer_fiscal:
+      declarants: *id045
+      personnes_a_charge: *id044
+  output:
+    aide_logement_loyer_plafond: 342.52
+    aide_logement_charges: 68.84
+    aide_logement_participation_minimale: 36.63
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 52.69976
+    aide_logement_montant: 219.46
+- name: croise_2024_03_zone1_seul_0enf_loyer900_res24000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id046
+      - parent1
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id046
+  output:
+    aide_logement_loyer_plafond: 319.3
+    aide_logement_charges: 58.08
+    aide_logement_participation_minimale: 37.91
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 646.5429
+    aide_logement_montant: 0.0
+- name: croise_2024_03_zone1_couple_0enf_loyer450_res9000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+    famille:
+      parents: &id047
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+    foyer_fiscal:
+      declarants: *id047
+  output:
+    aide_logement_loyer_plafond: 385.09
+    aide_logement_charges: 58.08
+    aide_logement_participation_minimale: 37.91
+    aide_logement_taux_famille: 0.0315
+    aide_logement_participation_personnelle: 93.5508
+    aide_logement_montant: 277.83
+- name: croise_2024_03_zone1_couple_3enf_loyer450_res24000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id049
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+      enfants: &id048
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_1
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id048
+    foyer_fiscal:
+      declarants: *id049
+      personnes_a_charge: *id048
+  output:
+    aide_logement_loyer_plafond: 561.54
+    aide_logement_charges: 97.59
+    aide_logement_participation_minimale: 46.54515
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 375.30291
+    aide_logement_montant: 72.0
+- name: croise_2024_03_zone2_seul_1enf_loyer900_res9000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+    famille:
+      parents: &id051
+      - parent1
+      aide_logement_base_ressources: 9000
+      enfants: &id050
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id050
+    foyer_fiscal:
+      declarants: *id051
+      personnes_a_charge: *id050
+  output:
+    aide_logement_loyer_plafond: 383.28
+    aide_logement_charges: 71.25
+    aide_logement_participation_minimale: 38.63505
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 42.78195
+    aide_logement_montant: 340.3
+- name: croise_2024_03_zone2_couple_0enf_loyer900_res24000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+    famille:
+      parents: &id052
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+    foyer_fiscal:
+      declarants: *id052
+  output:
+    aide_logement_loyer_plafond: 340.62
+    aide_logement_charges: 58.08
+    aide_logement_participation_minimale: 37.91
+    aide_logement_taux_famille: 0.0315
+    aide_logement_participation_personnelle: 610.4035
+    aide_logement_montant: 0.0
+- name: croise_2024_03_zone2_couple_1enf_loyer450_res9000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id054
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 9000
+      enfants: &id053
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_2
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id053
+    foyer_fiscal:
+      declarants: *id054
+      personnes_a_charge: *id053
+  output:
+    aide_logement_loyer_plafond: 383.28
+    aide_logement_charges: 71.25
+    aide_logement_participation_minimale: 38.63505
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 42.78195
+    aide_logement_montant: 340.3
+- name: croise_2024_03_zone3_seul_0enf_loyer450_res24000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+    famille:
+      parents: &id055
+      - parent1
+      aide_logement_base_ressources: 24000
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 450
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+    foyer_fiscal:
+      declarants: *id055
+  output:
+    aide_logement_loyer_plafond: 260.82
+    aide_logement_charges: 58.08
+    aide_logement_participation_minimale: 37.91
+    aide_logement_taux_famille: 0.0283
+    aide_logement_participation_personnelle: 619.63888
+    aide_logement_montant: 0.0
+- name: croise_2024_03_zone3_seul_3enf_loyer900_res9000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      enfant1:
+        age: 4
+      enfant2:
+        age: 7
+      enfant3:
+        age: 10
+    famille:
+      parents: &id057
+      - parent1
+      aide_logement_base_ressources: 9000
+      enfants: &id056
+      - enfant1
+      - enfant2
+      - enfant3
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      enfants: *id056
+    foyer_fiscal:
+      declarants: *id057
+      personnes_a_charge: *id056
+  output:
+    aide_logement_loyer_plafond: 456.13
+    aide_logement_charges: 97.59
+    aide_logement_participation_minimale: 47.0662
+    aide_logement_taux_famille: 0.0201
+    aide_logement_participation_personnelle: 47.0662
+    aide_logement_montant: 422.38
+- name: croise_2024_03_zone3_couple_1enf_loyer900_res24000
+  period: 2024-03
+  input:
+    individus:
+      parent1:
+        age: 40
+      parent2:
+        age: 38
+      enfant1:
+        age: 4
+    famille:
+      parents: &id059
+      - parent1
+      - parent2
+      aide_logement_base_ressources: 24000
+      enfants: &id058
+      - enfant1
+    menage:
+      personne_de_reference: parent1
+      zone_apl: zone_3
+      loyer: 900
+      statut_occupation_logement: locataire_vide
+      logement_conventionne: true
+      conjoint: parent2
+      enfants: *id058
+    foyer_fiscal:
+      declarants: *id059
+      personnes_a_charge: *id058
+  output:
+    aide_logement_loyer_plafond: 354.51
+    aide_logement_charges: 71.25
+    aide_logement_participation_minimale: 37.91
+    aide_logement_taux_famille: 0.027
+    aide_logement_participation_personnelle: 485.08652
+    aide_logement_montant: 0.0

@@ -1,0 +1,136 @@
+the target language is: prolog.
+
+% Spike: sale.l4's contract read over a finished history of timed events --
+% the timeless reading of the design notes l4.md, section 4. Expected
+% answers are the L4 evaluator's #TRACE results (node l4run.mjs sale.l4).
+
+% The same L4 contract, read over a finished history of timed events
+% (an event-calculus reading): which obligation is reached, when, and how it ends.
+
+the templates are:
+    *a party* delivers at *a time*; undefined.
+    *a party* pays *an amount* at *a time*; undefined.
+    the history ends at *a time*; undefined.
+    the delivery obligation starts at *a time* with deadline *a deadline*.
+    the delivery obligation is fulfilled at *a time*.
+    the payment obligation starts at *a time* with deadline *a deadline*.
+    the payment obligation is fulfilled at *a time*.
+    the sale is fulfilled.
+    the sale is breached by *a party* because *a reason*.
+    *an obligation* is pending with *a number* days left.
+
+the knowledge base sale includes:
+
+the delivery obligation starts at 0 with deadline 14.
+
+the delivery obligation is fulfilled at a time if
+    the delivery obligation starts at a start with deadline a deadline
+    and seller delivers at the time
+    and the time >= the start
+    and the time =< the deadline
+    and it is not the case that
+        seller delivers at an earlier time
+        and the earlier time >= the start
+        and the earlier time < the time.
+
+the payment obligation starts at a time with deadline a deadline if
+    the delivery obligation is fulfilled at the time
+    and the deadline = the time + 30.
+
+the payment obligation is fulfilled at a time if
+    the payment obligation starts at a start with deadline a deadline
+    and buyer pays 100 at the time
+    and the time >= the start
+    and the time =< the deadline
+    and it is not the case that
+        buyer pays 100 at an earlier time
+        and the earlier time >= the start
+        and the earlier time < the time.
+
+the sale is fulfilled if
+    the payment obligation is fulfilled at a time.
+
+the sale is breached by seller because "failed to deliver" if
+    the delivery obligation starts at a start with deadline a deadline
+    and the history ends at an end
+    and the end > the deadline
+    and it is not the case that
+        the delivery obligation is fulfilled at a time.
+
+the sale is breached by buyer because "failed to pay" if
+    the payment obligation starts at a start with deadline a deadline
+    and the history ends at an end
+    and the end > the deadline
+    and it is not the case that
+        the payment obligation is fulfilled at a time.
+
+delivery is pending with a number days left if
+    the delivery obligation starts at a start with deadline a deadline
+    and the history ends at an end
+    and the end =< the deadline
+    and it is not the case that
+        the delivery obligation is fulfilled at a time
+    and the number = the deadline - the end.
+
+payment is pending with a number days left if
+    the payment obligation starts at a start with deadline a deadline
+    and the history ends at an end
+    and the end =< the deadline
+    and it is not the case that
+        the payment obligation is fulfilled at a time
+    and the number = the deadline - the end.
+
+query fulfilled is:
+    the sale is fulfilled.
+
+query breached is:
+    the sale is breached by which party because which reason.
+
+query pending is:
+    which obligation is pending with which number days left.
+
+scenario on_time is:
+    seller delivers at 10.
+    buyer pays 100 at 20.
+    the history ends at 20.
+    fulfilled expects answers ["the sale is fulfilled"].
+    breached expects answers [].
+
+scenario late is:
+    seller delivers at 10.
+    buyer pays 100 at 50.
+    the history ends at 50.
+    fulfilled expects answers [].
+    breached expects answers ["the sale is breached by buyer because failed to pay"].
+
+scenario unfinished is:
+    seller delivers at 10.
+    the history ends at 10.
+    pending expects answers ["payment is pending with 30 days left"].
+
+scenario early_payment is:
+    buyer pays 100 at 5.
+    the history ends at 5.
+    pending expects answers ["delivery is pending with 9 days left"].
+
+scenario wrong_amount is:
+    seller delivers at 10.
+    buyer pays 99 at 20.
+    the history ends at 20.
+    pending expects answers ["payment is pending with 20 days left"].
+
+scenario early_payment_then_wait is:
+    buyer pays 100 at 5.
+    the history ends at 20.
+    breached expects answers ["the sale is breached by seller because failed to deliver"].
+
+scenario delivered_on_the_last_day is:
+    seller delivers at 14.
+    the history ends at 14.
+    pending expects answers ["payment is pending with 30 days left"].
+
+scenario paid_on_the_last_day is:
+    seller delivers at 10.
+    buyer pays 100 at 40.
+    the history ends at 40.
+    fulfilled expects answers ["the sale is fulfilled"].

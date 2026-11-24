@@ -1,0 +1,830 @@
+{
+ "module": "us:statutes/7/2015/d/2/C",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "recognized_school_or_training_student_is_exempt",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/C#bona_fide_student_half_time_enrollment_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/C#higher_education_student_ineligible_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "higher_education_student_with_no_subsection_e_exception_is_ineligible",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/C#bona_fide_student_half_time_enrollment_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/C#higher_education_student_ineligible_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "higher_education_student_meeting_subsection_e_exception_is_not_ineligible_under_exception_clause",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/C#bona_fide_student_half_time_enrollment_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/C#higher_education_student_ineligible_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "no_bona_fide_half_time_student_status_no_branch_exemption",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/C#bona_fide_student_half_time_enrollment_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/C#higher_education_student_ineligible_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "student_age_exception_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_age_years"
+       },
+       "op": "lt",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "student_under_age_exception_threshold_years",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_age_years"
+       },
+       "op": "gte",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "student_older_age_exception_threshold_years",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_employment_and_training_course_condition_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "program_of_study_is_part_of_career_and_technical_education"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "program_of_study_may_be_completed_in_years"
+           },
+           "op": "lte",
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "snap_employment_and_training_career_technical_program_max_years",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "program_of_study_is_at_institution_of_higher_education"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "program_of_study_limited_to_remedial_courses_basic_adult_education_literacy_or_english_as_second_language"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "student_assignment_or_placement_exception_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_wioa_title_i_program"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "and",
+           "items": [
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_snap_employment_and_training_program"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            },
+            {
+             "kind": "derived",
+             "name": "snap_employment_and_training_course_condition_applies"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_trade_adjustment_assistance_program_under_19_usc_2296"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_assigned_to_or_placed_in_ihe_through_or_in_compliance_with_other_state_or_local_government_employment_and_training_program"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "secretary_determined_other_state_or_local_government_employment_and_training_program_appropriate"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "student_work_exception_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "employed_hours_per_week"
+       },
+       "op": "gte",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "student_minimum_employment_hours_per_week",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_participates_in_state_or_federally_financed_work_study_program_during_regular_school_year"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "student_parent_child_care_exception_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_parent_with_responsibility_for_care_of_dependent_child"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "dependent_child_age_years"
+         },
+         "op": "lt",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "student_parent_young_child_age_threshold_years",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        },
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "and",
+           "items": [
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "dependent_child_age_years"
+             },
+             "op": "gt",
+             "right": {
+              "kind": "parameter_lookup",
+              "parameter": "student_parent_older_child_lower_age_threshold_years",
+              "index": {
+               "kind": "literal",
+               "value": {
+                "kind": "integer",
+                "value": 0
+               }
+              }
+             }
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "dependent_child_age_years"
+             },
+             "op": "lt",
+             "right": {
+              "kind": "parameter_lookup",
+              "parameter": "student_parent_older_child_upper_age_threshold_years",
+              "index": {
+               "kind": "literal",
+               "value": {
+                "kind": "integer",
+                "value": 0
+               }
+              }
+             }
+            }
+           ]
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "adequate_child_care_not_available_to_enable_individual_to_attend_class_and_satisfy_paragraph_4"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "student_single_parent_exception_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_enrolled_full_time_in_institution_of_higher_education_as_determined_by_institution"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_single_parent_with_responsibility_for_care_of_dependent_child"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "dependent_child_age_years"
+       },
+       "op": "lt",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "student_single_parent_child_age_threshold_years",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "student_exception_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "or",
+           "items": [
+            {
+             "kind": "or",
+             "items": [
+              {
+               "kind": "or",
+               "items": [
+                {
+                 "kind": "or",
+                 "items": [
+                  {
+                   "kind": "derived",
+                   "name": "student_age_exception_applies"
+                  },
+                  {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "person_is_not_physically_or_mentally_fit"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  }
+                 ]
+                },
+                {
+                 "kind": "derived",
+                 "name": "student_assignment_or_placement_exception_applies"
+                }
+               ]
+              },
+              {
+               "kind": "derived",
+               "name": "student_work_exception_applies"
+              }
+             ]
+            },
+            {
+             "kind": "derived",
+             "name": "student_parent_child_care_exception_applies"
+            }
+           ]
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_receiving_benefits_under_state_program_funded_under_part_a_title_iv_social_security_act"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_enrolled_as_result_of_participation_in_work_incentive_program_under_title_iv_social_security_act_or_successor"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "derived",
+       "name": "student_single_parent_exception_applies"
+      }
+     ]
+    }
+   }
+  ],
+  "student_ineligible_for_snap_participation": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_member_of_household_otherwise_eligible_to_participate_under_this_section"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_enrolled_at_least_half_time_in_institution_of_higher_education"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "not",
+       "item": {
+        "kind": "derived",
+        "name": "student_exception_applies"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "bona_fide_student_half_time_enrollment_exemption_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_bona_fide_student_enrolled_at_least_half_time_in_recognized_school_or_training_program"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_bona_fide_student_enrolled_at_least_half_time_in_institution_of_higher_education"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "higher_education_student_ineligible_for_snap_participation": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_bona_fide_student_enrolled_at_least_half_time_in_institution_of_higher_education"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "derived",
+       "name": "student_ineligible_for_snap_participation"
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

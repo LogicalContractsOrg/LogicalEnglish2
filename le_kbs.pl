@@ -263,21 +263,15 @@ le_example_relpath(Name0, Path) :-
    ;  true
    ).
 
-%  The translators of other systems (File ▸ Open, File ▸ Export), in the
-%  private lpsPlus repository: its `migration/le_importers.pl` is the table
-%  le_import.pl reads. It is found where le_plus.pl finds lpsPlus (a checkout
-%  beside this one, $LPS_PLUS_DIR, or the copy vendor_lpsplus.sh puts in the
-%  server's image), or through a symbolic link `le_importers.pl` in this
-%  directory. Registering a translator loads none of them; an adapter is
-%  loaded when a file of its kind is opened, or a program is exported, and
-%  only for a visitor holding the licence (le_entitlements.pl). Without
-%  lpsPlus LE2 offers its own formats only; `LPS_PLUS_DIR=none` forces that.
+%  The translators of other systems (File ▸ Open, File ▸ Export):
+%  `migration/le_importers.pl` is the table le_import.pl reads, and
+%  `migration/<source>/` holds each translator (migration/README.md).
+%  Registering a translator loads none of them; an adapter is loaded when a
+%  file of its kind is opened, or a program is exported. A copy of LE2
+%  without the migration/ directory (the WebAssembly build, wasm/pack.pl)
+%  offers Logical English's own formats only.
 :- use_module(le_plus).
-:- (   le_plus_disabled
-   ->  true
-   ;   le_plus_file('migration/le_importers.pl', FI)
-   ->  use_module(FI)
-   ;   absolute_file_name(le2('le_importers.pl'), FI, [access(read), file_errors(fail)])
+:- (   absolute_file_name(le2('migration/le_importers.pl'), FI, [access(read), file_errors(fail)])
    ->  use_module(FI)
    ;   true
    ).

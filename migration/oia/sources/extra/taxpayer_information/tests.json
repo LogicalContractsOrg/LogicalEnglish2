@@ -1,0 +1,14 @@
+{
+ "source": "The decision service's own lookup table (two customers); the third case an identifier the table does not list. Expected values read from the table.",
+ "cases": [
+  {"id": "customer_4444", "description": "Customer 4444: single, born 1 January 2001.",
+   "inputs": {"the customer ID": "4444"},
+   "expected": {"filing_status": "Single", "the taxpayer's date of birth": "2001-01-01"}},
+  {"id": "customer_5555", "description": "Customer 5555: single, born 2 February 1990.",
+   "inputs": {"the customer ID": "5555"},
+   "expected": {"filing_status": "Single", "the taxpayer's date of birth": "1990-02-02"}},
+  {"id": "unknown_customer", "description": "A customer the table does not list: no filing status, no date of birth.",
+   "inputs": {"the customer ID": "9999"},
+   "expected": {"filing_status": "(unknown)", "the taxpayer's date of birth": "(unknown)"}}
+ ]
+}

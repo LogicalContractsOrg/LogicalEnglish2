@@ -1,0 +1,24 @@
+% E13, experiment 4: the same serial micro-states make two updates of one entry in one
+% call compose in order, as the EVM's successive storage writes do: bob's transfer of
+% 30 to himself debits and credits the same balance and leaves it unchanged.
+
+the target language is: lps.
+
+the maximum time is 3.
+
+the actions are:
+    *a payer* transfers *an amount* to *a payee*; known as transfer.
+
+the fluents are:
+    the balance of *a person* is *an amount*; known as balance.
+
+the knowledge base self transfer includes:
+
+initially the balance of bob is 100.
+
+when a payer transfers an amount to a payee
+then the balance of the payer that is a number becomes number - amount
+    and the balance of the payee that is a second number becomes second number + amount.
+
+scenario one is:
+    bob transfers 30 to bob from 1 to 2.

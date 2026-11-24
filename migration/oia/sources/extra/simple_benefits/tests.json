@@ -1,0 +1,23 @@
+{
+ "source": "Synthetic cases for the reconstructed Simple Benefits rules (README.md); expected outcomes worked out from the rules as Oracle documents them.",
+ "cases": [
+  {"id": "income_too_high", "description": "A public housing client earning 25,000: above the 20,000 limit, no low income allowance; a 14-year-old child: the teenage child allowance.",
+   "inputs": {"claimant_income": 25000, "claimant_public_housing_client": true,
+              "child": [{"@id": "child_1", "child_age": 14}]},
+   "expected": {"eligible_low_income_allowance": false, "eligible_teenage_allowance": true, "low_income_allowance_payment": "(unknown)"}},
+  {"id": "not_in_public_housing", "description": "Low income, but not a public housing client: no low income allowance.",
+   "inputs": {"claimant_income": 9000, "claimant_public_housing_client": false,
+              "child": [{"@id": "child_1", "child_age": 3}]},
+   "expected": {"eligible_low_income_allowance": false, "eligible_teenage_allowance": false}},
+  {"id": "three_children_one_nineteen", "description": "Three children, one of them 19 (the upper bound): the teenage allowance; the amount for three children is 50 + 30 = 80.",
+   "inputs": {"claimant_income": 12000, "claimant_public_housing_client": true,
+              "child": [{"@id": "a", "child_age": 19}, {"@id": "b", "child_age": 11}, {"@id": "c", "child_age": 2}]},
+   "expected": {"eligible_low_income_allowance": true, "eligible_teenage_allowance": true, "low_income_allowance_payment": 80}},
+  {"id": "no_children", "description": "No children: no teenage allowance; the low income allowance is 50.",
+   "inputs": {"claimant_income": 15000, "claimant_public_housing_client": true, "child": []},
+   "expected": {"eligible_low_income_allowance": true, "eligible_teenage_allowance": false, "low_income_allowance_payment": 50}},
+  {"id": "twenty_year_old", "description": "A child of 20 is no longer a teenager.",
+   "inputs": {"claimant_income": 30000, "claimant_public_housing_client": true, "child": [{"@id": "child_1", "child_age": 20}]},
+   "expected": {"eligible_teenage_allowance": false, "eligible_low_income_allowance": false}}
+ ]
+}

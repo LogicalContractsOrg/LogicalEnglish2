@@ -1,0 +1,39 @@
+// discount.drl — LPS2's rule base (examples/drools/discount.drl), written
+// out as valid DRL (quoted strings, $ bindings, semicolons) so that Drools
+// runs it. A decision service: it only inserts.
+package discount;
+
+declare Customer
+    name : String
+    tier : String
+end
+
+declare Order
+    customer : String
+    size : String
+end
+
+declare Discount
+    customer : String
+    rate : String
+end
+
+rule "Gold customers with a large order get the best rate"
+    salience 10
+    when
+        Order( $customer : customer, size == "large" )
+        Customer( name == $customer, tier == "gold" )
+        not Discount( customer == $customer )
+    then
+        insert(new Discount($customer, "best"));
+end
+
+rule "Everyone else with a large order gets the standard rate"
+    salience 5
+    when
+        Order( $customer : customer, size == "large" )
+        not Customer( name == $customer, tier == "gold" )
+        not Discount( customer == $customer )
+    then
+        insert(new Discount($customer, "standard"));
+end

@@ -5,10 +5,12 @@ editor/playwright-report/
 docs/user/guide/images/editor_selection.png
 tmp/
 le_extensions.pl
-le_importers.pl
 .github
 insureLE2
-lpsPlus
+# the link to the private lpsPlus repository's examples (not a folder named
+# lpsplus elsewhere: migration/dmn's Java oracles have one)
+/lpsPlus
+examples/moreExamples/lpsPlus
 web_extras/insurML2browse
 .claude-docker
 contract_jobs
@@ -24,9 +26,15 @@ wasm/shims/http/INDEX.pl
 
 # A copy of the private lpsPlus repository, for the image (vendor_lpsplus.sh).
 vendor/lpsplus/
+# Downloads a translator reads at run time, for the image (vendor_caches.sh).
+vendor/caches/
 
 # the examples' search index, written by the build (le_examples_search.pl)
 examples/search-index.fast
 
 # The sheet engine's npm packages (services/sheet: npm ci)
 services/sheet/node_modules/
+
+# Twins that may not be published, when no private place is named
+# (migration/le2_paths.pl, private_root/1)
+build/private/

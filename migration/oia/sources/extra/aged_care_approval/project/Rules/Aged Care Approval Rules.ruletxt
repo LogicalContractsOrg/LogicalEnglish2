@@ -1,0 +1,38 @@
+[Heading1]	Aged care approval
+[Heading2]	Eligibility
+[OPM-conclusion]	the person's age at assessment = YearDifference(the person's date of birth, the assessment date)
+[OPM-conclusion]	the person is eligible for approval as a care recipient if
+[OPM-level1]	the person's age at assessment >= 65 or
+[OPM-level1]	all
+[OPM-level2]	the person's age at assessment >= 50 and
+[OPM-level2]	the person is an Aboriginal or Torres Strait Islander person
+[OPM-level1]	or
+[OPM-level1]	the person has a condition of disability, frailty or other care need
+[Heading2]	The approval
+[OPM-conclusion]	the approval was made in time if
+[OPM-level1]	the approval date >= the assessment date and
+[OPM-level1]	DayDifference(the assessment date, the approval date) <= 30
+[OPM-conclusion]	the approval is time-limited if
+[OPM-level1]	the approval type = "Residential respite care" or
+[OPM-level1]	the approval type = "Short-term restorative care"
+[OPM-conclusion]	the approval end date = AddMonths(the approval date, 12) if
+[OPM-level1]	the approval is time-limited
+[OPM-conclusion]	the person has entered care before the end of the approval if
+[OPM-level1]	the date of entry into care <= the approval end date
+[OPM-conclusion]	the approval has lapsed if
+[OPM-level1]	the approval is time-limited and
+[OPM-level1]	the current date > the approval end date and
+[OPM-level1]	the person has not entered care before the end of the approval
+[OPM-conclusion]	the approval is valid if
+[OPM-level1]	the person is eligible for approval as a care recipient and
+[OPM-level1]	the approval was made in time and
+[OPM-level1]	the approval has not lapsed and
+[OPM-level1]	the approval has not been revoked
+[OPM-conclusion]	the days until the approval ends = DayDifference(the current date, the approval end date) if
+[OPM-level1]	the approval is time-limited and
+[OPM-level1]	the current date <= the approval end date
+[Heading2]	Respite
+[OPM-conclusion]	the respite stay length = DayDifference(the respite stay start date, the respite stay end date) + 1
+[OPM-conclusion]	the respite days used = InstanceSum(the person's respite stays, the respite stay length)
+[OPM-conclusion]	the respite days remaining = Maximum(63 - the respite days used, 0) if
+[OPM-level1]	the approval type = "Residential respite care"

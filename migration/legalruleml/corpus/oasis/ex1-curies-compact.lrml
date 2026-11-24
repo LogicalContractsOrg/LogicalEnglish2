@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML xml:base="http://docs.oasis-open.org/legalruleml/examples/compactified/ex1-curies"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" key="doc"
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/"
+  xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex1-curies-compact#"
+  xmlns:b="urn:org:oasis-open.org:docs:legalruleml:examples:compactified:ex2-references-compact-b:"
+  xmlns:ruleml="http://ruleml.org/spec"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <lrml:Prefix pre="b"
+    refID="urn:org:oasis-open.org:docs:legalruleml:examples:compactified:ex2-references-compact-b:"/>
+  <lrml:Prefix pre="lrmlmm" refID="http://docs.oasis-open.org/legalruleml/mm/v1.0/"/>
+  <lrml:Comment> This example demonstrates the use of CURIEs to abbreviate IRIs. The compact
+    serialization is used. </lrml:Comment>
+  <lrml:LegalReferences refType="lrmlmm:LegalSource">
+    <lrml:LegalReference refersTo="ref1" refID="/akn/au/2012-05-30/C628-2012/eng@/!main#sec_2-2"
+      refIDSystemName="AkomaNtoso3.0-2016-10"/>
+    <lrml:LegalReference refersTo="ref6" refID="ECLI:country:court:year:number"
+      refIDSystemName="European Case Law Identifier"
+      refIDSystemSource="OJ:C:2011:127:0001:0007:EN:PDF"/>
+  </lrml:LegalReferences>
+  <lrml:LegalSources>
+    <lrml:LegalSource key="ref2"
+      sameAs="ftp://ftp.cen.eu/CEN/Sectors/List/ICT/CWAs/CWA15710-2010-Metalex2.pdf"/>
+    <lrml:LegalSource key="ref3" sameAs="http://www.digitpa.gov.it/standard-normeinrete"/>
+    <lrml:LegalSource key="ref4" sameAs="http://www.ietf.org/id/draft-spinosa-urn-lex-06.txt"/>
+    <lrml:LegalSource key="ref5" sameAs="OJ:C:2011:127:0001:0007:EN:PDF"/>
+    <lrml:LegalSource key="ref7"
+      sameAs="http://frwebgate.access.gpo.gov/cgi-bin/getdoc.cgi?dbname=browse_usc&amp;docid=Cite:+18USC47"/>
+    <lrml:LegalSource key="ref8" sameAs="http://codes.lp.findlaw.com/uscode/18/I/3/47"/>
+    <lrml:LegalSource key="ref9"
+      sameAs="http://www.law.cornell.edu/wiki/lexcraft/section_identifiers_lii"/>
+  </lrml:LegalSources>
+  <lrml:Sources>
+    <lrml:Source key="b-stmt_1b" sameAs="b:stmt_1b"></lrml:Source>
+    <lrml:Source key="b-rule_1b" sameAs="b:rule_1b"></lrml:Source>
+  </lrml:Sources>
+  <lrml:Associations key="sourceBlock1">
+    <lrml:Association>
+      <lrml:appliesSource keyref="#ref1"/>
+      <lrml:toTarget keyref="#rule_1a"/>
+    </lrml:Association>
+    <lrml:Association>
+      <lrml:appliesSource keyref="#ref2"/>
+      <lrml:toTarget keyref="#b-rule_1b"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <lrml:Associations key="sourceBlock2">
+    <lrml:Association>
+      <lrml:appliesSource keyref="#ref2"/>
+      <lrml:toTarget keyref="#rule_1a"/>
+    </lrml:Association>
+    <lrml:Association>
+      <lrml:appliesSource keyref="#ref2"/>
+      <lrml:toTarget keyref="#b-rule_1b"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <lrml:Context key="ruleInfo1">
+    <lrml:appliesAssociations keyref="#sourceBlock1"/>
+    <lrml:inScope keyref="#stmt_1a"/>
+  </lrml:Context>
+  <lrml:Context key="ruleInfo2">
+    <lrml:appliesAssociations keyref="#sourceBlock2"/>
+    <lrml:inScope keyref="#stmts_1a"/>
+    <lrml:inScope keyref="#b-stmt_1b"/>
+  </lrml:Context>
+    <lrml:Statements key="stmts_1a">
+        <lrml:ConstitutiveStatement key="stmt_1a">
+      <ruleml:Rule key=":rule_1a">
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel>P</ruleml:Rel>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Atom>
+            <ruleml:Rel>Q</ruleml:Rel>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+  </lrml:Statements>
+</lrml:LegalRuleML>

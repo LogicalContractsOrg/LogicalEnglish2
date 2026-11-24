@@ -74,16 +74,14 @@
 
 accounts_available :- current_predicate(lc_accounts:lc_request_user/2).
 
-%  The OIA adapter is the private lpsPlus repository's too
-%  (`migration/oia/oia_adapter.pl`, part of the translators' product): Oracle
-%  Intelligent Advisor's own APIs — decision services, Batch Assess, SOAP
-%  Assess, its sign-in — answered by the Logical English twins of OIA
+%  The OIA adapter (`migration/oia/oia_adapter.pl`, with the translators):
+%  Oracle Intelligent Advisor's own APIs — decision services, Batch Assess,
+%  SOAP Assess, its sign-in — answered by the Logical English twins of OIA
 %  projects, so that an application that called OIA calls this server
 %  unchanged. Loading it registers its routes (/determinations-server/...,
-%  /opa-hub/api/.../auth, /oia-adapter); access goes with the translators'
-%  licence, checked by the adapter for each call. Without lpsPlus the routes
-%  do not exist.
-:- (   le_plus_file('migration/oia/oia_adapter.pl', AdapterFile)
+%  /opa-hub/api/.../auth, /oia-adapter); who may call them is
+%  migration/adapter_access.pl's business, asked by the adapter for each call.
+:- (   absolute_file_name(le2('migration/oia/oia_adapter.pl'), AdapterFile, [access(read), file_errors(fail)])
    ->  catch(use_module(AdapterFile), E,
              print_message(warning, format('OIA adapter not loaded: ~q', [E])))
    ;   true
@@ -95,7 +93,7 @@ accounts_available :- current_predicate(lc_accounts:lc_request_user/2).
 %  /v2/decision-definitions/evaluation, /dmn-adapter), answered by the
 %  Logical English twins of DMN models. Both adapters are dialects of the
 %  open adapter kit, le_adapter.pl (docs/user/integrations/adapters.md).
-:- (   le_plus_file('migration/dmn/dmn_adapter.pl', DmnAdapterFile)
+:- (   absolute_file_name(le2('migration/dmn/dmn_adapter.pl'), DmnAdapterFile, [access(read), file_errors(fail)])
    ->  catch(use_module(DmnAdapterFile), E,
              print_message(warning, format('DMN adapter not loaded: ~q', [E])))
    ;   true
@@ -114,16 +112,24 @@ accounts_available :- current_predicate(lc_accounts:lc_request_user/2).
 %   many visitors in turn.
 :- http_request_expansion(identify_visitor, 10).
 
+%
+%   The translators of other systems (the capability `converters`) are
+%   free, and go to whoever the limits on use can count: every signed-in
+%   visitor on a server that has a sign-in, and every visitor on a server
+%   that has none (a clone of this repository, run on one's own machine).
 identify_visitor(Request, Request, _Options) :-
     retractall(request_visitor(_, _)),
     (   accounts_available,
         catch(lc_accounts:lc_request_user(Request, User), E,
               ( print_message(warning, E), fail ))
     ->  get_dict(email, User, Email),
-        get_dict(capabilities, User, Caps),
+        get_dict(capabilities, User, Caps0),
+        ( memberchk(converters, Caps0) -> Caps = Caps0 ; Caps = [converters|Caps0] ),
         assertz(request_visitor(Email, Caps)),
         set_request_entitlements(Caps)
-    ;   set_request_entitlements([])
+    ;   accounts_available
+    ->  set_request_entitlements([])
+    ;   set_request_entitlements([converters])
     ).
 
 %!  visitor(-Email, -Capabilities) is det.
@@ -168,7 +174,7 @@ visitor(Email, Caps) :-
 % page lacked).
 :- http_handler('/editor/', http_reply_from_files('editor', [headers([cache_control('no-cache')])]), [prefix]).
 :- http_handler('/web_extras/', http_reply_from_files('web_extras', [headers([cache_control('no-cache')])]), [prefix]).
-% The Contract Assistant belongs to the Logical English Translators licence
+% The Contract Assistant belongs to the LE Contract Assistant licence
 % (capability `contract_assistant`) and lives in the private lpsPlus
 % repository (contract_assistant/web/): its page is served, from there, to
 % those who hold the licence.
@@ -636,7 +642,7 @@ handle_contract_assistant_page(Request) :-
     ->  set_cookie_language(Request),
         uit('LE Contract Assistant', Title),
         uit('The LE Contract Assistant is not installed on this server.', None),
-        uit('It is part of the Logical English Translators, a licensed product of Logical Contracts.', Part),
+        uit('It is a licensed product of Logical Contracts (the LE Contract Assistant licence).', Part),
         reply_html_page([title(Title), script([src('/telemetry.js')], [])],
                         [h1(Title), p(None), p(Part), p(a(href('/'), 'Logical English'))])
     ;   entitled(contract_assistant),
@@ -645,7 +651,7 @@ handle_contract_assistant_page(Request) :-
         http_reply_from_files(WebDir, [headers([cache_control('no-cache')])], Request)
     ;   set_cookie_language(Request),
         uit('LE Contract Assistant', Title),
-        uit('The LE Contract Assistant is part of the Logical English Translators licence.', Part),
+        uit('The LE Contract Assistant needs the LE Contract Assistant licence.', Part),
         uit('It writes the first draft of a Logical English program from a contract, its schedules and its cases.', What),
         uit('Sign in with an account that holds the licence', SignIn),
         uit('Write to support@logicalcontracts.com to ask for one.', Ask),

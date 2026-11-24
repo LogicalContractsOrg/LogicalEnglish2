@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML
+  xml:base="http://docs.oasis-open.org/legalruleml/examples/compactified/ex3-deontic-compact"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex3-deontic-compact#"
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:ruleml="http://ruleml.org/spec"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <lrml:Comment> This example demonstrates the specification of deontic elements, such as Obligation
+    and Reparation. The compact serialization is used. </lrml:Comment>
+  <lrml:LegalSources>
+    <lrml:LegalSource key="ls1" sameAs="http://example.org/external-legal-statement"/>
+  </lrml:LegalSources>
+  <lrml:Sources>
+    <lrml:Source key="pen1-v1" sameAs="http://original-version-of-this-document#pen1"/>
+    <lrml:Source key="ps2-v1" sameAs="http://original-version-of-this-document#ps2"/>
+  </lrml:Sources>
+  <lrml:Associations>
+    <lrml:Association key="asc1">
+      <lrml:appliesModality iri="http://example.org/deontic/vocab#ob1"/>
+      <lrml:toTarget keyref="#oblig101"/>
+    </lrml:Association>
+    <lrml:Association key="asc2">
+      <lrml:appliesModality iri="http://example.org/deontic/vocab#ob2"/>
+      <lrml:toTarget keyref="#oblig102"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <lrml:Context key="psInfo2">
+    <lrml:appliesAssociation keyref="#asc1"/>
+    <lrml:appliesAssociation keyref="#asc2"/>
+    <lrml:inScope keyref="#ps2"/>
+  </lrml:Context>
+
+
+  <lrml:Statements key="textblock1">
+
+    <!-- This is used for implicit reparations. -->
+    <lrml:ReparationStatement>
+      <lrml:Reparation key="rep-implicit1">
+        <lrml:appliesPenalty keyref="#pen1-v1"/>
+        <lrml:toPrescriptiveStatement keyref="#ps2"/>
+      </lrml:Reparation>
+    </lrml:ReparationStatement>
+    <!-- Constitutive Statement 1 -->
+
+    <lrml:ConstitutiveStatement key="cs1">
+      <!-- optional default qualifiers which can be changed by an interpretation
+           using a RuleContext element-->
+      <!-- The template contains the immutable part of the rule - 
+             not subject to interpretation. -->
+
+      <ruleml:Rule key=":ruletemplate1" closure="universal">
+        <ruleml:if>
+          <ruleml:And>
+            <ruleml:Atom key=":atom1">
+              <ruleml:Rel iri=":rel1"/>
+              <ruleml:Ind>X</ruleml:Ind>
+            </ruleml:Atom>
+            <lrml:Permission iri="http://example.org/deontic/vocab#perm1">
+              <ruleml:slot>
+                <lrml:Bearer iri="http://example.org/deontic/vocab#permsub1"/>
+                <ruleml:Ind>Y</ruleml:Ind>
+              </ruleml:slot>
+              <ruleml:Atom key=":atom2">
+                <ruleml:Rel iri=":rel2"/>
+                <ruleml:Ind>X</ruleml:Ind>
+              </ruleml:Atom>
+            </lrml:Permission>
+          </ruleml:And>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Atom key=":atom3">
+            <ruleml:Rel iri=":rel3"/>
+            <ruleml:Ind>X</ruleml:Ind>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+
+    </lrml:ConstitutiveStatement>
+
+
+    <!-- Constitutive Statement 2. with referenced body -->
+    <lrml:ConstitutiveStatement key="cs2">
+      <ruleml:Rule key=":ruletemplate101" keyref=":ruletemplate1">
+        <ruleml:then>
+          <ruleml:Atom key=":atom103" keyref=":atom3">
+            <ruleml:Rel iri=":rel103"/>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+
+    <!-- Prescriptive Statement 1 -->
+    <lrml:PrescriptiveStatement key="ps1">
+
+      <ruleml:Rule key=":ruletemplate2" closure="universal">
+        <ruleml:if>
+          <ruleml:And key=":and1">
+            <lrml:Violation keyref="#ps0"/>
+            <lrml:Permission>
+              <ruleml:slot>
+                <lrml:Bearer iri="http://example.org/deontic/vocab#permsub1"/>
+                <ruleml:Ind>Y</ruleml:Ind>
+              </ruleml:slot>
+              <ruleml:Atom key=":atom4">
+                <ruleml:Rel iri=":rel1"/>
+                <ruleml:Ind>X</ruleml:Ind>
+              </ruleml:Atom>
+            </lrml:Permission>
+            <ruleml:Or key=":or1">
+              <lrml:Obligation key="oblig1">
+                <ruleml:slot>
+                  <lrml:Bearer iri="http://example.org/deontic/vocab#obsub1"/>
+                  <ruleml:Ind>Y</ruleml:Ind>
+                </ruleml:slot>
+                <ruleml:Atom key=":atom5">
+                  <ruleml:Rel iri=":rel2"/>
+                  <ruleml:Ind>X</ruleml:Ind>
+                </ruleml:Atom>
+              </lrml:Obligation>
+              <lrml:Right>
+                <ruleml:slot>
+                  <lrml:Bearer iri="http://example.org/deontic/vocab#rightsub1"/>
+                  <ruleml:Ind>Y</ruleml:Ind>
+                </ruleml:slot>
+                <ruleml:slot>
+                  <lrml:AuxiliaryParty iri="http://example.org/deontic/vocab#rightadd1"/>
+                  <ruleml:Ind>Y</ruleml:Ind>
+                </ruleml:slot>
+                <ruleml:Atom key=":atom5">
+                  <ruleml:Rel iri=":rel2"/>
+                  <ruleml:Ind>X</ruleml:Ind>
+                </ruleml:Atom>
+              </lrml:Right>
+            </ruleml:Or>
+          </ruleml:And>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:Prohibition key="prohib1">
+            <ruleml:slot>
+              <lrml:Bearer iri="http://example.org/deontic/vocab#prohibsub1"/>
+              <ruleml:Ind>Y</ruleml:Ind>
+            </ruleml:slot>
+            <ruleml:Neg key=":neg1">
+              <ruleml:Atom key=":atom6">
+                <ruleml:Rel iri=":rel3"/>
+                <ruleml:Ind>X</ruleml:Ind>
+              </ruleml:Atom>
+            </ruleml:Neg>
+          </lrml:Prohibition>
+        </ruleml:then>
+      </ruleml:Rule>
+
+    </lrml:PrescriptiveStatement>
+
+    <!-- Prescriptive Statement 2. with referenced conditional -->
+
+    <lrml:PrescriptiveStatement key="ps2">
+      <ruleml:Rule key=":ruletemplate3" keyref=":ruletemplate2">
+        <ruleml:then>
+          <lrml:SuborderList>
+
+            <lrml:Prohibition key="prohib2">
+              <ruleml:slot>
+                <lrml:Bearer iri="http://example.org/deontic/vocab#prohibsub1"/>
+                <ruleml:Ind>Y</ruleml:Ind>
+              </ruleml:slot>
+
+              <ruleml:Atom key=":atom26">
+                <ruleml:Rel iri=":rel3"/>
+                <ruleml:Ind>X</ruleml:Ind>
+              </ruleml:Atom>
+
+            </lrml:Prohibition>
+
+
+            <ruleml:And>
+              <lrml:Compliance keyref="#ps101"/>
+              <lrml:Obligation key="ob1">
+                <ruleml:slot>
+                  <lrml:Bearer iri="http://example.org/deontic/vocab#obligsub1"/>
+                  <ruleml:Ind>Y</ruleml:Ind>
+                </ruleml:slot>
+
+                <ruleml:Atom key=":atom27">
+                  <ruleml:Rel iri=":rel4"/>
+                  <ruleml:Ind>X</ruleml:Ind>
+                </ruleml:Atom>
+
+              </lrml:Obligation>
+            </ruleml:And>
+
+          </lrml:SuborderList>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+
+
+
+    <!-- Penalty Statement 1 -->
+
+    <lrml:PenaltyStatement key="pen1">
+      <lrml:Obligation>
+        <ruleml:slot>
+          <lrml:Bearer iri="http://example.org/deontic/vocab#obligsub1"/>
+          <ruleml:Ind>Y</ruleml:Ind>
+        </ruleml:slot>
+        <ruleml:Atom key=":atom9">
+          <ruleml:Rel iri=":rel3"/>
+          <ruleml:Ind>X</ruleml:Ind>
+        </ruleml:Atom>
+      </lrml:Obligation>
+    </lrml:PenaltyStatement>
+
+
+    <!-- Penalty Statement 2. with Suborder-->
+    <lrml:PenaltyStatement key="pen2">
+      <lrml:SuborderList key="behav1">
+        <lrml:Obligation key="oblig101">
+          <ruleml:slot>
+            <lrml:Bearer iri="http://example.org/deontic/vocab#obligsub1"/>
+            <ruleml:Ind>Y</ruleml:Ind>
+          </ruleml:slot>
+          <ruleml:Atom key=":atom109">
+            <ruleml:Rel iri=":rel3"/>
+            <ruleml:Ind>X</ruleml:Ind>
+          </ruleml:Atom>
+        </lrml:Obligation>
+        <lrml:Obligation key="oblig102">
+          <ruleml:slot>
+            <lrml:Bearer iri="http://example.org/deontic/vocab#obligsub1"/>
+            <ruleml:Ind>Y</ruleml:Ind>
+          </ruleml:slot>
+          <ruleml:Atom key=":atom10">
+            <ruleml:Rel iri=":rel4"/>
+            <ruleml:Ind>X</ruleml:Ind>
+          </ruleml:Atom>
+        </lrml:Obligation>
+      </lrml:SuborderList>
+    </lrml:PenaltyStatement>
+
+    <!-- Fact 1.-->
+
+    <lrml:FactualStatement key="fact1">
+
+      <lrml:hasTemplate>
+        <ruleml:Atom key=":atom11">
+          <ruleml:Rel iri=":rel5"/>
+          <ruleml:Ind iri=":JohnDoe"/>
+        </ruleml:Atom>
+      </lrml:hasTemplate>
+
+    </lrml:FactualStatement>
+
+
+    <!-- Deontic Instance-->
+    <lrml:PrescriptiveStatement key="ps3">
+      <ruleml:Rule>
+        <ruleml:if>
+          <ruleml:And/>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:Obligation>
+            <ruleml:slot>
+              <lrml:Bearer iri="http://example.org/deontic/vocab#obligsub1"/>
+              <ruleml:Ind iri=":JaneDoe"/>
+            </ruleml:slot>
+            <ruleml:Atom key=":atom111">
+              <ruleml:Rel iri=":rel5"/>
+              <ruleml:Ind iri=":JohnDoe"/>
+            </ruleml:Atom>
+          </lrml:Obligation>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+
+
+    <!-- Reparation Example 1 -->
+
+    <lrml:ReparationStatement key="reps1">
+      <lrml:Reparation key="rep1">
+        <lrml:appliesPenalty keyref="#pen1"/>
+        <lrml:toPrescriptiveStatement keyref="#ps1"/>
+      </lrml:Reparation>
+    </lrml:ReparationStatement>
+
+
+    <!-- Reparation Example keyref Version -->
+    <lrml:ReparationStatement key="reps2">
+      <lrml:Reparation keyref="#rep1"/>
+    </lrml:ReparationStatement>
+
+    <!-- Reparation Statement block -->
+    <lrml:ReparationStatement key="reps3">
+      <lrml:Reparation key="rep3">
+        <lrml:appliesPenalty keyref="#pen1"/>
+        <lrml:toPrescriptiveStatement keyref="#ps1"/>
+      </lrml:Reparation>
+    </lrml:ReparationStatement>
+    <!-- Alternate form of Override, if it is explicitly stated in the text. -->
+    <lrml:OverrideStatement>
+      <lrml:Override over="#ps2" under="#ps1"/>
+    </lrml:OverrideStatement>
+
+
+  </lrml:Statements>
+
+</lrml:LegalRuleML>

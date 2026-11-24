@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root product-version="12.2.7.797">
+  <entities>
+    <entity ref="global">
+      <attribute name="date_of_birth" public-name="date_of_birth" type="date"><text><base>the person's date of birth</base></text></attribute>
+      <attribute name="assessment_date" public-name="assessment_date" type="date"><text><base>the assessment date</base></text></attribute>
+      <attribute name="approval_date" public-name="approval_date" type="date"><text><base>the approval date</base></text></attribute>
+      <attribute name="approval_type" public-name="approval_type" type="text"><text><base>the approval type</base></text></attribute>
+      <attribute name="entry_date" public-name="entry_date" type="date"><text><base>the date of entry into care</base></text></attribute>
+      <attribute name="aboriginal" public-name="aboriginal" type="boolean"><text><base>the person is an Aboriginal or Torres Strait Islander person</base></text></attribute>
+      <attribute name="care_need" public-name="care_need" type="boolean"><text><base>the person has a condition of disability, frailty or other care need</base></text></attribute>
+      <attribute name="revoked" public-name="revoked" type="boolean"><text><base>the approval has been revoked</base></text></attribute>
+      <attribute name="approval_valid" public-name="approval_valid" type="boolean"><text><base>the approval is valid</base></text></attribute>
+      <attribute name="approval_end_date" public-name="approval_end_date" type="date"><text><base>the approval end date</base></text></attribute>
+      <attribute name="days_until_end" public-name="days_until_end" type="number"><text><base>the days until the approval ends</base></text></attribute>
+      <attribute name="respite_days_remaining" public-name="respite_days_remaining" type="number"><text><base>the respite days remaining</base></text></attribute>
+      <attribute name="age_at_assessment" public-name="age_at_assessment" type="number"><text><base>the person's age at assessment</base></text></attribute>
+    </entity>
+    <entity id="respite_stay" name="the respite stay" containment-relationship-id="respite_stays" containment-parent-id="global">
+      <attribute name="stay_start" public-name="stay_start" type="date"><text><base>the respite stay start date</base></text></attribute>
+      <attribute name="stay_end" public-name="stay_end" type="date"><text><base>the respite stay end date</base></text></attribute>
+      <attribute name="stay_length" public-name="stay_length" type="number"><text><base>the respite stay length</base></text></attribute>
+    </entity>
+  </entities>
+  <relationships>
+    <relationship relationship-id="respite_stays" public-id="respite_stays" source="global" target="respite_stay" is-containment="true" text="the person's respite stays" type="OneToMany" />
+  </relationships>
+</root>

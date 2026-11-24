@@ -1,0 +1,1540 @@
+{
+ "module": "us:statutes/42/1382/e/1",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "public_institution_inmate_is_ineligible_absent_exceptions",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#qualifying_publicly_operated_community_residence": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#inmate_of_public_institution_for_subparagraph_a": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#public_emergency_shelter_eligibility_exception_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#public_institution_inmate_ineligible_for_month": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "public_emergency_shelter_exception_blocks_public_institution_ineligibility",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#public_emergency_shelter_eligibility_exception_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#public_institution_inmate_ineligible_for_month": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "medical_facility_couple_one_spouse_in_facility_amount",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/42/1382/e/1#medical_facility_annual_benefit_payable": {
+     "expected": 1852,
+     "actual": "1852",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "timely_inmate_reporting_payment_reduced_for_duplicate_agreement",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#inmate_reporting_payment_to_institution": {
+     "expected": 200,
+     "actual": "200",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_zero_medical_facility_annual_benefit_payable",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#medical_facility_annual_benefit_payable": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_zero_temporary_institutionalization_benefit_payable_at_prior_month_rate",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#temporary_institutionalization_benefit_payable_at_prior_month_rate": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_zero_inmate_reporting_payment_to_institution",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#inmate_reporting_payment_to_institution": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_output_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_positive_qualifying_publicly_operated_community_residence",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#qualifying_publicly_operated_community_residence": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_positive_retained_benefit_institutional_month_eligibility_applies",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#retained_benefit_institutional_month_eligibility_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_positive_temporary_institutionalization_exception_applies",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#temporary_institutionalization_exception_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_positive_not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/e/1#not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "prior_rounding_carryover_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_after_paragraph_1_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "input",
+       "name": "dollar_amount_in_effect_for_month"
+      },
+      {
+       "kind": "derived",
+       "name": "prior_rounding_carryover_increase"
+      }
+     ]
+    }
+   }
+  ],
+  "subsection_a_applicable_increase_percentage": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "subchapter_ii_increase_was_determined_on_wage_increase_percentage"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "input",
+        "name": "subchapter_ii_benefit_increase_percentage_for_month"
+       },
+       {
+        "kind": "input",
+        "name": "cpi_basis_subchapter_ii_increase_percentage_for_month"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "input",
+      "name": "subchapter_ii_benefit_increase_percentage_for_month"
+     }
+    }
+   }
+  ],
+  "amount_after_subsection_a_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "derived",
+         "name": "amount_after_paragraph_1_increase"
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase_for_section_1382_b_1_amount": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "section_1382_b_1_dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_determined_under_section_1382f_for_section_1382_b_1": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "input",
+           "name": "section_1382_b_1_dollar_amount_in_effect_for_month"
+          },
+          {
+           "kind": "derived",
+           "name": "prior_rounding_carryover_increase_for_section_1382_b_1_amount"
+          }
+         ]
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase_for_section_1382_b_2_amount": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "section_1382_b_2_dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_determined_under_section_1382f_for_section_1382_b_2": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "input",
+           "name": "section_1382_b_2_dollar_amount_in_effect_for_month"
+          },
+          {
+           "kind": "derived",
+           "name": "prior_rounding_carryover_increase_for_section_1382_b_2_amount"
+          }
+         ]
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "annual_benefit_without_eligible_spouse": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "parameter_lookup",
+          "parameter": "statutory_base_annual_rate_without_eligible_spouse",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         },
+         {
+          "kind": "derived",
+          "name": "amount_determined_under_section_1382f_for_section_1382_b_1"
+         }
+        ]
+       },
+       "right": {
+        "kind": "input",
+        "name": "individual_income_not_excluded_pursuant_to_section_1382a_b"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "annual_benefit_with_eligible_spouse": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "parameter_lookup",
+          "parameter": "statutory_base_annual_rate_with_eligible_spouse",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         },
+         {
+          "kind": "derived",
+          "name": "amount_determined_under_section_1382f_for_section_1382_b_2"
+         }
+        ]
+       },
+       "right": {
+        "kind": "input",
+        "name": "individual_and_spouse_income_not_excluded_pursuant_to_section_1382a_b"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "qualifying_publicly_operated_community_residence": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "residence_is_publicly_operated_community_residence"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "residence_number_of_residents"
+       },
+       "op": "lte",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "publicly_operated_community_residence_resident_limit",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "inmate_of_public_institution_for_subparagraph_a": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_inmate_of_public_institution_throughout_month"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "not",
+       "item": {
+        "kind": "derived",
+        "name": "qualifying_publicly_operated_community_residence"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "public_emergency_shelter_eligibility_exception_applies": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_resident_of_public_emergency_shelter_for_homeless_throughout_month"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "months_eligible_by_reason_of_public_emergency_shelter_in_current_nine_month_period"
+       },
+       "op": "lt",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "emergency_shelter_eligibility_month_limit",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "retained_benefit_institutional_month_eligibility_applies": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "or",
+           "items": [
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "person_is_in_medical_treatment_facility_throughout_month"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            }
+           ]
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_was_eligible_under_section_1382h_a_or_b_for_preceding_month"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "institution_or_facility_agreement_permits_retention_of_benefit_payable_by_reason_of_subparagraph_e"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "month_is_initial_or_succeeding_month_for_continuing_subparagraph_e_institution_or_facility_status"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "temporary_institutionalization_exception_applies": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "or",
+           "items": [
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "person_is_inmate_of_public_institution_primarily_for_medical_or_psychiatric_care_throughout_month"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "person_is_in_medical_treatment_facility_receiving_medicaid_or_child_private_health_insurance_payments_throughout_month"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            }
+           ]
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "physician_certifies_stay_likely_not_to_exceed_temporary_institutionalization_month_limit"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "month_number_in_continuous_institutionalization_period"
+         },
+         "op": "lte",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "temporary_institutionalization_month_limit",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_needs_to_maintain_home_or_living_arrangement_expenses_for_return"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "public_institution_inmate_ineligible_for_month": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "and",
+           "items": [
+            {
+             "kind": "derived",
+             "name": "inmate_of_public_institution_for_subparagraph_a"
+            },
+            {
+             "kind": "not",
+             "item": {
+              "kind": "comparison",
+              "left": {
+               "kind": "input",
+               "name": "person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month"
+              },
+              "op": "eq",
+              "right": {
+               "kind": "literal",
+               "value": {
+                "kind": "bool",
+                "value": true
+               }
+              }
+             }
+            }
+           ]
+          },
+          {
+           "kind": "not",
+           "item": {
+            "kind": "derived",
+            "name": "public_emergency_shelter_eligibility_exception_applies"
+           }
+          }
+         ]
+        },
+        {
+         "kind": "not",
+         "item": {
+          "kind": "derived",
+          "name": "retained_benefit_institutional_month_eligibility_applies"
+         }
+        }
+       ]
+      },
+      {
+       "kind": "not",
+       "item": {
+        "kind": "derived",
+        "name": "temporary_institutionalization_exception_applies"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "medical_facility_annual_benefit_payable": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "or",
+      "items": [
+       {
+        "kind": "derived",
+        "name": "retained_benefit_institutional_month_eligibility_applies"
+       },
+       {
+        "kind": "derived",
+        "name": "temporary_institutionalization_exception_applies"
+       }
+      ]
+     },
+     "then_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     },
+     "else_expr": {
+      "kind": "if",
+      "condition": {
+       "kind": "not",
+       "item": {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "person_is_in_medical_treatment_facility_receiving_payments_under_subparagraph_b_throughout_month"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       }
+      },
+      "then_expr": {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      "else_expr": {
+       "kind": "if",
+       "condition": {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "individual_has_eligible_spouse"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       },
+       "then_expr": {
+        "kind": "if",
+        "condition": {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "spouse_is_in_medical_treatment_facility_throughout_month"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        "then_expr": {
+         "kind": "max",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "0"
+           }
+          },
+          {
+           "kind": "sub",
+           "left": {
+            "kind": "parameter_lookup",
+            "parameter": "medical_facility_couple_both_in_facility_annual_rate_cap",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           },
+           "right": {
+            "kind": "input",
+            "name": "combined_income_not_excluded_pursuant_to_section_1382a_b"
+           }
+          }
+         ]
+        },
+        "else_expr": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "max",
+           "items": [
+            {
+             "kind": "literal",
+             "value": {
+              "kind": "decimal",
+              "value": "0"
+             }
+            },
+            {
+             "kind": "sub",
+             "left": {
+              "kind": "parameter_lookup",
+              "parameter": "medical_facility_individual_annual_rate_cap",
+              "index": {
+               "kind": "literal",
+               "value": {
+                "kind": "integer",
+                "value": 0
+               }
+              }
+             },
+             "right": {
+              "kind": "input",
+              "name": "individual_income_not_excluded_pursuant_to_section_1382a_b"
+             }
+            }
+           ]
+          },
+          {
+           "kind": "max",
+           "items": [
+            {
+             "kind": "literal",
+             "value": {
+              "kind": "decimal",
+              "value": "0"
+             }
+            },
+            {
+             "kind": "sub",
+             "left": {
+              "kind": "parameter_lookup",
+              "parameter": "statutory_base_annual_rate_without_eligible_spouse",
+              "index": {
+               "kind": "literal",
+               "value": {
+                "kind": "integer",
+                "value": 0
+               }
+              }
+             },
+             "right": {
+              "kind": "input",
+              "name": "spouse_income_not_excluded_pursuant_to_section_1382a_b"
+             }
+            }
+           ]
+          }
+         ]
+        }
+       },
+       "else_expr": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         },
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "parameter_lookup",
+           "parameter": "medical_facility_individual_annual_rate_cap",
+           "index": {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 0
+            }
+           }
+          },
+          "right": {
+           "kind": "input",
+           "name": "individual_income_not_excluded_pursuant_to_section_1382a_b"
+          }
+         }
+        ]
+       }
+      }
+     }
+    }
+   }
+  ],
+  "not_treated_as_eligible_under_section_1382h_for_subparagraph_e_preceding_month_test": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "derived",
+     "name": "retained_benefit_institutional_month_eligibility_applies"
+    }
+   }
+  ],
+  "temporary_institutionalization_benefit_payable_at_prior_month_rate": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "derived",
+      "name": "temporary_institutionalization_exception_applies"
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "input",
+        "name": "benefit_rate_applicable_in_month_prior_to_first_full_month_in_institution_or_facility"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "inmate_reporting_payment_to_institution": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "not",
+      "item": {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "institution_has_agreement_to_report_inmates_to_commissioner"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     },
+     "else_expr": {
+      "kind": "if",
+      "condition": {
+       "kind": "not",
+       "item": {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "individual_received_benefit_under_this_subchapter_for_month_preceding_first_full_month_of_confinement"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       }
+      },
+      "then_expr": {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      "else_expr": {
+       "kind": "if",
+       "condition": {
+        "kind": "not",
+        "item": {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "commissioner_determines_individual_ineligible_by_reason_of_confinement_based_on_institution_information"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       },
+       "then_expr": {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       "else_expr": {
+        "kind": "mul",
+        "left": {
+         "kind": "if",
+         "condition": {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "days_after_inmate_entry_when_information_furnished"
+          },
+          "op": "lte",
+          "right": {
+           "kind": "parameter_lookup",
+           "parameter": "timely_inmate_reporting_deadline_days",
+           "index": {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 0
+            }
+           }
+          }
+         },
+         "then_expr": {
+          "kind": "parameter_lookup",
+          "parameter": "timely_inmate_reporting_payment_amount",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         },
+         "else_expr": {
+          "kind": "if",
+          "condition": {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "days_after_inmate_entry_when_information_furnished"
+           },
+           "op": "lte",
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "later_inmate_reporting_deadline_days",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          },
+          "then_expr": {
+           "kind": "parameter_lookup",
+           "parameter": "later_inmate_reporting_payment_amount",
+           "index": {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 0
+            }
+           }
+          },
+          "else_expr": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "0"
+           }
+          }
+         }
+        },
+        "right": {
+         "kind": "if",
+         "condition": {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "commissioner_also_required_to_pay_institution_under_section_402_x_3_B_for_same_individual"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         },
+         "then_expr": {
+          "kind": "parameter_lookup",
+          "parameter": "duplicate_reporting_payment_reduction_rate",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         },
+         "else_expr": {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "1"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}

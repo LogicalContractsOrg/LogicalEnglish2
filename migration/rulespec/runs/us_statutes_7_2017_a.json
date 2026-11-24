@@ -1,0 +1,567 @@
+{
+ "module": "us:statutes/7/2017/a",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "one_person_eligible_household_receives_thrifty_food_plan_less_thirty_percent_income",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2017/a#snap_household_food_contribution_rate": {
+     "expected": 0.3,
+     "actual": "0.3",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_minimum_allotment_rate": {
+     "expected": 0.08,
+     "actual": "0.08",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_minimum_allotment_household_size_limit": {
+     "expected": 2,
+     "actual": 2,
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_net_income_for_allotment": {
+     "expected": 386.5,
+     "actual": "386.5",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_household_food_contribution": {
+     "expected": 115.95,
+     "actual": "115.95",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_allotment_before_minimum": {
+     "expected": 182,
+     "actual": "182",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_minimum_monthly_allotment": {
+     "expected": 24,
+     "actual": "24",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_regular_month_allotment": {
+     "expected": 182,
+     "actual": "182",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "two_person_eligible_household_receives_minimum_allotment_when_income_reduction_exceeds_plan_cost",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2017/a#snap_net_income_for_allotment": {
+     "expected": 3000,
+     "actual": "3000",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_household_food_contribution": {
+     "expected": 900,
+     "actual": "900",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_allotment_before_minimum": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_minimum_monthly_allotment": {
+     "expected": 24,
+     "actual": "24",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_regular_month_allotment": {
+     "expected": 24,
+     "actual": "24",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "three_person_household_has_no_minimum_allotment_under_proviso",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2017/a#snap_allotment_before_minimum": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_minimum_monthly_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/7/2017/a#snap_regular_month_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "household_not_certified_eligible_receives_no_regular_month_allotment",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2017/a#snap_regular_month_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "snap_earned_income_subject_to_deduction": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "snap_countable_earned_income"
+       },
+       "right": {
+        "kind": "input",
+        "name": "work_supplementation_earned_income"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_earned_income_deduction": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "derived",
+      "name": "snap_earned_income_subject_to_deduction"
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "snap_earned_income_deduction_rate",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "snap_net_income_pre_shelter": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "sub",
+        "left": {
+         "kind": "sub",
+         "left": {
+          "kind": "sub",
+          "left": {
+           "kind": "sub",
+           "left": {
+            "kind": "input",
+            "name": "snap_monthly_household_income"
+           },
+           "right": {
+            "kind": "input",
+            "name": "snap_standard_deduction"
+           }
+          },
+          "right": {
+           "kind": "derived",
+           "name": "snap_earned_income_deduction"
+          }
+         },
+         "right": {
+          "kind": "input",
+          "name": "dependent_care_deduction"
+         }
+        },
+        "right": {
+         "kind": "input",
+         "name": "child_support_deduction"
+        }
+       },
+       "right": {
+        "kind": "input",
+        "name": "medical_deduction"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_net_income": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "derived",
+        "name": "snap_net_income_pre_shelter"
+       },
+       "right": {
+        "kind": "input",
+        "name": "snap_excess_shelter_deduction"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_maximum_allotment": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "snap_maximum_allotment_table",
+       "index": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "input",
+            "name": "household_size"
+           },
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 8
+            }
+           }
+          ]
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 1
+          }
+         }
+        ]
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "input",
+           "name": "household_size"
+          },
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "8"
+           }
+          }
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        ]
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "snap_maximum_allotment_additional_member",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_one_person_thrifty_food_plan_cost": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "snap_maximum_allotment_table",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 1
+      }
+     }
+    }
+   }
+  ],
+  "snap_net_income_for_allotment": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "derived",
+       "name": "snap_net_income"
+      }
+     ]
+    }
+   }
+  ],
+  "snap_household_food_contribution": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "derived",
+      "name": "snap_net_income_for_allotment"
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "snap_household_food_contribution_rate",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "snap_allotment_before_minimum": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "floor",
+     "value": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "sub",
+        "left": {
+         "kind": "derived",
+         "name": "snap_maximum_allotment"
+        },
+        "right": {
+         "kind": "derived",
+         "name": "snap_household_food_contribution"
+        }
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "snap_minimum_monthly_allotment": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "household_size"
+      },
+      "op": "lte",
+      "right": {
+       "kind": "parameter_lookup",
+       "parameter": "snap_minimum_allotment_household_size_limit",
+       "index": {
+        "kind": "literal",
+        "value": {
+         "kind": "integer",
+         "value": 0
+        }
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "floor",
+      "value": {
+       "kind": "add",
+       "items": [
+        {
+         "kind": "mul",
+         "left": {
+          "kind": "derived",
+          "name": "snap_one_person_thrifty_food_plan_cost"
+         },
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "snap_minimum_allotment_rate",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        },
+        {
+         "kind": "literal",
+         "value": {
+          "kind": "decimal",
+          "value": "0.5"
+         }
+        }
+       ]
+      }
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "snap_regular_month_allotment": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "snap_eligible"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "derived",
+        "name": "snap_allotment_before_minimum"
+       },
+       {
+        "kind": "derived",
+        "name": "snap_minimum_monthly_allotment"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

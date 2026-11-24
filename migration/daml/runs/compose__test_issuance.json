@@ -1,0 +1,48 @@
+{
+  "acs": {
+    "c1": [
+      {
+	"_1":"002ab49f12ba2b130626943a06c8c5ec8e35c9039afbf0ad9010f4f8e754c0bf22ca12122045a602c587569ac5ae6fbf7f4560ee151880d8cf4d1402c2b8f90b7e7c0ffdfd",
+	"_2": {
+	  "issuer":"USD_Bank_r31944240-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "observers": [],
+	  "owner":"Alice_r31944240-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "quantity":100.0,
+	  "symbol":"USD"
+	}
+      }
+    ],
+    "c2": [],
+    "c3": [],
+    "c4": [],
+    "c5": [
+      {
+	"_1":"004fe87efa9e565ca8039d700efe89d6c53de0e52b38d77d71e978c84059a32c85ca121220659cbdf2170ff61251b4c6656362b418a94221979ed995327410334de2d37e54",
+	"_2": {
+	  "issuer":"USD_Bank_r31944240-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Alice_r31944240-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"00cd55b7d1dac3ee3527ff00c8e1cdaf42db2baf3aebe11547c7484c2037750557ca121220f79a5c4099b8aa6787f2091ae84a5b9ddcf4a3c779614561ebcf95b29e4c0cfd",
+	"_2": {
+	  "issuer":"USD_Bank_r31944240-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Bob_r31944240-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      }
+    ],
+    "c6": []
+  },
+  "ledger":"a Canton 3.5 sandbox (dpm sandbox), over the Ledger API",
+  "project":"compose",
+  "script":"test_issuance",
+  "tag":"r31944240",
+  "templates": [
+    {"field":"c1","module":"Intro.Asset","template":"Asset"},
+    {"field":"c2","module":"Intro.Asset","template":"TransferProposal"},
+    {"field":"c3","module":"Intro.Asset","template":"TransferApproval"},
+    {"field":"c4","module":"Intro.Asset.Role","template":"AssetHolderInvite"},
+    {"field":"c5","module":"Intro.Asset.Role","template":"AssetHolder"},
+    {"field":"c6","module":"Intro.Asset.Trade","template":"Trade"}
+  ]
+}

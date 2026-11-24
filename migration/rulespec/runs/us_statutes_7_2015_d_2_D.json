@@ -1,0 +1,98 @@
+{
+ "module": "us:statutes/7/2015/d/2/D",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "regular_participant_in_treatment_and_rehabilitation_program_exemption_applies",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "not_regular_participant_in_treatment_and_rehabilitation_program_no_exemption",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "person_not_otherwise_required_has_no_exemption_under_this_branch",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/D#treatment_and_rehabilitation_program_participation_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "treatment_and_rehabilitation_program_participation_exemption_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_regular_participant_in_drug_addiction_or_alcoholic_treatment_and_rehabilitation_program"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

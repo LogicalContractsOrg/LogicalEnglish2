@@ -1,0 +1,366 @@
+{
+ "module": "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "income_standards_for_one_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc_table": {
+     "expected": 1305,
+     "actual": 1305,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc": {
+     "expected": 1305,
+     "actual": "1305",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc_table": {
+     "expected": 1696,
+     "actual": 1696,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc": {
+     "expected": 1696,
+     "actual": "1696",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc_table": {
+     "expected": 2152,
+     "actual": 2152,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc": {
+     "expected": 2152,
+     "actual": "2152",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "income_standards_for_eight_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc_table": {
+     "expected": 4513,
+     "actual": 4513,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc": {
+     "expected": 4513,
+     "actual": "4513",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc_table": {
+     "expected": 5867,
+     "actual": 5867,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc": {
+     "expected": 5867,
+     "actual": "5867",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc_table": {
+     "expected": 7446,
+     "actual": 7446,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc": {
+     "expected": 7446,
+     "actual": "7446",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "income_standards_add_each_additional_person",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_net_income_limit_100_percent_fpl_48_states_dc": {
+     "expected": 4972,
+     "actual": "4972",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_130_percent_fpl_48_states_dc": {
+     "expected": 6463,
+     "actual": "6463",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/income-eligibility-standards#snap_gross_income_limit_165_percent_fpl_48_states_dc": {
+     "expected": 8203,
+     "actual": "8203",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "snap_net_income_limit_100_percent_fpl_48_states_dc": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "snap_net_income_limit_100_percent_fpl_48_states_dc_table",
+       "index": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "input",
+            "name": "household_size"
+           },
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 8
+            }
+           }
+          ]
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 1
+          }
+         }
+        ]
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "input",
+           "name": "household_size"
+          },
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "8"
+           }
+          }
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        ]
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "snap_net_income_limit_100_percent_fpl_48_states_dc_additional_member",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_gross_income_limit_130_percent_fpl_48_states_dc": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "snap_gross_income_limit_130_percent_fpl_48_states_dc_table",
+       "index": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "input",
+            "name": "household_size"
+           },
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 8
+            }
+           }
+          ]
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 1
+          }
+         }
+        ]
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "input",
+           "name": "household_size"
+          },
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "8"
+           }
+          }
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        ]
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "snap_gross_income_limit_130_percent_fpl_48_states_dc_additional_member",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_gross_income_limit_165_percent_fpl_48_states_dc": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "snap_gross_income_limit_165_percent_fpl_48_states_dc_table",
+       "index": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "input",
+            "name": "household_size"
+           },
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 8
+            }
+           }
+          ]
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 1
+          }
+         }
+        ]
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "input",
+           "name": "household_size"
+          },
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "8"
+           }
+          }
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        ]
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "snap_gross_income_limit_165_percent_fpl_48_states_dc_additional_member",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

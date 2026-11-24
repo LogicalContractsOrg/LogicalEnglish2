@@ -1,0 +1,72 @@
+{
+  "acs": {
+    "c1": [
+      {
+	"_1":"0049cd55ca8720d56e2cd3427748df11125cbc4f61bd71425f8e0a32384d2950bdca121220ef8b45e477e2feb5bb4193864a20a87a67a3ff557c681bdb27225af11816a48f",
+	"_2": {
+	  "issuer":"USD_Bank_r31989560-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "observers": [],
+	  "owner":"Alice_r31989560-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "quantity":100.0,
+	  "symbol":"USD"
+	}
+      },
+      {
+	"_1":"00a9542cc5c96ec05db18ad1c41e8020a812cba48b65c6c160b9a14aa01e13ef5dca121220493df23a2f0405204ceeadc909efdb81f3d4a9e0dff45ace7fc789ae4fb8294b",
+	"_2": {
+	  "issuer":"EUR_Bank_r31989560-1df42503::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "observers": [],
+	  "owner":"Bob_r31989560-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "quantity":90.0,
+	  "symbol":"EUR"
+	}
+      }
+    ],
+    "c2": [],
+    "c3": [],
+    "c4": [],
+    "c5": [
+      {
+	"_1":"00c1f39599df7a241cf893f51b23e72a63fe89b9a21b4c69036712940dd395c95cca121220a07ece589ee7430001430b5661de5e5d52aaf461a69960726d034b0b02bd36a1",
+	"_2": {
+	  "issuer":"USD_Bank_r31989560-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Alice_r31989560-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"0049689d1e3b96a0af4d6f4e4f97cbe455bbb6013827111e8d13683377d2259baaca12122089bf02204a27a5838cd267ed097bc0d95b75feb6e698cb5cc70b011c8eabea77",
+	"_2": {
+	  "issuer":"EUR_Bank_r31989560-1df42503::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Alice_r31989560-d4d95138::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"00de08cb415f1897dd34fa8603dc8d77caa49c5e56506d0cb8de5236a2534f809cca121220659784876c31006136743886b906a6d969d8b8533b731b5ade58954e4319f13b",
+	"_2": {
+	  "issuer":"USD_Bank_r31989560-4f1df03a::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Bob_r31989560-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      },
+      {
+	"_1":"001546dffefeefde3adbb96718eea3fe82ba2a5f0b345e6976c8a93be923ab5f8cca121220c5c11db9b2a08cc7387839eb4c669fb0624027e009ed2d40da185a1c6923432e",
+	"_2": {
+	  "issuer":"EUR_Bank_r31989560-1df42503::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a",
+	  "owner":"Bob_r31989560-9b3970be::1220430d5ede082b5fc7b53bf74ced59684e100278172dd0a28e3f6365c13091b25a"
+	}
+      }
+    ],
+    "c6": []
+  },
+  "ledger":"a Canton 3.5 sandbox (dpm sandbox), over the Ledger API",
+  "project":"compose",
+  "script":"tradeSetup",
+  "tag":"r31989560",
+  "templates": [
+    {"field":"c1","module":"Intro.Asset","template":"Asset"},
+    {"field":"c2","module":"Intro.Asset","template":"TransferProposal"},
+    {"field":"c3","module":"Intro.Asset","template":"TransferApproval"},
+    {"field":"c4","module":"Intro.Asset.Role","template":"AssetHolderInvite"},
+    {"field":"c5","module":"Intro.Asset.Role","template":"AssetHolder"},
+    {"field":"c6","module":"Intro.Asset.Trade","template":"Trade"}
+  ]
+}

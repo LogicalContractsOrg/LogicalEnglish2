@@ -1,0 +1,229 @@
+{
+ "source": "US Federal Student Aid basic eligibility criteria as the project's rules encode them; expected outcomes computed by make_tests.py.",
+ "cases": [
+  {
+   "id": "citizen_eligible",
+   "description": "A US citizen in a family of 4 with 40,000 of income (threshold 46,100), meeting every criterion.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "income_too_high",
+   "description": "The same student with 50,000 of family income: above the threshold of 46,100.",
+   "inputs": {
+    "the student's annual family income": 50000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": false,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "large_family",
+   "description": "A family of 10 with 90,000: the threshold is 77,780 + 7,920 x 2 = 93,620.",
+   "inputs": {
+    "the student's annual family income": 90000,
+    "the number of people in the student's family": 10,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 93620
+   }
+  },
+  {
+   "id": "refugee",
+   "description": "A refugee with an I-94 record: an eligible non-citizen.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "other",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true,
+    "the student has an Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": true,
+    "the designation on the student's Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": "Refugee"
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "conditional_entrant_before_1980",
+   "description": "A conditional entrant whose I-94 was issued in December 1979: eligible.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "other",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true,
+    "the student has an Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": true,
+    "the designation on the student's Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": "Conditional Entrant",
+    "the issue date of the student's Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": "1979-12-01"
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "conditional_entrant_after_1980",
+   "description": "A conditional entrant whose I-94 was issued in 1981: not eligible.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "other",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true,
+    "the student has an Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": true,
+    "the designation on the student's Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": "Conditional Entrant",
+    "the issue date of the student's Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": "1981-06-15"
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": false,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "palau_without_ssn",
+   "description": "A student from the Republic of Palau without a Social Security number: the exception applies.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": false,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true,
+    "the student is from the Republic of Palau": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "no_ssn",
+   "description": "No Social Security number and no exception: not eligible.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": false,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": false,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "one_declaration_missing",
+   "description": "Only one of the two declarations signed: not eligible.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": false
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": false,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "accepted_with_ged",
+   "description": "Accepted for enrolment, with a GED certificate instead of a diploma: eligible.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "citizen",
+    "the student's enrollment status": "accepted",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": false,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true,
+    "the student has a General Educational Development _GED_ certificate": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 46100
+   }
+  },
+  {
+   "id": "parolee_intending_citizenship",
+   "description": "A parolee for at least a year, with USCIS evidence, intending to become a citizen: eligible.",
+   "inputs": {
+    "the student's annual family income": 40000,
+    "the number of people in the student's family": 4,
+    "the student's citizenship/immigration status": "other",
+    "the student's enrollment status": "enrolled",
+    "the student has maintained satisfactory academic progress in college or career school": true,
+    "the student has a high school diploma": true,
+    "the student has a valid Social Security Number": true,
+    "the student has signed a declaration that the student is not in default on a federal student loan": true,
+    "the student has signed a declaration that the student will use the federal student aid for educational purposes only": true,
+    "the student has an Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": true,
+    "the designation on the student's Arrival-Departure Record _I-94_ from US Citizenship and Immigration Services _USCIS_": "Parolee",
+    "the student is paroled into the US for at least one year": true,
+    "the student is able to provide evidence from the USCIS that the student is in the US for other than a temporary purpose": true,
+    "the student intends to become a US citizen or permanent resident": true
+   },
+   "expected": {
+    "the student satisfies the basic eligibility requirements for student aid": true,
+    "the income threshold for the family size": 46100
+   }
+  }
+ ]
+}

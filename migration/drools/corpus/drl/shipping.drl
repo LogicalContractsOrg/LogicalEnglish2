@@ -1,0 +1,35 @@
+// shipping.drl — LPS2's rule base (examples/drools/shipping.drl), written
+// out as valid DRL so that Drools runs it: insert, modify and delete.
+package shipping;
+
+declare Order
+    id : String
+    state : String
+end
+
+declare Stock
+    item : String
+    level : String
+end
+
+declare Shipment
+    order : String
+end
+
+rule "an order with stock ships"
+    when
+        $o : Order( $id : id, state == "placed" )
+        $s : Stock( level == "available" )
+    then
+        insert(new Shipment($id));
+        modify( $o ) { setState("shipped") }
+        modify( $s ) { setLevel("low") }
+end
+
+rule "a shipped order is no longer pending"
+    when
+        $o : Order( $id : id, state == "shipped" )
+        Shipment( order == $id )
+    then
+        delete( $o );
+end

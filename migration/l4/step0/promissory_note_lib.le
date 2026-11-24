@@ -1,0 +1,317 @@
+the target language is: prolog.
+
+the knowledge base promissory note includes these resources:
+    deontic_history.
+
+% The promissory note of L4's legal examples (smucclaw/l4-ide,
+% jl4/examples/legal/promissory-note.l4, Apache 2.0), written by hand as the
+% L4 translator will write it: the timeless reading of the design notes l4.md
+% section 4.1, with the draft library deontic_history.le. The note is read over a history of payments that has already
+% happened, and says how the note stands at the end of that history.
+%
+% L4 runs the note as a chain of obligations. While money is owed, the
+% borrower must pay the next instalment within a number of days of the moment
+% the obligation started. Paying it starts the same obligation again for what
+% is still owed. Missing it starts a penalty obligation (the instalment plus 5
+% per cent); missing that starts an obligation to pay everything owed, which
+% has no deadline.
+%
+% How L4 notices a missed deadline (checked against L4's evaluator): only when
+% the next payment arrives, or when the history says time has passed ("the
+% clock reaches" below). That later event starts the next obligation, and is
+% not itself counted as a payment of it.
+%
+% Money is in United States dollars throughout; L4's check of the currency is
+% left out.
+
+the templates are:
+    the borrower pays *an amount* on *a date*; undefined.
+    the clock reaches *a date*; undefined.
+    the borrower pays an instalment on a debt of *an amount*.
+    the borrower pays a penalty instalment on a debt of *an amount*.
+    the borrower pays all the debts on a debt of *an amount*.
+    *a base* to the power of *a number* is *a value*.
+    the monthly instalment is *an amount*; memorable.
+    the total repayment is *an amount*; memorable.
+    the instalment due on a debt of *an amount* is *a due amount*.
+    the instalments covered by a debt of *an amount* are *a number*.
+    all the debts on a debt of *an amount* are *a total*.
+    the note is fulfilled on *a date*.
+    the note is pending with *an obligation* on a debt of *an amount* since *a date*.
+
+the knowledge base promissory note includes:
+
+% The loan's terms (L4: Basic Definitions and Repayment Terms).
+
+a base to the power of a number is a value if
+    the number = 0
+    and the value = 1.
+
+a base to the power of a number is a value if
+    the number > 0
+    and a smaller number = the number - 1
+    and the base to the power of the smaller number is a smaller value
+    and the value = the base * the smaller value.
+
+the monthly instalment is an amount if
+    a rate = 0.15 / 12
+    and a base = 1 + the rate
+    and the base to the power of 12 is a factor
+    and the amount = 25000 * (the rate * the factor) / (the factor - 1).
+
+the total repayment is an amount if
+    the monthly instalment is an instalment
+    and the amount = the instalment * 12.
+
+the instalment due on a debt of an amount is a due amount if
+    the monthly instalment is an instalment
+    and the minimum of the instalment and the amount is the due amount.
+
+the instalments covered by a debt of an amount are a number if
+    the total repayment is a total
+    and the monthly instalment is an instalment
+    and the number = (the total - the amount) / the instalment.
+
+all the debts on a debt of an amount are a total if
+    the instalment due on a debt of the amount is a due amount
+    and the total = the amount + the due amount * 0.05.
+
+% What the history holds (the library's inputs).
+
+something happens on a date if
+    the borrower pays an amount on the date.
+
+something happens on a date if
+    the clock reaches the date.
+
+an obligation can start on 2025-02-04.
+
+an obligation can start on a date if
+    something happens on the date.
+
+% The instalment obligation (L4: Payment Obligations). Its deadline counts
+% from the day it started, with a grace period of 10 days.
+
+the obligation that the borrower pays an instalment on a debt of an amount starts on 2025-02-04 if
+    the total repayment is the amount.
+
+the obligation that the borrower pays an instalment on a debt of an amount starts on a date if
+    the borrower pays a payment on the date
+    and the obligation that the borrower pays an instalment on a debt of an earlier amount ends on the date
+    and the amount = the earlier amount - the payment
+    and the amount > 0.
+
+the obligation that the borrower pays an instalment on a debt of an amount has deadline a deadline if
+    an obligation can start on a date
+    and the obligation that the borrower pays an instalment on a debt of the amount starts on the date
+    and the instalments covered by a debt of the amount are a number
+    and a count = ceiling((the number + 1) * 30.436875) + 10
+    and the deadline is the count days after the date.
+
+the obligation that the borrower pays an instalment on a debt of an amount is met on a date if
+    the borrower pays a payment on the date
+    and an obligation can start on a start
+    and the date is after the start
+    and the obligation that the borrower pays an instalment on a debt of the amount starts on the start
+    and the obligation that the borrower pays an instalment on a debt of the amount has deadline a deadline
+    and the date is before or equal to the deadline
+    and the instalment due on a debt of the amount is a due amount
+    and the payment >= the due amount - 0.05.
+
+% The penalty obligation (L4: the first LEST).
+
+the obligation that the borrower pays a penalty instalment on a debt of an amount starts on a date if
+    something happens on the date
+    and the obligation that the borrower pays an instalment on a debt of the amount is missed on the date.
+
+the obligation that the borrower pays a penalty instalment on a debt of an amount has deadline a deadline if
+    an obligation can start on a date
+    and the obligation that the borrower pays a penalty instalment on a debt of the amount starts on the date
+    and the instalments covered by a debt of the amount are a number
+    and a count = ceiling((the number + 1) * 30.436875) + 30
+    and the deadline is the count days after the date.
+
+the obligation that the borrower pays a penalty instalment on a debt of an amount is met on a date if
+    the borrower pays a payment on the date
+    and an obligation can start on a start
+    and the date is after the start
+    and the obligation that the borrower pays a penalty instalment on a debt of the amount starts on the start
+    and the obligation that the borrower pays a penalty instalment on a debt of the amount has deadline a deadline
+    and the date is before or equal to the deadline
+    and the instalment due on a debt of the amount is a due amount
+    and the payment >= the due amount * 1.05 - 0.05.
+
+% The obligation to pay all debts (L4: the second LEST). It has no deadline.
+
+the obligation that the borrower pays all the debts on a debt of an amount starts on a date if
+    something happens on the date
+    and the obligation that the borrower pays a penalty instalment on a debt of the amount is missed on the date.
+
+the obligation that the borrower pays all the debts on a debt of an amount is met on a date if
+    the borrower pays a payment on the date
+    and an obligation can start on a start
+    and the date is after the start
+    and the obligation that the borrower pays all the debts on a debt of the amount starts on the start
+    and all the debts on a debt of the amount are a total
+    and the payment >= the total - 0.05.
+
+% How the note stands.
+
+the note is fulfilled on a day if
+    the obligation that the borrower pays an instalment on a debt of an amount ends on the day
+    and the borrower pays a payment on the day
+    and the amount - the payment <= 0.
+
+the note is fulfilled on a day if
+    the obligation that the borrower pays a penalty instalment on a debt of an amount ends on the day.
+
+the note is fulfilled on a day if
+    the obligation that the borrower pays all the debts on a debt of an amount ends on the day.
+
+the note is pending with the instalment obligation on a debt of an amount since a date if
+    the obligation that the borrower pays an instalment on a debt of a debt is pending since the date
+    and the amount = round(the debt * 100) / 100.
+
+the note is pending with the penalty obligation on a debt of an amount since a date if
+    the obligation that the borrower pays a penalty instalment on a debt of a debt is pending since the date
+    and the amount = round(the debt * 100) / 100.
+
+the note is pending with the obligation to pay all debts on a debt of an amount since a date if
+    the obligation that the borrower pays all the debts on a debt of a debt is pending since the date
+    and the amount = round(the debt * 100) / 100.
+
+query fulfilled is:
+    the note is fulfilled on which date.
+
+query pending is:
+    the note is pending with which obligation on a debt of which amount since which date.
+
+query instalment is:
+    the monthly instalment is which amount.
+
+% L4's own two traces.
+
+scenario twelve_payments is:
+    the borrower pays 2256.46 on 2025-03-04.
+    the borrower pays 2256.46 on 2025-04-04.
+    the borrower pays 2256.46 on 2025-05-04.
+    the borrower pays 2256.46 on 2025-06-04.
+    the borrower pays 2256.46 on 2025-07-04.
+    the borrower pays 2256.46 on 2025-08-04.
+    the borrower pays 2256.46 on 2025-09-04.
+    the borrower pays 2256.46 on 2025-10-04.
+    the borrower pays 2256.46 on 2025-11-04.
+    the borrower pays 2256.46 on 2025-12-04.
+    the borrower pays 2256.46 on 2026-01-04.
+    the borrower pays 2256.46 on 2026-02-04.
+    fulfilled expects answers ["the note is fulfilled on 2026-02-04"].
+    pending expects answers [].
+
+scenario paid_in_april is:
+    the borrower pays 2256.46 on 2025-04-03.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 27077.49 since 2025-04-03"].
+
+% Traces added to L4's two, each run through L4's evaluator
+% (promissory_note_traces.l4, results in promissory_note_traces.oracle.json).
+
+scenario a_paid_on_the_deadline is:
+    the borrower pays 2256.46 on 2025-03-17.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the instalment obligation on a debt of 24821.03 since 2025-03-17"].
+
+scenario b_one_day_late is:
+    the borrower pays 2256.46 on 2025-03-18.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 27077.49 since 2025-03-18"].
+
+scenario c_penalty_amount_late is:
+    the borrower pays 2369.29 on 2025-04-05.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 27077.49 since 2025-04-05"].
+
+scenario d_penalty_amount_very_late is:
+    the borrower pays 2369.29 on 2025-05-18.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 27077.49 since 2025-05-18"].
+
+scenario e_everything_late is:
+    the borrower pays 27190.32 on 2025-08-23.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 27077.49 since 2025-08-23"].
+
+scenario f_short_payment is:
+    the borrower pays 2200 on 2025-02-24.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the instalment obligation on a debt of 27077.49 since 2025-02-04"].
+
+scenario g_second_on_its_deadline is:
+    the borrower pays 2256.46 on 2025-03-04.
+    the borrower pays 2256.46 on 2025-05-14.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the instalment obligation on a debt of 22564.57 since 2025-05-14"].
+
+scenario h_second_one_day_late is:
+    the borrower pays 2256.46 on 2025-03-04.
+    the borrower pays 2256.46 on 2025-05-15.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 24821.03 since 2025-05-15"].
+
+scenario i_everything_at_once is:
+    the borrower pays 27077.50 on 2025-02-14.
+    fulfilled expects answers ["the note is fulfilled on 2025-02-14"].
+    pending expects answers [].
+
+scenario j_nothing_paid is:
+    the clock reaches 2026-06-19.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the penalty obligation on a debt of 27077.49 since 2026-06-19"].
+
+scenario k_two_instalments_at_once is:
+    the borrower pays 4512.92 on 2025-03-04.
+    the borrower pays 2256.46 on 2025-04-05.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the instalment obligation on a debt of 20308.11 since 2025-04-05"].
+
+scenario l_penalty_paid_on_its_deadline is:
+    the borrower pays 2256.46 on 2025-03-26.
+    the borrower pays 2369.29 on 2025-05-26.
+    fulfilled expects answers ["the note is fulfilled on 2025-05-26"].
+    pending expects answers [].
+
+scenario m_penalty_one_day_late is:
+    the borrower pays 2256.46 on 2025-03-26.
+    the borrower pays 2369.29 on 2025-05-27.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the obligation to pay all debts on a debt of 27077.49 since 2025-05-27"].
+
+scenario n_penalty_paid is:
+    the borrower pays 2256.46 on 2025-03-26.
+    the borrower pays 2369.29 on 2025-05-17.
+    fulfilled expects answers ["the note is fulfilled on 2025-05-17"].
+    pending expects answers [].
+
+scenario o_penalty_paid_later is:
+    the borrower pays 2256.46 on 2025-03-26.
+    the borrower pays 2369.29 on 2025-05-18.
+    fulfilled expects answers ["the note is fulfilled on 2025-05-18"].
+    pending expects answers [].
+
+scenario p_time_passes_twice is:
+    the clock reaches 2025-03-26.
+    the clock reaches 2025-08-23.
+    fulfilled expects answers [].
+    pending expects answers ["the note is pending with the obligation to pay all debts on a debt of 27077.49 since 2025-08-23"].
+
+scenario q_all_debts_paid is:
+    the clock reaches 2025-03-26.
+    the clock reaches 2025-08-23.
+    the borrower pays 27190.32 on 2025-12-01.
+    fulfilled expects answers ["the note is fulfilled on 2025-12-01"].
+    pending expects answers [].
+
+scenario r_penalty_after_time_passes is:
+    the clock reaches 2025-03-26.
+    the borrower pays 2369.29 on 2025-04-05.
+    fulfilled expects answers ["the note is fulfilled on 2025-04-05"].
+    pending expects answers [].

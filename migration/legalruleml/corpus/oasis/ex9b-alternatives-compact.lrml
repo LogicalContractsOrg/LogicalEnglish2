@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex9-alternatives-compact#"
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:ruleml="http://ruleml.org/spec"
+  xmlns:rulemlmm="http://ruleml.org/1.0/metamodel#"
+  xml:base="http://docs.oasis-open.org/legalruleml/examples/compactified/ex9-alternatives-compact"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <lrml:Comment> This example demonstrates the use of the Alternatives expression to indicate
+    mutually incompatible formalizations. The compact serialization is used. </lrml:Comment>
+
+  <lrml:LegalSources key="ls5">
+    <lrml:LegalSource keyref="#ref1"/>
+    <lrml:LegalSources keyref="#ls1"/>
+    <lrml:LegalSource keyref="#ref8"/>
+  </lrml:LegalSources>
+
+  <lrml:Associations>
+    <lrml:Association key="assoc2">
+      <!-- The LegalSource ls1 is modelled (possiby in part) by each of the 
+             statements cs_a-b_and_c cs_a-b cs_a-c. -->
+      <lrml:appliesSource keyref="#ls1"/>
+      <lrml:toTarget keyref="#cs_a-b_and_c"/>
+      <lrml:toTarget keyref="#cs_a-b"/>
+      <lrml:toTarget keyref="#cs_a-c"/>
+    </lrml:Association>
+    <lrml:Association>
+      <!-- The LegalSource ls2 is modelled (possiby in part) by each of the 
+             statements cs_d-b_and_c cs_d-b cs_d-c. -->
+      <lrml:appliesSource keyref="#ls2"/>
+      <lrml:toTarget keyref="#cs_d-b_and_c"/>
+      <lrml:toTarget keyref="#cs_d-b"/>
+      <lrml:toTarget keyref="#cs_d-c"/>
+    </lrml:Association>
+  </lrml:Associations>
+
+  <!-- Usecase I. Prescriptive and Constitutive alternatives of rule. -->
+  <lrml:Statements>
+    <lrml:PrescriptiveStatement key="ps1">
+      <ruleml:Rule>
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel>A</ruleml:Rel>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:Obligation>
+            <ruleml:Atom>
+              <ruleml:Rel>B</ruleml:Rel>
+            </ruleml:Atom>
+          </lrml:Obligation>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+    <lrml:ConstitutiveStatement key="cs2">
+      <ruleml:Rule>
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel>A</ruleml:Rel>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Atom>
+            <ruleml:Rel>B</ruleml:Rel>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+  </lrml:Statements>
+  <lrml:Alternatives key="alt1">
+    <lrml:fromLegalSources keyref="#ls5"/>
+    <lrml:hasAlternative keyref="#ps1"/>
+    <lrml:hasAlternative keyref="#cs2"/>
+  </lrml:Alternatives>
+  <lrml:Context key="ruleInfo2">
+    <lrml:appliesAlternatives keyref="#alt1"/>
+    <lrml:inScope keyref="#cs2"/>
+  </lrml:Context>
+  
+</lrml:LegalRuleML>

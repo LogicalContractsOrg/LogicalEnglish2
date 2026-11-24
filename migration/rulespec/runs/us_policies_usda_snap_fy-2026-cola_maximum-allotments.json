@@ -1,0 +1,237 @@
+{
+ "module": "us:policies/usda/snap/fy-2026-cola/maximum-allotments",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "snap_maximum_allotment_for_one_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_table": {
+     "expected": 298,
+     "actual": 298,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_one_person_thrifty_food_plan_cost": {
+     "expected": 298,
+     "actual": 298,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment": {
+     "expected": 298,
+     "actual": "298",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "snap_maximum_allotment_for_eight_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_table": {
+     "expected": 1789,
+     "actual": 1789,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_urban_table": {
+     "expected": 2314,
+     "actual": 2314,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_1_table": {
+     "expected": 2950,
+     "actual": 2950,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_2_table": {
+     "expected": 3591,
+     "actual": 3591,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_guam_table": {
+     "expected": 2637,
+     "actual": 2637,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_hawaii_table": {
+     "expected": 3040,
+     "actual": 3040,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_virgin_islands_table": {
+     "expected": 2300,
+     "actual": 2300,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment": {
+     "expected": 1789,
+     "actual": "1789",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "snap_maximum_allotment_adds_each_additional_person",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_additional_member": {
+     "expected": 218,
+     "actual": 218,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_urban_additional_member": {
+     "expected": 282,
+     "actual": 282,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_1_additional_member": {
+     "expected": 360,
+     "actual": 360,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_2_additional_member": {
+     "expected": 438,
+     "actual": 438,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_guam_additional_member": {
+     "expected": 322,
+     "actual": 322,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_hawaii_additional_member": {
+     "expected": 371,
+     "actual": 371,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment_virgin_islands_additional_member": {
+     "expected": 281,
+     "actual": 281,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2026-cola/maximum-allotments#snap_maximum_allotment": {
+     "expected": 2007,
+     "actual": "2007",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "snap_maximum_allotment": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "snap_maximum_allotment_table",
+       "index": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "input",
+            "name": "household_size"
+           },
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 8
+            }
+           }
+          ]
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 1
+          }
+         }
+        ]
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "input",
+           "name": "household_size"
+          },
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "8"
+           }
+          }
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        ]
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "snap_maximum_allotment_additional_member",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_one_person_thrifty_food_plan_cost": [
+   {
+    "effective_from": "2025-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "snap_maximum_allotment_table",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 1
+      }
+     }
+    }
+   }
+  ]
+ }
+}

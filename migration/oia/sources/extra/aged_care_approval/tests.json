@@ -1,0 +1,149 @@
+{
+ "source": "Synthetic cases for the reconstructed Aged Care Approval rules; expected values computed by make_tests.py.",
+ "cases": [
+  {
+   "id": "permanent_care_valid",
+   "description": "Aged 77 at assessment, permanent residential care approved 12 days later: valid, with no end date.",
+   "inputs": {
+    "date_of_birth": "1948-05-02",
+    "assessment_date": "2026-03-01",
+    "approval_date": "2026-03-13",
+    "approval_type": "Permanent residential care",
+    "current_date": "2026-10-15"
+   },
+   "expected": {
+    "age_at_assessment": 77,
+    "approval_valid": true
+   }
+  },
+  {
+   "id": "approval_too_late",
+   "description": "Approved 45 days after the assessment: not made in time, not valid.",
+   "inputs": {
+    "date_of_birth": "1950-01-01",
+    "assessment_date": "2026-01-10",
+    "approval_date": "2026-02-24",
+    "approval_type": "Home care",
+    "current_date": "2026-10-15"
+   },
+   "expected": {
+    "age_at_assessment": 76,
+    "approval_valid": false
+   }
+  },
+  {
+   "id": "respite_lapsed",
+   "description": "A respite approval of 31 March 2025, no entry into care, asked on 15 October 2026: lapsed on 31 March 2026.",
+   "inputs": {
+    "date_of_birth": "1945-07-07",
+    "assessment_date": "2025-03-20",
+    "approval_date": "2025-03-31",
+    "approval_type": "Residential respite care",
+    "current_date": "2026-10-15"
+   },
+   "expected": {
+    "age_at_assessment": 79,
+    "approval_end_date": "2026-03-31",
+    "approval_valid": false,
+    "respite_days_remaining": 63
+   }
+  },
+  {
+   "id": "respite_entered_in_time",
+   "description": "The same approval, care entered on 1 March 2026 (before it ended): not lapsed, valid.",
+   "inputs": {
+    "date_of_birth": "1945-07-07",
+    "assessment_date": "2025-03-20",
+    "approval_date": "2025-03-31",
+    "approval_type": "Residential respite care",
+    "current_date": "2026-10-15",
+    "entry_date": "2026-03-01"
+   },
+   "expected": {
+    "age_at_assessment": 79,
+    "approval_end_date": "2026-03-31",
+    "approval_valid": true,
+    "respite_days_remaining": 63
+   }
+  },
+  {
+   "id": "respite_days_remaining",
+   "description": "A current respite approval, two stays of 14 and 21 days taken: 28 of the 63 days remain; 135 days until the approval ends.",
+   "inputs": {
+    "date_of_birth": "1940-12-31",
+    "assessment_date": "2026-02-20",
+    "approval_date": "2026-02-27",
+    "approval_type": "Residential respite care",
+    "current_date": "2026-10-15",
+    "respite_stays": [
+     {
+      "@id": "stay1",
+      "stay_start": "2026-04-01",
+      "stay_end": "2026-04-14"
+     },
+     {
+      "@id": "stay2",
+      "stay_start": "2026-06-10",
+      "stay_end": "2026-06-30"
+     }
+    ]
+   },
+   "expected": {
+    "age_at_assessment": 85,
+    "approval_end_date": "2027-02-27",
+    "days_until_end": 135,
+    "approval_valid": true,
+    "respite_days_remaining": 28
+   }
+  },
+  {
+   "id": "younger_aboriginal_person",
+   "description": "Aged 54 at assessment, an Aboriginal person: eligible; short-term restorative care approved on 28 February 2026 ends twelve months later, on 28 February 2027 (136 days away).",
+   "inputs": {
+    "date_of_birth": "1971-06-15",
+    "assessment_date": "2026-02-01",
+    "approval_date": "2026-02-28",
+    "approval_type": "Short-term restorative care",
+    "current_date": "2026-10-15",
+    "aboriginal": true
+   },
+   "expected": {
+    "age_at_assessment": 54,
+    "approval_end_date": "2027-02-28",
+    "days_until_end": 136,
+    "approval_valid": true
+   }
+  },
+  {
+   "id": "younger_without_need",
+   "description": "Aged 52, no care need stated, not Aboriginal or Torres Strait Islander: not eligible.",
+   "inputs": {
+    "date_of_birth": "1974-03-03",
+    "assessment_date": "2026-05-05",
+    "approval_date": "2026-05-06",
+    "approval_type": "Home care",
+    "current_date": "2026-10-15"
+   },
+   "expected": {
+    "age_at_assessment": 52,
+    "approval_valid": false
+   }
+  },
+  {
+   "id": "revoked",
+   "description": "Valid in every way, but revoked.",
+   "inputs": {
+    "date_of_birth": "1939-09-09",
+    "assessment_date": "2026-01-05",
+    "approval_date": "2026-01-06",
+    "approval_type": "Home care",
+    "current_date": "2026-10-15",
+    "revoked": true
+   },
+   "expected": {
+    "age_at_assessment": 86,
+    "approval_valid": false
+   }
+  }
+ ]
+}

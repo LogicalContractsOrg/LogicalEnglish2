@@ -1,0 +1,39 @@
+IMPORT prelude
+DECLARE Actor IS ONE OF Buyer, Seller
+DECLARE Action IS ONE OF deliver, pay HAS amount IS A NUMBER
+
+GIVETH A DEONTIC Actor Action
+sale MEANS
+    PARTY Seller
+    MUST deliver
+    WITHIN 14
+    HENCE
+        PARTY Buyer
+        MUST pay 100
+        WITHIN 30
+        HENCE FULFILLED
+        LEST BREACH BY Buyer BECAUSE "failed to pay"
+    LEST BREACH BY Seller BECAUSE "failed to deliver"
+
+#TRACE sale AT 0 WITH
+    PARTY Seller DOES deliver AT 10
+    PARTY Buyer DOES pay 100 AT 20
+#TRACE sale AT 0 WITH
+    PARTY Seller DOES deliver AT 10
+    PARTY Buyer DOES pay 100 AT 50
+#TRACE sale AT 0 WITH
+    PARTY Seller DOES deliver AT 10
+#EVAL sum (LIST 1,2,3)
+#TRACE sale AT 0 WITH
+    PARTY Buyer DOES pay 100 AT 5
+#TRACE sale AT 0 WITH
+    PARTY Buyer DOES pay 100 AT 5
+    (`WAIT UNTIL` 20)
+#TRACE sale AT 0 WITH
+    PARTY Seller DOES deliver AT 14
+#TRACE sale AT 0 WITH
+    PARTY Seller DOES deliver AT 10
+    PARTY Buyer DOES pay 100 AT 40
+#TRACE sale AT 0 WITH
+    PARTY Seller DOES deliver AT 10
+    PARTY Buyer DOES pay 99 AT 20

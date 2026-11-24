@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!DOCTYPE RDF [
+	<!ENTITY base "http://docs.oasis-open.org/legalruleml/examples/compactified/ex8-defeasible-compact">
+	<!ENTITY lrml "http://docs.oasis-open.org/legalruleml/ns/v1.0">
+	<!ENTITY lrmlv "http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab">
+	<!ENTITY rulemlmm "http://ruleml.org/1.0/metamodel">
+	<!ENTITY ruleml "http://ruleml.org/spec">
+	<!ENTITY xs "http://www.w3.org/2001/XMLSchema">
+	<!ENTITY defeasible-ontology "http://example.org/defeasible/vocab">
+	<!ENTITY deontic-ontology "http://example.org/deontic/vocab">
+]>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd"
+  xmlns="&base;#" xmlns:lrml="&lrml;/" xmlns:ruleml="&ruleml;" xmlns:rulemlmm="&rulemlmm;#"
+  xml:base="&base;">
+
+  <lrml:LegalSources>
+    <lrml:LegalSource key="ls1"
+      sameAs="http://www.comlaw.gov.au/Details/C2009A00134/Html/Text#param43"/>
+  </lrml:LegalSources>
+
+  <lrml:Associations>
+    <lrml:Association key="ascs0">
+      <lrml:appliesSource keyref="#ls1"/>
+      <lrml:toTarget keyref="#atom1"/>
+      <lrml:toTarget keyref="#atom2"/>
+      <lrml:toTarget keyref="#atom3"/>
+    </lrml:Association>
+    <lrml:Association key="ascs1">
+      <lrml:appliesModality iri="&deontic-ontology;#ob1"/>
+      <lrml:toTarget keyref="#oblig1"/>
+    </lrml:Association>
+    <lrml:Association key="ascs2">
+      <lrml:appliesStrength iri="&defeasible-ontology;#defeasible"/>
+      <lrml:toTarget keyref="#ps1"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <!--                    This Division applies on or after 1 July 2011, or a later day prescribed by the regulations.
+
+-->
+  <lrml:Context key="psInfo1">
+    <lrml:appliesAssociation keyref="#ascs0"/>
+    <lrml:appliesAssociation keyref="#ascs1"/>
+    <lrml:appliesAssociation keyref="#ascs2"/>
+    <lrml:inScope keyref="#ps1"/>
+  </lrml:Context>
+  <!--       (1)  A person must not engage in a credit activity if the person does not hold a licence authorising the person to engage in the credit activity.
+-->
+  <lrml:Statements key="textblock1">
+    <!-- These forms of Override and Reparation are used if they arise implicitly. -->
+    <lrml:hasQualification>
+      <lrml:Override over="#ps2" under="#ps1"/>
+    </lrml:hasQualification>
+    <lrml:ReparationStatement>
+      <lrml:Reparation keyref="#assoc1">
+        <lrml:appliesPenalty keyref="#pen2"/>
+        <lrml:toPrescriptiveStatement keyref="#ps1"/>
+      </lrml:Reparation>
+    </lrml:ReparationStatement>
+    <!--     rule1   It is forbidden to engage credit activity  -->
+    <lrml:PrescriptiveStatement key="ps1">
+      <ruleml:Rule key=":rule1" closure="universal">
+        <lrml:hasStrength>
+          <lrml:DefeasibleStrength key="str1" iri="&defeasible-ontology;#defeasible1"/>
+        </lrml:hasStrength>
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":person"/>
+            <ruleml:Var>X</ruleml:Var>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:SuborderList>
+            <lrml:Prohibition>
+              <ruleml:Atom>
+                <ruleml:Rel iri=":engageCreditActivity"/>
+                <ruleml:Var>X</ruleml:Var>
+              </ruleml:Atom>
+            </lrml:Prohibition>
+          </lrml:SuborderList>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+    <!--       rule2     A person can engage in a credit activity if the person hold a licence -->
+    <lrml:PrescriptiveStatement key="ps2">
+      <ruleml:Rule key=":rule2" closure="universal">
+        <lrml:hasStrength>
+          <lrml:DefeasibleStrength/>
+        </lrml:hasStrength>
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":hasLicence"/>
+            <ruleml:Var>X</ruleml:Var>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:SuborderList>
+            <lrml:Permission>
+              <ruleml:Atom>
+                <ruleml:Rel iri=":engageCreditActivity"/>
+                <ruleml:Var>X</ruleml:Var>
+              </ruleml:Atom>
+            </lrml:Permission>
+          </lrml:SuborderList>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+    <!-- Penalty Statement block -->
+    <lrml:PenaltyStatement key="pen1">
+      <lrml:SuborderList>
+        <lrml:Obligation>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":payCivilUnits"/>
+            <ruleml:Var>X</ruleml:Var>
+            <ruleml:Ind>2000</ruleml:Ind>
+          </ruleml:Atom>
+        </lrml:Obligation>
+      </lrml:SuborderList>
+    </lrml:PenaltyStatement>
+    <lrml:PenaltyStatement key="pen2">
+      <lrml:SuborderList>
+        <lrml:Obligation>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":payPenalUnits"/>
+            <ruleml:Var>X</ruleml:Var>
+            <ruleml:Ind>200</ruleml:Ind>
+          </ruleml:Atom>
+        </lrml:Obligation>
+        <lrml:Obligation>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":imprisonment"/>
+            <ruleml:Var>X</ruleml:Var>
+            <ruleml:Ind>2 years</ruleml:Ind>
+          </ruleml:Atom>
+        </lrml:Obligation>
+        <lrml:Obligation>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":payPebnalUnitPlusImprisonment"/>
+            <ruleml:Var>X</ruleml:Var>
+            <ruleml:Ind>200</ruleml:Ind>
+            <ruleml:Ind>2 years</ruleml:Ind>
+          </ruleml:Atom>
+        </lrml:Obligation>
+      </lrml:SuborderList>
+    </lrml:PenaltyStatement>
+    <!-- Reparation Statement block -->
+    <lrml:ReparationStatement key="rep1">
+      <lrml:Reparation key="assoc1">
+        <lrml:appliesPenalty keyref="#pen1"/>
+        <lrml:toPrescriptiveStatement keyref="#ps1"/>
+      </lrml:Reparation>
+    </lrml:ReparationStatement>
+    <!-- Alternate form of Override, if it is explicitly stated in the text. -->
+    <lrml:OverrideStatement>
+      <lrml:Override over="#ps2" under="#ps1"/>
+    </lrml:OverrideStatement>
+
+  </lrml:Statements>
+</lrml:LegalRuleML>

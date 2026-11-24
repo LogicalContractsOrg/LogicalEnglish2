@@ -1,0 +1,209 @@
+{
+  "answers": [
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"qualifies_s3_1_a(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"qualifies_s3_1_a(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"qualifies_s3_1_a(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"may_be_paid_full_monthly_pension(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_8",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"may_be_paid_full_monthly_pension(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_8_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"may_be_paid_full_monthly_pension(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_8_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_11",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_12",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_12_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_12_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"_"} ],
+      "constraints": [ [] ],
+      "query":"meets_s3_1_c_i(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_14",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"meets_s3_1_c_iii(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_15",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"-may_be_paid_full_monthly_pension(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_16",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"satisfies_4_1_a(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_17",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"satisfies_4_1_b(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_18",
+      "variables": ["A" ]
+    }
+  ],
+  "cases": [
+    {
+      "facts":"person(person_a).\npensioner_july(person_a).\n",
+      "id":"case_1",
+      "query":"qualifies_s3_1_a(A)"
+    },
+    {
+      "facts":"pensioner_july(person_a).\n",
+      "id":"case_1_without_fact_1",
+      "query":"qualifies_s3_1_a(A)"
+    },
+    {"facts":"person(person_a).\n","id":"case_1_without_fact_2","query":"qualifies_s3_1_a(A)"},
+    {
+      "facts":"pensioner_july(person_a).\nperson(person_a).\n",
+      "id":"case_8",
+      "query":"may_be_paid_full_monthly_pension(A)"
+    },
+    {
+      "facts":"person(person_a).\n",
+      "id":"case_8_without_fact_1",
+      "query":"may_be_paid_full_monthly_pension(A)"
+    },
+    {
+      "facts":"pensioner_july(person_a).\n",
+      "id":"case_8_without_fact_2",
+      "query":"may_be_paid_full_monthly_pension(A)"
+    },
+    {
+      "facts":"resided_in_canada_10_years_prior_to_approval(person_a).\n",
+      "id":"case_11",
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)"
+    },
+    {
+      "facts":"meets_aggregate_residence_requirement_s3_1_b_iii(person_a).\nhas_resided_one_year_prior_to_approval(person_a).\n",
+      "id":"case_12",
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)"
+    },
+    {
+      "facts":"has_resided_one_year_prior_to_approval(person_a).\n",
+      "id":"case_12_without_fact_1",
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)"
+    },
+    {
+      "facts":"meets_aggregate_residence_requirement_s3_1_b_iii(person_a).\n",
+      "id":"case_12_without_fact_2",
+      "query":"meets_residence_duration_requirement_s3_1_b_iii(A)"
+    },
+    {"facts":"","id":"case_14","query":"meets_s3_1_c_i(A)"},
+    {
+      "facts":"resided_40_years_after_18_yoa(person_a).\n",
+      "id":"case_15",
+      "query":"meets_s3_1_c_iii(A)"
+    },
+    {
+      "facts":"person(person_a).\n",
+      "id":"case_16",
+      "query":"-may_be_paid_full_monthly_pension(A)"
+    },
+    {
+      "facts":"citizen_or_resident_before_approval(person_a).\n",
+      "id":"case_17",
+      "query":"satisfies_4_1_a(A)"
+    },
+    {
+      "facts":"citizen_or_resident_before_approval(person_a).\n",
+      "id":"case_18",
+      "query":"satisfies_4_1_b(A)"
+    }
+  ],
+  "flags": []
+}

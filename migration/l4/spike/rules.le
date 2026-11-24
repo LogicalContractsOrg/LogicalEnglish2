@@ -1,0 +1,95 @@
+the target language is: prolog.
+
+% Spike: the LE twin of rules.l4, written by hand the way the translator of
+% the design notes l4.md would write it. The expected answers are the
+% L4 evaluator's (node l4run.mjs rules.l4). LE prints a list without commas.
+
+the templates are:
+    the name of *a person* is *a text*; undefined.
+    the age of *a person* is *a number*; undefined.
+    the citizenship of *a person* is *a text*; undefined.
+    the annual income of *a person* is *an amount*; undefined.
+    *a person* has a criminal record; undefined.
+    *an applicant* is eligible for benefit.
+    *an applicant* is a qualifying resident.
+    *an applicant* is of age.
+    *an applicant* meets the income threshold.
+    *an applicant* is disqualified.
+    the income tax owed on *an income* is *an amount*.
+    the amount of *an income* in the first bracket is *an amount*.
+    the amount of *an income* in the second bracket is *an amount*.
+    all of *a list* are positive.
+
+the knowledge base benefit includes:
+
+an applicant is eligible for benefit if
+    the applicant is a qualifying resident
+    and the applicant is of age
+    and the applicant meets the income threshold
+    and it is not the case that
+        the applicant is disqualified.
+
+an applicant is a qualifying resident if
+    the citizenship of the applicant is "citizen".
+
+an applicant is of age if
+    the age of the applicant is an age
+    and the age >= 21
+    and the age < 65.
+
+an applicant meets the income threshold if
+    the annual income of the applicant is an amount
+    and the amount < 30000.
+
+an applicant is disqualified if
+    the applicant has a criminal record.
+
+the income tax owed on an income is an amount if
+    the amount of the income in the first bracket is a first amount
+    and the amount of the income in the second bracket is a second amount
+    and the amount = the first amount * 0.10 + the second amount * 0.20.
+
+the amount of an income in the first bracket is an amount if
+    the income =< 10000 and the amount = the income
+    otherwise the amount = 10000.
+
+the amount of an income in the second bracket is an amount if
+    the income =< 10000 and the amount = 0
+    otherwise the amount = the income - 10000.
+
+all of a list are positive if
+    for all cases in which
+        a number is in the list
+    it is the case that
+        the number > 0.
+
+scenario people is:
+    the name of ann is "ann".
+    the age of ann is 30.
+    the citizenship of ann is "citizen".
+    the annual income of ann is 20000.
+    the name of bob is "bob".
+    the age of bob is 30.
+    the citizenship of bob is "citizen".
+    the annual income of bob is 20000.
+    bob has a criminal record.
+    eligible expects answers ["ann is eligible for benefit"].
+    tax1 expects answers ["the income tax owed on 8000 is 800.0"].
+    tax2 expects answers ["the income tax owed on 25000 is 4000.0"].
+    pos1 expects answers ["all of [1 2 3] are positive"].
+    pos2 expects answers [].
+
+query eligible is:
+    which applicant is eligible for benefit.
+
+query tax1 is:
+    the income tax owed on 8000 is which amount.
+
+query tax2 is:
+    the income tax owed on 25000 is which amount.
+
+query pos1 is:
+    all of [1, 2, 3] are positive.
+
+query pos2 is:
+    all of [1, -2, 3] are positive.

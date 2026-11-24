@@ -1,0 +1,104 @@
+{
+ "module": "us:statutes/7/2014/e/2",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "earned_income_deduction_is_twenty_percent",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/e/2#snap_earned_income_subject_to_deduction": {
+     "expected": 1000,
+     "actual": "1000",
+     "agrees": true
+    },
+    "us:statutes/7/2014/e/2#snap_earned_income_deduction": {
+     "expected": 200,
+     "actual": "200",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "work_supplementation_income_is_excluded",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/e/2#snap_earned_income_subject_to_deduction": {
+     "expected": 750,
+     "actual": "750",
+     "agrees": true
+    },
+    "us:statutes/7/2014/e/2#snap_earned_income_deduction": {
+     "expected": 150,
+     "actual": "150",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "snap_earned_income_subject_to_deduction": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "snap_countable_earned_income"
+       },
+       "right": {
+        "kind": "input",
+        "name": "work_supplementation_earned_income"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_earned_income_deduction": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "derived",
+      "name": "snap_earned_income_subject_to_deduction"
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "snap_earned_income_deduction_rate",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}

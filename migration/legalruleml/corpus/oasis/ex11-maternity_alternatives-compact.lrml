@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML
+  xml:base="http://docs.oasis-open.org/legalruleml/examples/compactified/ex11-maternity_alternatives-compact"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:ruleml="http://ruleml.org/spec"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <!-- LegalReferences -->
+  <lrml:LegalReferences>
+    <lrml:LegalReference refersTo="ref1" refID="ECLI:IT:PCBO:1996:18"
+      refIDSystemName="European Case Law Identifier"
+      refIDSystemSource="OJ:C:2011:127:0001:0007:EN:PDF"/>
+  </lrml:LegalReferences>
+  <!-- Legal Sources -->
+  <lrml:LegalSources key="ls1">
+    <lrml:LegalSource key="ref2"
+      sameAs="http://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legge:1990-12-11;379~art1"
+    />
+  </lrml:LegalSources>
+  <lrml:Sources>
+    <lrml:Source key="ex-ref1" sameAs="http://example.org#ref1"></lrml:Source>
+  </lrml:Sources>
+  <!-- Agents -->
+  <lrml:Agents>
+    <lrml:Agent key="fg" sameAs="http:example.org/agents#fGovernatori">
+      <lrml:hasType iri="http://example.org/types#Person"/>
+    </lrml:Agent>
+    <lrml:Agent key="pa" sameAs="http:example.org/agents#partyActor">
+      <lrml:hasType iri="http://example.org/types#Person"/>
+    </lrml:Agent>
+  </lrml:Agents>
+  <!-- Figures -->
+  <lrml:Figures>
+    <lrml:hasMemberType iri="ex:JudiciaryFigure"/>
+    <lrml:Figure key="fs">
+      <lrml:hasFunction iri="ex:Judge"/>
+      <lrml:hasActor keyref="#fg"/>
+    </lrml:Figure>
+  </lrml:Figures>
+  <!-- Roles -->
+  <lrml:Roles>
+    <lrml:Role key="role1" iri="http://example.org/roles#author">
+      <lrml:filledBy keyref="#fg"/>
+      <lrml:forExpression keyref="#freelancer"/>
+    </lrml:Role>
+    <lrml:Role key="role2" iri="http://example.org/roles#author">
+      <lrml:filledBy keyref="#pa"/>
+      <lrml:forExpression keyref="#literal"/>
+    </lrml:Role>
+    <lrml:Role key="role3" iri="http://example.org/roles#author">
+      <lrml:filledBy keyref="#abit"/>
+      <lrml:forExpression keyref="#employer"/>
+    </lrml:Role>
+  </lrml:Roles>
+  <!-- Authorities -->
+  <lrml:Authorities>
+    <lrml:Authority key="pc" sameAs="http://example.org/authority#prosecutorOffice"/>
+    <lrml:Authority key="abit" sameAs="http://example.org/authority#associationBar-Italy"/>
+  </lrml:Authorities>
+  <!-- Jurisdictions -->
+  <lrml:Jurisdictions>
+    <lrml:Jurisdiction key="it" sameAs="http://example.org/jurisdiction#italy"/>
+  </lrml:Jurisdictions>
+  <!-- Associations -->
+   <lrml:Associations  key="asn-alts">
+    <lrml:Association key="asn-literal">
+      <lrml:appliesSource keyref="#ex-ref1"/>
+      <lrml:appliesJurisdiction keyref="#it"/>
+      <lrml:toTarget keyref="#literal"/>
+    </lrml:Association>
+    <lrml:Association key="asn-adjudication">
+      <lrml:appliesAuthority keyref="#pc"/>
+      <lrml:appliesSource keyref="#ex-ref1"/>
+      <lrml:appliesJurisdiction keyref="#it"/>
+      <lrml:toTarget keyref="#freelancer"/>
+    </lrml:Association>
+    <lrml:Association key="asn-employer">
+      <lrml:appliesSource keyref="#ex-ref1"/>
+      <lrml:appliesJurisdiction keyref="#it"/>
+      <lrml:toTarget keyref="#employer"/>
+    </lrml:Association>
+  </lrml:Associations>
+   <!-- This part is included in the paper  -->
+   <!-- Alternatives -->
+   <lrml:Alternatives key="maternity-alts">
+     <lrml:Comment>
+       These alternatives are mutually incompatible formalizations of the same legal source: keyref="#ls1".
+     </lrml:Comment>
+     <lrml:hasAlternative keyref="#literal"/>
+    <lrml:hasAlternative keyref="#freelancer"/>
+    <lrml:hasAlternative keyref="#employer"/>
+  </lrml:Alternatives>
+   <lrml:Context key="maternity-alts-ctxt">
+     <lrml:appliesAssociations keyref="#asn-alts"/>
+     <lrml:appliesAlternatives keyref="#maternity-alts"/>
+   </lrml:Context>
+   <!-- A context can select alternatives defined elsewhere. 
+         The following context selects the alternative #freelancer and asserts a
+          It is consistent with the global constraint that only one alternative
+          among #literal #freelancer and #employer be selected. -->
+   <lrml:Context key="adjudication">
+     <lrml:appliesAssociation keyref="#asn-adjudication"/>
+     <lrml:inScope keyref="#freelancer"/>
+   </lrml:Context>
+   <!-- end included part -->
+  <!-- A context can select alternatives defined elsewhere. 
+         This context selects the alternative #literal.
+          It is consistent with the global constraint that only one alternative
+          among #literal #freelancer and #employer be selected. -->
+  <lrml:Context key="literalInfo">
+    <lrml:appliesAssociation keyref="#asn-literal"/>
+    <lrml:inScope keyref="#literal"/>
+  </lrml:Context>
+
+  <!-- A context can select alternatives defined elsewhere. 
+         This context selects the alternative #employer.
+          It is consistent with the global constraint that only one alternative
+          among #literal #freelancer and #employer be selected. -->
+  <lrml:Context key="employerInfo">
+    <lrml:appliesAssociations keyref="#asn-employer"/>
+    <lrml:inScope keyref="#employer"/>
+  </lrml:Context>
+
+  <lrml:Statements key="maternity">
+    <!-- This part is included in the paper  -->
+    <lrml:PrescriptiveStatement key="literal">
+      <ruleml:Rule closure="universal" key=":literal-template">
+        <ruleml:if>
+				<ruleml:And>
+				  <ruleml:Atom key=":atom-earned">
+				    <ruleml:Rel iri=":earned"/>
+				    <ruleml:Var>income</ruleml:Var>
+				    <ruleml:Expr>
+				      <ruleml:Fun iri=":subtract"/>
+  				    <ruleml:Var>year</ruleml:Var>
+				      <ruleml:Data xsi:type="xs:integer">2</ruleml:Data>
+				    </ruleml:Expr>
+				  </ruleml:Atom>
+				  <ruleml:Atom key=":atom-reported">
+				    <ruleml:Rel iri=":reported"/>
+				    <ruleml:Var>income</ruleml:Var>
+				    <ruleml:Expr>
+				      <ruleml:Fun iri=":subtract"/>
+				      <ruleml:Var>year</ruleml:Var>
+				      <ruleml:Data xsi:type="xs:integer">2</ruleml:Data>
+				    </ruleml:Expr>
+				  </ruleml:Atom>
+				</ruleml:And>
+			</ruleml:if>
+        <ruleml:then>
+          <lrml:Obligation key="obl-paybenefit">
+            <ruleml:slot>
+              <lrml:Bearer/>
+              <ruleml:Var>Employer</ruleml:Var>
+            </ruleml:slot>
+            <ruleml:slot>
+              <lrml:AuxiliaryParty/>
+              <ruleml:Var>Freelancer</ruleml:Var>
+            </ruleml:slot>
+            <ruleml:Atom>
+              <ruleml:Rel iri=":paybenefit"/>
+              <ruleml:Expr>
+                <ruleml:Fun iri=":80_percent_of_five-twelfths_of"/>
+                <ruleml:Var>income</ruleml:Var>
+              </ruleml:Expr>
+              <ruleml:Var>year</ruleml:Var>
+            </ruleml:Atom>
+          </lrml:Obligation>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+    <lrml:PrescriptiveStatement key="freelancer">
+      <ruleml:Rule closure="universal" key=":freelancer-template">
+        <ruleml:if>
+            <ruleml:Atom keyref=":atom-earned"/>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:Obligation keyref="#obl-paybenefit"/>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+    <lrml:PrescriptiveStatement key="employer">
+      <ruleml:Rule closure="universal" key=":employer-template">
+        <ruleml:if>
+            <ruleml:Atom keyref=":atom-reported"/>
+        </ruleml:if>
+        <ruleml:then>
+          <lrml:Obligation keyref="#obl-paybenefit"/>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+  </lrml:Statements>
+  <lrml:Statements key="tax">
+    <lrml:ConstitutiveStatement key="tax1">
+		<ruleml:Rule closure="universal">
+        <lrml:Paraphrase>If income is earned in some year, then it is reported in the following
+          year.</lrml:Paraphrase>
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":earned"/>
+            <ruleml:Var>income</ruleml:Var>
+            <ruleml:Var>year</ruleml:Var>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":reported"/>
+            <ruleml:Var>income</ruleml:Var>
+            <ruleml:Expr key=":year+1">
+              <ruleml:Fun iri=":add"/>
+              <ruleml:Var>year</ruleml:Var>
+              <ruleml:Data xsi:type="xs:integer">1</ruleml:Data>
+            </ruleml:Expr>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+    <lrml:ConstitutiveStatement key="tax2">
+		<ruleml:Rule closure="universal">
+        <lrml:Paraphrase>If income is reported in some year, then it was earned in the previous
+          year.</lrml:Paraphrase>
+        <ruleml:if>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":reported"/>
+            <ruleml:Var>income</ruleml:Var>
+            <ruleml:Var>year</ruleml:Var>
+          </ruleml:Atom>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Atom>
+            <ruleml:Rel iri=":earned"/>
+            <ruleml:Var>income</ruleml:Var>
+            <ruleml:Expr key=":year-1">
+              <ruleml:Fun iri=":subtract"/>
+              <ruleml:Var>year</ruleml:Var>
+              <ruleml:Data xsi:type="xs:integer">1</ruleml:Data>
+            </ruleml:Expr>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+    <!-- end included part -->
+  </lrml:Statements>
+</lrml:LegalRuleML>

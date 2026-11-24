@@ -1,0 +1,41 @@
+{
+  "acs": {
+    "c1": [
+      {
+	"_1":"00c9aff9f20a2475a78c3c939f804c87755076676b485dec88d7522739c0c9d8427d5b6b5149a1b95aaec05720a97eaa42c0d5e8086156f4c4206a922eb0383b72",
+	"_2": {"issuer":"Bank-d4d95138"}
+      }
+    ],
+    "c2": [],
+    "c3": [
+      {
+	"_1":"00bf38d665092be12e302831a2958489e3ddaaecea815e4d4b9216fea70bdf4c94313a6b8593f6d5c4c68b84c7f338ad893141004a48c031576f9d55070733a365",
+	"_2": {"issuer":"Bank-d4d95138","owner":"Me-9b3970be"}
+      }
+    ],
+    "c4": [],
+    "c5": [],
+    "c6": [
+      {
+	"_1":"0038e60c6358aed5ee47a0460f8deefd09f11dbbd2d7b5c258ed43052cd63c1855e8dfec10fbb782b3164ae66645892b9448003ebb32e7f44a908deea6a2f57157",
+	"_2": {
+	  "coin": {"amount":100.0,"delegates": [],"issuer":"Bank-d4d95138","owner":"You-4f1df03a"},
+	  "newOwner":"Me-9b3970be"
+	}
+      }
+    ]
+  },
+  "canton_refused":"[INFO] [09/15/2026 00:13:59.500] [RunnerMain-pekko.actor.default-dispatcher-6] [CoordinatedShutdown(pekko://RunnerMain)] Running CoordinatedShutdown with reason [ActorSystemTerminateReason]\n",
+  "ledger":"Daml Script's in-memory ledger (dpm script --ide-ledger)",
+  "project":"coin_issuance",
+  "script":"coinIssuance",
+  "tag":"r31215721",
+  "templates": [
+    {"field":"c1","module":"CoinIssuance","template":"CoinMaster"},
+    {"field":"c2","module":"CoinIssuance","template":"CoinIssueProposal"},
+    {"field":"c3","module":"CoinIssuance","template":"CoinIssueAgreement"},
+    {"field":"c4","module":"CoinIssuance","template":"Coin"},
+    {"field":"c5","module":"CoinIssuance","template":"LockedCoin"},
+    {"field":"c6","module":"CoinIssuance","template":"TransferProposal"}
+  ]
+}

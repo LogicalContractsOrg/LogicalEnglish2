@@ -1,0 +1,69 @@
+the target language is: lps.
+
+% Spike: sale.l4's contract in LE for LPS (run with
+% LPS_LE2_LIB=/work /lps2/lps run sale_lps.le).
+
+% L4: PARTY Seller MUST deliver WITHIN 14
+%       HENCE PARTY Buyer MUST pay 100 WITHIN 30 HENCE FULFILLED LEST BREACH BY Buyer BECAUSE "failed to pay"
+%       LEST BREACH BY Seller BECAUSE "failed to deliver"
+
+the maximum time is 60.
+
+the events are:
+    *a party* delivers; known as deliver.
+    *a party* pays *an amount*; known as pay.
+
+the actions are:
+    *a party* breaches because *a reason*; known as breach.
+
+the fluents are:
+    *a party* must deliver by *a deadline*; known as must_deliver.
+    *a party* must pay *an amount* by *a deadline*; known as must_pay.
+    the sale is fulfilled; known as fulfilled.
+    the sale is breached by *a party* because *a reason*; known as breached.
+
+the knowledge base sale includes:
+
+initially seller must deliver by 14.
+
+when a party delivers from a first time to a second time
+    and the party must deliver by a deadline
+    and the first time =< the deadline
+then it is not the case that the party must deliver by the deadline
+    and buyer must pay 100 by the first time + 30.
+
+when a party pays an amount
+    and the party must pay a due amount by a deadline
+    and the amount = the due amount
+then it is not the case that the party must pay the due amount by the deadline
+    and the sale is fulfilled.
+
+if a party must deliver by a deadline at a first time
+    and the first time > the deadline
+then the party breaches because "failed to deliver" from the first time to a second time.
+
+if a party must pay an amount by a deadline at a first time
+    and the first time > the deadline
+then the party breaches because "failed to pay" from the first time to a second time.
+
+when a party breaches because a reason
+then the sale is breached by the party because the reason
+    and it is not the case that the party must deliver by a deadline.
+
+when a party breaches because a reason
+then it is not the case that the party must pay an amount by a deadline.
+
+% One scenario per run: `lps run` ran the same history whichever scenario it
+% was asked for. The other three histories of the spike, and the final state
+% LPS2 reached with each (L4's answer in brackets):
+%   seller delivers from 10 to 11, buyer pays 100 from 20 to 21
+%       -> the sale is fulfilled                        (FULFILLED)
+%   seller delivers from 10 to 11
+%       -> buyer breaches because "failed to pay" at 42 (at 11: the payment
+%          obligation with deadline 40 -- L4: PARTY Buyer MUST pay 100 WITHIN 30)
+%   buyer pays 100 from 5 to 6
+%       -> seller breaches because "failed to deliver" at 16
+
+scenario late is:
+    seller delivers from 10 to 11.
+    buyer pays 100 from 50 to 51.

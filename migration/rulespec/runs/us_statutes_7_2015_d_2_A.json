@@ -1,0 +1,275 @@
+{
+ "module": "us:statutes/7/2015/d/2/A",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "title_iv_work_registration_compliance_exemption_applies",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "unemployment_compensation_work_registration_compliance_exemption_applies",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "noncompliance_with_subject_work_requirement_counts_as_paragraph_1_failure",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "person_not_otherwise_required_has_no_branch_exemption_or_failure_treatment",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/A#title_iv_or_unemployment_work_registration_compliance_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/d/2/A#subject_work_requirement_noncompliance_treated_as_paragraph_1_failure": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "title_iv_or_unemployment_work_registration_compliance_exemption_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "currently_subject_to_title_iv_work_registration_requirement"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "complying_with_title_iv_work_registration_requirement"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "currently_subject_to_federal_state_unemployment_compensation_work_registration_requirement"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "complying_with_federal_state_unemployment_compensation_work_registration_requirement"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "subject_work_requirement_noncompliance_treated_as_paragraph_1_failure": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_fails_to_comply_with_any_work_requirement_to_which_person_is_subject"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "currently_subject_to_title_iv_work_registration_requirement"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "currently_subject_to_federal_state_unemployment_compensation_work_registration_requirement"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

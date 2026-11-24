@@ -16,8 +16,8 @@
     tests in a shell.) A clause variable a lambda uses must be declared free:
     `{Consts}/[T, V]>>memberchk(T-V, Consts)`, which means the same in both.
 
-    This test reads the Prolog files of the repository (and, when installed,
-    of the extensions' translators) and lists every lambda that uses a
+    This test reads the Prolog files of the repository (its translators of
+    other systems, migration/, among them) and lists every lambda that uses a
     variable of its clause without declaring it.
 
     Run with:  swipl -g run_tests -t halt testing/test_lambda_free_variables.pl
@@ -36,7 +36,7 @@
 :- dynamic repo_root/1.
 
 %   The files: the repository's own (its root and lib/), and the translators
-%   of the extensions when le_extensions.pl links to them.
+%   of other systems (migration/).
 checked_file(F) :-
     repo_root(Root),
     member(Pattern, ['*.pl', 'lib/*.pl', 'testing/*.pl']),
@@ -44,12 +44,8 @@ checked_file(F) :-
     expand_file_name(P, Fs), member(F, Fs).
 checked_file(F) :-
     repo_root(Root),
-    atomic_list_concat([Root, '/le_extensions.pl'], Ext),
-    exists_file(Ext),
-    catch(read_link(Ext, _, Target), _, fail),
-    file_directory_name(Target, ExtRoot),
     member(Pattern, ['/migration/*.pl', '/migration/*/*.pl']),
-    atomic_list_concat([ExtRoot, Pattern], P),
+    atomic_list_concat([Root, Pattern], P),
     expand_file_name(P, Fs), member(F, Fs).
 
 %   A lambda using a variable of its clause: File:Line and the variables.

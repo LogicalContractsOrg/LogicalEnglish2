@@ -1,0 +1,593 @@
+{
+ "module": "us:statutes/7/2015/b/1",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "first_intentional_program_violation_causes_one_year_ineligibility",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/b/1#first_determination_disqualification_period_years": {
+     "expected": 1,
+     "actual": 1,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#second_determination_disqualification_period_years": {
+     "expected": 2,
+     "actual": 2,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#first_determination_occasion_number": {
+     "expected": 1,
+     "actual": 1,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#second_determination_occasion_number": {
+     "expected": 2,
+     "actual": 2,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#third_determination_occasion_number": {
+     "expected": 3,
+     "actual": 3,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#controlled_substance_first_finding_occasion_number": {
+     "expected": 1,
+     "actual": 1,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#controlled_substance_second_finding_occasion_number": {
+     "expected": 2,
+     "actual": 2,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#firearms_ammunition_or_explosives_first_finding_occasion_number": {
+     "expected": 1,
+     "actual": 1,
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#section_2024_item_value_permanent_disqualification_threshold": {
+     "expected": 500,
+     "actual": 500,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "first_controlled_substance_trading_finding_causes_two_year_ineligibility",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/b/1#intentional_program_violation_determination": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#ineligible_for_one_year": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#ineligible_for_two_years": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#permanently_ineligible": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#ineligible_for_further_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "first_firearms_ammunition_or_explosives_trading_finding_causes_permanent_ineligibility",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/b/1#intentional_program_violation_determination": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#ineligible_for_one_year": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#ineligible_for_two_years": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#permanently_ineligible": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/b/1#ineligible_for_further_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "household_cannot_receive_increased_benefits_due_to_member_disqualification",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/b/1#household_barred_from_increased_benefits_due_to_member_disqualification": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_positive_intentional_program_violation_determination",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/b/1#intentional_program_violation_determination": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "auto_positive_ineligible_for_one_year",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/b/1#ineligible_for_one_year": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "intentional_program_violation_determination": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "found_by_state_or_federal_court_or_administrative_agency"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "intentionally_made_false_or_misleading_statement_or_misrepresented_concealed_or_withheld_facts"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "intentionally_committed_act_constituting_violation_of_chapter_regulations_or_state_statute"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "act_was_for_purpose_of_using_presenting_transferring_acquiring_receiving_or_possessing_program_benefits"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "ineligible_for_one_year": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "derived",
+       "name": "intentional_program_violation_determination"
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "determination_occasion_number"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "first_determination_occasion_number",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "ineligible_for_two_years": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "derived",
+         "name": "intentional_program_violation_determination"
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "determination_occasion_number"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "second_determination_occasion_number",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "federal_state_or_local_court_finding_of_trading_controlled_substance_for_benefits"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "controlled_substance_trading_finding_occasion_number"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "controlled_substance_first_finding_occasion_number",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "permanently_ineligible": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "and",
+           "items": [
+            {
+             "kind": "derived",
+             "name": "intentional_program_violation_determination"
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "determination_occasion_number"
+             },
+             "op": "gte",
+             "right": {
+              "kind": "parameter_lookup",
+              "parameter": "third_determination_occasion_number",
+              "index": {
+               "kind": "literal",
+               "value": {
+                "kind": "integer",
+                "value": 0
+               }
+              }
+             }
+            }
+           ]
+          },
+          {
+           "kind": "and",
+           "items": [
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "federal_state_or_local_court_finding_of_trading_controlled_substance_for_benefits"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "controlled_substance_trading_finding_occasion_number"
+             },
+             "op": "gte",
+             "right": {
+              "kind": "parameter_lookup",
+              "parameter": "controlled_substance_second_finding_occasion_number",
+              "index": {
+               "kind": "literal",
+               "value": {
+                "kind": "integer",
+                "value": 0
+               }
+              }
+             }
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "federal_state_or_local_court_finding_of_trading_firearms_ammunition_or_explosives_for_benefits"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "firearms_ammunition_or_explosives_trading_finding_occasion_number"
+           },
+           "op": "gte",
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "firearms_ammunition_or_explosives_first_finding_occasion_number",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "convicted_of_offense_under_7_usc_2024_b_or_c_involving_item_covered_by_7_usc_2024_b_or_c"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "section_2024_item_value"
+         },
+         "op": "gte",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "section_2024_item_value_permanent_disqualification_threshold",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "ineligible_for_further_participation": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "derived",
+         "name": "ineligible_for_one_year"
+        },
+        {
+         "kind": "derived",
+         "name": "ineligible_for_two_years"
+        }
+       ]
+      },
+      {
+       "kind": "derived",
+       "name": "permanently_ineligible"
+      }
+     ]
+    }
+   }
+  ],
+  "household_barred_from_increased_benefits_due_to_member_disqualification": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "comparison",
+     "left": {
+      "kind": "input",
+      "name": "household_has_member_disqualified_under_this_subsection_during_period_of_ineligibility"
+     },
+     "op": "eq",
+     "right": {
+      "kind": "literal",
+      "value": {
+       "kind": "bool",
+       "value": true
+      }
+     }
+    }
+   }
+  ]
+ }
+}

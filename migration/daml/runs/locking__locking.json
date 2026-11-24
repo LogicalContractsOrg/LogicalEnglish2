@@ -1,0 +1,27 @@
+{
+  "acs": {
+    "c1": [
+      {
+	"_1":"002265e97991b5f5e4d138cb762f1841cdf489f87dd7dad2a80823c8c1382838d245522c6a102b3ffc686e2b432aa8a27a1512bda077ef1dbdaf5bfed9085b3be9",
+	"_2": {
+	  "amount":100.0,
+	  "issuer":"Bank-d4d95138",
+	  "locker":"You-4f1df03a",
+	  "owner":"You-4f1df03a"
+	}
+      }
+    ],
+    "c2": [],
+    "c3": []
+  },
+  "canton_refused":"\tat io.grpc.Status.asRuntimeException(Status.java:532)\n\tat io.grpc.stub.ClientCalls$UnaryStreamToFuture.onClose(ClientCalls.java:638)\n\tat io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)\n\tat io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)\n\tat io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)\n\tat io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)\n\tat java.base/java.lang.Thread.run(Thread.java:1583)\n",
+  "ledger":"Daml Script's in-memory ledger (dpm script --ide-ledger)",
+  "project":"locking",
+  "script":"locking",
+  "tag":"r32826016",
+  "templates": [
+    {"field":"c1","module":"LockingByChangingState","template":"LockableCoin"},
+    {"field":"c2","module":"LockingByChangingState","template":"TransferProposal"},
+    {"field":"c3","module":"LockingByChangingState","template":"CoinProposal"}
+  ]
+}

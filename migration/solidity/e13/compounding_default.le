@@ -1,0 +1,33 @@
+% E13, experiment 3: one action's effects are applied in serial micro-states: its
+% initiations first, then each update to the state produced so far. An unguarded
+% initiation of the default and an update of the same entry therefore compound: carol
+% receives 20 for a transfer of 10. (The translator guards the update — see sol_front.pl.)
+
+the target language is: lps.
+
+the maximum time is 4.
+
+the actions are:
+    *a payer* transfers *an amount* to *a payee*; known as transfer.
+
+the fluents are:
+    the balance of *a person* is *an amount*; known as balance.
+
+the knowledge base atom3 includes:
+
+initially the balance of bob is 0
+    and the balance of fariba is 100.
+
+when a payer transfers an amount to a payee
+then the balance of the payee that is a number becomes number + amount.
+
+when a payer transfers an amount to a payee
+    and it is not the case that the balance of the payee is a number
+then the balance of the payee is the amount.
+
+when a payer transfers an amount to a payee
+then the balance of the payer that is a second number becomes second number - amount.
+
+scenario one is:
+    fariba transfers 10 to carol from 1 to 2.
+    carol transfers 5 to bob from 2 to 3.

@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex8-defeasible-compact#"
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:ruleml="http://ruleml.org/spec"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <lrml:Context key="ruleInfo1">
+    <lrml:appliesStrength iri="http://www.w3.org/2001/XMLSchema#defeasible2"/>
+    <lrml:inScope keyref="#cs1"/>
+  </lrml:Context>
+
+  <lrml:Context key="ruleInfo2">
+    <lrml:appliesStrength>
+      <lrml:StrictStrength/>
+    </lrml:appliesStrength>
+    <lrml:inScope keyref="#ps1"/>
+  </lrml:Context>
+
+  <lrml:Statements key="textblock1">
+    <lrml:OverrideStatement>
+      <lrml:Override over="#cs2" under="#cs1"/>
+    </lrml:OverrideStatement>
+    <lrml:OverrideStatement>
+      <lrml:Override over="#ps2" under="#ps1"/>
+    </lrml:OverrideStatement>
+
+    <!-- Constitutive LRML-Normlized Version -->
+    <lrml:ConstitutiveStatement key="cs1">
+      <!-- optional default qualifiers which can be changed by an interpretation
+           using a RuleContext element-->
+      <!-- The template contains the immutable part of the rule - 
+             not subject to interpretation. -->
+      <ruleml:Rule key=":ruletemplate1" closure="universal">
+        <lrml:hasStrength>
+          <lrml:DefeasibleStrength key="str1"
+            iri="http://example.org/legalruleml/ontology#defeasible1"/>
+        </lrml:hasStrength>
+        <ruleml:if>
+          <ruleml:And>
+            <ruleml:Atom key=":atom1">
+              <ruleml:Rel iri=":rel1"/>
+              <ruleml:Ind>X</ruleml:Ind>
+            </ruleml:Atom>
+            <ruleml:Atom key=":atom2">
+              <ruleml:Rel iri=":rel2"/>
+              <ruleml:Ind>X</ruleml:Ind>
+            </ruleml:Atom>
+          </ruleml:And>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Atom key=":atom3">
+            <ruleml:Rel iri=":rel3"/>
+            <ruleml:Ind>X</ruleml:Ind>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+
+    <!-- Constitutive Compactified Version -->
+    <lrml:ConstitutiveStatement key="cs2">
+      <ruleml:Rule key=":ruletemplate101" keyref=":ruletemplate1" strength="defeater">
+        <ruleml:then>
+          <ruleml:Atom key=":atom103" keyref=":atom3">
+            <ruleml:Rel iri=":rel103"/>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:ConstitutiveStatement>
+
+    <!-- Prescriptive Compactified Version -->
+    <lrml:PrescriptiveStatement key="ps1">
+      <ruleml:Rule key=":ruletemplate2" closure="universal">
+        <lrml:Paraphrase><b>Blah</b> blah. </lrml:Paraphrase>
+        <lrml:hasStrength>
+          <lrml:StrictStrength key="str3" iri="http://example.org/legalruleml/ontology#strict1"/>
+        </lrml:hasStrength>
+        <ruleml:if>
+          <ruleml:And key=":and1">
+            <ruleml:Atom key=":atom4">
+              <ruleml:Rel iri=":rel1"/>
+              <ruleml:Ind>X</ruleml:Ind>
+            </ruleml:Atom>
+            <ruleml:Or key=":or1">
+              <ruleml:Atom key=":atom5">
+                <ruleml:Rel iri=":rel2"/>
+                <ruleml:Ind>X</ruleml:Ind>
+              </ruleml:Atom>
+              <ruleml:Atom key=":atom5">
+                <ruleml:Rel iri=":rel2"/>
+                <ruleml:Ind>X</ruleml:Ind>
+              </ruleml:Atom>
+            </ruleml:Or>
+          </ruleml:And>
+        </ruleml:if>
+        <ruleml:then>
+          <ruleml:Neg key=":neg1">
+            <ruleml:Atom key=":atom6">
+              <ruleml:Rel iri=":rel3"/>
+              <ruleml:Ind>X</ruleml:Ind>
+            </ruleml:Atom>
+          </ruleml:Neg>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+
+    <!-- Prescriptive LRML-Normlized Version -->
+    <lrml:PrescriptiveStatement key="ps2">
+      <ruleml:Rule key=":ruletemplate3" keyref=":ruletemplate2">
+        <lrml:hasStrength>
+          <lrml:Defeater key="str4"/>
+        </lrml:hasStrength>
+        <ruleml:then>
+          <ruleml:Atom key=":atom26">
+            <ruleml:Rel iri=":rel3"/>
+            <ruleml:Ind>X</ruleml:Ind>
+          </ruleml:Atom>
+        </ruleml:then>
+      </ruleml:Rule>
+    </lrml:PrescriptiveStatement>
+  </lrml:Statements>
+</lrml:LegalRuleML>

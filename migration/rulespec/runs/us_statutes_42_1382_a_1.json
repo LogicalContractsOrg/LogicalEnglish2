@@ -1,0 +1,815 @@
+{
+ "module": "us:statutes/42/1382/a/1",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "aged_citizen_no_eligible_spouse_income_and_resources_within_limits_qualifies",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/1#applicable_individual_annual_income_limit": {
+     "expected": 1800,
+     "actual": "1800",
+     "agrees": true
+    },
+    "us:statutes/42/1382/a/1#eligible_individual": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "individual_with_eligible_spouse_does_not_qualify",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/1#eligible_individual": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "income_above_applicable_limit_does_not_qualify",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/1#eligible_individual": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "living_with_spouse_uses_couple_resource_limit",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/1#eligible_individual": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "aged_blind_or_disabled_individual": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "individual_age_years"
+           },
+           "op": "gte",
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "aged_age_threshold_years",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "blind_as_determined_under_paragraph_2"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "disabled_as_determined_under_paragraph_3"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "resident_of_united_states"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "or",
+           "items": [
+            {
+             "kind": "or",
+             "items": [
+              {
+               "kind": "or",
+               "items": [
+                {
+                 "kind": "comparison",
+                 "left": {
+                  "kind": "input",
+                  "name": "citizen_of_united_states"
+                 },
+                 "op": "eq",
+                 "right": {
+                  "kind": "literal",
+                  "value": {
+                   "kind": "bool",
+                   "value": true
+                  }
+                 }
+                },
+                {
+                 "kind": "comparison",
+                 "left": {
+                  "kind": "input",
+                  "name": "alien_lawfully_admitted_for_permanent_residence"
+                 },
+                 "op": "eq",
+                 "right": {
+                  "kind": "literal",
+                  "value": {
+                   "kind": "bool",
+                   "value": true
+                  }
+                 }
+                }
+               ]
+              },
+              {
+               "kind": "comparison",
+               "left": {
+                "kind": "input",
+                "name": "alien_otherwise_permanently_residing_in_united_states_under_color_of_law"
+               },
+               "op": "eq",
+               "right": {
+                "kind": "literal",
+                "value": {
+                 "kind": "bool",
+                 "value": true
+                }
+               }
+              }
+             ]
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "alien_lawfully_present_due_to_section_1182_d_5_application"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "child_citizen_of_united_states"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "living_with_parent_member_of_armed_forces_assigned_to_permanent_duty_ashore_outside_united_states"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "couple_or_living_with_spouse_resource_limit": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 0
+      }
+     }
+    }
+   }
+  ],
+  "individual_no_spouse_resource_limit": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "resource_limit_amount_for_paragraph_1_B_ii",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 0
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_after_paragraph_1_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "input",
+       "name": "dollar_amount_in_effect_for_month"
+      },
+      {
+       "kind": "derived",
+       "name": "prior_rounding_carryover_increase"
+      }
+     ]
+    }
+   }
+  ],
+  "subsection_a_applicable_increase_percentage": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "subchapter_ii_increase_was_determined_on_wage_increase_percentage"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "input",
+        "name": "subchapter_ii_benefit_increase_percentage_for_month"
+       },
+       {
+        "kind": "input",
+        "name": "cpi_basis_subchapter_ii_increase_percentage_for_month"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "input",
+      "name": "subchapter_ii_benefit_increase_percentage_for_month"
+     }
+    }
+   }
+  ],
+  "amount_after_subsection_a_increase": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "derived",
+         "name": "amount_after_paragraph_1_increase"
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase_for_section_1382_b_1_amount": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_section_1382_b_1_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "section_1382_b_1_dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_determined_under_section_1382f_for_section_1382_b_1": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "input",
+           "name": "section_1382_b_1_dollar_amount_in_effect_for_month"
+          },
+          {
+           "kind": "derived",
+           "name": "prior_rounding_carryover_increase_for_section_1382_b_1_amount"
+          }
+         ]
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "prior_rounding_carryover_increase_for_section_1382_b_2_amount": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "literal",
+       "value": {
+        "kind": "decimal",
+        "value": "0"
+       }
+      },
+      {
+       "kind": "sub",
+       "left": {
+        "kind": "input",
+        "name": "unrounded_section_1382_b_2_dollar_amount_that_would_have_been_in_effect_for_month_but_for_prior_rounding"
+       },
+       "right": {
+        "kind": "input",
+        "name": "section_1382_b_2_dollar_amount_in_effect_for_month"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "amount_determined_under_section_1382f_for_section_1382_b_2": [
+   {
+    "effective_from": "1975-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "floor",
+      "value": {
+       "kind": "div",
+       "left": {
+        "kind": "mul",
+        "left": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "input",
+           "name": "section_1382_b_2_dollar_amount_in_effect_for_month"
+          },
+          {
+           "kind": "derived",
+           "name": "prior_rounding_carryover_increase_for_section_1382_b_2_amount"
+          }
+         ]
+        },
+        "right": {
+         "kind": "add",
+         "items": [
+          {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "1"
+           }
+          },
+          {
+           "kind": "derived",
+           "name": "subsection_a_applicable_increase_percentage"
+          }
+         ]
+        }
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "annual_rounding_multiple",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "annual_rounding_multiple",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "applicable_individual_annual_income_limit": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "max",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "individual_annual_income_base_limit",
+       "index": {
+        "kind": "literal",
+        "value": {
+         "kind": "integer",
+         "value": 0
+        }
+       }
+      },
+      {
+       "kind": "derived",
+       "name": "amount_after_subsection_a_increase"
+      }
+     ]
+    }
+   }
+  ],
+  "eligible_individual": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "derived",
+           "name": "aged_blind_or_disabled_individual"
+          },
+          {
+           "kind": "not",
+           "item": {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "individual_has_eligible_spouse"
+            },
+            "op": "eq",
+            "right": {
+             "kind": "literal",
+             "value": {
+              "kind": "bool",
+              "value": true
+             }
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "annual_income_other_than_excluded_pursuant_to_section_1382a_b"
+         },
+         "op": "lte",
+         "right": {
+          "kind": "derived",
+          "name": "applicable_individual_annual_income_limit"
+         }
+        }
+       ]
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "individual_has_spouse_with_whom_living"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "resources_other_than_excluded_pursuant_to_section_1382b_a"
+           },
+           "op": "lte",
+           "right": {
+            "kind": "derived",
+            "name": "couple_or_living_with_spouse_resource_limit"
+           }
+          }
+         ]
+        },
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "not",
+           "item": {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "individual_has_spouse_with_whom_living"
+            },
+            "op": "eq",
+            "right": {
+             "kind": "literal",
+             "value": {
+              "kind": "bool",
+              "value": true
+             }
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "resources_other_than_excluded_pursuant_to_section_1382b_a"
+           },
+           "op": "lte",
+           "right": {
+            "kind": "derived",
+            "name": "individual_no_spouse_resource_limit"
+           }
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

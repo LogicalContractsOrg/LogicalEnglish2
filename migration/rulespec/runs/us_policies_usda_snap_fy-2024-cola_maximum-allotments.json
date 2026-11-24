@@ -1,0 +1,213 @@
+{
+ "module": "us:policies/usda/snap/fy-2024-cola/maximum-allotments",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "maximum_allotment_for_one_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_table": {
+     "expected": 291,
+     "actual": 291,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment": {
+     "expected": 291,
+     "actual": "291",
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_one_person_thrifty_food_plan_cost": {
+     "expected": 291,
+     "actual": 291,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "maximum_allotment_for_four_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_table": {
+     "expected": 973,
+     "actual": 973,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment": {
+     "expected": 973,
+     "actual": "973",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "maximum_allotment_adds_each_additional_person",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment": {
+     "expected": 2189,
+     "actual": "2189",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "regional_maximum_allotment_parameters_for_two_person_household",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_alaska_urban_table": {
+     "expected": 686,
+     "actual": 686,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_1_table": {
+     "expected": 875,
+     "actual": 875,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_alaska_rural_2_table": {
+     "expected": 1065,
+     "actual": 1065,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_guam_table": {
+     "expected": 788,
+     "actual": 788,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_hawaii_table": {
+     "expected": 967,
+     "actual": 967,
+     "agrees": true
+    },
+    "us:policies/usda/snap/fy-2024-cola/maximum-allotments#snap_maximum_allotment_virgin_islands_table": {
+     "expected": 688,
+     "actual": 688,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "snap_maximum_allotment": [
+   {
+    "effective_from": "2023-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "parameter_lookup",
+       "parameter": "snap_maximum_allotment_table",
+       "index": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "min",
+          "items": [
+           {
+            "kind": "input",
+            "name": "household_size"
+           },
+           {
+            "kind": "literal",
+            "value": {
+             "kind": "integer",
+             "value": 8
+            }
+           }
+          ]
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 1
+          }
+         }
+        ]
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "max",
+        "items": [
+         {
+          "kind": "sub",
+          "left": {
+           "kind": "input",
+           "name": "household_size"
+          },
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "decimal",
+            "value": "8"
+           }
+          }
+         },
+         {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        ]
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "snap_maximum_allotment_additional_member",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "snap_one_person_thrifty_food_plan_cost": [
+   {
+    "effective_from": "2023-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "snap_maximum_allotment_table",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 1
+      }
+     }
+    }
+   }
+  ]
+ }
+}

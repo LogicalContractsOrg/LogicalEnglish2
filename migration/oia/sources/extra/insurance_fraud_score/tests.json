@@ -1,0 +1,159 @@
+{
+ "source": "Synthetic cases for the reconstructed Insurance Fraud Score rules; expected values computed by make_tests.py.",
+ "cases": [
+  {
+   "id": "first_claim_new_policy_theft",
+   "description": "A first claim, a theft not reported to the police, 20 days into the policy: 30 + 25 = 55, referred.",
+   "inputs": {
+    "claim_amount": 4000,
+    "claim_date": "2026-03-10",
+    "policy_start_date": "2026-02-18",
+    "claim_type": "Theft",
+    "previous_claims": []
+   },
+   "expected": {
+    "recent_claims": 0,
+    "fraud_score": 55,
+    "referred": true,
+    "risk_band": "Medium"
+   }
+  },
+  {
+   "id": "large_claim_against_history",
+   "description": "A claim three times the average of two earlier claims, one of them in the last twelve months: 40 + 15 = 55.",
+   "inputs": {
+    "claim_amount": 9000,
+    "claim_date": "2026-05-01",
+    "policy_start_date": "2019-01-01",
+    "claim_type": "Accident",
+    "reported_to_police": true,
+    "previous_claims": [
+     {
+      "@id": "pc1",
+      "previous_claim_amount": 2000,
+      "previous_claim_date": "2025-09-15"
+     },
+     {
+      "@id": "pc2",
+      "previous_claim_amount": 4000,
+      "previous_claim_date": "2023-02-01"
+     }
+    ]
+   },
+   "expected": {
+    "recent_claims": 1,
+    "average_previous_claim": 3000.0,
+    "fraud_score": 55,
+    "referred": true,
+    "risk_band": "Medium"
+   }
+  },
+  {
+   "id": "many_recent_claims_capped",
+   "description": "Four claims in the last year (recency capped at 45), one rejected (20), a fire (10): 75, High.",
+   "inputs": {
+    "claim_amount": 1000,
+    "claim_date": "2026-06-30",
+    "policy_start_date": "2020-06-30",
+    "claim_type": "Fire",
+    "previous_claims": [
+     {
+      "@id": "pc1",
+      "previous_claim_amount": 900,
+      "previous_claim_date": "2026-01-10",
+      "previous_claim_rejected": true
+     },
+     {
+      "@id": "pc2",
+      "previous_claim_amount": 1100,
+      "previous_claim_date": "2025-12-01"
+     },
+     {
+      "@id": "pc3",
+      "previous_claim_amount": 800,
+      "previous_claim_date": "2025-08-20"
+     },
+     {
+      "@id": "pc4",
+      "previous_claim_amount": 1200,
+      "previous_claim_date": "2025-07-01"
+     }
+    ]
+   },
+   "expected": {
+    "recent_claims": 4,
+    "average_previous_claim": 1000.0,
+    "fraud_score": 75,
+    "referred": true,
+    "risk_band": "High"
+   }
+  },
+  {
+   "id": "twelve_month_boundary",
+   "description": "A previous claim exactly twelve months before (30 June 2025 for 30 June 2026) counts as recent.",
+   "inputs": {
+    "claim_amount": 500,
+    "claim_date": "2026-06-30",
+    "policy_start_date": "2015-01-01",
+    "claim_type": "Water damage",
+    "previous_claims": [
+     {
+      "@id": "pc1",
+      "previous_claim_amount": 600,
+      "previous_claim_date": "2025-06-30"
+     }
+    ]
+   },
+   "expected": {
+    "recent_claims": 1,
+    "average_previous_claim": 600.0,
+    "fraud_score": 15,
+    "referred": false,
+    "risk_band": "Low"
+   }
+  },
+  {
+   "id": "reported_theft_medium",
+   "description": "A reported theft, 60 days into the policy, 1.5 times the earlier claim: 20 + 10 + 15 = 45, Medium, not referred.",
+   "inputs": {
+    "claim_amount": 1500,
+    "claim_date": "2026-04-01",
+    "policy_start_date": "2026-01-31",
+    "claim_type": "Theft",
+    "reported_to_police": true,
+    "previous_claims": [
+     {
+      "@id": "pc1",
+      "previous_claim_amount": 1000,
+      "previous_claim_date": "2024-11-11"
+     }
+    ]
+   },
+   "expected": {
+    "recent_claims": 0,
+    "average_previous_claim": 1000.0,
+    "fraud_score": 45,
+    "referred": false,
+    "risk_band": "Medium"
+   }
+  },
+  {
+   "id": "clean_low",
+   "description": "An old policy, an ordinary claim, no history: 0, Low.",
+   "inputs": {
+    "claim_amount": 700,
+    "claim_date": "2026-02-02",
+    "policy_start_date": "2010-02-02",
+    "claim_type": "Accident",
+    "reported_to_police": true,
+    "previous_claims": []
+   },
+   "expected": {
+    "recent_claims": 0,
+    "fraud_score": 0,
+    "referred": false,
+    "risk_band": "Low"
+   }
+  }
+ ]
+}

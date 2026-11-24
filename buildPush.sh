@@ -1,6 +1,6 @@
 #!/bin/bash
 #WARNING this script pushes proprietary information to the Docker image, namely extended LE examples, web_extras,
-# and a copy of lpsPlus (vendor/lpsplus: the translators, and the licences and passwords tables);
+# and a copy of lpsPlus (vendor/lpsplus: the licences and passwords tables, the Contract Assistant);
 # make sure that image is kept private, and that
 # the sign-in (lpsPlus accounts/) protects restricted examples, cf. configuration in restricted_paths.pl
 set -e
@@ -12,18 +12,22 @@ BUILD_INFO="${GIT_BRANCH}@${GIT_HASH} (${BUILD_DATE})"
 
 echo "Building le2 with info: ${BUILD_INFO}"
 
-# Signing in (Google, GitHub, passwords), the licences table and the
-# translators of other systems come from the private lpsPlus repository, into
+# Signing in (Google, GitHub, passwords), the licences table and the LE
+# Contract Assistant come from the private lpsPlus repository, into
 # vendor/lpsplus/ (le_plus.pl finds them there through LPS_PLUS_DIR, set in
 # the Dockerfile). Without a checkout the image is built anyway, as a server
-# where every visitor is anonymous.
+# where every visitor is anonymous. The translators of other systems are this
+# repository's own (migration/).
 PLUS_DIR="${LPS_PLUS_DIR:-../lpsPlus}"
 if [ -f "$PLUS_DIR/accounts/lc_accounts.pl" ]; then
     ./vendor_lpsplus.sh "$PLUS_DIR"
 else
-    echo "no lpsPlus checkout at $PLUS_DIR: building without sign-in and without the translators."
+    echo "no lpsPlus checkout at $PLUS_DIR: building without sign-in and without the Contract Assistant."
     rm -rf vendor/lpsplus
 fi
+# The downloaded files a translator reads when a visitor opens a file (the
+# Rune door's copy of DRR), into vendor/caches/.
+./vendor_caches.sh
 
 # the following (together with .dockerignore) avoids the symlink problems with le_extensions.pl and restricted examples:
 TARFILE=$(mktemp -t docker-context.XXXXXX.tar)

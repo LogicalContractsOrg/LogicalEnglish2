@@ -1,0 +1,73 @@
+% lib_draft/deontic_history.le -- a first cut of lib/deontic_history.le, the
+% library of the design notes l4.md section 4.1 (the timeless reading of L4's
+% contracts). Draft: it lives here until step 3 moves it to LE2's lib/.
+%
+% A contract is a chain of obligations. The program says, for each kind of
+% obligation, when one starts, its deadline (if it has one), and which events
+% meet it. This library says, over a finished history, how each obligation
+% ends: met on a day, or missed on a day, or still pending.
+%
+% An obligation is written as a sentence of the program's own
+% (`the borrower pays the instalment on a debt of 27077.49`), so that a
+% contract with parameters -- an amount owed, a party -- needs no numbering.
+%
+% L4's evaluator notices a missed deadline only when something next happens
+% (a later event, or the history saying time has passed). That event starts
+% the next obligation and does not itself count towards it. The library reads
+% deadlines the same way.
+%
+% What the program supplies:
+%     the obligation that *a sentence* starts on *a date*.
+%     the obligation that *a sentence* has deadline *a date*.       (none: no deadline)
+%     the obligation that *a sentence* is met on *a date*.
+%     something happens on *a date*.
+%     an obligation can start on *a date*.         (every date an obligation
+%        may start on: the contract's start and the history's dates. LE's loop
+%        check needs a recursive call's date bound before the call; see
+%        the design notes l4.md section 7.)
+
+the templates are:
+    the obligation that *a sentence* starts on *a date*.
+    the obligation that *a sentence* has deadline *a date*.
+    the obligation that *a sentence* is met on *a date*.
+    something happens on *a date*.
+    an obligation can start on *a date*.
+    the obligation that *a sentence* ends on *a date*.
+    the obligation that *a sentence* is missed on *a date*.
+    the obligation that *a sentence* is pending since *a date*.
+    the deadline of the obligation that *a sentence* has passed on *a date*.
+
+the knowledge base deontic history includes:
+
+the deadline of the obligation that a sentence has passed on a day if
+    something happens on the day
+    and an obligation can start on a start
+    and the start is before the day
+    and the obligation that the sentence starts on the start
+    and the obligation that the sentence has deadline a deadline
+    and the day is after the deadline.
+
+the obligation that a sentence ends on a day if
+    the obligation that the sentence is met on the day
+    and it is not the case that
+        the deadline of the obligation that the sentence has passed on an earlier day
+        and the earlier day is before the day
+    and it is not the case that
+        the obligation that the sentence is met on an other day
+        and the other day is before the day.
+
+the obligation that a sentence is missed on a day if
+    the deadline of the obligation that the sentence has passed on the day
+    and it is not the case that
+        the obligation that the sentence ends on a paid day
+    and it is not the case that
+        the deadline of the obligation that the sentence has passed on an earlier day
+        and the earlier day is before the day.
+
+the obligation that a sentence is pending since a date if
+    an obligation can start on the date
+    and the obligation that the sentence starts on the date
+    and it is not the case that
+        the obligation that the sentence ends on a day
+    and it is not the case that
+        the obligation that the sentence is missed on a day.

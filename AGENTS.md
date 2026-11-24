@@ -5,7 +5,13 @@ Refer to `docs/user/reference/language.md` for language syntax and `examples/mor
 (`examples/README.md` says what each example tree holds; `language/` has one program per feature).
 Translators from other systems into LE (migrations) share `le_writer.pl` (Migration IR -> LE
 text), `le_migration.pl` (ledger, source tests as scenarios) and `lib/` (shared LE libraries);
-see `docs/dev/migration.md`.
+see `docs/dev/migration.md`. The translators themselves are in `migration/`, one folder per
+system, registered in `migration/le_importers.pl` (`migration/README.md`). They came from the
+private lpsPlus repository in November 2026: their copyright holder is Miguel Calejo (`NOTICE`),
+they are Apache-2.0 like the rest, and they are published "as is". A twin of a source whose
+licence does not allow a changed copy to be published (Oracle Intelligent Advisor samples,
+Socotra, OpenFisca and PolicyEngine, ISDA's reporting rules) is never written into this
+repository: `migration/le2_paths.pl` sends it to a private place.
 Ignore docs/vibeCodingNotes.md, it contains the user's private notes.
 Documentation lives in `docs/` by kind (`docs/README.md`): `docs/user/` is the
 published user documentation (its table of contents, `docs/user/nav.json`,
@@ -54,6 +60,11 @@ you can call it from anywhere. Use it as the default check:
 - `testing/run_tests.sh unit | le | e2e` — run a single suite (space-separated subsets allowed).
 - `testing/run_tests.sh --with-extensions` — LE examples INCLUDING the trees that
   need the proprietary `le_extensions.pl` (see below). Default is core only.
+- `testing/run_tests.sh migration [<folder> ...]` — the translators' own tests
+  (`migration/*/test_*.pl`), each file in its own process. Not part of the default
+  run: several need a download, another system's engine or LPS2 beside this checkout,
+  and skip what they cannot check. Run it after a change to a translator, or to
+  `le_writer.pl`, `le_migration.pl` or `le_import.pl`.
 - Set `SWIPL=...` to choose the interpreter; set `CI=1` to make a missing e2e setup
   a failure instead of a skip.
 

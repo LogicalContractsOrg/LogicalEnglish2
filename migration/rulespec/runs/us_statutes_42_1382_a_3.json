@@ -1,0 +1,106 @@
+{
+ "module": "us:statutes/42/1382/a/3",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "resource_limits_prior_to_january_1985",
+   "period": {
+    "period_kind": "month",
+    "start": "1984-12-01",
+    "end": "1984-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit": {
+     "expected": 2250,
+     "actual": 2250,
+     "agrees": true
+    },
+    "us:statutes/42/1382/a/3#individual_no_spouse_resource_limit": {
+     "expected": 1500,
+     "actual": 1500,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "resource_limits_on_january_1985",
+   "period": {
+    "period_kind": "month",
+    "start": "1985-01-01",
+    "end": "1985-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit": {
+     "expected": 2400,
+     "actual": 2400,
+     "agrees": true
+    },
+    "us:statutes/42/1382/a/3#individual_no_spouse_resource_limit": {
+     "expected": 1600,
+     "actual": 1600,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "resource_limits_on_january_1989",
+   "period": {
+    "period_kind": "month",
+    "start": "1989-01-01",
+    "end": "1989-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382/a/3#couple_or_living_with_spouse_resource_limit": {
+     "expected": 3000,
+     "actual": 3000,
+     "agrees": true
+    },
+    "us:statutes/42/1382/a/3#individual_no_spouse_resource_limit": {
+     "expected": 2000,
+     "actual": 2000,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "couple_or_living_with_spouse_resource_limit": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "resource_limit_amount_for_paragraph_1_B_i_and_paragraph_2_B",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 0
+      }
+     }
+    }
+   }
+  ],
+  "individual_no_spouse_resource_limit": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "parameter_lookup",
+     "parameter": "resource_limit_amount_for_paragraph_1_B_ii",
+     "index": {
+      "kind": "literal",
+      "value": {
+       "kind": "integer",
+       "value": 0
+      }
+     }
+    }
+   }
+  ]
+ }
+}

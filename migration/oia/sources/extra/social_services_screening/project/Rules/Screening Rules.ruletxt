@@ -1,0 +1,38 @@
+[Heading1]	Social services screening
+[Heading2]	The household
+[OPM-conclusion]	the household size = InstanceCount(the household members)
+[OPM-conclusion]	the household's monthly income = InstanceSum(the household members, the household member's monthly income)
+[table-OPM-conclusion]	the income limit for the household
+[table-OPM-level1]	1580 | [1] the household size = 1
+[table-OPM-level1]	2137 | [1] the household size = 2
+[table-OPM-level1]	2694 | [1] the household size = 3
+[table-OPM-level1]	3250 | [1] the household size = 4
+[table-OPM-Alternativeconclusion]	3250 + (557 * (the household size - 4)) | [1] otherwise
+[Heading2]	Food assistance
+[OPM-conclusion]	the household is eligible for food assistance if
+[OPM-level1]	the household's monthly income <= the income limit for the household and
+[OPM-level1]	the household's countable assets < 2750
+[Heading2]	Child care assistance
+[OPM-conclusion]	the household member is a child if
+[OPM-level1]	the household member's age < 13
+[OPM-conclusion]	the household member is available for child care if
+[OPM-level1]	the household member is a child or
+[OPM-level1]	the household member is employed or
+[OPM-level1]	the household member is a full-time student
+[OPM-conclusion]	the household is eligible for child care assistance if
+[OPM-level1]	Exists(the household members, the household member is a child) and
+[OPM-level1]	ForAll(the household members, the household member is available for child care) and
+[OPM-level1]	the household's monthly income <= the income limit for the household * 1.5
+[Heading2]	Energy assistance
+[OPM-conclusion]	the household member is vulnerable if
+[OPM-level1]	the household member's age >= 60 or
+[OPM-level1]	the household member has a disability
+[OPM-conclusion]	the number of vulnerable members = InstanceCountIf(the household members, the household member is vulnerable)
+[OPM-conclusion]	the household is eligible for energy assistance if
+[OPM-level1]	the number of vulnerable members > 0 and
+[OPM-level1]	the household's monthly income <= the income limit for the household * 1.5
+[table-OPM-conclusion]	the energy assistance credit
+[table-OPM-level1]	150 | [1] the household is eligible for energy assistance and
+[table-cell-continued]	| [1] the number of vulnerable members >= 2
+[table-OPM-level1]	100 | [1] the household is eligible for energy assistance
+[table-OPM-Alternativeconclusion]	0 | [1] otherwise

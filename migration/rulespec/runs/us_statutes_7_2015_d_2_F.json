@@ -1,0 +1,205 @@
+{
+ "module": "us:statutes/7/2015/d/2/F",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "youth_between_sixteen_and_eighteen_not_head_of_household_exempt",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "youth_head_of_household_attending_school_at_least_half_time_exempt",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "youth_head_of_household_enrolled_in_employment_training_at_least_half_time_exempt",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "age_eighteen_not_within_youth_exemption_no_exemption",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2015/d/2/F#youth_work_requirement_exemption_applies": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "youth_work_requirement_exemption_applies": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_otherwise_required_to_comply_with_paragraph_1_requirements"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_age_years"
+           },
+           "op": "gte",
+           "right": {
+            "kind": "parameter_lookup",
+            "parameter": "youth_exemption_lower_age_years",
+            "index": {
+             "kind": "literal",
+             "value": {
+              "kind": "integer",
+              "value": 0
+             }
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_age_years"
+         },
+         "op": "lt",
+         "right": {
+          "kind": "parameter_lookup",
+          "parameter": "youth_exemption_upper_age_years",
+          "index": {
+           "kind": "literal",
+           "value": {
+            "kind": "integer",
+            "value": 0
+           }
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "not",
+           "item": {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "person_is_snap_household_head"
+            },
+            "op": "eq",
+            "right": {
+             "kind": "literal",
+             "value": {
+              "kind": "bool",
+              "value": true
+             }
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_is_attending_school_at_least_half_time"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_is_enrolled_in_employment_training_program_at_least_half_time"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

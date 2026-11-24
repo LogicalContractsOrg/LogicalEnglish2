@@ -1,0 +1,167 @@
+the target language is: lps.
+
+% The promissory note of L4's legal examples (smucclaw/l4-ide,
+% jl4/examples/legal/promissory-note.l4, Apache 2.0), written by hand as the
+% L4 translator will write it for LPS: the reading of the design notes l4.md
+% section 4.2. Time is counted in days from 4 February 2025 (day 0).
+%
+% Each obligation is a fluent that holds while the obligation is open. A
+% payment that meets it ends it, and starts the obligation that follows. As in
+% L4, a missed deadline is noticed only when something next happens: a
+% payment, or the clock being read ("WAIT UNTIL" in L4). That event starts
+% the next obligation and is not itself counted as a payment of it.
+%
+% Money is in United States dollars throughout; L4's check of the currency is
+% left out.
+
+the maximum time is 510.
+
+the events are:
+    the note starts; known as note_starts.
+    the borrower pays *an amount*; known as pays.
+    the clock is read; known as clock_read.
+
+the fluents are:
+    the borrower owes *a debt* in instalments since day *a day* with deadline *a deadline*; known as owes_instalment.
+    the borrower owes a penalty instalment on *a debt* since day *a day* with deadline *a deadline*; known as owes_penalty.
+    the borrower owes all the debts on *a debt* since day *a day*; known as owes_all.
+    the note is fulfilled; known as fulfilled.
+
+the templates are:
+    *a base* to the power of *a number* is *a value*.
+    the monthly instalment is *an amount*.
+    the total repayment is *an amount*.
+    the instalment due on a debt of *an amount* is *a due amount*.
+    the deadline of an instalment on a debt of *an amount* from day *a day* is *a deadline*.
+    the deadline of a penalty on a debt of *an amount* from day *a day* is *a deadline*.
+    all the debts on a debt of *an amount* are *a total*.
+
+the knowledge base promissory note includes:
+
+% The loan's terms.
+
+a base to the power of a number is a value if
+    the number = 0
+    and the value = 1.
+
+a base to the power of a number is a value if
+    the number > 0
+    and a smaller number = the number - 1
+    and the base to the power of the smaller number is a smaller value
+    and the value = the base * the smaller value.
+
+the monthly instalment is an amount if
+    a rate = 0.15 / 12
+    and a base = 1 + the rate
+    and the base to the power of 12 is a factor
+    and the amount = 25000 * (the rate * the factor) / (the factor - 1).
+
+the total repayment is an amount if
+    the monthly instalment is an instalment
+    and the amount = the instalment * 12.
+
+the instalment due on a debt of an amount is a due amount if
+    the monthly instalment is an instalment
+    and the instalment > the amount
+    and the due amount = the amount.
+
+the instalment due on a debt of an amount is a due amount if
+    the monthly instalment is an instalment
+    and the instalment =< the amount
+    and the due amount = the instalment.
+
+the deadline of an instalment on a debt of an amount from day a day is a deadline if
+    the total repayment is a total
+    and the monthly instalment is an instalment
+    and the deadline = the day + ceiling(((the total - the amount) / the instalment + 1) * 30.436875) + 10.
+
+the deadline of a penalty on a debt of an amount from day a day is a deadline if
+    the total repayment is a total
+    and the monthly instalment is an instalment
+    and the deadline = the day + ceiling(((the total - the amount) / the instalment + 1) * 30.436875) + 30.
+
+all the debts on a debt of an amount are a total if
+    the instalment due on a debt of the amount is a due amount
+    and the total = the amount + the due amount * 0.05.
+
+% The note starts: the whole repayment is owed in instalments.
+
+when the note starts from a first time to a second time
+    and the total repayment is a total
+    and the deadline of an instalment on a debt of the total from day the first time is a deadline
+then the borrower owes the total in instalments since day the first time with deadline the deadline.
+
+% An instalment paid in time: the rest is owed in instalments, or the note is
+% fulfilled.
+
+when the borrower pays an amount from a first time to a second time
+    and the borrower owes a debt in instalments since day a day with deadline a deadline
+    and the first time > the day
+    and the first time =< the deadline
+    and the instalment due on a debt of the debt is a due amount
+    and the amount >= the due amount - 0.05
+    and a rest = the debt - the amount
+    and the rest > 0
+    and the deadline of an instalment on a debt of the rest from day the first time is a next deadline
+then it is not the case that the borrower owes the debt in instalments since day the day with deadline the deadline
+    and the borrower owes the rest in instalments since day the first time with deadline the next deadline.
+
+when the borrower pays an amount from a first time to a second time
+    and the borrower owes a debt in instalments since day a day with deadline a deadline
+    and the first time > the day
+    and the first time =< the deadline
+    and the instalment due on a debt of the debt is a due amount
+    and the amount >= the due amount - 0.05
+    and the debt - the amount =< 0
+then it is not the case that the borrower owes the debt in instalments since day the day with deadline the deadline
+    and the note is fulfilled.
+
+% An instalment missed: noticed at the next payment, or when the clock is read.
+
+when the borrower pays an amount from a first time to a second time
+    and the borrower owes a debt in instalments since day a day with deadline a deadline
+    and the first time > the deadline
+    and the deadline of a penalty on a debt of the debt from day the first time is a next deadline
+then it is not the case that the borrower owes the debt in instalments since day the day with deadline the deadline
+    and the borrower owes a penalty instalment on the debt since day the first time with deadline the next deadline.
+
+when the clock is read from a first time to a second time
+    and the borrower owes a debt in instalments since day a day with deadline a deadline
+    and the first time > the deadline
+    and the deadline of a penalty on a debt of the debt from day the first time is a next deadline
+then it is not the case that the borrower owes the debt in instalments since day the day with deadline the deadline
+    and the borrower owes a penalty instalment on the debt since day the first time with deadline the next deadline.
+
+% The penalty instalment: the instalment and 5 per cent. Paid in time, it
+% fulfils the note.
+
+when the borrower pays an amount from a first time to a second time
+    and the borrower owes a penalty instalment on a debt since day a day with deadline a deadline
+    and the first time > the day
+    and the first time =< the deadline
+    and the instalment due on a debt of the debt is a due amount
+    and the amount >= the due amount * 1.05 - 0.05
+then it is not the case that the borrower owes a penalty instalment on the debt since day the day with deadline the deadline
+    and the note is fulfilled.
+
+when the borrower pays an amount from a first time to a second time
+    and the borrower owes a penalty instalment on a debt since day a day with deadline a deadline
+    and the first time > the deadline
+then it is not the case that the borrower owes a penalty instalment on the debt since day the day with deadline the deadline
+    and the borrower owes all the debts on the debt since day the first time.
+
+when the clock is read from a first time to a second time
+    and the borrower owes a penalty instalment on a debt since day a day with deadline a deadline
+    and the first time > the deadline
+then it is not the case that the borrower owes a penalty instalment on the debt since day the day with deadline the deadline
+    and the borrower owes all the debts on the debt since day the first time.
+
+% All the debts: no deadline.
+
+when the borrower pays an amount from a first time to a second time
+    and the borrower owes all the debts on a debt since day a day
+    and the first time > the day
+    and all the debts on a debt of the debt are a total
+    and the amount >= the total - 0.05
+then it is not the case that the borrower owes all the debts on the debt since day the day
+    and the note is fulfilled.

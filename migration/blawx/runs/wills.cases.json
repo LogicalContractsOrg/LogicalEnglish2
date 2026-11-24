@@ -1,0 +1,121 @@
+{
+  "answers": [
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"eligible(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_missing_comparison_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"eligible(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_3",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"eligible(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_missing_comparison_1",
+      "variables": ["A" ]
+    }
+  ],
+  "cases": [
+    {"facts":"person(person_a).\nage(person_a,18).\n","id":"case_1","query":"eligible(A)"},
+    {"facts":"age(person_a,18).\n","id":"case_1_without_fact_1","query":"eligible(A)"},
+    {"facts":"person(person_a).\n","id":"case_1_without_fact_2","query":"eligible(A)"},
+    {
+      "facts":"person(person_a).\nage(person_a,17).\n",
+      "id":"case_1_missing_comparison_1",
+      "query":"eligible(A)"
+    },
+    {
+      "facts":"person(person_a).\nmilitary(person_a).\nage(person_a,14).\n",
+      "id":"case_2",
+      "query":"eligible(A)"
+    },
+    {
+      "facts":"military(person_a).\nage(person_a,14).\n",
+      "id":"case_2_without_fact_1",
+      "query":"eligible(A)"
+    },
+    {
+      "facts":"person(person_a).\nage(person_a,14).\n",
+      "id":"case_2_without_fact_2",
+      "query":"eligible(A)"
+    },
+    {
+      "facts":"person(person_a).\nmilitary(person_a).\n",
+      "id":"case_2_without_fact_3",
+      "query":"eligible(A)"
+    },
+    {
+      "facts":"person(person_a).\nmilitary(person_a).\nage(person_a,13).\n",
+      "id":"case_2_missing_comparison_1",
+      "query":"eligible(A)"
+    }
+  ],
+  "flags": []
+}

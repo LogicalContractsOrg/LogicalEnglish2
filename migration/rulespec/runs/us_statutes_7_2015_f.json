@@ -1,0 +1,623 @@
+{
+ "module": "us:statutes/7/2015/f",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "negative_resources_are_clamped_at_zero",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_financial_resources_considered_for_household_eligibility_and_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "citizen_resident_member_has_qualifying_status",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "national_only_resident_member_has_qualifying_status",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "lawful_permanent_resident_has_qualifying_status",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "cuban_haitian_entrant_has_qualifying_status",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "compact_of_free_association_resident_has_qualifying_status",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "member_with_no_permitted_status_is_ineligible",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#citizenship_or_nationality_qualifies_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "nonresident_member_is_ineligible",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "nonmember_is_not_ineligible_under_this_subsection",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#qualifying_immigration_or_nationality_status_for_snap_participation": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "ineligible_income_without_proration_is_considered",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_income_considered_for_household_eligibility_and_allotment": {
+     "expected": 100,
+     "actual": "100",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "ineligible_income_with_proration_is_considered",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_income_considered_for_household_eligibility_and_allotment": {
+     "expected": 70,
+     "actual": "70",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "income_proration_is_clamped_at_zero",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_income_considered_for_household_eligibility_and_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "ineligible_positive_resources_are_considered",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_financial_resources_considered_for_household_eligibility_and_allotment": {
+     "expected": 50,
+     "actual": "50",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "eligible_person_income_and_resources_are_not_considered",
+   "period": {
+    "period_kind": "custom",
+    "name": "day",
+    "start": "2025-07-04",
+    "end": "2025-07-04"
+   },
+   "outputs": {
+    "us:statutes/7/2015/f#individual_ineligible_for_snap_participation_due_to_residence_or_status": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_income_considered_for_household_eligibility_and_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    },
+    "us:statutes/7/2015/f#individual_financial_resources_considered_for_household_eligibility_and_allotment": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "qualifying_immigration_or_nationality_status_for_snap_participation": [
+   {
+    "effective_from": "2025-07-04",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "or",
+         "items": [
+          {
+           "kind": "derived",
+           "name": "citizenship_or_nationality_qualifies_for_snap_participation"
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "person_is_alien_lawfully_admitted_for_permanent_residence_as_immigrant"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "person_has_been_granted_status_of_cuban_and_haitian_entrant"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_lawfully_resides_in_united_states_in_accordance_with_compact_of_free_association"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "citizenship_or_nationality_qualifies_for_snap_participation": [
+   {
+    "effective_from": "2025-07-04",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_citizen_of_united_states"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_national_of_united_states"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "individual_ineligible_for_snap_participation_due_to_residence_or_status": [
+   {
+    "effective_from": "2025-07-04",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "person_is_member_of_household_otherwise_eligible_to_participate_under_this_section"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "or",
+       "items": [
+        {
+         "kind": "not",
+         "item": {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "person_is_resident_of_united_states"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         }
+        },
+        {
+         "kind": "not",
+         "item": {
+          "kind": "derived",
+          "name": "qualifying_immigration_or_nationality_status_for_snap_participation"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   }
+  ],
+  "individual_income_considered_for_household_eligibility_and_allotment": [
+   {
+    "effective_from": "2025-07-04",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "derived",
+      "name": "individual_ineligible_for_snap_participation_due_to_residence_or_status"
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "sub",
+        "left": {
+         "kind": "input",
+         "name": "individual_income"
+        },
+        "right": {
+         "kind": "if",
+         "condition": {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "state_exercises_income_pro_rata_share_option"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         },
+         "then_expr": {
+          "kind": "input",
+          "name": "income_pro_rata_share"
+         },
+         "else_expr": {
+          "kind": "literal",
+          "value": {
+           "kind": "decimal",
+           "value": "0"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "individual_financial_resources_considered_for_household_eligibility_and_allotment": [
+   {
+    "effective_from": "2025-07-04",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "derived",
+      "name": "individual_ineligible_for_snap_participation_due_to_residence_or_status"
+     },
+     "then_expr": {
+      "kind": "max",
+      "items": [
+       {
+        "kind": "literal",
+        "value": {
+         "kind": "decimal",
+         "value": "0"
+        }
+       },
+       {
+        "kind": "input",
+        "name": "individual_financial_resources"
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

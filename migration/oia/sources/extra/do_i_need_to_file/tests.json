@@ -1,0 +1,142 @@
+{
+ "source": "IRS filing requirements for tax year 2022 (Publication 501), as the decision service encodes them; expected outcomes computed by make_tests.py.",
+ "cases": [
+  {
+   "id": "single_above",
+   "description": "Single, 13,000 of gross income: above the 12,950 threshold.",
+   "inputs": {
+    "filing_status": "Single",
+    "gross_income": 13000
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "single_below",
+   "description": "Single, 12,000: below the threshold, no other situation.",
+   "inputs": {
+    "filing_status": "Single",
+    "gross_income": 12000
+   },
+   "expected": {
+    "tax_return_needed": false
+   }
+  },
+  {
+   "id": "single_at_threshold",
+   "description": "Single, exactly 12,950: the threshold must be exceeded, not met.",
+   "inputs": {
+    "filing_status": "Single",
+    "gross_income": 12950
+   },
+   "expected": {
+    "tax_return_needed": false
+   }
+  },
+  {
+   "id": "joint_household_above",
+   "description": "Married filing jointly, 15,000 + 11,000 = 26,000: above 25,900.",
+   "inputs": {
+    "filing_status": "Married filing jointly",
+    "gross_income": 15000,
+    "spouses_gross_income": 11000
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "joint_household_below",
+   "description": "Married filing jointly, 15,000 + 10,000 = 25,000: below 25,900.",
+   "inputs": {
+    "filing_status": "Married filing jointly",
+    "gross_income": 15000,
+    "spouses_gross_income": 10000
+   },
+   "expected": {
+    "tax_return_needed": false
+   }
+  },
+  {
+   "id": "separately_any_income",
+   "description": "Married filing separately, 6 of income: the threshold is 5.",
+   "inputs": {
+    "filing_status": "Married filing separately",
+    "gross_income": 6
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "head_of_household_below",
+   "description": "Head of household, 19,000: below 19,400.",
+   "inputs": {
+    "filing_status": "Head of household",
+    "gross_income": 19000
+   },
+   "expected": {
+    "tax_return_needed": false
+   }
+  },
+  {
+   "id": "head_of_household_above",
+   "description": "Head of household, 20,000: above 19,400.",
+   "inputs": {
+    "filing_status": "Head of household",
+    "gross_income": 20000
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "hsa_distribution",
+   "description": "Below the threshold, but a distribution from a medical savings account: must file.",
+   "inputs": {
+    "filing_status": "Single",
+    "gross_income": 5000,
+    "medical_savings_distributions": true
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "recapture_taxes",
+   "description": "No income stated, recapture taxes owed: must file.",
+   "inputs": {
+    "filing_status": "Head of household",
+    "recapture_taxes_owed": true
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "estimated_payments",
+   "description": "Below the threshold, estimated tax payments made: must file.",
+   "inputs": {
+    "filing_status": "Single",
+    "gross_income": 1000,
+    "estimated_tax_payments_made": true
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  },
+  {
+   "id": "child_tax_credit",
+   "description": "Below the threshold, claiming the additional child tax credit: must file.",
+   "inputs": {
+    "filing_status": "Head of household",
+    "gross_income": 9000,
+    "additional_child_credit": true
+   },
+   "expected": {
+    "tax_return_needed": true
+   }
+  }
+ ]
+}

@@ -1,8 +1,28 @@
 #  Node packages, at any depth: the image installs its own, and a host's
 #  node_modules holds binaries built for the host's platform. The editor's are
 #  installed by `npm install` in the image, and the Solidity translator's by
-#  `npm ci` in vendor/lpsplus/migration/solidity (see the Dockerfile).
+#  `npm ci` in migration/solidity (see the Dockerfile).
 **/node_modules
+#  The translators' downloads and build outputs (gigabytes of other systems'
+#  corpora and engines, for the checks): not for the image. The one download a
+#  door reads at run time comes through vendor/caches (vendor_caches.sh).
+migration/**/.cache
+migration/**/target
+migration/**/.m2
+migration/**/__pycache__
+migration/**/classes
+migration/legalruleml/oracle/spindle
+migration/dmn/runs/oracle
+migration/dmn/oracle/results
+migration/daml/oracle/work
+migration/drools/model
+migration/l4/oracle
+migration/l4/spike/oracle
+migration/ruml/runs/exports
+migration/ruml/runs/oracle
+migration/ruml/runs/results
+migration/spreadsheet/runs
+build/private
 editor/dist
 tmp
 .git

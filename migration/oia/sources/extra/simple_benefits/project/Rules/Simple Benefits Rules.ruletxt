@@ -1,0 +1,15 @@
+[Heading1]	Simple Benefits
+[Normal]	Reconstructed from Oracle's documentation of the SimpleBenefits example rulebase (see README.md).
+[Heading2]	Low income allowance
+[OPM-conclusion]	the claimant is eligible for the low income allowance if
+[OPM-level1]	the claimant is a public housing client and
+[OPM-level1]	the claimant's annual income < 20000
+[Normal]	The amount is reconstructed: Oracle publishes 70 for a claimant with two children, not the rule.
+[OPM-conclusion]	the claimant's low income allowance amount = 50 + (10 * InstanceCount(the claimant's children)) if
+[OPM-level1]	the claimant is eligible for the low income allowance
+[Heading2]	Teenage child allowance
+[OPM-conclusion]	the claimant is eligible for the teenage child allowance if
+[OPM-level1]	Exists(the claimant's children, the child is a teenager)
+[OPM-conclusion]	the child is a teenager if
+[OPM-level1]	the child's age >= 13 and
+[OPM-level1]	the child's age <= 19

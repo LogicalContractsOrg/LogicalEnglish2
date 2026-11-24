@@ -1,0 +1,137 @@
+{
+  "answers": [
+    {
+      "answers": [ {"A":"person_a","B":"18"} ],
+      "constraints": [ [] ],
+      "query":"may_vote(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"may_vote(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"may_vote(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_2",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"may_vote(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_missing_comparison_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_a","B":"16"} ],
+      "constraints": [ [] ],
+      "query":"must_pay_taxes(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_2",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"must_pay_taxes(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"must_pay_taxes(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_2",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"must_pay_taxes(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_missing_comparison_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"is_sucker(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_3",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"is_sucker(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_3_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"is_sucker(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_3_without_fact_2",
+      "variables": ["A" ]
+    }
+  ],
+  "cases": [
+    {"facts":"person(person_a).\nage(person_a,18).\n","id":"case_1","query":"may_vote(A,B)"},
+    {"facts":"age(person_a,18).\n","id":"case_1_without_fact_1","query":"may_vote(A,B)"},
+    {"facts":"person(person_a).\n","id":"case_1_without_fact_2","query":"may_vote(A,B)"},
+    {
+      "facts":"person(person_a).\nage(person_a,17).\n",
+      "id":"case_1_missing_comparison_1",
+      "query":"may_vote(A,B)"
+    },
+    {
+      "facts":"person(person_a).\nage(person_a,16).\n",
+      "id":"case_2",
+      "query":"must_pay_taxes(A,B)"
+    },
+    {"facts":"age(person_a,16).\n","id":"case_2_without_fact_1","query":"must_pay_taxes(A,B)"},
+    {"facts":"person(person_a).\n","id":"case_2_without_fact_2","query":"must_pay_taxes(A,B)"},
+    {
+      "facts":"person(person_a).\nage(person_a,15).\n",
+      "id":"case_2_missing_comparison_1",
+      "query":"must_pay_taxes(A,B)"
+    },
+    {
+      "facts":"person(person_a).\nmust_pay_taxes(person_a,1000).\n",
+      "id":"case_3",
+      "query":"is_sucker(A)"
+    },
+    {
+      "facts":"must_pay_taxes(person_a,1000).\n",
+      "id":"case_3_without_fact_1",
+      "query":"is_sucker(A)"
+    },
+    {"facts":"person(person_a).\n","id":"case_3_without_fact_2","query":"is_sucker(A)"}
+  ],
+  "flags": []
+}

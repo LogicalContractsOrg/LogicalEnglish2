@@ -1,0 +1,163 @@
+{
+  "answers": [
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"bearded(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_3",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_missing_comparison_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"bearded(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_without_fact_2",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"bearded(A)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_2_missing_comparison_1",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"qualifies_s1a(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_3",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"qualifies_s1a(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_4",
+      "variables": ["A" ]
+    },
+    {
+      "answers": [ {"A":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"qualifies_s1b(A)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_5",
+      "variables": ["A" ]
+    }
+  ],
+  "cases": [
+    {
+      "facts":"person(person_a).\nfacial_hair_length_mm(person_a,5).\nqualifies_s1a(person_a).\n",
+      "id":"case_1",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"facial_hair_length_mm(person_a,5).\nqualifies_s1a(person_a).\n",
+      "id":"case_1_without_fact_1",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"person(person_a).\nqualifies_s1a(person_a).\n",
+      "id":"case_1_without_fact_2",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"person(person_a).\nfacial_hair_length_mm(person_a,5).\n",
+      "id":"case_1_without_fact_3",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"person(person_a).\nfacial_hair_length_mm(person_a,4).\nqualifies_s1a(person_a).\n",
+      "id":"case_1_missing_comparison_1",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"person(person_a).\nfacial_hair_length_mm(person_a,5).\nqualifies_s1b(person_a).\n",
+      "id":"case_2",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"facial_hair_length_mm(person_a,5).\nqualifies_s1b(person_a).\n",
+      "id":"case_2_without_fact_1",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"person(person_a).\nqualifies_s1b(person_a).\n",
+      "id":"case_2_without_fact_2",
+      "query":"bearded(A)"
+    },
+    {
+      "facts":"person(person_a).\nfacial_hair_length_mm(person_a,4).\nqualifies_s1b(person_a).\n",
+      "id":"case_2_missing_comparison_1",
+      "query":"bearded(A)"
+    },
+    {"facts":"facial_hair_on_chin(person_a).\n","id":"case_3","query":"qualifies_s1a(A)"},
+    {"facts":"facial_hair_below_chin(person_a).\n","id":"case_4","query":"qualifies_s1a(A)"},
+    {"facts":"facial_hair_continuous(person_a).\n","id":"case_5","query":"qualifies_s1b(A)"}
+  ],
+  "flags": []
+}

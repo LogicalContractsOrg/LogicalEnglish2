@@ -1,0 +1,245 @@
+{
+ "module": "us:statutes/7/2014/d",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "irregular_income_exclusion_caps_at_quarter_limit",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/d#irregular_income_quarter_cap": {
+     "expected": 30,
+     "actual": 30,
+     "agrees": true
+    },
+    "us:statutes/7/2014/d#irregular_income_excluded_from_snap_income": {
+     "expected": 30,
+     "actual": "30",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "irregular_income_not_excluded_without_irregularity_condition",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/d#irregular_income_excluded_from_snap_income": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "student_child_earned_income_excluded_at_age_limit",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/d#student_child_income_age_limit": {
+     "expected": 17,
+     "actual": 17,
+     "agrees": true
+    },
+    "us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income": {
+     "expected": 240,
+     "actual": 240,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "student_child_earned_income_not_excluded_over_age_limit",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "student_income_not_excluded_if_not_household_child",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "student_income_not_excluded_if_not_student",
+   "period": {
+    "period_kind": "month",
+    "start": "2026-01-01",
+    "end": "2026-01-31"
+   },
+   "outputs": {
+    "us:statutes/7/2014/d#student_child_earned_income_excluded_from_snap_income": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "irregular_income_excluded_from_snap_income": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "income_received_too_infrequently_or_irregularly_to_be_reasonably_anticipated"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "bool",
+        "value": true
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "min",
+      "items": [
+       {
+        "kind": "input",
+        "name": "irregular_income_amount_in_certification_period"
+       },
+       {
+        "kind": "parameter_lookup",
+        "parameter": "irregular_income_quarter_cap",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ],
+  "student_child_earned_income_excluded_from_snap_income": [
+   {
+    "effective_from": "2008-10-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "and",
+      "items": [
+       {
+        "kind": "and",
+        "items": [
+         {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "person_is_child_member_of_household"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         },
+         {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "person_is_elementary_or_secondary_school_student"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         }
+        ]
+       },
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "person_age"
+        },
+        "op": "lte",
+        "right": {
+         "kind": "parameter_lookup",
+         "parameter": "student_child_income_age_limit",
+         "index": {
+          "kind": "literal",
+          "value": {
+           "kind": "integer",
+           "value": 0
+          }
+         }
+        }
+       }
+      ]
+     },
+     "then_expr": {
+      "kind": "input",
+      "name": "child_earned_income_amount"
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

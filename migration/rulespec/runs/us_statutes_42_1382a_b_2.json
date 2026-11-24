@@ -1,0 +1,314 @@
+{
+ "module": "us:statutes/42/1382a/b/2",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "annual_general_income_exclusion_capped_at_240",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/2#annual_general_income_excluded": {
+     "expected": 240,
+     "actual": "240",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "annual_general_income_exclusion_uses_lower_non_need_income",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/2#annual_general_income_excluded": {
+     "expected": 180,
+     "actual": "180",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "qualifying_state_age_residency_payment_is_excluded",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/2#state_age_residency_payment_excluded": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "state_age_residency_payment_not_excluded_when_need_based",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/2#state_age_residency_payment_excluded": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "oracle_parameter_annual_general_income_exclusion_limit",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382a/b/2#annual_general_income_exclusion_limit": {
+     "expected": 240,
+     "actual": 240,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "annual_general_income_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "min",
+     "items": [
+      {
+       "kind": "max",
+       "items": [
+        {
+         "kind": "literal",
+         "value": {
+          "kind": "decimal",
+          "value": "0"
+         }
+        },
+        {
+         "kind": "input",
+         "name": "annual_income_not_paid_on_basis_of_need"
+        }
+       ]
+      },
+      {
+       "kind": "parameter_lookup",
+       "parameter": "annual_general_income_exclusion_limit",
+       "index": {
+        "kind": "literal",
+        "value": {
+         "kind": "integer",
+         "value": 0
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "state_age_residency_payment_excluded": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "and",
+           "items": [
+            {
+             "kind": "and",
+             "items": [
+              {
+               "kind": "and",
+               "items": [
+                {
+                 "kind": "and",
+                 "items": [
+                  {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "payment_is_monthly_or_other_periodic"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  },
+                  {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "payment_received_by_individual"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  }
+                 ]
+                },
+                {
+                 "kind": "or",
+                 "items": [
+                  {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "program_established_prior_to_july_first_nineteen_seventy_three"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  },
+                  {
+                   "kind": "comparison",
+                   "left": {
+                    "kind": "input",
+                    "name": "program_established_prior_to_july_first_nineteen_seventy_three_and_subsequently_amended_to_conform_to_state_or_federal_constitutional_standards"
+                   },
+                   "op": "eq",
+                   "right": {
+                    "kind": "literal",
+                    "value": {
+                     "kind": "bool",
+                     "value": true
+                    }
+                   }
+                  }
+                 ]
+                }
+               ]
+              },
+              {
+               "kind": "comparison",
+               "left": {
+                "kind": "input",
+                "name": "payment_made_by_state_of_which_receiving_individual_is_resident"
+               },
+               "op": "eq",
+               "right": {
+                "kind": "literal",
+                "value": {
+                 "kind": "bool",
+                 "value": true
+                }
+               }
+              }
+             ]
+            },
+            {
+             "kind": "comparison",
+             "left": {
+              "kind": "input",
+              "name": "payment_program_eligibility_not_based_on_need"
+             },
+             "op": "eq",
+             "right": {
+              "kind": "literal",
+              "value": {
+               "kind": "bool",
+               "value": true
+              }
+             }
+            }
+           ]
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "payment_program_eligibility_based_solely_on_required_age_and_state_residency"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "individual_first_became_eligible_individual_or_eligible_spouse_on_or_before_september_thirtieth_nineteen_eighty_five"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "individual_residency_years_under_program_as_in_effect_prior_to_january_first_nineteen_eighty_three"
+       },
+       "op": "gte",
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "state_age_payment_residency_year_requirement",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

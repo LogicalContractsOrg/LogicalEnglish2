@@ -1,0 +1,229 @@
+{
+ "module": "us:statutes/42/1382b/a",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "life_insurance_policy_disregarded_when_total_face_value_at_threshold",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382b/a#life_insurance_policy_counted_resource_value": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "life_insurance_policy_counted_at_cash_surrender_value_when_total_face_value_exceeds_threshold",
+   "period": {
+    "period_kind": "month",
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382b/a#life_insurance_policy_counted_resource_value": {
+     "expected": 900,
+     "actual": 900,
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "qualifying_cash_gift_excluded_up_to_annual_cap",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382b/a#qualifying_cash_gift_excluded_resource_amount": {
+     "expected": 2000,
+     "actual": "2000",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "cash_gift_not_excluded_when_child_age_condition_fails",
+   "period": {
+    "period_kind": "custom",
+    "name": "calendar_year",
+    "start": "2024-01-01",
+    "end": "2024-12-31"
+   },
+   "outputs": {
+    "us:statutes/42/1382b/a#qualifying_cash_gift_excluded_resource_amount": {
+     "expected": 0,
+     "actual": "0",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "life_insurance_policy_counted_resource_value": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "total_face_value_of_all_life_insurance_policies_on_same_person"
+      },
+      "op": "lte",
+      "right": {
+       "kind": "parameter_lookup",
+       "parameter": "life_insurance_face_value_disregard_threshold",
+       "index": {
+        "kind": "literal",
+        "value": {
+         "kind": "integer",
+         "value": 0
+        }
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     },
+     "else_expr": {
+      "kind": "input",
+      "name": "cash_surrender_value"
+     }
+    }
+   }
+  ],
+  "qualifying_cash_gift_excluded_resource_amount": [
+   {
+    "effective_from": "1974-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "and",
+      "items": [
+       {
+        "kind": "and",
+        "items": [
+         {
+          "kind": "and",
+          "items": [
+           {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "individual_age_years"
+            },
+            "op": "lt",
+            "right": {
+             "kind": "parameter_lookup",
+             "parameter": "qualifying_gift_child_age_ceiling_years",
+             "index": {
+              "kind": "literal",
+              "value": {
+               "kind": "integer",
+               "value": 0
+              }
+             }
+            }
+           },
+           {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "individual_has_life_threatening_condition"
+            },
+            "op": "eq",
+            "right": {
+             "kind": "literal",
+             "value": {
+              "kind": "bool",
+              "value": true
+             }
+            }
+           }
+          ]
+         },
+         {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "gift_from_organization_described_in_section_501_c_3_exempt_under_section_501_a"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         }
+        ]
+       },
+       {
+        "kind": "comparison",
+        "left": {
+         "kind": "input",
+         "name": "gift_is_cash"
+        },
+        "op": "eq",
+        "right": {
+         "kind": "literal",
+         "value": {
+          "kind": "bool",
+          "value": true
+         }
+        }
+       }
+      ]
+     },
+     "then_expr": {
+      "kind": "min",
+      "items": [
+       {
+        "kind": "input",
+        "name": "cash_gift_amount"
+       },
+       {
+        "kind": "parameter_lookup",
+        "parameter": "annual_cash_gift_resource_exclusion_cap",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      ]
+     },
+     "else_expr": {
+      "kind": "literal",
+      "value": {
+       "kind": "decimal",
+       "value": "0"
+      }
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,38 @@
+// insurance.drl — LPS2's rule base (examples/drools/insurance.drl), written out as
+// valid DRL (quoted strings, $ bindings, semicolons) so that Drools runs it.
+package insurance;
+
+declare Driver
+    name : String
+    age : String
+    record : String
+end
+
+declare Policy
+    driver : String
+    band : String
+end
+
+rule "young drivers are high risk"
+    when
+        Driver( $name : name, age == "young" )
+        not Policy( driver == $name )
+    then
+        insert(new Policy($name, "high"));
+end
+
+rule "a clean record over thirty is low risk"
+    when
+        Driver( $name : name, age == "mature", record == "clean" )
+        not Policy( driver == $name )
+    then
+        insert(new Policy($name, "low"));
+end
+
+rule "a claim moves a low band to standard"
+    when
+        Driver( $name : name, record == "claimed" )
+        $p : Policy( driver == $name, band == "low" )
+    then
+        modify( $p ) { setBand("standard") };
+end

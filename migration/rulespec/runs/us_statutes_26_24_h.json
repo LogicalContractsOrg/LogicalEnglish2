@@ -1,0 +1,522 @@
+{
+ "module": "us:statutes/26/24/h",
+ "engine": "e9757b47c9983ac3a0873827e064b790e03c29a4",
+ "cases": [
+  {
+   "name": "other_dependent_positive_path",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2018-01-01",
+    "end": "2018-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/24/h#ctc_child_ssn_requirement_satisfied_under_subsection_h": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_qualifying_child_under_subsection_h": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_other_dependent_under_subsection_h": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "other_dependent_noncitizen_exception_path",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2018-01-01",
+    "end": "2018-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/24/h#ctc_other_dependent_under_subsection_h": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "qualifying_child_with_required_social_security_numbers",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2018-01-01",
+    "end": "2018-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/24/h#ctc_child_ssn_requirement_satisfied_under_subsection_h": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_qualifying_child_under_subsection_h": {
+     "expected": "holds",
+     "actual": "holds",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_other_dependent_under_subsection_h": {
+     "expected": "not_holds",
+     "actual": "not_holds",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "name": "joint_return_aggregate_credit_and_refundable_cap",
+   "period": {
+    "period_kind": "tax_year",
+    "start": "2018-01-01",
+    "end": "2018-12-31"
+   },
+   "outputs": {
+    "us:statutes/26/24/h#ctc_child_amount_under_subsection_h": {
+     "expected": 2200,
+     "actual": 2200,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_joint_phase_out_threshold_under_subsection_h": {
+     "expected": 400000,
+     "actual": 400000,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_other_phase_out_threshold_under_subsection_h": {
+     "expected": 200000,
+     "actual": 200000,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_other_dependent_amount_under_subsection_h": {
+     "expected": 500,
+     "actual": 500,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_refundable_per_child_cap_under_subsection_h": {
+     "expected": 1400,
+     "actual": 1400,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_refundable_phase_in_threshold_under_subsection_h": {
+     "expected": 2500,
+     "actual": 2500,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_qualifying_children_under_subsection_h": {
+     "expected": 1,
+     "actual": 1,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_other_dependents_under_subsection_h": {
+     "expected": 2,
+     "actual": 2,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_phase_out_threshold_under_subsection_h": {
+     "expected": 400000,
+     "actual": 400000,
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_maximum_before_phase_out_under_subsection_h": {
+     "expected": 3200,
+     "actual": "3200",
+     "agrees": true
+    },
+    "us:statutes/26/24/h#ctc_refundable_maximum_under_subsection_h": {
+     "expected": 1400,
+     "actual": "1400",
+     "agrees": true
+    }
+   },
+   "status": "pass"
+  }
+ ],
+ "compile": "ok",
+ "lowered": {
+  "ctc_child_ssn_requirement_satisfied_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "taxpayer_or_spouse_ssn_included_on_return"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "qualifying_child_ssn_included_on_return"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "comparison",
+         "left": {
+          "kind": "input",
+          "name": "taxpayer_or_spouse_ssn_is_valid_for_subsection_h"
+         },
+         "op": "eq",
+         "right": {
+          "kind": "literal",
+          "value": {
+           "kind": "bool",
+           "value": true
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "qualifying_child_ssn_is_valid_for_subsection_h"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "ctc_child_satisfies_subsection_c"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "not",
+       "item": {
+        "kind": "derived",
+        "name": "ctc_child_ssn_requirement_satisfied_under_subsection_h"
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "ctc_qualifying_child_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "and",
+     "items": [
+      {
+       "kind": "comparison",
+       "left": {
+        "kind": "input",
+        "name": "ctc_child_satisfies_subsection_c"
+       },
+       "op": "eq",
+       "right": {
+        "kind": "literal",
+        "value": {
+         "kind": "bool",
+         "value": true
+        }
+       }
+      },
+      {
+       "kind": "derived",
+       "name": "ctc_child_ssn_requirement_satisfied_under_subsection_h"
+      }
+     ]
+    }
+   }
+  ],
+  "ctc_other_dependent_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "judgment",
+    "expr": {
+     "kind": "or",
+     "items": [
+      {
+       "kind": "and",
+       "items": [
+        {
+         "kind": "and",
+         "items": [
+          {
+           "kind": "comparison",
+           "left": {
+            "kind": "input",
+            "name": "ctc_person_satisfies_dependency_rules"
+           },
+           "op": "eq",
+           "right": {
+            "kind": "literal",
+            "value": {
+             "kind": "bool",
+             "value": true
+            }
+           }
+          },
+          {
+           "kind": "not",
+           "item": {
+            "kind": "comparison",
+            "left": {
+             "kind": "input",
+             "name": "ctc_child_satisfies_subsection_c"
+            },
+            "op": "eq",
+            "right": {
+             "kind": "literal",
+             "value": {
+              "kind": "bool",
+              "value": true
+             }
+            }
+           }
+          }
+         ]
+        },
+        {
+         "kind": "not",
+         "item": {
+          "kind": "comparison",
+          "left": {
+           "kind": "input",
+           "name": "noncitizen_exception_to_other_dependent_credit_under_subsection_h"
+          },
+          "op": "eq",
+          "right": {
+           "kind": "literal",
+           "value": {
+            "kind": "bool",
+            "value": true
+           }
+          }
+         }
+        }
+       ]
+      },
+      {
+       "kind": "derived",
+       "name": "ctc_child_credit_disallowed_by_ssn_requirement_under_subsection_h"
+      }
+     ]
+    }
+   }
+  ],
+  "ctc_qualifying_children_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "count_related",
+     "relation": "us:statutes/26/24/h#relation.dependent_of_tax_unit",
+     "current_slot": 0,
+     "related_slot": 1,
+     "where": {
+      "kind": "derived",
+      "name": "ctc_qualifying_child_under_subsection_h"
+     }
+    }
+   }
+  ],
+  "ctc_other_dependents_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "count_related",
+     "relation": "us:statutes/26/24/h#relation.dependent_of_tax_unit",
+     "current_slot": 0,
+     "related_slot": 1,
+     "where": {
+      "kind": "derived",
+      "name": "ctc_other_dependent_under_subsection_h"
+     }
+    }
+   }
+  ],
+  "ctc_phase_out_threshold_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "if",
+     "condition": {
+      "kind": "comparison",
+      "left": {
+       "kind": "input",
+       "name": "filing_status"
+      },
+      "op": "eq",
+      "right": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 1
+       }
+      }
+     },
+     "then_expr": {
+      "kind": "parameter_lookup",
+      "parameter": "ctc_joint_phase_out_threshold_under_subsection_h",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     },
+     "else_expr": {
+      "kind": "parameter_lookup",
+      "parameter": "ctc_other_phase_out_threshold_under_subsection_h",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ],
+  "ctc_maximum_before_phase_out_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "add",
+     "items": [
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "derived",
+        "name": "ctc_qualifying_children_under_subsection_h"
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "ctc_child_amount_under_subsection_h",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      },
+      {
+       "kind": "mul",
+       "left": {
+        "kind": "derived",
+        "name": "ctc_other_dependents_under_subsection_h"
+       },
+       "right": {
+        "kind": "parameter_lookup",
+        "parameter": "ctc_other_dependent_amount_under_subsection_h",
+        "index": {
+         "kind": "literal",
+         "value": {
+          "kind": "integer",
+          "value": 0
+         }
+        }
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "ctc_refundable_maximum_under_subsection_h": [
+   {
+    "effective_from": "2018-01-01",
+    "semantics": "scalar",
+    "expr": {
+     "kind": "mul",
+     "left": {
+      "kind": "derived",
+      "name": "ctc_qualifying_children_under_subsection_h"
+     },
+     "right": {
+      "kind": "parameter_lookup",
+      "parameter": "ctc_refundable_per_child_cap_under_subsection_h",
+      "index": {
+       "kind": "literal",
+       "value": {
+        "kind": "integer",
+        "value": 0
+       }
+      }
+     }
+    }
+   }
+  ]
+ }
+}

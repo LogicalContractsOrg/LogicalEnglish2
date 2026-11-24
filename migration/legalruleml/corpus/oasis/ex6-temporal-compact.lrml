@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<?xml-model href="../../relaxng/lrml-compact.rnc" type="application/relax-ng-compact-syntax"?>
+<lrml:LegalRuleML   
+  xml:base="http://docs.oasis-open.org/legalruleml/examples/compactified/ex6-temporal-compact"
+  xmlns="http://docs.oasis-open.org/legalruleml/examples/compactified/ex6-temporal-compact#"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xmlns:lrml="http://docs.oasis-open.org/legalruleml/ns/v1.0/" xmlns:ruleml="http://ruleml.org/spec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xsi:schemaLocation="http://docs.oasis-open.org/legalruleml/ns/v1.0/ ../../xsd-schema/compact/lrml-compact.xsd">
+  <lrml:Times>
+    <ruleml:Time key=":t1">
+      <ruleml:Data xsi:type="xs:dateTime">2012-07-21T00:00:00Z</ruleml:Data>
+    </ruleml:Time>
+    <ruleml:Time key=":t2">
+      <ruleml:Data xsi:type="xs:dateTime">2012-07-22T00:00:00Z</ruleml:Data>
+    </ruleml:Time>
+    <ruleml:Time key=":t3">
+      <ruleml:Data xsi:type="xs:dateTime">2012-07-23T00:00:00Z</ruleml:Data>
+    </ruleml:Time>
+    <ruleml:Time key=":t4">
+      <ruleml:Data xsi:type="xs:dateTime">2012-06-20T00:00:00Z</ruleml:Data>
+    </ruleml:Time>
+  </lrml:Times>
+  <lrml:TemporalCharacteristics key="tblock1">
+    <lrml:TemporalCharacteristic key="nev1">
+      <lrml:forStatus iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Efficacious"/>
+      <lrml:hasStatusDevelopment iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Starts"/>
+      <lrml:atTime keyref="#t1"/>
+    </lrml:TemporalCharacteristic>
+    <lrml:TemporalCharacteristic key="nev2">
+      <lrml:forStatus iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#InForce"/>
+      <lrml:hasStatusDevelopment iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Starts"/>
+      <lrml:atTime keyref="#t2"/>
+    </lrml:TemporalCharacteristic>
+  </lrml:TemporalCharacteristics>
+  <lrml:TemporalCharacteristics key="tblock2">
+    <lrml:TemporalCharacteristic key="nev3">
+      <lrml:forStatus iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Efficacious"/>
+      <lrml:hasStatusDevelopment iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Starts"/>
+      <lrml:atTime keyref="#t3"/>
+    </lrml:TemporalCharacteristic>
+    <lrml:TemporalCharacteristic key="nev4">
+      <lrml:forStatus iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Efficacious"/>
+      <lrml:hasStatusDevelopment iri="http://docs.oasis-open.org/legalruleml/ns/v1.0/vocab#Ends"/>
+      <lrml:atTime keyref="#t4"/>
+    </lrml:TemporalCharacteristic>
+  </lrml:TemporalCharacteristics>
+  <lrml:Associations>
+    <lrml:Association>
+      <lrml:appliesSource keyref="#ref1"/>
+      <lrml:toTarget keyref="#nev1"/>
+      <lrml:toTarget keyref="#nev2"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <lrml:Associations key="ascs1">
+    <lrml:Association>
+      <lrml:appliesTemporalCharacteristics keyref="#tblock1"/>
+      <lrml:toTarget keyref="#rule1"/>
+      <lrml:toTarget keyref="#atom1"/>
+      <lrml:toTarget keyref="#body1"/>
+    </lrml:Association>
+    <lrml:Association>
+      <lrml:appliesTemporalCharacteristics keyref="#tblock2"/>
+      <lrml:toTarget keyref="#head1"/>
+    </lrml:Association>
+  </lrml:Associations>
+  <lrml:Context key="ruleContext1">
+    <lrml:appliesAssociations keyref="#ascs1"/>
+    <lrml:inScope keyref="#stmt1"/>
+  </lrml:Context>
+</lrml:LegalRuleML>

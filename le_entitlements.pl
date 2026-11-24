@@ -3,15 +3,21 @@
     Two parts of an installation are licensed rather than free, and neither
     lives in this repository:
 
-      - `converters`, `contract_assistant` and `extended_examples` — the
-        translators of other systems (lpsPlus's `migration/le_importers.pl`),
-        the LE Contract Assistant (lpsPlus's contract_assistant/, loaded and
-        gated in le_api.pl and classic_web_api.pl) and the private example
-        trees, sold together as the licence "Logical English Translators"
+      - `contract_assistant` and `extended_examples` — the LE Contract
+        Assistant (lpsPlus's contract_assistant/, loaded and gated in
+        le_api.pl and classic_web_api.pl) and the private example trees,
+        sold together as the licence "LE Contract Assistant"
         (`with_extensions` in the licences table);
       - `le_extensions` — InsurLE2's `le_extensions.pl`, the extra grammar
         (`which` clauses, `unless` bodies, grouped and numbered bodies, ...),
         sold as the licence "InsurLE".
+
+    One capability is not licensed at all: `converters`, the translators of
+    other systems (migration/, in this repository and free). It is still a
+    capability because a server that has a sign-in gives it to signed-in
+    visitors only, so that its limits on use count against somebody; a
+    server with no sign-in gives it to every request (classic_web_api.pl,
+    identify_visitor/3).
 
     Which licences exist, who holds them and until when is decided in the
     lpsPlus repository (`accounts/lc_accounts.pl`, `accounts/licenses.csv`).

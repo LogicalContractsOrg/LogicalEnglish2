@@ -1,0 +1,106 @@
+{
+  "answers": [
+    {
+      "answers": [
+	 {"A":"person_b","B":"person_b"},
+	 {"A":"person_b","B":"person_a"},
+	 {"A":"person_a","B":"person_b"},
+	 {"A":"person_a","B":"person_a"}
+      ],
+      "constraints": [ [],  [],  [],  [] ],
+      "query":"sibling(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_b","B":"person_b"} ],
+      "constraints": [ [] ],
+      "query":"sibling(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1_without_fact_1",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_a","B":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"sibling(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1_without_fact_2",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [],
+      "constraints": [],
+      "query":"sibling(A,B)",
+      "status":"no_answers",
+      "stderr":"",
+      "test":"case_1_without_fact_3",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_b","B":"person_b"} ],
+      "constraints": [ [] ],
+      "query":"sibling(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1_without_fact_4",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_a","B":"person_a"} ],
+      "constraints": [ [] ],
+      "query":"sibling(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_1_without_fact_5",
+      "variables": ["A", "B" ]
+    },
+    {
+      "answers": [ {"A":"person_a","B":"opg"} ],
+      "constraints": [ [] ],
+      "query":"parent(A,B)",
+      "status":"ok",
+      "stderr":"",
+      "test":"case_2",
+      "variables": ["A", "B" ]
+    }
+  ],
+  "cases": [
+    {
+      "facts":"person(person_a).\nperson(person_b).\nperson(person_c).\nparent(person_a,person_c).\nparent(person_b,person_c).\n",
+      "id":"case_1",
+      "query":"sibling(A,B)"
+    },
+    {
+      "facts":"person(person_b).\nperson(person_c).\nparent(person_a,person_c).\nparent(person_b,person_c).\n",
+      "id":"case_1_without_fact_1",
+      "query":"sibling(A,B)"
+    },
+    {
+      "facts":"person(person_a).\nperson(person_c).\nparent(person_a,person_c).\nparent(person_b,person_c).\n",
+      "id":"case_1_without_fact_2",
+      "query":"sibling(A,B)"
+    },
+    {
+      "facts":"person(person_a).\nperson(person_b).\nparent(person_a,person_c).\nparent(person_b,person_c).\n",
+      "id":"case_1_without_fact_3",
+      "query":"sibling(A,B)"
+    },
+    {
+      "facts":"person(person_a).\nperson(person_b).\nperson(person_c).\nparent(person_b,person_c).\n",
+      "id":"case_1_without_fact_4",
+      "query":"sibling(A,B)"
+    },
+    {
+      "facts":"person(person_a).\nperson(person_b).\nperson(person_c).\nparent(person_a,person_c).\n",
+      "id":"case_1_without_fact_5",
+      "query":"sibling(A,B)"
+    },
+    {"facts":"ward(person_a).\n","id":"case_2","query":"parent(A,B)"}
+  ],
+  "flags": []
+}

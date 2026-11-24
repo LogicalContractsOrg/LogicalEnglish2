@@ -1,0 +1,42 @@
+[Heading1]	Insurance fraud score
+[Heading2]	The claimant's history
+[OPM-conclusion]	the number of previous claims = InstanceCount(the claimant's previous claims)
+[OPM-conclusion]	the average previous claim amount = InstanceSum(the claimant's previous claims, the previous claim amount) / the number of previous claims if
+[OPM-level1]	the number of previous claims > 0
+[OPM-conclusion]	the claim amount ratio = the claim amount / the average previous claim amount
+[OPM-conclusion]	the start of the twelve months before the claim = AddMonths(the claim date, -12)
+[OPM-conclusion]	the number of recent claims = InstanceCountIf(the claimant's previous claims, the previous claim is recent)
+[OPM-conclusion]	the previous claim is recent if
+[OPM-level1]	the previous claim date >= the start of the twelve months before the claim
+[OPM-conclusion]	the claimant has a rejected previous claim if
+[OPM-level1]	Exists(the claimant's previous claims, the previous claim was rejected)
+[OPM-conclusion]	the policy age in days = DayDifference(the policy start date, the claim date)
+[Heading2]	The score
+[table-OPM-conclusion]	the amount score
+[table-OPM-level1]	40 | [1] the number of previous claims > 0 and
+[table-cell-continued]	| [1] the claim amount ratio >= 3
+[table-OPM-level1]	20 | [1] the number of previous claims > 0 and
+[table-cell-continued]	| [1] the claim amount ratio >= 1.5
+[table-OPM-Alternativeconclusion]	0 | [1] otherwise
+[OPM-conclusion]	the recency score = Minimum(15 * the number of recent claims, 45)
+[table-OPM-conclusion]	the policy age score
+[table-OPM-level1]	30 | [1] the policy age in days < 30
+[table-OPM-level1]	10 | [1] the policy age in days < 90
+[table-OPM-Alternativeconclusion]	0 | [1] otherwise
+[table-OPM-conclusion]	the claim type score
+[table-OPM-level1]	25 | [1] the claim type = "Theft" and
+[table-cell-continued]	| [1] the claim was not reported to the police
+[table-OPM-level1]	15 | [1] the claim type = "Theft"
+[table-OPM-level1]	10 | [1] the claim type = "Fire"
+[table-OPM-Alternativeconclusion]	0 | [1] otherwise
+[table-OPM-conclusion]	the rejected claim score
+[table-OPM-level1]	20 | [1] the claimant has a rejected previous claim
+[table-OPM-Alternativeconclusion]	0 | [1] otherwise
+[OPM-conclusion]	the fraud score = the amount score + the recency score + the policy age score + the claim type score + the rejected claim score
+[Heading2]	The decision
+[OPM-conclusion]	the claim is referred for investigation if
+[OPM-level1]	the fraud score >= 50
+[table-OPM-conclusion]	the claim risk band
+[table-OPM-level1]	"High" | [1] the fraud score >= 70
+[table-OPM-level1]	"Medium" | [1] the fraud score >= 40
+[table-OPM-Alternativeconclusion]	"Low" | [1] otherwise

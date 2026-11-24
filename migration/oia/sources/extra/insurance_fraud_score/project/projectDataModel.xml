@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root product-version="12.2.7.797">
+  <entities>
+    <entity ref="global">
+      <attribute name="claim_amount" public-name="claim_amount" type="currency"><text><base>the claim amount</base></text></attribute>
+      <attribute name="claim_date" public-name="claim_date" type="date"><text><base>the claim date</base></text></attribute>
+      <attribute name="policy_start_date" public-name="policy_start_date" type="date"><text><base>the policy start date</base></text></attribute>
+      <attribute name="claim_type" public-name="claim_type" type="text"><text><base>the claim type</base></text></attribute>
+      <attribute name="reported_to_police" public-name="reported_to_police" type="boolean"><text><base>the claim was reported to the police</base></text></attribute>
+      <attribute name="fraud_score" public-name="fraud_score" type="number"><text><base>the fraud score</base></text></attribute>
+      <attribute name="referred" public-name="referred" type="boolean"><text><base>the claim is referred for investigation</base></text></attribute>
+      <attribute name="risk_band" public-name="risk_band" type="text"><text><base>the claim risk band</base></text></attribute>
+      <attribute name="average_previous_claim" public-name="average_previous_claim" type="currency"><text><base>the average previous claim amount</base></text></attribute>
+      <attribute name="recent_claims" public-name="recent_claims" type="number"><text><base>the number of recent claims</base></text></attribute>
+    </entity>
+    <entity id="previous_claim" name="the previous claim" containment-relationship-id="previous_claims" containment-parent-id="global">
+      <attribute name="previous_claim_amount" public-name="previous_claim_amount" type="currency"><text><base>the previous claim amount</base></text></attribute>
+      <attribute name="previous_claim_date" public-name="previous_claim_date" type="date"><text><base>the previous claim date</base></text></attribute>
+      <attribute name="previous_claim_rejected" public-name="previous_claim_rejected" type="boolean"><text><base>the previous claim was rejected</base></text></attribute>
+      <attribute name="previous_claim_recent" public-name="previous_claim_recent" type="boolean"><text><base>the previous claim is recent</base></text></attribute>
+    </entity>
+  </entities>
+  <relationships>
+    <relationship relationship-id="previous_claims" public-id="previous_claims" source="global" target="previous_claim" is-containment="true" text="the claimant's previous claims" type="OneToMany" />
+  </relationships>
+</root>
