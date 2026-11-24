@@ -1,0 +1,108 @@
+% The Logical English twin of the RUML rulemap accept-repeated-decision-id.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 5f0c2d8e-7a41-4b9e-9c3d-2e6f8a1b4c70
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/accept-repeated-decision-id.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Alter of *a case* is *a number*; scenario element.
+    the Geburtsjahr of *a case* is *a number*; scenario element.
+    Volljährigkeit nachgewiesen holds for *a case*.
+    Volljährigkeit nachgewiesen would hold for *a case*; unknown.
+
+the knowledge base r4_3_accept_repeated_decision_id includes:
+
+the text of the_rulemap is at "sources/accept-repeated-decision-id.ruml".
+
+Volljährigkeit nachgewiesen holds for a case if
+    the Alter of the case is a number N
+    and N >= 18.
+
+Volljährigkeit nachgewiesen holds for a case if
+    it is not the case that the Alter of the case is a number
+    and the Geburtsjahr of the case is a number N
+        and a number M = 2024 - N
+        and M >= 18.
+
+Volljährigkeit nachgewiesen holds for a case if
+    it is not the case that the Alter of the case is a number
+    and it is not the case that the Geburtsjahr of the case is a second number
+    and Volljährigkeit nachgewiesen would hold for the case.
+
+scenario generated_1 is, as stated in "accept-repeated-decision-id.ruml" at generated_1:
+    % every data point its first value
+    the Alter of case 1 is 18.
+    the Geburtsjahr of case 1 is 2006.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_2 is, as stated in "accept-repeated-decision-id.ruml" at generated_2:
+    % dp_age has no value
+    the Geburtsjahr of case 1 is 2006.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_3 is, as stated in "accept-repeated-decision-id.ruml" at generated_3:
+    % dp_age is 17
+    the Alter of case 1 is 17.
+    the Geburtsjahr of case 1 is 2006.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Volljährigkeit nachgewiesen holds for case 1"].
+
+scenario generated_4 is, as stated in "accept-repeated-decision-id.ruml" at generated_4:
+    % dp_age is 19
+    the Alter of case 1 is 19.
+    the Geburtsjahr of case 1 is 2006.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_5 is, as stated in "accept-repeated-decision-id.ruml" at generated_5:
+    % dp_birth_year has no value
+    the Alter of case 1 is 18.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_6 is, as stated in "accept-repeated-decision-id.ruml" at generated_6:
+    % dp_birth_year is 2005
+    the Alter of case 1 is 18.
+    the Geburtsjahr of case 1 is 2005.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_7 is, as stated in "accept-repeated-decision-id.ruml" at generated_7:
+    % dp_birth_year is 2007
+    the Alter of case 1 is 18.
+    the Geburtsjahr of case 1 is 2007.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_8 is, as stated in "accept-repeated-decision-id.ruml" at generated_8:
+    % every data point its last value
+    the Alter of case 1 is 19.
+    the Geburtsjahr of case 1 is 2007.
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_9 is, as stated in "accept-repeated-decision-id.ruml" at generated_9:
+    % no data
+    node_1 expects answers ["Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Volljährigkeit nachgewiesen holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Volljährigkeit nachgewiesen holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Volljährigkeit nachgewiesen holds for case 1.
+

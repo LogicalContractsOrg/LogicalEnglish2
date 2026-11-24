@@ -1,0 +1,52 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "min": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    }
+  ],
+  "metadata": {
+    "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "label": "Einkommen ausreichend",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_annual_income > 50000"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

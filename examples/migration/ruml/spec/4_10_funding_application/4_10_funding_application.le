@@ -1,0 +1,148 @@
+% The Logical English twin of the RUML rulemap funding-application.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: Förderantrag
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/funding-application.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Jahreseinkommen of *a case* is *a number*; scenario element.
+    the Unterlagen vollständig of *a case* is *a truth value*; scenario element.
+    Förderantrag holds for *a case*.
+    Einkommensgrenze holds for *a case*.
+    Dokumentenprüfung holds for *a case*.
+    Einkommensgrenze would hold for *a case*; unknown.
+
+the knowledge base r4_10_funding_application includes:
+
+the text of the_rulemap is at "sources/funding-application.ruml".
+
+Förderantrag holds for a case if
+    Einkommensgrenze holds for the case
+    and Dokumentenprüfung holds for the case.
+
+Einkommensgrenze holds for a case if
+    the Jahreseinkommen of the case is a number N
+    and N < 50000.
+
+Einkommensgrenze holds for a case if
+    it is not the case that the Jahreseinkommen of the case is a number
+    and Einkommensgrenze would hold for the case.
+
+Dokumentenprüfung holds for a case if
+    the Unterlagen vollständig of the case is true.
+
+scenario generated_1 is, as stated in "funding-application.ruml" at generated_1:
+    % every data point its first value
+    the Jahreseinkommen of case 1 is 50000.
+    the Unterlagen vollständig of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"].
+    node_3 expects answers ["Dokumentenprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_2 is, as stated in "funding-application.ruml" at generated_2:
+    % dp_annual_income has no value
+    the Unterlagen vollständig of case 1 is true.
+    node_1 expects answers ["Förderantrag holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"] and any unknowns.
+    node_2 expects answers ["Einkommensgrenze holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"] and any unknowns.
+    node_3 expects answers ["Dokumentenprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "funding-application.ruml" at generated_3:
+    % dp_annual_income is 49999
+    the Jahreseinkommen of case 1 is 49999.
+    the Unterlagen vollständig of case 1 is true.
+    node_1 expects answers ["Förderantrag holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Einkommensgrenze holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Dokumentenprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "funding-application.ruml" at generated_4:
+    % dp_annual_income is 50001
+    the Jahreseinkommen of case 1 is 50001.
+    the Unterlagen vollständig of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"].
+    node_3 expects answers ["Dokumentenprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_5 is, as stated in "funding-application.ruml" at generated_5:
+    % dp_documents_complete has no value
+    the Jahreseinkommen of case 1 is 50000.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Dokumentenprüfung holds for case 1"].
+
+scenario generated_6 is, as stated in "funding-application.ruml" at generated_6:
+    % dp_documents_complete is @(false)
+    the Jahreseinkommen of case 1 is 50000.
+    the Unterlagen vollständig of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Dokumentenprüfung holds for case 1"].
+
+scenario generated_7 is, as stated in "funding-application.ruml" at generated_7:
+    % every data point its last value
+    the Jahreseinkommen of case 1 is 50001.
+    the Unterlagen vollständig of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Dokumentenprüfung holds for case 1"].
+
+scenario generated_8 is, as stated in "funding-application.ruml" at generated_8:
+    % no data
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Förderantrag holds for case 1"].
+    node_2 expects answers ["Einkommensgrenze holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Dokumentenprüfung holds for case 1"].
+
+query node_1 is:
+    Förderantrag holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Förderantrag holds for case 1.
+
+query node_2 is:
+    Einkommensgrenze holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Einkommensgrenze holds for case 1.
+
+query node_3 is:
+    Dokumentenprüfung holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Dokumentenprüfung holds for case 1.
+

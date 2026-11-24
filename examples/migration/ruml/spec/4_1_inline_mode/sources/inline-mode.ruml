@@ -1,0 +1,72 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter des Antragstellers",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_income": {
+            "name": "Jahreseinkommen",
+            "type": "number",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "operator": "AND",
+        "label": "Kreditwürdigkeit prüfen",
+        "children": ["2", "3"]
+      },
+      "2": {
+        "id": "551ff73a-66ce-48ca-b889-84bc63ce864c",
+        "label": "Mindestalter erfüllt",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "42d9431d-b7db-404f-bdf9-7ecdde505cce",
+        "label": "Einkommen ausreichend",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_income >= 30000"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+% The Logical English twin of the RUML rulemap notice-creation.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: Bescheiderstellung
+% id: 0e16149d-6372-4306-b388-60e7412d9af4
+% version: 1.0.0
+% status: draft
+% The original is sources/notice-creation.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Antrag vollständig of *a case* is *a truth value*; scenario element.
+    Bescheiderstellung holds for *a case*.
+
+the knowledge base r4_10_notice_creation includes:
+
+the text of the_rulemap is at "sources/notice-creation.ruml".
+
+Bescheiderstellung holds for a case if
+    the Antrag vollständig of the case is true.
+
+scenario generated_1 is, as stated in "notice-creation.ruml" at generated_1:
+    % every data point its first value
+    the Antrag vollständig of case 1 is true.
+    node_1 expects answers ["Bescheiderstellung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_2 is, as stated in "notice-creation.ruml" at generated_2:
+    % dp_application_complete has no value
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Bescheiderstellung holds for case 1"].
+
+scenario generated_3 is, as stated in "notice-creation.ruml" at generated_3:
+    % dp_application_complete is @(false)
+    the Antrag vollständig of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Bescheiderstellung holds for case 1"].
+
+query node_1 is:
+    Bescheiderstellung holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Bescheiderstellung holds for case 1.
+

@@ -1,0 +1,91 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:text-reference",
+      "payload": {
+        "data": {
+          "text_sgb_xii_90": {
+            "title": "§ 90 SGB XII",
+            "timestamp": "2024-01-10T09:00:00Z",
+            "status": "inForce",
+            "type": "url",
+            "url": "https://www.gesetze-im-internet.de/sgb_12/__90.html"
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:expression",
+      "required": true
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "db70167d-41cb-4f06-94df-7d972459c864",
+    "version": "1.0.0",
+    "status": "draft",
+    "created": "2024-01-10T09:00:00Z",
+    "modified": "2024-01-10T09:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "7ee6fd88-0742-4ff0-9a88-5aa5b3f9bb73",
+        "operator": "AND",
+        "label": "Härtefallleistung",
+        "children": ["2"]
+      },
+      "2": {
+        "id": "fcf02185-ffee-48a4-bf93-d2fb1b17944d",
+        "operator": "DELEGATED",
+        "label": "Härtefall liegt vor",
+        "children": ["4", "5", "6"],
+        "capabilities": [
+          {
+            "id": "ruml:text-reference",
+            "payload": {
+              "refs": [
+                {
+                  "id": "text_sgb_xii_90",
+                  "type": "represents"
+                }
+              ]
+            }
+          },
+          {
+            "id": "ruml:expression",
+            "payload": {
+              "description": "Mindestens zwei der drei Härtefallmerkmale müssen vorliegen",
+              "expression": "$count($children[status = \"true\"]) >= 2"
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onTrue": {
+                "operation": "createDocument",
+                "ref": "haertefall_bescheid"
+              }
+            }
+          }
+        ]
+      },
+      "4": {
+        "id": "a2a3c41e-990b-4999-9a7f-5c6ae6a0409b",
+        "label": "Pflegegrad mindestens 3"
+      },
+      "5": {
+        "id": "dbadfcbc-ad24-469c-962b-0ec73931ebcb",
+        "label": "Eigenanteil über 800 EUR"
+      },
+      "6": {
+        "id": "8d35c354-c3eb-481f-9a60-df5049673896",
+        "label": "Alleinlebend"
+      }
+    }
+  }
+}

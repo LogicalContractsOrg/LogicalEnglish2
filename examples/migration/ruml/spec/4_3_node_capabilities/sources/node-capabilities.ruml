@@ -1,0 +1,134 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter",
+            "type": "number",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query",
+      "required": true
+    },
+    {
+      "id": "ruml:ai-query"
+    },
+    {
+      "id": "com.example/review-notes",
+      "role": "data"
+    },
+    {
+      "id": "ruml:draft/ai-annotations",
+      "role": "data"
+    }
+  ],
+  "metadata": {
+    "id": "8890ec55-4376-4998-8b4e-0b434006ba64",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "fb6cdae3-5b97-4c25-8326-60b6bb3f8c6e",
+        "operator": "AND",
+        "label": "Zulassung des Antrags",
+        "children": ["2", "3", "4"],
+        "capabilities": [
+          {
+            "id": "com.example/review-notes",
+            "payload": {
+              "status": "approved",
+              "reviewer": "rechtsabteilung"
+            }
+          },
+          {
+            "id": "ruml:draft/ai-annotations",
+            "payload": {
+              "annotations": [
+                {
+                  "type": "confidence",
+                  "value": 0.92
+                },
+                {
+                  "type": "source",
+                  "value": "gpt-4o"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "f32b5875-2557-499a-a9b5-bd5efdeab0fd",
+        "label": "Volljährigkeit nachgewiesen",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          },
+          {
+            "id": "ruml:draft/ai-annotations",
+            "payload": {
+              "confidence": 0.97,
+              "lastReviewed": "2024-09-15",
+              "reviewer": "llm-assistant-v2"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "551ff73a-66ce-48ca-b889-84bc63ce864c",
+        "label": "Antragsteller volljährig",
+        "decisionMode": "fallback",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          },
+          {
+            "id": "ruml:ai-query",
+            "payload": {
+              "model": "fast",
+              "prompt": "Ist der Antragsteller volljährig?"
+            }
+          }
+        ]
+      },
+      "4": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "label": "Ausnahmetatbestand",
+        "metadata": {
+          "author": "Dr. Müller",
+          "lastEditedBy": "validator-bot"
+        },
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

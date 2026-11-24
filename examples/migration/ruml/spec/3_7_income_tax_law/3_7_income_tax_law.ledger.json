@@ -1,0 +1,74 @@
+{
+  "counts": {"approximated":1,"encoded":5,"residue":0},
+  "entries": [
+    {
+      "element":"text(text_estg_32a)",
+      "in_program":"estg 32a",
+      "kind":"text",
+      "mapping":"a document of the twin (a text carried in the file)",
+      "note":"§ 32a EStG – Einkommensteuertarif",
+      "verdict":"encoded"
+    },
+    {
+      "element":"text(text_estg_1)",
+      "in_program":"estg 1",
+      "kind":"text",
+      "mapping":"a document of the twin (a text carried in the file)",
+      "note":"§ 1 EStG – Steuerpflicht",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Income tax applies holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Income exceeds basic allowance holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Unlimited tax liability holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":6,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["income-tax-law.ruml" ],
+    "program":"3_7_income_tax_law",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

@@ -1,0 +1,132 @@
+{
+  "counts": {"approximated":2,"encoded":5,"residue":1},
+  "entries": [
+    {
+      "element":"dp_annual_income",
+      "in_program":"the Jahreseinkommen of *a case* is *a number*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"unit: EUR",
+      "verdict":"encoded"
+    },
+    {
+      "element":"dp_applicant_email",
+      "in_program":"",
+      "kind":"data point",
+      "mapping":"declared, and read by no expression: not a sentence of the twin",
+      "note":"kept in the original under sources/",
+      "verdict":"approximated"
+    },
+    {
+      "element":"dp_documents_complete",
+      "in_program":"the Unterlagen vollständig of *a case* is *a truth value*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Förderantrag holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Einkommensgrenze holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_annual_income < 50000",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Dokumentenprüfung holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_documents_complete = true",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(ruml:actions)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed)",
+      "note":"",
+      "verdict":"residue"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":48,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_8"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["funding-application.ruml" ],
+    "program":"4_10_funding_application",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":8
+}

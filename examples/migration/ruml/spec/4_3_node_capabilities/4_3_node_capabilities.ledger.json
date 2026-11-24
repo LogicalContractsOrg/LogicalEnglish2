@@ -1,0 +1,116 @@
+{
+  "counts": {"approximated":3,"encoded":5,"residue":0},
+  "entries": [
+    {
+      "element":"dp_age",
+      "in_program":"the Alter of *a case* is *a number*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Zulassung des Antrags holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 3 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Volljährigkeit nachgewiesen holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_age >= 18",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Antragsteller volljährig holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_age >= 18; ruml:ai-query: a judged sentence (the prompt: Ist der Antragsteller volljährig?)",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(4)",
+      "in_program":"Ausnahmetatbestand holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_age >= 18",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(com.example/review-notes)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"a capability the twin does not use: kept in the original under sources/",
+      "note":"",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(ruml:draft/ai-annotations)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"a capability the twin does not use: kept in the original under sources/",
+      "note":"",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":32,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_4"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["node-capabilities.ruml" ],
+    "program":"4_3_node_capabilities",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}

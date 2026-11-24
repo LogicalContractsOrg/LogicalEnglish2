@@ -1,0 +1,85 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "data": {
+          "dp_amount": {
+            "name": "Betrag",
+            "type": "number",
+            "validation": {
+              "min": 0,
+              "max": 100000
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_children": {
+            "name": "Anzahl Kinder",
+            "type": "count",
+            "validation": {
+              "min": 1,
+              "max": 10
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_birth_date": {
+            "name": "Geburtsdatum",
+            "type": "date",
+            "validation": {
+              "min": "1900-01-01",
+              "max": "2010-12-31"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_submitted_at": {
+            "name": "Eingang",
+            "type": "datetime",
+            "validation": {
+              "min": "2024-01-01T08:00:00+01:00",
+              "max": "2024-12-31T18:00:00+01:00"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_duration": {
+            "name": "Mindestalter",
+            "type": "duration",
+            "validation": {
+              "min": "P18Y",
+              "max": "P67Y"
+            },
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "3f6b2a1c-8d4e-4a7b-9c2d-1e0f3a4b5c6d",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+        "label": "Antrag"
+      }
+    }
+  }
+}

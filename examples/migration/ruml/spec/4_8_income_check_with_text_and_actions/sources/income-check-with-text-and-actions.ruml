@@ -1,0 +1,94 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "min": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:text-reference",
+      "payload": {
+        "data": {
+          "text_sgb_ii_11": {
+            "title": "§ 11 SGB II – Zu berücksichtigendes Einkommen",
+            "uri": "/akn/de/act/2003-12-24/sgb-2#sec_11",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "status": "inForce",
+            "type": "embedded",
+            "text": "Als Einkommen zu berücksichtigen sind Einnahmen in Geld abzüglich der nach § 11b abzusetzenden Beträge mit Ausnahme der in § 11a genannten Einnahmen."
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "fcf02185-ffee-48a4-bf93-d2fb1b17944d",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "fcf02185-ffee-48a4-bf93-d2fb1b17944d",
+        "label": "Einkommensprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:text-reference",
+            "payload": {
+              "refs": [
+                {
+                  "id": "text_sgb_ii_11",
+                  "type": "refers-to"
+                }
+              ]
+            }
+          },
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_annual_income > 50000"
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onTrue": {
+                "operation": "createDocument",
+                "ref": "approval_service"
+              },
+              "onFalse": {
+                "operation": "sendNotification",
+                "ref": "rejection_service"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

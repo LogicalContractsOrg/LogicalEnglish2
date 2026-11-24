@@ -1,0 +1,130 @@
+{
+  "counts": {"approximated":8,"encoded":4,"residue":1},
+  "entries": [
+    {
+      "element":"text(text_bgb_823)",
+      "in_program":"bgb 823",
+      "kind":"text",
+      "mapping":"a document of the twin (a text carried in the file)",
+      "note":"§ 823 BGB – Schadensersatzpflicht",
+      "verdict":"encoded"
+    },
+    {
+      "element":"context(ctx_guidelines)",
+      "in_program":"guidelines",
+      "kind":"context",
+      "mapping":"context material (administrativeGuidance)",
+      "note":"context material is listed, not reasoned with",
+      "verdict":"approximated"
+    },
+    {
+      "element":"context(ctx_gutachten)",
+      "in_program":"gutachten",
+      "kind":"context",
+      "mapping":"context material (custom)",
+      "note":"context material is listed, not reasoned with",
+      "verdict":"approximated"
+    },
+    {
+      "element":"context(ctx_bsg_ruling)",
+      "in_program":"bsg ruling",
+      "kind":"context",
+      "mapping":"context material (courtDecision)",
+      "note":"context material is listed, not reasoned with",
+      "verdict":"approximated"
+    },
+    {
+      "element":"context(ctx_example_approved_medical)",
+      "in_program":"example approved medical",
+      "kind":"context",
+      "mapping":"context material (example)",
+      "note":"context material is listed, not reasoned with",
+      "verdict":"approximated"
+    },
+    {
+      "element":"context(ctx_example_rejected_luxury)",
+      "in_program":"example rejected luxury",
+      "kind":"context",
+      "mapping":"context material (example)",
+      "note":"context material is listed, not reasoned with",
+      "verdict":"approximated"
+    },
+    {
+      "element":"dp_hardship_reason",
+      "in_program":"",
+      "kind":"data point",
+      "mapping":"declared, and read by no expression: not a sentence of the twin",
+      "note":"kept in the original under sources/",
+      "verdict":"approximated"
+    },
+    {
+      "element":"dp_annual_income",
+      "in_program":"",
+      "kind":"data point",
+      "mapping":"declared, and read by no expression: not a sentence of the twin",
+      "note":"kept in the original under sources/",
+      "verdict":"approximated"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Härtefall anerkennen holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Begründung laut Gutachten plausibel holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:ai-query: a judged sentence (the prompt: Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined.)",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Begründung plausibel holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:ai-query: a judged sentence (the prompt: Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined.)",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(ruml:actions)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed)",
+      "note":"",
+      "verdict":"residue"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":6,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["hardship-plausibility-check.ruml" ],
+    "program":"4_9_hardship_plausibility_check",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

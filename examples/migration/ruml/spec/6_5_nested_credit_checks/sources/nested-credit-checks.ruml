@@ -1,0 +1,118 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "data": {
+          "dp_identity_verified": {
+            "name": "Identität geprüft",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_income": {
+            "name": "Einkommen",
+            "type": "number",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_schufa": {
+            "name": "Schufa-Score",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "16c994a6-3944-45b0-a2a9-510dd0e5f4ef",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "b6620b3c-4279-4a45-9115-c8bb2032d868",
+        "operator": "AND",
+        "label": "Root",
+        "children": ["10", "2", "3"]
+      },
+      "2": {
+        "id": "551ff73a-66ce-48ca-b889-84bc63ce864c",
+        "operator": "OR",
+        "label": "Alternative",
+        "children": ["10"]
+      },
+      "3": {
+        "id": "42d9431d-b7db-404f-bdf9-7ecdde505cce",
+        "operator": "OR",
+        "label": "Schnellprüfung",
+        "children": ["20"]
+      },
+      "10": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "modular": true,
+        "operator": "AND",
+        "label": "Hauptprüfung",
+        "children": ["11", "20"]
+      },
+      "11": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Identitätsprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_identity_verified = true"
+            }
+          }
+        ]
+      },
+      "20": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "modular": true,
+        "operator": "AND",
+        "label": "Bonitätsprüfung",
+        "children": ["21", "22"]
+      },
+      "21": {
+        "id": "52820488-2849-4487-842b-952dc3ba301d",
+        "label": "Einkommensprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_income > 30000"
+            }
+          }
+        ]
+      },
+      "22": {
+        "id": "48b34df4-06bb-4dc2-aeb7-807a146760f4",
+        "label": "Schufa-Prüfung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_schufa >= 600"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

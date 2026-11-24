@@ -1,0 +1,76 @@
+% The Logical English twin of the RUML rulemap company-founding.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: GmbH formation check
+% id: c3d81f5e-6a27-4b90-8e4c-1f9a3d7b2e05
+% version: 1.0.0
+% status: draft
+% The original is sources/company-founding.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Company validly founded holds for *a case*.
+    Articles of association notarised holds for *a case*.
+    Share capital at least eur 25000 holds for *a case*.
+    Entered in the commercial register holds for *a case*; open textured.
+    Articles of association notarised would hold for *a case*; unknown.
+    Share capital at least eur 25000 would hold for *a case*; unknown.
+
+the knowledge base r4_16_company_founding includes:
+
+the text of the_rulemap is at "sources/company-founding.ruml".
+
+Company validly founded holds for a case if
+    Articles of association notarised holds for the case
+    and Share capital at least eur 25000 holds for the case
+    and Entered in the commercial register holds for the case.
+
+Articles of association notarised holds for a case if
+    Articles of association notarised would hold for the case.
+
+Share capital at least eur 25000 holds for a case if
+    Share capital at least eur 25000 would hold for the case.
+
+scenario generated_1 is, as stated in "company-founding.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Company validly founded holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Company validly founded holds for case 1"] and any unknowns.
+    node_2 expects answers ["Articles of association notarised holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Articles of association notarised holds for case 1"] and any unknowns.
+    node_3 expects answers ["Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    node_4 expects answers ["Entered in the commercial register holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Entered in the commercial register holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Company validly founded holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Company validly founded holds for case 1.
+
+query node_2 is:
+    Articles of association notarised holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Articles of association notarised holds for case 1.
+
+query node_3 is:
+    Share capital at least eur 25000 holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Share capital at least eur 25000 holds for case 1.
+
+query node_4 is:
+    Entered in the commercial register holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Entered in the commercial register holds for case 1.
+

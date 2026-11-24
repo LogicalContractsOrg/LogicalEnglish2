@@ -1,0 +1,60 @@
+{
+  "counts": {"approximated":1,"encoded":2,"residue":1},
+  "entries": [
+    {
+      "element":"dp_age",
+      "in_program":"the Alter des Antragstellers of *a case* is *a number*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Antragsteller volljährig holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_age >= 18",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(ruml:actions)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed)",
+      "note":"",
+      "verdict":"residue"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":8,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["age-check.ruml" ],
+    "program":"5_1_age_check",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}

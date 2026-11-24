@@ -1,0 +1,63 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter",
+            "type": "number",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_birth_year": {
+            "name": "Geburtsjahr",
+            "type": "number",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "5f0c2d8e-7a41-4b9e-9c3d-2e6f8a1b4c70",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "8c1e4b7a-3d2f-4e6a-9b0c-5d7e1f2a3b4c",
+        "label": "Volljährigkeit nachgewiesen",
+        "decisionMode": "fallback",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          },
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "2024 - dp_birth_year >= 18"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:expression",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "71a64490-d879-4887-b6bf-0628d3969ba4",
+    "version": "1.0.0",
+    "status": "draft",
+    "created": "2024-01-10T09:00:00Z",
+    "modified": "2024-01-10T09:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "0e461b37-952a-49ca-b7e8-dde783b3f9a4",
+        "operator": "AND",
+        "label": "Anspruch besteht",
+        "children": ["2"]
+      },
+      "2": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "operator": "DELEGATED",
+        "label": "Mindestens drei Merkmale erfüllt",
+        "children": ["3", "4", "5", "6", "7"],
+        "capabilities": [
+          {
+            "id": "ruml:expression",
+            "payload": {
+              "description": "Mindestens drei der fünf Merkmale müssen erfüllt sein",
+              "expression": "$count($children[status = 'true']) >= 3"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "06d5cb49-5e1b-4cf6-8d52-f6d4be894c22",
+        "label": "Merkmal 1"
+      },
+      "4": {
+        "id": "e3d65d86-4f5d-4baf-a34b-6398a2886bfd",
+        "label": "Merkmal 2"
+      },
+      "5": {
+        "id": "8c0e8cd8-d1ef-42b6-af84-9786a72f91fd",
+        "label": "Merkmal 3"
+      },
+      "6": {
+        "id": "1b5ada1d-d03c-4a0d-8a38-080494f9563c",
+        "label": "Merkmal 4"
+      },
+      "7": {
+        "id": "4b9bcd29-86b7-4bad-b4d4-bcbbb3b979a3",
+        "label": "Merkmal 5"
+      }
+    }
+  }
+}

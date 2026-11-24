@@ -1,0 +1,93 @@
+% The Logical English twin of the RUML rulemap at-most-one-missing.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: d230c1cd-434c-4f51-9196-ed82865c9c2c
+% version: 1.0.0
+% status: draft
+% The original is sources/at-most-one-missing.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Höchstens eine Voraussetzung fehlt holds for *a case*.
+    Voraussetzung 1 holds for *a case*; open textured.
+    Voraussetzung 2 holds for *a case*; open textured.
+    Voraussetzung 3 holds for *a case*; open textured.
+    child *a number* of Höchstens eine Voraussetzung fehlt counts for *a case*.
+    Höchstens eine Voraussetzung fehlt is decided for *a case*.
+    Höchstens eine Voraussetzung fehlt would hold for *a case*; unknown.
+    Voraussetzung 1 is decided for *a case*; scenario element.
+    Voraussetzung 2 is decided for *a case*; scenario element.
+    Voraussetzung 3 is decided for *a case*; scenario element.
+
+the knowledge base r3_6_at_most_one_missing includes:
+
+the text of the_rulemap is at "sources/at-most-one-missing.ruml".
+
+child 1 of Höchstens eine Voraussetzung fehlt counts for a case if
+    it is not the case that Voraussetzung 1 holds for the case.
+
+child 2 of Höchstens eine Voraussetzung fehlt counts for a case if
+    it is not the case that Voraussetzung 2 holds for the case.
+
+child 3 of Höchstens eine Voraussetzung fehlt counts for a case if
+    it is not the case that Voraussetzung 3 holds for the case.
+
+% Höchstens eine der drei Voraussetzungen darf fehlen
+Höchstens eine Voraussetzung fehlt holds for a case if
+    Höchstens eine Voraussetzung fehlt is decided for the case
+    and a number M is the count of each N such that
+        child a number N of Höchstens eine Voraussetzung fehlt counts for the case
+    and M <= 1.
+
+Höchstens eine Voraussetzung fehlt holds for a case if
+    it is not the case that Höchstens eine Voraussetzung fehlt is decided for the case
+    and Höchstens eine Voraussetzung fehlt would hold for the case.
+
+Höchstens eine Voraussetzung fehlt is decided for a case if
+    Voraussetzung 1 is decided for the case
+    and Voraussetzung 2 is decided for the case
+    and Voraussetzung 3 is decided for the case.
+
+scenario generated_1 is, as stated in "at-most-one-missing.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
+    node_2 expects answers ["Voraussetzung 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Voraussetzung 1 holds for case 1"] and any unknowns.
+    node_3 expects answers ["Voraussetzung 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Voraussetzung 2 holds for case 1"] and any unknowns.
+    node_4 expects answers ["Voraussetzung 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Voraussetzung 3 holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Höchstens eine Voraussetzung fehlt holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Höchstens eine Voraussetzung fehlt holds for case 1.
+
+query node_2 is:
+    Voraussetzung 1 holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Voraussetzung 1 holds for case 1.
+
+query node_3 is:
+    Voraussetzung 2 holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Voraussetzung 2 holds for case 1.
+
+query node_4 is:
+    Voraussetzung 3 holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Voraussetzung 3 holds for case 1.
+

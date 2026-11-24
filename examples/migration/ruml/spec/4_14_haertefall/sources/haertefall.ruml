@@ -1,0 +1,130 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_pflegegrad": {
+            "name": "Pflegegrad",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_eigenanteil": {
+            "name": "Monatlicher Eigenanteil",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_alleinlebend": {
+            "name": "Alleinlebend",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_wohnsitz": {
+            "name": "Wohnsitz im Land",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:expression",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "b6620b3c-4279-4a45-9115-c8bb2032d868",
+    "version": "1.0.0",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z",
+    "created": "2024-01-10T09:00:00Z",
+    "modified": "2024-01-10T09:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "551ff73a-66ce-48ca-b889-84bc63ce864c",
+        "operator": "AND",
+        "label": "Härtefallleistung",
+        "children": ["2", "7"]
+      },
+      "2": {
+        "id": "42d9431d-b7db-404f-bdf9-7ecdde505cce",
+        "operator": "DELEGATED",
+        "label": "Härtefall liegt vor",
+        "children": ["3", "4", "5"],
+        "capabilities": [
+          {
+            "id": "ruml:expression",
+            "payload": {
+              "description": "Mindestens zwei der drei Härtefallmerkmale müssen vorliegen",
+              "expression": "$count($children[status = \"true\"]) >= 2"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "52820488-2849-4487-842b-952dc3ba301d",
+        "label": "Pflegegrad mindestens 3",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_pflegegrad >= 3"
+            }
+          }
+        ]
+      },
+      "4": {
+        "id": "48b34df4-06bb-4dc2-aeb7-807a146760f4",
+        "label": "Eigenanteil über 800 EUR",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_eigenanteil > 800"
+            }
+          }
+        ]
+      },
+      "5": {
+        "id": "92f909f1-0097-4d9d-87d2-1734bf299d08",
+        "label": "Alleinlebend",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_alleinlebend = true"
+            }
+          }
+        ]
+      },
+      "7": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Wohnsitz im Land",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_wohnsitz = true"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

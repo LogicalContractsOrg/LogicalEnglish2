@@ -1,0 +1,397 @@
+% The Logical English twin of the RUML rulemap haertefall.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: b6620b3c-4279-4a45-9115-c8bb2032d868
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/haertefall.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Pflegegrad of *a case* is *a number*; scenario element.
+    the Monatlicher Eigenanteil of *a case* is *a number*; scenario element.
+    the Alleinlebend of *a case* is *a truth value*; scenario element.
+    the Wohnsitz im Land of *a case* is *a truth value*; scenario element.
+    Härtefallleistung holds for *a case*.
+    Härtefall liegt vor holds for *a case*.
+    Pflegegrad mindestens 3 holds for *a case*.
+    Eigenanteil über 800 eur holds for *a case*.
+    Alleinlebend holds for *a case*.
+    Wohnsitz im Land holds for *a case*.
+    child *a number* of Härtefall liegt vor counts for *a case*.
+    Härtefall liegt vor is decided for *a case*.
+    Härtefall liegt vor would hold for *a case*; unknown.
+    Pflegegrad mindestens 3 is decided for *a case*.
+    Eigenanteil über 800 eur is decided for *a case*.
+    Alleinlebend is decided for *a case*.
+    Pflegegrad mindestens 3 would hold for *a case*; unknown.
+    Eigenanteil über 800 eur would hold for *a case*; unknown.
+
+the knowledge base r4_14_haertefall includes:
+
+the text of the_rulemap is at "sources/haertefall.ruml".
+
+Härtefallleistung holds for a case if
+    Härtefall liegt vor holds for the case
+    and Wohnsitz im Land holds for the case.
+
+child 1 of Härtefall liegt vor counts for a case if
+    Pflegegrad mindestens 3 holds for the case.
+
+child 2 of Härtefall liegt vor counts for a case if
+    Eigenanteil über 800 eur holds for the case.
+
+child 3 of Härtefall liegt vor counts for a case if
+    Alleinlebend holds for the case.
+
+% Mindestens zwei der drei Härtefallmerkmale müssen vorliegen
+Härtefall liegt vor holds for a case if
+    Härtefall liegt vor is decided for the case
+    and a number M is the count of each N such that
+        child a number N of Härtefall liegt vor counts for the case
+    and M >= 2.
+
+Härtefall liegt vor holds for a case if
+    it is not the case that Härtefall liegt vor is decided for the case
+    and Härtefall liegt vor would hold for the case.
+
+Härtefall liegt vor is decided for a case if
+    Pflegegrad mindestens 3 is decided for the case
+    and Eigenanteil über 800 eur is decided for the case
+    and Alleinlebend is decided for the case.
+
+Wohnsitz im Land holds for a case if
+    the Wohnsitz im Land of the case is true.
+
+Pflegegrad mindestens 3 holds for a case if
+    the Pflegegrad of the case is a number N
+    and N >= 3.
+
+Pflegegrad mindestens 3 holds for a case if
+    it is not the case that the Pflegegrad of the case is a number
+    and Pflegegrad mindestens 3 would hold for the case.
+
+Pflegegrad mindestens 3 is decided for a case if
+    it is not the case that
+        it is not the case that the Pflegegrad of the case is a number.
+
+Eigenanteil über 800 eur holds for a case if
+    the Monatlicher Eigenanteil of the case is a number N
+    and N > 800.
+
+Eigenanteil über 800 eur holds for a case if
+    it is not the case that the Monatlicher Eigenanteil of the case is a number
+    and Eigenanteil über 800 eur would hold for the case.
+
+Eigenanteil über 800 eur is decided for a case if
+    it is not the case that
+        it is not the case that the Monatlicher Eigenanteil of the case is a number.
+
+Alleinlebend holds for a case if
+    the Alleinlebend of the case is true.
+
+Alleinlebend is decided for a case.
+
+scenario generated_1 is, as stated in "haertefall.ruml" at generated_1:
+    % every data point its first value
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_2 is, as stated in "haertefall.ruml" at generated_2:
+    % dp_pflegegrad has no value
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"] and any unknowns.
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_3 is, as stated in "haertefall.ruml" at generated_3:
+    % dp_pflegegrad is 2
+    the Pflegegrad of case 1 is 2.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Pflegegrad mindestens 3 holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_4 is, as stated in "haertefall.ruml" at generated_4:
+    % dp_pflegegrad is 4
+    the Pflegegrad of case 1 is 4.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_5 is, as stated in "haertefall.ruml" at generated_5:
+    % dp_eigenanteil has no value
+    the Pflegegrad of case 1 is 3.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"] and any unknowns.
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_6 is, as stated in "haertefall.ruml" at generated_6:
+    % dp_eigenanteil is 799
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 799.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_7 is, as stated in "haertefall.ruml" at generated_7:
+    % dp_eigenanteil is 801
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 801.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_8 is, as stated in "haertefall.ruml" at generated_8:
+    % dp_alleinlebend has no value
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Alleinlebend holds for case 1"].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_9 is, as stated in "haertefall.ruml" at generated_9:
+    % dp_alleinlebend is @(false)
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is false.
+    the Wohnsitz im Land of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Alleinlebend holds for case 1"].
+    node_7 expects answers ["Wohnsitz im Land holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_10 is, as stated in "haertefall.ruml" at generated_10:
+    % dp_wohnsitz has no value
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Wohnsitz im Land holds for case 1"].
+
+scenario generated_11 is, as stated in "haertefall.ruml" at generated_11:
+    % dp_wohnsitz is @(false)
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 800.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Wohnsitz im Land holds for case 1"].
+
+scenario generated_12 is, as stated in "haertefall.ruml" at generated_12:
+    % every data point its last value
+    the Pflegegrad of case 1 is 4.
+    the Monatlicher Eigenanteil of case 1 is 801.
+    the Alleinlebend of case 1 is false.
+    the Wohnsitz im Land of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Alleinlebend holds for case 1"].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Wohnsitz im Land holds for case 1"].
+
+scenario generated_13 is, as stated in "haertefall.ruml" at generated_13:
+    % every second data point changed
+    the Pflegegrad of case 1 is 3.
+    the Monatlicher Eigenanteil of case 1 is 799.
+    the Alleinlebend of case 1 is true.
+    the Wohnsitz im Land of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_5 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Wohnsitz im Land holds for case 1"].
+
+scenario generated_14 is, as stated in "haertefall.ruml" at generated_14:
+    % no data
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"] and any unknowns.
+    node_3 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    node_4 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Alleinlebend holds for case 1"].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Wohnsitz im Land holds for case 1"].
+
+query node_1 is:
+    Härtefallleistung holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Härtefallleistung holds for case 1.
+
+query node_2 is:
+    Härtefall liegt vor holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Härtefall liegt vor holds for case 1.
+
+query node_3 is:
+    Pflegegrad mindestens 3 holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Pflegegrad mindestens 3 holds for case 1.
+
+query node_4 is:
+    Eigenanteil über 800 eur holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Eigenanteil über 800 eur holds for case 1.
+
+query node_5 is:
+    Alleinlebend holds for case 1.
+
+query not_node_5 is:
+    it is not the case that Alleinlebend holds for case 1.
+
+query node_7 is:
+    Wohnsitz im Land holds for case 1.
+
+query not_node_7 is:
+    it is not the case that Wohnsitz im Land holds for case 1.
+

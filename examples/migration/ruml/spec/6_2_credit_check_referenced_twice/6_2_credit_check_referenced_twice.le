@@ -1,0 +1,428 @@
+% The Logical English twin of the RUML rulemap credit-check-referenced-twice.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 13c61a63-e205-4a52-a380-66968bd5eb17
+% version: 1.0.0
+% status: draft
+% The original is sources/credit-check-referenced-twice.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Alter of *a case* is *a number*; scenario element.
+    the Einkommen of *a case* is *a number*; scenario element.
+    the Schufa Score of *a case* is *a number*; scenario element.
+    the Bürgschaft vorhanden of *a case* is *a truth value*; scenario element.
+    Hauptprüfung holds for *a case*.
+    Antragsteller volljährig holds for *a case*.
+    Standardprüfung Bonität holds for *a case*.
+    Einkommensprüfung holds for *a case*.
+    Alternative Prüfungen holds for *a case*.
+    Schufa Score holds for *a case*.
+    Bürgschaft vorhanden holds for *a case*.
+    Antragsteller volljährig would hold for *a case*; unknown.
+    Einkommensprüfung would hold for *a case*; unknown.
+    Schufa Score would hold for *a case*; unknown.
+
+the knowledge base r6_2_credit_check_referenced_twice includes:
+
+the text of the_rulemap is at "sources/credit-check-referenced-twice.ruml".
+
+Hauptprüfung holds for a case if
+    Antragsteller volljährig holds for the case
+    and Standardprüfung Bonität holds for the case
+    and Alternative Prüfungen holds for the case.
+
+Antragsteller volljährig holds for a case if
+    the Alter of the case is a number N
+    and N >= 18.
+
+Antragsteller volljährig holds for a case if
+    it is not the case that the Alter of the case is a number
+    and Antragsteller volljährig would hold for the case.
+
+Standardprüfung Bonität holds for a case if
+    Einkommensprüfung holds for the case
+    and Schufa Score holds for the case.
+
+Alternative Prüfungen holds for a case if
+    Standardprüfung Bonität holds for the case.
+
+Alternative Prüfungen holds for a case if
+    Bürgschaft vorhanden holds for the case.
+
+Einkommensprüfung holds for a case if
+    the Einkommen of the case is a number N
+    and N > 30000.
+
+Einkommensprüfung holds for a case if
+    it is not the case that the Einkommen of the case is a number
+    and Einkommensprüfung would hold for the case.
+
+Schufa Score holds for a case if
+    the Schufa Score of the case is a number N
+    and N >= 600.
+
+Schufa Score holds for a case if
+    it is not the case that the Schufa Score of the case is a number
+    and Schufa Score would hold for the case.
+
+Bürgschaft vorhanden holds for a case if
+    the Bürgschaft vorhanden of the case is true.
+
+scenario generated_1 is, as stated in "credit-check-referenced-twice.ruml" at generated_1:
+    % every data point its first value
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_2 is, as stated in "credit-check-referenced-twice.ruml" at generated_2:
+    % dp_age has no value
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"] and any unknowns.
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_3 is, as stated in "credit-check-referenced-twice.ruml" at generated_3:
+    % dp_age is 17
+    the Alter of case 1 is 17.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_4 is, as stated in "credit-check-referenced-twice.ruml" at generated_4:
+    % dp_age is 19
+    the Alter of case 1 is 19.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_5 is, as stated in "credit-check-referenced-twice.ruml" at generated_5:
+    % dp_income has no value
+    the Alter of case 1 is 18.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers ["Hauptprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"] and any unknowns.
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers ["Standardprüfung Bonität holds for case 1"] and any unknowns.
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"] and any unknowns.
+    node_9 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"] and any unknowns.
+
+scenario generated_6 is, as stated in "credit-check-referenced-twice.ruml" at generated_6:
+    % dp_income is 29999
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 29999.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_7 is, as stated in "credit-check-referenced-twice.ruml" at generated_7:
+    % dp_income is 30001
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30001.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers ["Hauptprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers ["Standardprüfung Bonität holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_8 is, as stated in "credit-check-referenced-twice.ruml" at generated_8:
+    % dp_schufa has no value
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30000.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers ["it is not the case that Schufa Score holds for case 1"] and any unknowns.
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_9 is, as stated in "credit-check-referenced-twice.ruml" at generated_9:
+    % dp_schufa is 599
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 599.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers [].
+    not_node_11 expects answers ["it is not the case that Schufa Score holds for case 1"].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_10 is, as stated in "credit-check-referenced-twice.ruml" at generated_10:
+    % dp_schufa is 601
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 601.
+    the Bürgschaft vorhanden of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers ["Bürgschaft vorhanden holds for case 1"] and any unknowns.
+    not_node_12 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_11 is, as stated in "credit-check-referenced-twice.ruml" at generated_11:
+    % dp_guarantor has no value
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers [].
+    not_node_12 expects answers ["it is not the case that Bürgschaft vorhanden holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_12 is, as stated in "credit-check-referenced-twice.ruml" at generated_12:
+    % dp_guarantor is @(false)
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers [].
+    not_node_12 expects answers ["it is not the case that Bürgschaft vorhanden holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_13 is, as stated in "credit-check-referenced-twice.ruml" at generated_13:
+    % every data point its last value
+    the Alter of case 1 is 19.
+    the Einkommen of case 1 is 30001.
+    the Schufa Score of case 1 is 601.
+    the Bürgschaft vorhanden of case 1 is false.
+    node_1 expects answers ["Hauptprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers [].
+    not_node_12 expects answers ["it is not the case that Bürgschaft vorhanden holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers ["Standardprüfung Bonität holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_14 is, as stated in "credit-check-referenced-twice.ruml" at generated_14:
+    % every second data point changed
+    the Alter of case 1 is 18.
+    the Einkommen of case 1 is 29999.
+    the Schufa Score of case 1 is 600.
+    the Bürgschaft vorhanden of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"].
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_12 expects answers [].
+    not_node_12 expects answers ["it is not the case that Bürgschaft vorhanden holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+
+scenario generated_15 is, as stated in "credit-check-referenced-twice.ruml" at generated_15:
+    % no data
+    node_1 expects answers ["Hauptprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Hauptprüfung holds for case 1"] and any unknowns.
+    node_10 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_10 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"] and any unknowns.
+    node_11 expects answers ["Schufa Score holds for case 1"] and any unknowns.
+    not_node_11 expects answers ["it is not the case that Schufa Score holds for case 1"] and any unknowns.
+    node_12 expects answers [].
+    not_node_12 expects answers ["it is not the case that Bürgschaft vorhanden holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"] and any unknowns.
+    node_8 expects answers ["Standardprüfung Bonität holds for case 1"] and any unknowns.
+    not_node_8 expects answers ["it is not the case that Standardprüfung Bonität holds for case 1"] and any unknowns.
+    node_9 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_9 expects answers ["it is not the case that Einkommensprüfung holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Hauptprüfung holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Hauptprüfung holds for case 1.
+
+query node_10 is:
+    Alternative Prüfungen holds for case 1.
+
+query not_node_10 is:
+    it is not the case that Alternative Prüfungen holds for case 1.
+
+query node_11 is:
+    Schufa Score holds for case 1.
+
+query not_node_11 is:
+    it is not the case that Schufa Score holds for case 1.
+
+query node_12 is:
+    Bürgschaft vorhanden holds for case 1.
+
+query not_node_12 is:
+    it is not the case that Bürgschaft vorhanden holds for case 1.
+
+query node_2 is:
+    Antragsteller volljährig holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Antragsteller volljährig holds for case 1.
+
+query node_8 is:
+    Standardprüfung Bonität holds for case 1.
+
+query not_node_8 is:
+    it is not the case that Standardprüfung Bonität holds for case 1.
+
+query node_9 is:
+    Einkommensprüfung holds for case 1.
+
+query not_node_9 is:
+    it is not the case that Einkommensprüfung holds for case 1.
+

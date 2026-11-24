@@ -1,0 +1,108 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "data": {
+          "dp_answer_1": {
+            "name": "Answer 1",
+            "type": "string",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "enum": ["yes", "no", "unknown"]
+            }
+          },
+          "dp_answer_2": {
+            "name": "Answer 2",
+            "type": "string",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "enum": ["yes", "no", "unknown"]
+            }
+          },
+          "dp_answer_3": {
+            "name": "Answer 3",
+            "type": "string",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "enum": ["yes", "no", "unknown"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "fe0a56ac-3e35-4d53-8f94-325b08295327",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "70db8692-a4bf-4192-9459-c3c1c42cd815",
+        "operator": "OR",
+        "label": "root",
+        "children": ["2", "3", "4"]
+      },
+      "2": {
+        "id": "f6542f95-2fd4-49f9-8156-3b15d4dff6f9",
+        "label": "One",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "description": "'yes' is true, 'no' is false, 'unknown' yields no result and thus status undefined",
+              "expression": "$lookup({'yes': true, 'no': false}, dp_answer_1)"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "7357d367-315b-4bc7-a0ba-2fbbafadd2a0",
+        "label": "Two",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "description": "'yes' is true, 'no' is false, 'unknown' yields no result and thus status undefined",
+              "expression": "$lookup({'yes': true, 'no': false}, dp_answer_2)"
+            }
+          }
+        ]
+      },
+      "4": {
+        "id": "bd684263-c107-47b4-bd22-dbcaaa322694",
+        "label": "Three",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "description": "'yes' is true, 'no' is false, 'unknown' yields no result and thus status undefined",
+              "expression": "$lookup({'yes': true, 'no': false}, dp_answer_3)"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,358 @@
+% The Logical English twin of the RUML rulemap nested-credit-checks.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 16c994a6-3944-45b0-a2a9-510dd0e5f4ef
+% version: 1.0.0
+% status: draft
+% The original is sources/nested-credit-checks.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Identität geprüft of *a case* is *a truth value*; scenario element.
+    the Einkommen of *a case* is *a number*; scenario element.
+    the Schufa Score of *a case* is *a number*; scenario element.
+    Root holds for *a case*.
+    Alternative holds for *a case*.
+    Schnellprüfung holds for *a case*.
+    Hauptprüfung holds for *a case*.
+    Identitätsprüfung holds for *a case*.
+    Bonitätsprüfung holds for *a case*.
+    Einkommensprüfung holds for *a case*.
+    Schufa Prüfung holds for *a case*.
+    Einkommensprüfung would hold for *a case*; unknown.
+    Schufa Prüfung would hold for *a case*; unknown.
+
+the knowledge base r6_5_nested_credit_checks includes:
+
+the text of the_rulemap is at "sources/nested-credit-checks.ruml".
+
+Root holds for a case if
+    Hauptprüfung holds for the case
+    and Alternative holds for the case
+    and Schnellprüfung holds for the case.
+
+Hauptprüfung holds for a case if
+    Identitätsprüfung holds for the case
+    and Bonitätsprüfung holds for the case.
+
+Alternative holds for a case if
+    Hauptprüfung holds for the case.
+
+Schnellprüfung holds for a case if
+    Bonitätsprüfung holds for the case.
+
+Identitätsprüfung holds for a case if
+    the Identität geprüft of the case is true.
+
+Bonitätsprüfung holds for a case if
+    Einkommensprüfung holds for the case
+    and Schufa Prüfung holds for the case.
+
+Einkommensprüfung holds for a case if
+    the Einkommen of the case is a number N
+    and N > 30000.
+
+Einkommensprüfung holds for a case if
+    it is not the case that the Einkommen of the case is a number
+    and Einkommensprüfung would hold for the case.
+
+Schufa Prüfung holds for a case if
+    the Schufa Score of the case is a number N
+    and N >= 600.
+
+Schufa Prüfung holds for a case if
+    it is not the case that the Schufa Score of the case is a number
+    and Schufa Prüfung would hold for the case.
+
+scenario generated_1 is, as stated in "nested-credit-checks.ruml" at generated_1:
+    % every data point its first value
+    the Identität geprüft of case 1 is true.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_2 is, as stated in "nested-credit-checks.ruml" at generated_2:
+    % dp_identity_verified has no value
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers [].
+    not_node_11 expects answers ["it is not the case that Identitätsprüfung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_3 is, as stated in "nested-credit-checks.ruml" at generated_3:
+    % dp_identity_verified is @(false)
+    the Identität geprüft of case 1 is false.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers [].
+    not_node_11 expects answers ["it is not the case that Identitätsprüfung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_4 is, as stated in "nested-credit-checks.ruml" at generated_4:
+    % dp_income has no value
+    the Identität geprüft of case 1 is true.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers ["Root holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"] and any unknowns.
+    node_10 expects answers ["Hauptprüfung holds for case 1"] and any unknowns.
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"] and any unknowns.
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers ["Alternative holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"] and any unknowns.
+    node_20 expects answers ["Bonitätsprüfung holds for case 1"] and any unknowns.
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"] and any unknowns.
+    node_21 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"] and any unknowns.
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers ["Schnellprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"] and any unknowns.
+
+scenario generated_5 is, as stated in "nested-credit-checks.ruml" at generated_5:
+    % dp_income is 29999
+    the Identität geprüft of case 1 is true.
+    the Einkommen of case 1 is 29999.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_6 is, as stated in "nested-credit-checks.ruml" at generated_6:
+    % dp_income is 30001
+    the Identität geprüft of case 1 is true.
+    the Einkommen of case 1 is 30001.
+    the Schufa Score of case 1 is 600.
+    node_1 expects answers ["Root holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_10 expects answers ["Hauptprüfung holds for case 1"] and any unknowns.
+    not_node_10 expects answers [].
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers ["Alternative holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_20 expects answers ["Bonitätsprüfung holds for case 1"] and any unknowns.
+    not_node_20 expects answers [].
+    node_21 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_21 expects answers [].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers ["Schnellprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_7 is, as stated in "nested-credit-checks.ruml" at generated_7:
+    % dp_schufa has no value
+    the Identität geprüft of case 1 is true.
+    the Einkommen of case 1 is 30000.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers ["it is not the case that Schufa Prüfung holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_8 is, as stated in "nested-credit-checks.ruml" at generated_8:
+    % dp_schufa is 599
+    the Identität geprüft of case 1 is true.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 599.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers [].
+    not_node_22 expects answers ["it is not the case that Schufa Prüfung holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_9 is, as stated in "nested-credit-checks.ruml" at generated_9:
+    % dp_schufa is 601
+    the Identität geprüft of case 1 is true.
+    the Einkommen of case 1 is 30000.
+    the Schufa Score of case 1 is 601.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers ["Identitätsprüfung holds for case 1"] and any unknowns.
+    not_node_11 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers [].
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+    node_21 expects answers [].
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
+
+scenario generated_10 is, as stated in "nested-credit-checks.ruml" at generated_10:
+    % every data point its last value
+    the Identität geprüft of case 1 is false.
+    the Einkommen of case 1 is 30001.
+    the Schufa Score of case 1 is 601.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers [].
+    not_node_11 expects answers ["it is not the case that Identitätsprüfung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers ["Bonitätsprüfung holds for case 1"] and any unknowns.
+    not_node_20 expects answers [].
+    node_21 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_21 expects answers [].
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers [].
+    node_3 expects answers ["Schnellprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_11 is, as stated in "nested-credit-checks.ruml" at generated_11:
+    % no data
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Root holds for case 1"].
+    node_10 expects answers [].
+    not_node_10 expects answers ["it is not the case that Hauptprüfung holds for case 1"].
+    node_11 expects answers [].
+    not_node_11 expects answers ["it is not the case that Identitätsprüfung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative holds for case 1"].
+    node_20 expects answers ["Bonitätsprüfung holds for case 1"] and any unknowns.
+    not_node_20 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"] and any unknowns.
+    node_21 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_21 expects answers ["it is not the case that Einkommensprüfung holds for case 1"] and any unknowns.
+    node_22 expects answers ["Schufa Prüfung holds for case 1"] and any unknowns.
+    not_node_22 expects answers ["it is not the case that Schufa Prüfung holds for case 1"] and any unknowns.
+    node_3 expects answers ["Schnellprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Root holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Root holds for case 1.
+
+query node_10 is:
+    Hauptprüfung holds for case 1.
+
+query not_node_10 is:
+    it is not the case that Hauptprüfung holds for case 1.
+
+query node_11 is:
+    Identitätsprüfung holds for case 1.
+
+query not_node_11 is:
+    it is not the case that Identitätsprüfung holds for case 1.
+
+query node_2 is:
+    Alternative holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Alternative holds for case 1.
+
+query node_20 is:
+    Bonitätsprüfung holds for case 1.
+
+query not_node_20 is:
+    it is not the case that Bonitätsprüfung holds for case 1.
+
+query node_21 is:
+    Einkommensprüfung holds for case 1.
+
+query not_node_21 is:
+    it is not the case that Einkommensprüfung holds for case 1.
+
+query node_22 is:
+    Schufa Prüfung holds for case 1.
+
+query not_node_22 is:
+    it is not the case that Schufa Prüfung holds for case 1.
+
+query node_3 is:
+    Schnellprüfung holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Schnellprüfung holds for case 1.
+

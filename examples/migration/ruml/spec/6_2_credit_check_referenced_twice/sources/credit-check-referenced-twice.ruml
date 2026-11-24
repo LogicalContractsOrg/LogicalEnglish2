@@ -1,0 +1,124 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_income": {
+            "name": "Einkommen",
+            "type": "number",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_schufa": {
+            "name": "Schufa-Score",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_guarantor": {
+            "name": "Bürgschaft vorhanden",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "13c61a63-e205-4a52-a380-66968bd5eb17",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "b6620b3c-4279-4a45-9115-c8bb2032d868",
+        "operator": "AND",
+        "label": "Hauptprüfung",
+        "children": ["2", "8", "10"]
+      },
+      "2": {
+        "id": "551ff73a-66ce-48ca-b889-84bc63ce864c",
+        "label": "Antragsteller volljährig",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          }
+        ]
+      },
+      "8": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "modular": true,
+        "operator": "AND",
+        "label": "Standardprüfung Bonität",
+        "children": ["9", "11"]
+      },
+      "9": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Einkommensprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_income > 30000"
+            }
+          }
+        ]
+      },
+      "10": {
+        "id": "42d9431d-b7db-404f-bdf9-7ecdde505cce",
+        "operator": "OR",
+        "label": "Alternative Prüfungen",
+        "children": ["8", "12"]
+      },
+      "11": {
+        "id": "52820488-2849-4487-842b-952dc3ba301d",
+        "label": "Schufa-Score",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_schufa >= 600"
+            }
+          }
+        ]
+      },
+      "12": {
+        "id": "48b34df4-06bb-4dc2-aeb7-807a146760f4",
+        "label": "Bürgschaft vorhanden",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_guarantor = true"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

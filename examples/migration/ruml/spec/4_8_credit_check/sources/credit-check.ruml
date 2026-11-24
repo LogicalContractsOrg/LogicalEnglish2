@@ -1,0 +1,107 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "min": 0
+            }
+          },
+          "dp_credit_score": {
+            "name": "Bonitätsscore",
+            "type": "number",
+            "binding": {
+              "type": "external",
+              "ref": "schufa_api"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:text-reference",
+      "payload": {
+        "data": {
+          "text_bgb_488": {
+            "title": "§ 488 BGB – Darlehensvertrag",
+            "uri": "/akn/de/act/1896-08-18/bgb#sec_488",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "status": "inForce",
+            "type": "embedded",
+            "text": "Durch den Darlehensvertrag wird der Darlehensgeber verpflichtet, dem Darlehensnehmer einen Geldbetrag in der vereinbarten Höhe zur Verfügung zu stellen. Der Darlehensnehmer ist verpflichtet, einen geschuldeten Zins zu zahlen und bei Fälligkeit das zur Verfügung gestellte Darlehen zurückzuzahlen."
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "operator": "AND",
+        "label": "Kreditprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:text-reference",
+            "payload": {
+              "refs": [
+                {
+                  "id": "text_bgb_488",
+                  "type": "refers-to"
+                }
+              ]
+            }
+          }
+        ],
+        "children": ["2", "3"]
+      },
+      "2": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "label": "Einkommen ausreichend",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "description": "Mindesteinkommensgrenze",
+              "expression": "dp_annual_income > 50000"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Bonität ausreichend",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_credit_score >= 600"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

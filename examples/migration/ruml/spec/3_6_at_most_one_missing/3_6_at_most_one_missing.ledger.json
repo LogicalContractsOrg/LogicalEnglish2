@@ -1,0 +1,68 @@
+{
+  "counts": {"approximated":1,"encoded":4,"residue":0},
+  "entries": [
+    {
+      "element":"node(1)",
+      "in_program":"Höchstens eine Voraussetzung fehlt holds for *a case*",
+      "kind":"DELEGATED",
+      "mapping":"DELEGATED: $count($children[status = 'false']) <= 1",
+      "note":"exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4)",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Voraussetzung 1 holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Voraussetzung 2 holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(4)",
+      "in_program":"Voraussetzung 3 holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":8,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["at-most-one-missing.ruml" ],
+    "program":"3_6_at_most_one_missing",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

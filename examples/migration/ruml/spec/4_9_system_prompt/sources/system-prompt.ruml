@@ -1,0 +1,38 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:ai-query",
+      "payload": {
+        "config": {
+          "systemPrompt": "Du bist ein rechtlicher Assistent. Analysiere die bereitgestellten Sachverhalte anhand der geltenden deutschen Rechtslage und antworte ausschließlich mit true, false oder undefined."
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "21d1884e-e952-486b-b1a8-f4c683c29f7a",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "36361080-325e-40f8-b70c-9dd99b01e408",
+        "label": "Begründung plausibel",
+        "capabilities": [
+          {
+            "id": "ruml:ai-query",
+            "payload": {
+              "model": "strong",
+              "prompt": "Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined."
+            }
+          }
+        ]
+      }
+    }
+  }
+}

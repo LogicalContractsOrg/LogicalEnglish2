@@ -1,0 +1,67 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "required": true,
+      "payload": {
+        "sets": {
+          "child": {
+            "name": "Child",
+            "fields": {
+              "first_name": {
+                "name": "First name",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              }
+            }
+          }
+        },
+        "data": {
+          "_children": {
+            "name": "Children",
+            "type": "object",
+            "set": "child",
+            "cardinality": {
+              "min": 0,
+              "max": 1
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "postal_code": {
+            "name": "Postal code",
+            "type": "string",
+            "validation": {
+              "minLength": 0,
+              "maxLength": 5
+            },
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "4e1b7c2a-9d3f-4a6b-8e5c-2f1d0a9b8c7e",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "b4c5d6e7-f8a9-4b0c-9d1e-2f3a4b5c6d7e",
+        "label": "Application"
+      }
+    }
+  }
+}

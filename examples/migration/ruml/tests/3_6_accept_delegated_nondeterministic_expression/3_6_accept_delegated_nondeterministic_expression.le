@@ -1,0 +1,87 @@
+% The Logical English twin of the RUML rulemap accept-delegated-nondeterministic-expression.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 99efdf2e-7556-424d-b777-bc1d8acd78ed
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/accept-delegated-nondeterministic-expression.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Stichprobe ausgewählt holds for *a case*.
+    Merkmal 1 holds for *a case*; open textured.
+    Merkmal 2 holds for *a case*; open textured.
+    Merkmal 3 holds for *a case*; open textured.
+    child *a number* of Stichprobe ausgewählt counts for *a case*.
+    Stichprobe ausgewählt would hold for *a case*; unknown.
+    Stichprobe ausgewählt is decided for *a case*.
+    Merkmal 1 is decided for *a case*; scenario element.
+    Merkmal 2 is decided for *a case*; scenario element.
+    Merkmal 3 is decided for *a case*; scenario element.
+
+the knowledge base r3_6_accept_delegated_nondeterministic_expression includes:
+
+the text of the_rulemap is at "sources/accept-delegated-nondeterministic-expression.ruml".
+
+child 1 of Stichprobe ausgewählt counts for a case if
+    Merkmal 1 holds for the case.
+
+child 2 of Stichprobe ausgewählt counts for a case if
+    Merkmal 2 holds for the case.
+
+child 3 of Stichprobe ausgewählt counts for a case if
+    Merkmal 3 holds for the case.
+
+% RESIDUE r_6 BEGIN: node 1: Stichprobe ausgewählt
+% TODO: translate the fragment below by hand, or with the Contract Assistant (residue mode); it was not translated automatically
+% the JSONata expression $random()
+% RESIDUE r_6 END
+
+% Not translated (the residue block above): the node is undefined, as RUML's evaluator answers for what it cannot evaluate.
+Stichprobe ausgewählt holds for a case if
+    Stichprobe ausgewählt would hold for the case.
+
+scenario generated_1 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Stichprobe ausgewählt holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"] and any unknowns.
+    node_2 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Merkmal 1 holds for case 1"] and any unknowns.
+    node_3 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Merkmal 2 holds for case 1"] and any unknowns.
+    node_4 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Merkmal 3 holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Stichprobe ausgewählt holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Stichprobe ausgewählt holds for case 1.
+
+query node_2 is:
+    Merkmal 1 holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Merkmal 1 holds for case 1.
+
+query node_3 is:
+    Merkmal 2 holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Merkmal 2 holds for case 1.
+
+query node_4 is:
+    Merkmal 3 holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Merkmal 3 holds for case 1.
+

@@ -1,0 +1,133 @@
+% The Logical English twin of the RUML rulemap at-least-three-features.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 71a64490-d879-4887-b6bf-0628d3969ba4
+% version: 1.0.0
+% status: draft
+% The original is sources/at-least-three-features.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Anspruch besteht holds for *a case*.
+    Mindestens drei Merkmale erfüllt holds for *a case*.
+    Merkmal 1 holds for *a case*; open textured.
+    Merkmal 2 holds for *a case*; open textured.
+    Merkmal 3 holds for *a case*; open textured.
+    Merkmal 4 holds for *a case*; open textured.
+    Merkmal 5 holds for *a case*; open textured.
+    child *a number* of Mindestens drei Merkmale erfüllt counts for *a case*.
+    Mindestens drei Merkmale erfüllt is decided for *a case*.
+    Mindestens drei Merkmale erfüllt would hold for *a case*; unknown.
+    Merkmal 1 is decided for *a case*; scenario element.
+    Merkmal 2 is decided for *a case*; scenario element.
+    Merkmal 3 is decided for *a case*; scenario element.
+    Merkmal 4 is decided for *a case*; scenario element.
+    Merkmal 5 is decided for *a case*; scenario element.
+
+the knowledge base r4_14_at_least_three_features includes:
+
+the text of the_rulemap is at "sources/at-least-three-features.ruml".
+
+Anspruch besteht holds for a case if
+    Mindestens drei Merkmale erfüllt holds for the case.
+
+child 1 of Mindestens drei Merkmale erfüllt counts for a case if
+    Merkmal 1 holds for the case.
+
+child 2 of Mindestens drei Merkmale erfüllt counts for a case if
+    Merkmal 2 holds for the case.
+
+child 3 of Mindestens drei Merkmale erfüllt counts for a case if
+    Merkmal 3 holds for the case.
+
+child 4 of Mindestens drei Merkmale erfüllt counts for a case if
+    Merkmal 4 holds for the case.
+
+child 5 of Mindestens drei Merkmale erfüllt counts for a case if
+    Merkmal 5 holds for the case.
+
+% Mindestens drei der fünf Merkmale müssen erfüllt sein
+Mindestens drei Merkmale erfüllt holds for a case if
+    Mindestens drei Merkmale erfüllt is decided for the case
+    and a number M is the count of each N such that
+        child a number N of Mindestens drei Merkmale erfüllt counts for the case
+    and M >= 3.
+
+Mindestens drei Merkmale erfüllt holds for a case if
+    it is not the case that Mindestens drei Merkmale erfüllt is decided for the case
+    and Mindestens drei Merkmale erfüllt would hold for the case.
+
+Mindestens drei Merkmale erfüllt is decided for a case if
+    Merkmal 1 is decided for the case
+    and Merkmal 2 is decided for the case
+    and Merkmal 3 is decided for the case
+    and Merkmal 4 is decided for the case
+    and Merkmal 5 is decided for the case.
+
+scenario generated_1 is, as stated in "at-least-three-features.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Anspruch besteht holds for case 1"] and any unknowns.
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    node_3 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Merkmal 1 holds for case 1"] and any unknowns.
+    node_4 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Merkmal 2 holds for case 1"] and any unknowns.
+    node_5 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_5 expects answers ["it is not the case that Merkmal 3 holds for case 1"] and any unknowns.
+    node_6 expects answers ["Merkmal 4 holds for case 1"] and any unknowns.
+    not_node_6 expects answers ["it is not the case that Merkmal 4 holds for case 1"] and any unknowns.
+    node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
+    not_node_7 expects answers ["it is not the case that Merkmal 5 holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Anspruch besteht holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Anspruch besteht holds for case 1.
+
+query node_2 is:
+    Mindestens drei Merkmale erfüllt holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Mindestens drei Merkmale erfüllt holds for case 1.
+
+query node_3 is:
+    Merkmal 1 holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Merkmal 1 holds for case 1.
+
+query node_4 is:
+    Merkmal 2 holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Merkmal 2 holds for case 1.
+
+query node_5 is:
+    Merkmal 3 holds for case 1.
+
+query not_node_5 is:
+    it is not the case that Merkmal 3 holds for case 1.
+
+query node_6 is:
+    Merkmal 4 holds for case 1.
+
+query not_node_6 is:
+    it is not the case that Merkmal 4 holds for case 1.
+
+query node_7 is:
+    Merkmal 5 holds for case 1.
+
+query not_node_7 is:
+    it is not the case that Merkmal 5 holds for case 1.
+

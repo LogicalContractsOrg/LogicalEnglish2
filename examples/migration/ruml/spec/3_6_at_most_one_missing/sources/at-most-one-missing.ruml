@@ -1,0 +1,48 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:expression",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "d230c1cd-434c-4f51-9196-ed82865c9c2c",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "6573fb0b-752f-4091-9513-e62f93f03eb6",
+        "operator": "DELEGATED",
+        "label": "Höchstens eine Voraussetzung fehlt",
+        "children": ["2", "3", "4"],
+        "capabilities": [
+          {
+            "id": "ruml:expression",
+            "payload": {
+              "description": "Höchstens eine der drei Voraussetzungen darf fehlen",
+              "expression": "$count($children[status = 'false']) <= 1"
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "368125b8-4ff5-4c34-bbbe-fa7185150031",
+        "label": "Voraussetzung 1"
+      },
+      "3": {
+        "id": "eb436502-9cf0-4e07-9a05-fa409e3b84cb",
+        "label": "Voraussetzung 2"
+      },
+      "4": {
+        "id": "db509a63-c4b8-42b2-a6c4-f555c9b6a62f",
+        "label": "Voraussetzung 3"
+      }
+    }
+  }
+}

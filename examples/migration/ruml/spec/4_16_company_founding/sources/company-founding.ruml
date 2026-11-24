@@ -1,0 +1,55 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:tree-include"
+    }
+  ],
+  "metadata": {
+    "id": "c3d81f5e-6a27-4b90-8e4c-1f9a3d7b2e05",
+    "version": "1.0.0",
+    "created": "2026-10-19T00:00:00Z",
+    "modified": "2026-10-19T00:00:00Z",
+    "status": "draft",
+    "title": "GmbH formation check"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "4f7b2e9a-1d63-4c8e-b5a0-9e3d6f1c7a28",
+        "operator": "AND",
+        "label": "Company validly founded",
+        "children": ["2", "3", "4"]
+      },
+      "2": {
+        "id": "a29e6c3f-8b14-4d7a-9f52-3c8e1b6d4a70",
+        "label": "Articles of association notarised",
+        "capabilities": [
+          {
+            "id": "ruml:tree-include",
+            "payload": {
+              "uri": "https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/6e51c5a6-f7ff-43e1-b211-c70bd69937d7"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "5d0c8a4b-2e79-4f13-a6b8-7d1e9c3f5b42",
+        "label": "Share capital at least EUR 25,000",
+        "capabilities": [
+          {
+            "id": "ruml:tree-include",
+            "payload": {
+              "uri": "https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/7791005b-3d30-455b-a538-6d96f04680d9"
+            }
+          }
+        ]
+      },
+      "4": {
+        "id": "e6b3f9d1-7c28-4a54-8b0f-2a6d4e8c1f97",
+        "label": "Entered in the commercial register"
+      }
+    }
+  }
+}

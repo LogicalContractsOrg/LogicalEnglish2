@@ -1,0 +1,109 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_amount": {
+            "name": "Betrag",
+            "type": "number",
+            "validation": {
+              "required": true,
+              "min": 0,
+              "max": 100000,
+              "message": "Bitte geben Sie einen gültigen Wert ein"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "validation": {
+              "required": true,
+              "min": 0,
+              "max": 10000000,
+              "message": "Bitte geben Sie ein gültiges Jahreseinkommen an"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_postal_code": {
+            "name": "Postleitzahl",
+            "type": "string",
+            "validation": {
+              "required": true,
+              "minLength": 5,
+              "maxLength": 5,
+              "pattern": "^[0-9]{5}$",
+              "message": "Bitte geben Sie eine gültige deutsche Postleitzahl ein"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_country": {
+            "name": "Land",
+            "type": "location",
+            "format": "country",
+            "validation": {
+              "required": true,
+              "enum": ["DE", "AT", "CH"],
+              "message": "Diese Regelung gilt nur für Deutschland, Österreich und die Schweiz"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_birth_date": {
+            "name": "Geburtsdatum",
+            "type": "date",
+            "validation": {
+              "required": true,
+              "min": "1900-01-01",
+              "max": "2010-12-31",
+              "message": "Das Geburtsdatum muss zwischen 1900 und 2010 liegen"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_vat_id": {
+            "name": "Umsatzsteuer-ID",
+            "type": "identifier",
+            "format": "vatId",
+            "validation": {
+              "required": false,
+              "pattern": "^DE[0-9]{9}$",
+              "message": "Bitte geben Sie eine gültige deutsche USt-ID ein (Format: DE123456789)"
+            },
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "106468aa-cbb0-4a5f-8fd3-fbf24b650a72",
+    "title": "Validierung",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "0bfda6c9-58f8-4ad8-af05-467a9384a384",
+        "label": "Antrag ist zulässig"
+      }
+    }
+  }
+}

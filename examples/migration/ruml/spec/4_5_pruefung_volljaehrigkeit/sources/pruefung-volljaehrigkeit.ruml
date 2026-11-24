@@ -1,0 +1,72 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_competent": {
+            "name": "Geschäftsfähig",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "version": "1.2.0",
+    "created": "2024-01-15T09:00:00Z",
+    "modified": "2024-03-20T14:30:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "operator": "AND",
+        "label": "Geschäftsfähigkeit",
+        "children": ["2", "3"]
+      },
+      "2": {
+        "id": "8fc54c7d-7f60-410e-9493-4f1eecfb1af8",
+        "label": "Volljährigkeit",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "56b5b9db-b791-4fe5-abb0-a05cb0847db6",
+        "label": "Keine Entmündigung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_competent = true"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

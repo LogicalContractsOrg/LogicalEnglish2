@@ -1,0 +1,188 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:context",
+      "payload": {
+        "data": {
+          "ctx_guidelines": {
+            "title": "Richtlinien zur Härtefallprüfung",
+            "category": "administrativeGuidance",
+            "type": "url",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "url": "https://www.example.gov/haertefall-richtlinien.pdf"
+          },
+          "ctx_gutachten": {
+            "title": "Ärztliches Gutachten der Antragstellerin",
+            "category": "custom",
+            "type": "container",
+            "timestamp": "2024-01-10T09:00:00Z",
+            "subject": true,
+            "containerPath": ".context/gutachten.pdf"
+          },
+          "ctx_bsg_ruling": {
+            "title": "BSG zur Auslegung des Härtefallbegriffs",
+            "category": "courtDecision",
+            "type": "container",
+            "timestamp": "2023-06-15T10:00:00Z",
+            "containerPath": ".context/BSG-B-14-AS-123-22.pdf"
+          },
+          "ctx_example_approved_medical": {
+            "title": "Beispiel: Genehmigt - Medizinische Notlage",
+            "category": "example",
+            "type": "embedded",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "content": {
+              "summary": "Genehmigung aufgrund unvorhergesehener medizinischer Kosten"
+            }
+          },
+          "ctx_example_rejected_luxury": {
+            "title": "Beispiel: Abgelehnt - Freiwillige Ausgaben",
+            "category": "example",
+            "type": "embedded",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "content": {
+              "summary": "Ablehnung aufgrund selbstverschuldeter Situation"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_hardship_reason": {
+            "name": "Härtefallbegründung",
+            "type": "string",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:text-reference",
+      "payload": {
+        "data": {
+          "text_bgb_823": {
+            "title": "§ 823 BGB – Schadensersatzpflicht",
+            "uri": "/akn/de/act/1896-08-18/bgb#sec_823__subsec_1",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "status": "inForce",
+            "text": "Wer vorsätzlich oder fahrlässig das Leben, den Körper, die Gesundheit, die Freiheit, das Eigentum oder ein sonstiges Recht eines anderen widerrechtlich verletzt, ist dem anderen zum Ersatz des daraus entstehenden Schadens verpflichtet.",
+            "language": "de"
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:ai-query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "0738dba0-c191-412d-b85f-a68987fd0e59",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "8354a3e2-bb3e-40a7-8a7f-e866f4df25c8",
+        "operator": "AND",
+        "label": "Härtefall anerkennen?",
+        "children": ["2", "3"]
+      },
+      "2": {
+        "id": "623fb5e5-c802-4cf9-91ec-bf793f923bfa",
+        "label": "Begründung laut Gutachten plausibel",
+        "capabilities": [
+          {
+            "id": "ruml:ai-query",
+            "payload": {
+              "model": "strong",
+              "prompt": "Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined.",
+              "description": "Prüft die Plausibilität der Härtefallbegründung",
+              "inputs": {
+                "context": [
+                  {
+                    "id": "ctx_guidelines",
+                    "role": "reference"
+                  },
+                  {
+                    "id": "ctx_gutachten",
+                    "role": "subject"
+                  }
+                ],
+                "dataPoints": ["dp_hardship_reason", "dp_annual_income"],
+                "texts": ["text_bgb_823"]
+              },
+              "config": {
+                "deterministic": true,
+                "effort": "high",
+                "temperature": 0.1
+              }
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Begründung plausibel",
+        "capabilities": [
+          {
+            "id": "ruml:ai-query",
+            "payload": {
+              "model": "strong",
+              "prompt": "Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined.",
+              "description": "Prüft die Plausibilität der Härtefallbegründung anhand der Richtlinien und Beispielfälle",
+              "inputs": {
+                "context": [
+                  "ctx_guidelines",
+                  "ctx_bsg_ruling",
+                  "ctx_example_approved_medical",
+                  "ctx_example_rejected_luxury"
+                ],
+                "dataPoints": ["dp_hardship_reason", "dp_annual_income"]
+              },
+              "config": {
+                "deterministic": true,
+                "effort": "high",
+                "temperature": 0.1
+              }
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onUndefined": {
+                "operation": "requestDecision",
+                "ref": "manual_review_workflow",
+                "config": {
+                  "recipient": "role:social-worker",
+                  "deadline": "P5D",
+                  "responseOptions": ["approve", "reject", "requestMoreInfo"]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

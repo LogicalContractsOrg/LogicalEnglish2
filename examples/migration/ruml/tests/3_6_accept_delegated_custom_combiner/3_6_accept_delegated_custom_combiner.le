@@ -1,0 +1,71 @@
+% The Logical English twin of the RUML rulemap accept-delegated-custom-combiner.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/accept-delegated-custom-combiner.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Gesamtbewertung holds for *a case*.
+    Modul 1 holds for *a case*; open textured.
+    Modul 2 holds for *a case*; open textured.
+    Gesamtbewertung is decided for *a case*.
+    Gesamtbewertung would hold for *a case*; unknown.
+    Modul 1 is decided for *a case*; scenario element.
+    Modul 2 is decided for *a case*; scenario element.
+
+the knowledge base r3_6_accept_delegated_custom_combiner includes:
+
+the text of the_rulemap is at "sources/accept-delegated-custom-combiner.ruml".
+
+% Status des ersten Kindes
+Gesamtbewertung holds for a case if
+    Gesamtbewertung is decided for the case
+    and Modul 1 holds for the case.
+
+Gesamtbewertung holds for a case if
+    it is not the case that Gesamtbewertung is decided for the case
+    and Gesamtbewertung would hold for the case.
+
+Gesamtbewertung is decided for a case if
+    Modul 1 is decided for the case
+    and Modul 2 is decided for the case.
+
+scenario generated_1 is, as stated in "accept-delegated-custom-combiner.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Gesamtbewertung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Gesamtbewertung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Modul 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Modul 1 holds for case 1"] and any unknowns.
+    node_3 expects answers ["Modul 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Modul 2 holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Gesamtbewertung holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Gesamtbewertung holds for case 1.
+
+query node_2 is:
+    Modul 1 holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Modul 1 holds for case 1.
+
+query node_3 is:
+    Modul 2 holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Modul 2 holds for case 1.
+

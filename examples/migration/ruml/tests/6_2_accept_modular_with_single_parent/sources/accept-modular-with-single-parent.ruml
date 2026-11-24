@@ -1,0 +1,43 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "metadata": {
+    "id": "7a1c9e42-3b5d-4f6a-8c2e-9d0b1a2c3e4f",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "b6620b3c-4279-4a45-9115-c8bb2032d868",
+        "operator": "AND",
+        "label": "Antrag",
+        "children": ["2", "3"]
+      },
+      "2": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "operator": "AND",
+        "label": "Antrag A",
+        "children": ["5"]
+      },
+      "3": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "operator": "AND",
+        "label": "Antrag B",
+        "children": ["6"]
+      },
+      "5": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Nur einmal referenziert",
+        "modular": true
+      },
+      "6": {
+        "id": "4e2d8f1a-6b3c-4d5e-9f7a-2b1c0d9e8f7a",
+        "label": "Einfach referenziert"
+      }
+    }
+  }
+}

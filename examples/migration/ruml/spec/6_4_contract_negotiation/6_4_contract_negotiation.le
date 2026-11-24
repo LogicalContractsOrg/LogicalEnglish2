@@ -1,0 +1,225 @@
+% The Logical English twin of the RUML rulemap contract-negotiation.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.0.0
+% status: draft
+% The original is sources/contract-negotiation.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Vertragsfähigkeit of *a case* is *a truth value*; scenario element.
+    the Angebot angenommen of *a case* is *a truth value*; scenario element.
+    the Verhandlung abgebrochen of *a case* is *a truth value*; scenario element.
+    Vertragsabschluss holds for *a case*.
+    Vertragsfähigkeit geprüft holds for *a case*.
+    Verhandlungsrunde holds for *a case*.
+    Angebot angenommen holds for *a case*.
+    Verhandlung abgebrochen holds for *a case*.
+    Verhandlungsrunde is decided for *a case*.
+    Verhandlungsrunde would hold for *a case*; unknown.
+    Angebot angenommen is decided for *a case*.
+    Verhandlung abgebrochen is decided for *a case*.
+
+the knowledge base r6_4_contract_negotiation includes:
+
+the text of the_rulemap is at "sources/contract-negotiation.ruml".
+
+Vertragsabschluss holds for a case if
+    Vertragsfähigkeit geprüft holds for the case
+    and Verhandlungsrunde holds for the case.
+
+Vertragsfähigkeit geprüft holds for a case if
+    the Vertragsfähigkeit of the case is true.
+
+Verhandlungsrunde holds for a case if
+    Angebot angenommen holds for the case.
+
+Verhandlungsrunde holds for a case if
+    Verhandlung abgebrochen holds for the case.
+
+% A round that no exit decides: RUML's evaluator goes on to its depth limit, and answers undefined (§6.4).
+Verhandlungsrunde holds for a case if
+    it is not the case that Verhandlungsrunde is decided for the case
+    and Verhandlungsrunde would hold for the case.
+
+Verhandlungsrunde is decided for a case if
+    Angebot angenommen is decided for the case
+    and Angebot angenommen holds for the case.
+
+Verhandlungsrunde is decided for a case if
+    Verhandlung abgebrochen is decided for the case
+    and Verhandlung abgebrochen holds for the case.
+
+Angebot angenommen holds for a case if
+    the Angebot angenommen of the case is true.
+
+Angebot angenommen is decided for a case.
+
+Verhandlung abgebrochen holds for a case if
+    the Verhandlung abgebrochen of the case is true.
+
+Verhandlung abgebrochen is decided for a case.
+
+scenario generated_1 is, as stated in "contract-negotiation.ruml" at generated_1:
+    % every data point its first value
+    the Vertragsfähigkeit of case 1 is true.
+    the Angebot angenommen of case 1 is true.
+    the Verhandlung abgebrochen of case 1 is true.
+    node_1 expects answers ["Vertragsabschluss holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Vertragsfähigkeit geprüft holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_5 expects answers ["Angebot angenommen holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Verhandlung abgebrochen holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_2 is, as stated in "contract-negotiation.ruml" at generated_2:
+    % dp_legal_capacity has no value
+    the Angebot angenommen of case 1 is true.
+    the Verhandlung abgebrochen of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Vertragsabschluss holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Vertragsfähigkeit geprüft holds for case 1"].
+    node_5 expects answers ["Angebot angenommen holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Verhandlung abgebrochen holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_3 is, as stated in "contract-negotiation.ruml" at generated_3:
+    % dp_legal_capacity is @(false)
+    the Vertragsfähigkeit of case 1 is false.
+    the Angebot angenommen of case 1 is true.
+    the Verhandlung abgebrochen of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Vertragsabschluss holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Vertragsfähigkeit geprüft holds for case 1"].
+    node_5 expects answers ["Angebot angenommen holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Verhandlung abgebrochen holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_4 is, as stated in "contract-negotiation.ruml" at generated_4:
+    % dp_offer_accepted has no value
+    the Vertragsfähigkeit of case 1 is true.
+    the Verhandlung abgebrochen of case 1 is true.
+    node_1 expects answers ["Vertragsabschluss holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Vertragsfähigkeit geprüft holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Angebot angenommen holds for case 1"].
+    node_6 expects answers ["Verhandlung abgebrochen holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_5 is, as stated in "contract-negotiation.ruml" at generated_5:
+    % dp_offer_accepted is @(false)
+    the Vertragsfähigkeit of case 1 is true.
+    the Angebot angenommen of case 1 is false.
+    the Verhandlung abgebrochen of case 1 is true.
+    node_1 expects answers ["Vertragsabschluss holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Vertragsfähigkeit geprüft holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Angebot angenommen holds for case 1"].
+    node_6 expects answers ["Verhandlung abgebrochen holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_6 is, as stated in "contract-negotiation.ruml" at generated_6:
+    % dp_negotiation_cancelled has no value
+    the Vertragsfähigkeit of case 1 is true.
+    the Angebot angenommen of case 1 is true.
+    node_1 expects answers ["Vertragsabschluss holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Vertragsfähigkeit geprüft holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_5 expects answers ["Angebot angenommen holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Verhandlung abgebrochen holds for case 1"].
+
+scenario generated_7 is, as stated in "contract-negotiation.ruml" at generated_7:
+    % dp_negotiation_cancelled is @(false)
+    the Vertragsfähigkeit of case 1 is true.
+    the Angebot angenommen of case 1 is true.
+    the Verhandlung abgebrochen of case 1 is false.
+    node_1 expects answers ["Vertragsabschluss holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Vertragsfähigkeit geprüft holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_5 expects answers ["Angebot angenommen holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Verhandlung abgebrochen holds for case 1"].
+
+scenario generated_8 is, as stated in "contract-negotiation.ruml" at generated_8:
+    % every data point its last value
+    the Vertragsfähigkeit of case 1 is false.
+    the Angebot angenommen of case 1 is false.
+    the Verhandlung abgebrochen of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Vertragsabschluss holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Vertragsfähigkeit geprüft holds for case 1"].
+    node_4 expects answers ["Verhandlungsrunde holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Verhandlungsrunde holds for case 1"] and any unknowns.
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Angebot angenommen holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Verhandlung abgebrochen holds for case 1"].
+
+scenario generated_9 is, as stated in "contract-negotiation.ruml" at generated_9:
+    % no data
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Vertragsabschluss holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Vertragsfähigkeit geprüft holds for case 1"].
+    node_4 expects answers ["Verhandlungsrunde holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Verhandlungsrunde holds for case 1"] and any unknowns.
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Angebot angenommen holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Verhandlung abgebrochen holds for case 1"].
+
+query node_1 is:
+    Vertragsabschluss holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Vertragsabschluss holds for case 1.
+
+query node_2 is:
+    Vertragsfähigkeit geprüft holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Vertragsfähigkeit geprüft holds for case 1.
+
+query node_4 is:
+    Verhandlungsrunde holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Verhandlungsrunde holds for case 1.
+
+query node_5 is:
+    Angebot angenommen holds for case 1.
+
+query not_node_5 is:
+    it is not the case that Angebot angenommen holds for case 1.
+
+query node_6 is:
+    Verhandlung abgebrochen holds for case 1.
+
+query not_node_6 is:
+    it is not the case that Verhandlung abgebrochen holds for case 1.
+

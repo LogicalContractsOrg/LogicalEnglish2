@@ -1,0 +1,164 @@
+% The Logical English twin of the RUML rulemap inline-mode.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/inline-mode.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Alter des Antragstellers of *a case* is *a number*; scenario element.
+    the Jahreseinkommen of *a case* is *a number*; scenario element.
+    Kreditwürdigkeit prüfen holds for *a case*.
+    Mindestalter erfüllt holds for *a case*.
+    Einkommen ausreichend holds for *a case*.
+    Mindestalter erfüllt would hold for *a case*; unknown.
+    Einkommen ausreichend would hold for *a case*; unknown.
+
+the knowledge base r4_1_inline_mode includes:
+
+the text of the_rulemap is at "sources/inline-mode.ruml".
+
+Kreditwürdigkeit prüfen holds for a case if
+    Mindestalter erfüllt holds for the case
+    and Einkommen ausreichend holds for the case.
+
+Mindestalter erfüllt holds for a case if
+    the Alter des Antragstellers of the case is a number N
+    and N >= 18.
+
+Mindestalter erfüllt holds for a case if
+    it is not the case that the Alter des Antragstellers of the case is a number
+    and Mindestalter erfüllt would hold for the case.
+
+Einkommen ausreichend holds for a case if
+    the Jahreseinkommen of the case is a number N
+    and N >= 30000.
+
+Einkommen ausreichend holds for a case if
+    it is not the case that the Jahreseinkommen of the case is a number
+    and Einkommen ausreichend would hold for the case.
+
+scenario generated_1 is, as stated in "inline-mode.ruml" at generated_1:
+    % every data point its first value
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 30000.
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_2 is, as stated in "inline-mode.ruml" at generated_2:
+    % dp_age has no value
+    the Jahreseinkommen of case 1 is 30000.
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Mindestalter erfüllt holds for case 1"] and any unknowns.
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "inline-mode.ruml" at generated_3:
+    % dp_age is 17
+    the Alter des Antragstellers of case 1 is 17.
+    the Jahreseinkommen of case 1 is 30000.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kreditwürdigkeit prüfen holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Mindestalter erfüllt holds for case 1"].
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "inline-mode.ruml" at generated_4:
+    % dp_age is 19
+    the Alter des Antragstellers of case 1 is 19.
+    the Jahreseinkommen of case 1 is 30000.
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_5 is, as stated in "inline-mode.ruml" at generated_5:
+    % dp_income has no value
+    the Alter des Antragstellers of case 1 is 18.
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+
+scenario generated_6 is, as stated in "inline-mode.ruml" at generated_6:
+    % dp_income is 29999
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 29999.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kreditwürdigkeit prüfen holds for case 1"].
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"].
+
+scenario generated_7 is, as stated in "inline-mode.ruml" at generated_7:
+    % dp_income is 30001
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 30001.
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_8 is, as stated in "inline-mode.ruml" at generated_8:
+    % every data point its last value
+    the Alter des Antragstellers of case 1 is 19.
+    the Jahreseinkommen of case 1 is 30001.
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_9 is, as stated in "inline-mode.ruml" at generated_9:
+    % no data
+    node_1 expects answers ["Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Kreditwürdigkeit prüfen holds for case 1"] and any unknowns.
+    node_2 expects answers ["Mindestalter erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Mindestalter erfüllt holds for case 1"] and any unknowns.
+    node_3 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Kreditwürdigkeit prüfen holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Kreditwürdigkeit prüfen holds for case 1.
+
+query node_2 is:
+    Mindestalter erfüllt holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Mindestalter erfüllt holds for case 1.
+
+query node_3 is:
+    Einkommen ausreichend holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Einkommen ausreichend holds for case 1.
+

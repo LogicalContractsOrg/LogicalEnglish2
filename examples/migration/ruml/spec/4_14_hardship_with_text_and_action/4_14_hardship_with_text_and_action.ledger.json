@@ -1,0 +1,94 @@
+{
+  "counts": {"approximated":1,"encoded":6,"residue":1},
+  "entries": [
+    {
+      "element":"text(text_sgb_xii_90)",
+      "in_program":"sgb xii 90",
+      "kind":"text",
+      "mapping":"a document of the twin (a text named by its address)",
+      "note":"§ 90 SGB XII",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Härtefallleistung holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 1 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Härtefall liegt vor holds for *a case*",
+      "kind":"DELEGATED",
+      "mapping":"DELEGATED: $count($children[status = \"true\"]) >= 2",
+      "note":"exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4)",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(4)",
+      "in_program":"Pflegegrad mindestens 3 holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(5)",
+      "in_program":"Eigenanteil über 800 eur holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(6)",
+      "in_program":"Alleinlebend holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(ruml:actions)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed)",
+      "note":"",
+      "verdict":"residue"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":10,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_1"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["hardship-with-text-and-action.ruml" ],
+    "program":"4_14_hardship_with_text_and_action",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

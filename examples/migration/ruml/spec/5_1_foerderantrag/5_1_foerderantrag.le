@@ -1,0 +1,363 @@
+% The Logical English twin of the RUML rulemap foerderantrag.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/foerderantrag.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Alter des Antragstellers of *a case* is *a number*; scenario element.
+    the Jahreseinkommen of *a case* is *a number*; scenario element.
+    the Härtefall anerkannt of *a case* is *a truth value*; scenario element.
+    the Bundesland des Wohnsitzes of *a case* is *a text*; scenario element.
+    Fördervoraussetzungen holds for *a case*.
+    Antragsteller volljährig holds for *a case*.
+    Einkommensprüfung holds for *a case*.
+    Einkommen unter Grenze holds for *a case*.
+    Härtefall anerkannt holds for *a case*.
+    Wohnsitz in Bayern holds for *a case*.
+    Antragsteller volljährig would hold for *a case*; unknown.
+    Einkommen unter Grenze would hold for *a case*; unknown.
+
+the knowledge base r5_1_foerderantrag includes:
+
+the text of the_rulemap is at "sources/foerderantrag.ruml".
+
+Fördervoraussetzungen holds for a case if
+    Antragsteller volljährig holds for the case
+    and Einkommensprüfung holds for the case
+    and Wohnsitz in Bayern holds for the case.
+
+Antragsteller volljährig holds for a case if
+    the Alter des Antragstellers of the case is a number N
+    and N >= 18.
+
+Antragsteller volljährig holds for a case if
+    it is not the case that the Alter des Antragstellers of the case is a number
+    and Antragsteller volljährig would hold for the case.
+
+Einkommensprüfung holds for a case if
+    Einkommen unter Grenze holds for the case.
+
+Einkommensprüfung holds for a case if
+    Härtefall anerkannt holds for the case.
+
+Wohnsitz in Bayern holds for a case if
+    the Bundesland des Wohnsitzes of the case is "BY".
+
+Einkommen unter Grenze holds for a case if
+    the Jahreseinkommen of the case is a number N
+    and N <= 40000.
+
+Einkommen unter Grenze holds for a case if
+    it is not the case that the Jahreseinkommen of the case is a number
+    and Einkommen unter Grenze would hold for the case.
+
+Härtefall anerkannt holds for a case if
+    the Härtefall anerkannt of the case is true.
+
+scenario generated_1 is, as stated in "foerderantrag.ruml" at generated_1:
+    % every data point its first value
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_2 is, as stated in "foerderantrag.ruml" at generated_2:
+    % dp_age has no value
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"] and any unknowns.
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"] and any unknowns.
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_3 is, as stated in "foerderantrag.ruml" at generated_3:
+    % dp_age is 17
+    the Alter des Antragstellers of case 1 is 17.
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_4 is, as stated in "foerderantrag.ruml" at generated_4:
+    % dp_age is 19
+    the Alter des Antragstellers of case 1 is 19.
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_5 is, as stated in "foerderantrag.ruml" at generated_5:
+    % dp_income has no value
+    the Alter des Antragstellers of case 1 is 18.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Einkommen unter Grenze holds for case 1"] and any unknowns.
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_6 is, as stated in "foerderantrag.ruml" at generated_6:
+    % dp_income is 39999
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 39999.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_7 is, as stated in "foerderantrag.ruml" at generated_7:
+    % dp_income is 40001
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 40001.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Einkommen unter Grenze holds for case 1"].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_8 is, as stated in "foerderantrag.ruml" at generated_8:
+    % dp_hardship has no value
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 40000.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Härtefall anerkannt holds for case 1"].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_9 is, as stated in "foerderantrag.ruml" at generated_9:
+    % dp_hardship is @(false)
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is false.
+    the Bundesland des Wohnsitzes of case 1 is "BY".
+    node_1 expects answers ["Fördervoraussetzungen holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Härtefall anerkannt holds for case 1"].
+    node_6 expects answers ["Wohnsitz in Bayern holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_10 is, as stated in "foerderantrag.ruml" at generated_10:
+    % dp_state has no value
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Wohnsitz in Bayern holds for case 1"].
+
+scenario generated_11 is, as stated in "foerderantrag.ruml" at generated_11:
+    % dp_state is "other"
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 40000.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "other".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Wohnsitz in Bayern holds for case 1"].
+
+scenario generated_12 is, as stated in "foerderantrag.ruml" at generated_12:
+    % every data point its last value
+    the Alter des Antragstellers of case 1 is 19.
+    the Jahreseinkommen of case 1 is 40001.
+    the Härtefall anerkannt of case 1 is false.
+    the Bundesland des Wohnsitzes of case 1 is "other".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Einkommensprüfung holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Einkommen unter Grenze holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Härtefall anerkannt holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Wohnsitz in Bayern holds for case 1"].
+
+scenario generated_13 is, as stated in "foerderantrag.ruml" at generated_13:
+    % every second data point changed
+    the Alter des Antragstellers of case 1 is 18.
+    the Jahreseinkommen of case 1 is 39999.
+    the Härtefall anerkannt of case 1 is true.
+    the Bundesland des Wohnsitzes of case 1 is "other".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Härtefall anerkannt holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Wohnsitz in Bayern holds for case 1"].
+
+scenario generated_14 is, as stated in "foerderantrag.ruml" at generated_14:
+    % no data
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Fördervoraussetzungen holds for case 1"].
+    node_2 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"] and any unknowns.
+    node_3 expects answers ["Einkommensprüfung holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Einkommensprüfung holds for case 1"] and any unknowns.
+    node_4 expects answers ["Einkommen unter Grenze holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Einkommen unter Grenze holds for case 1"] and any unknowns.
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Härtefall anerkannt holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Wohnsitz in Bayern holds for case 1"].
+
+query node_1 is:
+    Fördervoraussetzungen holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Fördervoraussetzungen holds for case 1.
+
+query node_2 is:
+    Antragsteller volljährig holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Antragsteller volljährig holds for case 1.
+
+query node_3 is:
+    Einkommensprüfung holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Einkommensprüfung holds for case 1.
+
+query node_4 is:
+    Einkommen unter Grenze holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Einkommen unter Grenze holds for case 1.
+
+query node_5 is:
+    Härtefall anerkannt holds for case 1.
+
+query not_node_5 is:
+    it is not the case that Härtefall anerkannt holds for case 1.
+
+query node_6 is:
+    Wohnsitz in Bayern holds for case 1.
+
+query not_node_6 is:
+    it is not the case that Wohnsitz in Bayern holds for case 1.
+

@@ -1,0 +1,123 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "sets": {
+          "set_person": {
+            "name": "Person",
+            "fields": {
+              "dp_vorname": {
+                "name": "Vorname",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_nachname": {
+                "name": "Nachname",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_geburtsdatum": {
+                "name": "Geburtsdatum",
+                "type": "date",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_beschaeftigung": {
+                "name": "Beschäftigung",
+                "type": "object",
+                "set": "set_beschaeftigung",
+                "binding": {
+                  "type": "input"
+                }
+              }
+            }
+          },
+          "set_beschaeftigung": {
+            "name": "Beschäftigung",
+            "fields": {
+              "dp_arbeitgeber": {
+                "name": "Arbeitgeber",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_beginn": {
+                "name": "Beginn der Beschäftigung",
+                "type": "date",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_nettoeinkommen": {
+                "name": "Monatliches Nettoeinkommen",
+                "type": "currency",
+                "unit": "EUR",
+                "validation": {
+                  "min": 0
+                },
+                "binding": {
+                  "type": "input"
+                }
+              }
+            }
+          }
+        },
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "description": "Brutto-Jahreseinkommen des Antragstellers",
+            "type": "currency",
+            "unit": "EUR",
+            "validation": {
+              "required": true,
+              "min": 0,
+              "max": 10000000
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_credit_score": {
+            "name": "Bonitätsscore",
+            "type": "number",
+            "binding": {
+              "type": "external",
+              "ref": "schufa_api",
+              "description": "SCHUFA-Schnittstelle",
+              "sourceType": "api",
+              "fallback": {
+                "type": "input",
+                "hint": "Automatische Abfrage nicht verfügbar. Bitte manuell eingeben."
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "841c8fff-5824-46e6-83be-3118f395f87b",
+    "title": "Kreditantrag",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "27607a94-3f1b-4df0-9a29-25d8d7ef6cad",
+        "label": "Kredit wird gewährt"
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+% The Logical English twin of the RUML rulemap subsidiarity.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 9c91f2c2-1e80-465d-be61-3402e7ac5a36
+% version: 1.0.0
+% status: draft
+% The original is sources/subsidiarity.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Auffangtatbestand greift holds for *a case*.
+    Vorrangiger Tatbestand holds for *a case*; open textured.
+    Auffangtatbestand holds for *a case*; open textured.
+    Auffangtatbestand greift is decided for *a case*.
+    Auffangtatbestand greift would hold for *a case*; unknown.
+    Vorrangiger Tatbestand is decided for *a case*; scenario element.
+    Auffangtatbestand is decided for *a case*; scenario element.
+
+the knowledge base r3_6_subsidiarity includes:
+
+the text of the_rulemap is at "sources/subsidiarity.ruml".
+
+% Der Auffangtatbestand greift nur, wenn der vorrangige Tatbestand nicht greift
+Auffangtatbestand greift holds for a case if
+    Auffangtatbestand greift is decided for the case
+    and it is not the case that Vorrangiger Tatbestand holds for the case
+    and Auffangtatbestand holds for the case.
+
+Auffangtatbestand greift holds for a case if
+    it is not the case that Auffangtatbestand greift is decided for the case
+    and Auffangtatbestand greift would hold for the case.
+
+Auffangtatbestand greift is decided for a case if
+    Vorrangiger Tatbestand is decided for the case
+    and Auffangtatbestand is decided for the case.
+
+scenario generated_1 is, as stated in "subsidiarity.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Auffangtatbestand greift holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Auffangtatbestand greift holds for case 1"] and any unknowns.
+    node_2 expects answers ["Vorrangiger Tatbestand holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Vorrangiger Tatbestand holds for case 1"] and any unknowns.
+    node_3 expects answers ["Auffangtatbestand holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Auffangtatbestand holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Auffangtatbestand greift holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Auffangtatbestand greift holds for case 1.
+
+query node_2 is:
+    Vorrangiger Tatbestand holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Vorrangiger Tatbestand holds for case 1.
+
+query node_3 is:
+    Auffangtatbestand holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Auffangtatbestand holds for case 1.
+

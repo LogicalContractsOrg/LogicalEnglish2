@@ -1,0 +1,80 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_application_complete": {
+            "name": "Antrag vollständig",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "0e16149d-6372-4306-b388-60e7412d9af4",
+    "title": "Bescheiderstellung",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "7baae662-0b5c-44bb-9a2b-802074fe5d0f",
+        "label": "Bescheiderstellung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_application_complete = true"
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "description": "Erstellt den entsprechenden Bescheid basierend auf der Entscheidung",
+              "onTrue": {
+                "operation": "createDocument",
+                "ref": "approval_document_service",
+                "config": {
+                  "template": "approval-letter",
+                  "format": "pdf"
+                }
+              },
+              "onFalse": {
+                "operation": "createDocument",
+                "ref": "rejection_document_service",
+                "config": {
+                  "template": "rejection-letter",
+                  "format": "pdf"
+                }
+              },
+              "onUndefined": {
+                "operation": "sendNotification",
+                "ref": "email_service",
+                "config": {
+                  "template": "missing-data-request",
+                  "channel": "email"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

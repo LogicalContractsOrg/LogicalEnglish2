@@ -1,0 +1,58 @@
+% The Logical English twin of the RUML rulemap credit-worthiness-check.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: Credit Worthiness
+% id: 1c74758c-2d2f-43fd-a652-b79a8e731520
+% version: 1.0.0
+% status: draft
+% The original is sources/credit-worthiness-check.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Credit worthiness check holds for *a case*.
+    Income verification holds for *a case*; open textured.
+    Credit score check holds for *a case*; open textured.
+
+the knowledge base r3_4_credit_worthiness_check includes:
+
+the text of the_rulemap is at "sources/credit-worthiness-check.ruml".
+
+Credit worthiness check holds for a case if
+    Income verification holds for the case
+    and Credit score check holds for the case.
+
+scenario generated_1 is, as stated in "credit-worthiness-check.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Credit worthiness check holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Credit worthiness check holds for case 1"] and any unknowns.
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Income verification holds for case 1"] and any unknowns.
+    node_3 expects answers ["Credit score check holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Credit score check holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Credit worthiness check holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Credit worthiness check holds for case 1.
+
+query node_2 is:
+    Income verification holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Income verification holds for case 1.
+
+query node_3 is:
+    Credit score check holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Credit score check holds for case 1.
+

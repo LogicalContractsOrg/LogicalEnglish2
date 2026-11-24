@@ -1,0 +1,122 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_residence": {
+            "name": "Wohnsitz",
+            "description": "Land des Hauptwohnsitzes",
+            "type": "location",
+            "format": "country",
+            "validation": {
+              "required": true,
+              "enum": ["DE", "AT", "CH"]
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_jurisdiction": {
+            "name": "Rechtsraum",
+            "description": "Anwendbarer Rechtsraum",
+            "type": "location",
+            "format": "union",
+            "validation": {
+              "enum": ["EU", "EWR", "EFTA"]
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_residence_address": {
+            "name": "Wohnadresse",
+            "description": "Hauptwohnsitz des Antragstellers",
+            "type": "address",
+            "validation": {
+              "required": true
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_tax_id": {
+            "name": "Steuer-ID",
+            "description": "Deutsche Steueridentifikationsnummer",
+            "type": "identifier",
+            "format": "taxId",
+            "validation": {
+              "required": true,
+              "pattern": "^[0-9]{11}$"
+            },
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_marital_status": {
+            "name": "Familienstand",
+            "type": "enum",
+            "options": [
+              {
+                "value": "single",
+                "label": "Ledig"
+              },
+              {
+                "value": "married",
+                "label": "Verheiratet"
+              },
+              {
+                "value": "divorced",
+                "label": "Geschieden"
+              },
+              {
+                "value": "widowed",
+                "label": "Verwitwet"
+              }
+            ],
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_loan_amount": {
+            "name": "Kreditsumme",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_children_count": {
+            "name": "Anzahl Kinder",
+            "type": "count",
+            "validation": {
+              "min": 0,
+              "max": 20
+            },
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "8136e719-be08-4641-ad1a-1d094518288e",
+    "title": "Datentypen",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "e8591acc-ea8e-4be8-bdfc-2a6bef7601bb",
+        "label": "Antrag ist zulässig"
+      }
+    }
+  }
+}

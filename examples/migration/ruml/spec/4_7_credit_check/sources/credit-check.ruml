@@ -1,0 +1,54 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input",
+              "hint": "Brutto-Jahreseinkommen"
+            },
+            "validation": {
+              "required": true,
+              "min": 0
+            }
+          },
+          "dp_credit_score": {
+            "name": "Bonitätsscore",
+            "type": "number",
+            "binding": {
+              "type": "external",
+              "ref": "schufa_api",
+              "description": "SCHUFA-Schnittstelle",
+              "fallback": {
+                "type": "input"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "f3d25ccd-5fc4-46c7-85f9-9ba3f1846f51",
+    "title": "Bonitätsprüfung",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "e6014e2b-5cd9-44bf-8408-261c6f1038b3",
+        "label": "Kredit wird gewährt"
+      }
+    }
+  }
+}

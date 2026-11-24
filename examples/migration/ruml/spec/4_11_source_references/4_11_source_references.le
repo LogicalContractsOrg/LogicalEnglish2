@@ -1,0 +1,41 @@
+% The Logical English twin of the RUML rulemap source-references.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 4a0187be-36cc-4b87-ba3c-3b2993a296cd
+% version: 1.0.0
+% status: draft
+% The original is sources/source-references.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Haftung nach § 823 bgb holds for *a case*; open textured.
+
+the knowledge base r4_11_source_references includes:
+
+the text of the_rulemap is at "sources/source-references.ruml".
+
+bgh 2024 is published at "https://www.bundesgerichtshof.de/2024/123".
+
+mueller 2024 is published at "https://www.jurpc.de/2024/123".
+
+bmf income tax is published at "https://www.bundesfinanzministerium.de/bmf-schreiben/2024-01-01-einkommensteuer".
+
+scenario generated_1 is, as stated in "source-references.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Haftung nach § 823 bgb holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Haftung nach § 823 bgb holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Haftung nach § 823 bgb holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Haftung nach § 823 bgb holds for case 1.
+

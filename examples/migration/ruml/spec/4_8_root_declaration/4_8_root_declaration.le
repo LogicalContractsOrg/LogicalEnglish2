@@ -1,0 +1,36 @@
+% The Logical English twin of the RUML rulemap root-declaration.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 8ceed270-a0bf-449f-9bdc-a6ff4cb10521
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/root-declaration.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Einkommen ausreichend holds for *a case*; open textured.
+
+the knowledge base r4_8_root_declaration includes:
+
+the text of the_rulemap is at "sources/root-declaration.ruml".
+
+scenario generated_1 is, as stated in "root-declaration.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Einkommen ausreichend holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Einkommen ausreichend holds for case 1.
+

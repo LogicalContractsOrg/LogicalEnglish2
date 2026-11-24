@@ -1,0 +1,130 @@
+{
+  "counts": {"approximated":1,"encoded":6,"residue":0},
+  "entries": [
+    {
+      "element":"text(text_bgb_488)",
+      "in_program":"bgb 488",
+      "kind":"text",
+      "mapping":"a document of the twin (a text carried in the file)",
+      "note":"§ 488 BGB – Darlehensvertrag",
+      "verdict":"encoded"
+    },
+    {
+      "element":"dp_annual_income",
+      "in_program":"the Jahreseinkommen of *a case* is *a number*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"unit: EUR; validation: json([required= @(true),min=0])",
+      "verdict":"encoded"
+    },
+    {
+      "element":"dp_credit_score",
+      "in_program":"the Bonitätsscore of *a case* is *a number*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Kreditprüfung holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Einkommen ausreichend holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_annual_income > 50000",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Bonität ausreichend holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_credit_score >= 600",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":54,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_7"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_8"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_9"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_9"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_9"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_9"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_9"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_9"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["credit-check.ruml" ],
+    "program":"4_8_credit_check",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":9
+}

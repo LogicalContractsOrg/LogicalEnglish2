@@ -1,0 +1,118 @@
+{
+  "counts": {"approximated":1,"encoded":9,"residue":0},
+  "entries": [
+    {
+      "element":"node(1)",
+      "in_program":"Approve credit holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Income verification holds for *a case*",
+      "kind":"OR",
+      "mapping":"OR of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(7)",
+      "in_program":"No negative indicators holds for *a case*",
+      "kind":"NOT_AND",
+      "mapping":"NOT_AND of 2 children: the negation of a second sentence",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"High income holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(4)",
+      "in_program":"Medium income collateral holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 2 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(8)",
+      "in_program":"Insolvency present holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(9)",
+      "in_program":"Negative schufa entry holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(5)",
+      "in_program":"Medium income holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(6)",
+      "in_program":"Collateral available holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":18,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_7","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_7","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_8","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_8","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_9","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_9","result":"pass","scenario":"generated_1"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["credit-approval.ruml" ],
+    "program":"3_7_credit_approval",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

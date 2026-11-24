@@ -1,0 +1,392 @@
+% The Logical English twin of the RUML rulemap evaluation-and-three-queried-children.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: fe0a56ac-3e35-4d53-8f94-325b08295327
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/evaluation-and-three-queried-children.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Answer 1 of *a case* is *a text*; scenario element.
+    the Answer 2 of *a case* is *a text*; scenario element.
+    the Answer 3 of *a case* is *a text*; scenario element.
+    root holds for *a case*.
+    One holds for *a case*.
+    Two holds for *a case*.
+    Three holds for *a case*.
+    One would hold for *a case*; unknown.
+    Two would hold for *a case*; unknown.
+    Three would hold for *a case*; unknown.
+
+the knowledge base r3_6_evaluation_and_three_queried_children includes:
+
+the text of the_rulemap is at "sources/evaluation-and-three-queried-children.ruml".
+
+root holds for a case if
+    One holds for the case
+    and Two holds for the case
+    and Three holds for the case.
+
+One holds for a case if
+    the Answer 1 of the case is "yes".
+
+One holds for a case if
+    it is not the case that the Answer 1 of the case is "yes"
+    and it is not the case that the Answer 1 of the case is "no"
+    and One would hold for the case.
+
+Two holds for a case if
+    the Answer 2 of the case is "yes".
+
+Two holds for a case if
+    it is not the case that the Answer 2 of the case is "yes"
+    and it is not the case that the Answer 2 of the case is "no"
+    and Two would hold for the case.
+
+Three holds for a case if
+    the Answer 3 of the case is "yes".
+
+Three holds for a case if
+    it is not the case that the Answer 3 of the case is "yes"
+    and it is not the case that the Answer 3 of the case is "no"
+    and Three would hold for the case.
+
+scenario operator_and__complete__yes_yes_yes is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--yes-yes-yes:
+    the Answer 1 of case 1 is "yes".
+    the Answer 2 of case 1 is "yes".
+    the Answer 3 of case 1 is "yes".
+    node_1 expects answers ["root holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario operator_and__complete__no_no_no is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--no-no-no:
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario operator_and__complete__yes_yes_no is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--yes-yes-no:
+    the Answer 1 of case 1 is "yes".
+    the Answer 2 of case 1 is "yes".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario operator_and__complete__no_no_yes is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--no-no-yes:
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "yes".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario operator_and__complete__yes_yes_unknown is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--yes-yes-unknown:
+    the Answer 1 of case 1 is "yes".
+    the Answer 2 of case 1 is "yes".
+    the Answer 3 of case 1 is "unknown".
+    node_1 expects answers ["root holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that root holds for case 1"] and any unknowns.
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"] and any unknowns.
+
+scenario operator_and__complete__no_unknown_no is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--no-unknown-no:
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "unknown".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario operator_and__complete__no_unknown_yes is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--no-unknown-yes:
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "unknown".
+    the Answer 3 of case 1 is "yes".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario operator_and__complete__no_yes_yes is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--no-yes-yes:
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "yes".
+    the Answer 3 of case 1 is "yes".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario operator_and__complete__yes_no_no is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--yes-no-no:
+    the Answer 1 of case 1 is "yes".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario operator_and__complete__yes_unknown_no is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--yes-unknown-no:
+    the Answer 1 of case 1 is "yes".
+    the Answer 2 of case 1 is "unknown".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario operator_and__complete__unknown_no_yes is, as stated in "evaluation-and-three-queried-children.ruml" at operator-and--complete--unknown-no-yes:
+    the Answer 1 of case 1 is "unknown".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "yes".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that One holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_1 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_1:
+    % every data point its first value
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_2 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_2:
+    % dp_answer_1 has no value
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that One holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_3 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_3:
+    % dp_answer_1 is "yes"
+    the Answer 1 of case 1 is "yes".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_4 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_4:
+    % dp_answer_1 is "other"
+    the Answer 1 of case 1 is "other".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that One holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_5 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_5:
+    % dp_answer_2 has no value
+    the Answer 1 of case 1 is "no".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_6 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_6:
+    % dp_answer_2 is "yes"
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "yes".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_7 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_7:
+    % dp_answer_2 is "other"
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "other".
+    the Answer 3 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"].
+
+scenario generated_8 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_8:
+    % dp_answer_3 has no value
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "no".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"] and any unknowns.
+
+scenario generated_9 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_9:
+    % dp_answer_3 is "yes"
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "yes".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_10 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_10:
+    % dp_answer_3 is "other"
+    the Answer 1 of case 1 is "no".
+    the Answer 2 of case 1 is "no".
+    the Answer 3 of case 1 is "other".
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that root holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that One holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"].
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"] and any unknowns.
+
+scenario generated_11 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_11:
+    % every data point its last value
+    the Answer 1 of case 1 is "other".
+    the Answer 2 of case 1 is "other".
+    the Answer 3 of case 1 is "other".
+    node_1 expects answers ["root holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that root holds for case 1"] and any unknowns.
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that One holds for case 1"] and any unknowns.
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"] and any unknowns.
+
+scenario generated_12 is, as stated in "evaluation-and-three-queried-children.ruml" at generated_12:
+    % no data
+    node_1 expects answers ["root holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that root holds for case 1"] and any unknowns.
+    node_2 expects answers ["One holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that One holds for case 1"] and any unknowns.
+    node_3 expects answers ["Two holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Two holds for case 1"] and any unknowns.
+    node_4 expects answers ["Three holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Three holds for case 1"] and any unknowns.
+
+query node_1 is:
+    root holds for case 1.
+
+query not_node_1 is:
+    it is not the case that root holds for case 1.
+
+query node_2 is:
+    One holds for case 1.
+
+query not_node_2 is:
+    it is not the case that One holds for case 1.
+
+query node_3 is:
+    Two holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Two holds for case 1.
+
+query node_4 is:
+    Three holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Three holds for case 1.
+

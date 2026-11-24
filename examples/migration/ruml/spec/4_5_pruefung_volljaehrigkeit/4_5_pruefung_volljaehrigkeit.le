@@ -1,0 +1,147 @@
+% The Logical English twin of the RUML rulemap pruefung-volljaehrigkeit.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.2.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/pruefung-volljaehrigkeit.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Alter of *a case* is *a number*; scenario element.
+    the Geschäftsfähig of *a case* is *a truth value*; scenario element.
+    Geschäftsfähigkeit holds for *a case*.
+    Volljährigkeit holds for *a case*.
+    Keine Entmündigung holds for *a case*.
+    Volljährigkeit would hold for *a case*; unknown.
+
+the knowledge base r4_5_pruefung_volljaehrigkeit includes:
+
+the text of the_rulemap is at "sources/pruefung-volljaehrigkeit.ruml".
+
+Geschäftsfähigkeit holds for a case if
+    Volljährigkeit holds for the case
+    and Keine Entmündigung holds for the case.
+
+Volljährigkeit holds for a case if
+    the Alter of the case is a number N
+    and N >= 18.
+
+Volljährigkeit holds for a case if
+    it is not the case that the Alter of the case is a number
+    and Volljährigkeit would hold for the case.
+
+Keine Entmündigung holds for a case if
+    the Geschäftsfähig of the case is true.
+
+scenario generated_1 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_1:
+    % every data point its first value
+    the Alter of case 1 is 18.
+    the Geschäftsfähig of case 1 is true.
+    node_1 expects answers ["Geschäftsfähigkeit holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Keine Entmündigung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_2 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_2:
+    % dp_age has no value
+    the Geschäftsfähig of case 1 is true.
+    node_1 expects answers ["Geschäftsfähigkeit holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Geschäftsfähigkeit holds for case 1"] and any unknowns.
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Volljährigkeit holds for case 1"] and any unknowns.
+    node_3 expects answers ["Keine Entmündigung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_3:
+    % dp_age is 17
+    the Alter of case 1 is 17.
+    the Geschäftsfähig of case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Geschäftsfähigkeit holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Volljährigkeit holds for case 1"].
+    node_3 expects answers ["Keine Entmündigung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_4:
+    % dp_age is 19
+    the Alter of case 1 is 19.
+    the Geschäftsfähig of case 1 is true.
+    node_1 expects answers ["Geschäftsfähigkeit holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Keine Entmündigung holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_5 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_5:
+    % dp_competent has no value
+    the Alter of case 1 is 18.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Geschäftsfähigkeit holds for case 1"].
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Keine Entmündigung holds for case 1"].
+
+scenario generated_6 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_6:
+    % dp_competent is @(false)
+    the Alter of case 1 is 18.
+    the Geschäftsfähig of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Geschäftsfähigkeit holds for case 1"].
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Keine Entmündigung holds for case 1"].
+
+scenario generated_7 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_7:
+    % every data point its last value
+    the Alter of case 1 is 19.
+    the Geschäftsfähig of case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Geschäftsfähigkeit holds for case 1"].
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Keine Entmündigung holds for case 1"].
+
+scenario generated_8 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_8:
+    % no data
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Geschäftsfähigkeit holds for case 1"].
+    node_2 expects answers ["Volljährigkeit holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Volljährigkeit holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Keine Entmündigung holds for case 1"].
+
+query node_1 is:
+    Geschäftsfähigkeit holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Geschäftsfähigkeit holds for case 1.
+
+query node_2 is:
+    Volljährigkeit holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Volljährigkeit holds for case 1.
+
+query node_3 is:
+    Keine Entmündigung holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Keine Entmündigung holds for case 1.
+

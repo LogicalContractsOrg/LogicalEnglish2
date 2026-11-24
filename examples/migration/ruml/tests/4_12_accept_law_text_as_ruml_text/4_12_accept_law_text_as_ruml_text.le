@@ -1,0 +1,40 @@
+% The Logical English twin of the RUML rulemap accept-law-text-as-ruml-text.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: SGB XII § 1
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 2026-07-30
+% status: inForce
+% documentType: law
+% validFrom: 2026-07-30T00:00:00Z
+% The original is sources/accept-law-text-as-ruml-text.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Aufgabe der Sozialhilfe holds for *a case*; open textured.
+
+the knowledge base r4_12_accept_law_text_as_ruml_text includes:
+
+the text of the_rulemap is at "sources/accept-law-text-as-ruml-text.ruml".
+
+main is published at "eli/bund/bgbl-1/2003/s3023/2026-07-30/1/deu".
+
+scenario generated_1 is, as stated in "accept-law-text-as-ruml-text.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Aufgabe der Sozialhilfe holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Aufgabe der Sozialhilfe holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Aufgabe der Sozialhilfe holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Aufgabe der Sozialhilfe holds for case 1.
+

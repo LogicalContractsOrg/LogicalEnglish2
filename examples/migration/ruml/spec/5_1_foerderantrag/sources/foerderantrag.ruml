@@ -1,0 +1,133 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter des Antragstellers",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_hardship": {
+            "name": "Härtefall anerkannt",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_state": {
+            "name": "Bundesland des Wohnsitzes",
+            "type": "string",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "version": "1.0.0",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z",
+    "created": "2024-01-10T09:00:00Z",
+    "modified": "2024-01-10T09:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "b6620b3c-4279-4a45-9115-c8bb2032d868",
+        "operator": "AND",
+        "label": "Fördervoraussetzungen",
+        "children": ["2", "3", "6"]
+      },
+      "2": {
+        "id": "551ff73a-66ce-48ca-b889-84bc63ce864c",
+        "label": "Antragsteller volljährig",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "42d9431d-b7db-404f-bdf9-7ecdde505cce",
+        "operator": "XOR",
+        "label": "Einkommensprüfung",
+        "children": ["4", "5"]
+      },
+      "4": {
+        "id": "52820488-2849-4487-842b-952dc3ba301d",
+        "label": "Einkommen unter Grenze",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_income <= 40000"
+            }
+          }
+        ]
+      },
+      "5": {
+        "id": "48b34df4-06bb-4dc2-aeb7-807a146760f4",
+        "label": "Härtefall anerkannt",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_hardship = true"
+            }
+          }
+        ]
+      },
+      "6": {
+        "id": "92f909f1-0097-4d9d-87d2-1734bf299d08",
+        "label": "Wohnsitz in Bayern",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_state = \"BY\""
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onFalse": {
+                "operation": "sendNotification",
+                "ref": "notification_service",
+                "config": {
+                  "template": "antrag-falsches-bundesland",
+                  "channel": "email"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

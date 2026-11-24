@@ -1,0 +1,108 @@
+% The Logical English twin of the RUML rulemap hardship-with-text-and-action.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: db70167d-41cb-4f06-94df-7d972459c864
+% version: 1.0.0
+% status: draft
+% The original is sources/hardship-with-text-and-action.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Härtefallleistung holds for *a case*.
+    Härtefall liegt vor holds for *a case*.
+    Pflegegrad mindestens 3 holds for *a case*; open textured.
+    Eigenanteil über 800 eur holds for *a case*; open textured.
+    Alleinlebend holds for *a case*; open textured.
+    child *a number* of Härtefall liegt vor counts for *a case*.
+    Härtefall liegt vor is decided for *a case*.
+    Härtefall liegt vor would hold for *a case*; unknown.
+    Pflegegrad mindestens 3 is decided for *a case*; scenario element.
+    Eigenanteil über 800 eur is decided for *a case*; scenario element.
+    Alleinlebend is decided for *a case*; scenario element.
+
+the knowledge base r4_14_hardship_with_text_and_action includes:
+
+the text of the_rulemap is at "sources/hardship-with-text-and-action.ruml".
+
+sgb xii 90 is published at "https://www.gesetze-im-internet.de/sgb_12/__90.html".
+
+Härtefallleistung holds for a case if
+    Härtefall liegt vor holds for the case.
+
+child 1 of Härtefall liegt vor counts for a case if
+    Pflegegrad mindestens 3 holds for the case.
+
+child 2 of Härtefall liegt vor counts for a case if
+    Eigenanteil über 800 eur holds for the case.
+
+child 3 of Härtefall liegt vor counts for a case if
+    Alleinlebend holds for the case.
+
+% Mindestens zwei der drei Härtefallmerkmale müssen vorliegen
+rule node_2 with provenance sgb xii 90:
+Härtefall liegt vor holds for a case if
+    Härtefall liegt vor is decided for the case
+    and a number M is the count of each N such that
+        child a number N of Härtefall liegt vor counts for the case
+    and M >= 2.
+
+Härtefall liegt vor holds for a case if
+    it is not the case that Härtefall liegt vor is decided for the case
+    and Härtefall liegt vor would hold for the case.
+
+Härtefall liegt vor is decided for a case if
+    Pflegegrad mindestens 3 is decided for the case
+    and Eigenanteil über 800 eur is decided for the case
+    and Alleinlebend is decided for the case.
+
+scenario generated_1 is, as stated in "hardship-with-text-and-action.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"] and any unknowns.
+    node_4 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    node_5 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_5 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    node_6 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_6 expects answers ["it is not the case that Alleinlebend holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Härtefallleistung holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Härtefallleistung holds for case 1.
+
+query node_2 is:
+    Härtefall liegt vor holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Härtefall liegt vor holds for case 1.
+
+query node_4 is:
+    Pflegegrad mindestens 3 holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Pflegegrad mindestens 3 holds for case 1.
+
+query node_5 is:
+    Eigenanteil über 800 eur holds for case 1.
+
+query not_node_5 is:
+    it is not the case that Eigenanteil über 800 eur holds for case 1.
+
+query node_6 is:
+    Alleinlebend holds for case 1.
+
+query not_node_6 is:
+    it is not the case that Alleinlebend holds for case 1.
+

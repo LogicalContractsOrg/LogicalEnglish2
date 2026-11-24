@@ -1,0 +1,101 @@
+% The Logical English twin of the RUML rulemap credit-check-base.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: 7812e8d0-bd75-437e-9c20-e4f8fb028ced
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/credit-check-base.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Bonitätsscore of *a case* is *a number*; scenario element.
+    Kreditprüfung holds for *a case*.
+    Einkommen ausreichend holds for *a case*; open textured.
+    Bonität ausreichend holds for *a case*.
+    Bonität ausreichend would hold for *a case*; unknown.
+
+the knowledge base r4_8_credit_check_base includes:
+
+the text of the_rulemap is at "sources/credit-check-base.ruml".
+
+bgb 488 is published at "/akn/de/act/1896-08-18/bgb#sec_488".
+
+rule node_1 with provenance bgb 488:
+Kreditprüfung holds for a case if
+    Einkommen ausreichend holds for the case
+    and Bonität ausreichend holds for the case.
+
+Bonität ausreichend holds for a case if
+    the Bonitätsscore of the case is a number N
+    and N >= 600.
+
+Bonität ausreichend holds for a case if
+    it is not the case that the Bonitätsscore of the case is a number
+    and Bonität ausreichend would hold for the case.
+
+scenario generated_1 is, as stated in "credit-check-base.ruml" at generated_1:
+    % every data point its first value
+    the Bonitätsscore of case 1 is 600.
+    node_1 expects answers ["Kreditprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Kreditprüfung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+    node_3 expects answers ["Bonität ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_2 is, as stated in "credit-check-base.ruml" at generated_2:
+    % dp_credit_score has no value
+    node_1 expects answers ["Kreditprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Kreditprüfung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+    node_3 expects answers ["Bonität ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Bonität ausreichend holds for case 1"] and any unknowns.
+
+scenario generated_3 is, as stated in "credit-check-base.ruml" at generated_3:
+    % dp_credit_score is 599
+    the Bonitätsscore of case 1 is 599.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kreditprüfung holds for case 1"].
+    node_2 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Bonität ausreichend holds for case 1"].
+
+scenario generated_4 is, as stated in "credit-check-base.ruml" at generated_4:
+    % dp_credit_score is 601
+    the Bonitätsscore of case 1 is 601.
+    node_1 expects answers ["Kreditprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Kreditprüfung holds for case 1"] and any unknowns.
+    node_2 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+    node_3 expects answers ["Bonität ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+query node_1 is:
+    Kreditprüfung holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Kreditprüfung holds for case 1.
+
+query node_2 is:
+    Einkommen ausreichend holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Einkommen ausreichend holds for case 1.
+
+query node_3 is:
+    Bonität ausreichend holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Bonität ausreichend holds for case 1.
+

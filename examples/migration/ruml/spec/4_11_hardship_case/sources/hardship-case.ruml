@@ -1,0 +1,231 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:context",
+      "payload": {
+        "data": {
+          "ctx_guidelines": {
+            "title": "Richtlinien zur Härtefallprüfung",
+            "category": "administrativeGuidance",
+            "type": "url",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "url": "https://www.example.gov/haertefall-richtlinien.pdf",
+            "hash": "sha3-256:bd7a69bf084c64d738739cff1a68a9949802e82c83314fd1b93c3ce58a028afb",
+            "metadata": {
+              "authority": "Bundesministerium für Soziales",
+              "reference": "BMSoz-2024-001",
+              "validFrom": "2024-01-01"
+            },
+            "content": {
+              "summary": "Offizielle Richtlinien für die Beurteilung von Härtefällen"
+            },
+            "source": {
+              "citation": "BMSoz-Richtlinie v. 1.1.2024",
+              "license": "Public Domain"
+            }
+          },
+          "ctx_bsg_ruling": {
+            "title": "BSG zur Auslegung des Härtefallbegriffs",
+            "category": "courtDecision",
+            "type": "container",
+            "timestamp": "2023-06-15T10:00:00Z",
+            "containerPath": ".context/BSG-B-14-AS-123-22.pdf",
+            "hash": "sha3-256:d70cff10ab78f18281549cf0c0daf5a13370b8142797be951e75c5f74c5f0eef",
+            "metadata": {
+              "court": "BSG",
+              "reference": "B 14 AS 123/22",
+              "date": "2023-06-15"
+            },
+            "content": {
+              "summary": "Grundsatzurteil zur Auslegung des Härtefallbegriffs im Sozialrecht"
+            },
+            "source": {
+              "citation": "BSG, Urt. v. 15.6.2023 - B 14 AS 123/22",
+              "publication": "BSGE 135, 123",
+              "license": "Public Domain"
+            }
+          },
+          "ctx_example_approved_medical": {
+            "title": "Beispiel: Genehmigt - Medizinische Notlage",
+            "category": "example",
+            "type": "embedded",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "content": {
+              "text": "Fall: Alleinerziehende Mutter, zwei Kinder (4 und 7 Jahre), Jahreseinkommen 18.000 EUR. Begründung: Unvorhergesehene Krankheitskosten nach Unfall des älteren Kindes, Zuzahlungen für Rehabilitation. Entscheidung: Genehmigt. Begründung: Unvorhersehbarkeit der Kosten, nachgewiesene finanzielle Belastung, soziale Verantwortung für Kinder.",
+              "summary": "Genehmigung aufgrund unvorhergesehener medizinischer Kosten"
+            }
+          },
+          "ctx_example_approved_job_loss": {
+            "title": "Beispiel: Genehmigt - Arbeitsplatzverlust",
+            "category": "example",
+            "type": "embedded",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "content": {
+              "text": "Fall: Einzelperson, 52 Jahre, vorheriges Jahreseinkommen 42.000 EUR, aktuell arbeitslos. Begründung: Betriebsbedingte Kündigung nach 20 Jahren, schwierige Arbeitsmarktlage in der Region. Entscheidung: Genehmigt. Begründung: Unverschuldeter Arbeitsplatzverlust, fortgeschrittenes Alter erschwert Neuanstellung.",
+              "summary": "Genehmigung aufgrund unverschuldeten Arbeitsplatzverlusts"
+            }
+          },
+          "ctx_example_rejected_luxury": {
+            "title": "Beispiel: Abgelehnt - Freiwillige Ausgaben",
+            "category": "example",
+            "type": "embedded",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "content": {
+              "text": "Fall: Einzelperson, Jahreseinkommen 45.000 EUR. Begründung: Finanzielle Engpässe nach Kauf eines Neuwagens und geplanter Urlaubsreise. Entscheidung: Abgelehnt. Begründung: Selbstverschuldete Situation durch freiwillige Luxusausgaben, keine unvorhersehbare Notlage.",
+              "summary": "Ablehnung aufgrund selbstverschuldeter Situation"
+            }
+          },
+          "ctx_example_rejected_income": {
+            "title": "Beispiel: Abgelehnt - Einkommen zu hoch",
+            "category": "example",
+            "type": "embedded",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "content": {
+              "text": "Fall: Ehepaar, gemeinsames Jahreseinkommen 85.000 EUR. Begründung: Hohe Kreditraten für Eigenheim. Entscheidung: Abgelehnt. Begründung: Einkommen deutlich über Härtefallgrenze, Kreditverpflichtungen waren vorhersehbar und freiwillig eingegangen.",
+              "summary": "Ablehnung aufgrund zu hohen Einkommens"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_hardship_reason": {
+            "name": "Härtefallbegründung",
+            "type": "string",
+            "binding": {
+              "type": "input",
+              "hint": "Bitte beschreiben Sie Ihre besondere Situation"
+            },
+            "validation": {
+              "required": true,
+              "minLength": 50,
+              "maxLength": 2000
+            }
+          },
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "min": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:ai-query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "version": "1.0.0",
+    "created": "2024-01-01T12:00:00+01:00",
+    "modified": "2024-01-15T14:30:00+01:00",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "operator": "AND",
+        "label": "Härtefall anerkennen?",
+        "children": ["2", "3"],
+        "capabilities": [
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "description": "Erstellt den Bescheid basierend auf dem Gesamtergebnis",
+              "onTrue": {
+                "operation": "createDocument",
+                "ref": "document_service",
+                "config": {
+                  "template": "hardship-approval",
+                  "format": "pdf"
+                }
+              },
+              "onFalse": {
+                "operation": "createDocument",
+                "ref": "document_service",
+                "config": {
+                  "template": "hardship-rejection",
+                  "format": "pdf"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "label": "Einkommensgrenze unterschritten",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_annual_income < 25000"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Begründung plausibel",
+        "capabilities": [
+          {
+            "id": "ruml:ai-query",
+            "payload": {
+              "model": "strong",
+              "description": "Prüft die Plausibilität der Härtefallbegründung anhand der Richtlinien und Beispielfälle",
+              "inputs": {
+                "context": [
+                  "ctx_guidelines",
+                  "ctx_bsg_ruling",
+                  "ctx_example_approved_medical",
+                  "ctx_example_approved_job_loss",
+                  "ctx_example_rejected_luxury",
+                  "ctx_example_rejected_income"
+                ],
+                "dataPoints": ["dp_hardship_reason", "dp_annual_income"]
+              },
+              "config": {
+                "deterministic": true,
+                "effort": "high"
+              }
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onUndefined": {
+                "operation": "requestDecision",
+                "ref": "manual_review_workflow",
+                "config": {
+                  "recipient": "role:social-worker",
+                  "deadline": "P5D",
+                  "responseOptions": ["approve", "reject", "requestMoreInfo"],
+                  "context": ["ctx_guidelines", "ctx_bsg_ruling"]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_applicant_email": {
+            "name": "E-Mail des Antragstellers",
+            "type": "email",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_documents_complete": {
+            "name": "Unterlagen vollständig",
+            "type": "boolean",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "title": "Förderantrag",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+        "operator": "AND",
+        "label": "Förderantrag",
+        "children": ["2", "3"],
+        "capabilities": [
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "description": "Erstellt und versendet den Bescheid basierend auf dem Gesamtergebnis",
+              "onTrue": {
+                "operation": "createDocument",
+                "ref": "document_service",
+                "config": {
+                  "template": "approval-letter",
+                  "format": "pdf"
+                }
+              },
+              "onFalse": {
+                "operation": "sendNotification",
+                "ref": "notification_service",
+                "config": {
+                  "recipient": "dp_applicant_email",
+                  "template": "application-rejected",
+                  "channel": "email"
+                }
+              },
+              "onUndefined": {
+                "operation": "requestDecision",
+                "ref": "manual_review_workflow",
+                "config": {
+                  "recipient": "role:case-worker",
+                  "deadline": "P3D",
+                  "responseOptions": ["approve", "reject"]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "label": "Einkommensgrenze",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_annual_income < 50000"
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "6840b48d-117f-474e-ae4e-337b8e60537c",
+        "label": "Dokumentenprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_documents_complete = true"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

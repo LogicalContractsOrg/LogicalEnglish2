@@ -1,0 +1,49 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:expression",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "99efdf2e-7556-424d-b777-bc1d8acd78ed",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "5b063bad-5c6d-4bc3-968e-72fcf3891ea4",
+        "operator": "DELEGATED",
+        "label": "Stichprobe ausgewählt",
+        "children": ["2", "3", "4"],
+        "capabilities": [
+          {
+            "id": "ruml:expression",
+            "payload": {
+              "description": "Bei mindestens zwei erfüllten Merkmalen wird der Fall mit einer Wahrscheinlichkeit von zehn Prozent für die Stichprobe ausgewählt",
+              "expression": "$count($children[status = 'true']) >= 2 and $random() < 0.1"
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "91b19351-0793-46f5-abaa-fbc59f2e1d96",
+        "label": "Merkmal 1"
+      },
+      "3": {
+        "id": "e79d475a-96c0-44d8-9d14-5edbf2deb810",
+        "label": "Merkmal 2"
+      },
+      "4": {
+        "id": "9cfa57f7-4f2a-4abe-8c19-9c88157e4212",
+        "label": "Merkmal 3"
+      }
+    }
+  }
+}

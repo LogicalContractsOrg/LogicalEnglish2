@@ -1,0 +1,44 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:expression",
+      "required": true
+    }
+  ],
+  "metadata": {
+    "id": "9c91f2c2-1e80-465d-be61-3402e7ac5a36",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "861298dd-47fe-4680-8aab-d3c415bba3e9",
+        "operator": "DELEGATED",
+        "label": "Auffangtatbestand greift",
+        "children": ["2", "3"],
+        "capabilities": [
+          {
+            "id": "ruml:expression",
+            "payload": {
+              "description": "Der Auffangtatbestand greift nur, wenn der vorrangige Tatbestand nicht greift",
+              "expression": "$children[0].status = 'false' and $children[1].status = 'true'"
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "dff212ae-2979-4ea8-aed4-3017110297bb",
+        "label": "Vorrangiger Tatbestand"
+      },
+      "3": {
+        "id": "22cccefa-26c9-4c77-a641-b9012a796c7e",
+        "label": "Auffangtatbestand"
+      }
+    }
+  }
+}

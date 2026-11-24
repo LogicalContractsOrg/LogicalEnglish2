@@ -1,0 +1,68 @@
+{
+  "counts": {"approximated":1,"encoded":3,"residue":1},
+  "entries": [
+    {
+      "element":"text(text_sgb_ii_11)",
+      "in_program":"sgb ii 11",
+      "kind":"text",
+      "mapping":"a document of the twin (a text carried in the file)",
+      "note":"§ 11 SGB II – Zu berücksichtigendes Einkommen",
+      "verdict":"encoded"
+    },
+    {
+      "element":"dp_annual_income",
+      "in_program":"the Jahreseinkommen of *a case* is *a number*",
+      "kind":"data point",
+      "mapping":"a sentence that the scenarios state",
+      "note":"unit: EUR; validation: json([required= @(true),min=0])",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(1)",
+      "in_program":"Einkommensprüfung holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:query dp_annual_income > 50000",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    },
+    {
+      "element":"capability(ruml:actions)",
+      "in_program":"",
+      "kind":"capability",
+      "mapping":"actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed)",
+      "note":"",
+      "verdict":"residue"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":8,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["income-check-with-text-and-actions.ruml" ],
+    "program":"4_8_income_check_with_text_and_actions",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":4
+}

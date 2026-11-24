@@ -1,0 +1,78 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            },
+            "validation": {
+              "required": true,
+              "min": 0
+            }
+          },
+          "dp_gross_annual_income": {
+            "name": "Brutto-Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input",
+              "hint": "Bitte geben Sie Ihr Brutto-Jahreseinkommen an",
+              "placeholder": "z.B. 45000",
+              "defaultValue": 0
+            }
+          },
+          "dp_credit_score": {
+            "name": "Bonitätsscore",
+            "type": "number",
+            "binding": {
+              "type": "external",
+              "ref": "schufa_api",
+              "description": "SCHUFA-Schnittstelle zur Bonitätsprüfung"
+            }
+          },
+          "dp_zve": {
+            "name": "Zu versteuerndes Einkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_einkommensteuer": {
+            "name": "Festzusetzende Einkommensteuer",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "computed",
+              "expression": "(dp_zve - 11604) * 0.14"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "a7395035-82ee-4ce1-93bf-58e4b058b223",
+    "title": "Bindungen",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "1388e99a-c6ba-47b2-b17b-230b6f47e473",
+        "label": "Kredit wird gewährt"
+      }
+    }
+  }
+}

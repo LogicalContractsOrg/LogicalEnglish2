@@ -1,0 +1,99 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:text-reference",
+      "payload": {
+        "data": {
+          "text_estg_32a": {
+            "title": "§ 32a EStG – Einkommensteuertarif",
+            "uri": "/akn/de/act/2024-01-01/estg#sec_32a",
+            "timestamp": "2024-01-15T00:00:00Z",
+            "status": "inForce",
+            "type": "embedded",
+            "text": "§ 32a Einkommensteuer\n(1) Die tarifliche Einkommensteuer bemisst sich nach dem zu versteuernden Einkommen. Sie beträgt ab dem Veranlagungszeitraum 2024 vorbehaltlich der §§ 32b, 32d, 34, 34a, 34b und 34c jeweils in Euro für zu versteuernde Einkommen bis 11.604 Euro (Grundfreibetrag): 0 ...",
+            "validFrom": "2024-01-01T00:00:00Z",
+            "language": "de"
+          },
+          "text_estg_1": {
+            "title": "§ 1 EStG – Steuerpflicht",
+            "uri": "/akn/de/act/2024-01-01/estg#sec_1",
+            "timestamp": "2024-01-15T00:00:00Z",
+            "status": "inForce",
+            "type": "embedded",
+            "text": "§ 1 Steuerpflicht\n(1) Natürliche Personen, die im Inland einen Wohnsitz oder ihren gewöhnlichen Aufenthalt haben, sind unbeschränkt einkommensteuerpflichtig.",
+            "validFrom": "2024-01-01T00:00:00Z",
+            "language": "de"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "ec36948d-fbb2-4815-985a-bd5e9375d934",
+    "version": "2024-01-01",
+    "created": "2024-01-15T10:00:00+01:00",
+    "modified": "2024-01-15T10:00:00+01:00",
+    "status": "draft",
+    "documentType": "law",
+    "title": "Income Tax – Basic Allowance"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "0eb360a6-626a-406d-89a1-9f434ced141b",
+        "operator": "AND",
+        "label": "Income tax applies",
+        "children": ["2", "3"],
+        "capabilities": [
+          {
+            "id": "ruml:text-reference",
+            "payload": {
+              "refs": [
+                {
+                  "id": "text_estg_32a",
+                  "type": "represents"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "2": {
+        "id": "8fc54c7d-7f60-410e-9493-4f1eecfb1af8",
+        "label": "Income exceeds basic allowance",
+        "capabilities": [
+          {
+            "id": "ruml:text-reference",
+            "payload": {
+              "refs": [
+                {
+                  "id": "text_estg_32a",
+                  "type": "represents"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "3": {
+        "id": "56b5b9db-b791-4fe5-abb0-a05cb0847db6",
+        "label": "Unlimited tax liability",
+        "capabilities": [
+          {
+            "id": "ruml:text-reference",
+            "payload": {
+              "refs": [
+                {
+                  "id": "text_estg_1",
+                  "type": "represents"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

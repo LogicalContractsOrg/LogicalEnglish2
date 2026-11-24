@@ -1,0 +1,76 @@
+% The Logical English twin of the RUML rulemap accept-include-on-leaf.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: GmbH-Gründung prüfen
+% id: 7d2e4f61-8a3b-4c5d-9e0f-1a2b3c4d5e6f
+% version: 1.0.0
+% status: draft
+% The original is sources/accept-include-on-leaf.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Gesellschaft wirksam gegründet holds for *a case*.
+    Gesellschaftsvertrag notariell beurkundet holds for *a case*.
+    Stammkapital mind 25000 € holds for *a case*.
+    Eintragung ins Handelsregister holds for *a case*; open textured.
+    Gesellschaftsvertrag notariell beurkundet would hold for *a case*; unknown.
+    Stammkapital mind 25000 € would hold for *a case*; unknown.
+
+the knowledge base r4_16_accept_include_on_leaf includes:
+
+the text of the_rulemap is at "sources/accept-include-on-leaf.ruml".
+
+Gesellschaft wirksam gegründet holds for a case if
+    Gesellschaftsvertrag notariell beurkundet holds for the case
+    and Stammkapital mind 25000 € holds for the case
+    and Eintragung ins Handelsregister holds for the case.
+
+Gesellschaftsvertrag notariell beurkundet holds for a case if
+    Gesellschaftsvertrag notariell beurkundet would hold for the case.
+
+Stammkapital mind 25000 € holds for a case if
+    Stammkapital mind 25000 € would hold for the case.
+
+scenario generated_1 is, as stated in "accept-include-on-leaf.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Gesellschaft wirksam gegründet holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Gesellschaft wirksam gegründet holds for case 1"] and any unknowns.
+    node_2 expects answers ["Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    node_3 expects answers ["Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    node_4 expects answers ["Eintragung ins Handelsregister holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Eintragung ins Handelsregister holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Gesellschaft wirksam gegründet holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Gesellschaft wirksam gegründet holds for case 1.
+
+query node_2 is:
+    Gesellschaftsvertrag notariell beurkundet holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Gesellschaftsvertrag notariell beurkundet holds for case 1.
+
+query node_3 is:
+    Stammkapital mind 25000 € holds for case 1.
+
+query not_node_3 is:
+    it is not the case that Stammkapital mind 25000 € holds for case 1.
+
+query node_4 is:
+    Eintragung ins Handelsregister holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Eintragung ins Handelsregister holds for case 1.
+

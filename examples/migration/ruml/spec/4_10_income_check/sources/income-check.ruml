@@ -1,0 +1,64 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_annual_income": {
+            "name": "Jahreseinkommen",
+            "type": "currency",
+            "unit": "EUR",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "47d8f57c-6f6d-48e1-ab18-814054e1358b",
+    "title": "Einkommensprüfung",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "fcf02185-ffee-48a4-bf93-d2fb1b17944d",
+        "label": "Einkommensprüfung",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_annual_income > 50000"
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onTrue": {
+                "operation": "createDocument",
+                "ref": "approval_document_service"
+              },
+              "onFalse": {
+                "operation": "sendNotification",
+                "ref": "rejection_notification_service"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

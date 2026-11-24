@@ -1,0 +1,64 @@
+% The Logical English twin of the RUML rulemap age-check.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: a8990415-0348-4966-b31b-68a20d28ee45
+% version: 1.0.0
+% status: inForce
+% validFrom: 2024-01-01T00:00:00Z
+% The original is sources/age-check.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    the Alter des Antragstellers of *a case* is *a number*; scenario element.
+    Antragsteller volljährig holds for *a case*.
+    Antragsteller volljährig would hold for *a case*; unknown.
+
+the knowledge base r5_1_age_check includes:
+
+the text of the_rulemap is at "sources/age-check.ruml".
+
+Antragsteller volljährig holds for a case if
+    the Alter des Antragstellers of the case is a number N
+    and N >= 18.
+
+Antragsteller volljährig holds for a case if
+    it is not the case that the Alter des Antragstellers of the case is a number
+    and Antragsteller volljährig would hold for the case.
+
+scenario generated_1 is, as stated in "age-check.ruml" at generated_1:
+    % every data point its first value
+    the Alter des Antragstellers of case 1 is 18.
+    node_1 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_2 is, as stated in "age-check.ruml" at generated_2:
+    % dp_age has no value
+    node_1 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"] and any unknowns.
+
+scenario generated_3 is, as stated in "age-check.ruml" at generated_3:
+    % dp_age is 17
+    the Alter des Antragstellers of case 1 is 17.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Antragsteller volljährig holds for case 1"].
+
+scenario generated_4 is, as stated in "age-check.ruml" at generated_4:
+    % dp_age is 19
+    the Alter des Antragstellers of case 1 is 19.
+    node_1 expects answers ["Antragsteller volljährig holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+query node_1 is:
+    Antragsteller volljährig holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Antragsteller volljährig holds for case 1.
+

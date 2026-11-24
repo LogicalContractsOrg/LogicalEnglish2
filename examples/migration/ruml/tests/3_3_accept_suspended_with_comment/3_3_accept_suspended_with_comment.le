@@ -1,0 +1,35 @@
+% The Logical English twin of the RUML rulemap accept-suspended-with-comment.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: e0a453a4-6902-4d76-adba-e1e2f9d0b8c3
+% version: 1.0.0
+% status: suspended
+% The original is sources/accept-suspended-with-comment.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Application is_complete holds for *a case*; open textured.
+
+the knowledge base r3_3_accept_suspended_with_comment includes:
+
+the text of the_rulemap is at "sources/accept-suspended-with-comment.ruml".
+
+scenario generated_1 is, as stated in "accept-suspended-with-comment.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Application is_complete holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Application is_complete holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Application is_complete holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Application is_complete holds for case 1.
+

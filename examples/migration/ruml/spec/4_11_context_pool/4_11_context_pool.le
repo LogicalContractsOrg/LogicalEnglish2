@@ -1,0 +1,55 @@
+% The Logical English twin of the RUML rulemap context-pool.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% id: a53ea717-4c5a-4909-84b3-94852faf1683
+% version: 1.0.0
+% status: draft
+% The original is sources/context-pool.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Härtefall anerkennen holds for *a case*.
+    Einkommensgrenze unterschritten holds for *a case*; open textured.
+
+the knowledge base r4_11_context_pool includes:
+
+the text of the_rulemap is at "sources/context-pool.ruml".
+
+bgh 2024 is published at "https://www.bundesgerichtshof.de/2024/123".
+
+bmf income tax is published at "https://www.bundesfinanzministerium.de/bmf-schreiben/2024-01-01-einkommensteuer".
+
+estg 32a is published at "https://www.gesetze-im-internet.de/estg/__32a.html".
+
+guidelines is published at "https://www.example.gov/haertefall-richtlinien.pdf".
+
+Härtefall anerkennen holds for a case if
+    Einkommensgrenze unterschritten holds for the case.
+
+scenario generated_1 is, as stated in "context-pool.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Härtefall anerkennen holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Härtefall anerkennen holds for case 1"] and any unknowns.
+    node_2 expects answers ["Einkommensgrenze unterschritten holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Einkommensgrenze unterschritten holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Härtefall anerkennen holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Härtefall anerkennen holds for case 1.
+
+query node_2 is:
+    Einkommensgrenze unterschritten holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Einkommensgrenze unterschritten holds for case 1.
+

@@ -1,0 +1,131 @@
+% The Logical English twin of the RUML rulemap credit-approval.ruml, written by the RUML translator.
+% A case is the subject of every sentence: `... holds for *a case*`. A sentence that holds only with unknowns is RUML's `undefined`.
+% title: Credit Approval
+% id: ec36948d-fbb2-4815-985a-bd5e9375d934
+% version: 1.0.0
+% status: draft
+% documentType: procedure
+% The original is sources/credit-approval.ruml (RUML 1.0.0, Apache-2.0, Copyright 2026 Rulemapping Group GmbH (the examples inside the specification)).
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the templates are:
+    Approve credit holds for *a case*.
+    Income verification holds for *a case*.
+    High income holds for *a case*; open textured.
+    Medium income collateral holds for *a case*.
+    Medium income holds for *a case*; open textured.
+    Collateral available holds for *a case*; open textured.
+    No negative indicators holds for *a case*.
+    Insolvency present holds for *a case*; open textured.
+    Negative schufa entry holds for *a case*; open textured.
+    the conditions of No negative indicators are met for *a case*.
+
+the knowledge base r3_7_credit_approval includes:
+
+the text of the_rulemap is at "sources/credit-approval.ruml".
+
+Approve credit holds for a case if
+    Income verification holds for the case
+    and No negative indicators holds for the case.
+
+Income verification holds for a case if
+    High income holds for the case.
+
+Income verification holds for a case if
+    Medium income collateral holds for the case.
+
+the conditions of No negative indicators are met for a case if
+    Insolvency present holds for the case
+    and Negative schufa entry holds for the case.
+
+No negative indicators holds for a case if
+    it is not the case that the conditions of No negative indicators are met for the case.
+
+Medium income collateral holds for a case if
+    Medium income holds for the case
+    and Collateral available holds for the case.
+
+scenario generated_1 is, as stated in "credit-approval.ruml" at generated_1:
+    % no data
+    node_1 expects answers ["Approve credit holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Approve credit holds for case 1"] and any unknowns.
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Income verification holds for case 1"] and any unknowns.
+    node_3 expects answers ["High income holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that High income holds for case 1"] and any unknowns.
+    node_4 expects answers ["Medium income collateral holds for case 1"] and any unknowns.
+    not_node_4 expects answers ["it is not the case that Medium income collateral holds for case 1"] and any unknowns.
+    node_5 expects answers ["Medium income holds for case 1"] and any unknowns.
+    not_node_5 expects answers ["it is not the case that Medium income holds for case 1"] and any unknowns.
+    node_6 expects answers ["Collateral available holds for case 1"] and any unknowns.
+    not_node_6 expects answers ["it is not the case that Collateral available holds for case 1"] and any unknowns.
+    node_7 expects answers ["No negative indicators holds for case 1"] and any unknowns.
+    not_node_7 expects answers ["it is not the case that No negative indicators holds for case 1"] and any unknowns.
+    node_8 expects answers ["Insolvency present holds for case 1"] and any unknowns.
+    not_node_8 expects answers ["it is not the case that Insolvency present holds for case 1"] and any unknowns.
+    node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
+    not_node_9 expects answers ["it is not the case that Negative schufa entry holds for case 1"] and any unknowns.
+
+query node_1 is:
+    Approve credit holds for case 1.
+
+query not_node_1 is:
+    it is not the case that Approve credit holds for case 1.
+
+query node_2 is:
+    Income verification holds for case 1.
+
+query not_node_2 is:
+    it is not the case that Income verification holds for case 1.
+
+query node_3 is:
+    High income holds for case 1.
+
+query not_node_3 is:
+    it is not the case that High income holds for case 1.
+
+query node_4 is:
+    Medium income collateral holds for case 1.
+
+query not_node_4 is:
+    it is not the case that Medium income collateral holds for case 1.
+
+query node_5 is:
+    Medium income holds for case 1.
+
+query not_node_5 is:
+    it is not the case that Medium income holds for case 1.
+
+query node_6 is:
+    Collateral available holds for case 1.
+
+query not_node_6 is:
+    it is not the case that Collateral available holds for case 1.
+
+query node_7 is:
+    No negative indicators holds for case 1.
+
+query not_node_7 is:
+    it is not the case that No negative indicators holds for case 1.
+
+query node_8 is:
+    Insolvency present holds for case 1.
+
+query not_node_8 is:
+    it is not the case that Insolvency present holds for case 1.
+
+query node_9 is:
+    Negative schufa entry holds for case 1.
+
+query not_node_9 is:
+    it is not the case that Negative schufa entry holds for case 1.
+

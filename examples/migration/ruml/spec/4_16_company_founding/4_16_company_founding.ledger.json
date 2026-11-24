@@ -1,0 +1,68 @@
+{
+  "counts": {"approximated":1,"encoded":4,"residue":0},
+  "entries": [
+    {
+      "element":"node(1)",
+      "in_program":"Company validly founded holds for *a case*",
+      "kind":"AND",
+      "mapping":"AND of 3 children",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(2)",
+      "in_program":"Articles of association notarised holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:tree-include of https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/6e51c5a6-f7ff-43e1-b211-c70bd69937d7: not available here, so the leaf is undefined, as the specification asks (§4.16)",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(3)",
+      "in_program":"Share capital at least eur 25000 holds for *a case*",
+      "kind":"leaf",
+      "mapping":"ruml:tree-include of https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/7791005b-3d30-455b-a538-6d96f04680d9: not available here, so the leaf is undefined, as the specification asks (§4.16)",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"node(4)",
+      "in_program":"Entered in the commercial register holds for *a case*",
+      "kind":"leaf",
+      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
+      "note":"RUML: undefined until decided",
+      "verdict":"encoded"
+    },
+    {
+      "element":"metadata",
+      "in_program":"",
+      "kind":"metadata",
+      "mapping":"a comment at the top; the original file under sources/",
+      "note":"status, version, validity, authors: data about the file, not rules (decision 6 of the plan)",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":8,
+    "tests": [
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["company-founding.ruml" ],
+    "program":"4_16_company_founding",
+    "source":"RUML",
+    "translator":"ruml_twin"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

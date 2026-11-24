@@ -1,0 +1,59 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "data": {
+          "dp_age": {
+            "name": "Alter des Antragstellers",
+            "type": "integer",
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ruml:query"
+    },
+    {
+      "id": "ruml:actions"
+    }
+  ],
+  "metadata": {
+    "id": "a8990415-0348-4966-b31b-68a20d28ee45",
+    "version": "1.0.0",
+    "status": "inForce",
+    "validFrom": "2024-01-01T00:00:00Z",
+    "created": "2024-01-10T09:00:00Z",
+    "modified": "2024-01-10T09:00:00Z"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "b7326b7d-d8a2-40fa-810b-9b4a9f9f4968",
+        "label": "Antragsteller volljährig",
+        "capabilities": [
+          {
+            "id": "ruml:query",
+            "payload": {
+              "expression": "dp_age >= 18"
+            }
+          },
+          {
+            "id": "ruml:actions",
+            "payload": {
+              "onTrue": {
+                "operation": "sendNotification",
+                "ref": "notify_approval"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

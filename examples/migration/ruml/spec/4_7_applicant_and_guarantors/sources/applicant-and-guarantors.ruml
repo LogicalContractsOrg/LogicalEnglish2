@@ -1,0 +1,115 @@
+{
+  "$format": "RUML",
+  "$specVersion": "1.0",
+  "capabilities": [
+    {
+      "id": "ruml:datapoints",
+      "payload": {
+        "sets": {
+          "set_person": {
+            "name": "Person",
+            "fields": {
+              "dp_vorname": {
+                "name": "Vorname",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_nachname": {
+                "name": "Nachname",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_geburtsdatum": {
+                "name": "Geburtsdatum",
+                "type": "date",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_beschaeftigung": {
+                "name": "Beschäftigung",
+                "type": "object",
+                "set": "set_beschaeftigung",
+                "binding": {
+                  "type": "input"
+                }
+              }
+            }
+          },
+          "set_beschaeftigung": {
+            "name": "Beschäftigung",
+            "fields": {
+              "dp_arbeitgeber": {
+                "name": "Arbeitgeber",
+                "type": "string",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_beginn": {
+                "name": "Beginn der Beschäftigung",
+                "type": "date",
+                "binding": {
+                  "type": "input"
+                }
+              },
+              "dp_nettoeinkommen": {
+                "name": "Monatliches Nettoeinkommen",
+                "type": "currency",
+                "unit": "EUR",
+                "validation": {
+                  "min": 0
+                },
+                "binding": {
+                  "type": "input"
+                }
+              }
+            }
+          }
+        },
+        "data": {
+          "dp_antragsteller": {
+            "name": "Antragsteller",
+            "type": "object",
+            "set": "set_person",
+            "binding": {
+              "type": "input"
+            }
+          },
+          "dp_buergen": {
+            "name": "Bürgen",
+            "type": "object",
+            "set": "set_person",
+            "cardinality": {
+              "min": 0,
+              "max": 3
+            },
+            "binding": {
+              "type": "input"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "id": "c262b14b-8709-4ecc-9156-492d89ac7bbc",
+    "title": "Kreditantrag",
+    "version": "1.0.0",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "status": "draft"
+  },
+  "rulemap": {
+    "nodes": {
+      "1": {
+        "id": "f5f4250b-9f7f-42c3-bb7c-b5b4fe5ce387",
+        "label": "Kredit wird gewährt"
+      }
+    }
+  }
+}
