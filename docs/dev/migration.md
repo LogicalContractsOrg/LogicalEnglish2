@@ -1,6 +1,6 @@
 # Migrating programs into Logical English: the shared machinery
 
-*Kind: reference · Audience: developers · Status: current (2026-10-26)*
+*Kind: reference · Audience: developers · Status: current (2026-11-24)*
 
 This is the reference for the infrastructure every translator into Logical
 English shares — Phase 0 of the roadmap in
@@ -140,6 +140,25 @@ Tests: `testing/test_le_import.pl` (a made-up exporter with a check),
 `editor/tests/import-foreign.spec.ts` (both ways, and a refusal). The
 lpsPlus exporters and their checks are registered in
 `lpsPlus/migration/le_importers.pl` beside the importers.
+
+**A third way: answering in the other system's own result format
+(`evaluator/5`).** A translator can also let Logical English *be* the other
+system's evaluator: the other system's program and the values of a case in,
+that system's own result file out. It registers with one clause:
+
+```prolog
+le_import:evaluator(Id, Title, Extensions, File, Module:Evaluate).
+%   call(Evaluate, +InputFile, +Case, +Options, -Reply)
+%       Case and Options are dicts (the options are the format's own);
+%       Reply is {result: <dict>, fileName, notes}
+```
+
+The operations `evaluateFormats` and `evaluateForeign` of `le_api.pl`
+(`evaluator`, `name`, `text` or `base64`, `data`, `options`) store the
+program like an upload and call it; an error comes back as `{error}`. The
+first evaluator is RUML's (lpsPlus `migration/ruml/`, `docs/user/integrations/ruml.md`):
+a rulemap and a case in, a `.ruml-result` out, decided by the rulemap's
+twin. Tests: `testing/test_le_import.pl` (a made-up evaluator).
 
 **Exporting: the check before the text.** What an exporter cannot express
 is never dropped silently, and there are two kinds of it. A *problem* loses
