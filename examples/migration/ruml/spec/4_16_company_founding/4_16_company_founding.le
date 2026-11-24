@@ -20,9 +20,11 @@ the templates are:
     Company validly founded holds for *a case*.
     Articles of association notarised holds for *a case*.
     Share capital at least eur 25000 holds for *a case*.
-    Entered in the commercial register holds for *a case*; open textured.
+    Entered in the commercial register holds for *a case*.
     Articles of association notarised would hold for *a case*; unknown.
     Share capital at least eur 25000 would hold for *a case*; unknown.
+    the answer to Entered in the commercial register for *a case* is *a truth value*; scenario element.
+    Entered in the commercial register would hold for *a case*; unknown.
 
 the knowledge base r4_16_company_founding includes:
 
@@ -33,11 +35,21 @@ Company validly founded holds for a case if
     and Share capital at least eur 25000 holds for the case
     and Entered in the commercial register holds for the case.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Articles of association notarised holds for a case if
     Articles of association notarised would hold for the case.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Share capital at least eur 25000 holds for a case if
     Share capital at least eur 25000 would hold for the case.
+
+Entered in the commercial register holds for a case if
+    the answer to Entered in the commercial register for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Entered in the commercial register holds for a case if
+    it is not the case that the answer to Entered in the commercial register for the case is a truth value
+    and Entered in the commercial register would hold for the case.
 
 scenario generated_1 is, as stated in "company-founding.ruml" at generated_1:
     % no data
@@ -49,6 +61,42 @@ scenario generated_1 is, as stated in "company-founding.ruml" at generated_1:
     not_node_3 expects answers ["it is not the case that Share capital at least eur 25000 holds for case 1"] and any unknowns.
     node_4 expects answers ["Entered in the commercial register holds for case 1"] and any unknowns.
     not_node_4 expects answers ["it is not the case that Entered in the commercial register holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "company-founding.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Entered in the commercial register for case 1 is true.
+    node_1 expects answers ["Company validly founded holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Company validly founded holds for case 1"] and any unknowns.
+    node_2 expects answers ["Articles of association notarised holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Articles of association notarised holds for case 1"] and any unknowns.
+    node_3 expects answers ["Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    node_4 expects answers ["Entered in the commercial register holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_3 is, as stated in "company-founding.ruml" at generated_3:
+    % the leaf 4 answered no, the others yes
+    the answer to Entered in the commercial register for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Company validly founded holds for case 1"].
+    node_2 expects answers ["Articles of association notarised holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Articles of association notarised holds for case 1"] and any unknowns.
+    node_3 expects answers ["Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Entered in the commercial register holds for case 1"].
+
+scenario generated_4 is, as stated in "company-founding.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Entered in the commercial register for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Company validly founded holds for case 1"].
+    node_2 expects answers ["Articles of association notarised holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Articles of association notarised holds for case 1"] and any unknowns.
+    node_3 expects answers ["Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Share capital at least eur 25000 holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Entered in the commercial register holds for case 1"].
 
 query node_1 is:
     Company validly founded holds for case 1.

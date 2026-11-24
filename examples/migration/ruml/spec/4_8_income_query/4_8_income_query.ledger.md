@@ -21,7 +21,7 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | dp_annual_income | data point | encoded | a sentence that the scenarios state | the Jahreseinkommen of *a case* is *a number* | unit: EUR; validation: json([required= @(true),min=0]) |
-| node(1) | leaf | encoded | ruml:query dp_annual_income > 50000 | Einkommen ausreichend holds for *a case* |  |
+| node(1) | leaf | encoded | ruml:query dp_annual_income > 50000 | Einkommen ausreichend holds for *a case* | label: Einkommen ausreichend |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

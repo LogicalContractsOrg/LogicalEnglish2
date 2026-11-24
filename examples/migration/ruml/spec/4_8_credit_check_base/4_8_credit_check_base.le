@@ -19,8 +19,10 @@ the target language is: prolog.
 the templates are:
     the Bonitätsscore of *a case* is *a number*; scenario element.
     Kreditprüfung holds for *a case*.
-    Einkommen ausreichend holds for *a case*; open textured.
+    Einkommen ausreichend holds for *a case*.
     Bonität ausreichend holds for *a case*.
+    the answer to Einkommen ausreichend for *a case* is *a truth value*; scenario element.
+    Einkommen ausreichend would hold for *a case*; unknown.
     Bonität ausreichend would hold for *a case*; unknown.
 
 the knowledge base r4_8_credit_check_base includes:
@@ -34,10 +36,19 @@ Kreditprüfung holds for a case if
     Einkommen ausreichend holds for the case
     and Bonität ausreichend holds for the case.
 
+Einkommen ausreichend holds for a case if
+    the answer to Einkommen ausreichend for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Einkommen ausreichend holds for a case if
+    it is not the case that the answer to Einkommen ausreichend for the case is a truth value
+    and Einkommen ausreichend would hold for the case.
+
 Bonität ausreichend holds for a case if
     the Bonitätsscore of the case is a number N
     and N >= 600.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Bonität ausreichend holds for a case if
     it is not the case that the Bonitätsscore of the case is a number
     and Bonität ausreichend would hold for the case.
@@ -78,6 +89,28 @@ scenario generated_4 is, as stated in "credit-check-base.ruml" at generated_4:
     not_node_1 expects answers ["it is not the case that Kreditprüfung holds for case 1"] and any unknowns.
     node_2 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
     not_node_2 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"] and any unknowns.
+    node_3 expects answers ["Bonität ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_5 is, as stated in "credit-check-base.ruml" at generated_5:
+    % every leaf answered yes
+    the Bonitätsscore of case 1 is 600.
+    the answer to Einkommen ausreichend for case 1 is true.
+    node_1 expects answers ["Kreditprüfung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Einkommen ausreichend holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Bonität ausreichend holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_6 is, as stated in "credit-check-base.ruml" at generated_6:
+    % the leaf 2 answered no, the others yes
+    the Bonitätsscore of case 1 is 600.
+    the answer to Einkommen ausreichend for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kreditprüfung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Einkommen ausreichend holds for case 1"].
     node_3 expects answers ["Bonität ausreichend holds for case 1"] and any unknowns.
     not_node_3 expects answers [].
 

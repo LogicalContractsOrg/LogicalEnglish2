@@ -21,7 +21,7 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | dp_age | data point | encoded | a sentence that the scenarios state | the Alter des Antragstellers of *a case* is *a number* |  |
-| node(1) | leaf | encoded | ruml:query dp_age >= 18 | Antragsteller volljährig holds for *a case* |  |
+| node(1) | leaf | encoded | ruml:query dp_age >= 18 | Antragsteller volljährig holds for *a case* | label: Antragsteller volljährig |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 | capability(ruml:actions) | capability | residue | actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed) |  |  |
 

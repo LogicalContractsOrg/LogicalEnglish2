@@ -20,7 +20,7 @@ A source element is **encoded** when a documented mapping rule translated it wit
 
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
-| node(1) | leaf | encoded | ruml:ai-query: a judged sentence (the prompt: Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined.) | Begründung plausibel holds for *a case* |  |
+| node(1) | leaf | encoded | ruml:ai-query: a judged sentence (the prompt: Prüfe anhand der bereitgestellten Unterlagen, ob eine Härtefallbegründung plausibel ist. Antworte ausschließlich mit true, false oder undefined.) | Begründung plausibel holds for *a case* | label: Begründung plausibel |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

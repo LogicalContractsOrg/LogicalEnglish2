@@ -18,12 +18,16 @@ the target language is: prolog.
 
 the templates are:
     Gesamtbewertung holds for *a case*.
-    Modul 1 holds for *a case*; open textured.
-    Modul 2 holds for *a case*; open textured.
+    Modul 1 holds for *a case*.
+    Modul 2 holds for *a case*.
     Gesamtbewertung is decided for *a case*.
     Gesamtbewertung would hold for *a case*; unknown.
-    Modul 1 is decided for *a case*; scenario element.
-    Modul 2 is decided for *a case*; scenario element.
+    Modul 1 is decided for *a case*.
+    Modul 2 is decided for *a case*.
+    the answer to Modul 1 for *a case* is *a truth value*; scenario element.
+    Modul 1 would hold for *a case*; unknown.
+    the answer to Modul 2 for *a case* is *a truth value*; scenario element.
+    Modul 2 would hold for *a case*; unknown.
 
 the knowledge base r3_6_accept_delegated_custom_combiner includes:
 
@@ -42,6 +46,28 @@ Gesamtbewertung is decided for a case if
     Modul 1 is decided for the case
     and Modul 2 is decided for the case.
 
+Modul 1 holds for a case if
+    the answer to Modul 1 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Modul 1 holds for a case if
+    it is not the case that the answer to Modul 1 for the case is a truth value
+    and Modul 1 would hold for the case.
+
+Modul 1 is decided for a case if
+    the answer to Modul 1 for the case is a truth value.
+
+Modul 2 holds for a case if
+    the answer to Modul 2 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Modul 2 holds for a case if
+    it is not the case that the answer to Modul 2 for the case is a truth value
+    and Modul 2 would hold for the case.
+
+Modul 2 is decided for a case if
+    the answer to Modul 2 for the case is a truth value.
+
 scenario generated_1 is, as stated in "accept-delegated-custom-combiner.ruml" at generated_1:
     % no data
     node_1 expects answers ["Gesamtbewertung holds for case 1"] and any unknowns.
@@ -50,6 +76,50 @@ scenario generated_1 is, as stated in "accept-delegated-custom-combiner.ruml" at
     not_node_2 expects answers ["it is not the case that Modul 1 holds for case 1"] and any unknowns.
     node_3 expects answers ["Modul 2 holds for case 1"] and any unknowns.
     not_node_3 expects answers ["it is not the case that Modul 2 holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "accept-delegated-custom-combiner.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Modul 1 for case 1 is true.
+    the answer to Modul 2 for case 1 is true.
+    node_1 expects answers ["Gesamtbewertung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Modul 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Modul 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "accept-delegated-custom-combiner.ruml" at generated_3:
+    % the leaf 2 answered no, the others yes
+    the answer to Modul 1 for case 1 is false.
+    the answer to Modul 2 for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Gesamtbewertung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Modul 1 holds for case 1"].
+    node_3 expects answers ["Modul 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "accept-delegated-custom-combiner.ruml" at generated_4:
+    % the leaf 3 answered no, the others yes
+    the answer to Modul 1 for case 1 is true.
+    the answer to Modul 2 for case 1 is false.
+    node_1 expects answers ["Gesamtbewertung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Modul 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Modul 2 holds for case 1"].
+
+scenario generated_5 is, as stated in "accept-delegated-custom-combiner.ruml" at generated_5:
+    % every leaf answered no
+    the answer to Modul 1 for case 1 is false.
+    the answer to Modul 2 for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Gesamtbewertung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Modul 1 holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Modul 2 holds for case 1"].
 
 query node_1 is:
     Gesamtbewertung holds for case 1.

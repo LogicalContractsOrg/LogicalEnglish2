@@ -6,39 +6,39 @@
       "in_program":"Antrag holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 2 children",
-      "note":"",
+      "note":"label: Antrag",
       "verdict":"encoded"
     },
     {
       "element":"node(2)",
-      "in_program":"Antrag node 2 holds for *a case*",
+      "in_program":"Antrag_a holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 1 children",
-      "note":"",
+      "note":"label: Antrag A",
       "verdict":"encoded"
     },
     {
       "element":"node(3)",
-      "in_program":"Antrag b holds for *a case*",
+      "in_program":"Antrag_b holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 1 children",
-      "note":"",
+      "note":"label: Antrag B",
       "verdict":"encoded"
     },
     {
       "element":"node(5)",
       "in_program":"Nur einmal referenziert holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Nur einmal referenziert; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
       "element":"node(6)",
       "in_program":"Einfach referenziert holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Einfach referenziert; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
@@ -53,7 +53,7 @@
   "fidelity": {
     "errors":0,
     "failed":0,
-    "passed":10,
+    "passed":50,
     "tests": [
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
@@ -64,7 +64,47 @@
       {"detail":"","query":"node_5","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"node_6","result":"pass","scenario":"generated_1"},
-      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_1"}
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_5"}
     ]
   },
   "meta": {
@@ -74,5 +114,5 @@
     "translator":"ruml_twin"
   },
   "pending_expectations":0,
-  "source_tests":1
+  "source_tests":5
 }

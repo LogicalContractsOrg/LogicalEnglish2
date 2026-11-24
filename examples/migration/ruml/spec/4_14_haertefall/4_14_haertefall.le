@@ -76,25 +76,25 @@ Pflegegrad mindestens 3 holds for a case if
     the Pflegegrad of the case is a number N
     and N >= 3.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Pflegegrad mindestens 3 holds for a case if
     it is not the case that the Pflegegrad of the case is a number
     and Pflegegrad mindestens 3 would hold for the case.
 
 Pflegegrad mindestens 3 is decided for a case if
-    it is not the case that
-        it is not the case that the Pflegegrad of the case is a number.
+    the Pflegegrad of the case is a number.
 
 Eigenanteil über 800 eur holds for a case if
     the Monatlicher Eigenanteil of the case is a number N
     and N > 800.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Eigenanteil über 800 eur holds for a case if
     it is not the case that the Monatlicher Eigenanteil of the case is a number
     and Eigenanteil über 800 eur would hold for the case.
 
 Eigenanteil über 800 eur is decided for a case if
-    it is not the case that
-        it is not the case that the Monatlicher Eigenanteil of the case is a number.
+    the Monatlicher Eigenanteil of the case is a number.
 
 Alleinlebend holds for a case if
     the Alleinlebend of the case is true.
@@ -251,7 +251,7 @@ scenario generated_8 is, as stated in "haertefall.ruml" at generated_8:
     not_node_7 expects answers [].
 
 scenario generated_9 is, as stated in "haertefall.ruml" at generated_9:
-    % dp_alleinlebend is @(false)
+    % dp_alleinlebend is false
     the Pflegegrad of case 1 is 3.
     the Monatlicher Eigenanteil of case 1 is 800.
     the Alleinlebend of case 1 is false.
@@ -288,7 +288,7 @@ scenario generated_10 is, as stated in "haertefall.ruml" at generated_10:
     not_node_7 expects answers ["it is not the case that Wohnsitz im Land holds for case 1"].
 
 scenario generated_11 is, as stated in "haertefall.ruml" at generated_11:
-    % dp_wohnsitz is @(false)
+    % dp_wohnsitz is false
     the Pflegegrad of case 1 is 3.
     the Monatlicher Eigenanteil of case 1 is 800.
     the Alleinlebend of case 1 is true.

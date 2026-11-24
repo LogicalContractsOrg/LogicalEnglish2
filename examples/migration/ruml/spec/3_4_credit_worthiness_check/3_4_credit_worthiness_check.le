@@ -18,8 +18,12 @@ the target language is: prolog.
 
 the templates are:
     Credit worthiness check holds for *a case*.
-    Income verification holds for *a case*; open textured.
-    Credit score check holds for *a case*; open textured.
+    Income verification holds for *a case*.
+    Credit score check holds for *a case*.
+    the answer to Income verification for *a case* is *a truth value*; scenario element.
+    Income verification would hold for *a case*; unknown.
+    the answer to Credit score check for *a case* is *a truth value*; scenario element.
+    Credit score check would hold for *a case*; unknown.
 
 the knowledge base r3_4_credit_worthiness_check includes:
 
@@ -29,6 +33,22 @@ Credit worthiness check holds for a case if
     Income verification holds for the case
     and Credit score check holds for the case.
 
+Income verification holds for a case if
+    the answer to Income verification for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Income verification holds for a case if
+    it is not the case that the answer to Income verification for the case is a truth value
+    and Income verification would hold for the case.
+
+Credit score check holds for a case if
+    the answer to Credit score check for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Credit score check holds for a case if
+    it is not the case that the answer to Credit score check for the case is a truth value
+    and Credit score check would hold for the case.
+
 scenario generated_1 is, as stated in "credit-worthiness-check.ruml" at generated_1:
     % no data
     node_1 expects answers ["Credit worthiness check holds for case 1"] and any unknowns.
@@ -37,6 +57,50 @@ scenario generated_1 is, as stated in "credit-worthiness-check.ruml" at generate
     not_node_2 expects answers ["it is not the case that Income verification holds for case 1"] and any unknowns.
     node_3 expects answers ["Credit score check holds for case 1"] and any unknowns.
     not_node_3 expects answers ["it is not the case that Credit score check holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "credit-worthiness-check.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Income verification for case 1 is true.
+    the answer to Credit score check for case 1 is true.
+    node_1 expects answers ["Credit worthiness check holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Credit score check holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "credit-worthiness-check.ruml" at generated_3:
+    % the leaf 2 answered no, the others yes
+    the answer to Income verification for case 1 is false.
+    the answer to Credit score check for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Credit worthiness check holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Income verification holds for case 1"].
+    node_3 expects answers ["Credit score check holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "credit-worthiness-check.ruml" at generated_4:
+    % the leaf 3 answered no, the others yes
+    the answer to Income verification for case 1 is true.
+    the answer to Credit score check for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Credit worthiness check holds for case 1"].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Credit score check holds for case 1"].
+
+scenario generated_5 is, as stated in "credit-worthiness-check.ruml" at generated_5:
+    % every leaf answered no
+    the answer to Income verification for case 1 is false.
+    the answer to Credit score check for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Credit worthiness check holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Income verification holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Credit score check holds for case 1"].
 
 query node_1 is:
     Credit worthiness check holds for case 1.

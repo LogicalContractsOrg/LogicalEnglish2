@@ -60,6 +60,7 @@ Einkommensprüfung holds for a case if
     the Einkommen of the case is a number N
     and N > 30000.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Einkommensprüfung holds for a case if
     it is not the case that the Einkommen of the case is a number
     and Einkommensprüfung would hold for the case.
@@ -68,6 +69,7 @@ Schufa Prüfung holds for a case if
     the Schufa Score of the case is a number N
     and N >= 600.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Schufa Prüfung holds for a case if
     it is not the case that the Schufa Score of the case is a number
     and Schufa Prüfung would hold for the case.
@@ -116,7 +118,7 @@ scenario generated_2 is, as stated in "nested-credit-checks.ruml" at generated_2
     not_node_3 expects answers ["it is not the case that Schnellprüfung holds for case 1"].
 
 scenario generated_3 is, as stated in "nested-credit-checks.ruml" at generated_3:
-    % dp_identity_verified is @(false)
+    % dp_identity_verified is false
     the Identität geprüft of case 1 is false.
     the Einkommen of case 1 is 30000.
     the Schufa Score of case 1 is 600.

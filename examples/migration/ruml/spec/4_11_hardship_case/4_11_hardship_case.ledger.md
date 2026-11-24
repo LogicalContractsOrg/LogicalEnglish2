@@ -20,17 +20,17 @@ A source element is **encoded** when a documented mapping rule translated it wit
 
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
-| context(ctx_guidelines) | context | approximated | context material (administrativeGuidance) | guidelines | context material is listed, not reasoned with |
-| context(ctx_bsg_ruling) | context | approximated | context material (courtDecision) | bsg ruling | context material is listed, not reasoned with |
-| context(ctx_example_approved_medical) | context | approximated | context material (example) | example approved medical | context material is listed, not reasoned with |
-| context(ctx_example_approved_job_loss) | context | approximated | context material (example) | example approved job loss | context material is listed, not reasoned with |
-| context(ctx_example_rejected_luxury) | context | approximated | context material (example) | example rejected luxury | context material is listed, not reasoned with |
-| context(ctx_example_rejected_income) | context | approximated | context material (example) | example rejected income | context material is listed, not reasoned with |
+| context(ctx_guidelines) | context | approximated | context material (administrativeGuidance): Richtlinien zur Härtefallprüfung | guidelines | context material is listed, not reasoned with |
+| context(ctx_bsg_ruling) | context | approximated | context material (courtDecision): BSG zur Auslegung des Härtefallbegriffs | bsg ruling | context material is listed, not reasoned with |
+| context(ctx_example_approved_medical) | context | approximated | context material (example): Beispiel: Genehmigt - Medizinische Notlage | example approved medical | context material is listed, not reasoned with |
+| context(ctx_example_approved_job_loss) | context | approximated | context material (example): Beispiel: Genehmigt - Arbeitsplatzverlust | example approved job loss | context material is listed, not reasoned with |
+| context(ctx_example_rejected_luxury) | context | approximated | context material (example): Beispiel: Abgelehnt - Freiwillige Ausgaben | example rejected luxury | context material is listed, not reasoned with |
+| context(ctx_example_rejected_income) | context | approximated | context material (example): Beispiel: Abgelehnt - Einkommen zu hoch | example rejected income | context material is listed, not reasoned with |
 | dp_hardship_reason | data point | approximated | declared, and read by no expression: not a sentence of the twin |  | kept in the original under sources/ |
 | dp_annual_income | data point | encoded | a sentence that the scenarios state | the Jahreseinkommen of *a case* is *a number* | unit: EUR; validation: json([required= @(true),min=0]) |
-| node(1) | AND | encoded | AND of 2 children | Härtefall anerkennen holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_annual_income < 25000 | Einkommensgrenze unterschritten holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:ai-query: a judged sentence (the prompt: ) | Begründung plausibel holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Härtefall anerkennen holds for *a case* | label: Härtefall anerkennen? |
+| node(2) | leaf | encoded | ruml:query dp_annual_income < 25000 | Einkommensgrenze unterschritten holds for *a case* | label: Einkommensgrenze unterschritten |
+| node(3) | leaf | encoded | ruml:ai-query: a judged sentence (the prompt: ) | Begründung plausibel holds for *a case* | label: Begründung plausibel |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 | capability(ruml:actions) | capability | residue | actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed) |  |  |
 

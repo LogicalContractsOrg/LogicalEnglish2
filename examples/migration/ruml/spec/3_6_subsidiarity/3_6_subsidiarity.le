@@ -17,12 +17,16 @@ the target language is: prolog.
 
 the templates are:
     Auffangtatbestand greift holds for *a case*.
-    Vorrangiger Tatbestand holds for *a case*; open textured.
-    Auffangtatbestand holds for *a case*; open textured.
+    Vorrangiger Tatbestand holds for *a case*.
+    Auffangtatbestand holds for *a case*.
     Auffangtatbestand greift is decided for *a case*.
     Auffangtatbestand greift would hold for *a case*; unknown.
-    Vorrangiger Tatbestand is decided for *a case*; scenario element.
-    Auffangtatbestand is decided for *a case*; scenario element.
+    Vorrangiger Tatbestand is decided for *a case*.
+    Auffangtatbestand is decided for *a case*.
+    the answer to Vorrangiger Tatbestand for *a case* is *a truth value*; scenario element.
+    Vorrangiger Tatbestand would hold for *a case*; unknown.
+    the answer to Auffangtatbestand for *a case* is *a truth value*; scenario element.
+    Auffangtatbestand would hold for *a case*; unknown.
 
 the knowledge base r3_6_subsidiarity includes:
 
@@ -42,6 +46,28 @@ Auffangtatbestand greift is decided for a case if
     Vorrangiger Tatbestand is decided for the case
     and Auffangtatbestand is decided for the case.
 
+Vorrangiger Tatbestand holds for a case if
+    the answer to Vorrangiger Tatbestand for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Vorrangiger Tatbestand holds for a case if
+    it is not the case that the answer to Vorrangiger Tatbestand for the case is a truth value
+    and Vorrangiger Tatbestand would hold for the case.
+
+Vorrangiger Tatbestand is decided for a case if
+    the answer to Vorrangiger Tatbestand for the case is a truth value.
+
+Auffangtatbestand holds for a case if
+    the answer to Auffangtatbestand for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Auffangtatbestand holds for a case if
+    it is not the case that the answer to Auffangtatbestand for the case is a truth value
+    and Auffangtatbestand would hold for the case.
+
+Auffangtatbestand is decided for a case if
+    the answer to Auffangtatbestand for the case is a truth value.
+
 scenario generated_1 is, as stated in "subsidiarity.ruml" at generated_1:
     % no data
     node_1 expects answers ["Auffangtatbestand greift holds for case 1"] and any unknowns.
@@ -50,6 +76,50 @@ scenario generated_1 is, as stated in "subsidiarity.ruml" at generated_1:
     not_node_2 expects answers ["it is not the case that Vorrangiger Tatbestand holds for case 1"] and any unknowns.
     node_3 expects answers ["Auffangtatbestand holds for case 1"] and any unknowns.
     not_node_3 expects answers ["it is not the case that Auffangtatbestand holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "subsidiarity.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Vorrangiger Tatbestand for case 1 is true.
+    the answer to Auffangtatbestand for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Auffangtatbestand greift holds for case 1"].
+    node_2 expects answers ["Vorrangiger Tatbestand holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Auffangtatbestand holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "subsidiarity.ruml" at generated_3:
+    % the leaf 2 answered no, the others yes
+    the answer to Vorrangiger Tatbestand for case 1 is false.
+    the answer to Auffangtatbestand for case 1 is true.
+    node_1 expects answers ["Auffangtatbestand greift holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Vorrangiger Tatbestand holds for case 1"].
+    node_3 expects answers ["Auffangtatbestand holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "subsidiarity.ruml" at generated_4:
+    % the leaf 3 answered no, the others yes
+    the answer to Vorrangiger Tatbestand for case 1 is true.
+    the answer to Auffangtatbestand for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Auffangtatbestand greift holds for case 1"].
+    node_2 expects answers ["Vorrangiger Tatbestand holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Auffangtatbestand holds for case 1"].
+
+scenario generated_5 is, as stated in "subsidiarity.ruml" at generated_5:
+    % every leaf answered no
+    the answer to Vorrangiger Tatbestand for case 1 is false.
+    the answer to Auffangtatbestand for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Auffangtatbestand greift holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Vorrangiger Tatbestand holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Auffangtatbestand holds for case 1"].
 
 query node_1 is:
     Auffangtatbestand greift holds for case 1.

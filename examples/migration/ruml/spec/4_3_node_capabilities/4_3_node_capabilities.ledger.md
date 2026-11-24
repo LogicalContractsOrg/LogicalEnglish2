@@ -21,10 +21,10 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
 | dp_age | data point | encoded | a sentence that the scenarios state | the Alter of *a case* is *a number* |  |
-| node(1) | AND | encoded | AND of 3 children | Zulassung des Antrags holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Volljährigkeit nachgewiesen holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query dp_age >= 18; ruml:ai-query: a judged sentence (the prompt: Ist der Antragsteller volljährig?) | Antragsteller volljährig holds for *a case* |  |
-| node(4) | leaf | encoded | ruml:query dp_age >= 18 | Ausnahmetatbestand holds for *a case* |  |
+| node(1) | AND | encoded | AND of 3 children | Zulassung des Antrags holds for *a case* | label: Zulassung des Antrags |
+| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Volljährigkeit nachgewiesen holds for *a case* | label: Volljährigkeit nachgewiesen |
+| node(3) | leaf | encoded | ruml:query dp_age >= 18; ruml:ai-query: a judged sentence (the prompt: Ist der Antragsteller volljährig?) | Antragsteller volljährig holds for *a case* | label: Antragsteller volljährig |
+| node(4) | leaf | encoded | ruml:query dp_age >= 18 | Ausnahmetatbestand holds for *a case* | label: Ausnahmetatbestand |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 | capability(com.example/review-notes) | capability | approximated | a capability the twin does not use: kept in the original under sources/ |  |  |
 | capability(ruml:draft/ai-annotations) | capability | approximated | a capability the twin does not use: kept in the original under sources/ |  |  |

@@ -16,7 +16,9 @@
 the target language is: prolog.
 
 the templates are:
-    Haftung nach § 823 bgb holds for *a case*; open textured.
+    Haftung nach § 823 bgb holds for *a case*.
+    the answer to Haftung nach § 823 bgb for *a case* is *a truth value*; scenario element.
+    Haftung nach § 823 bgb would hold for *a case*; unknown.
 
 the knowledge base r4_11_source_references includes:
 
@@ -28,10 +30,36 @@ mueller 2024 is published at "https://www.jurpc.de/2024/123".
 
 bmf income tax is published at "https://www.bundesfinanzministerium.de/bmf-schreiben/2024-01-01-einkommensteuer".
 
+Haftung nach § 823 bgb holds for a case if
+    the answer to Haftung nach § 823 bgb for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Haftung nach § 823 bgb holds for a case if
+    it is not the case that the answer to Haftung nach § 823 bgb for the case is a truth value
+    and Haftung nach § 823 bgb would hold for the case.
+
 scenario generated_1 is, as stated in "source-references.ruml" at generated_1:
     % no data
     node_1 expects answers ["Haftung nach § 823 bgb holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Haftung nach § 823 bgb holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "source-references.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Haftung nach § 823 bgb for case 1 is true.
+    node_1 expects answers ["Haftung nach § 823 bgb holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_3 is, as stated in "source-references.ruml" at generated_3:
+    % the leaf 1 answered no, the others yes
+    the answer to Haftung nach § 823 bgb for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Haftung nach § 823 bgb holds for case 1"].
+
+scenario generated_4 is, as stated in "source-references.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Haftung nach § 823 bgb for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Haftung nach § 823 bgb holds for case 1"].
 
 query node_1 is:
     Haftung nach § 823 bgb holds for case 1.

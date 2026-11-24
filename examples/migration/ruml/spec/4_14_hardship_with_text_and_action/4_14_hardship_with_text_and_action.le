@@ -18,15 +18,21 @@ the target language is: prolog.
 the templates are:
     Härtefallleistung holds for *a case*.
     Härtefall liegt vor holds for *a case*.
-    Pflegegrad mindestens 3 holds for *a case*; open textured.
-    Eigenanteil über 800 eur holds for *a case*; open textured.
-    Alleinlebend holds for *a case*; open textured.
+    Pflegegrad mindestens 3 holds for *a case*.
+    Eigenanteil über 800 eur holds for *a case*.
+    Alleinlebend holds for *a case*.
     child *a number* of Härtefall liegt vor counts for *a case*.
     Härtefall liegt vor is decided for *a case*.
     Härtefall liegt vor would hold for *a case*; unknown.
-    Pflegegrad mindestens 3 is decided for *a case*; scenario element.
-    Eigenanteil über 800 eur is decided for *a case*; scenario element.
-    Alleinlebend is decided for *a case*; scenario element.
+    Pflegegrad mindestens 3 is decided for *a case*.
+    Eigenanteil über 800 eur is decided for *a case*.
+    Alleinlebend is decided for *a case*.
+    the answer to Pflegegrad mindestens 3 for *a case* is *a truth value*; scenario element.
+    Pflegegrad mindestens 3 would hold for *a case*; unknown.
+    the answer to Eigenanteil über 800 eur for *a case* is *a truth value*; scenario element.
+    Eigenanteil über 800 eur would hold for *a case*; unknown.
+    the answer to Alleinlebend for *a case* is *a truth value*; scenario element.
+    Alleinlebend would hold for *a case*; unknown.
 
 the knowledge base r4_14_hardship_with_text_and_action includes:
 
@@ -63,6 +69,39 @@ Härtefall liegt vor is decided for a case if
     and Eigenanteil über 800 eur is decided for the case
     and Alleinlebend is decided for the case.
 
+Pflegegrad mindestens 3 holds for a case if
+    the answer to Pflegegrad mindestens 3 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Pflegegrad mindestens 3 holds for a case if
+    it is not the case that the answer to Pflegegrad mindestens 3 for the case is a truth value
+    and Pflegegrad mindestens 3 would hold for the case.
+
+Pflegegrad mindestens 3 is decided for a case if
+    the answer to Pflegegrad mindestens 3 for the case is a truth value.
+
+Eigenanteil über 800 eur holds for a case if
+    the answer to Eigenanteil über 800 eur for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Eigenanteil über 800 eur holds for a case if
+    it is not the case that the answer to Eigenanteil über 800 eur for the case is a truth value
+    and Eigenanteil über 800 eur would hold for the case.
+
+Eigenanteil über 800 eur is decided for a case if
+    the answer to Eigenanteil über 800 eur for the case is a truth value.
+
+Alleinlebend holds for a case if
+    the answer to Alleinlebend for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Alleinlebend holds for a case if
+    it is not the case that the answer to Alleinlebend for the case is a truth value
+    and Alleinlebend would hold for the case.
+
+Alleinlebend is decided for a case if
+    the answer to Alleinlebend for the case is a truth value.
+
 scenario generated_1 is, as stated in "hardship-with-text-and-action.ruml" at generated_1:
     % no data
     node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
@@ -75,6 +114,86 @@ scenario generated_1 is, as stated in "hardship-with-text-and-action.ruml" at ge
     not_node_5 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"] and any unknowns.
     node_6 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
     not_node_6 expects answers ["it is not the case that Alleinlebend holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "hardship-with-text-and-action.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Pflegegrad mindestens 3 for case 1 is true.
+    the answer to Eigenanteil über 800 eur for case 1 is true.
+    the answer to Alleinlebend for case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_4 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_3 is, as stated in "hardship-with-text-and-action.ruml" at generated_3:
+    % the leaf 4 answered no, the others yes
+    the answer to Pflegegrad mindestens 3 for case 1 is false.
+    the answer to Eigenanteil über 800 eur for case 1 is true.
+    the answer to Alleinlebend for case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Pflegegrad mindestens 3 holds for case 1"].
+    node_5 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_4 is, as stated in "hardship-with-text-and-action.ruml" at generated_4:
+    % the leaf 5 answered no, the others yes
+    the answer to Pflegegrad mindestens 3 for case 1 is true.
+    the answer to Eigenanteil über 800 eur for case 1 is false.
+    the answer to Alleinlebend for case 1 is true.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_4 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_6 expects answers ["Alleinlebend holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_5 is, as stated in "hardship-with-text-and-action.ruml" at generated_5:
+    % the leaf 6 answered no, the others yes
+    the answer to Pflegegrad mindestens 3 for case 1 is true.
+    the answer to Eigenanteil über 800 eur for case 1 is true.
+    the answer to Alleinlebend for case 1 is false.
+    node_1 expects answers ["Härtefallleistung holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Härtefall liegt vor holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_4 expects answers ["Pflegegrad mindestens 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Eigenanteil über 800 eur holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Alleinlebend holds for case 1"].
+
+scenario generated_6 is, as stated in "hardship-with-text-and-action.ruml" at generated_6:
+    % every leaf answered no
+    the answer to Pflegegrad mindestens 3 for case 1 is false.
+    the answer to Eigenanteil über 800 eur for case 1 is false.
+    the answer to Alleinlebend for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Härtefallleistung holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Härtefall liegt vor holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Pflegegrad mindestens 3 holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Eigenanteil über 800 eur holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Alleinlebend holds for case 1"].
 
 query node_1 is:
     Härtefallleistung holds for case 1.

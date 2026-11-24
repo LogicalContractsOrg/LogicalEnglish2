@@ -38,7 +38,7 @@
       "in_program":"Härtefallleistung holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 2 children",
-      "note":"",
+      "note":"label: Härtefallleistung",
       "verdict":"encoded"
     },
     {
@@ -46,7 +46,7 @@
       "in_program":"Härtefall liegt vor holds for *a case*",
       "kind":"DELEGATED",
       "mapping":"DELEGATED: $count($children[status = \"true\"]) >= 2",
-      "note":"exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4)",
+      "note":"label: Härtefall liegt vor; exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4)",
       "verdict":"encoded"
     },
     {
@@ -54,7 +54,7 @@
       "in_program":"Wohnsitz im Land holds for *a case*",
       "kind":"leaf",
       "mapping":"ruml:query dp_wohnsitz = true",
-      "note":"",
+      "note":"label: Wohnsitz im Land",
       "verdict":"encoded"
     },
     {
@@ -62,7 +62,7 @@
       "in_program":"Pflegegrad mindestens 3 holds for *a case*",
       "kind":"leaf",
       "mapping":"ruml:query dp_pflegegrad >= 3",
-      "note":"",
+      "note":"label: Pflegegrad mindestens 3",
       "verdict":"encoded"
     },
     {
@@ -70,7 +70,7 @@
       "in_program":"Eigenanteil über 800 eur holds for *a case*",
       "kind":"leaf",
       "mapping":"ruml:query dp_eigenanteil > 800",
-      "note":"",
+      "note":"label: Eigenanteil über 800 EUR",
       "verdict":"encoded"
     },
     {
@@ -78,7 +78,7 @@
       "in_program":"Alleinlebend holds for *a case*",
       "kind":"leaf",
       "mapping":"ruml:query dp_alleinlebend = true",
-      "note":"",
+      "note":"label: Alleinlebend",
       "verdict":"encoded"
     },
     {

@@ -12,7 +12,7 @@ Translator: ruml_twin
 | residue | 0 |
 | **total** | 5 |
 
-Fidelity: **2 of 2** source test expectation(s) reproduced (100%).
+Fidelity: **8 of 8** source test expectation(s) reproduced (100%).
 
 A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person.
 
@@ -20,10 +20,10 @@ A source element is **encoded** when a documented mapping rule translated it wit
 
 | Source element | Kind | Verdict | Mapping | In the program | Note |
 |---|---|---|---|---|---|
-| context(ctx_estg_sha3) | context | approximated | context material (administrativeGuidance) | estg sha3 | context material is listed, not reasoned with |
-| context(ctx_estg_sha256) | context | approximated | context material (administrativeGuidance) | estg sha256 | context material is listed, not reasoned with |
-| context(ctx_estg_blake3) | context | approximated | context material (administrativeGuidance) | estg blake3 | context material is listed, not reasoned with |
-| node(1) | leaf | encoded | a leaf with no deciding capability: a judged sentence, which a person decides | Antrag holds for *a case* | RUML: undefined until decided |
+| context(ctx_estg_sha3) | context | approximated | context material (administrativeGuidance): § 32a EStG - Einkommensteuertarif | estg sha3 | context material is listed, not reasoned with |
+| context(ctx_estg_sha256) | context | approximated | context material (administrativeGuidance): § 32a EStG - Einkommensteuertarif | estg sha256 | context material is listed, not reasoned with |
+| context(ctx_estg_blake3) | context | approximated | context material (administrativeGuidance): § 32a EStG - Einkommensteuertarif | estg blake3 | context material is listed, not reasoned with |
+| node(1) | leaf | encoded | a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`) | Antrag holds for *a case* | label: Antrag; RUML: undefined until answered |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests
@@ -32,4 +32,10 @@ A source element is **encoded** when a documented mapping rule translated it wit
 |---|---|---|---|
 | generated_1 | node_1 | pass |  |
 | generated_1 | not_node_1 | pass |  |
+| generated_2 | node_1 | pass |  |
+| generated_2 | not_node_1 | pass |  |
+| generated_3 | node_1 | pass |  |
+| generated_3 | not_node_1 | pass |  |
+| generated_4 | node_1 | pass |  |
+| generated_4 | not_node_1 | pass |  |
 

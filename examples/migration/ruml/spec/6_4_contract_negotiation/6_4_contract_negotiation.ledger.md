@@ -23,11 +23,11 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | dp_legal_capacity | data point | encoded | a sentence that the scenarios state | the Vertragsfähigkeit of *a case* is *a truth value* |  |
 | dp_offer_accepted | data point | encoded | a sentence that the scenarios state | the Angebot angenommen of *a case* is *a truth value* |  |
 | dp_negotiation_cancelled | data point | encoded | a sentence that the scenarios state | the Verhandlung abgebrochen of *a case* is *a truth value* |  |
-| node(1) | AND | encoded | AND of 2 children | Vertragsabschluss holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_legal_capacity = true | Vertragsfähigkeit geprüft holds for *a case* |  |
-| node(4) | XOR | approximated | a recursive node: its exits, and an assumption where no exit decides | Verhandlungsrunde holds for *a case* | every round of RUML 1.0 sees the same data, so the twin answers as RUML's evaluator does at its depth limit |
-| node(5) | leaf | encoded | ruml:query dp_offer_accepted = true | Angebot angenommen holds for *a case* |  |
-| node(6) | leaf | encoded | ruml:query dp_negotiation_cancelled = true | Verhandlung abgebrochen holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Vertragsabschluss holds for *a case* | label: Vertragsabschluss |
+| node(2) | leaf | encoded | ruml:query dp_legal_capacity = true | Vertragsfähigkeit geprüft holds for *a case* | label: Vertragsfähigkeit geprüft |
+| node(4) | XOR | approximated | a recursive node: its exits, and an assumption where no exit decides | Verhandlungsrunde holds for *a case* | label: Verhandlungsrunde; every round of RUML 1.0 sees the same data, so the twin answers as RUML's evaluator does at its depth limit |
+| node(5) | leaf | encoded | ruml:query dp_offer_accepted = true | Angebot angenommen holds for *a case* | label: Angebot angenommen |
+| node(6) | leaf | encoded | ruml:query dp_negotiation_cancelled = true | Verhandlung abgebrochen holds for *a case* | label: Verhandlung abgebrochen |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

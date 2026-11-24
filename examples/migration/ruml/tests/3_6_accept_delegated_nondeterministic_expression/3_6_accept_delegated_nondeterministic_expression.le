@@ -18,15 +18,21 @@ the target language is: prolog.
 
 the templates are:
     Stichprobe ausgewählt holds for *a case*.
-    Merkmal 1 holds for *a case*; open textured.
-    Merkmal 2 holds for *a case*; open textured.
-    Merkmal 3 holds for *a case*; open textured.
+    Merkmal 1 holds for *a case*.
+    Merkmal 2 holds for *a case*.
+    Merkmal 3 holds for *a case*.
     child *a number* of Stichprobe ausgewählt counts for *a case*.
     Stichprobe ausgewählt would hold for *a case*; unknown.
     Stichprobe ausgewählt is decided for *a case*.
-    Merkmal 1 is decided for *a case*; scenario element.
-    Merkmal 2 is decided for *a case*; scenario element.
-    Merkmal 3 is decided for *a case*; scenario element.
+    the answer to Merkmal 1 for *a case* is *a truth value*; scenario element.
+    Merkmal 1 would hold for *a case*; unknown.
+    Merkmal 1 is decided for *a case*.
+    the answer to Merkmal 2 for *a case* is *a truth value*; scenario element.
+    Merkmal 2 would hold for *a case*; unknown.
+    Merkmal 2 is decided for *a case*.
+    the answer to Merkmal 3 for *a case* is *a truth value*; scenario element.
+    Merkmal 3 would hold for *a case*; unknown.
+    Merkmal 3 is decided for *a case*.
 
 the knowledge base r3_6_accept_delegated_nondeterministic_expression includes:
 
@@ -50,16 +56,131 @@ child 3 of Stichprobe ausgewählt counts for a case if
 Stichprobe ausgewählt holds for a case if
     Stichprobe ausgewählt would hold for the case.
 
+Merkmal 1 holds for a case if
+    the answer to Merkmal 1 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 1 holds for a case if
+    it is not the case that the answer to Merkmal 1 for the case is a truth value
+    and Merkmal 1 would hold for the case.
+
+Merkmal 1 is decided for a case if
+    the answer to Merkmal 1 for the case is a truth value.
+
+Merkmal 2 holds for a case if
+    the answer to Merkmal 2 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 2 holds for a case if
+    it is not the case that the answer to Merkmal 2 for the case is a truth value
+    and Merkmal 2 would hold for the case.
+
+Merkmal 2 is decided for a case if
+    the answer to Merkmal 2 for the case is a truth value.
+
+Merkmal 3 holds for a case if
+    the answer to Merkmal 3 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 3 holds for a case if
+    it is not the case that the answer to Merkmal 3 for the case is a truth value
+    and Merkmal 3 would hold for the case.
+
+Merkmal 3 is decided for a case if
+    the answer to Merkmal 3 for the case is a truth value.
+
 scenario generated_1 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_1:
     % no data
-    node_1 expects answers ["Stichprobe ausgewählt holds for case 1"] and any unknowns.
-    not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"] and any unknowns.
+    % pending — waits for residue r_6 (node 1):
+    % node_1 expects answers ["Stichprobe ausgewählt holds for case 1"] and any unknowns.
+    % pending — waits for residue r_6 (node 1):
+    % not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"] and any unknowns.
     node_2 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
     not_node_2 expects answers ["it is not the case that Merkmal 1 holds for case 1"] and any unknowns.
     node_3 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
     not_node_3 expects answers ["it is not the case that Merkmal 2 holds for case 1"] and any unknowns.
     node_4 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
     not_node_4 expects answers ["it is not the case that Merkmal 3 holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is true.
+    % pending — waits for residue r_6 (node 1):
+    % node_1 expects answers [].
+    % pending — waits for residue r_6 (node 1):
+    % not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"].
+    node_2 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_3 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_3:
+    % the leaf 2 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is false.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is true.
+    % pending — waits for residue r_6 (node 1):
+    % node_1 expects answers [].
+    % pending — waits for residue r_6 (node 1):
+    % not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Merkmal 1 holds for case 1"].
+    node_3 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_4 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_4:
+    % the leaf 3 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is false.
+    the answer to Merkmal 3 for case 1 is true.
+    % pending — waits for residue r_6 (node 1):
+    % node_1 expects answers ["Stichprobe ausgewählt holds for case 1"] and any unknowns.
+    % pending — waits for residue r_6 (node 1):
+    % not_node_1 expects answers [].
+    node_2 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Merkmal 2 holds for case 1"].
+    node_4 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_5 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_5:
+    % the leaf 4 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is false.
+    % pending — waits for residue r_6 (node 1):
+    % node_1 expects answers [].
+    % pending — waits for residue r_6 (node 1):
+    % not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"].
+    node_2 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Merkmal 3 holds for case 1"].
+
+scenario generated_6 is, as stated in "accept-delegated-nondeterministic-expression.ruml" at generated_6:
+    % every leaf answered no
+    the answer to Merkmal 1 for case 1 is false.
+    the answer to Merkmal 2 for case 1 is false.
+    the answer to Merkmal 3 for case 1 is false.
+    % pending — waits for residue r_6 (node 1):
+    % node_1 expects answers [].
+    % pending — waits for residue r_6 (node 1):
+    % not_node_1 expects answers ["it is not the case that Stichprobe ausgewählt holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Merkmal 1 holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Merkmal 2 holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Merkmal 3 holds for case 1"].
 
 query node_1 is:
     Stichprobe ausgewählt holds for case 1.

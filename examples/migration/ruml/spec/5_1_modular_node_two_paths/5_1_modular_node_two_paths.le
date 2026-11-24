@@ -19,7 +19,9 @@ the target language is: prolog.
 the templates are:
     Kreditvergabe holds for *a case*.
     Alternative Prüfungen holds for *a case*.
-    Bonitätsprüfung holds for *a case*; open textured.
+    Bonitätsprüfung holds for *a case*.
+    the answer to Bonitätsprüfung for *a case* is *a truth value*; scenario element.
+    Bonitätsprüfung would hold for *a case*; unknown.
 
 the knowledge base r5_1_modular_node_two_paths includes:
 
@@ -28,6 +30,14 @@ the text of the_rulemap is at "sources/modular-node-two-paths.ruml".
 Kreditvergabe holds for a case if
     Bonitätsprüfung holds for the case
     and Alternative Prüfungen holds for the case.
+
+Bonitätsprüfung holds for a case if
+    the answer to Bonitätsprüfung for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Bonitätsprüfung holds for a case if
+    it is not the case that the answer to Bonitätsprüfung for the case is a truth value
+    and Bonitätsprüfung would hold for the case.
 
 Alternative Prüfungen holds for a case if
     Bonitätsprüfung holds for the case.
@@ -40,6 +50,36 @@ scenario generated_1 is, as stated in "modular-node-two-paths.ruml" at generated
     not_node_2 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"] and any unknowns.
     node_8 expects answers ["Bonitätsprüfung holds for case 1"] and any unknowns.
     not_node_8 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "modular-node-two-paths.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Bonitätsprüfung for case 1 is true.
+    node_1 expects answers ["Kreditvergabe holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Alternative Prüfungen holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_8 expects answers ["Bonitätsprüfung holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+
+scenario generated_3 is, as stated in "modular-node-two-paths.ruml" at generated_3:
+    % the leaf 8 answered no, the others yes
+    the answer to Bonitätsprüfung for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kreditvergabe holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
+
+scenario generated_4 is, as stated in "modular-node-two-paths.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Bonitätsprüfung for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kreditvergabe holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Alternative Prüfungen holds for case 1"].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Bonitätsprüfung holds for case 1"].
 
 query node_1 is:
     Kreditvergabe holds for case 1.

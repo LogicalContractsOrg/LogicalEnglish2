@@ -1,5 +1,5 @@
 {
-  "counts": {"approximated":5,"encoded":2,"residue":0},
+  "counts": {"approximated":4,"encoded":4,"residue":0},
   "entries": [
     {
       "element":"dp_annual_income",
@@ -35,18 +35,26 @@
     },
     {
       "element":"dp_einkommensteuer",
-      "in_program":"",
+      "in_program":"the Festzusetzende Einkommensteuer of *a case* is *a number*",
       "kind":"data point",
-      "mapping":"declared, and read by no expression: not a sentence of the twin",
-      "note":"kept in the original under sources/",
-      "verdict":"approximated"
+      "mapping":"a sentence that the scenarios state",
+      "note":"unit: EUR",
+      "verdict":"encoded"
+    },
+    {
+      "element":"dp_einkommensteuer",
+      "in_program":"the Festzusetzende Einkommensteuer of *a case*",
+      "kind":"computed data point",
+      "mapping":"a computed data point: (dp_zve - 11604) * 0.14",
+      "note":"",
+      "verdict":"encoded"
     },
     {
       "element":"node(1)",
       "in_program":"Kredit wird gewährt holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Kredit wird gewährt; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
@@ -61,14 +69,18 @@
   "fidelity": {
     "errors":0,
     "failed":0,
-    "passed":6,
+    "passed":10,
     "tests": [
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
       {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
-      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"}
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_5"}
     ]
   },
   "meta": {
@@ -78,5 +90,5 @@
     "translator":"ruml_twin"
   },
   "pending_expectations":0,
-  "source_tests":3
+  "source_tests":5
 }

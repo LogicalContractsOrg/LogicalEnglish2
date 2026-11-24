@@ -18,11 +18,27 @@ the target language is: prolog.
 
 the templates are:
     the Zu versteuerndes Einkommen of *a case* is *a number*; scenario element.
-    Kredit wird gewährt holds for *a case*; open textured.
+    the Festzusetzende Einkommensteuer of *a case* is *a number*.
+    Kredit wird gewährt holds for *a case*.
+    the answer to Kredit wird gewährt for *a case* is *a truth value*; scenario element.
+    Kredit wird gewährt would hold for *a case*; unknown.
 
 the knowledge base r4_7_bindings includes:
 
 the text of the_rulemap is at "sources/bindings.ruml".
+
+the Festzusetzende Einkommensteuer of a case is a number N if
+    the Zu versteuerndes Einkommen of the case is a number M
+    and a thing T = M - 11604
+    and N = T * 0.14.
+
+Kredit wird gewährt holds for a case if
+    the answer to Kredit wird gewährt for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Kredit wird gewährt holds for a case if
+    it is not the case that the answer to Kredit wird gewährt for the case is a truth value
+    and Kredit wird gewährt would hold for the case.
 
 scenario generated_1 is, as stated in "bindings.ruml" at generated_1:
     % every data point its first value
@@ -40,6 +56,20 @@ scenario generated_3 is, as stated in "bindings.ruml" at generated_3:
     the Zu versteuerndes Einkommen of case 1 is 100.
     node_1 expects answers ["Kredit wird gewährt holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Kredit wird gewährt holds for case 1"] and any unknowns.
+
+scenario generated_4 is, as stated in "bindings.ruml" at generated_4:
+    % every leaf answered yes
+    the Zu versteuerndes Einkommen of case 1 is 0.
+    the answer to Kredit wird gewährt for case 1 is true.
+    node_1 expects answers ["Kredit wird gewährt holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_5 is, as stated in "bindings.ruml" at generated_5:
+    % the leaf 1 answered no, the others yes
+    the Zu versteuerndes Einkommen of case 1 is 0.
+    the answer to Kredit wird gewährt for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Kredit wird gewährt holds for case 1"].
 
 query node_1 is:
     Kredit wird gewährt holds for case 1.

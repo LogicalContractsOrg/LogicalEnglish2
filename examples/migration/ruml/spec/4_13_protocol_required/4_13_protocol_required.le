@@ -16,16 +16,44 @@
 the target language is: prolog.
 
 the templates are:
-    Eligibility confirmed holds for *a case*; open textured.
+    Eligibility confirmed holds for *a case*.
+    the answer to Eligibility confirmed for *a case* is *a truth value*; scenario element.
+    Eligibility confirmed would hold for *a case*; unknown.
 
 the knowledge base r4_13_protocol_required includes:
 
 the text of the_rulemap is at "sources/protocol-required.ruml".
 
+Eligibility confirmed holds for a case if
+    the answer to Eligibility confirmed for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Eligibility confirmed holds for a case if
+    it is not the case that the answer to Eligibility confirmed for the case is a truth value
+    and Eligibility confirmed would hold for the case.
+
 scenario generated_1 is, as stated in "protocol-required.ruml" at generated_1:
     % no data
     node_1 expects answers ["Eligibility confirmed holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Eligibility confirmed holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "protocol-required.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Eligibility confirmed for case 1 is true.
+    node_1 expects answers ["Eligibility confirmed holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_3 is, as stated in "protocol-required.ruml" at generated_3:
+    % the leaf 1 answered no, the others yes
+    the answer to Eligibility confirmed for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Eligibility confirmed holds for case 1"].
+
+scenario generated_4 is, as stated in "protocol-required.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Eligibility confirmed for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Eligibility confirmed holds for case 1"].
 
 query node_1 is:
     Eligibility confirmed holds for case 1.

@@ -22,7 +22,7 @@ A source element is **encoded** when a documented mapping rule translated it wit
 |---|---|---|---|---|---|
 | text(text_sgb_ii_11) | text | encoded | a document of the twin (a text carried in the file) | sgb ii 11 | § 11 SGB II – Zu berücksichtigendes Einkommen |
 | dp_annual_income | data point | encoded | a sentence that the scenarios state | the Jahreseinkommen of *a case* is *a number* | unit: EUR; validation: json([required= @(true),min=0]) |
-| node(1) | leaf | encoded | ruml:query dp_annual_income > 50000 | Einkommensprüfung holds for *a case* |  |
+| node(1) | leaf | encoded | ruml:query dp_annual_income > 50000 | Einkommensprüfung holds for *a case* | label: Einkommensprüfung |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 | capability(ruml:actions) | capability | residue | actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed) |  |  |
 

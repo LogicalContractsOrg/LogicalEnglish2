@@ -20,14 +20,24 @@ the target language is: prolog.
 the templates are:
     Approve credit holds for *a case*.
     Income verification holds for *a case*.
-    High income holds for *a case*; open textured.
+    High income holds for *a case*.
     Medium income collateral holds for *a case*.
-    Medium income holds for *a case*; open textured.
-    Collateral available holds for *a case*; open textured.
+    Medium income holds for *a case*.
+    Collateral available holds for *a case*.
     No negative indicators holds for *a case*.
-    Insolvency present holds for *a case*; open textured.
-    Negative schufa entry holds for *a case*; open textured.
+    Insolvency present holds for *a case*.
+    Negative schufa entry holds for *a case*.
     the conditions of No negative indicators are met for *a case*.
+    the answer to High income for *a case* is *a truth value*; scenario element.
+    High income would hold for *a case*; unknown.
+    the answer to Insolvency present for *a case* is *a truth value*; scenario element.
+    Insolvency present would hold for *a case*; unknown.
+    the answer to Negative schufa entry for *a case* is *a truth value*; scenario element.
+    Negative schufa entry would hold for *a case*; unknown.
+    the answer to Medium income for *a case* is *a truth value*; scenario element.
+    Medium income would hold for *a case*; unknown.
+    the answer to Collateral available for *a case* is *a truth value*; scenario element.
+    Collateral available would hold for *a case*; unknown.
 
 the knowledge base r3_7_credit_approval includes:
 
@@ -50,9 +60,49 @@ the conditions of No negative indicators are met for a case if
 No negative indicators holds for a case if
     it is not the case that the conditions of No negative indicators are met for the case.
 
+High income holds for a case if
+    the answer to High income for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+High income holds for a case if
+    it is not the case that the answer to High income for the case is a truth value
+    and High income would hold for the case.
+
 Medium income collateral holds for a case if
     Medium income holds for the case
     and Collateral available holds for the case.
+
+Insolvency present holds for a case if
+    the answer to Insolvency present for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Insolvency present holds for a case if
+    it is not the case that the answer to Insolvency present for the case is a truth value
+    and Insolvency present would hold for the case.
+
+Negative schufa entry holds for a case if
+    the answer to Negative schufa entry for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Negative schufa entry holds for a case if
+    it is not the case that the answer to Negative schufa entry for the case is a truth value
+    and Negative schufa entry would hold for the case.
+
+Medium income holds for a case if
+    the answer to Medium income for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Medium income holds for a case if
+    it is not the case that the answer to Medium income for the case is a truth value
+    and Medium income would hold for the case.
+
+Collateral available holds for a case if
+    the answer to Collateral available for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Collateral available holds for a case if
+    it is not the case that the answer to Collateral available for the case is a truth value
+    and Collateral available would hold for the case.
 
 scenario generated_1 is, as stated in "credit-approval.ruml" at generated_1:
     % no data
@@ -74,6 +124,188 @@ scenario generated_1 is, as stated in "credit-approval.ruml" at generated_1:
     not_node_8 expects answers ["it is not the case that Insolvency present holds for case 1"] and any unknowns.
     node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
     not_node_9 expects answers ["it is not the case that Negative schufa entry holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "credit-approval.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to High income for case 1 is true.
+    the answer to Medium income for case 1 is true.
+    the answer to Collateral available for case 1 is true.
+    the answer to Insolvency present for case 1 is true.
+    the answer to Negative schufa entry for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Approve credit holds for case 1"].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["High income holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Medium income collateral holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Medium income holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Collateral available holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that No negative indicators holds for case 1"].
+    node_8 expects answers ["Insolvency present holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_3 is, as stated in "credit-approval.ruml" at generated_3:
+    % the leaf 3 answered no, the others yes
+    the answer to High income for case 1 is false.
+    the answer to Medium income for case 1 is true.
+    the answer to Collateral available for case 1 is true.
+    the answer to Insolvency present for case 1 is true.
+    the answer to Negative schufa entry for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Approve credit holds for case 1"].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that High income holds for case 1"].
+    node_4 expects answers ["Medium income collateral holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Medium income holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Collateral available holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that No negative indicators holds for case 1"].
+    node_8 expects answers ["Insolvency present holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_4 is, as stated in "credit-approval.ruml" at generated_4:
+    % the leaf 5 answered no, the others yes
+    the answer to High income for case 1 is true.
+    the answer to Medium income for case 1 is false.
+    the answer to Collateral available for case 1 is true.
+    the answer to Insolvency present for case 1 is true.
+    the answer to Negative schufa entry for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Approve credit holds for case 1"].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["High income holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Medium income collateral holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Medium income holds for case 1"].
+    node_6 expects answers ["Collateral available holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that No negative indicators holds for case 1"].
+    node_8 expects answers ["Insolvency present holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_5 is, as stated in "credit-approval.ruml" at generated_5:
+    % the leaf 6 answered no, the others yes
+    the answer to High income for case 1 is true.
+    the answer to Medium income for case 1 is true.
+    the answer to Collateral available for case 1 is false.
+    the answer to Insolvency present for case 1 is true.
+    the answer to Negative schufa entry for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Approve credit holds for case 1"].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["High income holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Medium income collateral holds for case 1"].
+    node_5 expects answers ["Medium income holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Collateral available holds for case 1"].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that No negative indicators holds for case 1"].
+    node_8 expects answers ["Insolvency present holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_6 is, as stated in "credit-approval.ruml" at generated_6:
+    % the leaf 8 answered no, the others yes
+    the answer to High income for case 1 is true.
+    the answer to Medium income for case 1 is true.
+    the answer to Collateral available for case 1 is true.
+    the answer to Insolvency present for case 1 is false.
+    the answer to Negative schufa entry for case 1 is true.
+    node_1 expects answers ["Approve credit holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["High income holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Medium income collateral holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Medium income holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Collateral available holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers ["No negative indicators holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Insolvency present holds for case 1"].
+    node_9 expects answers ["Negative schufa entry holds for case 1"] and any unknowns.
+    not_node_9 expects answers [].
+
+scenario generated_7 is, as stated in "credit-approval.ruml" at generated_7:
+    % the leaf 9 answered no, the others yes
+    the answer to High income for case 1 is true.
+    the answer to Medium income for case 1 is true.
+    the answer to Collateral available for case 1 is true.
+    the answer to Insolvency present for case 1 is true.
+    the answer to Negative schufa entry for case 1 is false.
+    node_1 expects answers ["Approve credit holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Income verification holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["High income holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Medium income collateral holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Medium income holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Collateral available holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers ["No negative indicators holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+    node_8 expects answers ["Insolvency present holds for case 1"] and any unknowns.
+    not_node_8 expects answers [].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Negative schufa entry holds for case 1"].
+
+scenario generated_8 is, as stated in "credit-approval.ruml" at generated_8:
+    % every leaf answered no
+    the answer to High income for case 1 is false.
+    the answer to Medium income for case 1 is false.
+    the answer to Collateral available for case 1 is false.
+    the answer to Insolvency present for case 1 is false.
+    the answer to Negative schufa entry for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Approve credit holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Income verification holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that High income holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Medium income collateral holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Medium income holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Collateral available holds for case 1"].
+    node_7 expects answers ["No negative indicators holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+    node_8 expects answers [].
+    not_node_8 expects answers ["it is not the case that Insolvency present holds for case 1"].
+    node_9 expects answers [].
+    not_node_9 expects answers ["it is not the case that Negative schufa entry holds for case 1"].
 
 query node_1 is:
     Approve credit holds for case 1.

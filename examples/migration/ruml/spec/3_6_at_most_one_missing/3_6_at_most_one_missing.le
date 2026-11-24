@@ -17,15 +17,21 @@ the target language is: prolog.
 
 the templates are:
     Höchstens eine Voraussetzung fehlt holds for *a case*.
-    Voraussetzung 1 holds for *a case*; open textured.
-    Voraussetzung 2 holds for *a case*; open textured.
-    Voraussetzung 3 holds for *a case*; open textured.
+    Voraussetzung 1 holds for *a case*.
+    Voraussetzung 2 holds for *a case*.
+    Voraussetzung 3 holds for *a case*.
     child *a number* of Höchstens eine Voraussetzung fehlt counts for *a case*.
     Höchstens eine Voraussetzung fehlt is decided for *a case*.
     Höchstens eine Voraussetzung fehlt would hold for *a case*; unknown.
-    Voraussetzung 1 is decided for *a case*; scenario element.
-    Voraussetzung 2 is decided for *a case*; scenario element.
-    Voraussetzung 3 is decided for *a case*; scenario element.
+    Voraussetzung 1 is decided for *a case*.
+    Voraussetzung 2 is decided for *a case*.
+    Voraussetzung 3 is decided for *a case*.
+    the answer to Voraussetzung 1 for *a case* is *a truth value*; scenario element.
+    Voraussetzung 1 would hold for *a case*; unknown.
+    the answer to Voraussetzung 2 for *a case* is *a truth value*; scenario element.
+    Voraussetzung 2 would hold for *a case*; unknown.
+    the answer to Voraussetzung 3 for *a case* is *a truth value*; scenario element.
+    Voraussetzung 3 would hold for *a case*; unknown.
 
 the knowledge base r3_6_at_most_one_missing includes:
 
@@ -56,6 +62,39 @@ Höchstens eine Voraussetzung fehlt is decided for a case if
     and Voraussetzung 2 is decided for the case
     and Voraussetzung 3 is decided for the case.
 
+Voraussetzung 1 holds for a case if
+    the answer to Voraussetzung 1 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Voraussetzung 1 holds for a case if
+    it is not the case that the answer to Voraussetzung 1 for the case is a truth value
+    and Voraussetzung 1 would hold for the case.
+
+Voraussetzung 1 is decided for a case if
+    the answer to Voraussetzung 1 for the case is a truth value.
+
+Voraussetzung 2 holds for a case if
+    the answer to Voraussetzung 2 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Voraussetzung 2 holds for a case if
+    it is not the case that the answer to Voraussetzung 2 for the case is a truth value
+    and Voraussetzung 2 would hold for the case.
+
+Voraussetzung 2 is decided for a case if
+    the answer to Voraussetzung 2 for the case is a truth value.
+
+Voraussetzung 3 holds for a case if
+    the answer to Voraussetzung 3 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Voraussetzung 3 holds for a case if
+    it is not the case that the answer to Voraussetzung 3 for the case is a truth value
+    and Voraussetzung 3 would hold for the case.
+
+Voraussetzung 3 is decided for a case if
+    the answer to Voraussetzung 3 for the case is a truth value.
+
 scenario generated_1 is, as stated in "at-most-one-missing.ruml" at generated_1:
     % no data
     node_1 expects answers ["Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
@@ -66,6 +105,76 @@ scenario generated_1 is, as stated in "at-most-one-missing.ruml" at generated_1:
     not_node_3 expects answers ["it is not the case that Voraussetzung 2 holds for case 1"] and any unknowns.
     node_4 expects answers ["Voraussetzung 3 holds for case 1"] and any unknowns.
     not_node_4 expects answers ["it is not the case that Voraussetzung 3 holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "at-most-one-missing.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Voraussetzung 1 for case 1 is true.
+    the answer to Voraussetzung 2 for case 1 is true.
+    the answer to Voraussetzung 3 for case 1 is true.
+    node_1 expects answers ["Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Voraussetzung 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Voraussetzung 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Voraussetzung 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_3 is, as stated in "at-most-one-missing.ruml" at generated_3:
+    % the leaf 2 answered no, the others yes
+    the answer to Voraussetzung 1 for case 1 is false.
+    the answer to Voraussetzung 2 for case 1 is true.
+    the answer to Voraussetzung 3 for case 1 is true.
+    node_1 expects answers ["Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Voraussetzung 1 holds for case 1"].
+    node_3 expects answers ["Voraussetzung 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Voraussetzung 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_4 is, as stated in "at-most-one-missing.ruml" at generated_4:
+    % the leaf 3 answered no, the others yes
+    the answer to Voraussetzung 1 for case 1 is true.
+    the answer to Voraussetzung 2 for case 1 is false.
+    the answer to Voraussetzung 3 for case 1 is true.
+    node_1 expects answers ["Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Voraussetzung 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Voraussetzung 2 holds for case 1"].
+    node_4 expects answers ["Voraussetzung 3 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_5 is, as stated in "at-most-one-missing.ruml" at generated_5:
+    % the leaf 4 answered no, the others yes
+    the answer to Voraussetzung 1 for case 1 is true.
+    the answer to Voraussetzung 2 for case 1 is true.
+    the answer to Voraussetzung 3 for case 1 is false.
+    node_1 expects answers ["Höchstens eine Voraussetzung fehlt holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Voraussetzung 1 holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Voraussetzung 2 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Voraussetzung 3 holds for case 1"].
+
+scenario generated_6 is, as stated in "at-most-one-missing.ruml" at generated_6:
+    % every leaf answered no
+    the answer to Voraussetzung 1 for case 1 is false.
+    the answer to Voraussetzung 2 for case 1 is false.
+    the answer to Voraussetzung 3 for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Höchstens eine Voraussetzung fehlt holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Voraussetzung 1 holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Voraussetzung 2 holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Voraussetzung 3 holds for case 1"].
 
 query node_1 is:
     Höchstens eine Voraussetzung fehlt holds for case 1.

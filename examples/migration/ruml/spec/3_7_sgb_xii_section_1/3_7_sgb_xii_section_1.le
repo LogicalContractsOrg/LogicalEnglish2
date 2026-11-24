@@ -20,8 +20,12 @@ the target language is: prolog.
 
 the templates are:
     Aufgabe der Sozialhilfe holds for *a case*.
-    Beneficiary works towards independence as far as possible holds for *a case*; open textured.
-    Beneficiary cooperates with the social assistance agency holds for *a case*; open textured.
+    Beneficiary works towards independence as far as possible holds for *a case*.
+    Beneficiary cooperates with the social assistance agency holds for *a case*.
+    the answer to Beneficiary works towards independence as far as possible for *a case* is *a truth value*; scenario element.
+    Beneficiary works towards independence as far as possible would hold for *a case*; unknown.
+    the answer to Beneficiary cooperates with the social assistance agency for *a case* is *a truth value*; scenario element.
+    Beneficiary cooperates with the social assistance agency would hold for *a case*; unknown.
 
 the knowledge base r3_7_sgb_xii_section_1 includes:
 
@@ -34,6 +38,24 @@ Aufgabe der Sozialhilfe holds for a case if
     Beneficiary works towards independence as far as possible holds for the case
     and Beneficiary cooperates with the social assistance agency holds for the case.
 
+rule node_2 with provenance main at art-z1_abs-z_inhalt-n1_text-n1_marker-n2:
+Beneficiary works towards independence as far as possible holds for a case if
+    the answer to Beneficiary works towards independence as far as possible for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Beneficiary works towards independence as far as possible holds for a case if
+    it is not the case that the answer to Beneficiary works towards independence as far as possible for the case is a truth value
+    and Beneficiary works towards independence as far as possible would hold for the case.
+
+rule node_3 with provenance main at art-z1_abs-z_inhalt-n1_text-n1_marker-n3:
+Beneficiary cooperates with the social assistance agency holds for a case if
+    the answer to Beneficiary cooperates with the social assistance agency for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Beneficiary cooperates with the social assistance agency holds for a case if
+    it is not the case that the answer to Beneficiary cooperates with the social assistance agency for the case is a truth value
+    and Beneficiary cooperates with the social assistance agency would hold for the case.
+
 scenario generated_1 is, as stated in "sgb-xii-section-1.ruml" at generated_1:
     % no data
     node_1 expects answers ["Aufgabe der Sozialhilfe holds for case 1"] and any unknowns.
@@ -42,6 +64,50 @@ scenario generated_1 is, as stated in "sgb-xii-section-1.ruml" at generated_1:
     not_node_2 expects answers ["it is not the case that Beneficiary works towards independence as far as possible holds for case 1"] and any unknowns.
     node_3 expects answers ["Beneficiary cooperates with the social assistance agency holds for case 1"] and any unknowns.
     not_node_3 expects answers ["it is not the case that Beneficiary cooperates with the social assistance agency holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "sgb-xii-section-1.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Beneficiary works towards independence as far as possible for case 1 is true.
+    the answer to Beneficiary cooperates with the social assistance agency for case 1 is true.
+    node_1 expects answers ["Aufgabe der Sozialhilfe holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Beneficiary works towards independence as far as possible holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Beneficiary cooperates with the social assistance agency holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_3 is, as stated in "sgb-xii-section-1.ruml" at generated_3:
+    % the leaf 2 answered no, the others yes
+    the answer to Beneficiary works towards independence as far as possible for case 1 is false.
+    the answer to Beneficiary cooperates with the social assistance agency for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Aufgabe der Sozialhilfe holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Beneficiary works towards independence as far as possible holds for case 1"].
+    node_3 expects answers ["Beneficiary cooperates with the social assistance agency holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+
+scenario generated_4 is, as stated in "sgb-xii-section-1.ruml" at generated_4:
+    % the leaf 3 answered no, the others yes
+    the answer to Beneficiary works towards independence as far as possible for case 1 is true.
+    the answer to Beneficiary cooperates with the social assistance agency for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Aufgabe der Sozialhilfe holds for case 1"].
+    node_2 expects answers ["Beneficiary works towards independence as far as possible holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Beneficiary cooperates with the social assistance agency holds for case 1"].
+
+scenario generated_5 is, as stated in "sgb-xii-section-1.ruml" at generated_5:
+    % every leaf answered no
+    the answer to Beneficiary works towards independence as far as possible for case 1 is false.
+    the answer to Beneficiary cooperates with the social assistance agency for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Aufgabe der Sozialhilfe holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Beneficiary works towards independence as far as possible holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Beneficiary cooperates with the social assistance agency holds for case 1"].
 
 query node_1 is:
     Aufgabe der Sozialhilfe holds for case 1.

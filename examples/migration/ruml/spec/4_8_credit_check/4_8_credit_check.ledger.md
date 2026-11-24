@@ -23,9 +23,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | text(text_bgb_488) | text | encoded | a document of the twin (a text carried in the file) | bgb 488 | § 488 BGB – Darlehensvertrag |
 | dp_annual_income | data point | encoded | a sentence that the scenarios state | the Jahreseinkommen of *a case* is *a number* | unit: EUR; validation: json([required= @(true),min=0]) |
 | dp_credit_score | data point | encoded | a sentence that the scenarios state | the Bonitätsscore of *a case* is *a number* |  |
-| node(1) | AND | encoded | AND of 2 children | Kreditprüfung holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_annual_income > 50000 | Einkommen ausreichend holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query dp_credit_score >= 600 | Bonität ausreichend holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Kreditprüfung holds for *a case* | label: Kreditprüfung |
+| node(2) | leaf | encoded | ruml:query dp_annual_income > 50000 | Einkommen ausreichend holds for *a case* | label: Einkommen ausreichend |
+| node(3) | leaf | encoded | ruml:query dp_credit_score >= 600 | Bonität ausreichend holds for *a case* | label: Bonität ausreichend |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

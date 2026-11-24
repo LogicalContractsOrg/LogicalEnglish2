@@ -18,19 +18,29 @@ the target language is: prolog.
 the templates are:
     Anspruch besteht holds for *a case*.
     Mindestens drei Merkmale erfüllt holds for *a case*.
-    Merkmal 1 holds for *a case*; open textured.
-    Merkmal 2 holds for *a case*; open textured.
-    Merkmal 3 holds for *a case*; open textured.
-    Merkmal 4 holds for *a case*; open textured.
-    Merkmal 5 holds for *a case*; open textured.
+    Merkmal 1 holds for *a case*.
+    Merkmal 2 holds for *a case*.
+    Merkmal 3 holds for *a case*.
+    Merkmal 4 holds for *a case*.
+    Merkmal 5 holds for *a case*.
     child *a number* of Mindestens drei Merkmale erfüllt counts for *a case*.
     Mindestens drei Merkmale erfüllt is decided for *a case*.
     Mindestens drei Merkmale erfüllt would hold for *a case*; unknown.
-    Merkmal 1 is decided for *a case*; scenario element.
-    Merkmal 2 is decided for *a case*; scenario element.
-    Merkmal 3 is decided for *a case*; scenario element.
-    Merkmal 4 is decided for *a case*; scenario element.
-    Merkmal 5 is decided for *a case*; scenario element.
+    Merkmal 1 is decided for *a case*.
+    Merkmal 2 is decided for *a case*.
+    Merkmal 3 is decided for *a case*.
+    Merkmal 4 is decided for *a case*.
+    Merkmal 5 is decided for *a case*.
+    the answer to Merkmal 1 for *a case* is *a truth value*; scenario element.
+    Merkmal 1 would hold for *a case*; unknown.
+    the answer to Merkmal 2 for *a case* is *a truth value*; scenario element.
+    Merkmal 2 would hold for *a case*; unknown.
+    the answer to Merkmal 3 for *a case* is *a truth value*; scenario element.
+    Merkmal 3 would hold for *a case*; unknown.
+    the answer to Merkmal 4 for *a case* is *a truth value*; scenario element.
+    Merkmal 4 would hold for *a case*; unknown.
+    the answer to Merkmal 5 for *a case* is *a truth value*; scenario element.
+    Merkmal 5 would hold for *a case*; unknown.
 
 the knowledge base r4_14_at_least_three_features includes:
 
@@ -72,6 +82,61 @@ Mindestens drei Merkmale erfüllt is decided for a case if
     and Merkmal 4 is decided for the case
     and Merkmal 5 is decided for the case.
 
+Merkmal 1 holds for a case if
+    the answer to Merkmal 1 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 1 holds for a case if
+    it is not the case that the answer to Merkmal 1 for the case is a truth value
+    and Merkmal 1 would hold for the case.
+
+Merkmal 1 is decided for a case if
+    the answer to Merkmal 1 for the case is a truth value.
+
+Merkmal 2 holds for a case if
+    the answer to Merkmal 2 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 2 holds for a case if
+    it is not the case that the answer to Merkmal 2 for the case is a truth value
+    and Merkmal 2 would hold for the case.
+
+Merkmal 2 is decided for a case if
+    the answer to Merkmal 2 for the case is a truth value.
+
+Merkmal 3 holds for a case if
+    the answer to Merkmal 3 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 3 holds for a case if
+    it is not the case that the answer to Merkmal 3 for the case is a truth value
+    and Merkmal 3 would hold for the case.
+
+Merkmal 3 is decided for a case if
+    the answer to Merkmal 3 for the case is a truth value.
+
+Merkmal 4 holds for a case if
+    the answer to Merkmal 4 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 4 holds for a case if
+    it is not the case that the answer to Merkmal 4 for the case is a truth value
+    and Merkmal 4 would hold for the case.
+
+Merkmal 4 is decided for a case if
+    the answer to Merkmal 4 for the case is a truth value.
+
+Merkmal 5 holds for a case if
+    the answer to Merkmal 5 for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Merkmal 5 holds for a case if
+    it is not the case that the answer to Merkmal 5 for the case is a truth value
+    and Merkmal 5 would hold for the case.
+
+Merkmal 5 is decided for a case if
+    the answer to Merkmal 5 for the case is a truth value.
+
 scenario generated_1 is, as stated in "at-least-three-features.ruml" at generated_1:
     % no data
     node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
@@ -88,6 +153,160 @@ scenario generated_1 is, as stated in "at-least-three-features.ruml" at generate
     not_node_6 expects answers ["it is not the case that Merkmal 4 holds for case 1"] and any unknowns.
     node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
     not_node_7 expects answers ["it is not the case that Merkmal 5 holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "at-least-three-features.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is true.
+    the answer to Merkmal 4 for case 1 is true.
+    the answer to Merkmal 5 for case 1 is true.
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Merkmal 4 holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_3 is, as stated in "at-least-three-features.ruml" at generated_3:
+    % the leaf 3 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is false.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is true.
+    the answer to Merkmal 4 for case 1 is true.
+    the answer to Merkmal 5 for case 1 is true.
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Merkmal 1 holds for case 1"].
+    node_4 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Merkmal 4 holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_4 is, as stated in "at-least-three-features.ruml" at generated_4:
+    % the leaf 4 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is false.
+    the answer to Merkmal 3 for case 1 is true.
+    the answer to Merkmal 4 for case 1 is true.
+    the answer to Merkmal 5 for case 1 is true.
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Merkmal 2 holds for case 1"].
+    node_5 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Merkmal 4 holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_5 is, as stated in "at-least-three-features.ruml" at generated_5:
+    % the leaf 5 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is false.
+    the answer to Merkmal 4 for case 1 is true.
+    the answer to Merkmal 5 for case 1 is true.
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Merkmal 3 holds for case 1"].
+    node_6 expects answers ["Merkmal 4 holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_6 is, as stated in "at-least-three-features.ruml" at generated_6:
+    % the leaf 6 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is true.
+    the answer to Merkmal 4 for case 1 is false.
+    the answer to Merkmal 5 for case 1 is true.
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Merkmal 4 holds for case 1"].
+    node_7 expects answers ["Merkmal 5 holds for case 1"] and any unknowns.
+    not_node_7 expects answers [].
+
+scenario generated_7 is, as stated in "at-least-three-features.ruml" at generated_7:
+    % the leaf 7 answered no, the others yes
+    the answer to Merkmal 1 for case 1 is true.
+    the answer to Merkmal 2 for case 1 is true.
+    the answer to Merkmal 3 for case 1 is true.
+    the answer to Merkmal 4 for case 1 is true.
+    the answer to Merkmal 5 for case 1 is false.
+    node_1 expects answers ["Anspruch besteht holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Mindestens drei Merkmale erfüllt holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Merkmal 1 holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_4 expects answers ["Merkmal 2 holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+    node_5 expects answers ["Merkmal 3 holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Merkmal 4 holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Merkmal 5 holds for case 1"].
+
+scenario generated_8 is, as stated in "at-least-three-features.ruml" at generated_8:
+    % every leaf answered no
+    the answer to Merkmal 1 for case 1 is false.
+    the answer to Merkmal 2 for case 1 is false.
+    the answer to Merkmal 3 for case 1 is false.
+    the answer to Merkmal 4 for case 1 is false.
+    the answer to Merkmal 5 for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Anspruch besteht holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Mindestens drei Merkmale erfüllt holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Merkmal 1 holds for case 1"].
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Merkmal 2 holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Merkmal 3 holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Merkmal 4 holds for case 1"].
+    node_7 expects answers [].
+    not_node_7 expects answers ["it is not the case that Merkmal 5 holds for case 1"].
 
 query node_1 is:
     Anspruch besteht holds for case 1.

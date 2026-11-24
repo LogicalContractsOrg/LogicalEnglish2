@@ -6,15 +6,15 @@
       "in_program":"Kreditvergabe holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 2 children",
-      "note":"",
+      "note":"label: Kreditvergabe",
       "verdict":"encoded"
     },
     {
       "element":"node(8)",
       "in_program":"Bonitätsprüfung holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Bonitätsprüfung; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
@@ -22,7 +22,7 @@
       "in_program":"Alternative Prüfungen holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 1 children",
-      "note":"",
+      "note":"label: Alternative Prüfungen",
       "verdict":"encoded"
     },
     {
@@ -37,14 +37,32 @@
   "fidelity": {
     "errors":0,
     "failed":0,
-    "passed":6,
+    "passed":24,
     "tests": [
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"node_2","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"node_8","result":"pass","scenario":"generated_1"},
-      {"detail":"","query":"not_node_8","result":"pass","scenario":"generated_1"}
+      {"detail":"","query":"not_node_8","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_8","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_8","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_8","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_8","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_8","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_8","result":"pass","scenario":"generated_4"}
     ]
   },
   "meta": {
@@ -54,5 +72,5 @@
     "translator":"ruml_twin"
   },
   "pending_expectations":0,
-  "source_tests":1
+  "source_tests":4
 }

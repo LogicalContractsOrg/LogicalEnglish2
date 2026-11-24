@@ -24,13 +24,13 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | dp_income | data point | encoded | a sentence that the scenarios state | the Einkommen of *a case* is *a number* |  |
 | dp_schufa | data point | encoded | a sentence that the scenarios state | the Schufa Score of *a case* is *a number* |  |
 | dp_guarantor | data point | encoded | a sentence that the scenarios state | the Bürgschaft vorhanden of *a case* is *a truth value* |  |
-| node(1) | AND | encoded | AND of 3 children | Hauptprüfung holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Antragsteller volljährig holds for *a case* |  |
-| node(8) | AND | encoded | AND of 2 children | Standardprüfung Bonität holds for *a case* |  |
-| node(10) | OR | encoded | OR of 2 children | Alternative Prüfungen holds for *a case* |  |
-| node(9) | leaf | encoded | ruml:query dp_income > 30000 | Einkommensprüfung holds for *a case* |  |
-| node(11) | leaf | encoded | ruml:query dp_schufa >= 600 | Schufa Score holds for *a case* |  |
-| node(12) | leaf | encoded | ruml:query dp_guarantor = true | Bürgschaft vorhanden holds for *a case* |  |
+| node(1) | AND | encoded | AND of 3 children | Hauptprüfung holds for *a case* | label: Hauptprüfung |
+| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Antragsteller volljährig holds for *a case* | label: Antragsteller volljährig |
+| node(8) | AND | encoded | AND of 2 children | Standardprüfung Bonität holds for *a case* | label: Standardprüfung Bonität |
+| node(10) | OR | encoded | OR of 2 children | Alternative Prüfungen holds for *a case* | label: Alternative Prüfungen |
+| node(9) | leaf | encoded | ruml:query dp_income > 30000 | Einkommensprüfung holds for *a case* | label: Einkommensprüfung |
+| node(11) | leaf | encoded | ruml:query dp_schufa >= 600 | Schufa Score holds for *a case* | label: Schufa-Score |
+| node(12) | leaf | encoded | ruml:query dp_guarantor = true | Bürgschaft vorhanden holds for *a case* | label: Bürgschaft vorhanden |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

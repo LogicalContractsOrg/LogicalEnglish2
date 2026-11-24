@@ -24,12 +24,12 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | dp_eigenanteil | data point | encoded | a sentence that the scenarios state | the Monatlicher Eigenanteil of *a case* is *a number* | unit: EUR |
 | dp_alleinlebend | data point | encoded | a sentence that the scenarios state | the Alleinlebend of *a case* is *a truth value* |  |
 | dp_wohnsitz | data point | encoded | a sentence that the scenarios state | the Wohnsitz im Land of *a case* is *a truth value* |  |
-| node(1) | AND | encoded | AND of 2 children | Härtefallleistung holds for *a case* |  |
-| node(2) | DELEGATED | encoded | DELEGATED: $count($children[status = "true"]) >= 2 | Härtefall liegt vor holds for *a case* | exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4) |
-| node(7) | leaf | encoded | ruml:query dp_wohnsitz = true | Wohnsitz im Land holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query dp_pflegegrad >= 3 | Pflegegrad mindestens 3 holds for *a case* |  |
-| node(4) | leaf | encoded | ruml:query dp_eigenanteil > 800 | Eigenanteil über 800 eur holds for *a case* |  |
-| node(5) | leaf | encoded | ruml:query dp_alleinlebend = true | Alleinlebend holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Härtefallleistung holds for *a case* | label: Härtefallleistung |
+| node(2) | DELEGATED | encoded | DELEGATED: $count($children[status = "true"]) >= 2 | Härtefall liegt vor holds for *a case* | label: Härtefall liegt vor; exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4) |
+| node(7) | leaf | encoded | ruml:query dp_wohnsitz = true | Wohnsitz im Land holds for *a case* | label: Wohnsitz im Land |
+| node(3) | leaf | encoded | ruml:query dp_pflegegrad >= 3 | Pflegegrad mindestens 3 holds for *a case* | label: Pflegegrad mindestens 3 |
+| node(4) | leaf | encoded | ruml:query dp_eigenanteil > 800 | Eigenanteil über 800 eur holds for *a case* | label: Eigenanteil über 800 EUR |
+| node(5) | leaf | encoded | ruml:query dp_alleinlebend = true | Alleinlebend holds for *a case* | label: Alleinlebend |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

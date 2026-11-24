@@ -36,6 +36,7 @@ Volljährigkeit holds for a case if
     the Alter of the case is a number N
     and N >= 18.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Volljährigkeit holds for a case if
     it is not the case that the Alter of the case is a number
     and Volljährigkeit would hold for the case.
@@ -97,7 +98,7 @@ scenario generated_5 is, as stated in "pruefung-volljaehrigkeit.ruml" at generat
     not_node_3 expects answers ["it is not the case that Keine Entmündigung holds for case 1"].
 
 scenario generated_6 is, as stated in "pruefung-volljaehrigkeit.ruml" at generated_6:
-    % dp_competent is @(false)
+    % dp_competent is false
     the Alter of case 1 is 18.
     the Geschäftsfähig of case 1 is false.
     node_1 expects answers [].

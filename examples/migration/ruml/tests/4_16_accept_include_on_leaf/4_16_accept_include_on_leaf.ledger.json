@@ -6,7 +6,7 @@
       "in_program":"https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/9c4f2a7e-1b3d-4e6f-8a0b-2c4d6e8f0a1b",
       "kind":"tree reference",
       "mapping":"a reference to a node of another rulemap, kept in the ledger",
-      "note":"not evaluated, as in RUML",
+      "note":"label: Stammkapital mind. 25.000 €; not evaluated, as in RUML",
       "verdict":"encoded"
     },
     {
@@ -14,7 +14,7 @@
       "in_program":"Gesellschaft wirksam gegründet holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 3 children",
-      "note":"",
+      "note":"label: Gesellschaft wirksam gegründet",
       "verdict":"encoded"
     },
     {
@@ -22,7 +22,7 @@
       "in_program":"Gesellschaftsvertrag notariell beurkundet holds for *a case*",
       "kind":"leaf",
       "mapping":"ruml:tree-include of https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/6e51c5a6-f7ff-43e1-b211-c70bd69937d7: not available here, so the leaf is undefined, as the specification asks (§4.16)",
-      "note":"",
+      "note":"label: Gesellschaftsvertrag notariell beurkundet",
       "verdict":"encoded"
     },
     {
@@ -30,15 +30,15 @@
       "in_program":"Stammkapital mind 25000 € holds for *a case*",
       "kind":"leaf",
       "mapping":"ruml:tree-include of https://rulemapping.org/rulemapping/gmbhg:2025-01-01#node/7791005b-3d30-455b-a538-6d96f04680d9: not available here, so the leaf is undefined, as the specification asks (§4.16)",
-      "note":"",
+      "note":"label: Stammkapital mind. 25.000 €",
       "verdict":"encoded"
     },
     {
       "element":"node(4)",
       "in_program":"Eintragung ins Handelsregister holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Eintragung ins Handelsregister; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
@@ -53,7 +53,7 @@
   "fidelity": {
     "errors":0,
     "failed":0,
-    "passed":8,
+    "passed":32,
     "tests": [
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
@@ -62,7 +62,31 @@
       {"detail":"","query":"node_3","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"node_4","result":"pass","scenario":"generated_1"},
-      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"}
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_3","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_4"}
     ]
   },
   "meta": {
@@ -72,5 +96,5 @@
     "translator":"ruml_twin"
   },
   "pending_expectations":0,
-  "source_tests":1
+  "source_tests":4
 }

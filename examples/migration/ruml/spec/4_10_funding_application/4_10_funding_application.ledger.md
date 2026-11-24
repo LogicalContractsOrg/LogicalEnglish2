@@ -23,9 +23,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | dp_annual_income | data point | encoded | a sentence that the scenarios state | the Jahreseinkommen of *a case* is *a number* | unit: EUR |
 | dp_applicant_email | data point | approximated | declared, and read by no expression: not a sentence of the twin |  | kept in the original under sources/ |
 | dp_documents_complete | data point | encoded | a sentence that the scenarios state | the Unterlagen vollständig of *a case* is *a truth value* |  |
-| node(1) | AND | encoded | AND of 2 children | Förderantrag holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_annual_income < 50000 | Einkommensgrenze holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query dp_documents_complete = true | Dokumentenprüfung holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Förderantrag holds for *a case* | label: Förderantrag |
+| node(2) | leaf | encoded | ruml:query dp_annual_income < 50000 | Einkommensgrenze holds for *a case* | label: Einkommensgrenze |
+| node(3) | leaf | encoded | ruml:query dp_documents_complete = true | Dokumentenprüfung holds for *a case* | label: Dokumentenprüfung |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 | capability(ruml:actions) | capability | residue | actions: a reaction, not a rule; the LPS companion is step 7 of the plan (delayed) |  |  |
 

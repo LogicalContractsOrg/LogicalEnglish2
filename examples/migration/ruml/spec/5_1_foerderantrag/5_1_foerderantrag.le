@@ -43,6 +43,7 @@ Antragsteller volljährig holds for a case if
     the Alter des Antragstellers of the case is a number N
     and N >= 18.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Antragsteller volljährig holds for a case if
     it is not the case that the Alter des Antragstellers of the case is a number
     and Antragsteller volljährig would hold for the case.
@@ -60,6 +61,7 @@ Einkommen unter Grenze holds for a case if
     the Jahreseinkommen of the case is a number N
     and N <= 40000.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Einkommen unter Grenze holds for a case if
     it is not the case that the Jahreseinkommen of the case is a number
     and Einkommen unter Grenze would hold for the case.
@@ -217,7 +219,7 @@ scenario generated_8 is, as stated in "foerderantrag.ruml" at generated_8:
     not_node_6 expects answers [].
 
 scenario generated_9 is, as stated in "foerderantrag.ruml" at generated_9:
-    % dp_hardship is @(false)
+    % dp_hardship is false
     the Alter des Antragstellers of case 1 is 18.
     the Jahreseinkommen of case 1 is 40000.
     the Härtefall anerkannt of case 1 is false.

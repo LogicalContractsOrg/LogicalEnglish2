@@ -17,16 +17,44 @@
 the target language is: prolog.
 
 the templates are:
-    Articles of association notarised holds for *a case*; open textured.
+    Articles of association notarised holds for *a case*.
+    the answer to Articles of association notarised for *a case* is *a truth value*; scenario element.
+    Articles of association notarised would hold for *a case*; unknown.
 
 the knowledge base r4_15_articles_of_association includes:
 
 the text of the_rulemap is at "sources/articles-of-association.ruml".
 
+Articles of association notarised holds for a case if
+    the answer to Articles of association notarised for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Articles of association notarised holds for a case if
+    it is not the case that the answer to Articles of association notarised for the case is a truth value
+    and Articles of association notarised would hold for the case.
+
 scenario generated_1 is, as stated in "articles-of-association.ruml" at generated_1:
     % no data
     node_1 expects answers ["Articles of association notarised holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Articles of association notarised holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "articles-of-association.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Articles of association notarised for case 1 is true.
+    node_1 expects answers ["Articles of association notarised holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_3 is, as stated in "articles-of-association.ruml" at generated_3:
+    % the leaf 1 answered no, the others yes
+    the answer to Articles of association notarised for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Articles of association notarised holds for case 1"].
+
+scenario generated_4 is, as stated in "articles-of-association.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Articles of association notarised for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Articles of association notarised holds for case 1"].
 
 query node_1 is:
     Articles of association notarised holds for case 1.

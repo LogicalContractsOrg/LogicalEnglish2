@@ -14,7 +14,7 @@
       "in_program":"Härtefallleistung holds for *a case*",
       "kind":"AND",
       "mapping":"AND of 1 children",
-      "note":"",
+      "note":"label: Härtefallleistung",
       "verdict":"encoded"
     },
     {
@@ -22,31 +22,31 @@
       "in_program":"Härtefall liegt vor holds for *a case*",
       "kind":"DELEGATED",
       "mapping":"DELEGATED: $count($children[status = \"true\"]) >= 2",
-      "note":"exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4)",
+      "note":"label: Härtefall liegt vor; exact: undefined whenever a child is undefined, as the combiner contract says (§3.6.4)",
       "verdict":"encoded"
     },
     {
       "element":"node(4)",
       "in_program":"Pflegegrad mindestens 3 holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Pflegegrad mindestens 3; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
       "element":"node(5)",
       "in_program":"Eigenanteil über 800 eur holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Eigenanteil über 800 EUR; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
       "element":"node(6)",
       "in_program":"Alleinlebend holds for *a case*",
       "kind":"leaf",
-      "mapping":"a leaf with no deciding capability: a judged sentence, which a person decides",
-      "note":"RUML: undefined until decided",
+      "mapping":"a leaf with no deciding capability: a person's answer, a fact of the case (`the answer to ... is true`)",
+      "note":"label: Alleinlebend; RUML: undefined until answered",
       "verdict":"encoded"
     },
     {
@@ -69,7 +69,7 @@
   "fidelity": {
     "errors":0,
     "failed":0,
-    "passed":10,
+    "passed":60,
     "tests": [
       {"detail":"","query":"node_1","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_1"},
@@ -80,7 +80,57 @@
       {"detail":"","query":"node_5","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_1"},
       {"detail":"","query":"node_6","result":"pass","scenario":"generated_1"},
-      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_1"}
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_1"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_2"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_3"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_4"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_5"},
+      {"detail":"","query":"node_1","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_1","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_2","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_2","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_4","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_4","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_5","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_5","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"node_6","result":"pass","scenario":"generated_6"},
+      {"detail":"","query":"not_node_6","result":"pass","scenario":"generated_6"}
     ]
   },
   "meta": {
@@ -90,5 +140,5 @@
     "translator":"ruml_twin"
   },
   "pending_expectations":0,
-  "source_tests":1
+  "source_tests":6
 }

@@ -20,9 +20,11 @@ the templates are:
     Gesellschaft wirksam gegründet holds for *a case*.
     Gesellschaftsvertrag notariell beurkundet holds for *a case*.
     Stammkapital mind 25000 € holds for *a case*.
-    Eintragung ins Handelsregister holds for *a case*; open textured.
+    Eintragung ins Handelsregister holds for *a case*.
     Gesellschaftsvertrag notariell beurkundet would hold for *a case*; unknown.
     Stammkapital mind 25000 € would hold for *a case*; unknown.
+    the answer to Eintragung ins Handelsregister for *a case* is *a truth value*; scenario element.
+    Eintragung ins Handelsregister would hold for *a case*; unknown.
 
 the knowledge base r4_16_accept_include_on_leaf includes:
 
@@ -33,11 +35,21 @@ Gesellschaft wirksam gegründet holds for a case if
     and Stammkapital mind 25000 € holds for the case
     and Eintragung ins Handelsregister holds for the case.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Gesellschaftsvertrag notariell beurkundet holds for a case if
     Gesellschaftsvertrag notariell beurkundet would hold for the case.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Stammkapital mind 25000 € holds for a case if
     Stammkapital mind 25000 € would hold for the case.
+
+Eintragung ins Handelsregister holds for a case if
+    the answer to Eintragung ins Handelsregister for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Eintragung ins Handelsregister holds for a case if
+    it is not the case that the answer to Eintragung ins Handelsregister for the case is a truth value
+    and Eintragung ins Handelsregister would hold for the case.
 
 scenario generated_1 is, as stated in "accept-include-on-leaf.ruml" at generated_1:
     % no data
@@ -49,6 +61,42 @@ scenario generated_1 is, as stated in "accept-include-on-leaf.ruml" at generated
     not_node_3 expects answers ["it is not the case that Stammkapital mind 25000 € holds for case 1"] and any unknowns.
     node_4 expects answers ["Eintragung ins Handelsregister holds for case 1"] and any unknowns.
     not_node_4 expects answers ["it is not the case that Eintragung ins Handelsregister holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "accept-include-on-leaf.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Eintragung ins Handelsregister for case 1 is true.
+    node_1 expects answers ["Gesellschaft wirksam gegründet holds for case 1"] and any unknowns.
+    not_node_1 expects answers ["it is not the case that Gesellschaft wirksam gegründet holds for case 1"] and any unknowns.
+    node_2 expects answers ["Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    node_3 expects answers ["Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    node_4 expects answers ["Eintragung ins Handelsregister holds for case 1"] and any unknowns.
+    not_node_4 expects answers [].
+
+scenario generated_3 is, as stated in "accept-include-on-leaf.ruml" at generated_3:
+    % the leaf 4 answered no, the others yes
+    the answer to Eintragung ins Handelsregister for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Gesellschaft wirksam gegründet holds for case 1"].
+    node_2 expects answers ["Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    node_3 expects answers ["Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eintragung ins Handelsregister holds for case 1"].
+
+scenario generated_4 is, as stated in "accept-include-on-leaf.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Eintragung ins Handelsregister for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Gesellschaft wirksam gegründet holds for case 1"].
+    node_2 expects answers ["Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Gesellschaftsvertrag notariell beurkundet holds for case 1"] and any unknowns.
+    node_3 expects answers ["Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Stammkapital mind 25000 € holds for case 1"] and any unknowns.
+    node_4 expects answers [].
+    not_node_4 expects answers ["it is not the case that Eintragung ins Handelsregister holds for case 1"].
 
 query node_1 is:
     Gesellschaft wirksam gegründet holds for case 1.

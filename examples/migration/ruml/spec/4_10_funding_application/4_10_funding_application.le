@@ -37,6 +37,7 @@ Einkommensgrenze holds for a case if
     the Jahreseinkommen of the case is a number N
     and N < 50000.
 
+% Where the expression has no result (a value it needs is missing), RUML's answer is undefined: the leaf holds only on the assumption below.
 Einkommensgrenze holds for a case if
     it is not the case that the Jahreseinkommen of the case is a number
     and Einkommensgrenze would hold for the case.
@@ -98,7 +99,7 @@ scenario generated_5 is, as stated in "funding-application.ruml" at generated_5:
     not_node_3 expects answers ["it is not the case that Dokumentenprüfung holds for case 1"].
 
 scenario generated_6 is, as stated in "funding-application.ruml" at generated_6:
-    % dp_documents_complete is @(false)
+    % dp_documents_complete is false
     the Jahreseinkommen of case 1 is 50000.
     the Unterlagen vollständig of case 1 is false.
     node_1 expects answers [].

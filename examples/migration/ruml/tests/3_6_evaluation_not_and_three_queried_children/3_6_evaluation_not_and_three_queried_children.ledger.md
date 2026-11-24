@@ -23,10 +23,10 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | dp_answer_1 | data point | encoded | a sentence that the scenarios state | the Answer 1 of *a case* is *a text* | validation: json([required= @(true),enum=[yes,no,unknown]]) |
 | dp_answer_2 | data point | encoded | a sentence that the scenarios state | the Answer 2 of *a case* is *a text* | validation: json([required= @(true),enum=[yes,no,unknown]]) |
 | dp_answer_3 | data point | encoded | a sentence that the scenarios state | the Answer 3 of *a case* is *a text* | validation: json([required= @(true),enum=[yes,no,unknown]]) |
-| node(1) | NOT_AND | encoded | NOT_AND of 3 children: the negation of a second sentence | root holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query $lookup({'yes': true, 'no': false}, dp_answer_1) | One holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query $lookup({'yes': true, 'no': false}, dp_answer_2) | Two holds for *a case* |  |
-| node(4) | leaf | encoded | ruml:query $lookup({'yes': true, 'no': false}, dp_answer_3) | Three holds for *a case* |  |
+| node(1) | NOT_AND | encoded | NOT_AND of 3 children: the negation of a second sentence | root holds for *a case* | label: root |
+| node(2) | leaf | encoded | ruml:query $lookup({'yes': true, 'no': false}, dp_answer_1) | One holds for *a case* | label: One |
+| node(3) | leaf | encoded | ruml:query $lookup({'yes': true, 'no': false}, dp_answer_2) | Two holds for *a case* | label: Two |
+| node(4) | leaf | encoded | ruml:query $lookup({'yes': true, 'no': false}, dp_answer_3) | Three holds for *a case* | label: Three |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

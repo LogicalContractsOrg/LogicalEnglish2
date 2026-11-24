@@ -18,37 +18,117 @@ the target language is: prolog.
 
 the templates are:
     Antrag holds for *a case*.
-    Antrag node 2 holds for *a case*.
-    Antrag b holds for *a case*.
-    Nur einmal referenziert holds for *a case*; open textured.
-    Einfach referenziert holds for *a case*; open textured.
+    Antrag_a holds for *a case*.
+    Antrag_b holds for *a case*.
+    Nur einmal referenziert holds for *a case*.
+    Einfach referenziert holds for *a case*.
+    the answer to Nur einmal referenziert for *a case* is *a truth value*; scenario element.
+    Nur einmal referenziert would hold for *a case*; unknown.
+    the answer to Einfach referenziert for *a case* is *a truth value*; scenario element.
+    Einfach referenziert would hold for *a case*; unknown.
 
 the knowledge base r6_2_accept_modular_with_single_parent includes:
 
 the text of the_rulemap is at "sources/accept-modular-with-single-parent.ruml".
 
 Antrag holds for a case if
-    Antrag node 2 holds for the case
-    and Antrag b holds for the case.
+    Antrag_a holds for the case
+    and Antrag_b holds for the case.
 
-Antrag node 2 holds for a case if
+Antrag_a holds for a case if
     Nur einmal referenziert holds for the case.
 
-Antrag b holds for a case if
+Antrag_b holds for a case if
     Einfach referenziert holds for the case.
+
+Nur einmal referenziert holds for a case if
+    the answer to Nur einmal referenziert for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Nur einmal referenziert holds for a case if
+    it is not the case that the answer to Nur einmal referenziert for the case is a truth value
+    and Nur einmal referenziert would hold for the case.
+
+Einfach referenziert holds for a case if
+    the answer to Einfach referenziert for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Einfach referenziert holds for a case if
+    it is not the case that the answer to Einfach referenziert for the case is a truth value
+    and Einfach referenziert would hold for the case.
 
 scenario generated_1 is, as stated in "accept-modular-with-single-parent.ruml" at generated_1:
     % no data
     node_1 expects answers ["Antrag holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Antrag holds for case 1"] and any unknowns.
-    node_2 expects answers ["Antrag node 2 holds for case 1"] and any unknowns.
-    not_node_2 expects answers ["it is not the case that Antrag node 2 holds for case 1"] and any unknowns.
-    node_3 expects answers ["Antrag b holds for case 1"] and any unknowns.
-    not_node_3 expects answers ["it is not the case that Antrag b holds for case 1"] and any unknowns.
+    node_2 expects answers ["Antrag_a holds for case 1"] and any unknowns.
+    not_node_2 expects answers ["it is not the case that Antrag_a holds for case 1"] and any unknowns.
+    node_3 expects answers ["Antrag_b holds for case 1"] and any unknowns.
+    not_node_3 expects answers ["it is not the case that Antrag_b holds for case 1"] and any unknowns.
     node_5 expects answers ["Nur einmal referenziert holds for case 1"] and any unknowns.
     not_node_5 expects answers ["it is not the case that Nur einmal referenziert holds for case 1"] and any unknowns.
     node_6 expects answers ["Einfach referenziert holds for case 1"] and any unknowns.
     not_node_6 expects answers ["it is not the case that Einfach referenziert holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "accept-modular-with-single-parent.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Nur einmal referenziert for case 1 is true.
+    the answer to Einfach referenziert for case 1 is true.
+    node_1 expects answers ["Antrag holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+    node_2 expects answers ["Antrag_a holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers ["Antrag_b holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_5 expects answers ["Nur einmal referenziert holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers ["Einfach referenziert holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_3 is, as stated in "accept-modular-with-single-parent.ruml" at generated_3:
+    % the leaf 5 answered no, the others yes
+    the answer to Nur einmal referenziert for case 1 is false.
+    the answer to Einfach referenziert for case 1 is true.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Antrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Antrag_a holds for case 1"].
+    node_3 expects answers ["Antrag_b holds for case 1"] and any unknowns.
+    not_node_3 expects answers [].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Nur einmal referenziert holds for case 1"].
+    node_6 expects answers ["Einfach referenziert holds for case 1"] and any unknowns.
+    not_node_6 expects answers [].
+
+scenario generated_4 is, as stated in "accept-modular-with-single-parent.ruml" at generated_4:
+    % the leaf 6 answered no, the others yes
+    the answer to Nur einmal referenziert for case 1 is true.
+    the answer to Einfach referenziert for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Antrag holds for case 1"].
+    node_2 expects answers ["Antrag_a holds for case 1"] and any unknowns.
+    not_node_2 expects answers [].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Antrag_b holds for case 1"].
+    node_5 expects answers ["Nur einmal referenziert holds for case 1"] and any unknowns.
+    not_node_5 expects answers [].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Einfach referenziert holds for case 1"].
+
+scenario generated_5 is, as stated in "accept-modular-with-single-parent.ruml" at generated_5:
+    % every leaf answered no
+    the answer to Nur einmal referenziert for case 1 is false.
+    the answer to Einfach referenziert for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Antrag holds for case 1"].
+    node_2 expects answers [].
+    not_node_2 expects answers ["it is not the case that Antrag_a holds for case 1"].
+    node_3 expects answers [].
+    not_node_3 expects answers ["it is not the case that Antrag_b holds for case 1"].
+    node_5 expects answers [].
+    not_node_5 expects answers ["it is not the case that Nur einmal referenziert holds for case 1"].
+    node_6 expects answers [].
+    not_node_6 expects answers ["it is not the case that Einfach referenziert holds for case 1"].
 
 query node_1 is:
     Antrag holds for case 1.
@@ -57,16 +137,16 @@ query not_node_1 is:
     it is not the case that Antrag holds for case 1.
 
 query node_2 is:
-    Antrag node 2 holds for case 1.
+    Antrag_a holds for case 1.
 
 query not_node_2 is:
-    it is not the case that Antrag node 2 holds for case 1.
+    it is not the case that Antrag_a holds for case 1.
 
 query node_3 is:
-    Antrag b holds for case 1.
+    Antrag_b holds for case 1.
 
 query not_node_3 is:
-    it is not the case that Antrag b holds for case 1.
+    it is not the case that Antrag_b holds for case 1.
 
 query node_5 is:
     Nur einmal referenziert holds for case 1.

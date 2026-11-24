@@ -22,9 +22,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 |---|---|---|---|---|---|
 | dp_age | data point | encoded | a sentence that the scenarios state | the Alter of *a case* is *a number* |  |
 | dp_competent | data point | encoded | a sentence that the scenarios state | the Geschäftsfähig of *a case* is *a truth value* |  |
-| node(1) | AND | encoded | AND of 2 children | Geschäftsfähigkeit holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Volljährigkeit holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query dp_competent = true | Keine Entmündigung holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Geschäftsfähigkeit holds for *a case* | label: Geschäftsfähigkeit |
+| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Volljährigkeit holds for *a case* | label: Volljährigkeit |
+| node(3) | leaf | encoded | ruml:query dp_competent = true | Keine Entmündigung holds for *a case* | label: Keine Entmündigung |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

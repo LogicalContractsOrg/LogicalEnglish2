@@ -17,16 +17,44 @@
 the target language is: prolog.
 
 the templates are:
-    Anspruch auf Schadensersatz holds for *a case*; open textured.
+    Anspruch auf Schadensersatz holds for *a case*.
+    the answer to Anspruch auf Schadensersatz for *a case* is *a truth value*; scenario element.
+    Anspruch auf Schadensersatz would hold for *a case*; unknown.
 
 the knowledge base r4_2_empty_capabilities includes:
 
 the text of the_rulemap is at "sources/empty-capabilities.ruml".
 
+Anspruch auf Schadensersatz holds for a case if
+    the answer to Anspruch auf Schadensersatz for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Anspruch auf Schadensersatz holds for a case if
+    it is not the case that the answer to Anspruch auf Schadensersatz for the case is a truth value
+    and Anspruch auf Schadensersatz would hold for the case.
+
 scenario generated_1 is, as stated in "empty-capabilities.ruml" at generated_1:
     % no data
     node_1 expects answers ["Anspruch auf Schadensersatz holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Anspruch auf Schadensersatz holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "empty-capabilities.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Anspruch auf Schadensersatz for case 1 is true.
+    node_1 expects answers ["Anspruch auf Schadensersatz holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_3 is, as stated in "empty-capabilities.ruml" at generated_3:
+    % the leaf 1 answered no, the others yes
+    the answer to Anspruch auf Schadensersatz for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Anspruch auf Schadensersatz holds for case 1"].
+
+scenario generated_4 is, as stated in "empty-capabilities.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Anspruch auf Schadensersatz for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Anspruch auf Schadensersatz holds for case 1"].
 
 query node_1 is:
     Anspruch auf Schadensersatz holds for case 1.

@@ -23,14 +23,14 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | dp_identity_verified | data point | encoded | a sentence that the scenarios state | the Identität geprüft of *a case* is *a truth value* |  |
 | dp_income | data point | encoded | a sentence that the scenarios state | the Einkommen of *a case* is *a number* |  |
 | dp_schufa | data point | encoded | a sentence that the scenarios state | the Schufa Score of *a case* is *a number* |  |
-| node(1) | AND | encoded | AND of 3 children | Root holds for *a case* |  |
-| node(10) | AND | encoded | AND of 2 children | Hauptprüfung holds for *a case* |  |
-| node(2) | OR | encoded | OR of 1 children | Alternative holds for *a case* |  |
-| node(3) | OR | encoded | OR of 1 children | Schnellprüfung holds for *a case* |  |
-| node(11) | leaf | encoded | ruml:query dp_identity_verified = true | Identitätsprüfung holds for *a case* |  |
-| node(20) | AND | encoded | AND of 2 children | Bonitätsprüfung holds for *a case* |  |
-| node(21) | leaf | encoded | ruml:query dp_income > 30000 | Einkommensprüfung holds for *a case* |  |
-| node(22) | leaf | encoded | ruml:query dp_schufa >= 600 | Schufa Prüfung holds for *a case* |  |
+| node(1) | AND | encoded | AND of 3 children | Root holds for *a case* | label: Root |
+| node(10) | AND | encoded | AND of 2 children | Hauptprüfung holds for *a case* | label: Hauptprüfung |
+| node(2) | OR | encoded | OR of 1 children | Alternative holds for *a case* | label: Alternative |
+| node(3) | OR | encoded | OR of 1 children | Schnellprüfung holds for *a case* | label: Schnellprüfung |
+| node(11) | leaf | encoded | ruml:query dp_identity_verified = true | Identitätsprüfung holds for *a case* | label: Identitätsprüfung |
+| node(20) | AND | encoded | AND of 2 children | Bonitätsprüfung holds for *a case* | label: Bonitätsprüfung |
+| node(21) | leaf | encoded | ruml:query dp_income > 30000 | Einkommensprüfung holds for *a case* | label: Einkommensprüfung |
+| node(22) | leaf | encoded | ruml:query dp_schufa >= 600 | Schufa Prüfung holds for *a case* | label: Schufa-Prüfung |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

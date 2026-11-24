@@ -22,7 +22,7 @@ A source element is **encoded** when a documented mapping rule translated it wit
 |---|---|---|---|---|---|
 | dp_age | data point | encoded | a sentence that the scenarios state | the Alter of *a case* is *a number* |  |
 | dp_birth_year | data point | encoded | a sentence that the scenarios state | the Geburtsjahr of *a case* is *a number* |  |
-| node(1) | leaf | encoded | ruml:query dp_age >= 18; ruml:query 2024 - dp_birth_year >= 18 | Volljährigkeit nachgewiesen holds for *a case* |  |
+| node(1) | leaf | encoded | ruml:query dp_age >= 18; ruml:query 2024 - dp_birth_year >= 18 | Volljährigkeit nachgewiesen holds for *a case* | label: Volljährigkeit nachgewiesen |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

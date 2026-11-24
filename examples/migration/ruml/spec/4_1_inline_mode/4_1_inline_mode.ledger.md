@@ -22,9 +22,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 |---|---|---|---|---|---|
 | dp_age | data point | encoded | a sentence that the scenarios state | the Alter des Antragstellers of *a case* is *a number* |  |
 | dp_income | data point | encoded | a sentence that the scenarios state | the Jahreseinkommen of *a case* is *a number* |  |
-| node(1) | AND | encoded | AND of 2 children | Kreditwürdigkeit prüfen holds for *a case* |  |
-| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Mindestalter erfüllt holds for *a case* |  |
-| node(3) | leaf | encoded | ruml:query dp_income >= 30000 | Einkommen ausreichend holds for *a case* |  |
+| node(1) | AND | encoded | AND of 2 children | Kreditwürdigkeit prüfen holds for *a case* | label: Kreditwürdigkeit prüfen |
+| node(2) | leaf | encoded | ruml:query dp_age >= 18 | Mindestalter erfüllt holds for *a case* | label: Mindestalter erfüllt |
+| node(3) | leaf | encoded | ruml:query dp_income >= 30000 | Einkommen ausreichend holds for *a case* | label: Einkommen ausreichend |
 | metadata | metadata | approximated | a comment at the top; the original file under sources/ |  | status, version, validity, authors: data about the file, not rules (decision 6 of the plan) |
 
 ## Source tests

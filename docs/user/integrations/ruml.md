@@ -79,7 +79,7 @@ scenario one is:
 | Reads | `.ruml` (a rulemap), `.ruml-ext` (a file of additions to a rulemap), `.rumlc` (a zip archive with a rulemap, its additions and its texts), and a zip archive of these |
 | Writes | `.ruml` (File ▸ Export), `.ruml-result` (the operation `evaluateForeign`) |
 | Checked against | the 90 validation tests and the 103 evaluation tests of RUML; an evaluator written from the specification; a second, independent evaluator |
-| Results | The 90 validation tests: 90 pass. The twins: 2,468 of 2,468 expected answers, in 80 rulemaps. The evaluator: 103 of 103 evaluation tests, in both modes, and each result file is valid. The way back: 80 of 80 twins come back with the same results (1,045 of 1,045 node results) |
+| Results | The 90 validation tests: 90 pass. The twins: 3,508 of 3,508 expected answers, in 80 rulemaps. The evaluator: 103 of 103 evaluation tests, in both modes, and each result file is valid. The way back: 80 of 80 twins come back with the same results (1,575 of 1,575 node results, in 473 cases) |
 | Twins | `examples/migration/ruml/spec/` (the examples of the specification) and `examples/migration/ruml/tests/` (the fixtures of the tests). Licence: Apache-2.0, Rulemapping Group GmbH |
 
 ## How to use it
@@ -114,7 +114,8 @@ also keeps the program that it was written from, under `sources/`.
 | NOT_AND, NOT_OR, NOT_XOR | `it is not the case that` before a second sentence, `the conditions of <label> are met for *a case*` |
 | DELEGATED, with `ruml:expression` | The expression as conditions. A count of the children that are true is a count of the sentences `child *a number* of <label> counts for *a case*` |
 | A leaf with `ruml:query` | A rule. Its conditions are the expression |
-| A leaf with no question, or with `ruml:ai-query` | A judged sentence: a person decides it. The answer says *(judgment needed)* |
+| A leaf with no question | A person answers it. The answer is a fact of the case: `the answer to <label> for case 1 is true` (or `false`). Without an answer, the leaf is undefined, as in RUML |
+| A leaf with `ruml:ai-query` | A judged sentence: a person decides it. The answer says *(judgment needed)* |
 | A data point | A sentence that only scenarios state: `the <name> of *a case* is *a number*` |
 | A set (a group of data points, for example a person) | A relation between the case and each member: `*a case* has guarantor *a person*`, and a sentence for each field of the member |
 | A computed data point | A rule that calculates the value |
@@ -144,6 +145,35 @@ For example, when the age of the case is missing, the leaf "Antragsteller
 volljährig" (the applicant is of legal age) is undefined. The twin gives the
 answer with the unknown `Antragsteller volljährig would hold for case 1`.
 
+Thus a leaf that compares a value has two rules in the twin. The first rule
+is the comparison. The second rule applies only when the value is missing,
+and a comment before it says so:
+
+```
+Pflegegrad mindestens 3 holds for a case if
+    the Pflegegrad of the case is a number N
+    and N >= 3.
+
+% Where the expression has no result (a value it needs is missing), RUML's
+% answer is undefined: the leaf holds only on the assumption below.
+Pflegegrad mindestens 3 holds for a case if
+    it is not the case that the Pflegegrad of the case is a number
+    and Pflegegrad mindestens 3 would hold for the case.
+```
+
+**A missing value is not always undefined.** RUML evaluates each expression
+in JSONata. In JSONata, a comparison with `<`, `<=`, `>` or `>=` of a missing
+value has no result, so the leaf is undefined. But a comparison with `=` or
+`!=`, and `in`, `and` and `or`, give `false` when a value is missing. Thus
+`dp_wohnsitz = true` is false, not undefined, when the residence is not
+entered yet. The twin does the same, because the specification says so
+(§4.8). Another evaluator can read this differently (§5.0 lists missing data
+as a cause of undefined). The translator's README tells the details.
+
+A value of the wrong type has no result in JSONata too: the text `"60000"`
+compared with the number `50000` is undefined. The twin does not state such
+a value.
+
 RUML has two **modes** of evaluation. In the `complete` mode, the evaluator
 examines all children of a node. In the `optimized` mode, an AND stops at the
 first child that is not true, and an XOR stops at the first child that is
@@ -171,8 +201,11 @@ A request:
 ```
 
 The reply holds `result`, the result file, and `fileName`. The options are
-`mode` (`complete`, the default, or `optimized`), `caseId` and `maxDepth`
-(the limit of recursion, 500 by default). When the rulemap asks for an
+`mode` (`complete`, the default, or `optimized`), `caseId`, `maxDepth` (the
+limit of recursion, 500 by default) and `leaves`. With `leaves`, you give the
+answers of a person to the leaves that no expression decides, by their
+number: `"leaves": {"5": "true", "6": "false"}`. Appendix A of the
+specification gives such statuses to leaves too. When the rulemap asks for an
 evaluation protocol (`ruml:protocol`), the result holds it.
 
 ## The way back: from Logical English to RUML
@@ -184,8 +217,10 @@ thing.
 - A sentence that rules conclude is a node. One rule is an AND of its
   conditions. Two or more rules are an OR, with one child for each rule.
 - `it is not the case that` is a NOT_AND.
-- A sentence that only scenarios state is a data point with the answer yes
-  or no.
+- A sentence about the case that no rule concludes, and that is not judged
+  or assumable, is a data point with the answer yes or no.
+- `it is not the case that` before two or more conditions is a NOT_AND over
+  them.
 - The conditions on values are one JSONata expression.
 - A judged sentence is a leaf that a person decides.
 - The scenarios are context materials of the category `example`, with the
@@ -196,8 +231,11 @@ of each node holds its rules. The comment of the metadata holds the whole
 program. When you open the rulemap again in Logical English, the twin keeps
 that program under `sources/`.
 
-When the program came from a rulemap, the export keeps the identifiers, the
-metadata and the data points of the original.
+When the program came from a rulemap, the export keeps the numbers, the
+identifiers, the labels, the operators (an XOR stays an XOR), the metadata,
+the data points and the expressions of the original. A node that the twin
+could not translate (for example an expression with `$random`, or an include
+of a different rulemap) is written back as the original has it.
 
 The export refuses a program that RUML cannot say. Nothing is written, and
 each problem links to its line. RUML cannot say:
@@ -213,6 +251,10 @@ each problem links to its line. RUML cannot say:
 
 - `ruml:actions` (actions that start when a node has an answer) are listed
   in the ledger and not translated.
+- The reasons in a result file are in English.
+- A link from a node to an element of a law (`ruml:text-reference`) becomes
+  the provenance of the node's rule only for the text that the node
+  *represents*. The other links stay in the original under `sources/`.
 - A node of a different rulemap (`ruml:tree-include`) is not evaluated.
 - The JSONata functions for texts and dates (`$substring`, `$toMillis` and
   others) are not translated yet. A leaf that uses them is residue: it is

@@ -17,16 +17,44 @@
 the target language is: prolog.
 
 the templates are:
-    Antrag holds for *a case*; open textured.
+    Antrag holds for *a case*.
+    the answer to Antrag for *a case* is *a truth value*; scenario element.
+    Antrag would hold for *a case*; unknown.
 
 the knowledge base r4_7_accept_time_bounds_without_offset includes:
 
 the text of the_rulemap is at "sources/accept-time-bounds-without-offset.ruml".
 
+Antrag holds for a case if
+    the answer to Antrag for the case is true.
+
+% Until a person answers, RUML's answer is undefined: the leaf holds only on the assumption below.
+Antrag holds for a case if
+    it is not the case that the answer to Antrag for the case is a truth value
+    and Antrag would hold for the case.
+
 scenario generated_1 is, as stated in "accept-time-bounds-without-offset.ruml" at generated_1:
     % no data
     node_1 expects answers ["Antrag holds for case 1"] and any unknowns.
     not_node_1 expects answers ["it is not the case that Antrag holds for case 1"] and any unknowns.
+
+scenario generated_2 is, as stated in "accept-time-bounds-without-offset.ruml" at generated_2:
+    % every leaf answered yes
+    the answer to Antrag for case 1 is true.
+    node_1 expects answers ["Antrag holds for case 1"] and any unknowns.
+    not_node_1 expects answers [].
+
+scenario generated_3 is, as stated in "accept-time-bounds-without-offset.ruml" at generated_3:
+    % the leaf 1 answered no, the others yes
+    the answer to Antrag for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Antrag holds for case 1"].
+
+scenario generated_4 is, as stated in "accept-time-bounds-without-offset.ruml" at generated_4:
+    % every leaf answered no
+    the answer to Antrag for case 1 is false.
+    node_1 expects answers [].
+    not_node_1 expects answers ["it is not the case that Antrag holds for case 1"].
 
 query node_1 is:
     Antrag holds for case 1.
