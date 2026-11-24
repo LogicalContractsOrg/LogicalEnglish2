@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // File > Save as a Readable Document (le_readable.pl): the program as a
 // document for a person who reads it without the editor. Open shows the web
@@ -68,12 +69,12 @@ test.describe('Readable document', () => {
     });
 
     test('Copy link gives an address that opens only for signed-in visitors', async ({ page, context, browser }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await openDialog(page);
         await page.locator('#readable-dialog select').nth(1).selectOption('legal');
         await page.locator('#readable-dialog button', { hasText: 'Copy link' }).click();
         await expect(page.locator('#readable-dialog')).toContainText('signed in');
-        const url = await page.evaluate(() => navigator.clipboard.readText());
+        const url = await copiedText(page);
         expect(url).toMatch(/\/readable\/citizenship\?format=html&style=legal$/);
         // somebody who is not signed in is sent to sign in, and back
         const stranger = await browser.newContext();

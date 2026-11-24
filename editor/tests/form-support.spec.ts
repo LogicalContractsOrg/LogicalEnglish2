@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // The forms and views for people who state facts rather than write rules,
 // on a program whose templates all come from the resources it includes
@@ -12,7 +13,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Forms and views for stating facts', () => {
     test('Scenario Editor: included templates, value suggestions, a citation', async ({ page, context }) => {
         test.setTimeout(120000);
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('index.html?example=regulatory/customs/by_hand');
         await page.waitForSelector('.monaco-editor', { timeout: 30000 });
         // no load yet: the menu entry loads the program before opening the window
@@ -35,14 +36,18 @@ test.describe('Forms and views for stating facts', () => {
         expect(listId).toBeTruthy();
         const suggestions = await se.evaluate((id) =>
             [...(document.getElementById(id as string) as HTMLDataListElement).options].map(o => o.value), listId);
-        expect(suggestions).toEqual(['felt', 'knitted', 'lace', 'nonwoven', 'woven']);
+        // the values that the program's own facts and rules use for this place, in
+        // alphabetical order. The model grows (it gained "crocheted"), so the test
+        // names values that must be there, not the whole list.
+        expect(suggestions).toEqual(expect.arrayContaining(['felt', 'knitted', 'lace', 'nonwoven', 'woven']));
+        expect([...suggestions].sort()).toEqual(suggestions);
         await value.fill('knitted');
 
         // the passage, typed bare, becomes the fact's `confer "…"`
         await row.locator('button.cite-toggle').click();
         await row.locator('input.cite-field').fill('a women’s knit sweater constructed from 100 percent cashmere yarn');
         await se.locator('#btn-copy').click();
-        const text = await se.evaluate(() => navigator.clipboard.readText());
+        const text = await copiedText(se);
         expect(text).toContain('scenario trial is, as stated in ruling NY N345059:');
         expect(text).toContain('the fabric construction of style THW14690 is knitted, confer "a women’s knit sweater constructed from 100 percent cashmere yarn".');
     });

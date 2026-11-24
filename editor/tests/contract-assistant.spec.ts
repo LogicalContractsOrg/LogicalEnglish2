@@ -168,8 +168,11 @@ test.describe('Contract Assistant UI', () => {
         await expect(page.locator('#btn-cancel')).toBeDisabled();
         await expect(page.locator('#btn-run-back')).toBeVisible();
 
-        // ... and the log survived the terminal transition (regression guard).
-        await expect(page.locator('#log')).toContainText('Vocabulary sample');
+        // ... and the log survived the terminal transition (regression guard):
+        // a line that was logged at the start of the job is still there. (The
+        // line "Vocabulary sample" that this looked for is no longer written:
+        // the assistant drafts a Prolog form first.)
+        await expect(page.locator('#log')).toContainText('Stage 0');
     });
 
     // A job outlives the tab that started it, so the Setup screen lists the

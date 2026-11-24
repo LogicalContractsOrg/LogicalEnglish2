@@ -1321,7 +1321,14 @@ write_law_(uint, FF, KVs, V, Contract, B, Gs, KeyGoals, Items) :- !,
     ;   lower_value(Contract, B, V, Expr, DGs)
     ),
     append(Conds0, DGs, Conds1),
-    append(Conds1, [New is Expr], Conds),
+    %  An assignment of a variable (`allowance[o][s] = amount`) has nothing
+    %  to compute: the new value is that variable, and no `is` goal is
+    %  written (a constant keeps its `is`, as the reader gives it). That is also the term Logical English reads back from the
+    %  twin's sentence, so the two agree term by term.
+    (   var(Expr)
+    ->  New = Expr, Conds = Conds1
+    ;   append(Conds1, [New is Expr], Conds)
+    ),
     %  The fluent's default (`; 0 by default`) is its old value when no
     %  entry is stored: no law materialises it (Phase 1e (a)).
     Items = [lps(updated(Trigger, Fl, Old-New, Conds))],

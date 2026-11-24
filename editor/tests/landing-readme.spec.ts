@@ -5,6 +5,7 @@
 // address; a link to a program opens that program in the editor on the
 // scenario and question the link names.
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 const modelText = () => {
     const ed = (window as any).monaco?.editor?.getEditors()[0];
@@ -37,7 +38,7 @@ test.describe('landing page README panel', () => {
     });
 
     test('the panel has a link that copies its address', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('/?expand=all');
         await page.locator('details.le-folder[data-path="migration/blawx/"] > summary > .readme-button').click();
         const copy = page.locator('.readme-panel a.readme-copy');
@@ -49,7 +50,7 @@ test.describe('landing page README panel', () => {
         expect(u.searchParams.get('expand')).toBeNull();
         await copy.click();
         await expect(copy).toHaveText('Copied');
-        expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(href);
+        expect(await copiedText(page)).toBe(href);
         // the copied address opens the same README
         await page.goto(href);
         await expect(page.locator('.readme-panel')).toContainText('Blawx');

@@ -4,10 +4,11 @@
 // address shows that folder: the standard page's server narrows the list to
 // it, and on every landing page the folder and those around it open.
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 test.describe('landing page folder links', () => {
     test('every folder has a link that copies its address', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('/');
         const folders = page.locator('details.le-folder[data-path]');
         const links = page.locator('details.le-folder > summary > a.folder-link');
@@ -18,7 +19,7 @@ test.describe('landing page folder links', () => {
         const path = (await first.getAttribute('data-path'))!.replace(/\/+$/, '');
         await links.first().click();
         await expect(links.first()).toHaveText('Copied');
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(new URL(copied).pathname).toBe('/');
         expect(new URL(copied).searchParams.get('dir')).toBe(path);
         expect(await first.evaluate((d: HTMLDetailsElement) => d.open)).toBe(wasOpen);

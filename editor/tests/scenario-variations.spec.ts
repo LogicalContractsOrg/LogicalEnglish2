@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // Loads the citizenship example into the editor and opens the Scenario Variations
 // window from the "Variations" button, returning the popup page.
@@ -38,7 +39,7 @@ async function openVariations(page: any): Promise<any> {
 test.describe('Scenario Variations', () => {
     test('alter a scenario and run a query against the variation', async ({ page, context }) => {
         test.setTimeout(180000);
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         const v = await openVariations(page);
 
         // Title names the KB; the scenario picker is preselected with "alice".
@@ -82,7 +83,7 @@ test.describe('Scenario Variations', () => {
 
         // Copy Scenario puts a full block on the clipboard.
         await v.locator('#btn-copy-scenario').click();
-        const copied = await v.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(v);
         expect(copied).toContain('scenario alice is:');
         expect(copied).toContain('is born in');
     });

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // A small program exercising every graph layer, including an "expects answers"
 // item (compiled to le_expected/4) that must NOT appear in the graph.
@@ -89,7 +90,7 @@ test.describe('Source Graph', () => {
 
     test('Copy Node puts the node text on the clipboard', async ({ page, context }) => {
         test.setTimeout(120000);
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('index.html');
         await page.evaluate(() => {
             localStorage.setItem('le-graph-layout', 'grid');
@@ -134,6 +135,6 @@ test.describe('Source Graph', () => {
         expect(clicked).toBeTruthy();
         await popup.locator('#ctx-copy-node').click();
 
-        await expect.poll(() => popup.evaluate(() => navigator.clipboard.readText())).toBe(clicked);
+        await expect.poll(() => copiedText(popup)).toBe(clicked);
     });
 });

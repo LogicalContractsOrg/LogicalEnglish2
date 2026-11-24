@@ -26,6 +26,32 @@ async function loadAndSelect(page: any) {
     await page.selectOption('#query-select', 'happy');
 }
 
+// s(CASP) is an optional part: the pack `scasp` of SWI-Prolog (README, "Optional
+// components"). On a server without it the engine answers nothing, so the tests
+// that need an answer of the engine do not apply and are skipped. The check is
+// what See s(CASP) does there: it shows the program, or says that the engine is
+// not installed. It is made once for each worker, in a page of its own.
+let engineInstalled: boolean | undefined;
+async function scaspInstalled(page: any): Promise<boolean> {
+    if (engineInstalled !== undefined) return engineInstalled;
+    const probe = await page.context().newPage();
+    try {
+        await loadAndSelect(probe);
+        await probe.evaluate(async () => {
+            const ed = (window as any).monaco.editor.getEditors()[0];
+            await ed.getAction('see-scasp').run(ed);
+        });
+        const panel = probe.locator('#prolog-panel');
+        const notice = probe.getByText('The s(CASP) engine is not installed on this server.');
+        await expect.poll(async () => (await panel.isVisible()) || (await notice.isVisible()), { timeout: 30000 }).toBe(true);
+        engineInstalled = await panel.isVisible();
+    } finally {
+        await probe.close();
+    }
+    return engineInstalled as boolean;
+}
+const NO_ENGINE = 'the s(CASP) engine (the pack scasp of SWI-Prolog) is not installed here';
+
 test.describe('s(CASP) engine', () => {
     test('the engine selector exists with Prolog and s(CASP) options', async ({ page }) => {
         await page.goto('index.html?text=' + encodeURIComponent(PROG));
@@ -46,7 +72,8 @@ test.describe('s(CASP) engine', () => {
     });
 
     test('a query answered by the s(CASP) engine renders the answer and explanation', async ({ page }) => {
-        test.setTimeout(60000);
+        test.setTimeout(120000);
+        test.skip(!(await scaspInstalled(page)), NO_ENGINE);
         await loadAndSelect(page);
         await page.selectOption('#engine-select', 'scasp');
         await page.click('#btn-query');
@@ -79,7 +106,8 @@ query covered is:
     a claim of which amount is covered.`;
 
     test('s(CASP) renders a symbolic constraint answer (§5b)', async ({ page }) => {
-        test.setTimeout(60000);
+        test.setTimeout(120000);
+        test.skip(!(await scaspInstalled(page)), NO_ENGINE);
         await page.goto('index.html?text=' + encodeURIComponent(CLP_PROG));
         await page.waitForFunction(() => typeof (window as any).monaco !== 'undefined');
         await page.waitForTimeout(800);
@@ -119,7 +147,8 @@ query approval is:
     the loan is approved.`;
 
     test('s(CASP) shows several models with per-world assumption sets (§5a/§5c)', async ({ page }) => {
-        test.setTimeout(60000);
+        test.setTimeout(120000);
+        test.skip(!(await scaspInstalled(page)), NO_ENGINE);
         await page.goto('index.html?text=' + encodeURIComponent(MULTI_PROG));
         await page.waitForFunction(() => typeof (window as any).monaco !== 'undefined');
         await page.waitForTimeout(800);
@@ -146,7 +175,8 @@ query approval is:
     // `true`: See s(CASP) and the s(CASP) engine refuse the program, and
     // say where.
     test('a program s(CASP) cannot state is refused, with its line', async ({ page }) => {
-        test.setTimeout(60000);
+        test.setTimeout(120000);
+        test.skip(!(await scaspInstalled(page)), NO_ENGINE);
         const AGG = `the target language is: prolog.
 the templates are:
     *a person* owes *an amount*.

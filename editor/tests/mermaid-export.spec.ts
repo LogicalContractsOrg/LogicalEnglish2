@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // A small program with a success explanation (rule + fact) and every graph
 // layer; also used to exercise the failure/unknown classes via its queries.
@@ -37,7 +38,7 @@ async function runQuery(page: any) {
 test.describe('Mermaid export', () => {
     test('Copy as Mermaid diagram puts a flowchart of the explanation on the clipboard', async ({ page, context }) => {
         test.setTimeout(120000);
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await runQuery(page);
 
         // Right-click a node of the explanation tree and pick "Copy as Mermaid diagram".
@@ -46,7 +47,7 @@ test.describe('Mermaid export', () => {
         await expect(item).toBeVisible();
         await item.click();
 
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toContain('flowchart TD');
         expect(copied).toContain('fluffy is happy');
         expect(copied).toContain('fluffy is healthy');
@@ -60,7 +61,7 @@ test.describe('Mermaid export', () => {
 
     test('the graph window copies the visible graph as Mermaid', async ({ page, context }) => {
         test.setTimeout(120000);
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         // Deterministic view: all layers on.
         await page.goto('index.html');
         await page.evaluate(() => {
@@ -94,7 +95,7 @@ test.describe('Mermaid export', () => {
         // And the button itself: copies + confirms via alert.
         popup.once('dialog', (d: any) => d.accept());
         await popup.click('#btn-copy-mermaid');
-        const copied = await popup.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(popup);
         expect(copied).toBe(mermaid);
     });
 });

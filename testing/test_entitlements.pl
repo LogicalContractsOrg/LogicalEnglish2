@@ -90,8 +90,18 @@ test(translators_ask_an_unsigned_visitor_to_sign_in) :-
 %   The registry offers a translator to a request that may use them, and to
 %   no other (migration/le_importers.pl).
 test(registry_follows_the_capability) :-
-    with_entitlements([converters], aggregate_all(count, le_import:importer(_, _, _, _, _, _), N1)),
-    with_entitlements([], aggregate_all(count, le_import:importer(_, _, _, _, _, _), N0)),
+    with_entitlements([converters], registry_importers(N1)),
+    with_entitlements([], registry_importers(N0)),
     N1 > 10, N0 =:= 0.
+
+%   The importers of the registry: those whose translator is a file of
+%   migration/. Another test file may register importers of its own
+%   (test_le_import.pl does), which no capability gates; when the suites are
+%   loaded together those are in the table too, and they are not counted.
+registry_importers(N) :-
+    aggregate_all(count,
+                  ( le_import:importer(_, _, _, File, _, _),
+                    atomic(File), sub_atom(File, _, _, _, '/migration/') ),
+                  N).
 
 :- end_tests(entitlements).

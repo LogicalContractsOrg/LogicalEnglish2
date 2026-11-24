@@ -2,7 +2,11 @@ import { test, expect, devices } from '@playwright/test';
 
 // The minimalist mobile-first "executive" entry point at /executive.
 // Emulate a phone so the mobile layout and tap flow are what's exercised.
-test.use({ ...devices['iPhone 13'] });
+// The device's own browser (WebKit, `defaultBrowserType`) is left out: the
+// project runs on Chromium only, and a machine without WebKit's libraries
+// (libGLESv2 on Linux) could not launch these tests at all.
+const { defaultBrowserType: _webkit, ...iPhone13 } = devices['iPhone 13'];
+test.use(iPhone13);
 
 test.describe('Executive view', () => {
     test('shows the login affordance top-right', async ({ page }) => {

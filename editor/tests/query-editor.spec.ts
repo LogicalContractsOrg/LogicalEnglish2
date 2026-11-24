@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // Seeds the Query Editor's localStorage data, then opens the window directly.
 const SEED = {
@@ -27,15 +28,25 @@ const SEED_FATHER = {
     ].join('\n'),
 };
 
+// The page fills its fields when its script runs, which is after the page has
+// loaded. A test that typed the query's name before that lost the name: Copy
+// then asked for a name (a dialog, which Playwright closes) and copied nothing,
+// and the test read what another test had left on the clipboard. The list of
+// templates is empty until the script has run, so its first option is the sign.
+async function queryEditorReady(page: any) {
+    await expect(page.locator('#add-template option').first()).toBeAttached({ timeout: 30000 });
+}
+
 test.describe('Query Editor', () => {
     test('loads a query into editable rows with connectives and negation', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
 
         await page.goto('index.html');
         await page.evaluate((seed) => {
             localStorage.setItem('le_query_editor_data', JSON.stringify(seed));
         }, SEED);
         await page.goto('query-editor.html');
+        await queryEditorReady(page);
 
         // Picker offers "New…" plus the two declared queries.
         const picker = page.locator('#query-picker');
@@ -66,17 +77,18 @@ test.describe('Query Editor', () => {
 
         // Copy reproduces the query block verbatim.
         await page.locator('#btn-copy').click();
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toBe(
             'query two is:\n    a person is rich\n    and it is not the case that the person likes broccoli.'
         );
     });
 
     test('builds a new query from templates, connectives and negation', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('index.html');
         await page.evaluate((seed) => localStorage.setItem('le_query_editor_data', JSON.stringify(seed)), SEED);
         await page.goto('query-editor.html');
+        await queryEditorReady(page);
 
         // New query, named "q".
         await page.locator('#query-name').fill('q');
@@ -101,17 +113,18 @@ test.describe('Query Editor', () => {
         await row2.locator('.negate input[type=checkbox]').check();
 
         await page.locator('#btn-copy').click();
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toBe(
             'query q is:\n    which person is happy\n    or it is not the case that the person is rich.'
         );
     });
 
     test('untouched template fields fall back to the variable name (not blank)', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('index.html');
         await page.evaluate((seed) => localStorage.setItem('le_query_editor_data', JSON.stringify(seed)), SEED_FATHER);
         await page.goto('query-editor.html');
+        await queryEditorReady(page);
 
         // A hint clarifies conditions are combined (and by default).
         await expect(page.locator('#join-hint')).toContainText('and by default');
@@ -122,16 +135,17 @@ test.describe('Query Editor', () => {
         await page.locator('#btn-add').click();
 
         await page.locator('#btn-copy').click();
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         // The empty fields become the variable name — a valid query, not "is the father of".
         expect(copied).toBe('query teste is:\n    a person is the father of a person.');
     });
 
     test('indent/unindent scopes conditions and round-trips through the text', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('index.html');
         await page.evaluate((seed) => localStorage.setItem('le_query_editor_data', JSON.stringify(seed)), SEED);
         await page.goto('query-editor.html');
+        await queryEditorReady(page);
         await page.locator('#query-name').fill('q');
 
         // Three conditions: happy AND rich OR likes chocolate, with the OR nested one
@@ -157,7 +171,7 @@ test.describe('Query Editor', () => {
         await expect(page.locator('.fact-row').nth(2)).toHaveClass(/indented/);
 
         await page.locator('#btn-copy').click();
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toBe(
             'query q is:\n' +
             '    a person is happy\n' +
@@ -169,6 +183,7 @@ test.describe('Query Editor', () => {
         const src = SEED.source + '\n\n' + copied;
         await page.evaluate((s) => localStorage.setItem('le_query_editor_data', JSON.stringify({ source: s })), src);
         await page.goto('query-editor.html');
+        await queryEditorReady(page);
         await page.locator('#query-picker').selectOption('q');
         await expect(page.locator('.fact-row')).toHaveCount(3);
         await expect(page.locator('.fact-row').nth(2)).toHaveClass(/indented/);
@@ -176,7 +191,7 @@ test.describe('Query Editor', () => {
     });
 
     test('Write it in English… appends query conditions from the LLM', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         const seed = {
             source: [
                 'the templates are:',
@@ -199,6 +214,7 @@ test.describe('Query Editor', () => {
             } else { await route.continue(); }
         });
         await page.goto('query-editor.html');
+        await queryEditorReady(page);
         await page.fill('#query-name', 'q');
 
         await page.selectOption('#add-template', '__write_in_english__');
@@ -212,7 +228,7 @@ test.describe('Query Editor', () => {
         await expect(page.locator('.fact-row').nth(1).locator('.neg-phrase')).toHaveText('it is not the case that');
 
         await page.click('#btn-copy');
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toBe(
             'query q is:\n' +
             '    which person is happy\n' +
@@ -234,6 +250,7 @@ test.describe('Query Editor', () => {
         await qePage.goto('index.html');
         await qePage.evaluate((seed) => localStorage.setItem('le_query_editor_data', JSON.stringify(seed)), SEED);
         await qePage.goto('query-editor.html');
+        await queryEditorReady(qePage);
 
         // Load "one" and change its condition, then Insert.
         await qePage.locator('#query-picker').selectOption('one');

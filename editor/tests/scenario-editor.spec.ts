@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { ownClipboard, copiedText } from './clipboard';
 
 // Seeds the Scenario Editor's localStorage data, then opens the window directly.
 const SEED = {
@@ -39,7 +40,7 @@ const SEED_ASSUME = {
 
 test.describe('Scenario Editor', () => {
     test('loads a scenario into editable template rows and builds correct text', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
 
         // Same origin as scenario-editor.html, so localStorage carries over.
         await page.goto('index.html');
@@ -106,7 +107,7 @@ test.describe('Scenario Editor', () => {
 
         // Copy builds the scenario block; verify its text on the clipboard.
         await page.locator('#btn-copy').click();
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toContain('scenario alice is:');
         expect(copied).toContain('John is born in the United Kingdom on 2021-10-09.');
         expect(copied).toContain('this wall is green.');
@@ -312,7 +313,7 @@ test.describe('Scenario Editor', () => {
     });
 
     test('Assume checkbox marks a fact unknown ("it is unknown whether …")', async ({ page, context }) => {
-        await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+        await ownClipboard(context);
         await page.goto('index.html');
         await page.evaluate((seed) =>
             localStorage.setItem('le_scenario_editor_data', JSON.stringify(seed)), SEED_ASSUME);
@@ -340,7 +341,7 @@ test.describe('Scenario Editor', () => {
 
         // Copy: both facts are now written with the "it is unknown whether" prefix.
         await page.locator('#btn-copy').click();
-        const copied = await page.evaluate(() => navigator.clipboard.readText());
+        const copied = await copiedText(page);
         expect(copied).toContain('it is unknown whether Bob is happy.');
         expect(copied).toContain('it is unknown whether Alice likes chocolate.');
 
@@ -348,7 +349,7 @@ test.describe('Scenario Editor', () => {
         await unknownRow.locator('.assume input[type=checkbox]').uncheck();
         await expect(unknownRow.locator('input.field')).toBeEnabled();
         await page.locator('#btn-copy').click();
-        const copied2 = await page.evaluate(() => navigator.clipboard.readText());
+        const copied2 = await copiedText(page);
         expect(copied2).toContain('Bob is happy.');
         expect(copied2).not.toContain('it is unknown whether Bob is happy.');
     });
