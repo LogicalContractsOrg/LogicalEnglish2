@@ -2,9 +2,10 @@
 
 *Kind: guide · Audience: everyone who uses the hosted editor · Status: current (2026-10-04)*
 
-You do not need an account to use Logical English. All the functions in this
-documentation operate without a sign-in. The only exceptions are the few functions
-that the section *The two licences* gives below.
+You do not need an account to use Logical English. Almost all the functions in this
+documentation operate without a sign-in. There are two exceptions. On the hosted
+editor, the translators of other systems ask you to sign in, but they are free. The
+few functions that the section *The two licences* gives below need a licence.
 
 ## One sign-in for Logical English and LPS
 
@@ -32,6 +33,22 @@ password for Google or for GitHub.
 
 A sign-in stays valid for 14 days, or until you click **Logout**.
 
+## The translators: a sign-in, and no licence
+
+The translators of other systems are free. With the translators, **File ▸ Open**
+opens a file for another rules system (for example Oracle Intelligent Advisor,
+Socotra, Blawx or Drools). **File ▸ Export** writes a program for such a system.
+Refer to [Other systems: importing and exporting](../integrations/index.md).
+
+On the hosted editor, sign in to use the translators. You do not need a licence. The
+limits on use of the hosted editor apply to the translators also. If you did not sign
+in, the hosted editor asks you to sign in.
+
+The translators are open source: each person can read, use and change their code.
+The translators are a part of the Logical English software (the folder `migration/`).
+Thus a copy of Logical English on your own computer also has the translators. A
+server with no sign-in gives the translators to each visitor.
+
 ## The two licences
 
 When you sign in, the site can find the licences for your email address. Each
@@ -39,7 +56,7 @@ licence has an expiry date.
 
 | Licence | What it adds |
 |---|---|
-| **Logical English Translators** | The translators of other systems. With these translators, **File ▸ Open** opens a file for another rules system (for example Oracle Intelligent Advisor, Socotra, Blawx or Drools). **File ▸ Export** writes a program for such a system. The licence also adds the **LE Contract Assistant**. The Contract Assistant writes the first draft of a program from a contract, its schedules and its cases ([the assistants](assistants.md#the-contract-assistant)). The licence also adds the private example programs. These include the programs that the translators wrote from sources that we possibly cannot publish. In the LPS editor, the licence also adds **Deploy as Solidity** and the Drools reader. |
+| **LE Contract Assistant** | The **LE Contract Assistant**. The Contract Assistant writes the first draft of a program from a contract, its schedules and its cases ([the assistants](assistants.md#the-contract-assistant)). The licence also adds the private example programs. These include the programs that the translators wrote from sources that we possibly cannot publish. Before November 2026, this licence had the name *Logical English Translators*, and the translators were a part of it. |
 | **InsurLE** | The InsurLE language extensions. These extensions are: a *which* in the conclusion of a rule, conditions that start with *unless*, groups of conditions below *either*, *any of* or *all of*, and conditions with the numbers 1., 2., 3. The licence also adds the example programs of InsurLE. |
 
 A person can have one licence, the other licence, or the two licences. To obtain a
@@ -47,8 +64,8 @@ licence, speak to logicalcontracts.com.
 
 ## What you see without a licence
 
-- **File ▸ Open** accepts only Logical English files. **File ▸ Export** does not
-  give other systems.
+- The translators of other systems operate when you signed in. A licence is not
+  necessary.
 - The page of the Contract Assistant tells you the licence that it is part of. The
   page also lets you sign in.
 - The private examples are not in the list. A link to a private example sends you to

@@ -18,8 +18,12 @@ Rate lookups become decision tables. The translation also has a view that calcul
 the price of an activity. A view is a screen that shows the program to its users. The
 translation goes in one direction only, from OIPA into Logical English. There is no
 exporter back to OIPA. To use the translator, select **File ▸ Open…** or **File ▸
-Import from Another System…**. The translator needs the Logical English Translators.
-Some installations have them, for example the hosted service.
+Import from Another System…**.
+
+The translator is open source. The translator is in the folder `migration/oipa/` of
+Logical English 2. Thus each installation of Logical English has the translator. On
+the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in.
 
 ## Contents
 

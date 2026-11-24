@@ -289,11 +289,16 @@ the mouse pointer on the item.
 
 ### Other systems' files: import and export
 
-Some servers have the InsurLE extensions installed. The hosted service has them. Such
-a server translates the files of eleven other systems into Logical English. It also
-writes Logical English programs in the formats of three other systems. A server
-without the extensions hides `Import from Another System…`. On such a server,
-`File > Open...` shows only `.le` files. For the full guide, refer to
+A Logical English server translates the files of eleven other systems into Logical
+English. It also writes Logical English programs in the formats of three other
+systems. The translators are open source, in the folder `migration/` of the Logical
+English software. Thus each server has the translators. On the hosted service, sign
+in to use the translators. The translators are free for each visitor who signed in
+([Signing in, and what a licence adds](accounts.md)).
+
+The copy of the editor that runs fully in the browser, without a server, has no
+translators. That copy hides `Import from Another System…`, and its `File > Open...`
+shows only `.le` files. For the full guide, refer to
 [Other systems: importing and exporting](../integrations/index.md). That guide has a
 document for each system.
 

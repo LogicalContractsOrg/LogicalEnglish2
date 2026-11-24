@@ -18,11 +18,15 @@ The file can be alone, or in a zip file with the files that it uses. The
 result is an ordinary Logical English program. The tests of the provision
 become scenarios in that program. **File ▸ Export to Another System…** writes
 a Logical English program as a RuleSpec file. The scenarios of the program
-become the tests of the file. The translator is a part of the Logical English
-Translators. Thus only the installations that have the Translators give the
-translator, for example the hosted service. Every installation has the
-translations of the Axiom programs for food assistance, two tax credits and
-Supplemental Security Income. These translations have the name *twins*.
+become the tests of the file.
+
+The translator is open source. The translator is in the folder
+`migration/rulespec/` of Logical English 2. Thus each installation of Logical
+English has the translator. On the hosted service, sign in to use the
+translator. The translator is free for each visitor who signed in. Every
+installation also has the translations of the Axiom programs for food
+assistance, two tax credits and Supplemental Security Income. These
+translations have the name *twins*.
 
 ## Contents
 

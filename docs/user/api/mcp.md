@@ -442,8 +442,8 @@ four tools: `query` and `verify`.
 ### The tools of the Contract Assistant
 
 A server with the Contract Assistant installed gives nine more tools. The tools are
-in the list only when the sign-in of the client has the licence of the Logical
-English Translators (the capability `contract_assistant`;
+in the list only when the sign-in of the client has the **LE Contract Assistant**
+licence (the capability `contract_assistant`;
 [signing in](../guide/accounts.md)). Each tool is one stage of the
 [Contract Assistant](../guide/assistants.md#the-contract-assistant). Each tool takes
 what it needs (the document, the vocabulary, the program) and gives back its

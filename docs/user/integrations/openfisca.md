@@ -29,13 +29,19 @@ that contains many files. The result is a Logical English program:
   facts about one household, together with the answers that the test expects.
 
 **File ▸ Export to Another System… ▸ OpenFisca** writes a Logical English program as
-one Python file that OpenFisca can run. The translator is part of the Logical English
-Translators. Thus only installations that have the Logical English Translators show
-this menu item.
+one Python file that OpenFisca can run.
+
+The translator is open source. The translator is in the folder `migration/openfisca/`
+of Logical English 2. Thus each installation of Logical English has the translator.
+On the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in.
 
 The models have the AGPL licence. Thus the hosted service keeps the translations of
 the models of PolicyEngine and OpenFisca. These translations are called *twins*. The
-examples of each installation do not contain the twins.
+examples of each installation do not contain the twins. When you make the twins on
+your own installation, the translator writes the twins to a private folder. The
+private folder is the folder that the setting `LE_PRIVATE_TWINS_DIR` names, or the
+folder `build/private/` in Logical English 2.
 
 ## Contents
 

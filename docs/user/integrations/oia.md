@@ -15,15 +15,17 @@ Excel test cases of the project become scenarios. A scenario is the set of facts
 one case. An interview becomes a view. A view is a screen that shows the program to a
 person who does not read its sentences. The translation goes in one direction only,
 from OIA into Logical English. Nothing writes an OIA project back. To start the
-translation, select **File ▸ Open…** or **File ▸ Import from Another System…**. The
-translator is part of the *Logical English Translators*. Some installations, for
-example the hosted service, have the translators for the accounts that have that
-licence.
+translation, select **File ▸ Open…** or **File ▸ Import from Another System…**.
 
-The same licence gives the **OIA adapter**. With the adapter, the server answers the
-calls that applications make to Oracle Intelligent Advisor: its decision services,
-Batch Assess and SOAP Assess. The server answers in the formats of Oracle, from the
-translated program. Thus an application that was written for OIA needs a new address
+The translator is open source. The translator is in the folder `migration/oia/` of
+Logical English 2. Thus each installation of Logical English has the translator. On
+the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in.
+
+The **OIA adapter** is open source in the same way. With the adapter, the server
+answers the calls that applications make to Oracle Intelligent Advisor: its decision
+services, Batch Assess and SOAP Assess. The server answers in the formats of Oracle,
+from the translated program. Thus an application that was written for OIA needs a new address
 and new credentials, but no new code. Refer to [The OIA adapter](#the-oia-adapter).
 
 ## Contents
@@ -181,9 +183,11 @@ uploaded.
 
 ### Examples to try
 
-The lpsPlus examples include fifteen translated OIA projects. You can see those
-examples only on installations that have them, and only if you have access to them.
-To open an example, select **File ▸ Open example from server…**:
+The private examples include fifteen translated OIA projects. These examples are not
+published, because we do not have permission to publish their sources again. You can
+see those examples only on installations that have them, and only if you
+have access to them. On the hosted service, the names of these examples start with
+`lpsPlus/`. To open an example, select **File ▸ Open example from server…**:
 
 - `lpsPlus/migration/oia/warranty_claims`: three rules. This is the smallest example;
 - `lpsPlus/migration/oia/mom_paternity_leave`: the Government Paid Paternity Leave
@@ -332,8 +336,9 @@ point (`the fee is 70`). A scenario of this kind says
 ## The OIA adapter
 
 The server that runs the editor can also answer **the interfaces of Oracle Intelligent
-Advisor**, from the translated programs. For this, the installation must have the
-Logical English Translators:
+Advisor**, from the translated programs. The adapter is open source
+(`migration/oia/oia_adapter.pl` in Logical English 2). Thus each installation that
+runs a server has the adapter:
 
 | An application that called OIA through | Calls this server at |
 |---|---|
@@ -348,8 +353,12 @@ with their names. The values of each case become facts of the program. Each outc
 becomes a question to the program. An outcome that asks for a *decision report* gets
 the explanation of the program. If the case does not decide a boolean outcome, the
 answer is *false*. In the same case, OIA can say *unknown* (refer to the first trap
-below). The API clients belong to accounts that have the licence. Your administrator
-makes them.
+below).
+
+On a server with accounts, for example the hosted service, each call needs an API
+client. An API client belongs to an account. All accounts can have an API client: no
+licence is necessary. Your administrator makes the API clients. On a server with no
+accounts, the adapter does not ask for an API client.
 
 The OIA adapter and the DMN adapter share one part, the adapter kit. The kit reads
 the mapping file next to each twin, writes the case as sentences of the twin, and asks

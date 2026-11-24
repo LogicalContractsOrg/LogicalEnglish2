@@ -190,7 +190,7 @@ uses its action `read_facts`, which runs the same step.
 
 The Contract Assistant is a separate web page, at
 **`/web_extras/contract_assistant/index.html`** on the server. It is a part of the
-**Logical English Translators** licence. You must sign in with an account that has
+**LE Contract Assistant** licence. You must sign in with an account that has
 that licence ([signing in](accounts.md)). The Contract Assistant runs longer tasks on
 the server. Each task stays within a budget that you set. One run can call the model
 many times. A run can take some minutes or some hours. The cost depends on the models

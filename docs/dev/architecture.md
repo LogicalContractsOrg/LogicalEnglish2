@@ -37,7 +37,7 @@ workers.
 | `/docs/…` | the user documentation, only under `docs/user/` (`public_doc/1`); a document name answers the markdown viewer `web_extras/docsview/viewer.html`; old paths redirect (`doc_moved/2`) |
 | `/readable/<example>` | an example as a readable document (`le_readable.pl`; `?format=html\|md\|docx\|pdf&style=…&comments=true`), for signed-in visitors only (or `NO_RESTRICTIONS=true`), since it loads the program; the others are sent to `/login` and back |
 | `/source/<example>` | an example's `.le` text, only under the directories listed in `ALLOWED_LE_EXPORTS` and allowed for the user's roles |
-| `/login`, `/logout`, `/whoami` | the sign-in shared with LPS2, from the private lpsPlus repository (`accounts/lc_accounts.pl`, found by `le_plus.pl`): Google, GitHub or a password account we created, and `/auth/google`, `/auth/github` with their callbacks. The visitor of every request is identified by a request expansion (`identify_visitor/3`), from a signed cookie; the licences held by that email address (lpsPlus `accounts/licenses.csv`) become capabilities, which gate the example trees (`restricted_paths.pl`) and, through `le_entitlements.pl`, the translators of other systems and the InsurLE extensions. Without lpsPlus every visitor is anonymous; lpsPlus `accounts/README.md` has the whole design |
+| `/login`, `/logout`, `/whoami` | the sign-in shared with LPS2, from the private lpsPlus repository (`accounts/lc_accounts.pl`, found by `le_plus.pl`): Google, GitHub or a password account we created, and `/auth/google`, `/auth/github` with their callbacks. The visitor of every request is identified by a request expansion (`identify_visitor/3`), from a signed cookie; the licences held by that email address (lpsPlus `accounts/licenses.csv`) become capabilities, which gate the example trees (`restricted_paths.pl`) and, through `le_entitlements.pl`, the LE Contract Assistant and the InsurLE extensions. The translators of other systems need no licence: every signed-in visitor gets their capability, `converters`, and so does every visitor of a server that has no sign-in. Without lpsPlus every visitor is anonymous; lpsPlus `accounts/README.md` has the whole design |
 | `/telemetry.js`, `/telemetry_test` | Sentry and Cloudflare configuration, off unless configured ([telemetry.md](telemetry.md)) |
 | `POST /test_services/…` | stub services for programs that declare services (`le_services.pl`) |
 | `/build_info` | the build string |
@@ -59,7 +59,7 @@ answered with HTTP 500.
 | `reasoner.pl` | meta-interpreter: conjunction, disjunction, negation as failure, aggregates, unknowns, success and failure explanation trees; the DAP tracer hooks |
 | `le_verifier.pl` | load-time checks behind the editor's diagnostics (missing templates, undefined or untested predicates, rules without variables, …) |
 | `le_extensions.pl` | **optional, proprietary**: a symlink into InsurLE2. `which`, `unless` in bodies, grouped alternatives, numbered bodies, `prolog` goals, prepositional chaining ([extensions.md](../user/reference/extensions.md)) |
-| `le_importers.pl` | **optional, proprietary**: a symlink to lpsPlus's `migration/le_importers.pl`, the table of importers and exporters of other systems that `le_import.pl` reads ([migration.md](migration.md)) |
+| `migration/le_importers.pl` | the table of importers and exporters of other systems that `le_import.pl` reads. The translators themselves are in `migration/<source>/`: open source, part of this repository, published "as is" ([migration.md](migration.md)). The WebAssembly build leaves `migration/` out |
 
 **Regulatory constructs** (language reference §17), all loaded by `le_kbs`:
 `le_provenance.pl` (provenance trailers), `le_tables.pl` (decision tables),
@@ -102,9 +102,11 @@ program includes.
 **Server infrastructure**: `classic_web_api.pl`, `dap_server.pl`,
 `restricted_paths.pl`, `le_telemetry.pl`, `le_email.pl` (email through
 Brevo, off unless configured: [email.md](email.md)); `le_plus.pl` (where the private
-lpsPlus repository is: the sign-in and the translators) and
-`le_entitlements.pl` (what the request being served may use of the licensed
-parts: `converters`, `extended_examples`, `le_extensions`; everything on the
+lpsPlus repository is: the sign-in and the Contract Assistant) and
+`le_entitlements.pl` (what the request being served may use: the licensed
+parts `contract_assistant`, `extended_examples` and `le_extensions`, and
+`converters`, the translators of other systems, which are free but go to
+signed-in visitors only on a server that has a sign-in; everything on the
 command line and in the tests, what the visitor's licences hold on a server).
 
 ## 2. The editor (`editor/`)
@@ -158,12 +160,14 @@ in [editor/README.md](../../editor/README.md).
   `docs/user/reference/language.md` and `AGENTS_LE_template*.md` by path.
 - **`testing/`**: `run_tests.sh` runs the plunit files `testing/test_*.pl`,
   the LE example suite (`runTests`) and the Playwright suite in `editor/tests/`,
-  which starts its own server on port 3000. `testing/fixtures/` holds the
+  which starts its own server on port 3000; `run_tests.sh migration` runs the
+  translators' own test files (`migration/*/test_*.pl`), only when asked for
+  by name. `testing/fixtures/` holds the
   programs the tests load.
 - **Deployment**: `Dockerfile` (base `swipl:latest`, plus Node 20, `opencode-ai`
   and `mcp-remote`, the `scasp` pack, an editor build, and — for the Solidity
   translator, which runs the Solidity compiler as a JavaScript library — an
-  `npm ci` inside `vendor/lpsplus/migration/solidity`),
+  `npm ci` inside the translator's folder, `migration/solidity`),
   `buildPush.sh` (builds from a dereferenced copy of the tree, then
   `fly deploy --local-only`), `fly.toml`.
 - **Several machines** (`le_machine.pl`): a session, an LE Assistant job and a
@@ -185,8 +189,10 @@ in [editor/README.md](../../editor/README.md).
   to the `Dockerfile` (about 10 MB more in the image), or mount a fly volume
   and set `LE_ONTOLOGY_DIR` to it.
 - **Sibling repositories**: InsurLE2 (`le_extensions.pl` and the examples of
-  those constructs), lpsPlus (`le_importers.pl` and the translators behind it,
-  the domain models and the twins whose sources may not be published) and lps2
+  those constructs), lpsPlus (the sign-in and the licences table, the Contract
+  Assistant, the private examples, the domain models and the twins whose
+  sources may not be published; the translators of other systems were there
+  until November 2026 and are now `migration/` of this repository) and lps2
   (runs LE-for-LPS programs; loads
   LE2 as a library through `le_service.pl`; the interface is lps2's
   `docs/dev/le-lps-interface.md`).

@@ -20,10 +20,13 @@ programs have operations, for example the games on the Epilog Games page. Such a
 program becomes a program in Logical English for LPS (Logic Production System). LPS
 runs a program forward through time. To open the Epilog file, select **File ▸
 Open…** or **File ▸ Import from Another System…**. Nothing writes an Epilog file back
-out. The translator is a part of the Logical English Translators. Thus only the
-installations that have the translators give this function. The hosted service is
-one of these installations. To run a translated game, you also need an LPS2 server
-next to the editor.
+out.
+
+The translator is open source. The translator is in the folder `migration/epilog/` of
+Logical English 2. Thus each installation of Logical English has the translator. On
+the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in. To run a translated game, you also need an LPS2 server next to
+the editor.
 
 ## Contents
 
@@ -113,8 +116,8 @@ A program that opens without a play says `the maximum time is 20.` For a longer 
 make that number larger.
 
 The LPS2 IDE is the integrated development environment, or editor, for LPS. Its
-**Open…** item reads the same `.epilog`, `.epi` and `.hrf` files. This is true only
-when the Logical English installation next to that editor has the translators.
+**Open…** item reads the same `.epilog`, `.epi` and `.hrf` files. The LPS2 IDE
+finds the translator in the Logical English installation next to that editor.
 
 ### The example twins
 

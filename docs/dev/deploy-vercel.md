@@ -178,7 +178,7 @@ request with no session. A static site has no accounts and cannot have any, so
 anything a server would have asked someone to log in for cannot be published
 by this build.
 
-On top of that: no symbolic links (`le_extensions.pl`, `le_importers.pl` and
+On top of that: no symbolic links (`le_extensions.pl` and
 the `insureLE2`/`lpsPlus` example trees are links into private repositories,
 and a link resolves perfectly well on the machine that builds — which is
 exactly what makes it dangerous), and no `vendor/` (the copy of lpsPlus made
@@ -217,6 +217,7 @@ Check what a build contains at any time:
 | The **debugger** (*Trace*) | it is a second thread talking a websocket to the editor, and there is one thread | tracing is not offered |
 | **Interrupting** a running query | the interrupt arrives on another thread, and there is one | a query runs to its limit |
 | **Accounts**, restricted examples | no server, nothing private shipped | no login link (the page is built without one) |
+| The **translators of other systems** (File ▸ Open for another system's file, File ▸ Export to Another System…) | `migration/` is open source and every server has it, but the payload does not carry it | File ▸ Open offers `.le` files only; *Import from Another System…* is hidden; open the file on the server |
 | The **large models** (customs, Medicare) and the OIPA twins | public, but too large for every visitor to unpack (`light_excluded/1` in `wasm/pack.pl`) | not in the examples list; open them on the server |
 | **s(CASP)** | an optional pack, not in the payload | "the s(CASP) engine is not installed on this server" |
 | Running the **test suite** from the landing page | it is a server's job | the button is not there |

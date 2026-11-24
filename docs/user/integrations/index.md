@@ -12,10 +12,29 @@ This page is the map. It tells which systems the editor reads and writes, and in
 which direction. It also tells how import and export operate in general. Each system
 has its own document, with a link below.
 
-The systems that a server translates depend on the translators that are installed on
-that server. The translators are part of the Logical English Translators. The hosted
-service has the Logical English Translators. A server that runs only the Logical
-English software has no translator. On such a server:
+The translators are open source: each person can read, use and change their code.
+The translators are in the folder `migration/` of the Logical English 2 (LE2)
+software, with one folder for each system. The translators have the same licence as
+the other parts of LE2, the Apache License 2.0. Thus each installation of LE2 has
+the translators, and you do not install a different product.
+
+Some translators also use an outside tool, for example Node.js, Python or Java. The
+`README.md` file in the folder of each translator tells you which tool is necessary.
+The [overview of the translators](../../../migration/README.md) has a list of the
+folders.
+
+The translators are published "as is". No person promises that a translator will
+follow the new versions of the system that it reads or writes.
+
+On the hosted service (`le2.logicalcontracts.com`), the translators are free for
+each visitor who signed in. The limits on use of the hosted service apply. If you
+did not sign in, the hosted service asks you to sign in
+([Signing in, and what a licence adds](../guide/accounts.md)). A server with no
+sign-in, for example LE2 on your own computer, gives the translators to each
+visitor.
+
+One copy of LE2 does not have the translators: the copy that runs fully in the
+browser, without a server. In that copy:
 
 - **File ▸ Import from Another System…** is hidden.
 - **File ▸ Open…** shows only `.le` files.
@@ -389,10 +408,21 @@ ledger, the tests of its source written as scenarios, and its `sources/` folder.
 - `migration/scasp/…`: s(CASP) programs, including the programs of LE1.
 
 The twins written in Logical English for LPS (Daml, Drools, Solidity, the contracts
-of L4, the Epilog games) are among the examples of LPS2. The twins of Oracle
-Intelligent Advisor and Socotra are only on
-installations that have the lpsPlus examples (in `lpsPlus/migration/`). Only users
-with access to these examples can open them.
+of L4, the Epilog games) are among the examples of LPS2.
+
+Some twins are not published, because we do not have permission to publish their
+sources again. These are the twins of the sample projects of Oracle Intelligent
+Advisor, of Socotra, of OpenFisca and PolicyEngine, of the Digital Regulatory
+Reporting (DRR) rules of ISDA, of the Dutch *bruidsschat* DMN files, and of the
+spreadsheets whose publishers state no licence. The translators of these systems are
+open source, as the other translators are.
+
+When you make these twins on your own installation, the translator writes the twins
+to a private folder. The private folder is the folder that the setting
+`LE_PRIVATE_TWINS_DIR` names, or the folder `build/private/` in LE2. The twins of
+Oracle Intelligent Advisor and Socotra are also on the installations that have the
+private examples (in `lpsPlus/migration/`). Only users with access to the private
+examples can open them.
 
 ## Adapters: keep the callers
 
@@ -409,4 +439,5 @@ the DMN engines Kogito, KIE Server, Camunda 7 and Camunda 8. Refer to
   [the LE for LPS reference](https://lps2.logicalcontracts.com/docs/user/reference/le-for-lps)
   and [other systems in LPS2](https://lps2.logicalcontracts.com/docs/user/integrations/index).
 - How the translators work, the ledger and the residue, for developers:
-  [migration](../../dev/migration.md).
+  [migration](../../dev/migration.md). The code of the translators:
+  [the folder `migration/`](../../../migration/README.md).

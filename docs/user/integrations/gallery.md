@@ -113,9 +113,11 @@ result. We publish nothing without your written permission. Write to
 <licensing@logicalcontracts.com>, or use the form at
 <https://logicalcontracts.com/home/contact-us/>.
 
-The translators themselves have a licence: refer to
-<https://logicalcontracts.com/logical-english-extensions/>. Each twin is given "as
-is", without warranty. Check a twin against its source before you rely on it.
+The translators themselves are open source. The translators are in the folder
+`migration/` of Logical English 2, with the same licence, the Apache License 2.0. On
+the hosted service, the translators are free for each visitor who signed in. The
+translators and each twin are given "as is", without warranty. Check a twin against
+its source before you rely on it.
 
 ## See also
 

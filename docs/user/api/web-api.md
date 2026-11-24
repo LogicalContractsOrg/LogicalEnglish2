@@ -174,10 +174,13 @@ Some folders of examples are open only to callers with a specific licence.
 adds](../guide/accounts.md)). The server identifies the caller from a cookie. A
 cookie is a small note that a browser keeps and sends back with each request. The
 sign-in at `/login` makes this cookie. The server then finds the licences for that
-email address. A request without such a cookie has no licence. The same rule applies
-to the translators of other systems (`importFormats`, `importForeign`,
-`exportFormats`, `exportForeign`). A caller without the licence *with extensions*
-gets none of these translators.
+email address. A request without such a cookie has no licence.
+
+The translators of other systems (`importFormats`, `importForeign`, `exportFormats`,
+`exportForeign`) need no licence. On a server that has a sign-in, for example the
+hosted service, a caller must sign in to use these translators. A caller who did not
+sign in gets none of these translators. On a server with no sign-in, each caller gets
+the translators.
 
 ---
 
@@ -1109,7 +1112,7 @@ is `{ "result": "error", "error": "Job not found" }`.
 
 The Contract Assistant changes the materials that it receives into a tested LE
 program. The work occurs in a job that runs independently. The module
-`le_contract_assistant.pl` of the licensed Logical English Translators does this
+`le_contract_assistant.pl` of the licensed LE Contract Assistant does this
 work. The pages for the user are at `/web_extras/contract_assistant/`. A server
 without this module replies to each `contract_…` operation with
 `{ "error": "<it is not installed here>", "not_installed": true }`. The server keeps
@@ -1117,7 +1120,7 @@ the files of a job in `contract_jobs/<job>/`, or in the folder that
 `$LE_CONTRACT_JOBS_DIR` names. These files stay on the disk. Thus, after a restart,
 the server can still report the state of a job and give its result.
 
-The five `contract_…` operations are part of the Logical English Translators licence
+The five `contract_…` operations are part of the **LE Contract Assistant** licence
 (the capability `contract_assistant`; [signing in](../guide/accounts.md)). If the
 sign-in of a request does not have this licence, the reply is
 `{ "error": "<why, and how to obtain it>", "unlicensed": true }`. A server that

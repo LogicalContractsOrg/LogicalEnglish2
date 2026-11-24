@@ -23,10 +23,11 @@ Logical English (LE) can use such a workbook in two ways:
   for an answer. The program asks the workbook as it asks any outside service. The
   workbook stays the authority, and LE gives the workbook the credit for each answer.
 
-The translator that opens workbooks is a part of the Logical English Translators.
-Thus only the installations that have the translators give this function. The hosted
-service is one of these installations. The function that asks a workbook is a part of
-LE itself.
+The translator that opens workbooks is open source. The translator is in the folder
+`migration/spreadsheet/` of Logical English 2. Thus each installation of Logical
+English has the translator. On the hosted service, sign in to use the translator. The
+translator is free for each visitor who signed in. The function that asks a workbook
+is a part of LE itself.
 
 ## Contents
 
@@ -179,7 +180,7 @@ fills in. In such a workbook, the translator takes the empty cells that formulas
 as inputs. Sometimes the number of these inputs is not realistic. The import then
 tells you, so that you can give the names of the inputs. These two choices are
 options of the translator. Each person who runs the translator can use them. (Refer
-to the developer guide of the Logical English Translators.)
+to the [README file of the translator](../../../migration/spreadsheet/README.md).)
 
 ## Asking a workbook instead
 
@@ -278,8 +279,8 @@ verifier gives a report at the applicable line for each of these problems:
 - A template that the service answers, but no sentence tells which cells answer it.
 - A workbook that is not at the address.
 
-You can open the workbook with **File ▸ Open…** (with the Logical English
-Translators). LE then writes a draft of steps 2 to 4 at the end of the twin, as a
+You can open the workbook with **File ▸ Open…**. LE then writes a draft of steps 2
+to 4 at the end of the twin, as a
 comment. The draft has the service line, a template for each answer that the
 translator found, and the section of cells. After the draft, there is a list of all
 the input cells and answer cells, each with its label. Copy the lines out of the
@@ -325,8 +326,8 @@ C5 = 5000, D5 = 3000*.
   these editions, the answer to the question is unknown.
 
 There are two full examples. `examples/regulatory/medicare/vitamin_d_bmi.le` asks a
-small workbook for the body mass index code of a patient. The Oklahoma example comes
-with the Logical English Translators.
+small workbook for the body mass index code of a patient. The Oklahoma example is
+among the private examples, because its workbook states no licence.
 
 ## What is not supported yet
 

@@ -539,9 +539,8 @@ program from memory.
 ## 14. Reading s(CASP) back (September 2026)
 
 `le_writer:prolog_file_to_ir/3` reads an s(CASP) program back into Logical English.
-This is the same translation in the reverse direction
-(lpsPlus/docs/migration/roadmap.md §5.7, Phase 2c). Each part of the s(CASP) program
-gives information:
+This is the same translation in the reverse direction. Each part of the s(CASP)
+program gives information:
 
 - `#pred` gives the templates again, and `@(X:type)` names each slot in a template.
 - `-p` gives the opposite form again.

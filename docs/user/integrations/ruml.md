@@ -20,10 +20,12 @@ has the name *twin*. LE also writes RUML: **File ▸ Export to Another System…
 **evaluator**: it reads a rulemap and the data of a case, and it writes the
 result in the result format of RUML (`.ruml-result`).
 
-The translator is a part of the Logical English Translators. Thus only the
-installations that have the Translators give the translator, for example the
-hosted service. Every installation has the twins of the examples of the RUML
-specification and of the fixtures of its conformance tests.
+The translator is open source. The translator is in the folder
+`migration/ruml/` of Logical English 2. Thus each installation of Logical
+English has the translator. On the hosted service, sign in to use the
+translator. The translator is free for each visitor who signed in. Every
+installation also has the twins of the examples of the RUML specification and
+of the fixtures of its conformance tests.
 
 ## Contents
 
@@ -86,7 +88,8 @@ scenario one is:
 
 To open a rulemap:
 
-1. Sign in. The translator is a part of the Logical English Translators.
+1. On the hosted service, sign in. The translator is free for each visitor who
+   signed in.
 2. Select **File ▸ Open…**.
 3. Select the `.ruml` file (or the `.rumlc` file, or a zip file with the
    rulemap and its additions).
@@ -168,7 +171,9 @@ value has no result, so the leaf is undefined. But a comparison with `=` or
 `dp_wohnsitz = true` is false, not undefined, when the residence is not
 entered yet. The twin does the same, because the specification says so
 (§4.8). Another evaluator can read this differently (§5.0 lists missing data
-as a cause of undefined). The translator's README tells the details.
+as a cause of undefined). The
+[README file of the translator](../../../migration/ruml/README.md) tells the
+details.
 
 A value of the wrong type has no result in JSONata too: the text `"60000"`
 compared with the number `50000` is undefined. The twin does not state such

@@ -3,17 +3,43 @@
 *Kind: reference · Audience: developers · Status: current (2026-11-24)*
 
 This is the reference for the infrastructure every translator into Logical
-English shares — Phase 0 of the roadmap in
-`lpsPlus/docs/migration/roadmap.md` (§4 and §8). The source-specific
-readers (Socotra, Oracle Intelligent Advisor, Bitcoin Miniscript, Solidity)
-live in the lpsPlus repository (`lpsPlus/migration/`) and are described
-there; everything here is core LE and has no knowledge of any source system.
+English shares — Phase 0 of the migration roadmap (the author's working
+papers, not published; the "Roadmap item" column below names its items). The
+source-specific readers and writers (Socotra, Oracle Intelligent Advisor,
+Bitcoin Miniscript, Solidity and the others) live in this repository too, in
+`migration/<source>/`, and each is described by the `README.md` of its folder
+(the overview is [`migration/README.md`](../../migration/README.md));
+everything described here is core LE and has no knowledge of any source
+system.
+
+**The translators are open source.** Until November 2026 they were a
+licensed product kept in the private lpsPlus repository, and LE2 offered them
+only where lpsPlus was installed beside it. They are now part of this
+repository, under its Apache-2.0 licence; their copyright holder is Miguel
+Calejo (the root `NOTICE` says so; `migration/README.md` lists the few
+files of other authors in that folder). They are published "as is": nobody promises that
+a translator will follow the new versions of the system it reads or writes.
+Every installation of LE2 offers them with nothing else installed, though a
+translator may need a tool of its own (Node.js, Python, Java), as its
+`README.md` says. Only the WebAssembly build leaves `migration/` out. On a
+server that has a sign-in they go to signed-in visitors, with no licence, so
+that the limits on use count against somebody; on a server with no sign-in
+they go to every visitor (the capability `converters`, `le_entitlements.pl`,
+`classic_web_api:identify_visitor/3`). Their own tests are
+`migration/*/test_*.pl`, run by `testing/run_tests.sh migration` and only
+when asked for by name: several need a download, another system's engine or
+LPS2 beside this checkout, and skip what they cannot check.
+
 The twins they write live with the language they are written in: timeless LE
 twins in this repository's `examples/migration/<source>/` (Blawx, LegalRuleML,
 Miniscript, OIPA, s(CASP)), LE-for-LPS twins in `lps2/examples/migration/<source>/`
-(Daml, Drools, Solidity), and those whose sources are not cleared for
-publication in `lpsPlus/examples/migration/` (`le2_paths:twins_dir/2` there
-says which).
+(Daml, Drools, Solidity). The twins of sources that may not be republished
+(Oracle Intelligent Advisor's samples, Socotra, OpenFisca and PolicyEngine,
+which are AGPL-3.0, ISDA's DRR for Rune, the Dutch bruidsschat DMN files,
+the spreadsheets of publishers that state no licence) are
+never written into either: they go to a private place, `$LE_PRIVATE_TWINS_DIR`
+or, without one, `build/private/` inside LE2 (`twins_dir/2` and
+`private_root/1` of `migration/le2_paths.pl` say which).
 
 ```
 source artefacts ──reader──▶ Migration IR ──le_writer──▶ program.le
@@ -44,9 +70,8 @@ program.le with RESIDUE blocks ──Contract Assistant, mode residue──▶ r
 `File > Open` in the editor, and the LPS2 IDE's `File > Open` for a `.sol`,
 send a file that is not Logical English to the operation `importForeign`,
 which hands it to the translator registered for it. A translator registers
-itself with one clause (the proprietary translators are listed in
-`lpsPlus/migration/le_importers.pl`, which `le_kbs.pl` loads through the
-`le_importers.pl` link in this directory):
+itself with one clause (the translators of `migration/` are listed in
+`migration/le_importers.pl`, which `le_kbs.pl` loads when it is there):
 
 ```prolog
 le_import:importer(Id, Title, Extensions, File, Module:Import, Module:Detect).
@@ -138,8 +163,8 @@ KB is the loaded knowledge base, so an exporter reads the program through
 and shows the result to copy or save, with its notes and a button per link.
 Tests: `testing/test_le_import.pl` (a made-up exporter with a check),
 `editor/tests/import-foreign.spec.ts` (both ways, and a refusal). The
-lpsPlus exporters and their checks are registered in
-`lpsPlus/migration/le_importers.pl` beside the importers.
+exporters of `migration/` and their checks are registered in
+`migration/le_importers.pl` beside the importers.
 
 **A third way: answering in the other system's own result format
 (`evaluator/5`).** A translator can also let Logical English *be* the other
@@ -156,7 +181,7 @@ le_import:evaluator(Id, Title, Extensions, File, Module:Evaluate).
 The operations `evaluateFormats` and `evaluateForeign` of `le_api.pl`
 (`evaluator`, `name`, `text` or `base64`, `data`, `options`) store the
 program like an upload and call it; an error comes back as `{error}`. The
-first evaluator is RUML's (lpsPlus `migration/ruml/`, `docs/user/integrations/ruml.md`):
+first evaluator is RUML's (`migration/ruml/`, `docs/user/integrations/ruml.md`):
 a rulemap and a case in, a `.ruml-result` out, decided by the rulemap's
 twin. Tests: `testing/test_le_import.pl` (a made-up evaluator).
 
@@ -184,10 +209,10 @@ refuses the same way, with the same reply:
 
 | conversion | where | the check |
 |---|---|---|
-| LE → Miniscript, LegalRuleML, Daml | `lpsPlus/migration/{miniscript,legalruleml,daml}` | `check_miniscript/3`, `check_lrml/3`, `check_daml/3` |
+| LE → Miniscript, LegalRuleML, Daml | `migration/{miniscript,legalruleml,daml}` | `check_miniscript/3`, `check_lrml/3`, `check_daml/3` |
 | LE → s(CASP) (See s(CASP), the s(CASP) engine) | `le_scasp.pl` | `le_scasp_check/3`: an emitter issue that loses meaning (docs/user/reference/scasp.md §8) |
 | LE for LPS → LPS (`getLps`, LPS2's `le_compile`, Deploy as Solidity, the LPS exporters) | `le_lps.pl` | any error issue, including `not_lps` (lps2's docs/user/reference/le-for-lps.md §8): no LPS text |
-| LPS → Solidity | `lpsPlus/migration/solidity/lps_solidity.pl` (LPS2's Deploy as Solidity, loaded by its `src/syntax/lps_plus.pl`) | `lps_to_solidity/3`'s refusal (reactive rules, Prolog, enumeration, …) |
+| LPS → Solidity | LPS2's `src/syntax/lps_solidity.pl` (its Deploy as Solidity) | `lps_to_solidity/3`'s refusal (reactive rules, Prolog, enumeration, …) |
 | LPS → LE (a document) | `le_lps_write.pl` | `le_lps_check/3`; `residue(true)` (a translator into LE) writes a comment instead |
 | an LPS program in the older syntax → LE | `le_lps_write.pl`, `le_lps_from_internal/4` | the templates are invented from the relations' own names and tied back with `; known as`; everything the surface cannot say comes back as an issue. LPS2's `src/syntax/lps_to_le.pl` reads the `.lps` file and calls it |
 
@@ -562,7 +587,7 @@ range:
 A version open at its end is guarded by its start only; a rule with a
 single version open at its end that started long before any case (RuleSpec:
 before 2000) carries no guard at all. The way back reads
-the guards as the versions (lpsPlus `migration/rulespec/rulespec_export.pl`).
+the guards as the versions (`migration/rulespec/rulespec_export.pl`).
 A law version that is a program of its own (RegelRecht) includes the
 versions it reads.
 
@@ -578,8 +603,8 @@ When a rule itself must round, `lib/rounding` rounds exactly.
 An adapter answers the callers of a source system (its addresses, its
 request and reply formats) from the twin. The common part is `le_adapter.pl`
 (user documentation: `docs/user/integrations/adapters.md`); a **dialect** is
-a module with the routes of one system (lpsPlus `migration/oia/oia_adapter.pl`,
-`migration/dmn/dmn_adapter.pl`). A translator whose source has callers writes,
+a module with the routes of one system (`migration/oia/oia_adapter.pl`,
+`migration/dmn/dmn_adapter.pl`, open source with the translators). A translator whose source has callers writes,
 beside the twin, `<twin>.adapter_map.json` (OIA's translator writes
 `<twin>.oia_map.json`, the same format):
 
@@ -597,10 +622,10 @@ beside the twin, `<twin>.adapter_map.json` (OIA's translator writes
 A dialect registers its maps with one clause,
 `le_adapter:adapter_dialect(Dialect, Suffix, Roots)`, and answers with
 `adapter_deployment/4` and `adapter_decide/6`. Who may call is the
-`le_adapter:access_hook/3` of the installation (lpsPlus
-`migration/adapter_access.pl`: an API client of an account holding the
-translators' licence); `ADAPTERS_OPEN=true` or `NO_RESTRICTIONS=true` open
-every adapter. `testing/test_adapter.pl` pins the kit on the twins of
+`le_adapter:access_hook/3` of the installation
+(`migration/adapter_access.pl`: on a server that has accounts, an API client
+of any account, with no licence; on a server with no accounts, anybody);
+`ADAPTERS_OPEN=true` or `NO_RESTRICTIONS=true` open every adapter. `testing/test_adapter.pl` pins the kit on the twins of
 `examples/migration/dmn/clients/`.
 
 ## The disclaimer every twin carries

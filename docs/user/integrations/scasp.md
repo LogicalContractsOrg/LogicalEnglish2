@@ -22,11 +22,13 @@ Logical English 2 connects to s(CASP) and Prolog in two directions. The two
 directions operate very differently. In the incoming direction, **File ▸
 Open…** (or **File ▸ Import from Another System…**) translates a `.pl`,
 `.scasp` or `.lp` file into a Logical English program. A file that LE1 wrote in
-s(CASP) is one of these files. That translator is a part of the Logical English
-Translators. Thus only the installations that have the Translators give the
-translator, for example the hosted service. In the outgoing direction there is
-no export menu. The reason is that every installation can show you the other
-forms of the program directly:
+s(CASP) is one of these files. That translator is open source, in the folder
+`migration/scasp/` of Logical English 2. Thus each installation of Logical
+English has the translator. On the hosted service, sign in to use the
+translator. The translator is free for each visitor who signed in.
+
+In the outgoing direction there is no export menu. The reason is that every
+installation can show you the other forms of the program directly:
 
 - **See s(CASP)** shows the full program in s(CASP). To find it, right-click in
   the editor.

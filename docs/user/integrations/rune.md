@@ -23,9 +23,12 @@ files. A zip file is one compressed file that contains many files.
 The result is a Logical English program. In this program, each rule is a sentence.
 Each field of a report is a rule that cites the passage of the regulation that the
 rule implements. **File ▸ Export to Another System… ▸ Rune** writes back the rules
-that you changed. Then it runs the result on the engine of DRR. The translator is
-part of the Logical English Translators. Thus only installations that have the
-Logical English Translators show this menu item.
+that you changed. Then it runs the result on the engine of DRR.
+
+The translator is open source. The translator is in the folder `migration/rune/` of
+Logical English 2. Thus each installation of Logical English has the translator. On
+the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in.
 
 ## Contents
 
@@ -245,7 +248,10 @@ different in a small number of fields:
 
 Logical Contracts keeps the translations of the 28 reports of DRR privately, because
 of the licence of DRR. These translations open when you open a DRR file on a server
-that has them.
+that has them. When you make these translations on your own installation, the
+translator writes them to a private folder. The private folder is the folder
+that the setting `LE_PRIVATE_TWINS_DIR` names, or the folder `build/private/` in
+Logical English 2.
 
 The translation of the product qualification of the CDM is
 `cdm_product_qualification`. It tells what a product is, for example an interest rate

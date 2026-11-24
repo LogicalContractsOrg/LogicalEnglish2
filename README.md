@@ -14,11 +14,17 @@ live at [lps2.logicalcontracts.com](https://lps2.logicalcontracts.com).
 Logical English reads the programs of twelve other rule systems. The
 translations of their published examples, with the sources, the tests and a
 ledger of what was and was not carried over, are in
-[`examples/migration/`](./examples/migration/README.md); the translators
-themselves are the [Logical English Translators](https://logicalcontracts.com/logical-english-extensions/),
-a licensed product of [Logical Contracts](https://logicalcontracts.com). The
-same licence gives the LE Contract Assistant, which writes the first draft of a
-program from a contract, its schedules and its cases
+[`examples/migration/`](./examples/migration/README.md). The translators
+themselves are open source too, under the same Apache-2.0 licence: they are
+in the folder [`migration/`](./migration/README.md) of this repository, one folder per
+system, so every installation of Logical English has them. They are published
+"as is": nobody promises that a translator will follow the new versions of the
+system it reads or writes. On the hosted service the translators are free for
+every visitor who has signed in.
+
+One part is still a licensed product of [Logical Contracts](https://logicalcontracts.com):
+the LE Contract Assistant, which writes the first draft of a program from a
+contract, its schedules and its cases
 ([the assistants](docs/user/guide/assistants.md#the-contract-assistant)).
 
 ---
@@ -52,8 +58,8 @@ The LE 2.0 environment provides a powerful, web-based IDE for developing and tes
 
 ### Environment Variables
 You can configure the deployment using the following environment variables:
-- `NO_RESTRICTIONS`: Set to `true` to lift every licence restriction: the example trees (`restricted_paths.pl`), the translators of other systems, the LE Contract Assistant and the InsurLE extensions (`le_entitlements.pl`). For a development machine.
-- `LPS_PLUS_DIR`: Where the private lpsPlus repository is — the sign-in, the licences table and the translators of other systems (`le_plus.pl`). By default `../lpsPlus`, then `/lpsPlus`, then `vendor/lpsplus` (what `vendor_lpsplus.sh` copies for the image, and what the Dockerfile names). `none` behaves as if there were no lpsPlus: every visitor is anonymous.
+- `NO_RESTRICTIONS`: Set to `true` to lift every restriction: the example trees (`restricted_paths.pl`), the LE Contract Assistant and the InsurLE extensions, which need a licence, and the translators of other systems, which a server with a sign-in gives to signed-in visitors only (`le_entitlements.pl`). For a development machine.
+- `LPS_PLUS_DIR`: Where the private lpsPlus repository is — the sign-in, the licences table and the LE Contract Assistant (`le_plus.pl`). LE2 does not need it: the translators of other systems are in `migration/` of this repository. By default `../lpsPlus`, then `/lpsPlus`, then `vendor/lpsplus` (what `vendor_lpsplus.sh` copies for the image, and what the Dockerfile names). `none` behaves as if there were no lpsPlus: every visitor is anonymous, and every visitor can use the translators.
 - `LC_AUTH_SECRET`, `LC_AUTH_COOKIE_DOMAIN`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`: the sign-in shared with the LPS server (Google, GitHub, or a password account we created). Set as fly.io secrets; lpsPlus `accounts/README.md` says how to obtain each one. What each licence adds: [Signing in, and what a licence adds](./docs/user/guide/accounts.md).
 - `ALLOWED_LE_EXPORTS`: Comma-separated directories whose examples the `/source/` endpoint may serve (fly.toml sets `examples/moreExamples`).
 - `LE_STATIC_EXPORT`: Set to `1` when the server is being *copied* rather than used: the server-rendered pages then leave out the login link and the button that runs the test suite, which a static copy cannot honour. `wasm/build.sh` sets it while it fetches those pages for the WebAssembly build ([docs/dev/deploy-vercel.md](./docs/dev/deploy-vercel.md)).
@@ -86,7 +92,8 @@ Optional components:
 - **s(CASP):** `swipl -g "pack_install(scasp)"` enables the s(CASP) engine (`le_scasp.pl`).
 - **Deep mode of the LE Assistant:** `npm install -g opencode-ai mcp-remote` ([docs/dev/assistant.md](./docs/dev/assistant.md)).
 - **LPS:** programs with `the target language is: lps.` run on an LPS2 server beside this one.
-- **Licensed extensions:** `le_extensions.pl`, when present next to `le_kbs.pl`, adds the [InsurLE](https://www.axiomepartners.com) constructs of [docs/user/reference/extensions.md](./docs/user/reference/extensions.md); `le_importers.pl`, likewise a link into the private lpsPlus repository, adds the [Logical English Translators](https://logicalcontracts.com/logical-english-extensions/), the importers and exporters of other systems.
+- **Translators of other systems:** the importers and exporters behind File ▸ Open, File ▸ Import from Another System… and File ▸ Export to Another System… are in [`migration/`](./migration/README.md), one folder per system, and need nothing else installed to be offered. Some translators call a tool of their own (Node.js for Solidity and spreadsheets, Python 3 for Rune and OpenFisca); the `README.md` of each translator's folder says which.
+- **Licensed extensions:** `le_extensions.pl`, when present next to `le_kbs.pl`, adds the [InsurLE](https://www.axiomepartners.com) constructs of [docs/user/reference/extensions.md](./docs/user/reference/extensions.md). The LE Contract Assistant, also licensed, comes from the private lpsPlus repository (`LPS_PLUS_DIR` above).
 
 ### Testing
 
@@ -99,6 +106,7 @@ testing/run_tests.sh --no-e2e   # skip the browser tests (fast: unit + LE exampl
 testing/run_tests.sh unit       # only the Prolog plunit suite
 testing/run_tests.sh le         # only the Logical English example tests (core)
 testing/run_tests.sh e2e        # only the Playwright browser tests
+testing/run_tests.sh migration  # the translators' own tests (migration/*/test_*.pl); run only when named
 
 testing/run_tests.sh --with-extensions       # LE examples incl. extension-dependent trees
 testing/run_tests.sh le --with-extensions    # ... just that suite
@@ -214,6 +222,8 @@ LE 2.0 is built on **SWI-Prolog** for the reasoning engine and **TypeScript/Mona
 ## ⚖️ Licensing and Copyright
 
 All software in this repository is licensed under the **[Apache License 2.0](LICENSE)** except where noted: the [NOTICE](NOTICE) file lists the parts written by others, which keep their own copyright and licence (libraries bundled in the editor, and the programs and texts of other systems among the examples).
+
+The translators of other systems (the folder `migration/`) are under the same Apache License 2.0. Their copyright holder is Miguel Calejo: the [NOTICE](NOTICE) file says so, and [`migration/README.md`](./migration/README.md) lists the few files in that folder that other authors wrote. The translators are published "as is", with no promise that they will follow the new versions of the other systems.
 
 **Copyright holders by country:**
 - LodgeIT (AU)

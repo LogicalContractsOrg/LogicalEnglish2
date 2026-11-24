@@ -30,11 +30,14 @@ English, for obligations, permissions and prohibitions. **File ▸ Export to
 Another System…** writes a Logical English program back as a LegalRuleML
 document. It uses the shorter of the two layouts of the standard. Possibly the
 program says a thing that LegalRuleML cannot say. Then the editor refuses to
-write the document. It tells you each problem, with its line. The two
-translators are a part of the Logical English Translators. Thus only the
-installations that have the Translators give them, for example the hosted
-service. Every installation has the translations of the examples of the
-specification. These translations have the name *twins*.
+write the document. It tells you each problem, with its line.
+
+The two translators are open source. The translators are in the folder
+`migration/legalruleml/` of Logical English 2. Thus each installation of
+Logical English has the translators. On the hosted service, sign in to use the
+translators. The translators are free for each visitor who signed in. Every
+installation also has the translations of the examples of the specification.
+These translations have the name *twins*.
 
 ## Contents
 
@@ -61,7 +64,8 @@ specification. These translations have the name *twins*.
 The LPS2 IDE is the integrated development environment, or editor, for LPS
 (Logic Production System). The LPS2 IDE has the same two menu items, **File ▸
 Open…** and **Misc ▸ Export to another system…**. These items use the same two
-translators, when the adjacent Logical English installation has them.
+translators. The LPS2 IDE finds the translators in the adjacent Logical
+English installation.
 
 ## How to use it
 

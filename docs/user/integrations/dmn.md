@@ -16,12 +16,15 @@ the Dutch STTR profile of DMN, which the Dutch Environment and Planning Act
 (the *Omgevingswet*) uses. The result is an ordinary Logical English
 program. The translation of a model has the name *twin*. When a test file of
 the DMN Technology Compatibility Kit (the TCK) is next to the model, its
-test cases become scenarios. The translator is a part of the Logical
-English Translators. Thus only the installations that have the Translators
-give the translator, for example the hosted service. Every installation has
-the twins of the TCK, of examples of Dutch government rules (RONL), of
-the Benefit Decision Toolkit of Philadelphia, and of the models that the
-client examples of Kogito and Camunda call.
+test cases become scenarios.
+
+The translator is open source. The translator is in the folder
+`migration/dmn/` of Logical English 2. Thus each installation of Logical
+English has the translator. On the hosted service, sign in to use the
+translator. The translator is free for each visitor who signed in. Every
+installation also has the twins of the TCK, of examples of Dutch government
+rules (RONL), of the Benefit Decision Toolkit of Philadelphia, and of the
+models that the client examples of Kogito and Camunda call.
 
 The translation also goes the other way. **File ▸ Export to Another
 System… ▸ DMN** writes a Logical English program as a DMN 1.6 model, with its

@@ -36,10 +36,12 @@ for it, the adapter also sends the reasons for each answer.
 | Camunda 7 | the twins of DMN models | `POST /engine-rest/decision-definition/key/<key>/evaluate` |
 | Camunda 8 | the twins of DMN models | `POST /v2/decision-definitions/evaluation`, the call of Camunda's own client libraries |
 
-The two adapters come with the Logical English Translators. The common part
-of all adapters, the **adapter kit** (`le_adapter.pl`), is a part of the open
-engine. The kit reads the mapping files, loads the twins and answers the
-cases. Each adapter adds the addresses and the formats of one system.
+The two adapters are open source, as the translators are. The OIA adapter is
+the file `migration/oia/oia_adapter.pl` of Logical English 2. The DMN adapter
+is the file `migration/dmn/dmn_adapter.pl`. The common part of all adapters,
+the **adapter kit** (`le_adapter.pl`), is a part of the open engine. The kit
+reads the mapping files, loads the twins and answers the cases. Each adapter
+adds the addresses and the formats of one system.
 
 ## The mapping file
 
@@ -132,9 +134,9 @@ The answer is `{"outputs": {...}, "reports": {...}}`.
 
 ## Sign-in
 
-On a server without restrictions (a developer's computer, a demonstration),
-the adapters do not ask for a sign-in. On a hosted server, each call must
-have one of these:
+On a server with no accounts (a developer's computer, a demonstration), the
+adapters do not ask for a sign-in. On a server with accounts, for example the
+hosted service, each call must have one of these:
 
 - `Authorization: Bearer <token>`, with a token from the sign-in address of
   the adapter (`/opa-hub/api/12.2.23/auth` for OIA,
@@ -143,8 +145,9 @@ have one of these:
 - `Authorization: Basic`, with the identifier and the secret of an API client.
   The clients of KIE Server and of Camunda 7 send this form.
 
-An API client belongs to an account that has the licence of the Logical
-English Translators. Your administrator makes API clients.
+An API client belongs to an account. All accounts can have an API client: no
+licence is necessary. The limits on use of the server count against that
+account. Your administrator makes API clients.
 
 ## Limits
 

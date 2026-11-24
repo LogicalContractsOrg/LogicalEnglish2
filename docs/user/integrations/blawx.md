@@ -26,11 +26,13 @@ can upload each of these files alone or inside a zip file. The result is a Logic
 English program in the words of the Act itself. Each rule cites the section that it
 came from. The text of the Act stays next to the program. The tests of the project
 become scenarios. (A scenario is a set of facts about one case.) The scenarios expect
-the answers that Blawx itself gives. Nothing writes a Blawx project back out. The
-translator is a part of the Logical English Translators. Thus only the installations
-that have the translators give this function. The hosted service is one of these
-installations. The translations of the example projects of Blawx, the *twins*, come
-with each installation.
+the answers that Blawx itself gives. Nothing writes a Blawx project back out.
+
+The translator is open source. The translator is in the folder `migration/blawx/` of
+Logical English 2. Thus each installation of Logical English has the translator. On
+the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in. The translations of the example projects of Blawx, the
+*twins*, also come with each installation.
 
 ## Contents
 

@@ -23,10 +23,13 @@ English (LE) program. The program has these parts:
 **File ▸ Export to Another System…** writes a program that uses the same
 vocabulary back as a policy. You get the Miniscript that the compiler of sipa
 makes from the policy. You also get the descriptor, when the program states the
-keys. You also get a link that opens the policy in the Minsc playground. The
-translators are a part of the Logical English Translators. Thus they are
-available only on the installations that have the Translators, for example the
-hosted service. Every installation has the example twins.
+keys. You also get a link that opens the policy in the Minsc playground.
+
+The two translators are open source. The translators are in the folder
+`migration/miniscript/` of Logical English 2. Thus each installation of Logical
+English has the translators. On the hosted service, sign in to use the
+translators. The translators are free for each visitor who signed in. Every
+installation also has the example twins.
 
 ## Contents
 
@@ -50,7 +53,8 @@ hosted service. Every installation has the example twins.
 | Logical English → Miniscript | **File ▸ Export to Another System…** | writes `<program>.policy` | the policy, the Miniscript of sipa, the descriptor when the program states the keys, a **Try it in Minsc** button | the round trip: each twin exports to the policy of its source, and the exported file opens back into the same policy |
 
 **File ▸ Open…** and **Misc ▸ Export to another system…** in the LPS2 IDE use
-the same translators, when the adjacent Logical English installation has them.
+the same translators. The LPS2 IDE finds the translators in the adjacent
+Logical English installation.
 
 ## How to use it
 

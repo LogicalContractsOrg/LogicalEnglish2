@@ -21,8 +21,12 @@ rate tables become decision tables. The program also gets a *quote desk* view. A
 is a screen that shows the program to its users. The translation goes in one
 direction only, from Socotra into Logical English. There is no exporter back to
 Socotra. To use the translator, select **File ▸ Open…** or **File ▸ Import from
-Another System…**. The translator needs the Logical English Translators. Some
-installations have them, for example the hosted service.
+Another System…**.
+
+The translator is open source. The translator is in the folder `migration/socotra/`
+of Logical English 2. Thus each installation of Logical English has the translator.
+On the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in.
 
 ## Contents
 
@@ -195,12 +199,14 @@ loads, the editor checks the quotations against the copied files.
 
 ### Examples to try
 
-The lpsPlus examples include the twins of the seventeen products of the public
+The private examples include the twins of the seventeen products of the public
 product library of Socotra. A twin is the translation of a product. The products
 include Pet, Personal Auto, Homeowners, Workers Compensation, Term Life, Cyber, Drone
-and others. You can see those examples only on installations that have them, and
-only if you have access. To open a twin, select **File ▸ Open example from
-server…**:
+and others. These twins are not published, because the product library of Socotra
+has no licence that lets us publish it again. You can see those examples only on
+installations that have them, and only if you have access. On the hosted service,
+the names of these examples start with `lpsPlus/`. To open a twin, select
+**File ▸ Open example from server…**:
 
 - `lpsPlus/migration/socotra/pet/pet`: small (27 rules, three tables), with an
   underwriting rejection in the Lion and Elephant quotes;

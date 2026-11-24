@@ -20,8 +20,12 @@ English program. When the Catala is French, the program is written in French
 (*Français Logique*).
 
 **File ▸ Export to Another System… ▸ Catala** writes a Logical English program as
-Catala. The translator is part of the Logical English Translators. Thus only
-installations that have the Logical English Translators show this menu item.
+Catala.
+
+The translator is open source. The translator is in the folder `migration/catala/` of
+Logical English 2. Thus each installation of Logical English has the translator. On
+the hosted service, sign in to use the translator. The translator is free for each
+visitor who signed in.
 
 ## Contents
 
