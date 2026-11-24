@@ -67,6 +67,9 @@ with_sale(Goal) :-
 twin_of(F, Twin) :- contract_twin(F, [id(sale_test)], Twin).
 
 lps2_available :- catch(le2_paths:lps2_dir(_), _, fail).
+%   The fetched sources of L4 (fetch_sources.sh puts l4-ide in .cache/): the
+%   tests that read a file of the corpus are skipped without it.
+fetched(Id) :- corpus_path(Id, P), exists_file(P).
 
 :- begin_tests(l4_contracts_compile).
 
@@ -96,7 +99,7 @@ test(ror_combination) :-
 
 %   Pattern names bind, as in L4: `MUST pay amount` with `amount` an input
 %   is any payment; its value is not a place of the obligation.
-test(pattern_names_bind) :-
+test(pattern_names_bind, [condition(fetched(advanced_module_a2_cross_cutting_examples))]) :-
     corpus_path(advanced_module_a2_cross_cutting_examples, P),
     contract_twin(P, [id(a2)], twin(_, _, items(Voc, _, _, _, _, _), _, _)),
     once(( member(fluent(_, T, _), Voc), sub_atom(T, 0, _, _, 'payment with grace obliges') )),

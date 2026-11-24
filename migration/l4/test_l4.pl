@@ -31,6 +31,11 @@
 
 here(D) :- module_property(test_l4, file(F)), file_directory_name(F, D).
 
+%   The fetched sources of L4 (fetch_sources.sh puts l4-ide in .cache/): the
+%   tests that read the corpus, or one file of it, are skipped without it.
+corpus_fetched :- cache_dir(D), exists_directory(D).
+fetched(Id) :- corpus_path(Id, P), exists_file(P).
+
 read_text(Lines, Items) :-
     atomic_list_concat(Lines, '\n', T),
     l4_read_text(T, l4_module(Items, Issues)),
@@ -117,13 +122,13 @@ test(unreadable_is_kept) :-
     assertion(length(Items, 3)).
 
 %   Every corpus file L4's evaluator accepts reads with nothing left over.
-test(corpus_files_read_in_full) :-
+test(corpus_files_read_in_full, [condition(corpus_fetched)]) :-
     forall(( corpus_file(Id, _, _), accepted(Id) ),
            ( corpus_path(Id, P), l4_read_file(P, l4_module(_, Issues)),
              assertion(Issues-Id == []-Id) )).
 
 %   Written back, a file reads again to the same model.
-test(written_back_reads_the_same) :-
+test(written_back_reads_the_same, [condition(corpus_fetched)]) :-
     forall(member(Id, [legal_promissory_note, legal_anti_social, foundation_module_4_examples,
                        advanced_module_a3_contracts_examples]),
            ( corpus_path(Id, P), l4_read_file(P, M1), l4_print_module(M1, T),
@@ -198,7 +203,7 @@ lps2_there(L) :- catch(le2_paths:lps2_dir(L), _, fail).
 
 %   The twin of a small program: records, a phrase name with its input in
 %   place, and the evaluator's answers as expectations
-test(eligibility_rule_twin) :-
+test(eligibility_rule_twin, [condition(fetched(foundation_eligibility_rule))]) :-
     corpus_path(foundation_eligibility_rule, F),
     twin_migration(F, [id(foundation_eligibility_rule)], migration(_, program(_, Is), _, Tests)),
     assertion(memberchk(function(_, "the age of *an applicant* is *a number*"), Is)),
@@ -216,7 +221,7 @@ test(values_of_the_evaluator) :-
 
 %   The variants of the alcohol act (its facts ASSUMEd): every combination
 %   of the facts each decision rests on, and their cached results current
-test(alcohol_act_variants) :-
+test(alcohol_act_variants, [condition(fetched(legal_imaginary_alcohol_act))]) :-
     corpus_path(legal_imaginary_alcohol_act, F),
     l4_read_file(F, M), variant_jobs(F, M, Jobs),
     length(Jobs, 152),

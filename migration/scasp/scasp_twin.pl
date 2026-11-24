@@ -371,8 +371,11 @@ prolog_directive(G) :- functor(G, F, _),
     memberchk(F, [dynamic, discontiguous, set_prolog_flag, style_check, ensure_loaded, include,
                   multifile, table, initialization, op]).
 
+%   $SWIPL is a path (./myswipl.sh) or a command name (`SWIPL=swipl`, which
+%   testing/run_tests.sh accepts): a name is looked for on the PATH, as a
+%   shell does.
 le2_swipl(path(swipl)) :- \+ getenv('SWIPL', _), !.
-le2_swipl(P) :- getenv('SWIPL', P).
+le2_swipl(P) :- getenv('SWIPL', P0), ( sub_atom(P0, _, _, _, /) -> P = P0 ; P = path(P0) ).
 
 %   Where s(CASP)'s answer on the source is not what the source's own
 %   rules say, checked by hand: the expectation is kept, as pending, with

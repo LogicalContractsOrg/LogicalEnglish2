@@ -240,11 +240,23 @@ import_upload(FileName0, Content, Reply, Options) :-
             fallback(Id, OutDir, Stem, Input, Title, Why, Reply)
         )
     ;   Ext == zip
-    ->  le_i18n:le_msg(import_no_translator, [file-FileName], M),
+    ->  no_translator_message(FileName, M),
         Reply = _{error: M}
-    ;   le_i18n:le_msg(import_no_translator, [file-FileName], Why),
+    ;   no_translator_message(FileName, Why),
         keep_originals(Input, OutDir),
         fallback(Id, OutDir, Stem, Input, null, Why, Reply)
+    ).
+
+%!  no_translator_message(+FileName, -Message) is det.
+%
+%   Why no translator read the file. On a server with a sign-in the
+%   translators are for visitors who have signed in (the capability
+%   `converters` of le_entitlements.pl; they are free): a visitor who has not
+%   is told so, and not that nothing recognises the file.
+no_translator_message(FileName, M) :-
+    (   catch(\+ le_entitlements:entitled(converters), _, fail)
+    ->  le_i18n:le_msg(import_sign_in_first, [file-FileName], M)
+    ;   le_i18n:le_msg(import_no_translator, [file-FileName], M)
     ).
 
 %   An importer that defines its predicate with one more argument is also

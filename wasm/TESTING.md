@@ -84,7 +84,7 @@ each failing here exactly as a user of this deployment would find it:
 | `editor.spec.ts` "non-terminating query can be interrupted" | a second thread |
 | `e2e/auth.spec.ts` (3), and the `/login` half of `i18n-ui.spec.ts` (2) — whose assertions about the *editor's* own Portuguese pass first | accounts |
 | `e2e/landing-dir.spec.ts` (4) | the landing page rendered per request (`/?dir=…`) |
-| `import-foreign.spec.ts` (3 of its 6) | the translators of other systems, which live in a private repository and are not shipped by a public build (§2.1 of the marketing plan: they run where we run them). The three cases that need no translator pass |
+| `import-foreign.spec.ts` (3 of its 6) | the translators of other systems (`migration/`), which the browser build does not carry: several need Node, Python or Java, and none was tried in WebAssembly. The three cases that need no translator pass |
 | `document-facts.spec.ts`, `flip-button.spec.ts` (3), `form-support.spec.ts` (3), `include-navigation.spec.ts`, `source-viewer.spec.ts` (3) | an example from the customs model, public on the server but left out of the browser build for its size (`light_excluded/1` in `wasm/pack.pl`; until 23 September 2026 it was in the private `lpsPlus` tree). All of them pass against the server |
 
 ### 4. The test interacts faster than the engine starts

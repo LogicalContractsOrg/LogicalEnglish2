@@ -21,7 +21,8 @@ async function openFile(page: any, name: string, content: string) {
     await chooser.setFiles({ name, mimeType: 'text/plain', buffer: Buffer.from(content) });
 }
 
-// The translators are the licence "with extensions" (lpsPlus accounts/): the
+// The translators (migration/) are free, and a server with a sign-in (this one,
+// when lpsPlus's accounts/ is beside it) gives them to signed-in visitors: the
 // tests that use them sign in first, with the account the auth tests use.
 // page.request shares the page's cookies, so the formats it asks for are the
 // ones the page will be offered.
@@ -67,7 +68,7 @@ test.describe('Opening another system\'s file', () => {
         const formats = await (await page.request.post('/leapi', {
             data: { token: 'myToken123', operation: 'importFormats' } })).json();
         test.skip(!(formats.formats || []).some((f: any) => f.id === 'miniscript'),
-                  'no Miniscript translator on this server (lpsPlus is not installed)');
+                  'no Miniscript translator on this server (no migration/ folder)');
         await page.goto('index.html');
         await page.waitForSelector('.monaco-editor', { timeout: 30000 });
         await openFile(page, 'vault.policy', 'or(pk(A),and(pk(B),older(144)))\n');
@@ -93,7 +94,7 @@ test.describe('Opening another system\'s file', () => {
         const formats = await (await page.request.post('/leapi', {
             data: { token: 'myToken123', operation: 'importFormats' } })).json();
         test.skip(!(formats.formats || []).some((f: any) => f.id === 'ruml'),
-                  'no RUML translator on this server (lpsPlus is not installed)');
+                  'no RUML translator on this server (no migration/ folder)');
         const RUML = JSON.stringify({
             $format: 'RUML', $specVersion: '1.0',
             capabilities: [{ id: 'ruml:datapoints', payload: { data: {
@@ -154,7 +155,7 @@ test.describe('Opening another system\'s file', () => {
         const formats = await (await page.request.post('/leapi', {
             data: { token: 'myToken123', operation: 'exportFormats', le: PROG } })).json();
         test.skip(!(formats.formats || []).some((f: any) => f.id === 'legalruleml'),
-                  'no LegalRuleML exporter on this server (lpsPlus is not installed)');
+                  'no LegalRuleML exporter on this server (no migration/ folder)');
         await page.goto('index.html');
         await page.waitForSelector('.monaco-editor', { timeout: 30000 });
         await page.evaluate((p: string) => (window as any).monaco.editor.getModels()[0].setValue(p), PROG);
@@ -181,7 +182,7 @@ test.describe('Opening another system\'s file', () => {
         const formats = await (await page.request.post('/leapi', {
             data: { token: 'myToken123', operation: 'importFormats' } })).json();
         test.skip(!(formats.formats || []).some((f: any) => f.id === 'miniscript'),
-                  'no Miniscript translator on this server (lpsPlus is not installed)');
+                  'no Miniscript translator on this server (no migration/ folder)');
         await page.goto('index.html');
         await page.waitForSelector('.monaco-editor', { timeout: 30000 });
         await openFile(page, 'vault.policy', 'or(pk(A),and(pk(B),older(144)))\n');

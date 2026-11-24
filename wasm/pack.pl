@@ -15,7 +15,7 @@
 
     On top of that rule, three exclusions of its own:
 
-      * **symbolic links.** `le_extensions.pl`, `le_importers.pl` and the
+      * **symbolic links.** `le_extensions.pl` and the
         `insureLE2`/`lpsPlus` example trees are links into private sibling
         repositories. A link resolves perfectly well on the machine that
         builds, which is exactly what makes it dangerous: the proprietary
@@ -61,6 +61,9 @@
 %   directory without its subdirectories, or prefixed(Rel, Prefix, Extensions)
 %   for the files of one directory whose names begin with Prefix.
 payload_tree(files('.',      [pl])).           % LE2 itself
+%   (Not migration/, the translators of other systems: several need Node,
+%   Python or Java, and none was tried in WebAssembly. le_kbs.pl offers
+%   Logical English's own formats when the folder is not there.)
 %   The Light Assistant's system prompt, and its translations
 %   (le_i18n:localized_asset/3 finds AGENTS_LE_template.<lang>.md beside it).
 %   Without this file the assistant fails at its first step with an

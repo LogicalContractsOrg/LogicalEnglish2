@@ -36,6 +36,8 @@ extensions_installed :- current_predicate(le_extensions:parse_numbered_body/7).
 issue_kinds(M, Kinds) :-
     findall(K, M:le_issue(error, K, _, _, _, _), Kinds).
 
+:- use_module('../le_import', []).
+
 :- begin_tests(entitlements, [setup(unsetenv('NO_RESTRICTIONS'))]).
 
 test(default_is_everything) :-
@@ -75,5 +77,21 @@ test(numbered_body_with_licence, [condition(extensions_installed)]) :-
     with_entitlements([le_extensions], load_text(T, M)),
     issue_kinds(M, Kinds),
     \+ memberchk(numbered_body_unlicensed, Kinds).
+
+%   The translators of other systems are free, and a server with a sign-in
+%   gives them to signed-in visitors: a visitor who has not signed in is
+%   told to sign in, and not that no translator reads the file.
+test(translators_ask_an_unsigned_visitor_to_sign_in) :-
+    with_entitlements([], le_import:no_translator_message('model.dmn', M1)),
+    once(sub_string(M1, _, _, _, "Sign in")),
+    with_entitlements([converters], le_import:no_translator_message('model.zzz', M2)),
+    \+ sub_string(M2, _, _, _, "Sign in").
+
+%   The registry offers a translator to a request that may use them, and to
+%   no other (migration/le_importers.pl).
+test(registry_follows_the_capability) :-
+    with_entitlements([converters], aggregate_all(count, le_import:importer(_, _, _, _, _, _), N1)),
+    with_entitlements([], aggregate_all(count, le_import:importer(_, _, _, _, _, _), N0)),
+    N1 > 10, N0 =:= 0.
 
 :- end_tests(entitlements).

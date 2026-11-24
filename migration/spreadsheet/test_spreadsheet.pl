@@ -20,6 +20,14 @@ fixture(F) :-
     module_property(xlsx_import, file(M)), file_directory_name(M, D),
     atomic_list_concat([D, '/testdata/tax.xlsx'], F).
 
+%   LE2's sheet engine (services/sheet: `npm ci` there puts fflate and
+%   Formualizer in its node_modules/): the tests that read a workbook are
+%   skipped without it.
+sheet_engine_installed :-
+    le2_paths:le2_dir(L),
+    forall(member(P, [fflate, formualizer]),
+           ( atomic_list_concat([L, '/services/sheet/node_modules/', P], D), exists_directory(D) )).
+
 :- begin_tests(spreadsheet_labels).
 
 test(numbering_and_brackets) :-
@@ -36,7 +44,7 @@ test(symbols) :-
 
 :- begin_tests(spreadsheet_import).
 
-test(probe_workbook, [setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
+test(probe_workbook, [condition(sheet_engine_installed), setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
     fixture(F),
     import_workbook(F, D, [cases(6)], imported(LE, [Note])),
     read_file_to_string(LE, Text, []),
@@ -55,7 +63,7 @@ test(probe_workbook, [setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D
     assertion(\+ exists_file(MF)).
 
 %   The draft, copied out of its comment, asks the workbook.
-test(draft_asks_the_workbook, [setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
+test(draft_asks_the_workbook, [condition(sheet_engine_installed), setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
     fixture(F),
     import_workbook(F, D, [cases(6)], imported(LE, _)),
     read_file_to_string(LE, Text, []),
@@ -73,7 +81,7 @@ test(draft_asks_the_workbook, [setup(tmp_dir(D)), cleanup(delete_directory_and_c
     assertion(Cs == [250]).
 
 %   The review's idioms: CHOOSE, COUNTIF/SUMIF, dates, a percentage input.
-test(idioms, [setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
+test(idioms, [condition(sheet_engine_installed), setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
     fixture_named('grant.xlsx', F),
     import_workbook(F, D, [cases(6)], imported(LE, [Note|_])),
     read_file_to_string(LE, Text, []),

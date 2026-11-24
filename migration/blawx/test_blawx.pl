@@ -24,6 +24,9 @@
 :- dynamic dir/1.
 
 example(Id, F) :- dir(D), format(atom(F), '~w/.cache/blawx/blawx/static/blawx/examples/~w.yaml', [D, Id]).
+%   The fetched sources of Blawx (fetch_sources.sh): the tests that read one
+%   of its example projects are skipped without it.
+fetched(Id) :- example(Id, F), exists_file(F).
 twin_file(Id, F) :-
     twins_dir(blawx, Root),
     format(atom(F), '~w/~w/~w.le', [Root, Id, Id]).
@@ -36,7 +39,7 @@ test(sections_and_locators) :-
     assertion(section_locator(sec_5__span_pingu_section, 'section 5, the words "pingu"')),
     assertion(section_constant(sec_5__span_pingu_section, section_5_pingu)).
 
-test(reads_a_project) :-
+test(reads_a_project, [condition(fetched(bird))]) :-
     example(bird, F),
     blawx_project(F, project(Title, _, Text, Sections, Tests)),
     assertion(Title == "New Bird Act"),
@@ -46,7 +49,7 @@ test(reads_a_project) :-
     memberchk(section(sec_3_section, Cs), Sections),
     assertion(( member(c((H :- _), _, _), Cs), H =.. [according_to, sec_3_section, -(flies)|_] )).
 
-test(generator_typos_are_marked) :-          % Blawx wrote `-throwA,B,C)` in rps
+test(generator_typos_are_marked, [condition(fetched(rps))]) :-   % Blawx wrote `-throwA,B,C)` in rps
     example(rps, F), blawx_project(F, project(_, _, _, Sections, _)),
     assertion(( member(section(_, Cs), Sections), member(c(syntax_error(_), _, _), Cs) )).
 
@@ -81,13 +84,13 @@ test(twins_pass) :-
 
 :- begin_tests(blawx_import).
 
-test(detects_projects) :-
+test(detects_projects, [condition(fetched(wills))]) :-
     example(wills, F), assertion(detect_blawx(F)),
     dir(D), format(atom(Not), '~w/README.md', [D]), assertion(\+ detect_blawx(Not)).
 
 %   (its expected answers are s(CASP)'s, asked when the project is opened:
 %   skipped where the `scasp` pack is not installed)
-test(import_a_project, [condition(exists_source(library(scasp))), setup(tmp(Dir)), cleanup(delete_directory_and_contents(Dir))]) :-
+test(import_a_project, [condition(( fetched(wills), exists_source(library(scasp)) )), setup(tmp(Dir)), cleanup(delete_directory_and_contents(Dir))]) :-
     example(wills, F),
     import_blawx(F, Dir, imported(LE, Notes)),
     assertion(file_base_name(LE, 'wills.le')),
@@ -99,7 +102,8 @@ test(import_a_project, [condition(exists_source(library(scasp))), setup(tmp(Dir)
 %   A server whose SWI-Prolog has no s(CASP) cannot run Blawx's reasoner:
 %   the note says so (not only "0 pass, 0 fail"), and no failed run is kept
 %   as Blawx's answers.
-test(no_scasp_warns, [setup(( tmp(Dir), no_scasp_swipl(Dir, Old) )),
+test(no_scasp_warns, [condition(fetched(wills)),
+                      setup(( tmp(Dir), no_scasp_swipl(Dir, Old) )),
                       cleanup(( restore_swipl(Old), delete_directory_and_contents(Dir) ))]) :-
     example(wills, F),
     format(atom(Out), '~w/out', [Dir]), make_directory(Out),

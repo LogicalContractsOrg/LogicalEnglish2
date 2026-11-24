@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
 
 const TOKEN = 'myToken123';
 
-// The Contract Assistant belongs to the licence "Logical English Translators"
+// The Contract Assistant belongs to the licence "LE Contract Assistant"
 // (lpsPlus accounts/, capability contract_assistant): the tests sign in first,
 // with the account the auth tests use. page.request shares the page's cookies.
 async function signIn(page: any) {
@@ -48,10 +48,10 @@ test.describe('Contract Assistant licence', () => {
         const data = await (await request.post('/leapi', {
             data: { token: TOKEN, operation: 'contract_status', job: 'caj_none' } })).json();
         expect(data.unlicensed).toBe(true);
-        expect(data.error).toContain('Logical English Translators');
+        expect(data.error).toContain('LE Contract Assistant licence');
         await page.goto('/web_extras/contract_assistant/index.html');
         await expect(page.locator('h1')).toContainText('LE Contract Assistant');
-        await expect(page.locator('body')).toContainText('Logical English Translators');
+        await expect(page.locator('body')).toContainText('LE Contract Assistant licence');
         await expect(page.locator('a[href^="/login?return="]')).toBeVisible();
     });
 });

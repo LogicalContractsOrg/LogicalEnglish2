@@ -28,6 +28,10 @@
 :- use_module(le2(le_kbs)).
 
 here(D) :- module_property(test_daml, file(F)), file_directory_name(F, D).
+%   The fetched sources of the Daml templates (fetch_sources.sh, into
+%   .cache/): the tests that read them are skipped without them.
+fetched(Rel) :- cache_dir(C), atomic_list_concat([C, '/', Rel], P), ( exists_file(P) -> true ; exists_directory(P) ).
+corpus_fetched :- forall(project(_, _, Tpl, _), fetched(Tpl)).
 twins_dir(D) :- le2_paths:twins_dir(daml, D).
 %   LPS2's Logical English example Name (or, for '', their directory).
 lps2_le_example(Name, Path) :-
@@ -40,7 +44,7 @@ lps2_le_example(Name, Path) :-
 
 %   Every file of the corpus reads (what the subset does not cover is kept
 %   as other(Kind, Text), never an error).
-test(corpus_reads) :-
+test(corpus_reads, [condition(corpus_fetched)]) :-
     cache_dir(C),
     forall(( project(_, _, Tpl, Rels), member(R, Rels) ),
            ( atomic_list_concat([C, '/', Tpl, '/', R], F), assertion(daml_module(F, module(_, _))) )).
@@ -68,7 +72,8 @@ test(final_state_is_damls, [forall(( project(Id, _, _, _), oracle_final_states(I
     ).
 
 %   File ▸ Open of a .daml file.
-test(file_open, [setup(( tmp_file(daml, D), make_directory(D) )), cleanup(delete_directory_and_contents(D))]) :-
+test(file_open, [condition(fetched('daml-intro-choices/daml/SimpleIou.daml')),
+                 setup(( tmp_file(daml, D), make_directory(D) )), cleanup(delete_directory_and_contents(D))]) :-
     cache_dir(C), atomic_list_concat([C, '/daml-intro-choices/daml/SimpleIou.daml'], F),
     assertion(detect_daml(F)),
     import_daml(F, D, imported(LE, Notes)),

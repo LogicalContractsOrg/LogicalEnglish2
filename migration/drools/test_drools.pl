@@ -21,12 +21,21 @@
 
 twins_dir(D) :- le2_paths:twins_dir(drools, D).
 
+%   The Drools oracle, built (`mvn -q package` in oracle/), and the fact
+%   model, compiled (compile_model.sh): a case written against Java classes
+%   asks the oracle for their fields, and is skipped without them.
+oracle_built :-
+    here(H),
+    atomic_list_concat([H, '/oracle/target/drl-oracle-1.0.jar'], Jar), exists_file(Jar),
+    atomic_list_concat([H, '/model'], Model), exists_directory(Model).
+model_there(Opts) :- ( memberchk(model([_|_]), Opts) -> oracle_built ; true ).
+
 :- begin_tests(drools_twins).
 
 %   Every stateful twin, run by LPS2, ends in the working memory Drools
 %   ends in on the same facts and steps (the oracle's run, recorded beside
 %   the twin).
-test(final_state_is_drools, [forall(case(Id, Opts))]) :-
+test(final_state_is_drools, [forall(( case(Id, Opts), model_there(Opts) ))]) :-
     twins_dir(D),
     format(atom(LE), '~w/~w/~w.le', [D, Id, Id]),
     format(atom(J), '~w/~w/sources/~w.drools.json', [D, Id, Id]),

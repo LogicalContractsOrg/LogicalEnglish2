@@ -30,6 +30,11 @@ twin_file(Group, Id, F) :-
     twins_dir(rulespec, Root), module_twin_name(Id, N),
     format(atom(F), '~w/~w/~w.le', [Root, Group, N]).
 
+%   The fetched sources of RuleSpec (fetch_sources.sh, then prepare_root.py,
+%   put rulespec-us in .cache/root/): the tests that read a module of the
+%   corpus are skipped without it.
+fetched(Id) :- module_file(Id, F), exists_file(F).
+
 passes(File, Pass, Fail) :-
     runTestsFor(File, R0),
     ( R0 = test_file(_, Rs) -> true ; Rs = R0 ),
@@ -62,7 +67,7 @@ test(table_and_aggregates) :-
 test(a_yaml_number_is_a_formula) :-
     parse_formula(150000.0, num(150000.0)).
 
-test(closure_imports_first) :-
+test(closure_imports_first, [condition(fetched('us:statutes/7/2017/a'))]) :-
     module_closure('us:statutes/7/2017/a', Ms),
     findall(I, member(module(I, _), Ms), Ids),
     last(Ids, 'us:statutes/7/2017/a'),
@@ -89,7 +94,7 @@ test(snap_allotment_twin, [true(P-F == 17-0)]) :-
 test(eitc_twin_reproduces_the_engine, [true(F == 0)]) :-
     twin_file(eitc, 'us:statutes/26/32', File), passes(File, P, F), P > 20.
 
-test(no_residue_in_the_snap_twin) :-
+test(no_residue_in_the_snap_twin, [condition(fetched('us:statutes/7/2017/a'))]) :-
     module_migration('us:statutes/7/2017/a', [], migration(_, _, Ledger, _)),
     \+ member(entry(_, _, residue, _, _, _), Ledger).
 

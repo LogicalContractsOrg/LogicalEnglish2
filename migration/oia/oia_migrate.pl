@@ -141,7 +141,12 @@ migrate(Name, Root, Report) :-
     project(Name, Rel, Kind, TestRels, Opts),
     cache_dir(C),
     project_dir(C, Rel, Dir),
-    maplist(cache_file(C), TestRels, TestFiles),
+    maplist(cache_file(C), TestRels, TestFiles0),
+    %  a test file that is not here (cases kept in the private place, when
+    %  that place is not on this machine) is left out, and said
+    partition(exists_file, TestFiles0, TestFiles, Missing),
+    forall(member(MF, Missing),
+           print_message(informational, format("~w: test file not found, left out: ~w", [Name, MF]))),
     read_model(Dir, Kind, Name, Model),
     atomic_list_concat([Dir, '/testResults.xml'], TR),
     ( exists_file(TR) -> Opts1 = [test_results(TR)|Opts] ; Opts1 = Opts ),

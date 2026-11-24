@@ -25,6 +25,13 @@
 
 path_of(Rel, Abs) :- here(H), atomic_list_concat([H, '/', Rel], Abs).
 
+%   The Solidity compiler (`npm install` here puts solc and OpenZeppelin's
+%   contracts in node_modules/): the tests that compile a contract are
+%   skipped without it.
+solc_installed :-
+    forall(member(P, ['node_modules/solc', 'node_modules/@openzeppelin/contracts']),
+           ( path_of(P, D), exists_directory(D) )).
+
 contract(File, Name, C) :-
     path_of(File, Abs),
     sol_compile([Abs], JSON), sol_load(JSON, M), sol_contract(M, Name, C).
@@ -42,7 +49,7 @@ same_laws(Laws1, Laws2) :-
     length(Laws1, N), length(Laws2, N),
     forall(member(L, Laws1), ( member(L2, Laws2), L2 =@= L )).
 
-:- begin_tests(solidity_front_end).
+:- begin_tests(solidity_front_end, [condition(solc_installed)]).
 
 %   ERC20.transfer through MyToken's _update override (whenNotPaused):
 %   one success path, three revert paths — and `super._update` resolved.
@@ -217,12 +224,12 @@ test(mytoken_call_by_call) :- twin_refuses_what_the_evm_reverts(mytoken).
 test(fiat_token_call_by_call) :- twin_refuses_what_the_evm_reverts(fiat_token).
 test(airdrop_call_by_call) :- twin_refuses_what_the_evm_reverts(airdrop).
 
-test(erc20, [nondet]) :- twin_ends_as_expected(erc20).
-test(ownable, [nondet]) :- twin_ends_as_expected(ownable).
-test(pausable, [nondet]) :- twin_ends_as_expected(pausable).
-test(mytoken, [nondet]) :- twin_ends_as_expected(mytoken).
-test(fiat_token, [nondet]) :- twin_ends_as_expected(fiat_token).
-test(airdrop, [nondet]) :- twin_ends_as_expected(airdrop).
+test(erc20, [condition(solc_installed), nondet]) :- twin_ends_as_expected(erc20).
+test(ownable, [condition(solc_installed), nondet]) :- twin_ends_as_expected(ownable).
+test(pausable, [condition(solc_installed), nondet]) :- twin_ends_as_expected(pausable).
+test(mytoken, [condition(solc_installed), nondet]) :- twin_ends_as_expected(mytoken).
+test(fiat_token, [condition(solc_installed), nondet]) :- twin_ends_as_expected(fiat_token).
+test(airdrop, [condition(solc_installed), nondet]) :- twin_ends_as_expected(airdrop).
 
 %   The LPS terms the front end generates and those LE reads back from the
 %   written twin are the same, term by term (up to variable names).
@@ -235,9 +242,9 @@ lps_round_trip(Name) :-
     length(Gen, N), length(Parsed, N),
     forall(member(T, Gen), assertion(( member(P, Parsed), P =@= T ))).
 
-test(round_trip_erc20, [nondet]) :- lps_round_trip(erc20).
-test(round_trip_fiat_token, [nondet]) :- lps_round_trip(fiat_token).
-test(round_trip_airdrop, [nondet]) :- lps_round_trip(airdrop).
+test(round_trip_erc20, [condition(solc_installed), nondet]) :- lps_round_trip(erc20).
+test(round_trip_fiat_token, [condition(solc_installed), nondet]) :- lps_round_trip(fiat_token).
+test(round_trip_airdrop, [condition(solc_installed), nondet]) :- lps_round_trip(airdrop).
 
 :- end_tests(solidity_twins).
 
@@ -261,7 +268,7 @@ test(a_defaults) :-
 
 %   (b) MyToken is what it adds to erc20 and pausable (whose files are beside
 %   it), and flattened it is the contract's whole translation.
-test(b_extends, [nondet]) :-
+test(b_extends, [condition(solc_installed), nondet]) :-
     twin_file_text(mytoken, T),
     assertion(sub_string(T, _, _, _, "the knowledge base my token extends erc20, pausable.")),
     twin_file(mytoken, F), test_solidity:laws_of_file(F, Laws),
@@ -307,12 +314,12 @@ window(File) :- sol_migrate:twins_dir(D), atomic_list_concat([D, '/replay/usdc_w
 copy_window(Copy) :-
     window(W), tmp_file(usdc, T), atom_concat(T, '.json', Copy), copy_file(W, Copy).
 
-test(usdc_window_agrees, [setup(copy_window(F)), nondet]) :-
+test(usdc_window_agrees, [condition(solc_installed), setup(copy_window(F)), nondet]) :-
     replay(F, report(NA, NR, _, _)),
     assertion(NR > 100),
     assertion(NA =:= NR).
 
-test(mutant_twin_diverges, [setup(copy_window(F)), cleanup(retractall(sol_front:sol_mutation(_))), nondet]) :-
+test(mutant_twin_diverges, [condition(solc_installed), setup(copy_window(F)), cleanup(retractall(sol_front:sol_mutation(_))), nondet]) :-
     assertz(sol_front:sol_mutation(no_default)),
     replay(F, report(NA, NR, _, _)),
     assertion(NA < NR).
@@ -421,7 +428,7 @@ import_into(Src, Name, LEFile, Notes) :-
     import_solidity(In, Out, imported(LEFile, Notes)).
 
 %   A reference contract opens as its twin: the same laws and constraints.
-test(import_is_the_twin, [nondet]) :-
+test(import_is_the_twin, [condition(solc_installed), nondet]) :-
     path_of('contracts/MyToken.sol', F), read_file_to_string(F, Src, []),
     import_into(Src, 'MyToken.sol', LEFile, Notes),
     %  the three extra rows of each count are the `unchecked` blocks the calls
@@ -443,7 +450,7 @@ test(import_is_the_twin, [nondet]) :-
 %   translated (Phase 1e (d)); one whose effect depends on the order (an early
 %   exit) is residue: the function's source, verbatim, under a TODO, and the
 %   legal view says nothing governs it.
-test(import_loop_is_translated, [nondet]) :-
+test(import_loop_is_translated, [condition(solc_installed), nondet]) :-
     Src = "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\ncontract Loopy {\n    mapping(address => uint256) public points;\n    address public admin;\n    constructor(address initialAdmin) { admin = initialAdmin; }\n    function award(address who, uint256 n) external {\n        require(msg.sender == admin, \"not admin\");\n        points[who] += n;\n    }\n    function awardMany(address[] calldata who, uint256 n) external {\n        for (uint256 i = 0; i < who.length; i++) { points[who[i]] += n; }\n    }\n    function awardFirst(address[] calldata who, uint256 n) external {\n        for (uint256 i = 0; i < who.length; i++) { if (points[who[i]] == 0) { points[who[i]] += n; break; } }\n    }\n}\n",
     import_into(Src, 'Loopy.sol', LEFile, Notes),
     assertion(member("contract Loopy: 5 elements encoded, 0 approximated, 1 residue (marked TODO)", Notes)),

@@ -366,7 +366,11 @@ test(hub_table_boolean_cells, [condition(fetched(oracle_ds))]) :-
     member(rule(_, _, _, _, table(global, [col(att('person\'s filing status'), _)], [concl(_, Vals)])), Rs), !,
     Vals = [cond(gt(att('person\'s gross income'), num(12950)))|_].
 
-test(entity_functions_and_assess_tests, [setup(tmp_root(Root)), cleanup(delete_directory_and_contents(Root))]) :-
+%   (Oracle's Assess exchanges of Simple Benefits may not be published: they
+%   are in the private place, oia_migrate:extra_path/2, and the test that
+%   replays them is skipped without them)
+test(entity_functions_and_assess_tests, [condition(extra_there('simple_benefits/assess/oracle_10_4_request.xml')),
+                                         setup(tmp_root(Root)), cleanup(delete_directory_and_contents(Root))]) :-
     migrate(simple_benefits, Root, report(File, _, _, fidelity(P, 0, 0, _))),
     P >= 18,
     read_file_to_string(File, S, []),

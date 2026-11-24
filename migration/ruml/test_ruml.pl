@@ -29,6 +29,14 @@
 example(Rel, F) :- ruml_repo(R), atomic_list_concat([R, '/spec/en/', Rel], F).
 foerder(F) :- example('05-result-format/5-1-result-model.examples/foerderantrag.ruml', F).
 haertefall(F) :- example('04-capabilities/4-14-ruml-expression.examples/haertefall.ruml', F).
+%   The fetched sources of RUML (fetch_sources.sh puts the specification in
+%   .cache/ruml): the tests that read one of its two examples are skipped
+%   without it. fetch_sources.sh installs the oracle's Node packages too
+%   (node_modules/): File ▸ Open asks the oracle, and is skipped without them.
+fetched(Example) :- call(Example, F), exists_file(F).
+oracle_installed :-
+    cache_dir(C), file_directory_name(C, Dir),
+    atomic_list_concat([Dir, '/node_modules/jsonata'], M), exists_directory(M).
 
 minimal(Extra, Text) :-
     format(string(Text), '{"$format": "RUML", "$specVersion": "1.0", ~w "metadata": {"id": "ec36948d-fbb2-4815-985a-bd5e9375d934", "version": "1.0.0", "created": "2024-01-01T00:00:00Z", "modified": "2024-01-01T00:00:00Z", "status": "draft"}, "rulemap": {"nodes": {"1": {"id": "0eb360a6-626a-406d-89a1-9f434ced141b", "label": "Root"}}}}', [Extra]).
@@ -66,7 +74,7 @@ test(a_reserved_prefix_is_refused) :-
     ruml_read_text(T, _, Is), assertion(memberchk(issue(error, 'CAP-21', _, _), Is)).
 
 %   The three results of RUML, from the twin (the funding example of §5.1).
-test(complete_mode_three_values) :-
+test(complete_mode_three_values, [condition(fetched(foerder))]) :-
     foerder(F),
     root_status(F, [dp_age-25, dp_income-35000, dp_hardship- @(false), dp_state-"BY"], complete, S1), assertion(S1 == true),
     root_status(F, [dp_age-16, dp_income-35000, dp_state-"BY"], complete, S2), assertion(S2 == false),
@@ -74,20 +82,20 @@ test(complete_mode_three_values) :-
     root_status(F, [dp_income-50000, dp_state-"BY"], complete, S4), assertion(S4 == false).
 
 %   The modes differ (§3.6; issue 2 of the format's repository).
-test(optimized_mode_stops_at_the_first_open_child) :-
+test(optimized_mode_stops_at_the_first_open_child, [condition(fetched(foerder))]) :-
     foerder(F),
     root_status(F, [dp_income-50000, dp_state-"BY"], optimized, S), assertion(S == undefined),
     ruml_evaluate(F, [dp_income-50000, dp_state-"BY"], [mode(optimized)], R),
     j(R, evaluation, E), j(E, results, Rs), j(Rs, '1.2', N), j(N, status, St), assertion(St == ignored).
 
 %   The specification's own result for its hardship case (§4.14).
-test(the_specification_s_hardship_case) :-
+test(the_specification_s_hardship_case, [condition(fetched(haertefall))]) :-
     haertefall(F),
     root_status(F, [dp_pflegegrad-4, dp_eigenanteil-640, dp_alleinlebend- @(true), dp_wohnsitz- @(true)], complete, S),
     assertion(S == true).
 
 %   An undefined leaf's reason names the missing value.
-test(reason_of_a_missing_value) :-
+test(reason_of_a_missing_value, [condition(fetched(foerder))]) :-
     foerder(F),
     ruml_evaluate(F, [dp_income-35000, dp_state-"BY"], [mode(complete)], R),
     j(R, evaluation, E), j(E, results, Rs), j(Rs, '1.1', N), j(N, reason, Re), j(Re, message, M),
@@ -112,8 +120,11 @@ test(export_refuses_a_relation) :-
     export_ruml(KB, [text(P)], R),
     assertion(R = refused([_|_])).
 
+%   Node, wherever it is installed.
+node_on_path :- absolute_file_name(path(node), _, [access(execute), file_errors(fail)]).
+
 %   File ▸ Open of a rulemap, through LE2's registry.
-test(file_open, [condition(exists_file('/usr/bin/node'))]) :-
+test(file_open, [condition(( fetched(haertefall), oracle_installed, node_on_path ))]) :-
     haertefall(F), read_file_to_string(F, C, []),
     le_import:import_upload("haertefall.ruml", text(C), R, []),
     assertion(sub_string(R.document, _, _, _, "Härtefall liegt vor holds for a case if")),

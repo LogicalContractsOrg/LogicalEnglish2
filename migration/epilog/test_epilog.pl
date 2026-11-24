@@ -41,6 +41,9 @@ twin_file(_, Id, F) :-
 
 epilogjs :- module_property(epilog_twin, file(F)), file_directory_name(F, M),
     atomic_list_concat([M, '/.cache/epilog.js'], J), exists_file(J).
+%   A game fetched from Epilog's site (fetch_sources.sh, into .cache/games/):
+%   the tests that open one are skipped without it.
+game_fetched(Id) :- game_file(Id, F), exists_file(F).
 
 :- begin_tests(epilog_twins).
 
@@ -122,7 +125,7 @@ test(file_open_ruleset, [setup(tmp_dir(D)), cleanup(delete_directory_and_content
     assertion(sub_string(Text, _, _, _, "the gp of")),
     le_kbs:load_text(Text, D, _).
 
-test(file_open_game, [setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
+test(file_open_game, [condition(game_fetched(tictactoe)), setup(tmp_dir(D)), cleanup(delete_directory_and_contents(D))]) :-
     game_file(tictactoe, F),
     assertion(detect_epilog(F)),
     import_epilog(F, D, imported(LE, _)),
