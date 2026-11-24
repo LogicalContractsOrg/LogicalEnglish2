@@ -86,6 +86,36 @@ test.describe('Opening another system\'s file', () => {
         await expect(page.locator('#ledger-dialog')).toHaveCount(0);
     });
 
+    // A RUML rulemap (the Rulemapping Logic Format): each node a sentence
+    // about a case, its expression the rule's conditions.
+    test('a RUML rulemap opens as a program about a case', async ({ page }) => {
+        await signIn(page);
+        const formats = await (await page.request.post('/leapi', {
+            data: { token: 'myToken123', operation: 'importFormats' } })).json();
+        test.skip(!(formats.formats || []).some((f: any) => f.id === 'ruml'),
+                  'no RUML translator on this server (lpsPlus is not installed)');
+        const RUML = JSON.stringify({
+            $format: 'RUML', $specVersion: '1.0',
+            capabilities: [{ id: 'ruml:datapoints', payload: { data: {
+                dp_age: { name: 'Age', type: 'integer', binding: { type: 'input' } } } } },
+                { id: 'ruml:query' }],
+            metadata: { id: 'ec36948d-fbb2-4815-985a-bd5e9375d934', version: '1.0.0',
+                created: '2024-01-01T00:00:00Z', modified: '2024-01-01T00:00:00Z', status: 'draft' },
+            rulemap: { nodes: {
+                '1': { id: '0eb360a6-626a-406d-89a1-9f434ced141b', label: 'Eligible', operator: 'AND', children: ['2'] },
+                '2': { id: '6840b48d-117f-474e-ae4e-337b8e60537c', label: 'Applicant of legal age',
+                       capabilities: [{ id: 'ruml:query', payload: { expression: 'dp_age >= 18' } }] } } },
+        }, null, 2);
+        await page.goto('index.html');
+        await page.waitForSelector('.monaco-editor', { timeout: 30000 });
+        await openFile(page, 'eligibility.ruml', RUML);
+        await expect.poll(() => editorText(page), { timeout: 90000 }).toContain('Applicant of legal age holds for a case if');
+        await expect(page.locator('#import-report')).toContainText('translated from');
+        const text = await editorText(page);
+        expect(text).toContain('the Age of the case is a number');
+        expect(text).toContain('Applicant of legal age would hold for *a case*; unknown.');
+    });
+
     // File > Show the Ledger on a program that was not translated: a message.
     test('a program that was not translated says it has no ledger', async ({ page }) => {
         await page.goto('index.html');

@@ -116,6 +116,15 @@ base64_of_file(File, B64) :-
     atom_codes(A, Codes),
     base64(A, B64).
 
+%   A made-up evaluator: a file of `name = value` lines, answered as the
+%   values the case does not override (evaluate_upload/5, evaluator/5).
+:- multifile le_import:evaluator/5.
+le_import:evaluator(arrows, "Arrow values (test)", [arrows], File, test_le_import:evaluate_arrows) :-
+    this_file(File).
+
+evaluate_arrows(In, Case, Opts, _{result: _{lines: N, case: Case, options: Opts}, fileName: "out.json", notes: []}) :-
+    read_file_to_string(In, S, []), split_string(S, "\n", "", Ls0), exclude(==(""), Ls0, Ls), length(Ls, N).
+
 :- begin_tests(le_import).
 
 test(text_file_by_extension) :-
@@ -184,6 +193,16 @@ test(a_translator_can_be_named) :-
     import_upload("rules.txt", text("c => d\n"), R, [importer("arrows")]),
     R.importer == "Arrow rules (test)",
     once(sub_string(R.document, _, _, _, "d is ready if")).
+
+test(an_evaluator_answers_a_case) :-
+    le_api:handle_evaluate_foreign(_{evaluator: "arrows", name: "r.arrows", text: "a => b\nc => d\n",
+                                     data: _{x: 1}, options: _{mode: "complete"}}, R),
+    assertion(R.result.lines == 2), assertion(R.result.case.x == 1), assertion(R.result.options.mode == "complete"),
+    le_import:evaluate_formats(Fs), assertion(memberchk(_{id: arrows, title: _, extensions: _}, Fs)).
+
+test(an_unknown_evaluator_says_so) :-
+    le_api:handle_evaluate_foreign(_{evaluator: "nothing", name: "r.arrows", text: ""}, R),
+    assertion(sub_string(R.error, _, _, _, "No evaluator")).
 
 test(formats_listed) :-
     import_formats(Fs),

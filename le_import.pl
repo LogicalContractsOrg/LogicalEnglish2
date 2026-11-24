@@ -149,6 +149,7 @@
 */
 
 :- module(le_import, [import_upload/4, import_formats/1, imported_dir/1,
+                      evaluate_upload/5, evaluate_formats/1,
                       export_formats/2, export_kb/4, export_refusal/4, item_source_line/2,
                       kb_constraint_problems/3]).
 
@@ -176,6 +177,8 @@
 :- dynamic exporter/6.
 :- multifile export_check/2.
 :- dynamic export_check/2.
+:- multifile evaluator/5.
+:- dynamic evaluator/5.
 
 %!  imported_dir(-Dir) is det.
 %
@@ -617,6 +620,55 @@ load_importer_of(importer(_, _, _, File, _, _)) :-
 
 load_importer(File) :-
     load_files(File, [if(not_loaded)]).
+
+		 /*******************************
+		 *   ANSWERS IN ANOTHER FORMAT  *
+		 *******************************/
+
+%!  evaluator(?Id, ?Title, ?Extensions, ?File, ?Evaluate) is nondet.
+%
+%   A translator that can also answer a case of another system's program in
+%   that system's own result format: Logical English acting as the other
+%   system's evaluator. Registered like an importer (one clause, in
+%   lpsPlus `migration/le_importers.pl`):
+%
+%       le_import:evaluator(Id, Title, Extensions, File, Module:Evaluate).
+%       %   call(Evaluate, +InputFile, +Data, +Options, -Reply)
+%       %   Data: the case, a dict; Options: a dict (the format's own,
+%       %   such as `mode`); Reply: {result: <dict>, fileName, notes}
+%
+%   The first is RUML's: a rulemap and the values of a case in, a
+%   `.ruml-result` out (docs/migration/ruml.md §7 in lpsPlus).
+
+%!  evaluate_formats(-Formats:list(dict)) is det.
+evaluate_formats(Formats) :-
+    findall(_{id: Id, title: Title, extensions: Exts}, evaluator(Id, Title, Exts, _, _), Formats).
+
+%!  evaluate_upload(+Evaluator, +FileName, +Content, +Data, -Reply) is det.
+%
+%   The program (Content as for import_upload/4) is kept like an upload;
+%   Data is a dict with `data` (the case) and `options`. Reply as the
+%   evaluator gives it, or {error: Message}.
+evaluate_upload(Id0, FileName0, Content, Data, Reply) :-
+    atom_string(Id, Id0),
+    atom_string(FileName1, FileName0), file_base_name(FileName1, FileName), safe_name(FileName),
+    (   evaluator(Id, _, _, File, Evaluate)
+    ->  imported_dir(Root), new_upload_dir(Root, _, Dir),
+        atomic_list_concat([Dir, '/in'], InDir), make_directory_path(InDir),
+        atomic_list_concat([InDir, '/', FileName], InFile),
+        write_upload(InFile, Content),
+        ( get_dict(data, Data, Case) -> true ; Case = _{} ),
+        ( get_dict(options, Data, Opts) -> true ; Opts = _{} ),
+        load_importer(File),
+        catch(( call(Evaluate, InFile, Case, Opts, Reply0) -> Reply = Reply0
+              ; Reply = _{error: "The evaluator gave no result."} ),
+              E, ( message_to_codes(E, Cs), string_codes(M, Cs), Reply = _{error: M} ))
+    ;   format(string(M), "No evaluator ~w on this server.", [Id]), Reply = _{error: M}
+    ).
+
+message_to_codes(error(format(F, A), _), Cs) :- !, format(codes(Cs), F, A).
+message_to_codes(E, Cs) :- catch(message_to_codes(E, [], Cs0), _, fail), !, Cs = Cs0.
+message_to_codes(E, Cs) :- format(codes(Cs), "~q", [E]).
 
 		 /*******************************
 		 *            REPLIES           *

@@ -259,6 +259,8 @@ handle_operation(Dict, Response) :-
         ; Op == "importFormats" -> ( le_import:import_formats(Fs), Response = _{formats: Fs} )
         ; Op == "exportFormats" -> handle_export_formats(Dict, Response)
         ; Op == "exportForeign" -> handle_export_foreign(Dict, Response)
+        ; Op == "evaluateFormats" -> ( le_import:evaluate_formats(Fs), Response = _{formats: Fs} )
+        ; Op == "evaluateForeign" -> handle_evaluate_foreign(Dict, Response)
         ; Op == "is_a_hierarchy" -> handle_is_a_hierarchy(Dict, Response)
         ; Op == "graph" -> handle_graph(Dict, Response)
         ; Op == "radialTree" -> handle_radial_tree(Dict, Response)
@@ -660,6 +662,29 @@ handle_import_foreign(Dict, Response) :-
     ->  le_i18n:le_msg(import_too_large, [max-Max], M), Response = _{error: M}
     ;   ( get_dict(importer, Dict, Imp), Imp \== null, Imp \== "" -> Opts = [importer(Imp)] ; Opts = [] ),
         catch(le_import:import_upload(Name, Content, Response, Opts), E,
+              ( print_message(error, E), term_string(E, ES), Response = _{error: ES} ))
+    ).
+
+%!  handle_evaluate_foreign(+Dict, -Response) is det.
+%
+%   Another system's program answers a case in that system's own result
+%   format, Logical English deciding it (le_import.pl, evaluator/5):
+%   `evaluator` (its id, such as "ruml"), `name` and `text` (or `base64`)
+%   the program, `data` the case, `options` the format's own (RUML:
+%   `mode`). Reply: {result, fileName, notes} or {error}.
+handle_evaluate_foreign(Dict, Response) :-
+    get_dict(evaluator, Dict, Ev), get_dict(name, Dict, Name),
+    (   get_dict(base64, Dict, B), B \== null -> Content = base64(B)
+    ;   get_dict(text, Dict, T) -> Content = text(T)
+    ;   Content = text("")
+    ),
+    arg(1, Content, Data), string_length(Data, Len),
+    le_import:max_upload_bytes(Max),
+    (   Len > Max * 4 / 3 + 4
+    ->  le_i18n:le_msg(import_too_large, [max-Max], M), Response = _{error: M}
+    ;   ( get_dict(data, Dict, Case) -> true ; Case = _{} ),
+        ( get_dict(options, Dict, Opts) -> true ; Opts = _{} ),
+        catch(le_import:evaluate_upload(Ev, Name, Content, _{data: Case, options: Opts}, Response), E,
               ( print_message(error, E), term_string(E, ES), Response = _{error: ES} ))
     ).
 
