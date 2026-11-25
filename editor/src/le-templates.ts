@@ -324,11 +324,17 @@ interface RawBlock {
 }
 
 // Scan "<keyword> <name> is:" blocks (e.g. "scenario ..." or "query ...") from LE
-// source. A block's body is the run of indented (or blank) lines following the
-// header, up to the next non-indented line. Shared by parseScenarioBlocks and
+// source. A block's body is the run of lines following the header, up to the
+// next line that opens a section. Facts are usually indented, but LE does not
+// require it ("scenario u is:" followed by "u." at column 0 is a scenario with
+// one fact), so a non-indented line ends the block only when it is a section
+// header: one of the 'guard' phrases, or any line ending in ":" (the opening of
+// a section this editor does not name). Shared by parseScenarioBlocks and
 // parseQueryBlocks so both delimit blocks identically.
 function scanBlocks(source: string, headerRe: RegExp): RawBlock[] {
     const blocks: RawBlock[] = [];
+    const sectionHeader = new RegExp(`^(?:${kwAlt(source, 'guard')})(?=[\\s:]|$)`, 'i');
+    const opensSection = (t: string) => sectionHeader.test(t) || /:\s*$/.test(stripInlineComment(t));
     const lines = source.split('\n');
     const offsets: number[] = [];
     let off = 0;
@@ -351,7 +357,7 @@ function scanBlocks(source: string, headerRe: RegExp): RawBlock[] {
             // non-blank line begins the next section and ends the block.
             if (t === '') { bodyLines.push(ln); j++; continue; }
             if (t.startsWith('%')) { bodyLines.push(ln); lastContent = j; j++; continue; }
-            if (/^\s/.test(ln)) { bodyLines.push(ln); lastContent = j; j++; continue; }
+            if (/^\s/.test(ln) || !opensSection(t)) { bodyLines.push(ln); lastContent = j; j++; continue; }
             break;
         }
         const end = offsets[lastContent] + lines[lastContent].length;

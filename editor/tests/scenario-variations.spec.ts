@@ -224,4 +224,22 @@ test.describe('Scenario Variations', () => {
             'No answers', { timeout: 60000 });
     });
 
+    // A scenario whose facts are not indented ("scenario u is:" then "u." at
+    // column 0) is still read: its fact is a row, and its template is in the
+    // Add menu (it was empty).
+    test('facts written at the start of the line (propositional)', async ({ page }) => {
+        test.setTimeout(120000);
+        await page.goto('index.html?example=propositional&scenario=u&query=p');
+        await expect(page.locator('#query-select')).toHaveValue('p', { timeout: 45000 });
+        await expect(page.locator('#scenario-select')).toHaveValue('u');
+        const [v] = await Promise.all([
+            page.waitForEvent('popup'),
+            page.click('#btn-variations'),
+        ]);
+        await v.waitForLoadState();
+        await expect(v.locator('#scenario-picker')).toHaveValue('u');
+        await expect(v.locator('.fact-row')).toHaveCount(1);
+        await expect(v.locator('#add-template option[value="u"]')).toHaveCount(1);
+    });
+
 });

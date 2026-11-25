@@ -892,7 +892,13 @@ var uiCatalog = {
     "Facts added by the facts background": "Factos acrescentados pelo contexto dos factos",
     "Apply the facts background": "Aplicar o contexto dos factos",
     "Run the rules of the facts background on these facts, and add the facts that follow": "Executar as regras do contexto dos factos sobre estes factos, e acrescentar os factos que da\xED resultam",
-    "Insert": "Inserir"
+    "Insert": "Inserir",
+    "Stopped: the goal is about to be proved.": "Parado: o objetivo vai ser provado.",
+    "Stopped: the goal is proved.": "Parado: o objetivo est\xE1 provado.",
+    "Stopped: the goal cannot be proved.": "Parado: o objetivo n\xE3o pode ser provado.",
+    "Stopped: an error happened in the goal.": "Parado: ocorreu um erro no objetivo.",
+    "Stopped at a breakpoint.": "Parado num ponto de paragem.",
+    "Stopped.": "Parado."
   },
   "es": {
     "+ Add": "+ A\xF1adir",
@@ -1783,7 +1789,13 @@ var uiCatalog = {
     "Facts added by the facts background": "Hechos a\xF1adidos por el contexto de los hechos",
     "Apply the facts background": "Aplicar el contexto de los hechos",
     "Run the rules of the facts background on these facts, and add the facts that follow": "Ejecutar las reglas del contexto de los hechos sobre estos hechos, y a\xF1adir los hechos que resultan",
-    "Insert": "Insertar"
+    "Insert": "Insertar",
+    "Stopped: the goal is about to be proved.": "Detenido: el objetivo va a probarse.",
+    "Stopped: the goal is proved.": "Detenido: el objetivo est\xE1 probado.",
+    "Stopped: the goal cannot be proved.": "Detenido: el objetivo no se puede probar.",
+    "Stopped: an error happened in the goal.": "Detenido: se produjo un error en el objetivo.",
+    "Stopped at a breakpoint.": "Detenido en un punto de interrupci\xF3n.",
+    "Stopped.": "Detenido."
   },
   "fr": {
     "+ Add": "+ Ajouter",
@@ -2674,7 +2686,13 @@ var uiCatalog = {
     "Facts added by the facts background": "Faits ajout\xE9s par le contexte des faits",
     "Apply the facts background": "Appliquer le contexte des faits",
     "Run the rules of the facts background on these facts, and add the facts that follow": "Ex\xE9cuter les r\xE8gles du contexte des faits sur ces faits, et ajouter les faits qui en d\xE9coulent",
-    "Insert": "Ins\xE9rer"
+    "Insert": "Ins\xE9rer",
+    "Stopped: the goal is about to be proved.": "Arr\xEAt\xE9 : le but va \xEAtre prouv\xE9.",
+    "Stopped: the goal is proved.": "Arr\xEAt\xE9 : le but est prouv\xE9.",
+    "Stopped: the goal cannot be proved.": "Arr\xEAt\xE9 : le but ne peut pas \xEAtre prouv\xE9.",
+    "Stopped: an error happened in the goal.": "Arr\xEAt\xE9 : une erreur s'est produite dans le but.",
+    "Stopped at a breakpoint.": "Arr\xEAt\xE9 \xE0 un point d'arr\xEAt.",
+    "Stopped.": "Arr\xEAt\xE9."
   },
   "it": {
     "+ Add": "+ Aggiungi",
@@ -3565,7 +3583,13 @@ var uiCatalog = {
     "Facts added by the facts background": "Fatti aggiunti dal contesto dei fatti",
     "Apply the facts background": "Applica il contesto dei fatti",
     "Run the rules of the facts background on these facts, and add the facts that follow": "Esegui le regole del contesto dei fatti su questi fatti, e aggiungi i fatti che ne seguono",
-    "Insert": "Inserisci"
+    "Insert": "Inserisci",
+    "Stopped: the goal is about to be proved.": "Fermo: l'obiettivo sta per essere dimostrato.",
+    "Stopped: the goal is proved.": "Fermo: l'obiettivo \xE8 dimostrato.",
+    "Stopped: the goal cannot be proved.": "Fermo: l'obiettivo non pu\xF2 essere dimostrato.",
+    "Stopped: an error happened in the goal.": "Fermo: si \xE8 verificato un errore nell'obiettivo.",
+    "Stopped at a breakpoint.": "Fermo a un punto di interruzione.",
+    "Stopped.": "Fermo."
   },
   "de": {
     "+ Add": "+ Hinzuf\xFCgen",
@@ -4458,7 +4482,13 @@ var uiCatalog = {
     "Facts added by the facts background": "Fakten, die der Faktenhintergrund hinzugef\xFCgt hat",
     "Apply the facts background": "Faktenhintergrund anwenden",
     "Run the rules of the facts background on these facts, and add the facts that follow": "Die Regeln des Faktenhintergrunds auf diese Fakten anwenden und die Fakten hinzuf\xFCgen, die daraus folgen",
-    "Insert": "Einf\xFCgen"
+    "Insert": "Einf\xFCgen",
+    "Stopped: the goal is about to be proved.": "Angehalten: Das Ziel wird gleich bewiesen.",
+    "Stopped: the goal is proved.": "Angehalten: Das Ziel ist bewiesen.",
+    "Stopped: the goal cannot be proved.": "Angehalten: Das Ziel kann nicht bewiesen werden.",
+    "Stopped: an error happened in the goal.": "Angehalten: Im Ziel ist ein Fehler aufgetreten.",
+    "Stopped at a breakpoint.": "An einem Haltepunkt angehalten.",
+    "Stopped.": "Angehalten."
   }
 };
 var languages = [

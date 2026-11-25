@@ -69,7 +69,7 @@ applies_miniscript(KB) :-
 %   coin be spent in cases the program does not allow. Rules the policy
 %   does not read (the definition of a coin's age, say) are not the
 %   policy's, and are no problem.
-check_miniscript(KB, Options, Problems) :-
+check_miniscript(_KB, Options, Problems) :-
     partial_residues(Options, Residues), !,
     findall(L, ( member(residue(L, _, _), Residues), integer(L) ), Ls0), sort(Ls0, Ls),
     (   Ls == [] -> LT = "of an included resource"
@@ -107,6 +107,11 @@ unread_where(Items, G, at(S, E)) :-
     strip(B, B1), sub_term(X, B1), X =@= G, !.
 unread_where(_, _, none).
 
+%   The clauses a partial export left out (partial(Residues), a list: the
+%   reader's request is partial(true)).
+partial_residues(Options, Rs) :-
+    member(partial(Rs), Options), is_list(Rs), Rs \== [], !.
+
 %!  export_miniscript(+KB, +Options, -Result) is det.
 %
 %   Result is exported(...), or refused(Problems) when check_miniscript/3
@@ -117,11 +122,6 @@ export_miniscript(KB, Options, refused(Problems)) :-
 export_miniscript(KB, Options, refused(Problems)) :-
     partial_residues(Options, _), !,
     check_miniscript(KB, Options, Problems).
-
-%   The clauses a partial export left out (partial(Residues), a list: the
-%   reader's request is partial(true)).
-partial_residues(Options, Rs) :-
-    member(partial(Rs), Options), is_list(Rs), Rs \== [], !.
 export_miniscript(KB, Options, exported(FileName, Text, Notes, Links)) :-
     kb_ir(KB, Options, IR),
     kb_policy(IR, Policy, Info),

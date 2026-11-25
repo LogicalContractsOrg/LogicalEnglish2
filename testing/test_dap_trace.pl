@@ -18,6 +18,7 @@
 :- use_module('../le_kbs').
 :- use_module('../reasoner').
 :- use_module('../dap_server').
+:- use_module('../le_api').
 
 % Run Query (over scenario s) in debug mode and collect the recorded stops.
 % Commands are given at the stops in order (stepIn after they run out);
@@ -117,5 +118,32 @@ test(stop_ends_the_query) :-
     run_trace(happy, [stepIn, disconnect], [_, _]>>true, Stops, Outcome),
     assertion(Outcome == query_interrupted),
     length(Stops, 2).
+
+% A query with no answer is proved again for its explanation: the trace shows
+% the query once, not twice, and the explanation is still in the reply.
+% (examples/moreExamples/language/negation/propositional.le, scenario u.)
+test(failed_query_is_traced_once) :-
+    le_kbs:load('examples/moreExamples/language/negation/propositional.le', KB),
+    le_kbs:createSession(KB, SM),
+    le_kbs:setScenarion(SM, u),
+    retractall(dap_server:dap_test_stop(_, _, _)),
+    retractall(dap_server:run_mode(SM, _)),
+    setup_call_cleanup(
+        ( assertz(dap_server:dap_test_capture), assertz(SM:debug_mode) ),
+        le_api:run_answering_query(SM, p, KB, 60, Response),
+        ( retractall(dap_server:dap_test_capture), retractall(SM:debug_mode) )),
+    findall(x, dap_server:dap_test_stop(call, _, []), RootCalls),
+    retractall(dap_server:dap_test_stop(_, _, _)),
+    le_kbs:destroySession(SM),
+    assertion(RootCalls == [x]),
+    assertion(Response.results == []),
+    assertion(get_dict(why, Response, _)).
+
+% The stopped event names the port, which tells a goal's call from its exit.
+test(stopped_event_names_the_port) :-
+    dap_server:build_stopped_event(step, exit, E1),
+    assertion(E1.body.port == exit),
+    dap_server:build_stopped_event(exception, exception(oops), E2),
+    assertion(E2.body.port == exception).
 
 :- end_tests(dap_trace).

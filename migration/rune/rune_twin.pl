@@ -1322,7 +1322,7 @@ attr_literal(O, A, L) :- tmpl(attr(A), F, _, _), L =.. [F, O, _].
 absent_literal(O, A, not(L)) :- attr_literal(O, A, L).
 
 % Rune's `=` and `<>` (ExpressionEqualityUtilNullSafe).
-equality(Op, M, L, R, _, _, Env, G) :-
+equality(Op, _M, L, R, _, _, Env, G) :-
     boolean_literal(R, B), condition_like(L), !,
     cc(L, Env, GL),
     (   Op == (=) -> Pos = true ; Pos = false ),

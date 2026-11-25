@@ -51,7 +51,7 @@ dap_tracer_hook(Port, SM, Goal, ID, Anc, Depth) :-
         ->  debug(dap, 'Tracer stop at ~w: ~w', [Port, Goal]),
             retractall(stopped_state(_, _, SM, _, _)),
             assertz(stopped_state(ID, Goal, SM, Anc, Depth)),
-            build_stopped_event(Reason, ID, Event),
+            build_stopped_event(Reason, Port, Event),
             (   send_dap_event(SM, Event)
             ->  debug(dap, 'Waiting for command for session ~w...', [SM]),
                 wait_for_command(SM, Command),
@@ -105,16 +105,22 @@ stop_in_mode(continue, call, SM, Goal, _Anc, _Depth, breakpoint) :-
 stop_in_mode(continue, Port, _SM, _Goal, [], _Depth, Reason) :-
     memberchk(Port-Reason, [exit-entry, fail-step]).
 
-build_stopped_event(Reason, _ID, _{
+%   The stopped event says, beside DAP's reason, at which port the goal
+%   stands (`port`: call, exit, fail or exception): a goal stops when it is
+%   called and again when it is proved or fails, with the same stack, so the
+%   Trace panel shows the port to tell the two stops apart.
+build_stopped_event(Reason, Port0, _{
     type: event,
     event: stopped,
     body: _{
         reason: Reason,
+        port: Port,
         threadId: 1,
         preserveFocusHint: false,
         allThreadsStopped: true
     }
-}).
+}) :-
+    ( Port0 = exception(_) -> Port = exception ; Port = Port0 ).
 
 send_dap_event(SM, Event) :-
     dap_session(SM, WS, _),

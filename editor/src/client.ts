@@ -3589,7 +3589,18 @@ const queryChannel = new BroadcastChannel('le-query-editor');
             const msg = JSON.parse(event.data);
             console.log('DAP Message:', msg);
             if (msg.type === 'event' && msg.event === 'stopped') {
-                debugStatus.textContent = `Stopped: ${msg.body.reason}`;
+                // A goal stops when it is called and again when it is proved
+                // or fails, with the same stack: the port tells the stops apart.
+                const portText: Record<string, string> = {
+                    call: 'Stopped: the goal is about to be proved.',
+                    exit: 'Stopped: the goal is proved.',
+                    fail: 'Stopped: the goal cannot be proved.',
+                    exception: 'Stopped: an error happened in the goal.',
+                };
+                const port = msg.body && msg.body.port;
+                debugStatus.textContent = msg.body && msg.body.reason === 'breakpoint'
+                    ? t('Stopped at a breakpoint.')
+                    : t(portText[port] || 'Stopped.');
                 sendDapRequest('stackTrace', { threadId: 1 });
             } else if (msg.type === 'response' && msg.success) {
                 if (msg.command === 'stackTrace') {

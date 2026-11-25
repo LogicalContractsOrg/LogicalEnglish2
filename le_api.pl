@@ -1325,6 +1325,9 @@ handle_answering_query(Dict, Reply) :-
         ; true
     ),
 
+    %  Traced or not, per query: a plain run while the Trace panel is open
+    %  is not traced.
+    retractall(SM:debug_mode),
     (   get_dict(debug, Dict, true) -> assertz(SM:debug_mode); true),
 
     % Detailed (per-rule) failure explanations: off unless requested. Set/cleared
@@ -1492,6 +1495,11 @@ run_answering_query(SM, Query, KB, Limit, Response) :-
     get_time(T0),
     (   short_explanations_query(KB, QKey)
     ->  short_answers(SM, Query, KB, KeyedResults), Short = true
+    ;   %  A traced query waits for the user at every step (the Trace
+        %  panel): the explanations' budget would stop it in mid-trace and
+        %  start it again, so only the query's own limit applies.
+        catch(SM:debug_mode, _, fail)
+    ->  collect_answers(SM, Query, KB, KeyedResults), Short = false
     ;   Budget is min(Limit / 2, max(5, min(20, Limit / 4))),   % (always before Limit)
         catch(( call_with_time_limit(Budget, collect_answers(SM, Query, KB, KeyedResults)), Short = false ),
               time_limit_exceeded,
@@ -1554,6 +1562,9 @@ finish_answering_query(SM, Query, KB, KeyedResults, Short, Response) :-
         ;   
         % No answers, get negative explanation
         print_message(informational, 'No answers found, generating negative explanation'),
+        %  The explanation proves the query again: a trace (the Trace panel)
+        %  has already shown that run, so it does not show it a second time.
+        retractall(SM:debug_mode),
         (   query_explain(SM, Query, _Instance, _Unknowns, Why) ->
                 convert_why_deduped(Why, KB, JSONWhy),
                 % For a FAILED query, the important reason is the deepest failure

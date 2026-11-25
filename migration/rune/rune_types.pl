@@ -202,7 +202,7 @@ tx_plain(Env, E, T) :- tx(E, Env, none, T, _).
 
 %   A case of a switch: its guard (a literal, a value of the switch's
 %   enumeration, or a type for a switch on a choice) and its value.
-tx_case(Env, AK, X, default(E), default(ET), K) :- !, tx(E, Env, X, ET, ty(K, _)).
+tx_case(Env, _AK, X, default(E), default(ET), K) :- !, tx(E, Env, X, ET, ty(K, _)).
 tx_case(Env, AK, X, case(G, E), case(GT, ET), K) :-
     (   G = sym(N), AK = enum(En), enum_has(En, N) -> GT = enum(En, N)
     ;   G = sym(N), env_scope(Env, Sc), member(Kd, [type, choice]), resolve_name(Sc, N, Kd, TQ) -> GT = type(TQ)
