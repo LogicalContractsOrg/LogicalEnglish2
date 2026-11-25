@@ -79,3 +79,16 @@ test.describe('Docs viewer', () => {
         await expect(page.locator('#content a[href^="/docs/user/tutorials/views"]').first()).toBeVisible();
     });
 });
+
+// A browser kept its own copy of a document for days after a new version was
+// deployed (the guide of the languages showed five languages when the server
+// had six): the replies of /docs/ now tell the browser to ask again each time.
+test('the documentation is never shown from a stale browser copy', async ({ request }) => {
+    for (const url of ['/docs/user/guide/languages', '/docs/user/guide/languages.md', '/docs/user/nav.json']) {
+        const reply = await request.get(url);
+        expect(reply.ok(), url).toBeTruthy();
+        expect(reply.headers()['cache-control'], url).toBe('no-cache');
+    }
+    const guide = await (await request.get('/docs/user/guide/languages.md')).text();
+    expect(guide).toContain('Logisches Deutsch');
+});

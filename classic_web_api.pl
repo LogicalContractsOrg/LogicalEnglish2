@@ -1213,21 +1213,29 @@ handle_docs(Request) :-
     atom_concat('/docs/', Rel0, Path),
     ( sub_atom(Rel0, _, _, 0, '/') -> atom_concat(Rel, '/', Rel0 ) ; Rel = Rel0 ),
     docs_dir(DocsDir),
+    docs_fresh_options(Fresh),
     (   ( file_name_extension(Old, md, Rel) -> Ext = '.md' ; Old = Rel, Ext = '' ),
         doc_moved(Old, New)
     ->  format(atom(To), '/docs/~w~w', [New, Ext]),
         http_redirect(moved, To, Request)
     ;   Rel == search                % the documentation's search (docs-extras.js)
-    ->  http_reply_file('web_extras/docsview/viewer.html', [mime_type(text/html)], Request)
+    ->  http_reply_file('web_extras/docsview/viewer.html', [mime_type(text/html)|Fresh], Request)
     ;   \+ public_doc(Rel)
     ->  throw(http_reply(not_found(Path)))
     ;   safe_docs_path(DocsDir, Rel, AbsFile), exists_file(AbsFile)
-    ->  http_reply_file(AbsFile, [unsafe(true)], Request)   % image, or raw .md; safe_docs_path already vetted it
+    ->  http_reply_file(AbsFile, [unsafe(true)|Fresh], Request)   % image, or raw .md; safe_docs_path already vetted it
     ;   atom_concat(Rel, '.md', RelMd),
         safe_docs_path(DocsDir, RelMd, AbsMd), exists_file(AbsMd)
-    ->  http_reply_file('web_extras/docsview/viewer.html', [mime_type(text/html)], Request)
+    ->  http_reply_file('web_extras/docsview/viewer.html', [mime_type(text/html)|Fresh], Request)
     ;   throw(http_reply(not_found(Path)))
     ).
+
+%   A browser must ask again before it shows its own copy of a document (the
+%   reply is then a short "not changed"). Without this header a browser kept a
+%   document for days after a new version was deployed: the guide of the
+%   languages showed five languages when the server had six. /editor/ and
+%   /web_extras/ are served the same way.
+docs_fresh_options([headers([cache_control('no-cache')])]).
 
 docs_dir(Dir) :- absolute_file_name('docs', Dir, [file_type(directory), access(read)]).
 
