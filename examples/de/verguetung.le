@@ -1,0 +1,34 @@
+% Vergütung: Rechnen, Vergleiche und die deutsche Schreibweise der Zahlen
+% (1.250.000 und 10.000,5). Deutsche Fassung von ../moreExamples/numbers.le.
+die Zielsprache ist: prolog.
+
+die Vorlagen sind:
+*eine Person* hat ein Gehalt von *einem Betrag*.
+*eine Person* hat einen Bonus von *einem Betrag*.
+*eine Person* hat eine Gesamtvergütung von *einem Betrag*.
+*eine Person* ist ein Spitzenverdiener.
+
+die Wissensbasis Verguetung enthält:
+
+eine Person hat eine Gesamtvergütung von einem Betrag,
+    wenn die Person ein Gehalt von einem Grundbetrag hat
+    und die Person einen Bonus von einem Bonusbetrag hat
+    und der Betrag = der Grundbetrag + der Bonusbetrag.
+
+eine Person ist ein Spitzenverdiener,
+    wenn die Person eine Gesamtvergütung von einem Betrag hat
+    und der Betrag >= 1.000.000.
+
+Szenario eins ist:
+    Alice hat ein Gehalt von 1.250.000.
+    Alice hat einen Bonus von 500.000.
+    Bob hat ein Gehalt von 90.000.
+    Bob hat einen Bonus von 10.000,5.
+    gesamt erwartet die Antworten ["Alice hat eine Gesamtvergütung von 1750000", "Bob hat eine Gesamtvergütung von 100000,5"].
+    spitze erwartet die Antworten ["Alice ist ein Spitzenverdiener"].
+
+Abfrage gesamt ist:
+    welche Person hat eine Gesamtvergütung von welchem Betrag.
+
+Abfrage spitze ist:
+    welche Person ist ein Spitzenverdiener.

@@ -3717,9 +3717,28 @@ unelide_words(Words0, Words) :-
     ),
     (   Els == [], Cons == []
     ->  Words = Words0
-    ;   foldl(unelide_word(Els, Cons), Words0, Parts, []),
+    ;   value_short_words(Words0, Words1),
+        foldl(unelide_word(Els, Cons), Words1, Parts, []),
         Words = Parts
     ).
+
+%   Before a number or a date, a short form is its first word alone
+%   ("am 2021-10-09" is "an 2021-10-09"), in a language that writes it so
+%   (languages.csv, `value_contractions`; tokenizer:elide_word/5 reads a
+%   program the same way).
+value_short_words([W, V|Ws0], [F, V|Ws]) :-
+    catch(le_i18n:le_active_language(L), _, fail),
+    atom_string(A, W), downcase_atom(A, Al),
+    le_i18n:value_contraction(L, Al, First),
+    value_word(V), !,
+    atom_string(First, F),
+    value_short_words(Ws0, Ws).
+value_short_words([W|Ws0], [W|Ws]) :- !, value_short_words(Ws0, Ws).
+value_short_words([], []).
+
+value_word(V) :-
+    atom_string(A, V),
+    atom_codes(A, [C|_]), code_type(C, digit).
 
 unelide_word(Els, Cons, W, Out0, Out) :-
     atom_string(A, W), downcase_atom(A, Al),

@@ -4,11 +4,20 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+var __esm = (fn, res, err) => function __init() {
+  if (err) throw err[0];
+  try {
+    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  } catch (e) {
+    throw err = [e], e;
+  }
 };
 var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  try {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  } catch (e) {
+    throw mod = 0, e;
+  }
 };
 var __export = (target, all) => {
   for (var name in all)
@@ -1416,47 +1425,45 @@ var require_messageBuffer = __commonJS({
         let chunkIndex = 0;
         let offset = 0;
         let chunkBytesRead = 0;
-        row:
-          while (chunkIndex < this._chunks.length) {
-            const chunk = this._chunks[chunkIndex];
-            offset = 0;
-            column:
-              while (offset < chunk.length) {
-                const value = chunk[offset];
-                switch (value) {
-                  case CR:
-                    switch (state) {
-                      case 0:
-                        state = 1;
-                        break;
-                      case 2:
-                        state = 3;
-                        break;
-                      default:
-                        state = 0;
-                    }
+        row: while (chunkIndex < this._chunks.length) {
+          const chunk = this._chunks[chunkIndex];
+          offset = 0;
+          column: while (offset < chunk.length) {
+            const value = chunk[offset];
+            switch (value) {
+              case CR:
+                switch (state) {
+                  case 0:
+                    state = 1;
                     break;
-                  case LF:
-                    switch (state) {
-                      case 1:
-                        state = 2;
-                        break;
-                      case 3:
-                        state = 4;
-                        offset++;
-                        break row;
-                      default:
-                        state = 0;
-                    }
+                  case 2:
+                    state = 3;
                     break;
                   default:
                     state = 0;
                 }
-                offset++;
-              }
-            chunkBytesRead += chunk.byteLength;
-            chunkIndex++;
+                break;
+              case LF:
+                switch (state) {
+                  case 1:
+                    state = 2;
+                    break;
+                  case 3:
+                    state = 4;
+                    offset++;
+                    break row;
+                  default:
+                    state = 0;
+                }
+                break;
+              default:
+                state = 0;
+            }
+            offset++;
           }
+          chunkBytesRead += chunk.byteLength;
+          chunkIndex++;
+        }
         if (state !== 4) {
           return void 0;
         }
@@ -3024,9 +3031,8 @@ var require_ril = __commonJS({
 var require_main = __commonJS({
   "node_modules/vscode-jsonrpc/lib/browser/main.js"(exports) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
         desc = { enumerable: true, get: function() {
@@ -3034,15 +3040,12 @@ var require_main = __commonJS({
         } };
       }
       Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    }) : (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       o[k2] = m[k];
-    });
+    }));
     var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createMessageConnection = exports.BrowserMessageWriter = exports.BrowserMessageReader = void 0;
@@ -6011,9 +6014,8 @@ var require_connection2 = __commonJS({
 var require_api2 = __commonJS({
   "node_modules/vscode-languageserver-protocol/lib/common/api.js"(exports) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
         desc = { enumerable: true, get: function() {
@@ -6021,15 +6023,12 @@ var require_api2 = __commonJS({
         } };
       }
       Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    }) : (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       o[k2] = m[k];
-    });
+    }));
     var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.LSPErrorCodes = exports.createProtocolConnection = void 0;
@@ -6057,9 +6056,8 @@ var require_api2 = __commonJS({
 var require_main2 = __commonJS({
   "node_modules/vscode-languageserver-protocol/lib/browser/main.js"(exports) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
         desc = { enumerable: true, get: function() {
@@ -6067,15 +6065,12 @@ var require_main2 = __commonJS({
         } };
       }
       Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    }) : (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       o[k2] = m[k];
-    });
+    }));
     var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createProtocolConnection = void 0;
@@ -8112,9 +8107,8 @@ var require_server = __commonJS({
 var require_api3 = __commonJS({
   "node_modules/vscode-languageserver/lib/common/api.js"(exports) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
         desc = { enumerable: true, get: function() {
@@ -8122,15 +8116,12 @@ var require_api3 = __commonJS({
         } };
       }
       Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    }) : (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       o[k2] = m[k];
-    });
+    }));
     var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ProposedFeatures = exports.NotebookDocuments = exports.TextDocuments = exports.SemanticTokensBuilder = void 0;
@@ -8171,9 +8162,8 @@ var require_browser2 = __commonJS({
 var require_main3 = __commonJS({
   "node_modules/vscode-languageserver/lib/browser/main.js"(exports) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
         desc = { enumerable: true, get: function() {
@@ -8181,15 +8171,12 @@ var require_main3 = __commonJS({
         } };
       }
       Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
+    }) : (function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
       o[k2] = m[k];
-    });
+    }));
     var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createConnection = void 0;
@@ -10203,6 +10190,11 @@ var keywords = {
       ],
       [
         "\xA9"
+      ]
+    ],
+    "lps_time_noun": [
+      [
+        "time"
       ]
     ]
   },
@@ -12246,6 +12238,17 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "instante"
+      ],
+      [
+        "momento"
+      ],
+      [
+        "tempo"
+      ]
     ]
   },
   "es": {
@@ -14210,6 +14213,17 @@ var keywords = {
       ],
       [
         "\xA9"
+      ]
+    ],
+    "lps_time_noun": [
+      [
+        "instante"
+      ],
+      [
+        "momento"
+      ],
+      [
+        "tiempo"
       ]
     ]
   },
@@ -16292,6 +16306,17 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "instant"
+      ],
+      [
+        "moment"
+      ],
+      [
+        "temps"
+      ]
     ]
   },
   "it": {
@@ -18293,6 +18318,2632 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "momento"
+      ],
+      [
+        "istante"
+      ],
+      [
+        "tempo"
+      ]
+    ]
+  },
+  "de": {
+    "kb_open": [
+      [
+        "die",
+        "Wissensbasis"
+      ]
+    ],
+    "kb_include": [
+      [
+        "enth\xE4lt"
+      ],
+      [
+        "umfasst"
+      ]
+    ],
+    "kb_extends": [
+      [
+        "erweitert"
+      ]
+    ],
+    "contract_open": [
+      [
+        "der",
+        "Vertrag"
+      ]
+    ],
+    "contract_states": [
+      [
+        "legt",
+        "fest",
+        "dass"
+      ],
+      [
+        "bestimmt",
+        "dass"
+      ]
+    ],
+    "resources_include": [
+      [
+        "enth\xE4lt",
+        "diese",
+        "Ressourcen"
+      ],
+      [
+        "umfasst",
+        "diese",
+        "Ressourcen"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "der",
+        "Faktenhintergrund",
+        "enth\xE4lt",
+        "diese",
+        "Ressourcen"
+      ],
+      [
+        "der",
+        "Faktenhintergrund",
+        "umfasst",
+        "diese",
+        "Ressourcen"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "enth\xE4lt",
+        "diese",
+        "Szenarien"
+      ],
+      [
+        "umfasst",
+        "diese",
+        "Szenarien"
+      ]
+    ],
+    "scenario": [
+      [
+        "Szenario"
+      ],
+      [
+        "szenario"
+      ]
+    ],
+    "query": [
+      [
+        "Abfrage"
+      ],
+      [
+        "abfrage"
+      ]
+    ],
+    "ontology": [
+      [
+        "die",
+        "Ontologie",
+        "ist"
+      ]
+    ],
+    "predicates": [
+      [
+        "die",
+        "Pr\xE4dikate",
+        "sind"
+      ]
+    ],
+    "templates": [
+      [
+        "die",
+        "Vorlagen",
+        "sind"
+      ]
+    ],
+    "fluents": [
+      [
+        "die",
+        "Fluenten",
+        "sind"
+      ]
+    ],
+    "events": [
+      [
+        "die",
+        "Ereignisse",
+        "sind"
+      ]
+    ],
+    "actions": [
+      [
+        "die",
+        "Aktionen",
+        "sind"
+      ]
+    ],
+    "prolog_events": [
+      [
+        "die",
+        "Prolog-Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "prolog",
+        "Ereignisse",
+        "sind"
+      ]
+    ],
+    "constants": [
+      [
+        "die",
+        "Konstanten",
+        "sind"
+      ]
+    ],
+    "functions": [
+      [
+        "die",
+        "Funktionen",
+        "sind"
+      ]
+    ],
+    "constant_value_of": [
+      [
+        "der",
+        "Wert",
+        "von"
+      ]
+    ],
+    "meta_target": [
+      [
+        "die",
+        "Zielsprache",
+        "ist"
+      ]
+    ],
+    "marker": [
+      [
+        "Abschnitt"
+      ],
+      [
+        "abschnitt"
+      ]
+    ],
+    "marker_is": [
+      [
+        "ist"
+      ]
+    ],
+    "annexes": [
+      [
+        "die",
+        "Anh\xE4nge",
+        "zur",
+        "Wissensbasis",
+        "sind"
+      ],
+      [
+        "die",
+        "Anh\xE4nge",
+        "zum",
+        "Vertrag",
+        "sind"
+      ]
+    ],
+    "guard": [
+      [
+        "die",
+        "Prolog-Ereignisse"
+      ],
+      [
+        "die",
+        "Funktionen",
+        "sind"
+      ],
+      [
+        "die",
+        "Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "Konstanten",
+        "sind"
+      ],
+      [
+        "die",
+        "Pr\xE4dikate",
+        "sind"
+      ],
+      [
+        "die",
+        "Ontologie",
+        "ist"
+      ],
+      [
+        "die",
+        "Vorlagen",
+        "sind"
+      ],
+      [
+        "die",
+        "Fluenten",
+        "sind"
+      ],
+      [
+        "die",
+        "Aktionen",
+        "sind"
+      ],
+      [
+        "die",
+        "Wissensbasis"
+      ],
+      [
+        "die",
+        "Zielsprache"
+      ],
+      [
+        "der",
+        "Vertrag"
+      ],
+      [
+        "Szenario"
+      ],
+      [
+        "szenario"
+      ],
+      [
+        "Abfrage"
+      ],
+      [
+        "abfrage"
+      ]
+    ],
+    "reserved_word": [
+      [
+        "Wissensbasis"
+      ],
+      [
+        "Zielsprache"
+      ],
+      [
+        "Funktionen"
+      ],
+      [
+        "Ereignisse"
+      ],
+      [
+        "Ontologie"
+      ],
+      [
+        "Pr\xE4dikate"
+      ],
+      [
+        "Vorlagen"
+      ],
+      [
+        "Fluenten"
+      ],
+      [
+        "Aktionen"
+      ],
+      [
+        "Vertrag"
+      ]
+    ],
+    "expects": [
+      [
+        "erwartet"
+      ]
+    ],
+    "answers": [
+      [
+        "die",
+        "Antworten"
+      ],
+      [
+        "Antworten"
+      ]
+    ],
+    "and_unknowns": [
+      [
+        "und",
+        "Unbekannte"
+      ]
+    ],
+    "and_any_unknowns": [
+      [
+        "und",
+        "beliebige",
+        "Unbekannte"
+      ]
+    ],
+    "rule": [
+      [
+        "Regel"
+      ],
+      [
+        "regel"
+      ]
+    ],
+    "if": [
+      [
+        "falls"
+      ],
+      [
+        "Falls"
+      ],
+      [
+        "wenn"
+      ],
+      [
+        "Wenn"
+      ]
+    ],
+    "only_if": [
+      [
+        "nur",
+        "falls"
+      ],
+      [
+        "nur",
+        "wenn"
+      ]
+    ],
+    "unless": [
+      [
+        "es",
+        "sei",
+        "denn",
+        "dass"
+      ],
+      [
+        "sofern",
+        "nicht"
+      ],
+      [
+        "es",
+        "sei",
+        "denn"
+      ],
+      [
+        "au\xDFer",
+        "wenn"
+      ]
+    ],
+    "and_unless": [
+      [
+        "und",
+        "es",
+        "sei",
+        "denn",
+        "dass"
+      ],
+      [
+        "und",
+        "sofern",
+        "nicht"
+      ],
+      [
+        "und",
+        "es",
+        "sei",
+        "denn"
+      ],
+      [
+        "und",
+        "au\xDFer",
+        "wenn"
+      ]
+    ],
+    "and": [
+      [
+        "und"
+      ]
+    ],
+    "or": [
+      [
+        "oder"
+      ]
+    ],
+    "either": [
+      [
+        "eine",
+        "der",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "eines",
+        "der",
+        "folgenden"
+      ],
+      [
+        "eine",
+        "der",
+        "folgenden"
+      ]
+    ],
+    "any_of": [
+      [
+        "irgendeine",
+        "der",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "irgendeines",
+        "der",
+        "folgenden"
+      ],
+      [
+        "irgendeine",
+        "der",
+        "folgenden"
+      ]
+    ],
+    "all_of": [
+      [
+        "alle",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "alle",
+        "der",
+        "folgenden"
+      ],
+      [
+        "alle",
+        "folgenden"
+      ]
+    ],
+    "at_least_one_of": [
+      [
+        "mindestens",
+        "eine",
+        "der",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "mindestens",
+        "eines",
+        "der",
+        "folgenden"
+      ],
+      [
+        "mindestens",
+        "eine",
+        "der",
+        "folgenden"
+      ]
+    ],
+    "one": [
+      [
+        "eines"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "ein"
+      ]
+    ],
+    "of": [
+      [
+        "von"
+      ]
+    ],
+    "all": [
+      [
+        "alle"
+      ]
+    ],
+    "not_the_case": [
+      [
+        "es",
+        "ist",
+        "nicht",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "ist",
+        "es",
+        "nicht",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "nicht",
+        "der",
+        "Fall",
+        "ist",
+        "dass"
+      ],
+      [
+        "es",
+        "trifft",
+        "nicht",
+        "zu",
+        "dass"
+      ],
+      [
+        "trifft",
+        "es",
+        "nicht",
+        "zu",
+        "dass"
+      ],
+      [
+        "es",
+        "nicht",
+        "zutrifft",
+        "dass"
+      ],
+      [
+        "nicht",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "gilt",
+        "nicht",
+        "dass"
+      ],
+      [
+        "gilt",
+        "nicht",
+        "dass"
+      ],
+      [
+        "nicht",
+        "gilt",
+        "dass"
+      ]
+    ],
+    "forall": [
+      [
+        "in",
+        "allen",
+        "F\xE4llen",
+        "in",
+        "denen"
+      ],
+      [
+        "f\xFCr",
+        "alle",
+        "F\xE4lle",
+        "in",
+        "denen"
+      ],
+      [
+        "immer",
+        "wenn"
+      ]
+    ],
+    "it_the_case": [
+      [
+        "ist",
+        "es",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "der",
+        "Fall",
+        "ist",
+        "dass"
+      ],
+      [
+        "gilt",
+        "dass"
+      ]
+    ],
+    "for_case": [
+      [
+        "f\xFCr",
+        "den",
+        "Fall"
+      ]
+    ],
+    "it_is_true_that": [
+      [
+        "es",
+        "trifft",
+        "zu",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "wahr",
+        "dass"
+      ]
+    ],
+    "it_is": [
+      [
+        "es",
+        "ist"
+      ]
+    ],
+    "whether": [
+      [
+        "ob"
+      ]
+    ],
+    "known_as": [
+      [
+        "bekannt",
+        "als"
+      ]
+    ],
+    "by_default": [
+      [
+        "als",
+        "Standardwert"
+      ],
+      [
+        "standardm\xE4\xDFig"
+      ]
+    ],
+    "defines_global": [
+      [
+        "definiert",
+        "global"
+      ]
+    ],
+    "opposite": [
+      [
+        "Gegenteil"
+      ]
+    ],
+    "synonym": [
+      [
+        "Synonym"
+      ]
+    ],
+    "prepositional": [
+      [
+        "zusammengesetzt"
+      ],
+      [
+        "pr\xE4positional"
+      ]
+    ],
+    "unknown": [
+      [
+        "angenommen"
+      ],
+      [
+        "unbekannt"
+      ],
+      [
+        "annehmbar"
+      ]
+    ],
+    "undefined": [
+      [
+        "Szenarioelement"
+      ],
+      [
+        "undefiniert"
+      ]
+    ],
+    "article": [
+      [
+        "irgendeine"
+      ],
+      [
+        "irgendein"
+      ],
+      [
+        "einige"
+      ],
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ]
+    ],
+    "ignorable": [
+      [
+        "gewesen"
+      ],
+      [
+        "hatten"
+      ],
+      [
+        "worden"
+      ],
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "waren"
+      ],
+      [
+        "haben"
+      ],
+      [
+        "hatte"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "sind"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ],
+      [
+        "war"
+      ],
+      [
+        "hat"
+      ]
+    ],
+    "reserved": [
+      [
+        "falls"
+      ],
+      [
+        "sagt"
+      ],
+      [
+        "dass"
+      ],
+      [
+        "wenn"
+      ],
+      [
+        "oder"
+      ],
+      [
+        "und"
+      ]
+    ],
+    "qualifier": [
+      [
+        "urspr\xFCnglicher"
+      ],
+      [
+        "urspr\xFCngliches"
+      ],
+      [
+        "urspr\xFCnglichen"
+      ],
+      [
+        "urspr\xFCnglichem"
+      ],
+      [
+        "urspr\xFCngliche"
+      ],
+      [
+        "vorheriger"
+      ],
+      [
+        "vorheriges"
+      ],
+      [
+        "vorherigen"
+      ],
+      [
+        "vorherigem"
+      ],
+      [
+        "vorherige"
+      ],
+      [
+        "aktueller"
+      ],
+      [
+        "aktuelles"
+      ],
+      [
+        "aktuellen"
+      ],
+      [
+        "aktuellem"
+      ],
+      [
+        "gegebener"
+      ],
+      [
+        "gegebenes"
+      ],
+      [
+        "gegebenen"
+      ],
+      [
+        "gegebenem"
+      ],
+      [
+        "sechster"
+      ],
+      [
+        "sechstes"
+      ],
+      [
+        "sechsten"
+      ],
+      [
+        "sechstem"
+      ],
+      [
+        "weiterer"
+      ],
+      [
+        "weiteres"
+      ],
+      [
+        "weiteren"
+      ],
+      [
+        "weiterem"
+      ],
+      [
+        "n\xE4chster"
+      ],
+      [
+        "n\xE4chstes"
+      ],
+      [
+        "n\xE4chsten"
+      ],
+      [
+        "n\xE4chstem"
+      ],
+      [
+        "aktuelle"
+      ],
+      [
+        "gleicher"
+      ],
+      [
+        "gleiches"
+      ],
+      [
+        "gleichen"
+      ],
+      [
+        "gleichem"
+      ],
+      [
+        "einziger"
+      ],
+      [
+        "einziges"
+      ],
+      [
+        "einzigen"
+      ],
+      [
+        "einzigem"
+      ],
+      [
+        "gegebene"
+      ],
+      [
+        "zweiter"
+      ],
+      [
+        "zweites"
+      ],
+      [
+        "zweiten"
+      ],
+      [
+        "zweitem"
+      ],
+      [
+        "dritter"
+      ],
+      [
+        "drittes"
+      ],
+      [
+        "dritten"
+      ],
+      [
+        "drittem"
+      ],
+      [
+        "vierter"
+      ],
+      [
+        "viertes"
+      ],
+      [
+        "vierten"
+      ],
+      [
+        "viertem"
+      ],
+      [
+        "f\xFCnfter"
+      ],
+      [
+        "f\xFCnftes"
+      ],
+      [
+        "f\xFCnften"
+      ],
+      [
+        "f\xFCnftem"
+      ],
+      [
+        "sechste"
+      ],
+      [
+        "siebter"
+      ],
+      [
+        "siebtes"
+      ],
+      [
+        "siebten"
+      ],
+      [
+        "siebtem"
+      ],
+      [
+        "neunter"
+      ],
+      [
+        "neuntes"
+      ],
+      [
+        "neunten"
+      ],
+      [
+        "neuntem"
+      ],
+      [
+        "zehnter"
+      ],
+      [
+        "zehntes"
+      ],
+      [
+        "zehnten"
+      ],
+      [
+        "zehntem"
+      ],
+      [
+        "anderer"
+      ],
+      [
+        "anderes"
+      ],
+      [
+        "anderen"
+      ],
+      [
+        "anderem"
+      ],
+      [
+        "weitere"
+      ],
+      [
+        "n\xE4chste"
+      ],
+      [
+        "letzter"
+      ],
+      [
+        "letztes"
+      ],
+      [
+        "letzten"
+      ],
+      [
+        "letztem"
+      ],
+      [
+        "gleiche"
+      ],
+      [
+        "einzige"
+      ],
+      [
+        "erster"
+      ],
+      [
+        "erstes"
+      ],
+      [
+        "ersten"
+      ],
+      [
+        "erstem"
+      ],
+      [
+        "zweite"
+      ],
+      [
+        "dritte"
+      ],
+      [
+        "vierte"
+      ],
+      [
+        "f\xFCnfte"
+      ],
+      [
+        "siebte"
+      ],
+      [
+        "achter"
+      ],
+      [
+        "achtes"
+      ],
+      [
+        "achten"
+      ],
+      [
+        "achtem"
+      ],
+      [
+        "neunte"
+      ],
+      [
+        "zehnte"
+      ],
+      [
+        "andere"
+      ],
+      [
+        "letzte"
+      ],
+      [
+        "selber"
+      ],
+      [
+        "selbes"
+      ],
+      [
+        "selben"
+      ],
+      [
+        "selbem"
+      ],
+      [
+        "erste"
+      ],
+      [
+        "achte"
+      ],
+      [
+        "neuer"
+      ],
+      [
+        "neues"
+      ],
+      [
+        "neuen"
+      ],
+      [
+        "neuem"
+      ],
+      [
+        "selbe"
+      ],
+      [
+        "neue"
+      ]
+    ],
+    "copula": [
+      [
+        "waren"
+      ],
+      [
+        "sind"
+      ],
+      [
+        "ist"
+      ],
+      [
+        "war"
+      ]
+    ],
+    "definite_article": [
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ]
+    ],
+    "determiner_definite": [
+      [
+        "dieser"
+      ],
+      [
+        "dieses"
+      ],
+      [
+        "diesen"
+      ],
+      [
+        "diesem"
+      ],
+      [
+        "diese"
+      ]
+    ],
+    "each": [
+      [
+        "jeder"
+      ],
+      [
+        "jedes"
+      ],
+      [
+        "jeden"
+      ],
+      [
+        "jedem"
+      ],
+      [
+        "jede"
+      ]
+    ],
+    "wh_var": [
+      [
+        "was",
+        "f\xFCr",
+        "eine"
+      ],
+      [
+        "was",
+        "f\xFCr",
+        "ein"
+      ],
+      [
+        "welcher"
+      ],
+      [
+        "welches"
+      ],
+      [
+        "welchen"
+      ],
+      [
+        "welchem"
+      ],
+      [
+        "welche"
+      ]
+    ],
+    "who": [
+      [
+        "wer"
+      ]
+    ],
+    "what": [
+      [
+        "was"
+      ]
+    ],
+    "when": [
+      [
+        "wann"
+      ]
+    ],
+    "where": [
+      [
+        "wo"
+      ]
+    ],
+    "which": [
+      [
+        "welcher"
+      ],
+      [
+        "welches"
+      ],
+      [
+        "welchen"
+      ],
+      [
+        "welchem"
+      ],
+      [
+        "welche"
+      ]
+    ],
+    "meta_marker": [
+      [
+        "dass"
+      ],
+      [
+        "sagt"
+      ]
+    ],
+    "that": [
+      [
+        "dass"
+      ]
+    ],
+    "is_a": [
+      [
+        "ist",
+        "eine"
+      ],
+      [
+        "ist",
+        "ein"
+      ],
+      [
+        "ist",
+        "von"
+      ]
+    ],
+    "sum": [
+      [
+        "Summe"
+      ]
+    ],
+    "count": [
+      [
+        "Anzahl"
+      ]
+    ],
+    "average": [
+      [
+        "Durchschnitt"
+      ],
+      [
+        "Mittelwert"
+      ]
+    ],
+    "min": [
+      [
+        "Minimum"
+      ],
+      [
+        "Min"
+      ]
+    ],
+    "max": [
+      [
+        "Maximum"
+      ],
+      [
+        "Max"
+      ]
+    ],
+    "list": [
+      [
+        "Liste"
+      ]
+    ],
+    "is_the": [
+      [
+        "ist",
+        "die"
+      ],
+      [
+        "ist",
+        "der"
+      ],
+      [
+        "ist",
+        "das"
+      ]
+    ],
+    "of_each": [
+      [
+        "von",
+        "jedem"
+      ],
+      [
+        "von",
+        "jeder"
+      ]
+    ],
+    "such_that": [
+      [
+        "f\xFCr",
+        "die",
+        "gilt",
+        "dass"
+      ],
+      [
+        "f\xFCr",
+        "den",
+        "gilt",
+        "dass"
+      ],
+      [
+        "so",
+        "dass"
+      ],
+      [
+        "sodass"
+      ]
+    ],
+    "assuming": [
+      [
+        "unter",
+        "der",
+        "Annahme",
+        "dass"
+      ],
+      [
+        "unter",
+        "der",
+        "Annahme"
+      ],
+      [
+        "angenommen"
+      ]
+    ],
+    "assuming_and": [
+      [
+        "und"
+      ]
+    ],
+    "article_narrow": [
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ]
+    ],
+    "connective_heuristic": [
+      [
+        "innerhalb"
+      ],
+      [
+        "zwischen"
+      ],
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "waren"
+      ],
+      [
+        "unter"
+      ],
+      [
+        "durch"
+      ],
+      [
+        "gegen"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "oder"
+      ],
+      [
+        "sind"
+      ],
+      [
+        "dass"
+      ],
+      [
+        "\xFCber"
+      ],
+      [
+        "nach"
+      ],
+      [
+        "seit"
+      ],
+      [
+        "ohne"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ],
+      [
+        "auf"
+      ],
+      [
+        "von"
+      ],
+      [
+        "aus"
+      ],
+      [
+        "bei"
+      ],
+      [
+        "f\xFCr"
+      ],
+      [
+        "mit"
+      ],
+      [
+        "und"
+      ],
+      [
+        "ist"
+      ],
+      [
+        "war"
+      ],
+      [
+        "als"
+      ],
+      [
+        "wie"
+      ],
+      [
+        "vor"
+      ],
+      [
+        "in"
+      ],
+      [
+        "an"
+      ],
+      [
+        "zu"
+      ],
+      [
+        "um"
+      ]
+    ],
+    "value_kind": [
+      [
+        "Prozentsatz"
+      ],
+      [
+        "Zeitpunkt"
+      ],
+      [
+        "Betrag"
+      ],
+      [
+        "Anzahl"
+      ],
+      [
+        "Datum"
+      ],
+      [
+        "Summe"
+      ],
+      [
+        "Zahl"
+      ],
+      [
+        "Zeit"
+      ],
+      [
+        "Jahr"
+      ]
+    ],
+    "money_type": [
+      [
+        "Einkommen"
+      ],
+      [
+        "Zahlung"
+      ],
+      [
+        "Betrag"
+      ],
+      [
+        "Geb\xFChr"
+      ],
+      [
+        "Kosten"
+      ],
+      [
+        "Zulage"
+      ],
+      [
+        "Gehalt"
+      ],
+      [
+        "Steuer"
+      ],
+      [
+        "Pr\xE4mie"
+      ],
+      [
+        "Dollar"
+      ],
+      [
+        "Summe"
+      ],
+      [
+        "Preis"
+      ],
+      [
+        "Abzug"
+      ],
+      [
+        "Pfund"
+      ],
+      [
+        "Geld"
+      ],
+      [
+        "Lohn"
+      ],
+      [
+        "Euro"
+      ]
+    ],
+    "image": [
+      [
+        "Bild"
+      ]
+    ],
+    "lps_when": [
+      [
+        "wann",
+        "immer"
+      ],
+      [
+        "sobald"
+      ],
+      [
+        "Sobald"
+      ]
+    ],
+    "lps_then": [
+      [
+        "dann"
+      ],
+      [
+        "so"
+      ]
+    ],
+    "lps_if": [
+      [
+        "falls"
+      ],
+      [
+        "Falls"
+      ],
+      [
+        "wenn"
+      ],
+      [
+        "Wenn"
+      ]
+    ],
+    "lps_initially": [
+      [
+        "zu",
+        "Beginn"
+      ],
+      [
+        "Zu",
+        "Beginn"
+      ],
+      [
+        "anfangs"
+      ],
+      [
+        "Anfangs"
+      ]
+    ],
+    "lps_must_not": [
+      [
+        "es",
+        "darf",
+        "nicht",
+        "wahr",
+        "sein",
+        "dass"
+      ],
+      [
+        "Es",
+        "darf",
+        "nicht",
+        "wahr",
+        "sein",
+        "dass"
+      ],
+      [
+        "es",
+        "darf",
+        "nicht",
+        "sein",
+        "dass"
+      ]
+    ],
+    "lps_goal": [
+      [
+        "das",
+        "Ziel",
+        "ist",
+        "dass"
+      ]
+    ],
+    "lps_initiate": [
+      [
+        "einleiten"
+      ],
+      [
+        "beginnen"
+      ]
+    ],
+    "lps_terminate": [
+      [
+        "beenden"
+      ]
+    ],
+    "lps_that_is": [
+      [
+        "das",
+        "ist"
+      ]
+    ],
+    "lps_becomes": [
+      [
+        "wird",
+        "zu"
+      ]
+    ],
+    "lps_at": [
+      [
+        "zu"
+      ]
+    ],
+    "lps_from": [
+      [
+        "von"
+      ],
+      [
+        "ab"
+      ]
+    ],
+    "lps_to": [
+      [
+        "bis",
+        "zu"
+      ],
+      [
+        "bis"
+      ]
+    ],
+    "lps_max_time": [
+      [
+        "die",
+        "maximale",
+        "Zeit",
+        "ist"
+      ]
+    ],
+    "lps_max_real_time": [
+      [
+        "die",
+        "maximale",
+        "Echtzeit",
+        "ist"
+      ]
+    ],
+    "lps_min_cycle_time": [
+      [
+        "die",
+        "minimale",
+        "Zykluszeit",
+        "ist"
+      ]
+    ],
+    "lps_this_law_replaces": [
+      [
+        "dieses",
+        "Gesetz",
+        "ersetzt",
+        "das",
+        "Gesetz"
+      ],
+      [
+        "dieses",
+        "Gesetz",
+        "ersetzt",
+        "Gesetz"
+      ]
+    ],
+    "lps_this_constraint_replaces": [
+      [
+        "diese",
+        "Einschr\xE4nkung",
+        "ersetzt",
+        "die",
+        "Einschr\xE4nkung"
+      ],
+      [
+        "diese",
+        "Einschr\xE4nkung",
+        "ersetzt",
+        "Einschr\xE4nkung"
+      ]
+    ],
+    "lps_of": [
+      [
+        "von"
+      ]
+    ],
+    "provenance_required": [
+      [
+        "die",
+        "Fakten",
+        "des",
+        "Szenarios",
+        "erfordern",
+        "eine",
+        "Herkunft"
+      ],
+      [
+        "Szenariofakten",
+        "erfordern",
+        "eine",
+        "Herkunft"
+      ]
+    ],
+    "memorable": [
+      [
+        "zwischengespeichert"
+      ],
+      [
+        "merkbar"
+      ],
+      [
+        "gemerkt"
+      ]
+    ],
+    "one_value": [
+      [
+        "einwertig"
+      ],
+      [
+        "ein",
+        "Wert"
+      ]
+    ],
+    "judged": [
+      [
+        "unbestimmter",
+        "Rechtsbegriff"
+      ],
+      [
+        "wertungsbed\xFCrftig"
+      ],
+      [
+        "beurteilt"
+      ]
+    ],
+    "according_to": [
+      [
+        "gem\xE4\xDF"
+      ],
+      [
+        "laut"
+      ]
+    ],
+    "as_stated_in": [
+      [
+        "wie",
+        "festgestellt",
+        "in"
+      ],
+      [
+        "wie",
+        "angegeben",
+        "in"
+      ]
+    ],
+    "at_locator": [
+      [
+        "unter"
+      ],
+      [
+        "bei"
+      ]
+    ],
+    "because": [
+      [
+        "weil"
+      ],
+      [
+        "denn"
+      ],
+      [
+        "da"
+      ]
+    ],
+    "with_provenance": [
+      [
+        "mit",
+        "Herkunft"
+      ]
+    ],
+    "confer": [
+      [
+        "vergleiche"
+      ],
+      [
+        "siehe"
+      ]
+    ],
+    "otherwise": [
+      [
+        "andernfalls"
+      ],
+      [
+        "sonst"
+      ]
+    ],
+    "table_open": [
+      [
+        "die",
+        "Tabelle"
+      ]
+    ],
+    "table_word": [
+      [
+        "Tabelle"
+      ]
+    ],
+    "table_loaded_from": [
+      [
+        "geladen",
+        "aus"
+      ],
+      [
+        "geladen",
+        "von"
+      ]
+    ],
+    "table_with": [
+      [
+        "mit"
+      ]
+    ],
+    "first_match": [
+      [
+        "erstem",
+        "Treffer"
+      ],
+      [
+        "erster",
+        "Treffer"
+      ]
+    ],
+    "all_matches": [
+      [
+        "allen",
+        "Treffern"
+      ],
+      [
+        "alle",
+        "Treffer"
+      ]
+    ],
+    "unique_match": [
+      [
+        "eindeutigem",
+        "Treffer"
+      ],
+      [
+        "eindeutiger",
+        "Treffer"
+      ]
+    ],
+    "table_any": [
+      [
+        "beliebiger"
+      ],
+      [
+        "beliebiges"
+      ],
+      [
+        "beliebige"
+      ],
+      [
+        "beliebig"
+      ]
+    ],
+    "section_applicability": [
+      [
+        "Anwendbarkeit"
+      ]
+    ],
+    "section_question": [
+      [
+        "Frage"
+      ]
+    ],
+    "section_remedy": [
+      [
+        "Rechtsfolge"
+      ],
+      [
+        "Abhilfe"
+      ]
+    ],
+    "services_include": [
+      [
+        "enth\xE4lt",
+        "diese",
+        "Dienste"
+      ],
+      [
+        "umfasst",
+        "diese",
+        "Dienste"
+      ]
+    ],
+    "service_at": [
+      [
+        "unter"
+      ],
+      [
+        "bei"
+      ]
+    ],
+    "service_as": [
+      [
+        "als",
+        "eine"
+      ],
+      [
+        "als",
+        "ein"
+      ],
+      [
+        "als"
+      ]
+    ],
+    "via_service": [
+      [
+        "\xFCber",
+        "den",
+        "Dienst"
+      ],
+      [
+        "\xFCber",
+        "Dienst"
+      ]
+    ],
+    "kind_semantic_matcher": [
+      [
+        "semantischer",
+        "Abgleich"
+      ]
+    ],
+    "flip_query": [
+      [
+        "welche",
+        "minimalen",
+        "\xC4nderungen",
+        "des",
+        "Szenarios",
+        "bewirken",
+        "dass"
+      ],
+      [
+        "welche",
+        "minimale",
+        "\xC4nderung",
+        "des",
+        "Szenarios",
+        "bewirkt",
+        "dass"
+      ]
+    ],
+    "cases_query": [
+      [
+        "welche",
+        "F\xE4lle",
+        "bewirken",
+        "dass"
+      ],
+      [
+        "welcher",
+        "Fall",
+        "bewirkt",
+        "dass"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "kann",
+        "es",
+        "der",
+        "Fall",
+        "sein",
+        "dass"
+      ],
+      [
+        "gibt",
+        "es",
+        "einen",
+        "Fall",
+        "in",
+        "dem"
+      ]
+    ],
+    "changes": [
+      [
+        "die",
+        "\xC4nderungen"
+      ],
+      [
+        "\xC4nderungen"
+      ]
+    ],
+    "view_open": [
+      [
+        "die",
+        "Ansicht"
+      ]
+    ],
+    "view_title": [
+      [
+        "der",
+        "Titel",
+        "ist"
+      ]
+    ],
+    "view_case_scenario": [
+      [
+        "der",
+        "Fall",
+        "ist",
+        "ein",
+        "Szenario"
+      ]
+    ],
+    "view_with_documents": [
+      [
+        "mit",
+        "den",
+        "Dokumenten",
+        "in",
+        "denen",
+        "es",
+        "angegeben",
+        "ist"
+      ],
+      [
+        "mit",
+        "dem",
+        "Dokument",
+        "in",
+        "dem",
+        "es",
+        "angegeben",
+        "ist"
+      ]
+    ],
+    "view_case_about": [
+      [
+        "der",
+        "Fall",
+        "betrifft"
+      ]
+    ],
+    "view_facts_about": [
+      [
+        "die",
+        "Fakten",
+        "\xFCber"
+      ]
+    ],
+    "view_are": [
+      [
+        "sind"
+      ]
+    ],
+    "view_judgments": [
+      [
+        "die",
+        "Beurteilungen",
+        "sind"
+      ]
+    ],
+    "view_other_facts": [
+      [
+        "die",
+        "anderen",
+        "Fakten",
+        "k\xF6nnen",
+        "hinzugef\xFCgt",
+        "werden"
+      ]
+    ],
+    "view_no_other_facts": [
+      [
+        "die",
+        "anderen",
+        "Fakten",
+        "k\xF6nnen",
+        "nicht",
+        "hinzugef\xFCgt",
+        "werden"
+      ]
+    ],
+    "view_sources": [
+      [
+        "jeder",
+        "Fakt",
+        "zeigt",
+        "wer",
+        "ihn",
+        "angibt"
+      ]
+    ],
+    "view_one_at_a_time": [
+      [
+        "die",
+        "Fakten",
+        "werden",
+        "einzeln",
+        "abgefragt"
+      ]
+    ],
+    "view_question_for": [
+      [
+        "die",
+        "Frage",
+        "f\xFCr"
+      ]
+    ],
+    "view_result_query": [
+      [
+        "das",
+        "Ergebnis",
+        "ist",
+        "die",
+        "Antwort",
+        "auf",
+        "die",
+        "Abfrage"
+      ]
+    ],
+    "view_headed_by": [
+      [
+        "\xFCberschrieben",
+        "mit"
+      ]
+    ],
+    "view_in": [
+      [
+        "in"
+      ]
+    ],
+    "view_result_whether": [
+      [
+        "das",
+        "Ergebnis",
+        "ist",
+        "ob"
+      ]
+    ],
+    "view_result_reads": [
+      [
+        "das",
+        "Ergebnis",
+        "lautet"
+      ]
+    ],
+    "view_when_holds": [
+      [
+        "wenn",
+        "es",
+        "zutrifft"
+      ]
+    ],
+    "view_when_not": [
+      [
+        "wenn",
+        "es",
+        "nicht",
+        "zutrifft"
+      ]
+    ],
+    "view_citations": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Zitate"
+      ]
+    ],
+    "view_reasons": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Gr\xFCnde"
+      ]
+    ],
+    "view_stage": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "die",
+        "Stufe",
+        "die",
+        "es",
+        "erreicht"
+      ]
+    ],
+    "view_missing": [
+      [
+        "das",
+        "Ergebnis",
+        "fragt",
+        "was",
+        "fehlt"
+      ]
+    ],
+    "view_flipped": [
+      [
+        "das",
+        "Ergebnis",
+        "kann",
+        "umgekehrt",
+        "werden"
+      ]
+    ],
+    "view_as": [
+      [
+        "als"
+      ]
+    ],
+    "view_compare": [
+      [
+        "das",
+        "Ergebnis",
+        "wird",
+        "verglichen",
+        "mit",
+        "Szenario"
+      ]
+    ],
+    "view_answers_to": [
+      [
+        "die",
+        "Antworten",
+        "auf"
+      ]
+    ],
+    "view_listed_as": [
+      [
+        "werden",
+        "aufgelistet",
+        "als"
+      ]
+    ],
+    "view_flagged": [
+      [
+        "der",
+        "Fall",
+        "wird",
+        "markiert",
+        "als"
+      ]
+    ],
+    "view_flag_when": [
+      [
+        "wenn"
+      ]
+    ],
+    "view_flag_when_query": [
+      [
+        "wenn",
+        "die",
+        "Abfrage"
+      ]
+    ],
+    "view_has_answer": [
+      [
+        "eine",
+        "Antwort",
+        "hat"
+      ]
+    ],
+    "view_numbers_shown": [
+      [
+        "die",
+        "Zahlen",
+        "werden",
+        "angezeigt",
+        "mit"
+      ]
+    ],
+    "view_decimals": [
+      [
+        "Dezimalstellen"
+      ]
+    ],
+    "view_documents": [
+      [
+        "die",
+        "Dokumente",
+        "des",
+        "Falls",
+        "werden",
+        "neben",
+        "den",
+        "Fakten",
+        "angezeigt"
+      ],
+      [
+        "das",
+        "Dokument",
+        "des",
+        "Falls",
+        "wird",
+        "neben",
+        "den",
+        "Fakten",
+        "angezeigt"
+      ]
+    ],
+    "view_cases": [
+      [
+        "die",
+        "F\xE4lle",
+        "werden",
+        "mit",
+        "ihren",
+        "Ergebnissen",
+        "aufgelistet"
+      ]
+    ],
+    "view_draft": [
+      [
+        "der",
+        "Entwurf",
+        "lautet"
+      ]
+    ],
+    "view_flip_keeps": [
+      [
+        "die",
+        "Umkehrung",
+        "beh\xE4lt"
+      ]
+    ],
+    "view_section": [
+      [
+        "der",
+        "Abschnitt"
+      ]
+    ],
+    "view_reads": [
+      [
+        "lautet"
+      ]
+    ],
+    "cells_open": [
+      [
+        "die",
+        "Zellen",
+        "des",
+        "Dienstes"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sind"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "das",
+        "Blatt",
+        "ist"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "die",
+        "Zelle"
+      ]
+    ],
+    "notice_start": [
+      [
+        "rechtlicher",
+        "Hinweis"
+      ],
+      [
+        "Haftungsausschluss"
+      ],
+      [
+        "lizenziert",
+        "unter"
+      ],
+      [
+        "Urheberrecht"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "Lizenz"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
+    ],
+    "lps_time_noun": [
+      [
+        "Zeitpunkt"
+      ],
+      [
+        "Moment"
+      ],
+      [
+        "Zeit"
+      ]
     ]
   }
 };
@@ -18341,6 +20992,15 @@ var languages = [
     "thousandsSep": ".",
     "listSep": ",",
     "status": "draft"
+  },
+  {
+    "code": "de",
+    "autonym": "Logisches Deutsch",
+    "opener": "die Zielsprache ist",
+    "decimalSep": ",",
+    "thousandsSep": ".",
+    "listSep": ",",
+    "status": "draft"
   }
 ];
 
@@ -18353,8 +21013,7 @@ function detectProgramLanguage(text) {
     let s = line.trim();
     if (inBlockComment) {
       const end = s.indexOf("*/");
-      if (end === -1)
-        continue;
+      if (end === -1) continue;
       s = s.slice(end + 2).trim();
       inBlockComment = false;
     }
@@ -18366,15 +21025,13 @@ function detectProgramLanguage(text) {
       }
       s = s.slice(end + 2).trim();
     }
-    if (!s || s.startsWith("%"))
-      continue;
+    if (!s || s.startsWith("%")) continue;
     firstStatement = s;
     break;
   }
   const norm = firstStatement.toLowerCase().replace(/\s+/g, " ");
   for (const info of languages) {
-    if (info.opener && norm.startsWith(info.opener.toLowerCase()))
-      return info.code;
+    if (info.opener && norm.startsWith(info.opener.toLowerCase())) return info.code;
   }
   return "en";
 }
@@ -18417,10 +21074,8 @@ function tokenize(text) {
       let indent = 0;
       const start2 = i;
       while (i < text.length && (text[i] === " " || text[i] === "	")) {
-        if (text[i] === "	")
-          indent += 8;
-        else
-          indent += 1;
+        if (text[i] === "	") indent += 8;
+        else indent += 1;
         i++;
       }
       if (indent > 0) {
@@ -18500,8 +21155,7 @@ function tokenize(text) {
       if (text[end] === "'" || text[end] === "\u2019") {
         end++;
         const tail = text.substring(end).match(/^[\p{L}\p{N}_]*/u);
-        if (tail)
-          end += tail[0].length;
+        if (tail) end += tail[0].length;
       }
       tokens.push({ type: 1 /* Word */, value: text.substring(i, end), start, end });
       i = end;
@@ -18548,8 +21202,7 @@ connection.onInitialize((params) => {
 });
 connection.onRequest("textDocument/semanticTokens/full", (params) => {
   const document2 = documents.get(params.textDocument.uri);
-  if (!document2)
-    return { data: [] };
+  if (!document2) return { data: [] };
   const text = document2.getText();
   const templates = templatesOf(params.textDocument.uri, text);
   const declSections = templateDeclarationRanges(text);
@@ -18566,8 +21219,7 @@ connection.onRequest("textDocument/semanticTokens/full", (params) => {
       let match;
       while ((match = regex.exec(text)) !== null) {
         const end = match.index + match[0].length;
-        if (!inComment(match.index, end))
-          claimedSpans.push({ start: match.index, end });
+        if (!inComment(match.index, end)) claimedSpans.push({ start: match.index, end });
       }
     }
   }
@@ -18577,8 +21229,7 @@ connection.onRequest("textDocument/semanticTokens/full", (params) => {
     const parts = template.label.split(/\*[^*]+\*/);
     if (parts.length < 2) {
       const lit = parts[0].trim();
-      if (!lit)
-        continue;
+      if (!lit) continue;
       const litRegex = lit.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
       try {
         const regex = new RegExp("\\b" + litRegex + "\\b", "gi");
@@ -18588,16 +21239,11 @@ connection.onRequest("textDocument/semanticTokens/full", (params) => {
           const matchEnd = matchStart + match[0].length;
           const lineStart = text.lastIndexOf("\n", matchStart) + 1;
           let lineEnd = text.indexOf("\n", matchStart);
-          if (lineEnd < 0)
-            lineEnd = text.length;
-          if (text.slice(lineStart, lineEnd).includes("*"))
-            continue;
-          if (inDeclaration(matchStart))
-            continue;
-          if (inComment(matchStart, matchEnd))
-            continue;
-          if (overlapsClaimed(matchStart, matchEnd))
-            continue;
+          if (lineEnd < 0) lineEnd = text.length;
+          if (text.slice(lineStart, lineEnd).includes("*")) continue;
+          if (inDeclaration(matchStart)) continue;
+          if (inComment(matchStart, matchEnd)) continue;
+          if (overlapsClaimed(matchStart, matchEnd)) continue;
           claimedSpans.push({ start: matchStart, end: matchEnd });
           tokens.push({ start: matchStart, length: match[0].length, typeIndex: 6 });
         }
@@ -18612,35 +21258,27 @@ connection.onRequest("textDocument/semanticTokens/full", (params) => {
       const core = raw.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
       if (i > 0) {
         regexStr += "(" + argPattern + ")";
-        if (core)
-          regexStr += /^\s/.test(raw) ? "\\s+" : "\\s*";
+        if (core) regexStr += /^\s/.test(raw) ? "\\s+" : "\\s*";
       }
       if (core) {
         regexStr += core;
-        if (i < parts.length - 1)
-          regexStr += /\s$/.test(raw) ? "\\s+" : "\\s*";
+        if (i < parts.length - 1) regexStr += /\s$/.test(raw) ? "\\s+" : "\\s*";
       }
     }
     try {
       const regex = new RegExp("\\b" + regexStr.trim() + "\\b", "gi");
       let match;
       while ((match = regex.exec(text)) !== null) {
-        if (match[0].includes("*"))
-          continue;
+        if (match[0].includes("*")) continue;
         const matchStart = match.index;
         const matchEnd = match.index + match[0].length;
         const lineStart = text.lastIndexOf("\n", matchStart) + 1;
         let lineEnd = text.indexOf("\n", matchStart);
-        if (lineEnd < 0)
-          lineEnd = text.length;
-        if (text.slice(lineStart, lineEnd).includes("*"))
-          continue;
-        if (inDeclaration(matchStart))
-          continue;
-        if (inComment(matchStart, matchEnd))
-          continue;
-        if (overlapsClaimed(matchStart, matchEnd))
-          continue;
+        if (lineEnd < 0) lineEnd = text.length;
+        if (text.slice(lineStart, lineEnd).includes("*")) continue;
+        if (inDeclaration(matchStart)) continue;
+        if (inComment(matchStart, matchEnd)) continue;
+        if (overlapsClaimed(matchStart, matchEnd)) continue;
         claimedSpans.push({ start: matchStart, end: matchEnd });
         let currentOffset = match.index;
         const fullMatch = match[0];
@@ -18673,8 +21311,7 @@ connection.onRequest("textDocument/semanticTokens/full", (params) => {
     }
   }
   tokens.sort((a, b) => {
-    if (a.start !== b.start)
-      return a.start - b.start;
+    if (a.start !== b.start) return a.start - b.start;
     return b.length - a.length;
   });
   const uniqueTokens = [];
@@ -18702,8 +21339,7 @@ connection.onRequest("textDocument/semanticTokens/full", (params) => {
 });
 connection.onRequest("textDocument/foldingRange", (params) => {
   const document2 = documents.get(params.textDocument.uri);
-  if (!document2)
-    return null;
+  if (!document2) return null;
   const text = document2.getText();
   const lines = text.split("\n");
   const foldingRanges = [];
@@ -18730,8 +21366,7 @@ connection.onRequest("textDocument/foldingRange", (params) => {
       let lastContentLine = i;
       while (j < lines.length) {
         const nextLine = lines[j];
-        if (sectionHeaderRegex.test(nextLine))
-          break;
+        if (sectionHeaderRegex.test(nextLine)) break;
         if (nextLine.trim().length > 0) {
           if (/^\s/.test(nextLine)) {
             hasIndented = true;
@@ -18810,8 +21445,7 @@ connection.onNotification("le/includedTexts", (params) => {
   const own = [];
   for (const text of params.texts || []) {
     for (const t of getTemplates(text)) {
-      if (system.has(t.label) || seen.has(t.label))
-        continue;
+      if (system.has(t.label) || seen.has(t.label)) continue;
       seen.add(t.label);
       own.push({ ...t, detail: "Included Template" });
     }
@@ -18826,8 +21460,7 @@ function templatesOf(uri, text) {
 }
 function functionShortForm(label, copulas) {
   const m = label.match(/^(.*\S)\s+(\S+)\s+\*[^*]+\*$/);
-  if (!m || !copulas.includes(m[2].toLowerCase()))
-    return null;
+  if (!m || !copulas.includes(m[2].toLowerCase())) return null;
   return m[1];
 }
 function getTemplates(text) {
@@ -18856,23 +21489,21 @@ function getTemplates(text) {
             detail: "User Template"
           });
           const short = isFunctions ? functionShortForm(clean, copulas) : null;
-          if (short)
-            templates.push({
-              label: short,
-              insertText: short.replace(/\*/g, ""),
-              detail: "User Template"
-            });
+          if (short) templates.push({
+            label: short,
+            insertText: short.replace(/\*/g, ""),
+            detail: "User Template"
+          });
         }
         if (semiIdx >= 0) {
           const oppMatch = trimmed.slice(semiIdx + 1).match(/opposite:\s*(.+)/i);
           if (oppMatch) {
             const opp = oppMatch[1].replace(/[.,;]\s*$/, "").trim();
-            if (opp)
-              templates.push({
-                label: opp,
-                insertText: opp.replace(/\*/g, ""),
-                detail: "User Template"
-              });
+            if (opp) templates.push({
+              label: opp,
+              insertText: opp.replace(/\*/g, ""),
+              detail: "User Template"
+            });
           }
         }
       }
@@ -18941,8 +21572,7 @@ connection.onCompletion((params) => {
 });
 connection.onHover((params) => {
   const document2 = documents.get(params.textDocument.uri);
-  if (!document2)
-    return null;
+  if (!document2) return null;
   const text = document2.getText();
   const offset = document2.offsetAt(params.position);
   const tokens = tokenize(text);
@@ -18955,8 +21585,7 @@ connection.onHover((params) => {
     const sortedTemplates = [...templates].sort((a, b) => b.label.length - a.label.length);
     for (const template of sortedTemplates) {
       const parts = template.label.split(/\*[^*]+\*/);
-      if (parts.length < 2)
-        continue;
+      if (parts.length < 2) continue;
       const regexParts = parts.map((p) => p.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"));
       const regexStr = "\\b" + regexParts.join("\\s+(" + argPattern + ")\\s*") + "\\b";
       try {
@@ -18988,8 +21617,7 @@ connection.onHover((params) => {
             break;
           }
         }
-        if (templateMatch)
-          break;
+        if (templateMatch) break;
       } catch (e) {
       }
     }

@@ -1,6 +1,6 @@
 # Logical English in other languages
 
-You can write Logical English in five natural languages. Each language has its
+You can write Logical English in six natural languages. Each language has its
 own version of Logical English:
 
 | Language | Name of its Logical English | First sentence of a program | How complete |
@@ -10,6 +10,7 @@ own version of Logical English:
 | Spanish | Español Lógico | `el lenguaje objetivo es: prolog.` | draft |
 | French | Français Logique | `la langue cible est: prolog.` | draft |
 | Italian | Italiano Logico | `il linguaggio obiettivo è: prolog.` | draft |
+| German | Logisches Deutsch | `die Zielsprache ist: prolog.` | draft |
 
 A program has the same meaning in each language. Only the words change. These
 words are the keywords (*if*, *and*, *it is not the case that* …), the headings of
@@ -58,26 +59,111 @@ the person is born in the UK on the date and …*. A *scenario* is a set of fact
 with a name, that describes one case. A *query* is a question to the program. The
 words for "scenario" and "query" change with the language, as all keywords do:
 
-| English | Português | Español | Français | Italiano |
-|---|---|---|---|---|
-| the templates are | os modelos são | las plantillas son | les modèles sont | i modelli sono |
-| the knowledge base … includes | a base de conhecimento … inclui | la base de conocimiento … incluye | la base de connaissances … comprend | la base di conoscenza … include |
-| if | se | si | si | se |
-| and | e | y | et | e |
-| or | ou | o | ou | o |
-| it is not the case that | não é o caso que | no es el caso que | il est faux que | non è il caso che |
-| scenario … is | cenário … é | escenario … es | scénario … est | scenario … è |
-| query … is | consulta … é | consulta … es | requête … est | interrogazione … è |
-| expects | espera | espera | attend | attende |
+| English | Português | Español | Français | Italiano | Deutsch |
+|---|---|---|---|---|---|
+| the templates are | os modelos são | las plantillas son | les modèles sont | i modelli sono | die Vorlagen sind |
+| the knowledge base … includes | a base de conhecimento … inclui | la base de conocimiento … incluye | la base de connaissances … comprend | la base di conoscenza … include | die Wissensbasis … enthält |
+| if | se | si | si | se | wenn, falls |
+| and | e | y | et | e | und |
+| or | ou | o | ou | o | oder |
+| it is not the case that | não é o caso que | no es el caso que | il est faux que | non è il caso che | es ist nicht der Fall, dass |
+| scenario … is | cenário … é | escenario … es | scénario … est | scenario … è | Szenario … ist |
+| query … is | consulta … é | consulta … es | requête … est | interrogazione … è | Abfrage … ist |
+| expects | espera | espera | attend | attende | erwartet |
 
 The [language reference](../reference/language.md) describes each construct in
 English. There is also a Portuguese translation of the reference:
 [Resumo da sintaxe do Português Lógico](../reference/language.pt.md).
 
+## German: the sentences of Logisches Deutsch
+
+German changes the order and the endings of words more than the other five
+languages. Logisches Deutsch reads the sentences as German writes them. You do
+not have to write unnatural German.
+
+Below is the rule about British citizenship in Logisches Deutsch:
+
+```
+die Zielsprache ist: prolog.
+
+die Vorlagen sind:
+*eine Person* erwirbt an *einem Datum* die britische Staatsbürgerschaft,
+*eine Person* wurde an *einem Datum* in *einem Ort* geboren,
+*ein Datum* liegt nach dem Inkrafttreten,
+*eine Person* ist die Mutter von *einer Person*,
+*eine Person* besitzt an *einem Datum* die britische Staatsbürgerschaft.
+
+die Wissensbasis Staatsbuergerschaft enthält:
+
+eine Person erwirbt an einem Datum die britische Staatsbürgerschaft,
+wenn die Person an dem Datum im Vereinigten Königreich geboren wurde
+    und das Datum nach dem Inkrafttreten liegt
+    und eine andere Person die Mutter von der Person ist
+    und die andere Person an dem Datum die britische Staatsbürgerschaft besitzt.
+
+Szenario alice ist:
+    John wurde am 2021-10-09 im Vereinigten Königreich geboren.
+    2021-10-09 liegt nach dem Inkrafttreten.
+    Alice ist die Mutter von John.
+    Alice besitzt am 2021-10-09 die britische Staatsbürgerschaft.
+```
+
+The rules of Logisches Deutsch are these:
+
+- **A template is a main clause.** Write each template with its verb in the
+  second position, as in a statement: `*eine Person* wurde an *einem Datum* in
+  *einem Ort* geboren`. A fact in a scenario has the same order.
+- **After `wenn`, `falls` and `dass`, the verb is at the end.** German puts the
+  verb at the end of a clause that starts with one of these words: `wenn die
+  Person an dem Datum im Vereinigten Königreich geboren wurde`. Logisches Deutsch
+  finds the template of such a clause. The order of the template is also
+  accepted there (`wenn die Person wurde … geboren`), but it is not correct
+  German.
+- **After a word that takes the first position, the verb comes before the
+  subject.** This order occurs in Logical English for LPS, after `dann` and
+  `anfangs`: `dann wird das Feuer bekämpft`, `anfangs gibt es ein Feuer`.
+- **A comma between clauses is permitted.** You can write a comma before
+  `wenn`, `falls`, `dass`, `und`, `oder`, `dann` and the other words that start
+  a clause. The comma is not a part of the sentence.
+- **The article and the ending of an adjective change with the case.** `eine
+  andere Person`, `die andere Person` and `der anderen Person` are the same
+  variable. `ein erster Zeitpunkt`, `der erste Zeitpunkt` and `dem ersten
+  Zeitpunkt` are the same variable. The adjectives with this property are the
+  ordinal numbers (`erste`, `zweite`, …) and `andere`, `weitere`, `neue`,
+  `vorherige`, `nächste`, `aktuelle`, `letzte`, `gleiche`, `ursprüngliche`,
+  `einzige` and `gegebene`.
+- **A noun can have an ending in a different case.** `der Kunde` and `dem
+  Kunden` are the same variable. `ein Betrag` and `des Betrags` are the same
+  variable. The endings that Logisches Deutsch accepts are `-n`, `-en`, `-s`,
+  `-es` and `-e`.
+- **Short forms.** `am`, `im`, `zum`, `zur`, `vom`, `beim`, `ins` and `ans` are
+  the same as `an dem`, `in dem`, `zu dem`, `zu der`, `von dem`, `bei dem`, `in
+  das` and `an das`. Before a date or a number, the short form is only the
+  preposition: `am 2021-10-09` gives the date to the template `an *einem Datum*`.
+- **Nouns have a capital letter.** Write the keywords as the table above shows
+  them: `die Vorlagen sind`, `die Wissensbasis`, `Szenario`, `Abfrage`.
+
+**Notes.**
+
+- A verb in two parts has its parts together at the end of a clause
+  (`teilnimmt` for `nimmt … teil`). Logisches Deutsch does not find the template
+  of such a clause. Use a verb in one part, or write the clause in the order of
+  the template.
+- The name of a person or a thing must have the same form each time. `das
+  Vereinigte Königreich` and `dem Vereinigten Königreich` are two different
+  names. The example above always writes `im Vereinigten Königreich`.
+- The words of a negation are `es ist nicht der Fall, dass`. In a clause after
+  `wenn`, the order is `es nicht der Fall ist, dass`. A sentence with the word
+  `nicht` or `kein` in it (`die Person raucht nicht`) is not a negation for
+  Logisches Deutsch.
+
+The three example programs of Logisches Deutsch are in the folder
+`examples/de/`: `staatsbuergerschaft`, `gluecklicher_drache` and `verguetung`.
+
 ## Numbers and dates
 
-In Portuguese, Spanish, French and Italian, a comma between two digits is the
-decimal comma. Thus `o custo é 1,5` means one and a half. A point divides the
+In Portuguese, Spanish, French, Italian and German, a comma between two digits is
+the decimal comma. Thus `o custo é 1,5` means one and a half. A point divides the
 thousands, in groups of exactly three digits: `1.234.567`. In a list, write a
 space after each comma between the items, as in `[1, 5]`. Then the editor does not
 read the comma as a decimal comma. Dates have the same form in each language, with

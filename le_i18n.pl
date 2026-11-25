@@ -538,7 +538,9 @@ lang_columns(Header, Langs) :-
     findall(L, ( member(L, Header),
                  \+ memberchk(L, [category, key, id, functor, types, code,
                                   autonym, opener, decimal_sep, thousands_sep,
-                                  list_sep, status]) ),
+                                  list_sep, status, english_name, elisions,
+                                  contractions, inflection_endings, noun_endings,
+                                  word_order, clause_commas, value_contractions]) ),
             Langs).
 
 % --- languages.csv ---
@@ -561,11 +563,74 @@ load_language_row(Header, Row) :-
     optional_pairs(Row, Header, elisions, Elisions),
     optional_pairs(Row, Header, contractions, Contractions0),
     findall(K-Ws, ( member(K-V, Contractions0), split_phrase_words(V, Ws) ), Contractions),
+    optional_words(Row, Header, inflection_endings, Infl0),
+    longest_first(Infl0, Infl),
+    optional_words(Row, Header, noun_endings, Noun0),
+    longest_first(Noun0, Noun),
+    optional_words(Row, Header, clause_commas, ClauseCommas),
+    (   catch(cell_value(Row, Header, word_order, WordOrder0), _, fail), WordOrder0 \== ''
+    ->  WordOrder = WordOrder0
+    ;   WordOrder = fixed
+    ),
+    (   catch(cell_value(Row, Header, value_contractions, yes), _, fail)
+    ->  ValueContractions = true
+    ;   ValueContractions = false
+    ),
     assertz(lang_entry(Code, [autonym-Autonym, opener-OpenerWords,
                               decimal_sep-Dec, thousands_sep-Thou,
                               list_sep-ListSep, status-Status,
                               english_name-EnglishName,
-                              elisions-Elisions, contractions-Contractions])).
+                              elisions-Elisions, contractions-Contractions,
+                              inflection_endings-Infl, noun_endings-Noun,
+                              word_order-WordOrder, clause_commas-ClauseCommas,
+                              value_contractions-ValueContractions])).
+
+%!  value_contraction(+Lang, ?Short, ?First) is nondet.
+%
+%   In a language that writes a short form before a number or a date
+%   (languages.csv, `value_contractions`: German "am 2021-10-09", "zum 3",
+%   "vom 2021-01-01"), Short is such a short form and First its first word
+%   (am, an). Before a number or a date the short form is read as First
+%   alone, and First is written as Short. Where two short forms have the
+%   same first word (zum and zur), the one listed first is written.
+value_contraction(Lang, Short, First) :-
+    lang_entry(Lang, Ps),
+    memberchk(value_contractions-true, Ps),
+    memberchk(contractions-Cons, Ps),
+    member(Short-[First|_], Cons).
+
+%   A column of words separated by `|`; [] when the column is absent or
+%   empty. The columns that serve a language whose words change their ending
+%   and whose verb changes its place (German):
+%   - `inflection_endings`: the endings an adjective takes (`e|er|es|en|em`).
+%     A word of the class `qualifier` (first, second, other …) names the
+%     same variable with any of them: "ein erster Zeitpunkt", "der erste
+%     Zeitpunkt", "dem ersten Zeitpunkt".
+%   - `noun_endings`: the endings a noun may add in another case (`en|es|n|
+%     s|e`). A phrase with a definite article refers to a variable already
+%     named whose noun differs from it only by one of them: "der Kunde",
+%     "dem Kunden"; "ein Betrag", "des Betrags".
+%   - `word_order`: `verb_moves` when the verb of a sentence stands
+%     elsewhere in a subordinate clause ("wenn die Person in dem Ort geboren
+%     wurde") or after a word that takes the first place ("dann wird das
+%     Feuer bekämpft") than in the template ("*eine Person* wurde in *einem
+%     Ort* geboren", "das Feuer wird bekämpft").
+%   - `clause_commas`: the words before which the language writes a comma
+%     that only separates clauses (", wenn", ", dass", ", und"): the comma is
+%     not part of the sentence.
+%   - `value_contractions`: `yes` when a short form stands before a number or
+%     a date ("am 2021-10-09"): see value_contraction/3.
+optional_words(Row, Header, Column, Words) :-
+    (   catch(cell_value(Row, Header, Column, Cell), _, fail), Cell \== ''
+    ->  atomic_list_concat(Items, '|', Cell),
+        findall(W, ( member(I, Items), normalize_space(atom(W), I), W \== '' ), Words)
+    ;   Words = []
+    ).
+
+longest_first(Words, Sorted) :-
+    map_list_to_pairs([W, N]>>( atom_length(W, L), N is -L ), Words, Pairs),
+    keysort(Pairs, SortedPairs),
+    pairs_values(SortedPairs, Sorted).
 
 %   A column of `short=full|short=full` pairs (elisions: `l'=le`, the short
 %   form kept without its apostrophe; contractions: `au=à le`); [] when the

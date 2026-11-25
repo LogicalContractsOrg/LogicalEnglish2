@@ -179,8 +179,8 @@ order.
   help from Jacinto Dávila. LE2 is fully compatible with the previous versions:
   [LogicalContractsOrg/LogicalEnglish2](https://github.com/LogicalContractsOrg/LogicalEnglish2).
   LE2 has its own editor in the browser. It explains each answer and keeps tests
-  inside the program. It operates in five languages (English, Portuguese, Spanish,
-  French and Italian).
+  inside the program. It operates in six languages (English, Portuguese, Spanish,
+  French, Italian and, from November 2026, German).
 - **May 2026.** Work starts on LPS2, the new implementation of Logic Production
   Systems. You write LPS2 programs in Logical English or in LPS:
   [LogicalContractsOrg/lps2](https://github.com/LogicalContractsOrg/lps2). LPS2 gives

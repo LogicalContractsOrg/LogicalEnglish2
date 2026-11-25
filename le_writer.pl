@@ -370,6 +370,14 @@ elide_line(Els, Cons, L0, L) :-
     elide_list(Ws0, Els, Cons, Ws),
     atomic_list_concat(Ws, ' ', L).
 
+elide_list([W1, W2|Ws0], Els, Cons, [CS, W2|Ws]) :-   % an 2021-10-09 → am 2021-10-09
+    string_codes(W2, [C|_]), code_type(C, digit),
+    \+ variable_word(W1),
+    lower_atom(W1, A),
+    le_i18n:le_active_language(Lang),
+    once(le_i18n:value_contraction(Lang, Short, A)), !,
+    cased(W1, Short, CS),
+    elide_list(Ws0, Els, Cons, Ws).
 elide_list([W1, W2|Ws0], Els, Cons, [CS|Ws]) :-       % à le marché → au marché, si il → s'il
     \+ variable_word(W1), \+ variable_word(W2), \+ capital_word(W2),
     lower_atom(W1, A), lower_atom(W2, B),

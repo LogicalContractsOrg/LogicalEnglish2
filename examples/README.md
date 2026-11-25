@@ -9,7 +9,7 @@ server's landing page.
 | [`moreExamples/`](moreExamples/README.md) | `citizenship`, `language/unknowns/unknowns`, … | the main tree: a first set at its top, then `language/` (one program per feature), `domains/`, `collections/` |
 | [`regulatory/`](regulatory/README.md) | `regulatory/…`, `regulatory/customs/tariff`, `regulatory/medicare/pmd_cases` | the regulatory-decision constructs and views (docs/user/reference/language.md §17), and two large models built with them: customs classification and Medicare equipment coverage |
 | [`migration/`](migration/README.md) | `migration/<source>/<twin>/<twin>` | twins of other systems' programs (Blawx, Catala, DMN, L4, LegalRuleML, Miniscript, Oracle Insurance Policy Administration, RuleSpec, s(CASP), spreadsheets) |
-| [`es/`](es/README.md) [`fr/`](fr/README.md) [`it/`](it/README.md) [`pt/`](pt/README.md) | `pt/cidadania`, … | programs written in other languages |
+| [`de/`](de/README.md) [`es/`](es/README.md) [`fr/`](fr/README.md) [`it/`](it/README.md) [`pt/`](pt/README.md) | `pt/cidadania`, … | programs written in other languages |
 | [`ontologies/`](ontologies/README.md) | `ontologies/wordnet`, `ontologies/shop_words` | published ontologies (WordNet) as LE templates, downloaded on first use (docs/user/reference/language.md §14.6) |
 | [`api/`](api/README.md) | | calling LE from Prolog |
 | `../testing/fixtures/le/` | `fixtures/…` | the programs the test suites load (listed to logged-in users) |

@@ -1956,6 +1956,11 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "time"
+      ]
     ]
   },
   "pt": {
@@ -3998,6 +4003,17 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "instante"
+      ],
+      [
+        "momento"
+      ],
+      [
+        "tempo"
+      ]
     ]
   },
   "es": {
@@ -5962,6 +5978,17 @@ var keywords = {
       ],
       [
         "\xA9"
+      ]
+    ],
+    "lps_time_noun": [
+      [
+        "instante"
+      ],
+      [
+        "momento"
+      ],
+      [
+        "tiempo"
       ]
     ]
   },
@@ -8044,6 +8071,17 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "instant"
+      ],
+      [
+        "moment"
+      ],
+      [
+        "temps"
+      ]
     ]
   },
   "it": {
@@ -10045,6 +10083,2632 @@ var keywords = {
       [
         "\xA9"
       ]
+    ],
+    "lps_time_noun": [
+      [
+        "momento"
+      ],
+      [
+        "istante"
+      ],
+      [
+        "tempo"
+      ]
+    ]
+  },
+  "de": {
+    "kb_open": [
+      [
+        "die",
+        "Wissensbasis"
+      ]
+    ],
+    "kb_include": [
+      [
+        "enth\xE4lt"
+      ],
+      [
+        "umfasst"
+      ]
+    ],
+    "kb_extends": [
+      [
+        "erweitert"
+      ]
+    ],
+    "contract_open": [
+      [
+        "der",
+        "Vertrag"
+      ]
+    ],
+    "contract_states": [
+      [
+        "legt",
+        "fest",
+        "dass"
+      ],
+      [
+        "bestimmt",
+        "dass"
+      ]
+    ],
+    "resources_include": [
+      [
+        "enth\xE4lt",
+        "diese",
+        "Ressourcen"
+      ],
+      [
+        "umfasst",
+        "diese",
+        "Ressourcen"
+      ]
+    ],
+    "facts_background_include": [
+      [
+        "der",
+        "Faktenhintergrund",
+        "enth\xE4lt",
+        "diese",
+        "Ressourcen"
+      ],
+      [
+        "der",
+        "Faktenhintergrund",
+        "umfasst",
+        "diese",
+        "Ressourcen"
+      ]
+    ],
+    "scenarios_include": [
+      [
+        "enth\xE4lt",
+        "diese",
+        "Szenarien"
+      ],
+      [
+        "umfasst",
+        "diese",
+        "Szenarien"
+      ]
+    ],
+    "scenario": [
+      [
+        "Szenario"
+      ],
+      [
+        "szenario"
+      ]
+    ],
+    "query": [
+      [
+        "Abfrage"
+      ],
+      [
+        "abfrage"
+      ]
+    ],
+    "ontology": [
+      [
+        "die",
+        "Ontologie",
+        "ist"
+      ]
+    ],
+    "predicates": [
+      [
+        "die",
+        "Pr\xE4dikate",
+        "sind"
+      ]
+    ],
+    "templates": [
+      [
+        "die",
+        "Vorlagen",
+        "sind"
+      ]
+    ],
+    "fluents": [
+      [
+        "die",
+        "Fluenten",
+        "sind"
+      ]
+    ],
+    "events": [
+      [
+        "die",
+        "Ereignisse",
+        "sind"
+      ]
+    ],
+    "actions": [
+      [
+        "die",
+        "Aktionen",
+        "sind"
+      ]
+    ],
+    "prolog_events": [
+      [
+        "die",
+        "Prolog-Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "prolog",
+        "Ereignisse",
+        "sind"
+      ]
+    ],
+    "constants": [
+      [
+        "die",
+        "Konstanten",
+        "sind"
+      ]
+    ],
+    "functions": [
+      [
+        "die",
+        "Funktionen",
+        "sind"
+      ]
+    ],
+    "constant_value_of": [
+      [
+        "der",
+        "Wert",
+        "von"
+      ]
+    ],
+    "meta_target": [
+      [
+        "die",
+        "Zielsprache",
+        "ist"
+      ]
+    ],
+    "marker": [
+      [
+        "Abschnitt"
+      ],
+      [
+        "abschnitt"
+      ]
+    ],
+    "marker_is": [
+      [
+        "ist"
+      ]
+    ],
+    "annexes": [
+      [
+        "die",
+        "Anh\xE4nge",
+        "zur",
+        "Wissensbasis",
+        "sind"
+      ],
+      [
+        "die",
+        "Anh\xE4nge",
+        "zum",
+        "Vertrag",
+        "sind"
+      ]
+    ],
+    "guard": [
+      [
+        "die",
+        "Prolog-Ereignisse"
+      ],
+      [
+        "die",
+        "Funktionen",
+        "sind"
+      ],
+      [
+        "die",
+        "Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "Konstanten",
+        "sind"
+      ],
+      [
+        "die",
+        "Pr\xE4dikate",
+        "sind"
+      ],
+      [
+        "die",
+        "Ontologie",
+        "ist"
+      ],
+      [
+        "die",
+        "Vorlagen",
+        "sind"
+      ],
+      [
+        "die",
+        "Fluenten",
+        "sind"
+      ],
+      [
+        "die",
+        "Aktionen",
+        "sind"
+      ],
+      [
+        "die",
+        "Wissensbasis"
+      ],
+      [
+        "die",
+        "Zielsprache"
+      ],
+      [
+        "der",
+        "Vertrag"
+      ],
+      [
+        "Szenario"
+      ],
+      [
+        "szenario"
+      ],
+      [
+        "Abfrage"
+      ],
+      [
+        "abfrage"
+      ]
+    ],
+    "reserved_word": [
+      [
+        "Wissensbasis"
+      ],
+      [
+        "Zielsprache"
+      ],
+      [
+        "Funktionen"
+      ],
+      [
+        "Ereignisse"
+      ],
+      [
+        "Ontologie"
+      ],
+      [
+        "Pr\xE4dikate"
+      ],
+      [
+        "Vorlagen"
+      ],
+      [
+        "Fluenten"
+      ],
+      [
+        "Aktionen"
+      ],
+      [
+        "Vertrag"
+      ]
+    ],
+    "expects": [
+      [
+        "erwartet"
+      ]
+    ],
+    "answers": [
+      [
+        "die",
+        "Antworten"
+      ],
+      [
+        "Antworten"
+      ]
+    ],
+    "and_unknowns": [
+      [
+        "und",
+        "Unbekannte"
+      ]
+    ],
+    "and_any_unknowns": [
+      [
+        "und",
+        "beliebige",
+        "Unbekannte"
+      ]
+    ],
+    "rule": [
+      [
+        "Regel"
+      ],
+      [
+        "regel"
+      ]
+    ],
+    "if": [
+      [
+        "falls"
+      ],
+      [
+        "Falls"
+      ],
+      [
+        "wenn"
+      ],
+      [
+        "Wenn"
+      ]
+    ],
+    "only_if": [
+      [
+        "nur",
+        "falls"
+      ],
+      [
+        "nur",
+        "wenn"
+      ]
+    ],
+    "unless": [
+      [
+        "es",
+        "sei",
+        "denn",
+        "dass"
+      ],
+      [
+        "sofern",
+        "nicht"
+      ],
+      [
+        "es",
+        "sei",
+        "denn"
+      ],
+      [
+        "au\xDFer",
+        "wenn"
+      ]
+    ],
+    "and_unless": [
+      [
+        "und",
+        "es",
+        "sei",
+        "denn",
+        "dass"
+      ],
+      [
+        "und",
+        "sofern",
+        "nicht"
+      ],
+      [
+        "und",
+        "es",
+        "sei",
+        "denn"
+      ],
+      [
+        "und",
+        "au\xDFer",
+        "wenn"
+      ]
+    ],
+    "and": [
+      [
+        "und"
+      ]
+    ],
+    "or": [
+      [
+        "oder"
+      ]
+    ],
+    "either": [
+      [
+        "eine",
+        "der",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "eines",
+        "der",
+        "folgenden"
+      ],
+      [
+        "eine",
+        "der",
+        "folgenden"
+      ]
+    ],
+    "any_of": [
+      [
+        "irgendeine",
+        "der",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "irgendeines",
+        "der",
+        "folgenden"
+      ],
+      [
+        "irgendeine",
+        "der",
+        "folgenden"
+      ]
+    ],
+    "all_of": [
+      [
+        "alle",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "alle",
+        "der",
+        "folgenden"
+      ],
+      [
+        "alle",
+        "folgenden"
+      ]
+    ],
+    "at_least_one_of": [
+      [
+        "mindestens",
+        "eine",
+        "der",
+        "folgenden",
+        "Bedingungen"
+      ],
+      [
+        "mindestens",
+        "eines",
+        "der",
+        "folgenden"
+      ],
+      [
+        "mindestens",
+        "eine",
+        "der",
+        "folgenden"
+      ]
+    ],
+    "one": [
+      [
+        "eines"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "ein"
+      ]
+    ],
+    "of": [
+      [
+        "von"
+      ]
+    ],
+    "all": [
+      [
+        "alle"
+      ]
+    ],
+    "not_the_case": [
+      [
+        "es",
+        "ist",
+        "nicht",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "ist",
+        "es",
+        "nicht",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "nicht",
+        "der",
+        "Fall",
+        "ist",
+        "dass"
+      ],
+      [
+        "es",
+        "trifft",
+        "nicht",
+        "zu",
+        "dass"
+      ],
+      [
+        "trifft",
+        "es",
+        "nicht",
+        "zu",
+        "dass"
+      ],
+      [
+        "es",
+        "nicht",
+        "zutrifft",
+        "dass"
+      ],
+      [
+        "nicht",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "gilt",
+        "nicht",
+        "dass"
+      ],
+      [
+        "gilt",
+        "nicht",
+        "dass"
+      ],
+      [
+        "nicht",
+        "gilt",
+        "dass"
+      ]
+    ],
+    "forall": [
+      [
+        "in",
+        "allen",
+        "F\xE4llen",
+        "in",
+        "denen"
+      ],
+      [
+        "f\xFCr",
+        "alle",
+        "F\xE4lle",
+        "in",
+        "denen"
+      ],
+      [
+        "immer",
+        "wenn"
+      ]
+    ],
+    "it_the_case": [
+      [
+        "ist",
+        "es",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "der",
+        "Fall",
+        "dass"
+      ],
+      [
+        "es",
+        "der",
+        "Fall",
+        "ist",
+        "dass"
+      ],
+      [
+        "gilt",
+        "dass"
+      ]
+    ],
+    "for_case": [
+      [
+        "f\xFCr",
+        "den",
+        "Fall"
+      ]
+    ],
+    "it_is_true_that": [
+      [
+        "es",
+        "trifft",
+        "zu",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "wahr",
+        "dass"
+      ]
+    ],
+    "it_is": [
+      [
+        "es",
+        "ist"
+      ]
+    ],
+    "whether": [
+      [
+        "ob"
+      ]
+    ],
+    "known_as": [
+      [
+        "bekannt",
+        "als"
+      ]
+    ],
+    "by_default": [
+      [
+        "als",
+        "Standardwert"
+      ],
+      [
+        "standardm\xE4\xDFig"
+      ]
+    ],
+    "defines_global": [
+      [
+        "definiert",
+        "global"
+      ]
+    ],
+    "opposite": [
+      [
+        "Gegenteil"
+      ]
+    ],
+    "synonym": [
+      [
+        "Synonym"
+      ]
+    ],
+    "prepositional": [
+      [
+        "zusammengesetzt"
+      ],
+      [
+        "pr\xE4positional"
+      ]
+    ],
+    "unknown": [
+      [
+        "angenommen"
+      ],
+      [
+        "unbekannt"
+      ],
+      [
+        "annehmbar"
+      ]
+    ],
+    "undefined": [
+      [
+        "Szenarioelement"
+      ],
+      [
+        "undefiniert"
+      ]
+    ],
+    "article": [
+      [
+        "irgendeine"
+      ],
+      [
+        "irgendein"
+      ],
+      [
+        "einige"
+      ],
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ]
+    ],
+    "ignorable": [
+      [
+        "gewesen"
+      ],
+      [
+        "hatten"
+      ],
+      [
+        "worden"
+      ],
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "waren"
+      ],
+      [
+        "haben"
+      ],
+      [
+        "hatte"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "sind"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ],
+      [
+        "war"
+      ],
+      [
+        "hat"
+      ]
+    ],
+    "reserved": [
+      [
+        "falls"
+      ],
+      [
+        "sagt"
+      ],
+      [
+        "dass"
+      ],
+      [
+        "wenn"
+      ],
+      [
+        "oder"
+      ],
+      [
+        "und"
+      ]
+    ],
+    "qualifier": [
+      [
+        "urspr\xFCnglicher"
+      ],
+      [
+        "urspr\xFCngliches"
+      ],
+      [
+        "urspr\xFCnglichen"
+      ],
+      [
+        "urspr\xFCnglichem"
+      ],
+      [
+        "urspr\xFCngliche"
+      ],
+      [
+        "vorheriger"
+      ],
+      [
+        "vorheriges"
+      ],
+      [
+        "vorherigen"
+      ],
+      [
+        "vorherigem"
+      ],
+      [
+        "vorherige"
+      ],
+      [
+        "aktueller"
+      ],
+      [
+        "aktuelles"
+      ],
+      [
+        "aktuellen"
+      ],
+      [
+        "aktuellem"
+      ],
+      [
+        "gegebener"
+      ],
+      [
+        "gegebenes"
+      ],
+      [
+        "gegebenen"
+      ],
+      [
+        "gegebenem"
+      ],
+      [
+        "sechster"
+      ],
+      [
+        "sechstes"
+      ],
+      [
+        "sechsten"
+      ],
+      [
+        "sechstem"
+      ],
+      [
+        "weiterer"
+      ],
+      [
+        "weiteres"
+      ],
+      [
+        "weiteren"
+      ],
+      [
+        "weiterem"
+      ],
+      [
+        "n\xE4chster"
+      ],
+      [
+        "n\xE4chstes"
+      ],
+      [
+        "n\xE4chsten"
+      ],
+      [
+        "n\xE4chstem"
+      ],
+      [
+        "aktuelle"
+      ],
+      [
+        "gleicher"
+      ],
+      [
+        "gleiches"
+      ],
+      [
+        "gleichen"
+      ],
+      [
+        "gleichem"
+      ],
+      [
+        "einziger"
+      ],
+      [
+        "einziges"
+      ],
+      [
+        "einzigen"
+      ],
+      [
+        "einzigem"
+      ],
+      [
+        "gegebene"
+      ],
+      [
+        "zweiter"
+      ],
+      [
+        "zweites"
+      ],
+      [
+        "zweiten"
+      ],
+      [
+        "zweitem"
+      ],
+      [
+        "dritter"
+      ],
+      [
+        "drittes"
+      ],
+      [
+        "dritten"
+      ],
+      [
+        "drittem"
+      ],
+      [
+        "vierter"
+      ],
+      [
+        "viertes"
+      ],
+      [
+        "vierten"
+      ],
+      [
+        "viertem"
+      ],
+      [
+        "f\xFCnfter"
+      ],
+      [
+        "f\xFCnftes"
+      ],
+      [
+        "f\xFCnften"
+      ],
+      [
+        "f\xFCnftem"
+      ],
+      [
+        "sechste"
+      ],
+      [
+        "siebter"
+      ],
+      [
+        "siebtes"
+      ],
+      [
+        "siebten"
+      ],
+      [
+        "siebtem"
+      ],
+      [
+        "neunter"
+      ],
+      [
+        "neuntes"
+      ],
+      [
+        "neunten"
+      ],
+      [
+        "neuntem"
+      ],
+      [
+        "zehnter"
+      ],
+      [
+        "zehntes"
+      ],
+      [
+        "zehnten"
+      ],
+      [
+        "zehntem"
+      ],
+      [
+        "anderer"
+      ],
+      [
+        "anderes"
+      ],
+      [
+        "anderen"
+      ],
+      [
+        "anderem"
+      ],
+      [
+        "weitere"
+      ],
+      [
+        "n\xE4chste"
+      ],
+      [
+        "letzter"
+      ],
+      [
+        "letztes"
+      ],
+      [
+        "letzten"
+      ],
+      [
+        "letztem"
+      ],
+      [
+        "gleiche"
+      ],
+      [
+        "einzige"
+      ],
+      [
+        "erster"
+      ],
+      [
+        "erstes"
+      ],
+      [
+        "ersten"
+      ],
+      [
+        "erstem"
+      ],
+      [
+        "zweite"
+      ],
+      [
+        "dritte"
+      ],
+      [
+        "vierte"
+      ],
+      [
+        "f\xFCnfte"
+      ],
+      [
+        "siebte"
+      ],
+      [
+        "achter"
+      ],
+      [
+        "achtes"
+      ],
+      [
+        "achten"
+      ],
+      [
+        "achtem"
+      ],
+      [
+        "neunte"
+      ],
+      [
+        "zehnte"
+      ],
+      [
+        "andere"
+      ],
+      [
+        "letzte"
+      ],
+      [
+        "selber"
+      ],
+      [
+        "selbes"
+      ],
+      [
+        "selben"
+      ],
+      [
+        "selbem"
+      ],
+      [
+        "erste"
+      ],
+      [
+        "achte"
+      ],
+      [
+        "neuer"
+      ],
+      [
+        "neues"
+      ],
+      [
+        "neuen"
+      ],
+      [
+        "neuem"
+      ],
+      [
+        "selbe"
+      ],
+      [
+        "neue"
+      ]
+    ],
+    "copula": [
+      [
+        "waren"
+      ],
+      [
+        "sind"
+      ],
+      [
+        "ist"
+      ],
+      [
+        "war"
+      ]
+    ],
+    "definite_article": [
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ]
+    ],
+    "determiner_definite": [
+      [
+        "dieser"
+      ],
+      [
+        "dieses"
+      ],
+      [
+        "diesen"
+      ],
+      [
+        "diesem"
+      ],
+      [
+        "diese"
+      ]
+    ],
+    "each": [
+      [
+        "jeder"
+      ],
+      [
+        "jedes"
+      ],
+      [
+        "jeden"
+      ],
+      [
+        "jedem"
+      ],
+      [
+        "jede"
+      ]
+    ],
+    "wh_var": [
+      [
+        "was",
+        "f\xFCr",
+        "eine"
+      ],
+      [
+        "was",
+        "f\xFCr",
+        "ein"
+      ],
+      [
+        "welcher"
+      ],
+      [
+        "welches"
+      ],
+      [
+        "welchen"
+      ],
+      [
+        "welchem"
+      ],
+      [
+        "welche"
+      ]
+    ],
+    "who": [
+      [
+        "wer"
+      ]
+    ],
+    "what": [
+      [
+        "was"
+      ]
+    ],
+    "when": [
+      [
+        "wann"
+      ]
+    ],
+    "where": [
+      [
+        "wo"
+      ]
+    ],
+    "which": [
+      [
+        "welcher"
+      ],
+      [
+        "welches"
+      ],
+      [
+        "welchen"
+      ],
+      [
+        "welchem"
+      ],
+      [
+        "welche"
+      ]
+    ],
+    "meta_marker": [
+      [
+        "dass"
+      ],
+      [
+        "sagt"
+      ]
+    ],
+    "that": [
+      [
+        "dass"
+      ]
+    ],
+    "is_a": [
+      [
+        "ist",
+        "eine"
+      ],
+      [
+        "ist",
+        "ein"
+      ],
+      [
+        "ist",
+        "von"
+      ]
+    ],
+    "sum": [
+      [
+        "Summe"
+      ]
+    ],
+    "count": [
+      [
+        "Anzahl"
+      ]
+    ],
+    "average": [
+      [
+        "Durchschnitt"
+      ],
+      [
+        "Mittelwert"
+      ]
+    ],
+    "min": [
+      [
+        "Minimum"
+      ],
+      [
+        "Min"
+      ]
+    ],
+    "max": [
+      [
+        "Maximum"
+      ],
+      [
+        "Max"
+      ]
+    ],
+    "list": [
+      [
+        "Liste"
+      ]
+    ],
+    "is_the": [
+      [
+        "ist",
+        "die"
+      ],
+      [
+        "ist",
+        "der"
+      ],
+      [
+        "ist",
+        "das"
+      ]
+    ],
+    "of_each": [
+      [
+        "von",
+        "jedem"
+      ],
+      [
+        "von",
+        "jeder"
+      ]
+    ],
+    "such_that": [
+      [
+        "f\xFCr",
+        "die",
+        "gilt",
+        "dass"
+      ],
+      [
+        "f\xFCr",
+        "den",
+        "gilt",
+        "dass"
+      ],
+      [
+        "so",
+        "dass"
+      ],
+      [
+        "sodass"
+      ]
+    ],
+    "assuming": [
+      [
+        "unter",
+        "der",
+        "Annahme",
+        "dass"
+      ],
+      [
+        "unter",
+        "der",
+        "Annahme"
+      ],
+      [
+        "angenommen"
+      ]
+    ],
+    "assuming_and": [
+      [
+        "und"
+      ]
+    ],
+    "article_narrow": [
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ]
+    ],
+    "connective_heuristic": [
+      [
+        "innerhalb"
+      ],
+      [
+        "zwischen"
+      ],
+      [
+        "einen"
+      ],
+      [
+        "einem"
+      ],
+      [
+        "einer"
+      ],
+      [
+        "eines"
+      ],
+      [
+        "waren"
+      ],
+      [
+        "unter"
+      ],
+      [
+        "durch"
+      ],
+      [
+        "gegen"
+      ],
+      [
+        "eine"
+      ],
+      [
+        "oder"
+      ],
+      [
+        "sind"
+      ],
+      [
+        "dass"
+      ],
+      [
+        "\xFCber"
+      ],
+      [
+        "nach"
+      ],
+      [
+        "seit"
+      ],
+      [
+        "ohne"
+      ],
+      [
+        "ein"
+      ],
+      [
+        "der"
+      ],
+      [
+        "die"
+      ],
+      [
+        "das"
+      ],
+      [
+        "den"
+      ],
+      [
+        "dem"
+      ],
+      [
+        "des"
+      ],
+      [
+        "auf"
+      ],
+      [
+        "von"
+      ],
+      [
+        "aus"
+      ],
+      [
+        "bei"
+      ],
+      [
+        "f\xFCr"
+      ],
+      [
+        "mit"
+      ],
+      [
+        "und"
+      ],
+      [
+        "ist"
+      ],
+      [
+        "war"
+      ],
+      [
+        "als"
+      ],
+      [
+        "wie"
+      ],
+      [
+        "vor"
+      ],
+      [
+        "in"
+      ],
+      [
+        "an"
+      ],
+      [
+        "zu"
+      ],
+      [
+        "um"
+      ]
+    ],
+    "value_kind": [
+      [
+        "Prozentsatz"
+      ],
+      [
+        "Zeitpunkt"
+      ],
+      [
+        "Betrag"
+      ],
+      [
+        "Anzahl"
+      ],
+      [
+        "Datum"
+      ],
+      [
+        "Summe"
+      ],
+      [
+        "Zahl"
+      ],
+      [
+        "Zeit"
+      ],
+      [
+        "Jahr"
+      ]
+    ],
+    "money_type": [
+      [
+        "Einkommen"
+      ],
+      [
+        "Zahlung"
+      ],
+      [
+        "Betrag"
+      ],
+      [
+        "Geb\xFChr"
+      ],
+      [
+        "Kosten"
+      ],
+      [
+        "Zulage"
+      ],
+      [
+        "Gehalt"
+      ],
+      [
+        "Steuer"
+      ],
+      [
+        "Pr\xE4mie"
+      ],
+      [
+        "Dollar"
+      ],
+      [
+        "Summe"
+      ],
+      [
+        "Preis"
+      ],
+      [
+        "Abzug"
+      ],
+      [
+        "Pfund"
+      ],
+      [
+        "Geld"
+      ],
+      [
+        "Lohn"
+      ],
+      [
+        "Euro"
+      ]
+    ],
+    "image": [
+      [
+        "Bild"
+      ]
+    ],
+    "lps_when": [
+      [
+        "wann",
+        "immer"
+      ],
+      [
+        "sobald"
+      ],
+      [
+        "Sobald"
+      ]
+    ],
+    "lps_then": [
+      [
+        "dann"
+      ],
+      [
+        "so"
+      ]
+    ],
+    "lps_if": [
+      [
+        "falls"
+      ],
+      [
+        "Falls"
+      ],
+      [
+        "wenn"
+      ],
+      [
+        "Wenn"
+      ]
+    ],
+    "lps_initially": [
+      [
+        "zu",
+        "Beginn"
+      ],
+      [
+        "Zu",
+        "Beginn"
+      ],
+      [
+        "anfangs"
+      ],
+      [
+        "Anfangs"
+      ]
+    ],
+    "lps_must_not": [
+      [
+        "es",
+        "darf",
+        "nicht",
+        "wahr",
+        "sein",
+        "dass"
+      ],
+      [
+        "Es",
+        "darf",
+        "nicht",
+        "wahr",
+        "sein",
+        "dass"
+      ],
+      [
+        "es",
+        "darf",
+        "nicht",
+        "sein",
+        "dass"
+      ]
+    ],
+    "lps_goal": [
+      [
+        "das",
+        "Ziel",
+        "ist",
+        "dass"
+      ]
+    ],
+    "lps_initiate": [
+      [
+        "einleiten"
+      ],
+      [
+        "beginnen"
+      ]
+    ],
+    "lps_terminate": [
+      [
+        "beenden"
+      ]
+    ],
+    "lps_that_is": [
+      [
+        "das",
+        "ist"
+      ]
+    ],
+    "lps_becomes": [
+      [
+        "wird",
+        "zu"
+      ]
+    ],
+    "lps_at": [
+      [
+        "zu"
+      ]
+    ],
+    "lps_from": [
+      [
+        "von"
+      ],
+      [
+        "ab"
+      ]
+    ],
+    "lps_to": [
+      [
+        "bis",
+        "zu"
+      ],
+      [
+        "bis"
+      ]
+    ],
+    "lps_max_time": [
+      [
+        "die",
+        "maximale",
+        "Zeit",
+        "ist"
+      ]
+    ],
+    "lps_max_real_time": [
+      [
+        "die",
+        "maximale",
+        "Echtzeit",
+        "ist"
+      ]
+    ],
+    "lps_min_cycle_time": [
+      [
+        "die",
+        "minimale",
+        "Zykluszeit",
+        "ist"
+      ]
+    ],
+    "lps_this_law_replaces": [
+      [
+        "dieses",
+        "Gesetz",
+        "ersetzt",
+        "das",
+        "Gesetz"
+      ],
+      [
+        "dieses",
+        "Gesetz",
+        "ersetzt",
+        "Gesetz"
+      ]
+    ],
+    "lps_this_constraint_replaces": [
+      [
+        "diese",
+        "Einschr\xE4nkung",
+        "ersetzt",
+        "die",
+        "Einschr\xE4nkung"
+      ],
+      [
+        "diese",
+        "Einschr\xE4nkung",
+        "ersetzt",
+        "Einschr\xE4nkung"
+      ]
+    ],
+    "lps_of": [
+      [
+        "von"
+      ]
+    ],
+    "provenance_required": [
+      [
+        "die",
+        "Fakten",
+        "des",
+        "Szenarios",
+        "erfordern",
+        "eine",
+        "Herkunft"
+      ],
+      [
+        "Szenariofakten",
+        "erfordern",
+        "eine",
+        "Herkunft"
+      ]
+    ],
+    "memorable": [
+      [
+        "zwischengespeichert"
+      ],
+      [
+        "merkbar"
+      ],
+      [
+        "gemerkt"
+      ]
+    ],
+    "one_value": [
+      [
+        "einwertig"
+      ],
+      [
+        "ein",
+        "Wert"
+      ]
+    ],
+    "judged": [
+      [
+        "unbestimmter",
+        "Rechtsbegriff"
+      ],
+      [
+        "wertungsbed\xFCrftig"
+      ],
+      [
+        "beurteilt"
+      ]
+    ],
+    "according_to": [
+      [
+        "gem\xE4\xDF"
+      ],
+      [
+        "laut"
+      ]
+    ],
+    "as_stated_in": [
+      [
+        "wie",
+        "festgestellt",
+        "in"
+      ],
+      [
+        "wie",
+        "angegeben",
+        "in"
+      ]
+    ],
+    "at_locator": [
+      [
+        "unter"
+      ],
+      [
+        "bei"
+      ]
+    ],
+    "because": [
+      [
+        "weil"
+      ],
+      [
+        "denn"
+      ],
+      [
+        "da"
+      ]
+    ],
+    "with_provenance": [
+      [
+        "mit",
+        "Herkunft"
+      ]
+    ],
+    "confer": [
+      [
+        "vergleiche"
+      ],
+      [
+        "siehe"
+      ]
+    ],
+    "otherwise": [
+      [
+        "andernfalls"
+      ],
+      [
+        "sonst"
+      ]
+    ],
+    "table_open": [
+      [
+        "die",
+        "Tabelle"
+      ]
+    ],
+    "table_word": [
+      [
+        "Tabelle"
+      ]
+    ],
+    "table_loaded_from": [
+      [
+        "geladen",
+        "aus"
+      ],
+      [
+        "geladen",
+        "von"
+      ]
+    ],
+    "table_with": [
+      [
+        "mit"
+      ]
+    ],
+    "first_match": [
+      [
+        "erstem",
+        "Treffer"
+      ],
+      [
+        "erster",
+        "Treffer"
+      ]
+    ],
+    "all_matches": [
+      [
+        "allen",
+        "Treffern"
+      ],
+      [
+        "alle",
+        "Treffer"
+      ]
+    ],
+    "unique_match": [
+      [
+        "eindeutigem",
+        "Treffer"
+      ],
+      [
+        "eindeutiger",
+        "Treffer"
+      ]
+    ],
+    "table_any": [
+      [
+        "beliebiger"
+      ],
+      [
+        "beliebiges"
+      ],
+      [
+        "beliebige"
+      ],
+      [
+        "beliebig"
+      ]
+    ],
+    "section_applicability": [
+      [
+        "Anwendbarkeit"
+      ]
+    ],
+    "section_question": [
+      [
+        "Frage"
+      ]
+    ],
+    "section_remedy": [
+      [
+        "Rechtsfolge"
+      ],
+      [
+        "Abhilfe"
+      ]
+    ],
+    "services_include": [
+      [
+        "enth\xE4lt",
+        "diese",
+        "Dienste"
+      ],
+      [
+        "umfasst",
+        "diese",
+        "Dienste"
+      ]
+    ],
+    "service_at": [
+      [
+        "unter"
+      ],
+      [
+        "bei"
+      ]
+    ],
+    "service_as": [
+      [
+        "als",
+        "eine"
+      ],
+      [
+        "als",
+        "ein"
+      ],
+      [
+        "als"
+      ]
+    ],
+    "via_service": [
+      [
+        "\xFCber",
+        "den",
+        "Dienst"
+      ],
+      [
+        "\xFCber",
+        "Dienst"
+      ]
+    ],
+    "kind_semantic_matcher": [
+      [
+        "semantischer",
+        "Abgleich"
+      ]
+    ],
+    "flip_query": [
+      [
+        "welche",
+        "minimalen",
+        "\xC4nderungen",
+        "des",
+        "Szenarios",
+        "bewirken",
+        "dass"
+      ],
+      [
+        "welche",
+        "minimale",
+        "\xC4nderung",
+        "des",
+        "Szenarios",
+        "bewirkt",
+        "dass"
+      ]
+    ],
+    "cases_query": [
+      [
+        "welche",
+        "F\xE4lle",
+        "bewirken",
+        "dass"
+      ],
+      [
+        "welcher",
+        "Fall",
+        "bewirkt",
+        "dass"
+      ]
+    ],
+    "case_exists_query": [
+      [
+        "kann",
+        "es",
+        "der",
+        "Fall",
+        "sein",
+        "dass"
+      ],
+      [
+        "gibt",
+        "es",
+        "einen",
+        "Fall",
+        "in",
+        "dem"
+      ]
+    ],
+    "changes": [
+      [
+        "die",
+        "\xC4nderungen"
+      ],
+      [
+        "\xC4nderungen"
+      ]
+    ],
+    "view_open": [
+      [
+        "die",
+        "Ansicht"
+      ]
+    ],
+    "view_title": [
+      [
+        "der",
+        "Titel",
+        "ist"
+      ]
+    ],
+    "view_case_scenario": [
+      [
+        "der",
+        "Fall",
+        "ist",
+        "ein",
+        "Szenario"
+      ]
+    ],
+    "view_with_documents": [
+      [
+        "mit",
+        "den",
+        "Dokumenten",
+        "in",
+        "denen",
+        "es",
+        "angegeben",
+        "ist"
+      ],
+      [
+        "mit",
+        "dem",
+        "Dokument",
+        "in",
+        "dem",
+        "es",
+        "angegeben",
+        "ist"
+      ]
+    ],
+    "view_case_about": [
+      [
+        "der",
+        "Fall",
+        "betrifft"
+      ]
+    ],
+    "view_facts_about": [
+      [
+        "die",
+        "Fakten",
+        "\xFCber"
+      ]
+    ],
+    "view_are": [
+      [
+        "sind"
+      ]
+    ],
+    "view_judgments": [
+      [
+        "die",
+        "Beurteilungen",
+        "sind"
+      ]
+    ],
+    "view_other_facts": [
+      [
+        "die",
+        "anderen",
+        "Fakten",
+        "k\xF6nnen",
+        "hinzugef\xFCgt",
+        "werden"
+      ]
+    ],
+    "view_no_other_facts": [
+      [
+        "die",
+        "anderen",
+        "Fakten",
+        "k\xF6nnen",
+        "nicht",
+        "hinzugef\xFCgt",
+        "werden"
+      ]
+    ],
+    "view_sources": [
+      [
+        "jeder",
+        "Fakt",
+        "zeigt",
+        "wer",
+        "ihn",
+        "angibt"
+      ]
+    ],
+    "view_one_at_a_time": [
+      [
+        "die",
+        "Fakten",
+        "werden",
+        "einzeln",
+        "abgefragt"
+      ]
+    ],
+    "view_question_for": [
+      [
+        "die",
+        "Frage",
+        "f\xFCr"
+      ]
+    ],
+    "view_result_query": [
+      [
+        "das",
+        "Ergebnis",
+        "ist",
+        "die",
+        "Antwort",
+        "auf",
+        "die",
+        "Abfrage"
+      ]
+    ],
+    "view_headed_by": [
+      [
+        "\xFCberschrieben",
+        "mit"
+      ]
+    ],
+    "view_in": [
+      [
+        "in"
+      ]
+    ],
+    "view_result_whether": [
+      [
+        "das",
+        "Ergebnis",
+        "ist",
+        "ob"
+      ]
+    ],
+    "view_result_reads": [
+      [
+        "das",
+        "Ergebnis",
+        "lautet"
+      ]
+    ],
+    "view_when_holds": [
+      [
+        "wenn",
+        "es",
+        "zutrifft"
+      ]
+    ],
+    "view_when_not": [
+      [
+        "wenn",
+        "es",
+        "nicht",
+        "zutrifft"
+      ]
+    ],
+    "view_citations": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Zitate"
+      ]
+    ],
+    "view_reasons": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Gr\xFCnde"
+      ]
+    ],
+    "view_stage": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "die",
+        "Stufe",
+        "die",
+        "es",
+        "erreicht"
+      ]
+    ],
+    "view_missing": [
+      [
+        "das",
+        "Ergebnis",
+        "fragt",
+        "was",
+        "fehlt"
+      ]
+    ],
+    "view_flipped": [
+      [
+        "das",
+        "Ergebnis",
+        "kann",
+        "umgekehrt",
+        "werden"
+      ]
+    ],
+    "view_as": [
+      [
+        "als"
+      ]
+    ],
+    "view_compare": [
+      [
+        "das",
+        "Ergebnis",
+        "wird",
+        "verglichen",
+        "mit",
+        "Szenario"
+      ]
+    ],
+    "view_answers_to": [
+      [
+        "die",
+        "Antworten",
+        "auf"
+      ]
+    ],
+    "view_listed_as": [
+      [
+        "werden",
+        "aufgelistet",
+        "als"
+      ]
+    ],
+    "view_flagged": [
+      [
+        "der",
+        "Fall",
+        "wird",
+        "markiert",
+        "als"
+      ]
+    ],
+    "view_flag_when": [
+      [
+        "wenn"
+      ]
+    ],
+    "view_flag_when_query": [
+      [
+        "wenn",
+        "die",
+        "Abfrage"
+      ]
+    ],
+    "view_has_answer": [
+      [
+        "eine",
+        "Antwort",
+        "hat"
+      ]
+    ],
+    "view_numbers_shown": [
+      [
+        "die",
+        "Zahlen",
+        "werden",
+        "angezeigt",
+        "mit"
+      ]
+    ],
+    "view_decimals": [
+      [
+        "Dezimalstellen"
+      ]
+    ],
+    "view_documents": [
+      [
+        "die",
+        "Dokumente",
+        "des",
+        "Falls",
+        "werden",
+        "neben",
+        "den",
+        "Fakten",
+        "angezeigt"
+      ],
+      [
+        "das",
+        "Dokument",
+        "des",
+        "Falls",
+        "wird",
+        "neben",
+        "den",
+        "Fakten",
+        "angezeigt"
+      ]
+    ],
+    "view_cases": [
+      [
+        "die",
+        "F\xE4lle",
+        "werden",
+        "mit",
+        "ihren",
+        "Ergebnissen",
+        "aufgelistet"
+      ]
+    ],
+    "view_draft": [
+      [
+        "der",
+        "Entwurf",
+        "lautet"
+      ]
+    ],
+    "view_flip_keeps": [
+      [
+        "die",
+        "Umkehrung",
+        "beh\xE4lt"
+      ]
+    ],
+    "view_section": [
+      [
+        "der",
+        "Abschnitt"
+      ]
+    ],
+    "view_reads": [
+      [
+        "lautet"
+      ]
+    ],
+    "cells_open": [
+      [
+        "die",
+        "Zellen",
+        "des",
+        "Dienstes"
+      ]
+    ],
+    "cells_are": [
+      [
+        "sind"
+      ]
+    ],
+    "cells_sheet": [
+      [
+        "das",
+        "Blatt",
+        "ist"
+      ]
+    ],
+    "cells_cell": [
+      [
+        "die",
+        "Zelle"
+      ]
+    ],
+    "notice_start": [
+      [
+        "rechtlicher",
+        "Hinweis"
+      ],
+      [
+        "Haftungsausschluss"
+      ],
+      [
+        "lizenziert",
+        "unter"
+      ],
+      [
+        "Urheberrecht"
+      ],
+      [
+        "copyright"
+      ],
+      [
+        "Lizenz"
+      ],
+      [
+        "(c)"
+      ],
+      [
+        "\xA9"
+      ]
+    ],
+    "lps_time_noun": [
+      [
+        "Zeitpunkt"
+      ],
+      [
+        "Moment"
+      ],
+      [
+        "Zeit"
+      ]
     ]
   }
 };
@@ -10664,7 +13328,7 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copiar o endere\xE7o web desta pasta",
     "(guide)": "(guia)",
     "Logical English in other languages": "Logical English noutras l\xEDnguas",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escrever programas em portugu\xEAs, espanhol, franc\xEAs ou italiano, e escolher o idioma dos menus.",
+    "Writing programs in Portuguese, Spanish, French, Italian or German, and choosing the language of the menus.": "Escrever programas em portugu\xEAs, espanhol, franc\xEAs, italiano ou alem\xE3o, e escolher o idioma dos menus.",
     "About this folder": "Sobre esta pasta",
     "Copy the web address of this README": "Copiar o endere\xE7o web deste README",
     "Sign in with Google": "Iniciar sess\xE3o com Google",
@@ -11555,7 +14219,7 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copiar la direcci\xF3n web de esta carpeta",
     "(guide)": "(gu\xEDa)",
     "Logical English in other languages": "Logical English en otros idiomas",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Escribir programas en portugu\xE9s, espa\xF1ol, franc\xE9s o italiano, y elegir el idioma de los men\xFAs.",
+    "Writing programs in Portuguese, Spanish, French, Italian or German, and choosing the language of the menus.": "Escribir programas en portugu\xE9s, espa\xF1ol, franc\xE9s, italiano o alem\xE1n, y elegir el idioma de los men\xFAs.",
     "About this folder": "Acerca de esta carpeta",
     "Copy the web address of this README": "Copiar la direcci\xF3n web de este README",
     "Sign in with Google": "Iniciar sesi\xF3n con Google",
@@ -12446,7 +15110,7 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copier l'adresse web de ce dossier",
     "(guide)": "(guide)",
     "Logical English in other languages": "Logical English dans d'autres langues",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "\xC9crire des programmes en portugais, espagnol, fran\xE7ais ou italien, et choisir la langue des menus.",
+    "Writing programs in Portuguese, Spanish, French, Italian or German, and choosing the language of the menus.": "\xC9crire des programmes en portugais, espagnol, fran\xE7ais, italien ou allemand, et choisir la langue des menus.",
     "About this folder": "\xC0 propos de ce dossier",
     "Copy the web address of this README": "Copier l'adresse web de ce README",
     "Sign in with Google": "Se connecter avec Google",
@@ -13337,7 +16001,7 @@ var uiCatalog = {
     "Copy the web address of this folder": "Copia l'indirizzo web di questa cartella",
     "(guide)": "(guida)",
     "Logical English in other languages": "Logical English in altre lingue",
-    "Writing programs in Portuguese, Spanish, French or Italian, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese o italiano, e scegliere la lingua dei menu.",
+    "Writing programs in Portuguese, Spanish, French, Italian or German, and choosing the language of the menus.": "Scrivere programmi in portoghese, spagnolo, francese, italiano o tedesco, e scegliere la lingua dei menu.",
     "About this folder": "Informazioni su questa cartella",
     "Copy the web address of this README": "Copia l'indirizzo web di questo README",
     "Sign in with Google": "Accedi con Google",
@@ -13615,6 +16279,899 @@ var uiCatalog = {
     "Apply the facts background": "Applica il contesto dei fatti",
     "Run the rules of the facts background on these facts, and add the facts that follow": "Esegui le regole del contesto dei fatti su questi fatti, e aggiungi i fatti che ne seguono",
     "Insert": "Inserisci"
+  },
+  "de": {
+    "+ Add": "+ Hinzuf\xFCgen",
+    "+ Add Query": "+ Abfrage hinzuf\xFCgen",
+    "API Keys &amp; Assistant Settings": "API-Schl\xFCssel und Einstellungen des Assistenten",
+    "API Keys &amp; Assistant Settings...": "API-Schl\xFCssel und Einstellungen des Assistenten...",
+    "Add condition": "Bedingung hinzuf\xFCgen",
+    "Add fact": "Fakt hinzuf\xFCgen",
+    "Add query": "Abfrage hinzuf\xFCgen",
+    "Anthropic API Key:": "Anthropic-API-Schl\xFCssel:",
+    "Ask the assistant (e.g., 'Fix indentation', 'Draft a program for...')": "Fragen Sie den Assistenten (z. B. \u201EEinr\xFCckung korrigieren\u201C, \u201EEin Programm entwerfen f\xFCr...\u201C)",
+    "Assistant Max Steps (1-50):": "Maximale Schritte des Assistenten (1-50):",
+    "Assistant Model:": "Modell des Assistenten:",
+    "Assume fact": "Fakt annehmen",
+    "Auto Layout": "Automatisches Layout",
+    "Cancel": "Abbrechen",
+    "Center": "Zentrieren",
+    "Choose a program": "Programm ausw\xE4hlen",
+    "Choose a program to explore.": "W\xE4hlen Sie ein Programm zum Erkunden aus.",
+    "Circle": "Kreis",
+    "Clone Tool": "Klonwerkzeug",
+    "Clone tool: click a node to duplicate it (needed when the proof uses the same rule more than once)": "Klonwerkzeug: Klicken Sie auf einen Knoten, um ihn zu duplizieren (n\xF6tig, wenn der Beweis dieselbe Regel mehr als einmal verwendet)",
+    "Close": "Schlie\xDFen",
+    "Close this panel": "Diesen Bereich schlie\xDFen",
+    "Collapse All": "Alle einklappen",
+    "Failed to load examples.": "Die Beispiele konnten nicht geladen werden.",
+    "filter \u2014 type any part of a name": "Filter \u2014 geben Sie einen beliebigen Teil eines Namens ein",
+    "Loading examples...": "Beispiele werden geladen...",
+    "loading\u2026": "wird geladen\u2026",
+    "No example matches the filter.": "Kein Beispiel entspricht dem Filter.",
+    "The s(CASP) program could not be produced.": "Das s(CASP)-Programm konnte nicht erzeugt werden.",
+    "condition": "Bedingung",
+    "Continue": "Fortsetzen",
+    "Continue (F5) \u2014 resume running until a breakpoint (click the margin left of a line number to set one), the next answer, or the end of the query.": "Fortsetzen (F5) \u2014 setzt die Ausf\xFChrung fort bis zu einem Haltepunkt (klicken Sie in den Rand links neben einer Zeilennummer, um einen zu setzen), bis zur n\xE4chsten Antwort oder bis zum Ende der Abfrage.",
+    "Copy": "Kopieren",
+    "Copy Answer": "Antwort kopieren",
+    "Copy Explanation": "Erkl\xE4rung kopieren",
+    "Copy Mermaid": "Mermaid kopieren",
+    "Copy Node": "Knoten kopieren",
+    "Copy Scenario": "Szenario kopieren",
+    "Copy URL": "URL kopieren",
+    "Copy as Mermaid diagram": "Als Mermaid-Diagramm kopieren",
+    "Copy the visible graph as a Mermaid diagram (text), pasteable into GitHub, Obsidian, mermaid.live\u2026": "Den sichtbaren Graphen als Mermaid-Diagramm (Text) kopieren, zum Einf\xFCgen in GitHub, Obsidian, mermaid.live\u2026",
+    "Custom Query:": "Eigene Abfrage:",
+    "Custom Scenario Facts:": "Eigene Szenario-Fakten:",
+    "Cut": "Ausschneiden",
+    "Dagre (Hierarchical)": "Dagre (hierarchisch)",
+    "Dark": "Dunkel",
+    "Dark Theme": "Dunkles Design",
+    "declaration": "Deklaration",
+    "Detailed failure explanations (per-rule nodes)": "Detaillierte Erkl\xE4rungen von Fehlschl\xE4gen (Knoten pro Regel)",
+    "Direction": "Richtung",
+    "ELK (Layered)": "ELK (in Schichten)",
+    "Edge Types": "Kantentypen",
+    "Edit": "Bearbeiten",
+    "Edit Queries\u2026": "Abfragen bearbeiten\u2026",
+    "Edit Scenarios\u2026": "Szenarien bearbeiten\u2026",
+    "Enter facts here...": "Fakten hier eingeben...",
+    "Enter query here...": "Abfrage hier eingeben...",
+    "Expand All": "Alle ausklappen",
+    "Explanation Drill": "Erkl\xE4rung erkunden",
+    "Explanation Drill\u2026": "Erkl\xE4rung erkunden\u2026",
+    "Explanations Preferences": "Einstellungen f\xFCr Erkl\xE4rungen",
+    "fact": "Fakt",
+    "File": "Datei",
+    "Filter programs": "Programme filtern",
+    "Filter\u2026": "Filtern\u2026",
+    "Find": "Suchen",
+    "Fit View": "Ansicht einpassen",
+    "Fit to Screen": "An Bildschirm anpassen",
+    "Fold all rules for this predicate": "Alle Regeln dieses Pr\xE4dikats einklappen",
+    "Go back (to where you jumped from)": "Zur\xFCck (zu der Stelle, von der Sie gesprungen sind)",
+    "Go to full sub-explanation": "Zur vollst\xE4ndigen Teilerkl\xE4rung gehen",
+    "Google API Key:": "Google-API-Schl\xFCssel:",
+    "Grid": "Raster",
+    "Groq API Key:": "Groq-API-Schl\xFCssel:",
+    "Help": "Hilfe",
+    "Hide repeated explanations": "Wiederholte Erkl\xE4rungen ausblenden",
+    "High Contrast": "Hoher Kontrast",
+    "Home": "Startseite",
+    "Horizontal (L\u2192R)": "Horizontal (L\u2192R)",
+    "Insert into Editor": "In den Editor einf\xFCgen",
+    "Interrupt": "Unterbrechen",
+    "Introduction to Logical English (tutorial)": "Einf\xFChrung in Logical English (Tutorial)",
+    "Keys and preferences are stored in your browser's local storage.": "Schl\xFCssel und Einstellungen werden im lokalen Speicher Ihres Browsers gespeichert.",
+    "LE Debugger": "LE-Debugger",
+    "LE Proof Game": "LE-Beweisspiel",
+    "Large": "Gro\xDF",
+    "Layout": "Layout",
+    "Light": "Hell",
+    "Light Mode": "Leichter Modus",
+    "Light Mode runs a fast, in-process Prolog loop. Uncheck for Deep Mode (full opencode agent with file/web/shell tools).": "Der leichte Modus f\xFChrt eine schnelle Prolog-Schleife im selben Prozess aus. Entfernen Sie das H\xE4kchen f\xFCr den tiefen Modus (vollst\xE4ndiger opencode-Agent mit Datei-, Web- und Shell-Werkzeugen).",
+    "Light Theme": "Helles Design",
+    "Load": "Laden",
+    "Loading models...": "Modelle werden geladen...",
+    "Logical English": "Logical English",
+    "Logical English syntax (reference)": "Syntax von Logical English (Referenz)",
+    "Medium": "Mittel",
+    "Misc": "Sonstiges",
+    "Name": "Name",
+    "New": "Neu",
+    "New from URL": "Neu aus URL",
+    "New from URL...": "Neu aus URL...",
+    "No definition found for": "Keine Definition gefunden f\xFCr",
+    "No occurrences found for": "Keine Vorkommen gefunden f\xFCr",
+    "No rules for": "Keine Regeln f\xFCr",
+    "Node Types": "Knotentypen",
+    "None": "Keines",
+    "Occurrences": "Vorkommen",
+    "Open Scenario Variations: alter the selected scenario and run one or more queries against the variation, in a separate window": "Szenariovarianten \xF6ffnen: \xC4ndern Sie das ausgew\xE4hlte Szenario und f\xFChren Sie eine oder mehrere Abfragen auf der Variante aus, in einem eigenen Fenster",
+    "Open example from server...": "Beispiel vom Server \xF6ffnen...",
+    "Open example from server": "Beispiel vom Server \xF6ffnen",
+    "Open the Proof Game: interactively build a proof of the selected query by connecting its facts and rules": "Das Beweisspiel \xF6ffnen: Bauen Sie interaktiv einen Beweis der ausgew\xE4hlten Abfrage, indem Sie ihre Fakten und Regeln verbinden",
+    "Open...": "\xD6ffnen...",
+    "OpenAI API Key:": "OpenAI-API-Schl\xFCssel:",
+    "PROLOG Equivalent": "PROLOG-Entsprechung",
+    "s(CASP) Equivalent": "s(CASP)-Entsprechung",
+    "Paste": "Einf\xFCgen",
+    "Patch scenario": "Szenario anpassen",
+    "Predicates Legend": "Legende der Pr\xE4dikate",
+    "Preferences...": "Einstellungen...",
+    "Prefix for failed nodes:": "Pr\xE4fix f\xFCr fehlgeschlagene Knoten:",
+    "Proof Game": "Beweisspiel",
+    "Query": "Abfrage",
+    "query": "Abfrage",
+    "Query Editor": "Abfrage-Editor",
+    "Query:": "Abfrage:",
+    "Redraw from here": "Von hier aus neu zeichnen",
+    "Refresh": "Aktualisieren",
+    "Replace": "Ersetzen",
+    "rule head": "Schlussfolgerung einer Regel",
+    "Save": "Speichern",
+    "Save As...": "Speichern unter...",
+    "Scenario": "Szenario",
+    "Scenario Editor": "Szenario-Editor",
+    "scenario fact": "Szenario-Fakt",
+    "Scenario Variations": "Szenariovarianten",
+    "Scenario:": "Szenario:",
+    "Search nodes...": "Knoten suchen...",
+    "Select a query...": "Abfrage ausw\xE4hlen...",
+    "Select a scenario...": "Szenario ausw\xE4hlen...",
+    "Send": "Senden",
+    "Send command to the LE Assistant": "Befehl an den LE-Assistenten senden",
+    "Show definition": "Definition anzeigen",
+    "Show occurrences": "Vorkommen anzeigen",
+    "Show Proof": "Beweis anzeigen",
+    "Show important reason": "Wichtigen Grund anzeigen",
+    "Small": "Klein",
+    "Step": "Einzelschritt",
+    "Step (F11) \u2014 advance one step to the next goal being proved. The call stack and the VARIABLES panel update to show the new position and any bindings made so far.": "Einzelschritt (F11) \u2014 geht einen Schritt weiter zum n\xE4chsten Ziel, das bewiesen wird. Die Aufrufliste und der Bereich VARIABLES zeigen danach die neue Position und die bisher hergestellten Bindungen.",
+    "Stop": "Stoppen",
+    "Stop \u2014 end the trace and the query.": "Stoppen \u2014 beendet die Ablaufverfolgung und die Abfrage.",
+    "The editor manual: files, queries, scenario/query editors, explanations.": "Das Handbuch des Editors: Dateien, Abfragen, Szenario- und Abfrage-Editor, Erkl\xE4rungen.",
+    "The language reference: every LE construct.": "Die Sprachreferenz: jedes Konstrukt von LE.",
+    "This prefix is prepended to failed nodes when copying explanations to plain text or HTML.": "Dieses Pr\xE4fix wird fehlgeschlagenen Knoten vorangestellt, wenn Erkl\xE4rungen als reiner Text oder als HTML kopiert werden.",
+    "Together API Key:": "Together-API-Schl\xFCssel:",
+    "Trace": "Ablauf verfolgen",
+    "Type Hierarchy": "Typhierarchie",
+    "Unfold all rules for this predicate": "Alle Regeln dieses Pr\xE4dikats ausklappen",
+    "URL of a Logical English program:": "URL eines Programms in Logical English:",
+    "Using this editor (manual)": "Diesen Editor verwenden (Handbuch)",
+    "Vertical (T\u2192B)": "Vertikal (O\u2192U)",
+    "View Source Graph": "Quellgraph anzeigen",
+    "Visualize the program's templates, rules, facts, scenarios and queries as a dependency graph, in a new browser tab": "Die Vorlagen, Regeln, Fakten, Szenarien und Abfragen des Programms als Abh\xE4ngigkeitsgraph darstellen, in einem neuen Browser-Tab",
+    "When on (the default), a sub-explanation that occurs several times in a success or failure explanation is shown once and tagged with its count. Turn off to see every occurrence in full (larger trees).": "Wenn eingeschaltet (Standard), wird eine Teilerkl\xE4rung, die in einer Erkl\xE4rung eines Erfolgs oder eines Fehlschlags mehrmals vorkommt, einmal gezeigt und mit ihrer Anzahl markiert. Schalten Sie die Option aus, um jedes Vorkommen vollst\xE4ndig zu sehen (gr\xF6\xDFere B\xE4ume).",
+    "When on, a failed predicate with several rules shows an intermediate node per rule (navigable to that rule), with each rule's failed sub-goals beneath it. Slower; off by default.": "Wenn eingeschaltet, zeigt ein fehlgeschlagenes Pr\xE4dikat mit mehreren Regeln einen Zwischenknoten pro Regel (von dort gelangen Sie zu dieser Regel), darunter die fehlgeschlagenen Teilziele jeder Regel. Langsamer; standardm\xE4\xDFig ausgeschaltet.",
+    "Zoom In": "Vergr\xF6\xDFern",
+    "Zoom Out": "Verkleinern",
+    "and": "und",
+    "fCoSE (Default)": "fCoSE (Standard)",
+    "not": "nicht",
+    "or": "oder",
+    "query name": "Name der Abfrage",
+    "scenario name": "Name des Szenarios",
+    "Are you sure you want to miss the excitement of finding the proof yourself?": "Sind Sie sicher, dass Sie auf die Spannung verzichten wollen, den Beweis selbst zu finden?",
+    "No proof found for this query.": "Kein Beweis f\xFCr diese Abfrage gefunden.",
+    "No answer: build the proof that this query FAILS": "Keine Antwort: Bauen Sie den Beweis, dass diese Abfrage FEHLSCHL\xC4GT",
+    "(empty)": "(leer)",
+    "A query name must be a single word or number (no spaces).": "Der Name einer Abfrage muss ein einzelnes Wort oder eine Zahl sein (ohne Leerzeichen).",
+    "A scenario name must be a single word (no spaces).": "Der Name eines Szenarios muss ein einzelnes Wort sein (ohne Leerzeichen).",
+    "Accept?": "Akzeptieren?",
+    "Not yet": "Noch nicht",
+    "Add a query first.": "F\xFCgen Sie zuerst eine Abfrage hinzu.",
+    "Add at least one condition to the query.": "F\xFCgen Sie der Abfrage mindestens eine Bedingung hinzu.",
+    "Another...": "Andere...",
+    "Answer the highlighted question, or revise an earlier one.": "Beantworten Sie die hervorgehobene Frage, oder \xFCberarbeiten Sie eine fr\xFChere.",
+    "Click to show this in the editor": "Klicken Sie, um dies im Editor zu zeigen",
+    "Configure an LLM model first: in the main editor, Misc \u2192 API Keys\u2026": "Richten Sie zuerst ein LLM-Modell ein: im Haupteditor, Sonstiges \u2192 API-Schl\xFCssel\u2026",
+    "Connecting to debugger...": "Verbindung zum Debugger wird hergestellt...",
+    "Copied to clipboard": "In die Zwischenablage kopiert",
+    "Copied!": "Kopiert!",
+    "Copied": "Kopiert",
+    "Copy URL is only available for existing examples.": "\u201EURL kopieren\u201C ist nur f\xFCr vorhandene Beispiele verf\xFCgbar.",
+    "Copy the query text:": "Kopieren Sie den Text der Abfrage:",
+    "Copy the scenario text:": "Kopieren Sie den Text des Szenarios:",
+    "Could not load the program on the server.": "Das Programm konnte auf dem Server nicht geladen werden.",
+    "Could not reach the server.": "Der Server ist nicht erreichbar.",
+    "Debugger connected. Initializing...": "Debugger verbunden. Initialisierung...",
+    "Debugger disconnected.": "Debugger getrennt.",
+    "Delete condition": "Bedingung l\xF6schen",
+    "Delete this question": "Diese Frage l\xF6schen",
+    "Delete": "L\xF6schen",
+    "Discard unsaved changes and load the selected query?": "Nicht gespeicherte \xC4nderungen verwerfen und die ausgew\xE4hlte Abfrage laden?",
+    "Discard unsaved changes and load the selected scenario?": "Nicht gespeicherte \xC4nderungen verwerfen und das ausgew\xE4hlte Szenario laden?",
+    "Done": "Fertig",
+    "Download": "Herunterladen",
+    "Error connecting to server for game data.": "Fehler bei der Verbindung zum Server f\xFCr die Spieldaten.",
+    "Error executing query.": "Fehler beim Ausf\xFChren der Abfrage.",
+    "Error loading module: ": "Fehler beim Laden des Moduls: ",
+    "Error: ": "Fehler: ",
+    "Explanation": "Erkl\xE4rung",
+    "Failed to get game data from server.": "Die Spieldaten konnten nicht vom Server abgerufen werden.",
+    "Failed to load example from server.": "Das Beispiel konnte nicht vom Server geladen werden.",
+    "Generate": "Erzeugen",
+    "Generating and verifying\u2026": "Erzeugen und Pr\xFCfen\u2026",
+    "Indent (nest this condition to bind tighter)": "Einr\xFCcken (diese Bedingung verschachteln, damit sie enger bindet)",
+    "Insert anyway": "Trotzdem einf\xFCgen",
+    "Inserted into editor": "In den Editor eingef\xFCgt",
+    "Interrupting\u2026": "Wird unterbrochen\u2026",
+    "Loading module on server...": "Modul wird auf dem Server geladen...",
+    "Loading\u2026": "Wird geladen\u2026",
+    "Mermaid diagram copied to clipboard": "Mermaid-Diagramm in die Zwischenablage kopiert",
+    "New query": "Neue Abfrage",
+    "New scenario": "Neues Szenario",
+    "New\u2026": "Neu\u2026",
+    "No answers (false)": "Keine Antworten (falsch)",
+    "No conditions yet \u2014 pick a template below and click \u201CAdd\u201D.": "Noch keine Bedingungen \u2014 w\xE4hlen Sie unten eine Vorlage und klicken Sie auf \u201EHinzuf\xFCgen\u201C.",
+    "No explanation to drill.": "Keine Erkl\xE4rung zum Erkunden.",
+    "No facts yet \u2014 pick a template below and click \u201CAdd\u201D.": "Noch keine Fakten \u2014 w\xE4hlen Sie unten eine Vorlage und klicken Sie auf \u201EHinzuf\xFCgen\u201C.",
+    "No model configured": "Kein Modell eingerichtet",
+    "No results returned.": "Keine Ergebnisse zur\xFCckgegeben.",
+    "No variables for this call.": "Keine Variablen f\xFCr diesen Aufruf.",
+    "Node copied to clipboard": "Knoten in die Zwischenablage kopiert",
+    "Nothing else to show. Feel free to alter your choices above.": "Nichts weiter zu zeigen. Sie k\xF6nnen Ihre Auswahl oben \xE4ndern.",
+    "Please enter a custom query.": "Bitte geben Sie eine eigene Abfrage ein.",
+    "Please give the query a name.": "Bitte geben Sie der Abfrage einen Namen.",
+    "Please give the scenario a name.": "Bitte geben Sie dem Szenario einen Namen.",
+    "Please select a query for the Proof Game.": "Bitte w\xE4hlen Sie eine Abfrage f\xFCr das Beweisspiel aus.",
+    "Please select a query.": "Bitte w\xE4hlen Sie eine Abfrage aus.",
+    "Please wait for the module to load.": "Bitte warten Sie, bis das Modul geladen ist.",
+    "Progress": "Fortschritt",
+    "Query failed.": "Die Abfrage ist fehlgeschlagen.",
+    "Query finished.": "Abfrage beendet.",
+    "Query interrupted.": "Abfrage unterbrochen.",
+    "Ready": "Bereit",
+    "Regenerate": "Neu erzeugen",
+    "Remove query": "Abfrage entfernen",
+    "Results": "Ergebnisse",
+    "Running queries\u2026": "Abfragen werden ausgef\xFChrt\u2026",
+    "Scenario copied to clipboard": "Szenario in die Zwischenablage kopiert",
+    "Write it in English": "Auf Deutsch schreiben",
+    "Write it in English\u2026": "Auf Deutsch schreiben\u2026",
+    "the LLM request failed.": "die Anfrage an das LLM ist fehlgeschlagen.",
+    "Important reason: ": "Wichtiger Grund: ",
+    "repeated sub-explanations": "wiederholte Teilerkl\xE4rungen",
+    "assumed": "angenommen",
+    "FAIL": "FEHLSCHLAG",
+    "STOP": "STOPP",
+    "Unindent": "Einr\xFCckung aufheben",
+    "Language": "Sprache",
+    "Answers": "Antworten",
+    "[Empty Scenario]": "[Leeres Szenario]",
+    "Bento Box": "Bento-Box",
+    "Bento Box\u2026": "Bento-Box\u2026",
+    "Render this answer's explanation as nested bento compartments, in a separate window": "Die Erkl\xE4rung dieser Antwort als verschachtelte Bento-F\xE4cher darstellen, in einem eigenen Fenster",
+    "Legend": "Legende",
+    "Click a box to highlight its source in the editor.": "Klicken Sie auf ein Fach, um seine Quelle im Editor hervorzuheben.",
+    "No explanation to display.": "Keine Erkl\xE4rung zum Anzeigen.",
+    "QR code": "QR-Code",
+    "QR code\u2026": "QR-Code\u2026",
+    "Show a QR code that opens this document (with its selected scenario and query)": "Einen QR-Code anzeigen, der dieses Dokument \xF6ffnet (mit dem ausgew\xE4hlten Szenario und der ausgew\xE4hlten Abfrage)",
+    "Scan to open this document.": "Scannen Sie den Code, um dieses Dokument zu \xF6ffnen.",
+    "The URL is too long for a QR code ({n} characters; the limit is {max}). Shorten the program, or save it as a server example and share its example URL instead.": "Die URL ist zu lang f\xFCr einen QR-Code ({n} Zeichen; die Grenze ist {max}). K\xFCrzen Sie das Programm, oder speichern Sie es als Beispiel auf dem Server und teilen Sie stattdessen die URL des Beispiels.",
+    "Unknowns": "Unbekannte",
+    "Scenarios": "Szenarien",
+    "Queries": "Abfragen",
+    "Templates": "Vorlagen",
+    "Run": "Ausf\xFChren",
+    "Back": "Zur\xFCck",
+    "Question": "Frage",
+    "Logged in as: ": "Angemeldet als: ",
+    "Login": "Anmelden",
+    "Logout": "Abmelden",
+    "Login Failed": "Anmeldung fehlgeschlagen",
+    "Invalid email or password.": "E-Mail-Adresse oder Passwort ung\xFCltig.",
+    "Try again": "Erneut versuchen",
+    "Edit and Query: ": "Bearbeiten und abfragen: ",
+    "[New Document]": "[Neues Dokument]",
+    "expand all": "alle ausklappen",
+    "collapse all": "alle einklappen",
+    "[show all]": "[alle anzeigen]",
+    "Just run a program: ": "Nur ein Programm ausf\xFChren: ",
+    "[Executive view]": "[Kurzansicht]",
+    "A minimalist, mobile-friendly way to pick a program, choose a scenario and question, and see the answer \u2014 no editing.": "Eine schlichte, f\xFCr Mobiltelefone geeignete Art, ein Programm, ein Szenario und eine Frage zu w\xE4hlen und die Antwort zu sehen \u2014 ohne Bearbeitung.",
+    "GitHub Repository": "GitHub-Repository",
+    "Documentation": "Dokumentation",
+    "A Gentle Introduction to Logical English 2": "Eine sanfte Einf\xFChrung in Logical English 2",
+    "How to use the LE2 web application": "So verwenden Sie die Webanwendung LE2",
+    "Logical English syntax summary": "Zusammenfassung der Syntax von Logical English",
+    "Hello! I am your Logical English Assistant. How can I help you today?": "Guten Tag! Ich bin Ihr Logical-English-Assistent. Wie kann ich Ihnen heute helfen?",
+    "I have updated the editor content with the changes.": "Ich habe den Inhalt des Editors mit den \xC4nderungen aktualisiert.",
+    "Request completed in {n} seconds.": "Anfrage in {n} Sekunden abgeschlossen.",
+    "Request interrupted by user after {n} seconds.": "Anfrage nach {n} Sekunden vom Benutzer abgebrochen.",
+    "Other languages: ": "Andere Sprachen: ",
+    "Logical English (in English)": "Logical English (auf Englisch)",
+    "Choose a language: ": "W\xE4hlen Sie eine Sprache: ",
+    "Test Suite": "Testsuite",
+    "Run All Tests": "Alle Tests ausf\xFChren",
+    "Email: ": "E-Mail: ",
+    "Password: ": "Passwort: ",
+    "The editor manual: opening and saving files, running queries, the scenario and query editors, scenario variations, and reading the explanation trees.": "Das Handbuch des Editors: Dateien \xF6ffnen und speichern, Abfragen ausf\xFChren, der Szenario-Editor und der Abfrage-Editor, Szenariovarianten und das Lesen der Erkl\xE4rungsb\xE4ume.",
+    "The language reference: every construct \u2014 templates, rules, operators, aggregates, variables and types, dates, ontology, extensions \u2014 for looking things up as you write.": "Die Sprachreferenz: jedes Konstrukt \u2014 Vorlagen, Regeln, Operatoren, Aggregate, Variablen und Typen, Datumsangaben, Ontologie, Erweiterungen \u2014 zum Nachschlagen beim Schreiben.",
+    "Larger important reasons": "Ausf\xFChrlichere wichtige Gr\xFCnde",
+    'When on, the important reason for a failed query lists all of the deepest failed conditions ("it is not the case that X, nor that Y, nor that Z"), truncated after the third, instead of just the first.': 'Wenn eingeschaltet, nennt der wichtige Grund einer fehlgeschlagenen Abfrage alle am tiefsten liegenden fehlgeschlagenen Bedingungen ("es ist nicht der Fall, dass X, noch dass Y, noch dass Z"), nach der dritten abgeschnitten, statt nur der ersten.',
+    "Always show engine choice": "Auswahl der Engine immer anzeigen",
+    "Show engine choice only for non-Prolog": "Auswahl der Engine nur bei Nicht-Prolog anzeigen",
+    "{n} occurrence(s); click one to go to it": "{n} Vorkommen; klicken Sie auf eines, um dorthin zu gehen",
+    "This is defined in the included resource": "Dies ist in der eingebundenen Ressource definiert",
+    "In the included resource": "In der eingebundenen Ressource",
+    "line": "Zeile",
+    "rule": "Regel",
+    "according to": "gem\xE4\xDF",
+    "because": "weil",
+    "at": "bei",
+    "Source": "Quelle",
+    "Published at": "Ver\xF6ffentlicht unter",
+    "Open original": "Original \xF6ffnen",
+    "The program does not say where the text of this document is": "Das Programm sagt nicht, wo der Text dieses Dokuments ist",
+    "Loading the document\u2026": "Dokument wird geladen\u2026",
+    "The quoted passage was not found in this text.": "Die zitierte Textstelle wurde in diesem Text nicht gefunden.",
+    "Show the source": "Quelle anzeigen",
+    "Show original text": "Originaltext anzeigen",
+    "View Original Text": "Originaltext anzeigen",
+    "Show where what is under the cursor comes from: the passage of the document it cites, or of the files the program was converted from, highlighted in the source viewer": "Zeigen, woher das stammt, was unter dem Cursor steht: die Textstelle des Dokuments, das es zitiert, oder der Dateien, aus denen das Programm umgewandelt wurde, hervorgehoben in der Quellenanzeige",
+    "Place the cursor in a Logical English program first.": "Setzen Sie den Cursor zuerst in ein Programm in Logical English.",
+    "The program could not be loaded, so no passage was looked for; these are its originals.": "Das Programm konnte nicht geladen werden, deshalb wurde keine Textstelle gesucht; dies sind seine Originale.",
+    "No passage of the original was located for what is under the cursor: here is the original instead.": "F\xFCr das, was unter dem Cursor steht, wurde keine Textstelle des Originals gefunden: Hier ist stattdessen das Original.",
+    "This program keeps no original text: it cites no document whose text or address it gives, and it was not converted from another system's files (there is no sources folder beside it).": "Dieses Programm bewahrt keinen Originaltext auf: Es zitiert kein Dokument, dessen Text oder Adresse es angibt, und es wurde nicht aus den Dateien eines anderen Systems umgewandelt (es gibt keinen Ordner sources daneben).",
+    "the passage that states it": "die Textstelle, die ihn angibt",
+    'Where the document states this fact: the passage, or "according to \u2026", "as stated in \u2026 at \u2026"': 'Wo das Dokument diesen Fakt angibt: die Textstelle, oder "gem\xE4\xDF \u2026", "wie angegeben in \u2026 bei \u2026"',
+    "Cite the passage that states this fact": "Die Textstelle zitieren, die diesen Fakt angibt",
+    "Citations": "Zitate",
+    "Full explanation": "Vollst\xE4ndige Erkl\xE4rung",
+    "Flip\u2026": "Umkehren\u2026",
+    "Which minimal change to the scenario would flip the outcome? Asks a flip query about the selected answer (or the query), as a custom query you can edit": "Welche kleinste \xC4nderung am Szenario w\xFCrde das Ergebnis umkehren? Stellt eine Umkehrabfrage zur ausgew\xE4hlten Antwort (oder zur Abfrage), als benutzerdefinierte Abfrage, die Sie bearbeiten k\xF6nnen",
+    "Flip the outcome": "Ergebnis umkehren",
+    "Flip": "Umkehren",
+    "The answers are the smallest sets of scenario facts to add or remove that make it so, each with the proof it then has. The flip runs on the selected scenario, as a custom query you can edit and run again.": "Die Antworten sind die kleinsten Mengen von Fakten des Szenarios, die hinzuzuf\xFCgen oder zu entfernen sind, damit es so ist, jede mit dem Beweis, den sie dann hat. Die Umkehrung l\xE4uft auf dem ausgew\xE4hlten Szenario, als benutzerdefinierte Abfrage, die Sie bearbeiten und erneut ausf\xFChren k\xF6nnen.",
+    "From a document": "Aus einem Dokument",
+    "Paste or fetch the document text below: each fact will cite the passage that states it.": "F\xFCgen Sie den Text des Dokuments unten ein oder rufen Sie ihn ab: Jeder Fakt zitiert die Textstelle, die ihn angibt.",
+    "Document name, e.g. ruling NY N362700": "Name des Dokuments, z. B. ruling NY N362700",
+    "Address of its text: a URL, or a file beside the program": "Adresse seines Textes: eine URL oder eine Datei neben dem Programm",
+    "Fetch text": "Text abrufen",
+    "Provenance": "Herkunft",
+    "New tab": "Neuer Tab",
+    "The queries and the assistant are about this program": "Die Abfragen und der Assistent beziehen sich auf dieses Programm",
+    "You have unsaved changes. Close this tab anyway?": "Sie haben nicht gespeicherte \xC4nderungen. Diesen Tab trotzdem schlie\xDFen?",
+    "Could not open the included resource": "Die eingebundene Ressource konnte nicht ge\xF6ffnet werden",
+    "Views": "Ansichten",
+    "Without a view": "Ohne Ansicht",
+    "New case": "Neuer Fall",
+    "The case": "Der Fall",
+    "Judgments": "Beurteilungen",
+    "Other facts": "Andere Fakten",
+    "Facts": "Fakten",
+    "not stated": "nicht angegeben",
+    "not met": "nicht erf\xFCllt",
+    "Why not": "Warum nicht",
+    "one of": "eines von",
+    "The text the model wrote:": "Der Text, den das Modell geschrieben hat:",
+    "No \u2014 no answers for this query.": "Nein \u2014 keine Antworten auf diese Abfrage.",
+    "given": "gegeben",
+    "State it": "Angeben",
+    "No answer": "Keine Antwort",
+    "assuming": "unter der Annahme",
+    "No sections to check.": "Keine Abschnitte zu pr\xFCfen.",
+    "passed": "bestanden",
+    "failed": "fehlgeschlagen",
+    "not reached": "nicht erreicht",
+    "No cited steps.": "Keine zitierten Schritte.",
+    "yes": "ja",
+    "no": "nein",
+    "No reasons to show.": "Keine Gr\xFCnde anzuzeigen.",
+    "No documents cited.": "Keine Dokumente zitiert.",
+    "What would change this?": "Was w\xFCrde dies \xE4ndern?",
+    "Searching\u2026": "Suche l\xE4uft\u2026",
+    "No change of up to three facts would change it.": "Keine \xC4nderung von bis zu drei Fakten w\xFCrde es \xE4ndern.",
+    "change sets": "\xC4nderungsmengen",
+    "Answering": "Die Antwort",
+    "to": "auf",
+    "None.": "Keine.",
+    "Answer": "Antwort",
+    "fails at": "scheitert bei",
+    "Run all cases": "Alle F\xE4lle ausf\xFChren",
+    "Stop running cases": "Ausf\xFChrung der F\xE4lle anhalten",
+    "Stopping\u2026": "Wird angehalten\u2026",
+    "Running case {i} of {n}\u2026": "Fall {i} von {n} wird ausgef\xFChrt\u2026",
+    "Stopped after {i} of {n} cases.": "Nach {i} von {n} F\xE4llen angehalten.",
+    "{n} cases run.": "{n} F\xE4lle ausgef\xFChrt.",
+    "Opening the view\u2026": "Ansicht wird ge\xF6ffnet\u2026",
+    "Case": "Fall",
+    "Result": "Ergebnis",
+    "Expected": "Erwartet",
+    "Nothing is missing.": "Es fehlt nichts.",
+    "No fact of the case would give a result on its own.": "Kein Fakt des Falls w\xFCrde allein ein Ergebnis liefern.",
+    "Yes, state it": "Ja, angeben",
+    "Running\u2026": "Wird ausgef\xFChrt\u2026",
+    "of at most": "von h\xF6chstens",
+    "Yes": "Ja",
+    "No": "Nein",
+    "Not sure": "Nicht sicher",
+    "Why": "Warum",
+    "not sure": "nicht sicher",
+    "Change an answer": "Eine Antwort \xE4ndern",
+    "What is missing": "Was fehlt",
+    "Stage": "Stufe",
+    "Reasons": "Gr\xFCnde",
+    "Compare": "Vergleichen",
+    "Documents": "Dokumente",
+    "Cases": "F\xE4lle",
+    "Draft": "Entwurf",
+    "Find the smallest changes": "Die kleinsten \xC4nderungen finden",
+    "No text attached to these documents: the program says where each is cited, not where its text is.": "Diesen Dokumenten ist kein Text beigef\xFCgt: Das Programm sagt, wo jedes Dokument zitiert wird, nicht, wo sein Text ist.",
+    "Show all": "Alle anzeigen",
+    "passage": "Textstelle",
+    "passages": "Textstellen",
+    "Generate LE view": "LE-Ansicht erzeugen",
+    "Draft a view for this program (docs/user/reference/language.md \xA717.10): the section that says how a screen shows it \u2014 its case facts, its result, what is shown beside it": "Eine Ansicht f\xFCr dieses Programm entwerfen (docs/user/reference/language.md \xA717.10): der Abschnitt, der sagt, wie ein Bildschirm das Programm zeigt \u2014 die Fakten des Falls, sein Ergebnis, was daneben gezeigt wird",
+    "The program must load without errors before a view can be drafted.": "Das Programm muss ohne Fehler laden, bevor eine Ansicht entworfen werden kann.",
+    "I drafted a view at the end of the program:": "Ich habe am Ende des Programms eine Ansicht entworfen:",
+    "It lists every fact a case can state as one group, and shows the result of the first query. Edit it: group the facts under titles, head the result by the value that matters, word the questions for an interview. The verifier checks what it names.": "Die Ansicht f\xFChrt jeden Fakt, den ein Fall angeben kann, in einer Gruppe auf und zeigt das Ergebnis der ersten Abfrage. Bearbeiten Sie die Ansicht: Gruppieren Sie die Fakten unter Titeln, stellen Sie dem Ergebnis den Wert voran, auf den es ankommt, formulieren Sie die Fragen f\xFCr ein Interview. Die Programmpr\xFCfung kontrolliert, was die Ansicht nennt.",
+    "Open the view": "Ansicht \xF6ffnen",
+    "Refine the view section at the end of the program: group its facts under short titles, head the result by the value that matters, and add questions or a draft where they help. Use only the view sentences of docs/user/reference/language.md \xA717.10.": "Verfeinern Sie den Abschnitt der Ansicht am Ende des Programms: Gruppieren Sie seine Fakten unter kurzen Titeln, stellen Sie dem Ergebnis den Wert voran, auf den es ankommt, und f\xFCgen Sie Fragen oder einen Entwurf hinzu, wo sie helfen. Verwenden Sie nur die S\xE4tze f\xFCr Ansichten aus docs/user/reference/language.md \xA717.10.",
+    "provided that": "sofern",
+    "The result holds provided that it does.": "Das Ergebnis gilt, sofern dies gilt.",
+    "Open Executive View": "Kurzansicht \xF6ffnen",
+    "Run the program as its users see it, without its text: the executive view, with the program's views, in a new window": "Das Programm so ausf\xFChren, wie seine Benutzer es sehen, ohne seinen Text: die Kurzansicht, mit den Ansichten des Programms, in einem neuen Fenster",
+    "The editor's copy of this program is not in this browser: this is the program as saved.": "Die Kopie dieses Programms im Editor ist nicht in diesem Browser: Dies ist das Programm, wie es gespeichert wurde.",
+    "Automatic view": "Automatische Ansicht",
+    "Drawing the view\u2026": "Ansicht wird erstellt\u2026",
+    "No view could be drawn from this program.": "Aus diesem Programm konnte keine Ansicht erstellt werden.",
+    "Drawn from the program itself. To change it, the LE Assistant of the editor writes it out: Generate LE view.": "Aus dem Programm selbst erstellt. Um die Ansicht zu \xE4ndern, schreibt der LE-Assistent des Editors sie aus: LE-Ansicht erzeugen.",
+    "Could not open": "Fehler beim \xD6ffnen von",
+    "no answer from the server": "keine Antwort vom Server",
+    "translated from": "\xFCbersetzt aus",
+    "fragment(s) could not be translated: they are in the program as TODO comments.": "Fragment(e) konnten nicht \xFCbersetzt werden: Sie stehen als TODO-Kommentare im Programm.",
+    "Everything was translated.": "Alles wurde \xFCbersetzt.",
+    "What the translator did. The program is open in a new tab; save it with File > Save As.": "Was der \xDCbersetzer getan hat. Das Programm ist in einem neuen Tab ge\xF6ffnet; speichern Sie es mit Datei > Speichern unter.",
+    "translated on opening": "beim \xD6ffnen \xFCbersetzt",
+    "Open a Logical English file, or a file of another system that the server has a translator for (a Solidity contract, a Miniscript policy, an Oracle Intelligent Advisor project, a Socotra product as a .zip): it is translated on opening, and what could not be translated is kept as TODO comments": "Eine Datei in Logical English \xF6ffnen, oder eine Datei eines anderen Systems, f\xFCr das der Server einen \xDCbersetzer hat (ein Solidity-Vertrag, eine Miniscript-Richtlinie, ein Projekt von Oracle Intelligent Advisor, ein Socotra-Produkt als .zip): Die Datei wird beim \xD6ffnen \xFCbersetzt, und was nicht \xFCbersetzt werden konnte, bleibt als TODO-Kommentare erhalten",
+    "One of the program's scenarios as the case, or a new case to fill in": "Eines der Szenarien des Programms als Fall, oder ein neuer Fall zum Ausf\xFCllen",
+    "The kinds of fact this group can state": "Die Arten von Fakten, die diese Gruppe angeben kann",
+    "Add a fact of the kind chosen": "Einen Fakt der gew\xE4hlten Art hinzuf\xFCgen",
+    "A group of facts, as the view names it": "Eine Gruppe von Fakten, wie die Ansicht sie nennt",
+    "The case does not state this fact: click to state it": "Der Fall gibt diesen Fakt nicht an: Klicken Sie, um ihn anzugeben",
+    "The case meets this section": "Der Fall erf\xFCllt diesen Abschnitt",
+    "The case stops here: this section is not met": "Der Fall endet hier: Dieser Abschnitt ist nicht erf\xFCllt",
+    "Not reached: an earlier section stopped the case": "Nicht erreicht: Ein fr\xFCherer Abschnitt hat den Fall beendet",
+    "Copy to the clipboard": "In die Zwischenablage kopieren",
+    "The case says nothing about this": "Der Fall sagt nichts dazu",
+    "The case states something else": "Der Fall gibt etwas anderes an",
+    "Search for the fewest facts (up to three) to add or remove that would change the result": "Die kleinste Zahl von Fakten (bis zu drei) suchen, deren Hinzuf\xFCgen oder Entfernen das Ergebnis \xE4ndern w\xFCrde",
+    "Run every scenario of the program through the view's question and compare with what it expects": "Jedes Szenario des Programms durch die Frage der Ansicht laufen lassen und mit dem vergleichen, was das Szenario erwartet",
+    "State this fact in the case": "Diesen Fakt im Fall angeben",
+    "State the fact with this value (one the rules read)": "Den Fakt mit diesem Wert angeben (einem, den die Regeln lesen)",
+    "State the fact, then fill in its value": "Den Fakt angeben, dann seinen Wert ausf\xFCllen",
+    "Re-evaluate": "Neu auswerten",
+    "Work out the result again from the facts of the case as they are now": "Das Ergebnis aus den Fakten des Falls, wie sie jetzt sind, erneut ermitteln",
+    "automatically": "automatisch",
+    "Re-evaluate on every change, without pressing the button": "Bei jeder \xC4nderung neu auswerten, ohne die Schaltfl\xE4che zu dr\xFCcken",
+    "The case has changed: the results below are those of the case before the change.": "Der Fall hat sich ge\xE4ndert: Die Ergebnisse unten sind die des Falls vor der \xC4nderung.",
+    "Changed by the last evaluation": "Durch die letzte Auswertung ge\xE4ndert",
+    "before the change": "vor der \xC4nderung",
+    "What the result said before the case was changed": "Was das Ergebnis sagte, bevor der Fall ge\xE4ndert wurde",
+    "Evaluating\u2026": "Auswertung l\xE4uft\u2026",
+    "Evaluated at": "Ausgewertet um",
+    "the case as edited": "der bearbeitete Fall",
+    "The facts of the case. Change a value, add or remove a fact, or pick another case; then Re-evaluate": "Die Fakten des Falls. \xC4ndern Sie einen Wert, f\xFCgen Sie einen Fakt hinzu oder entfernen Sie einen, oder w\xE4hlen Sie einen anderen Fall; dann Neu auswerten",
+    "The facts the result still depends on: answer them to complete the case": "Die Fakten, von denen das Ergebnis noch abh\xE4ngt: Beantworten Sie sie, um den Fall zu vervollst\xE4ndigen",
+    "The answer to the view's question for this case, worked out from the rules and the facts on the left": "Die Antwort auf die Frage der Ansicht f\xFCr diesen Fall, ermittelt aus den Regeln und den Fakten links",
+    "The sections of the rules in order: which the case passes, and where it stops": "Die Abschnitte der Regeln der Reihe nach: welche der Fall besteht und wo er endet",
+    "Every step of the result that cites a source, in the order of the reasoning; \xA7 opens the passage": "Jeder Schritt des Ergebnisses, der eine Quelle zitiert, in der Reihenfolge der Begr\xFCndung; \xA7 \xF6ffnet die Textstelle",
+    "The facts the result rests on; when it fails, the conditions it did not meet and why": "Die Fakten, auf denen das Ergebnis beruht; wenn es fehlschl\xE4gt, die Bedingungen, die es nicht erf\xFCllt hat, und warum",
+    "The smallest changes to the facts of the case that would change the result": "Die kleinsten \xC4nderungen an den Fakten des Falls, die das Ergebnis \xE4ndern w\xFCrden",
+    "Further answers about this case, one row per answer": "Weitere Antworten zu diesem Fall, eine Zeile pro Antwort",
+    "The same question asked of other scenarios of the program": "Dieselbe Frage, anderen Szenarien des Programms gestellt",
+    "The documents the result cites, with the cited passages marked": "Die Dokumente, die das Ergebnis zitiert, mit markierten zitierten Textstellen",
+    "Every scenario of the program run through the view's question, beside the answer the scenario expects": "Jedes Szenario des Programms, durch die Frage der Ansicht gelaufen, neben der Antwort, die das Szenario erwartet",
+    "A text filled in from the result, to copy into a letter or a note": "Ein aus dem Ergebnis ausgef\xFCllter Text, zum Kopieren in einen Brief oder eine Notiz",
+    "Run in LPS": "In LPS ausf\xFChren",
+    "Legal View": "Rechtliche Ansicht",
+    "Legal View of This LPS Program": "Rechtliche Ansicht dieses LPS-Programms",
+    "This is an LPS program: it runs in time, one event after another, instead of answering queries.": "Dies ist ein LPS-Programm: Es l\xE4uft in der Zeit ab, ein Ereignis nach dem anderen, statt Abfragen zu beantworten.",
+    "Run this LPS program (the target language is: lps) in time with the LPS engine, in a new window: its timeline, state changes and explanations": "Dieses LPS-Programm (die Zielsprache ist: lps) in der Zeit mit der LPS-Engine ausf\xFChren, in einem neuen Fenster: seine Zeitleiste, seine Zustands\xE4nderungen und seine Erkl\xE4rungen",
+    "The legal view of this LPS program: who may do what, when, and with which effect \u2014 each action's integrity constraints as one permission rule, each causal law as an effect \u2014 an ordinary Logical English program, opened in a new tab with the program's own calls as queries": "Die rechtliche Ansicht dieses LPS-Programms: wer was tun darf, wann und mit welcher Wirkung \u2014 die Integrit\xE4tseinschr\xE4nkungen jeder Aktion als eine Erlaubnisregel, jedes Kausalgesetz als eine Wirkung \u2014 ein gew\xF6hnliches Programm in Logical English, ge\xF6ffnet in einem neuen Tab mit den eigenen Aufrufen des Programms als Abfragen",
+    "The legal view of this LPS program could not be drawn.": "Die rechtliche Ansicht dieses LPS-Programms konnte nicht erstellt werden.",
+    "What kind of thing each thing of the case is. They stay in the case as they are.": "Von welcher Art jedes Ding des Falls ist. Diese Angaben bleiben im Fall, wie sie sind.",
+    "Also stated": "Ebenfalls angegeben",
+    "Some facts of the case cannot be read by the rules as written: the result may be wrong.": "Einige Fakten des Falls k\xF6nnen von den Regeln so, wie sie geschrieben sind, nicht gelesen werden: Das Ergebnis kann falsch sein.",
+    "A value is written in a form the rules never read at that place (a number in quotes, a near miss of a value they read). Correct it and Re-evaluate.": "Ein Wert ist in einer Form geschrieben, die die Regeln an dieser Stelle nie lesen (eine Zahl in Anf\xFChrungszeichen, ein Wert, der einem gelesenen Wert fast gleicht). Korrigieren Sie den Wert und w\xE4hlen Sie Neu auswerten.",
+    "The view flags the case when": "Die Ansicht markiert den Fall, wenn",
+    "The result has more answers than are shown": "Das Ergebnis hat mehr Antworten, als angezeigt werden",
+    "Thinking\u2026": "Denkt nach\u2026",
+    "Only the questions the result can still depend on are asked": "Es werden nur die Fragen gestellt, von denen das Ergebnis noch abh\xE4ngen kann",
+    "The value, as the rules read it": "Der Wert, wie die Regeln ihn lesen",
+    "Next": "Weiter",
+    "State this value in the case and go on": "Diesen Wert im Fall angeben und fortfahren",
+    "Not known": "Nicht bekannt",
+    "Leave this fact unstated": "Diesen Fakt nicht angeben",
+    "Take back the last answer": "Die letzte Antwort zur\xFCcknehmen",
+    "Tests of": "Tests von",
+    "Running the tests\u2026": "Tests werden ausgef\xFChrt\u2026",
+    "only those that did not pass": "nur die, die nicht bestanden haben",
+    "(no answers)": "(keine Antworten)",
+    "Hide the tests that passed": "Bestandene Tests ausblenden",
+    "errors": "Fehler",
+    "tests": "Tests",
+    'This program has no tests: a scenario states them with "<query> expects answers [...]".': 'Dieses Programm hat keine Tests: Ein Szenario gibt sie mit "<Abfrage> erwartet Antworten [...]" an.',
+    "Got": "Erhalten",
+    "Select this scenario and query in the query panel": "Dieses Szenario und diese Abfrage im Abfragebereich ausw\xE4hlen",
+    "unknowns": "Unbekannte",
+    "Run the Program's Tests\u2026": "Tests des Programms ausf\xFChren\u2026",
+    'Run every expectation of the program (the "expects answers" lines of its scenarios) and list each with its outcome: passed, or what was expected and what came instead. A click on a row selects its scenario and query.': 'Jede Erwartung des Programms ausf\xFChren (die Zeilen "erwartet Antworten" seiner Szenarien) und jede mit ihrem Ergebnis auflisten: bestanden, oder was erwartet wurde und was stattdessen kam. Ein Klick auf eine Zeile w\xE4hlt ihr Szenario und ihre Abfrage aus.',
+    "A new tab with an empty Logical English program": "Ein neuer Tab mit einem leeren Programm in Logical English",
+    "Open a copy of a Logical English program published at a web address; its includes and cited documents resolve relative to that address": "Eine Kopie eines Programms in Logical English \xF6ffnen, das unter einer Webadresse ver\xF6ffentlicht ist; seine Einbindungen und zitierten Dokumente werden relativ zu dieser Adresse aufgel\xF6st",
+    "Translate a file of another system into Logical English \u2014 deterministically, no LLM \u2014 and open the result in a new tab: what could not be translated is kept as TODO comments, and the file itself stays beside the program (File > Show the Original)": "Eine Datei eines anderen Systems in Logical English \xFCbersetzen \u2014 deterministisch, ohne LLM \u2014 und das Ergebnis in einem neuen Tab \xF6ffnen: Was nicht \xFCbersetzt werden konnte, bleibt als TODO-Kommentare erhalten, und die Datei selbst bleibt neben dem Programm (Datei > Original anzeigen)",
+    "Import from Another System\u2026": "Aus einem anderen System importieren\u2026",
+    "Open a copy of one of the example programs this server keeps: your changes do not touch the server's file": "Eine Kopie eines der Beispielprogramme \xF6ffnen, die dieser Server bereith\xE4lt: Ihre \xC4nderungen ber\xFChren die Datei des Servers nicht",
+    "Save the active program to the file it was opened from": "Das aktive Programm in der Datei speichern, aus der es ge\xF6ffnet wurde",
+    "Save the active program under a new name": "Das aktive Programm unter einem neuen Namen speichern",
+    "Show the files this program was converted from (another system's rules, contract or product), kept in the sources folder beside it, in the source viewer": "Die Dateien, aus denen dieses Programm umgewandelt wurde (Regeln, Vertrag oder Produkt eines anderen Systems) und die im Ordner sources daneben liegen, in der Quellenanzeige anzeigen",
+    "Show the Original\u2026": "Original anzeigen\u2026",
+    "Cut the selection to the clipboard": "Die Auswahl in die Zwischenablage ausschneiden",
+    "Copy the selection to the clipboard": "Die Auswahl in die Zwischenablage kopieren",
+    "Paste the clipboard at the cursor": "Die Zwischenablage am Cursor einf\xFCgen",
+    "Find text in the program (Ctrl/Cmd+F)": "Text im Programm suchen (Ctrl/Cmd+F)",
+    "Find text and replace it": "Text suchen und ersetzen",
+    "Edit the program's scenarios in a form: each fact from one of the program's templates, one field per placeholder": "Die Szenarien des Programms in einem Formular bearbeiten: jeder Fakt aus einer der Vorlagen des Programms, ein Feld pro Platzhalter",
+    "Build or edit the program's queries in a form, from its templates, joined with and / or and negated with not": "Die Abfragen des Programms in einem Formular erstellen oder bearbeiten, aus seinen Vorlagen, verbunden mit und / oder und verneint mit nicht",
+    "Fold every rule and section to its first line, to see the outline": "Jede Regel und jeden Abschnitt auf die erste Zeile einklappen, um die Gliederung zu sehen",
+    "Unfold everything folded": "Alles Eingeklappte ausklappen",
+    "Light text on a dark background": "Heller Text auf dunklem Hintergrund",
+    "Dark text on a light background": "Dunkler Text auf hellem Hintergrund",
+    "Maximum contrast, for low vision or bright rooms": "Maximaler Kontrast, f\xFCr Sehschw\xE4che oder helle R\xE4ume",
+    "Smaller editor text": "Kleinerer Editortext",
+    "Medium editor text": "Mittlerer Editortext",
+    "Larger editor text": "Gr\xF6\xDFerer Editortext",
+    "Number the steps of an explanation hierarchically (1, 1.1, 1.2, \u2026)": "Die Schritte einer Erkl\xE4rung hierarchisch nummerieren (1, 1.1, 1.2, \u2026)",
+    "The API keys of the LLM providers, and the models the assistant uses (kept in this browser)": "Die API-Schl\xFCssel der LLM-Anbieter und die Modelle, die der Assistent verwendet (in diesem Browser gespeichert)",
+    "How explanations are shown: the prefix of failed steps, per-rule failure detail, repeated explanations, important reasons": "Wie Erkl\xE4rungen angezeigt werden: das Pr\xE4fix fehlgeschlagener Schritte, die Fehlerdetails pro Regel, wiederholte Erkl\xE4rungen, wichtige Gr\xFCnde",
+    "Copy this answer's text to the clipboard": "Den Text dieser Antwort in die Zwischenablage kopieren",
+    "This step is explained in full elsewhere in the explanation (repeats are hidden): go there": "Dieser Schritt wird an anderer Stelle der Erkl\xE4rung vollst\xE4ndig erkl\xE4rt (Wiederholungen sind ausgeblendet): dorthin gehen",
+    "Copy the explanation, as indented text, to the clipboard": "Die Erkl\xE4rung als einger\xFCckten Text in die Zwischenablage kopieren",
+    "Copy the explanation as a Mermaid flowchart, to paste into Markdown or a Mermaid editor": "Die Erkl\xE4rung als Mermaid-Flussdiagramm kopieren, zum Einf\xFCgen in Markdown oder einen Mermaid-Editor",
+    "Open the explanation at the reason that weighs most for this answer": "Die Erkl\xE4rung bei dem Grund \xF6ffnen, der f\xFCr diese Antwort am meisten wiegt",
+    "Walk through the explanation one reason at a time, strongest first: answer Yes or Not yet, and it goes deeper only where needed (a separate window)": "Die Erkl\xE4rung Grund f\xFCr Grund durchgehen, den st\xE4rksten zuerst: Antworten Sie Ja oder Noch nicht, und die Erkl\xE4rung geht nur dort tiefer, wo es n\xF6tig ist (in einem eigenen Fenster)",
+    "This server has no translator from another system.": "Dieser Server hat keinen \xDCbersetzer aus einem anderen System.",
+    "No original is kept for this program: it was not converted from another system's files (there is no sources folder beside it).": "F\xFCr dieses Programm wird kein Original aufbewahrt: Es wurde nicht aus den Dateien eines anderen Systems umgewandelt (es gibt keinen Ordner sources daneben).",
+    "The original files this program was converted from": "Die Originaldateien, aus denen dieses Programm umgewandelt wurde",
+    "Open it in the source viewer": "In der Quellenanzeige \xF6ffnen",
+    "The legal view is drawn from an LPS program: this document does not declare the target language lps (or does not load).": "Die rechtliche Ansicht wird aus einem LPS-Programm erstellt: Dieses Dokument gibt die Zielsprache lps nicht an (oder l\xE4dt nicht).",
+    "Export to Another System\u2026": "In ein anderes System exportieren\u2026",
+    "Write this program in another system's format \u2014 deterministically, no LLM \u2014 with an exporter the server has for it (for instance a Bitcoin spending policy as a Miniscript policy): the result is shown to copy or save, with links to a public sandbox where there is one": "Dieses Programm im Format eines anderen Systems schreiben \u2014 deterministisch, ohne LLM \u2014 mit einem Exportprogramm, das der Server daf\xFCr hat (zum Beispiel eine Bitcoin-Ausgaberichtlinie als Miniscript-Richtlinie): Das Ergebnis wird zum Kopieren oder Speichern angezeigt, mit Links zu einer \xF6ffentlichen Testumgebung, wo es eine gibt",
+    "Exported as": "Exportiert als",
+    "Copy the exported text to the clipboard": "Den exportierten Text in die Zwischenablage kopieren",
+    "Save\u2026": "Speichern\u2026",
+    "Save the exported text as a file": "Den exportierten Text als Datei speichern",
+    "Open in a new tab": "In neuem Tab \xF6ffnen",
+    "Could not export": "Export nicht m\xF6glich",
+    "No exporter on this server can write this program in another system's format.": "Kein Exportprogramm auf diesem Server kann dieses Programm im Format eines anderen Systems schreiben.",
+    "Export this program as": "Dieses Programm exportieren als",
+    "Not translated to": "Nicht \xFCbersetzt nach",
+    "Go to this line": "Zu dieser Zeile gehen",
+    "Feedback": "Feedback",
+    "Report a problem or send feedback": "Ein Problem melden oder Feedback senden",
+    "Description": "Beschreibung",
+    "What happened? What did you expect?": "Was ist passiert? Was haben Sie erwartet?",
+    "Email": "E-Mail",
+    "Thank you for your feedback!": "Vielen Dank f\xFCr Ihr Feedback!",
+    "(required)": "(erforderlich)",
+    "reference": "Referenz",
+    "warnings guide": "Leitfaden zu den Warnungen",
+    "Help: running queries, scenarios and the engines": "Hilfe: Abfragen ausf\xFChren, Szenarien und die Engines",
+    "Step over": "Prozedurschritt",
+    "Step over (F10) \u2014 advance to the next goal at this level or above, without stopping inside the goals the current one calls.": "Prozedurschritt (F10) \u2014 geht zum n\xE4chsten Ziel auf dieser Ebene oder dar\xFCber weiter, ohne innerhalb der Ziele anzuhalten, die das aktuelle Ziel aufruft.",
+    "Breakpoint": "Haltepunkt",
+    "The query did not finish within {n} seconds and was stopped: a rule may loop, or the search may be too large.": "Die Abfrage wurde nicht innerhalb von {n} Sekunden fertig und wurde angehalten: Eine Regel l\xE4uft vielleicht in einer Schleife, oder die Suche ist zu gro\xDF.",
+    "Search the documentation": "Dokumentation durchsuchen",
+    "Search": "Suchen",
+    "Search the documentation\u2026": "Dokumentation durchsuchen\u2026",
+    "Search the text of every document of this documentation (words that must all occur, or a phrase in quotes); right-click in the program for the documentation about what is under the cursor": "Den Text jedes Dokuments dieser Dokumentation durchsuchen (W\xF6rter, die alle vorkommen m\xFCssen, oder eine Wortfolge in Anf\xFChrungszeichen); klicken Sie im Programm mit der rechten Maustaste, um die Dokumentation zu dem zu sehen, was unter dem Cursor steht",
+    "Documentation for this": "Dokumentation dazu",
+    "Documentation for \u201C{w}\u201D": "Dokumentation zu \u201E{w}\u201C",
+    "Documentation for \u201C{w}\u201D, a keyword": "Dokumentation zu \u201E{w}\u201C (ein Schl\xFCsselwort)",
+    "Documentation for \u201C{w}\u201D, {what}": "Dokumentation zu \u201E{w}\u201C ({what})",
+    "a TODO comment": "ein TODO-Kommentar",
+    "a comment": "ein Kommentar",
+    "a string": "eine Zeichenkette",
+    "a date": "ein Datum",
+    "a number": "eine Zahl",
+    "a variable": "eine Variable",
+    "a word of a template": "ein Wort einer Vorlage",
+    "an operator": "ein Operator",
+    "Other systems: importing and exporting": "Andere Systeme: importieren und exportieren",
+    "The map of every system Logical English translates from or to, how opening another system's file, Show the Original and exporting work, and the refusals.": "Die \xDCbersicht aller Systeme, aus denen oder in die Logical English \xFCbersetzt, wie das \xD6ffnen der Datei eines anderen Systems, Original anzeigen und das Exportieren funktionieren, und die Ablehnungen.",
+    "Other systems: import and export": "Andere Systeme: Import und Export",
+    "The map of the integrations with other rule and contract systems, and a document for each.": "Die \xDCbersicht der Integrationen mit anderen Regel- und Vertragssystemen, und ein Dokument f\xFCr jede.",
+    "Start here: a hands-on tutorial that builds small programs \u2014 a tea party, a flying dragon, a slice of British nationality law, a tea shop \u2014 teaching how to write, query, test and debug LE in the editor, then citations, views and a second engine.": "Beginnen Sie hier: eine praktische Einf\xFChrung, die kleine Programme aufbaut \u2014 eine Teegesellschaft, einen fliegenden Drachen, einen Ausschnitt des britischen Staatsangeh\xF6rigkeitsrechts, einen Teeladen \u2014 und zeigt, wie Sie LE im Editor schreiben, abfragen, testen und Fehler darin suchen, danach Zitate, Ansichten und eine zweite Engine.",
+    "A hands-on tutorial: write, query, test and debug small LE programs.": "Eine praktische Einf\xFChrung: kleine LE-Programme schreiben, abfragen, testen und Fehler darin suchen.",
+    "MENU LANGUAGE": "SPRACHE DER MEN\xDCS",
+    "The language of the menus, buttons and messages. The language of a program is set by the program's own first sentence, not here.": "Die Sprache der Men\xFCs, Schaltfl\xE4chen und Meldungen. Die Sprache eines Programms legt der erste Satz des Programms selbst fest, nicht diese Einstellung.",
+    "Show the menus, buttons and messages in this language (the page reloads)": "Men\xFCs, Schaltfl\xE4chen und Meldungen in dieser Sprache anzeigen (die Seite wird neu geladen)",
+    "Copy the web address of this folder": "Webadresse dieses Ordners kopieren",
+    "(guide)": "(Anleitung)",
+    "Logical English in other languages": "Logical English in anderen Sprachen",
+    "Writing programs in Portuguese, Spanish, French, Italian or German, and choosing the language of the menus.": "Programme auf Portugiesisch, Spanisch, Franz\xF6sisch, Italienisch oder Deutsch schreiben und die Sprache der Men\xFCs w\xE4hlen.",
+    "About this folder": "\xDCber diesen Ordner",
+    "Copy the web address of this README": "Webadresse dieser README kopieren",
+    "Sign in with Google": "Mit Google anmelden",
+    "Sign in with GitHub": "Mit GitHub anmelden",
+    "Or, with an account we created for you:": "Oder mit einem Konto, das wir f\xFCr Sie angelegt haben:",
+    "Anybody may sign in with Google or GitHub. A licence is attached to the email address of the account.": "Jede Person kann sich mit Google oder GitHub anmelden. Eine Lizenz ist an die E-Mail-Adresse des Kontos gebunden.",
+    "Signing in is not available on this server.": "Auf diesem Server ist keine Anmeldung m\xF6glich.",
+    "Search the examples": "Beispiele durchsuchen",
+    "search \u2014 a few words, or a phrase in quotes": "Suche \u2014 einige W\xF6rter oder eine Wortfolge in Anf\xFChrungszeichen",
+    "in names": "in den Namen",
+    "in templates": "in den Vorlagen",
+    "in the text": "im Text",
+    "everywhere": "\xFCberall",
+    "No example matches the search.": "Kein Beispiel passt zur Suche.",
+    "Where to search: the names of the programs, their templates (the declaration sections), the whole text, or all three": "Wo gesucht wird: in den Namen der Programme, in ihren Vorlagen (den Abschnitten mit den Deklarationen), im ganzen Text oder in allen dreien",
+    "Open": "\xD6ffnen",
+    "Type a few words to search the examples.": "Geben Sie einige W\xF6rter ein, um die Beispiele zu durchsuchen.",
+    "The search failed.": "Die Suche ist fehlgeschlagen.",
+    "Waiting for the editor...": "Warten auf den Editor...",
+    "No editor answered. Open the Source Graph from the editor: Misc > View Source Graph.": "Kein Editor hat geantwortet. \xD6ffnen Sie den Quellgraphen aus dem Editor: Sonstiges > Quellgraph anzeigen.",
+    "Loading the program...": "Programm wird geladen...",
+    "The server no longer has the program loaded. Loading it again...": "Der Server hat das Programm nicht mehr geladen. Das Programm wird erneut geladen...",
+    "The server could not build the graph: ": "Der Server konnte den Graphen nicht aufbauen: ",
+    "unexpected reply": "unerwartete Antwort",
+    "The program has nothing to show: no templates, rules, facts, scenarios or queries.": "Das Programm hat nichts zu zeigen: keine Vorlagen, Regeln, Fakten, Szenarien oder Abfragen.",
+    "Could not reach the server to build the graph.": "Der Server war nicht erreichbar, um den Graphen aufzubauen.",
+    "The program could not be loaded: ": "Das Programm konnte nicht geladen werden: ",
+    "LE Contract Assistant": "LE Contract Assistant",
+    "The LE Contract Assistant needs the LE Contract Assistant licence.": "Der LE Contract Assistant ben\xF6tigt die Lizenz LE Contract Assistant.",
+    "It writes the first draft of a Logical English program from a contract, its schedules and its cases.": "Er schreibt den ersten Entwurf eines Programms in Logical English aus einem Vertrag, seinen Anlagen und seinen F\xE4llen.",
+    "Sign in with an account that holds the licence": "Melden Sie sich mit einem Konto an, das die Lizenz besitzt",
+    "Write to support@logicalcontracts.com to ask for one.": "Schreiben Sie an support@logicalcontracts.com, um eine Lizenz anzufragen.",
+    "The LE Contract Assistant is not installed on this server.": "Der LE Contract Assistant ist auf diesem Server nicht installiert.",
+    "It is a licensed product of Logical Contracts (the LE Contract Assistant licence).": "Er ist ein lizenziertes Produkt von Logical Contracts (die Lizenz LE Contract Assistant).",
+    "Smart editing": "Intelligente Bearbeitung",
+    "While you type a rule, a scenario or a query, offer the rest of the sentence from the program's templates (Tab moves between its places), and the section headings at the margin. Off: the editor offers only the words already in the document.": "W\xE4hrend Sie eine Regel, ein Szenario oder eine Abfrage schreiben, schl\xE4gt der Editor den Rest des Satzes aus den Vorlagen des Programms vor (Tab springt von einer Stelle zur n\xE4chsten) und am Rand die \xDCberschriften der Abschnitte. Aus: Der Editor schl\xE4gt nur die W\xF6rter vor, die schon im Dokument stehen.",
+    "The question this view answers: the program has several, and says nothing of which matters most": "Die Frage, die diese Ansicht beantwortet: Das Programm hat mehrere Fragen und sagt nicht, welche am wichtigsten ist",
+    "case {i} of {n}": "Fall {i} von {n}",
+    "covered by scenario {s}": "abgedeckt durch das Szenario {s}",
+    "no scenario covers this case": "kein Szenario deckt diesen Fall ab",
+    "Add as scenario": "Als Szenario hinzuf\xFCgen",
+    "Add to the program a scenario that meets this case": "Dem Programm ein Szenario hinzuf\xFCgen, das diesen Fall erf\xFCllt",
+    "These are the answers found before the query was interrupted. There may be more.": "Dies sind die Antworten, die gefunden wurden, bevor die Abfrage unterbrochen wurde. Es kann weitere geben.",
+    "These are the answers found within {n} seconds, when the query was stopped. There may be more.": "Dies sind die Antworten, die innerhalb von {n} Sekunden gefunden wurden, als die Abfrage angehalten wurde. Es kann weitere geben.",
+    "Keep going": "Weitermachen",
+    "Run the query again, with {n} seconds to find the answers.": "Die Abfrage erneut ausf\xFChren, mit {n} Sekunden, um die Antworten zu finden.",
+    'This program is large. To answer in time, the explanations leave out why each condition of the form "it is not the case that ..." holds.': "Dieses Programm ist gro\xDF. Um rechtzeitig zu antworten, lassen die Erkl\xE4rungen aus, warum jede Bedingung der Form \u201Ees ist nicht der Fall, dass ...\u201C gilt.",
+    "Show the Ledger\u2026": "Migrationsprotokoll anzeigen\u2026",
+    "Show the ledger of a program translated from another system: for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all": "Das Migrationsprotokoll eines Programms anzeigen, das aus einem anderen System \xFCbersetzt wurde: f\xFCr jedes Element der Quelle, ob es mit unver\xE4nderter Bedeutung, mit ge\xE4nderter Bedeutung (und warum) oder gar nicht \xFCbersetzt wurde",
+    "Show the Ledger": "Migrationsprotokoll anzeigen",
+    "This program has no ledger: it was not translated from another system, or the translation was made more than a day ago and was not saved with its ledger.": "Dieses Programm hat kein Migrationsprotokoll: Es wurde nicht aus einem anderen System \xFCbersetzt, oder die \xDCbersetzung wurde vor mehr als einem Tag gemacht und nicht mit ihrem Migrationsprotokoll gespeichert.",
+    "Save the Ledger": "Migrationsprotokoll speichern",
+    "Save the ledger as a file on your computer, beside the program": "Das Migrationsprotokoll als Datei auf Ihrem Computer speichern, neben dem Programm",
+    "Open the ledger": "Migrationsprotokoll \xF6ffnen",
+    "The ledger says, for each element of the source, whether it was translated with its meaning unchanged, with a change of meaning (and why), or not at all. File > Show the Ledger opens it later.": "Das Migrationsprotokoll sagt f\xFCr jedes Element der Quelle, ob es mit unver\xE4nderter Bedeutung, mit ge\xE4nderter Bedeutung (und warum) oder gar nicht \xFCbersetzt wurde. Datei > Migrationsprotokoll anzeigen \xF6ffnet es sp\xE4ter.",
+    "The server has a key: enter yours to use it instead": "Der Server hat einen Schl\xFCssel: Geben Sie Ihren eigenen ein, um ihn stattdessen zu verwenden",
+    "Without a key of your own, the server's key is used, within a daily limit. With your own key, there is no limit.": "Ohne eigenen Schl\xFCssel wird der Schl\xFCssel des Servers verwendet, innerhalb einer t\xE4glichen Grenze. Mit Ihrem eigenen Schl\xFCssel gibt es keine Grenze.",
+    "Find Cases": "F\xE4lle suchen",
+    "Find cases": "F\xE4lle suchen",
+    "Which cases make it the case that\u2026": "Welche F\xE4lle bewirken, dass\u2026",
+    "Is there a case in which\u2026": "Gibt es einen Fall, in dem\u2026",
+    "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Alle F\xE4lle durchsuchen, die das Programm zul\xE4sst, nicht nur seine Szenarien: die F\xE4lle, in denen ein Satz gilt, oder einen Fall, der eine Eigenschaft verletzt (Sprachreferenz \xA717.11)",
+    "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Alle F\xE4lle auflisten, in denen ein Satz gilt: was ein Szenario sagen m\xFCsste und nicht sagen d\xFCrfte, damit der Satz gilt, mit den Szenarien des Programms, die jeden Fall erf\xFCllen",
+    "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Einen Fall suchen, in dem ein Satz gilt, zum Beispiel einen Fall, der eine Eigenschaft des Programms verletzt. Die Antwort ist der Fall oder die Aussage, dass es keinen solchen Fall gibt",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel \u201Ea person gets rent support\u201C. Jede Antwort ist ein Fall, in dem der Satz gilt: was ein Szenario sagen muss und nicht sagen darf. Die Antwort nennt auch die Szenarien des Programms, die den Fall erf\xFCllen.",
+    'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel \u201Ea person is eligible and the person is excluded\u201C. Um eine Eigenschaft zu pr\xFCfen, schreiben Sie, was die Eigenschaft verletzt. Die Antwort ist ein Fall, in dem der Satz gilt, oder die Aussage, dass es keinen solchen Fall gibt.",
+    "The search runs as a custom query that you can change and run again.": "Die Suche l\xE4uft als benutzerdefinierte Abfrage, die Sie \xE4ndern und erneut ausf\xFChren k\xF6nnen.",
+    "Save as a Readable Document\u2026": "Als lesbares Dokument speichern\u2026",
+    "Save as a Readable Document": "Als lesbares Dokument speichern",
+    "Make a document of this program for a person to read without the editor \u2014 every statement exactly as written, each sentence linked to where it is defined, with contents and an index of the templates \u2014 and open or save it as a web page, a PDF, a Word document or Markdown. The comments are left out unless you include them": "Aus diesem Programm ein Dokument machen, das eine Person ohne den Editor lesen kann \u2014 jede Aussage genau wie geschrieben, jeder Satz verkn\xFCpft mit der Stelle, an der er definiert ist, mit Inhaltsverzeichnis und einem Verzeichnis der Vorlagen \u2014 und es als Webseite, PDF, Word-Dokument oder Markdown \xF6ffnen oder speichern. Die Kommentare werden weggelassen, wenn Sie sie nicht einschlie\xDFen",
+    "A document of the program for a person to read without the editor: every statement exactly as written, with contents, links from each sentence to where it is defined, and an index of the templates.": "Ein Dokument des Programms, das eine Person ohne den Editor lesen kann: jede Aussage genau wie geschrieben, mit Inhaltsverzeichnis, Verkn\xFCpfungen von jedem Satz zu der Stelle, an der er definiert ist, und einem Verzeichnis der Vorlagen.",
+    "Web page (HTML)": "Webseite (HTML)",
+    "PDF (printed from the browser)": "PDF (aus dem Browser gedruckt)",
+    "Word (.docx)": "Word (.docx)",
+    "Markdown": "Markdown",
+    "Format": "Format",
+    "Style": "Stil",
+    "Comments": "Kommentare",
+    "Plain": "Schlicht",
+    "Compact": "Kompakt",
+    "Legal": "Juristisch",
+    "Colourful": "Farbig",
+    "Editor colours": "Farben des Editors",
+    "How the web page looks when it opens. The page has a menu to change the style.": "Wie die Webseite aussieht, wenn sie sich \xF6ffnet. Die Seite hat ein Men\xFC, um den Stil zu \xE4ndern.",
+    "Include the comments of the program": "Die Kommentare des Programms einschlie\xDFen",
+    "The comments are the author's notes and can be private, so they are left out unless you include them. A comment that starts with Copyright, Licence or Disclaimer is a notice: it is always kept, at the start of the document.": "Die Kommentare sind die Notizen des Autors und k\xF6nnen privat sein. Deshalb werden sie weggelassen, wenn Sie sie nicht einschlie\xDFen. Ein Kommentar, der mit Copyright, Lizenz oder Haftungsausschluss beginnt, ist ein Hinweis: Er bleibt immer erhalten, am Anfang des Dokuments.",
+    "Open the document in a new tab of the browser": "Das Dokument in einem neuen Tab des Browsers \xF6ffnen",
+    "Save the document as a file on your computer": "Das Dokument als Datei auf Ihrem Computer speichern",
+    "Making the document\u2026": "Dokument wird erstellt\u2026",
+    'The document opens in a new tab with the print dialog: choose "Save as PDF" there.': "Das Dokument \xF6ffnet sich in einem neuen Tab mit dem Druckdialog: W\xE4hlen Sie dort \u201EAls PDF speichern\u201C.",
+    "Untitled program": "Programm ohne Titel",
+    "Knowledge base": "Wissensbasis",
+    "Included resources": "Eingebundene Ressourcen",
+    "Services": "Dienste",
+    "Kinds of things": "Arten von Dingen",
+    "Fluents": "Fluenten",
+    "Events": "Ereignisse",
+    "Actions": "Aktionen",
+    "Constants": "Konstanten",
+    "Functions": "Funktionen",
+    "Decision table": "Entscheidungstabelle",
+    "View": "Ansicht",
+    "Cells of a service": "Zellen eines Dienstes",
+    "Section": "Abschnitt",
+    "A program in Logical English": "Ein Programm in Logischem Deutsch",
+    "A program in Logical English for LPS (Logic Production System)": "Ein Programm in Logischem Deutsch f\xFCr LPS (Logic Production System)",
+    "Contents": "Inhalt",
+    "Notices": "Hinweise",
+    "Index of templates": "Verzeichnis der Vorlagen",
+    "Each template of the program, with the number of the statement that declares it, the statements that define it, and the statements that use it.": "Jede Vorlage des Programms, mit der Nummer der Aussage, die sie deklariert, den Aussagen, die sie definieren, und den Aussagen, die sie verwenden.",
+    "declared in": "deklariert in",
+    "defined in": "definiert in",
+    "also defined in": "auch definiert in",
+    "used in": "verwendet in",
+    "not defined by a rule": "nicht durch eine Regel definiert",
+    "The comments of the program are not shown.": "Die Kommentare des Programms werden nicht gezeigt.",
+    "The comments of the program are shown in grey.": "Die Kommentare des Programms werden in Grau gezeigt.",
+    "Print or save as PDF": "Drucken oder als PDF speichern",
+    "How to read this document": "Wie dieses Dokument zu lesen ist",
+    "This document is the program, word for word. Each numbered statement is one statement of the program.": "Dieses Dokument ist das Programm, Wort f\xFCr Wort. Jede nummerierte Aussage ist eine Aussage des Programms.",
+    "Words of Logical English itself, such as if, and, or": "W\xF6rter der Sprache selbst, wie wenn, und, oder",
+    "The words of a template: select them to go to where the sentence is defined": "Die W\xF6rter einer Vorlage: W\xE4hlen Sie sie aus, um zu der Stelle zu gehen, an der der Satz definiert ist",
+    "The words of a template where a rule or a fact defines it": "Die W\xF6rter einer Vorlage an der Stelle, an der eine Regel oder ein Fakt sie definiert",
+    "A variable: it stands for any thing of its kind": "Eine Variable: Sie steht f\xFCr ein beliebiges Ding ihrer Art",
+    "A value: one fixed thing, number or text": "Ein Wert: ein festes Ding, eine feste Zahl oder ein fester Text",
+    "A place of a template, which a sentence fills": "Eine Stelle einer Vorlage, die ein Satz f\xFCllt",
+    "Template": "Vorlage",
+    "Fluent": "Fluent",
+    "Event": "Ereignis",
+    "Action": "Aktion",
+    "Constant": "Konstante",
+    "Function": "Funktion",
+    "Rule": "Regel",
+    "Fact": "Fakt",
+    "Causal law": "Kausalgesetz",
+    "Reactive rule": "Reaktive Regel",
+    "Constraint": "Einschr\xE4nkung",
+    "Initial state": "Anfangszustand",
+    "Goal": "Ziel",
+    "Setting": "Einstellung",
+    "Expected answers": "Erwartete Antworten",
+    "Fact of the scenario": "Fakt des Szenarios",
+    "Included resource": "Eingebundene Ressource",
+    "Service": "Dienst",
+    "Sentence of a view": "Satz einer Ansicht",
+    "Kind of thing": "Art von Ding",
+    "Statement": "Aussage",
+    "Comment": "Kommentar",
+    "Made from {name} on {date}.": "Erstellt aus {name} am {date}.",
+    "The server did not answer, so the document was not made. Try again.": "Der Server hat nicht geantwortet, deshalb wurde das Dokument nicht erstellt. Versuchen Sie es erneut.",
+    "Copy link": "Link kopieren",
+    "The link opens the document only for people who are signed in to this server; anybody else is asked to sign in first.": "Der Link \xF6ffnet das Dokument nur f\xFCr Personen, die an diesem Server angemeldet sind; alle anderen m\xFCssen sich zuerst anmelden.",
+    "It shows the program as the server keeps it, without your unsaved changes.": "Er zeigt das Programm so, wie der Server es aufbewahrt, ohne Ihre nicht gespeicherten \xC4nderungen.",
+    "Link copied.": "Link kopiert.",
+    "This version of the editor runs in the browser and has no server, so a document has no address to share.": "Diese Version des Editors l\xE4uft im Browser und hat keinen Server, deshalb hat ein Dokument keine Adresse zum Teilen.",
+    "Only a program that the server keeps has a link: open the program from the server's examples.": "Nur ein Programm, das der Server aufbewahrt, hat einen Link: \xD6ffnen Sie das Programm aus den Beispielen des Servers.",
+    "Copy the address of this document, to send to somebody. It opens only for people who are signed in to this server.": "Die Adresse dieses Dokuments kopieren, um sie jemandem zu senden. Das Dokument \xF6ffnet sich nur f\xFCr Personen, die an diesem Server angemeldet sind.",
+    "The server did not answer. Check the connection and try again.": "Der Server hat nicht geantwortet. Pr\xFCfen Sie die Verbindung und versuchen Sie es erneut.",
+    "1 fact in the program": "1 Fakt im Programm",
+    "All the scenarios": "Alle Szenarien",
+    "As a hierarchy: each box is below or after the boxes that use it": "Als Hierarchie: Jedes K\xE4stchen steht unter oder nach den K\xE4stchen, die es verwenden",
+    "As a network: boxes that are connected come near each other": "Als Netz: Verbundene K\xE4stchen r\xFCcken nahe zueinander",
+    'Below each condition, show in how many scenarios the condition is true (for example, "held in 2 of 5").': "Unter jeder Bedingung zeigen, in wie vielen Szenarien die Bedingung wahr ist (zum Beispiel \u201Ewahr in 2 von 5\u201C).",
+    "Building the tree and running the scenarios...": "Der Baum wird aufgebaut und die Szenarien werden ausgef\xFChrt...",
+    "CALCULATION OR COMPARISON": "BERECHNUNG ODER VERGLEICH",
+    "CONDITION": "BEDINGUNG",
+    "Click: show it in the editor. Double-click: fold or unfold.": "Klick: im Editor zeigen. Doppelklick: einklappen oder ausklappen.",
+    "Click: show which conditions are true in this scenario. Double-click: show the scenario in the editor.": "Klick: zeigen, welche Bedingungen in diesem Szenario wahr sind. Doppelklick: das Szenario im Editor zeigen.",
+    "Copy a link that opens the graph on this box": "Einen Link kopieren, der den Graphen bei diesem K\xE4stchen \xF6ffnet",
+    "Copy the text of this box to the clipboard": "Den Text dieses K\xE4stchens in die Zwischenablage kopieren",
+    "Could not reach the server to build the tree.": "Der Server war nicht erreichbar, um den Baum aufzubauen.",
+    "Depends-on": "H\xE4ngt ab von",
+    "Depth": "Tiefe",
+    "Double-click: fold or unfold.": "Doppelklick: einklappen oder ausklappen.",
+    "Error": "Fehler",
+    "FACTS": "FAKTEN",
+    "Fail": "Nicht bestanden",
+    "From left to right": "Von links nach rechts",
+    "From top to bottom": "Von oben nach unten",
+    "GIVEN BY THE SCENARIOS": "VON DEN SZENARIEN GEGEBEN",
+    "GROUP OF CONDITIONS": "GRUPPE VON BEDINGUNGEN",
+    "Get the graph again from the program in the editor, after you change the program": "Den Graphen erneut aus dem Programm im Editor holen, nachdem Sie das Programm ge\xE4ndert haben",
+    "Get the tree again from the program in the editor, after you change the program": "Den Baum erneut aus dem Programm im Editor holen, nachdem Sie das Programm ge\xE4ndert haben",
+    "Held counts": "Z\xE4hlungen",
+    "How many levels of conditions to show around the query. More levels show more detail, but the tree gets larger.": "Wie viele Ebenen von Bedingungen um die Abfrage gezeigt werden. Mehr Ebenen zeigen mehr Einzelheiten, aber der Baum wird gr\xF6\xDFer.",
+    "How the boxes are put on the page": "Wie die K\xE4stchen auf der Seite angeordnet werden",
+    "In layers: each box is after the boxes that it uses": "In Schichten: Jedes K\xE4stchen steht nach den K\xE4stchen, die es verwendet",
+    "In rows and columns": "In Zeilen und Spalten",
+    "Is-a": "Ist-ein",
+    "Logical English Graph View": "Graphansicht von Logical English",
+    "Logical English Knowledge Graph": "Wissensgraph von Logical English",
+    "Logical English Radial Tree": "Radialbaum von Logical English",
+    "Move the graph to the centre of the window, at the same zoom": "Den Graphen in die Mitte des Fensters verschieben, mit demselben Zoom",
+    "NO": "NEIN",
+    "NOT": "NICHT",
+    "AND": "UND",
+    "OR": "ODER",
+    "FOR ALL": "F\xDCR ALLE",
+    "Negates": "Verneint",
+    "No editor answered. Open the Radial Tree from the editor: select a query, then Misc > Radial Tree.": "Kein Editor hat geantwortet. \xD6ffnen Sie den Radialbaum aus dem Editor: W\xE4hlen Sie eine Abfrage aus, dann Sonstiges > Radialbaum.",
+    "No query. Open the Radial Tree from the editor: select a query, then Misc > Radial Tree.": "Keine Abfrage. \xD6ffnen Sie den Radialbaum aus dem Editor: W\xE4hlen Sie eine Abfrage aus, dann Sonstiges > Radialbaum.",
+    "No scenario expects answers for this query.": "Kein Szenario erwartet Antworten f\xFCr diese Abfrage.",
+    "On a circle": "Auf einem Kreis",
+    "Pass": "Bestanden",
+    "Passed when the answers are the expected answers": "Bestanden, wenn die Antworten die erwarteten Antworten sind",
+    "Put the graph again as a tree that starts at this box": "Den Graphen erneut als Baum anordnen, der bei diesem K\xE4stchen beginnt",
+    "QUERY": "ABFRAGE",
+    "RULE": "REGEL",
+    "Radial Tree": "Radialbaum",
+    "Rules": "Regeln",
+    "Select a query in the Query panel first. The Radial Tree shows one query of the program.": "W\xE4hlen Sie zuerst eine Abfrage im Bereich Abfragen aus. Der Radialbaum zeigt eine Abfrage des Programms.",
+    "Show the conditions that come from facts: the facts of the program and the facts that the scenarios give.": "Die Bedingungen zeigen, die aus Fakten kommen: die Fakten des Programms und die Fakten, die die Szenarien geben.",
+    "Show the facts of one scenario only, or of all the scenarios (None). The facts show when Facts and Scenarios are both selected below.": "Die Fakten nur eines Szenarios oder aller Szenarien (Keine) zeigen. Die Fakten erscheinen, wenn unten Fakten und Szenarien beide ausgew\xE4hlt sind.",
+    "Show the facts: the sentences without conditions, in the knowledge base and (with Scenarios) in the scenarios": "Die Fakten zeigen: die S\xE4tze ohne Bedingungen, in der Wissensbasis und (mit Szenarien) in den Szenarien",
+    'Show the lines from a rule to each template that it uses with "it is not the case that"': "Die Linien von einer Regel zu jeder Vorlage zeigen, die die Regel mit \u201Ees ist nicht der Fall, dass\u201C verwendet",
+    "Show the lines from a rule to the rules and facts that it depends on": "Die Linien von einer Regel zu den Regeln und Fakten zeigen, von denen die Regel abh\xE4ngt",
+    "Show the lines from a rule, a fact or a query to each template that it uses": "Die Linien von einer Regel, einem Fakt oder einer Abfrage zu jeder Vorlage zeigen, die sie verwenden",
+    "Show the lines from a type to the type that it is a kind of": "Die Linien von einem Typ zu dem Typ zeigen, von dem er eine Art ist",
+    "Show the panel with the scenarios and their test results for this query. Click a scenario in the panel to show which conditions are true in it.": "Den Bereich mit den Szenarien und ihren Testergebnissen f\xFCr diese Abfrage zeigen. Klicken Sie im Bereich auf ein Szenario, um zu zeigen, welche Bedingungen darin wahr sind.",
+    "Show the queries: the questions that the program declares": "Die Abfragen zeigen: die Fragen, die das Programm deklariert",
+    'Show the rules: the sentences with "if" that conclude something from conditions': "Die Regeln zeigen: die S\xE4tze mit \u201Ewenn\u201C, die aus Bedingungen etwas schlie\xDFen",
+    "Show the scenarios: the sets of facts that describe one case each": "Die Szenarien zeigen: die Mengen von Fakten, die je einen Fall beschreiben",
+    'Show the templates: the sentence patterns that the program declares, for example "*a person* is happy"': "Die Vorlagen zeigen: die Satzmuster, die das Programm deklariert, zum Beispiel \u201E*eine Person* ist gl\xFCcklich\u201C",
+    "Show the types: the kinds of thing in the templates (for example, a person), and which type is a kind of which": "Die Typen zeigen: die Arten von Dingen in den Vorlagen (zum Beispiel eine Person), und welcher Typ eine Art von welchem ist",
+    "Tests": "Tests",
+    "The answers that the query gets in the scenario": "Die Antworten, die die Abfrage im Szenario erh\xE4lt",
+    'The answers that the scenario expects (its "expects answers" line)': "Die Antworten, die das Szenario erwartet (seine Zeile \u201Eexpects answers\u201C)",
+    "The direction of the layers, for the ELK and Dagre layouts": "Die Richtung der Schichten, f\xFCr die Anordnungen ELK und Dagre",
+    "The kinds of box that show in the graph": "Die Arten von K\xE4stchen, die im Graphen erscheinen",
+    "The kinds of line that show in the graph": "Die Arten von Linien, die im Graphen erscheinen",
+    "The program has no query with this name: ": "Das Programm hat keine Abfrage mit diesem Namen: ",
+    "The program has no scenarios.": "Das Programm hat keine Szenarien.",
+    "The scenario: the facts of one case": "Das Szenario: die Fakten eines Falls",
+    'The selection is not a query. Select a query of the program (a "query ... is:" statement), then try again.': "Die Auswahl ist keine Abfrage. W\xE4hlen Sie eine Abfrage des Programms aus (eine Aussage \u201EAbfrage ... ist:\u201C) und versuchen Sie es dann erneut.",
+    "The server could not build the tree: ": "Der Server konnte den Baum nicht aufbauen: ",
+    "The time limit stopped some checks: some counts are incomplete.": "Die Zeitgrenze hat einige Pr\xFCfungen angehalten: Einige Z\xE4hlungen sind unvollst\xE4ndig.",
+    "The tree is too large: some conditions are not unfolded.": "Der Baum ist zu gro\xDF: Einige Bedingungen sind nicht ausgeklappt.",
+    "Type words to find the boxes that contain them. The other boxes become pale.": "Geben Sie W\xF6rter ein, um die K\xE4stchen zu finden, die sie enthalten. Die anderen K\xE4stchen werden blass.",
+    "Types": "Typen",
+    "Unknown": "Unbekannt",
+    "Uses": "Verwendet",
+    "YES": "JA",
+    "Zoom and move the graph so that all of it shows in the window": "Den Graphen so vergr\xF6\xDFern oder verkleinern und verschieben, dass er ganz im Fenster erscheint",
+    "Zoom and move the tree so that all of it shows in the window": "Den Baum so vergr\xF6\xDFern oder verkleinern und verschieben, dass er ganz im Fenster erscheint",
+    "Zoom in": "Vergr\xF6\xDFern",
+    "Zoom out": "Verkleinern",
+    "calculation or comparison": "Berechnung oder Vergleich",
+    "facts in the program": "Fakten im Programm",
+    "folded: double-click to unfold": "eingeklappt: Doppelklick zum Ausklappen",
+    "given by the scenarios": "von den Szenarien gegeben",
+    "held in": "wahr in",
+    "more conditions: double-click, or increase the depth": "weitere Bedingungen: Doppelklick, oder erh\xF6hen Sie die Tiefe",
+    "no rule or fact gives it": "keine Regel und kein Fakt ergibt sie",
+    "none": "keine",
+    "not checked (time limit)": "nicht gepr\xFCft (Zeitgrenze)",
+    "of": "von",
+    "recursive: see above": "rekursiv: siehe oben",
+    "scenarios. Click a scenario to show which conditions are true in it; click it again to show the counts.": "Szenarien. Klicken Sie auf ein Szenario, um zu zeigen, welche Bedingungen darin wahr sind; klicken Sie erneut darauf, um die Z\xE4hlungen zu zeigen.",
+    "tests passed for this query.": "Tests f\xFCr diese Abfrage bestanden.",
+    "unknown": "unbekannt",
+    "Show the query that is selected in the Query panel as a radial tree, in a new browser tab: the query at the centre, then the rules that can conclude it and their conditions, with the test results of the scenarios": "Die Abfrage, die im Bereich Abfragen ausgew\xE4hlt ist, als Radialbaum in einem neuen Tab des Browsers zeigen: die Abfrage in der Mitte, dann die Regeln, die sie schlie\xDFen k\xF6nnen, und deren Bedingungen, mit den Testergebnissen der Szenarien",
+    "decision table": "Entscheidungstabelle",
+    "DECISION TABLE": "ENTSCHEIDUNGSTABELLE",
+    "not run (time limit)": "nicht ausgef\xFChrt (Zeitgrenze)",
+    "Write anyway, with residues": "Trotzdem schreiben, mit Resten",
+    "Write anyway writes the parts that can be translated. Each part that cannot be translated, and each part that uses one, is added at the end as a comment, with its line and the reason.": "Trotzdem schreiben schreibt die Teile, die \xFCbersetzt werden k\xF6nnen. Jeder Teil, der nicht \xFCbersetzt werden kann, und jeder Teil, der einen solchen Teil verwendet, wird am Ende als Kommentar angef\xFCgt, mit seiner Zeile und dem Grund.",
+    "The facts to insert (untick a fact to leave it out):": "Die einzuf\xFCgenden Fakten (entfernen Sie das H\xE4kchen bei einem Fakt, um ihn wegzulassen):",
+    "From the text": "Aus dem Text",
+    "Questions for you (the background rules disagree):": "Fragen an Sie (die Hintergrundregeln widersprechen sich):",
+    "Left out, because the text states otherwise:": "Weggelassen, weil der Text etwas anderes sagt:",
+    "Noted, and no background rule used it:": "Notiert, und keine Hintergrundregel hat es verwendet:",
+    "What the reader noted:": "Was der Leser notiert hat:",
+    "Applying the facts background\u2026": "Faktenhintergrund wird angewendet\u2026",
+    "Facts added by the facts background": "Fakten, die der Faktenhintergrund hinzugef\xFCgt hat",
+    "Apply the facts background": "Faktenhintergrund anwenden",
+    "Run the rules of the facts background on these facts, and add the facts that follow": "Die Regeln des Faktenhintergrunds auf diese Fakten anwenden und die Fakten hinzuf\xFCgen, die daraus folgen",
+    "Insert": "Einf\xFCgen"
   }
 };
 var languages = [
@@ -13658,6 +17215,15 @@ var languages = [
     "code": "it",
     "autonym": "Italiano Logico",
     "opener": "il linguaggio obiettivo \xE8",
+    "decimalSep": ",",
+    "thousandsSep": ".",
+    "listSep": ",",
+    "status": "draft"
+  },
+  {
+    "code": "de",
+    "autonym": "Logisches Deutsch",
+    "opener": "die Zielsprache ist",
     "decimalSep": ",",
     "thousandsSep": ".",
     "listSep": ",",

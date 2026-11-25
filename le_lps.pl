@@ -323,6 +323,45 @@ lps_split_time(Tokens, Core, at(T), VMIn, VMOut) :-
 lps_split_time(Tokens, Core, to(T), VMIn, VMOut) :-
 	last_split(Tokens, lps_to, Core, TToks),
 	time_term(TToks, VMIn, VMOut, T).
+%   In a language whose verb moves (languages.csv, `word_order`: German), the
+%   time stands before the last words of the sentence, not after them: "das
+%   Feuer wird von einem ersten Zeitpunkt bis zu einem zweiten Zeitpunkt
+%   bekämpft", "wenn es zu einem ersten Zeitpunkt ein Feuer gibt". The words
+%   after the time (Tail) are then the end of the sentence, and Core is the
+%   sentence without its time. A time at the end is found first, by the
+%   clauses above.
+lps_split_time(Tokens, Core, from_to(T1, T2), VMIn, VMOut) :-
+	verb_moves,
+	kw_split(Tokens, lps_from, Before, After),
+	kw_split(After, lps_to, T1Toks, Rest),
+	time_term(T1Toks, VMIn, VM1, T1),
+	time_then_tail(Rest, VM1, VMOut, T2, Tail),
+	append(Before, Tail, Core).
+lps_split_time(Tokens, Core, from(T), VMIn, VMOut) :-
+	verb_moves,
+	kw_split(Tokens, lps_from, Before, After),
+	time_then_tail(After, VMIn, VMOut, T, Tail),
+	append(Before, Tail, Core).
+lps_split_time(Tokens, Core, at(T), VMIn, VMOut) :-
+	verb_moves,
+	kw_split(Tokens, lps_at, Before, After),
+	time_then_tail(After, VMIn, VMOut, T, Tail),
+	append(Before, Tail, Core).
+lps_split_time(Tokens, Core, to(T), VMIn, VMOut) :-
+	verb_moves,
+	kw_split(Tokens, lps_to, Before, After),
+	time_then_tail(After, VMIn, VMOut, T, Tail),
+	append(Before, Tail, Core).
+
+verb_moves :-
+	le_i18n:le_active_language(Lang),
+	catch(le_i18n:language_param(Lang, word_order, verb_moves), _, fail).
+
+%   Tokens begin with a time, and Tail, which is not empty, is what follows it.
+time_then_tail(Tokens, VMIn, VMOut, T, Tail) :-
+	append(TToks, Tail, Tokens),
+	TToks \== [], Tail \== [],
+	time_term(TToks, VMIn, VMOut, T), !.
 
 %   Before/After around the LAST occurrence of a keyword, at word level.
 last_split(Tokens, Key, Before, After) :-
@@ -353,11 +392,20 @@ time_term(Tokens, VMIn, VMOut, Var) :-
 	Tokens \== [],
 	maplist(word_of, Tokens, Words),
 	atomic_list_concat(Words, ' ', Phrase),
-	le_grammar:head_noun_type(Phrase, time),
+	le_grammar:head_noun_type(Phrase, Head),
+	time_noun(Head),
 	le_grammar:extract_var_name(Words, Name),
 	le_grammar:unify_with_vmap(Name, Var, VMIn, VMOut, true).
 
 word_of(word(W, _), W).
+
+%   The noun of a time, in the language of the program (i18n/keywords.csv,
+%   `lps_time_noun`: time; tempo, momento; Zeitpunkt …).
+time_noun(Head) :-
+	(   catch(le_i18n:kw_synonym_words(lps_time_noun, [_]), _, fail)
+	->  le_i18n:kw_synonym_words(lps_time_noun, [Head]), !
+	;   Head == time
+	).
 
 %   Like time_term/4 but for any variable phrase (the Old of an update).
 time_or_var([number(N, _)], VM, VM, N) :- !.
@@ -380,14 +428,34 @@ time_or_var(Tokens, VM, VM, Var) :-
 
 %   "<phrase> that is <var> becomes <expression>"
 split_becomes(Tokens, LitTokens, VarTokens, ExprTokens) :-
-	last_split(Tokens, lps_becomes, Left, ExprTokens),
+	becomes_split(Tokens, Left0, ExprTokens),
 	ExprTokens \== [],
+	%  a comma on the left of `becomes` only sets off the words `that is
+	%  <the old value>` (German: "der Kontostand von dem Empfänger, das ist
+	%  eine Zahl, wird zu …"): it is not part of the sentence
+	exclude(comma_token, Left0, Left),
 	last_split(Left, lps_that_is, Head, VarTokens),
 	VarTokens \== [],
 	le_i18n:kw_synonym_words(lps_that_is, [_That|Copula]),
 	append(Copula, VarTokens, Tail0),
 	maplist(as_word_token, Tail0, Tail),
 	append(Head, Tail, LitTokens).
+
+comma_token(punctuation(',', _)).
+comma_token(punct(',', _)).
+
+%   `<left> becomes <expression>`. In a language whose verb moves
+%   (languages.csv, `word_order`: German), the first word of `becomes` may
+%   stand first, after a word that took the first place of the sentence:
+%   "dann wird <left> zu <expression>" for "<left> wird zu <expression>".
+becomes_split(Tokens, Left, ExprTokens) :-
+	last_split(Tokens, lps_becomes, Left, ExprTokens), !.
+becomes_split([word(W, _)|Tokens], Left, ExprTokens) :-
+	verb_moves,
+	le_i18n:kw_synonym_words(lps_becomes, [W, W2|Ws]),
+	findall(B-A, ( append(B, Rest, Tokens), match_words([W2|Ws], Rest, A) ), Splits),
+	Splits \== [],
+	last(Splits, Left-ExprTokens), !.
 
 as_word_token(word(W, L), word(W, L)) :- !.
 as_word_token(W, word(W, loc(0, 0))).

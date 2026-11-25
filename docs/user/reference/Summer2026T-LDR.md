@@ -6,7 +6,7 @@
 
 | Construct | What it says | What caused the addition | Example |
 |---|---|---|---|
-| Português Lógico, Español Lógico, Français Logique, Italiano Logico | The full language, with keywords in four more languages. The system finds the language from the first line [language.pt.md] | The multilingual plan. The French version was improved later for the Catala twins | [pt/cidadania](https://le2.logicalcontracts.com/editor/index.html?example=pt/cidadania) |
+| Português Lógico, Español Lógico, Français Logique, Italiano Logico, Logisches Deutsch | The full language, with keywords in five more languages. The system finds the language from the first line [language.pt.md] | The multilingual plan. The French version was improved later for the Catala twins | [pt/cidadania](https://le2.logicalcontracts.com/editor/index.html?example=pt/cidadania) |
 | `; synonym …` | A second set of words for the same relation [§2] | Not recorded | [templates/synonyms](https://le2.logicalcontracts.com/editor/index.html?example=language/templates/synonyms) |
 | Prolog files as resources (`includes these resources:`), and included files that include other files | A knowledge base that gets its facts from a file [§14] | Large tables, for example postcodes | [prolog_resources/postcodes](https://le2.logicalcontracts.com/editor/index.html?example=language/includes/prolog_resources/postcodes) |
 | `the target language is: scasp.` | Run the same program on the s(CASP) reasoner [scasp.md] | The s(CASP) plan | [scasp/dual_engine_demo](https://le2.logicalcontracts.com/editor/index.html?example=language/scasp/dual_engine_demo) |

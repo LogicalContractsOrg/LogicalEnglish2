@@ -98,7 +98,7 @@ address into a message. The **Copy link** command of the browser (on the right-c
 menu of the symbol) copies the same address.
 
 The line **Other languages** of the landing page goes to the programs in Português
-Lógico, Español Lógico, Français Logique and Italiano Logico. The guide
+Lógico, Español Lógico, Français Logique, Italiano Logico and Logisches Deutsch. The guide
 [Logical English in other languages](languages.md) tells how a program selects its
 language.
 
@@ -925,7 +925,7 @@ example.
 
 *   **Menu language:** **Misc → Language** opens a list. In the list, select the
     language of the menus, the buttons and the messages: English, Português, Español,
-    Français or Italiano. The page loads again in the selected language. The browser
+    Français, Italiano or Deutsch. The page loads again in the selected language. The browser
     remembers your selection. Before you make a selection, the editor uses the
     preferred language of your browser, if Logical English has that language. If not,
     the editor uses English. The language of the menus is not related to the language

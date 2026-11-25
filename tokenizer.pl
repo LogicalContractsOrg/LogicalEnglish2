@@ -58,9 +58,55 @@ tokenize(String, DecSep, ThouSep, Lang, Tokens) :-
         catch(le_i18n:language_param(Lang, elisions, Elisions), _, fail),
         catch(le_i18n:language_param(Lang, contractions, Contractions), _, fail),
         ( Elisions \== [] ; Contractions \== [] )
-    ->  elide(Tokens0, Elisions, Contractions, Tokens)
-    ;   Tokens = Tokens0
+    ->  (   catch(le_i18n:language_param(Lang, value_contractions, true), _, fail)
+        ->  ValueShort = true
+        ;   ValueShort = false
+        ),
+        elide(Tokens0, Elisions, Contractions-ValueShort, Tokens1)
+    ;   Tokens1 = Tokens0
+    ),
+    (   Lang \== none,
+        catch(le_i18n:language_param(Lang, clause_commas, ClauseWords), _, fail),
+        ClauseWords \== []
+    ->  drop_clause_commas(Tokens1, ClauseWords, Tokens)
+    ;   Tokens = Tokens1
     ).
+
+%!  drop_clause_commas(+Tokens0, +Words, -Tokens) is det.
+%
+%   A language that writes a comma between clauses (languages.csv,
+%   `clause_commas`: German ", wenn", ", dass", ", und") writes it before
+%   one of Words (each a word, or a few words: "in denen"). That comma
+%   separates two sentences of a rule and is part of neither, so it is left
+%   out. An indentation or a comment may stand between
+%   the comma and the word. A comma before another word stays: it separates
+%   the items of a list or the templates of a section.
+drop_clause_commas([], _, []).
+drop_clause_commas([T|Ts], Words, Out) :-
+    (   comma_token(T),
+        member(Phrase, Words),
+        atomic_list_concat(PhraseWords, ' ', Phrase),
+        next_words(PhraseWords, Ts)
+    ->  Out = Out1
+    ;   Out = [T|Out1]
+    ),
+    drop_clause_commas(Ts, Words, Out1).
+
+comma_token(punctuation(',', _)).
+comma_token(punct(',', _)).
+
+%   The tokens begin with these words (an entry of `clause_commas` is one
+%   word or more: "wenn", "in denen"), whatever their capitals.
+next_words([], _).
+next_words([P|Ps], Ts0) :-
+    skip_layout(Ts0, [word(W, _)|Ts]),
+    downcase_atom(W, Wl), downcase_atom(P, Wl),
+    next_words(Ps, Ts).
+
+skip_layout([T|Ts], Rest) :-
+    ( T = indent(_, _) ; T = line_comment(_, _) ; T = multi_comment(_, _) ), !,
+    skip_layout(Ts, Rest).
+skip_layout(Ts, Ts).
 
 tokenize_codes(String, DecSep, ThouSep, Tokens) :-
     atom_codes(DecSep, [DecCode]),
@@ -134,14 +180,20 @@ elide([T|Ts], Els, Cons, Out) :-
         elide(Ts, Els, Cons, Out1)
     ).
 
-elide_word(word(W, loc(S, E)), Ts, Els, Cons, Out) :-
+elide_word(word(W, loc(S, E)), Ts, Els, Cons0, Out) :-
+    ( Cons0 = Cons-ValueShort -> true ; Cons = Cons0, ValueShort = false ),
     atom_codes(W, Cs),
     downcase_atom(W, Wl),
-    (   memberchk(Wl-[F0|Rest], Cons)                   % au, du, s'il: whole words first
+    (   memberchk(Wl-[F0|Rest0], Cons)                  % au, du, s'il: whole words first
     ->  same_case(W, F0, F), M is min(E, S + 1),
+        %  Before a number or a date the short form is only its first word:
+        %  "am 2021-10-09" is "an 2021-10-09", so that the value of the
+        %  template "an *einem Datum*" is the date, not "dem 2021-10-09".
+        %  (languages.csv, `value_contractions`)
+        ( ValueShort == true, Ts = [Next|_], number_or_date_token(Next) -> Rest = [] ; Rest = Rest0 ),
         findall(word(X, loc(M, E)), member(X, Rest), RTs),
         append([word(F, loc(S, M))|RTs], Out1, Out),
-        elide(Ts, Els, Cons, Out1)
+        elide(Ts, Els, Cons0, Out1)
     ;   append(PCs, [39|RCs], Cs), PCs \== [],
         atom_codes(P0, PCs), downcase_atom(P0, P), memberchk(P-Full0, Els)
     ->  same_case(P0, Full0, Full), length(PCs, PL), M is S + PL + 1,
@@ -149,10 +201,13 @@ elide_word(word(W, loc(S, E)), Ts, Els, Cons, Out) :-
         ->  Out = [word(Full, loc(S, M))|Out1]
         ;   atom_codes(R, RCs), Out = [word(Full, loc(S, M)), word(R, loc(M, E))|Out1]
         ),
-        elide(Ts, Els, Cons, Out1)
+        elide(Ts, Els, Cons0, Out1)
     ;   Out = [word(W, loc(S, E))|Out1],
-        elide(Ts, Els, Cons, Out1)
+        elide(Ts, Els, Cons0, Out1)
     ).
+
+number_or_date_token(number(_, _)).
+number_or_date_token(date(_, _)).
 
 %   Full, with a capital when Short had one.
 same_case(Short, Full0, Full) :-
@@ -169,7 +224,7 @@ same_case(Short, Full0, Full) :-
 tokens_to_string([],"") :- !.
 tokens_to_string([T|Ts],String) :-
     ( arg(2, T, loc(Start, _)) -> true ; Start = 0 ),
-    tokens_to_string_([T|Ts],Start,Strings),
+    tokens_to_string_([T|Ts],Start,none,Strings),
     atomic_list_concat(Strings,String).
 
 %!  leading_zeros_width(+N, +Begin, +End, -Width) is semidet.
@@ -185,12 +240,17 @@ leading_zeros_width(N, Begin, End, Width) :-
     Width > L,
     Width =\= L + (L - 1) // 3.
 
-% tokens_to_string_(Tokens,EndPositionOfPrevious,Strings)
-tokens_to_string_([],_,[]).
-tokens_to_string_([T|Tokens],LastEnd,[S|Strings]) :-
+% tokens_to_string_(Tokens,EndPositionOfPrevious,KindOfPrevious,Strings)
+tokens_to_string_([],_,_,[]).
+tokens_to_string_([T|Tokens],LastEnd,Prev,[S|Strings]) :-
     ( arg(2,T,loc(Begin,NewEnd)) ->
         Gap is Begin-LastEnd,
-        (Gap > 0 -> Advance = " " ; Advance = ""),
+        %  Two words with no gap are the two words of one short form ("im"
+        %  read as "in dem", "au" as "à le"): they are written apart.
+        (   Gap > 0 -> Advance = " "
+        ;   T = word(_, _), Prev == word -> Advance = " "
+        ;   Advance = ""
+        ),
         (   T=indent(_,_) -> S_ = "", Advance_ = Advance
             ; T=line_comment(_,_) -> S_ = "", Advance_ = Advance
             ; T=multi_comment(_,_) -> S_ = "", Advance_ = Advance
@@ -214,11 +274,12 @@ tokens_to_string_([T|Tokens],LastEnd,[S|Strings]) :-
             ; S_ = "", Advance_ = ""
         ),
         atomic_list_concat([Advance_,S_],S),
-        tokens_to_string_(Tokens,NewEnd,Strings)
+        ( T = word(_, _) -> Kind = word ; Kind = other ),
+        tokens_to_string_(Tokens,NewEnd,Kind,Strings)
     ;   % Fallback for tokens without location info
         ( arg(1,T,X) -> S_ = X ; S_ = "" ),
         ( Strings == [] -> S = S_ ; atomic_list_concat([' ', S_], S) ),
-        tokens_to_string_(Tokens, LastEnd, Strings)
+        tokens_to_string_(Tokens, LastEnd, Prev, Strings)
     ).
 
 

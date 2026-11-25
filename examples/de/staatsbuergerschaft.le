@@ -1,0 +1,64 @@
+% Deutsche Fassung des klassischen Beispiels der britischen Staatsbürgerschaft (Logisches Deutsch).
+die Zielsprache ist: prolog.
+
+die Vorlagen sind:
+*eine Person* erwirbt an *einem Datum* die britische Staatsbürgerschaft,
+*eine Person* wurde an *einem Datum* in *einem Ort* geboren,
+*ein Datum* liegt nach dem Inkrafttreten,
+*eine Person* ist die Mutter von *einer Person*,
+*eine Person* ist der Vater von *einer Person*,
+*eine Person* besitzt an *einem Datum* die britische Staatsbürgerschaft,
+*eine Person* ist an *einem Datum* im Vereinigten Königreich niedergelassen,
+*eine Person* erklärt, dass *ein Satz*,
+*eine Person* ist zur Feststellung der Vaterschaft befugt.
+
+die Wissensbasis Staatsbuergerschaft enthält:
+
+eine Person erwirbt an einem Datum die britische Staatsbürgerschaft,
+wenn die Person an dem Datum im Vereinigten Königreich geboren wurde
+    und das Datum nach dem Inkrafttreten liegt
+    und eine andere Person die Mutter von der Person ist
+        oder die andere Person der Vater von der Person ist
+    und die andere Person an dem Datum die britische Staatsbürgerschaft besitzt
+        oder die andere Person an dem Datum im Vereinigten Königreich niedergelassen ist.
+
+eine Person ist der Vater von einer anderen Person,
+wenn eine dritte Person erklärt,
+    dass die Person der Vater von der anderen Person ist
+    und die dritte Person zur Feststellung der Vaterschaft befugt ist.
+
+eine Person X ist der Vater von einer Person Y,
+    wenn X erklärt, dass X der Vater von Y ist.
+
+Szenario alice ist:
+    John wurde am 2021-10-09 im Vereinigten Königreich geboren.
+    2021-10-09 liegt nach dem Inkrafttreten.
+    Alice ist die Mutter von John.
+    Alice besitzt am 2021-10-09 die britische Staatsbürgerschaft.
+    eins erwartet die Antworten ["John erwirbt am 2021-10-09 die britische Staatsbürgerschaft"].
+
+Szenario harry ist:
+    John wurde am 2021-10-09 im Vereinigten Königreich geboren.
+    2021-10-09 liegt nach dem Inkrafttreten.
+    Harry ist der Vater von John.
+    Harry ist am 2021-10-09 im Vereinigten Königreich niedergelassen.
+    eins erwartet die Antworten ["John erwirbt am 2021-10-09 die britische Staatsbürgerschaft"].
+
+Szenario harry_erklaert ist:
+    John wurde am 2021-10-09 im Vereinigten Königreich geboren.
+    2021-10-09 liegt nach dem Inkrafttreten.
+    Harry erklärt, dass Harry der Vater von John ist.
+    Harry ist am 2021-10-09 im Vereinigten Königreich niedergelassen.
+    eins erwartet die Antworten ["John erwirbt am 2021-10-09 die britische Staatsbürgerschaft"].
+
+Szenario alice_harry ist:
+    John wurde am 2021-10-09 im Vereinigten Königreich geboren.
+    2021-10-09 liegt nach dem Inkrafttreten.
+    Alice ist die Mutter von John.
+    Alice erklärt, dass Harry der Vater von John ist.
+    Alice ist zur Feststellung der Vaterschaft befugt.
+    Harry ist am 2021-10-09 im Vereinigten Königreich niedergelassen.
+    eins erwartet die Antworten ["John erwirbt am 2021-10-09 die britische Staatsbürgerschaft"].
+
+Abfrage eins ist:
+    welche Person erwirbt an welchem Datum die britische Staatsbürgerschaft.

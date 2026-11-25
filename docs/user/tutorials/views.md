@@ -551,7 +551,7 @@ Two more views in the files of the project show the other sentences:
 ## 9. Views in other languages
 
 Each phrase of a view is a row of `i18n/keywords.csv` (in the category `view`). Each
-row gives the phrase in English, Portuguese, Spanish, French and Italian. Thus a
+row gives the phrase in English, Portuguese, Spanish, French, Italian and German. Thus a
 program writes its view in its own language. This is the view of the Portuguese
 citizenship program (`examples/pt/cidadania.le`):
 

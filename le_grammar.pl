@@ -2377,16 +2377,16 @@ definite_phrase([Art | _]) :- le_i18n:class_member(definite_article, Art).
 definite_is_anaphoric(Words, _Name, _VMIn) :- \+ definite_phrase(Words), !.
 definite_is_anaphoric(_Words, Name, VMIn) :-
     normalize_var_name(Name, NormName),
-    memberchk(NormName-_, VMIn).
+    vm_member(NormName, _, VMIn).
 
 unify_with_vmap(Name, Var, VMIn, VMOut, IsVar) :-
     unify_with_vmap_extension(Name, Var, VMIn, VMOut, IsVar), !.
 unify_with_vmap(Name, Var, VMIn, VMOut, IsVar) :-
     normalize_var_name(Name, NormName),
     (   (IsVar == true ; is_id(Name)) ->  
-        ( member(NormName-ExistingVar, VMIn) -> Var = ExistingVar, VMOut = VMIn; VMOut = [NormName-Var|VMIn])
+        ( vm_member(NormName, ExistingVar, VMIn) -> Var = ExistingVar, VMOut = VMIn; VMOut = [NormName-Var|VMIn])
         ;   
-        member(NormName-ExistingVar, VMIn) -> Var = ExistingVar, VMOut = VMIn
+        vm_member(NormName, ExistingVar, VMIn) -> Var = ExistingVar, VMOut = VMIn
         ;   
         % Not a known variable and no article/ID, so it's a constant
         Var = Name, VMOut = VMIn
@@ -2398,7 +2398,55 @@ unify_with_vmap(Name, Var, VMIn, VMOut) :-
 normalize_var_name(Name, Norm) :-
     re_replace("_"/g, " ", Name, N1),
     re_replace("  +"/g, " ", N1, N2),
-    atom_string(Norm, N2).
+    atom_string(Norm0, N2),
+    inflected_var_name(Norm0, Norm).
+
+%!  inflected_var_name(+Name, -Norm) is det.
+%
+%   In a language whose adjectives take endings (languages.csv,
+%   `inflection_endings`: German), the words that tell two variables of one
+%   type apart (the class `qualifier`: first, second, other …) change with
+%   the article and the case: "ein erster Zeitpunkt", "der erste Zeitpunkt",
+%   "dem ersten Zeitpunkt", "eine andere Person", "der anderen Person". All
+%   name one variable, so the ending of such a word is left out of the name.
+%   Any other language: the name as it is.
+inflected_var_name(Name, Norm) :-
+    le_i18n:le_active_language(Lang),
+    catch(le_i18n:language_param(Lang, inflection_endings, Endings), _, fail),
+    Endings \== [], !,
+    atomic_list_concat(Words, ' ', Name),
+    maplist(qualifier_stem(Lang, Endings), Words, Stems),
+    atomic_list_concat(Stems, ' ', Norm).
+inflected_var_name(Name, Name).
+
+qualifier_stem(Lang, Endings, W, Stem) :-
+    le_i18n:class_member(Lang, qualifier, W),
+    member(E, Endings),
+    atom_concat(Stem0, E, W), Stem0 \== '', !,
+    Stem = Stem0.
+qualifier_stem(_, _, W, W).
+
+%!  vm_member(+NormName, -Var, +VM) is semidet.
+%
+%   The variable that NormName names in the variable map. In a language
+%   whose nouns add an ending in another case (languages.csv, `noun_endings`:
+%   German "der Kunde" and "dem Kunden", "ein Betrag" and "des Betrags"), a
+%   name that is not in the map names the variable whose name differs from it
+%   only by one of those endings.
+vm_member(NormName, Var, VM) :-
+    member(NormName-Var0, VM), !, Var = Var0.
+vm_member(NormName, Var, VM) :-
+    le_i18n:le_active_language(Lang),
+    catch(le_i18n:language_param(Lang, noun_endings, Endings), _, fail),
+    Endings \== [],
+    atom(NormName),
+    member(Other-Var0, VM), atom(Other),
+    differ_by_ending(NormName, Other, Endings), !,
+    Var = Var0.
+
+differ_by_ending(A, B, Endings) :-
+    (   atom_concat(B, E, A) ; atom_concat(A, E, B) ),
+    memberchk(E, Endings), !.
 
 match_part(punctuation(P, _), P, VM, VM, _, _) :- atom(P), !.
 match_part(punct(P, _), P, VM, VM, _, _) :- atom(P), !.
@@ -2741,7 +2789,19 @@ transform_instance(Instance, Templates, VMIn, VMOut, Transformed, AllowVars, Dep
     ( Depth > 1 -> fail; true),
     ( le_kbs:do_log -> maplist(extract_simple_word, Instance, Words), print_message(informational,'Transform instance (depth ~w): ~w~n' - [Depth, Words]); true),
     D1 is Depth + 1,
-    ( match_template(Instance, Templates, VMIn, VMOut, Transformed, AllowVars, D1) -> true; extract_value_from_parts(Instance, Transformed, VMIn, VMOut, Templates, true, AllowVars, D1)).
+    (   match_template(Instance, Templates, VMIn, VMOut, Transformed, AllowVars, D1) -> true
+    ;   %  a sentence inside a sentence, with its verb at another place
+        %  (German: "… erklärt, dass die Person der Vater von der anderen
+        %  Person ist"): see verb_moved_tokens/3
+        %  A declared template first; the generic "X ist Y" only when no
+        %  place of the verb gives one, with the places tried from the back.
+        verb_moved_tokens(front, Instance, Moved),
+        match_template(Moved, Templates, VMIn, VMOut, Transformed, AllowVars, D1),
+        Transformed \= le_is(_, _) -> true
+    ;   verb_moved_tokens(back, Instance, Moved),
+        match_template(Moved, Templates, VMIn, VMOut, Transformed, AllowVars, D1) -> true
+    ;   extract_value_from_parts(Instance, Transformed, VMIn, VMOut, Templates, true, AllowVars, D1)
+    ).
 
 match_template(Instance, Templates, VMIn, VMOut, Literal, AllowVars, Depth) :-
     maplist(extract_simple_word, Instance, Words),
@@ -4248,11 +4308,96 @@ member_eq(X, [_|Ys]) :- member_eq(X, Ys).
 parse_literal(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars) :-
     exclude(is_indent_or_comment, Tokens, CleanTokens),
     ( le_kbs:do_log -> maplist(extract_simple_word, CleanTokens, Words), print_message(informational,'Parsing literal: ~w~n' - [Words]); true),
-    parse_literal_real(CleanTokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars),
+    (   parse_literal_template(CleanTokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
+    ->  true
+    ;   %  the verb of the template at another place (German): a template
+        %  first, with the places tried from the front
+        verb_moved_tokens(front, CleanTokens, Moved),
+        parse_literal_template(Moved, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
+    ->  true
+    ;   parse_literal_generic(CleanTokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
+    ->  true
+    ;   %  the generic forms ("X ist ein Y", "X ist Y") with the verb moved:
+        %  the places tried from the back, since what follows the verb there
+        %  is short ("wenn der Preis von dem Auto 5 ist")
+        verb_moved_tokens(back, CleanTokens, Moved),
+        parse_literal_generic(Moved, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
+    ->  true
+    ),
     ( literal_parsed_hook(CleanTokens, Literal, Instance) -> true ; true ),
     ( le_kbs:do_log -> print_message(informational,'  Succeeded: ~w~n' - [Literal]); true).
 
+%!  verb_moved_tokens(+From, +Tokens, -Moved) is nondet.
+%
+%   In a language whose verb changes its place (languages.csv, `word_order`
+%   is `verb_moves`: German), a sentence that matches no template as it is
+%   written is tried with one word moved. A template is written as a main
+%   clause, with its verb in the second place: "*eine Person* wurde in
+%   *einem Ort* geboren", "das Feuer wird bekämpft". Two other orders are
+%   correct German and say the same:
+%   - the verb last, in a subordinate clause: "wenn die Person in dem Ort
+%     geboren wurde", "es ist nicht der Fall, dass die Person Brokkoli mag".
+%     Moved is Tokens with the last word put back at an earlier place;
+%   - the verb first, after a word that takes the first place: "dann wird das
+%     Feuer bekämpft". Moved is Tokens with the first word put at a later
+%     place.
+%   From says where the places are tried first: `front` or `back`. A verb in
+%   two parts that is written as one word at the end ("teilnimmt" for
+%   "nimmt … teil") is not found.
+verb_moved_tokens(From, Tokens, Moved) :-
+    le_i18n:le_active_language(Lang),
+    catch(le_i18n:language_param(Lang, word_order, verb_moves), _, fail),
+    length(Tokens, N), N >= 3,
+    (   append(Front, [Last], Tokens), is_word_token(Last),
+        split_at(From, Front, Before, After), Before \== [], After \== [],
+        verb_place(Before),
+        append(Before, [Last|After], Moved)
+    ;   Tokens = [First|Rest], is_word_token(First),
+        split_at(From, Rest, Before, After), Before \== [],
+        verb_place(Before),
+        append(Before, [First|After], Moved),
+        Moved \== Tokens
+    ).
+
+%   The verb never stands inside a noun phrase: not directly after an
+%   article ("ein | Zahler") or after a word that tells two variables apart
+%   ("ein zweiter | Zahler"). Without this, "ein Zahler einen Betrag an einen
+%   Empfänger überweist" was first tried as "ein überweist Zahler …", and
+%   the template took "ein" and "Zahler einen Betrag" for its two values.
+verb_place(Before) :-
+    last(Before, T),
+    \+ noun_phrase_opener(T).
+
+noun_phrase_opener(T) :-
+    ( T = word(W, _) ; T = word(W) ), atom(W),
+    (   le_i18n:class_member(article, W)
+    ;   le_i18n:class_member(qualifier, W)
+    ;   le_i18n:class_member(determiner_definite, W)
+    ;   le_i18n:class_member(each, W)
+    ;   le_i18n:class_member(wh_var, W)
+    ), !.
+
+is_word_token(word(_, _)).
+is_word_token(word(_)).
+
+%   Before and After make up List; the shortest Before first (front) or the
+%   longest Before first (back).
+split_at(front, List, Before, After) :- append(Before, After, List).
+split_at(back, List, Before, After) :-
+    findall(B-A, append(B, A, List), Splits),
+    reverse(Splits, Rev),
+    member(Before-After, Rev).
+
+%   A sentence as an instance of a declared template (parse_literal_template/7),
+%   or, when it is none, as one of the two generic forms: "X is a Y" and
+%   "X is Y" (parse_literal_generic/7).
 parse_literal_real(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars) :-
+    (   parse_literal_template(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
+    ->  true
+    ;   parse_literal_generic(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
+    ).
+
+parse_literal_template(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars) :-
     maplist(extract_simple_word, Tokens, Words),
     (   % First try chained matching: a non-prepositional template consumes a prefix,
         % then one or more prepositional templates chain to the suffix, with their
@@ -4268,8 +4413,10 @@ parse_literal_real(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars)
         Literal =.. FunctorArgsCopy,
         Instance = WordsAndVarsCopy,
         ( post_parse_literal_hook(WordsAndVarsCopy, Literal, VMOut0, VMOut) -> true ; VMOut = VMOut0 ) -> true
-        ;
-        match_is_a(Tokens, Type, SuperType, VMIn, VMOut, AllowVars) ->
+    ).
+
+parse_literal_generic(Tokens, Templates, VMIn, VMOut, Literal, Instance, AllowVars) :-
+    (   match_is_a(Tokens, Type, SuperType, VMIn, VMOut, AllowVars) ->
         Literal = is_a(Type, SuperType),
         ( le_i18n:kw_main_words(is_a, IsAWords) -> true ; IsAWords = [is, a] ),
         append([Type|IsAWords], [SuperType], Instance)
@@ -4450,7 +4597,7 @@ function_arg(Arg, VMIn, VMOut, Ts, AllowVars) -->
 
 member_var_name(Name, V, VM) :-
     normalize_var_name(Name, Norm),
-    member(Norm-V, VM).
+    vm_member(Norm, V, VM).
 
 is_hyphenated_id(-(V, N), VM) :-
     number(N),

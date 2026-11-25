@@ -12,6 +12,10 @@ A Logical English program declares its language with its **first statement**
 |---|---|
 | English | `the target language is: prolog.` |
 | Português Lógico | `a linguagem alvo é: prolog.` |
+| Español Lógico | `el lenguaje objetivo es: prolog.` |
+| Français Logique | `la langue cible est: prolog.` |
+| Italiano Logico | `il linguaggio obiettivo è: prolog.` |
+| Logisches Deutsch | `die Zielsprache ist: prolog.` |
 
 When no opener matches, the program is parsed as English (decision O-1).
 
@@ -29,6 +33,31 @@ When no opener matches, the program is parsed as English (decision O-1).
   written; the LE writer writes the short forms; a test's expected answer
   may use either. An apostrophe directly after a letter is always part of
   the word, in every language: it never opens a quoted string.
+  Five more optional columns serve a language whose words change their
+  ending and whose verb changes its place (German):
+  - `inflection_endings` (`e|er|es|en|em`): the endings an adjective takes.
+    A word of the class `qualifier` (first, second, other …) names the same
+    variable with any of them: "ein erster Zeitpunkt", "der erste
+    Zeitpunkt", "dem ersten Zeitpunkt". List every form of each qualifier
+    in the `qualifier` cell of `keywords.csv`.
+  - `noun_endings` (`en|es|n|s|e`): the endings a noun may add in another
+    case. A phrase names a variable already introduced whose noun differs
+    from it only by one of them: "der Kunde", "dem Kunden".
+  - `word_order` (`verb_moves`): a sentence that matches no template as it
+    is written is tried with its last word put back at an earlier place
+    (the verb at the end of a subordinate clause: "wenn die Person in dem
+    Ort geboren wurde") and with its first word put at a later place (the
+    verb first, after a word that took the first place: "dann wird das
+    Feuer bekämpft"). The verb is never put inside a noun phrase. In
+    Logical English for LPS, a time may then stand before the last words
+    of the sentence ("wird von einem ersten Zeitpunkt bis zu einem zweiten
+    Zeitpunkt bekämpft").
+  - `clause_commas`: the words (or short phrases, "in denen") before which
+    the language writes a comma that only separates clauses. That comma is
+    dropped when a program is read; a comma before any other word stays.
+  - `value_contractions` (`yes`): before a number or a date a contraction
+    is only its first word ("am 2021-10-09" is "an 2021-10-09"), and that
+    word is written as the contraction in an answer.
 - **`keywords.csv`** — grammar keywords and word classes. One row per keyword
   `key` (grouped by `category`), one column per language. A cell holds one or
   more **synonyms separated by `|`**; each synonym is a space-separated word
@@ -85,6 +114,15 @@ When no opener matches, the program is parsed as English (decision O-1).
   the `definite_article` class marks constants in scenarios ("o pão");
   `determiner_definite` ("this"/"este|esta") anchors prepositional chains.
   Capitalised variants ('The', 'Uma') are accepted automatically.
+- **Capital letters.** A keyword is matched as it is written. Only the
+  words of the determiner classes are also accepted with a capital first
+  letter. A language that writes nouns with a capital (German) writes them so
+  in its keyword cells (`die Vorlagen sind`), and lists a second form where a
+  keyword may open a sentence (`wenn|Wenn`, `Szenario|szenario`).
+- **Verb-final keywords.** In a language whose verb moves, a keyword that
+  holds a verb has another order inside a subordinate clause. List each
+  order as a synonym: `es ist nicht der Fall dass|es nicht der Fall ist
+  dass|ist es nicht der Fall dass`.
 - **Gender/number agreement (decision O-8).** Generation is minimal: programs
   are echoed with their own words; only connective words are inserted. Where a
   class needs both genders (qualifiers, additions), list both forms as
