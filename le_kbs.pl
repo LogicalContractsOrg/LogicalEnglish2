@@ -2513,10 +2513,22 @@ canonical_string(Instance, String) :-
         % and for a one-token instance that atom can be 'false'/'true', which
         % would serialize to a JSON boolean (and then render as [object Object]
         % in the UI). atom_string/2 keeps it a string.
-        ( maplist(var, Atoms) -> String = ""; catch((atomic_list_concat(Atoms, ' ', Atom0), atom_string(Atom0, String)), _, String = "error"))
+        ( maplist(var, Atoms) -> String = ""; catch((atomic_list_concat(Atoms, ' ', Atom0), atom_string(Atom0, String0), short_forms(String0, String)), _, String = "error"))
         ;
         token_to_atom(Instance, Atom),
         atom_string(Atom, String)
+    ).
+
+%   In a language that writes a short form before a date or a number
+%   (languages.csv, `value_contractions`: German), an answer is written with
+%   its short forms: "John erwirbt am 2021-10-09 …", "… im Vereinigten
+%   Königreich …", not "an 2021-10-09" and "in dem". The parser reads both.
+short_forms(String0, String) :-
+    (   catch(le_i18n:le_active_language(Lang), _, fail),
+        catch(le_i18n:language_param(Lang, value_contractions, true), _, fail),
+        catch(le_writer:elide_text(Lang, String0, String1), _, fail)
+    ->  String = String1
+    ;   String = String0
     ).
 
 %!  display_string(+Instance, -String) is det.

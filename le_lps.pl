@@ -102,7 +102,7 @@
 le_grammar:parse_node_extension(Tokens, Children, Templates, VMIn, VMOut, Logic) :-
 	le_grammar:lps_target,
 	split_becomes(Tokens, LitTokens, VarTokens, ExprTokens),
-	le_grammar:parse_literal(LitTokens, Templates, VMIn, VM1, Literal, _, true),
+	update_literal(LitTokens, Templates, VMIn, VM1, Literal),
 	time_or_var(VarTokens, VM1, VM2, Old),
 	lps_expression(ExprTokens, Templates, VM2, VM3, Expr),
 	Wrapped = lps_becomes(Literal, Old, Expr),
@@ -203,11 +203,52 @@ le_grammar:second_pass_item_extension(Templates, lps_labelled(Label, Item),
 le_grammar:second_pass_item_extension(_, lps_replaces(Kind, Label, Base, Start, End),
 				      lps_replaces(Kind, Label, Base, Start, End), _).
 
-le_grammar:second_pass_item_extension(Templates, lps_rule(Kind, AnteToks, ConsToks, Indent, Start, End),
+le_grammar:second_pass_item_extension(Templates, lps_rule(Kind0, AnteToks, ConsToks, Indent, Start, End),
 				      lps(Kind, r(Ante, Cons), Start, End, ID), _M) :-
 	item_id(Start, ID),
 	le_grammar:parse_body(AnteToks, Indent, Templates, [], VM1, Ante),
-	le_grammar:parse_body(ConsToks, Indent, Templates, VM1, _, Cons).
+	le_grammar:parse_body(ConsToks, Indent, Templates, VM1, _, Cons),
+	(   Kind0 == if, if_is_when(Ante, Cons)
+	->  Kind = when
+	;   Kind = Kind0
+	).
+
+%   In a language where one word is both "if" and "when" (German `wenn`;
+%   keywords.csv: `lps_if_as_when` lists the words), a rule `wenn <an event>
+%   dann <fluents>` is a causal law, not a reactive rule: its conclusion says
+%   what becomes true or false, and names no event or action to do. Read as a
+%   reactive rule it was a goal that nothing could reach, and the run ended in
+%   a failure with no explanation ("Wenn ein Schuldner eine Rechnung bezahlt,
+%   dann ist die Rechnung nicht mehr offen").
+if_is_when(Ante, Cons) :-
+	le_i18n:le_active_language(Lang),
+	le_i18n:kw_syn(Lang, _, lps_if_as_when, _),
+	conjuncts(Ante, As),
+	include(role_goal([event, action, prolog_event]), As, [_]),
+	\+ ( member(A, As), timed_goal(A) ),
+	conjuncts(Cons, Cs),
+	Cs \== [],
+	forall(member(C, Cs), fluent_effect(C)).
+
+role_goal(Roles, G0) :-
+	bare_goal(G0, G), callable(G),
+	functor(G, F, N),
+	le_grammar:lps_section_role(F/N, Role),
+	memberchk(Role, Roles).
+
+fluent_effect(G0) :-
+	bare_goal(G0, G),
+	(   G = lps_becomes(_, _, _) -> true
+	;   G = not(G1) -> role_goal([fluent], G1)
+	;   role_goal([fluent], G)
+	).
+
+timed_goal(G0) :-
+	bare_goal(G0, G),
+	( G = lps_at(_, _) ; G = lps_from_to(_, _, _) ; G = lps_from(_, _) ; G = lps_to(_, _) ).
+
+bare_goal(le_at(G0, _, _), G) :- !, bare_goal(G0, G).
+bare_goal(G, G).
 
 le_grammar:second_pass_item_extension(Templates, lps_denial(BodyToks, Indent, Start, End),
 				      lps(denial, Body, Start, End, ID), _M) :-
@@ -459,6 +500,44 @@ becomes_split([word(W, _)|Tokens], Left, ExprTokens) :-
 
 as_word_token(word(W, L), word(W, L)) :- !.
 as_word_token(W, word(W, loc(0, 0))).
+
+%!  update_literal(+LitTokens, +Templates, +VMIn, -VMOut, -Literal) is semidet.
+%
+%   The fluent of an update. `<fluent> that is <old value> becomes …` is read
+%   as the sentence `<fluent> is <old value>`, which is the fluent's own
+%   sentence when its template is written with "is": "the balance of *a
+%   person* is *an amount*". A fluent written with another verb ("der
+%   Kontostand *eines Inhabers* beträgt *einen Betrag*") is found by putting
+%   that verb where split_becomes/4 put the "is". Without this the update was
+%   read as "… is a number", no fluent, and the run changed nothing and said
+%   nothing.
+update_literal(LitTokens, Templates, VMIn, VMOut, Literal) :-
+	le_grammar:parse_literal(LitTokens, Templates, VMIn, VM1, Literal0, _, true),
+	fluent_literal(Literal0), !,
+	VMOut = VM1, Literal = Literal0.
+update_literal(LitTokens, Templates, VMIn, VMOut, Literal) :-
+	append(Before, [word(_, loc(0, 0))|After], LitTokens),      % the word that split_becomes/4 put in
+	fluent_verb(Templates, Verb),
+	append(Before, [word(Verb, loc(0, 0))|After], Tokens1),
+	le_grammar:parse_literal(Tokens1, Templates, VMIn, VM1, Literal0, _, true),
+	fluent_literal(Literal0), !,
+	VMOut = VM1, Literal = Literal0.
+update_literal(LitTokens, Templates, VMIn, VMOut, Literal) :-
+	le_grammar:parse_literal(LitTokens, Templates, VMIn, VMOut, Literal, _, true).
+
+fluent_literal(L) :-
+	callable(L), functor(L, F, N),
+	le_grammar:lps_section_role(F/N, fluent).
+
+%   A word of a template that is declared a fluent.
+fluent_verb(Templates, Verb) :-
+	findall(W,
+		( member(D, Templates), D =.. [dict, [F|Args], _, WV|_],
+		  length(Args, N), le_grammar:lps_section_role(F/N, fluent),
+		  member(W, WV), atom(W) ),
+		Ws0),
+	sort(Ws0, Ws),
+	member(Verb, Ws).
 
 %   The right-hand side: an arithmetic expression, or a bare variable.
 lps_expression(Tokens, Templates, VMIn, VMOut, Expr) :-

@@ -18410,6 +18410,12 @@ var keywords = {
     ],
     "scenario": [
       [
+        "Sachverhalt"
+      ],
+      [
+        "sachverhalt"
+      ],
+      [
         "Szenario"
       ],
       [
@@ -18417,6 +18423,12 @@ var keywords = {
       ]
     ],
     "query": [
+      [
+        "Fallfrage"
+      ],
+      [
+        "fallfrage"
+      ],
       [
         "Abfrage"
       ],
@@ -18441,6 +18453,11 @@ var keywords = {
     "templates": [
       [
         "die",
+        "Satzmuster",
+        "sind"
+      ],
+      [
+        "die",
         "Vorlagen",
         "sind"
       ]
@@ -18449,6 +18466,11 @@ var keywords = {
       [
         "die",
         "Fluenten",
+        "sind"
+      ],
+      [
+        "die",
+        "Zust\xE4nde",
         "sind"
       ]
     ],
@@ -18460,6 +18482,11 @@ var keywords = {
       ]
     ],
     "actions": [
+      [
+        "die",
+        "Handlungen",
+        "sind"
+      ],
       [
         "die",
         "Aktionen",
@@ -18543,12 +18570,22 @@ var keywords = {
       ],
       [
         "die",
+        "Satzmuster",
+        "sind"
+      ],
+      [
+        "die",
         "Funktionen",
         "sind"
       ],
       [
         "die",
         "Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "Handlungen",
         "sind"
       ],
       [
@@ -18578,6 +18615,11 @@ var keywords = {
       ],
       [
         "die",
+        "Zust\xE4nde",
+        "sind"
+      ],
+      [
+        "die",
         "Aktionen",
         "sind"
       ],
@@ -18592,6 +18634,18 @@ var keywords = {
       [
         "der",
         "Vertrag"
+      ],
+      [
+        "Sachverhalt"
+      ],
+      [
+        "sachverhalt"
+      ],
+      [
+        "Fallfrage"
+      ],
+      [
+        "fallfrage"
       ],
       [
         "Szenario"
@@ -18614,10 +18668,16 @@ var keywords = {
         "Zielsprache"
       ],
       [
+        "Satzmuster"
+      ],
+      [
         "Funktionen"
       ],
       [
         "Ereignisse"
+      ],
+      [
+        "Handlungen"
       ],
       [
         "Ontologie"
@@ -18630,6 +18690,9 @@ var keywords = {
       ],
       [
         "Fluenten"
+      ],
+      [
+        "Zust\xE4nde"
       ],
       [
         "Aktionen"
@@ -18709,9 +18772,17 @@ var keywords = {
         "nicht"
       ],
       [
+        "soweit",
+        "nicht"
+      ],
+      [
         "es",
         "sei",
         "denn"
+      ],
+      [
+        "wenn",
+        "nicht"
       ],
       [
         "au\xDFer",
@@ -18733,9 +18804,19 @@ var keywords = {
       ],
       [
         "und",
+        "soweit",
+        "nicht"
+      ],
+      [
+        "und",
         "es",
         "sei",
         "denn"
+      ],
+      [
+        "und",
+        "wenn",
+        "nicht"
       ],
       [
         "und",
@@ -18891,8 +18972,21 @@ var keywords = {
       ],
       [
         "es",
+        "gilt",
+        "nicht",
+        "mehr",
+        "dass"
+      ],
+      [
+        "es",
         "nicht",
         "zutrifft",
+        "dass"
+      ],
+      [
+        "gilt",
+        "nicht",
+        "mehr",
         "dass"
       ],
       [
@@ -19168,6 +19262,12 @@ var keywords = {
       ]
     ],
     "reserved": [
+      [
+        "sofern"
+      ],
+      [
+        "soweit"
+      ],
       [
         "falls"
       ],
@@ -19755,6 +19855,12 @@ var keywords = {
         "dass"
       ],
       [
+        "f\xFCr",
+        "das",
+        "gilt",
+        "dass"
+      ],
+      [
         "so",
         "dass"
       ],
@@ -20106,6 +20212,25 @@ var keywords = {
         "nicht",
         "sein",
         "dass"
+      ],
+      [
+        "Es",
+        "darf",
+        "nicht",
+        "sein",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "unzul\xE4ssig",
+        "dass"
+      ],
+      [
+        "Es",
+        "ist",
+        "unzul\xE4ssig",
+        "dass"
       ]
     ],
     "lps_goal": [
@@ -20189,6 +20314,19 @@ var keywords = {
     ],
     "lps_this_law_replaces": [
       [
+        "diese",
+        "Kausalregel",
+        "ersetzt",
+        "die",
+        "Kausalregel"
+      ],
+      [
+        "diese",
+        "Kausalregel",
+        "ersetzt",
+        "Kausalregel"
+      ],
+      [
         "dieses",
         "Gesetz",
         "ersetzt",
@@ -20203,6 +20341,19 @@ var keywords = {
       ]
     ],
     "lps_this_constraint_replaces": [
+      [
+        "diese",
+        "Integrit\xE4tsbedingung",
+        "ersetzt",
+        "die",
+        "Integrit\xE4tsbedingung"
+      ],
+      [
+        "diese",
+        "Integrit\xE4tsbedingung",
+        "ersetzt",
+        "Integrit\xE4tsbedingung"
+      ],
       [
         "diese",
         "Einschr\xE4nkung",
@@ -20225,6 +20376,24 @@ var keywords = {
     "provenance_required": [
       [
         "die",
+        "Tatsachen",
+        "des",
+        "Sachverhalts",
+        "erfordern",
+        "eine",
+        "Quellenangabe"
+      ],
+      [
+        "die",
+        "Fakten",
+        "des",
+        "Szenarios",
+        "erfordern",
+        "eine",
+        "Quellenangabe"
+      ],
+      [
+        "die",
         "Fakten",
         "des",
         "Szenarios",
@@ -20244,15 +20413,18 @@ var keywords = {
         "zwischengespeichert"
       ],
       [
-        "merkbar"
-      ],
-      [
         "gemerkt"
       ]
     ],
     "one_value": [
       [
-        "einwertig"
+        "mit",
+        "genau",
+        "einem",
+        "Wert"
+      ],
+      [
+        "eindeutig"
       ],
       [
         "ein",
@@ -20311,6 +20483,10 @@ var keywords = {
       ]
     ],
     "with_provenance": [
+      [
+        "mit",
+        "Quellenangabe"
+      ],
       [
         "mit",
         "Herkunft"
@@ -20404,6 +20580,9 @@ var keywords = {
     ],
     "section_applicability": [
       [
+        "Anwendungsbereich"
+      ],
+      [
         "Anwendbarkeit"
       ]
     ],
@@ -20414,10 +20593,10 @@ var keywords = {
     ],
     "section_remedy": [
       [
-        "Rechtsfolge"
+        "Rechtsbehelf"
       ],
       [
-        "Abhilfe"
+        "Rechtsfolge"
       ]
     ],
     "services_include": [
@@ -20585,6 +20764,11 @@ var keywords = {
     "view_facts_about": [
       [
         "die",
+        "Tatsachen",
+        "\xFCber"
+      ],
+      [
+        "die",
         "Fakten",
         "\xFCber"
       ]
@@ -20598,6 +20782,11 @@ var keywords = {
       [
         "die",
         "Beurteilungen",
+        "sind"
+      ],
+      [
+        "die",
+        "Wertungen",
         "sind"
       ]
     ],
@@ -20702,6 +20891,13 @@ var keywords = {
       ]
     ],
     "view_citations": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Fundstellen"
+      ],
       [
         "das",
         "Ergebnis",
@@ -20943,6 +21139,49 @@ var keywords = {
       ],
       [
         "Zeit"
+      ]
+    ],
+    "negation_word": [
+      [
+        "niemals"
+      ],
+      [
+        "niemand"
+      ],
+      [
+        "keinen"
+      ],
+      [
+        "keinem"
+      ],
+      [
+        "keiner"
+      ],
+      [
+        "keines"
+      ],
+      [
+        "nicht"
+      ],
+      [
+        "keine"
+      ],
+      [
+        "weder"
+      ],
+      [
+        "kein"
+      ],
+      [
+        "nie"
+      ]
+    ],
+    "lps_if_as_when": [
+      [
+        "falls"
+      ],
+      [
+        "wenn"
       ]
     ]
   }

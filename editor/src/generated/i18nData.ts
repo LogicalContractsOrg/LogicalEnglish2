@@ -9956,6 +9956,12 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "scenario": [
       [
+        "Sachverhalt"
+      ],
+      [
+        "sachverhalt"
+      ],
+      [
         "Szenario"
       ],
       [
@@ -9963,6 +9969,12 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "query": [
+      [
+        "Fallfrage"
+      ],
+      [
+        "fallfrage"
+      ],
       [
         "Abfrage"
       ],
@@ -9987,6 +9999,11 @@ export const keywords: Record<string, KeywordTable> = {
     "templates": [
       [
         "die",
+        "Satzmuster",
+        "sind"
+      ],
+      [
+        "die",
         "Vorlagen",
         "sind"
       ]
@@ -9995,6 +10012,11 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "die",
         "Fluenten",
+        "sind"
+      ],
+      [
+        "die",
+        "Zustände",
         "sind"
       ]
     ],
@@ -10006,6 +10028,11 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "actions": [
+      [
+        "die",
+        "Handlungen",
+        "sind"
+      ],
       [
         "die",
         "Aktionen",
@@ -10089,12 +10116,22 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "die",
+        "Satzmuster",
+        "sind"
+      ],
+      [
+        "die",
         "Funktionen",
         "sind"
       ],
       [
         "die",
         "Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "Handlungen",
         "sind"
       ],
       [
@@ -10124,6 +10161,11 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "die",
+        "Zustände",
+        "sind"
+      ],
+      [
+        "die",
         "Aktionen",
         "sind"
       ],
@@ -10138,6 +10180,18 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "der",
         "Vertrag"
+      ],
+      [
+        "Sachverhalt"
+      ],
+      [
+        "sachverhalt"
+      ],
+      [
+        "Fallfrage"
+      ],
+      [
+        "fallfrage"
       ],
       [
         "Szenario"
@@ -10160,10 +10214,16 @@ export const keywords: Record<string, KeywordTable> = {
         "Zielsprache"
       ],
       [
+        "Satzmuster"
+      ],
+      [
         "Funktionen"
       ],
       [
         "Ereignisse"
+      ],
+      [
+        "Handlungen"
       ],
       [
         "Ontologie"
@@ -10176,6 +10236,9 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "Fluenten"
+      ],
+      [
+        "Zustände"
       ],
       [
         "Aktionen"
@@ -10255,9 +10318,17 @@ export const keywords: Record<string, KeywordTable> = {
         "nicht"
       ],
       [
+        "soweit",
+        "nicht"
+      ],
+      [
         "es",
         "sei",
         "denn"
+      ],
+      [
+        "wenn",
+        "nicht"
       ],
       [
         "außer",
@@ -10279,9 +10350,19 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "und",
+        "soweit",
+        "nicht"
+      ],
+      [
+        "und",
         "es",
         "sei",
         "denn"
+      ],
+      [
+        "und",
+        "wenn",
+        "nicht"
       ],
       [
         "und",
@@ -10437,8 +10518,21 @@ export const keywords: Record<string, KeywordTable> = {
       ],
       [
         "es",
+        "gilt",
+        "nicht",
+        "mehr",
+        "dass"
+      ],
+      [
+        "es",
         "nicht",
         "zutrifft",
+        "dass"
+      ],
+      [
+        "gilt",
+        "nicht",
+        "mehr",
         "dass"
       ],
       [
@@ -10714,6 +10808,12 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "reserved": [
+      [
+        "sofern"
+      ],
+      [
+        "soweit"
+      ],
       [
         "falls"
       ],
@@ -11301,6 +11401,12 @@ export const keywords: Record<string, KeywordTable> = {
         "dass"
       ],
       [
+        "für",
+        "das",
+        "gilt",
+        "dass"
+      ],
+      [
         "so",
         "dass"
       ],
@@ -11652,6 +11758,25 @@ export const keywords: Record<string, KeywordTable> = {
         "nicht",
         "sein",
         "dass"
+      ],
+      [
+        "Es",
+        "darf",
+        "nicht",
+        "sein",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "unzulässig",
+        "dass"
+      ],
+      [
+        "Es",
+        "ist",
+        "unzulässig",
+        "dass"
       ]
     ],
     "lps_goal": [
@@ -11735,6 +11860,19 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "lps_this_law_replaces": [
       [
+        "diese",
+        "Kausalregel",
+        "ersetzt",
+        "die",
+        "Kausalregel"
+      ],
+      [
+        "diese",
+        "Kausalregel",
+        "ersetzt",
+        "Kausalregel"
+      ],
+      [
         "dieses",
         "Gesetz",
         "ersetzt",
@@ -11749,6 +11887,19 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "lps_this_constraint_replaces": [
+      [
+        "diese",
+        "Integritätsbedingung",
+        "ersetzt",
+        "die",
+        "Integritätsbedingung"
+      ],
+      [
+        "diese",
+        "Integritätsbedingung",
+        "ersetzt",
+        "Integritätsbedingung"
+      ],
       [
         "diese",
         "Einschränkung",
@@ -11771,6 +11922,24 @@ export const keywords: Record<string, KeywordTable> = {
     "provenance_required": [
       [
         "die",
+        "Tatsachen",
+        "des",
+        "Sachverhalts",
+        "erfordern",
+        "eine",
+        "Quellenangabe"
+      ],
+      [
+        "die",
+        "Fakten",
+        "des",
+        "Szenarios",
+        "erfordern",
+        "eine",
+        "Quellenangabe"
+      ],
+      [
+        "die",
         "Fakten",
         "des",
         "Szenarios",
@@ -11790,15 +11959,18 @@ export const keywords: Record<string, KeywordTable> = {
         "zwischengespeichert"
       ],
       [
-        "merkbar"
-      ],
-      [
         "gemerkt"
       ]
     ],
     "one_value": [
       [
-        "einwertig"
+        "mit",
+        "genau",
+        "einem",
+        "Wert"
+      ],
+      [
+        "eindeutig"
       ],
       [
         "ein",
@@ -11857,6 +12029,10 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "with_provenance": [
+      [
+        "mit",
+        "Quellenangabe"
+      ],
       [
         "mit",
         "Herkunft"
@@ -11950,6 +12126,9 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "section_applicability": [
       [
+        "Anwendungsbereich"
+      ],
+      [
         "Anwendbarkeit"
       ]
     ],
@@ -11960,10 +12139,10 @@ export const keywords: Record<string, KeywordTable> = {
     ],
     "section_remedy": [
       [
-        "Rechtsfolge"
+        "Rechtsbehelf"
       ],
       [
-        "Abhilfe"
+        "Rechtsfolge"
       ]
     ],
     "services_include": [
@@ -12131,6 +12310,11 @@ export const keywords: Record<string, KeywordTable> = {
     "view_facts_about": [
       [
         "die",
+        "Tatsachen",
+        "über"
+      ],
+      [
+        "die",
         "Fakten",
         "über"
       ]
@@ -12144,6 +12328,11 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "die",
         "Beurteilungen",
+        "sind"
+      ],
+      [
+        "die",
+        "Wertungen",
         "sind"
       ]
     ],
@@ -12248,6 +12437,13 @@ export const keywords: Record<string, KeywordTable> = {
       ]
     ],
     "view_citations": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Fundstellen"
+      ],
       [
         "das",
         "Ergebnis",
@@ -12490,6 +12686,49 @@ export const keywords: Record<string, KeywordTable> = {
       [
         "Zeit"
       ]
+    ],
+    "negation_word": [
+      [
+        "niemals"
+      ],
+      [
+        "niemand"
+      ],
+      [
+        "keinen"
+      ],
+      [
+        "keinem"
+      ],
+      [
+        "keiner"
+      ],
+      [
+        "keines"
+      ],
+      [
+        "nicht"
+      ],
+      [
+        "keine"
+      ],
+      [
+        "weder"
+      ],
+      [
+        "kein"
+      ],
+      [
+        "nie"
+      ]
+    ],
+    "lps_if_as_when": [
+      [
+        "falls"
+      ],
+      [
+        "wenn"
+      ]
     ]
   }
 } as const;
@@ -12684,7 +12923,9 @@ export const keywordCategories: Record<string, string> = {
   "cells_sheet": "service_cells",
   "cells_cell": "service_cells",
   "notice_start": "notice",
-  "lps_time_noun": "lps"
+  "lps_time_noun": "lps",
+  "negation_word": "class",
+  "lps_if_as_when": "lps"
 } as const;
 
 /** UI chrome strings per language, keyed by the canonical English string. */
@@ -16935,7 +17176,7 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference §17.11)": "Alle Fälle durchsuchen, die das Programm zulässt, nicht nur seine Szenarien: die Fälle, in denen ein Satz gilt, oder einen Fall, der eine Eigenschaft verletzt (Sprachreferenz §17.11)",
     "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Alle Fälle auflisten, in denen ein Satz gilt: was ein Szenario sagen müsste und nicht sagen dürfte, damit der Satz gilt, mit den Szenarien des Programms, die jeden Fall erfüllen",
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Einen Fall suchen, in dem ein Satz gilt, zum Beispiel einen Fall, der eine Eigenschaft des Programms verletzt. Die Antwort ist der Fall oder die Aussage, dass es keinen solchen Fall gibt",
-    "Write the sentence as a condition of a rule, for example \"a person gets rent support\". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.": "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel „a person gets rent support“. Jede Antwort ist ein Fall, in dem der Satz gilt: was ein Szenario sagen muss und nicht sagen darf. Die Antwort nennt auch die Szenarien des Programms, die den Fall erfüllen.",
+    "Write the sentence as a condition of a rule, for example \"a person gets rent support\". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.": "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel „eine Person erhält einen Mietzuschuss“. Jede Antwort ist ein Fall, in dem der Satz gilt: was ein Szenario sagen muss und nicht sagen darf. Die Antwort nennt auch die Szenarien des Programms, die den Fall erfüllen.",
     "Write the sentence as a condition of a rule, for example \"a person is eligible and the person is excluded\". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.": "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel „a person is eligible and the person is excluded“. Um eine Eigenschaft zu prüfen, schreiben Sie, was die Eigenschaft verletzt. Die Antwort ist ein Fall, in dem der Satz gilt, oder die Aussage, dass es keinen solchen Fall gibt.",
     "The search runs as a custom query that you can change and run again.": "Die Suche läuft als benutzerdefinierte Abfrage, die Sie ändern und erneut ausführen können.",
     "Save as a Readable Document…": "Als lesbares Dokument speichern…",
@@ -17007,7 +17248,7 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Fact": "Fakt",
     "Causal law": "Kausalgesetz",
     "Reactive rule": "Reaktive Regel",
-    "Constraint": "Einschränkung",
+    "Constraint": "Integritätsbedingung",
     "Initial state": "Anfangszustand",
     "Goal": "Ziel",
     "Setting": "Einstellung",
@@ -17097,7 +17338,7 @@ export const uiCatalog: Record<string, Record<string, string>> = {
     "Show the types: the kinds of thing in the templates (for example, a person), and which type is a kind of which": "Die Typen zeigen: die Arten von Dingen in den Vorlagen (zum Beispiel eine Person), und welcher Typ eine Art von welchem ist",
     "Tests": "Tests",
     "The answers that the query gets in the scenario": "Die Antworten, die die Abfrage im Szenario erhält",
-    "The answers that the scenario expects (its \"expects answers\" line)": "Die Antworten, die das Szenario erwartet (seine Zeile „expects answers“)",
+    "The answers that the scenario expects (its \"expects answers\" line)": "Die Antworten, die das Szenario erwartet (seine Zeile „erwartet die Antworten“)",
     "The direction of the layers, for the ELK and Dagre layouts": "Die Richtung der Schichten, für die Anordnungen ELK und Dagre",
     "The kinds of box that show in the graph": "Die Arten von Kästchen, die im Graphen erscheinen",
     "The kinds of line that show in the graph": "Die Arten von Linien, die im Graphen erscheinen",

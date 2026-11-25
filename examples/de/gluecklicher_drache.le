@@ -1,48 +1,47 @@
-% Der glückliche Drache: Verneinung und "für alle Fälle" in Logischem Deutsch.
+% Der glückliche Drache: Verneinung mit "nicht" und "für alle Fälle" in Logischem Deutsch.
 % Deutsche Fassung von ../moreExamples/happy_dragon.le.
-die Zielsprache ist: prolog.
+Die Zielsprache ist: prolog.
 
-die Vorlagen sind:
+Die Vorlagen sind:
 *ein Wesen* raucht.
-*ein Wesen* ist ein Elternteil von *einem Drachen*.
+*ein Wesen* ist ein Elternteil *eines Drachen*.
 *ein Wesen* ist gesund.
 *ein Wesen* ist glücklich.
 *ein Wesen* ist ein Drache.
 
-die Wissensbasis gluecklicher_drache enthält:
+Die Wissensbasis gluecklicher_drache enthält:
 
-ein Wesen raucht,
-wenn ein anderes Wesen ein Elternteil von dem Wesen ist
+Ein Wesen raucht,
+wenn ein anderes Wesen ein Elternteil des Wesens ist
 und das andere Wesen ein Drache ist
 und das andere Wesen raucht.
 
-ein Wesen ist gesund,
+Ein Wesen ist gesund,
     wenn das Wesen ein Drache ist
-    und es nicht der Fall ist, dass
-        das Wesen raucht.
+    und das Wesen nicht raucht.
 
-ein Wesen ist glücklich,
+Ein Wesen ist glücklich,
     wenn das Wesen ein Drache ist
     und für alle Fälle, in denen
-        das Wesen ein Elternteil von einem anderen Wesen ist,
+        das Wesen ein Elternteil eines anderen Wesens ist,
         gilt, dass
         das andere Wesen gesund ist.
 
 Szenario rauchig ist:
-    bob ist ein Drache.
-    alice ist ein Drache.
-    alice ist ein Elternteil von bob.
-    gluecklich erwartet die Antworten ["bob ist glücklich", "alice ist glücklich"].
-    gesund erwartet die Antworten ["bob ist gesund", "alice ist gesund"].
+    Bob ist ein Drache.
+    Alice ist ein Drache.
+    Alice ist ein Elternteil von Bob.
+    gluecklich erwartet die Antworten ["Bob ist glücklich", "Alice ist glücklich"].
+    gesund erwartet die Antworten ["Bob ist gesund", "Alice ist gesund"].
 
 Szenario maria ist:
-    bob ist ein Drache.
-    alice ist ein Drache.
-    alice ist ein Elternteil von bob.
-    alice ist ein Elternteil von maria.
-    maria ist ein Drache.
-    maria ist gesund.
-    bob ist gesund.
+    Bob ist ein Drache.
+    Alice ist ein Drache.
+    Alice ist ein Elternteil von Bob.
+    Alice ist ein Elternteil von Maria.
+    Maria ist ein Drache.
+    Maria ist gesund.
+    Bob ist gesund.
 
 Abfrage gluecklich ist:
     welcher Drache ist glücklich.

@@ -9950,6 +9950,12 @@ var keywords = {
     ],
     "scenario": [
       [
+        "Sachverhalt"
+      ],
+      [
+        "sachverhalt"
+      ],
+      [
         "Szenario"
       ],
       [
@@ -9957,6 +9963,12 @@ var keywords = {
       ]
     ],
     "query": [
+      [
+        "Fallfrage"
+      ],
+      [
+        "fallfrage"
+      ],
       [
         "Abfrage"
       ],
@@ -9981,6 +9993,11 @@ var keywords = {
     "templates": [
       [
         "die",
+        "Satzmuster",
+        "sind"
+      ],
+      [
+        "die",
         "Vorlagen",
         "sind"
       ]
@@ -9989,6 +10006,11 @@ var keywords = {
       [
         "die",
         "Fluenten",
+        "sind"
+      ],
+      [
+        "die",
+        "Zust\xE4nde",
         "sind"
       ]
     ],
@@ -10000,6 +10022,11 @@ var keywords = {
       ]
     ],
     "actions": [
+      [
+        "die",
+        "Handlungen",
+        "sind"
+      ],
       [
         "die",
         "Aktionen",
@@ -10083,12 +10110,22 @@ var keywords = {
       ],
       [
         "die",
+        "Satzmuster",
+        "sind"
+      ],
+      [
+        "die",
         "Funktionen",
         "sind"
       ],
       [
         "die",
         "Ereignisse",
+        "sind"
+      ],
+      [
+        "die",
+        "Handlungen",
         "sind"
       ],
       [
@@ -10118,6 +10155,11 @@ var keywords = {
       ],
       [
         "die",
+        "Zust\xE4nde",
+        "sind"
+      ],
+      [
+        "die",
         "Aktionen",
         "sind"
       ],
@@ -10132,6 +10174,18 @@ var keywords = {
       [
         "der",
         "Vertrag"
+      ],
+      [
+        "Sachverhalt"
+      ],
+      [
+        "sachverhalt"
+      ],
+      [
+        "Fallfrage"
+      ],
+      [
+        "fallfrage"
       ],
       [
         "Szenario"
@@ -10154,10 +10208,16 @@ var keywords = {
         "Zielsprache"
       ],
       [
+        "Satzmuster"
+      ],
+      [
         "Funktionen"
       ],
       [
         "Ereignisse"
+      ],
+      [
+        "Handlungen"
       ],
       [
         "Ontologie"
@@ -10170,6 +10230,9 @@ var keywords = {
       ],
       [
         "Fluenten"
+      ],
+      [
+        "Zust\xE4nde"
       ],
       [
         "Aktionen"
@@ -10249,9 +10312,17 @@ var keywords = {
         "nicht"
       ],
       [
+        "soweit",
+        "nicht"
+      ],
+      [
         "es",
         "sei",
         "denn"
+      ],
+      [
+        "wenn",
+        "nicht"
       ],
       [
         "au\xDFer",
@@ -10273,9 +10344,19 @@ var keywords = {
       ],
       [
         "und",
+        "soweit",
+        "nicht"
+      ],
+      [
+        "und",
         "es",
         "sei",
         "denn"
+      ],
+      [
+        "und",
+        "wenn",
+        "nicht"
       ],
       [
         "und",
@@ -10431,8 +10512,21 @@ var keywords = {
       ],
       [
         "es",
+        "gilt",
+        "nicht",
+        "mehr",
+        "dass"
+      ],
+      [
+        "es",
         "nicht",
         "zutrifft",
+        "dass"
+      ],
+      [
+        "gilt",
+        "nicht",
+        "mehr",
         "dass"
       ],
       [
@@ -10708,6 +10802,12 @@ var keywords = {
       ]
     ],
     "reserved": [
+      [
+        "sofern"
+      ],
+      [
+        "soweit"
+      ],
       [
         "falls"
       ],
@@ -11295,6 +11395,12 @@ var keywords = {
         "dass"
       ],
       [
+        "f\xFCr",
+        "das",
+        "gilt",
+        "dass"
+      ],
+      [
         "so",
         "dass"
       ],
@@ -11646,6 +11752,25 @@ var keywords = {
         "nicht",
         "sein",
         "dass"
+      ],
+      [
+        "Es",
+        "darf",
+        "nicht",
+        "sein",
+        "dass"
+      ],
+      [
+        "es",
+        "ist",
+        "unzul\xE4ssig",
+        "dass"
+      ],
+      [
+        "Es",
+        "ist",
+        "unzul\xE4ssig",
+        "dass"
       ]
     ],
     "lps_goal": [
@@ -11729,6 +11854,19 @@ var keywords = {
     ],
     "lps_this_law_replaces": [
       [
+        "diese",
+        "Kausalregel",
+        "ersetzt",
+        "die",
+        "Kausalregel"
+      ],
+      [
+        "diese",
+        "Kausalregel",
+        "ersetzt",
+        "Kausalregel"
+      ],
+      [
         "dieses",
         "Gesetz",
         "ersetzt",
@@ -11743,6 +11881,19 @@ var keywords = {
       ]
     ],
     "lps_this_constraint_replaces": [
+      [
+        "diese",
+        "Integrit\xE4tsbedingung",
+        "ersetzt",
+        "die",
+        "Integrit\xE4tsbedingung"
+      ],
+      [
+        "diese",
+        "Integrit\xE4tsbedingung",
+        "ersetzt",
+        "Integrit\xE4tsbedingung"
+      ],
       [
         "diese",
         "Einschr\xE4nkung",
@@ -11765,6 +11916,24 @@ var keywords = {
     "provenance_required": [
       [
         "die",
+        "Tatsachen",
+        "des",
+        "Sachverhalts",
+        "erfordern",
+        "eine",
+        "Quellenangabe"
+      ],
+      [
+        "die",
+        "Fakten",
+        "des",
+        "Szenarios",
+        "erfordern",
+        "eine",
+        "Quellenangabe"
+      ],
+      [
+        "die",
         "Fakten",
         "des",
         "Szenarios",
@@ -11784,15 +11953,18 @@ var keywords = {
         "zwischengespeichert"
       ],
       [
-        "merkbar"
-      ],
-      [
         "gemerkt"
       ]
     ],
     "one_value": [
       [
-        "einwertig"
+        "mit",
+        "genau",
+        "einem",
+        "Wert"
+      ],
+      [
+        "eindeutig"
       ],
       [
         "ein",
@@ -11851,6 +12023,10 @@ var keywords = {
       ]
     ],
     "with_provenance": [
+      [
+        "mit",
+        "Quellenangabe"
+      ],
       [
         "mit",
         "Herkunft"
@@ -11944,6 +12120,9 @@ var keywords = {
     ],
     "section_applicability": [
       [
+        "Anwendungsbereich"
+      ],
+      [
         "Anwendbarkeit"
       ]
     ],
@@ -11954,10 +12133,10 @@ var keywords = {
     ],
     "section_remedy": [
       [
-        "Rechtsfolge"
+        "Rechtsbehelf"
       ],
       [
-        "Abhilfe"
+        "Rechtsfolge"
       ]
     ],
     "services_include": [
@@ -12125,6 +12304,11 @@ var keywords = {
     "view_facts_about": [
       [
         "die",
+        "Tatsachen",
+        "\xFCber"
+      ],
+      [
+        "die",
         "Fakten",
         "\xFCber"
       ]
@@ -12138,6 +12322,11 @@ var keywords = {
       [
         "die",
         "Beurteilungen",
+        "sind"
+      ],
+      [
+        "die",
+        "Wertungen",
         "sind"
       ]
     ],
@@ -12242,6 +12431,13 @@ var keywords = {
       ]
     ],
     "view_citations": [
+      [
+        "das",
+        "Ergebnis",
+        "zeigt",
+        "seine",
+        "Fundstellen"
+      ],
       [
         "das",
         "Ergebnis",
@@ -12483,6 +12679,49 @@ var keywords = {
       ],
       [
         "Zeit"
+      ]
+    ],
+    "negation_word": [
+      [
+        "niemals"
+      ],
+      [
+        "niemand"
+      ],
+      [
+        "keinen"
+      ],
+      [
+        "keinem"
+      ],
+      [
+        "keiner"
+      ],
+      [
+        "keines"
+      ],
+      [
+        "nicht"
+      ],
+      [
+        "keine"
+      ],
+      [
+        "weder"
+      ],
+      [
+        "kein"
+      ],
+      [
+        "nie"
+      ]
+    ],
+    "lps_if_as_when": [
+      [
+        "falls"
+      ],
+      [
+        "wenn"
       ]
     ]
   }
@@ -16734,7 +16973,7 @@ var uiCatalog = {
     "Search every case the program allows, not only its scenarios: the cases in which a sentence holds, or one case that breaks a property (language reference \xA717.11)": "Alle F\xE4lle durchsuchen, die das Programm zul\xE4sst, nicht nur seine Szenarien: die F\xE4lle, in denen ein Satz gilt, oder einen Fall, der eine Eigenschaft verletzt (Sprachreferenz \xA717.11)",
     "List every case in which a sentence holds: what a scenario would have to say, and not say, for it to hold, with the scenarios of the program that meet each case": "Alle F\xE4lle auflisten, in denen ein Satz gilt: was ein Szenario sagen m\xFCsste und nicht sagen d\xFCrfte, damit der Satz gilt, mit den Szenarien des Programms, die jeden Fall erf\xFCllen",
     "Look for one case in which a sentence holds, for example a case that breaks a property of the program. The answer is the case, or the statement that there is no such case": "Einen Fall suchen, in dem ein Satz gilt, zum Beispiel einen Fall, der eine Eigenschaft des Programms verletzt. Die Antwort ist der Fall oder die Aussage, dass es keinen solchen Fall gibt",
-    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel \u201Ea person gets rent support\u201C. Jede Antwort ist ein Fall, in dem der Satz gilt: was ein Szenario sagen muss und nicht sagen darf. Die Antwort nennt auch die Szenarien des Programms, die den Fall erf\xFCllen.",
+    'Write the sentence as a condition of a rule, for example "a person gets rent support". Each answer is one case in which the sentence holds: what a scenario must say, and must not say. The answer also names the scenarios of the program that meet the case.': "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel \u201Eeine Person erh\xE4lt einen Mietzuschuss\u201C. Jede Antwort ist ein Fall, in dem der Satz gilt: was ein Szenario sagen muss und nicht sagen darf. Die Antwort nennt auch die Szenarien des Programms, die den Fall erf\xFCllen.",
     'Write the sentence as a condition of a rule, for example "a person is eligible and the person is excluded". To check a property, write what breaks the property. The answer is a case in which the sentence holds, or the statement that there is no such case.': "Schreiben Sie den Satz als Bedingung einer Regel, zum Beispiel \u201Ea person is eligible and the person is excluded\u201C. Um eine Eigenschaft zu pr\xFCfen, schreiben Sie, was die Eigenschaft verletzt. Die Antwort ist ein Fall, in dem der Satz gilt, oder die Aussage, dass es keinen solchen Fall gibt.",
     "The search runs as a custom query that you can change and run again.": "Die Suche l\xE4uft als benutzerdefinierte Abfrage, die Sie \xE4ndern und erneut ausf\xFChren k\xF6nnen.",
     "Save as a Readable Document\u2026": "Als lesbares Dokument speichern\u2026",
@@ -16806,7 +17045,7 @@ var uiCatalog = {
     "Fact": "Fakt",
     "Causal law": "Kausalgesetz",
     "Reactive rule": "Reaktive Regel",
-    "Constraint": "Einschr\xE4nkung",
+    "Constraint": "Integrit\xE4tsbedingung",
     "Initial state": "Anfangszustand",
     "Goal": "Ziel",
     "Setting": "Einstellung",
@@ -16896,7 +17135,7 @@ var uiCatalog = {
     "Show the types: the kinds of thing in the templates (for example, a person), and which type is a kind of which": "Die Typen zeigen: die Arten von Dingen in den Vorlagen (zum Beispiel eine Person), und welcher Typ eine Art von welchem ist",
     "Tests": "Tests",
     "The answers that the query gets in the scenario": "Die Antworten, die die Abfrage im Szenario erh\xE4lt",
-    'The answers that the scenario expects (its "expects answers" line)': "Die Antworten, die das Szenario erwartet (seine Zeile \u201Eexpects answers\u201C)",
+    'The answers that the scenario expects (its "expects answers" line)': "Die Antworten, die das Szenario erwartet (seine Zeile \u201Eerwartet die Antworten\u201C)",
     "The direction of the layers, for the ELK and Dagre layouts": "Die Richtung der Schichten, f\xFCr die Anordnungen ELK und Dagre",
     "The kinds of box that show in the graph": "Die Arten von K\xE4stchen, die im Graphen erscheinen",
     "The kinds of line that show in the graph": "Die Arten von Linien, die im Graphen erscheinen",

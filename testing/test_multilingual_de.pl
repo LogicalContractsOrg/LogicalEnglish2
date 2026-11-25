@@ -81,6 +81,35 @@ test(de_noun_endings) :-
 test(en_no_noun_endings, [fail]) :-
     le_i18n:with_le_language(en, le_grammar:vm_member(persons, _, [person-x])).
 
+%   A capital at the start of a line, where the word begins a keyword.
+test(de_sentence_capitals) :-
+    tokenizer:tokenize("Die Vorlagen sind:\n*eine Person* ist reich.\nSzenario s ist:\nBob ist reich.", ',', '.', de, Ts),
+    findall(W, member(word(W, _), Ts), Ws),
+    Ws = [die, 'Vorlagen', sind, eine, 'Person', ist, reich, 'Szenario', s, ist, 'Bob', ist, reich].
+
+%   The first sentence of a program with a capital still names its language.
+test(detect_de_capital) :-
+    tokenizer:tokenize("Die Zielsprache ist: prolog.", Ts),
+    le_i18n:detect_language_tokens(Ts, de).
+
+%   A date written day.month.year, and German numbers beside it.
+test(de_dotted_dates) :-
+    tokenizer:tokenize("am 02.03.2026 und 1.250.000 und 10.000,50", ',', '.', de, Ts),
+    memberchk(date(date(2026, 3, 2), _), Ts),
+    memberchk(number(1250000, _), Ts),
+    memberchk(number(10000.5, _), Ts).
+
+%   The comma after "es sei denn" and the comma before it.
+test(de_es_sei_denn_commas) :-
+    tokenizer:tokenize("A ist wirksam, es sei denn, B weist A zurück", ',', '.', de, Ts),
+    \+ memberchk(punctuation(',', _), Ts).
+
+%   In German a short word with a capital is a word, not a variable.
+test(de_short_names_are_names, [nondet]) :-
+    le_i18n:with_le_language(de, ( \+ le_grammar:is_id('Bob'), \+ le_grammar:is_id('Rad'),
+                                   le_grammar:is_id('B'), le_grammar:is_id('T1') )),
+    le_i18n:with_le_language(en, le_grammar:is_id('Bob')).
+
 :- end_tests(multilingual_de).
 
 %   Whole programs, with the sentences as German writes them. Each program
@@ -200,5 +229,98 @@ Szenario s ist:
 Abfrage q ist:
     welche Person ist glücklich.
 ").
+
+%   What a German law professor wrote, and what was misread without a word
+%   before: negation with `nicht`, a verb in two parts at the end of a
+%   clause, `es sei denn,` with its commas, the genitive of a variable and of
+%   a name, a capital at the start of each sentence, a date written
+%   day.month.year, and a threshold with `mindestens`.
+test(natural_legal_german) :-
+    passes("Die Zielsprache ist: prolog.
+
+Die Vorlagen sind:
+*eine Person* ist ein Mensch,
+*eine Person* ist geschäftsunfähig,
+*eine Person* hat das siebente Lebensjahr vollendet,
+*eine Erklärung* geht *einem Empfänger* an *einem Datum* zu,
+*eine Erklärung* wird an *einem Datum* wirksam,
+*ein Empfänger* weist *eine Erklärung* zurück,
+die Bestellung *eines Kunden* ist wirksam,
+*ein Kunde* schuldet *einen Betrag*,
+*ein Kunde* ist ein Großkunde.
+
+Die Wissensbasis Recht enthält:
+
+Eine Person ist geschäftsunfähig,
+    wenn die Person ein Mensch ist
+    und die Person nicht das siebente Lebensjahr vollendet hat.
+
+Eine Erklärung wird an einem Datum wirksam,
+    wenn die Erklärung einem Empfänger an dem Datum zugeht,
+    es sei denn, der Empfänger weist die Erklärung zurück.
+
+Ein Kunde ist ein Großkunde,
+    wenn die Bestellung des Kunden wirksam ist
+    und der Kunde einen Betrag schuldet
+    und der Betrag mindestens 1.000 ist.
+
+Szenario faelle ist:
+    Max ist ein Mensch.
+    Otto ist ein Mensch.
+    Otto hat das siebente Lebensjahr vollendet.
+    Kündigung1 geht Meier am 02.03.2026 zu.
+    Kündigung2 geht Schulz am 03.03.2026 zu.
+    Schulz weist Kündigung2 zurück.
+    die Bestellung von Kunz ist wirksam.
+    Kunz schuldet 1.250,50.
+    die Bestellung des Lang ist wirksam.
+    Lang schuldet 999,99.
+    wer erwartet die Antworten [\"Max ist geschäftsunfähig\"].
+    wirksam erwartet die Antworten [\"Kündigung1 wird am 2026-03-02 wirksam\"].
+    gross erwartet die Antworten [\"Kunz ist ein Großkunde\"].
+
+Abfrage wer ist:
+    welche Person ist geschäftsunfähig.
+
+Abfrage wirksam ist:
+    welche Erklärung wird an welchem Datum wirksam.
+
+Abfrage gross ist:
+    welcher Kunde ist ein Großkunde.
+").
+
+%   A sentence that is still not read is reported, not taken in silence:
+%   `kein`, a number written with a point, a nominalised adjective.
+test(misreadings_are_reported) :-
+    Text = "Die Zielsprache ist: prolog.
+
+Die Vorlagen sind:
+*ein Beamter* ist vereidigt,
+*ein Beamter* leistet *einen Eid*,
+*ein Vermieter* hat *einem Mieter* die Untervermietung untersagt,
+*ein Mieter* darf untervermieten,
+*ein Ding* kostet *einen Betrag*.
+
+Die Wissensbasis Test enthält:
+
+Ein Beamter ist vereidigt,
+    wenn der Beamte einen Eid leistet.
+
+Ein Mieter darf untervermieten,
+    wenn kein Vermieter dem Mieter die Untervermietung untersagt hat.
+
+Szenario s ist:
+    der Helm kostet 1.5.
+
+Abfrage q ist:
+    welcher Mieter darf untervermieten.
+",
+    load_text(Text, M),
+    findall(K, M:le_issue(_, K, _, _, _, _), Kinds0),
+    le_i18n:set_le_language(default),
+    sort(Kinds0, Kinds),
+    assertion(memberchk(near_variable_name, Kinds)),
+    assertion(memberchk(negation_in_name, Kinds)),
+    assertion(memberchk(name_like_number, Kinds)).
 
 :- end_tests(multilingual_de_programs).

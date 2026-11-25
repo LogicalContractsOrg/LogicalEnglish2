@@ -105,6 +105,10 @@ check_issue(KB, _, Issue) :- detached_condition(KB, Issue).
 check_issue(KB, _, Issue) :- restated_cases_rule(KB, Issue).
 check_issue(KB, _, Issue) :- negation_only_variable(KB, Issue).
 check_issue(KB, _, Issue) :- article_variant_constant(KB, Issue).
+check_issue(KB, _, Issue) :- negation_in_name(KB, Issue).
+check_issue(KB, _, Issue) :- name_like_number(KB, Issue).
+check_issue(KB, _, Issue) :- comparison_of_names(KB, Issue).
+check_issue(KB, _, Issue) :- near_variable_name(KB, Issue).
 check_issue(KB, _, Issue) :- homonym_templates(KB, Issue).
 check_issue(KB, _, Issue) :- single_variable_scenario_fact(KB, Issue).
 check_issue(KB, _, Issue) :- unmarked_meta_template(KB, Issue).
@@ -693,6 +697,21 @@ missing_template(KB, issue(missing_template, Description, Fix, Start, End)) :-
     ),
     format(atom(Fix), "~w.", [Hypothesis]),
     ( clause(KB:le_source_info(Ref, Start, End, _), true) -> true; Start = 0, End = 0).
+%   A fact of a scenario that is the sentence of no template. It was kept as
+%   nothing at all, with no message: "Bert was born in the year 2000 in
+%   Bern." in a scenario, in a program with no template for it, changed no
+%   answer and the tests passed.
+missing_template(KB, issue(missing_template, Description, Fix, Start, End)) :-
+    current_predicate(KB:scenario/2),
+    KB:scenario(_, Terms),
+    member(fact_with_source(unknown_template(Tokens, Start, End), _, _), Terms),
+    le_grammar:reconstruct_name(Tokens, Name),
+    le_i18n:le_msg(missing_template_desc, [name-Name], Description),
+    (   program_argument_types(KB, Types), Types \== []
+    ->  typed_template_hypothesis(Tokens, Types, Hypothesis)
+    ;   tokens_to_template_hypothesis(Tokens, Hypothesis)
+    ),
+    format(atom(Fix), "~w.", [Hypothesis]).
 
 %!  typed_template_hypothesis(+Tokens, +Types, -Hypothesis) is det.
 %
@@ -1994,6 +2013,15 @@ goal_name(T, C) :-
     sub_atom(A, _, 1, _, ' '),
     C = A.
 
+%   (In a language whose articles change with the case, every form of the
+%   definite article counts: `des Kunz` and `Kunz`, `der Bank` and `Bank`.)
+definite_article_prefix(With, Without) :-
+    catch(le_i18n:le_active_language(L), _, fail),
+    catch(le_i18n:language_param(L, inflection_endings, Endings), _, fail), Endings \== [],
+    atomic_list_concat([Art|Rest], ' ', With), Rest \== [],
+    downcase_atom(Art, ArtL),
+    le_i18n:class_member(L, definite_article, ArtL), !,
+    atomic_list_concat(Rest, ' ', Without).
 definite_article_prefix(With, Without) :-
     (   catch(le_i18n:le_active_language(L), _, fail) -> true ; L = en ),
     (   current_predicate(le_writer:writer_word/3)
@@ -2005,6 +2033,128 @@ definite_article_prefix(With, Without) :-
     atom_concat(Art, ' ', P),
     atom_concat(P, Without, With),
     Without \== '', !.
+
+% --- A sentence that was read as something else, with no other sign ---
+% Four checks on the names (the atoms) in the argument places of a program.
+% Each reports a sentence that the parser accepted and, most probably,
+% misread: a German law professor who wrote ordinary German found that every
+% one of them loaded without a message and gave a wrong legal result.
+
+%   any_argument(+KB, -Atom, -Literal, -where(Start, End)): an atom in an
+%   argument place of a literal of a rule, a query or a scenario fact, the
+%   built-in comparisons among them.
+any_argument(KB, A, L, where(S, E)) :-
+    kb_rule(KB, H, B, Ref),
+    ( clause(KB:le_source_info(Ref, S, E, _), true) -> true ; S = 0, E = 0 ),
+    strip_type_checks(H-B, T),
+    literal_argument(T, A, L).
+any_argument(KB, A, L, where(0, 0)) :-
+    current_predicate(KB:query_info/3),
+    KB:query_info(_, G, _),
+    literal_argument(G, A, L).
+any_argument(KB, A, L, where(S, E)) :-
+    current_predicate(KB:scenario/2),
+    KB:scenario(_, Terms),
+    member(fact_with_source(F, S, E), Terms),
+    literal_argument(F, A, L).
+
+literal_argument(T, A, L) :-
+    sub_term(L, T), compound(L),
+    functor(L, F, N), N > 0,
+    \+ memberchk(F, [le_at, and, or, not, ',', ';', '-', ':', forall, le_scoped, '\\+']),
+    arg(_, L, A0), atom(A0),
+    A = A0.
+
+% `die Person nicht` as the name of somebody (German `nicht`, `kein`): the
+% words of a negation inside a name. In a language with `negation_words`
+% (languages.csv) a sentence with `nicht` that is a sentence of the program
+% without it IS a negation; what is left here was not one. The words are the
+% class `negation_word` of keywords.csv.
+negation_in_name(KB, issue(negation_in_name, Description, Fix, Start, End)) :-
+    findall(A-W-Where,
+            ( any_argument(KB, A, _, Where),
+              atomic_list_concat(Words, ' ', A),
+              member(W0, Words), downcase_atom(W0, W),
+              le_i18n:class_member(negation_word, W) ),
+            Found0),
+    sort(1, @<, Found0, Found),            % once for each name
+    member(Name-Word-where(Start, End), Found),
+    le_i18n:le_msg(negation_in_name_desc, [name-Name, word-Word], Description),
+    le_i18n:le_msg(negation_in_name_fix, [name-Name, word-Word], Fix).
+
+% `1.5` in a program whose language writes 1,5; `2.50`; `1 000`; `1250.5 €`;
+% `9. Oktober 2021`: a number, an amount or a date that was read as a name. A
+% name compares greater than every number, so `der Betrag größer als 1.000
+% ist` held for each of them.
+name_like_number(KB, issue(name_like_number, Description, Fix, Start, End)) :-
+    findall(A-Where, ( any_argument(KB, A, _, Where), number_like_name(A) ), Found0),
+    sort(1, @<, Found0, Found),
+    member(Name-where(Start, End), Found),
+    le_i18n:le_msg(name_like_number_desc, [name-Name], Description),
+    le_i18n:le_msg(name_like_number_fix, [], Fix).
+
+number_like_name(A) :-
+    atom_string(A, S),
+    (   re_match("^[0-9][0-9., ']*[0-9]?\\s*(€|EUR|Euro|\\$|£|%)?$"/x, S)
+    ;   re_match("^[0-9]{1,2}\\.?\\s+\\p{L}+\\s+[0-9]{4}$", S)
+    ;   re_match("^[0-9]{1,2}[./][0-9]{1,2}[./][0-9]{2,4}$", S)
+    ), !.
+
+% `sofern nicht der Zustand der Person seiner Natur nach ein vorübergehender
+% ist` read as the comparison "… ist nach …" of two names: a comparison of
+% numbers or of dates with a name of several words on one side.
+comparison_of_names(KB, issue(comparison_of_names, Description, Fix, Start, End)) :-
+    findall(A-F-Where,
+            ( any_argument(KB, A, L, Where),
+              functor(L, F, 2), memberchk(F, [le_gt, le_lt, le_ge, le_le]),
+              sub_atom(A, _, 1, _, ' '),
+              \+ number_like_name(A) ),
+            Found0),
+    sort(1, @<, Found0, Found),
+    member(Name-Functor-where(Start, End), Found),
+    le_i18n:le_msg(comparison_of_names_desc, [name-Name, functor-Functor], Description),
+    le_i18n:le_msg(comparison_of_names_fix, [name-Name], Fix).
+
+% `ein Beamter ist vereidigt, wenn der Beamte einen Eid leistet`: a phrase
+% with a definite article that was read as a name, in a rule that has a
+% variable whose name differs from it only in its ending. For a language
+% whose nouns change their ending (languages.csv, `noun_endings`); the endings
+% listed there are taken as the same variable when the rule is read, and are
+% not reported.
+near_variable_name(KB, issue(near_variable_name, Description, Fix, Start, End)) :-
+    catch(le_i18n:le_active_language(Lang), _, fail),
+    catch(le_i18n:language_param(Lang, noun_endings, Endings), _, fail),
+    Endings \== [],
+    findall(A-V-where(S, E),
+            ( kb_rule(KB, H, B, Ref),
+              clause(KB:le_source_info(Ref, S, E, ID), true),
+              current_predicate(KB:le_var_names/2),
+              KB:le_var_names(ID, Pairs),
+              strip_type_checks(H-B, T),
+              literal_argument(T, A, _),
+              atomic_list_concat([Art|Rest], ' ', A), Rest \== [],
+              le_i18n:class_member(definite_article, Art),
+              atomic_list_concat(Rest, ' ', Without),
+              member(_-V, Pairs), atom(V),
+              near_names(Without, V) ),
+            Found0),
+    sort(1, @<, Found0, Found),
+    member(Name-Variable-where(Start, End), Found),
+    le_i18n:le_msg(near_variable_name_desc, [name-Name, variable-Variable], Description),
+    le_i18n:le_msg(near_variable_name_fix, [], Fix).
+
+%   Two names with the same beginning (four letters or more) and at most
+%   three other letters at the end of each.
+near_names(A, B) :-
+    A \== B,
+    atom_codes(A, As), atom_codes(B, Bs),
+    common_prefix(As, Bs, P, RA, RB),
+    length(P, LP), LP >= 4,
+    length(RA, LA), LA =< 3,
+    length(RB, LB), LB =< 3.
+
+common_prefix([X|As], [X|Bs], [X|P], RA, RB) :- !, common_prefix(As, Bs, P, RA, RB).
+common_prefix(RA, RB, [], RA, RB).
 
 % --- A conclusion whose thing only a negation names ---
 % `a proposal has the uk exemption check with result more information needed

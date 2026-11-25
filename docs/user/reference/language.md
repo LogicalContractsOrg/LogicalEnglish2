@@ -813,7 +813,7 @@ An aggregate calculates one value from a full set of answers.
   the system finds a value two times, the value is in the list two times. The list of
   nothing is the empty list, `[]`. An answer shows a list with commas between its
   values: `[50, 20, 50]`. (In other languages: `a lista de cada`, `la lista de cada`,
-  `la liste de chaque`, `la lista di ogni`.) Refer to
+  `la liste de chaque`, `la lista di ogni`, `die Liste von jedem`.) Refer to
   `examples/moreExamples/language/aggregates/lists.le`.
 - **Nothing to aggregate:** when no answer agrees with the goal, the sum and
   the count are 0, and the list is `[]`. The minimum, the maximum and the

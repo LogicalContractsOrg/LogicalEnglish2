@@ -58,6 +58,28 @@ When no opener matches, the program is parsed as English (decision O-1).
   - `value_contractions` (`yes`): before a number or a date a contraction
     is only its first word ("am 2021-10-09" is "an 2021-10-09"), and that
     word is written as the contraction in an answer.
+  - `negation_words` (`nicht mehr|nicht`): a sentence with one of these
+    words is the negation of the sentence without it, when the sentence
+    without it is a sentence of a template (and the word is not one of the
+    template's own words). What is left with such a word in a name is
+    reported by the verifier (`negation_in_name`; the words it looks for are
+    the class `negation_word` of `keywords.csv`).
+  - `separable_prefixes`: the first parts of verbs in two parts. At the end
+    of a clause the verb is one word ("zurückweist"), which is tried as the
+    verb and, at the end, its first part ("weist … zurück").
+  - `genitive_preposition` (`von|des`): a value that begins with one of
+    these words is the value without it, so that "der Zustand von Quirin"
+    and "die Bestellung des Kunz" fill a template written with a genitive
+    ("der Zustand *einer Person*"). An article in the list stays where the
+    phrase is a variable of the rule ("des Kunden").
+  - `sentence_capitals` (`yes`): the first word of a line may have a
+    capital where it is the first word of a keyword ("Die Vorlagen sind:").
+    In such a language a short word with a capital ("Rad", "Bob") is a word,
+    not a variable: a variable has capitals only ("B", "T1").
+  - `dotted_dates` (`yes`): a date may be written day.month.year
+    ("02.03.2026").
+  The clause-comma list also takes an entry that ends with a comma ("es sei
+  denn,"): the comma AFTER those words is dropped.
 - **`keywords.csv`** — grammar keywords and word classes. One row per keyword
   `key` (grouped by `category`), one column per language. A cell holds one or
   more **synonyms separated by `|`**; each synonym is a space-separated word

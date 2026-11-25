@@ -175,8 +175,19 @@ detect_language_tokens(Tokens, Lang) :-
     known_language(Lang),
     language_opener(Lang, OpenerWords),
     OpenerWords \== [],
-    opener_prefix(OpenerWords, Ts),
+    opener_start(OpenerWords, Ts),
     !.
+
+%   The first word of the first sentence may have a capital ("Die Zielsprache
+%   ist: prolog.", "The target language is: prolog."): the language is not
+%   known yet, so this is not left to the language's own rule for capitals.
+opener_start([W|Ws], Tokens0) :-
+    skip_noise_tokens(Tokens0, [word(W0, _)|Rest]),
+    (   W0 == W
+    ->  true
+    ;   downcase_atom(W0, W), sub_atom(W0, 1, _, 0, Tail), downcase_atom(Tail, Tail)
+    ),
+    opener_prefix(Ws, Rest).
 
 opener_prefix([], _).
 opener_prefix([W|Ws], Tokens0) :-
@@ -540,7 +551,10 @@ lang_columns(Header, Langs) :-
                                   autonym, opener, decimal_sep, thousands_sep,
                                   list_sep, status, english_name, elisions,
                                   contractions, inflection_endings, noun_endings,
-                                  word_order, clause_commas, value_contractions]) ),
+                                  word_order, clause_commas, value_contractions,
+                                  negation_words, separable_prefixes,
+                                  genitive_preposition, sentence_capitals,
+                                  dotted_dates]) ),
             Langs).
 
 % --- languages.csv ---
@@ -576,6 +590,15 @@ load_language_row(Header, Row) :-
     ->  ValueContractions = true
     ;   ValueContractions = false
     ),
+    optional_words(Row, Header, negation_words, Neg0),
+    longest_first(Neg0, NegationWords),
+    optional_words(Row, Header, separable_prefixes, Sep0),
+    longest_first(Sep0, SeparablePrefixes),
+    optional_words(Row, Header, genitive_preposition, GenitivePrepositions),
+    (   catch(cell_value(Row, Header, sentence_capitals, yes), _, fail)
+    ->  SentenceCapitals = true ; SentenceCapitals = false ),
+    (   catch(cell_value(Row, Header, dotted_dates, yes), _, fail)
+    ->  DottedDates = true ; DottedDates = false ),
     assertz(lang_entry(Code, [autonym-Autonym, opener-OpenerWords,
                               decimal_sep-Dec, thousands_sep-Thou,
                               list_sep-ListSep, status-Status,
@@ -583,7 +606,29 @@ load_language_row(Header, Row) :-
                               elisions-Elisions, contractions-Contractions,
                               inflection_endings-Infl, noun_endings-Noun,
                               word_order-WordOrder, clause_commas-ClauseCommas,
-                              value_contractions-ValueContractions])).
+                              value_contractions-ValueContractions,
+                              negation_words-NegationWords,
+                              separable_prefixes-SeparablePrefixes,
+                              genitive_preposition-GenitivePrepositions,
+                              sentence_capitals-SentenceCapitals,
+                              dotted_dates-DottedDates])).
+
+%!  keyword_first_word(+Lang, ?Word) is nondet.
+%
+%   Word is the first word of a keyword phrase of Lang (not of a word class:
+%   the articles and the like have their own capitals). Used for a language
+%   that writes the first word of a sentence with a capital (languages.csv,
+%   `sentence_capitals`): "Die Vorlagen sind:" is "die Vorlagen sind:".
+:- dynamic kw_first_word_cache/2.
+keyword_first_word(Lang, Word) :-
+    (   kw_first_word_cache(Lang, Words)
+    ->  true
+    ;   findall(W, ( kw_syn(Lang, Category, _, [W|_]),
+                     \+ memberchk(Category, [class, notice]) ), Ws0),
+        sort(Ws0, Words),
+        assertz(kw_first_word_cache(Lang, Words))
+    ),
+    memberchk(Word, Words).
 
 %!  value_contraction(+Lang, ?Short, ?First) is nondet.
 %
@@ -620,6 +665,20 @@ value_contraction(Lang, Short, First) :-
 %     not part of the sentence.
 %   - `value_contractions`: `yes` when a short form stands before a number or
 %     a date ("am 2021-10-09"): see value_contraction/3.
+%   - `negation_words` (`nicht mehr|nicht`): a sentence with one of these
+%     that is a sentence of the program without it is the negation of that
+%     sentence ("die Person nicht volljährig ist").
+%   - `separable_prefixes`: the first parts of verbs in two parts ("zurück",
+%     "ab", "zu"). At the end of a clause the two parts are one word
+%     ("zurückweist"), which is read as the verb and its first part at the
+%     end ("weist … zurück").
+%   - `genitive_preposition` (`von`): a value that begins with it is the
+%     value without it, so that "der Zustand von Quirin" fills the template
+%     "der Zustand *einer Person*" with Quirin.
+%   - `sentence_capitals`: `yes` when the first word of a sentence has a
+%     capital ("Die Vorlagen sind:"): keyword_first_word/2.
+%   - `dotted_dates`: `yes` when a date is also written day.month.year
+%     ("02.03.2026").
 optional_words(Row, Header, Column, Words) :-
     (   catch(cell_value(Row, Header, Column, Cell), _, fail), Cell \== ''
     ->  atomic_list_concat(Items, '|', Cell),

@@ -105,6 +105,10 @@ modelling_warning("negation_only_variable").
 %   One name with and without its article (`the uk exemption check` in the
 %   query, `uk exemption check` in the rules): no rule answers the query.
 modelling_warning("article_variant_constant").
+modelling_warning("negation_in_name").
+modelling_warning("name_like_number").
+modelling_warning("comparison_of_names").
+modelling_warning("near_variable_name").
 modelling_warning("defined_scenario_element").
 modelling_warning("or_then_and").
 modelling_warning("mistyped_value").

@@ -1420,11 +1420,17 @@ template_owning_trailer(Templates) :-
 sentence_has_trailer(S, S) :-
     has_trailer_(S).
 
+%   A point ends the sentence only at the end of a line (is_terminator): the
+%   points of a name ("R.J. tests ..., confer ...") do not, and a fact that
+%   began with such a name lost its trailer to the fact's own words.
 has_trailer_([T|Ts]) :-
-    (   T = punctuation('.', _) -> fail
+    (   T = punctuation('.', _), sentence_ends_here(Ts) -> fail
     ;   T = punctuation(',', _), starts_with_trailer_keyword(Ts) -> true
     ;   has_trailer_(Ts)
     ).
+
+sentence_ends_here([]).
+sentence_ends_here([T|_]) :- is_indent_or_comment(T).
 
 % The upcoming tokens open a provenance trailer (non-consuming).
 trailer_ahead(S, S) :-
@@ -1565,9 +1571,16 @@ possessive_template_warning([dict(_, _, WV, Start, End, _, _, _, _)|_]) :-
         ->  true
         ;   T = ''
         ),
-        le_i18n:le_msg(possessive_template_desc, [template-T], Desc),
-        le_i18n:le_msg(possessive_template_fix, [], Fix),
-        assertz(M:le_issue(warning, possessive_template, Desc, Fix, Start, End))
+        %  Two argument places with no word between them ("*einem Käufer*
+        %  *eine Sache*") are read the same way, and are a different mistake.
+        (   T \== '', re_match("\\*\\s+\\*", T), \+ sub_string(T, _, _, _, "'")
+        ->  le_i18n:le_msg(adjacent_places_desc, [template-T], Desc),
+            le_i18n:le_msg(adjacent_places_fix, [], Fix),
+            assertz(M:le_issue(warning, adjacent_places, Desc, Fix, Start, End))
+        ;   le_i18n:le_msg(possessive_template_desc, [template-T], Desc),
+            le_i18n:le_msg(possessive_template_fix, [], Fix),
+            assertz(M:le_issue(warning, possessive_template, Desc, Fix, Start, End))
+        )
     ;   true
     ).
 possessive_template_warning(_).
@@ -2292,7 +2305,13 @@ is_proper_name(Words) :-
 
 is_id(W) :- atom(W), atom_length(W, 1), is_upper_atom(W).
 is_id(W) :- atom(W), atom_length(W, L), L =< 6, is_all_caps(W), \+ (W == 'UK').
-is_id(W) :- atom(W), atom_length(W, L), L =< 3, is_proper_name_atom(W).
+is_id(W) :- atom(W), atom_length(W, L), L =< 3, is_proper_name_atom(W),
+    %  not in a language that writes every noun with a capital (languages.csv,
+    %  `sentence_capitals`: German): there "Rad", "Tag", "Ort" and the names
+    %  "Bob", "Eva", "Jan" are words, and a variable has a capital letter
+    %  alone or capitals only ("B", "T1", "AB").
+    \+ ( le_i18n:le_active_language(Lang),
+         catch(le_i18n:language_param(Lang, sentence_capitals, true), _, fail) ).
 
 is_reserved(W) :- le_i18n:class_member(reserved, W).
 
@@ -2603,6 +2622,26 @@ function_prefix(WV, Prefix, Value) :-
 function_dict(dict(_, _, _, _, _, _, Globals, _, _, _)) :-
     is_list(Globals), memberchk(function(_), Globals).
 
+%   "der Zustand von Quirin", "der Kontostand von dem Empfänger": in a
+%   language that says a genitive with a preposition as well (languages.csv,
+%   `genitive_preposition`: German `von`, and the article `des`), a value
+%   that begins with it is the value without it. So one template, "der Zustand *einer Person*", takes
+%   "der Zustand der Person" and "der Zustand von Quirin".
+extract_value_from_parts([P|Parts], Value, VMIn, VMOut, Templates, NoTransform, AllowVars, Depth) :-
+    Parts \== [],
+    ( P = word(W, _) ; P = word(W) ), atom(W),
+    le_i18n:le_active_language(Lang),
+    catch(le_i18n:language_param(Lang, genitive_preposition, Preps), _, fail),
+    memberchk(W, Preps),
+    %  An article of the genitive is in the list too ("die Bestellung des
+    %  Kunz" is about Kunz). It stays where the phrase is a variable of the
+    %  rule ("die Bestellung des Kunden", after "ein Kunde").
+    \+ (   le_i18n:class_member(definite_article, W),
+           maplist(extract_simple_word, [P|Parts], Words),
+           allow_var_name(AllowVars, Words, Name),
+           definite_is_anaphoric(Words, Name, VMIn)
+       ), !,
+    extract_value_from_parts(Parts, Value, VMIn, VMOut, Templates, NoTransform, AllowVars, Depth).
 extract_value_from_parts(Parts, Value, VMIn, VMOut, Templates, NoTransform, AllowVars, Depth) :-
     (   Parts = [Part], extract_value(Part, Value, VMIn, VMOut, Templates, AllowVars) -> true
         % A list literal written in a rule body arrives as raw tokens ('[' ...
@@ -4352,6 +4391,15 @@ verb_moved_tokens(From, Tokens, Moved) :-
         split_at(From, Front, Before, After), Before \== [], After \== [],
         verb_place(Before),
         append(Before, [Last|After], Moved)
+    ;   %  a verb in two parts, one word at the end of the clause: "die
+        %  Erklärung dem Empfänger zugeht" for "… geht dem Empfänger zu",
+        %  "… die Erklärung zurückweist" for "… weist die Erklärung zurück"
+        append(Front, [Last], Tokens),
+        separable_verb(Lang, Last, Verb, Prefix),
+        split_at(From, Front, Before, After), Before \== [],
+        verb_place(Before),
+        append(After, [Prefix], Tail),
+        append(Before, [Verb|Tail], Moved)
     ;   Tokens = [First|Rest], is_word_token(First),
         split_at(From, Rest, Before, After), Before \== [],
         verb_place(Before),
@@ -4375,10 +4423,22 @@ noun_phrase_opener(T) :-
     ;   le_i18n:class_member(determiner_definite, W)
     ;   le_i18n:class_member(each, W)
     ;   le_i18n:class_member(wh_var, W)
+    ;   %  nor directly after a preposition ("der Kontostand von | Bob")
+        le_i18n:class_member(connective_heuristic, W),
+        \+ le_i18n:class_member(copula, W)
     ), !.
 
 is_word_token(word(_, _)).
 is_word_token(word(_)).
+
+%   Token is a word that begins with the first part of a verb in two parts
+%   (languages.csv, `separable_prefixes`): Verb and Prefix are the two parts.
+separable_verb(Lang, word(W, Loc), word(V, Loc), word(P, Loc)) :-
+    atom(W),
+    catch(le_i18n:language_param(Lang, separable_prefixes, Prefixes), _, fail),
+    member(P, Prefixes),
+    atom_concat(P, V, W),
+    atom_length(V, L), L >= 3.
 
 %   Before and After make up List; the shortest Before first (front) or the
 %   longest Before first (back).
@@ -5194,6 +5254,13 @@ parse_node(Tokens, Children, Templates, VMIn, VMOut, Logic) :-
         Tokens = [word(prolog, _)|Rest],
         resolve_prolog_tokens(Rest, Templates, VMIn, VM1, Goal) ->
         fold_nodes(prolog_call(Goal), Children, Templates, VM1, VMOut, Logic)
+    ;   %  "die Person nicht volljährig ist", "dann ist die Rechnung nicht
+        %  mehr offen": the negation of the sentence without the word (a
+        %  language with `negation_words` in languages.csv)
+        word_negation_goal(Tokens, Templates, VMIn, GoalTokens), continuation_lines(Children) ->
+        parse_node(GoalTokens, [], Templates, VMIn, VM1, GoalLogic),
+        tokens_range(Tokens, NStart, NEnd),
+        fold_nodes(le_at(not(GoalLogic), NStart, NEnd), Children, Templates, VM1, VMOut, Logic)
     ;   parse_node_extension(Tokens, Children, Templates, VMIn, VMOut, Logic) -> 
         ( le_kbs:do_log -> print_message(informational,'  Extension succeeded: ~w~n' - [Logic]); true),
         true
@@ -5411,6 +5478,77 @@ is_not_the_case(Tokens) :-
     ;   kw_words_eq(unless, Atoms)
     ;   kw_words_eq(and_unless, Atoms)
     ), !.
+
+%!  word_negation_goal(+Tokens, +Templates, +VMIn, -GoalTokens) is semidet.
+%
+%   In a language that negates a sentence with a word inside it
+%   (languages.csv, `negation_words`: German `nicht`, `nicht mehr`), Tokens
+%   are such a sentence and GoalTokens the sentence without the word: "die
+%   Person nicht das siebente Lebensjahr vollendet hat" is the negation of
+%   "die Person das siebente Lebensjahr vollendet hat". Two conditions keep a
+%   sentence that only happens to hold the word as it is:
+%   - the sentence as written is not a sentence of a template that has the
+%     word among its own words ("*ein Datum* liegt nicht vor *einem Datum*");
+%   - the sentence without the word is a sentence of the program.
+%   Without this, the word was taken into the value beside it ("die Person
+%   nicht" as the name of somebody), and the rule gave a wrong answer with no
+%   message.
+word_negation_goal(Tokens, Templates, VMIn, GoalTokens) :-
+    le_i18n:le_active_language(Lang),
+    catch(le_i18n:language_param(Lang, negation_words, Phrases), _, fail),
+    Phrases \== [],
+    exclude(is_indent_or_comment, Tokens, Clean),
+    %  not a sentence that opens with the words of a negation ("es nicht
+    %  zutrifft, dass …"), of "for all" or of an aggregate: those have their
+    %  own reading
+    \+ naf_prefix_tokens(Clean, _),
+    \+ is_not_the_case(Clean),
+    \+ is_forall(Clean),
+    \+ ( member(Key, [unless, and_unless]),
+         le_i18n:kw_synonym_words(Key, KWs),
+         negation_words_at(KWs, Clean, _) ),
+    member(Phrase, Phrases),
+    atomic_list_concat(Words, ' ', Phrase),
+    append(Before, Rest0, Clean),
+    negation_words_at(Words, Rest0, After),
+    After \== [],
+    !,
+    append(Before, After, GoalTokens),
+    Words = [Word|_],
+    \+ written_with_word(Clean, Templates, VMIn, Word),
+    sentence_parses(GoalTokens, Templates, VMIn).
+
+negation_words_at([], Rest, Rest).
+negation_words_at([W|Ws], [word(W0, _)|Ts], Rest) :- W0 == W, negation_words_at(Ws, Ts, Rest).
+
+%   The sentence is one of a template whose own words have Word.
+written_with_word(Tokens, Templates, VMIn, Word) :-
+    sentence_core(Tokens, VMIn, Core, VM0),
+    (   parse_literal_template(Core, Templates, VM0, _, _, Instance, true)
+    ;   verb_moved_tokens(front, Core, Moved),
+        parse_literal_template(Moved, Templates, VM0, _, _, Instance, true)
+    ),
+    is_list(Instance),
+    member(X, Instance), X == Word, !.
+
+%   The sentence (without its time, in a program for LPS) is a sentence of a
+%   template of the program, or of a built-in one, as it is written or with
+%   its verb moved. The generic "X ist Y" does not count: almost any words
+%   are a sentence of that.
+sentence_parses(Tokens, Templates, VMIn) :-
+    sentence_core(Tokens, VMIn, Core, VM0),
+    Core \== [],
+    \+ \+ (   parse_literal_template(Core, Templates, VM0, _, _, _, true)
+           ;   verb_moved_tokens(front, Core, Moved),
+               parse_literal_template(Moved, Templates, VM0, _, _, _, true)
+           ).
+
+sentence_core(Tokens, VMIn, Core, VM0) :-
+    (   lps_target,
+        catch(le_lps:lps_split_time(Tokens, Core0, _, VMIn, VM1), _, fail)
+    ->  Core = Core0, VM0 = VM1
+    ;   Core = Tokens, VM0 = VMIn
+    ).
 
 % inline_naf_goal(+Tokens, -GoalTokens): when Tokens are "it is not the case that
 % <goal>" (or "not the case that <goal>") with the goal on the SAME line, GoalTokens

@@ -68,9 +68,59 @@ tokenize(String, DecSep, ThouSep, Lang, Tokens) :-
     (   Lang \== none,
         catch(le_i18n:language_param(Lang, clause_commas, ClauseWords), _, fail),
         ClauseWords \== []
-    ->  drop_clause_commas(Tokens1, ClauseWords, Tokens)
-    ;   Tokens = Tokens1
+    ->  drop_clause_commas(Tokens1, ClauseWords, Tokens2)
+    ;   Tokens2 = Tokens1
+    ),
+    (   Lang \== none,
+        catch(le_i18n:language_param(Lang, dotted_dates, true), _, fail)
+    ->  dotted_dates(Tokens2, Tokens3)
+    ;   Tokens3 = Tokens2
+    ),
+    (   Lang \== none,
+        catch(le_i18n:language_param(Lang, sentence_capitals, true), _, fail)
+    ->  sentence_capitals(Tokens3, Lang, start, Tokens)
+    ;   Tokens = Tokens3
     ).
+
+%!  dotted_dates(+Tokens0, -Tokens) is det.
+%
+%   A date written day.month.year ("02.03.2026", languages.csv:
+%   `dotted_dates`) is the date 2026-03-02. The tokenizer reads it as three
+%   numbers with two points between them and no space; here they become the
+%   date, when the day and the month can be one.
+dotted_dates([number(D, loc(S, E1)), P1, number(M, loc(E2, E3)), P2, number(Y, loc(E4, E))|Ts], [date(date(Y, M, D), loc(S, E))|Out]) :-
+    point_token(P1, E1, E2), point_token(P2, E3, E4),
+    integer(D), D >= 1, D =< 31,
+    integer(M), M >= 1, M =< 12,
+    integer(Y), Y >= 1000, Y =< 9999, !,
+    dotted_dates(Ts, Out).
+dotted_dates([T|Ts], [T|Out]) :- dotted_dates(Ts, Out).
+dotted_dates([], []).
+
+point_token(punctuation('.', loc(S, E)), S, E).
+point_token(punct('.', loc(S, E)), S, E).
+
+%!  sentence_capitals(+Tokens0, +Lang, +Where, -Tokens) is det.
+%
+%   In a language that writes the first word of a sentence with a capital
+%   (languages.csv, `sentence_capitals`: German), the first word of a line
+%   that is the first word of a keyword with a capital ("Die Vorlagen sind:",
+%   "Die Wissensbasis", "Für alle Fälle") is read as that keyword's word. A
+%   word that is a keyword's first word as it is written ("Szenario") stays.
+sentence_capitals([], _, _, []).
+sentence_capitals([T|Ts], Lang, Where, [T1|Out]) :-
+    (   Where == start, T = word(W, Loc),
+        downcase_atom(W, Wl), Wl \== W,
+        \+ le_i18n:keyword_first_word(Lang, W),
+        le_i18n:keyword_first_word(Lang, Wl)
+    ->  T1 = word(Wl, Loc)
+    ;   T1 = T
+    ),
+    (   ( T = indent(_, _) ; T = line_comment(_, _) ; T = multi_comment(_, _) )
+    ->  Next = start
+    ;   Next = inside
+    ),
+    sentence_capitals(Ts, Lang, Next, Out).
 
 %!  drop_clause_commas(+Tokens0, +Words, -Tokens) is det.
 %
@@ -81,16 +131,35 @@ tokenize(String, DecSep, ThouSep, Lang, Tokens) :-
 %   out. An indentation or a comment may stand between
 %   the comma and the word. A comma before another word stays: it separates
 %   the items of a list or the templates of a section.
+%   An entry that ends with a comma ("es sei denn,") is the other way round:
+%   the comma AFTER those words is left out ("es sei denn, der Empfänger
+%   weist die Erklärung zurück").
 drop_clause_commas([], _, []).
 drop_clause_commas([T|Ts], Words, Out) :-
     (   comma_token(T),
         member(Phrase, Words),
+        \+ sub_atom(Phrase, _, 1, 0, ','),
         atomic_list_concat(PhraseWords, ' ', Phrase),
         next_words(PhraseWords, Ts)
-    ->  Out = Out1
-    ;   Out = [T|Out1]
-    ),
-    drop_clause_commas(Ts, Words, Out1).
+    ->  Out = Out1,
+        drop_clause_commas(Ts, Words, Out1)
+    ;   T = word(_, _),
+        member(Phrase0, Words),
+        atom_concat(Phrase, ',', Phrase0),
+        atomic_list_concat(PhraseWords, ' ', Phrase),
+        phrase_then_comma(PhraseWords, [T|Ts], PhraseTokens, Rest)
+    ->  append(PhraseTokens, Out1, Out),
+        drop_clause_commas(Rest, Words, Out1)
+    ;   Out = [T|Out1],
+        drop_clause_commas(Ts, Words, Out1)
+    ).
+
+%   Tokens begin with the words of a phrase and then a comma: PhraseTokens are
+%   the words, and Rest is what follows the comma.
+phrase_then_comma([], [C|Rest], [], Rest) :- comma_token(C).
+phrase_then_comma([P|Ps], [word(W, L)|Ts], [word(W, L)|PTs], Rest) :-
+    downcase_atom(W, Wl), downcase_atom(P, Wl),
+    phrase_then_comma(Ps, Ts, PTs, Rest).
 
 comma_token(punctuation(',', _)).
 comma_token(punct(',', _)).

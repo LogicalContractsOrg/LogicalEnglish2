@@ -78,53 +78,67 @@ English. There is also a Portuguese translation of the reference:
 ## German: the sentences of Logisches Deutsch
 
 German changes the order and the endings of words more than the other five
-languages. Logisches Deutsch reads the sentences as German writes them. You do
-not have to write unnatural German.
+languages. Logisches Deutsch reads many sentences as German writes them. It does
+not read all of German. This section tells what it reads, and what it does not.
 
-Below is the rule about British citizenship in Logisches Deutsch:
+Below is the rule about British nationality in Logisches Deutsch:
 
 ```
-die Zielsprache ist: prolog.
+Die Zielsprache ist: prolog.
 
-die Vorlagen sind:
-*eine Person* erwirbt an *einem Datum* die britische Staatsbürgerschaft,
+Die Vorlagen sind:
+*eine Person* erwirbt an *einem Datum* die britische Staatsangehörigkeit,
 *eine Person* wurde an *einem Datum* in *einem Ort* geboren,
 *ein Datum* liegt nach dem Inkrafttreten,
-*eine Person* ist die Mutter von *einer Person*,
-*eine Person* besitzt an *einem Datum* die britische Staatsbürgerschaft.
+*eine Person* ist die Mutter *einer Person*,
+*eine Person* besitzt an *einem Datum* die britische Staatsangehörigkeit.
 
-die Wissensbasis Staatsbuergerschaft enthält:
+Die Wissensbasis Staatsangehoerigkeit enthält:
 
-eine Person erwirbt an einem Datum die britische Staatsbürgerschaft,
+Eine Person erwirbt an einem Datum die britische Staatsangehörigkeit,
 wenn die Person an dem Datum im Vereinigten Königreich geboren wurde
     und das Datum nach dem Inkrafttreten liegt
-    und eine andere Person die Mutter von der Person ist
-    und die andere Person an dem Datum die britische Staatsbürgerschaft besitzt.
+    und eine andere Person die Mutter der Person ist
+    und die andere Person an dem Datum die britische Staatsangehörigkeit besitzt.
 
 Szenario alice ist:
-    John wurde am 2021-10-09 im Vereinigten Königreich geboren.
+    John wurde am 09.10.2021 im Vereinigten Königreich geboren.
     2021-10-09 liegt nach dem Inkrafttreten.
     Alice ist die Mutter von John.
-    Alice besitzt am 2021-10-09 die britische Staatsbürgerschaft.
+    Alice besitzt am 09.10.2021 die britische Staatsangehörigkeit.
 ```
 
-The rules of Logisches Deutsch are these:
+### What Logisches Deutsch reads
 
 - **A template is a main clause.** Write each template with its verb in the
   second position, as in a statement: `*eine Person* wurde an *einem Datum* in
   *einem Ort* geboren`. A fact in a scenario has the same order.
-- **After `wenn`, `falls` and `dass`, the verb is at the end.** German puts the
-  verb at the end of a clause that starts with one of these words: `wenn die
-  Person an dem Datum im Vereinigten Königreich geboren wurde`. Logisches Deutsch
-  finds the template of such a clause. The order of the template is also
-  accepted there (`wenn die Person wurde … geboren`), but it is not correct
-  German.
+- **Each condition of a rule starts on a new line.** This rule applies to each
+  language of Logical English. Write `wenn`, `und` or `oder` at the start of the
+  line.
+- **After `wenn`, `falls` and `dass`, the verb is at the end**: `wenn die Person
+  an dem Datum im Vereinigten Königreich geboren wurde`. Logisches Deutsch finds
+  the template of such a clause. A verb in two parts is one word there, and
+  Logisches Deutsch finds its template also: `wenn die Erklärung dem Empfänger
+  zugeht` for the template `*eine Erklärung* geht *einem Empfänger* zu`.
 - **After a word that takes the first position, the verb comes before the
   subject.** This order occurs in Logical English for LPS, after `dann` and
   `anfangs`: `dann wird das Feuer bekämpft`, `anfangs gibt es ein Feuer`.
-- **A comma between clauses is permitted.** You can write a comma before
-  `wenn`, `falls`, `dass`, `und`, `oder`, `dann` and the other words that start
-  a clause. The comma is not a part of the sentence.
+- **A comma between clauses is permitted**: before `wenn`, `falls`, `dass`,
+  `und`, `oder`, `dann`, `es sei denn`, `sofern nicht`, `in denen`, and after
+  `es sei denn`.
+- **The first word of a sentence can have a capital letter**: `Die Vorlagen
+  sind:`, `Eine Person erwirbt …`, `Wenn …`. Write the nouns of the keywords with
+  a capital letter, as the table above shows them.
+- **Negation with `nicht`.** A clause with `nicht` (or `nicht mehr`) is the
+  negation of the same clause without the word, when the clause without the word
+  is a sentence of one of your templates: `und die Person nicht das siebente
+  Lebensjahr vollendet hat`. You can also write `es ist nicht der Fall, dass …`.
+  In a clause after `wenn`, the order of these words is `es nicht der Fall ist,
+  dass …`.
+- **Exceptions**: `es sei denn, …` (with a main clause, or with `dass` and the
+  verb at the end), `sofern nicht …`, `soweit nicht …`, `wenn nicht …` and
+  `außer wenn …`.
 - **The article and the ending of an adjective change with the case.** `eine
   andere Person`, `die andere Person` and `der anderen Person` are the same
   variable. `ein erster Zeitpunkt`, `der erste Zeitpunkt` and `dem ersten
@@ -135,30 +149,66 @@ The rules of Logisches Deutsch are these:
 - **A noun can have an ending in a different case.** `der Kunde` and `dem
   Kunden` are the same variable. `ein Betrag` and `des Betrags` are the same
   variable. The endings that Logisches Deutsch accepts are `-n`, `-en`, `-s`,
-  `-es` and `-e`.
+  `-es`, `-e`, `-ses` and `-ns`.
+- **The genitive.** Write a template with a genitive: `*eine Person* ist die
+  Mutter *einer Person*`. A rule then says `die Mutter der Person`. Before a
+  name, write `von`: `Alice ist die Mutter von John`. `der Kontostand des
+  Zahlers` and `der Kontostand von Bob` fill the same template.
 - **Short forms.** `am`, `im`, `zum`, `zur`, `vom`, `beim`, `ins` and `ans` are
   the same as `an dem`, `in dem`, `zu dem`, `zu der`, `von dem`, `bei dem`, `in
   das` and `an das`. Before a date or a number, the short form is only the
   preposition: `am 2021-10-09` gives the date to the template `an *einem Datum*`.
-- **Nouns have a capital letter.** Write the keywords as the table above shows
-  them: `die Vorlagen sind`, `die Wissensbasis`, `Szenario`, `Abfrage`.
+  An answer shows the short form again.
+- **Thresholds.** `ist mindestens`, `ist höchstens`, `beträgt mindestens`,
+  `beträgt höchstens`, `übersteigt` and `unterschreitet` compare two numbers.
+- **Names.** A name is one word or more, with or without a capital letter:
+  `Bob`, `Frau Adler`. A variable that you name with a letter has capital
+  letters only: `eine Person X`, `ein Betrag B`, `ein Zeitpunkt T1`.
 
-**Notes.**
+### What Logisches Deutsch does not read
 
-- A verb in two parts has its parts together at the end of a clause
-  (`teilnimmt` for `nimmt … teil`). Logisches Deutsch does not find the template
-  of such a clause. Use a verb in one part, or write the clause in the order of
-  the template.
-- The name of a person or a thing must have the same form each time. `das
-  Vereinigte Königreich` and `dem Vereinigten Königreich` are two different
-  names. The example above always writes `im Vereinigten Königreich`.
-- The words of a negation are `es ist nicht der Fall, dass`. In a clause after
-  `wenn`, the order is `es nicht der Fall ist, dass`. A sentence with the word
-  `nicht` or `kein` in it (`die Person raucht nicht`) is not a negation for
-  Logisches Deutsch.
+When Logisches Deutsch does not read a sentence, the editor shows an error or a
+warning in most cases. Always give your scenarios expected answers. Then a
+sentence that is read incorrectly shows as a test that fails.
+
+- **`kein` is not a negation.** `kein Vermieter hat die Untervermietung
+  untersagt` is not read as a negation, and the editor shows a warning. Write
+  `es ist nicht der Fall, dass ein Vermieter …`.
+- **An adjective used as a noun changes its ending with the article**: `ein
+  Beamter`, `der Beamte`; `ein Dritter`, `der Dritte`. Logisches Deutsch does
+  not read these two forms as one variable. The editor shows a warning. Name
+  the variable with a letter: `Ein Beamter B ist vereidigt, wenn B einen Eid
+  leistet.`
+- **The name of a thing must have the same form each time.** `das Vereinigte
+  Königreich` and `dem Vereinigten Königreich` are two different names. The
+  example above always writes `im Vereinigten Königreich`.
+- **Two values need a word between them.** The template `*ein Verkäufer*
+  verkauft *einem Käufer* *eine Sache*` is not possible. Write `*ein
+  Verkäufer* verkauft *eine Sache* an *einen Käufer*`.
+- **`sofern` and `soweit` are not conditions.** Write `wenn` or `falls`. (`sofern
+  nicht` and `soweit nicht` are exceptions, and they are read.)
+- **A sentence has the order of its template, with only the verb moved.** A
+  sentence that starts with a different part (`durch die Geburt erwirbt ein
+  Kind …`) does not match the template `*ein Kind* erwirbt durch die Geburt …`.
+- **Relative clauses, pronouns and plurals are not read**: `eine Person, die …`,
+  `wenn sie volljährig ist`, `Anna und Bert sind Menschen`. Write one sentence
+  for each fact, and repeat the noun.
+- **A point ends the sentence.** Do not write `das 18. Lebensjahr`. Write `das
+  achtzehnte Lebensjahr`.
+
+## Numbers and dates in German
+
+- Write a number as German writes it: `1.250.000`, `10.000,50`, `1,5`. A number
+  with a point as the decimal sign (`1.5`), with a space (`1 000`) or with a
+  currency sign (`1.250,50 €`) is not a number for Logisches Deutsch. It is read
+  as a name, and the editor shows a warning. Put the unit in the template: `…
+  beträgt *einen Betrag* Euro`.
+- Write a date as `2026-03-02` or as `02.03.2026`. A date with the name of the
+  month (`2. März 2026`) is not read, and the editor shows a warning. An answer
+  shows a date with the year first.
 
 The three example programs of Logisches Deutsch are in the folder
-`examples/de/`: `staatsbuergerschaft`, `gluecklicher_drache` and `verguetung`.
+`examples/de/`: `staatsangehoerigkeit`, `gluecklicher_drache` and `verguetung`.
 
 ## Numbers and dates
 
