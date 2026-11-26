@@ -260,7 +260,7 @@ gate_table('lomo-assessment-table', [row, label, caption, measures, barriers], R
 assessment_statement(Row, Label, St, Type, J) :-
     r1("which thing is an assessment", A),
     r2("which assessment results in which assessment statement", A, St),
-    r2("which assessment statement has the statement type which type", St, Type),
+    statement_type(St, Type),
     r2("which assessment statement has the judgement which text", St, J),
     r2("which thing has the description which text", St, Label),
     str(St, SS),
@@ -283,14 +283,28 @@ gate_table('lomo-assessment', [assessment, assessmentType, assessmentDesc, polic
             ( r1("which thing is an assessment", A),
               r2("which assessment results in which assessment statement", A, St),
               r2("which assessment statement has the judgement which text", St, J),
-              r2("which assessment statement has the statement type which type", St, Type),
-              r2("which assessment statement has the interpretation which text", St, I),
+              statement_type(St, Type),
+              interpretation(St, I),
               str(A, AK), str(St, SK),
               opt_str(( r3("which thing has for which property the resource which resource", A, "dcterms:type", V1) ; r3("which thing has for which property the value which value", A, "dcterms:type", V1) ), V1, AT),
               opt_str(r2("which thing has the description which text", A, V2), V2, AD),
               opt_str(r2("which thing cites which resource", A, V3), V3, Pol) ),
             Rows0),
     sort(Rows0, Rows).
+
+statement_type(St, T) :-
+    (   r2("which assessment statement has the statement type which type", St, T)
+    ;   r3("which thing has for which property the value which value", St, "cav:type", V), str_or_text(V, T)
+    ;   r3("which thing has for which property the resource which resource", St, "cav:type", V), str_or_text(V, T)
+    ).
+
+%   cav:interpretation: a text in the vocabulary; an address in the digital
+%   statements' data, which the register keeps in the general form.
+interpretation(St, I) :-
+    (   r2("which assessment statement has the interpretation which text", St, I)
+    ;   r3("which thing has for which property the resource which resource", St, "cav:interpretation", V),
+        str_or_text(V, I)
+    ).
 
 opt_str(Goal, V, S) :-
     (   findall(V, Goal, Vs), Vs \== [] -> member(V0, Vs), str_or_text(V0, S) ; S = "" ).

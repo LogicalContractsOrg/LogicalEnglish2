@@ -313,15 +313,15 @@ change.
 
 | Check | Result (26 November 2026) |
 |---|---|
-| The seven search queries of the LOMO repository, on the RDF data (with rdflib) and on the register | the same rows: RESULT_TABLES |
-| The validity rules of LOMO: our check and pySHACL (the reference engine for SHACL in Python) | the same results, file by file and result by result: RESULT_SHACL |
-| Each register's own scenario: answers of rdflib for three questions | RESULT_SCENARIOS |
+| The seven search queries of the LOMO repository, on the RDF data (with rdflib) and on the register | the same rows: 131 of 131 files (the 63 data files, the 65 examples of the specification, 3 cases of ours): the same 1,977 rows |
+| The validity rules of LOMO: our check and pySHACL (the reference engine for SHACL in Python) | the same results, file by file and result by result: 134 of 134 files (the same 131 and 3 files broken on purpose): the same 166 results |
+| Each register's own scenario: answers of rdflib for three questions | 131 of 131 registers pass their scenarios |
 | The calendar of the 11 data files with a deadline that has a value, against a calendar written in Python with no Logical English | the same due dates |
 | The time examples of the specification, with dates worked out by hand | all pass |
 | The three derogation examples of the specification, GDPR Articles 6 and 33, Directive 2013/34/EU | all pass; each quotation agrees with the text of the provision |
 | The cases in LPS2, against the timeless reading for the last day | 3 of 3 |
-| The way back: each register to Turtle and again | RESULT_ROUNDTRIP |
-| The way back: LE2's examples that cite provisions, and the LegalRuleML twins | RESULT_EXAMPLES |
+| The way back: each register to Turtle and again | 131 of 131 give the same graph again (30,105 statements; rdflib compares the graphs, blank nodes included) |
+| The way back: LE2's examples that cite provisions, and the LegalRuleML twins | 99 programs cite their provisions: 93 become valid descriptions (10,894 statements); the other 6 are refused, and the export tells why (a rule cites a document that has no web address) |
 
 The checks found these points in the material of LOMO:
 

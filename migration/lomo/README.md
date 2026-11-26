@@ -81,7 +81,8 @@ passing its scenario (3 questions whose expected answers are rdflib's).
 LOMO's seven search queries give the same tables on the RDF and on the
 registers: **1,898 rows, 63 of 63 files, 7 of 7 queries**
 (requirements 733, data flows 367, data 302, assessment 201, assessment
-table 131, public services 87, digital solutions 77). The comparison found
+table 131, public services 87, digital solutions 77). With the specification's
+65 examples and our 3 cases: 1,977 rows, 131 of 131 files. The comparison found
 two defects of LE2's shared writer, both fixed for every translator: a
 quotation mark inside a text came back as `”`, and a space before a comma
 inside a text was removed.
@@ -142,7 +143,7 @@ finds the same graph, blank nodes included (`lomo_roundtrip:main`; the first
 run found 28 registers whose values did not fit their property's kind, or
 kept a datatype of their own: fixed in the reader and the writer). LE2's
 examples that cite provisions, and the LegalRuleML twins, are exported or
-refused with their reasons (`lomo_roundtrip:examples`; RESULT_EXAMPLES).
+refused with their reasons (`lomo_roundtrip:examples`; 99 programs cite their provisions: 93 become valid descriptions (10,894 statements); the other 6 are refused, and the export tells why (a rule cites a document that has no web address)).
 
 **Step 8** — the guide (`docs/user/integrations/lomo.md`, in `nav.json`),
 the row of the Migration Gallery, File ▸ Open of a `.ttl` and File ▸
